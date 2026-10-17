@@ -1,9 +1,12 @@
-module 'Waveshare RLCD 4.2 (experimental)' Output
+module 'Waveshare RLCD 4.2' Output
 author 'Porting prototype for MicroBlocks SmallVM; based on MicroBlocks original library format'
-version 0 1
-description 'EXPERIMENTAL: Requires a Zephyr SmallVM firmware that links integration/rlcd_smallvm_primitives.c. Does not work with the standalone bringup binary. Temperature and humidity are integer milli-units.'
+version 0 2
+description 'For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. RTC reports unset until its clock has been initialized.'
 spec 'r' '[rlcd:temperatureMilliC]' 'RLCD temperature x1000 (C)'
 spec 'r' '[rlcd:humidityMilliPct]' 'RLCD humidity x1000 (%)'
 spec 'r' '[rlcd:batteryRaw]' 'RLCD battery ADC (raw)'
 spec 'b' '[rlcd:buttonPressed]' 'RLCD button _ pressed?' 'num' 1
 spec ' ' '[rlcd:displayChecker]' 'RLCD show checkerboard'
+spec ' ' '[rlcd:displayText]' 'RLCD show text _' 'str' 'Hello MicroBlocks!'
+spec ' ' '[rlcd:displayClear]' 'RLCD clear white _' 'bool' true
+spec 'r' '[rlcd:rtcText]' 'RLCD clock (text)'

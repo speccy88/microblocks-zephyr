@@ -20,4 +20,5 @@ int rlcd_rtc_read(char *dst, unsigned dst_size);
 int rlcd_battery_read(int32_t *raw, int32_t *mv_estimate);
 int rlcd_display_checkerboard(void);
 int rlcd_display_clear(bool white);
+int rlcd_display_text(const char *text);
 bool rlcd_button_pressed(unsigned index);

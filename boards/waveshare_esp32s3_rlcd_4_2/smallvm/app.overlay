@@ -1,0 +1,2 @@
+/* SPDX-License-Identifier: MIT */
+#include "../arduino_smoke/app.overlay"

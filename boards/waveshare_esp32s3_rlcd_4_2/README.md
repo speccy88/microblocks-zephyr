@@ -8,11 +8,18 @@ Goal: a portable **Zephyr + Arduino API + MicroBlocks SmallVM** platform with bo
 
 * `bringup/`: a **native Zephyr app** with real driver calls for ST730x display, SHTC3, PCF85063A RTC, BOOT/KEY input events and battery ADC. Commands appear in Zephyr's serial shell.
 * `hardware.json`: structured pin, I2C address and feature map for **all known board peripherals**. Each feature declares its implementation/testing state.
-* `integration/rlcd_smallvm_primitives.c`: **not yet linked** SmallVM named-primitive adapter that calls the same Zephyr board APIs. This is not a working MicroBlocks runtime yet.
-* `integration/Waveshare_RLCD_4_2.ubl`: **experimental** block definitions, only functional after the SmallVM adapter, transport and firmware are ported and built.
+* `arduino_smoke/`: compiled target using the real Arduino API module.
+* `smallvm/`: linked SmallVM v417 with bounded execution and a recovery/test USB transport.
+* `standalone/`: actual graphical IDE in compressed flash assets, Wi-Fi setup, HTTP/WebSocket server and program snapshots. Wireless IP delivery is still under investigation.
+* `integration/rlcd_smallvm_primitives.c`: linked named primitives calling the same Zephyr board APIs.
+* `integration/Waveshare_RLCD_4_2.ubl`: board blocks embedded in the standalone editor. Browser import and live execution are still awaiting acceptance.
 * `tests/`: offline manifest/source integrity checks.
 
-**The starter was authored without a Zephyr or ESP32 compiler/SDK. The actual Zephyr build and hardware behavior have NOT been verified. No board was flashed.** Do not present this zip as a ready-to-flash firmware.
+**Current evidence:** pinned Zephyr/SDK builds, physical boot, SHTC3 and battery
+reads, released button inputs, LCD transfers and Wi-Fi association. RTC is
+unset. Full wireless programming, display appearance, physical button presses,
+reboot persistence, SD, BLE and audio are not validated. See the
+[session record](../../docs/DEVELOPMENT_SESSION.md) and `hardware.json`.
 
 ## Board facts (source-backed)
 

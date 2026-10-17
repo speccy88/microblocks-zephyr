@@ -1,0 +1,41 @@
+
+uart:~$
+COMMAND: hw status
+hw status
+Zephyr Waveshare ESP32-S3-RLCD-4.2 [phase-1 driver probes]
+LCD=1 SHTC3=1 RTC=1 BUTTONS=1 BAT_ADC=1 I2C=1 SPI=1 SD=0
+NOT PRESENT IN THIS BUILD: SmallVM, Arduino API, SD filesystem, Wi-Fi, BLE, audio codecs
+uart:~$
+COMMAND: hw sensor
+hw sensor
+temperature = 36.256 C, relative humidity = 26.377 %
+uart:~$
+COMMAND: hw sensor
+hw sensor
+temperature = 36.232 C, relative humidity = 26.409 %
+uart:~$
+COMMAND: hw sensor
+hw sensor
+temperature = 36.179 C, relative humidity = 26.393 %
+uart:~$
+COMMAND: hw rtc
+hw rtc
+RTC read failed: -61
+uart:~$
+COMMAND: hw rtc
+hw rtc
+RTC read failed: -61
+uart:~$
+COMMAND: hw battery
+hw battery
+battery ADC raw=1291
+voltage divider x3: approximately 4158 mV (not calibrated)
+uart:~$
+COMMAND: hw buttons
+hw buttons
+BOOT(GPIO0)=0 KEY(GPIO18)=0
+uart:~$
+COMMAND: hw display checker
+hw display checker
+display frame sent. Inspect screen orientation and 300x400 visible crop.
+uart:~$

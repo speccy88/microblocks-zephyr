@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MicroBlocks Wi-Fi</title>
+<style>body{font:18px system-ui;background:#f4f6f8;color:#152637;margin:8vh auto;padding:24px;max-width:560px}main{background:white;padding:28px;border-radius:16px}label{display:block;margin-top:20px}input,button{box-sizing:border-box;width:100%;padding:12px;font:inherit;margin-top:6px}button{background:#2676b9;color:white;border:0;border-radius:8px;cursor:pointer}p{line-height:1.5}a{color:#1764a4}#status{min-height:3em}</style>
+<main><a href="/">← MicroBlocks editor</a><h1>Connect your board</h1><p>Save a 2.4 GHz Wi-Fi network. The board will restart and show its new address on the display. If it cannot connect, its protected setup network returns.</p>
+<form id="wifi"><label>Network name<input id="ssid" maxlength="32" required autocomplete="off"></label><label>Wi-Fi password<input id="password" type="password" maxlength="63" autocomplete="new-password"></label><label>Pairing code from the board display<input id="pair" type="password" required autocomplete="off"></label><button>Save and restart board</button></form><p id="status" role="status"></p><p>Hold KEY while restarting to use the setup network again. Your saved network and program remain stored.</p></main>
+<script>
+const form=document.getElementById('wifi'),status=document.getElementById('status');
+document.getElementById('pair').value=sessionStorage.getItem('microblocks-pair-code')||'';
+form.onsubmit=async event=>{event.preventDefault();const ssid=document.getElementById('ssid').value,password=document.getElementById('password').value,pair=document.getElementById('pair').value.trim();
+if(new TextEncoder().encode(ssid).length>32||/[\r\n]/.test(ssid+password)||(password.length&&password.length<8)){status.textContent='Use a network name up to 32 bytes and a password of 8–63 characters, or leave the password empty for an open network.';return;}
+const button=form.querySelector('button');button.disabled=true;status.textContent='Saving…';
+try{const response=await fetch('/api/wifi',{method:'POST',headers:{'Content-Type':'text/plain','X-MicroBlocks-Pair':pair},body:ssid+'\n'+password});if(!response.ok)throw Error('Could not save. Check the pairing code and Wi-Fi details.');status.textContent='Saved. Reconnect to your Wi-Fi, then open the address shown on the board display.';form.reset();}
+catch(error){status.textContent=error.message;button.disabled=false;}};
+</script></html>

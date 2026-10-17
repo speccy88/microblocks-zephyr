@@ -1,5 +1,6 @@
 # Build output / SDK workspaces
 build/
+build-artifacts/
 **/build/
 zephyrproject/
 .west/

@@ -1,0 +1,14 @@
+/* SPDX-License-Identifier: MIT */
+/ {
+    zephyr,user {
+        /* Arduino D0..D2 expose only candidate unreserved expansion pins. */
+        digital-pin-gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>,
+                            <&gpio0 2 GPIO_ACTIVE_HIGH>,
+                            <&gpio0 17 GPIO_ACTIVE_HIGH>;
+        adc-pin-gpios = <>;
+        io-channels = <>;
+        serials = <&usb_serial>;
+        i2cs = <&i2c0>;
+        /* LCD owns SPI2. No generic Arduino SPI endpoint is exposed. */
+    };
+};

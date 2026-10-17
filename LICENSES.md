@@ -4,6 +4,17 @@ Most new source files and documentation in this repository use the **MIT License
 The experimental SmallVM adapter at
 `boards/waveshare_esp32s3_rlcd_4_2/integration/rlcd_smallvm_primitives.c`
 uses **MPL-2.0**, as indicated by its SPDX header.
+The SmallVM transport, preparation patches, GP package integration and runtime
+harness also use MPL-2.0. Generated dependency sources and binaries are excluded
+from Git; exact revisions and file hashes are recorded under `dependencies/`.
+
+The combined firmware links Zephyr and ArduinoCore-Zephyr (Apache-2.0),
+ArduinoCore-API 1.5.2 (LGPL-2.1), and MicroBlocks SmallVM/GP (MPL-2.0).
+ESP32 Wi-Fi libraries retain the notices and license attached to the pinned
+`hal_espressif` module. Preserve these licenses in any redistributed build and
+provide the corresponding source and build/relink materials as each requires.
+The editor asset preparation retains upstream content and changes its existing
+UNO Q integration endpoints and embedded hardware library for this board.
 
 Source from the following projects is **not vendored** in this starter and must
 preserve its own licensing and attribution when integrated:

@@ -1,0 +1,251 @@
+{
+  "canonical_repository": "https://codeberg.org/MicroBlocks/smallvm",
+  "canonical_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "version": "v417",
+  "mirror_repository": "https://github.com/speccy88/uno-q-microblocks",
+  "mirror_commit": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+  "mirror_prefix": "sources/smallvm/",
+  "license": "MPL-2.0",
+  "files": [
+    {
+      "path": "vm/blePrims.cpp",
+      "git_blob": "378bf72417f9a1627ad211519c84ca8f82474b4a",
+      "sha256": "08d8d836df30b564eb071ab191d723ed28ecfa777f44e22a4dd30f05c3367059",
+      "bytes": 25037
+    },
+    {
+      "path": "vm/bmi270config.h",
+      "git_blob": "9e83f494d8f61e58741a708cfbbe2851210845c2",
+      "sha256": "97e41be79065c8292a5e2baa74bff81895fe49c78d60a03a0a60b74a54232807",
+      "bytes": 52720
+    },
+    {
+      "path": "vm/boardHooks.c",
+      "git_blob": "036c76c7dab36ddcdd4c0fb96a5dd413eb05316a",
+      "sha256": "164bc1479f7c5447742a25f47fe148a0158d382c0f50484727824f9baf28429d",
+      "bytes": 2422
+    },
+    {
+      "path": "vm/boardHooks.h",
+      "git_blob": "83615a1f5b9407079cd6fdca99498f662780cf96",
+      "sha256": "b92091d3e5b6c8fd31d5a89a81e48ba695492567f84d36ab5f5363ecbd651da7",
+      "bytes": 2807
+    },
+    {
+      "path": "vm/cameraPrims.cpp",
+      "git_blob": "f7eef800a33b32fcf27036456f2338f3b3c8a079",
+      "sha256": "06cb757c821bf0c2ceceb48028bd2923088723b422b2b4e12645ef56829fd5f7",
+      "bytes": 6333
+    },
+    {
+      "path": "vm/cocubePrims.cpp",
+      "git_blob": "a7f6c1d7a64bc1606c1de0aa7c55782734d6f8fa",
+      "sha256": "a112c7f333e12c5256a4823b85ffa7b526797d84be23021c77eb7253e98996a7",
+      "bytes": 2053
+    },
+    {
+      "path": "vm/dataPrims.c",
+      "git_blob": "5eca9012f0d60b2f1e57d5941cfafba838e13bed",
+      "sha256": "af314984d4b6b71b9eaff28fe0dc65d184afbcfc3d1865895580bd55c958a715",
+      "bytes": 38029
+    },
+    {
+      "path": "vm/encoderPrims.cpp",
+      "git_blob": "6a68dc7934c8e98306ccc97d00249af4a944ca84",
+      "sha256": "2ad14fd0b1e118b55e8ad0250be1b43843600c4d6d3e25e3b133b72d2a4d3cad",
+      "bytes": 8426
+    },
+    {
+      "path": "vm/filePrims.cpp",
+      "git_blob": "4c16292cd3c5ce95625c1f0c88def46681ff686e",
+      "sha256": "1c679567156ff65ee86526ae137badb57f18e5de2fe1d7c8bb84bb3eff3fcc80",
+      "bytes": 13565
+    },
+    {
+      "path": "vm/fileSys.h",
+      "git_blob": "9eeafc030ce9857f16c80b1338050c018f0285ae",
+      "sha256": "6f6c5417a544c464cd63ae364d24703a1d7afdc5ec08943683f94dcfd469ace7",
+      "bytes": 502
+    },
+    {
+      "path": "vm/fileTransfer.cpp",
+      "git_blob": "c5dc3fe886b97bb324b3d3de7a005bdb40fe2230",
+      "sha256": "880cd3740e62867811bfbc6b923ae104f9d45955e337093d2e0b7aeb882dbbc7",
+      "bytes": 6061
+    },
+    {
+      "path": "vm/hidPrims.cpp",
+      "git_blob": "8946a02a3e6cd5396dc8a3d0d5bd64e085576a83",
+      "sha256": "d28d7568ba3ed29395b2acc6d7f31113fa2397a27d455149852b1bebe2799a26",
+      "bytes": 4725
+    },
+    {
+      "path": "vm/hub75Prims.cpp",
+      "git_blob": "6e1b22eb5117ea302ff1a34fedd52fae4903b903",
+      "sha256": "292c2c932eb825d773cf3d6adb2204973b16981a08916a9089a3d4a606e9bbab",
+      "bytes": 12482
+    },
+    {
+      "path": "vm/ideComm.cpp",
+      "git_blob": "ce29f7e4ad6ddca735ddc9fcf668da83d578d8b6",
+      "sha256": "98a879db0a1cf921ed89df21922cb1dd881b83aa44ac526187b956c1c14646f4",
+      "bytes": 22623
+    },
+    {
+      "path": "vm/interp.c",
+      "git_blob": "73368e61317c25e73c239284832b58522f614fcb",
+      "sha256": "73fe8829d0b3e7394a5660c8a433ef317e4ffb08376b6bc0b25bd2fe5404c78e",
+      "bytes": 46134
+    },
+    {
+      "path": "vm/interp.h",
+      "git_blob": "032a45b2d7565fb5b04ed8c55d07c1699768b183",
+      "sha256": "ff94118f0aba88500a6a3a1aaee63cedfa3e5c855735c99bc2354f9ec7eaf735",
+      "bytes": 16492
+    },
+    {
+      "path": "vm/ioPrims.cpp",
+      "git_blob": "df143ff452d8320bd7f422532d28bd69cad77baa",
+      "sha256": "55397d58b02b95fdb96b3cca9126cbeca020a45af28358c0749e903b15ea4bee",
+      "bytes": 111243
+    },
+    {
+      "path": "vm/mbFont.c",
+      "git_blob": "94499648d56cec7d08a6828eabdcd6bb0254386c",
+      "sha256": "5ab121ca6ae9750889367a354ea263a21662e4fde5f19807e76e5d4bf8fda4e2",
+      "bytes": 18130
+    },
+    {
+      "path": "vm/mem.c",
+      "git_blob": "fe685bba08d0807124eb08945a363fa55f43efa1",
+      "sha256": "453dcee99d4f1d016e58733fa7ef1e82d9ca627881d23d3d0ddd55ed0d2b50ff",
+      "bytes": 15936
+    },
+    {
+      "path": "vm/mem.h",
+      "git_blob": "832cd6595113fefdf3bf1a2a5ce54d0c06603018",
+      "sha256": "670b2d64c04822c4440476a8eab4a4a7bdf4f049eca7cd7245445c5dfe2a80b0",
+      "bytes": 6167
+    },
+    {
+      "path": "vm/miscPrims.c",
+      "git_blob": "5ac3460f3eaeb5cd21a3de26f8d8cc82e2152491",
+      "sha256": "67605b35a3d4acfdd8e59b5a543d2af10d2deca63bd44a2ebcbe898c7ca42c8b",
+      "bytes": 26199
+    },
+    {
+      "path": "vm/netPrims.cpp",
+      "git_blob": "b4b18fef96ecea10dd068f7e50bf3e1c55ad3ef3",
+      "sha256": "ec7ed1623bfb07b4f5e802c65d6188daada03e63bdbf315aeb69c2c173e52e22",
+      "bytes": 45231
+    },
+    {
+      "path": "vm/nezha32Prims.cpp",
+      "git_blob": "e03fcc5c166c7a596fb2bc54315548c8dd929f51",
+      "sha256": "55fc85af6b059a75db3e46eb004013c7e359d8b7dfc78646fcd134e890b32607",
+      "bytes": 2818
+    },
+    {
+      "path": "vm/oneWirePrims.cpp",
+      "git_blob": "33afb83513cf60e3031de99ae88de2c5f7842555",
+      "sha256": "5a774d82c29d3c3c56d7675936473c2325833b8889766788250983cee4285886",
+      "bytes": 4132
+    },
+    {
+      "path": "vm/outputPrims.cpp",
+      "git_blob": "f145ec5fa1e6b5aa72ec1eed1533b2ed63272aa4",
+      "sha256": "13d43bdccd79e1f7d4551e88719e01077f52d055cbb3832528391d45b23ac03e",
+      "bytes": 55125
+    },
+    {
+      "path": "vm/persist.c",
+      "git_blob": "3b05cf2297fbe6174183c1944764d3d9486f8e61",
+      "sha256": "5c38022e1b77f9d6f59b14dd65380cd972cdebc124a7e81479c4b7ef9ff81b9a",
+      "bytes": 40154
+    },
+    {
+      "path": "vm/persist.h",
+      "git_blob": "4da50b13fb29434f72e4f20b60cb6575882d6e1d",
+      "sha256": "51dbcb3df4249cd5c66f078e8d6040e9a35e6b9502b44def7572335c41ffa3f2",
+      "bytes": 2045
+    },
+    {
+      "path": "vm/persistFile.cpp",
+      "git_blob": "5ae214c5f230db80a5f69dae8884b8955c859ce5",
+      "sha256": "0ec519285110c71661c86657b6d624f470c4ac85d2d10dd300c45e1eccfd9942",
+      "bytes": 5583
+    },
+    {
+      "path": "vm/radioPrims.cpp",
+      "git_blob": "caade55beeed76265c89253befa50c98b573dca7",
+      "sha256": "7c89d13235baead816bc98a8ad3e83a21f11e6eb8e2ba2db140d55b4d5405815",
+      "bytes": 17281
+    },
+    {
+      "path": "vm/runtime.c",
+      "git_blob": "f54b5cf9b3dfac0b5558aeba401330c09476a19e",
+      "sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b",
+      "bytes": 43376
+    },
+    {
+      "path": "vm/sdCardPrims.cpp",
+      "git_blob": "65324eb1e123653e071f53c7b5ef91018a155ac1",
+      "sha256": "b7a6a46f844f2e59fe78de324ad373002a3d66ef212bba403d3ac90b1ebf2c88",
+      "bytes": 18458
+    },
+    {
+      "path": "vm/sensorPrims.cpp",
+      "git_blob": "3680c5c81bd03a1f6a16c9e8f6e87aec3f09156d",
+      "sha256": "e72c68060553d50e4d7b765424c76095e8a7bd665cc314032924058d06657b17",
+      "bytes": 91712
+    },
+    {
+      "path": "vm/serialPrims.cpp",
+      "git_blob": "2f43da4be9afd913580972cb5a9873e7417b05e2",
+      "sha256": "68def5bd3904a2868a38a7bb53647435ed6f7e42b8a020c0e4eb987d3b72d8ec",
+      "bytes": 24162
+    },
+    {
+      "path": "vm/soundPrims.cpp",
+      "git_blob": "aaf53c7a3fc08dcc502638f3283bfa817d66a8f9",
+      "sha256": "9c24c3d2920bedf2214b39d9efab9bae2728e3626885243979c2e9e0f5bc4d48",
+      "bytes": 25003
+    },
+    {
+      "path": "vm/tftPrims.cpp",
+      "git_blob": "9c1c6dc15ab2fdc23a40e4c4fd2e7d6a18034c0b",
+      "sha256": "3760749f521ebc5466aaea7c81df25c27613a83db8507898de37b42cb6bac223",
+      "bytes": 74296
+    },
+    {
+      "path": "vm/tinyJSON.c",
+      "git_blob": "1027526a762fdd1ae5d10fd08e2babcf30233068",
+      "sha256": "67b82bbdacc0745ce7aeed0ae13d32a7350dddd96bab67bb1990d62186eb4d2a",
+      "bytes": 10639
+    },
+    {
+      "path": "vm/tinyJSON.h",
+      "git_blob": "a3a993143f949a9214da0887e59bce92569e503d",
+      "sha256": "c97e03ef56f461c12011a6ca0f254b5db7b9e17ab3b69a59090141f89a856f5f",
+      "bytes": 1200
+    },
+    {
+      "path": "vm/varPrims.c",
+      "git_blob": "f057a9262f8f2e47722aebd6ba0a5cf7b251fb7b",
+      "sha256": "45d178e6e5a3793fc71b33084b7b0922eaede739461ddd25b0f31be3a42348f9",
+      "bytes": 2062
+    },
+    {
+      "path": "vm/version.h",
+      "git_blob": "1e7aed150d53be0ef9c5723cb1bcf3a91398648b",
+      "sha256": "52510d223789a90bd0df96078ae97a8a85c42e76eb535ef6feca10ea8c75650a",
+      "bytes": 26
+    },
+    {
+      "path": "vm/vm.ino",
+      "git_blob": "d7d5d5f5d42aa4cfedfc7bcfcdf9b59e8abc75ed",
+      "sha256": "dcca8238737f9cf94e0241554fa1abb2f862054b5092911bdbd4ba13e7400324",
+      "bytes": 1802
+    }
+  ]
+}

@@ -1,18 +1,26 @@
 # MicroBlocks on Zephyr
 
-A multi-board, open development project to run **MicroBlocks SmallVM and the Arduino API
+A multi-board development project to run **MicroBlocks SmallVM and the Arduino API
 alongside Zephyr RTOS**, with board-aware blocks for displays, sensors, buses, storage,
 wireless connectivity and other peripherals.
 
-**Status: experimental scaffolding — no flashable SmallVM firmware has been built
-or validated for this new repository.** Start with the Waveshare hardware-diagnostic
-application; the UNO Q implementation remains an independent, physically tested reference.
+**Status: experimental hardware port.** Zephyr, the actual Arduino API and SmallVM
+v417 compile together, and standalone images containing the real graphical IDE
+have been flashed on COM4. Sensor reads, LCD transfers, protected Wi-Fi,
+DHCP, HTTP and binary WebSocket arithmetic have physical evidence. Full graphical
+editor behavior, repeated wireless editing and reboot persistence are not yet validated.
+The production protocol test now passes reconnect, stop/variable inspection and
+code CRC/start-block checks across reboot. The graphical editor currently stops
+at Loading; browser asset delivery is still being repaired. Protocol results
+are not a substitute for graphical acceptance.
+See the [development record](docs/DEVELOPMENT_SESSION.md) and
+[standalone goal](docs/STANDALONE_GOAL.md) for exact limitations.
 
 ## Supported and planned boards
 
 | Board | Zephyr integration | SmallVM | Arduino API | Hardware tests |
 |---|---|---|---|---|
-| [Waveshare ESP32-S3-RLCD-4.2](boards/waveshare_esp32s3_rlcd_4_2/README.md) | Upstream board target exists | Adapter draft, not linked | Not integrated | No device tests |
+| [Waveshare ESP32-S3-RLCD-4.2](boards/waveshare_esp32s3_rlcd_4_2/README.md) | Pinned build and physical boot | v417 linked; interpreter harness passes | Real module compiled; library tests pending | Sensors/LCD transfer/AP association; full acceptance pending |
 | [Arduino UNO Q](https://github.com/speccy88/uno-q-microblocks) | Separate working project | Verified in reference repo | Reference port | Prior physical tests, not validated in this repo |
 | RP2350 | Candidate | Not started | Not started | None |
 
@@ -33,7 +41,8 @@ west build -b esp32s3_rlcd_4_2/esp32s3/procpu \
   boards/waveshare_esp32s3_rlcd_4_2/bringup -p always
 ```
 
-**Back up the board's current flash before `west flash`.** This firmware replaces
+Preserve the board's current flash unless the user explicitly requests erase
+without a backup. This firmware replaces
 the existing application. The bring-up shell is not the MicroBlocks binary protocol;
 they need separate serial endpoints or mutually exclusive transport modes.
 
@@ -43,15 +52,21 @@ they need separate serial endpoints or mutually exclusive transport modes.
 boards/
   waveshare_esp32s3_rlcd_4_2/
     hardware.json              Board capability inventory and reserved pins
-    bringup/                   Zephyr hardware diagnostic app (uncompiled)
-    integration/               Unlinked SmallVM primitive adapter and .ubl blocks
+    bringup/                   Compiled, physically exercised diagnostics
+    arduino_smoke/             Actual Arduino API compile/smoke target
+    smallvm/                   Bounded SmallVM v417 recovery/test target
+    standalone/                Board-hosted graphical IDE and binary WebSocket
+    integration/               Linked primitives and Waveshare .ubl blocks
     docs/                      Physical acceptance checklist
     README.md                  Board-specific setup and safety
 docs/
   ARCHITECTURE.md              Cross-board API and runtime design
   ROADMAP.md                   Scope, milestones and acceptance criteria
 tests/                         Offline source/manifest checks
-tools/                         Validators and optional GitHub publishing helper
+tools/                         Source verification, editor packaging and validators
+dependencies/                  Pinned sources and per-file hashes
+web/                           Board transport and saved Wi-Fi setup page
+evidence/                      Build and physical observations, no credentials
 .github/workflows/             Offline CI only — not a firmware build
 ```
 
@@ -68,14 +83,20 @@ tools/                         Validators and optional GitHub publishing helper
 Follow [ARCHITECTURE.md](docs/ARCHITECTURE.md),
 [ROADMAP.md](docs/ROADMAP.md), and [AGENTS.md](AGENTS.md).
 
-## Publish this repository on GitHub
+## GitHub repository
+
+The repository is [speccy88/microblocks-zephyr](https://github.com/speccy88/microblocks-zephyr),
+created private. Active hardware integration lives on `development/waveshare-rlcd`.
+Preserve existing branches and history when pushing further changes.
+
+For a separate new repository only:
 
 The GitHub connector used to inspect the sources cannot create repositories.
 After reviewing the files, from a machine with authenticated [GitHub CLI](https://cli.github.com/):
 
 ```sh
 gh auth login
-bash tools/publish-github.sh public  # or private
+bash tools/publish-github.sh private
 ```
 
 This validates the offline tests, initializes a local Git commit with **your** configured

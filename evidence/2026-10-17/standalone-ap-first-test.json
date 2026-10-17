@@ -1,0 +1,30 @@
+{
+  "scope": "physical COM4 standalone board via Wi-Fi; original PC profile restored afterwards",
+  "checks": {
+    "connect_request_accepted": true,
+    "associated_with_board": true,
+    "lease_release_exit": 0,
+    "lease_renew_exit": 0,
+    "pc_wifi_ipv4": "192.168.4.10\n169.254.237.172",
+    "still_on_board_profile": true,
+    "root_real_editor": true,
+    "/gp_wasm.wasm": {
+      "bytes": 284918,
+      "sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "content_type": "application/wasm"
+    },
+    "/unoq-network.js": {
+      "bytes": 5421,
+      "sha256": "dd0816fd07d1af794a1a789376423374da404db34037df90aa6d9d379adde81c",
+      "content_type": "text/javascript"
+    },
+    "websocket_auth": true,
+    "vm_ping": true,
+    "real_vm_5_plus_7_equals_12": true,
+    "network_provisioned": true,
+    "firmware_fatal": false
+  },
+  "restored": true,
+  "started_utc": "2026-10-17T18:52:05.459063+00:00",
+  "device_ip": "192.168.1.69"
+}

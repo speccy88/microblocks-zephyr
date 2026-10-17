@@ -1,0 +1,48 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037936e
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fc952e0,len:0x5d0c
+load:0x40374000,len:0x112cc
+load:0x50000000,len:0x24
+SHA-256 comparison failed:
+Calculated: 93215dde347762ac719b3c94ce98a995275071f3ffde6129a5ed7379a1c35ba2
+Expected: 00000000c08f0000000000000000000000000000000000000000000000000000
+Attempting to boot anyway...
+entry 0x4037c68c
+I (soc_init): ESP Simple boot
+I (soc_init): compile time Oct 17 2026 14:09:49
+W (soc_init): Unicore bootloader
+I (soc_init): chip revision: v0.2
+I (flash_init): Boot SPI Speed : 80MHz
+I (flash_init): SPI Mode       : DIO
+I (flash_init): SPI Flash Size : 16MB
+I (boot): DRAM	: lma=00000020h vma=3fc952e0h size=05d0ch ( 23820)
+I (boot): IRAM	: lma=00005d34h vma=40374000h size=112cch ( 70348)
+I (boot): RTC_DATA	: lma=00017008h vma=50000000h size=00024h (    36)
+I (boot): IROM	: lma=00020000h vma=42000000h size=6b8c0h (440512)
+I (boot): DROM	: lma=00090000h vma=3c070000h size=36d124h (3592484)
+I (boot): libc heap size 94 kB.
+I (cache): Instruction cache: size 16KB, 8Ways, cache line size 32Byte
+I (spi_flash): detected chip: generic
+I (spi_flash): flash io: dio
+I (octal_psram): vendor id    : 0x0d (AP)
+I (octal_psram): dev id       : 0x02 (generation 3)
+I (octal_psram): density      : 0x03 (64 Mbit)
+I (octal_psram): good-die     : 0x01 (Pass)
+I (octal_psram): Latency      : 0x01 (Fixed)
+I (octal_psram): VCC          : 0x01 (3V)
+I (octal_psram): SRF          : 0x01 (Fast Refresh)
+I (octal_psram): BurstType    : 0x01 (Hybrid Wrap)
+I (octal_psram): BurstLen     : 0x01 (32 Byte)
+I (octal_psram): Readlatency  : 0x02 (10 cycles@Fixed)
+I (octal_psram): DriveStrength: 0x00 (1/1)
+I (esp_psram): Found 8MB PSRAM device
+I (esp_psram): Speed: 40MHz
+*** Booting Zephyr OS build a915b2f12675 ***
+MicroBlocks LCD status transfer: 0
+MicroBlocks fallback AP ready at http://192.168.4.1
+MicroBlocks network initialization: 0
+MicroBlocks HTTP initialization: 0

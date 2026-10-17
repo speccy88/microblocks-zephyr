@@ -17,6 +17,9 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <zephyr/sys/util.h>
 #include <zephyr/sys/atomic.h>
+#if defined(CONFIG_CHARACTER_FRAMEBUFFER)
+#include <zephyr/display/cfb.h>
+#endif
 
 // Exact labels and aliases verified against Zephyr's official board DTS.
 #define RLCD_DISPLAY_NODE DT_CHOSEN(zephyr_display)
@@ -191,4 +194,46 @@ int rlcd_display_checkerboard(void)
     int err = push_display();
     k_mutex_unlock(&display_mutex);
     return err;
+}
+
+int rlcd_display_text(const char *text)
+{
+#if defined(CONFIG_CHARACTER_FRAMEBUFFER)
+    static bool initialized;
+    int err = 0;
+    k_mutex_lock(&display_mutex, K_FOREVER);
+    if (!initialized) {
+        err = cfb_framebuffer_init(display_dev);
+        if (err) goto done;
+        initialized = true;
+    }
+    uint8_t width = 0, height = 0;
+    for (int font = 0; font < 16; ++font) {
+        if (cfb_get_font_size(display_dev, font, &width, &height)) break;
+        cfb_framebuffer_set_font(display_dev, font);
+        if (width <= 12 && height >= 16) break;
+    }
+    cfb_framebuffer_clear(display_dev, false);
+    unsigned y = 12;
+    while (*text && y + height < DISP_H) {
+        char line[48];
+        size_t n = 0;
+        while (*text && *text != '\n' && n < MIN(sizeof(line) - 1, 276u / MAX(width, 1u))) {
+            line[n++] = *text++;
+        }
+        line[n] = 0;
+        err = cfb_print(display_dev, line, 18, y);
+        if (err) goto done;
+        if (*text == '\n') ++text;
+        y += height + 4;
+    }
+    err = display_blanking_off(display_dev);
+    if (!err) err = cfb_framebuffer_finalize(display_dev);
+done:
+    k_mutex_unlock(&display_mutex);
+    return err;
+#else
+    ARG_UNUSED(text);
+    return -ENOTSUP;
+#endif
 }

@@ -1,0 +1,7 @@
+{
+  "host": "192.168.1.69",
+  "scope": "physical board, real VM over authenticated binary WebSocket",
+  "checks": {},
+  "result": "FAIL",
+  "error": "TimeoutError: timed out"
+}

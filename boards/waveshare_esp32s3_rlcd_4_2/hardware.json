@@ -7,22 +7,215 @@
   "psram_mib": 8,
   "declared_touchscreen": false,
   "capabilities": [
-    {"id":"display", "chip":"ST7305 (Waveshare) / ST7306-compatible upstream driver", "interface":"SPI", "pins":{"cs":40,"dc":5,"clk":11,"mosi":12,"reset":41,"te":6}, "description":"Reflective 300x400 visible pixels; upstream DTS uses 312x400 controller geometry", "upstream_zephyr":"devicetree-enabled", "bringup":"diagnostic-implemented", "smallvm":"planned"},
-    {"id":"temperature_humidity", "chip":"SHTC3", "interface":"I2C0", "address":"0x70", "pins":{"sda":13,"scl":14}, "upstream_zephyr":"devicetree-enabled", "bringup":"diagnostic-implemented", "smallvm":"primitive-source-provided-unintegrated"},
-    {"id":"rtc", "chip":"PCF85063A", "interface":"I2C0", "address":"0x51", "pins":{"sda":13,"scl":14,"irq":15}, "upstream_zephyr":"devicetree-enabled", "bringup":"diagnostic-implemented", "smallvm":"planned"},
-    {"id":"battery_adc", "chip":"ESP32 ADC1 channel 3 through x3 voltage divider", "interface":"ADC", "pins":{"signal":3}, "upstream_zephyr":"devicetree-enabled", "bringup":"diagnostic-implemented-uncalibrated", "smallvm":"primitive-source-provided-unintegrated"},
-    {"id":"buttons", "chip":"BOOT/KEY", "interface":"GPIO", "pins":{"boot":0,"key":18}, "upstream_zephyr":"devicetree-enabled", "bringup":"diagnostic-implemented", "smallvm":"primitive-source-provided-unintegrated"},
-    {"id":"power_key", "chip":"PWR (discrete power-control circuitry)", "interface":"hardware", "pins":{}, "upstream_zephyr":"not-an-input-event", "bringup":"not-applicable", "smallvm":"not-applicable"},
-    {"id":"mic_adc", "chip":"ES7210 + two microphones", "interface":"I2S0 + I2C0", "address":"0x40", "pins":{"mclk":16,"bclk":9,"ws":45,"adc_to_mcu":8}, "upstream_zephyr":"codec-not-integrated", "bringup":"not-implemented", "smallvm":"planned"},
-    {"id":"speaker_dac", "chip":"ES8311 + external amplifier/speaker connector", "interface":"I2S0 + I2C0", "address":"0x18", "pins":{"mclk":16,"bclk":9,"ws":45,"mcu_to_dac":10}, "upstream_zephyr":"codec-not-integrated", "bringup":"not-implemented", "smallvm":"planned"},
-    {"id":"sdcard", "chip":"microSD slot", "interface":"SDMMC (1-bit in upstream DTS)", "pins":{"cmd":21,"clk":38,"d0":39}, "upstream_zephyr":"devicetree-enabled", "bringup":"not-implemented", "smallvm":"planned"},
-    {"id":"wifi", "chip":"ESP32-S3 radio", "interface":"2.4 GHz Wi-Fi", "pins":{}, "upstream_zephyr":"devicetree-enabled", "bringup":"not-implemented", "smallvm":"planned"},
-    {"id":"ble", "chip":"ESP32-S3 Bluetooth LE", "interface":"BLE 5", "pins":{}, "upstream_zephyr":"devicetree-enabled", "bringup":"not-implemented", "smallvm":"planned"},
-    {"id":"i2c_expansion", "chip":"GPIO13 / GPIO14", "interface":"I2C0", "pins":{"sda":13,"scl":14}, "upstream_zephyr":"devicetree-enabled", "bringup":"driver-ready-check", "smallvm":"planned"},
-    {"id":"spi", "chip":"ESP32 SPI2 (occupied by LCD)", "interface":"SPI", "pins":{"clk":11,"mosi":12,"cs":40}, "upstream_zephyr":"devicetree-enabled", "bringup":"driver-ready-check", "smallvm":"planned"},
-    {"id":"uart", "chip":"UART0 / USB Serial", "interface":"UART/USB", "pins":{"uart0_tx":43,"uart0_rx":44,"usb_dm":19,"usb_dp":20}, "upstream_zephyr":"devicetree-enabled", "bringup":"Zephyr-shell-configuration", "smallvm":"planned"},
-    {"id":"external_gpio", "chip":"2x8 expansion header", "interface":"GPIO/ADC", "pins":{"candidate_unreserved":[1,2,17]}, "upstream_zephyr":"gpio-controller", "bringup":"requires-physical-pin-validation", "smallvm":"planned"},
-    {"id":"rtc_backup", "chip":"RTC backup battery interface", "interface":"power", "pins":{}, "upstream_zephyr":"passive-hardware", "bringup":"not-applicable", "smallvm":"not-applicable"},
-    {"id":"sleep_power", "chip":"ESP32-S3 PM / charging/protection ICs", "interface":"power-management", "pins":{}, "upstream_zephyr":"soc-support-exists", "bringup":"not-implemented", "smallvm":"planned"}
-  ]
+    {
+      "id": "display",
+      "chip": "ST7305 (Waveshare) / ST7306-compatible upstream driver",
+      "interface": "SPI",
+      "pins": {
+        "cs": 40,
+        "dc": 5,
+        "clk": 11,
+        "mosi": 12,
+        "reset": 41,
+        "te": 6
+      },
+      "description": "Reflective 300x400 visible pixels; upstream DTS uses 312x400 controller geometry",
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physically-transferred-appearance-unverified",
+      "smallvm": "compiled-not-wireless-tested"
+    },
+    {
+      "id": "temperature_humidity",
+      "chip": "SHTC3",
+      "interface": "I2C0",
+      "address": "0x70",
+      "pins": {
+        "sda": 13,
+        "scl": 14
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physically-read",
+      "smallvm": "compiled-not-wireless-tested"
+    },
+    {
+      "id": "rtc",
+      "chip": "PCF85063A",
+      "interface": "I2C0",
+      "address": "0x51",
+      "pins": {
+        "sda": 13,
+        "scl": 14,
+        "irq": 15
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physically-probed-clock-unset",
+      "smallvm": "compiled-not-wireless-tested"
+    },
+    {
+      "id": "battery_adc",
+      "chip": "ESP32 ADC1 channel 3 through x3 voltage divider",
+      "interface": "ADC",
+      "pins": {
+        "signal": 3
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physically-read-uncalibrated",
+      "smallvm": "compiled-not-wireless-tested"
+    },
+    {
+      "id": "buttons",
+      "chip": "BOOT/KEY",
+      "interface": "GPIO",
+      "pins": {
+        "boot": 0,
+        "key": 18
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physically-read-released-no-press-test",
+      "smallvm": "compiled-not-wireless-tested"
+    },
+    {
+      "id": "power_key",
+      "chip": "PWR (discrete power-control circuitry)",
+      "interface": "hardware",
+      "pins": {},
+      "upstream_zephyr": "not-an-input-event",
+      "bringup": "not-applicable",
+      "smallvm": "not-applicable"
+    },
+    {
+      "id": "mic_adc",
+      "chip": "ES7210 + two microphones",
+      "interface": "I2S0 + I2C0",
+      "address": "0x40",
+      "pins": {
+        "mclk": 16,
+        "bclk": 9,
+        "ws": 45,
+        "adc_to_mcu": 8
+      },
+      "upstream_zephyr": "codec-not-integrated",
+      "bringup": "not-implemented",
+      "smallvm": "planned"
+    },
+    {
+      "id": "speaker_dac",
+      "chip": "ES8311 + external amplifier/speaker connector",
+      "interface": "I2S0 + I2C0",
+      "address": "0x18",
+      "pins": {
+        "mclk": 16,
+        "bclk": 9,
+        "ws": 45,
+        "mcu_to_dac": 10
+      },
+      "upstream_zephyr": "codec-not-integrated",
+      "bringup": "not-implemented",
+      "smallvm": "planned"
+    },
+    {
+      "id": "sdcard",
+      "chip": "microSD slot",
+      "interface": "SDMMC (1-bit in upstream DTS)",
+      "pins": {
+        "cmd": 21,
+        "clk": 38,
+        "d0": 39
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "not-implemented",
+      "smallvm": "planned"
+    },
+    {
+      "id": "wifi",
+      "chip": "ESP32-S3 radio",
+      "interface": "2.4 GHz Wi-Fi",
+      "pins": {},
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physical-ap-dhcp-http-and-vm-arithmetic-pass",
+      "smallvm": "physical-websocket-ping-and-arithmetic-pass-browser-pending"
+    },
+    {
+      "id": "ble",
+      "chip": "ESP32-S3 Bluetooth LE",
+      "interface": "BLE 5",
+      "pins": {},
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "not-implemented",
+      "smallvm": "planned"
+    },
+    {
+      "id": "i2c_expansion",
+      "chip": "GPIO13 / GPIO14",
+      "interface": "I2C0",
+      "pins": {
+        "sda": 13,
+        "scl": 14
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physically-used-by-shtc3",
+      "smallvm": "arduino-wire-compiled-library-tests-pending"
+    },
+    {
+      "id": "spi",
+      "chip": "ESP32 SPI2 (occupied by LCD)",
+      "interface": "SPI",
+      "pins": {
+        "clk": 11,
+        "mosi": 12,
+        "cs": 40
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physically-used-by-lcd",
+      "smallvm": "reserved-for-lcd"
+    },
+    {
+      "id": "uart",
+      "chip": "UART0 / USB Serial",
+      "interface": "UART/USB",
+      "pins": {
+        "uart0_tx": 43,
+        "uart0_rx": 44,
+        "usb_dm": 19,
+        "usb_dp": 20
+      },
+      "upstream_zephyr": "devicetree-enabled",
+      "bringup": "physical-recovery-console",
+      "smallvm": "usb-recovery-log-only"
+    },
+    {
+      "id": "external_gpio",
+      "chip": "2x8 expansion header",
+      "interface": "GPIO/ADC",
+      "pins": {
+        "candidate_unreserved": [
+          1,
+          2,
+          17
+        ]
+      },
+      "upstream_zephyr": "gpio-controller",
+      "bringup": "requires-physical-pin-validation",
+      "smallvm": "arduino-gpio-compiled-untested"
+    },
+    {
+      "id": "rtc_backup",
+      "chip": "RTC backup battery interface",
+      "interface": "power",
+      "pins": {},
+      "upstream_zephyr": "passive-hardware",
+      "bringup": "not-applicable",
+      "smallvm": "not-applicable"
+    },
+    {
+      "id": "sleep_power",
+      "chip": "ESP32-S3 PM / charging/protection ICs",
+      "interface": "power-management",
+      "pins": {},
+      "upstream_zephyr": "soc-support-exists",
+      "bringup": "not-implemented",
+      "smallvm": "planned"
+    }
+  ],
+  "validation_record": "../../docs/DEVELOPMENT_SESSION.md"
 }

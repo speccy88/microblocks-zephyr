@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MPL-2.0
-// PORTING SOURCE ONLY: not compiled into bringup/CMakeLists.txt.
+// Linked into the SmallVM and standalone targets; excluded from diagnostics.
 // Adapted from the named-primitive mechanism in speccy88/uno-q-microblocks.
 // Wire this into the fully ported SmallVM and load the .ubl in the editor.
 #include "vm/interp.h"
 #include "rlcd_board.h"
+#include <string.h>
 
 static OBJ temperature_milli_c(int argc, OBJ *argv)
 {
@@ -48,12 +49,36 @@ static OBJ display_test(int argc, OBJ *argv)
     return rlcd_display_checkerboard() == 0 ? falseObj : fail(primitiveNotImplemented);
 }
 
+static OBJ display_text(int argc, OBJ *argv)
+{
+    if (argc != 1) return fail(notEnoughArguments);
+    if (!IS_TYPE(argv[0], StringType)) return fail(needsStringError);
+    return rlcd_display_text(obj2str(argv[0])) == 0 ? falseObj : fail(primitiveNotImplemented);
+}
+
+static OBJ display_clear(int argc, OBJ *argv)
+{
+    if (argc != 1) return fail(notEnoughArguments);
+    return rlcd_display_clear(argv[0] != falseObj) == 0 ? falseObj : fail(primitiveNotImplemented);
+}
+
+static OBJ rtc_text(int argc, OBJ *argv)
+{
+    (void)argv;
+    if (argc != 0) return fail(notEnoughArguments);
+    char text[32];
+    return rlcd_rtc_read(text, sizeof(text)) == 0 ? newStringFromBytes(text, strlen(text)) : newStringFromBytes("RTC unset or unavailable", 24);
+}
+
 static PrimEntry rlcd_entries[] = {
     {"temperatureMilliC", temperature_milli_c},
     {"humidityMilliPct", humidity_milli_pct},
     {"batteryRaw", battery_raw},
     {"buttonPressed", button_pressed},
-    {"displayChecker", display_test}
+    {"displayChecker", display_test},
+    {"displayText", display_text},
+    {"displayClear", display_clear},
+    {"rtcText", rtc_text}
 };
 
 // Existing UNO Q port implements this callback for the VM's IOPrims slot.

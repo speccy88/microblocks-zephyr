@@ -1,0 +1,30 @@
+/* SPDX-License-Identifier: MIT */
+#include "../smallvm/app.overlay"
+/ {
+    chosen {
+        zephyr,code-partition = &slot0_partition;
+    };
+};
+&flash0 {
+    /delete-node/ partitions;
+    partitions {
+        ranges;
+        #address-cells = <1>;
+        #size-cells = <1>;
+        boot_partition: slot0_partition: partition@0 {
+            compatible = "zephyr,mapped-partition";
+            label = "image-0";
+            reg = <0x0 0xd00000>;
+        };
+        vmstore: partition@d00000 {
+            compatible = "zephyr,mapped-partition";
+            label = "microblocks-programs";
+            reg = <0xd00000 0x40000>;
+        };
+        storage_partition: partition@d40000 {
+            compatible = "zephyr,mapped-partition";
+            label = "microblocks-settings";
+            reg = <0xd40000 0x10000>;
+        };
+    };
+};

@@ -1,0 +1,121 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40379a3e
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fc970d0,len:0x67ac
+load:0x40374000,len:0x130bc
+load:0x50000000,len:0x24
+SHA-256 comparison failed:
+Calculated: 4983c151b9685b868421f90f486b4754ea003b10165c1e97b83c8c0807a5dde2
+Expected: 0000000030670000000000000000000000000000000000000000000000000000
+Attempting to boot anyway...
+entry 0x4037db68
+I (soc_init): ESP Simple boot
+I (soc_init): compile time Oct 17 2026 14:39:41
+W (soc_init): Unicore bootloader
+I (soc_init): chip revision: v0.2
+I (flash_init): Boot SPI Speed : 80MHz
+I (flash_init): SPI Mode       : DIO
+I (flash_init): SPI Flash Size : 16MB
+I (boot): DRAM	: lma=00000020h vma=3fc970d0h size=067ach ( 26540)
+I (boot): IRAM	: lma=000067d4h vma=40374000h size=130bch ( 78012)
+I (boot): RTC_DATA	: lma=00019898h vma=50000000h size=00024h (    36)
+I (boot): IROM	: lma=00020000h vma=42000000h size=70c60h (461920)
+I (boot): DROM	: lma=000a0000h vma=3c080000h size=370bb4h (3607476)
+I (boot): libc heap size 78 kB.
+I (cache): Instruction cache: size 16KB, 8Ways, cache line size 32Byte
+I (spi_flash): detected chip: generic
+I (spi_flash): flash io: dio
+I (octal_psram): vendor id    : 0x0d (AP)
+I (octal_psram): dev id       : 0x02 (generation 3)
+I (octal_psram): density      : 0x03 (64 Mbit)
+I (octal_psram): good-die     : 0x01 (Pass)
+I (octal_psram): Latency      : 0x01 (Fixed)
+I (octal_psram): VCC          : 0x01 (3V)
+I (octal_psram): SRF          : 0x01 (Fast Refresh)
+I (octal_psram): BurstType    : 0x01 (Hybrid Wrap)
+I (octal_psram): BurstLen     : 0x01 (32 Byte)
+I (octal_psram): Readlatency  : 0x02 (10 cycles@Fixed)
+I (octal_psram): DriveStrength: 0x00 (1/1)
+I (esp_psram): Found 8MB PSRAM device
+I (esp_psram): Speed: 40MHz
+*** Booting Zephyr OS build a915b2f12675 ***
+MicroBlocks program restored: generation 1
+MicroBlocks program load: 0
+MicroBlocks AP enable result: 0
+MicroBlocks AP enable result: 0
+MicroBlocks AP interface: 2 up=1
+[00:00:00.972,000] [0m<dbg> net_dhcpv4_server.net_dhcpv4_server_start: Started DHCPv4 server, address pool:[0m
+[00:00:00.978,000] [0m<dbg> net_dhcpv4_server.net_dhcpv4_server_start: 	 0: 192.168.4.10[0m
+[00:00:00.983,000] [0m<dbg> net_dhcpv4_server.net_dhcpv4_server_start: 	 1: 192.168.4.11[0m
+[00:00:00.988,000] [0m<dbg> net_dhcpv4_server.net_dhcpv4_server_start: 	 2: 192.168.4.12[0m
+[00:00:00.993,000] [0m<dbg> net_dhcpv4_server.net_dhcpv4_server_start: 	 3: 192.168.4.13[0m
+MicroBlocks LCD status transfer: 0
+MicroBlocks fallback AP ready at http://192.168.4.1
+MicroBlocks network initialization: 0
+MicroBlocks HTTP initialization: 0
+MicroBlocks AP status: result=0 up=1 carrier=1 dormant=0 state=0 mode=2 ssid_match=1
+MicroBlocks AP client connected
+MicroBlocks AP status: result=0 up=1 carrier=1 dormant=0 state=9 mode=2 ssid_match=1
+[00:00:09.210,000] [0m<dbg> net_dhcpv4_server.dhcpv4_handle_discover: DHCPv4 processing Discover - reserved 192.168.4.10[0m
+[00:00:09.893,000] [0m<dbg> net_dhcpv4_server.dhcpv4_handle_discover: ICMP probing in progress, ignore Discovery[0m
+MicroBlocks AP status: result=0 up=1 carrier=1 dormant=0 state=9 mode=2 ssid_match=1
+[00:00:14.566,000] [0m<dbg> net_dhcpv4_server.dhcpv4_handle_discover: DHCPv4 processing Discover - reserved 192.168.4.10[0m
+[00:00:14.578,000] [0m<dbg> net_dhcpv4_server.dhcpv4_handle_request: DHCPv4 processing Request - allocated 192.168.4.10[0m
+MicroBlocks AP status: result=0 up=1 carrier=1 dormant=0 state=9 mode=2 ssid_match=1
+MicroBlocks program save: 0 generation 2
+MicroBlocks AP client disconnected
+MicroBlocks AP status: result=0 up=1 carrier=1 dormant=0 state=0 mode=2 ssid_match=1
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40383bdc
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fc970d0,len:0x67ac
+load:0x40374000,len:0x130bc
+load:0x50000000,len:0x24
+SHA-256 comparison failed:
+Calculated: 4983c151b9685b868421f90f486b4754ea003b10165c1e97b83c8c0807a5dde2
+Expected: 0000000030670000000000000000000000000000000000000000000000000000
+Attempting to boot anyway...
+entry 0x4037db68
+I (soc_init): ESP Simple boot
+I (soc_init): compile time Oct 17 2026 14:39:41
+W (soc_init): Unicore bootloader
+I (soc_init): chip revision: v0.2
+I (flash_init): Boot SPI Speed : 80MHz
+I (flash_init): SPI Mode       : DIO
+I (flash_init): SPI Flash Size : 16MB
+I (boot): DRAM	: lma=00000020h vma=3fc970d0h size=067ach ( 26540)
+I (boot): IRAM	: lma=000067d4h vma=40374000h size=130bch ( 78012)
+I (boot): RTC_DATA	: lma=00019898h vma=50000000h size=00024h (    36)
+I (boot): IROM	: lma=00020000h vma=42000000h size=70c60h (461920)
+I (boot): DROM	: lma=000a0000h vma=3c080000h size=370bb4h (3607476)
+I (boot): libc heap size 78 kB.
+I (cache): Instruction cache: size 16KB, 8Ways, cache line size 32Byte
+I (spi_flash): detected chip: generic
+I (spi_flash): flash io: dio
+I (octal_psram): vendor id    : 0x0d (AP)
+I (octal_psram): dev id       : 0x02 (generation 3)
+I (octal_psram): density      : 0x03 (64 Mbit)
+I (octal_psram): good-die     : 0x01 (Pass)
+I (octal_psram): Latency      : 0x01 (Fixed)
+I (octal_psram): VCC          : 0x01 (3V)
+I (octal_psram): SRF          : 0x01 (Fast Refresh)
+I (octal_psram): BurstType    : 0x01 (Hybrid Wrap)
+I (octal_psram): BurstLen     : 0x01 (32 Byte)
+I (octal_psram): Readlatency  : 0x02 (10 cycles@Fixed)
+I (octal_psram): DriveStrength: 0x00 (1/1)
+I (esp_psram): Found 8MB PSRAM device
+I (esp_psram): Speed: 40MHz
+*** Booting Zephyr OS build a915b2f12675 ***
+MicroBlocks program restored: generation 2
+MicroBlocks program load: 0
+MicroBlocks LCD status transfer: 0
+MicroBlocks Wi-Fi ready at http://192.168.1.69
+MicroBlocks saved network connection result: 0
+MicroBlocks network initialization: 0
+MicroBlocks HTTP initialization: 0
