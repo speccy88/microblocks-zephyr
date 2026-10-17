@@ -1,0 +1,31 @@
+# Build output / SDK workspaces
+build/
+**/build/
+zephyrproject/
+.west/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+# Generated firmware, sensitive flash/recovery dumps and credentials
+*.elf
+*.hex
+*.bin
+*.uf2
+*.map
+*.log
+*.bak
+*-factory-flash-*.bin
+**/recovery/
+**/secrets/
+**/private/
+*.key
+*.pem
+.env
+.env.*
+!.env.example
+# IDE generated
+.vscode/
+.idea/

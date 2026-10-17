@@ -1,0 +1,20 @@
+name: Offline validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  manifest-and-source-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate capability manifest and source contracts
+        run: python3 tools/validate.py
+      - name: Explain validation boundary
+        run: echo 'This workflow does NOT build Zephyr or test physical hardware.'

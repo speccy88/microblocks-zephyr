@@ -1,0 +1,9 @@
+module 'Waveshare RLCD 4.2 (experimental)' Output
+author 'Porting prototype for MicroBlocks SmallVM; based on MicroBlocks original library format'
+version 0 1
+description 'EXPERIMENTAL: Requires a Zephyr SmallVM firmware that links integration/rlcd_smallvm_primitives.c. Does not work with the standalone bringup binary. Temperature and humidity are integer milli-units.'
+spec 'r' '[rlcd:temperatureMilliC]' 'RLCD temperature x1000 (C)'
+spec 'r' '[rlcd:humidityMilliPct]' 'RLCD humidity x1000 (%)'
+spec 'r' '[rlcd:batteryRaw]' 'RLCD battery ADC (raw)'
+spec 'b' '[rlcd:buttonPressed]' 'RLCD button _ pressed?' 'num' 1
+spec ' ' '[rlcd:displayChecker]' 'RLCD show checkerboard'
