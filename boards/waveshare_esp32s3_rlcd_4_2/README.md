@@ -12,14 +12,16 @@ Goal: a portable **Zephyr + Arduino API + MicroBlocks SmallVM** platform with bo
 * `smallvm/`: linked SmallVM v417 with bounded execution and a recovery/test USB transport.
 * `standalone/`: actual graphical IDE in compressed flash assets, Wi-Fi setup, HTTP/WebSocket server and program snapshots. Station Wi-Fi, protected fallback AP, HTTP assets and binary WebSocket are physically tested.
 * `integration/rlcd_smallvm_primitives.c`: linked named primitives calling the same Zephyr board APIs.
-* `integration/Waveshare_RLCD_4_2.ubl`: board blocks embedded in the standalone editor. The library loads in the real board-served editor; graphical live execution is awaiting acceptance.
+* `integration/Waveshare_RLCD_4_2.ubl`: board blocks embedded in the standalone editor. The real board-served editor loads the library; a graphical temperature block returned 26093 milliC.
 * `tests/`: offline manifest/source integrity checks.
 
 **Current evidence:** pinned Zephyr/SDK builds, physical boot, SHTC3 and battery
 reads, released button inputs, LCD transfers and Wi-Fi association. RTC is
 unset. Wireless VM arithmetic/editing, 500 ordered outputs, CRCs, stop/variables,
-reconnect and reboot/autostart pass. Graphical live programming, display
-appearance, physical button presses, SD, BLE and audio remain unvalidated. See the
+reconnect and reboot/autostart pass. The actual graphical editor also passes
+editing, 500 outputs, variable inspection, stop, reconnect and saved-program
+readback. Display appearance, physical button presses, SD, BLE and audio remain
+unvalidated. See the
 [session record](../../docs/DEVELOPMENT_SESSION.md) and `hardware.json`.
 
 ## Board facts (source-backed)
@@ -107,7 +109,7 @@ west build -b esp32s3_rlcd_4_2/esp32s3/procpu \
     /absolute/path/to/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/bringup -p always
 ```
 
-Inspect the Kconfig warnings/errors first. **This has not been compiled against Zephyr in this environment.** If successful, after backing up and selecting the correct board/port:
+The pinned diagnostic build and physical readings are recorded under `evidence/2026-10-17/`. Inspect Kconfig warnings/errors for your local build. Flash only with explicit authorization, the selected board/port and a recovery plan:
 
 ```sh
 west flash

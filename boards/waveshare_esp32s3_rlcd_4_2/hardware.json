@@ -35,7 +35,7 @@
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-read",
-      "smallvm": "wireless-physical-reads-tested"
+      "smallvm": "wireless-physical-reads-and-graphical-temperature-tested"
     },
     {
       "id": "rtc",
@@ -133,7 +133,7 @@
       "pins": {},
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physical-ap-dhcp-http-and-vm-arithmetic-pass",
-      "smallvm": "station-and-protected-ap-tested-binary-websocket-500-outputs-reconnect-reboot-pass"
+      "smallvm": "station-protected-startup-ap-and-real-graphical-ide-tested-500-outputs-reconnect-reboot-readback-pass"
     },
     {
       "id": "ble",

@@ -70,15 +70,18 @@
  window.GP_setSerialPortDTR=()=>{};window.GP_setSerialPortRTS=()=>{};window.GP_setSerialPortDTRandRTS=()=>{};
  const original=GP.apiCall.bind(GP);
  GP.apiCall=(endpoint,params,callback)=>{if(endpoint==='board.connect'&&!sessionStorage.getItem('microblocks-pair-code')){requestPairing(()=>original(endpoint,params,callback));return;}if(endpoint.startsWith('board.installVM')||endpoint==='board.toggleBLE'){notice('Use USB recovery to install firmware');if(callback)callback(0);return;}return original(endpoint,params,callback);};
- document.addEventListener('ready',()=>{
+ document.addEventListener('board-ide-ready',()=>{
   Menus.settings.items=Menus.settings.items.filter(x=>!/(firmware|ESP firmware|new versions)/i.test(x.label||''));
   Menus.connection.items=[{label:'Connect Waveshare',action:()=>GP.apiCall('board.connect',['connect (USB)']),hidden:()=>IDE.board.connected},{label:'Disconnect',action:()=>{disconnect();GP.apiCall('board.disconnect');},hidden:()=>!IDE.board.connected}];
-  const bar=document.querySelector('[data-ide="controls"]'),status=document.createElement('span');status.id='board-status';status.setAttribute('role','status');status.style.cssText='color:white;font-size:12px;max-width:130px';bar.prepend(status);
-  const wifi=document.createElement('a');wifi.href='/setup';wifi.textContent='Wi-Fi settings';wifi.style.marginRight='1em';bar.prepend(wifi);
-  const hardware=document.createElement('button');hardware.textContent='Waveshare blocks';hardware.onclick=()=>GP.apiCall('rlcd.loadLibrary');bar.prepend(hardware);
+  const bar=document.querySelector('[data-ide="controls"]'),tools=document.createElement('details'),summary=document.createElement('summary'),panel=document.createElement('div');
+  summary.textContent='Board';summary.setAttribute('aria-label','Board tools');summary.style.cssText='cursor:pointer;padding:10px;color:white;font:14px sans-serif';
+  tools.style.cssText='position:relative;flex:none';panel.style.cssText='position:absolute;right:0;top:100%;z-index:10000;min-width:200px;padding:12px;background:#303247;border-radius:6px;box-shadow:0 4px 16px #0005;display:flex;flex-direction:column;gap:10px';tools.append(summary,panel);bar.prepend(tools);
+  const status=document.createElement('span');status.id='board-status';status.setAttribute('role','status');status.style.cssText='color:white;font:12px sans-serif';panel.append(status);
+  const wifi=document.createElement('a');wifi.href='/setup';wifi.textContent='Wi-Fi settings';wifi.style.cssText='color:white;font:14px sans-serif';panel.append(wifi);
+  const hardware=document.createElement('button');hardware.textContent='Waveshare blocks';hardware.style.cssText='padding:8px;font:14px sans-serif';hardware.onclick=()=>{GP.apiCall('rlcd.loadLibrary');tools.open=false;};panel.append(hardware);
   const examples=document.createElement('select');examples.setAttribute('aria-label','Waveshare examples');
   [['','Examples'],['arithmetic','5 + 7'],['output','500 outputs']].forEach(([value,text])=>{const option=document.createElement('option');option.value=value;option.textContent=text;examples.append(option);});
-  examples.onchange=()=>{if(examples.value)GP.apiCall('rlcd.openExample',[examples.value]);examples.value='';};bar.prepend(examples);
+  examples.style.cssText='padding:8px;font:14px sans-serif';examples.onchange=()=>{if(examples.value)GP.apiCall('rlcd.openExample',[examples.value]);examples.value='';tools.open=false;};panel.prepend(examples);
   GP.apiCall('rlcd.loadLibrary');
  });
  window.MicroBlocksTransportStatus=()=>({connected:state.ready,rxBytes:state.rxBytes,error:state.error});

@@ -1,6 +1,6 @@
 {
   "files": 148,
-  "flash_bytes": 3512820,
+  "flash_bytes": 3513201,
   "assets": [
     {
       "path": "/FileSaver.js",
@@ -114,10 +114,10 @@
       "path": "/gettext.js",
       "encoding": "gzip",
       "content_type": "text/javascript",
-      "bytes": 3829,
-      "sha256": "bea5280d64c24499a4c5ad9152b03e1cc4de2081e99802d83aae7d22568abdde",
-      "flash_bytes": 1584,
-      "flash_sha256": "c82818454f25af813d3f48c176b0d4ea534d75b627eeebaa96d5b4543f8fe17e"
+      "bytes": 3889,
+      "sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "flash_bytes": 1605,
+      "flash_sha256": "e12a136390941f4e8b7cdad340cd1dbf678def2194b87dcc2b42710a99a07749"
     },
     {
       "path": "/gpSupport.js",
@@ -141,10 +141,10 @@
       "path": "/gp_wasm.js",
       "encoding": "gzip",
       "content_type": "text/javascript",
-      "bytes": 183477,
-      "sha256": "d16da72aa354c592816c341f9f93d150394c2212f8ea14382321bd5155275dfe",
-      "flash_bytes": 45735,
-      "flash_sha256": "cf22a85e23b53f766c8ddfe9fed5e4cf029099ec31f73f195ed11e1277e4161c"
+      "bytes": 183732,
+      "sha256": "b8cd24564a7e93e1ff5da9b5d12b5a2a0d90f89af8134e6b87583a0b3713521a",
+      "flash_bytes": 45850,
+      "flash_sha256": "aae788dc0f6c716acc446d77fca903f12269002f60115cbdea1e50deeab468e7"
     },
     {
       "path": "/gp_wasm.wasm",
@@ -789,10 +789,10 @@
       "path": "/microblocks.html",
       "encoding": "gzip",
       "content_type": "text/html",
-      "bytes": 7129,
-      "sha256": "70247e296395695018fa30312c87315eeb622624e721d1831fe9c24c3b517f76",
-      "flash_bytes": 2131,
-      "flash_sha256": "903be1dce47b6275e9449ddcf60528673c42b34e85ee19b85100b2a00ab9f0f2"
+      "bytes": 7189,
+      "sha256": "359cb5b9dae08a8495aaec77db091d45cc77c45a4972cae13a453445449eb7d8",
+      "flash_bytes": 2157,
+      "flash_sha256": "ca7776c644448974a42a923143e2a43ba48566a220949a70aa74ed09c02a8e78"
     },
     {
       "path": "/precompiled/buildUniversalHex.js",
@@ -1311,10 +1311,10 @@
       "path": "/unoq-network.js",
       "encoding": "gzip",
       "content_type": "text/javascript",
-      "bytes": 8475,
-      "sha256": "1762edd89dbc705428a88824748e5f50468cb17485aa019242ecc14f558b8b7b",
-      "flash_bytes": 3111,
-      "flash_sha256": "7a76daf9f94d725493885583a2b654b4f97553f44545a11bc1cc664fc367ea9a"
+      "bytes": 9259,
+      "sha256": "352bc3224a022b33335490362a4acf71c4b915c67526cf50ccf845303d4909f4",
+      "flash_bytes": 3330,
+      "flash_sha256": "2e3b21ce8ab5f479378959469ce3c64b8f09e6c5334e725f13233408ffec1895"
     },
     {
       "path": "/windows.js",

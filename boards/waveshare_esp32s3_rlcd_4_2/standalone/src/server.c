@@ -2,18 +2,19 @@
 #include "server.h"
 #include "device_secrets.h"
 #include <zephyr/net/http/service.h>
+#include <zephyr/kernel.h>
+#include <zephyr/sys/sys_heap.h>
 #include <string.h>
 #include <strings.h>
 #include <stdio.h>
 
 static uint16_t port = 80;
-HTTP_SERVICE_DEFINE(mb_http, NULL, &port, 6, 6, NULL, NULL, NULL);
+HTTP_SERVICE_DEFINE(mb_http, NULL, &port, 8, 8, NULL, NULL, NULL);
 HTTP_SERVER_REGISTER_HEADER_CAPTURE(origin_header, "Origin");
 HTTP_SERVER_REGISTER_HEADER_CAPTURE(pair_header, "X-MicroBlocks-Pair");
 static char content_policy[384];
 
 static const struct http_header asset_headers[] = {
-    {"Connection", "close"},
     {"Cross-Origin-Opener-Policy", "same-origin"},
     {"Cross-Origin-Embedder-Policy", "require-corp"},
     {"X-Content-Type-Options", "nosniff"},
@@ -22,7 +23,6 @@ static const struct http_header asset_headers[] = {
     {"Content-Security-Policy", content_policy},
 };
 static const struct http_header gzip_headers[] = {
-    {"Connection", "close"},
     {"Content-Encoding", "gzip"},
     {"Cross-Origin-Opener-Policy", "same-origin"},
     {"Cross-Origin-Embedder-Policy", "require-corp"},
@@ -123,3 +123,40 @@ static struct http_resource_detail_dynamic status_detail = {
     .cb=status_handler,
 };
 HTTP_RESOURCE_DEFINE(status_api, mb_http, "/api/status", &status_detail);
+
+/* These symbols are supplied by the pinned Zephyr kernel/common libc.
+ * The ESP-IDF heap_caps_get_free_size port is a stub, so do not use it.
+ * Take the kernel heap lock; malloc_runtime_stats_get locks its own arena.
+ */
+extern struct k_heap _system_heap;
+extern int malloc_runtime_stats_get(struct sys_memory_stats *stats);
+
+static int memory_handler(struct http_client_ctx *client, enum http_transaction_status status,
+    const struct http_request_ctx *request, struct http_response_ctx *response, void *user)
+{
+    ARG_UNUSED(client); ARG_UNUSED(request); ARG_UNUSED(user);
+    if (status != HTTP_SERVER_REQUEST_DATA_FINAL) return 0;
+    struct sys_memory_stats libc_stats = {0}, kernel_stats = {0};
+    int libc_result = malloc_runtime_stats_get(&libc_stats);
+    k_spinlock_key_t key = k_spin_lock(&_system_heap.lock);
+    int kernel_result = sys_heap_runtime_stats_get(&_system_heap.heap, &kernel_stats);
+    k_spin_unlock(&_system_heap.lock, key);
+    static char json[512];
+    snprintf(json, sizeof(json),
+        "{\"libc_malloc\":{\"result\":%d,\"free_bytes\":%zu,\"allocated_bytes\":%zu,\"peak_allocated_bytes\":%zu},"
+        "\"kernel_heap\":{\"result\":%d,\"free_bytes\":%zu,\"allocated_bytes\":%zu,\"peak_allocated_bytes\":%zu},"
+        "\"uptime_ms\":%u,"
+        "\"scope\":\"allocator pools; excludes static arrays, stacks and unassigned physical RAM\"}",
+        libc_result, libc_stats.free_bytes, libc_stats.allocated_bytes, libc_stats.max_allocated_bytes,
+        kernel_result, kernel_stats.free_bytes, kernel_stats.allocated_bytes, kernel_stats.max_allocated_bytes,
+        k_uptime_get_32());
+    response->body = (const uint8_t *)json; response->body_len = strlen(json);
+    response->headers = asset_headers; response->header_count = ARRAY_SIZE(asset_headers);
+    response->final_chunk = true;
+    return 0;
+}
+static struct http_resource_detail_dynamic memory_detail = {
+    .common={.type=HTTP_RESOURCE_TYPE_DYNAMIC,.bitmask_of_supported_http_methods=BIT(HTTP_GET),.content_type="application/json"},
+    .cb=memory_handler,
+};
+HTTP_RESOURCE_DEFINE(memory_api, mb_http, "/api/memory", &memory_detail);

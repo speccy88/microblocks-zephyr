@@ -45,3 +45,14 @@ The USB SmallVM build is an intermediate recovery/test target. The production
 transport must use binary WebSocket, with no shell/log text in its byte stream.
 Arduino library compatibility is verified per library; Zephyr target support
 alone does not imply complete Arduino compatibility.
+
+## Tested standalone checkpoint
+
+The final 2026-10-17 image passes the actual board-hosted graphical editor flow:
+pair, edit 12 to 13, run 500 ordered values, inspect variables, stop, reconnect,
+save/autostart after COM4 reset and retrieve the saved bytecode into the editor.
+Four fresh browser loads and 148-asset concurrent verification pass. The final
+package is 148 files, 3,513,201 compressed bytes. Active graphical/VM allocator
+samples and precise flash/PSRAM accounting are in the evidence directory.
+This completes the bounded standalone programming checkpoint. Full hardware
+coverage and long-duration stability remain separate acceptance work.

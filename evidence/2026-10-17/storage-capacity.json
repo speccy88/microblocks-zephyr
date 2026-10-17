@@ -3,14 +3,15 @@
   "application_partition": {
     "offset": 0,
     "bytes": 13631488,
-    "firmware_including_assets_bytes": 4184132,
-    "remaining_bytes": 9447356
+    "firmware_including_assets_bytes": 4184804,
+    "remaining_bytes": 9446684
   },
   "ide_assets": {
     "files": 148,
-    "compressed_flash_bytes": 3512820,
-    "uncompressed_bytes": 17283752,
-    "storage": "mapped onboard flash; no separate fixed asset partition"
+    "compressed_flash_bytes": 3513201,
+    "uncompressed_bytes": 17284911,
+    "storage": "mapped onboard flash; included in firmware, no separate asset partition",
+    "execution": "GP WASM/data executes in the PC browser RAM, not MCU RAM"
   },
   "vmstore": {
     "offset": 13631488,
@@ -25,17 +26,35 @@
   },
   "unpartitioned_tail_bytes": 2818048,
   "microSD_used": false,
-  "firmware_sha256": "332068fbe8b78280c4a6fa1af908a257821d7a3e54be549f10235c4952d338f9",
+  "firmware_sha256": "1c6589145155f5c3e205ad92d53dab32cee2ceac79e2ac58b914915bef265506",
   "linker_allocations": {
-    "internal_dram_used_bytes": 332072,
+    "internal_dram_used_bytes": 352136,
     "internal_dram_region_bytes": 399108,
-    "internal_dram_unallocated_bytes": 67036,
-    "external_dram_used_bytes": 5242896,
+    "internal_dram_linker_remaining_bytes": 46972,
+    "internal_remainder_note": "Used by the common libc malloc arena; do not add again to measured libc free bytes. IRAM/DRAM aliases must not be summed.",
+    "external_virtual_span_bytes": 5242896,
+    "external_mapping_dummy_bytes": 4063232,
+    "external_actual_data_and_reserved_heap_bytes": 1179664,
+    "external_static_vm_buffers_and_other_bss_bytes": 131088,
+    "external_reserved_heap_bytes": 1048576,
     "physical_psram_bytes": 8388608,
-    "physical_psram_minus_static_allocation_bytes": 3145712,
-    "note": "Compiled allocations, not runtime free heap. The linker lists 32 MB virtual windows; physical PSRAM is 8 MiB. Heap arenas and stacks are included in allocations."
+    "physical_capacity_outside_actual_section_bytes": 7208944,
+    "note": "The dummy section is virtual mapping padding, not occupied physical PSRAM. Capacity outside actual sections is not a measured or necessarily allocatable free heap. The reserved external heap is not the current common libc malloc pool."
   },
   "runtime_memory_under_browser_and_vm_load": {
-    "measured": false
-  }
+    "measured": true,
+    "samples": 10,
+    "load": "Authenticated real GUI running a one-million-iteration count/say program; stopped after sampling.",
+    "minimum_free_bytes": {
+      "libc_malloc": 46876,
+      "kernel_heap": 22604
+    },
+    "peak_allocated_bytes_since_boot": {
+      "libc_malloc": 0,
+      "kernel_heap": 43444
+    },
+    "scope": "Allocator pools only; excludes static arrays, stacks, unassigned PSRAM and free objects inside the fixed 64 KiB VM arena.",
+    "evidence": "runtime-memory.json"
+  },
+  "correction": "Supersedes the earlier physical_psram_minus_static_allocation estimate, which incorrectly counted mapping padding as occupied physical RAM."
 }

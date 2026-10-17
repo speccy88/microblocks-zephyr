@@ -1,0 +1,23 @@
+{
+  "scope": "Read-only VM queries before and after COM4 reset; no upload, flash or erase",
+  "result": "PASS",
+  "before": {
+    "count": 500,
+    "crc32": {
+      "0": "a4144564",
+      "1": "297d191b",
+      "2": "5e84cd6a"
+    },
+    "saved_generation": 28
+  },
+  "after": {
+    "count": 500,
+    "crc32": {
+      "0": "a4144564",
+      "1": "297d191b",
+      "2": "5e84cd6a"
+    },
+    "saved_generation": 28
+  },
+  "firmware_sha256": "1c6589145155f5c3e205ad92d53dab32cee2ceac79e2ac58b914915bef265506"
+}

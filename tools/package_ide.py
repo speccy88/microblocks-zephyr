@@ -6,6 +6,7 @@ import gzip
 import hashlib
 import json
 import mimetypes
+import re
 from pathlib import Path
 from patch_ide import patch_ide
 
@@ -27,7 +28,15 @@ def package(source, output, project):
             raise ValueError(f"IDE source hash mismatch: {name}")
     patched_js, patched_data = patch_ide(originals["gp_wasm.js"], originals["gp_wasm.data"],
         (project / "boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl").read_bytes())
-    patched = {"gp_wasm.js": patched_js, "gp_wasm.data": patched_data}
+    # The engine may become ready before deferred head scripts have executed.
+    # Run it after parsing and hold main() until the local English catalog is ready.
+    locale_gate = b'''Module.preRun.push(function() {
+ addRunDependency('board-english');
+ Promise.resolve(GetText.ready).then(function() { removeRunDependency('board-english'); },
+  function() { Module.setStatus('Cannot load local language assets. Reload to retry.'); });
+});
+'''
+    patched = {"gp_wasm.js": locale_gate + patched_js, "gp_wasm.data": patched_data}
     files = list(manifest["files"]) + [{"path": "setup", "local": project / "web/setup.html"}]
     for index, item in enumerate(files):
         name = item["path"]
@@ -38,6 +47,23 @@ def package(source, output, project):
             data = replacements[name].read_bytes()
         if name in patched:
             data = patched[name]
+        if name == "microblocks.html":
+            data, count = re.subn(rb'(<script[^>]+src="gp_wasm\.js[^\"]*")', rb'\1 defer', data)
+            if count != 1:
+                raise ValueError("Expected one GP engine bootstrap script")
+            hook = b"document.addEventListener('ready', () => { IDE.init(); });"
+            if data.count(hook) != 1:
+                raise ValueError("Expected one IDE initialization hook")
+            data = data.replace(hook, b"document.addEventListener('ready', () => { IDE.init(); document.dispatchEvent(new Event('board-ide-ready')); });")
+        if name == "gettext.js":
+            for old, new in (
+                (b"GetText.readLocale('en');", b"GetText.ready = GetText.readLocale('en');"),
+                (b"\tfetch('translations/' + langcode + '.po')", b"\treturn fetch('translations/' + langcode + '.po')"),
+                (b"GetText.setLocale = function (langcode) {", b"GetText.setLocale = function (langcode) {\n\tif (!langcode) { langcode = 'en'; }"),
+            ):
+                if data.count(old) != 1:
+                    raise ValueError("Unexpected pinned language bootstrap source")
+                data = data.replace(old, new)
         compressed = gzip.compress(data, compresslevel=9, mtime=0)
         encoding = "gzip" if len(compressed) < len(data) else ""
         blob = compressed if encoding else data

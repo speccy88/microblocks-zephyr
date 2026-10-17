@@ -9,8 +9,10 @@ v417 compile together and run on the Waveshare board. The production wireless
 test passes arithmetic/editing, 500 ordered outputs, code CRCs, fragmented
 uploads, stop/variable inspection, reconnect and reboot/autostart checks.
 The actual MicroBlocks 2.5.8 graphical editor now loads entirely from board flash,
-with all 148 assets passing a concurrent content/header audit. Graphical pairing,
-editing, execution and reconnect acceptance remain in progress. Sensor reads and
+with all 148 assets passing a concurrent content/header audit. The real editor
+passes pairing, graphical arithmetic/editing, 500 ordered outputs, variable
+inspection, stop/reconnect, saved-program readback and reboot/autostart. Four
+fresh browser loads passed; runtime heap samples are recorded. Sensor reads and
 LCD transfers have physical evidence; display appearance and button presses
 still require observation.
 See the [development record](docs/DEVELOPMENT_SESSION.md) and

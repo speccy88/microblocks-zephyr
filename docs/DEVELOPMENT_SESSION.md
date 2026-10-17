@@ -185,3 +185,75 @@ The firmware SHA-256 is
 `332068fbe8b78280c4a6fa1af908a257821d7a3e54be549f10235c4952d338f9`.
 See `storage-capacity.json` for exact flash and linker allocations. Runtime
 free heap under browser-plus-VM load has not yet been measured.
+
+## Final standalone graphical acceptance
+
+This section supersedes the earlier pending graphical and heap checkpoints.
+The final app-only image is 4,184,804 bytes, SHA-256
+`1c6589145155f5c3e205ad92d53dab32cee2ceac79e2ac58b914915bef265506`.
+The exact final build and hash-verified COM4 flash logs are
+`production-keepalive-build.txt` and `production-keepalive-flash.txt`.
+No further full erase was performed; program/settings partitions were preserved.
+
+Forced asset `Connection: close` responses were an interim change, not the final
+configuration. The tested final combination uses normal HTTP keep-alive, eight
+HTTP clients/backlog, 24 network contexts/connections, poll capacity 16 and a
+60-second client timeout. A proposed all-context diagnostic sampler was removed;
+it could block the HTTP thread. Four final fresh actual-browser loads each
+completed 39/39 requests with status 200, no pending/failed requests or off-board
+origins. The last two used six connections with 33 reused responses and no JS
+errors. The final four-worker content/header audit passed 148/148 assets while
+the authenticated editor remained open. These are bounded samples, not a
+24-hour stability claim. Earlier failed audits remain for diagnosis.
+
+GP engine startup is deferred until its head dependencies and local English
+catalog are ready; the board adapter waits for IDE initialization. Category
+labels are now clean and the Board menu keeps native controls visible. The
+actual GP WASM/compiler UI paired, displayed a graphical SHTC3 result 26093 milliC,
+ran 5+7=12, changed the second input to 8 and returned 13. Its counter emitted
+exactly 1..500. A one-million-iteration count/say script was observed running
+at 8578; individual script stop retained 10643 in two separated inspections.
+Global Stop uses upstream softReset and deliberately clears variables.
+Disconnect/reconnect required no new pairing prompt and ran another 500 values.
+
+After the GUI program had been saved, read-only queries and a COM4 reset
+confirmed count 500, saved generation 28 and all three CRCs unchanged. A fourth
+fresh load, Project > Open from board, then Connect reconstructed one variable
+and three chunks; Start emitted 500 ordered numeric values. The separate id 255
+Memory cleared diagnostic was excluded from program numeric output. Use Open
+from board before Connect when retrieving a saved program: ordinary Connect
+synchronizes the current editor project to the board. Readback preserves logic
+and variable names, not original positions/comments/full project metadata.
+
+The final binary WebSocket regression also passes ten arithmetic runs, live
+editing, real peripherals, 500 outputs, source CRCs, fragmented 1019-byte upload,
+timeout recovery, stop/variables, reconnect (0.188 s), persistence and autostart.
+See `wireless-keepalive-firmware.json`, `graphical-acceptance.json`,
+`graphical-final-reboot.json` and `browser-fresh-loads.json`.
+
+Ten allocator samples were taken while the real graphical counter was active.
+Common libc malloc retained 46,876 free bytes; kernel heap retained 22,604 free
+bytes with 42,732 allocated and 43,444 peak. Uptime increased without reboot.
+These statistics cover allocator pools; they exclude static arrays, stacks,
+unassigned PSRAM and free objects inside the fixed 64 KiB VM object arena.
+The ESP-IDF heap_caps free-size port returns a stub zero, so the endpoint uses
+the real locked Zephyr common-libc/kernel heap statistics instead.
+
+The earlier PSRAM estimate was incorrect: the linker ext_dram span 5,242,896 B
+contains 4,063,232 B of virtual mapping padding. The actual external data/reserved
+heap section is 1,179,664 B: 131,088 B static VM buffers/other BSS plus a 1,048,576 B
+reserved heap. The remaining 7,208,944 B of physical 8 MiB capacity is not a measured
+or guaranteed allocatable free heap. Current common-libc malloc uses internal
+DRAM, not that reserved external heap. Do not sum IRAM/DRAM aliases or count the
+internal linker remainder again on top of the measured malloc pool.
+`storage-capacity.json` corrects the earlier estimate and separates these values.
+The final image leaves 9,446,684 B in its 13 MiB application partition. IDE assets
+occupy 3,513,201 B compressed flash, expand to 17,284,911 B in the PC browser and use
+no microSD. VM storage is 256 KiB (two 128 KiB slots, 64 KiB payload cap); settings 64 KiB;
+the flash tail beyond those partitions is 2,818,048 B.
+
+Display appearance/orientation, physical button presses, calibrated voltage,
+RTC setter/retention, SD, BLE, audio, power/sleep and external library/pin tests
+remain incomplete. Startup fallback exists; mid-session station-loss fallback
+does not. The simpleboot ROM comparison warning remains an upstream packaging
+limitation; no eFuse/security settings were changed. No COM5 access occurred.

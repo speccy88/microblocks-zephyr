@@ -1,0 +1,19 @@
+  [13] .dram0.dummy      NOBITS          3fc88000 3fdae4 00d200 00  WA  0   0  1
+  [14] .dram0.data       PROGBITS        3fc95200 011408 005008 00  WA  0   0  8
+  [19] k_heap_area       PROGBITS        3fc9a5b0 0167b8 000018 00  WA  0   0  4
+  [29] .dram0.noinit     NOBITS          3fc9aac0 016cc0 02ca5c 00  WA  0   0 16
+  [30] .dram0.bss        NOBITS          3fcc7520 016cc0 016a68 00  WA  0   0 16
+  [53] .ext_ram.dummy    NOBITS          3c000000 3fdb00 3e0000 00  WA  0   0  1
+  [54] .ext_ram.data     NOBITS          3c3e0000 3fdb00 120010 00  WA  0   0 32
+3c400010 A _ext_ram_bss_end
+3c3e0000 A _ext_ram_bss_start
+3c500010 A _ext_ram_end
+3c500010 A _ext_ram_heap_end
+3c400010 A _ext_ram_heap_start
+3c3e0000 A _ext_ram_noinit_end
+3c3e0000 A _ext_ram_noinit_start
+3c3e0000 A _ext_ram_start
+3fc9a5b0 D _system_heap
+3fca9838 B kheap__system_heap
+3fcd4f30 b z_malloc_heap
+3fc96c80 D z_malloc_heap_mutex

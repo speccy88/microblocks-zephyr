@@ -1,0 +1,116 @@
+{
+  "scope": "Actual CUA/CDP captures of fresh GP editor loads; credentials and headers omitted",
+  "firmware_sha256": "1c6589145155f5c3e205ad92d53dab32cee2ceac79e2ac58b914915bef265506",
+  "loads": [
+    {
+      "label": "keepalive-1",
+      "ready": true,
+      "requests": 39,
+      "responses": 39,
+      "statuses": [
+        200
+      ],
+      "failures": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": false,
+      "pending": 0
+    },
+    {
+      "label": "keepalive-2",
+      "ready": true,
+      "requests": 39,
+      "responses": 39,
+      "statuses": [
+        200
+      ],
+      "failures": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": false,
+      "pending": 0
+    },
+    {
+      "label": "keepalive-3-after-reboot",
+      "ready": true,
+      "requests": 39,
+      "responses": 39,
+      "statuses": [
+        200
+      ],
+      "failures": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": false,
+      "pending": 0,
+      "elapsed_ms": 17134,
+      "reused_responses": 33,
+      "http_connection_count": 6,
+      "javascript_errors": []
+    },
+    {
+      "label": "keepalive-4-after-final-gui-reboot",
+      "ready": true,
+      "requests": 39,
+      "responses": 39,
+      "statuses": [
+        200
+      ],
+      "failures": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": false,
+      "pending": 0,
+      "elapsed_ms": 21970,
+      "reused_responses": 33,
+      "http_connection_count": 6,
+      "javascript_errors": []
+    }
+  ],
+  "final_response_paths_all_status_200": [
+    "/",
+    "/styles/generic/minireset.css",
+    "/styles/components/_buttons.css",
+    "/styles/generic/_body.css",
+    "/styles/config/_config.css",
+    "/styles/generic/_button.css",
+    "/styles/components/_app-preloader.css",
+    "/styles/components/_categories-libraries.css",
+    "/styles/components/_menus.css",
+    "/styles/components/_ide.css",
+    "/styles/components/_scripts-pane-controls.css",
+    "/styles/components/_tips.css",
+    "/emModule.js",
+    "/img/logo-preloader.svg",
+    "/styles/components/_top-bar.css",
+    "/styles/components/_overlay.css",
+    "/styles/components/_window.css",
+    "/styles/utilities/_drag.css",
+    "/styles/components/_wysiwyg.css",
+    "/img/microblocks-ide-logo.svg",
+    "/menus.js",
+    "/ide.js",
+    "/gpSupport.js",
+    "/categories.js",
+    "/buttons.js",
+    "/devtools.js",
+    "/FileSaver.js",
+    "/gettext.js",
+    "/unoq-network.js",
+    "/windows.js",
+    "/graph.js",
+    "/translations/en.po",
+    "/lib/usbDfuDevice.js",
+    "/translations/locales.json",
+    "/img/icon-checkmark--16x16.svg",
+    "/gp_wasm.js",
+    "/gp_wasm.data",
+    "/gp_wasm.wasm",
+    "/favicon.ico"
+  ],
+  "note": "Four successful samples establish the tested load behavior, not a long-duration stability claim."
+}

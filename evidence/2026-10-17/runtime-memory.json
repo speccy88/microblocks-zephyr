@@ -1,0 +1,235 @@
+{
+  "scope": "Measured allocator pools, not total physical free RAM. IDE executes in the PC browser.",
+  "under_graphical_vm_load": [
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 467677,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:25.998230+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 467957,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:26.282109+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 468257,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:26.574884+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 468551,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:26.868867+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 468824,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:27.137041+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 469124,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:27.453681+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 469412,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:27.727517+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 469685,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:27.992608+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 469968,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:28.286398+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 470264,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "sample_utc": "2026-10-17T23:15:28.584974+00:00"
+    }
+  ],
+  "final_idle_graphical_session": {
+    "libc_malloc": {
+      "result": 0,
+      "free_bytes": 46876,
+      "allocated_bytes": 0,
+      "peak_allocated_bytes": 0
+    },
+    "kernel_heap": {
+      "result": 0,
+      "free_bytes": 22604,
+      "allocated_bytes": 42732,
+      "peak_allocated_bytes": 43444
+    },
+    "uptime_ms": 366968,
+    "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM"
+  },
+  "load_description": "Authenticated real GUI running a one-million-iteration count/say program; stopped after sampling.",
+  "observed_minimum_free_bytes": {
+    "libc_malloc": 46876,
+    "kernel_heap": 22604
+  },
+  "peak_allocated_bytes_since_boot": {
+    "libc_malloc": 0,
+    "kernel_heap": 43444
+  },
+  "earlier_bootstrap_firmware_baseline": {
+    "libc_malloc": {
+      "result": 0,
+      "free_bytes": 66436,
+      "allocated_bytes": 0,
+      "peak_allocated_bytes": 0
+    },
+    "kernel_heap": {
+      "result": 0,
+      "free_bytes": 22604,
+      "allocated_bytes": 42732,
+      "peak_allocated_bytes": 43444
+    },
+    "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM"
+  },
+  "historical_failed_capacity_build_sample": {
+    "libc_malloc": {
+      "result": 0,
+      "free_bytes": 66436,
+      "allocated_bytes": 0,
+      "peak_allocated_bytes": 0
+    },
+    "kernel_heap": {
+      "result": 0,
+      "free_bytes": 22604,
+      "allocated_bytes": 42732,
+      "peak_allocated_bytes": 43444
+    },
+    "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM"
+  },
+  "firmware_sha256": "1c6589145155f5c3e205ad92d53dab32cee2ceac79e2ac58b914915bef265506",
+  "active_graphical_samples": 10,
+  "graphical_count_observed_running": 8578,
+  "graphical_count_observed_after_individual_stop": 10643,
+  "graphical_count_observed_later": 10643
+}
