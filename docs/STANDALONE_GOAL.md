@@ -56,3 +56,24 @@ package is 148 files, 3,513,201 compressed bytes. Active graphical/VM allocator
 samples and precise flash/PSRAM accounting are in the evidence directory.
 This completes the bounded standalone programming checkpoint. Full hardware
 coverage and long-duration stability remain separate acceptance work.
+
+## IP display and fallback acceptance limits
+
+Both station and protected-AP startup construct an LCD screen containing the
+actual IP and pairing code. Earlier physical boot logs record successful CFB/
+display-driver transfers for both paths. The compiled 10x16 font and calculated
+line wrapping fit the 300x400 visible bounds. This is driver/layout evidence;
+physical pixels, orientation and readability have not been observed.
+
+The earlier protected AP was physically joined, issued DHCP address
+192.168.4.10, served the actual editor HTML/WASM and passed authenticated
+WebSocket ping and 5+7=12. Station provisioning and the next station boot also
+passed. The final full graphical acceptance was performed in station mode.
+KEY-at-boot and saved-station startup failure select the same fallback code,
+but those two triggers have not been physically exercised. Selection happens
+at boot; fallback after a later station disconnection is not implemented.
+
+See `evidence/2026-10-17/network-display-acceptance.json` for exact provenance,
+the verified graphical screenshot link and the remaining physical observations.
+A person must check the LCD and hold KEY during restart to accept those parts.
+No firmware, network settings or credentials were changed during this follow-up.

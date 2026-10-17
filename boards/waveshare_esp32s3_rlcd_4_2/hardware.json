@@ -133,7 +133,13 @@
       "pins": {},
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physical-ap-dhcp-http-and-vm-arithmetic-pass",
-      "smallvm": "station-protected-startup-ap-and-real-graphical-ide-tested-500-outputs-reconnect-reboot-readback-pass"
+      "smallvm": "station-graphical-programming-reconnect-reboot-readback-pass-and-earlier-protected-ap-network-tested",
+      "acceptance_limits": [
+        "Final full graphical acceptance used station mode",
+        "Earlier no-saved-network AP association, DHCP, editor assets and authenticated VM arithmetic passed",
+        "KEY-at-boot and failed-saved-station fallback triggers have not been physically exercised",
+        "Mid-session station-loss fallback is not implemented"
+      ]
     },
     {
       "id": "ble",

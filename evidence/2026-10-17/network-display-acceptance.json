@@ -1,0 +1,98 @@
+{
+  "scope": "Original standalone goal: IP on LCD and protected startup fallback AP; no peripheral expansion",
+  "firmware_changed_in_this_followup": false,
+  "windows_network_or_security_settings_changed": false,
+  "credentials_created": false,
+  "current_station_http_read": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 29
+  },
+  "ip_lcd": {
+    "implemented": true,
+    "station_address": "192.168.1.69",
+    "fallback_address": "192.168.4.1",
+    "station_driver_transfer": "PASS in earlier physical serial boot: LCD status transfer 0 immediately precedes station IP ready",
+    "ap_driver_transfer": "PASS in earlier physical serial boot: LCD status transfer 0 and fallback AP ready",
+    "historical_log_evidence": [
+      "standalone-ap-serial-185233.txt",
+      "standalone-ap-serial-184400.txt"
+    ],
+    "station_layout": {
+      "font_width": 10,
+      "font_height": 16,
+      "x": 18,
+      "initial_y": 12,
+      "row_step": 20,
+      "rows": 11,
+      "right_edge_exclusive": 258,
+      "bottom_edge_exclusive": 228,
+      "fits_visible_300x400_bounds": true,
+      "scope": "Source/layout calculation using actual generated access-value lengths and compiled font; credential text omitted; not a captured physical framebuffer or photograph"
+    },
+    "ap_layout": {
+      "font_width": 10,
+      "font_height": 16,
+      "x": 18,
+      "initial_y": 12,
+      "row_step": 20,
+      "rows": 14,
+      "right_edge_exclusive": 248,
+      "bottom_edge_exclusive": 288,
+      "fits_visible_300x400_bounds": true,
+      "scope": "Source/layout calculation using actual generated access-value lengths and compiled font; credential text omitted; not a captured physical framebuffer or photograph"
+    },
+    "visual_appearance_orientation_legibility": "UNVERIFIED: no physical screen view or camera available",
+    "note": "Successful CFB/display-driver transfer and layout fit do not establish visible pixels. No actual framebuffer capture was taken. Display errors are logged by network startup, not propagated as network failure."
+  },
+  "startup_fallback_ap": {
+    "implemented": true,
+    "security": "PSK-protected existing device access values, 2.4GHz channel6",
+    "triggers": [
+      "No saved SSID",
+      "KEY input1 asserted at startup",
+      "Saved station startup returns failure"
+    ],
+    "association_wait_seconds": 22,
+    "subsequent_dhcp_poll_limit_seconds": 20,
+    "physical_evidence": {
+      "earlier_ap_association": true,
+      "dhcp_client_address": "192.168.4.10",
+      "real_editor_html_and_wasm_served": true,
+      "authenticated_websocket_and_vm_ping": true,
+      "vm_5_plus_7": 12,
+      "station_provisioning_and_subsequent_station_boot": true,
+      "evidence": "standalone-ap-test-185233.json"
+    },
+    "physical_no_saved_network_trigger": "PASS on earlier first-boot image",
+    "physical_key_held_trigger": "UNVERIFIED",
+    "physical_saved_network_failure_trigger": "UNVERIFIED",
+    "final_production_ap_graphical_ui_flow": "UNVERIFIED; final graphical acceptance ran in station mode",
+    "mid_session_station_loss_fallback": "NOT IMPLEMENTED; selection occurs at boot only",
+    "station_credentials_preserved_by_key_path": "Implemented: read-only branch selection, no settings deletion"
+  },
+  "source_sha256": {
+    "boards/waveshare_esp32s3_rlcd_4_2/standalone/src/network.c": "03ae25c058db550c9640e766c801b0c38ada0db36bec6470ee1a6333b96e5894",
+    "boards/waveshare_esp32s3_rlcd_4_2/standalone/src/wifi_settings.c": "02270032d93bd7b0507da80b5fae1e7b21c5fae6daf3e8cb00d028b9d219e3e0",
+    "boards/waveshare_esp32s3_rlcd_4_2/bringup/src/rlcd_board.c": "c32f47fa607812282b2932349f798cf4447d06018c692ed5b7e65187cd0dbae4"
+  },
+  "screenshot": {
+    "url": "https://github.com/speccy88/microblocks-zephyr/blob/a3da92dfc9dfc813bf9c52734dba32c0a04ff11e/evidence/2026-10-17/graphical-arithmetic-13.png",
+    "git_blob_sha": "39c8e078ee25a3cd0c86aaf6566a6cf21fc863ba",
+    "bytes": 42195,
+    "verified": "Authenticated GitHub contents API matches the actual locally inspected PNG blob and length",
+    "scope": "Actual earlier f0783e3 graphical 5+8=13 screenshot; final firmware independently repeated the same check"
+  },
+  "remaining_user_action": [
+    "Look at the physical LCD after normal boot; confirm IP/pairing text is visible, complete and oriented correctly. Do not share the displayed secret values.",
+    "To physically accept KEY recovery: hold KEY during a board restart, confirm the protected AP/IP screen, then release it. A normal restart should return to the saved station network.",
+    "If desired, use a separate phone to join the existing protected board AP and open http://192.168.4.1; no Windows network setting change is needed. A saved-network-unavailable boot test remains separate."
+  ],
+  "blocker": {
+    "action": "Observe physical LCD pixels and physically hold KEY at restart",
+    "target": "Waveshare ESP32-S3-RLCD-4.2 on COM4",
+    "reason": "Remote tools cannot see the physical display or press the hardware key. Driver success does not supply that observation.",
+    "state": "unverified physical observation; no operation denied or awaiting approval"
+  }
+}
