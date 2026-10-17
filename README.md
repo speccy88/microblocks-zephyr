@@ -5,14 +5,14 @@ alongside Zephyr RTOS**, with board-aware blocks for displays, sensors, buses, s
 wireless connectivity and other peripherals.
 
 **Status: experimental hardware port.** Zephyr, the actual Arduino API and SmallVM
-v417 compile together, and standalone images containing the real graphical IDE
-have been flashed on COM4. Sensor reads, LCD transfers, protected Wi-Fi,
-DHCP, HTTP and binary WebSocket arithmetic have physical evidence. Full graphical
-editor behavior, repeated wireless editing and reboot persistence are not yet validated.
-The production protocol test now passes reconnect, stop/variable inspection and
-code CRC/start-block checks across reboot. The graphical editor currently stops
-at Loading; browser asset delivery is still being repaired. Protocol results
-are not a substitute for graphical acceptance.
+v417 compile together and run on the Waveshare board. The production wireless
+test passes arithmetic/editing, 500 ordered outputs, code CRCs, fragmented
+uploads, stop/variable inspection, reconnect and reboot/autostart checks.
+The actual MicroBlocks 2.5.8 graphical editor now loads entirely from board flash,
+with all 148 assets passing a concurrent content/header audit. Graphical pairing,
+editing, execution and reconnect acceptance remain in progress. Sensor reads and
+LCD transfers have physical evidence; display appearance and button presses
+still require observation.
 See the [development record](docs/DEVELOPMENT_SESSION.md) and
 [standalone goal](docs/STANDALONE_GOAL.md) for exact limitations.
 

@@ -1,6 +1,6 @@
 {
   "files": 148,
-  "flash_bytes": 3511854,
+  "flash_bytes": 3512820,
   "assets": [
     {
       "path": "/FileSaver.js",
@@ -133,9 +133,9 @@
       "encoding": "gzip",
       "content_type": "application/octet-stream",
       "bytes": 10895299,
-      "sha256": "d01008ec247043585872f9fd57d9841badb13e5662df1bb1963eae2692c26c13",
-      "flash_bytes": 2180234,
-      "flash_sha256": "1d2197b9af7792912c23c91b0a351ba7afe34c944ed7165c96009465e7b88212"
+      "sha256": "91d399a2045d4174e1de67c3d2b16d4bfe46bd2d3734e0ecadafec96e45cd077",
+      "flash_bytes": 2180233,
+      "flash_sha256": "b60e888b758a0458bb22cd7b87ea5107b7b0e0b7cfc04fe54ce2bc214575d2d7"
     },
     {
       "path": "/gp_wasm.js",
@@ -1311,10 +1311,10 @@
       "path": "/unoq-network.js",
       "encoding": "gzip",
       "content_type": "text/javascript",
-      "bytes": 5421,
-      "sha256": "dd0816fd07d1af794a1a789376423374da404db34037df90aa6d9d379adde81c",
-      "flash_bytes": 2144,
-      "flash_sha256": "c23a3c59312a7803990cfd428eba3eeebf700113858a893be6fde4a06c686331"
+      "bytes": 8475,
+      "sha256": "1762edd89dbc705428a88824748e5f50468cb17485aa019242ecc14f558b8b7b",
+      "flash_bytes": 3111,
+      "flash_sha256": "7a76daf9f94d725493885583a2b654b4f97553f44545a11bc1cc664fc367ea9a"
     },
     {
       "path": "/windows.js",

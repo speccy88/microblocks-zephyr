@@ -1,0 +1,30 @@
+{
+  "host": "192.168.1.69",
+  "scope": "physical board, real VM over authenticated binary WebSocket",
+  "checks": {
+    "ping": true,
+    "arithmetic_runs": 10,
+    "live_bytecode_edit_result": 13,
+    "temperatureMilliC": 26913,
+    "humidityMilliPct": 38597,
+    "batteryRaw": 1291,
+    "rtcText": "RTC unset or unavailable",
+    "button_0_released": true,
+    "button_1_released": true,
+    "lcd_checker_transfer": true,
+    "ordered_outputs": 500,
+    "code_crc32": {
+      "0": "297d191b",
+      "3": "35ece211"
+    },
+    "fragmented_upload_bytes": 1019,
+    "partial_frame_timeout_recovery": true,
+    "stop_and_variable_inspection": true,
+    "reconnect_arithmetic": true,
+    "reconnect_seconds": 0.14,
+    "saved_generation": 8,
+    "reboot_crc_and_arithmetic": true,
+    "saved_start_hat_autorun": true
+  },
+  "result": "PASS"
+}

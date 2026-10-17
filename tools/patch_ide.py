@@ -2,7 +2,8 @@
 """Repack the pinned GP filesystem with Waveshare library and example controls.
 
 The editor, interpreter and compiler remain the real MicroBlocks/GP binaries.
-Only its existing source-level UNO Q integration endpoints and library change.
+Its existing source-level UNO Q endpoints, primitive-set alias and library are
+adapted to this board.
 """
 # SPDX-License-Identifier: MPL-2.0
 import json
@@ -19,13 +20,17 @@ def patch_ide(javascript: bytes, data: bytes, library: bytes):
         raise ValueError('GP package length mismatch')
     packed = bytearray()
     files = []
-    api_count = library_count = 0
+    api_count = library_count = compiler_count = 0
     for entry in metadata['files']:
         name = entry['filename']
         start_offset, end_offset = int(entry['start']), int(entry['end'])
         if start_offset != entry['start'] or end_offset != entry['end'] or not 0 <= start_offset <= end_offset <= len(data):
             raise ValueError('Invalid embedded GP file range')
         payload = data[start_offset:end_offset]
+        if b"atPut primsets 'unoq' (at primsets 'io')" in payload:
+            compiler_count += 1
+            payload = payload.replace(b"atPut primsets 'unoq' (at primsets 'io')",
+                b"atPut primsets 'rlcd' (at primsets 'io')")
         if b"endPoint == 'unoq.loadLibrary'" in payload:
             api_count += 1
             payload = payload.replace(b"'unoq.loadLibrary'", b"'rlcd.loadLibrary'")
@@ -42,8 +47,8 @@ def patch_ide(javascript: bytes, data: bytes, library: bytes):
             name = name.replace('/Examples/UNO Q/', '/Examples/Waveshare/')
         start = len(packed); packed.extend(payload)
         files.append({'filename': name, 'start': start, 'end': len(packed)})
-    if api_count != 1 or library_count != 1:
-        raise ValueError('Expected exactly one GP API source and one board library')
+    if api_count != 1 or library_count != 1 or compiler_count != 1:
+        raise ValueError('Expected one GP API source, one primitive-set alias and one board library')
     metadata = {'files': files, 'remote_package_size': len(packed)}
     source = source[:match.start(1)] + json.dumps(metadata, separators=(',', ':')) + source[match.end(1):]
     source = source.replace('"/Examples","UNO Q"', '"/Examples","Waveshare"')

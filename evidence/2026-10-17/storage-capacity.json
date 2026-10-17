@@ -1,0 +1,41 @@
+{
+  "physical_flash_bytes": 16777216,
+  "application_partition": {
+    "offset": 0,
+    "bytes": 13631488,
+    "firmware_including_assets_bytes": 4184132,
+    "remaining_bytes": 9447356
+  },
+  "ide_assets": {
+    "files": 148,
+    "compressed_flash_bytes": 3512820,
+    "uncompressed_bytes": 17283752,
+    "storage": "mapped onboard flash; no separate fixed asset partition"
+  },
+  "vmstore": {
+    "offset": 13631488,
+    "bytes": 262144,
+    "slots": 2,
+    "slot_bytes": 131072,
+    "code_payload_limit_bytes": 65536
+  },
+  "settings": {
+    "offset": 13893632,
+    "bytes": 65536
+  },
+  "unpartitioned_tail_bytes": 2818048,
+  "microSD_used": false,
+  "firmware_sha256": "332068fbe8b78280c4a6fa1af908a257821d7a3e54be549f10235c4952d338f9",
+  "linker_allocations": {
+    "internal_dram_used_bytes": 332072,
+    "internal_dram_region_bytes": 399108,
+    "internal_dram_unallocated_bytes": 67036,
+    "external_dram_used_bytes": 5242896,
+    "physical_psram_bytes": 8388608,
+    "physical_psram_minus_static_allocation_bytes": 3145712,
+    "note": "Compiled allocations, not runtime free heap. The linker lists 32 MB virtual windows; physical PSRAM is 8 MiB. Heap arenas and stacks are included in allocations."
+  },
+  "runtime_memory_under_browser_and_vm_load": {
+    "measured": false
+  }
+}

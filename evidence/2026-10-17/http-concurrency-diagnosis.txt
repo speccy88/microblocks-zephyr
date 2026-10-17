@@ -1,0 +1,27 @@
+Temporary diagnostic build, COM4, four concurrent local HTTP clients.
+Sequential audit passed 148/148 assets; concurrent audit passed 97/148.
+Pinned Zephyr default CONFIG_ZVFS_POLL_MAX=3.
+Observed server restarts with -12 (ENOMEM) when second client entered poll table:
+[00:00:04.836,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:04.886,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:04.929,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:04.941,000] <dbg> net_http_server.handle_listen_pollin: Init client #1
+[00:00:04.946,000] <dbg> net_http_server.http_server_run: poll failed (-12)
+[00:00:04.951,000] <inf> net_http_server: Re-starting server (-12)
+[00:00:06.051,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:06.094,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:06.162,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:06.174,000] <dbg> net_http_server.handle_listen_pollin: Init client #1
+[00:00:06.178,000] <dbg> net_http_server.http_server_run: poll failed (-12)
+[00:00:06.184,000] <inf> net_http_server: Re-starting server (-12)
+[00:00:07.251,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:07.309,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:07.361,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:07.372,000] <dbg> net_http_server.handle_listen_pollin: Init client #1
+[00:00:07.377,000] <dbg> net_http_server.http_server_run: poll failed (-12)
+[00:00:07.383,000] <inf> net_http_server: Re-starting server (-12)
+[00:00:08.504,000] <dbg> net_http_server.handle_listen_pollin: Init client #0
+[00:00:08.516,000] <dbg> net_http_server.handle_listen_pollin: Init client #1
+[00:00:08.520,000] <dbg> net_http_server.http_server_run: poll failed (-12)
+[00:00:08.526,000] <inf> net_http_server: Re-starting server (-12)
+[00:00:09.573,000] <dbg> net_http_server.handle_listen_pollin: Init client #0

@@ -1,0 +1,904 @@
+{
+  "host": "192.168.1.69",
+  "scope": "HTTP asset/content-policy verification; no graphical UI interaction",
+  "result": "FAIL",
+  "verified_assets": 97,
+  "failed_assets": [
+    {
+      "path": "/boardie/styles.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/buttons.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/devtools.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/emModule.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/favicon.ico",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/flasher.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-left.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-ok.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-right.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-up.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-x.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/checkmark.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/colon-double-slash.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/double-arrow-v.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/icon-close.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-dropdown--12x6.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-file--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-gear--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-start--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-stop--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-usb.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-usb2.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-usb3.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-zoom-out--16x16.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-zoom-restore--16x16.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/keyboard-light.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/legacy-restoreZoom.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/legacy-zoomIn.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/legacy-zoomOut.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/logo-preloader.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/microblocks-ide-logo.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/mouse-left-button.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/mouse-right-button.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/note-eighth.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/note-half.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/note-quarter.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/note-whole.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/plus1.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/plus2.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/resize.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/square.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/square11.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/trashcan-dark.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_menus.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_overlay.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_scripts-pane-controls.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_tips.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_top-bar.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_window.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/sw.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/translations/apc.po",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    }
+  ],
+  "uncompressed_bytes": 17045018,
+  "assets": [
+    {
+      "path": "/FileSaver.js",
+      "bytes": 8584,
+      "sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3"
+    },
+    {
+      "path": "/TODO.md",
+      "bytes": 2256,
+      "sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142"
+    },
+    {
+      "path": "/boardie/README",
+      "bytes": 80,
+      "sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc"
+    },
+    {
+      "path": "/boardie/boardie.js",
+      "bytes": 2632,
+      "sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea"
+    },
+    {
+      "path": "/boardie/styles.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/buttons.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/categories.js",
+      "bytes": 3296,
+      "sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5"
+    },
+    {
+      "path": "/devtools.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/emModule.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/emscripten.css",
+      "bytes": 1295,
+      "sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98"
+    },
+    {
+      "path": "/favicon.ico",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/flasher.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/gettext.js",
+      "bytes": 3829,
+      "sha256": "bea5280d64c24499a4c5ad9152b03e1cc4de2081e99802d83aae7d22568abdde"
+    },
+    {
+      "path": "/gpSupport.js",
+      "bytes": 42528,
+      "sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c"
+    },
+    {
+      "path": "/gp_wasm.data",
+      "bytes": 10895299,
+      "sha256": "d01008ec247043585872f9fd57d9841badb13e5662df1bb1963eae2692c26c13"
+    },
+    {
+      "path": "/gp_wasm.js",
+      "bytes": 183477,
+      "sha256": "d16da72aa354c592816c341f9f93d150394c2212f8ea14382321bd5155275dfe"
+    },
+    {
+      "path": "/gp_wasm.wasm",
+      "bytes": 284918,
+      "sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87"
+    },
+    {
+      "path": "/graph.js",
+      "bytes": 8030,
+      "sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157"
+    },
+    {
+      "path": "/icons/Bunny192.png",
+      "bytes": 19500,
+      "sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971"
+    },
+    {
+      "path": "/icons/Bunny512.png",
+      "bytes": 72366,
+      "sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1"
+    },
+    {
+      "path": "/ide.js",
+      "bytes": 13358,
+      "sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5"
+    },
+    {
+      "path": "/img/SVGPrepNotes.txt",
+      "bytes": 1555,
+      "sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55"
+    },
+    {
+      "path": "/img/big-logo.svg",
+      "bytes": 15505,
+      "sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877"
+    },
+    {
+      "path": "/img/bool_false.svg",
+      "bytes": 518,
+      "sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2"
+    },
+    {
+      "path": "/img/bool_true.svg",
+      "bytes": 523,
+      "sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369"
+    },
+    {
+      "path": "/img/button-down.svg",
+      "bytes": 1302,
+      "sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1"
+    },
+    {
+      "path": "/img/button-left.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-ok.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-right.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-up.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/button-x.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/checkmark.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/colon-double-slash.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/double-arrow-v.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/dropdown-arrow.svg",
+      "bytes": 348,
+      "sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056"
+    },
+    {
+      "path": "/img/icon-arrow-right--16x16.svg",
+      "bytes": 486,
+      "sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89"
+    },
+    {
+      "path": "/img/icon-checkmark--16x16.svg",
+      "bytes": 483,
+      "sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881"
+    },
+    {
+      "path": "/img/icon-close--16x16.svg",
+      "bytes": 618,
+      "sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300"
+    },
+    {
+      "path": "/img/icon-close.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-dropdown--12x6.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-file--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-gear--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-globe--24x24.svg",
+      "bytes": 2856,
+      "sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2"
+    },
+    {
+      "path": "/img/icon-graph--16x16.svg",
+      "bytes": 597,
+      "sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884"
+    },
+    {
+      "path": "/img/icon-graph.svg",
+      "bytes": 808,
+      "sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe"
+    },
+    {
+      "path": "/img/icon-graph2.svg",
+      "bytes": 769,
+      "sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429"
+    },
+    {
+      "path": "/img/icon-plug--16x16.svg",
+      "bytes": 886,
+      "sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1"
+    },
+    {
+      "path": "/img/icon-plus--16x16.svg",
+      "bytes": 384,
+      "sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7"
+    },
+    {
+      "path": "/img/icon-redo--16x16.svg",
+      "bytes": 750,
+      "sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f"
+    },
+    {
+      "path": "/img/icon-start--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-stop--24x24.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-undo--16x16.svg",
+      "bytes": 750,
+      "sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc"
+    },
+    {
+      "path": "/img/icon-usb.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-usb2.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-usb3.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-zoom-in--16x16.svg",
+      "bytes": 1027,
+      "sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8"
+    },
+    {
+      "path": "/img/icon-zoom-out--16x16.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/icon-zoom-restore--16x16.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/keyboard-light.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/legacy-restoreZoom.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/legacy-zoomIn.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/legacy-zoomOut.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/logo-preloader.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/microblocks-ide-logo.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/mouse-left-button.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/mouse-right-button.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/note-eighth.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/note-half.svg",
+      "error": "ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine"
+    },
+    {
+      "path": "/img/note-quarter.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/note-sixteenth.svg",
+      "bytes": 865,
+      "sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb"
+    },
+    {
+      "path": "/img/note-whole.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/plus1.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/plus2.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/resize.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/rounded-corner.svg",
+      "bytes": 159,
+      "sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373"
+    },
+    {
+      "path": "/img/square.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/square11.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/trashcan-dark.svg",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/img/trashcan-light.svg",
+      "bytes": 2561,
+      "sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186"
+    },
+    {
+      "path": "/img/wave-noise.svg",
+      "bytes": 2347,
+      "sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5"
+    },
+    {
+      "path": "/img/wave-sawtooth.svg",
+      "bytes": 794,
+      "sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45"
+    },
+    {
+      "path": "/img/wave-sine.svg",
+      "bytes": 911,
+      "sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c"
+    },
+    {
+      "path": "/img/wave-square.svg",
+      "bytes": 380,
+      "sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b"
+    },
+    {
+      "path": "/img/wave-triangle.svg",
+      "bytes": 722,
+      "sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c"
+    },
+    {
+      "path": "/lib/usbDfuDevice.js",
+      "bytes": 15305,
+      "sha256": "711bd38612250bd9a39c505ac3e4afdff44df496aed908d9332200576f1c5f3b"
+    },
+    {
+      "path": "/manifest.json",
+      "bytes": 404,
+      "sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04"
+    },
+    {
+      "path": "/menus.js",
+      "bytes": 15570,
+      "sha256": "fd77bba5cca1b39a55b2d23ef12e49deb5826ffb2ef291251fd49a5725960aaf"
+    },
+    {
+      "path": "/microblocks.html",
+      "bytes": 7129,
+      "sha256": "70247e296395695018fa30312c87315eeb622624e721d1831fe9c24c3b517f76"
+    },
+    {
+      "path": "/precompiled/buildUniversalHex.js",
+      "bytes": 809,
+      "sha256": "7f1f01c8767ce0451eaeaadb7fa62a4a6a70a1c5fe47606955e1ac0bcbe74da9"
+    },
+    {
+      "path": "/precompiled/package.json",
+      "bytes": 77,
+      "sha256": "ac8a108b4d646964a88c9d965e7a9a1c62e2d0b714580f1f62415beb7b0e0083"
+    },
+    {
+      "path": "/precompiled/uf2conv.py",
+      "bytes": 8586,
+      "sha256": "fb77a31e9d66088e5e8420fcf7e6eda28e180cdff8ded26c4453232590b59b2e"
+    },
+    {
+      "path": "/precompiled/updatePrecompiled.sh",
+      "bytes": 2735,
+      "sha256": "10bc68120cdc9baec42d1427dbe9b1114be1ac19932d5a6f798efdd006509544"
+    },
+    {
+      "path": "/styles/components/_app-preloader.css",
+      "bytes": 1708,
+      "sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad"
+    },
+    {
+      "path": "/styles/components/_buttons.css",
+      "bytes": 1359,
+      "sha256": "654a75147db1d5f9804bedf19f1a090d6c323a2241333b4e04d32280ca51147c"
+    },
+    {
+      "path": "/styles/components/_categories-libraries.css",
+      "bytes": 2489,
+      "sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036"
+    },
+    {
+      "path": "/styles/components/_ide.css",
+      "bytes": 2448,
+      "sha256": "63bbd1ee4060438456d65bca9fda09c03b119493fbc5dc7155f685b504b38abc"
+    },
+    {
+      "path": "/styles/components/_menus.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_overlay.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_scripts-pane-controls.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_tips.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_top-bar.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_window.css",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/styles/components/_wysiwyg.css",
+      "bytes": 1016,
+      "sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e"
+    },
+    {
+      "path": "/styles/config/_config.css",
+      "bytes": 4123,
+      "sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578"
+    },
+    {
+      "path": "/styles/generic/_body.css",
+      "bytes": 188,
+      "sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f"
+    },
+    {
+      "path": "/styles/generic/_button.css",
+      "bytes": 58,
+      "sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee"
+    },
+    {
+      "path": "/styles/generic/minireset.css",
+      "bytes": 703,
+      "sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252"
+    },
+    {
+      "path": "/styles/utilities/_drag.css",
+      "bytes": 142,
+      "sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3"
+    },
+    {
+      "path": "/sw.js",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/translations/apc.po",
+      "error": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "path": "/translations/ar.po",
+      "bytes": 238394,
+      "sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b"
+    },
+    {
+      "path": "/translations/ca.po",
+      "bytes": 235868,
+      "sha256": "4734f15e0d59488a5cc098285b017f5c204e895f6426818b2c5995a874cc0473"
+    },
+    {
+      "path": "/translations/cs.po",
+      "bytes": 187220,
+      "sha256": "96bb6ed5ecbf16bc24d20bb683d3a8b4e2c856a87da024e59ef4adbe80bdfabc"
+    },
+    {
+      "path": "/translations/de.po",
+      "bytes": 233186,
+      "sha256": "a40a4d488645fb80a6bda1803e88ef376e6d25a6877aac37ad66c3370886cbe1"
+    },
+    {
+      "path": "/translations/el.po",
+      "bytes": 47400,
+      "sha256": "3b8fd990f253f57485d0f5022b5c2cc2824c1906de5c381c9154f51253bc6893"
+    },
+    {
+      "path": "/translations/en.po",
+      "bytes": 219429,
+      "sha256": "76fc7b1942b5fbad97ef0b8879fe95a93f5ca6f0ca1642aab4966e8cc668fb3c"
+    },
+    {
+      "path": "/translations/es.po",
+      "bytes": 236223,
+      "sha256": "b2bf21b67adf998212086a2d42d6aa191556a5834e1818d762782d5185ce396d"
+    },
+    {
+      "path": "/translations/eu.po",
+      "bytes": 130662,
+      "sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08"
+    },
+    {
+      "path": "/translations/fa.po",
+      "bytes": 133629,
+      "sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8"
+    },
+    {
+      "path": "/translations/fi.po",
+      "bytes": 155556,
+      "sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9"
+    },
+    {
+      "path": "/translations/fr.po",
+      "bytes": 222151,
+      "sha256": "d8f8163368a9d522e0fac6b493b35732243b6704c4091af75ad2b0b7ec0a7f21"
+    },
+    {
+      "path": "/translations/gl.po",
+      "bytes": 92216,
+      "sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e"
+    },
+    {
+      "path": "/translations/he.po",
+      "bytes": 186997,
+      "sha256": "ab573f1ddb6cd8ed46dba3552b796a3239f06cb0702d783aaf3bf910b02f6b88"
+    },
+    {
+      "path": "/translations/id.po",
+      "bytes": 200597,
+      "sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1"
+    },
+    {
+      "path": "/translations/it.po",
+      "bytes": 133307,
+      "sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790"
+    },
+    {
+      "path": "/translations/ja.po",
+      "bytes": 43745,
+      "sha256": "c0a220753dd0190793604a9b4e342848f8d1d9cc4d31c7dec3593d835ea6653c"
+    },
+    {
+      "path": "/translations/kk.po",
+      "bytes": 159651,
+      "sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173"
+    },
+    {
+      "path": "/translations/ko.po",
+      "bytes": 136052,
+      "sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4"
+    },
+    {
+      "path": "/translations/locales.json",
+      "bytes": 748,
+      "sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f"
+    },
+    {
+      "path": "/translations/lt.po",
+      "bytes": 165990,
+      "sha256": "e10a8214ebe630ae0c8bbf05de721a3d2e3c543c85e54402ff3618e5fa7754cf"
+    },
+    {
+      "path": "/translations/nl.po",
+      "bytes": 162210,
+      "sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76"
+    },
+    {
+      "path": "/translations/pl.po",
+      "bytes": 134645,
+      "sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703"
+    },
+    {
+      "path": "/translations/pt-br.po",
+      "bytes": 229284,
+      "sha256": "3efa79005344cdfb5a43ada9dc7d58ecb48b38640c3c476c51703aee1ceb1dca"
+    },
+    {
+      "path": "/translations/pt.po",
+      "bytes": 42658,
+      "sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855"
+    },
+    {
+      "path": "/translations/ro.po",
+      "bytes": 146381,
+      "sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57"
+    },
+    {
+      "path": "/translations/ru.po",
+      "bytes": 100007,
+      "sha256": "137c3d625ab20bd35819b9f37abddeb81b33f8db3ef27008ceea6c31374cfcbe"
+    },
+    {
+      "path": "/translations/sr.po",
+      "bytes": 143336,
+      "sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618"
+    },
+    {
+      "path": "/translations/ta.po",
+      "bytes": 294610,
+      "sha256": "8e65fd35967c15ca36b106a7c90b82664be9192368512e88605814999b0318f6"
+    },
+    {
+      "path": "/translations/template.pot",
+      "bytes": 175528,
+      "sha256": "179194da6b615ec29f385d8fdd4a0b17e4190bbd463fdb52303fbc1e84ebae8f"
+    },
+    {
+      "path": "/translations/tr.po",
+      "bytes": 105747,
+      "sha256": "3b791f0f20b8a19fd64724f5e68066499949dd9bfce798aaeeb83641a7148928"
+    },
+    {
+      "path": "/translations/uk.po",
+      "bytes": 148598,
+      "sha256": "64c43942c105b33607e1ed3dab7df6f857983ab93d5a371b00424f6e6e01462a"
+    },
+    {
+      "path": "/translations/uz.po",
+      "bytes": 39502,
+      "sha256": "1ee5ec79fd41fec991568c1ff1f7ee88b1e328ac84f3f24d39e46619a2c9a019"
+    },
+    {
+      "path": "/translations/vi.po",
+      "bytes": 211353,
+      "sha256": "120db94800f95aa3a88263b65859339ae9aedd418129b8bb5bc2cd2187b6a687"
+    },
+    {
+      "path": "/translations/zh-chs.po",
+      "bytes": 170466,
+      "sha256": "9e68fc0db13f553857abe6d80d275227cd517d2625be1bd61b0bbe9ca5882f83"
+    },
+    {
+      "path": "/translations/zh-cht.po",
+      "bytes": 117588,
+      "sha256": "580a85b03aeacb66b9b71c63a8b39e5567ff25968b68d44d28a96c8524195758"
+    },
+    {
+      "path": "/unoq-network.js",
+      "bytes": 5421,
+      "sha256": "dd0816fd07d1af794a1a789376423374da404db34037df90aa6d9d379adde81c"
+    },
+    {
+      "path": "/windows.js",
+      "bytes": 10936,
+      "sha256": "1fca26d00e798a379427107e687d232350cc7a1d5b76ff471a708dace45a4069"
+    },
+    {
+      "path": "/setup",
+      "bytes": 2526,
+      "sha256": "eadf4a84c9763cef1e744792911be1cf9ab2fddf165fb95c91812ae387024900"
+    }
+  ]
+}

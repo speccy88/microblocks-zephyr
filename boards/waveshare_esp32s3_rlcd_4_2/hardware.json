@@ -22,7 +22,7 @@
       "description": "Reflective 300x400 visible pixels; upstream DTS uses 312x400 controller geometry",
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-transferred-appearance-unverified",
-      "smallvm": "compiled-not-wireless-tested"
+      "smallvm": "wireless-transfer-tested-appearance-unverified"
     },
     {
       "id": "temperature_humidity",
@@ -35,7 +35,7 @@
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-read",
-      "smallvm": "compiled-not-wireless-tested"
+      "smallvm": "wireless-physical-reads-tested"
     },
     {
       "id": "rtc",
@@ -49,7 +49,7 @@
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-probed-clock-unset",
-      "smallvm": "compiled-not-wireless-tested"
+      "smallvm": "wireless-unset-response-tested-setter-not-implemented"
     },
     {
       "id": "battery_adc",
@@ -60,7 +60,7 @@
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-read-uncalibrated",
-      "smallvm": "compiled-not-wireless-tested"
+      "smallvm": "wireless-raw-read-tested-uncalibrated"
     },
     {
       "id": "buttons",
@@ -72,7 +72,7 @@
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-read-released-no-press-test",
-      "smallvm": "compiled-not-wireless-tested"
+      "smallvm": "wireless-released-state-tested-presses-unverified"
     },
     {
       "id": "power_key",
@@ -133,7 +133,7 @@
       "pins": {},
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physical-ap-dhcp-http-and-vm-arithmetic-pass",
-      "smallvm": "physical-websocket-ping-and-arithmetic-pass-browser-pending"
+      "smallvm": "station-and-protected-ap-tested-binary-websocket-500-outputs-reconnect-reboot-pass"
     },
     {
       "id": "ble",

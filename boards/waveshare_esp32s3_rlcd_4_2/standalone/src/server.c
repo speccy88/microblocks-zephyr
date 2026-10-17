@@ -13,6 +13,7 @@ HTTP_SERVER_REGISTER_HEADER_CAPTURE(pair_header, "X-MicroBlocks-Pair");
 static char content_policy[384];
 
 static const struct http_header asset_headers[] = {
+    {"Connection", "close"},
     {"Cross-Origin-Opener-Policy", "same-origin"},
     {"Cross-Origin-Embedder-Policy", "require-corp"},
     {"X-Content-Type-Options", "nosniff"},
@@ -21,6 +22,7 @@ static const struct http_header asset_headers[] = {
     {"Content-Security-Policy", content_policy},
 };
 static const struct http_header gzip_headers[] = {
+    {"Connection", "close"},
     {"Content-Encoding", "gzip"},
     {"Cross-Origin-Opener-Policy", "same-origin"},
     {"Cross-Origin-Embedder-Policy", "require-corp"},
@@ -35,7 +37,7 @@ int mb_asset_handler(struct http_client_ctx *client, enum http_transaction_statu
                      struct http_response_ctx *response, void *user)
 {
     ARG_UNUSED(client); ARG_UNUSED(request);
-    if (status == HTTP_SERVER_TRANSACTION_ABORTED || status == HTTP_SERVER_TRANSACTION_COMPLETE) return 0;
+    if (status != HTTP_SERVER_REQUEST_DATA_FINAL) return 0;
     const struct mb_asset *asset = user;
     response->body = asset->data;
     response->body_len = asset->size;

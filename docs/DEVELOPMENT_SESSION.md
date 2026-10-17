@@ -149,9 +149,39 @@ GP filesystem package, local scripts, styles, fonts, images and embedded librari
 Generated asset hashes are in `standalone-assets-manifest.json`. The response
 policy restricts runtime connections to the board and blocks external resources.
 
-Graphical acceptance is unfinished: the browser displays Loading and reports
-`Module is not defined`; a concurrent HTTP asset audit observed a connection
-closed without a response. These are web-serving/loading failures to diagnose,
-not failures of the passing VM protocol test. Do not claim graphical editing,
-run/stop/debug or a browser request-trace pass yet. Earlier failed diagnostic
-test files remain as evidence of the investigation.
+## HTTP and graphical loading repair
+
+A temporary diagnostic build captured `poll failed (-12)` followed by server
+restarts as soon as two clients were active. The default `CONFIG_ZVFS_POLL_MAX=3`
+was insufficient for the HTTP listener, stop event and client descriptors.
+Setting it to 16 removed those resets. A remaining concurrent request expired
+because the GP package took 13.16 seconds on the measured link while accepted
+clients had a 10-second inactivity timer. The production timeout is now 60
+seconds, and asset responses close connections after use. Buffer sizes also
+accommodate browser headers and concurrent packets.
+
+`http-browser-assets.json` records 148/148 assets passing with four concurrent
+clients, including content hashes, gzip, MIME types and board-only response
+policies. Earlier failed and sequential audits are retained. A controlled
+browser reload captured 156 network events, no failures or truncation, and only
+`http://192.168.1.69` as a request origin. The actual GP WASM editor and Waveshare
+library rendered. The test temporarily removed the old page's unconditional
+leave-page handler because the in-app browser automatically cancelled that
+confirmation; the freshly loaded page reinstated the original handler.
+
+Native `prompt()` is unsupported in the in-app browser. Pairing now uses a DOM
+password dialog, with an optional local JSON import that reads only its `pair`
+field and never uploads the file. The temporary pairing-only file imported
+successfully and the value stayed redacted. The import tool call took 4,334
+seconds to return; no build or flash was running during that wait. Pairing submit
+and graphical edit/run/stop/variable/reconnect tests remain pending at this
+checkpoint. Forwarding an approval was not treated as approval.
+
+`wireless-browser-firmware.json` records the full production regression after
+the final HTTP/pairing build: ten arithmetic runs, editing, 500 ordered outputs,
+CRC checks, 1019-byte fragmented upload, timeout recovery, stop/variable checks,
+reconnect in 0.14 seconds, and matching code/autostart behavior after reset.
+The firmware SHA-256 is
+`332068fbe8b78280c4a6fa1af908a257821d7a3e54be549f10235c4952d338f9`.
+See `storage-capacity.json` for exact flash and linker allocations. Runtime
+free heap under browser-plus-VM load has not yet been measured.

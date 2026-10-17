@@ -10,15 +10,16 @@ Goal: a portable **Zephyr + Arduino API + MicroBlocks SmallVM** platform with bo
 * `hardware.json`: structured pin, I2C address and feature map for **all known board peripherals**. Each feature declares its implementation/testing state.
 * `arduino_smoke/`: compiled target using the real Arduino API module.
 * `smallvm/`: linked SmallVM v417 with bounded execution and a recovery/test USB transport.
-* `standalone/`: actual graphical IDE in compressed flash assets, Wi-Fi setup, HTTP/WebSocket server and program snapshots. Wireless IP delivery is still under investigation.
+* `standalone/`: actual graphical IDE in compressed flash assets, Wi-Fi setup, HTTP/WebSocket server and program snapshots. Station Wi-Fi, protected fallback AP, HTTP assets and binary WebSocket are physically tested.
 * `integration/rlcd_smallvm_primitives.c`: linked named primitives calling the same Zephyr board APIs.
-* `integration/Waveshare_RLCD_4_2.ubl`: board blocks embedded in the standalone editor. Browser import and live execution are still awaiting acceptance.
+* `integration/Waveshare_RLCD_4_2.ubl`: board blocks embedded in the standalone editor. The library loads in the real board-served editor; graphical live execution is awaiting acceptance.
 * `tests/`: offline manifest/source integrity checks.
 
 **Current evidence:** pinned Zephyr/SDK builds, physical boot, SHTC3 and battery
 reads, released button inputs, LCD transfers and Wi-Fi association. RTC is
-unset. Full wireless programming, display appearance, physical button presses,
-reboot persistence, SD, BLE and audio are not validated. See the
+unset. Wireless VM arithmetic/editing, 500 ordered outputs, CRCs, stop/variables,
+reconnect and reboot/autostart pass. Graphical live programming, display
+appearance, physical button presses, SD, BLE and audio remain unvalidated. See the
 [session record](../../docs/DEVELOPMENT_SESSION.md) and `hardware.json`.
 
 ## Board facts (source-backed)
