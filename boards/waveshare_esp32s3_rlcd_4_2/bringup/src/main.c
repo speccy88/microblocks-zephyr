@@ -25,8 +25,9 @@ static int cmd_sensor(const struct shell *shell, size_t argc, char **argv)
     struct rlcd_environment env;
     int err = rlcd_environment_read(&env);
     if (err) { shell_error(shell, "SHTC3 read failed: %d", err); return err; }
-    shell_print(shell, "temperature = %d.%03d C, relative humidity = %d.%03d %%",
-                env.temp_milli_c / 1000, (int)(env.temp_milli_c < 0 ? -(env.temp_milli_c % 1000) : (env.temp_milli_c % 1000)),
+    int64_t magnitude = env.temp_milli_c < 0 ? -(int64_t)env.temp_milli_c : env.temp_milli_c;
+    shell_print(shell, "temperature = %s%d.%03d C, relative humidity = %d.%03d %%",
+                env.temp_milli_c < 0 ? "-" : "", (int)(magnitude / 1000), (int)(magnitude % 1000),
                 env.humidity_milli_pct / 1000, (int)(env.humidity_milli_pct % 1000));
     return 0;
 }

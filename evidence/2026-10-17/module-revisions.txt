@@ -1,0 +1,5 @@
+hal_espressif b16851b3c20e6fad3d2da42ec24a3e82d0b8b444 modules/hal/espressif
+hal_xtensa 60224c27bed1466287f0246ac04c902b92331c29 modules/hal/xtensa
+mbedtls c43f34b93797e81fd0257c30004dcd0ae332ae51 modules/crypto/mbedtls
+zcbor 9164bd18dcd88ff9d9ef98279501fc1093571017 modules/lib/zcbor
+a915b2f12675b48b16d56653ea145dcd8f20cbbf

@@ -36,11 +36,14 @@ static const struct device *const temp_dev = DEVICE_DT_GET(RLCD_SHTC3_NODE);
 static const struct device *const rtc_dev = DEVICE_DT_GET(RLCD_RTC_NODE);
 static const struct device *const i2c_dev = DEVICE_DT_GET(RLCD_I2C_NODE);
 static const struct device *const spi_dev = DEVICE_DT_GET(RLCD_SPI_NODE);
+static const struct device *const buttons_dev = DEVICE_DT_GET(DT_PATH(buttons));
 static const struct adc_dt_spec batt_adc = ADC_DT_SPEC_GET_BY_IDX(RLCD_BATT_NODE, 0);
 
 #define DISP_W DT_PROP(RLCD_DISPLAY_NODE, width)
 #define DISP_H DT_PROP(RLCD_DISPLAY_NODE, height)
 BUILD_ASSERT(DISP_W % 8 == 0, "ST730x monochrome framebuffer needs byte-aligned width");
+BUILD_ASSERT(DISP_W % 12 == 0, "ST730x writes need 12-pixel column alignment");
+BUILD_ASSERT(DISP_H % 2 == 0, "ST730x writes need paired rows");
 BUILD_ASSERT((DISP_W * DISP_H) % 8 == 0, "monochrome buffer size must be integral");
 static uint8_t display_frame[DISP_W * DISP_H / 8];
 static K_MUTEX_DEFINE(display_mutex);
@@ -75,7 +78,7 @@ void rlcd_probe(struct rlcd_device_status *out)
     out->display = device_is_ready(display_dev);
     out->shtc3 = device_is_ready(temp_dev);
     out->rtc = device_is_ready(rtc_dev);
-    out->buttons = true; // Controller present in DTS; test individual events physically.
+    out->buttons = device_is_ready(buttons_dev); // Event delivery still needs a physical test.
     out->adc = adc_is_ready_dt(&batt_adc);
     out->i2c = device_is_ready(i2c_dev);
     out->spi = device_is_ready(spi_dev);
@@ -134,7 +137,9 @@ int rlcd_battery_read(int32_t *raw, int32_t *mv_estimate)
         int32_t mv = sample;
         // On ESP32 calibration isn't guaranteed; -ENOTSUP means report raw only.
         err = adc_raw_to_millivolts_dt(&batt_adc, &mv);
-        *mv_estimate = (err == 0) ? mv * 3 : -1;
+        *mv_estimate = (err == 0) ?
+            (int32_t)((int64_t)mv * DT_PROP(RLCD_BATT_NODE, full_ohms) /
+                      DT_PROP(RLCD_BATT_NODE, output_ohms)) : -1;
     }
     return 0;
 }
@@ -145,7 +150,8 @@ static int push_display(void)
     struct display_capabilities caps;
     display_get_capabilities(display_dev, &caps);
     if (caps.current_pixel_format != PIXEL_FORMAT_MONO01 ||
-        caps.x_resolution != DISP_W || caps.y_resolution != DISP_H) {
+        caps.x_resolution != DISP_W || caps.y_resolution != DISP_H ||
+        caps.screen_info != 0) {
         return -ENOTSUP;
     }
     const struct display_buffer_descriptor desc = {
