@@ -65,3 +65,24 @@ All nine offline tests pass on Linux.
 Build logs and module revisions are saved under `evidence/2026-10-17/`.
 Deployment and physical tests are the next stage; no new firmware has been
 deployed at this checkpoint.
+
+The attempted COM4 `esptool --chip esp32s3 --port COM4 --after no-reset
+erase-flash` command was denied before execution by automatic approval review.
+The stated reason was that full erase without backup had not been explicitly
+authorized, despite the session confirmation forwarded to this task. No erase
+or flash occurred. Do not work around that denial by another writing command;
+the parent must resolve it with new, relevant trusted confirmation evidence.
+
+The next physical checks, once deployment is permitted, are `hw status`,
+repeated SHTC3 readings, RTC progression/invalid-clock handling, battery raw ADC,
+button states/events and display write return codes. Display appearance and
+physical button operation remain unverified until observed.
+
+Official SmallVM stable source was inspected at
+`e614320450bc3c14cd95b4be4e7b74819ad8d13c` (VM v411, MPL-2.0).
+Its existing Zephyr persistence backend assumes directly addressable flash
+offsets; it must not be used unchanged for the ESP32-S3 memory map. A first
+runtime should use an explicit RAM code store or a bounded, correctly mapped
+partition backend. The existing ArduinoCore-Zephyr loader model also requires
+an actual ESP32-S3 variant/integration; Zephyr board support alone does not
+establish Arduino API compatibility.
