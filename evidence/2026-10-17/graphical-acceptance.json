@@ -1,0 +1,45 @@
+{
+  "host": "192.168.1.69",
+  "board": "Waveshare ESP32-S3-RLCD-4.2",
+  "firmware_sha256": "332068fbe8b78280c4a6fa1af908a257821d7a3e54be549f10235c4952d338f9",
+  "result": "IN_PROGRESS",
+  "checks": {
+    "actual_microblocks_editor": "2.5.8 GP WASM",
+    "local_browser_requests": 52,
+    "local_browser_responses_200": 52,
+    "external_request_origins": [],
+    "network_trace_truncated": false,
+    "pairing_and_green_connection": true,
+    "graphical_arithmetic": 12,
+    "graphical_input_edit_result": 13,
+    "graphical_ordered_outputs": 500,
+    "graphical_variable_display": 500,
+    "global_stop_resets_variables": "Expected upstream softReset behavior",
+    "individual_script_stop_retained_variable": 124,
+    "later_variable_inspection": 124,
+    "graphical_disconnect_reconnect_without_pairing_prompt": true,
+    "reconnected_graphical_ordered_outputs": 500,
+    "saved_generation_before_reboot": 16,
+    "graphical_program_autostart_after_reset": 500,
+    "saved_generation_after_reset": 16,
+    "graphical_program_crc32_after_reset": {
+      "0": "a4144564",
+      "1": "297d191b",
+      "2": "5e84cd6a"
+    },
+    "graphical_readback_after_reset_and_reload": true,
+    "readback_variables": 1,
+    "readback_chunks": 3,
+    "readback_graphical_ordered_outputs": 500
+  },
+  "pending": [
+    "reliable fresh-page bootstrap under six browser connections",
+    "runtime heap sampling with active graphical VM on final firmware"
+  ],
+  "observations": [
+    "Category labels sometimes retain the upstream cat; context prefix.",
+    "The added toolbar controls overflow the narrow in-app viewport.",
+    "Browser screenshots were captured; a data-URL screenshot download timed out and was not repeated.",
+    "A later six-connection load reset categories.js and timed out gp_wasm.js after about 21 seconds, despite the four-worker asset audit passing. Connection-capacity correction is being built."
+  ]
+}
