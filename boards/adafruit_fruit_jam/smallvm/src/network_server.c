@@ -26,13 +26,22 @@ static volatile unsigned network_tick,network_stage;
 static int64_t listener_checked;
 static int listener_state;
 static bool power_save_disabled;
+/* Counts and sizes only: never retain HTTP contents or credentials. */
+static unsigned idle_timeouts,request_timeouts,send_timeouts,ws_timeouts;
+static unsigned timeout_state,timeout_bytes;
+static int timeout_status(char *dst,unsigned size)
+{
+    return snprintf(dst,size,"{\"idle\":%u,\"request\":%u,\"send\":%u,\"ws\":%u,\"state\":%u,\"bytes\":%u}",
+      idle_timeouts,request_timeouts,send_timeouts,ws_timeouts,timeout_state,timeout_bytes);
+}
 /* No output is printed to USB. Inspect these non-secret values via status. */
 volatile unsigned fruit_jam_network_started;
 int fj_network_status(char *dst,unsigned size)
 {
-    char socket[256];if(fj_socket_status(socket,sizeof(socket)))strcpy(socket,"{}");
+    char socket[256],timeouts[160];if(fj_socket_status(socket,sizeof(socket)))strcpy(socket,"{}");
+    timeout_status(timeouts,sizeof(timeouts));
     unsigned active=0;for(unsigned i=0;i<5;++i)if(clients[i].state)++active;
-    int n=snprintf(dst,size,"{\"tick\":%u,\"stage\":%u,\"listener\":%d,\"listener_state\":%d,\"power_save_disabled\":%s,\"active\":%u,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"last_error\":%d,\"socket\":%s}",network_tick,network_stage,listener,listener_state,power_save_disabled?"true":"false",active,accepted_clients,completed,aborted,sessions,last_error,socket);
+    int n=snprintf(dst,size,"{\"tick\":%u,\"stage\":%u,\"listener\":%d,\"listener_state\":%d,\"power_save_disabled\":%s,\"active\":%u,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"last_error\":%d,\"timeouts\":%s,\"socket\":%s}",network_tick,network_stage,listener,listener_state,power_save_disabled?"true":"false",active,accepted_clients,completed,aborted,sessions,last_error,timeouts,socket);
     return n<0||(unsigned)n>=size?-ENOSPC:0;
 }
 
@@ -59,10 +68,11 @@ static void response(struct client *c,unsigned code,const char *type,const uint8
 static void status_response(struct client *c)
 {
     char status[512];if(fj_airlift_status(status,sizeof(status)))strcpy(status,"{}");
+    char timeouts[160];timeout_status(timeouts,sizeof(timeouts));
     int n=snprintf(c->dynamic,sizeof(c->dynamic),
        "{\"board\":\"Adafruit Fruit Jam\",\"vm\":417,\"ide\":\"2.5.8\",\"saved_generation\":%u,"
-       "\"network\":{\"listener\":%d,\"port\":80,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"ws_errors\":%u,\"last_error\":%d,\"chunk_bytes\":2048},\"airlift\":%s}",
-       mb_store_generation(),listener,accepted_clients,completed,aborted,sessions,ws_errors,last_error,status);
+       "\"network\":{\"listener\":%d,\"port\":80,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"ws_errors\":%u,\"last_error\":%d,\"chunk_bytes\":2048,\"timeouts\":%s},\"airlift\":%s}",
+       mb_store_generation(),listener,accepted_clients,completed,aborted,sessions,ws_errors,last_error,timeouts,status);
     if(n<0||(size_t)n>=sizeof(c->dynamic)){close_client(c,false);return;}
     response(c,200,"application/json",(const uint8_t *)c->dynamic,n,false);
 }
@@ -143,8 +153,14 @@ static bool websocket_step(struct client *c)
 }
 static void client_step(struct client *c)
 {
-    if(k_uptime_get()>c->deadline){last_error=-ETIMEDOUT;close_client(c,false);return;}
-    if(c->state==WS_STREAM&&c->input_size&&k_uptime_get()-c->input_started>5000){last_error=-ETIMEDOUT;close_client(c,false);return;}
+    if(k_uptime_get()>c->deadline||
+       (c->state==WS_STREAM&&c->input_size&&k_uptime_get()-c->input_started>5000)){
+        timeout_state=c->state;timeout_bytes=c->input_size;
+        if(c->state==REQUEST){if(c->input_size)++request_timeouts;else ++idle_timeouts;}
+        else if(c->state==HTTP_SEND)++send_timeouts;
+        else ++ws_timeouts;
+        last_error=-ETIMEDOUT;close_client(c,false);return;
+    }
     if(c->state==HTTP_SEND||c->state==WS_UPGRADE){
         if(c->state==WS_UPGRADE&&!fj_ws_connected())return;
         int n=write_partial(c,(const uint8_t *)c->header,&c->header_pos,c->header_size);
@@ -209,7 +225,7 @@ static void network_worker(void *a,void *b,void *d)
             int state=fj_socket_server_state(0);listener_state=state;
             if(state==0){
                 for(unsigned i=0;i<5;++i)if(clients[i].state)close_client(clients+i,false);
-                listener=-1;continue;
+                listener=-1;power_save_disabled=false;continue;
             }
             if(state<0)last_error=state;
         }

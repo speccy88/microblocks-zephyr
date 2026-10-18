@@ -6,8 +6,8 @@
   "inline_scripts": 2,
   "error_stops_queue": true,
   "foreign_startup_rejected": true,
-  "html_sha256": "9fa18a41d5e918fd782b407a3429af2e777b2d6a784f4004a409d64fe6aec4cf",
-  "bootstrap_sha256": "7b2bd746a016aef6231beb7f81ed7b259360cc98bee5f47a887e5c6f2622b1bd",
+  "html_sha256": "18258c0a19d00a2e241f19799699867b8910251f047454f4343bf8f29f28b9b6",
+  "bootstrap_sha256": "2786397629ee99637d0b397ed91e75e113942b85890fcfebe744473a2322ac34",
   "fixture_sha256": "f0fb46c52b3e753c3c64b3b01fcfb4f458c420b06cac12b9579633dfd1f5a849",
-  "source_sha256": "af06e4993c10e68f240024973987a9ca8e7cd23b18a38cd9fbbe3914c52c7cfd"
+  "source_sha256": "1082d46facbb7285a949bf1d2d693446404d899abb1b89a2b0f471b4b86091df"
 }

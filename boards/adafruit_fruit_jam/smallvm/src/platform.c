@@ -159,7 +159,7 @@ static OBJ network_info(int argc,OBJ *args)
 {
     (void)args;if(argc)return fail(notEnoughArguments);
 #ifdef __ZEPHYR__
-    char text[512];if(fj_network_status(text,sizeof(text)))return fail(primitiveNotImplemented);
+    char text[768];if(fj_network_status(text,sizeof(text)))return fail(primitiveNotImplemented);
     return newStringFromBytes(text,strlen(text));
 #else
     return fail(primitiveNotImplemented);

@@ -79,6 +79,31 @@ def native_bootstrap(html):
     text=re.sub(r'<script\b([^>]*)>(.*?)</script>',script,text,flags=re.S)
     assert len(blocking)==10 and len(deferred)==6
     assert deferred[-1]['src'].startswith('gp_wasm.js?')
+    # The native host can run in embedded browsers where the upstream detached
+    # synthetic download is ignored. Keep a real, visible link to the exact GP
+    # serialization as a fallback, solely in this document's memory.
+    project_download=r"""
+(() => {
+ if(typeof GP_writeFile!=='function')return;
+ const original=GP_writeFile;let previousURL;
+ GP_writeFile=async function(data,name,id){
+  if(id==='project'&&name.endsWith('.ubp')){
+   if(previousURL)URL.revokeObjectURL(previousURL);
+   previousURL=URL.createObjectURL(new Blob([data],{type:'text/plain;charset=utf-8'}));
+   let link=document.getElementById('fruit-jam-project-download');
+   if(!link){
+    link=document.createElement('a');link.id='fruit-jam-project-download';
+    link.style.cssText='position:fixed;bottom:36px;right:20px;z-index:10000;padding:10px;background:#fff;color:#222;border:1px solid #777;border-radius:6px';
+    document.body.appendChild(link);
+   }
+   link.href=previousURL;link.download=name;link.textContent='Download saved project: '+name;
+  }
+  return original.call(this,data,name,id);
+ };
+})();
+"""
+    entry=next(item for item in blocking if 'Module.locateFile' in item.get('inline',''))
+    entry['inline']+=project_download
     text=re.sub(r'(<link\b[^>]*rel="stylesheet"[^>]*?)\bhref=',r'\1data-fj-href=',text)
     text=re.sub(r'(<img\b[^>]*?)\bsrc=',r'\1data-fj-src=',text)
     config=json.dumps(blocking+deferred,separators=(',',':')).replace('<','\\u003c')

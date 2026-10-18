@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "checked_utc": "2026-10-18T22:00:42.782010+00:00",
+  "scope": "Real browser arithmetic12, edited7to8 and arithmetic13, then GUI disconnect and independent USB confirmation",
+  "source_commit": "798bf16bdfea6eb434dbd8283cd1f55ba5cb6114",
+  "firmware_elf_sha256": "fb2cd2fb6dcdc4a085072de1e0273db4997339ef3686977e4ebc19ac8ab0b411",
+  "graphical_results": [
+    12,
+    13
+  ],
+  "edited_code_crc32": {
+    "0": "806c9e21"
+  },
+  "independent_usb_value": 13,
+  "private_edited_backup_sha256": "92758baaf9618119a9db45b4d00d20873bab7b0a5ed51b5a51c97623df2418f1",
+  "saved_generation": 50,
+  "file_export_status": "Save GUI invoked; file delivery not yet confirmed in IAB",
+  "credentials_read": false,
+  "physical_observation_requested": false
+}

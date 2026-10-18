@@ -4,7 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "nina_socket_protocol.h"
-/* Explicit asynchronous diagnostics only; no boot-time coprocessor access. */
+/* Boot probes retained identity/status/IP; join/reset require explicit requests. */
 int fj_airlift_request(bool reset_first);
 int fj_airlift_status(char *dst, unsigned size);
 int fj_airlift_join(const uint8_t *ssid, size_t ssid_length,

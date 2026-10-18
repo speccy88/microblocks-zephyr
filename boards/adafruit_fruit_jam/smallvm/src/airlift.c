@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT
  * Bounded AirLift identification and explicitly submitted WPA/DHCP setup.
- * No boot-time access, scanning, credential logging, UART or firmware upload.
+ * Boot probes only retained identity/status/IP. No automatic join, scanning,
+ * credential logging, UART or firmware upload.
  * Framing reference and notices: nina_protocol.c and LICENSES.md. */
 #include "airlift.h"
 #include "fruit_jam.h"
@@ -199,8 +200,20 @@ static void publish_progress(int stage,int connection,unsigned queries)
 static void diagnostic_worker(void *a,void *b,void *c)
 {
     (void)a;(void)b;(void)c;
+    bool boot_probe=true;unsigned boot_generation=0;
     for(;;){
-        k_sem_take(&request_sem,K_FOREVER);
+        int request=k_sem_take(&request_sem,boot_probe?K_MSEC(boot_generation?2000:1250):K_FOREVER);
+        if(request){
+            k_mutex_lock(&state_lock,K_FOREVER);
+            /* An explicit request wins, including one queued at this deadline.
+             * Never replay a join or toggle the shared Wi-Fi/audio reset. */
+            if(report.generation!=boot_generation||report.state==1||report.state==2){
+                boot_probe=false;k_mutex_unlock(&state_lock);continue;
+            }
+            ++report.generation;report.state=1;report.error=0;report.stage=0;
+            report.operation=0;report.reset_requested=false;
+            k_mutex_unlock(&state_lock);
+        }else boot_probe=false;
         uint8_t ssid[32]={0},key[64]={0};size_t sn=0,kn=0;
         k_mutex_lock(&state_lock,K_FOREVER);
         bool reset_first=report.reset_requested,join=report.operation==1;
@@ -287,7 +300,10 @@ static void diagnostic_worker(void *a,void *b,void *c)
         report.disconnect_reason=reason;report.reason_error=reason_error;
         memcpy(report.version,version,sizeof(version));memcpy(report.mac,mac,sizeof(mac));
         memcpy(report.ip,ip,4);memcpy(report.netmask,netmask,4);memcpy(report.gateway,gateway,4);
-        report.state=err?4:3;k_mutex_unlock(&state_lock);
+        report.state=err?4:3;
+        boot_generation=report.generation;
+        boot_probe=boot_probe&&err&&boot_generation==1;
+        k_mutex_unlock(&state_lock);
     }
 }
 K_THREAD_DEFINE(airlift_diagnostic_thread,3072,diagnostic_worker,NULL,NULL,NULL,7,0,0);

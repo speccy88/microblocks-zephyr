@@ -67,6 +67,29 @@ remain separate measured results.
 
 ## Remaining boundaries
 
+### Next acceptance increment: retained association and project export
+
+Before implementation, the intended behavior is a delayed, read-only NINA
+identity/status/IP probe at RP2350 boot. It must not reset the C6, submit a
+join, retrieve an SSID/key or access the Windows vault. One bounded retry is
+permitted after a failed probe; an explicit user operation supersedes the
+automatic probe. A retained association may then resume the HTTP listener.
+Cold C6 power loss still requires the local secure Connect handoff.
+
+Timeout diagnostics will distinguish empty TCP preconnections, partial HTTP
+requests, HTTP sends and WebSockets using bounded counters and byte counts,
+without recording request contents. Acceptance uses one deliberately idle
+connection followed by a real browser load.
+
+Native editor project Save will additionally expose the actual serialized
+project as a visible download link, retained only in the page's memory. This
+provides an explicit fallback when the upstream synthetic download does not
+deliver a file in an embedded browser. The upstream Save implementation and
+USB-hosted editor stay unchanged. Acceptance requires downloading the real
+edited .ubp, fresh board readback after an RP-only reboot, and restoration of
+the privately backed-up original VM store. No visual/audio observation or
+credential persistence is part of this increment.
+
 These results cover the current powered association. No RP2350 credential
 storage or automatic boot-time NINA setup is implemented. An RP-only restart
 requires explicit live identification/setup initialization; full C6 power loss
