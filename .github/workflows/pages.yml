@@ -1,0 +1,52 @@
+name: Browser portal
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the audited portal after repository publication is approved
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portal-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate repository
+        run: python tools/validate.py
+      - name: Build pinned real GP editor and static portal
+        run: python tools/package_pages.py --fetch --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages
+      - name: Test browser transport contracts
+        run: node --test tests/portal-core.test.cjs
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build-artifacts/pages
+  deploy:
+    # A private build must never silently expose a site. Public exposure remains
+    # gated on the separate reachable-history audit and explicit dispatch.
+    if: github.event_name == 'workflow_dispatch' && inputs.publish && !github.event.repository.private
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy audited portal
+        id: deployment
+        uses: actions/deploy-pages@v4

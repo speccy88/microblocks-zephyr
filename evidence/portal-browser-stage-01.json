@@ -1,0 +1,40 @@
+{
+  "stage": "private-preview",
+  "result": "PARTIAL",
+  "real_gp_editor": "2.5.8",
+  "boards_packaged": ["fruit-jam", "waveshare"],
+  "upstream_files_verified_per_board": 147,
+  "browser_checks": {
+    "landing_page_and_embedded_fruit_jam_gp_ready": "PASS",
+    "fruit_jam_library_visible": "PASS",
+    "real_gp_arithmetic_example_loaded": "PASS, 5 + 7 visible; no hardware execution claimed",
+    "actual_gp_serialization_to_indexeddb_autosave": "PASS, browser UI reports completed save",
+    "fresh_editor_preserves_existing_autosave_before_restore": "PASS",
+    "explicit_restore_after_fresh_load": "PASS, actual 5 + 7 script restored visibly from browser storage",
+    "web_serial_api_feature_detection": "Available in the selected browser; no device chooser or port opened",
+    "named_save_export_import": "PENDING",
+    "waveshare_graphical_editor": "PENDING"
+  },
+  "test_boundaries": {
+    "transport_tests": "JavaScript fixtures only; not physical USB proof",
+    "new_portal_physical_board_tests": "NOT RUN",
+    "new_firmware_build_or_flash": "NOT RUN",
+    "credential_submission": "NOT RUN",
+    "credential_persistence": "NOT IMPLEMENTED for the common new setup protocol",
+    "secure_wifi_websocket_from_pages": "NOT VERIFIED; current board ws:// endpoint cannot be used from HTTPS Pages",
+    "existing_board_hosted_services": "Native source and installed images unchanged during this stage"
+  },
+  "publication": {
+    "repository_visibility": "private",
+    "pages_deployment": "NOT RUN",
+    "gate": "Explicit history-anonymization decision pending because reachable diagnostic history contains personal paths and owned-device identifiers",
+    "complete_private_history_backup_verified": true,
+    "history_rewrite": false,
+    "force_push": false,
+    "refs_deleted": false
+  },
+  "website_reuse": "Independent layout/CSS/block illustration; no marketing-site code, artwork or fonts copied",
+  "gitlab_access": "Actual anonymous Git clone requested authentication; web request redirected to sign-in; no bypass",
+  "hardware_outputs_or_observations": false,
+  "secrets_read_or_stored": false
+}
