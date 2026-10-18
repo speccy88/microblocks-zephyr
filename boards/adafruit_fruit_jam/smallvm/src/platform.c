@@ -7,6 +7,7 @@
 #include "airlift.h"
 #include "wifi_control.h"
 #include "network_transport.h"
+#include "network_server.h"
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -154,12 +155,22 @@ static OBJ airlift_info(int argc, OBJ *args) {
     if (fj_airlift_status(text, sizeof(text))) return fail(primitiveNotImplemented);
     return newStringFromBytes(text, strlen(text));
 }
+static OBJ network_info(int argc,OBJ *args)
+{
+    (void)args;if(argc)return fail(notEnoughArguments);
+#ifdef __ZEPHYR__
+    char text[512];if(fj_network_status(text,sizeof(text)))return fail(primitiveNotImplemented);
+    return newStringFromBytes(text,strlen(text));
+#else
+    return fail(primitiveNotImplemented);
+#endif
+}
 static PrimEntry fruit_jam_entries[] = {
     {"buttonPressed", button_pressed}, {"ioCapabilities", io_info},
     {"temperatureMilliC", temperature_read}, {"humidityMilliPct", humidity_read},
     {"sht4xStatus", sht4x_info}, {"pixel", pixel_set}, {"pixelsOff", pixels_off},
     {"airliftIdentify", airlift_identify}, {"airliftResetAndIdentify", airlift_reset_identify},
-    {"airliftStatus", airlift_info}
+    {"airliftStatus", airlift_info}, {"networkStatus", network_info}
 };
 void addIOPrims(void) {
     addPrimitiveSet(IOPrims, "fruitJam", sizeof(fruit_jam_entries) / sizeof(fruit_jam_entries[0]), fruit_jam_entries);

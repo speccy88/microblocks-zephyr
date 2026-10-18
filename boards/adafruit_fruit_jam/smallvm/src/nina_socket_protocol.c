@@ -22,7 +22,9 @@ int fj_nina_socket_frame(uint8_t cmd,const struct fj_nina_parameter *p,
         total+=(wide?2:1)+p[i].size;
     }
     if(cmd==0x28&&(p[0].size!=2||p[1].size!=1||p[2].size!=1||p[2].data[0]!=0))return -EINVAL;
+    if(cmd==0x28&&p[1].data[0]>=6)return -EINVAL;
     if(n&&cmd!=0x28&&p[0].size!=1)return -EINVAL;
+    if(n&&cmd!=0x28&&p[0].data[0]>=6)return -EINVAL;
     if(cmd==0x45&&p[1].size!=2)return -EINVAL;
     if(cmd==0x2b&&n==2&&(p[1].size!=1||p[1].data[0]!=1))return -EINVAL;
     total=(total+3)&~(size_t)3;

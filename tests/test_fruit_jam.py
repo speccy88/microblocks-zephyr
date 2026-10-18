@@ -74,7 +74,7 @@ class FruitJamInventoryTests(unittest.TestCase):
         self.assertNotIn('printk(',text)
         self.assertNotIn('Serial.begin',text)
         self.assertIn('smallvmResetTransport();',text)
-        self.assertIn('if (!connected ||',text)
+        self.assertRegex(text,r'if\s*\(!connected\)\s*return 0;')
 
     def test_pwm_channels_do_not_alias_other_extension_pins(self):
         channels=DATA['pwm_channels']

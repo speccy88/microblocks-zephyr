@@ -22,8 +22,18 @@ static struct client clients[5];
 static char board_ip[24];
 static int listener=-1,last_error;
 static unsigned completed,aborted,sessions,ws_errors,accepted_clients;
+static volatile unsigned network_tick,network_stage;
+static int64_t listener_checked;
+static int listener_state;
 /* No output is printed to USB. Inspect these non-secret values via status. */
 volatile unsigned fruit_jam_network_started;
+int fj_network_status(char *dst,unsigned size)
+{
+    char socket[160];if(fj_socket_status(socket,sizeof(socket)))strcpy(socket,"{}");
+    unsigned active=0;for(unsigned i=0;i<5;++i)if(clients[i].state)++active;
+    int n=snprintf(dst,size,"{\"tick\":%u,\"stage\":%u,\"listener\":%d,\"listener_state\":%d,\"active\":%u,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"last_error\":%d,\"socket\":%s}",network_tick,network_stage,listener,listener_state,active,accepted_clients,completed,aborted,sessions,last_error,socket);
+    return n<0||(unsigned)n>=size?-ENOSPC:0;
+}
 
 static void close_client(struct client *c,bool success)
 {
@@ -167,12 +177,13 @@ static void network_worker(void *a,void *b,void *d)
 {
     (void)a;(void)b;(void)d;
     for(;;){
+        ++network_tick;network_stage=1;
         if(!fj_airlift_network_ready(board_ip,sizeof(board_ip))){k_sleep(K_MSEC(25));continue;}
         if(listener<0){
             /* Official 3.3.0 config has six slots. Slot zero is reserved for
              * this server; it can survive an RP2350-only reset. Release our
              * five transient client slots before resuming the same listener. */
-            int existing=fj_socket_server_state(0);
+            network_stage=2;int existing=fj_socket_server_state(0);listener_state=existing;
             if(existing<0){last_error=existing;k_sleep(K_MSEC(500));continue;}
             for(unsigned i=1;i<6;++i)fj_socket_close(i);
             if(existing==1)listener=0;
@@ -186,17 +197,27 @@ static void network_worker(void *a,void *b,void *d)
             if(listener<0){last_error=listener;k_sleep(K_MSEC(500));continue;}
             fruit_jam_network_started=1;
         }
+        if(k_uptime_get()-listener_checked>2000){
+            listener_checked=k_uptime_get();network_stage=3;
+            int state=fj_socket_server_state(0);listener_state=state;
+            if(state==0){
+                for(unsigned i=0;i<5;++i)if(clients[i].state)close_client(clients+i,false);
+                listener=-1;continue;
+            }
+            if(state<0)last_error=state;
+        }
         struct client *free_client=NULL;for(unsigned i=0;i<5;++i)if(!clients[i].state){free_client=clients+i;break;}
         if(free_client){
-            int socket=fj_socket_accept(listener);
+            network_stage=4;int socket=fj_socket_accept(listener);
             if(socket>=0){
                 bool duplicate=socket==listener;for(unsigned i=0;i<5;++i)if(clients[i].state&&clients[i].socket==socket)duplicate=true;
                 if(duplicate){last_error=-EPROTO;k_sleep(K_MSEC(100));}
                 else{*free_client=(struct client){.state=REQUEST,.socket=socket,.deadline=k_uptime_get()+5000};++accepted_clients;}
             }else if(socket!=-EAGAIN)last_error=socket;
         }
+        network_stage=5;
         for(unsigned i=0;i<5;++i)if(clients[i].state)client_step(clients+i);
-        k_sleep(K_MSEC(1));
+        network_stage=6;k_sleep(K_MSEC(10));
     }
 }
 K_THREAD_DEFINE(fruit_jam_network_thread,8192,network_worker,NULL,NULL,NULL,7,0,0);

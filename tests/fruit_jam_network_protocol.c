@@ -42,6 +42,8 @@ int main(void)
     CHECK(fj_nina_socket_frame(0x44,wp,2,frame,2059)==-ENOSPC);
     wp[1].size=2049;CHECK(fj_nina_socket_frame(0x44,wp,2,frame,2060)<0);
     CHECK(fj_nina_socket_frame(0x50,p,3,frame,2060)==-ENOTSUP);
+    socket=6;CHECK(fj_nina_socket_frame(0x45,rp,2,frame,2060)==-EINVAL);
+    CHECK(fj_nina_socket_frame(0x28,p,3,frame,2060)==-EINVAL);socket=3;
     const uint8_t reply[]={0xe0,0xc4,1,2,0,8,0xee};uint8_t dst[2048];size_t length;
     for(size_t n=0;n<sizeof(reply);++n){struct stream s={reply,n,0};struct fj_nina_reader io={.byte=byte,.context=&s};CHECK(fj_nina_socket_reply(&io,0x44,dst,sizeof(dst),&length)<0&&length==0);}
     struct stream s={reply,sizeof(reply),0};struct fj_nina_reader io={.byte=byte,.bytes=bytes,.context=&s};
