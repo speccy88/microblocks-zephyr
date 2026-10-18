@@ -8,3 +8,11 @@
 #define FRUIT_JAM_WIRE_SDA_GPIO 20
 #define FRUIT_JAM_WIRE_SCL_GPIO 21
 #define FRUIT_JAM_EXTENSION_COUNT 9
+#ifdef __cplusplus
+extern "C" {
+#endif
+void fruit_jam_adc_mux(unsigned gpio);
+void fruit_jam_pwm_mux(unsigned gpio);
+#ifdef __cplusplus
+}
+#endif

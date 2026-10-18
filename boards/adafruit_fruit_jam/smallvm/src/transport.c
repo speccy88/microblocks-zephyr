@@ -19,7 +19,7 @@ static void usb_irq(const struct device *dev, void *unused)
     uint8_t bytes[64];
     uint32_t dtr = 0;
     uart_line_ctrl_get(dev, UART_LINE_CTRL_DTR, &dtr);
-    if (!uart_irq_update(dev)) return;
+    uart_irq_update(dev);
     while (uart_irq_rx_ready(dev)) {
         int n = uart_fifo_read(dev, bytes, sizeof(bytes));
         if (n <= 0) break;

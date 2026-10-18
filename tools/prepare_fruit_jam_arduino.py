@@ -48,15 +48,6 @@ def prepare(source, output):
                     str(output)], check=True)
     path = output/'cores/arduino/zephyrCommon.cpp'
     text = path.read_text(encoding='utf-8')
-    anchor = '#include "wiring_private.h"'
-    if text.count(anchor) != 1:
-        raise ValueError('Unexpected core include anchor')
-    text = text.replace(anchor, anchor + '''
-#if defined(CONFIG_BOARD_ADAFRUIT_FRUIT_JAM)
-#include <hardware/gpio.h>
-#include <hardware/adc.h>
-#endif
-''')
     anchor = '\t\t\tdev->ops.init(dev);'
     if text.count(anchor) != 1:
         raise ValueError('Unexpected core pinmux anchor')
@@ -65,8 +56,8 @@ def prepare(source, output):
             // only this pin; preserve other PWM channels and ADC IRQ state.
             unsigned gpio = arduino_pins[pin].pin;
             if (arduino_pins[pin].port == DEVICE_DT_GET(DT_NODELABEL(gpio0_hi))) gpio += 32;
-            if (dev == DEVICE_DT_GET(DT_NODELABEL(adc))) adc_gpio_init(gpio);
-            else if (dev == DEVICE_DT_GET(DT_NODELABEL(pwm))) gpio_set_function(gpio, GPIO_FUNC_PWM);
+            if (dev == DEVICE_DT_GET(DT_NODELABEL(adc))) fruit_jam_adc_mux(gpio);
+            else if (dev == DEVICE_DT_GET(DT_NODELABEL(pwm))) fruit_jam_pwm_mux(gpio);
 #else
             dev->ops.init(dev);
 #endif''')
@@ -77,9 +68,16 @@ def prepare(source, output):
         raise ValueError('Pinned upstream unexpectedly already contains a Fruit Jam variant')
     target.parent.mkdir(parents=True)
     shutil.copyfile(variant, target)
+    bridge = variant.with_name('pinmux.c')
+    shutil.copyfile(bridge, target.with_name('pinmux.c'))
+    cmake = output/'CMakeLists.txt'
+    with cmake.open('a', encoding='utf-8', newline='\n') as stream:
+        stream.write('\nif(CONFIG_ARDUINO_API AND CONFIG_BOARD_ADAFRUIT_FRUIT_JAM)\n'
+            '  zephyr_sources(variants/adafruit_fruit_jam/pinmux.c)\nendif()\n')
     report = dict(repository='https://github.com/zephyrproject-rtos/arduino-core-zephyr',
         revision=REVISION, board='adafruit_fruit_jam',
         variant_sha256=hashlib.sha256(variant.read_bytes()).hexdigest(),
+        pinmux_bridge_sha256=hashlib.sha256(bridge.read_bytes()).hexdigest(),
         core_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
         changes=['Existing reviewed Wire fixes', 'Safe extension-only variant',
                  'RP2350 per-pin ADC/PWM mux, without device reinitialization'],

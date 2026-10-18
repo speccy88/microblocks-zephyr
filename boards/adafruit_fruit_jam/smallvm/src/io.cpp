@@ -6,7 +6,6 @@
 #include <Wire.h>
 #include <zephyr/drivers/i2c.h>
 #include <zephyr/drivers/pwm.h>
-#include <hardware/gpio.h>
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
@@ -137,7 +136,7 @@ extern "C" int fj_io_pwm_write(unsigned pin, unsigned value)
     if (!device_is_ready(pwm)) return last_error = -ENODEV;
     pinMode(pin, INPUT);
     int err = pwm_set(pwm, pwm_channels[pin], 1000000, (uint64_t)value * 1000000 / 1023, 0);
-    if (!err) { gpio_set_function(physical_pins[pin], GPIO_FUNC_PWM); pwm_active[pin] = true; }
+    if (!err) { fruit_jam_pwm_mux(physical_pins[pin]); pwm_active[pin] = true; }
     return last_error = err;
 }
 
