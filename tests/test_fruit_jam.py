@@ -50,7 +50,7 @@ class FruitJamInventoryTests(unittest.TestCase):
         self.assertLess(store['payload_offset']+store['ram_code_bytes'],store['slot_size'])
         dts=next((ROOT/'boards/adafruit_fruit_jam/zephyr/boards/adafruit/adafruit_fruit_jam').glob('*.dts')).read_text()
         self.assertIn('reg = <0xfc0000 0x40000>',dts)
-        self.assertIn('reg = <0x100 (DT_SIZE_M(4) - 0x100)>',dts)
+        self.assertIn('reg = <0x0 DT_SIZE_M(4)>',dts)
         self.assertNotIn('zephyr,console',dts)
 
     def test_binary_transport_has_no_console_owner(self):

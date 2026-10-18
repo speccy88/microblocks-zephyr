@@ -26,16 +26,12 @@
 		ranges;
 		#address-cells = <1>;
 		#size-cells = <1>;
-		image_def: partition@0 {
-			compatible = "zephyr,mapped-partition";
-			label = "image_def";
-			reg = <0x0 0x100>;
-			read-only;
-		};
-		code_partition: partition@100 {
+		/* The SoC linker embeds IMAGE_DEF in the initial app region. Starting
+		 * at native flash base also gives ELF/UF2 readers a contiguous image. */
+		code_partition: partition@0 {
 			compatible = "zephyr,mapped-partition";
 			label = "code-partition";
-			reg = <0x100 (DT_SIZE_M(4) - 0x100)>;
+			reg = <0x0 DT_SIZE_M(4)>;
 			read-only;
 		};
 		/* Final 256 KiB: two snapshots, absent from the firmware ELF. */
