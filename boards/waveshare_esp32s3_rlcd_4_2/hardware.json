@@ -171,7 +171,13 @@
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-used-by-shtc3",
-      "smallvm": "native-register-physical-chip-ID-and-graphical-read-pass-writes-mocked-only"
+      "smallvm": "native-and-bulk-List-ByteArray-physical-ID-reads-known-address-presence-and-controller-cancel-pass",
+      "acceptance_limits": [
+        "Read/write transactions bounded to 32 bytes; failed read follows v417 count/255-fill contract",
+        "stop=false stages one write for the next matching atomic read; no arbitrary multi-write no-STOP chain",
+        "Only known codec ID reads and presence checked physically; arbitrary data writes and absent-device NACK mocked",
+        "No blind bus scan; external device/library validation pending"
+      ]
     },
     {
       "id": "spi",

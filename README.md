@@ -39,7 +39,9 @@ CS. The [current checkpoint](evidence/2026-10-18/generic-io-checkpoint.json)
 records real graphical I2C readback, 50 ordered outputs, asset/reconnect/reset
 checks and preserved original CRCs. External SPI/PWM waveforms and ADC accuracy
 remain unverified; writes and transfers have software-driver simulations.
-The advanced Comm category's I2C bulk/list/exists helpers remain unsupported.
+The advanced Comm category also supports I2C List/ByteArray read, bounded write
+and single-address presence helpers. The usual `write(..., false)` then read
+pattern uses one atomic transaction; see [its exact bounds](docs/GENERIC_IO.md).
 
 ## Supported and planned boards
 

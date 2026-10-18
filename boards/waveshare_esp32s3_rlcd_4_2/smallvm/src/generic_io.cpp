@@ -8,6 +8,7 @@
 #include <zephyr/drivers/pinctrl.h>
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 
 static const device *const bus=DEVICE_DT_GET(DT_NODELABEL(i2c0));
 static const device *const spi=DEVICE_DT_GET(DT_NODELABEL(spi3));
@@ -19,6 +20,9 @@ static bool spi_initialized, pwm_initialized, pwm_active;
 static unsigned spi_hz=1000000, spi_mode;
 static bool spi_lsb;
 static int last_error;
+static uint8_t pending_i2c_data[32];
+static size_t pending_i2c_count;
+static unsigned pending_i2c_address;
 /* Zephyr caches configuration by pointer identity. Alternate stable objects so
  * setup changes and retries are reapplied, without leaving a stack pointer. */
 static spi_config spi_configs[2];
@@ -36,6 +40,7 @@ static int initialize(const device *dev, bool *initialized)
 
 extern "C" int rlcd_io_i2c_get(unsigned address, unsigned reg, uint8_t *value)
 {
+    rlcd_io_i2c_cancel();
     if (address>127 || reg>255 || !value) return -EINVAL;
     if (!device_is_ready(bus)) return last_error=-ENODEV;
     return last_error=i2c_reg_read_byte(bus,address,reg,value);
@@ -43,9 +48,52 @@ extern "C" int rlcd_io_i2c_get(unsigned address, unsigned reg, uint8_t *value)
 
 extern "C" int rlcd_io_i2c_set(unsigned address, unsigned reg, uint8_t value)
 {
+    rlcd_io_i2c_cancel();
     if (address>127 || reg>255) return -EINVAL;
     if (!device_is_ready(bus)) return last_error=-ENODEV;
     return last_error=i2c_reg_write_byte(bus,address,reg,value);
+}
+
+extern "C" void rlcd_io_i2c_cancel(void) { pending_i2c_count=0; }
+
+extern "C" int rlcd_io_i2c_read(unsigned address, uint8_t *data, size_t count)
+{
+    if (address>127 || count>32 || (!data && count)) return last_error=-EINVAL;
+    if (!count) return 0;
+    size_t pending=pending_i2c_count;
+    rlcd_io_i2c_cancel();
+    if (!device_is_ready(bus)) return last_error=-ENODEV;
+    if (pending) {
+        if (address!=pending_i2c_address) return last_error=-EINVAL;
+        return last_error=i2c_write_read(bus,address,pending_i2c_data,pending,data,count);
+    }
+    return last_error=i2c_read(bus,data,count,address);
+}
+
+extern "C" int rlcd_io_i2c_write(unsigned address, const uint8_t *data, size_t count, bool stop)
+{
+    if (address>127 || count>32 || (!data && count)) return last_error=-EINVAL;
+    if (!count) return 0;
+    if (pending_i2c_count) {
+        rlcd_io_i2c_cancel();
+        return last_error=-EBUSY;
+    }
+    if (!device_is_ready(bus)) return last_error=-ENODEV;
+    if (!stop) {
+        memcpy(pending_i2c_data,data,count);
+        pending_i2c_address=address;pending_i2c_count=count;
+        return last_error=0;
+    }
+    return last_error=i2c_write(bus,data,count,address);
+}
+
+extern "C" int rlcd_io_i2c_exists(unsigned address)
+{
+    rlcd_io_i2c_cancel();
+    if (address>127) return last_error=-EINVAL;
+    if (!device_is_ready(bus)) return last_error=-ENODEV;
+    uint8_t unused=0;
+    return last_error=i2c_write(bus,&unused,0,address);
 }
 
 extern "C" int rlcd_io_spi_setup(unsigned hz, unsigned mode, bool lsb)
@@ -121,7 +169,7 @@ extern "C" int rlcd_io_pwm_write(unsigned pin, unsigned value)
 
 extern "C" int rlcd_io_info(char *dst, unsigned size)
 {
-    snprintf(dst,size,"{\"digital_gpio\":[1,2,17],\"analog_gpio\":[1,2],\"analog_max\":1023,\"pwm_pin\":2,\"pwm_hz\":1000,\"dac\":false,\"i2c_gpio\":[13,14],\"spi_gpio\":[1,2,17],\"spi_cs\":null,\"spi_hz\":%u,\"spi_mode\":%u,\"spi_lsb\":%d,\"spi_initialized\":%d,\"pwm_initialized\":%d,\"pwm_active\":%d,\"error\":%d}",
-        spi_hz,spi_mode,spi_lsb,spi_initialized,pwm_initialized,pwm_active,last_error);
+    snprintf(dst,size,"{\"digital_gpio\":[1,2,17],\"analog_gpio\":[1,2],\"analog_max\":1023,\"pwm_pin\":2,\"pwm_hz\":1000,\"dac\":false,\"i2c_gpio\":[13,14],\"i2c_pending\":%u,\"spi_gpio\":[1,2,17],\"spi_cs\":null,\"spi_hz\":%u,\"spi_mode\":%u,\"spi_lsb\":%d,\"spi_initialized\":%d,\"pwm_initialized\":%d,\"pwm_active\":%d,\"error\":%d}",
+        (unsigned)pending_i2c_count,spi_hz,spi_mode,spi_lsb,spi_initialized,pwm_initialized,pwm_active,last_error);
     return 0;
 }

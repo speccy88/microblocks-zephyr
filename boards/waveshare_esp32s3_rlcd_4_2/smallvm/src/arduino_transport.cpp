@@ -76,6 +76,7 @@ extern "C" void primDigitalWrite(OBJ *args)
 }
 extern "C" void turnOffPins(void)
 {
+    rlcd_io_i2c_cancel();
     rlcd_io_pwm_stop();
     for (int pin = 0; pin < 3; ++pin) pinMode(pin, INPUT);
 }

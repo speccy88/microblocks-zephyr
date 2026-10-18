@@ -1,0 +1,98 @@
+{
+  "result": "PASS",
+  "recorded_utc": "2026-10-18T09:14:29.160535+00:00",
+  "firmware_sha256": "77291e3f501fdb544ebeb9a1ff1c7ad65eb00bfb48942523e8685dd880af9d38",
+  "firmware_bytes": 4251396,
+  "original_crc32_preserved": {
+    "0": "297d191b",
+    "1": "8b3406b3",
+    "2": "5e84cd6a"
+  },
+  "original_count": 50,
+  "final_capabilities": {
+    "digital_gpio": [
+      1,
+      2,
+      17
+    ],
+    "analog_gpio": [
+      1,
+      2
+    ],
+    "analog_max": 1023,
+    "pwm_pin": 2,
+    "pwm_hz": 1000,
+    "dac": false,
+    "i2c_gpio": [
+      13,
+      14
+    ],
+    "i2c_pending": 0,
+    "spi_gpio": [
+      1,
+      2,
+      17
+    ],
+    "spi_cs": null,
+    "spi_hz": 1000000,
+    "spi_mode": 0,
+    "spi_lsb": 0,
+    "spi_initialized": 0,
+    "pwm_initialized": 0,
+    "pwm_active": 0,
+    "error": 0
+  },
+  "registered_helpers": [
+    "sensors.i2cRead",
+    "sensors.i2cWrite",
+    "sensors.i2cExists"
+  ],
+  "graphical": {
+    "editor": "actual GP MicroBlocks 2.5.8 from board flash",
+    "direct_connection": true,
+    "project_readback": {
+      "chunks": 3,
+      "named_variables": 1
+    },
+    "i2c_exists_address": 24,
+    "i2c_exists_result": true,
+    "reporter_frame_body_hex": "0301",
+    "temporary_chunk_id": 3,
+    "temporary_chunk_crc32": "6d177743",
+    "temporary_chunk_removed": true,
+    "advanced_mode_restored": true,
+    "final_state": "disconnected; original project visible",
+    "runtime_count_restored_after_GP_readback_without_output_loop": true,
+    "resources": 65,
+    "non200_resources": [],
+    "javascript_errors": []
+  },
+  "regression": {
+    "ordered_outputs": 50,
+    "workload_seconds": 22.641,
+    "assets": 148,
+    "minimum_free_bytes": {
+      "libc_malloc": 11260,
+      "kernel_heap": 22168
+    },
+    "settled_free_space_loss_bytes": {
+      "libc_malloc": 0,
+      "kernel_heap": 0
+    }
+  },
+  "tests": [
+    "i2c-helpers-vm-simulation.json",
+    "i2c-helpers-physical.json",
+    "i2c-helpers-50-regression.json",
+    "i2c-helpers-direct-reboot.json"
+  ],
+  "audio_emitted": false,
+  "bus_scan": false,
+  "generic_register_data_writes": 0,
+  "limits": [
+    "I2C read/write payload bound 32 bytes; failed read retains v417 count/255-fill behavior",
+    "stop=false supports one staged write followed by matching atomic read; arbitrary multi-write chains unsupported",
+    "Arbitrary payload writes, absent-device NACK and full-length boundary tests use driver doubles",
+    "External device/library validation remains pending; audio listening remains pending"
+  ]
+}

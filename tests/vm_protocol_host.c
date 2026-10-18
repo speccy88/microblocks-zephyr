@@ -48,11 +48,20 @@ int rlcd_audio_status(char *dst,unsigned size) { snprintf(dst,size,"{}");return 
 static int io_calls, io_error, io_pin, io_mode, io_value, io_count;
 static unsigned io_hz, io_spi_mode;
 static bool io_lsb;
+static bool io_stop;
 static uint8 io_bytes[256];
 int rlcd_io_i2c_get(unsigned address,unsigned reg,uint8_t *value)
 { ++io_calls;io_pin=address;io_mode=reg;*value=0x83;return io_error; }
 int rlcd_io_i2c_set(unsigned address,unsigned reg,uint8_t value)
 { ++io_calls;io_pin=address;io_mode=reg;io_value=value;return io_error; }
+void rlcd_io_i2c_cancel(void) {}
+int rlcd_io_i2c_exists(unsigned address)
+{ ++io_calls;io_pin=address;return io_error; }
+int rlcd_io_i2c_read(unsigned address,uint8_t *data,size_t count)
+{ ++io_calls;assert(count<=32);io_pin=address;io_count=count;
+  for(size_t i=0;i<count;++i)data[i]=128+i;return io_error; }
+int rlcd_io_i2c_write(unsigned address,const uint8_t *data,size_t count,bool stop)
+{ ++io_calls;assert(count<=32);io_pin=address;io_count=count;io_stop=stop;memcpy(io_bytes,data,count);return io_error; }
 int rlcd_io_spi_setup(unsigned hz,unsigned mode,bool lsb)
 { io_hz=hz;io_spi_mode=mode;io_lsb=lsb;return 0; }
 int rlcd_io_spi_transfer(const uint8_t *txdata,uint8_t *rxdata,size_t count)
@@ -170,6 +179,55 @@ static void generic_contracts(void)
     CHECK_IO(found&&io_calls==before);fail(0);tx_count=0;
 }
 
+static unsigned i2c_bulk_checks;
+static void i2c_bulk_contracts(void)
+{
+    unsigned initial=io_checks;
+    OBJ args[3]={int2obj(24),falseObj,trueObj};
+    int before=io_calls;
+    CHECK_IO(doPrimitiveCall(SensorPrims,"i2cExists",0,args)==falseObj);
+    args[0]=trueObj;CHECK_IO(doPrimitiveCall(SensorPrims,"i2cExists",1,args)==falseObj);
+    args[0]=int2obj(128);CHECK_IO(doPrimitiveCall(SensorPrims,"i2cExists",1,args)==falseObj&&io_calls==before);
+    args[0]=int2obj(24);CHECK_IO(doPrimitiveCall(SensorPrims,"i2cExists",1,args)==trueObj&&io_pin==24);
+    io_error=-5;CHECK_IO(doPrimitiveCall(SensorPrims,"i2cExists",1,args)==falseObj);io_error=0;
+
+    OBJ list=newObj(ListType,4,zeroObj);FIELD(list,0)=int2obj(3);args[1]=list;
+    CHECK_IO(obj2int(doPrimitiveCall(SensorPrims,"i2cRead",2,args))==3&&io_count==3&&obj2int(FIELD(list,1))==128&&obj2int(FIELD(list,3))==130);
+    OBJ bytes=newObj(ByteArrayType,9,zeroObj);setByteCountAdjust(bytes,35);
+    uint8 *data=(uint8 *)&FIELD(bytes,0);memset(data,42,35);args[1]=bytes;
+    CHECK_IO(obj2int(doPrimitiveCall(SensorPrims,"i2cRead",2,args))==32&&io_count==32&&data[0]==128&&data[31]==159&&data[32]==42);
+    io_error=-5;CHECK_IO(obj2int(doPrimitiveCall(SensorPrims,"i2cRead",2,args))==32&&data[0]==255&&data[31]==255&&data[32]==42);io_error=0;
+    OBJ longlist=newObj(ListType,36,zeroObj);FIELD(longlist,0)=int2obj(35);args[1]=longlist;
+    CHECK_IO(obj2int(doPrimitiveCall(SensorPrims,"i2cRead",2,args))==32&&FIELD(longlist,33)==zeroObj);
+    OBJ empty=newObj(ByteArrayType,0,zeroObj);args[1]=empty;before=io_calls;
+    CHECK_IO(doPrimitiveCall(SensorPrims,"i2cRead",2,args)==zeroObj&&io_calls==before);
+    CHECK_IO(doPrimitiveCall(SensorPrims,"i2cWrite",2,args)==falseObj&&io_calls==before);
+    args[1]=trueObj;doPrimitiveCall(SensorPrims,"i2cRead",2,args);io_failed(36);
+    args[0]=int2obj(-1);doPrimitiveCall(SensorPrims,"i2cRead",2,args);io_failed(21);
+    args[0]=trueObj;CHECK_IO(doPrimitiveCall(SensorPrims,"i2cRead",2,args)==zeroObj);
+    args[0]=int2obj(24);CHECK_IO(doPrimitiveCall(SensorPrims,"i2cRead",1,args)==zeroObj);
+    FIELD(list,0)=int2obj(4);args[1]=list;doPrimitiveCall(SensorPrims,"i2cRead",2,args);io_failed(18);FIELD(list,0)=int2obj(3);
+    CHECK_IO(io_calls==before);
+
+    args[1]=int2obj(253);CHECK_IO(doPrimitiveCall(SensorPrims,"i2cWrite",2,args)==falseObj&&io_count==1&&io_bytes[0]==253&&io_stop);
+    args[2]=falseObj;CHECK_IO(doPrimitiveCall(SensorPrims,"i2cWrite",3,args)==falseObj&&!io_stop);
+    FIELD(list,1)=int2obj(1);FIELD(list,2)=int2obj(2);FIELD(list,3)=int2obj(255);args[1]=list;
+    CHECK_IO(doPrimitiveCall(SensorPrims,"i2cWrite",2,args)==falseObj&&io_count==3&&io_bytes[2]==255);
+    args[1]=newStringFromBytes("abc",3);CHECK_IO(doPrimitiveCall(SensorPrims,"i2cWrite",2,args)==falseObj&&io_count==3&&io_bytes[0]=='a');
+    args[1]=newObj(ByteArrayType,8,zeroObj);CHECK_IO(doPrimitiveCall(SensorPrims,"i2cWrite",2,args)==falseObj&&io_count==32);
+    before=io_calls;args[1]=bytes;doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(18);
+    args[1]=longlist;doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(18);
+    args[1]=int2obj(256);doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(23);
+    args[1]=int2obj(-1);doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(23);
+    FIELD(list,3)=trueObj;args[1]=list;doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(23);
+    FIELD(list,3)=int2obj(300);doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(23);
+    args[1]=trueObj;doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(36);
+    args[0]=int2obj(128);doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(21);
+    CHECK_IO(io_calls==before);
+    args[0]=int2obj(24);args[1]=int2obj(5);io_error=-5;doPrimitiveCall(SensorPrims,"i2cWrite",2,args);io_failed(35);io_error=0;
+    i2c_bulk_checks=io_checks-initial;
+}
+
 int main(void)
 {
     hardwareInit(); memInit(); primsInit(); restoreScripts(); pump(100); tx_count=0;
@@ -197,6 +255,7 @@ int main(void)
     OBJ button=int2obj(1); assert(doPrimitiveCall(IOPrims,"buttonPressed",1,&button)==trueObj);
     button=int2obj(2); doPrimitiveCall(IOPrims,"buttonPressed",1,&button); assert(failure()); fail(0);
     generic_contracts();
+    i2c_bulk_contracts();
     vars[0]=zeroObj; vars[1]=int2obj(49);
     const uint16 streaming[]={OP(6,1),OP(2,3),OP(8,0),OP(6,0),OP(78,1),(uint16)OP(26,-5),0};
     upload(3,streaming,7); startTaskForChunk(3);
@@ -220,6 +279,6 @@ int main(void)
         pos+=5+len;
     }
     assert(outputs==50);
-    printf("{\"result\":\"PASS\",\"architecture\":\"wasm32\",\"scope\":\"real SmallVM v417; simulated transport/peripherals\",\"reporter_runs\":10,\"arithmetic\":12,\"fragmented_message_bytes\":1019,\"partial_output_max\":7,\"ordered_stream_outputs\":50,\"generic_io_checks\":%u,\"stream_bytes\":%d,\"timeout_recovery\":true,\"invalid_length_recovery\":true,\"named_primitives\":true}\n",io_checks,tx_count);
+    printf("{\"result\":\"PASS\",\"architecture\":\"wasm32\",\"scope\":\"real SmallVM v417; simulated transport/peripherals\",\"reporter_runs\":10,\"arithmetic\":12,\"fragmented_message_bytes\":1019,\"partial_output_max\":7,\"ordered_stream_outputs\":50,\"generic_io_checks\":%u,\"i2c_bulk_checks\":%u,\"stream_bytes\":%d,\"timeout_recovery\":true,\"invalid_length_recovery\":true,\"named_primitives\":true}\n",io_checks,i2c_bulk_checks,tx_count);
     return 0;
 }

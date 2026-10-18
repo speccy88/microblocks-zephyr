@@ -389,3 +389,54 @@ list and exists helpers remain unsupported. Speaker listening is still pending.
 See `evidence/2026-10-18/generic-io-checkpoint.json` and linked reports for the
 precise measured scope. Existing audio DMA guard, Wi-Fi settings, no-code IDE,
 RTC and private recovery images are retained. No default-branch merge occurred.
+
+## 2026-10-18 I2C List/ByteArray/presence completion
+
+Inspection of pinned `sensorPrims.cpp` lines 303..413 and its primitive table
+confirms `sensors.i2cRead`, `i2cWrite` and `i2cExists` are live names used by the
+advanced Comm palette. They now use the existing I2C0 GPIO13/14 at 100 kHz.
+List/ByteArray reads cap at 32 and preserve the upstream count/255-fill behavior
+on failed reads. Writes accept integer/List/ByteArray/string, validate every byte
+before transmission, reject more than 32 bytes and report transfer errors.
+Presence performs one address-only probe; there is no automatic bus scan.
+
+To avoid holding the shared Zephyr bus between scheduled blocks, stop=false
+stages one bounded payload for the next matching atomic write/read. Invalid
+requests, conflicting writes, mismatched reads, native register/presence calls,
+Global Stop and a new WebSocket controller cancel pending data without flushing.
+Standalone deferred side effects and arbitrary multi-write no-STOP chains are
+outside this supported pattern; clock/pin reassignment was not added.
+
+The real interpreter/adapter simulation now passes 75 generic checks, including
+32 new I2C cases. Backend doubles verify exact bounds, NACK/absent devices,
+atomic write/read, deferred-state cleanup and no partial invalid writes. The
+previous SPI/PWM/ADC tests remain passing. No physical external output is inferred.
+
+The isolated build uses the same pins and pinned dependencies as the preceding
+generic I/O build, with build directory `build/i2c-helpers`. Full and final logs
+are retained. App-only COM4 write hash verified: 4,251,396 bytes, SHA-256
+`77291e3f501fdb544ebeb9a1ff1c7ad65eb00bfb48942523e8685dd880af9d38`.
+Static DRAM is 387,760/399,108 bytes. The preceding image is retained privately.
+
+Onboard physical acceptance used only ES8311 address 24: presence true, register
+253 -> ByteArray item 131, register 254 -> List item 17. The register-pointer
+prefixes were combined with one-byte reads, with no register-data writes.
+Reconnect discarded a staged prefix. Invalid types/ranges/oversized writes were
+rejected; SPI/PWM remained uninitialized and speaker starts stayed zero.
+Original three CRCs were preserved. No absent address was physically probed.
+
+See `evidence/2026-10-18/i2c-helpers-physical.json`, simulation and regression
+reports. External I2C devices, arbitrary writes and library compatibility still
+need deliberate wiring/tests. No sound was emitted; listening remains pending.
+
+One 50-output binary regression audited all 148 assets in 22.641 seconds,
+with no observed reset, WebSocket error, aborted asset or settled allocator
+loss. Minimum free: libc 11,260 bytes, kernel heap 22,168 bytes. Direct
+connection/edit/reconnect and powered-reset CRC retention passed. A fresh
+actual GP editor read the three original chunks and the advanced Comm
+`i2c device 24 exists?` block returned true (binary body 0301). All 65 same-origin
+resource entries returned HTTP 200 and JavaScript errors were empty. The
+visual/compiled temporary block was removed; original CRCs and count 50 were
+verified again. Initial editor mode restored; GUI disconnected.
+GP project readback had reset the live count to zero; its prior value 50 was
+restored directly in a temporary reporter, without another output loop.

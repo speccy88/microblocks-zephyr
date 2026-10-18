@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: MPL-2.0 */
 #include "server.h"
+#include "generic_io.h"
 #include <zephyr/kernel.h>
 #include <zephyr/net/websocket.h>
 #include <zephyr/sys/ring_buffer.h>
@@ -37,6 +38,7 @@ void mb_transport_poll(void)
         k_mutex_lock(&queues, K_FOREVER);
         ring_buf_reset(&rx_queue);
         ring_buf_reset(&tx_queue);
+        rlcd_io_i2c_cancel();
         smallvmResetTransport();
         k_mutex_unlock(&queues);
         k_sem_give(&reset_done);

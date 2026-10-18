@@ -28,10 +28,48 @@ reports error 57. A zero-length SPI byte array is a no-op without device/pin
 initialization. The named `sensors.spiSetup(hz, mode=0, channel=0, order="MSB")`
 accepts 10 kHz..8 MHz, modes 0..3, channel 0 and `MSB`/`LSB`. It only records
 configuration; the next nonempty transfer applies it. `sensors.spiExchange`
-exchanges a byte array in place (maximum 256 bytes). Other named sensor helpers,
-including I2C bulk transactions, remain unsupported. The native I2C register
+exchanges a byte array in place (maximum 256 bytes). The native I2C register
 blocks use the shared driver directly; generic register writes can alter onboard
 peripherals and should target only deliberate user wiring/registers.
+
+### I2C list/bulk/presence follow-up contract
+
+The pinned v417 registers `sensors.i2cRead`, `i2cWrite` and `i2cExists`; the
+advanced Comm palette calls these names. They are live operations, not obsolete
+aliases. Preserve the following object and return contracts:
+
+- `i2cRead(address, destination)` accepts a mutable List or ByteArray. Read at
+  most 32 bytes, leave the remainder unchanged, and report that bounded count.
+  Like v417, a failed read fills the requested portion with 255. Empty buffers
+  return 0 without a bus transaction. Invalid address reports error 21; wrong
+  destination reports error 36. Missing/noninteger address returns 0.
+- `i2cWrite(address, data, stop=true)` accepts an integer byte, List, ByteArray
+  or string bytes. Return false. Validate all values before any transaction;
+  reject values outside 0..255 with error 23 and more than 32 bytes with error
+  18, rather than silently truncating the upstream Wire buffer. Empty payloads
+  send nothing and cancel pending data. Unsupported types report error 36.
+  Transfer failures report error 35 rather than silent success.
+- `i2cExists(address)` makes one address-only write with STOP and no register
+  bytes. Return false for missing/type/range errors or NACK/driver failure.
+  There is no automatic scan.
+
+The shared Zephyr bus cannot safely stay locked across separately scheduled
+blocks. A nonempty `i2cWrite(..., false)` therefore stages one bounded payload
+without driving the bus; the next matching nonempty `i2cRead` sends it and reads
+with one atomic repeated-start transaction. A second pending write or a read
+to a different address cancels it and fails (a failed read follows the 255-fill
+contract). Invalid requests and native register/presence operations cancel it.
+Global Stop and a new WebSocket controller session also cancel it.
+This supports the usual register-pointer/write-then-read pattern. Arbitrary
+multi-write no-STOP chains and immediate side effects from a standalone
+`stop=false` write are unsupported; no pending payload is auto-flushed.
+I2C clock/pin reassignment and unrelated sensor APIs remain outside this change.
+
+The [I2C helper acceptance](../evidence/2026-10-18/i2c-helpers-physical.json)
+records one-byte ES8311 immutable ID reads through both destination types and
+presence at that known address. Write payloads, 32-byte boundaries, absent-device
+NACK behavior and cancellation/error paths have driver-double tests. No bus
+scan or arbitrary onboard register-data write is part of acceptance.
 
 ## Acceptance and limits
 

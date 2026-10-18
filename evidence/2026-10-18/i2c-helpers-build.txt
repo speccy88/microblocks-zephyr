@@ -1,0 +1,88 @@
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base (cached)).
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone
+-- CMake version: 4.4.4
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: esp32s3_rlcd_4_2, qualifiers: esp32s3/procpu
+-- Found host-tools: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found BOARD.dts: /home/fred/microblocks-zephyr-work/zephyr/boards/waveshare/esp32s3_rlcd_4_2/esp32s3_rlcd_4_2_esp32s3_procpu.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone/app.overlay
+-- Generated zephyr.dts: /home/fred/microblocks-zephyr-work/build/i2c-helpers/zephyr/zephyr.dts
+-- Generated pickled edt: /home/fred/microblocks-zephyr-work/build/i2c-helpers/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /home/fred/microblocks-zephyr-work/build/i2c-helpers/zephyr/include/generated/zephyr/devicetree_generated.h
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+Parsing /home/fred/microblocks-zephyr-work/zephyr/Kconfig
+Loaded configuration '/home/fred/microblocks-zephyr-work/build/i2c-helpers/zephyr/.config'
+No change to configuration in '/home/fred/microblocks-zephyr-work/build/i2c-helpers/zephyr/.config'
+No change to Kconfig header in '/home/fred/microblocks-zephyr-work/build/i2c-helpers/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Espressif HAL path: /home/fred/microblocks-zephyr-work/modules/hal/espressif
+-- Image partition address: 0x0
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found version "3.12.15") found components: Interpreter
+-- Found gen_kobject_list: /home/fred/microblocks-zephyr-work/zephyr/scripts/build/gen_kobject_list.py
+Prepared pinned ESP32 I2S single-descriptor append guard; upstream tree unchanged
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+Packaged 148 real IDE files into 3512454 flash bytes
+-- Configuring done (13.7s)
+-- Generating done (0.7s)
+-- Build files have been written to: /home/fred/microblocks-zephyr-work/build/i2c-helpers
+-- west build: building application
+[1/463] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[2/29] Building C object CMakeFiles/app.dir/src/transport.c.obj
+[3/29] Building C object CMakeFiles/app.dir/src/network.c.obj
+[4/29] Building C object CMakeFiles/app.dir/src/wifi_settings.c.obj
+[5/29] Building CXX object CMakeFiles/app.dir/src/main.cpp.obj
+[6/29] Building C object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/smallvm/src/platform.c.obj
+[7/29] Building C object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/smallvm/src/generic_primitives.c.obj
+[8/29] Building C object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/integration/rlcd_smallvm_primitives.c.obj
+[9/29] Building C object CMakeFiles/app.dir/smallvm/vm/mem.c.obj
+[10/29] Building C object CMakeFiles/app.dir/smallvm/vm/runtime.c.obj
+[11/29] Building C object CMakeFiles/app.dir/smallvm/vm/persist.c.obj
+[12/29] Building C object CMakeFiles/app.dir/smallvm/vm/varPrims.c.obj
+[13/29] Building CXX object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/smallvm/src/arduino_transport.cpp.obj
+[14/29] Building C object CMakeFiles/app.dir/smallvm/vm/mbFont.c.obj
+[15/29] Building C object CMakeFiles/app.dir/smallvm/vm/tinyJSON.c.obj
+[16/29] Building C object CMakeFiles/app.dir/smallvm/vm/interp.c.obj
+/home/fred/microblocks-zephyr-work/build/i2c-helpers/smallvm/vm/interp.c:427:13: warning: 'interpDebug' defined but not used [-Wunused-function]
+  427 | static void interpDebug(int ip, int cmd, int arg, int sp) {
+      |             ^~~~~~~~~~~
+[17/29] Building C object CMakeFiles/app.dir/smallvm/vm/boardHooks.c.obj
+[18/29] Building ASM object CMakeFiles/app.dir/web/assets.S.obj
+[19/29] Building C object CMakeFiles/app.dir/smallvm/vm/dataPrims.c.obj
+[20/29] Generating linker_zephyr_pre0.cmd
+[21/29] Building C object zephyr/drivers/i2s/CMakeFiles/drivers__i2s.dir/__/__/__/drivers/i2s_esp32.c.obj
+[22/29] Linking C static library zephyr/drivers/i2s/libdrivers__i2s.a
+[23/29] Building C object CMakeFiles/app.dir/web/assets.c.obj
+[24/29] Linking CXX static library app/libapp.a
+[25/29] Linking CXX executable zephyr/zephyr_pre0.elf; Logical command for additional byproducts on target: zephyr_pre0
+[26/29] Generating linker.cmd
+[27/29] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[28/29] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[29/29] Linking CXX executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:     4251396 B   16776960 B     25.34%
+     iram0_0_seg:       73040 B     415492 B     17.58%
+     dram0_0_seg:      387760 B     399108 B     97.16%
+     irom0_0_seg:      467088 B        32 MB      1.39%
+     drom0_0_seg:     4120324 B        32 MB     12.28%
+    ext_dram_seg:     5308432 B        32 MB     15.82%
+    ext_iram_seg:           0 B        32 MB      0.00%
+    rtc_iram_seg:           0 B       8168 B      0.00%
+rtc_reserved_seg:           0 B         24 B      0.00%
+    rtc_slow_seg:          36 B         8 KB      0.44%
+        IDT_LIST:           0 B         8 KB      0.00%
+Generating files from /home/fred/microblocks-zephyr-work/build/i2c-helpers/zephyr/zephyr.elf for board: esp32s3_rlcd_4_2/esp32s3/procpu
+esptool v5.6.0
+Creating ESP32-S3 image...
+Image has only RAM segments visible. ROM segments are hidden and SHA256 digest is not appended.
+NOTE: Inserting 4 bytes padding between net_buf_pool_area and net_if_area
+NOTE: Inserting 8 bytes padding between http_header_name_area and .flash.rodata_end
+Merged 34 ELF sections.
+Successfully created ESP32-S3 image.

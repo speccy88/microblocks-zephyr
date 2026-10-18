@@ -19,7 +19,7 @@ PASS applies only to the behavior listed.
 | Saved program | Original three CRCs preserved across app-only updates and powered reset; 1-variable/3-chunk readback and current graphical 50 run | Full original project metadata is not stored |
 | Memory | Ten heap samples during active graphical count/say workload | VM object arena GC-free-space telemetry; long-duration stress |
 | BLE | Not implemented | GATT/connection tests |
-| Generic I2C registers | Native register get/set implemented; actual ES8311 IDs 0x83/0x11 and graphical register read 131 pass; writes simulated | External writes and libraries; named I2C bulk/list/exists helpers unsupported |
+| Generic I2C | Native register get/set and named read/write/exists implemented; ES8311 ID reads via ByteArray/List return 131/17; known-address presence and atomic write/read pass | Arbitrary data writes and absent-device behavior simulated; external devices/libraries untested; no bus scan |
 | External GPIO/ADC/SPI/PWM | Safe pin map compiled; actual VM/backend simulations pass for bounds, error propagation, SPI cache refresh, PWM duty/Stop and deferred init | External ADC accuracy, SPI loopback and PWM waveform/duty; no physical output test |
 | ES8311 / ES7210 audio | Speaker tone/busy/stop implemented; silent timing/DMA/stop tests pass in preceding checkpoint; current boot remains muted | Audible speaker confirmation pending; microphone not implemented |
 | Power / sleep | Not implemented | Charge/sleep current and wake tests |

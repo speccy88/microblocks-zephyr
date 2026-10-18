@@ -6,8 +6,15 @@
 #include "generic_io.h"
 #include <string.h>
 
+static OBJ i2c_failure(int error)
+{
+    rlcd_io_i2c_cancel();
+    return fail(error);
+}
+
 OBJ primI2cGet(OBJ *args)
 {
+    rlcd_io_i2c_cancel();
     if (!isInt(args[0]) || !isInt(args[1])) return fail(needsIntegerError);
     int address=obj2int(args[0]), reg=obj2int(args[1]);
     if (address<0 || address>127) return fail(i2cDeviceIDOutOfRange);
@@ -18,6 +25,7 @@ OBJ primI2cGet(OBJ *args)
 
 OBJ primI2cSet(OBJ *args)
 {
+    rlcd_io_i2c_cancel();
     if (!isInt(args[0]) || !isInt(args[1]) || !isInt(args[2])) return fail(needsIntegerError);
     int address=obj2int(args[0]), reg=obj2int(args[1]), value=obj2int(args[2]);
     if (address<0 || address>127) return fail(i2cDeviceIDOutOfRange);
@@ -106,8 +114,79 @@ static OBJ spi_exchange(int argc, OBJ *args)
     return rlcd_io_spi_transfer(data,data,count) ? fail(primitiveNotImplemented) : falseObj;
 }
 
+/* List storage includes a tagged logical count followed by its elements. */
+static int list_count(OBJ list)
+{
+    if (!WORDS(list) || !isInt(FIELD(list,0))) return -1;
+    int count=obj2int(FIELD(list,0));
+    return count<0 || count>=WORDS(list) ? -1 : count;
+}
+
+static OBJ i2c_exists(int argc, OBJ *args)
+{
+    rlcd_io_i2c_cancel();
+    if (argc<1 || !isInt(args[0])) return falseObj;
+    int address=obj2int(args[0]);
+    if (address<0 || address>127) return falseObj;
+    return rlcd_io_i2c_exists(address) ? falseObj : trueObj;
+}
+
+static OBJ i2c_read(int argc, OBJ *args)
+{
+    if (argc<2 || !isInt(args[0])) { rlcd_io_i2c_cancel();return zeroObj; }
+    int address=obj2int(args[0]);
+    if (address<0 || address>127) return i2c_failure(i2cDeviceIDOutOfRange);
+    OBJ target=args[1];
+    bool list=IS_TYPE(target,ListType);
+    int count;
+    if (list) count=list_count(target);
+    else if (IS_TYPE(target,ByteArrayType)) count=BYTES(target);
+    else return i2c_failure(needsByteArray);
+    if (count<0) return i2c_failure(indexOutOfRangeError);
+    if (!count) return zeroObj;
+    if (count>32) count=32;
+    uint8_t data[32];
+    /* Preserve v417's bounded-count/255-fill contract on failed reads. */
+    if (rlcd_io_i2c_read(address,data,count)) memset(data,255,count);
+    if (list) {
+        for (int i=0;i<count;++i) FIELD(target,i+1)=int2obj(data[i]);
+    } else memcpy(&FIELD(target,0),data,count);
+    return int2obj(count);
+}
+
+static OBJ i2c_write(int argc, OBJ *args)
+{
+    if (argc<2 || !isInt(args[0])) { rlcd_io_i2c_cancel();return zeroObj; }
+    int address=obj2int(args[0]);
+    if (address<0 || address>127) return i2c_failure(i2cDeviceIDOutOfRange);
+    OBJ source=args[1];
+    uint8_t data[32];
+    int count;
+    if (isInt(source)) {
+        int value=obj2int(source);
+        if (value<0 || value>255) return i2c_failure(i2cValueOutOfRange);
+        data[0]=value;count=1;
+    } else if (IS_TYPE(source,ListType)) {
+        count=list_count(source);
+        if (count<0 || count>32) return i2c_failure(indexOutOfRangeError);
+        for (int i=0;i<count;++i) {
+            OBJ item=FIELD(source,i+1);
+            if (!isInt(item) || obj2int(item)<0 || obj2int(item)>255) return i2c_failure(i2cValueOutOfRange);
+            data[i]=obj2int(item);
+        }
+    } else if (IS_TYPE(source,ByteArrayType) || IS_TYPE(source,StringType)) {
+        count=IS_TYPE(source,ByteArrayType) ? BYTES(source) : strlen(obj2str(source));
+        if (count>32) return i2c_failure(indexOutOfRangeError);
+        memcpy(data,&FIELD(source,0),count);
+    } else return i2c_failure(needsByteArray);
+    if (!count) { rlcd_io_i2c_cancel();return falseObj; }
+    bool stop=argc<3 || args[2]==trueObj;
+    return rlcd_io_i2c_write(address,data,count,stop) ? i2c_failure(i2cTransferFailed) : falseObj;
+}
+
 static PrimEntry generic_sensor_entries[] = {
-    {"spiSetup",spi_setup}, {"spiExchange",spi_exchange}
+    {"spiSetup",spi_setup}, {"spiExchange",spi_exchange},
+    {"i2cExists",i2c_exists}, {"i2cRead",i2c_read}, {"i2cWrite",i2c_write}
 };
 
 void addSensorPrims(void)

@@ -1,0 +1,117 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T09:09:44.484664+00:00",
+  "firmware_sha256": "77291e3f501fdb544ebeb9a1ff1c7ad65eb00bfb48942523e8685dd880af9d38",
+  "checks": {
+    "known_codec_present": true,
+    "invalid_calls": [
+      {
+        "name": "i2cWrite",
+        "error": 21
+      },
+      {
+        "name": "i2cWrite",
+        "error": 23
+      },
+      {
+        "name": "i2cWrite",
+        "error": 18
+      },
+      {
+        "name": "i2cWrite",
+        "error": 36
+      },
+      {
+        "name": "i2cRead",
+        "error": 21
+      },
+      {
+        "name": "i2cRead",
+        "error": 36
+      }
+    ],
+    "atomic_known_id_reads": [
+      {
+        "address": 24,
+        "register": 253,
+        "destination": "ByteArray",
+        "count": 1,
+        "value": 131
+      },
+      {
+        "address": 24,
+        "register": 254,
+        "destination": "List",
+        "count": 1,
+        "value": 17
+      }
+    ],
+    "new_controller_cancels_staged_write_without_flush": true,
+    "final_capabilities": {
+      "digital_gpio": [
+        1,
+        2,
+        17
+      ],
+      "analog_gpio": [
+        1,
+        2
+      ],
+      "analog_max": 1023,
+      "pwm_pin": 2,
+      "pwm_hz": 1000,
+      "dac": false,
+      "i2c_gpio": [
+        13,
+        14
+      ],
+      "i2c_pending": 0,
+      "spi_gpio": [
+        1,
+        2,
+        17
+      ],
+      "spi_cs": null,
+      "spi_hz": 1000000,
+      "spi_mode": 0,
+      "spi_lsb": 0,
+      "spi_initialized": 0,
+      "pwm_initialized": 0,
+      "pwm_active": 0,
+      "error": 0
+    },
+    "rtc": "2026-10-18 09:09:47",
+    "audio_status_read_only": {
+      "id": "8311",
+      "ready": 0,
+      "busy": 0,
+      "format": 12,
+      "clock": 63,
+      "dac_osr": 16,
+      "gain": 191,
+      "mute": 96,
+      "amp": 0,
+      "rate": 24000,
+      "lrck_hz": 0,
+      "bits": 16,
+      "slot": 16,
+      "channels": 1,
+      "blocks": 0,
+      "queued_frames": 0,
+      "completed_frames": 0,
+      "free_blocks": 4,
+      "starts": 0,
+      "elapsed_ms": 0,
+      "error": 0
+    }
+  },
+  "bus_scan": false,
+  "generic_register_data_writes": 0,
+  "audio_emitted": false,
+  "original_crc32_preserved": {
+    "0": "297d191b",
+    "1": "8b3406b3",
+    "2": "5e84cd6a"
+  },
+  "finished_utc": "2026-10-18T09:09:48.737818+00:00"
+}
