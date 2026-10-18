@@ -3,12 +3,13 @@
 # SPDX-License-Identifier: MIT
 import argparse,gzip,hashlib,json,mimetypes
 from pathlib import Path
-from fruit_jam_ide_assets import prepare_assets
+from fruit_jam_ide_assets import prepare_assets,native_bootstrap
 
 def package(source,output,repo):
     manifest=json.loads((repo/'dependencies/ide-assets.json').read_text())
     output.mkdir(parents=True,exist_ok=True)
     patched=prepare_assets(repo,source)
+    patched["microblocks.html"]=native_bootstrap(patched["microblocks.html"])
     assembly=['.section .rodata.fruit_jam_web_assets,"a"']
     code=['#include "network_server.h"'];rows=[];audit=[]
     for i,item in enumerate(manifest['files']):

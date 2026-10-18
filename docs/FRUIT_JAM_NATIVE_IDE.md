@@ -114,3 +114,22 @@ version probes under the same SPI lock to restore phase alignment. Return the
 original socket error; never replay the failed write or a credential command.
 The VM remains on its own thread. Full physical asset and focused VM acceptance
 are still required after this change; the prior timeouts are retained.
+
+## Native browser bootstrap queue
+
+Source `aa63f96` passed all 147 asset hashes and the focused WebSocket/USB
+regression with zero SPI protocol/first errors and no phase recovery. A real
+browser still remained in its loader: multiple eagerly fetched scripts had no
+completed response. A separate six-connection header probe hit a TCP reset.
+The six-slot NINA runtime cannot safely accept the browser's normal eager
+startup burst together with its listener and in-progress transfers.
+
+For native packaging only, defer initial CSS/images and external scripts to a
+sequential bootstrap. Preserve original non-deferred script order, then the
+original deferred order; GP remains last after localization and UI definitions.
+Run original inline scripts at their corresponding non-deferred positions.
+Do not modify the verified USB bridge packaging. No new third-party assets or
+editor substitute are introduced. Each resource has a bounded deadline and a
+visible reload message on failure. Record readiness with a DOM attribute when
+the existing real `board-ide-ready` event fires, enabling a software-only boot
+check without requesting physical visual/audio/user-presence confirmation.

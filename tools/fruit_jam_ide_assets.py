@@ -61,3 +61,61 @@ def prepare_assets(repo,source):
     network='\n'.join(line for line in network.splitlines() if "wifi=document.createElement('a')" not in line)+'\n'
     return {'gp_wasm.js':js,'gp_wasm.data':data,'microblocks.html':html,
             'gettext.js':gettext,'unoq-network.js':network.encode()}
+
+
+def native_bootstrap(html):
+    """Serialize real editor startup for the six-slot NINA native HTTP host.
+
+    The USB host keeps prepare_assets() unchanged. Blocking scripts and their
+    inline neighbors execute first in original order, then deferred scripts.
+    """
+    text=html.decode('utf-8');blocking=[];deferred=[]
+    def script(match):
+        attrs,body=match.groups()
+        source=re.search(r'\bsrc="([^"]+)"',attrs)
+        entry={'src':source[1]} if source else {'inline':body}
+        (deferred if re.search(r'\bdefer\b',attrs) else blocking).append(entry)
+        return ''
+    text=re.sub(r'<script\b([^>]*)>(.*?)</script>',script,text,flags=re.S)
+    assert len(blocking)==10 and len(deferred)==6
+    assert deferred[-1]['src'].startswith('gp_wasm.js?')
+    text=re.sub(r'(<link\b[^>]*rel="stylesheet"[^>]*?)\bhref=',r'\1data-fj-href=',text)
+    text=re.sub(r'(<img\b[^>]*?)\bsrc=',r'\1data-fj-src=',text)
+    config=json.dumps(blocking+deferred,separators=(',',':')).replace('<','\\u003c')
+    bootstrap=r"""
+<script id="fruit-jam-native-bootstrap">
+(() => {
+ const scripts=FJ_SCRIPTS;
+ const root=document.documentElement;root.dataset.fjBootstrap='loading';
+ document.addEventListener('board-ide-ready',()=>{root.dataset.fjBootstrap='ready';},{once:true});
+ const resource=(node,attribute,url)=>new Promise((resolve,reject)=>{
+  if(new URL(url,location.href).origin!==location.origin){reject(new Error('External startup resource'));return;}
+  const timer=setTimeout(()=>reject(new Error('Resource deadline: '+url)),20000);
+  node.onload=()=>{clearTimeout(timer);resolve();};
+  node.onerror=()=>{clearTimeout(timer);reject(new Error('Resource load: '+url));};
+  node[attribute]=url;
+ });
+ const run=async()=>{
+  try {
+   for(const node of document.querySelectorAll('link[data-fj-href]'))await resource(node,'href',node.dataset.fjHref);
+   for(const node of document.querySelectorAll('img[data-fj-src]'))await resource(node,'src',node.dataset.fjSrc);
+   for(const entry of scripts){
+    const node=document.createElement('script');
+    if(entry.src){
+     node.async=false;
+     const pending=resource(node,'src',entry.src);document.head.appendChild(node);await pending;
+    }else{node.textContent=entry.inline;document.head.appendChild(node);}
+   }
+   if(root.dataset.fjBootstrap!=='ready')root.dataset.fjBootstrap='scripts-loaded';
+  }catch(error){
+   root.dataset.fjBootstrap='failed';console.error(error);
+   const notice=document.querySelector('.app-preloader__text');
+   if(notice)notice.textContent='Cannot load the editor from Fruit Jam. Reload to retry.';
+  }
+ };
+ if(document.readyState==='complete')run();else window.addEventListener('load',run,{once:true});
+})();
+</script>
+""".replace('FJ_SCRIPTS',config)
+    assert text.count('</body>')==1
+    return text.replace('</body>',bootstrap+'</body>').encode('utf-8')
