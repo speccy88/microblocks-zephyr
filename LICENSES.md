@@ -43,3 +43,10 @@ preserve its own licensing and attribution when integrated:
 
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
+
+Fruit Jam's `smallvm/src/nina_protocol.c` adapts the MIT-licensed command/reply
+framing from Adafruit CircuitPython ESP32SPI, copyright (c) 2019 ladyada for
+Adafruit Industries. The pinned reference and SHA256s are recorded in
+`dependencies/fruit-jam-airlift-reference.json`; its full MIT notice is retained
+in `licenses/Adafruit-ESP32SPI-MIT.txt`. The factory ESP32-C6 firmware is queried
+in place, not copied, erased or replaced by this implementation.

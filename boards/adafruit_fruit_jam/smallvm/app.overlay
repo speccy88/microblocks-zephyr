@@ -1,8 +1,13 @@
 /* SPDX-License-Identifier: MIT */
 #include <zephyr/dt-bindings/adc/adc.h>
 #include <zephyr/dt-bindings/pwm/pwm.h>
+#include <zephyr/dt-bindings/gpio/gpio.h>
 / {
 	zephyr,user {
+		/* Factory AirLift only; manual CS allows its BUSY handshake before clocks. */
+		airlift-cs-gpios = <&gpio0_hi 14 GPIO_ACTIVE_LOW>;
+		airlift-busy-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
+		airlift-reset-gpios = <&gpio0 22 GPIO_ACTIVE_LOW>;
 		/* Safe extension D0..D8. High-bank GPIO40..45 use port-relative 8..13. */
 		digital-pin-gpios = <&gpio0 6 0>, <&gpio0 7 0>, <&gpio0 10 0>,
 			<&gpio0_hi 8 0>, <&gpio0_hi 9 0>, <&gpio0_hi 10 0>,
@@ -23,6 +28,17 @@
 			<&pwm 20 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
 			<&pwm 21 PWM_USEC(1000) PWM_POLARITY_NORMAL>;
 	};
+};
+&pinctrl {
+	airlift_spi1: airlift_spi1 {
+		rx { pinmux = <SPI1_RX_P28>; input-enable; input-schmitt-enable; };
+		tx-clock { pinmux = <SPI1_SCK_P30>, <SPI1_TX_P31>; };
+	};
+};
+&spi1 {
+	pinctrl-0 = <&airlift_spi1>;
+	pinctrl-names = "default";
+	status = "okay";
 };
 &zephyr_udc0 {
 	mb_cdc: mb_cdc { compatible = "zephyr,cdc-acm-uart"; };

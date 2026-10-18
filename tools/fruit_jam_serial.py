@@ -51,6 +51,22 @@ class SerialVM(VM):
     def short(self, kind, index=0):
         self.send(bytes([250,kind,index]))
 
+    def all_crcs(self):
+        # Individual CRC requests intentionally receive no reply for empty
+        # chunks. The official all-CRC message enumerates only occupied slots.
+        start = len(self.events)
+        self.short(38, 1)
+        body = self.wait(lambda e:e[:2] == (39,0), after=start)[2]
+        if len(body) % 5 or len(body) > 255 * 5:
+            raise RuntimeError('Invalid all-CRC record length')
+        result = {}
+        for offset in range(0, len(body), 5):
+            index = body[offset]
+            if index >= 255 or index in result:
+                raise RuntimeError('Invalid or duplicate all-CRC chunk')
+            result[index] = int.from_bytes(body[offset+1:offset+5], 'little')
+        return result
+
     def pump(self):
         if time.monotonic()-self.last_ping > .5:
             self.short(26,73)

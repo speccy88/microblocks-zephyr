@@ -70,6 +70,9 @@ int fj_sht4x_status(char *dst,unsigned size)
 int fj_pixels_set(unsigned index,unsigned r,unsigned g,unsigned b)
 { return index<5 && r<=255 && g<=255 && b<=255 ? 0 : -22; }
 int fj_pixels_off(void) { return 0; }
+int fj_airlift_request(bool reset_first) { (void)reset_first; return 0; }
+int fj_airlift_status(char *dst,unsigned size)
+{ snprintf(dst,size,"{\"simulated\":true}"); return 0; }
 
 int recvBytes(uint8 *p, int count)
 {

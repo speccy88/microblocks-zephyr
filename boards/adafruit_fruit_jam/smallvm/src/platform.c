@@ -4,6 +4,7 @@
 #include "vm/interp.h"
 #include "fruit_jam.h"
 #include "generic_io.h"
+#include "airlift.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -111,10 +112,29 @@ static OBJ pixels_off(int argc, OBJ *args) {
     if (argc) return fail(notEnoughArguments);
     return fj_pixels_off() ? fail(primitiveNotImplemented) : falseObj;
 }
+static OBJ airlift_identify(int argc, OBJ *args) {
+    (void)args;
+    if (argc) return fail(notEnoughArguments);
+    return fj_airlift_request(false) ? fail(primitiveNotImplemented) : falseObj;
+}
+static OBJ airlift_reset_identify(int argc, OBJ *args) {
+    (void)args;
+    if (argc) return fail(notEnoughArguments);
+    return fj_airlift_request(true) ? fail(primitiveNotImplemented) : falseObj;
+}
+static OBJ airlift_info(int argc, OBJ *args) {
+    (void)args;
+    if (argc) return fail(notEnoughArguments);
+    char text[384];
+    if (fj_airlift_status(text, sizeof(text))) return fail(primitiveNotImplemented);
+    return newStringFromBytes(text, strlen(text));
+}
 static PrimEntry fruit_jam_entries[] = {
     {"buttonPressed", button_pressed}, {"ioCapabilities", io_info},
     {"temperatureMilliC", temperature_read}, {"humidityMilliPct", humidity_read},
-    {"sht4xStatus", sht4x_info}, {"pixel", pixel_set}, {"pixelsOff", pixels_off}
+    {"sht4xStatus", sht4x_info}, {"pixel", pixel_set}, {"pixelsOff", pixels_off},
+    {"airliftIdentify", airlift_identify}, {"airliftResetAndIdentify", airlift_reset_identify},
+    {"airliftStatus", airlift_info}
 };
 void addIOPrims(void) {
     addPrimitiveSet(IOPrims, "fruitJam", sizeof(fruit_jam_entries) / sizeof(fruit_jam_entries[0]), fruit_jam_entries);

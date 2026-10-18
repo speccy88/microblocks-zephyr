@@ -1,0 +1,23 @@
+{
+  "repository": "https://github.com/adafruit/Adafruit_CircuitPython_ESP32SPI",
+  "commit": "64f4695cc4457df0718e1a6460082381359c3562",
+  "license": "MIT",
+  "files": {
+    "adafruit_esp32spi/adafruit_esp32spi.py": {
+      "url": "https://raw.githubusercontent.com/adafruit/Adafruit_CircuitPython_ESP32SPI/64f4695cc4457df0718e1a6460082381359c3562/adafruit_esp32spi/adafruit_esp32spi.py",
+      "sha256": "43ed415eacd79c2fd45bc4cdf9083ebc93d5fb8c4479d6e3ac9a1b8bb167b6e9",
+      "bytes": 41557
+    },
+    "adafruit_esp32spi/adafruit_esp32spi_socketpool.py": {
+      "url": "https://raw.githubusercontent.com/adafruit/Adafruit_CircuitPython_ESP32SPI/64f4695cc4457df0718e1a6460082381359c3562/adafruit_esp32spi/adafruit_esp32spi_socketpool.py",
+      "sha256": "629e1a2c79a3a601e95df1d547de5057afee8edaae77a7a5053fa70c724f5730",
+      "bytes": 10406
+    },
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/adafruit/Adafruit_CircuitPython_ESP32SPI/64f4695cc4457df0718e1a6460082381359c3562/LICENSE",
+      "sha256": "20696aa4836f387b58a83b7329020fc53b52809ebcbf3a5a869e19701e16ac7d",
+      "bytes": 1098
+    }
+  },
+  "execution": "Reference text only; no downloaded code executed"
+}
