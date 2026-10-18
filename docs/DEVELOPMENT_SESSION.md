@@ -286,3 +286,44 @@ values are in `evidence/2026-10-18/storage-capacity.json`.
 
 Audio is the next requested feature and has no implementation/physical PASS
 at this checkpoint. SD, BLE and remaining visual/electrical checks are pending.
+
+## 2026-10-18 audio and direct local access
+
+The owner explicitly requested and confirmed removing the connection code
+after being told that any reachable device could program the board. The new
+image removes the dialog, transport check, Wi-Fi setup code field, LCD code,
+generated code value and active test credential dependency. Existing browser
+session values are removed during migration. Wi-Fi SSID/passwords, protected
+fallback AP, KEY recovery, origin checks and one active VM controller remain.
+Historical evidence above retains the former behavior.
+
+The COM4 app-only image is 4,250,564 bytes, SHA-256
+`3df0e7a541258ccb6720866c59ecb030ce222060b0bfef3d60903b7cff5f18cb`.
+The write hash was verified, with program/settings partitions preserved.
+Direct binary upload/edit returned 12 then 13, reconnect and powered reset
+preserved all original CRCs. Same-origin malformed Wi-Fi POST returned 400;
+foreign POST returned 403 and a foreign WebSocket did not obtain VM access.
+The initial WebSocket test incorrectly treated HTTP upgrade as controller
+access; its raw failed report is retained alongside the corrected test.
+
+ES8311 output is integrated as asynchronous tone/busy/stop/diagnostic blocks.
+Official wiring is ES8311 at 0x18, I2S0 on 16/9/45/10, GPIO46 NS4150B enable.
+Silent tests exposed a 106..107 ms transfer for 200 ms PCM. GPIO interrupt edge
+counting and format readback confirmed approximately 24 kHz, two 16-bit slots.
+A hash-verified copy of the pinned I2S driver now rejects impossible append
+attempts before `dma_reload` with one descriptor; the upstream tree is unchanged.
+The same 4800-frame tests then completed in 202/204 ms, reclaimed all buffers,
+passed explicit/global stop and preserved program/allocators. The failed
+preflights and build/flash logs remain evidence. DMA completion does not prove
+analog drain, waveform quality or audible success.
+
+One bounded binary regression produced 50 ordered outputs, edited 12 to 13,
+reconnected, read UTC, and verified all 148 asset hashes in 21.688 seconds;
+there was no observed reset, WebSocket error, asset abort or settled heap loss.
+A fresh actual GP editor loaded, connected without a code, retrieved one
+variable/three chunks and emitted exactly 1..50. It was then disconnected for
+the listening test. Current storage/memory figures are in
+`evidence/2026-10-18/audio-memory-storage.json`.
+
+The speaker is connected according to the owner. The coordinated two-note,
+volume-10 listening test is ready; audible confirmation remains pending.

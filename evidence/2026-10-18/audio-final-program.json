@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "scope": "Final read-only CRC check after graphical readback and 50-result execution",
+  "original_crc32": {
+    "0": "297d191b",
+    "1": "8b3406b3",
+    "2": "5e84cd6a"
+  }
+}

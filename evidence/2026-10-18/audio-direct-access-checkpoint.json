@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "firmware_sha256": "3df0e7a541258ccb6720866c59ecb030ce222060b0bfef3d60903b7cff5f18cb",
+  "scope": "Bounded driver/direct-access acceptance; audible confirmation pending",
+  "audio_driver_report": "audio-silent-guarded.json",
+  "direct_access_report": "direct-access.json",
+  "binary_50_report": "audio-direct-50-regression.json",
+  "browser_report": "browser-direct-access.json",
+  "original_program_preserved": true,
+  "wifi_credentials_preserved": true,
+  "audible_confirmation": "PENDING",
+  "speaker_connected": "Confirmed by owner",
+  "no_long_soak_claim": true,
+  "upstream_i2s_source_sha256": "fe667681d819cbcf90fc695e99846455aa162cb88459396a51befa581a1f4d57",
+  "dependency_change": "Generated driver copy with one-descriptor append guard; pinned Zephyr checkout unchanged"
+}

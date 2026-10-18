@@ -1,6 +1,5 @@
 /* SPDX-License-Identifier: MIT */
 #include "server.h"
-#include "device_secrets.h"
 #include <zephyr/net/http/service.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/sys_heap.h>
@@ -12,7 +11,6 @@
 static uint16_t port = 80;
 HTTP_SERVICE_DEFINE(mb_http, NULL, &port, 12, 12, NULL, NULL, NULL);
 HTTP_SERVER_REGISTER_HEADER_CAPTURE(origin_header, "Origin");
-HTTP_SERVER_REGISTER_HEADER_CAPTURE(pair_header, "X-MicroBlocks-Pair");
 static char content_policy[384];
 
 static const struct http_header asset_headers[] = {
@@ -117,12 +115,7 @@ static int wifi_handler(struct http_client_ctx *client, enum http_transaction_st
         memset(wifi_body, 0, sizeof(wifi_body)); wifi_size = 0; wifi_allowed = false; return 0;
     }
     if (request->headers_status != HTTP_HEADER_STATUS_NONE) {
-        wifi_allowed = false;
-        if (mb_same_origin(request)) {
-            for (size_t i = 0; i < request->header_count; ++i)
-                if (!strcasecmp(request->headers[i].name, "X-MicroBlocks-Pair") &&
-                    !strcmp(request->headers[i].value, MB_DEVICE_PAIR)) wifi_allowed = true;
-        }
+        wifi_allowed = mb_same_origin(request);
     }
     const char *reply = "{\"saved\":false}";
     if (!wifi_allowed) response->status = HTTP_403_FORBIDDEN;
@@ -160,9 +153,9 @@ static int status_handler(struct http_client_ctx *client, enum http_transaction_
     struct mb_transport_diagnostics ws;
     mb_transport_diagnostics_get(&ws);
     snprintf(json, sizeof(json), "{\"board\":\"Waveshare ESP32-S3-RLCD-4.2\",\"vm\":417,\"ide\":\"2.5.8\",\"saved_generation\":%u,"
-        "\"websocket\":{\"sessions\":%u,\"auth_failures\":%u,\"rx_errors\":%u,\"tx_errors\":%u,\"queue_timeouts\":%u,\"last_error\":%d},"
+        "\"websocket\":{\"sessions\":%u,\"rx_errors\":%u,\"tx_errors\":%u,\"queue_timeouts\":%u,\"last_error\":%d},"
         "\"assets\":{\"chunk_bytes\":%u,\"completed\":%u,\"aborted\":%u}}",
-        mb_store_generation(), ws.sessions, ws.auth_failures, ws.rx_errors, ws.tx_errors, ws.queue_timeouts, ws.last_error,
+        mb_store_generation(), ws.sessions, ws.rx_errors, ws.tx_errors, ws.queue_timeouts, ws.last_error,
         ASSET_CHUNK_BYTES, (unsigned)atomic_get(&asset_completed), (unsigned)atomic_get(&asset_aborted));
     response->body=(const uint8_t *)json;response->body_len=strlen(json);response->final_chunk=true;
     return 0;

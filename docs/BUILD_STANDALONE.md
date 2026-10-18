@@ -49,7 +49,7 @@ west build -b esp32s3_rlcd_4_2/esp32s3/procpu \
   -DIDE_SOURCE_DIR=/absolute/path/to/verified-sources/ide
 ```
 
-The build generates private AP/pairing values in the build directory. Preserve
+The build generates private fallback AP Wi-Fi values in the build directory. Preserve
 that private directory across builds so access values remain stable; never
 commit it. The production image serves about 3.51 MB of compressed editor assets
 from flash. Program snapshots use the dedicated 256 KiB `vmstore` partition;

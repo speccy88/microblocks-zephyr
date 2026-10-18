@@ -53,8 +53,8 @@ int mb_fallback_start(void)
     if (err) return err;
     char screen[384];
     snprintf(screen, sizeof(screen),
-             "MicroBlocks\nWireless IDE\n\nWi-Fi network:\n%s\nPassword:\n%s\n\nhttp://%s\n\nPairing code:\n%s\n\nProgram in your browser",
-             MB_DEVICE_SSID, MB_DEVICE_PSK, board_ip, MB_DEVICE_PAIR);
+             "MicroBlocks\nWireless IDE\n\nWi-Fi network:\n%s\nPassword:\n%s\n\nhttp://%s\n\nProgram in your browser",
+             MB_DEVICE_SSID, MB_DEVICE_PSK, board_ip);
     err = rlcd_display_text(screen);
     printk("MicroBlocks LCD status transfer: %d\n", err);
     printk("MicroBlocks fallback AP ready at http://%s\n", board_ip);

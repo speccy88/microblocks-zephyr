@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "firmware_sha256": "3df0e7a541258ccb6720866c59ecb030ce222060b0bfef3d60903b7cff5f18cb",
+  "obsolete_connection_secret_present": false,
+  "scope": "Exact old secret checked in memory; value never logged"
+}

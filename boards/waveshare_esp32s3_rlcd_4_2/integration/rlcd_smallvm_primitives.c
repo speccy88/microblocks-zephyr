@@ -4,6 +4,7 @@
 // Wire this into the fully ported SmallVM and load the .ubl in the editor.
 #include "vm/interp.h"
 #include "rlcd_board.h"
+#include "rlcd_audio.h"
 #include <errno.h>
 #include <string.h>
 
@@ -82,6 +83,39 @@ static OBJ rtc_set_utc(int argc, OBJ *argv)
     return err == 0 ? falseObj : fail(primitiveNotImplemented);
 }
 
+static OBJ audio_tone(int argc, OBJ *argv)
+{
+    if (argc != 3) return fail(notEnoughArguments);
+    for (int i = 0; i < 3; ++i)
+        if (!isInt(argv[i])) return fail(needsIntegerError);
+    int err = rlcd_audio_play(obj2int(argv[0]), obj2int(argv[1]), obj2int(argv[2]));
+    if (err == -EINVAL) return fail(indexOutOfRangeError);
+    return err == 0 ? falseObj : fail(primitiveNotImplemented);
+}
+
+static OBJ audio_busy(int argc, OBJ *argv)
+{
+    (void)argv;
+    if (argc != 0) return fail(notEnoughArguments);
+    return rlcd_audio_busy() ? trueObj : falseObj;
+}
+
+static OBJ audio_stop(int argc, OBJ *argv)
+{
+    (void)argv;
+    if (argc != 0) return fail(notEnoughArguments);
+    rlcd_audio_stop();
+    return falseObj;
+}
+
+static OBJ audio_status(int argc, OBJ *argv)
+{
+    (void)argv;
+    if (argc != 0) return fail(notEnoughArguments);
+    char status[384];
+    return rlcd_audio_status(status, sizeof(status)) == 0 ? newStringFromBytes(status, strlen(status)) : fail(primitiveNotImplemented);
+}
+
 static PrimEntry rlcd_entries[] = {
     {"temperatureMilliC", temperature_milli_c},
     {"humidityMilliPct", humidity_milli_pct},
@@ -91,7 +125,11 @@ static PrimEntry rlcd_entries[] = {
     {"displayText", display_text},
     {"displayClear", display_clear},
     {"rtcText", rtc_text},
-    {"rtcSetUTC", rtc_set_utc}
+    {"rtcSetUTC", rtc_set_utc},
+    {"audioTone", audio_tone},
+    {"audioBusy", audio_busy},
+    {"audioStop", audio_stop},
+    {"audioStatus", audio_status}
 };
 
 // Existing UNO Q port implements this callback for the VM's IOPrims slot.

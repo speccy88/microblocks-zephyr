@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Physical SmallVM tests. Replaces VM test chunks; does not flash firmware.
 
-Needs websocket-client==1.9.0. Access values are read privately and never printed.
+Needs websocket-client==1.9.0. Uses the user-selected direct local transport.
 """
 # SPDX-License-Identifier: MPL-2.0
 import argparse
@@ -16,12 +16,11 @@ import websocket
 
 
 class VM:
-    def __init__(self, host, code):
+    def __init__(self, host):
         self.host = host
         self.ws = websocket.create_connection('ws://'+host+'/ws/vm', origin='http://'+host,
             timeout=5, http_no_proxy=['*'])
-        self.ws.send('auth:'+code)
-        if self.ws.recv() != 'ready':raise RuntimeError('Board pairing failed')
+        if self.ws.recv() != 'ready':raise RuntimeError('Board transport not ready')
         self.ws.settimeout(.3)
         self.buffer=bytearray();self.events=[];self.last_ping=0
 
@@ -124,17 +123,15 @@ def primitive(name, arguments=()):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--host',required=True)
-    parser.add_argument('--private',type=Path,required=True)
     parser.add_argument('--evidence',type=Path,required=True)
     parser.add_argument('--reboot-port')
     parser.add_argument('--outputs',type=int,default=50)
     args=parser.parse_args()
     if not 1<=args.outputs<=500:parser.error('Use1..500 outputs')
-    private=json.loads(args.private.read_text())
-    report={'host':args.host,'scope':'physical board, real VM over authenticated binary WebSocket','checks':{}}
+    report={'host':args.host,'scope':'physical board, real VM over direct binary WebSocket','checks':{}}
     vm=None
     try:
-        vm=VM(args.host,private['pair'])
+        vm=VM(args.host)
         start=len(vm.events);vm.short(26,91)
         vm.wait(lambda e:e[:2]==(26,91),after=start);report['checks']['ping']=True
         vm.short(14,1);vm.short(15,0)
@@ -186,7 +183,7 @@ def main():
         for chunk,crc in crcs.items():assert vm.crc(chunk)==crc
         vm.close();vm=None;time.sleep(.2)
         reconnect_start=time.monotonic()
-        vm=VM(args.host,private['pair']);assert vm.run_reporter(0)==12
+        vm=VM(args.host);assert vm.run_reporter(0)==12
         report['checks']['reconnect_arithmetic']=True
         report['checks']['reconnect_seconds']=round(time.monotonic()-reconnect_start,3)
         time.sleep(5)
@@ -201,7 +198,7 @@ def main():
             port.port=args.reboot_port;port.open();HardReset(port,uses_usb=True).reset();port.close()
             until=time.monotonic()+45
             while True:
-                try:vm=VM(args.host,private['pair']);break
+                try:vm=VM(args.host);break
                 except (OSError,websocket.WebSocketException):
                     if time.monotonic()>until:raise
                     time.sleep(1)

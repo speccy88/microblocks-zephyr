@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "test": "Legacy build configuration migration preserves existing Wi-Fi SSID/PSK and excludes obsolete fields from JSON/header",
+  "current_keys": [
+    "psk",
+    "ssid"
+  ]
+}

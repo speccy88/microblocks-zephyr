@@ -45,6 +45,10 @@ def patch_ide(javascript: bytes, data: bytes, library: bytes):
             if name.rsplit('/', 1)[-1] not in ('arithmetic.ubp', 'output.ubp'):
                 continue
             name = name.replace('/Examples/UNO Q/', '/Examples/Waveshare/')
+            if name.endswith('/output.ubp'):
+                if payload.count(b'repeat 500 {') != 1:
+                    raise ValueError('Unexpected pinned output example')
+                payload = payload.replace(b'repeat 500 {', b'repeat 50 {')
         start = len(packed); packed.extend(payload)
         files.append({'filename': name, 'start': start, 'end': len(packed)})
     if api_count != 1 or library_count != 1 or compiler_count != 1:

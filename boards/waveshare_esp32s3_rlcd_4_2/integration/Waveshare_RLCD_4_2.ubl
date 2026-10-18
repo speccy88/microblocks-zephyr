@@ -1,7 +1,7 @@
 module 'Waveshare RLCD 4.2' Output
 author 'Porting prototype for MicroBlocks SmallVM; based on MicroBlocks original library format'
-version 0 3
-description 'For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC; the setter accepts valid dates from 2000 through 2099. RTC battery retention requires a separate physical test.'
+version 0 4
+description 'For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.'
 spec 'r' '[rlcd:temperatureMilliC]' 'RLCD temperature x1000 (C)'
 spec 'r' '[rlcd:humidityMilliPct]' 'RLCD humidity x1000 (%)'
 spec 'r' '[rlcd:batteryRaw]' 'RLCD battery ADC (raw)'
@@ -11,3 +11,7 @@ spec ' ' '[rlcd:displayText]' 'RLCD show text _' 'str' 'Hello MicroBlocks!'
 spec ' ' '[rlcd:displayClear]' 'RLCD clear white _' 'bool' true
 spec 'r' '[rlcd:rtcText]' 'RLCD clock (text)'
 spec ' ' '[rlcd:rtcSetUTC]' 'RLCD set clock UTC year _ month _ day _ hour _ minute _ second _' 'num num num num num num' 2026 1 1 0 0 0
+spec ' ' '[rlcd:audioTone]' 'RLCD start tone _ Hz for _ ms volume _ %' 'num num num' 440 200 10
+spec 'b' '[rlcd:audioBusy]' 'RLCD audio busy?'
+spec ' ' '[rlcd:audioStop]' 'RLCD stop audio'
+spec 'r' '[rlcd:audioStatus]' 'RLCD audio diagnostics'

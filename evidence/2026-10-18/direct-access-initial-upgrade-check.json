@@ -1,0 +1,15 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T02:57:43.964726+00:00",
+  "firmware_sha256": "da26764410c72484036a1247c01afaa91986b9c18db11aaa05d5eb3730950c07",
+  "checks": {
+    "ready_received_without_sending_credentials": true,
+    "program_edit_and_reconnect_result": 13,
+    "wifi_malformed_post_rejected_without_save": {
+      "same_origin": 400,
+      "foreign_origin": 403
+    }
+  },
+  "error": "AssertionError: Foreign origin accepted",
+  "finished_utc": "2026-10-18T02:57:45.192360+00:00"
+}

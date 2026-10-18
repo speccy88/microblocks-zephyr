@@ -92,7 +92,7 @@ static int station_start(void)
         if (address && address->s_addr) {
             net_addr_ntop(NET_AF_INET, address, board_ip, NET_IPV4_ADDR_LEN);
             char screen[320];
-            snprintf(screen, sizeof(screen), "MicroBlocks\nWireless IDE\n\nConnected to Wi-Fi\n\nhttp://%s\n\nPairing code:\n%s\n\nKEY at boot: recovery AP", board_ip, MB_DEVICE_PAIR);
+            snprintf(screen, sizeof(screen), "MicroBlocks\nWireless IDE\n\nConnected to Wi-Fi\n\nhttp://%s\n\nKEY at boot: recovery AP", board_ip);
             printk("MicroBlocks LCD status transfer: %d\n", rlcd_display_text(screen));
             printk("MicroBlocks Wi-Fi ready at http://%s\n", board_ip);
             return 0;

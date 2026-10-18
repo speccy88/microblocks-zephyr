@@ -1,10 +1,19 @@
 /* SPDX-License-Identifier: MIT */
 #include "../smallvm/app.overlay"
 / {
+    zephyr,user {
+        audio-amp-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
+    };
     chosen {
         zephyr,code-partition = &slot0_partition;
     };
 };
+&i2s0 {
+    status = "okay";
+    pinctrl-0 = <&i2s0_default>;
+    pinctrl-names = "default";
+};
+&dma { status = "okay"; };
 &flash0 {
     /delete-node/ partitions;
     partitions {

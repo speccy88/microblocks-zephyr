@@ -1,6 +1,5 @@
 /* SPDX-License-Identifier: MPL-2.0 */
 #include "server.h"
-#include "device_secrets.h"
 #include <zephyr/kernel.h>
 #include <zephyr/net/websocket.h>
 #include <zephyr/sys/ring_buffer.h>
@@ -15,9 +14,9 @@ K_MUTEX_DEFINE(queues);
 K_SEM_DEFINE(client_ready, 0, 1);
 K_SEM_DEFINE(reset_done, 0, 1);
 static atomic_t busy;
-static atomic_t authenticated;
+static atomic_t client_active;
 static atomic_t reset_pending;
-static atomic_t sessions, auth_failures, rx_errors, tx_errors, queue_timeouts, last_error;
+static atomic_t sessions, rx_errors, tx_errors, queue_timeouts, last_error;
 static int client_socket = -1;
 extern void smallvmResetTransport(void);
 
@@ -25,7 +24,6 @@ void mb_transport_diagnostics_get(struct mb_transport_diagnostics *out)
 {
     *out = (struct mb_transport_diagnostics) {
         .sessions = (unsigned)atomic_get(&sessions),
-        .auth_failures = (unsigned)atomic_get(&auth_failures),
         .rx_errors = (unsigned)atomic_get(&rx_errors),
         .tx_errors = (unsigned)atomic_get(&tx_errors),
         .queue_timeouts = (unsigned)atomic_get(&queue_timeouts),
@@ -55,7 +53,7 @@ int mb_transport_recv(unsigned char *data, int count)
 
 int mb_transport_send(unsigned char *data, int start, int end)
 {
-    if (!atomic_get(&authenticated)) return end - start;
+    if (!atomic_get(&client_active)) return end - start;
     k_mutex_lock(&queues, K_FOREVER);
     int n = ring_buf_put(&tx_queue, data + start, end - start);
     k_mutex_unlock(&queues);
@@ -71,26 +69,20 @@ static void websocket_worker(void *a, void *b, void *c)
         int fd = client_socket;
         uint32_t type;
         uint64_t remaining;
-        int n = websocket_recv_msg(fd, input, sizeof(input), &type, &remaining, 5000);
-        bool valid = n == 5 + sizeof(MB_DEVICE_PAIR) - 1 && remaining == 0 &&
-                     (type & WEBSOCKET_FLAG_TEXT) && (type & WEBSOCKET_FLAG_FINAL) &&
-                     !memcmp(input, "auth:", 5) &&
-                     !memcmp(input + 5, MB_DEVICE_PAIR, sizeof(MB_DEVICE_PAIR) - 1);
+        int n;
+        k_sem_reset(&reset_done);
+        atomic_set(&reset_pending, 1);
+        bool valid = k_sem_take(&reset_done, K_SECONDS(1)) == 0;
         if (valid) {
-            k_sem_reset(&reset_done);
-            atomic_set(&reset_pending, 1);
-            valid = k_sem_take(&reset_done, K_SECONDS(1)) == 0;
-        }
-        if (valid) {
-            atomic_set(&authenticated, 1);
+            atomic_set(&client_active, 1);
             int sent = websocket_send_msg(fd, (const uint8_t *)"ready", 5,
                 WEBSOCKET_OPCODE_DATA_TEXT, false, true, 1000);
             valid = sent == 5;
             if (!valid) { atomic_inc(&tx_errors); atomic_set(&last_error, sent < 0 ? sent : -EIO); }
             else atomic_inc(&sessions);
         } else {
-            atomic_inc(&auth_failures);
-            atomic_set(&last_error, n < 0 ? n : -EACCES);
+            atomic_inc(&queue_timeouts);
+            atomic_set(&last_error, -ETIMEDOUT);
         }
         size_t message_bytes = 0;
         bool binary = false;
@@ -134,7 +126,7 @@ static void websocket_worker(void *a, void *b, void *c)
                 if (sent != count) { atomic_inc(&tx_errors); atomic_set(&last_error, sent < 0 ? sent : -EIO); break; }
             }
         }
-        atomic_set(&authenticated, 0);
+        atomic_set(&client_active, 0);
         websocket_unregister(fd);
         client_socket = -1;
         atomic_clear(&busy);

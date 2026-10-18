@@ -3,7 +3,9 @@
 This target combines pinned Zephyr, the Arduino API, SmallVM v417 and the real
 MicroBlocks 2.5.8 GP editor. The board serves compressed editor assets from
 flash; compilation runs in the computer's browser and bytecode travels over an
-authenticated binary WebSocket. USB is reserved for installation and recovery.
+direct binary WebSocket. The user's private-LAN mode needs no application code
+or login; any reachable device can program it. USB is reserved for installation
+and recovery. See [local access](../../../docs/LOCAL_ACCESS.md).
 
 ## Build
 
@@ -42,7 +44,7 @@ preserve this target's program and Wi-Fi partitions; a full erase does not.
 1. With saved station settings, open the board's displayed IP in a browser on
    the same LAN. Without settings it starts a protected fallback AP; the KEY
    boot path can request that fallback while preserving station settings.
-2. Use **Connect → Connect Waveshare**, entering the board's pairing code.
+2. Use **Connect → Connect Waveshare** directly.
    **Board** contains the hardware library, examples and Wi-Fi setup link.
 3. Drag and run blocks in the actual editor. Start runs start-hat scripts.
    Individual script stop retains variables; global Stop uses upstream
@@ -68,7 +70,9 @@ Exact values, firmware hash and remaining limits are in
 `evidence/2026-10-17/{graphical-acceptance,storage-capacity,runtime-memory}.json`
 and `docs/DEVELOPMENT_SESSION.md`.
 
-Display appearance, physical button presses, RTC setting/retention, calibrated
-voltage, microSD, BLE, audio, sleep and broad Arduino library compatibility
-remain unverified or unimplemented. Mid-session station-loss fallback is not
+RTC setting/ticking and powered-reset retention have since passed; battery
+retention is unverified. Basic checks now use 50 outputs. Audio blocks and their
+separate hardware/audible status are described in [audio](../../../docs/AUDIO.md).
+Display appearance, physical button presses, calibrated voltage, microSD, BLE,
+sleep and broad Arduino library compatibility remain incomplete. Mid-session station-loss fallback is not
 implemented. No microSD is needed for the editor assets.

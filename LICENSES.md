@@ -16,6 +16,14 @@ provide the corresponding source and build/relink materials as each requires.
 The editor asset preparation retains upstream content and changes its existing
 UNO Q integration endpoints and embedded hardware library for this board.
 
+`boards/waveshare_esp32s3_rlcd_4_2/bringup/src/rlcd_audio.c` uses Apache-2.0
+and retains Espressif Systems' 2023 attribution for the adapted ES8311 register
+initialization. The pinned source and hardware references are in `docs/AUDIO.md`.
+See `licenses/Apache-2.0.txt` for the license text. Other new audio integration
+files retain their individual MIT or MPL-2.0 headers. The generated ESP32 I2S
+driver copy retains Zephyr/Espressif's Apache-2.0 header; its exact source hash
+and minimal guard are recorded in `tools/prepare_i2s.py`.
+
 Source from the following projects is **not vendored** in this starter and must
 preserve its own licensing and attribution when integrated:
 

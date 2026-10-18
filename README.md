@@ -5,24 +5,32 @@ alongside Zephyr RTOS**, with board-aware blocks for displays, sensors, buses, s
 wireless connectivity and other peripherals.
 
 **Status: experimental hardware port.** Zephyr, the actual Arduino API and SmallVM
-v417 compile together and run on the Waveshare board. The production wireless
-test passes arithmetic/editing, 500 ordered outputs, code CRCs, fragmented
-uploads, stop/variable inspection, reconnect and reboot/autostart checks.
+v417 compile together and run on the Waveshare board. Wireless validation covers
+arithmetic/editing, ordered output, code CRCs, fragmented uploads, stop/variable
+inspection, reconnect and reboot/autostart checks.
 Basic physical checks now default to 50 outputs; the earlier 500-output results
-remain historical evidence. The current image streams HTTP assets in bounded
-2 KiB chunks. A user-shortened 689.703-second workload completed 22 cycles with
+remain historical evidence. HTTP assets stream in bounded 2 KiB chunks.
+An earlier user-shortened 689.703-second workload completed 22 cycles with
 zero observed reset, WebSocket error, asset abort or settled heap loss; this is
 not a 30-minute stability result. The final graphical follow-up emitted exactly
 1..50. See [targeted acceptance](evidence/2026-10-18/targeted-http-acceptance.json).
 The actual MicroBlocks 2.5.8 graphical editor now loads entirely from board flash,
 with all 148 assets passing a concurrent content/header audit. The real editor
-passes pairing, graphical arithmetic/editing, 500 ordered outputs, variable
+passes graphical arithmetic/editing, ordered outputs, variable
 inspection, stop/reconnect, saved-program readback and reboot/autostart. Four
 fresh browser loads passed; runtime heap samples are recorded. Sensor reads and
 LCD transfers have physical evidence; display appearance and button presses
 still require observation.
 See the [development record](docs/DEVELOPMENT_SESSION.md) and
 [standalone goal](docs/STANDALONE_GOAL.md) for exact limitations.
+
+The [direct local access](docs/LOCAL_ACCESS.md) mode requested by the user has no
+application login or connection code. Wi-Fi credentials and protected recovery
+AP remain. [Speaker output](docs/AUDIO.md) adds asynchronous tone, busy, stop
+and diagnostic blocks. Silent hardware timing and stop tests pass; audible
+confirmation is pending. The latest [bounded checkpoint](evidence/2026-10-18/audio-direct-access-checkpoint.json)
+includes direct connection, reboot persistence, one fresh graphical load and
+50 outputs, with the original program and Wi-Fi retained.
 
 ## Supported and planned boards
 

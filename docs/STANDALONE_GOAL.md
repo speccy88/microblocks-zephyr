@@ -9,7 +9,10 @@ bytecode; they do not rebuild firmware. USB is for flashing and recovery.
 The board should join a configured Wi-Fi network, show its IP on the RLCD,
 and offer a bounded, protected AP when no network is available. No external
 runtime server or CDN is required. Do not expose the service to the public
-Internet. Do not log or commit Wi-Fi passwords or pairing credentials.
+Internet. Do not log or commit Wi-Fi passwords. Direct local access has no
+application code or login, as explicitly requested by the user; see
+[local access](LOCAL_ACCESS.md). Historical checkpoints below describe the
+previous access mechanism. Basic checks now use 50 ordered outputs.
 
 ## Acceptance sequence
 
@@ -59,8 +62,8 @@ coverage and long-duration stability remain separate acceptance work.
 
 ## IP display and fallback acceptance limits
 
-Both station and protected-AP startup construct an LCD screen containing the
-actual IP and pairing code. Earlier physical boot logs record successful CFB/
+Both station and protected-AP startup now construct an LCD screen containing
+the actual IP. Earlier physical boot logs record successful CFB/
 display-driver transfers for both paths. The compiled 10x16 font and calculated
 line wrapping fit the 300x400 visible bounds. This is driver/layout evidence;
 physical pixels, orientation and readability have not been observed.

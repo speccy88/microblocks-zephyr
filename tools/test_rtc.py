@@ -17,12 +17,10 @@ from test_wireless_vm import VM, primitive
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--host',required=True)
-    parser.add_argument('--private',type=Path,required=True)
     parser.add_argument('--evidence',type=Path,required=True)
     parser.add_argument('--reboot-port')
     parser.add_argument('--firmware-sha256')
     args=parser.parse_args()
-    private=json.loads(args.private.read_text())
     vm=None;owned=False;original={}
     report={'scope':'Real PCF85063A through the VM UTC setter; no battery/power-removal claim',
         'started_utc':datetime.now(timezone.utc).isoformat(),'checks':{},'result':'FAIL',
@@ -51,7 +49,7 @@ def main():
     try:
         deadline=time.monotonic()+45
         while True:
-            try:vm=VM(args.host,private['pair']);break
+            try:vm=VM(args.host);break
             except (OSError,TimeoutError):
                 if time.monotonic()>deadline:raise
                 time.sleep(1)
@@ -106,7 +104,7 @@ def main():
             finally:port.close()
             deadline=time.monotonic()+45
             while True:
-                try:vm=VM(args.host,private['pair']);break
+                try:vm=VM(args.host);break
                 except Exception:
                     if time.monotonic()>deadline:raise
                     time.sleep(1)
@@ -120,7 +118,7 @@ def main():
     finally:
         if owned:
             try:
-                if vm is None:vm=VM(args.host,private['pair'])
+                if vm is None:vm=VM(args.host)
                 report['final_host_utc_restore']=set_current()
                 index=len(vm.events);vm.short(2,chunk);vm.short(26,99)
                 vm.wait(lambda e:e[:2]==(26,99),after=index)

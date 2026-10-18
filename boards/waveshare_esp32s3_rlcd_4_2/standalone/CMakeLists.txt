@@ -9,6 +9,21 @@ endif()
 set(repo ${CMAKE_CURRENT_SOURCE_DIR}/../../..)
 set(vm_root ${CMAKE_CURRENT_BINARY_DIR}/smallvm)
 set(web_root ${CMAKE_CURRENT_BINARY_DIR}/web)
+if(CONFIG_I2S_ESP32 AND CONFIG_DMA_ESP32_MAX_DESCRIPTOR_NUM EQUAL 1)
+  set(patched_i2s ${CMAKE_CURRENT_BINARY_DIR}/drivers/i2s_esp32.c)
+  execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/prepare_i2s.py
+    ${ZEPHYR_BASE}/drivers/i2s/i2s_esp32.c ${patched_i2s}
+    COMMAND_ERROR_IS_FATAL ANY)
+  get_target_property(i2s_sources drivers__i2s SOURCES)
+  list(LENGTH i2s_sources i2s_source_count)
+  list(FILTER i2s_sources EXCLUDE REGEX "i2s_esp32\\.c$")
+  list(LENGTH i2s_sources i2s_other_count)
+  math(EXPR replaced_count "${i2s_source_count} - ${i2s_other_count}")
+  if(NOT replaced_count EQUAL 1)
+    message(FATAL_ERROR "Expected exactly one pinned ESP32 I2S driver")
+  endif()
+  set_property(TARGET drivers__i2s PROPERTY SOURCES ${i2s_sources} ${patched_i2s})
+endif()
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/prepare_smallvm.py
   ${SMALLVM_SOURCE_DIR} ${vm_root} COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/package_ide.py
@@ -20,7 +35,7 @@ target_include_directories(app PRIVATE ${vm_root} ${vm_root}/vm
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1 SMALLVM_WEBSOCKET=1)
 target_sources(app PRIVATE src/main.cpp src/network.c src/server.c src/transport.c src/program_store.c src/wifi_settings.c
   ../smallvm/src/platform.c ../smallvm/src/arduino_transport.cpp
-  ../bringup/src/rlcd_board.c ../integration/rlcd_smallvm_primitives.c
+  ../bringup/src/rlcd_board.c ../bringup/src/rlcd_audio.c ../integration/rlcd_smallvm_primitives.c
   ${vm_root}/vm/interp.c ${vm_root}/vm/runtime.c ${vm_root}/vm/mem.c
   ${vm_root}/vm/persist.c ${vm_root}/vm/dataPrims.c ${vm_root}/vm/varPrims.c
   ${vm_root}/vm/tinyJSON.c ${vm_root}/vm/mbFont.c ${vm_root}/vm/boardHooks.c

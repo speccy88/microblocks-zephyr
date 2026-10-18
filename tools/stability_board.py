@@ -28,7 +28,6 @@ SECOND_VAR = 125
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--host', required=True)
-    parser.add_argument('--private', type=Path, required=True)
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--evidence', type=Path, required=True)
     parser.add_argument('--checkpoint', type=Path, required=True)
@@ -48,7 +47,6 @@ def main():
         parser.error('Duration, interval and audit frequency must be positive')
     if not 1<=args.outputs<=500 or min(args.minimum_cycles,args.minimum_full_audits,args.rtc_reports,args.arithmetic_runs)<1:
         parser.error('Use1..500 outputs and positive check counts')
-    private = json.loads(args.private.read_text())
     assets = json.loads(args.manifest.read_text())['assets']
     report = {'result':'RUNNING','started_utc':datetime.now(timezone.utc).isoformat(),
         'host':args.host,'duration_target_seconds':args.minutes*60,'interval_seconds':args.interval,
@@ -124,7 +122,7 @@ def main():
     try:
         report['initial_status']=http_json('/api/status')
         baseline=sample('initial-settled')
-        vm=VM(args.host,private['pair'])
+        vm=VM(args.host)
         original=all_crcs()
         assert REPORTER not in original and STREAM not in original, 'Test chunk IDs are occupied'
         # Read all code and variable names without deleting/resetting anything.
@@ -182,7 +180,7 @@ def main():
                 vm.close();vm=None
                 time.sleep(.2)
                 reconnect_start=time.monotonic()
-                vm=VM(args.host,private['pair'])
+                vm=VM(args.host)
                 assert vm.run_reporter(REPORTER)==13
                 reconnect=time.monotonic()-reconnect_start
                 assert reconnect<5, 'Reconnect exceeded 5 seconds'
@@ -210,7 +208,7 @@ def main():
                 cleanup_error=None
                 for attempt in range(3):
                     try:
-                        if vm is None:vm=VM(args.host,private['pair'])
+                        if vm is None:vm=VM(args.host)
                         index=len(vm.events)
                         vm.short(4,STREAM);vm.short(2,REPORTER);vm.short(2,STREAM);vm.short(26,95)
                         vm.wait(lambda e:e[:2]==(26,95),seconds=5,after=index)
@@ -235,9 +233,9 @@ def main():
             report['final_status']=http_json('/api/status')
             if 'websocket' in report['initial_status'] and 'websocket' in report['final_status']:
                 first=report['initial_status']['websocket'];last=report['final_status']['websocket']
-                delta={k:last[k]-first[k] for k in ['sessions','auth_failures','rx_errors','tx_errors','queue_timeouts']}
+                delta={k:last[k]-first[k] for k in ['sessions','rx_errors','tx_errors','queue_timeouts']}
                 report['websocket_diagnostic_delta']=delta
-                assert not any(delta[k] for k in ['auth_failures','rx_errors','tx_errors','queue_timeouts']), 'WebSocket error counter increased'
+                assert not any(delta[k] for k in ['rx_errors','tx_errors','queue_timeouts']), 'WebSocket error counter increased'
             if 'assets' in report['initial_status'] and 'assets' in report['final_status']:
                 first=report['initial_status']['assets'];last=report['final_status']['assets']
                 report['asset_diagnostic_delta']={k:last[k]-first[k] for k in ['completed','aborted']}

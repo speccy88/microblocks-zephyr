@@ -1,0 +1,252 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T03:10:43.142719+00:00",
+  "firmware_sha256": "3df0e7a541258ccb6720866c59ecb030ce222060b0bfef3d60903b7cff5f18cb",
+  "scope": "Physical codec I2C readback and I2S DMA software evidence; audible output and waveform capture unverified",
+  "checks": {
+    "initial_status": {
+      "id": "8311",
+      "ready": 0,
+      "busy": 0,
+      "format": 12,
+      "clock": 63,
+      "dac_osr": 16,
+      "gain": 191,
+      "mute": 96,
+      "amp": 0,
+      "rate": 24000,
+      "lrck_hz": 0,
+      "bits": 16,
+      "slot": 16,
+      "channels": 1,
+      "blocks": 0,
+      "queued_frames": 0,
+      "completed_frames": 0,
+      "free_blocks": 4,
+      "starts": 0,
+      "elapsed_ms": 0,
+      "error": 0
+    },
+    "memory_before": {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 12204,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22172,
+        "allocated_bytes": 43112,
+        "peak_allocated_bytes": 43824
+      },
+      "uptime_ms": 15099,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM"
+    },
+    "invalid_inputs": [
+      {
+        "arguments": [
+          49,
+          200,
+          10
+        ],
+        "error_code": 18
+      },
+      {
+        "arguments": [
+          4001,
+          200,
+          10
+        ],
+        "error_code": 18
+      },
+      {
+        "arguments": [
+          440,
+          0,
+          10
+        ],
+        "error_code": 18
+      },
+      {
+        "arguments": [
+          440,
+          5001,
+          10
+        ],
+        "error_code": 18
+      },
+      {
+        "arguments": [
+          440,
+          200,
+          -1
+        ],
+        "error_code": 18
+      },
+      {
+        "arguments": [
+          440,
+          200,
+          101
+        ],
+        "error_code": 18
+      },
+      {
+        "arguments": [
+          false,
+          200,
+          10
+        ],
+        "error_code": 13
+      },
+      {
+        "arguments": [
+          440,
+          200
+        ],
+        "error_code": 28
+      }
+    ],
+    "quiet_notes": [
+      {
+        "frequency_hz": 440,
+        "duration_ms": 200,
+        "volume": 0,
+        "status": {
+          "id": "8311",
+          "ready": 1,
+          "busy": 0,
+          "format": 12,
+          "clock": 63,
+          "dac_osr": 16,
+          "gain": 191,
+          "mute": 96,
+          "amp": 0,
+          "rate": 24000,
+          "lrck_hz": 23985,
+          "bits": 16,
+          "slot": 16,
+          "channels": 2,
+          "blocks": 19,
+          "queued_frames": 4800,
+          "completed_frames": 4800,
+          "free_blocks": 4,
+          "starts": 1,
+          "elapsed_ms": 202,
+          "error": 0
+        },
+        "concurrent_rtc": "2026-10-18 03:10:44"
+      },
+      {
+        "frequency_hz": 660,
+        "duration_ms": 200,
+        "volume": 0,
+        "status": {
+          "id": "8311",
+          "ready": 1,
+          "busy": 0,
+          "format": 12,
+          "clock": 63,
+          "dac_osr": 16,
+          "gain": 191,
+          "mute": 96,
+          "amp": 0,
+          "rate": 24000,
+          "lrck_hz": 23965,
+          "bits": 16,
+          "slot": 16,
+          "channels": 2,
+          "blocks": 19,
+          "queued_frames": 4800,
+          "completed_frames": 4800,
+          "free_blocks": 4,
+          "starts": 2,
+          "elapsed_ms": 204,
+          "error": 0
+        },
+        "concurrent_rtc": "2026-10-18 03:10:44"
+      }
+    ],
+    "explicit_stop": {
+      "status": {
+        "id": "8311",
+        "ready": 1,
+        "busy": 0,
+        "format": 12,
+        "clock": 63,
+        "dac_osr": 16,
+        "gain": 191,
+        "mute": 96,
+        "amp": 0,
+        "rate": 24000,
+        "lrck_hz": 24009,
+        "bits": 16,
+        "slot": 16,
+        "channels": 2,
+        "blocks": 43,
+        "queued_frames": 11008,
+        "completed_frames": 0,
+        "free_blocks": 4,
+        "starts": 3,
+        "elapsed_ms": 418,
+        "error": 0
+      },
+      "host_stop_seconds": 0.406
+    },
+    "global_stop": {
+      "status": {
+        "id": "8311",
+        "ready": 1,
+        "busy": 0,
+        "format": 12,
+        "clock": 63,
+        "dac_osr": 16,
+        "gain": 191,
+        "mute": 96,
+        "amp": 0,
+        "rate": 24000,
+        "lrck_hz": 23846,
+        "bits": 16,
+        "slot": 16,
+        "channels": 2,
+        "blocks": 41,
+        "queued_frames": 10496,
+        "completed_frames": 0,
+        "free_blocks": 4,
+        "starts": 4,
+        "elapsed_ms": 396,
+        "error": 0
+      },
+      "host_stop_seconds": 0.266
+    },
+    "temperature_milli_c": 25634,
+    "memory_after": {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 12204,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22172,
+        "allocated_bytes": 43112,
+        "peak_allocated_bytes": 43824
+      },
+      "uptime_ms": 19068,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM"
+    },
+    "settled_allocator_loss_bytes": {
+      "libc_malloc": 0,
+      "kernel_heap": 0
+    }
+  },
+  "original_crc32": {
+    "0": "297d191b",
+    "1": "8b3406b3",
+    "2": "5e84cd6a"
+  },
+  "original_program_preserved": true,
+  "finished_utc": "2026-10-18T03:10:47.807334+00:00"
+}

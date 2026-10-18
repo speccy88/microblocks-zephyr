@@ -104,18 +104,25 @@
     },
     {
       "id": "speaker_dac",
-      "chip": "ES8311 + external amplifier/speaker connector",
+      "chip": "ES8311 + NS4150B amplifier + external speaker connector",
       "interface": "I2S0 + I2C0",
       "address": "0x18",
       "pins": {
         "mclk": 16,
         "bclk": 9,
         "ws": 45,
-        "mcu_to_dac": 10
+        "mcu_to_dac": 10,
+        "amplifier_enable": 46
       },
-      "upstream_zephyr": "codec-not-integrated",
-      "bringup": "not-implemented",
-      "smallvm": "planned"
+      "upstream_zephyr": "i2s-esp32-with-audited-append-guard-and-native-es8311-adapter",
+      "bringup": "not-exposed-in-diagnostic-shell",
+      "smallvm": "standalone-tone-dma-and-stop-physically-tested-audible-confirmation-pending",
+      "acceptance_limits": [
+        "Owner confirms external speaker connected",
+        "Silent 200 ms PCM transfers, codec registers, WS edge rate and DMA reclamation pass",
+        "Audible output and analog waveform/final drain remain unverified",
+        "Microphone, recorded samples and gapless music not implemented"
+      ]
     },
     {
       "id": "sdcard",

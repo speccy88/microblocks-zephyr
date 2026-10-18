@@ -3,6 +3,7 @@
  * Interface pattern follows the existing speccy88/uno-q-microblocks port. */
 #include "vm/interp.h"
 #include "rlcd_board.h"
+#include "rlcd_audio.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,7 +16,7 @@ void consoleReportNum(const char *s, int n) { (void)s; (void)n; }
 void processFileMessage(int t, int n, char *p) { (void)t; (void)n; (void)p; }
 void stopPWM(void) {}
 void stopServos(void) {}
-void stopTone(void) {}
+void stopTone(void) { rlcd_audio_stop(); }
 void resetRadio(void) {}
 void turnOffInternalNeoPixels(void) {}
 void tftClear(void) {}

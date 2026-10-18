@@ -1,0 +1,28 @@
+{
+  "firmware_sha256": "3df0e7a541258ccb6720866c59ecb030ce222060b0bfef3d60903b7cff5f18cb",
+  "image_bytes": 4250564,
+  "flash_bytes": 16777216,
+  "app_partition_bytes": 13631488,
+  "app_remaining_bytes": 9380924,
+  "vm_store_bytes": 262144,
+  "vm_payload_cap_bytes": 65536,
+  "settings_bytes": 65536,
+  "unassigned_flash_tail_bytes": 2818048,
+  "ide_assets": 148,
+  "ide_compressed_flash_bytes": 3512413,
+  "ide_decoded_browser_bytes": 17282040,
+  "linker_dram_bytes": 386816,
+  "linker_dram_region_bytes": 399108,
+  "runtime_minimum_free_bytes": {
+    "libc_malloc": 12204,
+    "kernel_heap": 22172
+  },
+  "settled_allocator_loss_bytes": {
+    "libc_malloc": 0,
+    "kernel_heap": 0
+  },
+  "physical_psram_bytes": 8388608,
+  "actual_external_data_and_reserved_heap_bytes": 1179664,
+  "external_virtual_mapping_padding_bytes": 4128768,
+  "note": "Physical PSRAM remainder is not measured allocatable heap. DMA frames, analog drain and hearing are separate observations."
+}

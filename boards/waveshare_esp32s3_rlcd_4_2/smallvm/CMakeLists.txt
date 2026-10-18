@@ -13,7 +13,7 @@ execute_process(COMMAND ${Python3_EXECUTABLE}
 target_include_directories(app PRIVATE ${vm_root} ${vm_root}/vm ../bringup/src)
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1)
 target_sources(app PRIVATE src/main.cpp src/platform.c src/arduino_transport.cpp
-  ../bringup/src/rlcd_board.c ../integration/rlcd_smallvm_primitives.c
+  ../bringup/src/rlcd_board.c ../bringup/src/rlcd_audio.c ../integration/rlcd_smallvm_primitives.c
   ${vm_root}/vm/interp.c ${vm_root}/vm/runtime.c ${vm_root}/vm/mem.c
   ${vm_root}/vm/persist.c ${vm_root}/vm/dataPrims.c ${vm_root}/vm/varPrims.c
   ${vm_root}/vm/tinyJSON.c ${vm_root}/vm/mbFont.c ${vm_root}/vm/boardHooks.c)
