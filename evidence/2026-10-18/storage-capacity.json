@@ -1,0 +1,23 @@
+{
+  "firmware_sha256": "a13761626fb782740d6cbdacc1c90c874671f4d3bea09b80814ec268e4780582",
+  "image_bytes": 4185140,
+  "flash_bytes": 16777216,
+  "app_partition_bytes": 13631488,
+  "app_partition_remaining_bytes": 9446348,
+  "vm_store_bytes": 262144,
+  "vm_store_slots": 2,
+  "vm_payload_cap_bytes": 65536,
+  "settings_bytes": 65536,
+  "unassigned_flash_tail_bytes": 2818048,
+  "ide_assets_count": 148,
+  "ide_compressed_bytes": 3513326,
+  "ide_uncompressed_bytes": 17285125,
+  "linker_dram_used_bytes": 376872,
+  "linker_dram_capacity_bytes": 399108,
+  "minimum_runtime_libc_free_bytes": 22140,
+  "minimum_runtime_kernel_free_bytes": 22604,
+  "physical_psram_bytes": 8388608,
+  "actual_external_data_and_reserved_heap_bytes": 1179664,
+  "external_virtual_mapping_padding_bytes": 4063232,
+  "note": "PSRAM remainder is capacity, not measured allocatable heap. Allocator statistics exclude static data, stacks and VM arena free objects."
+}

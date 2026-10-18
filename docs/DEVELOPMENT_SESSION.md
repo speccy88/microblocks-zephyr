@@ -257,3 +257,32 @@ RTC setter/retention, SD, BLE, audio, power/sleep and external library/pin tests
 remain incomplete. Startup fallback exists; mid-session station-loss fallback
 does not. The simpleboot ROM comparison warning remains an upstream packaging
 limitation; no eFuse/security settings were changed. No COM5 access occurred.
+
+## 2026-10-18 bounded HTTP streaming and shortened acceptance
+
+This checkpoint supersedes earlier HTTP capacity and RTC-pending statements.
+The flashed application is 4,185,140 bytes, SHA-256
+`a13761626fb782740d6cbdacc1c90c874671f4d3bea09b80814ec268e4780582`.
+The server sends at most 2048 mapped-flash bytes per HTTP chunk and yields
+between chunks, retaining per-client state and completion/abort diagnostics.
+Both large GP assets passed raw framing, gzip, content hash and header checks.
+
+The user requested ending the long repetitive test. Actual workload duration
+was 689.703 seconds, with 22 completed cycles, five complete 148-asset audits,
+zero observed resets, zero WebSocket errors, zero asset aborts and no settled
+allocator loss. The raw cancelled report remains FAIL, with its stop reason;
+the separately scoped targeted acceptance passes. Three final browser traces
+are complete; a fourth has a collector gap and is excluded. Including data
+events in the filtered collector fixed that instrumentation issue. Two earlier
+bulk-overlap browser loads also passed. This is not a 30-minute soak PASS.
+
+The actual graphical follow-up retrieved one variable and three chunks, changed
+the repeat count to 50, reconnected without a new pairing prompt and produced
+exactly 1..50. Basic checks now default to 50. Earlier failed and larger stress
+results remain historical evidence. RTC UTC setting, 15 rejected invalid
+inputs, ticking and powered-reset retention pass on this exact image; battery
+removal and long-term clock accuracy remain untested. Current memory/storage
+values are in `evidence/2026-10-18/storage-capacity.json`.
+
+Audio is the next requested feature and has no implementation/physical PASS
+at this checkpoint. SD, BLE and remaining visual/electrical checks are pending.

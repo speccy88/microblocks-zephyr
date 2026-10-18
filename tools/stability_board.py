@@ -32,24 +32,33 @@ def main():
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--evidence', type=Path, required=True)
     parser.add_argument('--checkpoint', type=Path, required=True)
-    parser.add_argument('--minutes', type=float, default=30)
+    parser.add_argument('--minutes', type=float, default=1)
     parser.add_argument('--interval', type=float, default=30)
     parser.add_argument('--full-audit-every', type=int, default=10)
+    parser.add_argument('--outputs',type=int,default=50)
+    parser.add_argument('--minimum-cycles',type=int,default=1)
+    parser.add_argument('--minimum-full-audits',type=int,default=1)
+    parser.add_argument('--rtc-reports',type=int,default=1)
+    parser.add_argument('--arithmetic-runs',type=int,default=1)
     parser.add_argument('--stop-file',type=Path,help='Presence requests an orderly stop/cleanup')
     parser.add_argument('--firmware-sha256',help='Hash of the app-only image verified at flash time')
+    parser.add_argument('--require-rtc-utc',action='store_true',help='Require RTC text to remain within5 seconds of host UTC')
     args = parser.parse_args()
     if args.minutes <= 0 or args.interval <= 0 or args.full_audit_every < 1:
         parser.error('Duration, interval and audit frequency must be positive')
+    if not 1<=args.outputs<=500 or min(args.minimum_cycles,args.minimum_full_audits,args.rtc_reports,args.arithmetic_runs)<1:
+        parser.error('Use1..500 outputs and positive check counts')
     private = json.loads(args.private.read_text())
     assets = json.loads(args.manifest.read_text())['assets']
     report = {'result':'RUNNING','started_utc':datetime.now(timezone.utc).isoformat(),
         'host':args.host,'duration_target_seconds':args.minutes*60,'interval_seconds':args.interval,
         'scope':'Physical unchanged firmware; HTTP content and binary VM workload. Browser fresh loads are recorded separately.',
         'cycles':[], 'memory':[], 'asset_audits':[], 'original_program_crc32':{},
-        'criteria':{'minimum_cycles':40,'minimum_full_asset_audits':4,'outputs_per_cycle':500,
+        'criteria':{'minimum_cycles':args.minimum_cycles,'minimum_full_asset_audits':args.minimum_full_audits,'outputs_per_cycle':args.outputs,
             'no_reboot':True,'minimum_allocator_free_bytes':2048,'maximum_settled_residual_bytes':1024}}
     report['firmware_sha256']=args.firmware_sha256
     report['asset_manifest_sha256']=hashlib.sha256(args.manifest.read_bytes()).hexdigest()
+    report['require_rtc_utc']=args.require_rtc_utc
     vm = None
     original = None
     owned = False
@@ -128,7 +137,8 @@ def main():
         args.checkpoint.write_text(json.dumps({'crc32':{str(k):f'{v:08x}' for k,v in original.items()},'records':checkpoint},indent=2)+'\n',encoding='utf-8')
         report['original_program_crc32']={str(k):f'{v:08x}' for k,v in original.items()}
         reporter=bytes([9,0,2,11,2,15,50,2,35,0,127,0,240,0,0,0,0,0,0,0])
-        stream=words([op(2,1),op(7,FIRST_VAR),op(3,231),3,op(7,SECOND_VAR),op(6,SECOND_VAR),
+        tagged_count=2*args.outputs-1
+        stream=words([op(2,1),op(7,FIRST_VAR),op(3,tagged_count&255),(tagged_count>>8)&65535,op(7,SECOND_VAR),op(6,SECOND_VAR),
             op(2,3),op(8,FIRST_VAR),op(6,FIRST_VAR),op(78,1),op(26,-5),0])
         owned=True
         vm.upload(STREAM,stream)
@@ -143,18 +153,24 @@ def main():
                 save()
                 futures=[pool.submit(audit_asset,a) for a in subset]
                 vm.upload(REPORTER,primitive('rtcText'),kind=2)
-                for _ in range(50):
+                rtc_offsets=[]
+                for _ in range(args.rtc_reports):
                     text=vm.run_reporter(REPORTER)
                     assert isinstance(text,str) and text, 'RTC string reporter failed'
+                    if args.require_rtc_utc:
+                        clock=datetime.strptime(text,'%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc)
+                        offset=abs((clock-datetime.now(timezone.utc)).total_seconds())
+                        assert offset<5, 'RTC differs from host UTC by5 seconds or more'
+                        rtc_offsets.append(offset)
                 vm.upload(REPORTER,reporter,kind=2)
-                assert [vm.run_reporter(REPORTER) for _ in range(10)]==[12]*10
+                assert [vm.run_reporter(REPORTER) for _ in range(args.arithmetic_runs)]==[12]*args.arithmetic_runs
                 edited=bytearray(reporter);edited[5]=17
                 vm.upload(REPORTER,edited,kind=2)
                 assert vm.run_reporter(REPORTER)==13
                 index=len(vm.events);vm.short(3,STREAM)
                 vm.wait(lambda e:e[:2]==(17,STREAM),seconds=25,after=index)
                 values=[int(e[2][1:]) for e in vm.events[index:] if e[:2]==(20,254)]
-                assert values==list(range(1,501)), 'Numeric output order/count differs'
+                assert values==list(range(1,args.outputs+1)), 'Numeric output order/count differs'
                 report['phase']='active-memory-probe'
                 save()
                 sample('active-cycle-'+str(cycle+1))
@@ -172,7 +188,8 @@ def main():
                 assert reconnect<5, 'Reconnect exceeded 5 seconds'
                 cycle+=1
                 report['cycles'].append({'cycle':cycle,'elapsed_seconds':round(time.monotonic()-start,3),
-                    'rtc_string_reports':50,'arithmetic_runs':10,'edit_result':13,'ordered_outputs':len(values),
+                    'rtc_string_reports':args.rtc_reports,'arithmetic_runs':args.arithmetic_runs,'edit_result':13,'ordered_outputs':len(values),
+                    'maximum_rtc_host_offset_seconds':round(max(rtc_offsets),3) if rtc_offsets else None,
                     'reconnect_seconds':round(reconnect,3),'original_crcs_unchanged':True,
                     'seconds':round(time.monotonic()-cycle_start,3)})
                 report['phase']='interval'
@@ -180,8 +197,8 @@ def main():
                 print(json.dumps(report['cycles'][-1]),flush=True)
                 while time.monotonic()-cycle_start<args.interval and time.monotonic()-start<args.minutes*60:
                     vm.pump()
-        assert cycle>=40, 'Fewer than 40 complete cycles'
-        assert len(report['asset_audits'])>=4, 'Fewer than four full asset audits'
+        assert cycle>=args.minimum_cycles, 'Minimum complete cycle count not met'
+        assert len(report['asset_audits'])>=args.minimum_full_audits, 'Minimum full asset audit count not met'
         report['result']='PASS'
     except Exception as exc:
         report.update(result='FAIL',error=type(exc).__name__+': '+str(exc),
@@ -221,6 +238,10 @@ def main():
                 delta={k:last[k]-first[k] for k in ['sessions','auth_failures','rx_errors','tx_errors','queue_timeouts']}
                 report['websocket_diagnostic_delta']=delta
                 assert not any(delta[k] for k in ['auth_failures','rx_errors','tx_errors','queue_timeouts']), 'WebSocket error counter increased'
+            if 'assets' in report['initial_status'] and 'assets' in report['final_status']:
+                first=report['initial_status']['assets'];last=report['final_status']['assets']
+                report['asset_diagnostic_delta']={k:last[k]-first[k] for k in ['completed','aborted']}
+                assert report['asset_diagnostic_delta']['aborted']==0, 'HTTP asset transfer was aborted'
             report['minimum_free_bytes']={p:min(s[p]['free_bytes'] for s in report['memory']) for p in ['libc_malloc','kernel_heap']}
         except Exception as exc:
             report.update(result='FAIL',cleanup_or_final_error=type(exc).__name__+': '+str(exc))

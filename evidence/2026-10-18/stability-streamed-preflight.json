@@ -1,0 +1,368 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T02:11:04.465934+00:00",
+  "host": "192.168.1.69",
+  "duration_target_seconds": 1800.0,
+  "interval_seconds": 30.0,
+  "scope": "Physical unchanged firmware; HTTP content and binary VM workload. Browser fresh loads are recorded separately.",
+  "cycles": [
+    {
+      "cycle": 1,
+      "elapsed_seconds": 48.25,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.843,
+      "reconnect_seconds": 0.187,
+      "original_crcs_unchanged": true,
+      "seconds": 47.609
+    },
+    {
+      "cycle": 2,
+      "elapsed_seconds": 58.406,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.816,
+      "reconnect_seconds": 0.14,
+      "original_crcs_unchanged": true,
+      "seconds": 10.156
+    },
+    {
+      "cycle": 3,
+      "elapsed_seconds": 88.25,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 2.003,
+      "reconnect_seconds": 0.109,
+      "original_crcs_unchanged": true,
+      "seconds": 9.75
+    },
+    {
+      "cycle": 4,
+      "elapsed_seconds": 118.594,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.773,
+      "reconnect_seconds": 0.125,
+      "original_crcs_unchanged": true,
+      "seconds": 9.891
+    },
+    {
+      "cycle": 5,
+      "elapsed_seconds": 148.594,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.847,
+      "reconnect_seconds": 0.156,
+      "original_crcs_unchanged": true,
+      "seconds": 9.891
+    },
+    {
+      "cycle": 6,
+      "elapsed_seconds": 199.203,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.859,
+      "reconnect_seconds": 0.125,
+      "original_crcs_unchanged": true,
+      "seconds": 30.5
+    },
+    {
+      "cycle": 7,
+      "elapsed_seconds": 209.188,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.805,
+      "reconnect_seconds": 0.141,
+      "original_crcs_unchanged": true,
+      "seconds": 9.985
+    }
+  ],
+  "memory": [
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 69615,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.078,
+      "elapsed_seconds": 0.156,
+      "phase": "initial-settled",
+      "utc": "2026-10-18T02:11:04.623586+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 87748,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 6.828,
+      "elapsed_seconds": 18.344,
+      "phase": "active-cycle-1",
+      "utc": "2026-10-18T02:11:22.805064+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 127219,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.297,
+      "elapsed_seconds": 57.953,
+      "phase": "active-cycle-2",
+      "utc": "2026-10-18T02:12:02.422348+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 157103,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 87.844,
+      "phase": "active-cycle-3",
+      "utc": "2026-10-18T02:12:32.315041+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 187412,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.296,
+      "elapsed_seconds": 118.156,
+      "phase": "active-cycle-4",
+      "utc": "2026-10-18T02:13:02.625260+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 217395,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 148.156,
+      "phase": "active-cycle-5",
+      "utc": "2026-10-18T02:13:32.619228+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 254395,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 6.109,
+      "elapsed_seconds": 185.172,
+      "phase": "active-cycle-6",
+      "utc": "2026-10-18T02:14:09.636450+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 278039,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.297,
+      "elapsed_seconds": 208.766,
+      "phase": "active-cycle-7",
+      "utc": "2026-10-18T02:14:33.234587+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 302051,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.093,
+      "elapsed_seconds": 232.578,
+      "phase": "final-settled",
+      "utc": "2026-10-18T02:14:57.053171+00:00"
+    }
+  ],
+  "asset_audits": [
+    {
+      "cycle": 1,
+      "assets": 148,
+      "uncompressed_bytes": 17285125,
+      "result": "PASS"
+    },
+    {
+      "cycle": 6,
+      "assets": 148,
+      "uncompressed_bytes": 17285125,
+      "result": "PASS"
+    }
+  ],
+  "original_program_crc32": {
+    "0": "297d191b",
+    "1": "a4144564",
+    "2": "5e84cd6a"
+  },
+  "criteria": {
+    "minimum_cycles": 40,
+    "minimum_full_asset_audits": 4,
+    "outputs_per_cycle": 500,
+    "no_reboot": true,
+    "minimum_allocator_free_bytes": 2048,
+    "maximum_settled_residual_bytes": 1024
+  },
+  "firmware_sha256": "a13761626fb782740d6cbdacc1c90c874671f4d3bea09b80814ec268e4780582",
+  "asset_manifest_sha256": "9210050a7bff0ae13f675c768fd085e6ec95fa1d564ce1033ee92a4a57a855a1",
+  "require_rtc_utc": true,
+  "initial_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 98,
+    "websocket": {
+      "sessions": 1,
+      "auth_failures": 0,
+      "rx_errors": 0,
+      "tx_errors": 0,
+      "queue_timeouts": 0,
+      "last_error": 0
+    },
+    "assets": {
+      "chunk_bytes": 2048,
+      "completed": 0,
+      "aborted": 0
+    }
+  },
+  "phase": "finished",
+  "error": "RuntimeError: Stopped by coordinator; evidence retained and owned chunks cleaned",
+  "failed_phase": "interval",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\fred_\\Documents\\Codex\\2026-10-17\\task-5\\microblocks-zephyr\\tools\\stability_board.py\", line 140, in main\n    if stop_file.exists():raise RuntimeError('Stopped by coordinator; evidence retained and owned chunks cleaned')\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Stopped by coordinator; evidence retained and owned chunks cleaned\n",
+  "workload_seconds": 229.328,
+  "original_program_restored": true,
+  "settled_free_space_loss_bytes": {
+    "libc_malloc": 0,
+    "kernel_heap": 0
+  },
+  "final_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 113,
+    "websocket": {
+      "sessions": 9,
+      "auth_failures": 0,
+      "rx_errors": 0,
+      "tx_errors": 0,
+      "queue_timeouts": 0,
+      "last_error": 0
+    },
+    "assets": {
+      "chunk_bytes": 2048,
+      "completed": 369,
+      "aborted": 1
+    }
+  },
+  "websocket_diagnostic_delta": {
+    "sessions": 8,
+    "auth_failures": 0,
+    "rx_errors": 0,
+    "tx_errors": 0,
+    "queue_timeouts": 0
+  },
+  "asset_diagnostic_delta": {
+    "completed": 369,
+    "aborted": 1
+  },
+  "cleanup_or_final_error": "AssertionError: HTTP asset transfer was aborted",
+  "finished_utc": "2026-10-18T02:14:57.080632+00:00",
+  "preflight_note": "Stopped before final acceptance because the separate raw framing probe closed after its status-line assertion rejected an empty reason phrase. That known client abort accounts for the single asset-aborted increment; the corrected probe passed. VM cycles, RTC and original CRCs remained valid. A fresh acceptance window follows all preflight probes."
+}

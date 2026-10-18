@@ -4,6 +4,7 @@
 #include <zephyr/net/http/service.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/sys_heap.h>
+#include <zephyr/sys/atomic.h>
 #include <string.h>
 #include <strings.h>
 #include <stdio.h>
@@ -32,18 +33,60 @@ static const struct http_header gzip_headers[] = {
     {"Content-Security-Policy", content_policy},
 };
 
+#define ASSET_CHUNK_BYTES 2048u
+struct asset_transfer {
+    struct http_client_ctx *client;
+    const struct mb_asset *asset;
+    size_t offset;
+};
+static struct asset_transfer transfers[CONFIG_HTTP_SERVER_MAX_CLIENTS];
+K_MUTEX_DEFINE(asset_transfers_lock);
+static atomic_t asset_completed, asset_aborted;
+
 int mb_asset_handler(struct http_client_ctx *client, enum http_transaction_status status,
                      const struct http_request_ctx *request,
                      struct http_response_ctx *response, void *user)
 {
-    ARG_UNUSED(client); ARG_UNUSED(request);
-    if (status != HTTP_SERVER_REQUEST_DATA_FINAL) return 0;
+    ARG_UNUSED(request);
     const struct mb_asset *asset = user;
-    response->body = asset->data;
-    response->body_len = asset->size;
-    response->headers = asset->gzip ? gzip_headers : asset_headers;
-    response->header_count = asset->gzip ? ARRAY_SIZE(gzip_headers) : ARRAY_SIZE(asset_headers);
-    response->final_chunk = true;
+    struct asset_transfer *state = NULL, *empty = NULL;
+    k_mutex_lock(&asset_transfers_lock, K_FOREVER);
+    for (size_t i = 0; i < ARRAY_SIZE(transfers); ++i) {
+        if (transfers[i].client == client && transfers[i].asset == asset) state = &transfers[i];
+        if (!transfers[i].client && !empty) empty = &transfers[i];
+    }
+    if (status == HTTP_SERVER_TRANSACTION_COMPLETE || status == HTTP_SERVER_TRANSACTION_ABORTED) {
+        if (state) {
+            if (status == HTTP_SERVER_TRANSACTION_COMPLETE) atomic_inc(&asset_completed);
+            else atomic_inc(&asset_aborted);
+            memset(state, 0, sizeof(*state));
+        }
+        k_mutex_unlock(&asset_transfers_lock);
+        return 0;
+    }
+    if (status != HTTP_SERVER_REQUEST_DATA_FINAL) {
+        k_mutex_unlock(&asset_transfers_lock);
+        return 0;
+    }
+    if (!state) {
+        state = empty;
+        if (!state) { k_mutex_unlock(&asset_transfers_lock); return -ENOMEM; }
+        *state = (struct asset_transfer){.client = client, .asset = asset};
+    }
+    bool first = state->offset == 0;
+    size_t count = MIN(asset->size - state->offset, ASSET_CHUNK_BYTES);
+    response->body = asset->data + state->offset;
+    response->body_len = count;
+    if (first) {
+        response->headers = asset->gzip ? gzip_headers : asset_headers;
+        response->header_count = asset->gzip ? ARRAY_SIZE(gzip_headers) : ARRAY_SIZE(asset_headers);
+    }
+    state->offset += count;
+    response->final_chunk = state->offset == asset->size;
+    k_mutex_unlock(&asset_transfers_lock);
+    /* A bulk body must not monopolize network servicing. Zephyr requests the
+     * next response chunk after sending this one and refreshes its timer. */
+    if (!first) k_sleep(K_MSEC(1));
     return 0;
 }
 
@@ -113,12 +156,14 @@ static int status_handler(struct http_client_ctx *client, enum http_transaction_
 {
     ARG_UNUSED(client); ARG_UNUSED(request); ARG_UNUSED(user);
     if (status != HTTP_SERVER_REQUEST_DATA_FINAL) return 0;
-    static char json[384];
+    static char json[512];
     struct mb_transport_diagnostics ws;
     mb_transport_diagnostics_get(&ws);
     snprintf(json, sizeof(json), "{\"board\":\"Waveshare ESP32-S3-RLCD-4.2\",\"vm\":417,\"ide\":\"2.5.8\",\"saved_generation\":%u,"
-        "\"websocket\":{\"sessions\":%u,\"auth_failures\":%u,\"rx_errors\":%u,\"tx_errors\":%u,\"queue_timeouts\":%u,\"last_error\":%d}}",
-        mb_store_generation(), ws.sessions, ws.auth_failures, ws.rx_errors, ws.tx_errors, ws.queue_timeouts, ws.last_error);
+        "\"websocket\":{\"sessions\":%u,\"auth_failures\":%u,\"rx_errors\":%u,\"tx_errors\":%u,\"queue_timeouts\":%u,\"last_error\":%d},"
+        "\"assets\":{\"chunk_bytes\":%u,\"completed\":%u,\"aborted\":%u}}",
+        mb_store_generation(), ws.sessions, ws.auth_failures, ws.rx_errors, ws.tx_errors, ws.queue_timeouts, ws.last_error,
+        ASSET_CHUNK_BYTES, (unsigned)atomic_get(&asset_completed), (unsigned)atomic_get(&asset_aborted));
     response->body=(const uint8_t *)json;response->body_len=strlen(json);response->final_chunk=true;
     return 0;
 }

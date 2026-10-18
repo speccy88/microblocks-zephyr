@@ -1,0 +1,111 @@
+{
+  "firmware_sha256": "a13761626fb782740d6cbdacc1c90c874671f4d3bea09b80814ec268e4780582",
+  "loads": [
+    {
+      "label": "final-01",
+      "result": "PASS",
+      "elapsed_ms": 19998,
+      "requests": 52,
+      "responses": 52,
+      "resource_timing_entries": 52,
+      "resource_statuses": [
+        200
+      ],
+      "ready": true,
+      "pending": 0,
+      "failures": [],
+      "javascript_errors": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": false,
+      "started_utc": "2026-10-18T02:19:54.814Z",
+      "finished_utc": "2026-10-18T02:20:14.813Z"
+    },
+    {
+      "label": "final-02",
+      "result": "EXCLUDED_CAPTURE_GAP",
+      "elapsed_ms": 24756,
+      "requests": 52,
+      "responses": 52,
+      "resource_timing_entries": 52,
+      "resource_statuses": [
+        200
+      ],
+      "ready": true,
+      "pending": 0,
+      "failures": [],
+      "javascript_errors": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": true,
+      "started_utc": "2026-10-18T02:22:35.842Z",
+      "finished_utc": "2026-10-18T02:23:00.598Z"
+    },
+    {
+      "label": "final-03",
+      "result": "PASS",
+      "elapsed_ms": 17675,
+      "requests": 52,
+      "responses": 52,
+      "resource_timing_entries": 52,
+      "resource_statuses": [
+        200
+      ],
+      "ready": true,
+      "pending": 0,
+      "failures": [],
+      "javascript_errors": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": false,
+      "started_utc": "2026-10-18T02:24:28.586Z",
+      "finished_utc": "2026-10-18T02:24:46.261Z"
+    },
+    {
+      "label": "final-04",
+      "result": "PASS",
+      "elapsed_ms": 28766,
+      "requests": 52,
+      "responses": 52,
+      "resource_timing_entries": 52,
+      "resource_statuses": [
+        200
+      ],
+      "ready": true,
+      "pending": 0,
+      "failures": [],
+      "javascript_errors": [],
+      "origins": [
+        "http://192.168.1.69"
+      ],
+      "truncated": false,
+      "started_utc": "2026-10-18T02:28:42.204Z",
+      "finished_utc": "2026-10-18T02:29:10.970Z"
+    }
+  ],
+  "fully_captured_passes": 3,
+  "excluded_capture_gap": 1,
+  "capture_fix": "Include Network.dataReceived when draining the filtered cursor during bulk bodies. Final 03 and 04 used the corrected collector.",
+  "preflight_loads": [
+    {
+      "label": "streamed-01-bulk-overlap",
+      "result": "PASS",
+      "elapsed_ms": 25317,
+      "requests": 52,
+      "responses": 52,
+      "truncated": false
+    },
+    {
+      "label": "streamed-02-raw-GP-overlap",
+      "result": "PASS",
+      "elapsed_ms": 32321,
+      "requests": 52,
+      "responses": 52,
+      "truncated": false
+    }
+  ],
+  "source": "Actual CUA/CDP browser capture; compact export of session observations, not an HTTP-client simulation."
+}

@@ -20,11 +20,13 @@ def main():
     parser.add_argument('--private',type=Path,required=True)
     parser.add_argument('--evidence',type=Path,required=True)
     parser.add_argument('--reboot-port')
+    parser.add_argument('--firmware-sha256')
     args=parser.parse_args()
     private=json.loads(args.private.read_text())
     vm=None;owned=False;original={}
     report={'scope':'Real PCF85063A through the VM UTC setter; no battery/power-removal claim',
-        'started_utc':datetime.now(timezone.utc).isoformat(),'checks':{},'result':'FAIL'}
+        'started_utc':datetime.now(timezone.utc).isoformat(),'checks':{},'result':'FAIL',
+        'firmware_sha256':args.firmware_sha256}
     chunk=250
     def crcs():
         index=len(vm.events);vm.short(38,1)

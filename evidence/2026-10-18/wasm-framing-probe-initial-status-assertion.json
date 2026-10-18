@@ -1,0 +1,9 @@
+{
+  "host": "192.168.1.69",
+  "path": "/gp_wasm.wasm",
+  "result": "FAIL",
+  "started_utc": "2026-10-18T02:13:50.576508+00:00",
+  "scope": "Direct HTTP/1.1 response framing, bounded chunk size, hash/header checks and slow-reader behavior",
+  "read_delay_ms": 5.0,
+  "error": "AssertionError: HTTP/1.1 200"
+}

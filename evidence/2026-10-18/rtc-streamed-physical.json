@@ -1,0 +1,200 @@
+{
+  "scope": "Real PCF85063A through the VM UTC setter; no battery/power-removal claim",
+  "started_utc": "2026-10-18T02:09:39.443601+00:00",
+  "checks": {
+    "initial_rtc_text": "2026-10-18 02:09:40",
+    "year2000_leap_day": true,
+    "invalid_inputs_rejected_without_clock_jump": [
+      {
+        "fields": [
+          1999,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2100,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          13,
+          1,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          2,
+          29,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          4,
+          31,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          32,
+          0,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          1,
+          24,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          1,
+          -1,
+          0,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          1,
+          0,
+          60,
+          0
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          1,
+          0,
+          0,
+          60
+        ],
+        "error_code": 18
+      },
+      {
+        "fields": [
+          false,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "error_code": 13
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          1,
+          0,
+          0
+        ],
+        "error_code": 28
+      },
+      {
+        "fields": [
+          2026,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "error_code": 28
+      }
+    ],
+    "leap_day_rollover_utc": "2024-03-01T00:00:01+00:00",
+    "year2099_readback": true,
+    "host_utc_set_and_readback": {
+      "readback_utc": "2026-10-18T02:09:46+00:00",
+      "absolute_host_offset_seconds": 1.008
+    },
+    "ticking_seconds": 3.0,
+    "powered_com_reset_retention": {
+      "rtc_utc": "2026-10-18T02:09:58+00:00",
+      "host_offset_seconds": 0.901
+    }
+  },
+  "result": "PASS",
+  "firmware_sha256": "a13761626fb782740d6cbdacc1c90c874671f4d3bea09b80814ec268e4780582",
+  "final_host_utc_restore": {
+    "readback_utc": "2026-10-18T02:09:58+00:00",
+    "absolute_host_offset_seconds": 1.417
+  },
+  "original_program_crc32_unchanged": {
+    "0": "297d191b",
+    "1": "a4144564",
+    "2": "5e84cd6a"
+  },
+  "finished_utc": "2026-10-18T02:10:03.584025+00:00",
+  "supplied_firmware_hash_label": "9d471d941b62f9a036d4cdba37d89b0100745e4a08805bc3da64c92309e86f84",
+  "metadata_correction": "The manually supplied hash label was incorrect; corrected against the exact local app image and its hash-verified streamed-assets flash log. No firmware changes occurred between that flash and this RTC test."
+}

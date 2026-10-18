@@ -1,0 +1,43 @@
+{
+  "result": "PASS",
+  "scope": "Targeted shortened acceptance only; no 30-minute or long-term stability claim.",
+  "stop_reason": "User requested ending repetitive 500-output testing and using 50 for basic checks.",
+  "raw_report": "stability-shortened-at-user-request.json",
+  "raw_result": "FAIL",
+  "raw_error": "RuntimeError: Stopped by coordinator; evidence retained and owned chunks cleaned",
+  "workload_seconds": 689.703,
+  "completed_cycles": 22,
+  "ordered_outputs": 11000,
+  "rtc_reports": 1100,
+  "asset_audits": 5,
+  "assets_per_audit": 148,
+  "original_program_restored": true,
+  "settled_free_space_loss_bytes": {
+    "libc_malloc": 0,
+    "kernel_heap": 0
+  },
+  "minimum_free_bytes": {
+    "libc_malloc": 22140,
+    "kernel_heap": 22604
+  },
+  "websocket_diagnostic_delta": {
+    "sessions": 23,
+    "auth_failures": 0,
+    "rx_errors": 0,
+    "tx_errors": 0,
+    "queue_timeouts": 0
+  },
+  "asset_diagnostic_delta": {
+    "completed": 1016,
+    "aborted": 0
+  },
+  "browser_fully_captured_passes": 3,
+  "browser_excluded_capture_gap": 1,
+  "graphical_followup_outputs": 50,
+  "firmware_sha256": "a13761626fb782740d6cbdacc1c90c874671f4d3bea09b80814ec268e4780582",
+  "limitations": [
+    "Long soak intentionally cancelled; raw FAIL is retained unchanged.",
+    "Prior VM/browser failures remain in repository evidence.",
+    "RTC powered-reset retention passes; battery removal not tested."
+  ]
+}

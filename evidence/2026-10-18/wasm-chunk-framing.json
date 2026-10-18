@@ -1,0 +1,14 @@
+{
+  "host": "192.168.1.69",
+  "path": "/gp_wasm.wasm",
+  "result": "PASS",
+  "started_utc": "2026-10-18T02:14:43.181398+00:00",
+  "scope": "Direct HTTP/1.1 response framing, bounded chunk size, hash/header checks and slow-reader behavior",
+  "read_delay_ms": 5.0,
+  "chunks": 58,
+  "maximum_chunk_bytes": 2048,
+  "encoded_bytes": 118562,
+  "decoded_bytes": 284918,
+  "sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+  "seconds": 0.844
+}

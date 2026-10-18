@@ -8,6 +8,12 @@ wireless connectivity and other peripherals.
 v417 compile together and run on the Waveshare board. The production wireless
 test passes arithmetic/editing, 500 ordered outputs, code CRCs, fragmented
 uploads, stop/variable inspection, reconnect and reboot/autostart checks.
+Basic physical checks now default to 50 outputs; the earlier 500-output results
+remain historical evidence. The current image streams HTTP assets in bounded
+2 KiB chunks. A user-shortened 689.703-second workload completed 22 cycles with
+zero observed reset, WebSocket error, asset abort or settled heap loss; this is
+not a 30-minute stability result. The final graphical follow-up emitted exactly
+1..50. See [targeted acceptance](evidence/2026-10-18/targeted-http-acceptance.json).
 The actual MicroBlocks 2.5.8 graphical editor now loads entirely from board flash,
 with all 148 assets passing a concurrent content/header audit. The real editor
 passes pairing, graphical arithmetic/editing, 500 ordered outputs, variable

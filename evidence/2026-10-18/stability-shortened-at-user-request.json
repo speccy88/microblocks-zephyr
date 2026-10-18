@@ -1,0 +1,868 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T02:18:14.308206+00:00",
+  "host": "192.168.1.69",
+  "duration_target_seconds": 1800.0,
+  "interval_seconds": 30.0,
+  "scope": "Physical unchanged firmware; HTTP content and binary VM workload. Browser fresh loads are recorded separately.",
+  "cycles": [
+    {
+      "cycle": 1,
+      "elapsed_seconds": 30.859,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.809,
+      "reconnect_seconds": 0.172,
+      "original_crcs_unchanged": true,
+      "seconds": 30.297
+    },
+    {
+      "cycle": 2,
+      "elapsed_seconds": 40.844,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.828,
+      "reconnect_seconds": 0.141,
+      "original_crcs_unchanged": true,
+      "seconds": 9.985
+    },
+    {
+      "cycle": 3,
+      "elapsed_seconds": 70.984,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.802,
+      "reconnect_seconds": 0.125,
+      "original_crcs_unchanged": true,
+      "seconds": 9.875
+    },
+    {
+      "cycle": 4,
+      "elapsed_seconds": 101.734,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.77,
+      "reconnect_seconds": 0.359,
+      "original_crcs_unchanged": true,
+      "seconds": 10.468
+    },
+    {
+      "cycle": 5,
+      "elapsed_seconds": 131.25,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.813,
+      "reconnect_seconds": 0.125,
+      "original_crcs_unchanged": true,
+      "seconds": 9.969
+    },
+    {
+      "cycle": 6,
+      "elapsed_seconds": 184.719,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.843,
+      "reconnect_seconds": 0.11,
+      "original_crcs_unchanged": true,
+      "seconds": 33.235
+    },
+    {
+      "cycle": 7,
+      "elapsed_seconds": 194.969,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.794,
+      "reconnect_seconds": 0.11,
+      "original_crcs_unchanged": true,
+      "seconds": 10.235
+    },
+    {
+      "cycle": 8,
+      "elapsed_seconds": 224.953,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.855,
+      "reconnect_seconds": 0.109,
+      "original_crcs_unchanged": true,
+      "seconds": 9.937
+    },
+    {
+      "cycle": 9,
+      "elapsed_seconds": 255.156,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.938,
+      "reconnect_seconds": 0.094,
+      "original_crcs_unchanged": true,
+      "seconds": 10.125
+    },
+    {
+      "cycle": 10,
+      "elapsed_seconds": 286.406,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.862,
+      "reconnect_seconds": 0.125,
+      "original_crcs_unchanged": true,
+      "seconds": 11.187
+    },
+    {
+      "cycle": 11,
+      "elapsed_seconds": 337.125,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.899,
+      "reconnect_seconds": 0.188,
+      "original_crcs_unchanged": true,
+      "seconds": 31.625
+    },
+    {
+      "cycle": 12,
+      "elapsed_seconds": 347.375,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.795,
+      "reconnect_seconds": 0.188,
+      "original_crcs_unchanged": true,
+      "seconds": 10.25
+    },
+    {
+      "cycle": 13,
+      "elapsed_seconds": 388.703,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.816,
+      "reconnect_seconds": 0.141,
+      "original_crcs_unchanged": true,
+      "seconds": 21.437
+    },
+    {
+      "cycle": 14,
+      "elapsed_seconds": 407.562,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.838,
+      "reconnect_seconds": 0.109,
+      "original_crcs_unchanged": true,
+      "seconds": 10.203
+    },
+    {
+      "cycle": 15,
+      "elapsed_seconds": 437.531,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.821,
+      "reconnect_seconds": 0.187,
+      "original_crcs_unchanged": true,
+      "seconds": 10.172
+    },
+    {
+      "cycle": 16,
+      "elapsed_seconds": 486.484,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.901,
+      "reconnect_seconds": 0.172,
+      "original_crcs_unchanged": true,
+      "seconds": 29.015
+    },
+    {
+      "cycle": 17,
+      "elapsed_seconds": 498.578,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.899,
+      "reconnect_seconds": 0.359,
+      "original_crcs_unchanged": true,
+      "seconds": 10.844
+    },
+    {
+      "cycle": 18,
+      "elapsed_seconds": 528.109,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.826,
+      "reconnect_seconds": 0.203,
+      "original_crcs_unchanged": true,
+      "seconds": 10.375
+    },
+    {
+      "cycle": 19,
+      "elapsed_seconds": 557.891,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.826,
+      "reconnect_seconds": 0.172,
+      "original_crcs_unchanged": true,
+      "seconds": 10.032
+    },
+    {
+      "cycle": 20,
+      "elapsed_seconds": 587.516,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.816,
+      "reconnect_seconds": 0.157,
+      "original_crcs_unchanged": true,
+      "seconds": 9.469
+    },
+    {
+      "cycle": 21,
+      "elapsed_seconds": 659.469,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.851,
+      "reconnect_seconds": 0.157,
+      "original_crcs_unchanged": true,
+      "seconds": 51.36
+    },
+    {
+      "cycle": 22,
+      "elapsed_seconds": 669.594,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "maximum_rtc_host_offset_seconds": 1.846,
+      "reconnect_seconds": 0.203,
+      "original_crcs_unchanged": true,
+      "seconds": 10.125
+    }
+  ],
+  "memory": [
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 499482,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.11,
+      "elapsed_seconds": 0.172,
+      "phase": "initial-settled",
+      "utc": "2026-10-18T02:18:14.479701+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 516167,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 6.422,
+      "elapsed_seconds": 17.141,
+      "phase": "active-cycle-1",
+      "utc": "2026-10-18T02:18:31.451354+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 539523,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 40.437,
+      "phase": "active-cycle-2",
+      "utc": "2026-10-18T02:18:54.746570+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 569675,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 70.594,
+      "phase": "active-cycle-3",
+      "utc": "2026-10-18T02:19:24.897647+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 600124,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 101.016,
+      "phase": "active-cycle-4",
+      "utc": "2026-10-18T02:19:55.319624+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 629909,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 130.828,
+      "phase": "active-cycle-5",
+      "utc": "2026-10-18T02:20:25.133558+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 669155,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 8.797,
+      "elapsed_seconds": 170.297,
+      "phase": "active-cycle-6",
+      "utc": "2026-10-18T02:21:04.614758+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 693660,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 194.578,
+      "phase": "active-cycle-7",
+      "utc": "2026-10-18T02:21:28.886557+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 723653,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 224.562,
+      "phase": "active-cycle-8",
+      "utc": "2026-10-18T02:21:58.870998+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 753887,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 254.781,
+      "phase": "active-cycle-9",
+      "utc": "2026-10-18T02:22:29.090069+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 785106,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.297,
+      "elapsed_seconds": 286.0,
+      "phase": "active-cycle-10",
+      "utc": "2026-10-18T02:23:00.312337+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 822200,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 7.875,
+      "elapsed_seconds": 323.109,
+      "phase": "active-cycle-11",
+      "utc": "2026-10-18T02:23:37.422137+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 845988,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 346.891,
+      "phase": "active-cycle-12",
+      "utc": "2026-10-18T02:24:01.208177+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 887486,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 10.89,
+      "elapsed_seconds": 388.281,
+      "phase": "active-cycle-13",
+      "utc": "2026-10-18T02:24:42.598249+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 906295,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.297,
+      "elapsed_seconds": 407.172,
+      "phase": "active-cycle-14",
+      "utc": "2026-10-18T02:25:01.490530+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 936159,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 437.047,
+      "phase": "active-cycle-15",
+      "utc": "2026-10-18T02:25:31.363075+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 971236,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 4.485,
+      "elapsed_seconds": 472.141,
+      "phase": "active-cycle-16",
+      "utc": "2026-10-18T02:26:06.444533+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 997031,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 497.922,
+      "phase": "active-cycle-17",
+      "utc": "2026-10-18T02:26:32.235963+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 1026722,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 527.625,
+      "phase": "active-cycle-18",
+      "utc": "2026-10-18T02:27:01.931559+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 1056534,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.297,
+      "elapsed_seconds": 557.422,
+      "phase": "active-cycle-19",
+      "utc": "2026-10-18T02:27:31.736161+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 1086150,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 587.062,
+      "phase": "active-cycle-20",
+      "utc": "2026-10-18T02:28:01.374360+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 1125789,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 7.343,
+      "elapsed_seconds": 626.687,
+      "phase": "active-cycle-21",
+      "utc": "2026-10-18T02:28:40.997472+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 1168214,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 669.125,
+      "phase": "active-cycle-22",
+      "utc": "2026-10-18T02:29:23.432534+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 22140,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 1192297,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.125,
+      "elapsed_seconds": 693.0,
+      "phase": "final-settled",
+      "utc": "2026-10-18T02:29:47.307780+00:00"
+    }
+  ],
+  "asset_audits": [
+    {
+      "cycle": 1,
+      "assets": 148,
+      "uncompressed_bytes": 17285125,
+      "result": "PASS"
+    },
+    {
+      "cycle": 6,
+      "assets": 148,
+      "uncompressed_bytes": 17285125,
+      "result": "PASS"
+    },
+    {
+      "cycle": 11,
+      "assets": 148,
+      "uncompressed_bytes": 17285125,
+      "result": "PASS"
+    },
+    {
+      "cycle": 16,
+      "assets": 148,
+      "uncompressed_bytes": 17285125,
+      "result": "PASS"
+    },
+    {
+      "cycle": 21,
+      "assets": 148,
+      "uncompressed_bytes": 17285125,
+      "result": "PASS"
+    }
+  ],
+  "original_program_crc32": {
+    "0": "297d191b",
+    "1": "a4144564",
+    "2": "5e84cd6a"
+  },
+  "criteria": {
+    "minimum_cycles": 40,
+    "minimum_full_asset_audits": 4,
+    "outputs_per_cycle": 500,
+    "no_reboot": true,
+    "minimum_allocator_free_bytes": 2048,
+    "maximum_settled_residual_bytes": 1024
+  },
+  "firmware_sha256": "a13761626fb782740d6cbdacc1c90c874671f4d3bea09b80814ec268e4780582",
+  "asset_manifest_sha256": "9210050a7bff0ae13f675c768fd085e6ec95fa1d564ce1033ee92a4a57a855a1",
+  "require_rtc_utc": true,
+  "initial_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 113,
+    "websocket": {
+      "sessions": 9,
+      "auth_failures": 0,
+      "rx_errors": 0,
+      "tx_errors": 0,
+      "queue_timeouts": 0,
+      "last_error": 0
+    },
+    "assets": {
+      "chunk_bytes": 2048,
+      "completed": 422,
+      "aborted": 1
+    }
+  },
+  "phase": "finished",
+  "error": "RuntimeError: Stopped by coordinator; evidence retained and owned chunks cleaned",
+  "failed_phase": "interval",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\fred_\\Documents\\Codex\\2026-10-17\\task-5\\microblocks-zephyr\\tools\\stability_board.py\", line 140, in main\n    if stop_file.exists():raise RuntimeError('Stopped by coordinator; evidence retained and owned chunks cleaned')\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Stopped by coordinator; evidence retained and owned chunks cleaned\n",
+  "workload_seconds": 689.703,
+  "original_program_restored": true,
+  "settled_free_space_loss_bytes": {
+    "libc_malloc": 0,
+    "kernel_heap": 0
+  },
+  "final_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 158,
+    "websocket": {
+      "sessions": 32,
+      "auth_failures": 0,
+      "rx_errors": 0,
+      "tx_errors": 0,
+      "queue_timeouts": 0,
+      "last_error": 0
+    },
+    "assets": {
+      "chunk_bytes": 2048,
+      "completed": 1438,
+      "aborted": 1
+    }
+  },
+  "websocket_diagnostic_delta": {
+    "sessions": 23,
+    "auth_failures": 0,
+    "rx_errors": 0,
+    "tx_errors": 0,
+    "queue_timeouts": 0
+  },
+  "asset_diagnostic_delta": {
+    "completed": 1016,
+    "aborted": 0
+  },
+  "minimum_free_bytes": {
+    "libc_malloc": 22140,
+    "kernel_heap": 22604
+  },
+  "finished_utc": "2026-10-18T02:29:47.350045+00:00"
+}

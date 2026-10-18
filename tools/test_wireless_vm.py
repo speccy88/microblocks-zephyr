@@ -127,7 +127,9 @@ def main():
     parser.add_argument('--private',type=Path,required=True)
     parser.add_argument('--evidence',type=Path,required=True)
     parser.add_argument('--reboot-port')
+    parser.add_argument('--outputs',type=int,default=50)
     args=parser.parse_args()
+    if not 1<=args.outputs<=500:parser.error('Use1..500 outputs')
     private=json.loads(args.private.read_text())
     report={'host':args.host,'scope':'physical board, real VM over authenticated binary WebSocket','checks':{}}
     vm=None
@@ -154,14 +156,15 @@ def main():
         vm.upload(10,primitive('displayChecker'),2)
         assert vm.run_reporter(10) is False
         report['checks']['lcd_checker_transfer']=True
-        # 500 loop bodies, matching the real interpreter harness.
-        stream=words([op(2,1),op(7,0),op(3,231),3,op(7,1),op(6,1),
+        # Basic checks default to50 outputs; larger stress runs are opt-in.
+        tagged_count=2*args.outputs-1
+        stream=words([op(2,1),op(7,0),op(3,tagged_count&255),(tagged_count>>8)&65535,op(7,1),op(6,1),
             op(2,3),op(8,0),op(6,0),op(78,1),op(26,-5),0])
         crcs[3]=vm.upload(3,stream)
         start=len(vm.events);vm.short(3,3)
         vm.wait(lambda e:e[:2]==(17,3),seconds=20,after=start)
         outputs=[int(e[2][1:]) for e in vm.events[start:] if e[:2]==(20,254)]
-        assert outputs==list(range(1,501))
+        assert outputs==list(range(1,args.outputs+1))
         report['checks']['ordered_outputs']=len(outputs)
         report['checks']['code_crc32']={str(k):f'{v:08x}' for k,v in crcs.items()}
         # Maximum VM message size, split across many frames with inter-byte gaps.

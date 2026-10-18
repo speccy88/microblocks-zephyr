@@ -7,7 +7,7 @@
 async function captureFreshEditor(tab, cdp, label, {discardDisposableProject = false} = {}) {
   if (!discardDisposableProject) throw new Error('Save the editor project and authorize a disposable reload first');
   const methods = ['Network.requestWillBeSent', 'Network.responseReceived',
-    'Network.loadingFinished', 'Network.loadingFailed'];
+    'Network.loadingFinished', 'Network.loadingFailed', 'Network.dataReceived'];
   const started = Date.now();
   await cdp.send('Network.enable');
   // GP installs an unconditional leave-page warning. The in-app browser cancels
@@ -36,8 +36,9 @@ async function captureFreshEditor(tab, cdp, label, {discardDisposableProject = f
         if (url) finished.add(new URL(url).pathname);
       }
     }
-    // Drain without Runtime.evaluate during initialization: GP can block the
-    // main thread long enough for the CDP event ring to overflow otherwise.
+    // dataReceived advances the filtered event cursor while a large response
+    // is streaming. Otherwise unselected data events can evict its old cursor.
+    // Avoid Runtime.evaluate while GP initialization can block the main thread.
     if (!batch.hasMore && finished.has('/img/icon-zoom-in--16x16.svg') &&
         pending.size === 0 && Date.now() - lastActivity > 1200) break;
   }
@@ -61,7 +62,7 @@ async function captureFreshEditor(tab, cdp, label, {discardDisposableProject = f
     !truncated && pending.size === 0 && requests.size >= 39 && responses.length === requests.size &&
     page.resources.every(r => r.status === 200 && r.responseEnd > 0) && origins.length === 1 &&
     origins[0] === new URL(await tab.url()).origin ? 'PASS' : 'FAIL';
-  return {label, result, ready:page.ready, elapsed_ms:Date.now()-started,
+  return {label, result, collector_version:'lifecycle-and-data-received', ready:page.ready, elapsed_ms:Date.now()-started,
     requests:requests.size, responses:responses.length, resource_timing_entries:page.resources.length,
     truncated, pending:pending.size, failures, javascript_errors:errors, origins,
     resource_timing:page.resources.map(r => ({path:new URL(r.name).pathname,status:r.status,
