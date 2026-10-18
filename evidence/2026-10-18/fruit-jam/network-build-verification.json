@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "compiled_source_commit": "aa63f967d3287c3f21f4caba75a78a05fc83d19c",
+  "compiled_source_commit": "798bf16bdfea6eb434dbd8283cd1f55ba5cb6114",
   "source_sha256": {
     "boards/adafruit_fruit_jam/smallvm/app.overlay": "b3ea7cab4e9345dd8c1d390c7ff37edae594e2ad4e5eacb52f6a735a5aa2e473",
     "boards/adafruit_fruit_jam/smallvm/CMakeLists.txt": "1943171b3dc922f5335f0aa4c77271d272752148076e2b9fbe6f376fcc724c14",
@@ -43,8 +43,8 @@
     "tools/prepare_smallvm.py": "18314ae48f2fb815a3fe9371f2d7bd74ad1047f3d3d752f0d8974c798cc6f756",
     "tools/prepare_fruit_jam_arduino.py": "e3fcb9b58af4c3ddd9466c4d02377de29e5985bc24fcffba166dd84d96c8faa9",
     "tools/prepare_fruit_jam_runtime.py": "7bece8a10d03969ac28eb5c48ed60da8263948a4ddb8ab166362248c58f11d38",
-    "tools/package_fruit_jam_ide.py": "9f38dc2630064d87471ad5e121ba220ffc77e8f40fb2c8202a37a708637d0a74",
-    "tools/fruit_jam_ide_assets.py": "5a9ac02139a8027f3188acc1bd68395741ccf261a6859ec26cd292214502d750",
+    "tools/package_fruit_jam_ide.py": "132d9de45090e29b1e1654c9140898f2fa58172b0c866a9ef62754b646d6bfee",
+    "tools/fruit_jam_ide_assets.py": "af06e4993c10e68f240024973987a9ca8e7cd23b18a38cd9fbbe3914c52c7cfd",
     "tools/patch_ide.py": "29e53f18186b4d49069f0fd0d4dae81c32f719d234bb9e3dc9a10956dd4af35a",
     "web/board-network.js": "99173c8e3efbe96661a17bb744a818f00be055d6bf40c9ee2ab71b8fb05ed441",
     "boards/adafruit_fruit_jam/integration/Fruit_Jam.ubl": "acfb7bf51a5dc0513ebbaf29983b74e1e6bbe49050b26d6141411a2e134caabc",
@@ -57,29 +57,29 @@
   "parallel_jobs": 4,
   "artifacts": {
     "zephyr.elf": {
-      "bytes": 5521932,
-      "sha256": "a478dabe703ec416e57785c199f8f143bc028ccdf01e123359e6dfc7335f0c0f"
+      "bytes": 5522572,
+      "sha256": "fb2cd2fb6dcdc4a085072de1e0273db4997339ef3686977e4ebc19ac8ab0b411"
     },
     "zephyr.uf2": {
-      "bytes": 7252992,
-      "sha256": "63b626c7f25df138887847fc2aa23ed33d3391dd54b69b0da12bfa75d193cfb1"
+      "bytes": 7254016,
+      "sha256": "f45f197abbc86fa5b82cb2561160b65b4d6f09ef93ce4be0a6d25d298d25cf84"
     },
     "zephyr.bin": {
-      "bytes": 3626292,
-      "sha256": "66e9c27197663e8595a230ad536695bae60b4d4e8ed0cd2985be29a3ea5b1295"
+      "bytes": 3626928,
+      "sha256": "232f29d564da26dd14167f60c3881a521327d5f5f36e310a11647ddc18433dad"
     }
   },
   "load_segments": [
     {
       "load_address": "0x10000000",
-      "bytes": 3623376
+      "bytes": 3624012
     },
     {
-      "load_address": "0x103749d0",
+      "load_address": "0x10374c4c",
       "bytes": 2912
     },
     {
-      "load_address": "0x10375530",
+      "load_address": "0x103757ac",
       "bytes": 4
     }
   ],
@@ -93,7 +93,7 @@
     "fj_web_assets": "0x10018304",
     "fj_web_asset_count": "0x10018300"
   },
-  "linker_flash_bytes": 3626292,
+  "linker_flash_bytes": 3626928,
   "linker_ram_bytes": 253784,
   "elf_picotool_info": "PASS",
   "uf2_picotool_info": "PASS",

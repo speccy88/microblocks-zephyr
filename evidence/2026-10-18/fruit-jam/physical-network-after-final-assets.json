@@ -1,0 +1,29 @@
+{
+  "network": {
+    "tick": 13864,
+    "stage": 4,
+    "listener": 0,
+    "listener_state": 1,
+    "power_save_disabled": true,
+    "active": 0,
+    "accepted": 176,
+    "completed": 173,
+    "aborted": 3,
+    "sessions": 3,
+    "last_error": 0,
+    "socket": {
+      "commands": 17207,
+      "last_command": 43,
+      "last_count": 255,
+      "protocol_error": 0,
+      "first_error": 0,
+      "first_command": 0,
+      "first_phase": 0
+    }
+  },
+  "result": "PASS",
+  "source_commit": "aa63f967d3287c3f21f4caba75a78a05fc83d19c",
+  "firmware_elf_sha256": "a478dabe703ec416e57785c199f8f143bc028ccdf01e123359e6dfc7335f0c0f",
+  "checked_utc": "2026-10-18T20:32:40.713416+00:00",
+  "scope": "Read-only VM status after full assets and focused network/USB regression; temporary diagnostic chunk removed and original CRCs checked"
+}

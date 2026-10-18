@@ -1,0 +1,19 @@
+{
+  "host": "192.168.1.7",
+  "scope": "HTTP asset/content-policy verification; no graphical UI interaction",
+  "workers": 1,
+  "max_failures": 1,
+  "result": "PASS",
+  "verified_assets": 1,
+  "failed_assets": [],
+  "skipped_assets": [],
+  "uncompressed_bytes": 8494,
+  "assets": [
+    {
+      "path": "/microblocks.html",
+      "bytes": 8494,
+      "sha256": "9fa18a41d5e918fd782b407a3429af2e777b2d6a784f4004a409d64fe6aec4cf",
+      "seconds": 0.141
+    }
+  ]
+}

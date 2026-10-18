@@ -2,7 +2,9 @@
 
 The requested goal is the actual MicroBlocks IDE served by Fruit Jam over
 Wi-Fi, with binary VM WebSocket transport and persistent programs. The current
-loopback IDE is a verified USB baseline; it is not the standalone endpoint.
+native HTTP/GP bootstrap and binary WebSocket service now pass their
+[measured acceptance](FRUIT_JAM_NATIVE_IDE.md) for the current powered
+association. The loopback USB bridge remains a separate verified baseline.
 The working USB-local setup reads the selected Windows credential only inside
 the user's explicit target-specific Connect action.
 SHT4x investigation remains cancelled and inactive.

@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "checked_utc": "2026-10-18T21:22:25.494463+00:00",
+  "source_commit": "798bf16bdfea6eb434dbd8283cd1f55ba5cb6114",
+  "firmware_elf_sha256": "fb2cd2fb6dcdc4a085072de1e0273db4997339ef3686977e4ebc19ac8ab0b411",
+  "url": "http://192.168.1.7/",
+  "scope": "Actual real GP editor software bootstrap from Fruit Jam HTTP; no physical visual/audio/user-presence confirmation requested",
+  "dom_bootstrap_attribute": "ready",
+  "real_gp_ready_event_verified": true,
+  "observed_controls": [
+    "Language",
+    "Settings",
+    "Project",
+    "Board tools",
+    "Connect",
+    "Start",
+    "Stop",
+    "Fruit Jam"
+  ],
+  "host_usb_bridge_listening": false,
+  "graphical_programming_actions_repeated": false,
+  "credentials_read": false,
+  "hardware_outputs": false,
+  "pending_user_action": false,
+  "code_after_browser_load": {
+    "0": "297d191b"
+  },
+  "usb_arithmetic_after_browser_load": 12
+}

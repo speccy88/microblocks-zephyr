@@ -117,8 +117,8 @@
         "rx": 9,
         "boot_mode": 23
       },
-      "upstream_status": "native-association-dhcp-and-network-build-verified-standalone-acceptance-pending",
-      "smallvm": "association-dhcp-verified-first-http-response-pass-websocket-acceptance-pending",
+      "upstream_status": "native-http-asset-integrity-vm-websocket-and-real-gp-startup-verified",
+      "smallvm": "native-vm-websocket-and-usb-priority-verified-real-gp-startup-verified",
       "physical_tested": true,
       "physical_attempted": true,
       "evidence": [
@@ -128,18 +128,24 @@
         "evidence/2026-10-18/fruit-jam/physical-wifi-association.json",
         "evidence/2026-10-18/fruit-jam/physical-network-diagnostics-installation.json",
         "evidence/2026-10-18/fruit-jam/physical-network-diagnostics-identification.json",
-        "evidence/2026-10-18/fruit-jam/physical-network-coprocessor-recovery.json"
+        "evidence/2026-10-18/fruit-jam/physical-network-coprocessor-recovery.json",
+        "evidence/2026-10-18/fruit-jam/physical-network-vm-attempt-03.json",
+        "evidence/2026-10-18/fruit-jam/physical-network-assets-attempt-02.json",
+        "evidence/2026-10-18/fruit-jam/native-bootstrap-asset-comparison.json",
+        "evidence/2026-10-18/fruit-jam/physical-native-bootstrap-installation.json",
+        "evidence/2026-10-18/fruit-jam/browser-bootstrap-attempt-02.json",
+        "evidence/2026-10-18/fruit-jam/physical-native-bootstrap-smoke.json"
       ],
-      "limitations": "One user-triggered association/IP assignment and initial HTTP status response verified. Later network connections timed out despite live SPI/association. C6 reset completed; user-controlled reassociation and full standalone/boot recovery acceptance pending. No automatic credential replay.",
+      "limitations": "Current powered association verified; full C6 power loss requires secure local setup. RP-only restart requires explicit identification/setup initialization. C6-only reset/service recovery not physically accepted on current image. One bounded HTTP client timeout observed during successful browser startup; no post-startup SPI protocol/first error. No graphical programming gestures repeated on Wi-Fi; direct binary VM sequence verified.",
       "identification_physically_verified": true,
       "coprocessor_firmware": "NINA_ADAFRUIT-fruitjam_c6-3.3.0",
       "wifi_setup_compiled": true,
-      "wifi_setup_status": "Source 95c4b70 compiled, installed and physically verified for association and DHCP; board storage and sockets pending",
+      "wifi_setup_status": "User-controlled association/DHCP verified; no RP2350 credential storage or automatic boot setup",
       "association_physically_verified": true,
       "dhcp_physically_verified": true,
       "mac_format_physically_verified": true,
       "network_server_compiled": true,
-      "network_server_status": "147 real IDE assets and bounded HTTP/WebSocket code compiled/installed; standalone physical acceptance pending"
+      "network_server_status": "All147 real assets hash-verified; bootstrap-only HTML update verified with146 identical assets; actual GP startup and post-startup WebSocket/USB regression PASS"
     },
     {
       "id": "usb_host",

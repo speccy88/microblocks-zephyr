@@ -1,0 +1,27 @@
+{
+  "result": "FAIL",
+  "recorded_utc": "2026-10-18T21:17:04.699541+00:00",
+  "source_commit": "aa63f967d3287c3f21f4caba75a78a05fc83d19c",
+  "firmware_elf_sha256": "a478dabe703ec416e57785c199f8f143bc028ccdf01e123359e6dfc7335f0c0f",
+  "url": "http://192.168.1.7/",
+  "scope": "Software browser startup only; no human visual/audio/device-presence confirmation requested",
+  "observed_dom": "MicroBlocks title; LOADING and Downloading remained; no populated editor controls",
+  "console_errors_observed": [],
+  "resource_statistics": "All initial16 CSS resources completed200; multiple eager scripts recorded responseStatus0 with zero transferred/decoded bytes",
+  "failed_script_resources": [
+    "devtools.js",
+    "gettext.js",
+    "windows.js",
+    "graph.js",
+    "lib/usbDfuDevice.js",
+    "ide.js",
+    "gp_wasm.js",
+    "menus.js",
+    "buttons.js",
+    "categories.js",
+    "unoq-network.js"
+  ],
+  "credentials_read": false,
+  "hardware_outputs": false,
+  "user_action_pending": false
+}

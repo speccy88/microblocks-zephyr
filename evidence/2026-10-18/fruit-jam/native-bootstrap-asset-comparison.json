@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "scope": "Compare raw and flash asset hashes across the bootstrap-only build",
+  "previous_source": "aa63f967d3287c3f21f4caba75a78a05fc83d19c",
+  "current_source": "798bf16bdfea6eb434dbd8283cd1f55ba5cb6114",
+  "changed_assets": [
+    "/microblocks.html"
+  ],
+  "unchanged_assets": 146,
+  "html_sha256": "9fa18a41d5e918fd782b407a3429af2e777b2d6a784f4004a409d64fe6aec4cf",
+  "queue_harness_matches_html": true,
+  "unchanged_raw_flash_hashes_and_metadata": true
+}

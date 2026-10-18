@@ -133,8 +133,10 @@ python "$repo/tools/test_fruit_jam_vm.py" \
 The [physical USB baseline](../../../evidence/2026-10-18/fruit-jam/physical-usb-baseline.json)
 and [peripheral-update persistence](../../../evidence/2026-10-18/fruit-jam/physical-peripheral-update-persistence.json)
 record actual hardware results. Compile and mock results alone do not establish
-peripheral operation. HSTX/host USB/audio/network services and
-other missing features remain as listed above.
+peripheral operation. Native HTTP assets and VM WebSocket checks now pass, with
+[exact network acceptance](../../../docs/FRUIT_JAM_NATIVE_IDE.md) and separate
+boot/credential limits. HSTX, host USB, audio and other missing features remain
+as listed above.
 
 Any later programming requires the user's separate authorization and a backup
 of the positively identified target. See the [SWD guide](../../../docs/FRUIT_JAM_SWD.md).

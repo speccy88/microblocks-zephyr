@@ -1,6 +1,6 @@
 {
   "files": 147,
-  "flash_bytes": 3510850,
+  "flash_bytes": 3511487,
   "ide_version": "2.5.8",
   "board": "Adafruit Fruit Jam",
   "assets": [
@@ -791,10 +791,10 @@
       "path": "/microblocks.html",
       "encoding": "gzip",
       "content_type": "text/html",
-      "bytes": 7189,
-      "sha256": "359cb5b9dae08a8495aaec77db091d45cc77c45a4972cae13a453445449eb7d8",
-      "flash_bytes": 2157,
-      "flash_sha256": "ca7776c644448974a42a923143e2a43ba48566a220949a70aa74ed09c02a8e78"
+      "bytes": 8494,
+      "sha256": "9fa18a41d5e918fd782b407a3429af2e777b2d6a784f4004a409d64fe6aec4cf",
+      "flash_bytes": 2794,
+      "flash_sha256": "5bd200c86c50a5e1b5b980075b43b2d83170d3b5e55660c996d51d742fda495c"
     },
     {
       "path": "/precompiled/buildUniversalHex.js",

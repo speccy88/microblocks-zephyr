@@ -1,0 +1,70 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T21:21:53.314138+00:00",
+  "firmware_elf_sha256": "fb2cd2fb6dcdc4a085072de1e0273db4997339ef3686977e4ebc19ac8ab0b411",
+  "host": "192.168.1.7",
+  "checks": {
+    "http_status": {
+      "board": "Adafruit Fruit Jam",
+      "vm": 417,
+      "ide": "2.5.8",
+      "saved_generation": 47,
+      "network": {
+        "listener": 0,
+        "port": 80,
+        "accepted": 56,
+        "completed": 54,
+        "aborted": 1,
+        "sessions": 0,
+        "ws_errors": 0,
+        "last_error": -116,
+        "chunk_bytes": 2048
+      },
+      "airlift": {
+        "setup_protocol": 1,
+        "state": 3,
+        "generation": 3,
+        "operation": 0,
+        "error": 0,
+        "stage": 7,
+        "queries": 5,
+        "version": "3.3.0",
+        "mac": "58:e6:c5:f5:a3:58",
+        "connection": 3,
+        "disconnect_reason": 202,
+        "reason_error": 0,
+        "spi_resync": 0,
+        "busy": 1,
+        "reset_requested": false,
+        "spi_hz": 1000000,
+        "coprocessor_flashed": false,
+        "network_ready": true,
+        "ip": "192.168.1.7",
+        "netmask": "255.255.255.0",
+        "gateway": "192.168.1.1"
+      }
+    },
+    "websocket_arithmetic_runs": 3,
+    "websocket_reconnect": true,
+    "usb_takeover": true,
+    "return_to_websocket": true,
+    "final_code_crc32": {
+      "0": "297d191b"
+    },
+    "final_usb_arithmetic": 12
+  },
+  "credentials_read": false,
+  "coprocessor_reset": false,
+  "hardware_outputs": false,
+  "program_uploads": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "finished_utc": "2026-10-18T21:21:56.013669+00:00",
+  "source_commit": "798bf16bdfea6eb434dbd8283cd1f55ba5cb6114"
+}
