@@ -25,13 +25,14 @@ static unsigned completed,aborted,sessions,ws_errors,accepted_clients;
 static volatile unsigned network_tick,network_stage;
 static int64_t listener_checked;
 static int listener_state;
+static bool power_save_disabled;
 /* No output is printed to USB. Inspect these non-secret values via status. */
 volatile unsigned fruit_jam_network_started;
 int fj_network_status(char *dst,unsigned size)
 {
     char socket[160];if(fj_socket_status(socket,sizeof(socket)))strcpy(socket,"{}");
     unsigned active=0;for(unsigned i=0;i<5;++i)if(clients[i].state)++active;
-    int n=snprintf(dst,size,"{\"tick\":%u,\"stage\":%u,\"listener\":%d,\"listener_state\":%d,\"active\":%u,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"last_error\":%d,\"socket\":%s}",network_tick,network_stage,listener,listener_state,active,accepted_clients,completed,aborted,sessions,last_error,socket);
+    int n=snprintf(dst,size,"{\"tick\":%u,\"stage\":%u,\"listener\":%d,\"listener_state\":%d,\"power_save_disabled\":%s,\"active\":%u,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"last_error\":%d,\"socket\":%s}",network_tick,network_stage,listener,listener_state,power_save_disabled?"true":"false",active,accepted_clients,completed,aborted,sessions,last_error,socket);
     return n<0||(unsigned)n>=size?-ENOSPC:0;
 }
 
@@ -183,7 +184,13 @@ static void network_worker(void *a,void *b,void *d)
             /* Official 3.3.0 config has six slots. Slot zero is reserved for
              * this server; it can survive an RP2350-only reset. Release our
              * five transient client slots before resuming the same listener. */
-            network_stage=2;int existing=fj_socket_server_state(0);listener_state=existing;
+            network_stage=2;
+            if(!power_save_disabled){
+                int awake=fj_socket_awake();
+                if(awake){last_error=awake;k_sleep(K_MSEC(500));continue;}
+                power_save_disabled=true;
+            }
+            int existing=fj_socket_server_state(0);listener_state=existing;
             if(existing<0){last_error=existing;k_sleep(K_MSEC(500));continue;}
             for(unsigned i=1;i<6;++i)fj_socket_close(i);
             if(existing==1)listener=0;

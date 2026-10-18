@@ -51,3 +51,23 @@ arithmetic/editing/50 outputs/stop/variables/fragmentation/reconnect, USB takeov
 and credential-path rejection, followed by the actual graphical editor from
 board flash with the host bridge stopped. Reboot/autostart and automatic Wi-Fi
 boot recovery remain separate. No board credential storage or vault replay is enabled.
+
+## Radio-awake recovery experiment
+
+After a fresh explicit user-requested retry, association and DHCP passed again
+on source `91fd2fc`; native HTTP status, WebSocket upgrade/ready and one VM ping
+passed, but the full VM sequence and later connections timed out. This does not
+establish a working IDE. The previous disconnect-reason value 202 remains cached
+even while connected and must not be reported as a current failure.
+
+The next controlled experiment sends NINA command 0x17 with value zero once
+before starting/resuming the listener. The official 3.3.0 handler maps this to
+`WIFI_PS_NONE`. This increases radio power use to minimize incoming latency;
+it neither changes Wi-Fi security nor resubmits credentials or resets the C6.
+A bounded ACK is required before the listener can start. Expose the ACK state
+in `networkStatus`. Keep the existing SPI serialization, socket/request bounds
+and USB priority. Acceptance requires repeatable HTTP/VM traffic and the complete
+asset audit; a command ACK alone does not prove the experiment fixed the issue.
+
+References: [NINA 3.3.0 handler](https://github.com/adafruit/nina-fw/blob/3.3.0/main/CommandHandler.cpp)
+and [ESP-IDF 5.3.1 station sleep](https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32c6/api-guides/wifi.html#station-sleep).

@@ -32,11 +32,15 @@ def main():
         with opener.open('http://'+a.host+'/api/status',timeout=8) as response:status=json.load(response)
         assert status['board']=='Adafruit Fruit Jam' and status['airlift']['mac']=='58:e6:c5:f5:a3:58' and status['airlift']['ip']==a.host
         report['checks']['initial_http_status']=status
-        vm=NetworkVM(a.host);assert vm.all_crcs()==before
+        report['phase']='websocket_connect'
+        vm=NetworkVM(a.host);report['checks']['websocket_ready']=True
+        report['phase']='read_program_crcs'
+        assert vm.all_crcs()==before
         reporter=bytes([9,0,2,11,2,15,50,2,35,0,127,0,240,0,0,0,0,0,0,0])
         r,stream_chunk,large_chunk,loop_chunk=owned
         vm.upload(r,reporter,2);assert [vm.run_reporter(r) for _ in range(10)]==[12]*10
         report['checks']['arithmetic_runs']=10
+        report['phase']='live_edit'
         edited=bytearray(reporter);edited[5]=17;vm.upload(r,edited,2);assert vm.run_reporter(r)==13;vm.upload(r,reporter,2)
         report['checks']['live_edit_result']=13
         stream=words([op(2,1),op(7,0),op(3,99),0,op(7,1),op(6,1),op(2,3),op(8,0),op(6,0),op(78,1),op(26,-5),0])
@@ -77,6 +81,7 @@ def main():
         report['result']='PASS'
     except Exception as exc:
         report['error']=type(exc).__name__+': '+str(exc)
+        if vm:report['received_vm_events']=[{'kind':k,'index':n,'body_bytes':len(b)} for k,n,b in vm.events]
     finally:
         if vm:
             try:vm.close()

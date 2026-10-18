@@ -29,6 +29,12 @@ int main(void)
     struct fj_nina_parameter p[]={{port,2},{&socket,1},{&mode,1}};
     CHECK(fj_nina_socket_frame(0x28,p,3,frame,2060)==12);
     CHECK(!memcmp(frame,(uint8_t[]){0xe0,0x28,3,2,0,80,1,3,1,0,0xee,0},12));
+    struct fj_nina_parameter power={&mode,1};
+    CHECK(fj_nina_socket_frame(0x17,&power,1,frame,2060)==8);
+    CHECK(!memcmp(frame,(uint8_t[]){0xe0,0x17,1,1,0,0xee,0,0},8));
+    mode=1;CHECK(fj_nina_socket_frame(0x17,&power,1,frame,2060)==-EINVAL);mode=0;
+    power.size=2;CHECK(fj_nina_socket_frame(0x17,&power,1,frame,2060)==-EINVAL);power.size=1;
+    CHECK(fj_nina_socket_frame(0x17,&power,0,frame,2060)==-ENOTSUP);
     struct fj_nina_parameter ap[]={{&socket,1},{&yes,1}};
     CHECK(fj_nina_socket_frame(0x2b,ap,2,frame,2060)==8);
     CHECK(!memcmp(frame,(uint8_t[]){0xe0,0x2b,2,1,3,1,1,0xee},8));

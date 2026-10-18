@@ -16,6 +16,11 @@ static int scalar(uint8_t cmd,const struct fj_nina_parameter *p,unsigned n,unsig
     int value=bytes==1?data[0]:data[0]|((unsigned)data[1]<<8);
     last_count=value;return value;
 }
+int fj_socket_awake(void)
+{
+    uint8_t mode=0;const struct fj_nina_parameter p={&mode,1};
+    int n=scalar(0x17,&p,1,1);return n==1?0:n<0?n:-EIO;
+}
 int fj_socket_allocate(void){int n=scalar(0x3f,NULL,0,1);return n==255?-ENFILE:n>=6?-EPROTO:n;}
 int fj_socket_listen(uint8_t socket,uint16_t port)
 {

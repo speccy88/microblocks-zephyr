@@ -2,6 +2,7 @@
 #pragma once
 #include <stdint.h>
 #include <stddef.h>
+int fj_socket_awake(void);
 int fj_socket_allocate(void);
 int fj_socket_listen(uint8_t socket,uint16_t port);
 int fj_socket_accept(uint8_t listener);

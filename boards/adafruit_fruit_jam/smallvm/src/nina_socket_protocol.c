@@ -11,7 +11,7 @@ int fj_nina_socket_frame(uint8_t cmd,const struct fj_nina_parameter *p,
                          unsigned n,uint8_t *dst,size_t cap)
 {
     bool wide=cmd==0x44||cmd==0x45;
-    bool valid=(cmd==0x3f&&n==0)||(cmd==0x28&&n==3)||
+    bool valid=(cmd==0x17&&n==1)||(cmd==0x3f&&n==0)||(cmd==0x28&&n==3)||
       (cmd==0x2b&&(n==1||n==2))||((cmd==0x29||cmd==0x2f||cmd==0x2e||cmd==0x2a)&&n==1)||
       ((cmd==0x44||cmd==0x45)&&n==2);
     if(!valid)return -ENOTSUP;
@@ -25,6 +25,7 @@ int fj_nina_socket_frame(uint8_t cmd,const struct fj_nina_parameter *p,
     if(cmd==0x28&&p[1].data[0]>=6)return -EINVAL;
     if(n&&cmd!=0x28&&p[0].size!=1)return -EINVAL;
     if(n&&cmd!=0x28&&p[0].data[0]>=6)return -EINVAL;
+    if(cmd==0x17&&p[0].data[0]!=0)return -EINVAL;
     if(cmd==0x45&&p[1].size!=2)return -EINVAL;
     if(cmd==0x2b&&n==2&&(p[1].size!=1||p[1].data[0]!=1))return -EINVAL;
     total=(total+3)&~(size_t)3;
