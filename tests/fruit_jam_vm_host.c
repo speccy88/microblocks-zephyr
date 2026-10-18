@@ -62,6 +62,14 @@ int fj_io_pwm_write(unsigned pin,unsigned value)
 void fj_io_pwm_stop(void) {}
 void fj_io_prepare_gpio(unsigned pin) { (void)pin; }
 int fj_io_info(char *dst,unsigned size) { snprintf(dst,size,"{}");return 0; }
+/* New board primitives are dispatch-tested with these simulated devices;
+ * native sensor CRC and PIO timing require their own tests. */
+int fj_sht4x_read(int *t,int *h) { *t=25000;*h=44000;return 0; }
+int fj_sht4x_status(char *dst,unsigned size)
+{ return snprintf(dst,size,"{\"simulated\":true,\"heater\":false}"); }
+int fj_pixels_set(unsigned index,unsigned r,unsigned g,unsigned b)
+{ return index<5 && r<=255 && g<=255 && b<=255 ? 0 : -22; }
+int fj_pixels_off(void) { return 0; }
 
 int recvBytes(uint8 *p, int count)
 {

@@ -195,6 +195,8 @@ extern "C" int fj_io_spi_transfer(const uint8_t *tx, uint8_t *rx, size_t count)
 { (void)tx; (void)rx; (void)count; return -ENOTSUP; }
 extern "C" int fj_io_info(char *dst, unsigned size)
 {
-    snprintf(dst, size, "{\"digital_gpio\":[6,7,10,40,41,42,43,44,45],\"analog_gpio\":[40,41,42,43,44,45],\"analog_max\":1023,\"pwm_hz\":1000,\"i2c_gpio\":[20,21],\"spi\":false,\"hardware_tested\":false,\"error\":%d}", last_error);
+    int sda = device_is_ready(gpio) ? gpio_pin_get(gpio, 20) : -ENODEV;
+    int scl = device_is_ready(gpio) ? gpio_pin_get(gpio, 21) : -ENODEV;
+    snprintf(dst, size, "{\"digital_gpio\":[6,7,10,40,41,42,43,44,45],\"analog_gpio\":[40,41,42,43,44,45],\"analog_max\":1023,\"pwm_hz\":1000,\"i2c_gpio\":[20,21],\"i2c_sda_level\":%d,\"i2c_scl_level\":%d,\"spi\":false,\"hardware_tested\":false,\"error\":%d}", sda, scl, last_error);
     return 0;
 }

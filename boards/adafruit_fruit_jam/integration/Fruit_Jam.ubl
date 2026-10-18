@@ -1,0 +1,8 @@
+module 'Fruit Jam' Output
+author 'MicroBlocks Zephyr Fruit Jam port'
+version 0 1
+description 'Experimental Fruit Jam Zephyr port. Five onboard NeoPixels: index 1..5, RGB 0..255; start with values of 8. SHT4x work was stopped at user request and remains unvalidated/inactive. See the repository capability manifest for physical test status.'
+spec 'b' '[fruitJam:buttonPressed]' 'Fruit Jam button _ pressed?' 'num' 1
+spec ' ' '[fruitJam:pixel]' 'Fruit Jam pixel _ red _ green _ blue _' 'num num num num' 1 8 0 0
+spec ' ' '[fruitJam:pixelsOff]' 'Fruit Jam pixels off'
+spec 'r' '[fruitJam:ioCapabilities]' 'Fruit Jam I/O diagnostics'

@@ -20,7 +20,7 @@ execute_process(COMMAND ${Python3_EXECUTABLE}
 target_include_directories(app PRIVATE ${vm_root} ${vm_root}/vm src)
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1)
 target_sources(app PRIVATE src/main.cpp src/platform.c src/transport.c
-  src/io.cpp src/generic_primitives.c src/program_store.c
+  src/io.cpp src/generic_primitives.c src/program_store.c src/sht4x.c src/pio_pixels.c
   ${vm_root}/vm/interp.c ${vm_root}/vm/runtime.c ${vm_root}/vm/mem.c
   ${vm_root}/vm/persist.c ${vm_root}/vm/dataPrims.c ${vm_root}/vm/varPrims.c
   ${vm_root}/vm/tinyJSON.c ${vm_root}/vm/mbFont.c ${vm_root}/vm/boardHooks.c)

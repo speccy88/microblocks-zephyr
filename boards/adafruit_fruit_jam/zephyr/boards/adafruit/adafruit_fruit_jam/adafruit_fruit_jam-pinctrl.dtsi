@@ -2,7 +2,8 @@
 #include <zephyr/dt-bindings/pinctrl/rpi-pico-rp2350b-pinctrl.h>
 &pinctrl {
 	i2c0_default: i2c0_default {
-		group1 { pinmux = <I2C0_SDA_P20>, <I2C0_SCL_P21>; input-enable; };
+		group1 { pinmux = <I2C0_SDA_P20>, <I2C0_SCL_P21>;
+			input-enable; input-schmitt-enable; bias-pull-up; };
 	};
 	/* GPIO/ADC/PWM ownership is selected per pin at runtime. Empty boot states
 	 * prevent an ADC/PWM device initialization from stealing another pin. */

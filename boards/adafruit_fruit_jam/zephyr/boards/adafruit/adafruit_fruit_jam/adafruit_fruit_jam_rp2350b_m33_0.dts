@@ -60,6 +60,9 @@
 	pinctrl-names = "default";
 	status = "okay";
 };
+/* PIO1 is reserved for GPIO32 NeoPixels, with its base selected as 16 at first
+ * use. Future low-pin USB host belongs on another PIO instance. */
+&pio1 { status = "okay"; };
 &timer0 { status = "okay"; };
 &vreg { status = "okay"; };
 zephyr_udc0: &usbd { status = "okay"; };
