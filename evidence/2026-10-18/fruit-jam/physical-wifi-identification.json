@@ -1,0 +1,110 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T19:07:13.067463+00:00",
+  "firmware_elf_sha256": "f8ec218acf73f0f66911f19164fe6b30492ad55938e99f5733c2cbb44492911d",
+  "checks": {
+    "initial_status": {
+      "setup_protocol": 1,
+      "state": 0,
+      "generation": 0,
+      "operation": 0,
+      "error": 0,
+      "stage": 0,
+      "queries": 0,
+      "version": "",
+      "mac": "",
+      "connection": 0,
+      "busy": 0,
+      "reset_requested": false,
+      "spi_hz": 1000000,
+      "coprocessor_flashed": false,
+      "network_ready": false,
+      "ip": "0.0.0.0",
+      "netmask": "0.0.0.0",
+      "gateway": "0.0.0.0"
+    },
+    "identification_runs": [
+      {
+        "setup_protocol": 1,
+        "state": 3,
+        "generation": 1,
+        "operation": 0,
+        "error": 0,
+        "stage": 4,
+        "queries": 3,
+        "version": "3.3.0",
+        "mac": "58:e6:c5:f5:a3:58",
+        "connection": 254,
+        "busy": 1,
+        "reset_requested": false,
+        "spi_hz": 1000000,
+        "coprocessor_flashed": false,
+        "network_ready": false,
+        "ip": "0.0.0.0",
+        "netmask": "0.0.0.0",
+        "gateway": "0.0.0.0"
+      },
+      {
+        "setup_protocol": 1,
+        "state": 3,
+        "generation": 2,
+        "operation": 0,
+        "error": 0,
+        "stage": 4,
+        "queries": 3,
+        "version": "3.3.0",
+        "mac": "58:e6:c5:f5:a3:58",
+        "connection": 254,
+        "busy": 1,
+        "reset_requested": false,
+        "spi_hz": 1000000,
+        "coprocessor_flashed": false,
+        "network_ready": false,
+        "ip": "0.0.0.0",
+        "netmask": "0.0.0.0",
+        "gateway": "0.0.0.0"
+      },
+      {
+        "setup_protocol": 1,
+        "state": 3,
+        "generation": 3,
+        "operation": 0,
+        "error": 0,
+        "stage": 4,
+        "queries": 3,
+        "version": "3.3.0",
+        "mac": "58:e6:c5:f5:a3:58",
+        "connection": 254,
+        "busy": 1,
+        "reset_requested": false,
+        "spi_hz": 1000000,
+        "coprocessor_flashed": false,
+        "network_ready": false,
+        "ip": "0.0.0.0",
+        "netmask": "0.0.0.0",
+        "gateway": "0.0.0.0"
+      }
+    ],
+    "arithmetic_after_queries": 12,
+    "retained_code_crc32": {
+      "0": "297d191b"
+    },
+    "reconnect_arithmetic": 12
+  },
+  "network_credentials_sent": false,
+  "coprocessor_flashed": false,
+  "external_sensor_access": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "temporary_chunks": [
+    254,
+    253
+  ],
+  "finished_utc": "2026-10-18T19:07:13.448898+00:00"
+}

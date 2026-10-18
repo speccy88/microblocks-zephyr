@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "scope": "Authorized native Wi-Fi setup image SWD installation and USB/current-program regression",
+  "checked_utc": "2026-10-18T19:06:45.858067+00:00",
+  "source_commit": "95c4b70ee8c8a9fb4ecd7e178b4a4386d9522752",
+  "firmware_elf_sha256": "f8ec218acf73f0f66911f19164fe6b30492ad55938e99f5733c2cbb44492911d",
+  "programming_verified": true,
+  "cold_reset_completed": true,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "code_crc32": {
+    "0": "297d191b"
+  },
+  "arithmetic": 12,
+  "vmstore_private_backup_sha256": "aabb7c6de9b23599b0640e383d9600930231e2062c1c3714d7d1563636a59ef9",
+  "coprocessor_flashed": false,
+  "credentials_sent": false,
+  "sht4x_access": false,
+  "association_verified": false
+}

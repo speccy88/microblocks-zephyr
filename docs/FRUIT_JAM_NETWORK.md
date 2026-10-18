@@ -3,7 +3,8 @@
 The requested goal is the actual MicroBlocks IDE served by Fruit Jam over
 Wi-Fi, with binary VM WebSocket transport and persistent programs. The current
 loopback IDE is a verified USB baseline; it is not the standalone endpoint.
-No network credential is requested or reused before setup is functional.
+The working USB-local setup reads the selected Windows credential only inside
+the user's explicit target-specific Connect action.
 SHT4x investigation remains cancelled and inactive.
 
 ## Stage A - identify the AirLift protocol
@@ -15,8 +16,9 @@ SHT4x investigation remains cancelled and inactive.
 - Configure only SPI1 MISO28/SCK30/MOSI31, manual CS46, BUSY3 and shared reset22.
   GPIO0 remains input/pull-up and is the RP2350 USBBOOT button. The schematic
   places ESP32-C6 BOOT9 on shared I2S/ESP IRQ23, with an external 10k pull-up.
-  The compiled diagnostic leaves IRQ23 untouched. A temporary input/pull-up
-  probe confirmed it high, without resolving the initial handshake timeout.
+  The initial diagnostic left IRQ23 untouched. A temporary input/pull-up probe
+  confirmed it high, without resolving the initial handshake timeout. The
+  current explicit reset path configures it as input/pull-up before reset.
 - GPIO22 also resets the TLV320 codec. Perform Wi-Fi initialization before
   codec configuration; keep audio muted/idle while bringing up the shared
   reset. This is a dependency, not a reason to revisit the external sensor.
@@ -37,15 +39,18 @@ SHT4x investigation remains cancelled and inactive.
 - Keep at most four HTTP clients and one active VM controller. Bound each
   request/header/frame and every timeout. Stream assets in small chunks;
   release stalled clients. Use exact Content-Length/type/encoding headers.
-- Build a USB-local setup page only after transport works. The user enters
-  the chosen network through that page, not chat or logs. Do not read or reuse
+- The implemented USB-local setup uses a target-specific native GUI and a
+  separate binary control envelope, as [specified here](FRUIT_JAM_WIFI_SETUP.md).
+  The user selects their saved network in that local flow, outside chat/logs.
+  Do not read or reuse
   the Waveshare's private credentials without separate explicit approval.
   Avoid embedding credentials in commands, commits, artifacts or URLs.
 - Keep setup secrets out of uploaded VM bytecode: code snapshots are automatic.
   Use a separately framed board-control extension dispatched without creating
   code records, with exact magic/version/length checks and cached status ACKs.
   Wipe transient credential copies after the worker consumes them. The local
-  page must use same-origin POST, loopback binding and no request-body logging.
+  GUI has no HTTP server. A future browser setup page would require same-origin
+  POST, loopback binding and no request-body logging.
 - A remembered network requires a visible setup choice and a separate checked
   configuration-storage boundary; do not assume factory NINA association
   persists over power loss. Decide the storage format/partition only after the
@@ -67,7 +72,8 @@ SHT4x investigation remains cancelled and inactive.
   arithmetic/edit result, one exact 1..50 output run, stop, variable
   inspection, reconnect, reload and reboot/autostart with CRCs retained.
 - Record remaining hardware limits separately: DVI, USB host, audio, SD,
-  PSRAM, IR and physical button presses each require their own evidence.
+  PSRAM and IR each require their own evidence. The three physical button
+  presses/releases now have a separate passing record.
 
 ## Primary protocol references
 
@@ -80,7 +86,7 @@ Reference revision/hash records accompany implementation. The pinned Zephyr
 target stays the runtime; factory Arduino/CircuitPython examples are protocol
 and wiring references, not replacement firmware to flash on this board.
 
-## Compiled Stage A implementation
+## Historical Stage A checkpoint
 
 `airlift.c` uses an idle diagnostic worker, manual active-low CS and 1 MHz SPI1.
 `nina_protocol.c` only creates the three allowed identification commands and
@@ -117,10 +123,26 @@ identification, network association and standalone IDE acceptance.
 
 After official Fruit Jam NINA 3.3.0 restoration, three native SPI cycles passed
 version/MAC/status framing, with all nine queries successful. USB arithmetic,
-reconnect and the current program CRC passed. The native MAC formatter still
-reverses the reply bytes and needs correction at the next coordinated build;
+reconnect and the current program CRC passed. At that checkpoint the MAC formatter
+reversed the reply bytes and needed correction at the next coordinated build;
 the actual six bytes match the independent UART identity. Version is 3.3.0 and
-the raw connection status is 254. Association, DHCP and sockets remain pending.
+the raw connection status was 254. Association, DHCP and sockets were pending.
+
+## Current provisioning checkpoint
+
+Source `95c4b70` adds bounded WPA association and three-parameter IP parsing,
+cached setup status, transient credential wiping and a Fruit Jam-only runtime
+guard for malformed/partial control frames. Its MAC formatter preserves reply
+byte order, verified as `58:e6:c5:f5:a3:58`. Native compilation, C parser tests
+and real VM security/regression tests pass. Existing Waveshare source is unchanged.
+
+The user explicitly clicked Connect in the local GUI. NINA 3.3.0 reached
+connection status 3 and assigned `192.168.1.7`, with netmask/gateway reported
+and no static-IP command. Seven USB arithmetic checks, saved program CRCs and
+reconnect passed. See [the setup checkpoint](FRUIT_JAM_WIFI_SETUP.md) and its
+sanitized receipt. TCP socket service and the standalone IDE are still pending;
+no HTTP endpoint is claimed at that IP. No boot-time credential replay/storage
+is implemented yet.
 
 The pinned manifest contains 147 original assets, 17,282,925 raw bytes and
 3,512,571 gzip bytes. This suggests the compressed editor can fit in the 4 MiB

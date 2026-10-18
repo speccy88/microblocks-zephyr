@@ -117,19 +117,24 @@
         "rx": 9,
         "boot_mode": 23
       },
-      "upstream_status": "native-spi-identification-verified-network-service-pending",
-      "smallvm": "identification-verified-network-sockets-pending",
-      "physical_tested": false,
+      "upstream_status": "native-spi-association-dhcp-verified-sockets-pending",
+      "smallvm": "user-triggered-wifi-association-dhcp-verified-network-sockets-pending",
+      "physical_tested": true,
       "physical_attempted": true,
       "evidence": [
         "evidence/2026-10-18/fruit-jam/physical-airlift-nina-restoration.json",
-        "evidence/2026-10-18/fruit-jam/physical-airlift-after-nina-restore.json"
+        "evidence/2026-10-18/fruit-jam/physical-airlift-after-nina-restore.json",
+        "evidence/2026-10-18/fruit-jam/physical-wifi-identification.json",
+        "evidence/2026-10-18/fruit-jam/physical-wifi-association.json"
       ],
-      "limitations": "Version/status and six MAC bytes verified; native MAC text currently reverses byte order and needs correction at next coordinated build. Association, DHCP, sockets and standalone IDE remain unverified; no credentials sent",
+      "limitations": "Firmware identity, canonical MAC and one user-triggered association/IP assignment verified with USB/CRC/reconnect preserved. Sockets, standalone IDE, cold-boot reconnect and physical failure-path tests pending.",
       "identification_physically_verified": true,
       "coprocessor_firmware": "NINA_ADAFRUIT-fruitjam_c6-3.3.0",
-      "wifi_setup_compiled": false,
-      "wifi_setup_status": "Source prepared; native build and physical association/DHCP pending"
+      "wifi_setup_compiled": true,
+      "wifi_setup_status": "Source 95c4b70 compiled, installed and physically verified for association and DHCP; board storage and sockets pending",
+      "association_physically_verified": true,
+      "dhcp_physically_verified": true,
+      "mac_format_physically_verified": true
     },
     {
       "id": "usb_host",
@@ -244,7 +249,7 @@
       "limitations": "Power switch and supply behavior not measured"
     }
   ],
-  "target_firmware_scope": "Physical USB/SmallVM, SWD programming and program persistence verified; graphical local USB bridge; incomplete peripheral coverage",
+  "target_firmware_scope": "Physical USB/SmallVM, SWD programming, program persistence, NeoPixels, three buttons and user-triggered Wi-Fi association/DHCP verified; local graphical USB bridge; incomplete peripheral and standalone network coverage",
   "zephyr_target": "adafruit_fruit_jam/rp2350b/m33_0",
   "digital_gpio": [
     6,

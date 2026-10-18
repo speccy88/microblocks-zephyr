@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "checks": 193,
+  "scope": "Real framing C with simulated SPI bytes; no physical hardware",
+  "command": [
+    "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang",
+    "-O1",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/smallvm/src",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/smallvm/src/nina_protocol.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/smallvm/src/wifi_control.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tests/fruit_jam_nina_protocol.c",
+    "-Wl,-z,stack-size=65536",
+    "-Wl,--max-memory=1048576",
+    "-o",
+    "/tmp/fruitjam-nina-of_v5bqe/test.wasm"
+  ],
+  "source_sha256": "f628de184565465b0744c6f6972f705c1e7418ee386070260215467c7ee2b83e"
+}

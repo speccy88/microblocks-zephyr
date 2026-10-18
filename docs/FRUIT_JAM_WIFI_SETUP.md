@@ -53,4 +53,31 @@ available VM output capacity without waiting for a stalled controller.
 - Preserve the C6 image and current RP2350 program store. No sensor, audio,
   card formatting or unrelated board is part of setup.
 
-Status: implementation in progress; no association/DHCP PASS claimed yet.
+## Verified checkpoint, 2026-10-18
+
+Source `95c4b70ee8c8a9fb4ecd7e178b4a4386d9522752` compiled and was
+programmed with SWD verification. ELF SHA256 is
+`f8ec218acf73f0f66911f19164fe6b30492ad55938e99f5733c2cbb44492911d`.
+The real C parser harness passes 193 checks; the real VM harness covers
+control-envelope dispatch, zeroing, malformed input and program isolation.
+See [build provenance](../evidence/2026-10-18/fruit-jam/wifi-build-verification.json).
+
+The user clicked **Connecter ce Fruit Jam avec le Wi-Fi du coffre Windows**
+in `tools/provision_fruit_jam_wifi.py` after saving their reusable Windows
+credential separately. The GUI verified USB serial `E46570978F1E5A34` on COM8
+and setup protocol 1 before its click handler read and transmitted the values.
+Association and IP assignment completed in about 3.8 seconds. NINA 3.3.0 reported
+connection status 3, IP `192.168.1.7`, mask `255.255.255.0` and gateway
+`192.168.1.1`; no static-IP command was sent. Its canonical MAC is
+`58:e6:c5:f5:a3:58`.
+
+Seven USB arithmetic checks returned 12 during association. Chunk 0 retained
+CRC `297d191b`, USB reconnect passed, and a subsequent independent USB probe
+reported the same ready/IP state. The user confirmed the displayed connection
+with an IP. The [sanitized physical receipt](../evidence/2026-10-18/fruit-jam/physical-wifi-association.json)
+contains status and provenance only; no credential values or flash dumps.
+
+This is one successful physical association. Wrong-password/timeouts have not
+been physically exercised. Board credential storage, automatic boot reconnect,
+TCP/HTTP/WebSocket and the standalone IDE remain pending. The assigned IP is
+not yet an IDE URL. The C6 firmware was not flashed or reset during setup.

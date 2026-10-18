@@ -1,0 +1,80 @@
+{
+  "result": "PASS",
+  "scope": "User-triggered USB-local provisioning, NINA association and assigned IPv4 configuration; no socket or IDE service tested",
+  "source_commit": "95c4b70ee8c8a9fb4ecd7e178b4a4386d9522752",
+  "firmware_elf_sha256": "f8ec218acf73f0f66911f19164fe6b30492ad55938e99f5733c2cbb44492911d",
+  "started_utc": "2026-10-18T19:07:32.625830+00:00",
+  "finished_utc": "2026-10-18T19:07:36.402774+00:00",
+  "user_clicked_connect": true,
+  "user_confirmation": "Connecte avec une adresse IP",
+  "target_usb_serial": "E46570978F1E5A34",
+  "target_port": "COM8",
+  "association_verified": true,
+  "dhcp_verified": true,
+  "dhcp_evidence_scope": "NINA reports connected and nonzero IP/netmask/gateway after association, with no static-IP command; no packet capture",
+  "status": {
+    "setup_protocol": 1,
+    "state": 3,
+    "generation": 4,
+    "operation": 1,
+    "error": 0,
+    "stage": 7,
+    "queries": 17,
+    "version": "3.3.0",
+    "mac": "58:e6:c5:f5:a3:58",
+    "connection": 3,
+    "busy": 1,
+    "reset_requested": false,
+    "spi_hz": 1000000,
+    "coprocessor_flashed": false,
+    "network_ready": true,
+    "ip": "192.168.1.7",
+    "netmask": "255.255.255.0",
+    "gateway": "192.168.1.1"
+  },
+  "arithmetic_during_association": 7,
+  "expected_arithmetic": 12,
+  "programs_unchanged": true,
+  "code_crc32": {
+    "0": "297d191b"
+  },
+  "usb_reconnect_verified": true,
+  "post_gui_usb_probe": {
+    "checked_utc": "2026-10-18T19:11:10.568541+00:00",
+    "status": {
+      "setup_protocol": 1,
+      "state": 3,
+      "generation": 4,
+      "operation": 1,
+      "error": 0,
+      "stage": 7,
+      "queries": 17,
+      "version": "3.3.0",
+      "mac": "58:e6:c5:f5:a3:58",
+      "connection": 3,
+      "busy": 1,
+      "reset_requested": false,
+      "spi_hz": 1000000,
+      "coprocessor_flashed": false,
+      "network_ready": true,
+      "ip": "192.168.1.7",
+      "netmask": "255.255.255.0",
+      "gateway": "192.168.1.1"
+    },
+    "arithmetic": 12,
+    "code_crc32": {
+      "0": "297d191b"
+    }
+  },
+  "credential_values_logged": false,
+  "credential_values_in_vm_bytecode": false,
+  "credential_read_trigger": "Explicit human click in the target-specific local GUI after USB identity/protocol checks",
+  "coprocessor_flashed_during_setup": false,
+  "reset_during_association": false,
+  "sht4x_access": false,
+  "limitations": [
+    "One successful association only; wrong-password and association timeout not physically exercised",
+    "Credentials are transient on RP2350; no automatic boot replay or board configuration storage",
+    "No TCP/HTTP/WebSocket/embedded IDE service implemented or tested"
+  ]
+}

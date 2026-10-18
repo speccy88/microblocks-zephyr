@@ -47,9 +47,11 @@ version `3.3.0` and raw connection status 254. No association or DHCP check was
 performed. The six MAC bytes match the UART identity, but the compiled native
 formatter reverses their order: its text is `58:a3:f5:c5:e6:58`; the canonical
 address is `58:e6:c5:f5:a3:58`. NINA 3.3.0 `getMACaddr` copies bytes directly;
-the next coordinated native build should preserve `data[0]..data[5]` when
-formatting this firmware's reply. The currently installed source and its build
-hashes remain unchanged, with this presentation issue recorded explicitly.
+that checkpoint recorded a necessary `data[0]..data[5]` formatter correction.
+The later source `95c4b70` implements it; three physical identification cycles
+verify the canonical MAC. That image also passes user-triggered association
+and DHCP, as recorded in [the subsequent setup checkpoint](FRUIT_JAM_WIFI_SETUP.md).
+The earlier restoration reports retain their original measured scope.
 
 On Windows, esptool 5.6.0 initializes DTR false, while the official TinyUSB
 passthrough needs DTR asserted. Passing a positively identified, pre-opened

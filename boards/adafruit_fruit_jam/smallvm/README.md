@@ -1,8 +1,8 @@
 # Fruit Jam initial USB/SmallVM application
 
 **Cross-build, mock VM and the physical USB/VM baseline pass.**
-The AirLift identification image was programmed and verified with authorized SWD access.
-Its linker allocation is 92,736 bytes of flash and 195,936 bytes of internal
+The Wi-Fi setup image was programmed and verified with authorized SWD access.
+Its linker allocation is 94,944 bytes of flash and 197,080 bytes of internal
 RAM; runtime usage has not been measured. Graphical arithmetic/editing work
 through the local USB bridge. Wi-Fi hosting is still being implemented. ELF and UF2 inspection identify RP2350 ARM Secure images.
 See the [build evidence](../../../evidence/2026-10-18/fruit-jam/target-build-verification.json).
@@ -53,10 +53,15 @@ during a save remains untested.
 
 NeoPixels use an isolated PIO1/base16 implementation. The user confirmed the
 five positions, red/green/blue and final off after brief 8/255 patterns.
-Display/HSTX, PIO USB host, PSRAM, AirLift Wi-Fi/BLE, SD, audio and IR remain
-unavailable. Native AirLift identification is compiled; the initial SPI
-handshake timed out. After official NINA 3.3.0 restoration it passes three
-version/MAC/status cycles; MAC text byte order still needs correction.
+All three buttons pass isolated press/release checks. Native AirLift SPI
+identification and user-triggered association/DHCP pass after official NINA
+3.3.0 restoration; the canonical MAC formatter is corrected and physically
+verified. [USB-local setup](../../../docs/FRUIT_JAM_WIFI_SETUP.md) keeps
+credentials outside VM bytecode and snapshots. USB arithmetic, reconnect and
+the current program CRC remain intact during and after association.
+Display/HSTX, PIO USB host, PSRAM, BLE, SD, audio and IR remain unavailable.
+AirLift TCP/HTTP/WebSocket service and an embedded IDE are not implemented;
+assigned network connectivity does not establish those services.
 The explicitly requested coprocessor restoration is
 tracked in [the restoration record](../../../docs/FRUIT_JAM_AIRLIFT_RESTORE.md).
 SHT4x source is dormant, its library blocks removed, and further
@@ -122,7 +127,7 @@ python "$repo/tools/test_fruit_jam_vm.py" \
 The [physical USB baseline](../../../evidence/2026-10-18/fruit-jam/physical-usb-baseline.json)
 and [peripheral-update persistence](../../../evidence/2026-10-18/fruit-jam/physical-peripheral-update-persistence.json)
 record actual hardware results. Compile and mock results alone do not establish
-peripheral operation. HSTX/host USB/audio/networking and
+peripheral operation. HSTX/host USB/audio/network services and
 other missing features remain as listed above.
 
 Any later programming requires the user's separate authorization and a backup

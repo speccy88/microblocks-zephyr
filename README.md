@@ -49,7 +49,7 @@ pattern uses one atomic transaction; see [its exact bounds](docs/GENERIC_IO.md).
 |---|---|---|---|---|
 | [Waveshare ESP32-S3-RLCD-4.2](boards/waveshare_esp32s3_rlcd_4_2/README.md) | Pinned build and physical boot | v417 linked; interpreter harness passes | Real module compiled; library tests pending | Sensors/LCD transfer/AP association; full acceptance pending |
 | [Arduino UNO Q](https://github.com/speccy88/uno-q-microblocks) | Separate working project | Verified in reference repo | Reference port | Prior physical tests, not validated in this repo |
-| [Adafruit Fruit Jam RP2350B](boards/adafruit_fruit_jam/README.md) | Pinned ARM build and physical boot | v417 USB/graphical calculations, reconnect and reboot persistence pass | Real module/variant compiled | SWD/USB and NeoPixel colors/positions/off verified; remaining peripherals pending |
+| [Adafruit Fruit Jam RP2350B](boards/adafruit_fruit_jam/README.md) | Pinned ARM build and physical boot | v417 USB/graphical calculations, reconnect and reboot persistence pass | Real module/variant compiled | SWD/USB, NeoPixels, three buttons and user-triggered Wi-Fi association/DHCP verified; standalone IDE and remaining peripherals pending |
 
 ## Start here: Waveshare ESP32-S3-RLCD-4.2
 
@@ -113,7 +113,8 @@ Follow [ARCHITECTURE.md](docs/ARCHITECTURE.md),
 ## GitHub repository
 
 The repository is [speccy88/microblocks-zephyr](https://github.com/speccy88/microblocks-zephyr),
-created private. Active hardware integration lives on `development/waveshare-rlcd`.
+created private. Hardware integration lives on `development/waveshare-rlcd`
+and the separate `development/fruit-jam` branch.
 Preserve existing branches and history when pushing further changes.
 
 For a separate new repository only:
