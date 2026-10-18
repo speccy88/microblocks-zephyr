@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "vm/interp.h"
+#include "generic_io.h"
 #if defined(SMALLVM_WEBSOCKET)
 extern "C" int mb_transport_recv(unsigned char *, int);
 extern "C" int mb_transport_send(unsigned char *, int, int);
@@ -50,19 +51,21 @@ extern "C" int sendBytes(uint8 *data, int start, int end)
 
 extern "C" int pinCount(void) { return 3; }
 extern "C" OBJ primDigitalPins(OBJ *) { return int2obj(3); }
-extern "C" OBJ primAnalogPins(OBJ *) { return int2obj(0); }
+extern "C" OBJ primAnalogPins(OBJ *) { return int2obj(2); }
 extern "C" OBJ primDigitalRead(int count, OBJ *args)
 {
     if (count < 1) return fail(notEnoughArguments);
     if (!isInt(args[0])) return fail(needsIntegerError);
     int pin = obj2int(args[0]);
     if (pin < 0 || pin >= 3) return fail(indexOutOfRangeError);
+    rlcd_io_prepare_gpio(pin);
     pinMode(pin, INPUT);
     return digitalRead(pin) ? trueObj : falseObj;
 }
 extern "C" void primDigitalSet(int pin, int state)
 {
     if (pin < 0 || pin >= 3) { fail(indexOutOfRangeError); return; }
+    rlcd_io_prepare_gpio(pin);
     pinMode(pin, OUTPUT);
     digitalWrite(pin, state ? HIGH : LOW);
 }
@@ -73,5 +76,6 @@ extern "C" void primDigitalWrite(OBJ *args)
 }
 extern "C" void turnOffPins(void)
 {
+    rlcd_io_pwm_stop();
     for (int pin = 0; pin < 3; ++pin) pinMode(pin, INPUT);
 }

@@ -1,0 +1,166 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T08:51:40.253186+00:00",
+  "host": "192.168.1.69",
+  "duration_target_seconds": 6.0,
+  "interval_seconds": 30.0,
+  "scope": "Physical unchanged firmware; HTTP content and binary VM workload. Browser fresh loads are recorded separately.",
+  "cycles": [
+    {
+      "cycle": 1,
+      "elapsed_seconds": 24.047,
+      "rtc_string_reports": 1,
+      "arithmetic_runs": 1,
+      "edit_result": 13,
+      "ordered_outputs": 50,
+      "maximum_rtc_host_offset_seconds": 2.023,
+      "reconnect_seconds": 0.109,
+      "original_crcs_unchanged": true,
+      "seconds": 23.437
+    }
+  ],
+  "memory": [
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 11300,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22172,
+        "allocated_bytes": 43112,
+        "peak_allocated_bytes": 43824
+      },
+      "uptime_ms": 116686,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.109,
+      "elapsed_seconds": 0.188,
+      "phase": "initial-settled",
+      "utc": "2026-10-18T08:51:40.434781+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 11300,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22172,
+        "allocated_bytes": 43112,
+        "peak_allocated_bytes": 43824
+      },
+      "uptime_ms": 127566,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 9.766,
+      "elapsed_seconds": 11.329,
+      "phase": "active-cycle-1",
+      "utc": "2026-10-18T08:51:51.580997+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 11300,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22172,
+        "allocated_bytes": 43112,
+        "peak_allocated_bytes": 43824
+      },
+      "uptime_ms": 143799,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.078,
+      "elapsed_seconds": 27.297,
+      "phase": "final-settled",
+      "utc": "2026-10-18T08:52:07.542395+00:00"
+    }
+  ],
+  "asset_audits": [
+    {
+      "cycle": 1,
+      "assets": 148,
+      "uncompressed_bytes": 17282104,
+      "result": "PASS"
+    }
+  ],
+  "original_program_crc32": {
+    "0": "297d191b",
+    "1": "8b3406b3",
+    "2": "5e84cd6a"
+  },
+  "criteria": {
+    "minimum_cycles": 1,
+    "minimum_full_asset_audits": 1,
+    "outputs_per_cycle": 50,
+    "no_reboot": true,
+    "minimum_allocator_free_bytes": 2048,
+    "maximum_settled_residual_bytes": 1024
+  },
+  "firmware_sha256": "f85daf65fc4a7b36ab96e67fe99e722db2187525e9dbcb3b0a5a3a119fe8f0c6",
+  "asset_manifest_sha256": "59428623f2e64167b7852a2ec21a1df1f76de4ca841a4fd4b5aebefa8b18dd0b",
+  "require_rtc_utc": true,
+  "initial_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 174,
+    "websocket": {
+      "sessions": 3,
+      "rx_errors": 0,
+      "tx_errors": 0,
+      "queue_timeouts": 0,
+      "last_error": 0
+    },
+    "assets": {
+      "chunk_bytes": 2048,
+      "completed": 0,
+      "aborted": 0
+    }
+  },
+  "phase": "finished",
+  "workload_seconds": 24.047,
+  "original_program_restored": true,
+  "settled_free_space_loss_bytes": {
+    "libc_malloc": 0,
+    "kernel_heap": 0
+  },
+  "final_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 176,
+    "websocket": {
+      "sessions": 5,
+      "rx_errors": 0,
+      "tx_errors": 0,
+      "queue_timeouts": 0,
+      "last_error": 0
+    },
+    "assets": {
+      "chunk_bytes": 2048,
+      "completed": 148,
+      "aborted": 0
+    }
+  },
+  "websocket_diagnostic_delta": {
+    "sessions": 2,
+    "rx_errors": 0,
+    "tx_errors": 0,
+    "queue_timeouts": 0
+  },
+  "asset_diagnostic_delta": {
+    "completed": 148,
+    "aborted": 0
+  },
+  "minimum_free_bytes": {
+    "libc_malloc": 11300,
+    "kernel_heap": 22172
+  },
+  "finished_utc": "2026-10-18T08:52:07.567651+00:00"
+}

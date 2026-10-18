@@ -60,7 +60,7 @@
       "chip": "ESP32 ADC1 channel 3 through x3 voltage divider",
       "interface": "ADC",
       "pins": {
-        "signal": 3
+        "signal": 4
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-read-uncalibrated",
@@ -171,7 +171,7 @@
       },
       "upstream_zephyr": "devicetree-enabled",
       "bringup": "physically-used-by-shtc3",
-      "smallvm": "arduino-wire-compiled-library-tests-pending"
+      "smallvm": "native-register-physical-chip-ID-and-graphical-read-pass-writes-mocked-only"
     },
     {
       "id": "spi",
@@ -203,7 +203,7 @@
     {
       "id": "external_gpio",
       "chip": "2x8 expansion header",
-      "interface": "GPIO/ADC",
+      "interface": "GPIO / multiplexed ADC-SPI3-PWM",
       "pins": {
         "candidate_unreserved": [
           1,
@@ -213,7 +213,7 @@
       },
       "upstream_zephyr": "gpio-controller",
       "bringup": "requires-physical-pin-validation",
-      "smallvm": "arduino-gpio-compiled-untested"
+      "smallvm": "D0-GPIO1-D1-GPIO2-D2-GPIO17-external-wiring-untested"
     },
     {
       "id": "rtc_backup",
@@ -232,6 +232,54 @@
       "upstream_zephyr": "soc-support-exists",
       "bringup": "not-implemented",
       "smallvm": "planned"
+    },
+    {
+      "id": "analog_inputs",
+      "scope": "extension",
+      "chip": "ESP32 ADC1 channels 0/1",
+      "interface": "ADC",
+      "pins": {
+        "a0": 1,
+        "a1": 2
+      },
+      "upstream_zephyr": "adc-controller",
+      "bringup": "not-exercised-on-external-wiring",
+      "smallvm": "real-Arduino-API-10-bit-read-compiled-mocked-driver-errors-tested"
+    },
+    {
+      "id": "external_spi",
+      "scope": "extension",
+      "chip": "ESP32 SPI3",
+      "interface": "SPI",
+      "pins": {
+        "sclk": 1,
+        "mosi": 2,
+        "miso": 17
+      },
+      "upstream_zephyr": "deferred-init",
+      "bringup": "external-loopback-untested",
+      "smallvm": "native-send-receive-setup-exchange-compiled-mocked-transfer-and-cache-refresh-tested",
+      "acceptance_limits": [
+        "Shared D0/D1/D2, no automatic CS; external select wiring required",
+        "External physical transfer and electrical timing unverified"
+      ]
+    },
+    {
+      "id": "pwm",
+      "scope": "extension",
+      "chip": "ESP32 LEDC channel 0",
+      "interface": "PWM",
+      "pins": {
+        "output": 17
+      },
+      "upstream_zephyr": "deferred-init",
+      "bringup": "external-waveform-untested",
+      "smallvm": "1kHz-D2-only-10-bit-duty-compiled-mocked-duty-and-stop-tested",
+      "acceptance_limits": [
+        "Digital pulse train; no general-purpose DAC",
+        "Shared D2 with SPI MISO and digital I/O",
+        "Physical waveform and duty accuracy unverified"
+      ]
     }
   ],
   "validation_record": "../../docs/DEVELOPMENT_SESSION.md"

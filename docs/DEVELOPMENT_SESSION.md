@@ -327,3 +327,65 @@ the listening test. Current storage/memory figures are in
 
 The speaker is connected according to the owner. The coordinated two-note,
 volume-10 listening test is ready; audible confirmation remains pending.
+
+## 2026-10-18 generic native I/O checkpoint
+
+Implemented the six formerly unsupported native I2C/SPI/analog operations and
+named SPI setup/exchange against the verified v417 contracts. Logical D0/D1/D2
+stay GPIO1/2/17. A0/A1 use ADC1 channels 0/1 through the real Arduino API;
+D2 output is LEDC 1 kHz PWM, not a general-purpose DAC. SPI3 shares those three
+pins, has no automatic CS and releases them after a transaction. SPI2 remains
+LCD-owned. SPI/PWM initialization is deferred until a nonempty requested output.
+The schematic/vendor ADC example corrected an inventory error: battery ADC1
+channel 3 means GPIO4, not GPIO3; the working battery driver is unchanged.
+
+The actual interpreter plus adapter passes 43 generic contract checks in WASI,
+including exact errors, malformed native arities, byte-array bounds and empty
+no-op calls. The actual C++ backend also passes driver-double checks for ADC
+mapping/errors, PWM duty/Stop, SPI error cleanup and pointer-cache refresh.
+Zephyr caches SPI configuration by pointer; two stable alternating configurations
+ensure setup changes and failed-transfer retries are applied.
+
+Built with pinned Zephyr a915b2f12675b48b16d56653ea145dcd8f20cbbf, Arduino
+af5b8610f9be6d7b962e2ba6dd8e6859697c44ff and SmallVM
+2071df569623ba9cdcd6f8106b61796e047df38b. In the configured Zephyr/SDK workspace:
+
+```sh
+CMAKE_BUILD_PARALLEL_LEVEL=4 west build \
+  -b esp32s3_rlcd_4_2/esp32s3/procpu -d build/generic-io \
+  /path/to/repository/boards/waveshare_esp32s3_rlcd_4_2/standalone -- \
+  -DEXTRA_CONF_FILE= -DZEPHYR_EXTRA_MODULES=/path/to/ArduinoCore-Zephyr \
+  -DSMALLVM_SOURCE_DIR=/path/to/verified-smallvm-v417 \
+  -DIDE_SOURCE_DIR=/path/to/MicroBlocks-2.5.8
+```
+
+The app-only COM4 write was hash-verified: 4,251,332 bytes, SHA-256
+`f85daf65fc4a7b36ab96e67fe99e722db2187525e9dbcb3b0a5a3a119fe8f0c6`.
+Static DRAM uses 387,720/399,108 bytes. The bounded physical regression retained
+at least 11,300 bytes libc allocator free and 22,172 bytes kernel heap free,
+with no settled loss, observed reset, WebSocket error or aborted asset.
+
+Native I2C reads returned codec IDs 131/17; 18 malformed native calls returned
+the expected errors. Setup and empty transfers left SPI/PWM uninitialized.
+RTC, SHTC3 and battery read back normally. One 50-output binary cycle audited
+all 148 assets in 24.047 seconds, edited 12 to 13 and reconnected. Direct
+connection, same-origin controls and powered-reset persistence passed.
+
+A fresh actual GP editor retrieved one variable/three original chunks, emitted
+exactly 1..50, and its real advanced Comm `i2c get device 24 register 253` block
+displayed 131. The temporary visual block and its exact compiled chunk were
+removed; advanced mode was restored to its initial state and the GUI disconnected.
+Original CRCs remain 0=297d191b, 1=8b3406b3, 2=5e84cd6a; count remains 50.
+
+The initial physical-test encoder used huge-integer opcode 4 for a byte-array
+literal; the test failed, was corrected to literal opcode 5, and gained a VM
+regression. Capabilities confirmed neither SPI nor PWM initialized during that
+failed preflight. Its raw report and initial SPI binding build failure remain.
+No valid external SPI/PWM output, onboard generic register-data write or tone
+was emitted. Writes, external transfers and PWM are simulated, so external
+ADC accuracy, SPI wiring and PWM waveforms remain unverified. Named I2C bulk,
+list and exists helpers remain unsupported. Speaker listening is still pending.
+
+See `evidence/2026-10-18/generic-io-checkpoint.json` and linked reports for the
+precise measured scope. Existing audio DMA guard, Wi-Fi settings, no-code IDE,
+RTC and private recovery images are retained. No default-branch merge occurred.

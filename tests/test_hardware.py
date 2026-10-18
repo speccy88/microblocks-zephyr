@@ -38,10 +38,21 @@ class HardwareManifestTests(unittest.TestCase):
         safe_candidates = set(CAPS["external_gpio"]["pins"]["candidate_unreserved"])
         used = set()
         for feat in CAPS.values():
-            if feat["id"] == "external_gpio":
+            if feat["id"] == "external_gpio" or feat.get("scope") == "extension":
                 continue
             used.update(x for x in feat.get("pins", {}).values() if isinstance(x, int))
         self.assertFalse(safe_candidates & used)
+
+    def test_extension_multiplexing_and_battery_channel(self):
+        safe = {1, 2, 17}
+        self.assertEqual(set(CAPS["external_gpio"]["pins"]["candidate_unreserved"]), safe)
+        self.assertEqual(CAPS["battery_adc"]["pins"]["signal"], 4)
+        self.assertEqual(CAPS["analog_inputs"]["pins"], {"a0": 1, "a1": 2})
+        self.assertEqual(CAPS["external_spi"]["pins"], {"sclk": 1, "mosi": 2, "miso": 17})
+        self.assertEqual(CAPS["pwm"]["pins"], {"output": 17})
+        for feature in CAPS.values():
+            if feature.get("scope") == "extension":
+                self.assertTrue(set(feature["pins"].values()) <= safe)
 
     def test_not_claiming_unbuilt_hardware_implemented(self):
         for name in ("wifi", "ble", "mic_adc", "speaker_dac", "sdcard", "sleep_power"):

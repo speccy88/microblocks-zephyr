@@ -1,14 +1,60 @@
 /* SPDX-License-Identifier: MIT */
+#include <zephyr/dt-bindings/pwm/pwm.h>
 / {
     zephyr,user {
         /* Arduino D0..D2 expose only candidate unreserved expansion pins. */
         digital-pin-gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>,
                             <&gpio0 2 GPIO_ACTIVE_HIGH>,
                             <&gpio0 17 GPIO_ACTIVE_HIGH>;
-        adc-pin-gpios = <>;
-        io-channels = <>;
+        adc-pin-gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>, <&gpio0 2 GPIO_ACTIVE_HIGH>;
+        io-channels = <&adc0 0>, <&adc0 1>;
+        /* MicroBlocks PWM uses the error-reporting native driver adapter. */
+        pwms = <>;
+        pwm-pin-gpios = <>;
         serials = <&usb_serial>;
         i2cs = <&i2c0>;
-        /* LCD owns SPI2. No generic Arduino SPI endpoint is exposed. */
+        /* LCD owns SPI2. Generic MicroBlocks SPI3 is initialized lazily. */
     };
+};
+&adc0 {
+    channel@0 {
+        reg = <0>;
+        zephyr,gain = "ADC_GAIN_1_4";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,resolution = <12>;
+    };
+    channel@1 {
+        reg = <1>;
+        zephyr,gain = "ADC_GAIN_1_4";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,resolution = <12>;
+    };
+};
+&pinctrl {
+    generic_spi3: generic_spi3 {
+        group1 { pinmux = <SPIM3_SCLK_GPIO1>, <SPIM3_MOSI_GPIO2>; };
+        group2 { pinmux = <SPIM3_MISO_GPIO17>; input-enable; };
+    };
+    generic_pwm: generic_pwm {
+        group1 { pinmux = <LEDC_CH0_GPIO17>; output-enable; };
+    };
+};
+&spi3 {
+    status = "okay";
+    #address-cells = <1>;
+    #size-cells = <0>;
+    zephyr,deferred-init;
+    pinctrl-0 = <&generic_spi3>;
+    pinctrl-names = "default";
+};
+&ledc0 {
+    status = "okay";
+    zephyr,deferred-init;
+    pinctrl-0 = <&generic_pwm>;
+    pinctrl-names = "default";
+    #address-cells = <1>;
+    #size-cells = <0>;
+    channel0@0 { reg = <0>; timer = <0>; };
 };

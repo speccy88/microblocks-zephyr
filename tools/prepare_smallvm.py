@@ -34,6 +34,13 @@ def prepare(source, output):
     text = path.read_text(encoding="utf-8")
     text = replace_once(text, "\tif (errorCode) goto error; \\\n", "\tif (errorCode) goto error; \\\n\tif (!instructionBudget--) goto suspend; \\\n")
     text = replace_once(text, "static void runTask(Task *task) {", "static void runTask(Task *task) {\n\tunsigned instructionBudget = 256;")
+    # Native fixed-pointer I/O adapters must never see a malformed short stack.
+    for opcode, condition in (("i2cSet", "arg != 3"), ("i2cGet", "arg != 2"),
+            ("spiSend", "arg != 1"), ("spiRecv", "arg != 0"),
+            ("analogWrite", "arg != 2"), ("analogRead", "arg < 1 || arg > 2")):
+        anchor = "\t" + opcode + "_op:\n"
+        text = replace_once(text, anchor, anchor +
+            "\t\tif (" + condition + ") { fail(notEnoughArguments); goto error; }\n")
     text = replace_once(text, "void vmLoop() {", "void vmSlice(unsigned cycles) {")
     text = replace_once(text, "\tint currentTaskIndex = 0;\n\tint count = 0;\n\twhile (true) {", "\tstatic int currentTaskIndex = 0;\n\tstatic int count = 0;\n\twhile (cycles--) {")
     text = replace_once(text, "#endif // not __EMSCRIPTEN__", "void vmLoop() { while (true) vmSlice(1); }\n\n#endif // not __EMSCRIPTEN__")

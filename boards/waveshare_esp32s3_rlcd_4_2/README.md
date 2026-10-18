@@ -35,11 +35,16 @@ unvalidated. See the
 * ST730x SPI: GPIO11 SCLK, GPIO12 MOSI, GPIO40 CS, GPIO5 DC, GPIO41 RESET, GPIO6 TE.
 * microSD: GPIO21 CMD, GPIO38 CLK, GPIO39 DAT0 (1-bit SDMMC upstream).
 * Audio I2S: GPIO16 MCLK, GPIO9 BCLK, GPIO45 WS, GPIO10 MCU→DAC, GPIO8 ADC→MCU.
-* Battery ADC: GPIO3, schematic 100k/200k divider -> multiply ADC pin voltage by 3; ESP32 ADC calibration needs independent validation.
+* Battery ADC: ADC1 channel 3 on **GPIO4**, schematic 100k/200k divider -> multiply ADC pin voltage by 3; ESP32 ADC calibration needs independent validation.
 * Buttons: BOOT GPIO0, KEY GPIO18. Power (PWR) is a power-control button rather than a normal application input.
 * No touchscreen advertised or visible in supplied schematic, despite a misleading mention in upstream Zephyr overview. ESP32 capacitive touch pad capability is not the same as an LCD touch panel.
 
-Do **not** drive board-reserved signals as generic GPIO, especially GPIO0 (strap), 3 (battery ADC), 18 (KEY), 13/14 (shared I2C), 40/41/5/6/11/12 (LCD), 19/20 (USB), 8/9/10/16/45 (audio), and SD pins 21/38/39.
+Do **not** drive board-reserved signals as generic GPIO, especially GPIO0/3 (straps), 4 (battery ADC), 18 (KEY), 13/14 (shared I2C), 40/41/5/6/11/12 (LCD), 19/20 (USB), 8/9/10/16/45/46 (audio), and SD pins 21/38/39.
+
+Generic MicroBlocks I/O exposes only D0=GPIO1, D1=GPIO2, D2=GPIO17. A0/A1 are
+the first two pins; analog output is 1 kHz PWM on D2 only. SPI3 shares all three
+pins and has no automatic CS. Native I2C register blocks use SDA13/SCL14.
+See [contracts and physical-test limits](../../docs/GENERIC_IO.md).
 
 ## Step 1 — Prepare a Zephyr workspace (Linux or WSL)
 

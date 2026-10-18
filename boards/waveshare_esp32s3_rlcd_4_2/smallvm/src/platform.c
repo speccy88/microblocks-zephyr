@@ -4,6 +4,7 @@
 #include "vm/interp.h"
 #include "rlcd_board.h"
 #include "rlcd_audio.h"
+#include "generic_io.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -14,7 +15,7 @@ const char *boardType(void) { return "Waveshare RLCD 4.2 Zephyr"; }
 void consolePrint(const char *s) { (void)s; }
 void consoleReportNum(const char *s, int n) { (void)s; (void)n; }
 void processFileMessage(int t, int n, char *p) { (void)t; (void)n; (void)p; }
-void stopPWM(void) {}
+void stopPWM(void) { rlcd_io_pwm_stop(); }
 void stopServos(void) {}
 void stopTone(void) { rlcd_audio_stop(); }
 void resetRadio(void) {}
@@ -39,17 +40,14 @@ OBJ primButtonB(OBJ *a) { (void)a; return rlcd_button_pressed(1) ? trueObj : fal
 #define DISABLED_A(name) OBJ name(OBJ *a) { (void)a; return fail(primitiveNotImplemented); }
 #define DISABLED_N(name) OBJ name(int n, OBJ *a) { (void)n; (void)a; return fail(primitiveNotImplemented); }
 #define DISABLED_V(name) void name(OBJ *a) { (void)a; fail(primitiveNotImplemented); }
-DISABLED_A(primI2cGet) DISABLED_A(primI2cSet) DISABLED_A(primSPISend) DISABLED_A(primSPIRecv)
-DISABLED_N(primAnalogRead)
 DISABLED_N(primMBDisplay) DISABLED_N(primMBEnableDisplay)
 DISABLED_N(primMBPlot) DISABLED_N(primMBUnplot) DISABLED_N(primMBDrawShape) DISABLED_N(primMBShapeForLetter)
 DISABLED_N(primMBTiltX) DISABLED_N(primMBTiltY) DISABLED_N(primMBTiltZ) DISABLED_N(primMBTemp)
-DISABLED_V(primAnalogWrite)
 OBJ primMBDisplayOff(int n, OBJ *a) { (void)n; (void)a; return falseObj; }
 void primSetUserLED(OBJ *a) { if (a && a[0] != falseObj) fail(primitiveNotImplemented); }
 #define OMIT(name) void name(void) {}
 OMIT(addDisplayPrims) OMIT(addFilePrims) OMIT(addMiscPrims)
-OMIT(addNetPrims) OMIT(addBLEPrims) OMIT(addRadioPrims) OMIT(addSensorPrims)
+OMIT(addNetPrims) OMIT(addBLEPrims) OMIT(addRadioPrims)
 OMIT(addSerialPrims) OMIT(addTFTPrims) OMIT(addHIDPrims) OMIT(addOneWirePrims)
 OMIT(addCameraPrims) OMIT(addEncoderPrims) OMIT(addSDCardPrims) OMIT(addElecfreaksPrims)
 OMIT(addElecfreaksSensorPrims) OMIT(addSoundPrims)

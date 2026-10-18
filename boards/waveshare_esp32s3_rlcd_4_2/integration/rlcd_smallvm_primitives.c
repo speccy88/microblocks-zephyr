@@ -5,6 +5,7 @@
 #include "vm/interp.h"
 #include "rlcd_board.h"
 #include "rlcd_audio.h"
+#include "generic_io.h"
 #include <errno.h>
 #include <string.h>
 
@@ -116,6 +117,14 @@ static OBJ audio_status(int argc, OBJ *argv)
     return rlcd_audio_status(status, sizeof(status)) == 0 ? newStringFromBytes(status, strlen(status)) : fail(primitiveNotImplemented);
 }
 
+static OBJ generic_io_info(int argc, OBJ *argv)
+{
+    (void)argv;
+    if (argc!=0) return fail(notEnoughArguments);
+    char info[384];
+    return rlcd_io_info(info,sizeof(info)) ? fail(primitiveNotImplemented) : newStringFromBytes(info,strlen(info));
+}
+
 static PrimEntry rlcd_entries[] = {
     {"temperatureMilliC", temperature_milli_c},
     {"humidityMilliPct", humidity_milli_pct},
@@ -129,7 +138,8 @@ static PrimEntry rlcd_entries[] = {
     {"audioTone", audio_tone},
     {"audioBusy", audio_busy},
     {"audioStop", audio_stop},
-    {"audioStatus", audio_status}
+    {"audioStatus", audio_status},
+    {"ioCapabilities", generic_io_info}
 };
 
 // Existing UNO Q port implements this callback for the VM's IOPrims slot.

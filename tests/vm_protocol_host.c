@@ -5,6 +5,8 @@
 #include "vm/persist.h"
 #include "rlcd_board.h"
 #include "rlcd_calendar.h"
+#include "rlcd_audio.h"
+#include "generic_io.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +28,7 @@ void hardwareInit(void) { initTasks(); }
 void turnOffPins(void) {}
 int pinCount(void) { return 3; }
 OBJ primDigitalPins(OBJ *a) { (void)a; return int2obj(3); }
-OBJ primAnalogPins(OBJ *a) { (void)a; return int2obj(0); }
+OBJ primAnalogPins(OBJ *a) { (void)a; return int2obj(2); }
 OBJ primDigitalRead(int n, OBJ *a) { (void)n; (void)a; return falseObj; }
 void primDigitalWrite(OBJ *a) { (void)a; }
 void primDigitalSet(int p, int s) { (void)p; (void)s; }
@@ -38,6 +40,31 @@ int rlcd_display_text(const char *text) { return text ? 0 : -1; }
 int rlcd_display_clear(bool white) { (void)white;return 0; }
 int rlcd_rtc_read(char *text, unsigned size) { snprintf(text,size,"2026-10-17T12:00:00");return 0; }
 int rlcd_rtc_set_utc(int y,int m,int d,int h,int n,int s) { return rlcd_utc_weekday(y,m,d,h,n,s)<0 ? -22 : 0; }
+int rlcd_audio_play(int hz,int ms,int volume) { (void)hz;(void)ms;(void)volume;return -95; }
+void rlcd_audio_stop(void) {}
+bool rlcd_audio_busy(void) { return false; }
+int rlcd_audio_status(char *dst,unsigned size) { snprintf(dst,size,"{}");return 0; }
+
+static int io_calls, io_error, io_pin, io_mode, io_value, io_count;
+static unsigned io_hz, io_spi_mode;
+static bool io_lsb;
+static uint8 io_bytes[256];
+int rlcd_io_i2c_get(unsigned address,unsigned reg,uint8_t *value)
+{ ++io_calls;io_pin=address;io_mode=reg;*value=0x83;return io_error; }
+int rlcd_io_i2c_set(unsigned address,unsigned reg,uint8_t value)
+{ ++io_calls;io_pin=address;io_mode=reg;io_value=value;return io_error; }
+int rlcd_io_spi_setup(unsigned hz,unsigned mode,bool lsb)
+{ io_hz=hz;io_spi_mode=mode;io_lsb=lsb;return 0; }
+int rlcd_io_spi_transfer(const uint8_t *txdata,uint8_t *rxdata,size_t count)
+{ ++io_calls;assert(count<=256);io_count=count;memcpy(io_bytes,txdata,count);
+  if(rxdata)for(size_t i=0;i<count;++i)rxdata[i]=io_bytes[i]^0x5a;return io_error; }
+int rlcd_io_analog_read(unsigned pin,unsigned mode,int *value)
+{ ++io_calls;io_pin=pin;io_mode=mode;*value=511;return io_error; }
+int rlcd_io_pwm_write(unsigned pin,unsigned value)
+{ ++io_calls;io_pin=pin;io_value=value;return io_error; }
+void rlcd_io_pwm_stop(void) {}
+void rlcd_io_prepare_gpio(unsigned pin) { (void)pin; }
+int rlcd_io_info(char *dst,unsigned size) { snprintf(dst,size,"{}");return 0; }
 
 int recvBytes(uint8 *p, int count)
 {
@@ -66,6 +93,83 @@ static void upload(int id, const uint16 *ops, int words)
     inject(p,7+2*words); pump(1000); assert(chunks[id].code); tx_count=0;
 }
 
+static unsigned io_checks;
+/* Test-only accessor appended to the prepared interpreter, never firmware. */
+extern unsigned smallvm_test_error(void);
+#define CHECK_IO(condition) do { assert(condition); ++io_checks; } while(0)
+static void io_failed(int expected)
+{
+    if (smallvm_test_error()!=expected) fprintf(stderr,"I/O check %u: expected error %d, got %u\n",io_checks,expected,smallvm_test_error());
+    CHECK_IO(smallvm_test_error()==expected);fail(0);
+}
+
+static void generic_contracts(void)
+{
+    OBJ args[4]={int2obj(24),int2obj(253),int2obj(37),falseObj};
+    CHECK_IO(obj2int(primI2cGet(args))==0x83 && io_pin==24 && io_mode==253);
+    CHECK_IO(primI2cSet(args)==falseObj && io_value==37);
+    int before=io_calls;
+    args[0]=int2obj(-1);primI2cGet(args);io_failed(21);
+    args[0]=int2obj(128);primI2cSet(args);io_failed(21);
+    args[0]=int2obj(24);args[1]=int2obj(256);primI2cGet(args);io_failed(22);
+    args[1]=int2obj(0);args[2]=int2obj(-1);primI2cSet(args);io_failed(23);
+    args[0]=trueObj;primI2cGet(args);io_failed(13);
+    CHECK_IO(io_calls==before);
+    args[0]=int2obj(24);io_error=-5;primI2cGet(args);io_failed(35);io_error=0;
+
+    args[0]=int2obj(165);CHECK_IO(primSPISend(args)==falseObj && io_count==1 && io_bytes[0]==165);
+    CHECK_IO(obj2int(primSPIRecv(NULL))==0x5a && io_bytes[0]==0);
+    OBJ bytes=newObj(ByteArrayType,1,zeroObj);setByteCountAdjust(bytes,3);
+    uint8 *data=(uint8 *)&FIELD(bytes,0);data[0]=1;data[1]=2;data[2]=3;args[0]=bytes;
+    CHECK_IO(primSPISend(args)==falseObj && io_count==3 && io_bytes[2]==3);
+    CHECK_IO(doPrimitiveCall(SensorPrims,"spiExchange",1,args)==falseObj && data[0]==0x5b && data[2]==0x59);
+    OBJ empty=newObj(ByteArrayType,0,zeroObj);args[0]=empty;before=io_calls;
+    CHECK_IO(primSPISend(args)==falseObj && io_calls==before);
+    CHECK_IO(doPrimitiveCall(SensorPrims,"spiExchange",1,args)==falseObj && io_calls==before);
+    args[0]=newObj(ByteArrayType,65,zeroObj);setByteCountAdjust(args[0],257);
+    primSPISend(args);io_failed(18);CHECK_IO(io_calls==before);
+    args[0]=int2obj(256);primSPISend(args);io_failed(23);
+    args[0]=trueObj;primSPISend(args);io_failed(13);CHECK_IO(io_calls==before);
+    args[0]=int2obj(0);io_error=-5;primSPISend(args);io_failed(27);io_error=0;
+
+    args[0]=int2obj(250000);args[1]=int2obj(3);args[2]=int2obj(0);args[3]=newStringFromBytes("LSB",3);
+    CHECK_IO(doPrimitiveCall(SensorPrims,"spiSetup",4,args)==falseObj && io_hz==250000 && io_spi_mode==3 && io_lsb);
+    args[0]=int2obj(9999);doPrimitiveCall(SensorPrims,"spiSetup",4,args);io_failed(18);
+    args[0]=int2obj(1000000);args[2]=int2obj(1);doPrimitiveCall(SensorPrims,"spiSetup",4,args);io_failed(57);
+    CHECK_IO(doPrimitiveCall(SensorPrims,"spiSetup",1,args)==falseObj && io_hz==1000000 && io_spi_mode==0 && !io_lsb);
+
+    args[0]=int2obj(1);CHECK_IO(obj2int(primAnalogRead(1,args))==511 && io_pin==1 && io_mode==0);
+    args[1]=trueObj;CHECK_IO(obj2int(primAnalogRead(2,args))==511 && io_mode==1);
+    args[1]=newStringFromBytes("down",4);CHECK_IO(obj2int(primAnalogRead(2,args))==511 && io_mode==2);
+    before=io_calls;args[0]=int2obj(2);primAnalogRead(1,args);io_failed(57);
+    args[0]=falseObj;primAnalogRead(1,args);io_failed(13);CHECK_IO(io_calls==before);
+    args[0]=int2obj(2);args[1]=int2obj(-1);primAnalogWrite(args);CHECK_IO(io_pin==2 && io_value==0);
+    args[1]=int2obj(2000);primAnalogWrite(args);CHECK_IO(io_value==1023);
+    before=io_calls;args[0]=int2obj(0);primAnalogWrite(args);io_failed(57);CHECK_IO(io_calls==before);
+    args[0]=int2obj(2);args[1]=trueObj;primAnalogWrite(args);io_failed(13);
+
+    /* Execute malformed arities in the actual interpreter, not only adapters. */
+    const uint8 cases[][2]={{86,0},{87,1},{95,2},{96,0},{97,0},{98,1}};
+    for(unsigned c=0;c<sizeof(cases)/sizeof(cases[0]);++c) {
+        uint16 code[12]={OP(9,0)};int n=1;
+        for(int a=0;a<cases[c][1];++a)code[n++]=OP(2,1);
+        code[n++]=OP(cases[c][0],cases[c][1]);code[n++]=OP(35,0);code[n++]=OP(127,0);
+        if(n&1)++n;
+        upload(4,code,n);startTaskForChunk(4);pump(1000);
+        int found=0;
+        for(int i=0;i+6<tx_count;++i)
+            if(tx[i]==251 && tx[i+1]==19 && tx[i+2]==4 && tx[i+5]==28)found=1;
+        CHECK_IO(found);fail(0);tx_count=0;
+    }
+    /* A literal ByteArray uses opcode 5, not the huge-integer opcode 4. */
+    const uint16 oversized_literal[140]={OP(9,0),OP(5,0),6,OP(97,1),OP(2,0),OP(35,0),OP(127,0),0,1043,0};
+    before=io_calls;upload(4,oversized_literal,140);startTaskForChunk(4);pump(1000);
+    int found=0;
+    for(int i=0;i+6<tx_count;++i)
+        if(tx[i]==251&&tx[i+1]==19&&tx[i+2]==4&&tx[i+5]==18)found=1;
+    CHECK_IO(found&&io_calls==before);fail(0);tx_count=0;
+}
+
 int main(void)
 {
     hardwareInit(); memInit(); primsInit(); restoreScripts(); pump(100); tx_count=0;
@@ -92,13 +196,14 @@ int main(void)
     value=doPrimitiveCall(IOPrims,"humidityMilliPct",0,NULL); assert(isInt(value)&&obj2int(value)==47000);
     OBJ button=int2obj(1); assert(doPrimitiveCall(IOPrims,"buttonPressed",1,&button)==trueObj);
     button=int2obj(2); doPrimitiveCall(IOPrims,"buttonPressed",1,&button); assert(failure()); fail(0);
-    vars[0]=zeroObj; vars[1]=int2obj(499);
+    generic_contracts();
+    vars[0]=zeroObj; vars[1]=int2obj(49);
     const uint16 streaming[]={OP(6,1),OP(2,3),OP(8,0),OP(6,0),OP(78,1),(uint16)OP(26,-5),0};
     upload(3,streaming,7); startTaskForChunk(3);
     for(int i=0;i<200&&taskCount;++i){inject(ping,3);pump(1000);}
     for(int i=0,last=-1;i<200&&last!=tx_count;++i){last=tx_count;pump(5000);}
     assert(!taskCount&&!failure());
-    assert(obj2int(vars[0])==500);
+    assert(obj2int(vars[0])==50);
     int outputs=0;
     for(int pos=0;pos<tx_count;){
         if(tx[pos]==250){assert(pos+3<=tx_count);pos+=3;continue;}
@@ -114,7 +219,7 @@ int main(void)
         }
         pos+=5+len;
     }
-    assert(outputs==500);
-    printf("{\"result\":\"PASS\",\"architecture\":\"wasm32\",\"scope\":\"real SmallVM v417; simulated transport/peripherals\",\"reporter_runs\":10,\"arithmetic\":12,\"fragmented_message_bytes\":1019,\"partial_output_max\":7,\"ordered_stream_outputs\":500,\"stream_bytes\":%d,\"timeout_recovery\":true,\"invalid_length_recovery\":true,\"named_primitives\":true}\n",tx_count);
+    assert(outputs==50);
+    printf("{\"result\":\"PASS\",\"architecture\":\"wasm32\",\"scope\":\"real SmallVM v417; simulated transport/peripherals\",\"reporter_runs\":10,\"arithmetic\":12,\"fragmented_message_bytes\":1019,\"partial_output_max\":7,\"ordered_stream_outputs\":50,\"generic_io_checks\":%u,\"stream_bytes\":%d,\"timeout_recovery\":true,\"invalid_length_recovery\":true,\"named_primitives\":true}\n",io_checks,tx_count);
     return 0;
 }

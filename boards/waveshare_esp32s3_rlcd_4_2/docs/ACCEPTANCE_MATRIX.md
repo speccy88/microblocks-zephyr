@@ -1,6 +1,7 @@
-# Hardware acceptance record - 2026-10-17
+# Hardware acceptance record - updated 2026-10-18
 
-Evidence is under `evidence/2026-10-17/`. PASS applies only to the behavior listed.
+Evidence is under `evidence/2026-10-17/` and `evidence/2026-10-18/`.
+PASS applies only to the behavior listed.
 
 | Feature | Verified behavior | Remaining acceptance |
 |---|---|---|
@@ -15,13 +16,14 @@ Evidence is under `evidence/2026-10-17/`. PASS applies only to the behavior list
 | Wi-Fi | Protected startup AP, DHCP, station settings/reboot, local HTTP/WS | Mid-session station-loss fallback is not implemented; long-duration stability |
 | AP fallback triggers | No-saved-network AP physically joined; DHCP, editor assets, authenticated VM arithmetic pass in earlier image | KEY-at-boot and failed-saved-station triggers physically untested; final graphical acceptance used station mode |
 | Real graphical IDE | Historical 148/148 assets and graphical editing/readback; current basic check is 50 outputs, direct local connection | Broader browser/device coverage; see current session evidence |
-| Saved program | CRCs preserved, count 500 autostart after COM4 reset; 1-variable/3-chunk readback then graphical 500 run | Full original project metadata is not stored |
+| Saved program | Original three CRCs preserved across app-only updates and powered reset; 1-variable/3-chunk readback and current graphical 50 run | Full original project metadata is not stored |
 | Memory | Ten heap samples during active graphical count/say workload | VM object arena GC-free-space telemetry; long-duration stress |
 | BLE | Not implemented | GATT/connection tests |
-| External I2C/GPIO/ADC/PWM/UART | Arduino API compiles; onboard I2C used by SHTC3 | External-pin and third-party library physical tests |
-| ES8311 / ES7210 audio | Not implemented | Codec, PCM, channel and volume tests |
+| Generic I2C registers | Native register get/set implemented; actual ES8311 IDs 0x83/0x11 and graphical register read 131 pass; writes simulated | External writes and libraries; named I2C bulk/list/exists helpers unsupported |
+| External GPIO/ADC/SPI/PWM | Safe pin map compiled; actual VM/backend simulations pass for bounds, error propagation, SPI cache refresh, PWM duty/Stop and deferred init | External ADC accuracy, SPI loopback and PWM waveform/duty; no physical output test |
+| ES8311 / ES7210 audio | Speaker tone/busy/stop implemented; silent timing/DMA/stop tests pass in preceding checkpoint; current boot remains muted | Audible speaker confirmation pending; microphone not implemented |
 | Power / sleep | Not implemented | Charge/sleep current and wake tests |
-| SmallVM bytecode | Real v417: arithmetic/edit, fragmented 1019-byte upload, timeout recovery, CRCs, 500 outputs, stop/reconnect/autostart | Wider program suite |
+| SmallVM bytecode | Real v417: arithmetic/edit, fragmented 1019-byte upload, timeout recovery, CRCs, current 50 outputs, stop/reconnect/autostart; 43 generic I/O simulation checks | Wider program suite |
 | Arduino API | Real pinned module compiles alongside Zephyr/SmallVM; Wire initialization/buffer/clock adapter | Representative third-party sensor/SPI/GPIO library tests |
 
 No PASS is inferred from Devicetree node presence or source checks. The board's

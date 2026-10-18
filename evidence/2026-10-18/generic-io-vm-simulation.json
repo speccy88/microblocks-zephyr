@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "architecture": "wasm32",
+  "scope": "real SmallVM v417; simulated transport/peripherals",
+  "reporter_runs": 10,
+  "arithmetic": 12,
+  "fragmented_message_bytes": 1019,
+  "partial_output_max": 7,
+  "ordered_stream_outputs": 50,
+  "generic_io_checks": 43,
+  "stream_bytes": 409,
+  "timeout_recovery": true,
+  "invalid_length_recovery": true,
+  "named_primitives": true,
+  "backend": {
+    "result": "PASS",
+    "scope": "actual C++ backend with driver doubles",
+    "deferred_init": true,
+    "spi_cache_refresh": true,
+    "spi_release_on_error": true,
+    "adc_mapping_errors": true,
+    "pwm_stop_and_duty": true,
+    "physical_outputs": false
+  },
+  "compiler": "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang",
+  "compiler_warnings": "/tmp/smallvm-io-1b10gdkr/vm-source/vm/mem.c:301:49: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]\n  301 |                                 sprintf(s, \"%d type: %d words: %d fwd: %d\", (next - base), type, wordCount, (int) fwd);\n      |                                             ~~                              ^~~~~~~~~~~~~\n      |                                             %td\n/tmp/smallvm-io-1b10gdkr/vm-source/vm/mem.c:303:41: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]\n  303 |                                 sprintf(s, \"%d type: %d words: %d\", (next - base), type, wordCount);\n      |                                             ~~                      ^~~~~~~~~~~~~\n      |                                             %td\n/tmp/smallvm-io-1b10gdkr/vm-source/vm/mem.c:306:29: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]\n  306 |                         sprintf(s, \"%d FREE %d\", (next - base), wordCount);\n      |                                     ~~           ^~~~~~~~~~~~~\n      |                                     %td\n3 warnings generated.\n/tmp/smallvm-io-1b10gdkr/vm-source/vm/persist.c:768:29: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]\n  768 |                         sprintf(s, \"bad %d: %x\", (p - start), *p);\n      |                                         ~~       ^~~~~~~~~~~\n      |                                         %td\n/tmp/smallvm-io-1b10gdkr/vm-source/vm/persist.c:781:4: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]\n  780 |                 sprintf(s, \"%d: %x %x %x %x %x %x %x %x %x %x\",\n      |                             ~~\n      |                             %td\n  781 |                         (p - start), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);\n      |                         ^~~~~~~~~~~\n/tmp/smallvm-io-1b10gdkr/vm-source/vm/persist.c:1252:4: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]\n 1251 |                 sprintf(s, \"Record at offset %d: %d %d %d %d (%d words)\",\n      |                                              ~~\n      |                                              %td\n 1252 |                         (p - start0),\n      |                         ^~~~~~~~~~~~\n/tmp/smallvm-io-1b10gdkr/vm-source/vm/persist.c:1307:3: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]\n 1305 |         sprintf(s, \"Final: current %d used %d c0 %d c1 %d\",\n      |                                            ~~\n      |                                            %td\n 1306 |                 current,\n 1307 |                 freeStart - ((0 == current) ? start0 : start1),\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n4 warnings generated.\n",
+  "adapter_sha256": "be5574128867dc6e510a8815eea5ae21c286c75711571b5cba3f9ed7b80f229a",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "hardware_claim": "None: drivers are mocked; physical outputs and external wiring are untested"
+}

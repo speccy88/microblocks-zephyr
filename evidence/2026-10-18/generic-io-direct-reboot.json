@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T08:52:27.417574+00:00",
+  "firmware_sha256": "f85daf65fc4a7b36ab96e67fe99e722db2187525e9dbcb3b0a5a3a119fe8f0c6",
+  "checks": {
+    "ready_received_without_sending_credentials": true,
+    "program_edit_and_reconnect_result": 13,
+    "wifi_malformed_post_rejected_without_save": {
+      "same_origin": 400,
+      "foreign_origin": 403
+    },
+    "foreign_websocket_origin_rejected": true,
+    "powered_reset_reconnect_without_credentials": true
+  },
+  "original_program_crc32_preserved": {
+    "0": "297d191b",
+    "1": "8b3406b3",
+    "2": "5e84cd6a"
+  },
+  "finished_utc": "2026-10-18T08:52:35.845600+00:00"
+}

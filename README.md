@@ -32,6 +32,15 @@ confirmation is pending. The latest [bounded checkpoint](evidence/2026-10-18/aud
 includes direct connection, reboot persistence, one fresh graphical load and
 50 outputs, with the original program and Wi-Fi retained.
 
+[Generic I/O](docs/GENERIC_IO.md) now implements the native I2C register,
+SPI send/receive and analog read/write blocks, plus SPI setup/exchange. Analog
+input is A0/A1; output is 1 kHz PWM on D2. SPI3 uses D0/D1/D2 without automatic
+CS. The [current checkpoint](evidence/2026-10-18/generic-io-checkpoint.json)
+records real graphical I2C readback, 50 ordered outputs, asset/reconnect/reset
+checks and preserved original CRCs. External SPI/PWM waveforms and ADC accuracy
+remain unverified; writes and transfers have software-driver simulations.
+The advanced Comm category's I2C bulk/list/exists helpers remain unsupported.
+
 ## Supported and planned boards
 
 | Board | Zephyr integration | SmallVM | Arduino API | Hardware tests |

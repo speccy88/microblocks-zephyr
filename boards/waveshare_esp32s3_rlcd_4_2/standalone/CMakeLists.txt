@@ -31,10 +31,11 @@ execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/package_ide.py
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/generate_device_secrets.py
   ${CMAKE_CURRENT_BINARY_DIR}/private COMMAND_ERROR_IS_FATAL ANY)
 target_include_directories(app PRIVATE ${vm_root} ${vm_root}/vm
-  ../bringup/src src ${CMAKE_CURRENT_BINARY_DIR}/private)
+  ../bringup/src ../smallvm/src src ${CMAKE_CURRENT_BINARY_DIR}/private)
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1 SMALLVM_WEBSOCKET=1)
 target_sources(app PRIVATE src/main.cpp src/network.c src/server.c src/transport.c src/program_store.c src/wifi_settings.c
   ../smallvm/src/platform.c ../smallvm/src/arduino_transport.cpp
+  ../smallvm/src/generic_primitives.c ../smallvm/src/generic_io.cpp
   ../bringup/src/rlcd_board.c ../bringup/src/rlcd_audio.c ../integration/rlcd_smallvm_primitives.c
   ${vm_root}/vm/interp.c ${vm_root}/vm/runtime.c ${vm_root}/vm/mem.c
   ${vm_root}/vm/persist.c ${vm_root}/vm/dataPrims.c ${vm_root}/vm/varPrims.c

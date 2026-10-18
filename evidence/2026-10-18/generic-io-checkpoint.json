@@ -1,0 +1,123 @@
+{
+  "result": "PASS",
+  "recorded_utc": "2026-10-18T08:56:10.441426+00:00",
+  "firmware_sha256": "f85daf65fc4a7b36ab96e67fe99e722db2187525e9dbcb3b0a5a3a119fe8f0c6",
+  "firmware_bytes": 4251332,
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "arduino_commit": "af5b8610f9be6d7b962e2ba6dd8e6859697c44ff",
+  "smallvm_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "original_crc32_preserved": {
+    "0": "297d191b",
+    "1": "8b3406b3",
+    "2": "5e84cd6a"
+  },
+  "original_variable_count": 50,
+  "final_capabilities": {
+    "digital_gpio": [
+      1,
+      2,
+      17
+    ],
+    "analog_gpio": [
+      1,
+      2
+    ],
+    "analog_max": 1023,
+    "pwm_pin": 2,
+    "pwm_hz": 1000,
+    "dac": false,
+    "i2c_gpio": [
+      13,
+      14
+    ],
+    "spi_gpio": [
+      1,
+      2,
+      17
+    ],
+    "spi_cs": null,
+    "spi_hz": 1000000,
+    "spi_mode": 0,
+    "spi_lsb": 0,
+    "spi_initialized": 0,
+    "pwm_initialized": 0,
+    "pwm_active": 0,
+    "error": 0
+  },
+  "graphical": {
+    "editor": "actual GP MicroBlocks 2.5.8 served by board",
+    "direct_connection": true,
+    "project_readback": {
+      "named_variables": 1,
+      "chunks": 3
+    },
+    "ordered_outputs": 50,
+    "first": 1,
+    "last": 50,
+    "ordered": true,
+    "cdp_trace_truncated": false,
+    "native_i2c_get": {
+      "address": 24,
+      "register": 253,
+      "result": 131,
+      "reporter_body_hex": "0183000000"
+    },
+    "javascript_errors": [],
+    "fresh_resource_statuses": "All same-origin ResourceTiming entries HTTP 200",
+    "temporary_chunk": 3,
+    "temporary_chunk_removed": true,
+    "advanced_mode_temporarily_enabled_and_restored": true,
+    "final_state": "disconnected; original project visible"
+  },
+  "tests": [
+    "generic-io-vm-simulation.json",
+    "generic-io-physical.json",
+    "generic-io-50-regression.json",
+    "generic-io-direct-reboot.json"
+  ],
+  "audio_emitted": false,
+  "generic_register_data_writes": 0,
+  "physical_external_spi_pwm_tested": false,
+  "limits": [
+    "External ADC accuracy, PWM waveform/duty and SPI loopback/peripherals untested",
+    "I2C register writes tested with driver doubles only",
+    "Named I2C bulk/list/exists helpers remain unsupported",
+    "Speaker listening confirmation remains pending; no audible test in this checkpoint"
+  ],
+  "runtime": {
+    "status": {
+      "board": "Waveshare ESP32-S3-RLCD-4.2",
+      "vm": 417,
+      "ide": "2.5.8",
+      "saved_generation": 182,
+      "websocket": {
+        "sessions": 5,
+        "rx_errors": 0,
+        "tx_errors": 0,
+        "queue_timeouts": 0,
+        "last_error": 0
+      },
+      "assets": {
+        "chunk_bytes": 2048,
+        "completed": 7,
+        "aborted": 0
+      }
+    },
+    "memory": {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 11300,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22172,
+        "allocated_bytes": 43112,
+        "peak_allocated_bytes": 43824
+      },
+      "uptime_ms": 218356,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM"
+    }
+  }
+}
