@@ -6,6 +6,7 @@ struct fj_nina_reader {
     int (*byte)(void *context, uint8_t *value);
     void (*retry_pause)(void *context);
     void *context;
+    int (*bytes)(void *context, uint8_t *dst, size_t size);
 };
 /* Bounded identification/IP queries and explicit two-parameter WPA submission. */
 int fj_nina_query_frame(uint8_t command, uint8_t *dst, size_t size);

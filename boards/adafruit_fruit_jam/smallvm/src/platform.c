@@ -6,6 +6,8 @@
 #include "generic_io.h"
 #include "airlift.h"
 #include "wifi_control.h"
+#include "network_transport.h"
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,6 +26,9 @@ void processFileMessage(int t, int n, char *p) {
     if (t != FJ_WIFI_MESSAGE || n < 0) return;
     struct fj_wifi_request request;
     int err = fj_wifi_decode((const uint8_t *)p, (size_t)n, &request);
+#ifdef __ZEPHYR__
+    if(!err&&request.operation==2&&!fj_wifi_setup_local())err=-EACCES;
+#endif
     if (!err && request.operation == 2)
         err = fj_airlift_join(request.ssid, request.ssid_length, request.key, request.key_length);
     /* This extension never creates a code record; wipe the consumed body. */

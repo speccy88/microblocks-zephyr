@@ -1,0 +1,23 @@
+{
+  "phase": "network-vm-attempt-01",
+  "command": [
+    "/home/fred/microblocks-zephyr-work/.venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tools/test_fruit_jam_vm.py",
+    "--source",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/upstream-smallvm-v417-snapshot",
+    "--wasi-sdk",
+    "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk",
+    "--evidence",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/evidence/2026-10-18/fruit-jam/network-vm-harness.json"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 4.026,
+  "parallel_jobs_limit": 4,
+  "sample_interval_seconds": 0.5,
+  "peak_owned_process_group_rss_kib": 133812,
+  "minimum_system_available_kib": 5502916,
+  "peak_owned_process_count": 4,
+  "resource_stop": null,
+  "hardware_access": false,
+  "gpu_access": false
+}

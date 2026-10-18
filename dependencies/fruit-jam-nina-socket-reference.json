@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/adafruit/nina-fw",
+  "tag": "3.3.0",
+  "file": "main/CommandHandler.cpp",
+  "url": "https://raw.githubusercontent.com/adafruit/nina-fw/3.3.0/main/CommandHandler.cpp",
+  "sha256": "ad228ee0599e61644a7d6d85577064f32fea6e4849f6946720dc0353459fffbb",
+  "bytes": 72497,
+  "license": "LGPL-2.1-or-later",
+  "usage": "Read-only factual command/parameter/reply format reference; source not copied into the native firmware or executed",
+  "commands": [
+    "0x28 listen",
+    "0x2b available/explicit accept=1",
+    "0x3f allocate",
+    "0x2e close",
+    "0x2f client state",
+    "0x44 write, 16-bit LE returned byte count",
+    "0x45 read, 16-bit BE parameter length"
+  ]
+}

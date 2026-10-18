@@ -144,6 +144,38 @@ sanitized receipt. TCP socket service and the standalone IDE are still pending;
 no HTTP endpoint is claimed at that IP. No boot-time credential replay/storage
 is implemented yet.
 
+## Next implementation contract: native HTTP/WebSocket service
+
+Keep the official C6 image and use only its bounded TCP commands over the
+existing SPI bus. Serialize complete command/reply exchanges with the diagnostic
+worker. Validate both 8-bit and big-endian 16-bit parameter lengths, little-endian
+socket byte counts, partial sends and returned capacities. Use one listener,
+at most four simultaneous HTTP transfers and one VM WebSocket; no dynamic
+request allocation. Fixed request/header/frame limits and idle deadlines close
+stalled/malformed clients. Stream flash assets in at most 2 KiB writes.
+
+Package the pinned real MicroBlocks 2.5.8 editor using the already verified
+Fruit Jam patch. Keep all asset hashes/licenses and require the final ELF
+load bounds to stay inside the existing 4 MiB app partition. Do not expand into
+program snapshots or initialize PSRAM. Expose a non-secret `/api/status`.
+
+WebSocket upgrades require the board Host and matching browser Origin, version
+13, a valid key and a single controller. Binary frames must be masked, bounded,
+and support continuation/control frames; text, reserved bits, malformed lengths,
+queue overflow and timeouts close the session. Generate the RFC6455 accept
+hash and test its published example. USB DTR takes priority over a network
+controller; every ownership change clears partial transport streams on the
+VM thread, preserving code and saved programs. Credential submission remains
+USB-local even while a WebSocket controller is active.
+
+No automatic Wi-Fi reset/join or vault access is added. After explicit user
+setup (or an explicit identification of an already associated C6), the server
+can begin listening. Required physical acceptance is HTTP asset integrity,
+bounded malformed/partial client behavior, WebSocket arithmetic/50 outputs,
+stop/variables/CRC/reconnect and a fresh real graphical editor load with the
+host USB bridge stopped. Reboot/autostart is a separate check; automatic Wi-Fi
+reconnect remains pending without board storage.
+
 The pinned manifest contains 147 original assets, 17,282,925 raw bytes and
 3,512,571 gzip bytes. This suggests the compressed editor can fit in the 4 MiB
 application partition alongside native code, but patched-asset generation and

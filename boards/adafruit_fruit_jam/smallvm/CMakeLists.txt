@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.28.0)
 list(APPEND BOARD_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../zephyr")
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-project(fruit_jam_smallvm LANGUAGES C CXX)
+project(fruit_jam_smallvm LANGUAGES C CXX ASM)
 if(NOT CONFIG_BOARD_ADAFRUIT_FRUIT_JAM_RP2350B_M33_0)
   message(FATAL_ERROR "This app is restricted to adafruit_fruit_jam/rp2350b/m33_0")
 endif()
@@ -13,6 +13,13 @@ if(NOT FRUIT_JAM_ARDUINO_DIR OR NOT EXISTS "${FRUIT_JAM_ARDUINO_DIR}/fruitjam-pr
   message(FATAL_ERROR "Prepare the isolated Arduino module with tools/prepare_fruit_jam_arduino.py")
 endif()
 set(vm_root "${CMAKE_CURRENT_BINARY_DIR}/smallvm")
+if(NOT IDE_SOURCE_DIR)
+  message(FATAL_ERROR "Set IDE_SOURCE_DIR to the verified MicroBlocks 2.5.8 assets")
+endif()
+set(web_root "${CMAKE_CURRENT_BINARY_DIR}/web-fruit-jam")
+execute_process(COMMAND ${Python3_EXECUTABLE}
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../tools/package_fruit_jam_ide.py
+  ${IDE_SOURCE_DIR} ${web_root} COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND ${Python3_EXECUTABLE}
   ${CMAKE_CURRENT_SOURCE_DIR}/../../../tools/prepare_smallvm.py
   ${SMALLVM_SOURCE_DIR} ${vm_root} --strict-digital-arity
@@ -25,6 +32,8 @@ target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1)
 target_sources(app PRIVATE src/main.cpp src/platform.c src/transport.c
   src/io.cpp src/generic_primitives.c src/program_store.c src/sht4x.c src/pio_pixels.c
   src/airlift.c src/nina_protocol.c src/wifi_control.c
+  src/nina_socket_protocol.c src/airlift_socket.c src/http_protocol.c src/network_server.c
+  ${web_root}/assets.c ${web_root}/assets.S
   ${vm_root}/vm/interp.c ${vm_root}/vm/runtime.c ${vm_root}/vm/mem.c
   ${vm_root}/vm/persist.c ${vm_root}/vm/dataPrims.c ${vm_root}/vm/varPrims.c
   ${vm_root}/vm/tinyJSON.c ${vm_root}/vm/mbFont.c ${vm_root}/vm/boardHooks.c)

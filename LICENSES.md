@@ -44,9 +44,13 @@ preserve its own licensing and attribution when integrated:
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
 
-Fruit Jam's `smallvm/src/nina_protocol.c` adapts the MIT-licensed command/reply
+Fruit Jam's `smallvm/src/nina_protocol.c` and `nina_socket_protocol.c` adapt the MIT-licensed command/reply
 framing from Adafruit CircuitPython ESP32SPI, copyright (c) 2019 ladyada for
 Adafruit Industries. The pinned reference and SHA256s are recorded in
 `dependencies/fruit-jam-airlift-reference.json`; its full MIT notice is retained
-in `licenses/Adafruit-ESP32SPI-MIT.txt`. The factory ESP32-C6 firmware is queried
-in place, not copied, erased or replaced by this implementation.
+in `licenses/Adafruit-ESP32SPI-MIT.txt`. The server/provisioning implementation
+communicates with the factory ESP32-C6 firmware in place. The separate
+user-requested official WiFiNINA restoration has its own provenance and private
+backups; no firmware blob is vendored here. The official NINA 3.3.0 command-handler
+source is an external LGPL-2.1 reference for factual wire formats, not copied
+into this native application.

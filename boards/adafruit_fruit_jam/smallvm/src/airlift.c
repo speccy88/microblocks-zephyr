@@ -24,6 +24,7 @@ static const struct spi_config config={
     .frequency=1000000,.operation=SPI_OP_MODE_MASTER|SPI_WORD_SET(8)|SPI_TRANSFER_MSB,.slave=0,
 };
 K_MUTEX_DEFINE(state_lock);
+K_MUTEX_DEFINE(spi_lock);
 K_SEM_DEFINE(request_sem,0,1);
 static struct {
     unsigned state,generation,queries,operation;
@@ -64,7 +65,14 @@ static int read_byte(void *unused,uint8_t *value)
     return spi_transceive(bus,&config,&txs,&rxs);
 }
 static void retry_pause(void *unused){(void)unused;k_sleep(K_MSEC(10));}
-static int exchange(uint8_t command,uint8_t *frame,size_t count,
+static int read_bytes(void *unused,uint8_t *dst,size_t size)
+{
+    (void)unused;if(!size)return 0;
+    struct spi_buf buffer={.buf=dst,.len=size};
+    const struct spi_buf_set buffers={.buffers=&buffer,.count=1};
+    return spi_read(bus,&config,&buffers);
+}
+static int exchange_unlocked(uint8_t command,uint8_t *frame,size_t count,
                     uint8_t **dst,const size_t *capacity,size_t *length,unsigned parameters)
 {
     int err=select_device();
@@ -83,6 +91,34 @@ static int exchange(uint8_t command,uint8_t *frame,size_t count,
     err=fj_nina_read_reply_params(&io,command,dst,capacity,length,parameters);
     int released=gpio_pin_set_dt(&cs,0);
     return err?err:released;
+}
+static int exchange(uint8_t command,uint8_t *frame,size_t count,
+                    uint8_t **dst,const size_t *capacity,size_t *length,unsigned parameters)
+{
+    k_mutex_lock(&spi_lock,K_FOREVER);
+    int err=exchange_unlocked(command,frame,count,dst,capacity,length,parameters);
+    k_mutex_unlock(&spi_lock);return err;
+}
+int fj_airlift_socket_command(uint8_t command,const struct fj_nina_parameter *params,
+                              unsigned count,uint8_t *dst,size_t capacity,size_t *length)
+{
+    uint8_t frame[2060];int n=fj_nina_socket_frame(command,params,count,frame,sizeof(frame));
+    if(n<0)return n;
+    k_mutex_lock(&spi_lock,K_FOREVER);
+    int err=select_device();
+    if(!err){
+        const struct spi_buf buffer={.buf=frame,.len=n};
+        const struct spi_buf_set buffers={.buffers=&buffer,.count=1};
+        err=spi_write(bus,&config,&buffers);
+        int released=gpio_pin_set_dt(&cs,0);if(!err)err=released;
+    }
+    if(!err)err=select_device();
+    if(!err){
+        const struct fj_nina_reader io={.byte=read_byte,.bytes=read_bytes,.retry_pause=retry_pause};
+        err=fj_nina_socket_reply(&io,command,dst,capacity,length);
+        int released=gpio_pin_set_dt(&cs,0);if(!err)err=released;
+    }
+    k_mutex_unlock(&spi_lock);return err;
 }
 static int query(uint8_t command,uint8_t *dst,size_t capacity,size_t *length)
 {
@@ -146,7 +182,9 @@ static void diagnostic_worker(void *a,void *b,void *c)
         }
         char version[32]={0},mac[18]={0};
         int stage=1,connection=-1;unsigned queries=0;
+        k_mutex_lock(&spi_lock,K_FOREVER);
         int err=prepare(reset_first);
+        k_mutex_unlock(&spi_lock);
         if(!err){stage=2;err=query(0x37,data,sizeof(data),&count);}
         if(!err){
             ++queries;unsigned out=0;
@@ -167,6 +205,7 @@ static void diagnostic_worker(void *a,void *b,void *c)
         }
         if(!err&&count!=1)err=-EPROTO;
         if(!err){++queries;connection=data[0];}
+        if(!join&&!err&&connection==3){stage=7;err=query_ip(ip,netmask,gateway);++queries;}
         if(join&&!err){
             stage=5;publish_progress(stage,connection,queries);
             uint8_t frame[104]={0};
@@ -236,4 +275,11 @@ int fj_airlift_status(char *dst,unsigned size)
       report.ip[0],report.ip[1],report.ip[2],report.ip[3],report.netmask[0],report.netmask[1],report.netmask[2],report.netmask[3],
       report.gateway[0],report.gateway[1],report.gateway[2],report.gateway[3]);
     k_mutex_unlock(&state_lock);return n<0||(unsigned)n>=size?-ENOSPC:0;
+}
+bool fj_airlift_network_ready(char *ip,unsigned size)
+{
+    k_mutex_lock(&state_lock,K_FOREVER);
+    bool ready=report.state==3&&report.connection==3&&valid_ip(report.ip);
+    if(ip&&size)snprintf(ip,size,"%u.%u.%u.%u",report.ip[0],report.ip[1],report.ip[2],report.ip[3]);
+    k_mutex_unlock(&state_lock);return ready;
 }

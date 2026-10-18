@@ -6,11 +6,15 @@
 #include <errno.h>
 #include "fruit_jam.h"
 #include "wifi_control.h"
+#include "network_transport.h"
 #include <string.h>
 
 static const struct device *const cdc = DEVICE_DT_GET(DT_NODELABEL(mb_cdc));
 RING_BUF_DECLARE(rx, 4096);
 RING_BUF_DECLARE(tx, 4096);
+RING_BUF_DECLARE(ws_rx,8192);
+RING_BUF_DECLARE(ws_tx,8192);
+static atomic_t usb_owner,ws_owner,ws_pending;
 static atomic_t overflow;
 static bool ready, connected;
 extern void smallvmResetTransport(void);
@@ -71,17 +75,50 @@ void fj_transport_poll(void)
         if (!link || lost) discard_rx();
         ring_buf_reset(&tx);
         connected = link;
+        atomic_set(&usb_owner,link);
+        if(link){atomic_clear(&ws_owner);atomic_clear(&ws_pending);ring_buf_reset(&ws_rx);ring_buf_reset(&ws_tx);}
         irq_unlock(key);
         /* The VM thread owns runtime buffers and interpreter state. */
         smallvmResetTransport();
     }
+    int request=atomic_set(&ws_pending,0);
+    if(request){
+        unsigned key=irq_lock();
+        ring_buf_reset(&ws_rx);ring_buf_reset(&ws_tx);
+        atomic_set(&ws_owner,request==1&&!connected);
+        irq_unlock(key);smallvmResetTransport();
+    }
 }
 
-bool fj_transport_connected(void) { return connected; }
+bool fj_transport_connected(void) { return connected||atomic_get(&ws_owner); }
+bool fj_wifi_setup_local(void){return atomic_get(&usb_owner)!=0;}
+int fj_ws_request(void)
+{
+    if(atomic_get(&usb_owner)||atomic_get(&ws_owner)||!atomic_cas(&ws_pending,0,1))return -EBUSY;
+    return 0;
+}
+bool fj_ws_connected(void){return atomic_get(&ws_owner)!=0;}
+void fj_ws_close(void){atomic_clear(&ws_owner);atomic_set(&ws_pending,-1);}
+int fj_ws_input(const uint8_t *data,size_t size)
+{
+    if(!atomic_get(&ws_owner))return -ENOTCONN;
+    unsigned key=irq_lock();
+    int n=ring_buf_space_get(&ws_rx)>=size?(int)ring_buf_put(&ws_rx,data,size):-ENOBUFS;
+    irq_unlock(key);return n;
+}
+int fj_ws_output(uint8_t *data,size_t size)
+{
+    if(!atomic_get(&ws_owner))return 0;
+    unsigned key=irq_lock();int n=ring_buf_get(&ws_tx,data,size);irq_unlock(key);return n;
+}
 
 int recvBytes(uint8_t *dst, int count)
 {
-    if (!connected || count <= 0) return 0;
+    if (count <= 0) return 0;
+    if(!connected&&atomic_get(&ws_owner)){
+        unsigned key=irq_lock();int n=ring_buf_get(&ws_rx,dst,count);irq_unlock(key);return n;
+    }
+    if(!connected)return 0;
     unsigned key = irq_lock();
     int got=0;
     while (got<count) {
@@ -97,7 +134,11 @@ int recvBytes(uint8_t *dst, int count)
 
 int sendBytes(uint8_t *data, int start, int end)
 {
-    if (!connected || start < 0 || end < start) return 0;
+    if(start < 0 || end < start)return 0;
+    if(!connected&&atomic_get(&ws_owner)){
+        unsigned key=irq_lock();int n=ring_buf_put(&ws_tx,data+start,end-start);irq_unlock(key);return n;
+    }
+    if(!connected)return 0;
     unsigned key = irq_lock();
     int sent = ring_buf_put(&tx, data + start, end - start);
     if (sent) uart_irq_tx_enable(cdc);

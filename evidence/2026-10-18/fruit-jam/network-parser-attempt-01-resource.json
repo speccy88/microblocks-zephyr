@@ -1,0 +1,21 @@
+{
+  "phase": "network-parser-attempt-01",
+  "command": [
+    "/home/fred/microblocks-zephyr-work/.venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tools/test_fruit_jam_network_protocol.py",
+    "--wasi-sdk",
+    "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk",
+    "--evidence",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/evidence/2026-10-18/fruit-jam/network-parser-harness.json"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 1.514,
+  "parallel_jobs_limit": 4,
+  "sample_interval_seconds": 0.5,
+  "peak_owned_process_group_rss_kib": 128948,
+  "minimum_system_available_kib": 5516660,
+  "peak_owned_process_count": 4,
+  "resource_stop": null,
+  "hardware_access": false,
+  "gpu_access": false
+}
