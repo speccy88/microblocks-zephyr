@@ -28,7 +28,7 @@ K_MUTEX_DEFINE(spi_lock);
 K_SEM_DEFINE(request_sem,0,1);
 static struct {
     unsigned state,generation,queries,operation;
-    int error,stage,busy_level,connection;
+    int error,stage,busy_level,connection,disconnect_reason,reason_error;
     bool reset_requested;
     char version[32],mac[18];
     uint8_t ip[4],netmask[4],gateway[4];
@@ -181,7 +181,7 @@ static void diagnostic_worker(void *a,void *b,void *c)
             k_mutex_unlock(&state_lock);
         }
         char version[32]={0},mac[18]={0};
-        int stage=1,connection=-1;unsigned queries=0;
+        int stage=1,connection=-1,reason=-1,reason_error=0;unsigned queries=0;
         k_mutex_lock(&spi_lock,K_FOREVER);
         int err=prepare(reset_first);
         k_mutex_unlock(&spi_lock);
@@ -205,6 +205,11 @@ static void diagnostic_worker(void *a,void *b,void *c)
         }
         if(!err&&count!=1)err=-EPROTO;
         if(!err){++queries;connection=data[0];}
+        if(!err){
+            reason_error=query(0x1f,data,1,&count);
+            if(!reason_error&&count!=1)reason_error=-EPROTO;
+            if(!reason_error){reason=data[0];++queries;}
+        }
         if(!join&&!err&&connection==3){stage=7;err=query_ip(ip,netmask,gateway);++queries;}
         if(join&&!err){
             stage=5;publish_progress(stage,connection,queries);
@@ -224,7 +229,12 @@ static void diagnostic_worker(void *a,void *b,void *c)
                 if(!err&&count!=1)err=-EPROTO;
                 if(err)break;
                 ++queries;connection=data[0];publish_progress(stage,connection,queries);
-                if(connection==4){err=-EACCES;break;}
+                if(connection==4){
+                    reason_error=query(0x1f,data,1,&count);
+                    if(!reason_error&&count!=1)reason_error=-EPROTO;
+                    if(!reason_error){reason=data[0];++queries;}
+                    err=-EACCES;break;
+                }
                 if(connection==3){
                     stage=7;err=query_ip(ip,netmask,gateway);++queries;
                     if(err||valid_ip(ip))break;
@@ -239,6 +249,7 @@ static void diagnostic_worker(void *a,void *b,void *c)
         int level=gpio_is_ready_dt(&busy)?gpio_pin_get_dt(&busy):-1;
         k_mutex_lock(&state_lock,K_FOREVER);
         report.error=err;report.stage=stage;report.queries=queries;report.connection=connection;report.busy_level=level;
+        report.disconnect_reason=reason;report.reason_error=reason_error;
         memcpy(report.version,version,sizeof(version));memcpy(report.mac,mac,sizeof(mac));
         memcpy(report.ip,ip,4);memcpy(report.netmask,netmask,4);memcpy(report.gateway,gateway,4);
         report.state=err?4:3;k_mutex_unlock(&state_lock);
@@ -267,10 +278,10 @@ int fj_airlift_status(char *dst,unsigned size)
     k_mutex_lock(&state_lock,K_FOREVER);
     int n=snprintf(dst,size,
       "{\"setup_protocol\":1,\"state\":%u,\"generation\":%u,\"operation\":%u,\"error\":%d,\"stage\":%d,\"queries\":%u,"
-      "\"version\":\"%s\",\"mac\":\"%s\",\"connection\":%d,\"busy\":%d,\"reset_requested\":%s,\"spi_hz\":1000000,\"coprocessor_flashed\":false,"
+      "\"version\":\"%s\",\"mac\":\"%s\",\"connection\":%d,\"disconnect_reason\":%d,\"reason_error\":%d,\"busy\":%d,\"reset_requested\":%s,\"spi_hz\":1000000,\"coprocessor_flashed\":false,"
       "\"network_ready\":%s,\"ip\":\"%u.%u.%u.%u\",\"netmask\":\"%u.%u.%u.%u\",\"gateway\":\"%u.%u.%u.%u\"}",
       report.state,report.generation,report.operation,report.error,report.stage,report.queries,report.version,report.mac,
-      report.connection,report.busy_level,report.reset_requested?"true":"false",
+      report.connection,report.disconnect_reason,report.reason_error,report.busy_level,report.reset_requested?"true":"false",
       report.state==3&&report.connection==3&&valid_ip(report.ip)?"true":"false",
       report.ip[0],report.ip[1],report.ip[2],report.ip[3],report.netmask[0],report.netmask[1],report.netmask[2],report.netmask[3],
       report.gateway[0],report.gateway[1],report.gateway[2],report.gateway[3]);

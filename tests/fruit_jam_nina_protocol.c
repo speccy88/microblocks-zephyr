@@ -88,6 +88,9 @@ int main(void)
     kn64[0]='x';CHECK(fj_nina_connect_frame(sn32,32,kn64,64,connect,104)==-EINVAL);
     CHECK(fj_nina_connect_frame(sn32,0,kn64,8,connect,104)==-EINVAL);
     CHECK(fj_nina_query_frame(0x21,frame,sizeof(frame))==8);
+    CHECK(fj_nina_query_frame(0x1f,frame,sizeof(frame))==4);
+    CHECK(!memcmp(frame,(uint8_t[]){0xe0,0x1f,0,0xee},4));
+    CHECK(fj_nina_query_frame(0x21,frame,sizeof(frame))==8);
     CHECK(!memcmp(frame,(uint8_t[]){0xe0,0x21,1,1,0xff,0xee,0,0},8));
     const uint8_t network[]={0xe0,0xa1,3,4,192,168,1,42,4,255,255,255,0,4,192,168,1,1,0xee};
     uint8_t network_guard[14]={0xa5},*destinations[]={network_guard+1,network_guard+5,network_guard+9};

@@ -9,7 +9,7 @@
 
 int fj_nina_query_frame(uint8_t command, uint8_t *dst, size_t size)
 {
-    if (command != 0x37 && command != 0x20 && command != 0x22 && command != 0x21) return -ENOTSUP;
+    if (command != 0x37 && command != 0x20 && command != 0x22 && command != 0x21 && command != 0x1f) return -ENOTSUP;
     unsigned count = (command == 0x22 || command == 0x21) ? 8 : 4;
     if (!dst || size < count) return -ENOSPC;
     memset(dst, 0, count);

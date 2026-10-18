@@ -60,7 +60,7 @@ def main():
         after={n:crc for n,crc in vm.all_crcs().items() if n not in owned_chunks}
         assert after==before,'Existing VM code changed'
         report['checks']['retained_code_crc32']={str(n):f'{crc:08x}' for n,crc in after.items()}
-        assert len(results)==3 and all(item['state']==3 and item['error']==0 and item['queries']==(4 if item['connection']==3 else 3) for item in results),results
+        assert len(results)==3 and all(item['state']==3 and item['error']==0 and item['queries']==((4 if item['connection']==3 else 3)+(1 if 'reason_error' in item and not item['reason_error'] else 0)) for item in results),results
         assert len({item['version'] for item in results})==1
         assert all(re.fullmatch(r'(?:[0-9a-f]{2}:){5}[0-9a-f]{2}',item['mac']) for item in results)
         assert len({item['mac'] for item in results})==1
