@@ -1,0 +1,758 @@
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base).
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone
+-- CMake version: 4.4.4
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: esp32s3_rlcd_4_2, qualifiers: esp32s3/procpu
+-- Found host-tools: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found Dtc: /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/dtc (found suitable version "1.7.0", minimum required is "1.4.6")
+-- Found BOARD.dts: /home/fred/microblocks-zephyr-work/zephyr/boards/waveshare/esp32s3_rlcd_4_2/esp32s3_rlcd_4_2_esp32s3_procpu.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone/app.overlay
+-- Generated zephyr.dts: /home/fred/microblocks-zephyr-work/build/stability-rtc/zephyr/zephyr.dts
+-- Generated pickled edt: /home/fred/microblocks-zephyr-work/build/stability-rtc/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /home/fred/microblocks-zephyr-work/build/stability-rtc/zephyr/include/generated/zephyr/devicetree_generated.h
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+Parsing /home/fred/microblocks-zephyr-work/zephyr/Kconfig
+Loaded configuration '/home/fred/microblocks-zephyr-work/zephyr/boards/waveshare/esp32s3_rlcd_4_2/esp32s3_rlcd_4_2_esp32s3_procpu_defconfig'
+Merged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone/../smallvm/prj.conf'
+Merged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone/prj.conf'
+Configuration saved to '/home/fred/microblocks-zephyr-work/build/stability-rtc/zephyr/.config'
+Kconfig header saved to '/home/fred/microblocks-zephyr-work/build/stability-rtc/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found GnuLd: /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/xtensa-espressif_esp32s3_zephyr-elf/xtensa-espressif_esp32s3_zephyr-elf/bin/ld.bfd (found version "2.43.1")
+-- The C compiler identification is GNU 14.3.0
+-- The CXX compiler identification is GNU 14.3.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/xtensa-espressif_esp32s3_zephyr-elf/bin/xtensa-espressif_esp32s3_zephyr-elf-gcc
+-- Espressif HAL path: /home/fred/microblocks-zephyr-work/modules/hal/espressif
+-- Image partition address: 0x0
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found version "3.12.15") found components: Interpreter
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- Found gen_kobject_list: /home/fred/microblocks-zephyr-work/zephyr/scripts/build/gen_kobject_list.py
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+Packaged 148 real IDE files into 3513326 flash bytes
+-- Configuring done (19.1s)
+-- Generating done (0.7s)
+-- Build files have been written to: /home/fred/microblocks-zephyr-work/build/stability-rtc
+-- west build: building application
+[1/679] Preparing syscall dependency handling
+
+[2/679] Generating ../../../../include/generated/zephyr/core-isa-dM.h
+[3/679] Generating include/generated/zephyr/version.h
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr), build: a915b2f12675
+[4/679] Generating misc/generated/syscalls_subdirs.trigger
+[5/679] Generating ../../../../include/generated/xtensa_vectors.ld
+[6/679] Generating ../../../../include/generated/zephyr/zsr.h
+[7/679] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[8/679] Generating include/generated/device-api-sections.ld, include/generated/device-api-sections.cmake
+[9/679] Generating include/generated/zephyr/syscall_dispatch.c, include/generated/zephyr/syscall_exports_llext.c, syscall_weakdefs_llext.c, include/generated/zephyr/syscall_list.h
+[10/679] Generating include/generated/zephyr/driver-validation.h
+[11/679] Generating include/generated/zephyr/kobj-types-enum.h, include/generated/zephyr/otype-to-str.h, include/generated/zephyr/otype-to-size.h
+[12/679] Building C object zephyr/lib/heap/CMakeFiles/heap_constants.dir/heap_constants.c.obj
+[13/679] Generating ../../include/generated/zephyr/heap_constants.h
+[14/679] Building C object zephyr/CMakeFiles/offsets.dir/arch/xtensa/core/offsets/offsets.c.obj
+[15/679] Generating include/generated/zephyr/offsets.h
+[16/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/CMakeFiles/everest.dir/library/Hacl_Curve25519_joined.c.obj
+[17/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/CMakeFiles/everest.dir/library/x25519.c.obj
+[18/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/CMakeFiles/p256-m.dir/p256-m/p256-m.c.obj
+[19/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/CMakeFiles/p256-m.dir/p256-m_driver_entrypoints.c.obj
+[20/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aes.c.obj
+[21/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aesce.c.obj
+[22/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aesni.c.obj
+[23/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aria.c.obj
+[24/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum.c.obj
+[25/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_core.c.obj
+[26/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_mod.c.obj
+[27/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_mod_raw.c.obj
+[28/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/block_cipher.c.obj
+[29/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/camellia.c.obj
+[30/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ccm.c.obj
+[31/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chacha20.c.obj
+[32/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chacha20_neon.c.obj
+[33/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chachapoly.c.obj
+[34/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cipher.c.obj
+[35/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cipher_wrap.c.obj
+[36/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecdsa.c.obj
+[37/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ctr_drbg.c.obj
+[38/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cmac.c.obj
+[39/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp_curves_new.c.obj
+[40/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecjpake.c.obj
+[41/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp.c.obj
+[42/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp_curves.c.obj
+[43/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/entropy.c.obj
+[44/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/entropy_poll.c.obj
+[45/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/gcm.c.obj
+[46/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/hmac_drbg.c.obj
+[47/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/md5.c.obj
+[48/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/poly1305.c.obj
+[49/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_aead.c.obj
+[50/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_ffdh.c.obj
+[51/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_ecp.c.obj
+[52/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_cipher.c.obj
+[53/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_pake.c.obj
+[54/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_xof.c.obj
+[55/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_mac.c.obj
+[56/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_hash.c.obj
+[57/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_util_internal.c.obj
+[58/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_rsa.c.obj
+[59/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ripemd160.c.obj
+[60/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/rsa.c.obj
+[61/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha256.c.obj
+[62/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/rsa_alt_helpers.c.obj
+[63/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha3.c.obj
+[64/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha512.c.obj
+[65/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/CMakeFiles/pqcp.dir/src/psa_crypto_mldsa.c.obj
+[66/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/CMakeFiles/pqcp.dir/src/wrap_mldsa_native.c.obj
+[67/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/lmots.c.obj
+[68/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/lms.c.obj
+[69/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/md.c.obj
+[70/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/nist_kw.c.obj
+[71/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk.c.obj
+[72/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_ecc.c.obj
+[73/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_rsa.c.obj
+[74/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_wrap.c.obj
+[75/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha1.c.obj
+[76/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pkparse.c.obj
+[77/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pkwrite.c.obj
+[78/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/platform_util.c.obj
+[79/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/platform.c.obj
+[80/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/asn1parse.c.obj
+[81/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/threading.c.obj
+[82/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/memory_buffer_alloc.c.obj
+[83/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/asn1write.c.obj
+[84/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/base64.c.obj
+[85/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/constant_time.c.obj
+[86/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/oid.c.obj
+[87/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/pkcs5.c.obj
+[88/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/pem.c.obj
+[89/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_random.c.obj
+[90/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_client.c.obj
+[91/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_storage.c.obj
+[92/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_its_file.c.obj
+[93/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_util.c.obj
+[94/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_slot_management.c.obj
+[95/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/tf_psa_crypto_version.c.obj
+[96/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/tf_psa_crypto_config.c.obj
+[97/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/dispatch/psa_crypto_driver_wrappers_no_static.c.obj
+[98/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/mbedtls_config.c.obj
+[99/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/error.c.obj
+[100/679] Building C object zephyr/arch/common/CMakeFiles/isr_tables.dir/isr_tables.c.obj
+[101/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509.c.obj
+[102/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/pkcs7.c.obj
+[103/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_create.c.obj
+[104/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_crl.c.obj
+[105/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_crt.c.obj
+[106/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_csr.c.obj
+[107/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_oid.c.obj
+[108/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write.c.obj
+[109/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_csr.c.obj
+[110/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_crt.c.obj
+[111/679] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto.c.obj
+[112/679] Linking C static library modules/mbedtls/mbedtls/tf-psa-crypto/core/libtfpsacrypto.a
+[113/679] Building C object CMakeFiles/app.dir/src/server.c.obj
+[114/679] Building C object CMakeFiles/app.dir/src/network.c.obj
+[115/679] Building CXX object CMakeFiles/app.dir/src/main.cpp.obj
+[116/679] Building C object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/smallvm/src/platform.c.obj
+[117/679] Building C object CMakeFiles/app.dir/src/program_store.c.obj
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone/src/program_store.c: In function 'mb_store_load':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/standalone/src/program_store.c:41:13: warning: Macro is deprecated
+   41 |     int err = flash_area_open(FIXED_PARTITION_ID(vmstore), &area);
+      |             ^~~~~~~~~~~~~~~~~~~~~
+[118/679] Building C object CMakeFiles/app.dir/src/transport.c.obj
+[119/679] Building C object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/integration/rlcd_smallvm_primitives.c.obj
+[120/679] Building C object CMakeFiles/app.dir/src/wifi_settings.c.obj
+[121/679] Building CXX object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/smallvm/src/arduino_transport.cpp.obj
+[122/679] Building C object CMakeFiles/app.dir/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/waveshare_esp32s3_rlcd_4_2/bringup/src/rlcd_board.c.obj
+[123/679] Building C object CMakeFiles/app.dir/smallvm/vm/mem.c.obj
+[124/679] Building C object CMakeFiles/app.dir/smallvm/vm/runtime.c.obj
+[125/679] Building C object CMakeFiles/app.dir/smallvm/vm/persist.c.obj
+[126/679] Building C object CMakeFiles/app.dir/smallvm/vm/varPrims.c.obj
+[127/679] Building C object CMakeFiles/app.dir/smallvm/vm/tinyJSON.c.obj
+[128/679] Building C object CMakeFiles/app.dir/smallvm/vm/mbFont.c.obj
+[129/679] Building C object CMakeFiles/app.dir/smallvm/vm/boardHooks.c.obj
+[130/679] Building ASM object CMakeFiles/app.dir/web/assets.S.obj
+[131/679] Building C object CMakeFiles/app.dir/smallvm/vm/interp.c.obj
+/home/fred/microblocks-zephyr-work/build/stability-rtc/smallvm/vm/interp.c:427:13: warning: 'interpDebug' defined but not used [-Wunused-function]
+  427 | static void interpDebug(int ip, int cmd, int arg, int sp) {
+      |             ^~~~~~~~~~~
+[132/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/libc/validate_libc.c.obj
+[133/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_virtual.c.obj
+[134/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/cpp/abi/cpp_dtors.c.obj
+[135/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_vtable.cpp.obj
+[136/679] Building C object CMakeFiles/app.dir/smallvm/vm/dataPrims.c.obj
+[137/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_new.cpp.obj
+[138/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/heap/shared_multi_heap.c.obj
+[139/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/heap/heap_stats.c.obj
+[140/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/heap/multi_heap.c.obj
+[141/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/heap/heap.c.obj
+[142/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/boot_banner.c.obj
+[143/679] Building C object CMakeFiles/app.dir/web/assets.c.obj
+[144/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/printk.c.obj
+[145/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/clock.c.obj
+[146/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_packaged.c.obj
+[147/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/base64.c.obj
+[148/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/dec.c.obj
+[149/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/reboot.c.obj
+[150/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/set.c.obj
+[151/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/hex.c.obj
+[152/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/timeutil.c.obj
+[153/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_complete.c.obj
+[154/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/bitmask.c.obj
+[155/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/bitarray.c.obj
+[156/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/rb.c.obj
+[157/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/getopt/getopt_common.c.obj
+[158/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/getopt/getopt.c.obj
+[159/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/notify.c.obj
+[160/679] Building C object zephyr/CMakeFiles/zephyr.dir/misc/generated/configs.c.obj
+[161/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/word_granular_access/word_granular_access_string.c.obj
+[162/679] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/onoff.c.obj
+[163/679] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/common/instr_mem.c.obj
+[164/679] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/common/esp_psram.c.obj
+[165/679] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/common/soc_ptr_check.c.obj
+[166/679] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32s3/esp32s3-mp.c.obj
+[167/679] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32s3/soc.c.obj
+[168/679] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/common/loader.c.obj
+[169/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map.c.obj
+[170/679] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32s3/hw_init.c.obj
+[171/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map_layout.c.obj
+[172/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map_default.c.obj
+[173/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/tracing/tracing_none.c.obj
+[174/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/kvss/nvs/nvs.c.obj
+[175/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/fb/cfb_fonts.c.obj
+[176/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/net/lib/utils/addr_utils.c.obj
+[177/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_store.c.obj
+[178/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/fb/cfb.c.obj
+[179/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_init.c.obj
+[180/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings.c.obj
+[181/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_line.c.obj
+[182/679] Building ASM object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/common/windowspill_asm.S.obj
+[183/679] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_nvs.c.obj
+[184/679] Building C object zephyr/CMakeFiles/zephyr.dir/drivers/flash/flash_util.c.obj
+[185/679] Building C object zephyr/CMakeFiles/zephyr.dir/drivers/mipi_dbi/mipi_dbi_spi.c.obj
+[186/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/src/esp_efuse_fields.c.obj
+[187/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/src/esp_efuse_api.c.obj
+[188/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/src/esp_efuse_utility.c.obj
+[189/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/esp32s3/esp_efuse_table.c.obj
+[190/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/esp32s3/esp_efuse_utility.c.obj
+[191/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/esp32s3/esp_efuse_fields.c.obj
+[192/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_mspi/spi_flash_encrypt_hal_iram.c.obj
+[193/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/bootloader_support/src/flash_encrypt.c.obj
+[194/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/esp_gpio_reserve.c.obj
+[195/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/src/efuse_controller/keys/with_key_purposes/esp_efuse_api_key.c.obj
+[196/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_mspi/spi_flash_hal.c.obj
+[197/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_mspi/spi_flash_hal_gpspi.c.obj
+[198/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/esp32s3/spi_flash_oct_flash_init.c.obj
+[199/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_mspi/spi_flash_hal_iram.c.obj
+[200/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/flash_mmap.c.obj
+[201/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/flash_ops.c.obj
+[202/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/esp_flash_spi_init.c.obj
+[203/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_boya.c.obj
+[204/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/esp_flash_api.c.obj
+[205/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_drivers.c.obj
+[206/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/memspi_host_driver.c.obj
+[207/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_gd.c.obj
+[208/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_issi.c.obj
+[209/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_th.c.obj
+[210/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_mxic.c.obj
+[211/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_mxic_opi.c.obj
+[212/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_generic.c.obj
+[213/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_hpm_enable.c.obj
+[214/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_chip_winbond.c.obj
+[215/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_os_func_noos.c.obj
+[216/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_wrap.c.obj
+[217/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/spi_flash_os_func_app.c.obj
+[218/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/spi_flash/cache_utils.c.obj
+[219/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_uart/uart_hal.c.obj
+[220/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_uart/uart_hal_iram.c.obj
+[221/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_gpspi/esp32s3/spi_periph.c.obj
+[222/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_dma/gdma_hal_top.c.obj
+[223/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_gpspi/spi_hal.c.obj
+[224/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_i2c/i2c_hal_iram.c.obj
+[225/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_dma/gdma_hal_ahb_v1.c.obj
+[226/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_i2c/i2c_hal.c.obj
+[227/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_gpspi/spi_hal_iram.c.obj
+[228/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_ana_conv/adc_hal.c.obj
+[229/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_ana_conv/adc_oneshot_hal.c.obj
+[230/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/adc_share_hw_ctrl.c.obj
+[231/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_adc/adc_cali.c.obj
+[232/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_adc/esp32s3/curve_fitting_coefficients.c.obj
+[233/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_ana_conv/esp32s3/adc_periph.c.obj
+[234/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_adc/adc_cali_curve_fitting.c.obj
+[235/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/efuse/esp32s3/esp_efuse_rtc_calib.c.obj
+[236/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_psram/system_layer/esp_psram_mspi.c.obj
+[237/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_psram/system_layer/esp_psram.c.obj
+[238/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/bootloader_support/src/bootloader_clock_init.c.obj
+[239/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_security/mpu_hal.c.obj
+[240/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_psram/esp32s3/esp_psram_impl_octal.c.obj
+[241/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/common/console_init.c.obj
+[242/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/bootloader_support/bootloader_flash/src/flash_qio_mode.c.obj
+[243/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_ana_conv/esp32s3/temperature_sensor_periph.c.obj
+[244/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/common/soc_init.c.obj
+[245/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/bootloader_support/bootloader_flash/src/bootloader_flash_config_esp32s3.c.obj
+[246/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_gpio/esp32s3/rtc_io_periph.c.obj
+[247/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_ana_conv/temperature_sensor_hal.c.obj
+[248/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_driver_gpio/src/rtc_io.c.obj
+[249/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_clock/esp32s3/clk_tree_hal.c.obj
+[250/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_gpio/rtc_io_hal.c.obj
+[251/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_systimer/systimer_hal.c.obj
+[252/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/clk_ctrl_os.c.obj
+[253/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_wdt/xt_wdt_hal.c.obj
+[254/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_wdt/wdt_hal_iram.c.obj
+[255/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/esp_memory_utils.c.obj
+[256/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/cpu.c.obj
+[257/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/esp_clk.c.obj
+[258/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/hw_random.c.obj
+[259/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/mspi/mspi_timing_tuning/port/esp32s3/mspi_timing_config.c.obj
+[260/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/mac_addr.c.obj
+[261/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/mspi/mspi_timing_tuning/mspi_timing_tuning.c.obj
+[262/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/cpu_region_protect.c.obj
+[263/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/mspi/mspi_timing_tuning/port/esp32s3/mspi_timing_by_mspi_delay.c.obj
+[264/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/esp_cpu_intr.c.obj
+[265/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/esp_clk_tree.c.obj
+[266/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/io_mux.c.obj
+[267/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/rtc_clk.c.obj
+[268/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/rtc_clk_init.c.obj
+[269/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/periph_ctrl.c.obj
+[270/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/rtc_init.c.obj
+[271/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/systimer.c.obj
+[272/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/rtc_sleep.c.obj
+[273/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/rtc_time.c.obj
+[274/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp32s3/sar_periph_ctrl.c.obj
+[275/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/regi2c_ctrl.c.obj
+[276/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hal_ana_conv/adc_hal_common.c.obj
+[277/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/port/esp_clk_tree_common.c.obj
+[278/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/sar_periph_ctrl_common.c.obj
+[279/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/rtc_module.c.obj
+[280/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/sleep_cache.c.obj
+[281/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/sar_tsens_ctrl.c.obj
+[282/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_mm/esp_cache_msync.c.obj
+[283/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_mm/esp_cache_utils.c.obj
+[284/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_mm/port/esp32s3/ext_mem_layout.c.obj
+[285/679] Building ASM object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_cache_writeback_esp32s3.S.obj
+[286/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_crc.c.obj
+[287/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_cache_esp32s2_esp32s3.c.obj
+[288/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_efuse.c.obj
+[289/679] Building ASM object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_longjmp.S.obj
+[290/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_gpio.c.obj
+[291/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_mm/esp_mmu_map.c.obj
+[292/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_spiflash.c.obj
+[293/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_sys.c.obj
+[294/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_serial_output.c.obj
+[295/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_rom/patches/esp_rom_print.c.obj
+[296/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_system/esp_err.c.obj
+[297/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_hw_support/sleep_modes.c.obj
+[298/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_system/port/soc/esp32s3/clk.c.obj
+[299/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_system/port/soc/esp32s3/reset_reason.c.obj
+[300/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_system/port/soc/esp32s3/system_internal.c.obj
+[301/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_timer/src/esp_timer_impl_common.c.obj
+[302/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_timer/src/esp_timer_init.c.obj
+[303/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_timer/src/esp_timer_impl_systimer.c.obj
+[304/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/hal/esp32s3/efuse_hal.c.obj
+[305/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_timer/src/esp_timer.c.obj
+[306/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/hal/efuse_hal.c.obj
+[307/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_timer/src/ets_timer_legacy.c.obj
+[308/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/soc/esp32s3/gpio_periph.c.obj
+[309/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/hal/cache_hal.c.obj
+[310/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/hal/mmu_hal.c.obj
+[311/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/common/esp_restart.c.obj
+[312/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/common/flash_init.c.obj
+[313/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/port/heap/heap_caps_zephyr.c.obj
+[314/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/port/bootloader/bootloader_flash.c.obj
+[315/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32s3/src/soc_flash_init.c.obj
+[316/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32s3/src/soc_random.c.obj
+[317/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32s3/src/soc_init.c.obj
+[318/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_phy/src/lib_printf.c.obj
+[319/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_phy/esp32s3/phy_init_data.c.obj
+[320/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_phy/src/phy_override.c.obj
+[321/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_phy/src/phy_init.c.obj
+[322/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_phy/src/phy_common.c.obj
+[323/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_wifi/regulatory/esp_wifi_regulatory.c.obj
+[324/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/port/stubs/wifi_compat_stubs.c.obj
+[325/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_coex/esp32s3/esp_coex_adapter.c.obj
+[326/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_wifi/src/lib_printf.c.obj
+[327/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_wifi/src/wifi_init.c.obj
+[328/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/esp_wifi/esp32s3/esp_adapter.c.obj
+[329/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/port/os_xtensa.c.obj
+[330/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/ap_config.c.obj
+[331/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/port/eloop.c.obj
+[332/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/ieee802_1x.c.obj
+[333/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/wpa_auth_ie.c.obj
+[334/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/sta_info.c.obj
+[335/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/pmksa_cache_auth.c.obj
+[336/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/common/sae.c.obj
+[337/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/comeback_token.c.obj
+[338/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/ieee802_11.c.obj
+[339/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/common/dragonfly.c.obj
+[340/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/ap/wpa_auth.c.obj
+[341/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/utils/bitfield.c.obj
+[342/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/common/wpa_common.c.obj
+[343/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-siv.c.obj
+[344/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha256-kdf.c.obj
+[345/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/ccmp.c.obj
+[346/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/crypto_ops.c.obj
+[347/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/dh_group5.c.obj
+[348/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-gcm.c.obj
+[349/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/dh_groups.c.obj
+[350/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha1-tlsprf.c.obj
+[351/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha256-tlsprf.c.obj
+[352/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/ms_funcs.c.obj
+[353/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha384-tlsprf.c.obj
+[354/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha256-prf.c.obj
+[355/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha1-prf.c.obj
+[356/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha384-prf.c.obj
+[357/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/md4-internal.c.obj
+[358/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha1-tprf.c.obj
+[359/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_common/eap_wsc_common.c.obj
+[360/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/chap.c.obj
+[361/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/common/ieee802_11_common.c.obj
+[362/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_common.c.obj
+[363/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap.c.obj
+[364/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_peap_common.c.obj
+[365/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_mschapv2.c.obj
+[366/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_peap.c.obj
+[367/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_tls.c.obj
+[368/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_tls_common.c.obj
+[369/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/mschapv2.c.obj
+[370/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_ttls.c.obj
+[371/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_fast_common.c.obj
+[372/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/rsn_supp/pmksa_cache.c.obj
+[373/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/rsn_supp/wpa_ie.c.obj
+[374/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/eap_peer/eap_fast.c.obj
+[375/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/utils/common.c.obj
+[376/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/utils/ext_password.c.obj
+[377/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/utils/uuid.c.obj
+[378/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/utils/wpa_debug.c.obj
+[379/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/utils/wpabuf.c.obj
+[380/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/rsn_supp/wpa.c.obj
+[381/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/utils/json.c.obj
+[382/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/wps/wps_attr_build.c.obj
+[383/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/wps/wps_attr_parse.c.obj
+[384/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/wps/wps.c.obj
+[385/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/wps/wps_attr_process.c.obj
+[386/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/wps/wps_common.c.obj
+[387/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/wps/wps_dev_attr.c.obj
+[388/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_wpa2_api_port.c.obj
+[389/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_wpas_glue.c.obj
+[390/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/wps/wps_enrollee.c.obj
+[391/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_wpa_main.c.obj
+[392/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_eap_client.c.obj
+[393/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_wpa3.c.obj
+[394/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_common.c.obj
+[395/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_owe.c.obj
+[396/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_hostap.c.obj
+[397/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/asn1.c.obj
+[398/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/esp_supplicant/src/esp_wps.c.obj
+[399/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/pkcs1.c.obj
+[400/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/pkcs8.c.obj
+[401/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/pkcs5.c.obj
+[402/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/rsa.c.obj
+[403/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/bignum.c.obj
+[404/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/tls_internal.c.obj
+[405/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/tlsv1_common.c.obj
+[406/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/tlsv1_client.c.obj
+[407/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/tlsv1_client_write.c.obj
+[408/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/tlsv1_client_read.c.obj
+[409/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/tlsv1_record.c.obj
+[410/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/tlsv1_cred.c.obj
+[411/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/tlsv1_client_ocsp.c.obj
+[412/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/rc4.c.obj
+[413/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-ctr.c.obj
+[414/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-cbc.c.obj
+[415/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-ccm.c.obj
+[416/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-internal-dec.c.obj
+[417/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-internal-enc.c.obj
+[418/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/tls/x509v3.c.obj
+[419/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-internal.c.obj
+[420/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-omac1.c.obj
+[421/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-unwrap.c.obj
+[422/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/aes-wrap.c.obj
+[423/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/crypto_internal-modexp.c.obj
+[424/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/crypto_internal-cipher.c.obj
+[425/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/crypto_internal-rsa.c.obj
+[426/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/crypto_internal.c.obj
+[427/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/des-internal.c.obj
+[428/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/md5.c.obj
+[429/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/md5-internal.c.obj
+[430/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha1-pbkdf2.c.obj
+[431/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha1-internal.c.obj
+[432/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha1.c.obj
+[433/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha256-internal.c.obj
+[434/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha384-internal.c.obj
+[435/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha256.c.obj
+[436/679] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/modules/hal/espressif/components/wpa_supplicant/src/crypto/sha512-internal.c.obj
+[437/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/wiring_shift.cpp.obj
+[438/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/itoa.cpp.obj
+[439/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/zephyrCommon.cpp.obj
+[440/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/wiring_analog.cpp.obj
+/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/wiring_analog.cpp:103:10: warning: 'uint32_t {anonymous}::map64(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t)' defined but not used [-Wunused-function]
+  103 | uint32_t map64(uint32_t x, uint32_t in_min, uint32_t in_max, uint32_t out_min, uint32_t out_max) {
+      |          ^~~~~
+[441/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/zephyrSerial.cpp.obj
+[442/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/wiring_digital.cpp.obj
+[443/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/wiring_pulse.cpp.obj
+[444/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/WMath.cpp.obj
+[445/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/Tone.cpp.obj
+[446/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/zephyr/blobs/ArduinoCore-API/api/CanMsg.cpp.obj
+[447/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/cores/arduino/WInterrupts.cpp.obj
+[448/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/zephyr/blobs/ArduinoCore-API/api/CanMsgRingbuffer.cpp.obj
+[449/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/zephyr/blobs/ArduinoCore-API/api/Common.cpp.obj
+[450/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/zephyr/blobs/ArduinoCore-API/api/Print.cpp.obj
+[451/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/libraries/Wire/Wire.cpp.obj
+[452/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/zephyr/blobs/ArduinoCore-API/api/IPAddress.cpp.obj
+[453/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/libraries/SPI/SPI.cpp.obj
+[454/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/zephyr/blobs/ArduinoCore-API/api/Stream.cpp.obj
+[455/679] Generating linker_zephyr_pre0.cmd
+[456/679] Building C object zephyr/CMakeFiles/zephyr.dir/kernel/sys/sem.c.obj
+[457/679] Building C object zephyr/CMakeFiles/zephyr.dir/kernel/sys/thread_entry.c.obj
+[458/679] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/sw_isr_common.c.obj
+[459/679] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/init.c.obj
+[460/679] Linking C static library zephyr/arch/common/libisr_tables.a
+[461/679] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/dynamic_isr.c.obj
+[462/679] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/references/arduino-api/zephyr/blobs/ArduinoCore-API/api/String.cpp.obj
+[463/679] Building ASM object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/window_vectors.S.obj
+[464/679] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/instr_mem.c.obj
+[465/679] Building ASM object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/xtensa_asm2_util.S.obj
+[466/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/cpu_idle.c.obj
+[467/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/irq_manage.c.obj
+[468/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/fatal.c.obj
+[469/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/thread.c.obj
+[470/679] Building ASM object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/debug_helpers_asm.S.obj
+[471/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/xtensa_backtrace.c.obj
+[472/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/prep_c.c.obj
+[473/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/instr_mem.c.obj
+[474/679] Building C object zephyr/arch/arch/xtensa/core/CMakeFiles/arch__xtensa__core.dir/vector_handlers.c.obj
+[475/679] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/assert.c.obj
+[476/679] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/chk_fail.c.obj
+[477/679] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/cbprintf.c.obj
+[478/679] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/errno_wrap.c.obj
+[479/679] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/exit.c.obj
+[480/679] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/abort.c.obj
+[481/679] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/stdio.c.obj
+[482/679] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/locks.c.obj
+[483/679] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/reallocarray.c.obj
+[484/679] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/time/time.c.obj
+[485/679] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/calloc.c.obj
+[486/679] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/malloc.c.obj
+[487/679] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/errno/errno.c.obj
+[488/679] Building C object zephyr/lib/net_buf/CMakeFiles/lib__net_buf.dir/buf.c.obj
+[489/679] Building C object zephyr/lib/net_buf/CMakeFiles/lib__net_buf.dir/buf_simple.c.obj
+[490/679] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_eventfd.c.obj
+[491/679] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_fdtable.c.obj
+[492/679] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_poll.c.obj
+[493/679] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/fnmatch.c.obj
+[494/679] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/getentropy.c.obj
+[495/679] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_select.c.obj
+[496/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc4_sw.c.obj
+[497/679] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/getopt_shim.c.obj
+[498/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc8_sw.c.obj
+[499/679] Building C object zephyr/subsys/random/CMakeFiles/subsys__random.dir/random_entropy_device.c.obj
+[500/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc16_sw.c.obj
+[501/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc7_sw.c.obj
+[502/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc24_sw.c.obj
+[503/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32c_sw.c.obj
+[504/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32_sw.c.obj
+[505/679] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32k_4_2_sw.c.obj
+[506/679] Building C object zephyr/subsys/input/CMakeFiles/subsys__input.dir/input_hid.c.obj
+[507/679] Building C object zephyr/subsys/input/CMakeFiles/subsys__input.dir/input.c.obj
+[508/679] Building C object zephyr/subsys/input/CMakeFiles/subsys__input.dir/input_utils.c.obj
+[509/679] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/getaddrinfo.c.obj
+[510/679] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/getnameinfo.c.obj
+[511/679] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/sockets_misc.c.obj
+[512/679] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/sockets.c.obj
+[513/679] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/sockets_service.c.obj
+[514/679] Building C object zephyr/subsys/net/l2/ethernet/CMakeFiles/subsys__net__l2__ethernet.dir/ethernet_mgmt.c.obj
+[515/679] Building C object zephyr/subsys/net/l2/ethernet/CMakeFiles/subsys__net__l2__ethernet.dir/ethernet.c.obj
+[516/679] Building C object zephyr/subsys/net/l2/ethernet/CMakeFiles/subsys__net__l2__ethernet.dir/arp.c.obj
+[517/679] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/sockets_inet.c.obj
+[518/679] Building C object zephyr/subsys/net/l2/wifi/CMakeFiles/subsys__net__l2__wifi.dir/wifi_nm.c.obj
+[519/679] Building C object zephyr/subsys/net/l2/wifi/CMakeFiles/subsys__net__l2__wifi.dir/wifi_mgmt.c.obj
+[520/679] Building C object zephyr/subsys/net/l2/wifi/CMakeFiles/subsys__net__l2__wifi.dir/wifi_utils.c.obj
+[521/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_timeout.c.obj
+[522/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_core.c.obj
+[523/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_mgmt.c.obj
+[524/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/icmp.c.obj
+[525/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/utils.c.obj
+[526/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_tc.c.obj
+[527/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_pkt.c.obj
+[528/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_if.c.obj
+[529/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_context.c.obj
+[530/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/connection.c.obj
+[531/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/icmpv4.c.obj
+[532/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/ipv4.c.obj
+[533/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/route_ipv4.c.obj
+[534/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/udp.c.obj
+[535/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/route.c.obj
+[536/679] Building C object zephyr/subsys/net/lib/dhcpv4/CMakeFiles/subsys__net__lib__dhcpv4.dir/dhcpv4.c.obj
+[537/679] Building C object zephyr/subsys/net/lib/http/CMakeFiles/subsys__net__lib__http.dir/http_parser_url.c.obj
+[538/679] Building C object zephyr/subsys/net/lib/dhcpv4/CMakeFiles/subsys__net__lib__dhcpv4.dir/dhcpv4_server.c.obj
+[539/679] Building C object zephyr/subsys/net/lib/http/CMakeFiles/subsys__net__lib__http.dir/http_parser.c.obj
+[540/679] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/tcp.c.obj
+[541/679] Building C object zephyr/subsys/net/lib/http/CMakeFiles/subsys__net__lib__http.dir/http_client.c.obj
+[542/679] Building C object zephyr/subsys/net/lib/http/CMakeFiles/subsys__net__lib__http.dir/http_server_ws.c.obj
+[543/679] Building C object zephyr/subsys/net/lib/http/CMakeFiles/subsys__net__lib__http.dir/http_server_http1.c.obj
+[544/679] Building C object zephyr/subsys/net/lib/http/CMakeFiles/subsys__net__lib__http.dir/http_server_core.c.obj
+[545/679] Building C object zephyr/subsys/net/conn_mgr/CMakeFiles/subsys__net__conn_mgr.dir/conn_mgr_monitor.c.obj
+[546/679] Building C object zephyr/subsys/net/conn_mgr/CMakeFiles/subsys__net__conn_mgr.dir/events_handler.c.obj
+[547/679] Building C object zephyr/subsys/net/lib/websocket/CMakeFiles/websocket_client.dir/websocket.c.obj
+[548/679] Building C object zephyr/subsys/net/conn_mgr/CMakeFiles/subsys__net__conn_mgr.dir/conn_mgr_connectivity.c.obj
+[549/679] Building C object zephyr/drivers/adc/CMakeFiles/drivers__adc.dir/adc_common.c.obj
+[550/679] Building C object zephyr/drivers/cache/CMakeFiles/drivers__cache.dir/cache_esp32.c.obj
+[551/679] Building C object zephyr/drivers/interrupt_controller/CMakeFiles/drivers__interrupt_controller.dir/intc_esp32.c.obj
+[552/679] Building C object zephyr/drivers/adc/CMakeFiles/drivers__adc.dir/adc_esp32.c.obj
+[553/679] Building C object zephyr/drivers/clock_control/CMakeFiles/drivers__clock_control.dir/clock_control_esp32.c.obj
+[554/679] Building C object zephyr/drivers/entropy/CMakeFiles/drivers__entropy.dir/entropy_esp32.c.obj
+[555/679] Building C object zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_page_layout.c.obj
+[556/679] Building C object zephyr/drivers/clock_control/CMakeFiles/drivers__clock_control.dir/clock_control_esp32_rtc_cntl.c.obj
+[557/679] Building C object zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir/i2c_common.c.obj
+[558/679] Building C object zephyr/drivers/display/CMakeFiles/drivers__display.dir/display_st730x.c.obj
+[559/679] Building C object zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_esp32.c.obj
+[560/679] Building C object zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir/common.c.obj
+[561/679] Building C object zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir/gpio_esp32.c.obj
+[562/679] Building C object zephyr/drivers/input/CMakeFiles/drivers__input.dir/input_gpio_keys.c.obj
+[563/679] Building C object zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir/i2c_esp32.c.obj
+[564/679] Building C object zephyr/drivers/rtc/CMakeFiles/drivers__rtc.dir/rtc_utils.c.obj
+[565/679] Building C object zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir/pinctrl_esp32.c.obj
+[566/679] Building C object zephyr/drivers/rtc/CMakeFiles/drivers__rtc.dir/rtc_pcf85063a.c.obj
+[567/679] Building C object zephyr/drivers/sensor/sensirion/shtcx/CMakeFiles/drivers__sensor__sensirion__shtcx.dir/shtcx.c.obj
+[568/679] Building C object zephyr/drivers/sensor/voltage_divider/CMakeFiles/drivers__sensor__voltage_divider.dir/voltage.c.obj
+[569/679] Building C object zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/sys_clock_init.c.obj
+[570/679] Building C object zephyr/drivers/serial/CMakeFiles/drivers__serial.dir/serial_esp32_usb.c.obj
+[571/679] Building C object zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/sys_lpm_hooks_stubs.c.obj
+[572/679] Building C object zephyr/drivers/serial/CMakeFiles/drivers__serial.dir/uart_esp32.c.obj
+[573/679] Building C object zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/xtensa_sys_timer.c.obj
+[574/679] Building C object zephyr/drivers/spi/CMakeFiles/drivers__spi.dir/spi_esp32_spim.c.obj
+[575/679] Linking C static library modules/mbedtls/mbedtls/library/libmbedx509.a
+[576/679] Building C object modules/mbedtls/CMakeFiles/modules__mbedtls.dir/zephyr_entropy.c.obj
+[577/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/debug.c.obj
+[578/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/mps_reader.c.obj
+[579/679] Building C object modules/mbedtls/CMakeFiles/modules__mbedtls.dir/zephyr_init.c.obj
+[580/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/mps_trace.c.obj
+[581/679] Building C object zephyr/drivers/wifi/CMakeFiles/drivers__wifi.dir/esp32/src/esp_wifi_drv.c.obj
+[582/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_cache.c.obj
+[583/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/net_sockets.c.obj
+[584/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_ciphersuites.c.obj
+[585/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_client.c.obj
+[586/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_cookie.c.obj
+[587/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_debug_helpers_generated.c.obj
+[588/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_ticket.c.obj
+[589/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_msg.c.obj
+[590/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls.c.obj
+[591/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_keys.c.obj
+[592/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls12_client.c.obj
+[593/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls12_server.c.obj
+[594/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_server.c.obj
+[595/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_client.c.obj
+[596/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_generic.c.obj
+[597/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/timing.c.obj
+[598/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/version.c.obj
+[599/679] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/version_features.c.obj
+[600/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/busy_wait.c.obj
+[601/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/main_weak.c.obj
+[602/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/device.c.obj
+[603/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/fatal.c.obj
+[604/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/init.c.obj
+[605/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/kheap.c.obj
+[606/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/float.c.obj
+[607/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/version.c.obj
+[608/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mem_slab.c.obj
+[609/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mailbox.c.obj
+[610/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/idle.c.obj
+[611/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/msg_q.c.obj
+[612/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mutex.c.obj
+[613/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sem.c.obj
+[614/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/system_work_q.c.obj
+[615/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/queue.c.obj
+[616/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/stack.c.obj
+[617/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/condvar.c.obj
+[618/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/thread.c.obj
+[619/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/work.c.obj
+[620/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sleep.c.obj
+[621/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/scheduler.c.obj
+[622/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sched.c.obj
+[623/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/pipe.c.obj
+[624/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timeslicing.c.obj
+[625/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/thread_monitor.c.obj
+[626/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timer.c.obj
+[627/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timeout.c.obj
+[628/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/poll.c.obj
+[629/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/events.c.obj
+[630/679] Linking CXX static library app/libapp.a
+[631/679] Building C object zephyr/CMakeFiles/zephyr_pre0.dir/misc/empty_file.c.obj
+[632/679] Linking C static library zephyr/arch/common/libarch__common.a
+[633/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mempool.c.obj
+[634/679] Linking C static library zephyr/arch/arch/xtensa/core/libarch__xtensa__core.a
+[635/679] Linking C static library zephyr/lib/libc/picolibc/liblib__libc__picolibc.a
+[636/679] Linking C static library zephyr/lib/libc/common/liblib__libc__common.a
+[637/679] Building C object zephyr/kernel/CMakeFiles/kernel.dir/dynamic.c.obj
+[638/679] Linking C static library zephyr/lib/net_buf/liblib__net_buf.a
+[639/679] Linking C static library zephyr/subsys/portability/posix/c_lib_ext/libsubsys__portability__posix__c_lib_ext.a
+[640/679] Linking C static library zephyr/lib/os/zvfs/liblib__os__zvfs.a
+[641/679] Linking C static library zephyr/subsys/random/libsubsys__random.a
+[642/679] Linking C static library zephyr/subsys/input/libsubsys__input.a
+[643/679] Linking C static library zephyr/subsys/net/l2/ethernet/libsubsys__net__l2__ethernet.a
+[644/679] Linking C static library zephyr/subsys/net/libsubsys__net.a
+[645/679] Linking C static library zephyr/subsys/crc/libsubsys__crc.a
+[646/679] Linking C static library zephyr/subsys/net/lib/dhcpv4/libsubsys__net__lib__dhcpv4.a
+[647/679] Linking C static library zephyr/subsys/net/l2/wifi/libsubsys__net__l2__wifi.a
+[648/679] Linking C static library zephyr/subsys/net/lib/http/libsubsys__net__lib__http.a
+[649/679] Linking C static library zephyr/subsys/net/lib/websocket/libwebsocket_client.a
+[650/679] Linking C static library zephyr/subsys/net/conn_mgr/libsubsys__net__conn_mgr.a
+[651/679] Linking C static library zephyr/subsys/net/ip/libsubsys__net__ip.a
+[652/679] Linking C static library zephyr/drivers/interrupt_controller/libdrivers__interrupt_controller.a
+[653/679] Linking C static library zephyr/drivers/adc/libdrivers__adc.a
+[654/679] Linking C static library zephyr/drivers/clock_control/libdrivers__clock_control.a
+[655/679] Linking C static library zephyr/drivers/cache/libdrivers__cache.a
+[656/679] Linking C static library zephyr/drivers/display/libdrivers__display.a
+[657/679] Linking C static library zephyr/drivers/entropy/libdrivers__entropy.a
+[658/679] Linking C static library zephyr/drivers/gpio/libdrivers__gpio.a
+[659/679] Linking C static library zephyr/drivers/flash/libdrivers__flash.a
+[660/679] Linking C static library zephyr/drivers/input/libdrivers__input.a
+[661/679] Linking C static library zephyr/drivers/i2c/libdrivers__i2c.a
+[662/679] Linking C static library zephyr/drivers/pinctrl/libdrivers__pinctrl.a
+[663/679] Linking C static library zephyr/drivers/sensor/sensirion/shtcx/libdrivers__sensor__sensirion__shtcx.a
+[664/679] Linking C static library zephyr/drivers/rtc/libdrivers__rtc.a
+[665/679] Linking C static library zephyr/drivers/sensor/voltage_divider/libdrivers__sensor__voltage_divider.a
+[666/679] Linking C static library zephyr/drivers/serial/libdrivers__serial.a
+[667/679] Linking C static library zephyr/drivers/spi/libdrivers__spi.a
+[668/679] Linking CXX static library zephyr/libzephyr.a
+[669/679] Linking C static library zephyr/drivers/timer/libdrivers__timer.a
+[670/679] Linking C static library zephyr/drivers/wifi/libdrivers__wifi.a
+[671/679] Linking C static library modules/mbedtls/libmodules__mbedtls.a
+[672/679] Linking C static library modules/mbedtls/mbedtls/library/libmbedtls.a
+[673/679] Linking C static library zephyr/kernel/libkernel.a
+[674/679] Linking CXX executable zephyr/zephyr_pre0.elf; Logical command for additional byproducts on target: zephyr_pre0
+[675/679] Generating linker.cmd
+[676/679] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[677/679] Building C object zephyr/CMakeFiles/zephyr_final.dir/misc/empty_file.c.obj
+[678/679] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[679/679] Linking CXX executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:     4185076 B   16776960 B     24.95%
+     iram0_0_seg:       70144 B     415492 B     16.88%
+     dram0_0_seg:      376576 B     399108 B     94.35%
+     irom0_0_seg:      450688 B        32 MB      1.34%
+     drom0_0_seg:     4054004 B        32 MB     12.08%
+    ext_dram_seg:     5242896 B        32 MB     15.63%
+    ext_iram_seg:           0 B        32 MB      0.00%
+    rtc_iram_seg:           0 B       8168 B      0.00%
+rtc_reserved_seg:           0 B         24 B      0.00%
+    rtc_slow_seg:          36 B         8 KB      0.44%
+        IDT_LIST:           0 B         8 KB      0.00%
+Generating files from /home/fred/microblocks-zephyr-work/build/stability-rtc/zephyr/zephyr.elf for board: esp32s3_rlcd_4_2/esp32s3/procpu
+esptool v5.6.0
+Creating ESP32-S3 image...
+Image has only RAM segments visible. ROM segments are hidden and SHA256 digest is not appended.
+NOTE: Inserting 4 bytes padding between net_buf_pool_area and net_if_area
+NOTE: Inserting 4 bytes padding between http_header_name_area and .flash.rodata_end
+NOTE: Inserting 4 bytes padding between http_service_desc_area and net_mgmt_event_static_handler_area
+NOTE: Inserting 4 bytes padding between k_kernel_init_post_entry_area and _static_thread_data_area
+Merged 34 ELF sections.
+Successfully created ESP32-S3 image.

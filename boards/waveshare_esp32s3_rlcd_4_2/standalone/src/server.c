@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 static uint16_t port = 80;
-HTTP_SERVICE_DEFINE(mb_http, NULL, &port, 8, 8, NULL, NULL, NULL);
+HTTP_SERVICE_DEFINE(mb_http, NULL, &port, 12, 12, NULL, NULL, NULL);
 HTTP_SERVER_REGISTER_HEADER_CAPTURE(origin_header, "Origin");
 HTTP_SERVER_REGISTER_HEADER_CAPTURE(pair_header, "X-MicroBlocks-Pair");
 static char content_policy[384];
@@ -113,8 +113,12 @@ static int status_handler(struct http_client_ctx *client, enum http_transaction_
 {
     ARG_UNUSED(client); ARG_UNUSED(request); ARG_UNUSED(user);
     if (status != HTTP_SERVER_REQUEST_DATA_FINAL) return 0;
-    static char json[128];
-    snprintf(json, sizeof(json), "{\"board\":\"Waveshare ESP32-S3-RLCD-4.2\",\"vm\":417,\"ide\":\"2.5.8\",\"saved_generation\":%u}", mb_store_generation());
+    static char json[384];
+    struct mb_transport_diagnostics ws;
+    mb_transport_diagnostics_get(&ws);
+    snprintf(json, sizeof(json), "{\"board\":\"Waveshare ESP32-S3-RLCD-4.2\",\"vm\":417,\"ide\":\"2.5.8\",\"saved_generation\":%u,"
+        "\"websocket\":{\"sessions\":%u,\"auth_failures\":%u,\"rx_errors\":%u,\"tx_errors\":%u,\"queue_timeouts\":%u,\"last_error\":%d}}",
+        mb_store_generation(), ws.sessions, ws.auth_failures, ws.rx_errors, ws.tx_errors, ws.queue_timeouts, ws.last_error);
     response->body=(const uint8_t *)json;response->body_len=strlen(json);response->final_chunk=true;
     return 0;
 }

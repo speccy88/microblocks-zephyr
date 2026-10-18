@@ -8,7 +8,7 @@ Evidence is under `evidence/2026-10-17/`. PASS applies only to the behavior list
 | Display ST7305/ST7306 | Checkerboard and text driver transfers return success | Human observation/photo of appearance, edges and orientation |
 | IP / pairing LCD screen | Earlier physical station/AP boot logs show CFB transfer 0; compiled-font layout fits visible bounds | Physical IP/pairing text readability and orientation; no framebuffer/photo capture |
 | SHTC3 | Real temperature/humidity reads; graphical temperature block returned 26093 milliC | Independent calibrated comparison |
-| RTC | Device responds; VM reports unset/unavailable | Setter, valid time and battery retention |
+| RTC | Real UTC setter/readback, 15 invalid inputs rejected, leap-day rollover, ticking and powered COM4-reset retention pass | Battery/power-removal retention and long-term accuracy |
 | BOOT / KEY | Released-state inputs read; KEY boot fallback is implemented | Physical press/release events |
 | Battery ADC | Real raw ADC reads, 1291 in final wireless regression | Voltmeter comparison/calibration |
 | microSD | Unused; no formatting or file mutation | Read-only card detection and filesystem support |

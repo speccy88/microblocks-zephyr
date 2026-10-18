@@ -17,6 +17,7 @@ struct rlcd_environment {
 void rlcd_probe(struct rlcd_device_status *out);
 int rlcd_environment_read(struct rlcd_environment *out);
 int rlcd_rtc_read(char *dst, unsigned dst_size);
+int rlcd_rtc_set_utc(int year, int month, int day, int hour, int minute, int second);
 int rlcd_battery_read(int32_t *raw, int32_t *mv_estimate);
 int rlcd_display_checkerboard(void);
 int rlcd_display_clear(bool white);

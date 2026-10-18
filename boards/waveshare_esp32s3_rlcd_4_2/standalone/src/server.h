@@ -16,3 +16,8 @@ void mb_store_poll(void);
 unsigned mb_store_generation(void);
 int mb_network_save(const char *, const char *);
 bool mb_same_origin(const struct http_request_ctx *);
+struct mb_transport_diagnostics {
+    unsigned sessions, auth_failures, rx_errors, tx_errors, queue_timeouts;
+    int last_error;
+};
+void mb_transport_diagnostics_get(struct mb_transport_diagnostics *out);

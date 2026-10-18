@@ -1,0 +1,88 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T01:35:36.129894+00:00",
+  "host": "192.168.1.69",
+  "duration_target_seconds": 1800.0,
+  "interval_seconds": 30.0,
+  "scope": "Physical unchanged firmware; HTTP content and binary VM workload. Browser fresh loads are recorded separately.",
+  "cycles": [],
+  "memory": [
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8137640,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "elapsed_seconds": 0.141,
+      "phase": "initial-settled",
+      "utc": "2026-10-18T01:35:36.262615+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8170442,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "elapsed_seconds": 32.938,
+      "phase": "final-settled",
+      "utc": "2026-10-18T01:36:09.068553+00:00"
+    }
+  ],
+  "asset_audits": [],
+  "original_program_crc32": {
+    "0": "297d191b",
+    "1": "a4144564",
+    "2": "5e84cd6a"
+  },
+  "criteria": {
+    "minimum_cycles": 40,
+    "minimum_full_asset_audits": 4,
+    "outputs_per_cycle": 500,
+    "no_reboot": true,
+    "minimum_allocator_free_bytes": 2048,
+    "maximum_settled_residual_bytes": 1024
+  },
+  "initial_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 29
+  },
+  "phase": "finished",
+  "error": "TimeoutError: timed out",
+  "workload_seconds": 29.688,
+  "original_program_restored": true,
+  "settled_free_space_loss_bytes": {
+    "libc_malloc": 0,
+    "kernel_heap": 0
+  },
+  "final_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 32
+  },
+  "minimum_free_bytes": {
+    "libc_malloc": 46876,
+    "kernel_heap": 22604
+  },
+  "finished_utc": "2026-10-18T01:36:09.088236+00:00"
+}

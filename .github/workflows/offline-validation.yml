@@ -16,5 +16,7 @@ jobs:
           python-version: '3.12'
       - name: Validate capability manifest and source contracts
         run: python3 tools/validate.py
+      - name: Cross-check RTC calendar against Python datetime
+        run: python3 tools/test_calendar.py
       - name: Explain validation boundary
         run: echo 'This workflow does NOT build Zephyr or test physical hardware.'

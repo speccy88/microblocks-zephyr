@@ -48,8 +48,12 @@
         "irq": 15
       },
       "upstream_zephyr": "devicetree-enabled",
-      "bringup": "physically-probed-clock-unset",
-      "smallvm": "wireless-unset-response-tested-setter-not-implemented"
+      "bringup": "physical-clock-initialized-UTC",
+      "smallvm": "UTC-setter-readback-invalid-input-rollover-ticking-and-powered-reset-retention-tested",
+      "acceptance_limits": [
+        "Battery retention and power-removal test unverified",
+        "Long-term oscillator accuracy uncalibrated"
+      ]
     },
     {
       "id": "battery_adc",

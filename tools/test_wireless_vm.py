@@ -101,13 +101,22 @@ def words(values):return struct.pack('<'+'H'*len(values),*values)
 
 def primitive(name, arguments=()):
     ops=[op(9)]
-    for value in arguments:ops.append(op(2,2*value+1))
+    for value in arguments:
+        if isinstance(value,bool):
+            ops.append(op(2,4 if value else 0))
+        elif -64<=value<=63:
+            ops.append(op(2,2*value+1))
+        elif -4194304<=value<=4194303:
+            tagged=2*value+1
+            ops.extend([op(3,tagged&255),(tagged>>8)&65535])
+        else:
+            raise ValueError('Test primitive integer exceeds the 24-bit object encoding')
+    call_word=len(ops)+1
     ops.extend([op(37,len(arguments)),0,op(35),op(127)])
     if len(ops)%2:ops.append(0)
     name_data=name.encode()+b'\0'
     name_data+=b'\0'*((-len(name_data))%4)
     literal=struct.pack('<I',(len(name_data)//4<<4)|4)+name_data
-    call_word=2+len(arguments)
     ops[call_word]=(3<<10)+(len(ops)-call_word) # IOPrims = 3; relative 16-bit offset
     return words(ops)+literal
 

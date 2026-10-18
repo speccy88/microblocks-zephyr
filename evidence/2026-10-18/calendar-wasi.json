@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "cases": 36978,
+  "full_century_valid_dates": 36525,
+  "runtime": "wasm32/WASI",
+  "command": "python tools/test_calendar.py --compiler /home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang --wasi",
+  "scope": "Exact C date/range/weekday helper compared with independent Python datetime; no physical RTC claim"
+}

@@ -1,0 +1,39 @@
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+build/host-vm/vm/mem.c:301:49: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]
+  301 |                                 sprintf(s, "%d type: %d words: %d fwd: %d", (next - base), type, wordCount, (int) fwd);
+      |                                             ~~                              ^~~~~~~~~~~~~
+      |                                             %td
+build/host-vm/vm/mem.c:303:41: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]
+  303 |                                 sprintf(s, "%d type: %d words: %d", (next - base), type, wordCount);
+      |                                             ~~                      ^~~~~~~~~~~~~
+      |                                             %td
+build/host-vm/vm/mem.c:306:29: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]
+  306 |                         sprintf(s, "%d FREE %d", (next - base), wordCount);
+      |                                     ~~           ^~~~~~~~~~~~~
+      |                                     %td
+3 warnings generated.
+build/host-vm/vm/persist.c:768:29: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]
+  768 |                         sprintf(s, "bad %d: %x", (p - start), *p);
+      |                                         ~~       ^~~~~~~~~~~
+      |                                         %td
+build/host-vm/vm/persist.c:781:4: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]
+  780 |                 sprintf(s, "%d: %x %x %x %x %x %x %x %x %x %x",
+      |                             ~~
+      |                             %td
+  781 |                         (p - start), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
+      |                         ^~~~~~~~~~~
+build/host-vm/vm/persist.c:1252:4: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]
+ 1251 |                 sprintf(s, "Record at offset %d: %d %d %d %d (%d words)",
+      |                                              ~~
+      |                                              %td
+ 1252 |                         (p - start0),
+      |                         ^~~~~~~~~~~~
+build/host-vm/vm/persist.c:1307:3: warning: format specifies type 'int' but the argument has type '__ptrdiff_t' (aka 'long') [-Wformat]
+ 1305 |         sprintf(s, "Final: current %d used %d c0 %d c1 %d",
+      |                                            ~~
+      |                                            %td
+ 1306 |                 current,
+ 1307 |                 freeStart - ((0 == current) ? start0 : start1),
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+{"result":"PASS","architecture":"wasm32","scope":"real SmallVM v417; simulated transport/peripherals","reporter_runs":10,"arithmetic":12,"fragmented_message_bytes":1019,"partial_output_max":7,"ordered_stream_outputs":500,"stream_bytes":4536,"timeout_recovery":true,"invalid_length_recovery":true,"named_primitives":true}

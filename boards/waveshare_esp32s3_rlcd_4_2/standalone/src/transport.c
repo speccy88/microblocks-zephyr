@@ -17,8 +17,21 @@ K_SEM_DEFINE(reset_done, 0, 1);
 static atomic_t busy;
 static atomic_t authenticated;
 static atomic_t reset_pending;
+static atomic_t sessions, auth_failures, rx_errors, tx_errors, queue_timeouts, last_error;
 static int client_socket = -1;
 extern void smallvmResetTransport(void);
+
+void mb_transport_diagnostics_get(struct mb_transport_diagnostics *out)
+{
+    *out = (struct mb_transport_diagnostics) {
+        .sessions = (unsigned)atomic_get(&sessions),
+        .auth_failures = (unsigned)atomic_get(&auth_failures),
+        .rx_errors = (unsigned)atomic_get(&rx_errors),
+        .tx_errors = (unsigned)atomic_get(&tx_errors),
+        .queue_timeouts = (unsigned)atomic_get(&queue_timeouts),
+        .last_error = (int)atomic_get(&last_error),
+    };
+}
 
 void mb_transport_poll(void)
 {
@@ -70,22 +83,34 @@ static void websocket_worker(void *a, void *b, void *c)
         }
         if (valid) {
             atomic_set(&authenticated, 1);
-            valid = websocket_send_msg(fd, (const uint8_t *)"ready", 5,
-                WEBSOCKET_OPCODE_DATA_TEXT, false, true, 1000) >= 0;
+            int sent = websocket_send_msg(fd, (const uint8_t *)"ready", 5,
+                WEBSOCKET_OPCODE_DATA_TEXT, false, true, 1000);
+            valid = sent == 5;
+            if (!valid) { atomic_inc(&tx_errors); atomic_set(&last_error, sent < 0 ? sent : -EIO); }
+            else atomic_inc(&sessions);
+        } else {
+            atomic_inc(&auth_failures);
+            atomic_set(&last_error, n < 0 ? n : -EACCES);
         }
         size_t message_bytes = 0;
         bool binary = false;
         while (valid) {
             n = websocket_recv_msg(fd, input, sizeof(input), &type, &remaining, 10);
             if (n == -EAGAIN) n = 0;
-            else if (n < 0 || (type & WEBSOCKET_FLAG_CLOSE)) break;
+            else if (n < 0 || (type & WEBSOCKET_FLAG_CLOSE)) {
+                if (n < 0 && n != -ENOTCONN) { atomic_inc(&rx_errors); atomic_set(&last_error, n); }
+                break;
+            }
             if (n > 0) {
                 if (type & WEBSOCKET_FLAG_PING) {
-                    if (websocket_send_msg(fd, input, n, WEBSOCKET_OPCODE_PONG, false, true, 500) < 0) break;
+                    int sent = websocket_send_msg(fd, input, n, WEBSOCKET_OPCODE_PONG, false, true, 500);
+                    if (sent != n) { atomic_inc(&tx_errors); atomic_set(&last_error, sent < 0 ? sent : -EIO); break; }
                     continue;
                 }
                 if (type & WEBSOCKET_FLAG_BINARY) binary = true;
-                if (!binary || (type & WEBSOCKET_FLAG_TEXT) || message_bytes + n + remaining > 8192) break;
+                if (!binary || (type & WEBSOCKET_FLAG_TEXT) || message_bytes + n + remaining > 8192) {
+                    atomic_inc(&rx_errors); atomic_set(&last_error, -EMSGSIZE); break;
+                }
                 message_bytes += n;
                 bool queued = false;
                 int64_t deadline = k_uptime_get() + 500;
@@ -97,14 +122,17 @@ static void websocket_worker(void *a, void *b, void *c)
                     k_mutex_unlock(&queues);
                     if (!queued) k_sleep(K_MSEC(1));
                 } while (!queued && k_uptime_get() < deadline);
-                if (!queued) break;
+                if (!queued) { atomic_inc(&queue_timeouts); atomic_set(&last_error, -ENOBUFS); break; }
                 if ((type & WEBSOCKET_FLAG_FINAL) && remaining == 0) { message_bytes = 0; binary = false; }
             }
             k_mutex_lock(&queues, K_FOREVER);
             int count = ring_buf_get(&tx_queue, output, sizeof(output));
             k_mutex_unlock(&queues);
-            if (count && websocket_send_msg(fd, output, count, WEBSOCKET_OPCODE_DATA_BINARY,
-                false, true, 1000) < 0) break;
+            if (count) {
+                int sent = websocket_send_msg(fd, output, count, WEBSOCKET_OPCODE_DATA_BINARY,
+                    false, true, 1000);
+                if (sent != count) { atomic_inc(&tx_errors); atomic_set(&last_error, sent < 0 ? sent : -EIO); break; }
+            }
         }
         atomic_set(&authenticated, 0);
         websocket_unregister(fd);

@@ -1,0 +1,40 @@
+{
+  "firmware_sha256": "1c6589145155f5c3e205ad92d53dab32cee2ceac79e2ac58b914915bef265506",
+  "scope": "Actual fresh GP editor loads while the physical VM/HTTP soak was active",
+  "loads": [
+    {
+      "label": "soak-01",
+      "ready": true,
+      "elapsed_ms": 22079,
+      "cdp_requests": 52,
+      "cdp_responses": 51,
+      "cdp_capture_truncated": true,
+      "resource_timing_navigation_and_resources": 52,
+      "resource_timing_statuses": [200],
+      "resource_timing_incomplete": [],
+      "javascript_errors": [],
+      "note": "Per-poll Runtime.evaluate could block behind GP initialization and let the event ring overflow. Independent Resource Timing verified all52 successful responses. The later collector drains events without evaluating during bootstrap."
+    },
+    {
+      "label": "soak-02",
+      "result": "FAIL",
+      "ready": true,
+      "deadline_ms": 45000,
+      "elapsed_ms": 45028,
+      "requests": 52,
+      "responses_at_deadline": 49,
+      "pending_at_deadline": 3,
+      "capture_truncated": false,
+      "network_failures_at_deadline": [],
+      "javascript_errors": [],
+      "origins": ["http://192.168.1.69"],
+      "late_resources": [
+        {"path": "/img/icon-globe--24x24.svg", "status": 200, "duration_ms": 45037.7, "response_end_ms": 62360.3},
+        {"path": "/img/icon-file--24x24.svg", "status": 200, "duration_ms": 46125.2, "response_end_ms": 63448.2},
+        {"path": "/img/icon-dropdown--12x6.svg", "status": 200, "duration_ms": 45199.9, "response_end_ms": 62523.8}
+      ]
+    }
+  ],
+  "observation": "The delivered eight-client HTTP configuration did not pass the combined fresh-browser plus VM/asset workload. The VM soak also timed out after seven complete cycles. Original CRCs and allocator pools were recovered without resetting the board.",
+  "followup": "Increase the bounded service pool to12 clients and network contexts to32, add WebSocket diagnostics/short-send detection, and repeat the complete30-minute test. Do not treat this record as PASS."
+}

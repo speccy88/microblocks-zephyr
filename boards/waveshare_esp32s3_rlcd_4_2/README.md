@@ -16,8 +16,10 @@ Goal: a portable **Zephyr + Arduino API + MicroBlocks SmallVM** platform with bo
 * `tests/`: offline manifest/source integrity checks.
 
 **Current evidence:** pinned Zephyr/SDK builds, physical boot, SHTC3 and battery
-reads, released button inputs, LCD transfers and Wi-Fi association. RTC is
-unset. Wireless VM arithmetic/editing, 500 ordered outputs, CRCs, stop/variables,
+reads, released button inputs, LCD transfers and Wi-Fi association. RTC UTC
+setting, invalid-date rejection, ticking and powered-reset retention pass;
+battery retention is unverified (see [RTC](../../docs/RTC.md)).
+Wireless VM arithmetic/editing, 500 ordered outputs, CRCs, stop/variables,
 reconnect and reboot/autostart pass. The actual graphical editor also passes
 editing, 500 outputs, variable inspection, stop, reconnect and saved-program
 readback. Display appearance, physical button presses, SD, BLE and audio remain

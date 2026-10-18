@@ -1,0 +1,283 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T01:37:16.780308+00:00",
+  "host": "192.168.1.69",
+  "duration_target_seconds": 1800.0,
+  "interval_seconds": 30.0,
+  "scope": "Physical unchanged firmware; HTTP content and binary VM workload. Browser fresh loads are recorded separately.",
+  "cycles": [
+    {
+      "cycle": 1,
+      "elapsed_seconds": 30.375,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "reconnect_seconds": 0.157,
+      "original_crcs_unchanged": true,
+      "seconds": 29.625
+    },
+    {
+      "cycle": 2,
+      "elapsed_seconds": 39.156,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "reconnect_seconds": 0.172,
+      "original_crcs_unchanged": true,
+      "seconds": 8.141
+    },
+    {
+      "cycle": 3,
+      "elapsed_seconds": 77.687,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "reconnect_seconds": 0.109,
+      "original_crcs_unchanged": true,
+      "seconds": 16.594
+    },
+    {
+      "cycle": 4,
+      "elapsed_seconds": 98.734,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "reconnect_seconds": 0.109,
+      "original_crcs_unchanged": true,
+      "seconds": 7.641
+    },
+    {
+      "cycle": 5,
+      "elapsed_seconds": 128.843,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "reconnect_seconds": 0.125,
+      "original_crcs_unchanged": true,
+      "seconds": 7.718
+    },
+    {
+      "cycle": 6,
+      "elapsed_seconds": 159.453,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "reconnect_seconds": 0.203,
+      "original_crcs_unchanged": true,
+      "seconds": 8.188
+    },
+    {
+      "cycle": 7,
+      "elapsed_seconds": 189.5,
+      "rtc_string_reports": 50,
+      "arithmetic_runs": 10,
+      "edit_result": 13,
+      "ordered_outputs": 500,
+      "reconnect_seconds": 0.188,
+      "original_crcs_unchanged": true,
+      "seconds": 8.141
+    }
+  ],
+  "memory": [
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8238273,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.078,
+      "elapsed_seconds": 0.125,
+      "phase": "initial-settled",
+      "utc": "2026-10-18T01:37:16.905649+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8253831,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 7.328,
+      "elapsed_seconds": 15.718,
+      "phase": "active-cycle-1",
+      "utc": "2026-10-18T01:37:32.498473+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8276673,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.297,
+      "elapsed_seconds": 38.703,
+      "phase": "active-cycle-2",
+      "utc": "2026-10-18T01:37:55.490384+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8315378,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 8.0,
+      "elapsed_seconds": 77.312,
+      "phase": "active-cycle-3",
+      "utc": "2026-10-18T01:38:34.086919+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8336270,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 98.343,
+      "phase": "active-cycle-4",
+      "utc": "2026-10-18T01:38:55.126259+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8366369,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.313,
+      "elapsed_seconds": 128.422,
+      "phase": "active-cycle-5",
+      "utc": "2026-10-18T01:39:25.206130+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8396921,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.312,
+      "elapsed_seconds": 158.984,
+      "phase": "active-cycle-6",
+      "utc": "2026-10-18T01:39:55.757785+00:00"
+    },
+    {
+      "libc_malloc": {
+        "result": 0,
+        "free_bytes": 46876,
+        "allocated_bytes": 0,
+        "peak_allocated_bytes": 0
+      },
+      "kernel_heap": {
+        "result": 0,
+        "free_bytes": 22604,
+        "allocated_bytes": 42732,
+        "peak_allocated_bytes": 43444
+      },
+      "uptime_ms": 8426963,
+      "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM",
+      "http_response_seconds": 0.297,
+      "elapsed_seconds": 189.015,
+      "phase": "active-cycle-7",
+      "utc": "2026-10-18T01:40:25.802406+00:00"
+    }
+  ],
+  "asset_audits": [
+    {
+      "cycle": 1,
+      "assets": 148,
+      "uncompressed_bytes": 17284911,
+      "result": "PASS"
+    }
+  ],
+  "original_program_crc32": {
+    "0": "297d191b",
+    "1": "a4144564",
+    "2": "5e84cd6a"
+  },
+  "criteria": {
+    "minimum_cycles": 40,
+    "minimum_full_asset_audits": 4,
+    "outputs_per_cycle": 500,
+    "no_reboot": true,
+    "minimum_allocator_free_bytes": 2048,
+    "maximum_settled_residual_bytes": 1024
+  },
+  "initial_status": {
+    "board": "Waveshare ESP32-S3-RLCD-4.2",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 32
+  },
+  "phase": "finished",
+  "error": "TimeoutError: Expected VM response was not received",
+  "failed_phase": "workload",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\fred_\\Documents\\Codex\\2026-10-17\\task-5\\microblocks-zephyr\\tools\\stability_board.py\", line 141, in main\n    text=vm.run_reporter(REPORTER)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\fred_\\Documents\\Codex\\2026-10-17\\task-5\\microblocks-zephyr\\tools\\test_wireless_vm.py\", line 84, in run_reporter\n    body=self.wait(lambda e:e[0]==18 and e[1]==chunk,after=start)[2]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\fred_\\Documents\\Codex\\2026-10-17\\task-5\\microblocks-zephyr\\tools\\test_wireless_vm.py\", line 57, in wait\n    raise TimeoutError('Expected VM response was not received')\nTimeoutError: Expected VM response was not received\n",
+  "workload_seconds": 271.75,
+  "cleanup_or_final_error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host",
+  "finished_utc": "2026-10-18T01:41:48.530627+00:00"
+}

@@ -4,6 +4,7 @@
 #include "vm/interp.h"
 #include "vm/persist.h"
 #include "rlcd_board.h"
+#include "rlcd_calendar.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,6 +37,7 @@ int rlcd_display_checkerboard(void) { return 0; }
 int rlcd_display_text(const char *text) { return text ? 0 : -1; }
 int rlcd_display_clear(bool white) { (void)white;return 0; }
 int rlcd_rtc_read(char *text, unsigned size) { snprintf(text,size,"2026-10-17T12:00:00");return 0; }
+int rlcd_rtc_set_utc(int y,int m,int d,int h,int n,int s) { return rlcd_utc_weekday(y,m,d,h,n,s)<0 ? -22 : 0; }
 
 int recvBytes(uint8 *p, int count)
 {

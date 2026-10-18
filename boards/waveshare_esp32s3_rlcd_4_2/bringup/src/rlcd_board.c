@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "rlcd_board.h"
+#include "rlcd_calendar.h"
 
 #include <errno.h>
 #include <string.h>
@@ -118,6 +119,19 @@ int rlcd_rtc_read(char *dst, unsigned dst_size)
         t.tm_year + 1900, t.tm_mon + 1, t.tm_mday,
         t.tm_hour, t.tm_min, t.tm_sec);
     return (n >= 0 && (unsigned)n < dst_size) ? 0 : -ENOSPC;
+}
+
+int rlcd_rtc_set_utc(int year, int month, int day, int hour, int minute, int second)
+{
+    int weekday = rlcd_utc_weekday(year, month, day, hour, minute, second);
+    if (weekday < 0) return -EINVAL;
+    if (!device_is_ready(rtc_dev)) return -ENODEV;
+    struct rtc_time value = {
+        .tm_year = year - 1900, .tm_mon = month - 1, .tm_mday = day,
+        .tm_hour = hour, .tm_min = minute, .tm_sec = second,
+        .tm_wday = weekday, .tm_yday = -1, .tm_isdst = 0, .tm_nsec = 0,
+    };
+    return rtc_set_time(rtc_dev, &value);
 }
 
 int rlcd_battery_read(int32_t *raw, int32_t *mv_estimate)

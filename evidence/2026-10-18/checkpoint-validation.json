@@ -1,0 +1,37 @@
+{
+  "result": "PASS",
+  "offline_checks": [
+    {
+      "command": [
+        "-X",
+        "utf8",
+        "tools/validate.py"
+      ],
+      "returncode": 0,
+      "output": "test_compilation_guard_exists (test_hardware.HardwareManifestTests.test_compilation_guard_exists) ... ok\ntest_do_not_offer_shared_pins_as_unreserved (test_hardware.HardwareManifestTests.test_do_not_offer_shared_pins_as_unreserved) ... ok\ntest_known_zephyr_target (test_hardware.HardwareManifestTests.test_known_zephyr_target) ... ok\ntest_not_claiming_unbuilt_hardware_implemented (test_hardware.HardwareManifestTests.test_not_claiming_unbuilt_hardware_implemented) ... ok\ntest_pin_buses_match_zephyr_dt (test_hardware.HardwareManifestTests.test_pin_buses_match_zephyr_dt) ... ok\ntest_port_tree_is_multiboard_ready (test_hardware.HardwareManifestTests.test_port_tree_is_multiboard_ready) ... ok\ntest_shtc3_and_rtc_addresses (test_hardware.HardwareManifestTests.test_shtc3_and_rtc_addresses) ... ok\ntest_unintegrated_features_are_explicitly_marked (test_hardware.HardwareManifestTests.test_unintegrated_features_are_explicitly_marked) ... ok\ntest_unique_features_and_no_invented_touch (test_hardware.HardwareManifestTests.test_unique_features_and_no_invented_touch) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.002s\n\nOK\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\fred_\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "--check",
+        "web/board-network.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "output": ""
+    }
+  ],
+  "tracked_and_new_files_scanned": 145,
+  "exact_generated_device_secrets_checked": 2,
+  "credential_pattern_findings": [],
+  "firmware_sha256": "b9fbca38290809bba60bfc8ff871065688bf3e54f00783ac6fe1e618110ba521",
+  "scope": "No credentials or generated firmware included; existing ignored private files were read only in memory for exact-match scanning"
+}

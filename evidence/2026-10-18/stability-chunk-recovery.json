@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "original_program_crc32_unchanged": true,
+  "removed_only_temporary_ids": [
+    252,
+    253
+  ],
+  "before": {
+    "0": "297d191b",
+    "1": "a4144564",
+    "2": "5e84cd6a",
+    "252": "c848a873",
+    "253": "7492a9b0"
+  },
+  "after": {
+    "0": "297d191b",
+    "1": "a4144564",
+    "2": "5e84cd6a"
+  },
+  "memory_before_recovery": {
+    "libc_malloc": {
+      "result": 0,
+      "free_bytes": 46876,
+      "allocated_bytes": 0,
+      "peak_allocated_bytes": 0
+    },
+    "kernel_heap": {
+      "result": 0,
+      "free_bytes": 22604,
+      "allocated_bytes": 42732,
+      "peak_allocated_bytes": 43444
+    },
+    "uptime_ms": 8583604,
+    "scope": "allocator pools; excludes static arrays, stacks and unassigned physical RAM"
+  }
+}

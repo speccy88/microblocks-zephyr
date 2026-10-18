@@ -1,7 +1,7 @@
 module 'Waveshare RLCD 4.2' Output
 author 'Porting prototype for MicroBlocks SmallVM; based on MicroBlocks original library format'
-version 0 2
-description 'For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. RTC reports unset until its clock has been initialized.'
+version 0 3
+description 'For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC; the setter accepts valid dates from 2000 through 2099. RTC battery retention requires a separate physical test.'
 spec 'r' '[rlcd:temperatureMilliC]' 'RLCD temperature x1000 (C)'
 spec 'r' '[rlcd:humidityMilliPct]' 'RLCD humidity x1000 (%)'
 spec 'r' '[rlcd:batteryRaw]' 'RLCD battery ADC (raw)'
@@ -10,3 +10,4 @@ spec ' ' '[rlcd:displayChecker]' 'RLCD show checkerboard'
 spec ' ' '[rlcd:displayText]' 'RLCD show text _' 'str' 'Hello MicroBlocks!'
 spec ' ' '[rlcd:displayClear]' 'RLCD clear white _' 'bool' true
 spec 'r' '[rlcd:rtcText]' 'RLCD clock (text)'
+spec ' ' '[rlcd:rtcSetUTC]' 'RLCD set clock UTC year _ month _ day _ hour _ minute _ second _' 'num num num num num num' 2026 1 1 0 0 0

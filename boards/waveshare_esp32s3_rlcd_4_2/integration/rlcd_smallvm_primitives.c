@@ -4,6 +4,7 @@
 // Wire this into the fully ported SmallVM and load the .ubl in the editor.
 #include "vm/interp.h"
 #include "rlcd_board.h"
+#include <errno.h>
 #include <string.h>
 
 static OBJ temperature_milli_c(int argc, OBJ *argv)
@@ -70,6 +71,17 @@ static OBJ rtc_text(int argc, OBJ *argv)
     return rlcd_rtc_read(text, sizeof(text)) == 0 ? newStringFromBytes(text, strlen(text)) : newStringFromBytes("RTC unset or unavailable", 24);
 }
 
+static OBJ rtc_set_utc(int argc, OBJ *argv)
+{
+    if (argc != 6) return fail(notEnoughArguments);
+    for (int i = 0; i < 6; ++i)
+        if (!isInt(argv[i])) return fail(needsIntegerError);
+    int err = rlcd_rtc_set_utc(obj2int(argv[0]), obj2int(argv[1]), obj2int(argv[2]),
+        obj2int(argv[3]), obj2int(argv[4]), obj2int(argv[5]));
+    if (err == -EINVAL) return fail(indexOutOfRangeError);
+    return err == 0 ? falseObj : fail(primitiveNotImplemented);
+}
+
 static PrimEntry rlcd_entries[] = {
     {"temperatureMilliC", temperature_milli_c},
     {"humidityMilliPct", humidity_milli_pct},
@@ -78,7 +90,8 @@ static PrimEntry rlcd_entries[] = {
     {"displayChecker", display_test},
     {"displayText", display_text},
     {"displayClear", display_clear},
-    {"rtcText", rtc_text}
+    {"rtcText", rtc_text},
+    {"rtcSetUTC", rtc_set_utc}
 };
 
 // Existing UNO Q port implements this callback for the VM's IOPrims slot.
