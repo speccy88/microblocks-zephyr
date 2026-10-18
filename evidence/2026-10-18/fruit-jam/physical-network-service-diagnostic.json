@@ -1,0 +1,65 @@
+{
+  "started_utc": "2026-10-18T19:45:36.288533+00:00",
+  "before": {
+    "tick": 3121,
+    "stage": 6,
+    "listener": 0,
+    "listener_state": 1,
+    "active": 0,
+    "accepted": 0,
+    "completed": 0,
+    "aborted": 0,
+    "sessions": 0,
+    "last_error": 0,
+    "socket": {
+      "commands": 2370,
+      "last_command": 43,
+      "last_count": 255,
+      "protocol_error": 0
+    }
+  },
+  "http": [
+    {
+      "pass": false,
+      "error": "URLError: <urlopen error timed out>"
+    }
+  ],
+  "result": "FAIL",
+  "after": {
+    "tick": 3407,
+    "stage": 4,
+    "listener": 0,
+    "listener_state": 1,
+    "active": 0,
+    "accepted": 0,
+    "completed": 0,
+    "aborted": 0,
+    "sessions": 0,
+    "last_error": 0,
+    "socket": {
+      "commands": 2658,
+      "last_command": 43,
+      "last_count": 255,
+      "protocol_error": 0
+    }
+  },
+  "after_delay": {
+    "tick": 3442,
+    "stage": 6,
+    "listener": 0,
+    "listener_state": 1,
+    "active": 0,
+    "accepted": 0,
+    "completed": 0,
+    "aborted": 0,
+    "sessions": 0,
+    "last_error": 0,
+    "socket": {
+      "commands": 2693,
+      "last_command": 43,
+      "last_count": 255,
+      "protocol_error": 0
+    }
+  },
+  "finished_utc": "2026-10-18T19:45:41.378152+00:00"
+}

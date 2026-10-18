@@ -6,7 +6,9 @@ USB transport, SmallVM, an isolated Arduino variant, extension I/O and program
 snapshots. **Physical SWD programming, binary USB, arithmetic/editing, 50 ordered
 serial outputs, stop/variable inspection, reconnect and reboot/autostart pass.**
 The real graphical IDE passes arithmetic/editing and final count 50 through a
-loopback USB bridge. It is not yet hosted by Fruit Jam over Wi-Fi.
+loopback USB bridge. Native HTTP/WebSocket and the real editor assets now compile
+and are installed; standalone acceptance is pending after connection timeouts.
+See [the native checkpoint](../../docs/FRUIT_JAM_NATIVE_IDE.md).
 The three buttons pass isolated press/release tests. A user-triggered local
 Wi-Fi setup now verifies association and DHCP through official WiFiNINA 3.3.0,
 while USB arithmetic, saved program CRCs and reconnect remain intact.
@@ -50,7 +52,7 @@ the narrower measured scope for each feature.
 | 8 MiB PSRAM | Shared XIP bus, second chip select GPIO47 | No Fruit Jam PSRAM integration; begin with internal SRAM |
 | DVI output | HSTX GPIO12..19 | No matching display driver found in pinned Zephyr; new HSTX/DMA integration needed |
 | TLV320DAC3100 speaker/headphones | I2S data24/MCLK25/BCLK26/WS27; IRQ23; reset22 | Codec driver family exists; no matching RP2350 I2S driver found; audio remains missing/quiet |
-| ESP32-C6 AirLift | SPI1 MISO28/SCK30/MOSI31, CS46, BUSY3, BOOT9/IRQ23, reset22; UART8/9 | Official NINA 3.3.0 restored; version/canonical MAC/status and one user-triggered association/DHCP pass. Sockets, board credential storage and standalone IDE pending |
+| ESP32-C6 AirLift | SPI1 MISO28/SCK30/MOSI31, CS46, BUSY3, BOOT9/IRQ23, reset22; UART8/9 | NINA 3.3.0 restored; identity and association/DHCP pass. Native socket/IDE code compiled; one HTTP response passed, subsequent timeouts leave standalone acceptance pending |
 | Two USB-A ports / CH334F hub | PIO host D+1/D-2, power11; third hub port on header | Generic hub support alone is insufficient; no matching PIO USB host controller found |
 | microSD | SPI0 SCK34/MOSI35/MISO36/CS39, detect33; SDIO37/38 | SPI/FatFS building blocks exist; board integration and bounded read-only acceptance pending |
 | Five NeoPixels | GPIO32 | Dedicated PIO1/base16 driver; five positions, red/green/blue and off confirmed by the user after a brief 8/255 pattern |

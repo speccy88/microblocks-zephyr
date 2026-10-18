@@ -1,0 +1,27 @@
+{
+  "result": "IN_PROGRESS",
+  "checked_utc": "2026-10-18T19:50:45.433473+00:00",
+  "source_commit": "39ef50966df24a028a5c16f943f75f2e9b1dc707",
+  "firmware_elf_sha256": "82a33524f88aa119c7b65f72342013bf0eedc335968d0a2c3324dbe4941be931",
+  "last_confirmed_ip": "192.168.1.7",
+  "current_association": "Cleared by explicit C6 recovery reset; awaiting human-controlled local Connect action",
+  "compiled": true,
+  "installed_verified": true,
+  "native_http_first_status_response": "PASS on prior source 163ea8c",
+  "standalone_graphical_ide": "NOT_VERIFIED",
+  "websocket_physical_acceptance": "PENDING",
+  "protocol_harness_checks": 2303,
+  "offline_validation_tests": 17,
+  "cpu_heavy_build_active": false,
+  "active_flash_or_debug_operation": false,
+  "gpu_access": false,
+  "host_usb_bridge": "Verified task-local port 8768 process stopped",
+  "pending_action": {
+    "target": "Identified Fruit Jam COM8, USB serial E46570978F1E5A34",
+    "action": "Human clicks Connect in the new local Fruit Jam Wi-Fi GUI",
+    "reason": "Parent instruction requires vault retrieval/final transmission inside an explicit human local action; C6 recovery reset cleared association",
+    "status": "pending, not denied"
+  },
+  "private_material_published": false,
+  "credentials_automatically_read_or_replayed": false
+}

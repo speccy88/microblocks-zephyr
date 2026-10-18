@@ -140,8 +140,10 @@ The user explicitly clicked Connect in the local GUI. NINA 3.3.0 reached
 connection status 3 and assigned `192.168.1.7`, with netmask/gateway reported
 and no static-IP command. Seven USB arithmetic checks, saved program CRCs and
 reconnect passed. See [the setup checkpoint](FRUIT_JAM_WIFI_SETUP.md) and its
-sanitized receipt. TCP socket service and the standalone IDE are still pending;
-no HTTP endpoint is claimed at that IP. No boot-time credential replay/storage
+sanitized receipt. TCP socket and real IDE code now compile and are installed,
+with one HTTP status response passing but later connection timeouts unresolved;
+see [the native service checkpoint](FRUIT_JAM_NATIVE_IDE.md). No working IDE
+endpoint is claimed at that IP. No boot-time credential replay/storage
 is implemented yet.
 
 ## Next implementation contract: native HTTP/WebSocket service

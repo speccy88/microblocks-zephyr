@@ -117,24 +117,29 @@
         "rx": 9,
         "boot_mode": 23
       },
-      "upstream_status": "native-spi-association-dhcp-verified-sockets-pending",
-      "smallvm": "user-triggered-wifi-association-dhcp-verified-network-sockets-pending",
+      "upstream_status": "native-association-dhcp-and-network-build-verified-standalone-acceptance-pending",
+      "smallvm": "association-dhcp-verified-first-http-response-pass-websocket-acceptance-pending",
       "physical_tested": true,
       "physical_attempted": true,
       "evidence": [
         "evidence/2026-10-18/fruit-jam/physical-airlift-nina-restoration.json",
         "evidence/2026-10-18/fruit-jam/physical-airlift-after-nina-restore.json",
         "evidence/2026-10-18/fruit-jam/physical-wifi-identification.json",
-        "evidence/2026-10-18/fruit-jam/physical-wifi-association.json"
+        "evidence/2026-10-18/fruit-jam/physical-wifi-association.json",
+        "evidence/2026-10-18/fruit-jam/physical-network-diagnostics-installation.json",
+        "evidence/2026-10-18/fruit-jam/physical-network-diagnostics-identification.json",
+        "evidence/2026-10-18/fruit-jam/physical-network-coprocessor-recovery.json"
       ],
-      "limitations": "Firmware identity, canonical MAC and one user-triggered association/IP assignment verified with USB/CRC/reconnect preserved. Sockets, standalone IDE, cold-boot reconnect and physical failure-path tests pending.",
+      "limitations": "One user-triggered association/IP assignment and initial HTTP status response verified. Later network connections timed out despite live SPI/association. C6 reset completed; user-controlled reassociation and full standalone/boot recovery acceptance pending. No automatic credential replay.",
       "identification_physically_verified": true,
       "coprocessor_firmware": "NINA_ADAFRUIT-fruitjam_c6-3.3.0",
       "wifi_setup_compiled": true,
       "wifi_setup_status": "Source 95c4b70 compiled, installed and physically verified for association and DHCP; board storage and sockets pending",
       "association_physically_verified": true,
       "dhcp_physically_verified": true,
-      "mac_format_physically_verified": true
+      "mac_format_physically_verified": true,
+      "network_server_compiled": true,
+      "network_server_status": "147 real IDE assets and bounded HTTP/WebSocket code compiled/installed; standalone physical acceptance pending"
     },
     {
       "id": "usb_host",
