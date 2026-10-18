@@ -33,6 +33,7 @@ static struct {
     char version[32],mac[18];
     uint8_t ip[4],netmask[4],gateway[4];
 } report;
+static unsigned stale_error_recoveries;
 static struct { uint8_t ssid[32],key[64]; size_t sn,kn; } pending;
 
 static int wait_busy(int level)
@@ -79,9 +80,25 @@ static int exchange_unlocked(uint8_t command,uint8_t *frame,size_t count,
     if(!err){
         const struct spi_buf buffer={.buf=frame,.len=count};
         const struct spi_buf_set buffers={.buffers=&buffer,.count=1};
-        err=spi_write(bus,&config,&buffers);
+        uint8_t observed[4]={0};
+        bool version_probe=command==0x37&&count==4;
+        if(version_probe){
+            struct spi_buf receive={.buf=observed,.len=sizeof(observed)};
+            const struct spi_buf_set receives={.buffers=&receive,.count=1};
+            err=spi_transceive(bus,&config,&buffers,&receives);
+        }else err=spi_write(bus,&config,&buffers);
         int released=gpio_pin_set_dt(&cs,0);
         if(!err)err=released;
+        /* Only a read-only version probe may recover an exact stale error
+         * reply consumed during its request. No write or join is replayed. */
+        if(!err&&version_probe&&!memcmp(observed,(uint8_t[]){0xef,0,0xee,0},4)){
+            ++stale_error_recoveries;
+            err=select_device();
+            if(!err){
+                err=spi_write(bus,&config,&buffers);
+                released=gpio_pin_set_dt(&cs,0);if(!err)err=released;
+            }
+        }
     }
     /* A connect frame never survives the write or any error. */
     fj_secure_clear(frame,count);
@@ -245,8 +262,10 @@ static void diagnostic_worker(void *a,void *b,void *c)
         }
         fj_secure_clear(ssid,sizeof(ssid));fj_secure_clear(key,sizeof(key));
         if(connection!=3){memset(ip,0,4);memset(netmask,0,4);memset(gateway,0,4);}
+        k_mutex_lock(&spi_lock,K_FOREVER);
         if(gpio_is_ready_dt(&cs))gpio_pin_set_dt(&cs,0);
         int level=gpio_is_ready_dt(&busy)?gpio_pin_get_dt(&busy):-1;
+        k_mutex_unlock(&spi_lock);
         k_mutex_lock(&state_lock,K_FOREVER);
         report.error=err;report.stage=stage;report.queries=queries;report.connection=connection;report.busy_level=level;
         report.disconnect_reason=reason;report.reason_error=reason_error;
@@ -278,10 +297,10 @@ int fj_airlift_status(char *dst,unsigned size)
     k_mutex_lock(&state_lock,K_FOREVER);
     int n=snprintf(dst,size,
       "{\"setup_protocol\":1,\"state\":%u,\"generation\":%u,\"operation\":%u,\"error\":%d,\"stage\":%d,\"queries\":%u,"
-      "\"version\":\"%s\",\"mac\":\"%s\",\"connection\":%d,\"disconnect_reason\":%d,\"reason_error\":%d,\"busy\":%d,\"reset_requested\":%s,\"spi_hz\":1000000,\"coprocessor_flashed\":false,"
+      "\"version\":\"%s\",\"mac\":\"%s\",\"connection\":%d,\"disconnect_reason\":%d,\"reason_error\":%d,\"spi_resync\":%u,\"busy\":%d,\"reset_requested\":%s,\"spi_hz\":1000000,\"coprocessor_flashed\":false,"
       "\"network_ready\":%s,\"ip\":\"%u.%u.%u.%u\",\"netmask\":\"%u.%u.%u.%u\",\"gateway\":\"%u.%u.%u.%u\"}",
       report.state,report.generation,report.operation,report.error,report.stage,report.queries,report.version,report.mac,
-      report.connection,report.disconnect_reason,report.reason_error,report.busy_level,report.reset_requested?"true":"false",
+      report.connection,report.disconnect_reason,report.reason_error,stale_error_recoveries,report.busy_level,report.reset_requested?"true":"false",
       report.state==3&&report.connection==3&&valid_ip(report.ip)?"true":"false",
       report.ip[0],report.ip[1],report.ip[2],report.ip[3],report.netmask[0],report.netmask[1],report.netmask[2],report.netmask[3],
       report.gateway[0],report.gateway[1],report.gateway[2],report.gateway[3]);

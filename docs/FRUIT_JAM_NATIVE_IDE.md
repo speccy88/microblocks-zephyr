@@ -71,3 +71,24 @@ asset audit; a command ACK alone does not prove the experiment fixed the issue.
 
 References: [NINA 3.3.0 handler](https://github.com/adafruit/nina-fw/blob/3.3.0/main/CommandHandler.cpp)
 and [ESP-IDF 5.3.1 station sleep](https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32c6/api-guides/wifi.html#station-sleep).
+
+## SPI boundary follow-up
+
+The radio-awake source `6109239` passed the complete physical VM acceptance,
+including 50 ordered outputs and USB takeover. The three-worker asset audit
+verified 60/147 assets, then timed out and lost native NINA identification with
+error -5. The first failed asset was `/gp_wasm.data`; no complete graphical
+load is claimed. A subsequent local GUI Connect click was recorded at
+20:13:41 UTC, after SPI errors had already been observed; it failed at the
+version query and cannot be treated as the cause of the earlier failures.
+
+The next source closes an identified mutex gap: the diagnostic worker's final
+CS release and BUSY sample must hold the same SPI mutex as network commands.
+For read-only version identification only, capture the four MISO bytes clocked
+during the request. An exact padded `EF 00 EE 00` stale error reply indicates
+that transaction consumed an earlier error reply instead of submitting the
+query. In that one case submit the non-secret version query once more before
+reading its response. Do not retry writes, joins or credentials. Record the
+number of recovered stale errors without logging frames or credential values.
+This is a bounded phase-recovery experiment, not a claim that the sustained
+transfer fault has been fixed.
