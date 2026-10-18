@@ -1,0 +1,74 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T20:17:08.664606+00:00",
+  "firmware_elf_sha256": "0007891fadf5364436d152bfab04ba7ba0f007c929f77c1676a4695fa628ad90",
+  "checks": {
+    "initial_status": {
+      "setup_protocol": 1,
+      "state": 4,
+      "generation": 4,
+      "operation": 1,
+      "error": -5,
+      "stage": 2,
+      "queries": 0,
+      "version": "",
+      "mac": "",
+      "connection": -1,
+      "disconnect_reason": -1,
+      "reason_error": 0,
+      "busy": 1,
+      "reset_requested": false,
+      "spi_hz": 1000000,
+      "coprocessor_flashed": false,
+      "network_ready": false,
+      "ip": "0.0.0.0",
+      "netmask": "0.0.0.0",
+      "gateway": "0.0.0.0"
+    },
+    "identification_runs": [
+      {
+        "setup_protocol": 1,
+        "state": 4,
+        "generation": 5,
+        "operation": 0,
+        "error": -5,
+        "stage": 2,
+        "queries": 0,
+        "version": "",
+        "mac": "",
+        "connection": -1,
+        "disconnect_reason": -1,
+        "reason_error": 0,
+        "busy": 1,
+        "reset_requested": false,
+        "spi_hz": 1000000,
+        "coprocessor_flashed": false,
+        "network_ready": false,
+        "ip": "0.0.0.0",
+        "netmask": "0.0.0.0",
+        "gateway": "0.0.0.0"
+      }
+    ],
+    "arithmetic_after_queries": 12,
+    "retained_code_crc32": {
+      "0": "297d191b"
+    }
+  },
+  "network_credentials_sent": false,
+  "coprocessor_flashed": false,
+  "external_sensor_access": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "temporary_chunks": [
+    254,
+    253
+  ],
+  "error": "AssertionError: [{'setup_protocol': 1, 'state': 4, 'generation': 5, 'operation': 0, 'error': -5, 'stage': 2, 'queries': 0, 'version': '', 'mac': '', 'connection': -1, 'disconnect_reason': -1, 'reason_error': 0, 'busy': 1, 'reset_requested': False, 'spi_hz': 1000000, 'coprocessor_flashed': False, 'network_ready': False, 'ip': '0.0.0.0', 'netmask': '0.0.0.0', 'gateway': '0.0.0.0'}]",
+  "finished_utc": "2026-10-18T20:17:08.835196+00:00"
+}

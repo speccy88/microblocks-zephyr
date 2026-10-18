@@ -78,7 +78,7 @@ def main():
         vm.close();vm=None;time.sleep(.1)
         vm=NetworkVM(a.host);assert vm.run_reporter(r)==12
         report['checks']['usb_priority_and_return_to_wifi']=True
-        report['result']='PASS'
+        report['phase']='complete';report['result']='PASS'
     except Exception as exc:
         report['error']=type(exc).__name__+': '+str(exc)
         if vm:report['received_vm_events']=[{'kind':k,'index':n,'body_bytes':len(b)} for k,n,b in vm.events]

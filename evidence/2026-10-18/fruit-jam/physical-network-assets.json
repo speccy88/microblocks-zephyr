@@ -1,0 +1,1068 @@
+{
+  "host": "192.168.1.7",
+  "scope": "HTTP asset/content-policy verification; no graphical UI interaction",
+  "workers": 3,
+  "result": "FAIL",
+  "verified_assets": 60,
+  "failed_assets": [
+    {
+      "path": "/gp_wasm.data",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/legacy-zoomOut.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/logo-preloader.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/microblocks-ide-logo.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/mouse-left-button.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/mouse-right-button.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/note-eighth.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/note-half.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/note-quarter.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/note-sixteenth.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/note-whole.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/plus1.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/plus2.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/resize.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/rounded-corner.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/square.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/square11.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/trashcan-dark.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/trashcan-light.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-noise.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-sawtooth.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-sine.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-square.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-triangle.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/lib/usbDfuDevice.js",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/manifest.json",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/menus.js",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/microblocks.html",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/precompiled/buildUniversalHex.js",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/precompiled/package.json",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/precompiled/uf2conv.py",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/precompiled/updatePrecompiled.sh",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_app-preloader.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_buttons.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_categories-libraries.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_ide.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_menus.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_overlay.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_scripts-pane-controls.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_tips.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_top-bar.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_window.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_wysiwyg.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/config/_config.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/generic/_body.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/generic/_button.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/generic/minireset.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/utilities/_drag.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/sw.js",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/apc.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ar.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/ca.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/cs.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/de.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/el.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/en.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/es.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/eu.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/fa.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/fi.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/fr.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/gl.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/he.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/id.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/it.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ja.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/kk.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ko.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/locales.json",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/lt.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/nl.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/pl.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/pt-br.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/pt.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ro.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ru.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/sr.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ta.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/template.pot",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/tr.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/uk.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/uz.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/vi.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/zh-chs.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/zh-cht.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/unoq-network.js",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/windows.js",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    }
+  ],
+  "uncompressed_bytes": 724924,
+  "assets": [
+    {
+      "path": "/FileSaver.js",
+      "bytes": 8584,
+      "sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3",
+      "seconds": 0.156
+    },
+    {
+      "path": "/TODO.md",
+      "bytes": 2256,
+      "sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142",
+      "seconds": 0.234
+    },
+    {
+      "path": "/boardie/README",
+      "bytes": 80,
+      "sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc",
+      "seconds": 0.171
+    },
+    {
+      "path": "/boardie/boardie.js",
+      "bytes": 2632,
+      "sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea",
+      "seconds": 0.109
+    },
+    {
+      "path": "/boardie/styles.css",
+      "bytes": 5173,
+      "sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2",
+      "seconds": 0.157
+    },
+    {
+      "path": "/buttons.js",
+      "bytes": 7305,
+      "sha256": "55fa00d3608d9762c97956b3081099bdf4a6e0c339b6a6fa405be9d67a555d7c",
+      "seconds": 0.172
+    },
+    {
+      "path": "/categories.js",
+      "bytes": 3296,
+      "sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5",
+      "seconds": 0.172
+    },
+    {
+      "path": "/devtools.js",
+      "bytes": 3526,
+      "sha256": "a3352678531252268ce5fc7bf524f160037dec199d98156d18809f56fb88c94e",
+      "seconds": 0.172
+    },
+    {
+      "path": "/emModule.js",
+      "bytes": 3011,
+      "sha256": "daaa269059d81ccc2a1198015b9db58a3b28bf6f7463b79144fb9fc4eebff118",
+      "seconds": 0.156
+    },
+    {
+      "path": "/emscripten.css",
+      "bytes": 1295,
+      "sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98",
+      "seconds": 0.156
+    },
+    {
+      "path": "/favicon.ico",
+      "bytes": 1150,
+      "sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3",
+      "seconds": 0.125
+    },
+    {
+      "path": "/flasher.js",
+      "bytes": 2888,
+      "sha256": "2338545bc2f81bcf0ceacc90d158dd649df4e20269507c561aabf0fe0a5ac663",
+      "seconds": 0.125
+    },
+    {
+      "path": "/gettext.js",
+      "bytes": 3889,
+      "sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "seconds": 0.141
+    },
+    {
+      "path": "/gpSupport.js",
+      "bytes": 42528,
+      "sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c",
+      "seconds": 0.64
+    },
+    {
+      "path": "/gp_wasm.data",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/gp_wasm.js",
+      "bytes": 183716,
+      "sha256": "9791ec38153a9f5790f7026be267e7b80518e841b583e6f902c9ec94851a2510",
+      "seconds": 2.062
+    },
+    {
+      "path": "/gp_wasm.wasm",
+      "bytes": 284918,
+      "sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "seconds": 4.844
+    },
+    {
+      "path": "/graph.js",
+      "bytes": 8030,
+      "sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157",
+      "seconds": 0.282
+    },
+    {
+      "path": "/icons/Bunny192.png",
+      "bytes": 19500,
+      "sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971",
+      "seconds": 0.968
+    },
+    {
+      "path": "/icons/Bunny512.png",
+      "bytes": 72366,
+      "sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1",
+      "seconds": 3.0
+    },
+    {
+      "path": "/ide.js",
+      "bytes": 13358,
+      "sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5",
+      "seconds": 0.297
+    },
+    {
+      "path": "/img/SVGPrepNotes.txt",
+      "bytes": 1555,
+      "sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/big-logo.svg",
+      "bytes": 15505,
+      "sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877",
+      "seconds": 0.328
+    },
+    {
+      "path": "/img/bool_false.svg",
+      "bytes": 518,
+      "sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2",
+      "seconds": 0.141
+    },
+    {
+      "path": "/img/bool_true.svg",
+      "bytes": 523,
+      "sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369",
+      "seconds": 0.125
+    },
+    {
+      "path": "/img/button-down.svg",
+      "bytes": 1302,
+      "sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1",
+      "seconds": 0.188
+    },
+    {
+      "path": "/img/button-left.svg",
+      "bytes": 1300,
+      "sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/button-ok.svg",
+      "bytes": 1151,
+      "sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/button-right.svg",
+      "bytes": 1305,
+      "sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/button-up.svg",
+      "bytes": 1308,
+      "sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c",
+      "seconds": 0.203
+    },
+    {
+      "path": "/img/button-x.svg",
+      "bytes": 893,
+      "sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519",
+      "seconds": 0.14
+    },
+    {
+      "path": "/img/checkmark.svg",
+      "bytes": 541,
+      "sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55",
+      "seconds": 0.157
+    },
+    {
+      "path": "/img/colon-double-slash.svg",
+      "bytes": 851,
+      "sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/double-arrow-v.svg",
+      "bytes": 1040,
+      "sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff",
+      "seconds": 0.14
+    },
+    {
+      "path": "/img/dropdown-arrow.svg",
+      "bytes": 348,
+      "sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-arrow-right--16x16.svg",
+      "bytes": 486,
+      "sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-checkmark--16x16.svg",
+      "bytes": 483,
+      "sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881",
+      "seconds": 0.188
+    },
+    {
+      "path": "/img/icon-close--16x16.svg",
+      "bytes": 618,
+      "sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/icon-close.svg",
+      "bytes": 634,
+      "sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/icon-dropdown--12x6.svg",
+      "bytes": 311,
+      "sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f",
+      "seconds": 0.157
+    },
+    {
+      "path": "/img/icon-file--24x24.svg",
+      "bytes": 387,
+      "sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-gear--24x24.svg",
+      "bytes": 2611,
+      "sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3",
+      "seconds": 0.187
+    },
+    {
+      "path": "/img/icon-globe--24x24.svg",
+      "bytes": 2856,
+      "sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2",
+      "seconds": 0.187
+    },
+    {
+      "path": "/img/icon-graph--16x16.svg",
+      "bytes": 597,
+      "sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-graph.svg",
+      "bytes": 808,
+      "sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe",
+      "seconds": 0.157
+    },
+    {
+      "path": "/img/icon-graph2.svg",
+      "bytes": 769,
+      "sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-plug--16x16.svg",
+      "bytes": 886,
+      "sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-plus--16x16.svg",
+      "bytes": 384,
+      "sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/icon-redo--16x16.svg",
+      "bytes": 750,
+      "sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f",
+      "seconds": 0.171
+    },
+    {
+      "path": "/img/icon-start--24x24.svg",
+      "bytes": 303,
+      "sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-stop--24x24.svg",
+      "bytes": 150,
+      "sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb",
+      "seconds": 0.125
+    },
+    {
+      "path": "/img/icon-undo--16x16.svg",
+      "bytes": 750,
+      "sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/icon-usb.svg",
+      "bytes": 1127,
+      "sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-usb2.svg",
+      "bytes": 1127,
+      "sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782",
+      "seconds": 0.141
+    },
+    {
+      "path": "/img/icon-usb3.svg",
+      "bytes": 1127,
+      "sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2",
+      "seconds": 0.157
+    },
+    {
+      "path": "/img/icon-zoom-in--16x16.svg",
+      "bytes": 1027,
+      "sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/icon-zoom-out--16x16.svg",
+      "bytes": 904,
+      "sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f",
+      "seconds": 0.171
+    },
+    {
+      "path": "/img/icon-zoom-restore--16x16.svg",
+      "bytes": 1099,
+      "sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5",
+      "seconds": 0.187
+    },
+    {
+      "path": "/img/keyboard-light.svg",
+      "bytes": 4028,
+      "sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c",
+      "seconds": 0.157
+    },
+    {
+      "path": "/img/legacy-restoreZoom.svg",
+      "bytes": 1548,
+      "sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a",
+      "seconds": 0.156
+    },
+    {
+      "path": "/img/legacy-zoomIn.svg",
+      "bytes": 1513,
+      "sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4",
+      "seconds": 0.172
+    },
+    {
+      "path": "/img/legacy-zoomOut.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/logo-preloader.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/microblocks-ide-logo.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/mouse-left-button.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/mouse-right-button.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/note-eighth.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/note-half.svg",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/img/note-quarter.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/note-sixteenth.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/note-whole.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/plus1.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/plus2.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/resize.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/rounded-corner.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/square.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/square11.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/trashcan-dark.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/trashcan-light.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-noise.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-sawtooth.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-sine.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-square.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/img/wave-triangle.svg",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/lib/usbDfuDevice.js",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/manifest.json",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "path": "/menus.js",
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "path": "/microblocks.html",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/precompiled/buildUniversalHex.js",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/precompiled/package.json",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/precompiled/uf2conv.py",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/precompiled/updatePrecompiled.sh",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_app-preloader.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_buttons.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_categories-libraries.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_ide.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_menus.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_overlay.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_scripts-pane-controls.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_tips.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_top-bar.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/components/_window.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/components/_wysiwyg.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/config/_config.css",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/styles/generic/_body.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/generic/_button.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/generic/minireset.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/styles/utilities/_drag.css",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/sw.js",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/apc.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ar.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/ca.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/cs.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/de.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/el.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/en.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/es.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/eu.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/fa.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/fi.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/fr.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/gl.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/he.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/id.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/it.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ja.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/kk.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ko.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/locales.json",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/lt.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/nl.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/pl.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/pt-br.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/pt.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ro.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ru.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/sr.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/ta.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/template.pot",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/tr.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/uk.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/uz.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/vi.po",
+      "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host"
+    },
+    {
+      "path": "/translations/zh-chs.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/translations/zh-cht.po",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/unoq-network.js",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    },
+    {
+      "path": "/windows.js",
+      "error": "URLError: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+    }
+  ]
+}

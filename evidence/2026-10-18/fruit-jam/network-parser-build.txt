@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "checks": 2303,
+  "checks": 2308,
   "scope": "Real C HTTP/WebSocket/SPI framing with simulated streams; no hardware",
   "command": [
     "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang",
@@ -15,11 +15,11 @@
     "-Wl,-z,stack-size=65536",
     "-Wl,--max-memory=1048576",
     "-o",
-    "/tmp/fruitjam-network-tevqtz_j/test.wasm"
+    "/tmp/fruitjam-network-bszbcfgf/test.wasm"
   ],
   "source_sha256": {
     "boards/adafruit_fruit_jam/smallvm/src/http_protocol.c": "dad4eea6de683fda59016f7c8818d0eb635c0deed2acc2e87ea656204e05e0fa",
-    "boards/adafruit_fruit_jam/smallvm/src/nina_socket_protocol.c": "d2353f3b303bb9adb4d4c7f16431dfb71827c77b08e65ba4138c4215bf962bd1",
-    "tests/fruit_jam_network_protocol.c": "88cbacf969563ecd3e1f72ca5d2a9c01e0d126fa7964b47790c3b85dab9feb7f"
+    "boards/adafruit_fruit_jam/smallvm/src/nina_socket_protocol.c": "76981f17d04cb058781bd0a4218d570fd20edba8732d7cc95bedaa82bd43d44c",
+    "tests/fruit_jam_network_protocol.c": "548fb50baeb96c7473784d7e9821ba94621d89c3a38d855edf59d4613ef2bc4e"
   }
 }

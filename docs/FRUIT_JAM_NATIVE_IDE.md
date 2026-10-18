@@ -4,10 +4,10 @@ The bounded TCP/HTTP/WebSocket implementation and all 147 real MicroBlocks
 2.5.8 assets compile and are installed. **Standalone physical acceptance is
 pending.** The verified graphical baseline remains the earlier local USB bridge.
 
-Installed source: `39ef50966df24a028a5c16f943f75f2e9b1dc707`.
-ELF SHA256: `82a33524f88aa119c7b65f72342013bf0eedc335968d0a2c3324dbe4941be931`.
-Link allocation is 3,625,484 bytes of the existing 4 MiB app partition and
-253,768 bytes of internal RAM. PSRAM is not mapped. Verified, patched editor
+Installed source: `aa63f967d3287c3f21f4caba75a78a05fc83d19c`.
+ELF SHA256: `a478dabe703ec416e57785c199f8f143bc028ccdf01e123359e6dfc7335f0c0f`.
+Link allocation is 3,626,292 bytes of the existing 4 MiB app partition and
+253,784 bytes of internal RAM. PSRAM is not mapped. Verified, patched editor
 files occupy 3,510,850 compressed bytes. No ELF segment overlaps VM snapshots.
 
 The server serializes complete SPI command/reply exchanges with diagnostics.
@@ -22,7 +22,7 @@ never credentials. These design properties still need full physical acceptance.
 ## Measured results
 
 - Native build and ARM Secure ELF/UF2/load-bound inspection: PASS.
-- Real C protocol harness: PASS, 2,303 checks, including RFC6455 accept hash,
+- Real C protocol harness: PASS, 2,308 checks, including RFC6455 accept hash,
   request validation, every TCP split of a maximum frame, malformed lengths,
   SPI bounds/guard bytes and socket ID limits.
 - Real VM harness: PASS, arithmetic, 50 ordered outputs, fragmentation,
@@ -37,19 +37,27 @@ never credentials. These design properties still need full physical acceptance.
 - Source `39ef509` shows a progressing worker, live listener, no clients and
   no SPI/protocol error while incoming connections time out. This does not
   establish working TCP service or a graphical IDE load.
-- One explicit AirLift/shared-idle-codec reset succeeded without reflashing
-  C6. NINA then reported status 254 and no IP. Reassociation awaits the user's
-  local Connect action; no vault value is read automatically.
+- The explicit 19:47 AirLift recovery reset cleared association. A later
+  explicitly requested retry succeeded at 20:04 without changing program CRCs.
+  No credential replay is scheduled; the delivered GUI requires a local click.
+- With radio sleep disabled, source `6109239` passed physical WebSocket
+  arithmetic/editing, 50 ordered outputs, fragmentation, stop/variable inspection,
+  reconnect, controller exclusivity and USB takeover/return. The original CRCs
+  were restored after temporary test chunks were removed.
+- Source `1c9b3cd` recovered the SPI command/reply boundary twice using read-only
+  version probes, retaining association without C6 reset or credential access.
+- Current source `aa63f96` transferred the complete 2,180,174-byte compressed
+  `/gp_wasm.data` asset in 45.875 seconds. Its decoded 10,895,070 bytes and both
+  SHA256 values match the build manifest. The full 147-file rerun is pending.
 
 The positively identified host USB bridge on `127.0.0.1:8768` was stopped
 before standalone validation. Other boards/ports, sensors, audio output and
 SD writes were not accessed. Exact commands, hashes, resource records and both
 passing and failed physical attempts are under `evidence/2026-10-18/fruit-jam/`.
 
-Next acceptance is network recovery, the 147-asset integrity audit, WebSocket
-arithmetic/editing/50 outputs/stop/variables/fragmentation/reconnect, USB takeover
-and credential-path rejection, followed by the actual graphical editor from
-board flash with the host bridge stopped. Reboot/autostart and automatic Wi-Fi
+Next acceptance is the full 147-asset integrity rerun and a focused WebSocket/USB
+regression on the current source. The actual graphical editor from board flash
+with the host bridge stopped still requires its separate software acceptance. Reboot/autostart and automatic Wi-Fi
 boot recovery remain separate. No board credential storage or vault replay is enabled.
 
 ## Radio-awake recovery experiment

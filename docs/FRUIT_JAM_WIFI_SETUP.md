@@ -3,9 +3,9 @@
 The user controls the final submission in a local masked interface. Saving a
 Windows credential is a separate action from sending it to the positively
 identified Fruit Jam. Do not read the vault password from an agent command.
-The local GUI may access the selected vault entry only inside the user's
-explicit target-specific Connect action, after verifying USB identity and the
-board setup protocol. It never returns a password to chat, CLI arguments,
+The delivered local GUI may access the selected vault entry only inside the
+user's explicit target-specific Connect action, after verifying USB identity
+and the board setup protocol. It never returns a password to chat, CLI arguments,
 diagnostic files, VM bytecode or program snapshots.
 
 This stage adds association and DHCP only, using the restored official NINA
@@ -81,3 +81,22 @@ This is one successful physical association. Wrong-password/timeouts have not
 been physically exercised. Board credential storage, automatic boot reconnect,
 TCP/HTTP/WebSocket and the standalone IDE remain pending. The assigned IP is
 not yet an IDE URL. The C6 firmware was not flashed or reset during setup.
+
+## Explicit retry, 2026-10-18 20:04 UTC
+
+A later local Connect attempt failed with bounded status 4/error -13 and no IP.
+The user then explicitly requested another attempt. Source `91fd2fc` installed
+with verified ELF `1bf9eff3777d19e26d64d3876bab953f06aecc83341ca55051f92f8b84588d6f`
+exposes the non-secret historical disconnect reason (202). The one requested
+retry succeeded in about 2.2 seconds with IP `192.168.1.7`, live connection 3,
+four arithmetic checks, unchanged program CRCs and USB reconnect. The receipt
+correctly records an explicit user request, not a physical button click. No
+credential value is included. Reason 202 remains historical while connected;
+it does not contradict the newly measured association.
+
+See [retry receipt](../evidence/2026-10-18/fruit-jam/physical-network-explicit-retry.json)
+and [native service status](FRUIT_JAM_NATIVE_IDE.md). The delivered helper retains physical-click handoff only; the one direct
+requested attempt was a session-specific authorized action. It creates an
+immutable timestamped receipt for each future click as well as the latest
+status file, so another click cannot erase earlier outcome evidence. No further
+credential attempt is scheduled or replayed while the user is away.

@@ -143,7 +143,11 @@ def main():
             receipt['finished_utc']=datetime.now(timezone.utc).isoformat()
             try:
                 args.receipt.parent.mkdir(parents=True,exist_ok=True)
-                args.receipt.write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
+                attempt_stamp=datetime.fromisoformat(receipt['started_utc']).strftime('%Y%m%dT%H%M%S%fZ')
+                attempt_path=args.receipt.with_name(args.receipt.stem+'-'+attempt_stamp+args.receipt.suffix)
+                with attempt_path.open('x',encoding='utf-8',newline='\n') as attempt:
+                    attempt.write(json.dumps(receipt,indent=2)+'\n')
+                args.receipt.write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8',newline='\n')
             except Exception:events.put('Le reçu local n’a pas pu être écrit ; garde cette fenêtre ouverte.')
             events.put(None)
     def connect():

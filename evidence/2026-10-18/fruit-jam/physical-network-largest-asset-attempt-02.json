@@ -1,0 +1,22 @@
+{
+  "host": "192.168.1.7",
+  "scope": "HTTP asset/content-policy verification; no graphical UI interaction",
+  "workers": 1,
+  "max_failures": 1,
+  "result": "FAIL",
+  "verified_assets": 0,
+  "failed_assets": [
+    {
+      "path": "/gp_wasm.data",
+      "error": "TimeoutError: timed out"
+    }
+  ],
+  "skipped_assets": [],
+  "uncompressed_bytes": 0,
+  "assets": [
+    {
+      "path": "/gp_wasm.data",
+      "error": "TimeoutError: timed out"
+    }
+  ]
+}

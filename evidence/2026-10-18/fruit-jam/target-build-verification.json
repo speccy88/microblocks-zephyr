@@ -1,14 +1,14 @@
 {
   "result": "PASS",
-  "compiled_source_commit": "39ef50966df24a028a5c16f943f75f2e9b1dc707",
+  "compiled_source_commit": "aa63f967d3287c3f21f4caba75a78a05fc83d19c",
   "source_sha256": {
     "boards/adafruit_fruit_jam/smallvm/app.overlay": "b3ea7cab4e9345dd8c1d390c7ff37edae594e2ad4e5eacb52f6a735a5aa2e473",
     "boards/adafruit_fruit_jam/smallvm/CMakeLists.txt": "1943171b3dc922f5335f0aa4c77271d272752148076e2b9fbe6f376fcc724c14",
     "boards/adafruit_fruit_jam/smallvm/prj.conf": "713c27b1c3440919ca008ca9fd14c26b91167ae371335af769d6aa2988804120",
-    "boards/adafruit_fruit_jam/smallvm/src/airlift.c": "a37a118917491aa4c9827afad5dfda91273e0a909dc7605518b8631fdf09148b",
-    "boards/adafruit_fruit_jam/smallvm/src/airlift.h": "6ea7749a3407af4b55556d39a4a97adf4935c1da095bbcdb009afd53d9fa47ed",
-    "boards/adafruit_fruit_jam/smallvm/src/airlift_socket.c": "057d7525263ba548854277645929638e9416c953bd8d249314bec71ab2c8f64b",
-    "boards/adafruit_fruit_jam/smallvm/src/airlift_socket.h": "355b4e8a546be6658343949e1e968b5b497c087f3873169693fda9ab5e07dbb0",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift.c": "15173d3c9824cc795296c1bbc8aa4fd3f725716e54a53dceb277e00da3e2aa89",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift.h": "f48a36d32e9a936119eaae8853e9a4a724108c912433f1da0504dc45ee863452",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift_socket.c": "9310354cfada0d6e39b172cc6a509862575b925ead0c8b60a9b502bdee2a8c11",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift_socket.h": "ac82eaf341189f1b0e0f2e392ad69a9ee23fbdc39a0dd05f54dfd4398dd087c6",
     "boards/adafruit_fruit_jam/smallvm/src/fruit_jam.h": "25c4a9e47857df3d42d6c0825930ebbb5ed87dbb8958f03bdb6758d17a09c2a5",
     "boards/adafruit_fruit_jam/smallvm/src/generic_io.h": "2d7b658e9b9689d3f783611e817f06739c1b762e7b1c70c717b274d4af1dc97b",
     "boards/adafruit_fruit_jam/smallvm/src/generic_primitives.c": "5b2093560f381305d50de27e7c9b856eba4846bad9e7a5e0b00a375d662d7a3f",
@@ -16,12 +16,12 @@
     "boards/adafruit_fruit_jam/smallvm/src/http_protocol.h": "f57b2c9324e392eb846cecd7ff6f6d8dab0d106ab6a4b2d15c24c0d9013264f6",
     "boards/adafruit_fruit_jam/smallvm/src/io.cpp": "129ee1eff509369f9f6a709b4ea22d388104718ca1117543f8c159220ec16d97",
     "boards/adafruit_fruit_jam/smallvm/src/main.cpp": "47339acb35a555d16eb66a42d6794271e606519de75df5e682fedf8d6d3efc24",
-    "boards/adafruit_fruit_jam/smallvm/src/network_server.c": "27baaca53a46a6576905e07ea092bab4769231faf51c097afff12ca18909a8c4",
+    "boards/adafruit_fruit_jam/smallvm/src/network_server.c": "d4537076c5533ae5f24e412fbc1e7aa7f35e7154bba7b259221727307c113e37",
     "boards/adafruit_fruit_jam/smallvm/src/network_server.h": "d82fc9bee3ccd56a47bc3e9372bbfdde95e6c51323a68ed996568cf574be6ba3",
     "boards/adafruit_fruit_jam/smallvm/src/network_transport.h": "b536bfe13de0d2b8f16b1c277ee15ac8bad1dc51188b998cc27f6e37db8cd534",
-    "boards/adafruit_fruit_jam/smallvm/src/nina_protocol.c": "f628de184565465b0744c6f6972f705c1e7418ee386070260215467c7ee2b83e",
+    "boards/adafruit_fruit_jam/smallvm/src/nina_protocol.c": "f36a6b1649ca98d4c6d306068a154dae6130ecaf2ea9baa5e0d4893c96058293",
     "boards/adafruit_fruit_jam/smallvm/src/nina_protocol.h": "7b6fb2b525fbf65b2337c3c4c4aa6311a69038527afd14d3658aec23ef17ff4d",
-    "boards/adafruit_fruit_jam/smallvm/src/nina_socket_protocol.c": "d2353f3b303bb9adb4d4c7f16431dfb71827c77b08e65ba4138c4215bf962bd1",
+    "boards/adafruit_fruit_jam/smallvm/src/nina_socket_protocol.c": "76981f17d04cb058781bd0a4218d570fd20edba8732d7cc95bedaa82bd43d44c",
     "boards/adafruit_fruit_jam/smallvm/src/nina_socket_protocol.h": "b72b78dc8cf266c2a34b5c360a49a5e9715d0e798aedae400ef5c9e91b50bf12",
     "boards/adafruit_fruit_jam/smallvm/src/pio_pixels.c": "4d160f98d6ba18a03f57100458b0033fb2fff97493f0a09137a4607a32ad241e",
     "boards/adafruit_fruit_jam/smallvm/src/platform.c": "342071f71d8382cfb19cc9b155c7f9799f910ca8b9ee127271b3ce5c5029daa5",
@@ -57,44 +57,44 @@
   "parallel_jobs": 4,
   "artifacts": {
     "zephyr.elf": {
-      "bytes": 5516880,
-      "sha256": "82a33524f88aa119c7b65f72342013bf0eedc335968d0a2c3324dbe4941be931"
+      "bytes": 5521932,
+      "sha256": "a478dabe703ec416e57785c199f8f143bc028ccdf01e123359e6dfc7335f0c0f"
     },
     "zephyr.uf2": {
-      "bytes": 7251456,
-      "sha256": "3f2d7179eb26ae2cf55b08f15dc6dbefd1e95a264b3119262f420999d6682653"
+      "bytes": 7252992,
+      "sha256": "63b626c7f25df138887847fc2aa23ed33d3391dd54b69b0da12bfa75d193cfb1"
     },
     "zephyr.bin": {
-      "bytes": 3625484,
-      "sha256": "3fee3c954639743c93de57c86fab180a20fd94b0494c199c920bc5bfb1c1d045"
+      "bytes": 3626292,
+      "sha256": "66e9c27197663e8595a230ad536695bae60b4d4e8ed0cd2985be29a3ea5b1295"
     }
   },
   "load_segments": [
     {
       "load_address": "0x10000000",
-      "bytes": 3622568
+      "bytes": 3623376
     },
     {
-      "load_address": "0x103746a8",
+      "load_address": "0x103749d0",
       "bytes": 2912
     },
     {
-      "load_address": "0x10375208",
+      "load_address": "0x10375530",
       "bytes": 4
     }
   ],
   "symbols": {
     "main": "0x10000e6d",
     "fruit_jam_status": "0x20018fd8",
-    "fj_airlift_join": "0x10002b95",
-    "fj_airlift_status": "0x10002c35",
-    "fj_wifi_decode": "0x10002db5",
-    "fruit_jam_network_started": "0x20019108",
-    "fj_web_assets": "0x10018064",
-    "fj_web_asset_count": "0x10018060"
+    "fj_airlift_join": "0x10002d75",
+    "fj_airlift_status": "0x10002e15",
+    "fj_wifi_decode": "0x10002fad",
+    "fruit_jam_network_started": "0x20019118",
+    "fj_web_assets": "0x10018304",
+    "fj_web_asset_count": "0x10018300"
   },
-  "linker_flash_bytes": 3625484,
-  "linker_ram_bytes": 253768,
+  "linker_flash_bytes": 3626292,
+  "linker_ram_bytes": 253784,
   "elf_picotool_info": "PASS",
   "uf2_picotool_info": "PASS",
   "load_segments_exclude_program_store": true,

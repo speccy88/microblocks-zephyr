@@ -1,27 +1,28 @@
 {
   "result": "IN_PROGRESS",
-  "checked_utc": "2026-10-18T19:50:45.433473+00:00",
-  "source_commit": "39ef50966df24a028a5c16f943f75f2e9b1dc707",
-  "firmware_elf_sha256": "82a33524f88aa119c7b65f72342013bf0eedc335968d0a2c3324dbe4941be931",
+  "checked_utc": "2026-10-18T20:30:10.080565+00:00",
+  "source_commit": "aa63f967d3287c3f21f4caba75a78a05fc83d19c",
+  "firmware_elf_sha256": "a478dabe703ec416e57785c199f8f143bc028ccdf01e123359e6dfc7335f0c0f",
   "last_confirmed_ip": "192.168.1.7",
-  "current_association": "Cleared by explicit C6 recovery reset; awaiting human-controlled local Connect action",
+  "current_association": "Verified connected3 / IP192.168.1.7 in three live non-reset cycles at20:28:16UTC",
   "compiled": true,
   "installed_verified": true,
-  "native_http_first_status_response": "PASS on prior source 163ea8c",
+  "native_http_first_status_response": "PASS; current largest real IDE asset complete and hash-verified",
   "standalone_graphical_ide": "NOT_VERIFIED",
-  "websocket_physical_acceptance": "PENDING",
-  "protocol_harness_checks": 2303,
+  "websocket_physical_acceptance": "Full sequence PASS on source6109239; focused current-source regression pending",
+  "protocol_harness_checks": 2308,
   "offline_validation_tests": 17,
   "cpu_heavy_build_active": false,
   "active_flash_or_debug_operation": false,
   "gpu_access": false,
   "host_usb_bridge": "Verified task-local port 8768 process stopped",
   "pending_action": {
-    "target": "Identified Fruit Jam COM8, USB serial E46570978F1E5A34",
-    "action": "Human clicks Connect in the new local Fruit Jam Wi-Fi GUI",
-    "reason": "Parent instruction requires vault retrieval/final transmission inside an explicit human local action; C6 recovery reset cleared association",
-    "status": "pending, not denied"
+    "target": "Identified Fruit Jam192.168.1.7 / COM8 serialE46570978F1E5A34",
+    "action": "Automatic bounded147-file integrity rerun, then focused WebSocket/USB regression",
+    "reason": "Largest-asset fix passed; full current-source sustained acceptance pending",
+    "status": "running; no user action or approval pending"
   },
   "private_material_published": false,
-  "credentials_automatically_read_or_replayed": false
+  "credentials_automatically_read_or_replayed": false,
+  "largest_asset_verified_bytes": 2180174
 }

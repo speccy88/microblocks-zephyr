@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "scope": "Authorized native native HTTP/WebSocket IDE image SWD installation and USB/current-program regression",
+  "checked_utc": "2026-10-18T20:01:46.077494+00:00",
+  "source_commit": "91fd2fc538d40d44ecb0f37939afe53a7b34bc8f",
+  "firmware_elf_sha256": "1bf9eff3777d19e26d64d3876bab953f06aecc83341ca55051f92f8b84588d6f",
+  "programming_verified": true,
+  "cold_reset_completed": true,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "code_crc32": {
+    "0": "297d191b"
+  },
+  "arithmetic": 12,
+  "vmstore_private_backup_sha256": "e64f611f9d8b62a030c8bed4e70c29e6f267cb380d75b73fed0098b7c706c56e",
+  "coprocessor_flashed": false,
+  "credentials_sent": false,
+  "sht4x_access": false,
+  "association_verified": false
+}

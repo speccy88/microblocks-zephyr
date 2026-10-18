@@ -7,6 +7,7 @@ import gzip
 import hashlib
 import json
 import time
+import threading
 from pathlib import Path
 import urllib.parse
 import urllib.request
@@ -16,7 +17,9 @@ parser.add_argument('--host',required=True)
 parser.add_argument('--manifest',type=Path,required=True)
 parser.add_argument('--evidence',type=Path,required=True)
 parser.add_argument('--workers',type=int,default=4)
+parser.add_argument('--max-failures',type=int,default=0,help='Stop scheduling reads after this many failures; zero checks every asset')
 args=parser.parse_args()
+if args.workers<1 or args.max_failures<0:parser.error("workers must be positive and max-failures nonnegative")
 manifest=json.loads(args.manifest.read_text())
 base='http://'+args.host
 
@@ -38,10 +41,17 @@ def verify(asset):
         'seconds':round(time.monotonic()-started,3)}
 
 report={'host':args.host,'scope':'HTTP asset/content-policy verification; no graphical UI interaction',
-    'workers':args.workers,'result':'FAIL'}
+    'workers':args.workers,'max_failures':args.max_failures,'result':'FAIL'}
+stop=threading.Event();failure_lock=threading.Lock();failure_count=0
 def checked(asset):
+    global failure_count
+    if stop.is_set():return {'path':asset['path'],'skipped_reason':'Bounded failure threshold reached'}
     try:return verify(asset)
-    except Exception as exc:return {'path':asset['path'],'error':type(exc).__name__+': '+str(exc)}
+    except Exception as exc:
+        with failure_lock:
+            failure_count+=1
+            if args.max_failures and failure_count>=args.max_failures:stop.set()
+        return {'path':asset['path'],'error':type(exc).__name__+': '+str(exc)}
 try:
     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
     until=time.monotonic()+30
@@ -54,7 +64,8 @@ try:
             time.sleep(.5)
     with ThreadPoolExecutor(max_workers=args.workers) as pool:results=list(pool.map(checked,manifest['assets']))
     failed=[x for x in results if 'error' in x]
-    report.update(result='FAIL' if failed else 'PASS',verified_assets=len(results)-len(failed),failed_assets=failed,
+    skipped=[x for x in results if 'skipped_reason' in x]
+    report.update(result='FAIL' if failed or skipped else 'PASS',verified_assets=len(results)-len(failed)-len(skipped),failed_assets=failed,skipped_assets=skipped,
         uncompressed_bytes=sum(x.get('bytes',0) for x in results),assets=results)
 finally:
     args.evidence.parent.mkdir(parents=True,exist_ok=True)

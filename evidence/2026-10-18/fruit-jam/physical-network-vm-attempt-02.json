@@ -1,0 +1,66 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T20:05:10.977080+00:00",
+  "host": "192.168.1.7",
+  "checks": {
+    "initial_http_status": {
+      "board": "Adafruit Fruit Jam",
+      "vm": 417,
+      "ide": "2.5.8",
+      "saved_generation": 32,
+      "network": {
+        "listener": 0,
+        "port": 80,
+        "accepted": 1,
+        "completed": 0,
+        "aborted": 0,
+        "sessions": 0,
+        "ws_errors": 0,
+        "last_error": 0,
+        "chunk_bytes": 2048
+      },
+      "airlift": {
+        "setup_protocol": 1,
+        "state": 3,
+        "generation": 4,
+        "operation": 1,
+        "error": 0,
+        "stage": 7,
+        "queries": 13,
+        "version": "3.3.0",
+        "mac": "58:e6:c5:f5:a3:58",
+        "connection": 3,
+        "disconnect_reason": 202,
+        "reason_error": 0,
+        "busy": 1,
+        "reset_requested": false,
+        "spi_hz": 1000000,
+        "coprocessor_flashed": false,
+        "network_ready": true,
+        "ip": "192.168.1.7",
+        "netmask": "255.255.255.0",
+        "gateway": "192.168.1.1"
+      }
+    },
+    "cleanup_original_code_crc32": {
+      "0": "297d191b"
+    },
+    "cleanup_usb_arithmetic": 12
+  },
+  "credentials_read": false,
+  "coprocessor_reset": false,
+  "hardware_outputs": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "error": "TimeoutError: Expected VM response was not received",
+  "finished_utc": "2026-10-18T20:05:19.164418+00:00",
+  "source_commit": "91fd2fc538d40d44ecb0f37939afe53a7b34bc8f",
+  "firmware_elf_sha256": "1bf9eff3777d19e26d64d3876bab953f06aecc83341ca55051f92f8b84588d6f",
+  "failure_location_inference": "NetworkVM constructor completed ready handshake; next all-CRC response wait timed out, before test chunk upload."
+}

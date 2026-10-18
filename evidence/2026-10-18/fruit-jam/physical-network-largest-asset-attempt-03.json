@@ -1,0 +1,56 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T20:28:17.445024+00:00",
+  "host": "192.168.1.7",
+  "path": "/gp_wasm.data",
+  "firmware_elf_sha256": "a478dabe703ec416e57785c199f8f143bc028ccdf01e123359e6dfc7335f0c0f",
+  "credentials_read": false,
+  "coprocessor_reset": false,
+  "scope": "Streamed real IDE data integrity and bounded progress; no graphical acceptance",
+  "wire_bytes": 2180174,
+  "decoded_bytes": 10895070,
+  "progress": [
+    {
+      "seconds": 0.14,
+      "wire_bytes": 1440
+    },
+    {
+      "seconds": 6.578,
+      "wire_bytes": 263584
+    },
+    {
+      "seconds": 11.375,
+      "wire_bytes": 528224
+    },
+    {
+      "seconds": 19.531,
+      "wire_bytes": 790528
+    },
+    {
+      "seconds": 24.234,
+      "wire_bytes": 1052672
+    },
+    {
+      "seconds": 28.968,
+      "wire_bytes": 1314816
+    },
+    {
+      "seconds": 33.687,
+      "wire_bytes": 1576960
+    },
+    {
+      "seconds": 39.718,
+      "wire_bytes": 1839104
+    },
+    {
+      "seconds": 44.437,
+      "wire_bytes": 2101248
+    }
+  ],
+  "deadline_seconds": 180,
+  "headers_seconds": 0.125,
+  "elapsed_seconds": 45.875,
+  "finished_utc": "2026-10-18T20:29:03.325967+00:00",
+  "decoded_sha256": "fd0f0a11b778956964e02dcd82937c216725aa52c176398018ac87198036aeaa",
+  "wire_sha256": "b3d75a270cd04289038ca199e7d510ca8aadd1b073765331fbcbce325ca0fd2b"
+}
