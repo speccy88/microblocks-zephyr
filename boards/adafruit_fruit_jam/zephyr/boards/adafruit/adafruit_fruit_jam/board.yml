@@ -1,0 +1,6 @@
+board:
+  name: adafruit_fruit_jam
+  full_name: Adafruit Fruit Jam (experimental MicroBlocks port)
+  vendor: adafruit
+  socs:
+  - name: rp2350b

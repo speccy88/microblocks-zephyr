@@ -4,8 +4,7 @@
   "soc": "RP2350B",
   "flash_mib": 16,
   "psram_mib": 8,
-  "phase": "specification-and-programming-preparation",
-  "target_firmware_implemented": false,
+  "phase": "initial-target-source-awaiting-cross-build",
   "target_firmware_cross_built": false,
   "physical_hardware_available": false,
   "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
@@ -52,7 +51,7 @@
       "hardware": "Native USB-C / ROM boot",
       "pins": {},
       "upstream_status": "usb-device-cdc-available",
-      "smallvm": "not-yet-implemented",
+      "smallvm": "source-implemented-not-cross-built",
       "physical_tested": false
     },
     {
@@ -164,7 +163,7 @@
         "button3": 5
       },
       "upstream_status": "gpio-driver-present",
-      "smallvm": "not-yet-implemented",
+      "smallvm": "source-implemented-not-cross-built",
       "physical_tested": false
     },
     {
@@ -185,7 +184,7 @@
         "scl": 21
       },
       "upstream_status": "i2c-driver-present",
-      "smallvm": "not-yet-implemented",
+      "smallvm": "source-implemented-not-cross-built",
       "physical_tested": false
     },
     {
@@ -205,7 +204,7 @@
         ]
       },
       "upstream_status": "gpio-adc-pwm-drivers-present-variant-pending",
-      "smallvm": "not-yet-implemented",
+      "smallvm": "source-implemented-not-cross-built",
       "physical_tested": false
     },
     {
@@ -216,5 +215,40 @@
       "smallvm": "not-yet-implemented",
       "physical_tested": false
     }
-  ]
+  ],
+  "target_firmware_scope": "Initial source only: USB SmallVM, safe extension IO, I2C, buttons and snapshot store; incomplete peripheral coverage",
+  "zephyr_target": "adafruit_fruit_jam/rp2350b/m33_0",
+  "digital_gpio": [
+    6,
+    7,
+    10,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45
+  ],
+  "pwm_channels": [
+    6,
+    7,
+    10,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "program_store": {
+    "offset": 16515072,
+    "size": 262144,
+    "slots": 2,
+    "slot_size": 131072,
+    "payload_offset": 4096,
+    "ram_code_bytes": 65536,
+    "physical_tested": false
+  },
+  "pcb_sha256": "8a1a3516c733ada622ffdd433316ae133ecd4fcafa833b56a7019159a7dfec08",
+  "target_firmware_source_present": true
 }

@@ -1,0 +1,76 @@
+{
+  "result": "PASS",
+  "scope": "Source schematic/PCB connectivity only",
+  "schematic_commit": "252dc09456ee447b3d7eeb4fa99877898503e81a",
+  "sha256": {
+    "schematic": "ee1307b16e89ca980e2cf746a568c92f39f9f43d09678f2293b28b72a34c0e6d",
+    "pcb": "8a1a3516c733ada622ffdd433316ae133ecd4fcafa833b56a7019159a7dfec08"
+  },
+  "debug_symbol_pins": {
+    "1": "SWCLK",
+    "2": "GND",
+    "3": "SWDIO"
+  },
+  "debug_physical_pads": {
+    "1": "SWCLK",
+    "2": "GND",
+    "3": "SWDIO"
+  },
+  "main_reset": "JP3 pad26 / RP2350 RUN",
+  "unused_psram_cs_pullup": "R6 to 3.3V; no need to drive GPIO47 while PSRAM is unused",
+  "extension_gpio_header": {
+    "43": {
+      "net": "A3",
+      "JP3_pads": [
+        21
+      ]
+    },
+    "42": {
+      "net": "A2",
+      "JP3_pads": [
+        23
+      ]
+    },
+    "41": {
+      "net": "A1",
+      "JP3_pads": [
+        25
+      ]
+    },
+    "7": {
+      "net": "D7",
+      "JP3_pads": [
+        13
+      ]
+    },
+    "6": {
+      "net": "D6",
+      "JP3_pads": [
+        15
+      ]
+    },
+    "44": {
+      "net": "A4",
+      "JP3_pads": [
+        19
+      ]
+    },
+    "45": {
+      "net": "A5",
+      "JP3_pads": [
+        17
+      ]
+    },
+    "10": {
+      "net": "D10",
+      "JP3_pads": [
+        7
+      ]
+    },
+    "40": {
+      "net": "A0",
+      "JP3_pads": []
+    }
+  },
+  "physical_tested": false
+}

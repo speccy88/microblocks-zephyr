@@ -13,7 +13,7 @@ def replace_once(text, old, new):
     return text.replace(old, new, 1)
 
 
-def prepare(source, output):
+def prepare(source, output, strict_digital_arity=False):
     manifest = json.loads((source / "provenance.json").read_text())
     if manifest["canonical_commit"] != "2071df569623ba9cdcd6f8106b61796e047df38b":
         raise ValueError("Only the reviewed v417 source revision is supported")
@@ -35,9 +35,12 @@ def prepare(source, output):
     text = replace_once(text, "\tif (errorCode) goto error; \\\n", "\tif (errorCode) goto error; \\\n\tif (!instructionBudget--) goto suspend; \\\n")
     text = replace_once(text, "static void runTask(Task *task) {", "static void runTask(Task *task) {\n\tunsigned instructionBudget = 256;")
     # Native fixed-pointer I/O adapters must never see a malformed short stack.
-    for opcode, condition in (("i2cSet", "arg != 3"), ("i2cGet", "arg != 2"),
+    arity_guards = [("i2cSet", "arg != 3"), ("i2cGet", "arg != 2"),
             ("spiSend", "arg != 1"), ("spiRecv", "arg != 0"),
-            ("analogWrite", "arg != 2"), ("analogRead", "arg < 1 || arg > 2")):
+            ("analogWrite", "arg != 2"), ("analogRead", "arg < 1 || arg > 2")]
+    if strict_digital_arity:
+        arity_guards += [("digitalWrite", "arg != 2"), ("digitalRead", "arg < 1 || arg > 2")]
+    for opcode, condition in arity_guards:
         anchor = "\t" + opcode + "_op:\n"
         text = replace_once(text, anchor, anchor +
             "\t\tif (" + condition + ") { fail(notEnoughArguments); goto error; }\n")
@@ -106,5 +109,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--strict-digital-arity", action="store_true",
+                        help="Guard Fruit Jam native digital adapters before reading stack arguments")
     args = parser.parse_args()
-    prepare(args.source.resolve(), args.output.resolve())
+    prepare(args.source.resolve(), args.output.resolve(), args.strict_digital_arity)

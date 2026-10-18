@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+if BOARD_ADAFRUIT_FRUIT_JAM
+config USB_SELF_POWERED
+	default n
+endif

@@ -1,0 +1,39 @@
+/* SPDX-License-Identifier: MIT */
+#include <zephyr/dt-bindings/adc/adc.h>
+#include <zephyr/dt-bindings/pwm/pwm.h>
+/ {
+	zephyr,user {
+		/* Safe extension D0..D8. High-bank GPIO40..45 use port-relative 8..13. */
+		digital-pin-gpios = <&gpio0 6 0>, <&gpio0 7 0>, <&gpio0 10 0>,
+			<&gpio0_hi 8 0>, <&gpio0_hi 9 0>, <&gpio0_hi 10 0>,
+			<&gpio0_hi 11 0>, <&gpio0_hi 12 0>, <&gpio0_hi 13 0>;
+		adc-pin-gpios = <&gpio0_hi 8 0>, <&gpio0_hi 9 0>, <&gpio0_hi 10 0>,
+			<&gpio0_hi 11 0>, <&gpio0_hi 12 0>, <&gpio0_hi 13 0>;
+		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>, <&adc 4>, <&adc 5>;
+		pwm-pin-gpios = <&gpio0 6 0>, <&gpio0 7 0>, <&gpio0 10 0>,
+			<&gpio0_hi 8 0>, <&gpio0_hi 9 0>, <&gpio0_hi 10 0>,
+			<&gpio0_hi 11 0>, <&gpio0_hi 12 0>, <&gpio0_hi 13 0>;
+		pwms = <&pwm 6 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 7 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 10 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 16 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 17 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 18 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 19 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 20 PWM_USEC(1000) PWM_POLARITY_NORMAL>,
+			<&pwm 21 PWM_USEC(1000) PWM_POLARITY_NORMAL>;
+	};
+};
+&zephyr_udc0 {
+	mb_cdc: mb_cdc { compatible = "zephyr,cdc-acm-uart"; };
+};
+&adc {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	channel@0 { reg = <0>; zephyr,gain = "ADC_GAIN_1"; zephyr,reference = "ADC_REF_VDD_1"; zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>; zephyr,resolution = <12>; };
+	channel@1 { reg = <1>; zephyr,gain = "ADC_GAIN_1"; zephyr,reference = "ADC_REF_VDD_1"; zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>; zephyr,resolution = <12>; };
+	channel@2 { reg = <2>; zephyr,gain = "ADC_GAIN_1"; zephyr,reference = "ADC_REF_VDD_1"; zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>; zephyr,resolution = <12>; };
+	channel@3 { reg = <3>; zephyr,gain = "ADC_GAIN_1"; zephyr,reference = "ADC_REF_VDD_1"; zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>; zephyr,resolution = <12>; };
+	channel@4 { reg = <4>; zephyr,gain = "ADC_GAIN_1"; zephyr,reference = "ADC_REF_VDD_1"; zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>; zephyr,resolution = <12>; };
+	channel@5 { reg = <5>; zephyr,gain = "ADC_GAIN_1"; zephyr,reference = "ADC_REF_VDD_1"; zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>; zephyr,resolution = <12>; };
+};

@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "scope": "Source preparation and Python syntax only; no C/C++ compilation or hardware tests",
+  "verified_smallvm_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "default_prepared_files": 42,
+  "waveshare_default_vm_output_byte_identical": true,
+  "strict_profile_changed_files": [
+    "vm/interp.c"
+  ],
+  "digital_arity_guards_present": true,
+  "cross_compiled": false,
+  "physical_tested": false
+}

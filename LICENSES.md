@@ -29,7 +29,7 @@ preserve its own licensing and attribution when integrated:
 
 - [MicroBlocks SmallVM and GP editor](https://codeberg.org/MicroBlocks/smallvm)
 - [Zephyr RTOS](https://github.com/zephyrproject-rtos/zephyr)
-- [ArduinoCore-Zephyr](https://github.com/arduino/ArduinoCore-zephyr)
+- [Pinned ArduinoCore-Zephyr module](https://github.com/zephyrproject-rtos/arduino-core-zephyr)
 - [BeagleBoard MicroBlocks-Zephyr](https://github.com/beagleboard/microblocks-zephyr)
 - [Waveshare ESP32-S3-RLCD-4.2 examples](https://github.com/waveshareteam/ESP32-S3-RLCD-4.2)
 - [UNO Q MicroBlocks implementation](https://github.com/speccy88/uno-q-microblocks)

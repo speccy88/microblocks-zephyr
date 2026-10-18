@@ -1,8 +1,9 @@
 # Adafruit Fruit Jam target specification
 
 Product 6200: RP2350B, 16 MiB flash, 8 MiB PSRAM. Hardware is unavailable.
-This checkpoint prepares the programming dependency and hardware inventory;
-**the Fruit Jam Zephyr/SmallVM application is not yet implemented or built**.
+The [initial target source](smallvm/README.md) now includes the board definition,
+USB transport, SmallVM, an isolated Arduino variant, extension I/O and program
+snapshots. **The application has not been cross-compiled or physically tested.**
 Do not flash another RP2350 board or either connected Waveshare port as a substitute.
 Waveshare source, installed firmware and evidence remain unchanged.
 
@@ -35,8 +36,8 @@ physical PASS for Fruit Jam. All physical acceptance is pending.
 
 | Hardware | Verified connection/reference | Current software boundary |
 |---|---|---|
-| RP2350B / flash / SWD | Cortex-M33, 16 MiB flash; dedicated JST-SH SWCLK/GND/SWDIO | RP2350B SoC support available; Fruit Jam board/VM build pending |
-| Native USB-C | MCU native USB, device/power/ROM boot | Zephyr USB device/CDC available; first VM transport target |
+| RP2350B / flash / SWD | Cortex-M33, 16 MiB flash; dedicated JST-SH SWCLK/GND/SWDIO | Initial board/VM and separate program-store source added; build pending |
+| Native USB-C | MCU native USB, device/power/ROM boot | Exclusive binary VM CDC transport source added; USB/reconnect acceptance pending |
 | 8 MiB PSRAM | Shared XIP bus, second chip select GPIO47 | No Fruit Jam PSRAM integration; begin with internal SRAM |
 | DVI output | HSTX GPIO12..19 | No matching display driver found in pinned Zephyr; new HSTX/DMA integration needed |
 | TLV320DAC3100 speaker/headphones | I2S data24/MCLK25/BCLK26/WS27; IRQ23; reset22 | Codec driver family exists; no matching RP2350 I2S driver found; audio remains missing/quiet |
@@ -44,10 +45,10 @@ physical PASS for Fruit Jam. All physical acceptance is pending.
 | Two USB-A ports / CH334F hub | PIO host D+1/D-2, power11; third hub port on header | Generic hub support alone is insufficient; no matching PIO USB host controller found |
 | microSD | SPI0 SCK34/MOSI35/MISO36/CS39, detect33; SDIO37/38 | SPI/FatFS building blocks exist; board integration and bounded read-only acceptance pending |
 | Five NeoPixels | GPIO32 | Pico PIO LED-strip driver exists; high-bank/PIO resource integration pending |
-| Three buttons | GPIO0/4/5; button1 also BOOT/ESP boot function | GPIO input driver available; board mapping and VM blocks pending |
+| Three buttons | GPIO0/4/5; button1 also BOOT/ESP boot function | Input-only mapping and VM primitives added in source; uncompiled/untested |
 | Red LED / IR receiver | Shared GPIO29; LED active low | Modes must be mutually exclusive; no IR decoder claimed |
-| STEMMA QT / codec I2C | I2C0 SDA20/SCL21 | Driver available; shared-address ownership and native/bulk adapter pending |
-| Extension / JST-PH analog | GPIO6/7/10; ADC0..5 on GPIO40..45 | GPIO/ADC/PWM drivers available; variant and pin-map tests pending; no general-purpose DAC |
+| STEMMA QT / codec I2C | I2C0 SDA20/SCL21 | Native/bulk adapter source added; shared transaction ownership/physical tests pending |
+| Extension / JST-PH analog | GPIO6/7/10; ADC0..5 on GPIO40..45 | Safe variant and GPIO/ADC/PWM source added; per-pin mux source reviewed, build and physical tests pending; no DAC |
 | Power / reset / debug | On/off switch, USB supply, main RUN separate from GPIO22 | Documented; do not treat power switch as GPIO or periph-reset as MCU reset |
 
 The guide has a contradictory SD detect line (GPIO34, also SD clock). The official
@@ -74,6 +75,10 @@ product revisions use A4. The actual owned board revision must be checked later.
 
 Heavy cross-build work is paused for the separately requested timed GPU benchmark.
 Source/documentation work can continue; no Ollama/GPU process is controlled here.
+The prepared Arduino module is a separate local clone, so the existing Waveshare
+module and its source outputs remain unchanged. See the initial target README
+for exact planned build commands, pin numbers, unsupported features and storage
+boundaries. Source checks do not establish a successful firmware build.
 
 ## Primary references
 

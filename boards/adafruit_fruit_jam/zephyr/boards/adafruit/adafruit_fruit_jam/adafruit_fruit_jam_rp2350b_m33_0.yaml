@@ -1,0 +1,15 @@
+identifier: adafruit_fruit_jam/rp2350b/m33_0
+name: Adafruit Fruit Jam
+type: mcu
+arch: arm
+ram: 520
+flash: 16384
+toolchain:
+  - zephyr
+supported:
+  - gpio
+  - i2c
+  - adc
+  - pwm
+  - usb_device
+vendor: adafruit

@@ -5,7 +5,8 @@ has been flashed, connected, reset or physically tested for this work.
 
 Use permanent SWD wiring for development. Normal updates program the Fruit Jam
 ELF through CMSIS-DAP/OpenOCD, independently of the target's running USB firmware.
-BOOTSEL is only needed once to install the probe firmware on the Pico 2 W.
+BOOTSEL is needed for the initial probe installation on the Pico 2 W. Normal
+Fruit Jam updates then use SWD; fault recovery remains a physical test item.
 
 ## Exact probe support
 
@@ -90,6 +91,12 @@ local build artifacts and are excluded from Git.
 | GND, physical header pin 3 | Pin 2, GND |
 | GP3, physical header pin 5 | Pin 3, SWDIO |
 
+The official schematic's DEBUG symbol pins map one-to-one to the connector's
+physical PCB pads. The PCB signals independently confirm pad1 SWCLK, pad2 GND,
+pad3 SWDIO. Main RUN is JP3 pad26 on the 2x16 socket. The source audit and hashes
+are recorded separately from hardware acceptance; the owned board's revision
+and connector orientation still need checking before wiring.
+
 The Pico's own SWD pads are its debug **input**, not the generated probe outputs.
 Use GP2/GP3 as above. Optional external reset: probe GP1 (physical pin 2) to
 Fruit Jam main `RST` / RP2350 `/RUN` (schematic JP3 pin 26). The upstream probe
@@ -156,6 +163,7 @@ claimed implemented or physically tested.
 - [Reviewed board selector](https://github.com/raspberrypi/debugprobe/blob/262f9625d75a2bad8d76cc228ee5e21ca3a64d3a/include/board_config.h)
 - [Probe output/reset pin configuration](https://github.com/raspberrypi/debugprobe/blob/262f9625d75a2bad8d76cc228ee5e21ca3a64d3a/include/board_pico_config.h)
 - [Pico 2 W SDK board definition](https://github.com/raspberrypi/pico-sdk/blob/2.3.0/src/boards/include/boards/pico2_w.h)
+- [Official Pico 2 W physical pinout](https://datasheets.raspberrypi.com/picow/pico-2-w-pinout.pdf)
 - [Fruit Jam pinout and debug connector](https://learn.adafruit.com/adafruit-fruit-jam/pinout#debug-port)
 - [Official schematic, revision 252dc094](https://github.com/adafruit/Adafruit-Fruit-Jam-PCB/blob/252dc09456ee447b3d7eeb4fa99877898503e81a/Adafruit%20Fruit%20Jam.sch)
 - [RP2350 OpenOCD target and rescue reset](https://github.com/raspberrypi/openocd/blob/master/tcl/target/rp2350.cfg)
