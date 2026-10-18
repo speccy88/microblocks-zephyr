@@ -1,0 +1,44 @@
+{
+  "result": "FAIL",
+  "scope": "Physical input-only press/release of three Fruit Jam buttons",
+  "started_utc": "2026-10-18T18:47:50.359215+00:00",
+  "firmware_elf_sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378",
+  "GPIOs": [
+    0,
+    4,
+    5
+  ],
+  "events": [
+    {
+      "elapsed_ms": 125,
+      "pressed": []
+    }
+  ],
+  "presses": [],
+  "checks": {
+    "initially_released": true,
+    "retained_code_crc32": {
+      "0": "297d191b"
+    },
+    "arithmetic_after": 12
+  },
+  "outputs_driven": false,
+  "audio_emitted": false,
+  "coprocessor_reset": false,
+  "external_sensor_access": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "temporary_chunks": [
+    254,
+    253,
+    252
+  ],
+  "error": "AssertionError: Timed out before three isolated press/release pairs",
+  "finished_utc": "2026-10-18T18:49:50.524024+00:00"
+}

@@ -1,0 +1,96 @@
+{
+  "result": "PASS",
+  "scope": "Physical input-only press/release of three Fruit Jam buttons",
+  "started_utc": "2026-10-18T18:51:41.321719+00:00",
+  "firmware_elf_sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378",
+  "GPIOs": [
+    0,
+    4,
+    5
+  ],
+  "events": [
+    {
+      "elapsed_ms": 110,
+      "pressed": []
+    },
+    {
+      "elapsed_ms": 3532,
+      "pressed": [
+        1
+      ]
+    },
+    {
+      "elapsed_ms": 5204,
+      "pressed": []
+    },
+    {
+      "elapsed_ms": 6875,
+      "pressed": [
+        2
+      ]
+    },
+    {
+      "elapsed_ms": 8375,
+      "pressed": []
+    },
+    {
+      "elapsed_ms": 9719,
+      "pressed": [
+        3
+      ]
+    },
+    {
+      "elapsed_ms": 11047,
+      "pressed": []
+    }
+  ],
+  "presses": [
+    {
+      "button": 1,
+      "stable_hold_ms": 1672,
+      "release_observed": true
+    },
+    {
+      "button": 2,
+      "stable_hold_ms": 1500,
+      "release_observed": true
+    },
+    {
+      "button": 3,
+      "stable_hold_ms": 1328,
+      "release_observed": true
+    }
+  ],
+  "checks": {
+    "initially_released": true,
+    "finally_released": true,
+    "physical_press_release_order": [
+      1,
+      2,
+      3
+    ],
+    "retained_code_crc32": {
+      "0": "297d191b"
+    },
+    "arithmetic_after": 12
+  },
+  "outputs_driven": false,
+  "audio_emitted": false,
+  "coprocessor_reset": false,
+  "external_sensor_access": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "temporary_chunks": [
+    254,
+    253,
+    252
+  ],
+  "finished_utc": "2026-10-18T18:51:52.715010+00:00",
+  "user_confirmation": "je l'ai fait, j'ai vu s'afficher bouton 1 2 3 fonctionner"
+}

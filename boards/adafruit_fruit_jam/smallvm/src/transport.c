@@ -5,6 +5,8 @@
 #include <zephyr/sys/atomic.h>
 #include <errno.h>
 #include "fruit_jam.h"
+#include "wifi_control.h"
+#include <string.h>
 
 static const struct device *const cdc = DEVICE_DT_GET(DT_NODELABEL(mb_cdc));
 RING_BUF_DECLARE(rx, 4096);
@@ -12,6 +14,14 @@ RING_BUF_DECLARE(tx, 4096);
 static atomic_t overflow;
 static bool ready, connected;
 extern void smallvmResetTransport(void);
+static void discard_rx(void)
+{
+    uint8_t *part;unsigned count;
+    while ((count=ring_buf_get_claim(&rx,&part,4096))) {
+        fj_secure_clear(part,count);ring_buf_get_finish(&rx,count);
+    }
+    ring_buf_reset(&rx);
+}
 
 static void usb_irq(const struct device *dev, void *unused)
 {
@@ -33,6 +43,7 @@ static void usb_irq(const struct device *dev, void *unused)
         }
         if (ring_buf_is_empty(&tx)) uart_irq_tx_disable(dev);
     }
+    fj_secure_clear(bytes,sizeof(bytes));
 }
 
 int fj_transport_init(void)
@@ -57,7 +68,7 @@ void fj_transport_poll(void)
         uart_irq_tx_disable(cdc);
         /* Retain the first packet if it arrived after DTR rose but before
          * this VM-thread poll. Disconnected bytes are discarded in usb_irq. */
-        if (!link || lost) ring_buf_reset(&rx);
+        if (!link || lost) discard_rx();
         ring_buf_reset(&tx);
         connected = link;
         irq_unlock(key);
@@ -72,7 +83,14 @@ int recvBytes(uint8_t *dst, int count)
 {
     if (!connected || count <= 0) return 0;
     unsigned key = irq_lock();
-    int got = ring_buf_get(&rx, dst, count);
+    int got=0;
+    while (got<count) {
+        uint8_t *part;
+        unsigned n=ring_buf_get_claim(&rx,&part,count-got);
+        if (!n) break;
+        memcpy(dst+got,part,n);fj_secure_clear(part,n);
+        ring_buf_get_finish(&rx,n);got+=n;
+    }
     irq_unlock(key);
     return got;
 }

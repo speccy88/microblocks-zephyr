@@ -5,6 +5,8 @@
 #include "fruit_jam.h"
 #include "generic_io.h"
 #include "airlift.h"
+#include "wifi_control.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -18,7 +20,25 @@ char BLE_ThreeLetterID[4] = "---";
 const char *boardType(void) { return "Fruit Jam RP2350B Zephyr (experimental)"; }
 void consolePrint(const char *s) { (void)s; }
 void consoleReportNum(const char *s, int n) { (void)s; (void)n; }
-void processFileMessage(int t, int n, char *p) { (void)t; (void)n; (void)p; }
+void processFileMessage(int t, int n, char *p) {
+    if (t != FJ_WIFI_MESSAGE || n < 0) return;
+    struct fj_wifi_request request;
+    int err = fj_wifi_decode((const uint8_t *)p, (size_t)n, &request);
+    if (!err && request.operation == 2)
+        err = fj_airlift_join(request.ssid, request.ssid_length, request.key, request.key_length);
+    /* This extension never creates a code record; wipe the consumed body. */
+    if (p && n) fj_secure_clear(p, (size_t)n);
+    if (!request.request_id) return;
+    char status[512], response[640];
+    if (fj_airlift_status(status, sizeof(status))) return;
+    int count = snprintf(response, sizeof(response),
+        "{\"request\":%u,\"accepted\":%s,\"command_error\":%d,\"status\":%s}",
+        (unsigned)request.request_id, err ? "false" : "true", err, status);
+    /* Called on the VM thread: the space check makes the existing queue API
+     * nonblocking even when the controller stops reading. No worker writes it. */
+    if (count > 0 && (unsigned)count < sizeof(response) && hasOutputSpace(count + 5))
+        waitAndSendMessage(FJ_WIFI_MESSAGE, 0, count, response);
+}
 void stopPWM(void) { fj_io_pwm_stop(); }
 void stopServos(void) {}
 void stopTone(void) {}
@@ -125,7 +145,7 @@ static OBJ airlift_reset_identify(int argc, OBJ *args) {
 static OBJ airlift_info(int argc, OBJ *args) {
     (void)args;
     if (argc) return fail(notEnoughArguments);
-    char text[384];
+    char text[512];
     if (fj_airlift_status(text, sizeof(text))) return fail(primitiveNotImplemented);
     return newStringFromBytes(text, strlen(text));
 }

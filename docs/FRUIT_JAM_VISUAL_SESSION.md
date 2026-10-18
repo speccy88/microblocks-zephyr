@@ -12,10 +12,16 @@ Five NeoPixels, positions 1..5 in red at 8/255, then pixel 1 green/blue and all
 off, were repeated at 700 ms per step at the user's request. The user confirmed
 that everything worked perfectly. This remains valid; no repeat is pending.
 
+The synchronized, user-started three-button test also passed: GPIO0/4/5 each
+produced an isolated stable press and release, with initial/final released
+states, original code CRC and USB arithmetic retained. The user confirmed
+seeing all three detections. The earlier timed reading window saw no presses;
+it remains a timed-out observation, not a hardware failure.
+
 ## One future checklist, gated by implemented drivers
 
-1. Three buttons: one prompted press/release per button, with USB timestamps.
-   The input primitives exist; only released-state reads are currently measured.
+1. Three buttons: accepted in `physical-buttons-synchronized.json`; no repeat
+   pending. Simultaneous presses and electrical debounce remain unmeasured.
 2. DVI: one clear test pattern and readable text, when an HSTX driver exists.
    No Fruit Jam display driver or visual PASS is claimed yet.
 3. USB host: keyboard and mouse recognition plus deliberate input, when the

@@ -5,6 +5,7 @@
 #include "vm/persist.h"
 #include "fruit_jam.h"
 #include "generic_io.h"
+#include "wifi_control.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,6 +72,9 @@ int fj_pixels_set(unsigned index,unsigned r,unsigned g,unsigned b)
 { return index<5 && r<=255 && g<=255 && b<=255 ? 0 : -22; }
 int fj_pixels_off(void) { return 0; }
 int fj_airlift_request(bool reset_first) { (void)reset_first; return 0; }
+static unsigned join_requests;
+int fj_airlift_join(const uint8_t *ssid,size_t sn,const uint8_t *key,size_t kn)
+{ assert(ssid && key && sn==4 && kn==8); ++join_requests; return 0; }
 int fj_airlift_status(char *dst,unsigned size)
 { snprintf(dst,size,"{\"simulated\":true}"); return 0; }
 
@@ -102,6 +106,50 @@ static void upload(int id, const uint16 *ops, int words)
 }
 
 static unsigned io_checks;
+static unsigned wifi_control_checks;
+extern unsigned char *smallvmCodeData(void);
+extern unsigned smallvmCodeSize(void);
+extern unsigned smallvm_test_receive_nonzero(void);
+static uint32 code_hash(void)
+{
+    uint32 hash=2166136261u;unsigned char *p=smallvmCodeData();
+    for(unsigned i=0;i<smallvmCodeSize();++i)hash=(hash^p[i])*16777619u;
+    return hash;
+}
+static int contains_tx(const char *text)
+{
+    size_t n=strlen(text);
+    for(int i=0;i+(int)n<=tx_count;++i)if(!memcmp(tx+i,text,n))return 1;
+    return 0;
+}
+static void wifi_control_contracts(void)
+{
+    uint32 hash=code_hash();
+    uint8 msg[]={251,205,0,25,0,'F','J','N','W',1,2,1,0,0,0,4,8,'T','e','s','t','u','n','i','t','-','k','e','y',254};
+    tx_count=0;
+    for(unsigned i=0;i<sizeof(msg);i+=3){unsigned n=sizeof(msg)-i;if(n>3)n=3;inject(msg+i,n);pump(10);}
+    pump(4000);
+    if(join_requests!=1 || !contains_tx("\"accepted\":true"))
+        fprintf(stderr,"Setup dispatch diagnostic: joins=%u tx_count=%d accepted=%d\n",join_requests,tx_count,contains_tx("\"accepted\":true"));
+    assert(join_requests==1 && contains_tx("\"accepted\":true"));++wifi_control_checks;
+    assert(!contains_tx("unit-key") && code_hash()==hash);++wifi_control_checks;
+    tx_count=0;msg[15]=33;inject(msg,sizeof(msg));pump(4000);
+    assert(join_requests==1 && contains_tx("\"accepted\":false"));++wifi_control_checks;
+    assert(!contains_tx("unit-key") && code_hash()==hash);++wifi_control_checks;
+    uint8 body[]={'F','J','N','W',1,2,7,0,0,0,4,8,'T','e','s','t','u','n','i','t','-','k','e','y'};
+    processFileMessage(205,sizeof(body),(char *)body);
+    assert(join_requests==2 && code_hash()==hash);++wifi_control_checks;
+    for(unsigned i=0;i<sizeof(body);++i){assert(body[i]==0);++wifi_control_checks;}
+    tx_count=0;msg[15]=4;msg[sizeof(msg)-1]=0;
+    inject(msg,sizeof(msg));pump(4000);
+    assert(join_requests==2 && code_hash()==hash && smallvm_test_receive_nonzero()==0);++wifi_control_checks;
+    msg[sizeof(msg)-1]=254;inject(msg,18);pump(100);
+    now+=300000;pump(100);
+    assert(join_requests==2 && code_hash()==hash && smallvm_test_receive_nonzero()==0);++wifi_control_checks;
+    inject(msg,18);pump(100);smallvmResetTransport();
+    assert(smallvm_test_receive_nonzero()==0 && code_hash()==hash);++wifi_control_checks;
+    tx_count=0;
+}
 /* Test-only accessor appended to the prepared interpreter, never firmware. */
 extern unsigned smallvm_test_error(void);
 #define CHECK_IO(condition) do { assert(condition); ++io_checks; } while(0)
@@ -229,6 +277,7 @@ int main(void)
         int found=0; for(int i=0;i+sizeof(result)<=tx_count;++i)if(!memcmp(tx+i,result,sizeof(result)))found=1;
         assert(found&&!failure()); tx_count=0;
     }
+    wifi_control_contracts();
     uint16 straight[506]={0}; for(int i=0;i<500;++i)straight[i]=OP(21,0);
     straight[500]=OP(2,85); straight[501]=OP(7,2);
     uint8 packet[1019]={251,32,2,246,3,1}; memcpy(packet+6,straight,1012); packet[1018]=254;

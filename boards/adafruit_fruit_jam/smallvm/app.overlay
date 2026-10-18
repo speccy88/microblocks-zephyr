@@ -8,6 +8,7 @@
 		airlift-cs-gpios = <&gpio0_hi 14 GPIO_ACTIVE_LOW>;
 		airlift-busy-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
 		airlift-reset-gpios = <&gpio0 22 GPIO_ACTIVE_LOW>;
+		airlift-boot-gpios = <&gpio0 23 GPIO_ACTIVE_HIGH>;
 		/* Safe extension D0..D8. High-bank GPIO40..45 use port-relative 8..13. */
 		digital-pin-gpios = <&gpio0 6 0>, <&gpio0 7 0>, <&gpio0 10 0>,
 			<&gpio0_hi 8 0>, <&gpio0_hi 9 0>, <&gpio0_hi 10 0>,

@@ -15,7 +15,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='fruitjam-nina-') as folder:
         work=Path(folder)
         command=[str(args.wasi_sdk.resolve()/'bin/clang'),'-O1','-Wall','-Wextra','-Werror',
-            '-I'+str(board),str(board/'nina_protocol.c'),str(root/'tests/fruit_jam_nina_protocol.c'),
+            '-I'+str(board),str(board/'nina_protocol.c'),str(board/'wifi_control.c'),str(root/'tests/fruit_jam_nina_protocol.c'),
             '-Wl,-z,stack-size=65536','-Wl,--max-memory=1048576','-o',str(work/'test.wasm')]
         subprocess.run(command,check=True,timeout=45)
         config=wasmtime.Config();config.consume_fuel=True

@@ -29,7 +29,7 @@ class FruitJamInventoryTests(unittest.TestCase):
         self.assertTrue(DATA['target_firmware_source_present'])
         self.assertTrue(DATA['physical_hardware_available'])
         verified={c['id'] for c in DATA['capabilities'] if c['physical_tested']}
-        self.assertEqual(verified,{'usb_device','power_debug','neopixels'})
+        self.assertEqual(verified,{'usb_device','power_debug','neopixels','buttons'})
         for feature in DATA['capabilities']:
             if not feature['physical_tested']:continue
             self.assertTrue(feature['evidence'])

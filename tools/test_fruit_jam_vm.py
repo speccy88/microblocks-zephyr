@@ -11,6 +11,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 from prepare_smallvm import prepare
+from prepare_fruit_jam_runtime import prepare_runtime
 
 
 def main():
@@ -25,11 +26,14 @@ def main():
     with tempfile.TemporaryDirectory(prefix='fruitjam-vm-') as folder:
         work=Path(folder);prepared=work/'vm-source'
         prepare(args.source.resolve(),prepared,strict_digital_arity=True)
+        prepare_runtime(prepared)
         with (prepared/'vm/interp.c').open('a',encoding='utf-8',newline='\n') as stream:
             stream.write('\nunsigned smallvm_test_error(void) { return errorCode; }\n')
+        with (prepared/'vm/runtime.c').open('a',encoding='utf-8',newline='\n') as stream:
+            stream.write('\nunsigned smallvm_test_receive_nonzero(void) { unsigned n=0; for(unsigned i=0;i<sizeof(rcvBuf);++i) n+=rcvBuf[i]!=0; return n; }\n')
         sources=[prepared/'vm'/f'{n}.c' for n in ['interp','runtime','mem','persist',
                  'dataPrims','varPrims','tinyJSON','mbFont','boardHooks']]
-        sources += [board/'platform.c',board/'generic_primitives.c',repo/'tests/fruit_jam_vm_host.c']
+        sources += [board/'platform.c',board/'generic_primitives.c',board/'wifi_control.c',repo/'tests/fruit_jam_vm_host.c']
         compiler=args.wasi_sdk.resolve()/'bin/clang'
         command=[str(compiler),'-O1','-DSMALLVM_ZEPHYR=1','-I'+str(prepared),'-I'+str(board),
                  *map(str,sources),'-Wl,-z,stack-size=65536','-Wl,--max-memory=16777216',

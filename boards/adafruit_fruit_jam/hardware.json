@@ -127,7 +127,9 @@
       ],
       "limitations": "Version/status and six MAC bytes verified; native MAC text currently reverses byte order and needs correction at next coordinated build. Association, DHCP, sockets and standalone IDE remain unverified; no credentials sent",
       "identification_physically_verified": true,
-      "coprocessor_firmware": "NINA_ADAFRUIT-fruitjam_c6-3.3.0"
+      "coprocessor_firmware": "NINA_ADAFRUIT-fruitjam_c6-3.3.0",
+      "wifi_setup_compiled": false,
+      "wifi_setup_status": "Source prepared; native build and physical association/DHCP pending"
     },
     {
       "id": "usb_host",
@@ -180,11 +182,12 @@
         "button3": 5
       },
       "upstream_status": "gpio-driver-present",
-      "smallvm": "physical-released-state-read-presses-untested",
-      "physical_tested": false,
+      "smallvm": "physical-three-button-press-release-verified",
+      "physical_tested": true,
       "evidence": [
-        "evidence/2026-10-18/fruit-jam/physical-usb-baseline.json"
-      ]
+        "evidence/2026-10-18/fruit-jam/physical-buttons-synchronized.json"
+      ],
+      "limitations": "One isolated press/release per button verified; bounce/timing and simultaneous presses unmeasured"
     },
     {
       "id": "led_ir",
