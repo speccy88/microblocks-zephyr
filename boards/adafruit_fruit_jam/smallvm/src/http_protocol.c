@@ -55,7 +55,8 @@ int fj_http_parse(char *data,size_t size,const char *ip,struct fj_http_request *
             if(!path[i+1]||!path[i+2])return -EPROTO;
             char hex[3]={path[i+1],path[i+2],0};
             for(unsigned j=0;j<2;++j)if(!((hex[j]>='0'&&hex[j]<='9')||(hex[j]>='a'&&hex[j]<='f')||(hex[j]>='A'&&hex[j]<='F')))return -EPROTO;
-            if(sscanf(hex,"%1x%1x",&a,&b)!=2)return -EPROTO;c=(a<<4)|b;i+=2;
+            if(sscanf(hex,"%1x%1x",&a,&b)!=2)return -EPROTO;
+            c=(a<<4)|b;i+=2;
         }
         if(c<32||c==127||c=='\\')return -EPROTO;
         out->path[pos++]=c;
@@ -75,7 +76,8 @@ int fj_http_parse(char *data,size_t size,const char *ip,struct fj_http_request *
         else if(!strcasecmp(p,"Sec-WebSocket-Key"))err=copy_value(out->key,sizeof(out->key),colon);
         else if(!strcasecmp(p,"Sec-WebSocket-Version"))err=copy_value(version,sizeof(version),colon);
         else if(!strcasecmp(p,"Transfer-Encoding")||!strcasecmp(p,"Content-Length"))return -EPROTO;
-        if(err)return err;p=end+2;
+        if(err)return err;
+        p=end+2;
     }
     char port_host[64];snprintf(port_host,sizeof(port_host),"%s:80",ip);
     if(strcmp(out->host,ip)&&strcmp(out->host,port_host))return -EACCES;

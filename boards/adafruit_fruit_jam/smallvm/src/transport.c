@@ -98,7 +98,16 @@ int fj_ws_request(void)
     return 0;
 }
 bool fj_ws_connected(void){return atomic_get(&ws_owner)!=0;}
-void fj_ws_close(void){atomic_clear(&ws_owner);atomic_set(&ws_pending,-1);}
+void fj_ws_close(void)
+{
+    unsigned key=irq_lock();
+    /* USB preemption already clears the network queues/runtime. A late
+     * socket close must not reset a newly arrived USB command a second time. */
+    if(!atomic_get(&usb_owner)&&(atomic_get(&ws_owner)||atomic_get(&ws_pending)==1)){
+        atomic_clear(&ws_owner);atomic_set(&ws_pending,-1);
+    }
+    irq_unlock(key);
+}
 int fj_ws_input(const uint8_t *data,size_t size)
 {
     if(!atomic_get(&ws_owner))return -ENOTCONN;

@@ -169,8 +169,20 @@ static void network_worker(void *a,void *b,void *d)
     for(;;){
         if(!fj_airlift_network_ready(board_ip,sizeof(board_ip))){k_sleep(K_MSEC(25));continue;}
         if(listener<0){
-            listener=fj_socket_allocate();
-            if(listener>=0){int err=fj_socket_listen(listener,80);if(err){last_error=err;fj_socket_close(listener);listener=-1;}}
+            /* Official 3.3.0 config has six slots. Slot zero is reserved for
+             * this server; it can survive an RP2350-only reset. Release our
+             * five transient client slots before resuming the same listener. */
+            int existing=fj_socket_server_state(0);
+            if(existing<0){last_error=existing;k_sleep(K_MSEC(500));continue;}
+            for(unsigned i=1;i<6;++i)fj_socket_close(i);
+            if(existing==1)listener=0;
+            else{
+                int slot=fj_socket_allocate();
+                if(slot!=0){last_error=slot<0?slot:-EBUSY;k_sleep(K_MSEC(500));continue;}
+                int err=fj_socket_listen(0,80);
+                if(err){last_error=err;k_sleep(K_MSEC(500));continue;}
+                listener=0;
+            }
             if(listener<0){last_error=listener;k_sleep(K_MSEC(500));continue;}
             fruit_jam_network_started=1;
         }

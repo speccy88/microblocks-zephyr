@@ -15,5 +15,10 @@
     "0x2f client state",
     "0x44 write, 16-bit LE returned byte count",
     "0x45 read, 16-bit BE parameter length"
-  ]
+  ],
+  "configuration_reference": {
+    "url": "https://raw.githubusercontent.com/adafruit/nina-fw/3.3.0/sdkconfig.defaults",
+    "sha256": "2a3023a7b76b267d993a7360129b38e8558bbfd57c529c2ff845b7f7bd8cdcf7",
+    "socket_slots": 6
+  }
 }

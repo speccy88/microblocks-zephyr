@@ -153,6 +153,10 @@ socket byte counts, partial sends and returned capacities. Use one listener,
 at most four simultaneous HTTP transfers and one VM WebSocket; no dynamic
 request allocation. Fixed request/header/frame limits and idle deadlines close
 stalled/malformed clients. Stream flash assets in at most 2 KiB writes.
+The official 3.3.0 defaults specify six socket slots. Reserve slot zero for
+the listener and the other five for this service. On explicit initialization,
+release transient client slots and reuse an existing listener after an
+RP2350-only reset; do not reset/reflash the C6 or resend credentials for that.
 
 Package the pinned real MicroBlocks 2.5.8 editor using the already verified
 Fruit Jam patch. Keep all asset hashes/licenses and require the final ELF

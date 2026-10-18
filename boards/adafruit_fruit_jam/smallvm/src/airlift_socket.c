@@ -25,6 +25,7 @@ int fj_socket_accept(uint8_t listener)
 }
 int fj_socket_available(uint8_t socket){const struct fj_nina_parameter p={&socket,1};return scalar(0x2b,&p,1,2);}
 int fj_socket_state(uint8_t socket){const struct fj_nina_parameter p={&socket,1};return scalar(0x2f,&p,1,1);}
+int fj_socket_server_state(uint8_t socket){const struct fj_nina_parameter p={&socket,1};return scalar(0x29,&p,1,1);}
 int fj_socket_close(uint8_t socket){const struct fj_nina_parameter p={&socket,1};int n=scalar(0x2e,&p,1,1);return n==1?0:n<0?n:-EIO;}
 int fj_socket_read(uint8_t socket,uint8_t *dst,size_t size)
 {
