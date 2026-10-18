@@ -1,0 +1,81 @@
+{
+  "result": "PASS",
+  "scope": "ARM ELF/config/linkage/artifact inspection; no hardware test",
+  "elf_architecture": "32-bit ARM Cortex-M33",
+  "segments": [
+    {
+      "vaddr": "0x10000000",
+      "paddr": "0x10000000",
+      "file_bytes": 83228,
+      "memory_bytes": 83228
+    },
+    {
+      "vaddr": "0x20000000",
+      "paddr": "0x1001451c",
+      "file_bytes": 2660,
+      "memory_bytes": 2660
+    },
+    {
+      "vaddr": "0x10014f80",
+      "paddr": "0x10014f80",
+      "file_bytes": 4,
+      "memory_bytes": 4
+    },
+    {
+      "vaddr": "0x20000a80",
+      "paddr": "0x20000a80",
+      "file_bytes": 0,
+      "memory_bytes": 190696
+    }
+  ],
+  "flash_app_limit": "0x10400000",
+  "program_store_not_in_load_segments": true,
+  "required_symbols": [
+    "hardwareInit",
+    "vmSlice",
+    "primsInit",
+    "restoreScripts",
+    "recvBytes",
+    "sendBytes",
+    "fj_transport_poll",
+    "fruit_jam_adc_mux",
+    "fruit_jam_pwm_mux",
+    "mb_store_load",
+    "mb_store_poll"
+  ],
+  "arduino_symbols": [
+    "1000e994 T arduino::ZephyrI2C::begin()",
+    "10006ab8 T analogRead",
+    "10006b84 T pinMode"
+  ],
+  "actual_pinmux_compiler_macros": {
+    "PICO_RP2350A": null,
+    "NUM_BANK0_GPIOS": "_u(48)",
+    "PICO_RP2350": "1",
+    "NUM_ADC_CHANNELS": "_u(9)"
+  },
+  "config": {
+    "CONFIG_FLASH_SIZE": "16384",
+    "CONFIG_SOC_RP2350B": "y",
+    "CONFIG_SOC_RP2350B_M33_0": "y",
+    "CONFIG_USB_DEVICE_STACK_NEXT": "y",
+    "CONFIG_CDC_ACM_SERIAL_INITIALIZE_AT_BOOT": "y"
+  },
+  "artifacts": {
+    "zephyr.elf": {
+      "bytes": 1770236,
+      "sha256": "ccc4b9cbf583a35fe52da15dea90ce9cfbbd0ef05375ff26a4679d76214d14ce"
+    },
+    "zephyr.uf2": {
+      "bytes": 172032,
+      "sha256": "f9cf3666dedce3eecb8579c9ae35d7f3f425714788e2184ee170e448016c83f6"
+    },
+    "zephyr.bin": {
+      "bytes": 85892,
+      "sha256": "14c898b553c07f3fb6ddb6aee96e57aa0ea002a0a6b3dc8d1509daf5460987a1"
+    }
+  },
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "flashed": false,
+  "physical_tested": false
+}

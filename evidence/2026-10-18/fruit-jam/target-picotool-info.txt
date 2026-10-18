@@ -1,0 +1,20 @@
+File /home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/zephyr.elf:
+
+Program Information
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ none
+
+Build Information
+ none
+
+Metadata Block 1
+ address:             0x10000110
+ next block address:  0x10000110
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+ vector table:        0x10000000

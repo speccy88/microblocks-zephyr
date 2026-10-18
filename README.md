@@ -49,7 +49,7 @@ pattern uses one atomic transaction; see [its exact bounds](docs/GENERIC_IO.md).
 |---|---|---|---|---|
 | [Waveshare ESP32-S3-RLCD-4.2](boards/waveshare_esp32s3_rlcd_4_2/README.md) | Pinned build and physical boot | v417 linked; interpreter harness passes | Real module compiled; library tests pending | Sensors/LCD transfer/AP association; full acceptance pending |
 | [Arduino UNO Q](https://github.com/speccy88/uno-q-microblocks) | Separate working project | Verified in reference repo | Reference port | Prior physical tests, not validated in this repo |
-| [Adafruit Fruit Jam RP2350B](boards/adafruit_fruit_jam/README.md) | Initial target source; not cross-built | USB VM source added, untested | Isolated real module/variant prepared | No board present; Pico 2 W probe preparation separate |
+| [Adafruit Fruit Jam RP2350B](boards/adafruit_fruit_jam/README.md) | Pinned ARM cross-build; hardware untested | v417 linked; 32-bit mock harness passes | Real module/variant compiled | No board present; Pico 2 W probe preparation separate |
 
 ## Start here: Waveshare ESP32-S3-RLCD-4.2
 

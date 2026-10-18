@@ -1,5 +1,6 @@
 """Fruit Jam source-backed pin safety and honest acceptance-state boundaries."""
 import json
+import hashlib
 import re
 from pathlib import Path
 import unittest
@@ -24,7 +25,7 @@ class FruitJamInventoryTests(unittest.TestCase):
     def test_debug_reset_and_acceptance_are_explicit(self):
         self.assertEqual(DATA['swd']['pins'],{'1':'SWCLK','2':'GND','3':'SWDIO'})
         self.assertIn('RUN',DATA['swd']['main_reset'])
-        self.assertFalse(DATA['target_firmware_cross_built'])
+        self.assertTrue(DATA['target_firmware_cross_built'])
         self.assertTrue(DATA['target_firmware_source_present'])
         self.assertTrue(all(not c['physical_tested'] for c in DATA['capabilities']))
         self.assertEqual(DATA['soc'],'RP2350B')
@@ -68,5 +69,13 @@ class FruitJamInventoryTests(unittest.TestCase):
         channels=DATA['pwm_channels']
         self.assertEqual(len(channels),len(set(channels)))
         self.assertEqual(channels,[p-24 if p>=32 else p%16 for p in DATA['digital_gpio']])
+
+    def test_compiled_source_provenance_matches_current_files(self):
+        report=json.loads((ROOT/'evidence/2026-10-18/fruit-jam/target-build-verification.json').read_text())
+        self.assertEqual(report['result'],'PASS')
+        self.assertFalse(report['hardware_validation'])
+        self.assertFalse(report['flashed'])
+        for name,digest in report['source_sha256'].items():
+            self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
 
 if __name__=='__main__':unittest.main()

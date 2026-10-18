@@ -4,8 +4,8 @@
   "soc": "RP2350B",
   "flash_mib": 16,
   "psram_mib": 8,
-  "phase": "initial-target-source-awaiting-cross-build",
-  "target_firmware_cross_built": false,
+  "phase": "initial-target-cross-built-awaiting-physical-acceptance",
+  "target_firmware_cross_built": true,
   "physical_hardware_available": false,
   "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
   "schematic_commit": "252dc09456ee447b3d7eeb4fa99877898503e81a",
@@ -51,7 +51,7 @@
       "hardware": "Native USB-C / ROM boot",
       "pins": {},
       "upstream_status": "usb-device-cdc-available",
-      "smallvm": "source-implemented-not-cross-built",
+      "smallvm": "cross-built-not-physically-tested",
       "physical_tested": false
     },
     {
@@ -163,7 +163,7 @@
         "button3": 5
       },
       "upstream_status": "gpio-driver-present",
-      "smallvm": "source-implemented-not-cross-built",
+      "smallvm": "cross-built-not-physically-tested",
       "physical_tested": false
     },
     {
@@ -184,7 +184,7 @@
         "scl": 21
       },
       "upstream_status": "i2c-driver-present",
-      "smallvm": "source-implemented-not-cross-built",
+      "smallvm": "cross-built-not-physically-tested",
       "physical_tested": false
     },
     {
@@ -204,7 +204,7 @@
         ]
       },
       "upstream_status": "gpio-adc-pwm-drivers-present-variant-pending",
-      "smallvm": "source-implemented-not-cross-built",
+      "smallvm": "cross-built-not-physically-tested",
       "physical_tested": false
     },
     {
@@ -216,7 +216,7 @@
       "physical_tested": false
     }
   ],
-  "target_firmware_scope": "Initial source only: USB SmallVM, safe extension IO, I2C, buttons and snapshot store; incomplete peripheral coverage",
+  "target_firmware_scope": "Initial cross-built USB/SmallVM and safe IO baseline; mock VM tests pass; incomplete peripheral coverage and no physical tests",
   "zephyr_target": "adafruit_fruit_jam/rp2350b/m33_0",
   "digital_gpio": [
     6,

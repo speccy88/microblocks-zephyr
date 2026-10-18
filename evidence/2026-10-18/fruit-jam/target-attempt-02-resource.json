@@ -1,0 +1,17 @@
+{
+  "phase": "target-attempt-02",
+  "command": [
+    "bash",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/build-fruit-jam.sh"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 32.785,
+  "parallel_jobs_limit": 4,
+  "sample_interval_seconds": 0.5,
+  "peak_owned_process_group_rss_kib": 191368,
+  "minimum_system_available_kib": 5372464,
+  "peak_owned_process_count": 7,
+  "resource_stop": null,
+  "hardware_access": false,
+  "gpu_access": false
+}

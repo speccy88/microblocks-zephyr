@@ -1,0 +1,4 @@
+File /home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/zephyr.uf2 family
+ID 'absolute':
+
+ERROR: UF2 file does not contain a valid RP2 executable image

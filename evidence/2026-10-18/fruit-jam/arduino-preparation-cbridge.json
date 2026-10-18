@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/zephyrproject-rtos/arduino-core-zephyr",
+  "revision": "af5b8610f9be6d7b962e2ba6dd8e6859697c44ff",
+  "board": "adafruit_fruit_jam",
+  "variant_sha256": "b11630df4624e6996780135dcc74ca3b6f419089f08bb0eab0e9fcb586ec1a6c",
+  "pinmux_bridge_sha256": "7e55753ae48047ad654d2c0f56741b67aebfe98ee057fb4d565ddc403a84571d",
+  "core_sha256": "1a6e256655d2369336d56a6f9cd26de5f146d2479ecdbfba3ffb9965d5d991a6",
+  "changes": [
+    "Existing reviewed Wire fixes",
+    "Safe extension-only variant",
+    "RP2350 per-pin ADC/PWM mux, without device reinitialization"
+  ],
+  "upstream_checkout_modified": false,
+  "compiled": false,
+  "physical_tested": false,
+  "compiled_in_verified_target": true,
+  "compiled_source_commit": "e4d3ed08428d71407916510b9637925c42011ed2"
+}

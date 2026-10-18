@@ -1,0 +1,280 @@
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base (cached)).
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/smallvm
+-- CMake version: 4.4.4
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: adafruit_fruit_jam, qualifiers: rp2350b/m33_0
+-- Found host-tools: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found BOARD.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/zephyr/boards/adafruit/adafruit_fruit_jam/adafruit_fruit_jam_rp2350b_m33_0.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/smallvm/app.overlay
+-- Generated zephyr.dts: /home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/zephyr.dts
+-- Generated pickled edt: /home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/include/generated/zephyr/devicetree_generated.h
+/home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/zephyr.dts:604.23-609.5: Warning (unique_unit_address_if_enabled): /soc/vreg@40100000: duplicate unit-address (also used in node /soc/powman@40100000)
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+Parsing /home/fred/microblocks-zephyr-work/zephyr/Kconfig
+Loaded configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/zephyr/boards/adafruit/adafruit_fruit_jam/adafruit_fruit_jam_rp2350b_m33_0_defconfig'
+Merged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/adafruit_fruit_jam/smallvm/prj.conf'
+Configuration saved to '/home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/.config'
+No change to Kconfig header in '/home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found gen_kobject_list: /home/fred/microblocks-zephyr-work/zephyr/scripts/build/gen_kobject_list.py
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+-- Configuring done (11.0s)
+-- Generating done (0.4s)
+-- Build files have been written to: /home/fred/microblocks-zephyr-work/build/fruit-jam
+-- west build: building application
+[1/242] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[2/238] Building C object zephyr/lib/heap/CMakeFiles/heap_constants.dir/heap_constants.c.obj
+[3/238] Generating ../../include/generated/zephyr/heap_constants.h
+[4/238] Building C object zephyr/CMakeFiles/offsets.dir/arch/arm/core/offsets/offsets.c.obj
+[5/238] Generating include/generated/zephyr/offsets.h
+[6/238] Building C object zephyr/arch/common/CMakeFiles/isr_tables.dir/isr_tables.c.obj
+[7/238] Building C object CMakeFiles/app.dir/src/platform.c.obj
+[8/238] Building C object CMakeFiles/app.dir/src/generic_primitives.c.obj
+[9/238] Building C object CMakeFiles/app.dir/src/transport.c.obj
+[10/238] Building CXX object CMakeFiles/app.dir/src/main.cpp.obj
+[11/238] Building C object CMakeFiles/app.dir/src/program_store.c.obj
+[12/238] Building CXX object CMakeFiles/app.dir/src/io.cpp.obj
+[13/238] Building C object CMakeFiles/app.dir/smallvm/vm/runtime.c.obj
+[14/238] Building C object CMakeFiles/app.dir/smallvm/vm/persist.c.obj
+[15/238] Building C object CMakeFiles/app.dir/smallvm/vm/mem.c.obj
+[16/238] Building C object CMakeFiles/app.dir/smallvm/vm/varPrims.c.obj
+[17/238] Building C object CMakeFiles/app.dir/smallvm/vm/mbFont.c.obj
+[18/238] Building C object CMakeFiles/app.dir/smallvm/vm/tinyJSON.c.obj
+[19/238] Building C object CMakeFiles/app.dir/smallvm/vm/boardHooks.c.obj
+[20/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/cpp/abi/cpp_dtors.c.obj
+[21/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_virtual.c.obj
+[22/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_vtable.cpp.obj
+[23/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_new.cpp.obj
+[24/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/libc/validate_libc.c.obj
+[25/238] Building C object CMakeFiles/app.dir/smallvm/vm/dataPrims.c.obj
+[26/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/mem_blocks/mem_blocks.c.obj
+[27/238] Building C object CMakeFiles/app.dir/smallvm/vm/interp.c.obj
+/home/fred/microblocks-zephyr-work/build/fruit-jam/smallvm/vm/interp.c:427:13: warning: 'interpDebug' defined but not used [-Wunused-function]
+  427 | static void interpDebug(int ip, int cmd, int arg, int sp) {
+      |             ^~~~~~~~~~~
+[28/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/heap/heap.c.obj
+[29/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/boot_banner.c.obj
+[30/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_packaged.c.obj
+[31/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/clock.c.obj
+[32/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/printk.c.obj
+[33/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/dec.c.obj
+[34/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/set.c.obj
+[35/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/hex.c.obj
+[36/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/timeutil.c.obj
+[37/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/bitmask.c.obj
+[38/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/getopt/getopt.c.obj
+[39/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/rb.c.obj
+[40/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_complete.c.obj
+[41/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/getopt/getopt_common.c.obj
+[42/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/last_section_id.c.obj
+[43/238] Building C object zephyr/CMakeFiles/zephyr.dir/misc/generated/configs.c.obj
+[44/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/bitarray.c.obj
+[45/238] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map.c.obj
+[46/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/notify.c.obj
+[47/238] Building C object zephyr/CMakeFiles/zephyr.dir/soc/raspberrypi/rpi_pico/common/soc.c.obj
+[48/238] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/onoff.c.obj
+[49/238] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map_layout.c.obj
+[50/238] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/tracing/tracing_none.c.obj
+[51/238] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map_default.c.obj
+[52/238] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/usb/device_next/app/cdc_acm_serial.c.obj
+[53/238] Building C object zephyr/CMakeFiles/zephyr.dir/drivers/flash/flash_util.c.obj
+[54/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/itoa.cpp.obj
+[55/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/wiring_shift.cpp.obj
+[56/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/zephyrCommon.cpp.obj
+[57/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/zephyrSerial.cpp.obj
+[58/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/wiring_digital.cpp.obj
+[59/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/wiring_analog.cpp.obj
+[60/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/WMath.cpp.obj
+[61/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/wiring_pulse.cpp.obj
+[62/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/zephyr/blobs/ArduinoCore-API/api/CanMsg.cpp.obj
+[63/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/Tone.cpp.obj
+[64/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/zephyr/blobs/ArduinoCore-API/api/Common.cpp.obj
+[65/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/zephyr/blobs/ArduinoCore-API/api/CanMsgRingbuffer.cpp.obj
+[66/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/cores/arduino/WInterrupts.cpp.obj
+[67/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/zephyr/blobs/ArduinoCore-API/api/IPAddress.cpp.obj
+[68/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/zephyr/blobs/ArduinoCore-API/api/Print.cpp.obj
+[69/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/zephyr/blobs/ArduinoCore-API/api/Stream.cpp.obj
+[70/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/libraries/Wire/Wire.cpp.obj
+[71/238] Building C object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/variants/adafruit_fruit_jam/pinmux.c.obj
+[72/238] Building C object zephyr/CMakeFiles/zephyr.dir/kernel/sys/sem.c.obj
+[73/238] Building C object zephyr/CMakeFiles/zephyr.dir/kernel/sys/thread_entry.c.obj
+[74/238] Generating linker_zephyr_pre0.cmd
+[75/238] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/sw_isr_common.c.obj
+[76/238] Building CXX object zephyr/CMakeFiles/zephyr.dir/home/fred/microblocks-zephyr-work/build/arduino-fruit-jam-cbridge/zephyr/blobs/ArduinoCore-API/api/String.cpp.obj
+[77/238] Linking C static library zephyr/arch/common/libisr_tables.a
+[78/238] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/init.c.obj
+[79/238] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/instr_mem.c.obj
+[80/238] Building C object zephyr/arch/arch/arm/core/CMakeFiles/arch__arm__core.dir/fatal.c.obj
+[81/238] Building ASM object zephyr/arch/arch/arm/core/CMakeFiles/arch__arm__core.dir/nmi_on_reset.S.obj
+[82/238] Building C object zephyr/arch/arch/arm/core/CMakeFiles/arch__arm__core.dir/__aeabi_atexit.c.obj
+[83/238] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/xip.c.obj
+[84/238] Building ASM object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/fault_s.S.obj
+[85/238] Building C object zephyr/arch/arch/arm/core/CMakeFiles/arch__arm__core.dir/nmi.c.obj
+[86/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/fault.c.obj
+[87/238] Building ASM object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/reset.S.obj
+[88/238] Building C object zephyr/arch/arch/arm/core/CMakeFiles/arch__arm__core.dir/tls.c.obj
+[89/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/scb.c.obj
+[90/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/fpu.c.obj
+[91/238] Building ASM object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/vector_table.S.obj
+[92/238] Building ASM object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/svc.S.obj
+[93/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/irq_manage.c.obj
+[94/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/prep_c.c.obj
+[95/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/thread.c.obj
+[96/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/cpu_idle.c.obj
+[97/238] Building ASM object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/swap_helper.S.obj
+[98/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/thread_abort.c.obj
+[99/238] Building ASM object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/__aeabi_read_tp.S.obj
+[100/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/irq_init.c.obj
+[101/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/exc_exit.c.obj
+[102/238] Building C object zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir/isr_wrapper.c.obj
+[103/238] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/chk_fail.c.obj
+[104/238] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/assert.c.obj
+[105/238] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/cbprintf.c.obj
+[106/238] Building C object zephyr/arch/arch/arm/core/cortex_m/cmse/CMakeFiles/arch__arm__core__cortex_m__cmse.dir/arm_core_cmse.c.obj
+[107/238] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/errno_wrap.c.obj
+[108/238] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/exit.c.obj
+[109/238] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/stdio.c.obj
+[110/238] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/locks.c.obj
+[111/238] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/calloc.c.obj
+[112/238] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/time/time.c.obj
+[113/238] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/abort.c.obj
+[114/238] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/reallocarray.c.obj
+[115/238] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/malloc.c.obj
+[116/238] Building C object zephyr/soc/soc/rp2350b/rp2350/CMakeFiles/soc__raspberrypi__rpi_pico__rp2350.dir/soc.c.obj
+[117/238] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/errno/errno.c.obj
+[118/238] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/fnmatch.c.obj
+[119/238] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/getentropy.c.obj
+[120/238] Building C object zephyr/lib/net_buf/CMakeFiles/lib__net_buf.dir/buf.c.obj
+[121/238] Building C object zephyr/lib/net_buf/CMakeFiles/lib__net_buf.dir/buf_simple.c.obj
+[122/238] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/getopt_shim.c.obj
+[123/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_desc.c.obj
+[124/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_device.c.obj
+[125/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_core.c.obj
+[126/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_init.c.obj
+[127/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_config.c.obj
+[128/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_ch9.c.obj
+[129/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_class.c.obj
+[130/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_interface.c.obj
+[131/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_endpoint.c.obj
+[132/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/usbd_msg.c.obj
+[133/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc4_sw.c.obj
+[134/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc8_sw.c.obj
+[135/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc16_sw.c.obj
+[136/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc7_sw.c.obj
+[137/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc24_sw.c.obj
+[138/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32c_sw.c.obj
+[139/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32_sw.c.obj
+[140/238] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32k_4_2_sw.c.obj
+[141/238] Building C object zephyr/drivers/usb/common/buf/CMakeFiles/drivers__usb__common__buf.dir/usb_buf.c.obj
+[142/238] Building C object zephyr/subsys/usb/device_next/CMakeFiles/subsys__usb__device_next.dir/class/usbd_cdc_acm.c.obj
+[143/238] Building C object zephyr/drivers/usb/udc/CMakeFiles/drivers__usb__udc.dir/udc_common.c.obj
+[144/238] Building C object zephyr/drivers/adc/CMakeFiles/drivers__adc.dir/adc_common.c.obj
+[145/238] Building C object zephyr/drivers/adc/CMakeFiles/drivers__adc.dir/adc_rpi_pico.c.obj
+[146/238] Building C object zephyr/drivers/usb/udc/CMakeFiles/drivers__usb__udc.dir/udc_rpi_pico.c.obj
+[147/238] Building C object zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_page_layout.c.obj
+[148/238] Building C object zephyr/drivers/clock_control/CMakeFiles/drivers__clock_control.dir/clock_control_rpi_pico.c.obj
+[149/238] Building C object zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_rpi_pico.c.obj
+[150/238] Building C object zephyr/drivers/hwinfo/CMakeFiles/drivers__hwinfo.dir/hwinfo_weak_impl.c.obj
+[151/238] Building C object zephyr/drivers/hwinfo/CMakeFiles/drivers__hwinfo.dir/hwinfo_rpi_pico.c.obj
+[152/238] Building C object zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir/gpio_rpi_pico.c.obj
+[153/238] Building C object zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir/i2c_common.c.obj
+[154/238] Building C object zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir/common.c.obj
+[155/238] Building C object zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir/pinctrl_rpi_pico.c.obj
+[156/238] Building C object zephyr/drivers/serial/CMakeFiles/drivers__serial.dir/home/fred/microblocks-zephyr-work/zephyr/misc/empty_file.c.obj
+[157/238] Building C object zephyr/drivers/reset/CMakeFiles/drivers__reset.dir/reset_rpi_pico.c.obj
+[158/238] Building C object zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir/i2c_dw.c.obj
+[159/238] Building C object zephyr/drivers/pwm/CMakeFiles/drivers__pwm.dir/pwm_rpi_pico.c.obj
+[160/238] Building C object zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/sys_clock_init.c.obj
+[161/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_pll/pll.c.obj
+[162/238] Building C object zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/cortex_m_systick.c.obj
+[163/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_xosc/xosc.c.obj
+[164/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.obj
+[165/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_ticks/ticks.c.obj
+[166/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_clocks/clocks.c.obj
+[167/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2350/pico_platform/platform.c.obj
+[168/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_bootrom/bootrom.c.obj
+[169/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_xip_cache/xip_cache.c.obj
+[170/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_adc/adc.c.obj
+[171/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_gpio/gpio.c.obj
+[172/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_flash/flash.c.obj
+[173/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/busy_wait.c.obj
+[174/238] Building C object modules/hal_rpi_pico/CMakeFiles/modules__hal_rpi_pico.dir/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_runtime_init/runtime_init.c.obj
+[175/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/main_weak.c.obj
+[176/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/device.c.obj
+[177/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/fatal.c.obj
+[178/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/kheap.c.obj
+[179/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/version.c.obj
+[180/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mem_slab.c.obj
+[181/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/init.c.obj
+[182/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/float.c.obj
+[183/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/idle.c.obj
+[184/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mailbox.c.obj
+[185/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/msg_q.c.obj
+[186/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mutex.c.obj
+[187/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/queue.c.obj
+[188/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/stack.c.obj
+[189/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/system_work_q.c.obj
+[190/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sem.c.obj
+[191/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/condvar.c.obj
+[192/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/thread.c.obj
+[193/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sleep.c.obj
+[194/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sched.c.obj
+[195/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/work.c.obj
+[196/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/scheduler.c.obj
+[197/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timeslicing.c.obj
+[198/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/pipe.c.obj
+[199/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timeout.c.obj
+[200/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timer.c.obj
+[201/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/events.c.obj
+[202/238] Linking CXX static library app/libapp.a
+[203/238] Building C object zephyr/CMakeFiles/zephyr_pre0.dir/misc/empty_file.c.obj
+[204/238] Linking C static library zephyr/arch/common/libarch__common.a
+[205/238] Linking C static library zephyr/arch/arch/arm/core/libarch__arm__core.a
+[206/238] Linking CXX static library zephyr/libzephyr.a
+[207/238] Linking C static library zephyr/arch/arch/arm/core/cortex_m/cmse/libarch__arm__core__cortex_m__cmse.a
+[208/238] Linking C static library zephyr/lib/libc/picolibc/liblib__libc__picolibc.a
+[209/238] Linking C static library zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a
+[210/238] Linking C static library zephyr/lib/net_buf/liblib__net_buf.a
+[211/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mempool.c.obj
+[212/238] Linking C static library zephyr/lib/libc/common/liblib__libc__common.a
+[213/238] Linking C static library zephyr/soc/soc/rp2350b/rp2350/libsoc__raspberrypi__rpi_pico__rp2350.a
+[214/238] Linking C static library zephyr/subsys/portability/posix/c_lib_ext/libsubsys__portability__posix__c_lib_ext.a
+[215/238] Linking C static library zephyr/subsys/usb/device_next/libsubsys__usb__device_next.a
+[216/238] Linking C static library zephyr/drivers/usb/udc/libdrivers__usb__udc.a
+[217/238] Building C object zephyr/kernel/CMakeFiles/kernel.dir/dynamic_disabled.c.obj
+[218/238] Linking C static library zephyr/subsys/crc/libsubsys__crc.a
+[219/238] Linking C static library zephyr/drivers/usb/common/buf/libdrivers__usb__common__buf.a
+[220/238] Linking C static library zephyr/drivers/adc/libdrivers__adc.a
+[221/238] Linking C static library zephyr/drivers/flash/libdrivers__flash.a
+[222/238] Linking C static library zephyr/drivers/gpio/libdrivers__gpio.a
+[223/238] Linking C static library zephyr/drivers/clock_control/libdrivers__clock_control.a
+[224/238] Linking C static library zephyr/drivers/hwinfo/libdrivers__hwinfo.a
+[225/238] Linking C static library zephyr/drivers/i2c/libdrivers__i2c.a
+[226/238] Linking C static library zephyr/drivers/pwm/libdrivers__pwm.a
+[227/238] Linking C static library zephyr/drivers/pinctrl/libdrivers__pinctrl.a
+[228/238] Linking C static library zephyr/drivers/serial/libdrivers__serial.a
+[229/238] Linking C static library zephyr/drivers/reset/libdrivers__reset.a
+[230/238] Linking C static library zephyr/drivers/timer/libdrivers__timer.a
+[231/238] Linking C static library modules/hal_rpi_pico/libmodules__hal_rpi_pico.a
+[232/238] Linking C static library zephyr/kernel/libkernel.a
+[233/238] Linking CXX executable zephyr/zephyr_pre0.elf; Logical command for additional byproducts on target: zephyr_pre0
+[234/238] Generating linker.cmd
+[235/238] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[236/238] Building C object zephyr/CMakeFiles/zephyr_final.dir/misc/empty_file.c.obj
+[237/238] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[238/238] Linking CXX executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:       86164 B    4194048 B      2.05%
+             RAM:      193384 B       520 KB     36.32%
+        IDT_LIST:           0 B        32 KB      0.00%
+Generating files from /home/fred/microblocks-zephyr-work/build/fruit-jam/zephyr/zephyr.elf for board: adafruit_fruit_jam/rp2350b/m33_0
+Converted to uf2, output size: 172544, start address: 0x10000100
+Wrote 172544 bytes to zephyr.uf2
