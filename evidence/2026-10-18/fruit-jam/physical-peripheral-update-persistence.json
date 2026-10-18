@@ -1,0 +1,31 @@
+{
+  "result": "PASS",
+  "phase": "after-reboot",
+  "started_utc": "2026-10-18T16:17:37.078379+00:00",
+  "checks": {
+    "ping": true,
+    "version": "v417 Fruit Jam RP2350B Zephyr (experimental)",
+    "code_crc32": {
+      "0": "297d191b",
+      "3": "ac13eac1",
+      "2": "d8037d65",
+      "4": "555026c4"
+    },
+    "reboot_arithmetic": 12,
+    "startup_variable_9": 42
+  },
+  "firmware_elf_sha256": "aa748a7e23712c63c8c270ac4c743b51425577b15bb6fb5fc84327bacfad7c75",
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "transport_counters": {
+    "sent": 27,
+    "received": 118
+  },
+  "finished_utc": "2026-10-18T16:17:37.243139+00:00"
+}

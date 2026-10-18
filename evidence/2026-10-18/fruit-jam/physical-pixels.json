@@ -1,0 +1,86 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T16:17:46.846631+00:00",
+  "firmware_elf_sha256": "aa748a7e23712c63c8c270ac4c743b51425577b15bb6fb5fc84327bacfad7c75",
+  "checks": {
+    "command_sequence": [
+      {
+        "pixel": 1,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 220
+      },
+      {
+        "pixel": 2,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 220
+      },
+      {
+        "pixel": 3,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 220
+      },
+      {
+        "pixel": 4,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 220
+      },
+      {
+        "pixel": 5,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 220
+      },
+      {
+        "pixel": 1,
+        "rgb": [
+          0,
+          8,
+          0
+        ],
+        "duration_ms": 220
+      },
+      {
+        "pixel": 1,
+        "rgb": [
+          0,
+          0,
+          8
+        ],
+        "duration_ms": 220
+      }
+    ],
+    "final_off_command": true
+  },
+  "visual_confirmation": false,
+  "external_sensor_access": false,
+  "audio_emitted": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "scope": "Physical device accepted/completed commands; emitted light/colors need human observation",
+  "finished_utc": "2026-10-18T16:17:48.705681+00:00"
+}

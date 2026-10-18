@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "scope": "Real graphical GP MicroBlocks IDE over local USB bridge",
+  "url": "http://127.0.0.1:8768/",
+  "board": "Fruit Jam RP2350B Zephyr (experimental)",
+  "firmware_elf_sha256": "aa748a7e23712c63c8c270ac4c743b51425577b15bb6fb5fc84327bacfad7c75",
+  "checks": {
+    "graphical_arithmetic": 12,
+    "graphical_live_edit": 13,
+    "graphical_repeat_count": 50,
+    "exact_ordered_50_sequence": "Verified in prior serial protocol baseline; this GUI checkpoint confirms final count 50 only",
+    "graphical_disconnect_reconnect_arithmetic": 12,
+    "fresh_tab_load_and_connect_arithmetic": 12,
+    "graphical_stop_command_in_idle_state": true,
+    "graphical_stop_of_running_script": "Not separately measured; actual stop and variable inspection pass in serial baseline"
+  },
+  "screenshots": [
+    "ide-live-edit-13.jpg",
+    "ide-output-50.jpg",
+    "ide-reconnect-12.jpg",
+    "ide-fresh-load-12.jpg"
+  ],
+  "sht4x": "Cancelled; no further accesses",
+  "pending": [
+    "Graphical stop during running script",
+    "NeoPixel visual observation",
+    "Remaining onboard peripherals"
+  ],
+  "checked_utc": "2026-10-18T17:24:42.178408+00:00"
+}

@@ -1,0 +1,123 @@
+{
+  "result": "PASS",
+  "phase": "baseline",
+  "started_utc": "2026-10-18T15:55:47.352860+00:00",
+  "checks": {
+    "ping": true,
+    "version": "v417 Fruit Jam RP2350B Zephyr (experimental)",
+    "arithmetic_runs": 10,
+    "live_edit_result": 13,
+    "ordered_outputs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "fragmented_upload_bytes": 1019,
+    "partial_frame_timeout_recovery": true,
+    "stop_and_variable_inspection": true,
+    "code_crc32": {
+      "0": "297d191b",
+      "3": "ac13eac1",
+      "2": "d8037d65",
+      "4": "555026c4"
+    },
+    "io_capabilities": {
+      "digital_gpio": [
+        6,
+        7,
+        10,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "analog_gpio": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "analog_max": 1023,
+      "pwm_hz": 1000,
+      "i2c_gpio": [
+        20,
+        21
+      ],
+      "spi": false,
+      "hardware_tested": false,
+      "error": 0
+    },
+    "reconnect_arithmetic": true,
+    "snapshot_debounce_wait_seconds": 7,
+    "buttons_pressed": [
+      false,
+      false,
+      false
+    ]
+  },
+  "firmware_elf_sha256": "ccc4b9cbf583a35fe52da15dea90ce9cfbbd0ef05375ff26a4679d76214d14ce",
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "transport_counters": {
+    "sent": 57,
+    "received": 94
+  },
+  "finished_utc": "2026-10-18T15:55:56.189963+00:00"
+}

@@ -39,10 +39,11 @@ def main():
     parser.add_argument('--phase',choices=['baseline','after-reboot','sensor'],required=True)
     parser.add_argument('--expected',type=Path)
     parser.add_argument('--evidence',type=Path,required=True)
+    parser.add_argument('--firmware-elf-sha256',default='ccc4b9cbf583a35fe52da15dea90ce9cfbbd0ef05375ff26a4679d76214d14ce')
     args = parser.parse_args()
     report = dict(result='FAIL',phase=args.phase,
         started_utc=datetime.now(timezone.utc).isoformat(),checks={},
-        firmware_elf_sha256='ccc4b9cbf583a35fe52da15dea90ce9cfbbd0ef05375ff26a4679d76214d14ce')
+        firmware_elf_sha256=args.firmware_elf_sha256)
     vm = None
     def sync(index):
         start=len(vm.events);vm.short(26,index)

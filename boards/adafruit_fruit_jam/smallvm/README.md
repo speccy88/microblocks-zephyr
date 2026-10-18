@@ -1,9 +1,10 @@
 # Fruit Jam initial USB/SmallVM application
 
-**Cross-build and mock-hardware VM harness pass; not flashed or physically tested.**
-The coordinated build completed with four jobs. Final linker allocation is
-85,892 bytes of flash and 193,384 bytes of internal RAM; runtime usage has not
-been measured. ELF and UF2 inspection identify RP2350 ARM Secure images.
+**Cross-build, mock VM and the physical USB/VM baseline pass.**
+The peripheral image was programmed and verified with authorized SWD access.
+Its linker allocation is 89,240 bytes of flash and 193,512 bytes of internal
+RAM; runtime usage has not been measured. Graphical arithmetic/editing work
+through the local USB bridge. Wi-Fi hosting is still being implemented. ELF and UF2 inspection identify RP2350 ARM Secure images.
 See the [build evidence](../../../evidence/2026-10-18/fruit-jam/target-build-verification.json).
 
 This is an out-of-tree `adafruit_fruit_jam/rp2350b/m33_0` target, pinned to Zephyr
@@ -46,10 +47,14 @@ The mapped flash layout is: app `0x000000..0x3fffff`, including the SoC linkerâ€
 RP2350 image-definition block, and program store `0xfc0000..0xffffff`. The intervening flash is
 unassigned. Program-store data is not a loadable firmware section. ELF segment
 bounds exclude the program store. Actual flash writes, USB pauses during XIP
-flash writes and interrupted save/reconnect behavior still require physical acceptance.
+flash writes have physical reboot/CRC evidence; arbitrary power-loss timing
+during a save remains untested.
 
-Display/HSTX, PIO USB host, PSRAM, AirLift Wi-Fi/BLE, SD, NeoPixels, audio and IR
-are unavailable. The red LED shares GPIO29 with IR, so the initial application
+NeoPixels use an isolated PIO1/base16 implementation; command completion passes
+with brief 8/255 patterns and final off, while visual acceptance is pending.
+Display/HSTX, PIO USB host, PSRAM, AirLift Wi-Fi/BLE, SD, audio and IR remain
+unavailable. SHT4x source is dormant, its library blocks removed, and further
+sensor diagnosis is cancelled. The red LED shares GPIO29 with IR, so the initial application
 does not drive it. Raw SPI returns unsupported; SD and AirLift buses are not
 exposed as generic SPI. Arduino Serial is a stub with printk disabled, because
 USB belongs to the VM; arbitrary serial-dependent libraries are not supported.
@@ -108,8 +113,10 @@ python "$repo/tools/test_fruit_jam_vm.py" \
   --evidence "$repo/evidence/2026-10-18/fruit-jam/vm-harness.json"
 ```
 
-A successful compile and mock harness do not establish physical USB, flash
-persistence, pin mux or peripheral operation. HSTX/host USB/audio/networking and
+The [physical USB baseline](../../../evidence/2026-10-18/fruit-jam/physical-usb-baseline.json)
+and [peripheral-update persistence](../../../evidence/2026-10-18/fruit-jam/physical-peripheral-update-persistence.json)
+record actual hardware results. Compile and mock results alone do not establish
+peripheral operation. HSTX/host USB/audio/networking and
 other missing features remain as listed above.
 
 Any later programming requires the user's separate authorization and a backup

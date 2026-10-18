@@ -1,0 +1,56 @@
+{
+  "result": "FAIL",
+  "phase": "sensor",
+  "started_utc": "2026-10-18T15:58:05.070435+00:00",
+  "checks": {
+    "ping": true,
+    "version": "v417 Fruit Jam RP2350B Zephyr (experimental)",
+    "zero_length_address_probe": false,
+    "capabilities_after_probe": {
+      "digital_gpio": [
+        6,
+        7,
+        10,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "analog_gpio": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "analog_max": 1023,
+      "pwm_hz": 1000,
+      "i2c_gpio": [
+        20,
+        21
+      ],
+      "spi": false,
+      "hardware_tested": false,
+      "error": -116
+    }
+  },
+  "firmware_elf_sha256": "ccc4b9cbf583a35fe52da15dea90ce9cfbbd0ef05375ff26a4679d76214d14ce",
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "error": "RuntimeError: VM task error: 23f90b0000",
+  "transport_counters": {
+    "sent": 145,
+    "received": 322
+  },
+  "finished_utc": "2026-10-18T15:58:06.190097+00:00",
+  "follow_up": "Cancelled by user; historical failure preserved; no retry pending"
+}

@@ -4,9 +4,9 @@
   "soc": "RP2350B",
   "flash_mib": 16,
   "psram_mib": 8,
-  "phase": "initial-target-cross-built-awaiting-physical-acceptance",
+  "phase": "physical-usb-vm-verified-peripherals-in-progress",
   "target_firmware_cross_built": true,
-  "physical_hardware_available": false,
+  "physical_hardware_available": true,
   "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
   "schematic_commit": "252dc09456ee447b3d7eeb4fa99877898503e81a",
   "schematic_sha256": "ee1307b16e89ca980e2cf746a568c92f39f9f43d09678f2293b28b72a34c0e6d",
@@ -51,8 +51,12 @@
       "hardware": "Native USB-C / ROM boot",
       "pins": {},
       "upstream_status": "usb-device-cdc-available",
-      "smallvm": "cross-built-not-physically-tested",
-      "physical_tested": false
+      "smallvm": "physical-binary-usb-and-local-graphical-ide-pass",
+      "physical_tested": true,
+      "evidence": [
+        "evidence/2026-10-18/fruit-jam/physical-usb-baseline.json",
+        "evidence/2026-10-18/fruit-jam/physical-ide-checkpoint.json"
+      ]
     },
     {
       "id": "psram",
@@ -150,9 +154,13 @@
       "pins": {
         "data": 32
       },
-      "upstream_status": "pico-pio-driver-present-high-bank-integration-pending",
-      "smallvm": "not-yet-implemented",
-      "physical_tested": false
+      "upstream_status": "isolated-pio1-base16-driver",
+      "smallvm": "physical-commands-pass-visual-acceptance-pending",
+      "physical_tested": false,
+      "evidence": [
+        "evidence/2026-10-18/fruit-jam/physical-pixels.json"
+      ],
+      "limitations": "Emitted light, colors and positions not observed"
     },
     {
       "id": "buttons",
@@ -163,8 +171,11 @@
         "button3": 5
       },
       "upstream_status": "gpio-driver-present",
-      "smallvm": "cross-built-not-physically-tested",
-      "physical_tested": false
+      "smallvm": "physical-released-state-read-presses-untested",
+      "physical_tested": false,
+      "evidence": [
+        "evidence/2026-10-18/fruit-jam/physical-usb-baseline.json"
+      ]
     },
     {
       "id": "led_ir",
@@ -184,8 +195,9 @@
         "scl": 21
       },
       "upstream_status": "i2c-driver-present",
-      "smallvm": "cross-built-not-physically-tested",
-      "physical_tested": false
+      "smallvm": "compiled-no-successful-physical-transaction",
+      "physical_tested": false,
+      "limitations": "SHT4x investigation cancelled; no further sensor access; historical failures retained"
     },
     {
       "id": "expansion",
@@ -203,7 +215,7 @@
           45
         ]
       },
-      "upstream_status": "gpio-adc-pwm-drivers-present-variant-pending",
+      "upstream_status": "gpio-adc-pwm-variant-compiled",
       "smallvm": "cross-built-not-physically-tested",
       "physical_tested": false
     },
@@ -212,11 +224,15 @@
       "hardware": "Power switch, main RUN, SWD",
       "pins": {},
       "upstream_status": "main-run-distinct-from-gpio22",
-      "smallvm": "not-yet-implemented",
-      "physical_tested": false
+      "smallvm": "physical-swd-backup-program-verify-and-cold-reset-pass",
+      "physical_tested": true,
+      "evidence": [
+        "evidence/2026-10-18/fruit-jam/physical-installation.json"
+      ],
+      "limitations": "Power switch and supply behavior not measured"
     }
   ],
-  "target_firmware_scope": "Initial cross-built USB/SmallVM and safe IO baseline; mock VM tests pass; incomplete peripheral coverage and no physical tests",
+  "target_firmware_scope": "Physical USB/SmallVM, SWD programming and program persistence verified; graphical local USB bridge; incomplete peripheral coverage",
   "zephyr_target": "adafruit_fruit_jam/rp2350b/m33_0",
   "digital_gpio": [
     6,
@@ -247,7 +263,12 @@
     "slot_size": 131072,
     "payload_offset": 4096,
     "ram_code_bytes": 65536,
-    "physical_tested": false
+    "physical_tested": true,
+    "evidence": [
+      "evidence/2026-10-18/fruit-jam/physical-persistence.json",
+      "evidence/2026-10-18/fruit-jam/physical-peripheral-update-persistence.json"
+    ],
+    "limitations": "Cold reset and firmware update checked; arbitrary interrupted-save power loss not checked"
   },
   "pcb_sha256": "8a1a3516c733ada622ffdd433316ae133ecd4fcafa833b56a7019159a7dfec08",
   "target_firmware_source_present": true

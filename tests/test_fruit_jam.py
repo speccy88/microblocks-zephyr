@@ -27,7 +27,15 @@ class FruitJamInventoryTests(unittest.TestCase):
         self.assertIn('RUN',DATA['swd']['main_reset'])
         self.assertTrue(DATA['target_firmware_cross_built'])
         self.assertTrue(DATA['target_firmware_source_present'])
-        self.assertTrue(all(not c['physical_tested'] for c in DATA['capabilities']))
+        self.assertTrue(DATA['physical_hardware_available'])
+        verified={c['id'] for c in DATA['capabilities'] if c['physical_tested']}
+        self.assertEqual(verified,{'usb_device','power_debug'})
+        for feature in DATA['capabilities']:
+            if not feature['physical_tested']:continue
+            self.assertTrue(feature['evidence'])
+            for name in feature['evidence']:
+                report=json.loads((ROOT/name).read_text(encoding='utf-8'))
+                self.assertEqual(report['result'],'PASS')
         self.assertEqual(DATA['soc'],'RP2350B')
 
     def test_actual_arduino_pin_mapping_reserves_onboard_hardware(self):
@@ -49,6 +57,9 @@ class FruitJamInventoryTests(unittest.TestCase):
         self.assertEqual(store['offset']+store['size'],DATA['flash_mib']*1024*1024)
         self.assertEqual(store['size'],store['slots']*store['slot_size'])
         self.assertLess(store['payload_offset']+store['ram_code_bytes'],store['slot_size'])
+        self.assertTrue(store['physical_tested'])
+        for name in store['evidence']:
+            self.assertEqual(json.loads((ROOT/name).read_text())['result'],'PASS')
         dts=next((ROOT/'boards/adafruit_fruit_jam/zephyr/boards/adafruit/adafruit_fruit_jam').glob('*.dts')).read_text()
         self.assertIn('reg = <0xfc0000 0x40000>',dts)
         self.assertIn('reg = <0x0 DT_SIZE_M(4)>',dts)

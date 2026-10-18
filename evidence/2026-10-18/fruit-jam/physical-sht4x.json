@@ -1,0 +1,25 @@
+{
+  "result": "FAIL",
+  "phase": "sensor",
+  "started_utc": "2026-10-18T15:57:03.015739+00:00",
+  "checks": {
+    "ping": true,
+    "version": "v417 Fruit Jam RP2350B Zephyr (experimental)"
+  },
+  "firmware_elf_sha256": "ccc4b9cbf583a35fe52da15dea90ce9cfbbd0ef05375ff26a4679d76214d14ce",
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "error": "AssertionError: No device ACK at known SHT4x address 0x44",
+  "transport_counters": {
+    "sent": 54,
+    "received": 81
+  },
+  "finished_utc": "2026-10-18T15:57:03.612428+00:00",
+  "follow_up": "Cancelled by user; historical failure preserved; no retry pending"
+}

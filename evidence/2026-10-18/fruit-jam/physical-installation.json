@@ -1,0 +1,62 @@
+{
+  "result": "PASS",
+  "scope": "Fruit Jam application flash and physical USB/VM checkpoint",
+  "source_commit": "e4d3ed08428d71407916510b9637925c42011ed2",
+  "elf_sha256": "ccc4b9cbf583a35fe52da15dea90ce9cfbbd0ef05375ff26a4679d76214d14ce",
+  "full_private_backup_preserved": true,
+  "backup_bytes": 16777216,
+  "backup_sha256": "68c2778bbf19fe40c78e5674947fc7dcc5b889d11ce87b7323931f056bc5d4e3",
+  "probe_serial": "B2047FF29EB03C7E",
+  "swd_khz": 4000,
+  "rp2350_chip_id": "0x30004927",
+  "silicon_revision": 3,
+  "flash": "Winbond w25q128fv/jv",
+  "flash_jedec_id": "0x1840ef",
+  "flash_bytes": 16777216,
+  "loaded_elf_segments": [
+    {
+      "address": "0x10000000",
+      "bytes": 83228,
+      "readback_matches": true
+    },
+    {
+      "address": "0x1001451c",
+      "bytes": 2660,
+      "readback_matches": true
+    },
+    {
+      "address": "0x10014f80",
+      "bytes": 4,
+      "readback_matches": true
+    }
+  ],
+  "programmed_binary_comparison": "PASS",
+  "checksum_note": "OpenOCD checksum fell back to binary comparison and Verified OK; independent readback matches every loaded ELF segment. Four bytes of unloaded padding at 0x12c..0x12f differ from flat BIN fill.",
+  "cold_reset_required_after_initial_programming": true,
+  "usb": {
+    "port": "COM8",
+    "vid": "0x2fe3",
+    "pid": "0x0004",
+    "serial": "E46570978F1E5A34"
+  },
+  "snapshots": [
+    {
+      "slot": 0,
+      "valid": true,
+      "generation": 1,
+      "crc32": "d9af6fcc"
+    },
+    {
+      "slot": 1,
+      "valid": false,
+      "generation": null,
+      "crc32": null
+    }
+  ],
+  "other_board_serial_access": false,
+  "unverified": [
+    "Graphical IDE acceptance",
+    "SHT4x communication",
+    "Other onboard peripheral support"
+  ]
+}
