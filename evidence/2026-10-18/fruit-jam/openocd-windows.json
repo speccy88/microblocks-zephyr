@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/raspberrypi/pico-sdk-tools/releases/download/v2.3.1-0/openocd-0.12.0%2Bdev-x64-win.zip",
+  "archive_sha256": "d13b7bbedaab72b7575f32c7f2f6120e14949f2dfb89366d4618fd8170f6a493",
+  "bytes": 8222256,
+  "executable": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-17\\task-5\\.pico-tools\\openocd.exe",
+  "rp2350_config": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-17\\task-5\\.pico-tools\\scripts\\target\\rp2350.cfg",
+  "rp2350_config_sha256": "222678c1792d94ed37f5009f067de69c70d47871c627db77e8b2fee6c1c4eef5",
+  "version": "Open On-Chip Debugger 0.12.0+dev-gacff23f (2026-09-05-16:12)\nLicensed under GNU GPL v2\nFor bug reports, read\n\thttp://openocd.org/doc/doxygen/bugs.html\n",
+  "device_access": false
+}

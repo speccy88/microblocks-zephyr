@@ -1,0 +1,57 @@
+{
+  "result": "PASS",
+  "scope": "Pico 2 W SWD probe cross-build and binary/preprocessor checks only",
+  "source_commit": "262f9625d75a2bad8d76cc228ee5e21ca3a64d3a",
+  "sdk_commit": "98a542c1a62fb549ffb5d66a3e5892b06276b670",
+  "sdk_version": "2.3.0",
+  "compiler": "Zephyr SDK 1.0.1 arm-zephyr-eabi GCC 14.3.0",
+  "architecture": "RP2350 Cortex-M33 Arm secure",
+  "board": "pico2_w",
+  "artifact": "debugprobe_on_pico2_w.uf2",
+  "uf2_bytes": 95744,
+  "uf2_sha256": "d5b2ffa66e31f79f7fc8b9d990b70e6d6bb669d86c825e6719052c6d48543591",
+  "elf_sha256": "41b10e7a03b3f6d8bc2b4f3ce6583e996a5538eb8738537fef5bba0c20af4252",
+  "uf2_blocks": 187,
+  "uf2_extension_blocks": 1,
+  "uf2_main_blocks": 186,
+  "picotool_file_inspection": "PASS",
+  "uf2_family_ids": [
+    "e48bff59",
+    "e48bff57"
+  ],
+  "actual_preprocessor": {
+    "pico2_w": true,
+    "rp2350": true,
+    "status_led_gpio25_enabled": false,
+    "swclk_macro": "(PROBE_PIN_OFFSET + 0)",
+    "swdio_macro": "(PROBE_PIN_OFFSET + 1)",
+    "reset_gpio": 1,
+    "product_string": "\"Debugprobe on Pico 2 W (CMSIS-DAP)\""
+  },
+  "gpio": {
+    "swclk": 2,
+    "swdio": 3,
+    "reset_open_drain": 1
+  },
+  "physical_validation": false,
+  "flashed": false,
+  "build_parallel_jobs": 4,
+  "largest_ninja_invocation_end_ms": 7722,
+  "resource_limits": "Build completed; peak CPU/RAM were not measured. No compilation remains running. No GPU/Ollama access.",
+  "limitations": [
+    "Local reviewed Pico 2 W adaptation; upstream has no W-specific published image",
+    "USB enumeration, SWD timing, target programming, reset and recovery require physical acceptance"
+  ],
+  "reset_source_review": {
+    "source": "src/probe.pio:probe_gpio_init",
+    "gp1_reinitialized_as_sio_input_on_swd_connect": true,
+    "output_latch_cleared": true,
+    "physical_tested": false
+  },
+  "windows_source_review": {
+    "source": "src/usb_descriptors.c:desc_ms_os_20",
+    "cmsis_dap_winusb_compatible_id": true,
+    "actual_driver_binding_tested": false
+  },
+  "tracked_log_normalization": "LF line endings and trailing whitespace removed; raw text logs retained outside Git in workspace .probe-raw-logs."
+}

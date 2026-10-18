@@ -1,0 +1,220 @@
+{
+  "board": "Adafruit Fruit Jam",
+  "product_id": 6200,
+  "soc": "RP2350B",
+  "flash_mib": 16,
+  "psram_mib": 8,
+  "phase": "specification-and-programming-preparation",
+  "target_firmware_implemented": false,
+  "target_firmware_cross_built": false,
+  "physical_hardware_available": false,
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "schematic_commit": "252dc09456ee447b3d7eeb4fa99877898503e81a",
+  "schematic_sha256": "ee1307b16e89ca980e2cf746a568c92f39f9f43d09678f2293b28b72a34c0e6d",
+  "pin_reference": "https://github.com/adafruit/circuitpython/blob/main/ports/raspberrypi/boards/adafruit_fruit_jam/pins.c",
+  "pin_reference_sha256": "459515f2b8b0ff2bd5e82ce60231591d0b3703becb07329e291881f50868e6f7",
+  "swd": {
+    "connector": "JST-SH 3 pin, 1 mm",
+    "pins": {
+      "1": "SWCLK",
+      "2": "GND",
+      "3": "SWDIO"
+    },
+    "main_reset": "JP3 pin26 / RP2350 RUN",
+    "probe_gpio": {
+      "swclk": 2,
+      "swdio": 3,
+      "reset": 1
+    }
+  },
+  "analog_gpio": [
+    40,
+    41,
+    42,
+    43,
+    44,
+    45
+  ],
+  "extension_gpio_allowlist": [
+    6,
+    7,
+    10,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45
+  ],
+  "capabilities": [
+    {
+      "id": "usb_device",
+      "hardware": "Native USB-C / ROM boot",
+      "pins": {},
+      "upstream_status": "usb-device-cdc-available",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "psram",
+      "hardware": "8 MiB QSPI PSRAM",
+      "pins": {
+        "cs": 47
+      },
+      "upstream_status": "missing-board-xip-integration",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "dvi",
+      "hardware": "HSTX DVI output",
+      "pins": {
+        "lanes": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      "upstream_status": "missing-hstx-display-driver",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "audio",
+      "hardware": "TLV320DAC3100 stereo headphones / mono speaker",
+      "pins": {
+        "data": 24,
+        "mclk": 25,
+        "bclk": 26,
+        "ws": 27,
+        "irq": 23,
+        "periph_reset": 22
+      },
+      "upstream_status": "codec-driver-family-present-rp2350-i2s-driver-missing",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "airlift",
+      "hardware": "ESP32-C6 factory AirLift",
+      "pins": {
+        "miso": 28,
+        "sck": 30,
+        "mosi": 31,
+        "cs": 46,
+        "busy": 3,
+        "irq": 23,
+        "periph_reset": 22,
+        "tx": 8,
+        "rx": 9
+      },
+      "upstream_status": "factory-spi-protocol-integration-missing",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "usb_host",
+      "hardware": "PIO host plus CH334F hub / two USB-A ports",
+      "pins": {
+        "dp": 1,
+        "dm": 2,
+        "power_enable": 11
+      },
+      "upstream_status": "missing-pio-usb-host-controller",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "sdcard",
+      "hardware": "microSD SPI0 / optional SDIO",
+      "pins": {
+        "sck": 34,
+        "mosi": 35,
+        "miso": 36,
+        "cs": 39,
+        "detect": 33,
+        "sdio_d1": 37,
+        "sdio_d2": 38
+      },
+      "upstream_status": "spi-sdhc-fatfs-drivers-present-board-integration-pending",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "neopixels",
+      "hardware": "Five WS2812 NeoPixels",
+      "pins": {
+        "data": 32
+      },
+      "upstream_status": "pico-pio-driver-present-high-bank-integration-pending",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "buttons",
+      "hardware": "Button1/BOOT, Button2, Button3",
+      "pins": {
+        "boot": 0,
+        "button2": 4,
+        "button3": 5
+      },
+      "upstream_status": "gpio-driver-present",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "led_ir",
+      "hardware": "Active-low red LED / IR receiver shared signal",
+      "pins": {
+        "signal": 29
+      },
+      "upstream_status": "exclusive-input-output-mode-required",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "i2c",
+      "hardware": "STEMMA QT / shared codec I2C0",
+      "pins": {
+        "sda": 20,
+        "scl": 21
+      },
+      "upstream_status": "i2c-driver-present",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "expansion",
+      "hardware": "Extension digital / PWM and analog inputs",
+      "pins": {
+        "gpio": [
+          6,
+          7,
+          10,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45
+        ]
+      },
+      "upstream_status": "gpio-adc-pwm-drivers-present-variant-pending",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    },
+    {
+      "id": "power_debug",
+      "hardware": "Power switch, main RUN, SWD",
+      "pins": {},
+      "upstream_status": "main-run-distinct-from-gpio22",
+      "smallvm": "not-yet-implemented",
+      "physical_tested": false
+    }
+  ]
+}

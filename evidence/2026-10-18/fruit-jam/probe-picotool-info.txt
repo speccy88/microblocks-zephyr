@@ -1,0 +1,41 @@
+File /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/debugprobe_on_pico2_w.uf2 family ID 'rp2350-arm-s':
+
+Program Information
+ name:                debugprobe
+ version:             262f9625-pico2w
+ features:            PROBE UART BAUDRATE 115200
+                      PROBE UART INTERFACE ((uart_inst_t *)((uart_hw_t
+                      *)0x40078000u))
+                      UART stdin / stdout
+ binary start:        0x10000000
+ binary end:          0x1000b958
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ 0:                   UART0 TX, UART0 TX
+ 1:                   PROBE RESET, UART0 RX, UART0 RX
+ 2:                   PROBE SWCLK
+ 3:                   PROBE SWDIO
+ 4:                   PROBE UART TX
+ 5:                   PROBE UART RX
+
+Build Information
+ sdk version:         2.3.0
+ pico_board:          pico2_w
+ boot2_name:          boot2_w25q080
+ build date:          Oct 18 2026
+ build attributes:    RelWithDebInfo
+
+Metadata Block 1
+ address:             0x10000138
+ next block address:  0x1000b944
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+
+Metadata Block 2
+ address:             0x1000b944
+ next block address:  0x10000138
+ block type:          ignored

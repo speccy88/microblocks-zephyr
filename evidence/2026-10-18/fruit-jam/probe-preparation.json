@@ -1,0 +1,20 @@
+{
+  "upstream_commit": "262f9625d75a2bad8d76cc228ee5e21ca3a64d3a",
+  "upstream": "https://github.com/raspberrypi/debugprobe",
+  "source_hashes": {
+    "include/board_config.h": "94c515bfe1b365fe1c215bd404571bfe9f857d9104fe36b57d18a2309c120ef2",
+    "include/board_pico_config.h": "0fe0239f57165af06001c1842c0da6564791dbc37e766d32bf36a2b524a95798",
+    "get-version.sh": "422233b000d1111e1abea0d0c2a5eea6a3d9ebf7a8bf5714843d38f9722f497b"
+  },
+  "board": "pico2_w",
+  "swd_gpio": {
+    "clock": 2,
+    "data": 3,
+    "reset": 1
+  },
+  "status_led_disabled": true,
+  "radio_used": false,
+  "physical_validation": false,
+  "deterministic_version": "262f9625-pico2w",
+  "scope": "Reviewed adaptation of official sources; not an official prebuilt Pico 2 W image"
+}

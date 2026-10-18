@@ -1,0 +1,24 @@
+[1/127] No download step for 'pioasmBuild'
+[2/127] cd /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w && /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w-src/get-version.sh
+[3/127] No update step for 'pioasmBuild'
+[4/127] No patch step for 'pioasmBuild'
+[5/127] Linking ASM executable pico-sdk/src/rp2350/boot_stage2/bs2_default.elf
+FAILED: [code=127] pico-sdk/src/rp2350/boot_stage2/bs2_default.elf pico-sdk/src/rp2350/boot_stage2/bs2_default.dis /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2350/boot_stage2/bs2_default.dis
+: && /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mcmse -mfloat-abi=softfp -O2 -g -DNDEBUG -Wl,--build-id=none -nostartfiles -Wl,--script=/home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0/src/rp2350/boot_stage2/boot_stage2.ld -Wl,-Map=/home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2350/boot_stage2/bs2_default.elf.map pico-sdk/src/rp2350/boot_stage2/CMakeFiles/bs2_default.dir/compile_time_choice.S.o -o pico-sdk/src/rp2350/boot_stage2/bs2_default.elf   && cd /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2350/boot_stage2 && /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump -h /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2350/boot_stage2/bs2_default.elf > bs2_default.dis && /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump -d /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2350/boot_stage2/bs2_default.elf >> bs2_default.dis && /home/fred/microblocks-zephyr-work/tools/pico-host-2.3.1/picotool/picotool coprodis --quiet bs2_default.dis bs2_default.dis
+/home/fred/microblocks-zephyr-work/tools/pico-host-2.3.1/picotool/picotool: error while loading shared libraries: libusb-1.0.so.0: cannot open shared object file: No such file or directory
+[6/127] Performing configure step for 'pioasmBuild'
+FAILED: [code=1] pico-sdk/src/rp2_common/pico_status_led/pioasm/src/pioasmBuild-stamp/pioasmBuild-configure /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2_common/pico_status_led/pioasm/src/pioasmBuild-stamp/pioasmBuild-configure
+cd /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pioasm && /home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages/cmake/data/bin/cmake --no-warn-unused-cli -DCMAKE_MAKE_PROGRAM:FILEPATH=/home/fred/microblocks-zephyr-work/.venv/bin/ninja -DPIOASM_FLAT_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pioasm-install -DCMAKE_RULE_MESSAGES=OFF -DCMAKE_INSTALL_MESSAGE=NEVER -GNinja -C/home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2_common/pico_status_led/pioasm/tmp/pioasmBuild-cache-RelWithDebInfo.cmake -S /home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0/tools/pioasm -B /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pioasm && /home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages/cmake/data/bin/cmake -E touch /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2_common/pico_status_led/pioasm/src/pioasmBuild-stamp/pioasmBuild-configure
+The --no-warn-unused-cli option is deprecated.  Use -Wno-unused-cli instead.
+loading initial cache file /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/pico-sdk/src/rp2_common/pico_status_led/pioasm/tmp/pioasmBuild-cache-RelWithDebInfo.cmake
+-- The CXX compiler identification is unknown
+CMake Error at CMakeLists.txt:2 (project):
+  No CMAKE_CXX_COMPILER could be found.
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CXX" or the CMake cache entry CMAKE_CXX_COMPILER to the full path
+  to the compiler, or to the compiler name if it is in the PATH.
+
+
+-- Configuring incomplete, errors occurred!
+ninja: build stopped: subcommand failed.

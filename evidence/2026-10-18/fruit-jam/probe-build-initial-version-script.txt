@@ -1,0 +1,7 @@
+[1/129] cd /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w && /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w-src/get-version.sh
+FAILED: [code=127] CMakeFiles/version /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w/CMakeFiles/version
+cd /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w && /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w-src/get-version.sh
+/bin/sh: 1: /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w-src/get-version.sh: not found
+[2/129] Creating directories for 'pioasmBuild'
+[3/129] Building ASM object pico-sdk/src/rp2350/boot_stage2/CMakeFiles/bs2_default.dir/compile_time_choice.S.o
+ninja: build stopped: subcommand failed.

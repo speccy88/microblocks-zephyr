@@ -1,0 +1,40 @@
+PICO_SDK_PATH is /home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0
+Target board (PICO_BOARD) is 'pico2_w'.
+Using board configuration from /home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0/src/boards/include/boards/pico2_w.h
+Pico Platform (PICO_PLATFORM) is 'rp2350-arm-s'.
+Build type is RelWithDebInfo
+Using picotool from /home/fred/microblocks-zephyr-work/tools/pico-host-2.3.1/picotool/picotool
+TinyUSB available at /home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0/lib/tinyusb/hw/bsp/rp2040; enabling build support for USB.
+CMake Warning at /home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0/src/rp2_common/pico_btstack/CMakeLists.txt:11 (message):
+  btstack submodule has not been initialized; Pico W BLE support will be
+  unavailable.
+
+              hint: try 'git submodule update --init' from your SDK directory (/home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0).
+
+
+CMake Warning at /home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0/src/rp2_common/pico_cyw43_driver/CMakeLists.txt:12 (message):
+  cyw43-driver submodule has not been initialized; Pico W wireless support
+  will be unavailable
+
+  hint: try 'git submodule update --init' from your SDK directory
+  (/home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0).
+
+
+CMake Warning at /home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0/src/rp2_common/pico_lwip/CMakeLists.txt:11 (message):
+  LWIP submodule has not been initialized; Pico W wireless support will be
+  unavailable
+
+  #hint: try 'git submodule update --init' from your SDK directory
+  (/home/fred/microblocks-zephyr-work/references/pico-sdk-2.3.0).
+
+
+C library type is picolibc
+-- Configuring done (0.5s)
+-- Generating done (0.1s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    pioasm_DIR
+
+
+-- Build files have been written to: /home/fred/microblocks-zephyr-work/build/debugprobe-pico2w

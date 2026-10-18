@@ -33,6 +33,13 @@ preserve its own licensing and attribution when integrated:
 - [BeagleBoard MicroBlocks-Zephyr](https://github.com/beagleboard/microblocks-zephyr)
 - [Waveshare ESP32-S3-RLCD-4.2 examples](https://github.com/waveshareteam/ESP32-S3-RLCD-4.2)
 - [UNO Q MicroBlocks implementation](https://github.com/speccy88/uno-q-microblocks)
+- [Raspberry Pi debugprobe](https://github.com/raspberrypi/debugprobe) (MIT),
+  [Pico SDK](https://github.com/raspberrypi/pico-sdk) (BSD-3-Clause and component notices),
+  and their FreeRTOS/TinyUSB/CMSIS dependencies. The Pico 2 W preparation script
+  copies pinned sources outside Git and retains their original licenses.
+- [Adafruit Fruit Jam PCB](https://github.com/adafruit/Adafruit-Fruit-Jam-PCB)
+  (CC BY-SA 3.0). Schematic files are read-only external references; this repo
+  records source attribution and factual pin assignments, not copied PCB designs.
 
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
