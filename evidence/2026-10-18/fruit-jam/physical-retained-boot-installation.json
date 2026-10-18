@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "scope": "Authorized retained-association/native project export image SWD installation and USB/current-program regression",
+  "checked_utc": "2026-10-18T22:07:22.103825+00:00",
+  "source_commit": "37f1fc22c50b0c639622f0e77d9a4e000da80b1a",
+  "firmware_elf_sha256": "58770eadbdbb27472e32fb0e02e46cd756908e56fa0886866a50d63618b08df5",
+  "programming_verified": true,
+  "cold_reset_completed": true,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "code_crc32": {
+    "0": "806c9e21"
+  },
+  "arithmetic": 13,
+  "vmstore_private_backup_sha256": "ec4221c1aa6800c0b0cd333356f43cee2a5f19be74ef85aee1c6a5fad5ec6f55",
+  "coprocessor_flashed": false,
+  "credentials_sent": false,
+  "sht4x_access": false,
+  "association_verified": false
+}

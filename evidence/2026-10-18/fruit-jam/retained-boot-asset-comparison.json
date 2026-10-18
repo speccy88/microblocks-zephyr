@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "changed_assets": [
+    "/microblocks.html"
+  ],
+  "unchanged_assets": 146,
+  "physical_html_raw_sha256": "18258c0a19d00a2e241f19799699867b8910251f047454f4343bf8f29f28b9b6",
+  "physical_html_flash_sha256": "6a6f19ec4f0a030f545169dafbeb44d315af15a5d6d548d58ccd69284df62f1a",
+  "download_fallback_present": true,
+  "source_commit": "37f1fc22c50b0c639622f0e77d9a4e000da80b1a"
+}

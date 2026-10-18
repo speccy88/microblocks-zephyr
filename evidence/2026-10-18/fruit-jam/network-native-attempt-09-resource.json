@@ -1,0 +1,17 @@
+{
+  "phase": "network-native-attempt-09",
+  "command": [
+    "bash",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/build-fruit-jam-network.sh"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 41.715,
+  "parallel_jobs_limit": 4,
+  "sample_interval_seconds": 0.5,
+  "peak_owned_process_group_rss_kib": 197980,
+  "minimum_system_available_kib": 5407380,
+  "peak_owned_process_count": 6,
+  "resource_stop": null,
+  "hardware_access": false,
+  "gpu_access": false
+}

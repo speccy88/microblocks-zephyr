@@ -2,10 +2,12 @@
 
 **Cross-build, mock VM and the physical USB/VM baseline pass.**
 The native network/IDE image was programmed and verified with authorized SWD access.
-Its linker allocation is 3,625,484 bytes of flash and 253,768 bytes of internal
+Its linker allocation is 3,627,708 bytes of flash and 253,808 bytes of internal
 RAM; runtime usage has not been measured. Graphical arithmetic/editing work
-through the local USB bridge. The native service and 147 real editor assets
-compile; standalone acceptance is pending after network timeouts. See
+through the local USB bridge. The 147 native editor assets, real GP startup, graphical edit/reconnect and
+saved-program readback pass. An exported UBP reopens and executes; direct IAB
+download delivery remains unconfirmed. Read-only boot identification resumes
+a retained C6 association without a reset or credential replay. See
 [the measured checkpoint](../../../docs/FRUIT_JAM_NATIVE_IDE.md).
 ELF and UF2 inspection identify RP2350 ARM Secure images.
 See the [build evidence](../../../evidence/2026-10-18/fruit-jam/target-build-verification.json).
@@ -65,8 +67,8 @@ credentials outside VM bytecode and snapshots. USB arithmetic, reconnect and
 the current program CRC remain intact during and after association.
 Display/HSTX, PIO USB host, PSRAM, BLE, SD, audio and IR remain unavailable.
 AirLift TCP/HTTP/WebSocket service and real editor assets are compiled and
-installed; one HTTP status response passed, but subsequent timeouts leave
-standalone acceptance pending. Read-only `networkStatus` exposes progress.
+installed; complete asset integrity, VM WebSocket and graphical acceptance
+now pass for the retained association. Read-only `networkStatus` exposes progress.
 The explicitly requested coprocessor restoration is
 tracked in [the restoration record](../../../docs/FRUIT_JAM_AIRLIFT_RESTORE.md).
 SHT4x source is dormant, its library blocks removed, and further

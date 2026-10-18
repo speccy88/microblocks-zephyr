@@ -1,16 +1,19 @@
 # Fruit Jam native IDE acceptance
 
 The real MicroBlocks GP 2.5.8 editor loads directly from Fruit Jam at
-`http://192.168.1.7/` for the current association. Its real GP ready event,
+`http://192.168.1.7/microblocks.html` for the current association. Use the complete
+HTML path for the upstream Copy project URL command. Its real GP ready event,
 Connect/Start/Stop controls and Fruit Jam category were verified through the
-browser DOM, with the local USB bridge stopped. This was a software startup
-check; no human visual/audio/device-presence confirmation was requested.
+browser DOM, with the local USB bridge stopped. Native graphical editing,
+execution, reconnect and saved-program readback after
+an RP-only reset now pass as well. No human visual/audio/device-presence
+confirmation was requested.
 
-Installed source: `798bf16bdfea6eb434dbd8283cd1f55ba5cb6114`.
-ELF SHA256: `fb2cd2fb6dcdc4a085072de1e0273db4997339ef3686977e4ebc19ac8ab0b411`.
-The native build uses 3,626,928 bytes of its 4 MiB app partition and 253,784
+Installed source: `37f1fc22c50b0c639622f0e77d9a4e000da80b1a`.
+ELF SHA256: `58770eadbdbb27472e32fb0e02e46cd756908e56fa0886866a50d63618b08df5`.
+The native build uses 3,627,708 bytes of its 4 MiB app partition and 253,808
 bytes of internal RAM. PSRAM is not mapped. All 147 editor files retain source
-verification and licenses; their flash representation uses 3,511,487 bytes.
+verification and licenses; their flash representation uses 3,511,861 bytes.
 No ELF load segment overlaps VM snapshots. SWD programming/verification and
 private pre-update backups passed; original chunk 0 retains CRC `297d191b`.
 
@@ -51,52 +54,69 @@ verified by the real GP event.
 | Full physical VM network sequence | PASS on source `6109239`: 10 arithmetic runs, edit 13, 50 ordered outputs, fragmentation, stop/variable, reconnect, second-controller rejection, USB takeover and setup-path rejection; `physical-network-vm-attempt-03.json` |
 | Largest real IDE asset | PASS on `aa63f96`, 2,180,174 wire bytes / 10,895,070 decoded bytes with both SHA256 values exact, 45.875 seconds; `physical-network-largest-asset-attempt-03.json` |
 | Complete HTTP asset integrity | PASS, all 147 files / 17,278,833 decoded bytes on `aa63f96`; `physical-network-assets-attempt-02.json` |
-| Current bootstrap-only update | Only HTML changed; its physical hash passes and other 146 raw/flash hashes and metadata are identical; `physical-native-bootstrap-html.json`, `native-bootstrap-asset-comparison.json` |
+| Initial queued bootstrap on source 798bf16 | Only HTML changed; its physical hash passes and other 146 raw/flash hashes and metadata are identical; `physical-native-bootstrap-html.json`, `native-bootstrap-asset-comparison.json` |
 | Real browser GP startup from board flash | PASS, DOM readiness and full editor controls, host bridge stopped; `browser-bootstrap-attempt-02.json` |
-| Focused current-image regression after browser startup | PASS, WebSocket arithmetic/reconnect, USB takeover/return, original CRC and USB arithmetic 12; `physical-native-bootstrap-smoke.json` |
+| Focused 798bf16 regression after browser startup | PASS, WebSocket arithmetic/reconnect, USB takeover/return, original CRC and USB arithmetic 12; `physical-native-bootstrap-smoke.json` |
+| Current packaged assets on source 37f1fc2 | New HTML physically hash-verified, other 146 assets identical; `retained-boot-asset-comparison.json` |
+| Current retained-association boot and timeout classification | PASS; physical-retained-boot-and-http-timeouts.json |
+| Real graphical edit, reconnect, board persistence and file export/import | PASS with alternate export; direct IAB download unconfirmed; physical-graphical-save-readback.json |
+| Original complete VM-store restoration and automatic HTTP resume | PASS; physical-graphical-cleanup-and-boot.json |
+| Current-image final transport regression after cleanup | PASS, arithmetic, reconnect, USB takeover/return and original CRC; physical-retained-boot-final-smoke.json |
 | Offline repository validation | PASS, 17 tests |
 
-Earlier HTTP/asset/VM failures remain in their numbered evidence files. The
-current image's post-browser SPI protocol/first-error counters are zero. One
-HTTP client timeout was recorded during browser startup; its request was not
-captured. The editor nevertheless reached its actual ready event and the
-post-startup VM/USB regression passed. This is recorded separately from the
-resolved sustained-transfer SPI faults. Browser programming gestures were not
-repeated; the earlier USB graphical baseline and full binary network sequence
-remain separate measured results.
+Earlier numbered HTTP/asset/VM failures remain as historical evidence. The
+current source adds a delayed read-only identity/status/IP probe at RP2350
+boot, with one retry after a failed probe. A queued explicit user operation
+supersedes it. It never resets the C6, submits a join, requests an SSID/key or
+reads the Windows vault. Two RP-only resets resumed HTTP automatically with
+probe generation 1, operation 0 and reset_requested false.
 
-## Remaining boundaries
+Controlled empty-TCP and partial-header connections expired at 5.016 and
+5.031 seconds respectively, with separate bounded counters and byte counts.
+The subsequent real browser load added one empty-TCP expiration, zero send
+and zero WebSocket timeouts. The historical startup timeout had no captured
+request and cannot be retrospectively classified. The current socket protocol
+and latched first-error counters remain zero; one exact stale-error reply was
+consumed by the existing read-only framing recovery at boot.
 
-### Next acceptance increment: retained association and project export
+The real editor ran 5 + 7 = 12, changed 7 to 8 and returned 13, then returned
+13 again after graphical reconnect. The edited CRC 806c9e21 survived the
+verified application update and RP-only reset. A fresh native browser session
+used Project > Open from board before Connect, recovered return (5 + 8), and
+returned 13. This path avoids uploading a blank workspace to the board.
 
-Before implementation, the intended behavior is a delayed, read-only NINA
-identity/status/IP probe at RP2350 boot. It must not reset the C6, submit a
-join, retrieve an SSID/key or access the Windows vault. One bounded retry is
-permitted after a failed probe; an explicit user operation supersedes the
-automatic probe. A retained association may then resume the HTTP listener.
-Cold C6 power loss still requires the local secure Connect handoff.
+Project Save exposes a visible link to the actual GP-serialized .ubp in page
+memory. IAB did not confirm delivery through either the upstream synthetic
+Save or the visible blob link. This is an unresolved embedded-browser download
+limitation, with no security denial observed. The official Copy project URL
+command works at /microblocks.html; its DOM copy field supplied the serialized
+project when IAB's clipboard service returned empty. Removing its URL-only
+projectName header and normalizing trailing whitespace produced
+[graphical-readback-5-plus-8.ubp](../evidence/2026-10-18/fruit-jam/graphical-readback-5-plus-8.ubp).
+That actual file was reopened through the editor's Computer picker and ran 13
+on the Fruit Jam. Direct IAB download delivery remains unconfirmed.
 
-Timeout diagnostics will distinguish empty TCP preconnections, partial HTTP
-requests, HTTP sends and WebSockets using bounded counters and byte counts,
-without recording request contents. Acceptance uses one deliberately idle
-connection followed by a real browser load.
+The full original 256 KiB program store, including metadata, is restored from
+the private pre-test snapshot and verified by physical SHA256 readback. Original
+CRC 297d191b and USB arithmetic 12 are restored. The exported test and post-test
+store backup remain available separately. See physical-graphical-save-readback,
+physical-graphical-cleanup-and-boot and physical-retained-boot-and-http-timeouts
+JSON evidence under the folder below.
 
-Native editor project Save will additionally expose the actual serialized
-project as a visible download link, retained only in the page's memory. This
-provides an explicit fallback when the upstream synthetic download does not
-deliver a file in an embedded browser. The upstream Save implementation and
-USB-hosted editor stay unchanged. Acceptance requires downloading the real
-edited .ubp, fresh board readback after an RP-only reboot, and restoration of
-the privately backed-up original VM store. No visual/audio observation or
-credential persistence is part of this increment.
+## Remaining boundaries and user decision
 
-These results cover the current powered association. No RP2350 credential
-storage or automatic boot-time NINA setup is implemented. An RP-only restart
-requires explicit live identification/setup initialization; full C6 power loss
-requires the secure local setup flow. C6-only reset/service recovery has not
-been physically accepted on this image. The delivered Windows GUI keeps the
-user's local Connect handoff and immutable attempt receipts; no background
-vault replay is scheduled. No user action or approval is currently pending.
+Retained C6 association now resumes automatically after an RP2350-only reset.
+A full C6 reset or power loss still requires secure local setup; that case was
+not triggered while the user was away. No RP2350 credential persistence,
+automatic join or vault replay was added. The delivered Windows GUI retains
+its physical local Connect handoff and immutable attempt receipts.
+
+The remaining user decision is whether to keep that manual secure Connect
+step after full power loss, or explicitly approve a separate design for
+persistent credentials and automatic association. No credential action or
+approval is currently pending. Direct embedded-browser file download behavior
+also remains a documented limitation, despite the verified export/import
+round trip above.
 
 DVI, host USB, audio, SD, PSRAM and other peripheral limits remain in the board
 manifest. Other boards/ports, cancelled SHT4x work and audible/light patterns

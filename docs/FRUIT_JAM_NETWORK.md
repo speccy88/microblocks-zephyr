@@ -130,7 +130,7 @@ reversed the reply bytes and needed correction at the next coordinated build;
 the actual six bytes match the independent UART identity. Version is 3.3.0 and
 the raw connection status was 254. Association, DHCP and sockets were pending.
 
-## Current provisioning checkpoint
+## Historical first provisioning checkpoint
 
 Source `95c4b70` adds bounded WPA association and three-parameter IP parsing,
 cached setup status, transient credential wiping and a Fruit Jam-only runtime
@@ -143,12 +143,12 @@ connection status 3 and assigned `192.168.1.7`, with netmask/gateway reported
 and no static-IP command. Seven USB arithmetic checks, saved program CRCs and
 reconnect passed. See [the setup checkpoint](FRUIT_JAM_WIFI_SETUP.md) and its
 sanitized receipt. TCP socket and real IDE code now compile and are installed,
-with one HTTP status response passing but later connection timeouts unresolved;
-see [the native service checkpoint](FRUIT_JAM_NATIVE_IDE.md). No working IDE
-endpoint is claimed at that IP. No boot-time credential replay/storage
-is implemented yet.
+the later corrections and actual native acceptance are recorded in
+[the current native service checkpoint](FRUIT_JAM_NATIVE_IDE.md). Graphical
+editing/save/readback and retained-association initialization now pass. Full
+C6 power loss still needs secure setup; no credential replay/storage was added.
 
-## Next implementation contract: native HTTP/WebSocket service
+## Implemented native HTTP/WebSocket contract
 
 Keep the official C6 image and use only its bounded TCP commands over the
 existing SPI bus. Serialize complete command/reply exchanges with the diagnostic

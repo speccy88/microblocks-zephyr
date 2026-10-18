@@ -1,0 +1,35 @@
+{
+  "result": "PASS",
+  "checked_utc": "2026-10-18T22:14:42.825167+00:00",
+  "scope": "Real graphical edit, native WebSocket reconnect, board save and fresh native browser readback after RP-only reset",
+  "source_commit": "37f1fc22c50b0c639622f0e77d9a4e000da80b1a",
+  "firmware_elf_sha256": "58770eadbdbb27472e32fb0e02e46cd756908e56fa0886866a50d63618b08df5",
+  "gui_results_before_reset": [
+    12,
+    13
+  ],
+  "gui_reconnect_value": 13,
+  "fresh_browser_board_readback": {
+    "block": "return (5 + 8)",
+    "value": 13,
+    "open_from_board_used_before_connect": true
+  },
+  "saved_program_preserved_by_install": {
+    "crc32": "806c9e21",
+    "value": 13
+  },
+  "project_export": {
+    "method": "Official Copy project URL at /microblocks.html; serialized code read from its DOM-backed copy field, projectName URL header removed and saved as UTF-8 UBP; insignificant trailing whitespace normalized",
+    "path": "graphical-readback-5-plus-8.ubp",
+    "bytes": 87,
+    "sha256": "dcfb2862a3c12ef5f040cce3847cdde6a6d75bc1908edd620553e9440a08f94d",
+    "iab_native_download_delivery": "Unconfirmed: upstream Save and visible blob-link download timed out without a security denial",
+    "clipboard_service": "Returned empty; actual export obtained from the GP DOM copy field",
+    "file_reopen_verified": true,
+    "reopened_gui_value": 13
+  },
+  "original_program_restore": "PASS, full 256 KiB physical readback exact; original code CRC297d191b and USB value12 restored",
+  "credentials_read": false,
+  "coprocessor_reset": false,
+  "physical_observation_requested": false
+}

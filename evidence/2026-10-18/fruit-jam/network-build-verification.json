@@ -1,12 +1,12 @@
 {
   "result": "PASS",
-  "compiled_source_commit": "798bf16bdfea6eb434dbd8283cd1f55ba5cb6114",
+  "compiled_source_commit": "37f1fc22c50b0c639622f0e77d9a4e000da80b1a",
   "source_sha256": {
     "boards/adafruit_fruit_jam/smallvm/app.overlay": "b3ea7cab4e9345dd8c1d390c7ff37edae594e2ad4e5eacb52f6a735a5aa2e473",
     "boards/adafruit_fruit_jam/smallvm/CMakeLists.txt": "1943171b3dc922f5335f0aa4c77271d272752148076e2b9fbe6f376fcc724c14",
     "boards/adafruit_fruit_jam/smallvm/prj.conf": "713c27b1c3440919ca008ca9fd14c26b91167ae371335af769d6aa2988804120",
-    "boards/adafruit_fruit_jam/smallvm/src/airlift.c": "15173d3c9824cc795296c1bbc8aa4fd3f725716e54a53dceb277e00da3e2aa89",
-    "boards/adafruit_fruit_jam/smallvm/src/airlift.h": "f48a36d32e9a936119eaae8853e9a4a724108c912433f1da0504dc45ee863452",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift.c": "410806717e116ad330211d1b618e02d3616807239e55e8b99f765f02b09a74cb",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift.h": "6e667d9ba5b78b62204daec3b0cf14d57ae7ef01762db443a7e0a3feab1447de",
     "boards/adafruit_fruit_jam/smallvm/src/airlift_socket.c": "9310354cfada0d6e39b172cc6a509862575b925ead0c8b60a9b502bdee2a8c11",
     "boards/adafruit_fruit_jam/smallvm/src/airlift_socket.h": "ac82eaf341189f1b0e0f2e392ad69a9ee23fbdc39a0dd05f54dfd4398dd087c6",
     "boards/adafruit_fruit_jam/smallvm/src/fruit_jam.h": "25c4a9e47857df3d42d6c0825930ebbb5ed87dbb8958f03bdb6758d17a09c2a5",
@@ -16,7 +16,7 @@
     "boards/adafruit_fruit_jam/smallvm/src/http_protocol.h": "f57b2c9324e392eb846cecd7ff6f6d8dab0d106ab6a4b2d15c24c0d9013264f6",
     "boards/adafruit_fruit_jam/smallvm/src/io.cpp": "129ee1eff509369f9f6a709b4ea22d388104718ca1117543f8c159220ec16d97",
     "boards/adafruit_fruit_jam/smallvm/src/main.cpp": "47339acb35a555d16eb66a42d6794271e606519de75df5e682fedf8d6d3efc24",
-    "boards/adafruit_fruit_jam/smallvm/src/network_server.c": "d4537076c5533ae5f24e412fbc1e7aa7f35e7154bba7b259221727307c113e37",
+    "boards/adafruit_fruit_jam/smallvm/src/network_server.c": "fbaf8174b732a64639a15970e20e609bbdf0241d7191a147281c941bd802e42d",
     "boards/adafruit_fruit_jam/smallvm/src/network_server.h": "d82fc9bee3ccd56a47bc3e9372bbfdde95e6c51323a68ed996568cf574be6ba3",
     "boards/adafruit_fruit_jam/smallvm/src/network_transport.h": "b536bfe13de0d2b8f16b1c277ee15ac8bad1dc51188b998cc27f6e37db8cd534",
     "boards/adafruit_fruit_jam/smallvm/src/nina_protocol.c": "f36a6b1649ca98d4c6d306068a154dae6130ecaf2ea9baa5e0d4893c96058293",
@@ -24,7 +24,7 @@
     "boards/adafruit_fruit_jam/smallvm/src/nina_socket_protocol.c": "76981f17d04cb058781bd0a4218d570fd20edba8732d7cc95bedaa82bd43d44c",
     "boards/adafruit_fruit_jam/smallvm/src/nina_socket_protocol.h": "b72b78dc8cf266c2a34b5c360a49a5e9715d0e798aedae400ef5c9e91b50bf12",
     "boards/adafruit_fruit_jam/smallvm/src/pio_pixels.c": "4d160f98d6ba18a03f57100458b0033fb2fff97493f0a09137a4607a32ad241e",
-    "boards/adafruit_fruit_jam/smallvm/src/platform.c": "342071f71d8382cfb19cc9b155c7f9799f910ca8b9ee127271b3ce5c5029daa5",
+    "boards/adafruit_fruit_jam/smallvm/src/platform.c": "ff38ab5b2189a7572b8b43bfd0e6c42c492378c3cafa6b8e9e4978d53065dd66",
     "boards/adafruit_fruit_jam/smallvm/src/program_store.c": "190f5d6961ca15d4203368b8093906c71805738e9340f9c0769d46fd4b4fd473",
     "boards/adafruit_fruit_jam/smallvm/src/sht4x.c": "9ad6d93df8583b29c1af0fbc9cc7a05de0f0615e4bf4aa960c283d92e4ede275",
     "boards/adafruit_fruit_jam/smallvm/src/transport.c": "2e4557adcd131ca8264d43a01becb530a2ac4b26bebc3d3735079d6763ee6877",
@@ -44,7 +44,7 @@
     "tools/prepare_fruit_jam_arduino.py": "e3fcb9b58af4c3ddd9466c4d02377de29e5985bc24fcffba166dd84d96c8faa9",
     "tools/prepare_fruit_jam_runtime.py": "7bece8a10d03969ac28eb5c48ed60da8263948a4ddb8ab166362248c58f11d38",
     "tools/package_fruit_jam_ide.py": "132d9de45090e29b1e1654c9140898f2fa58172b0c866a9ef62754b646d6bfee",
-    "tools/fruit_jam_ide_assets.py": "af06e4993c10e68f240024973987a9ca8e7cd23b18a38cd9fbbe3914c52c7cfd",
+    "tools/fruit_jam_ide_assets.py": "1082d46facbb7285a949bf1d2d693446404d899abb1b89a2b0f471b4b86091df",
     "tools/patch_ide.py": "29e53f18186b4d49069f0fd0d4dae81c32f719d234bb9e3dc9a10956dd4af35a",
     "web/board-network.js": "99173c8e3efbe96661a17bb744a818f00be055d6bf40c9ee2ab71b8fb05ed441",
     "boards/adafruit_fruit_jam/integration/Fruit_Jam.ubl": "acfb7bf51a5dc0513ebbaf29983b74e1e6bbe49050b26d6141411a2e134caabc",
@@ -57,44 +57,44 @@
   "parallel_jobs": 4,
   "artifacts": {
     "zephyr.elf": {
-      "bytes": 5522572,
-      "sha256": "fb2cd2fb6dcdc4a085072de1e0273db4997339ef3686977e4ebc19ac8ab0b411"
+      "bytes": 5524992,
+      "sha256": "58770eadbdbb27472e32fb0e02e46cd756908e56fa0886866a50d63618b08df5"
     },
     "zephyr.uf2": {
-      "bytes": 7254016,
-      "sha256": "f45f197abbc86fa5b82cb2561160b65b4d6f09ef93ce4be0a6d25d298d25cf84"
+      "bytes": 7255552,
+      "sha256": "24ca23e30b3cda4439bfc5353d6e90770c16b4000c5b7632f7bac6156788f4f9"
     },
     "zephyr.bin": {
-      "bytes": 3626928,
-      "sha256": "232f29d564da26dd14167f60c3881a521327d5f5f36e310a11647ddc18433dad"
+      "bytes": 3627708,
+      "sha256": "c92fbbee35d0b9378f28ef1ad9d437803b204c491d52da3719d9620602dbfe97"
     }
   },
   "load_segments": [
     {
       "load_address": "0x10000000",
-      "bytes": 3624012
+      "bytes": 3624792
     },
     {
-      "load_address": "0x10374c4c",
+      "load_address": "0x10374f58",
       "bytes": 2912
     },
     {
-      "load_address": "0x103757ac",
+      "load_address": "0x10375ab8",
       "bytes": 4
     }
   ],
   "symbols": {
     "main": "0x10000e6d",
     "fruit_jam_status": "0x20018fd8",
-    "fj_airlift_join": "0x10002d75",
-    "fj_airlift_status": "0x10002e15",
-    "fj_wifi_decode": "0x10002fad",
+    "fj_airlift_join": "0x10002df9",
+    "fj_airlift_status": "0x10002e99",
+    "fj_wifi_decode": "0x10003031",
     "fruit_jam_network_started": "0x20019118",
-    "fj_web_assets": "0x10018304",
-    "fj_web_asset_count": "0x10018300"
+    "fj_web_assets": "0x1001843c",
+    "fj_web_asset_count": "0x10018438"
   },
-  "linker_flash_bytes": 3626928,
-  "linker_ram_bytes": 253784,
+  "linker_flash_bytes": 3627708,
+  "linker_ram_bytes": 253808,
   "elf_picotool_info": "PASS",
   "uf2_picotool_info": "PASS",
   "load_segments_exclude_program_store": true,

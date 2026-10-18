@@ -100,3 +100,12 @@ requested attempt was a session-specific authorized action. It creates an
 immutable timestamped receipt for each future click as well as the latest
 status file, so another click cannot erase earlier outcome evidence. No further
 credential attempt is scheduled or replayed while the user is away.
+
+## Current boot boundary
+
+Source 37f1fc2 performs delayed read-only identity/status/IP initialization at
+RP2350 boot. Two RP-only resets resumed the existing C6 association and HTTP
+without a join, shared reset or vault read. This does not store credentials or
+recover after full C6 power loss. The local physical Connect action remains
+necessary in that case unless a future credential-persistence design is
+explicitly approved. See [current native acceptance](FRUIT_JAM_NATIVE_IDE.md).

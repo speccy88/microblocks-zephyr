@@ -1,0 +1,74 @@
+{
+  "result": "PASS",
+  "checked_utc": "2026-10-18T23:10:39.370219+00:00",
+  "scope": "Full original VM store and metadata restored after graphical acceptance; RP-only reboot automatically resumes retained association",
+  "restored_address": "0x10fc0000",
+  "restored_bytes": 262144,
+  "swd_verified": true,
+  "full_physical_readback_sha256": "1a712b5e1bd50765b05291cacfd3c7149f709c49e936c4097af87f4fe3287f3c",
+  "private_posttest_backup_sha256": "573c143603348b7a5ba1867a2476ff955a3494df31d7b8a5914c06594e1831e1",
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "restored_code_crc32": {
+    "0": "297d191b"
+  },
+  "usb_arithmetic": 12,
+  "http_status_after_reset": {
+    "board": "Adafruit Fruit Jam",
+    "vm": 417,
+    "ide": "2.5.8",
+    "saved_generation": 46,
+    "network": {
+      "listener": 0,
+      "port": 80,
+      "accepted": 1,
+      "completed": 0,
+      "aborted": 0,
+      "sessions": 0,
+      "ws_errors": 0,
+      "last_error": 0,
+      "chunk_bytes": 2048,
+      "timeouts": {
+        "idle": 0,
+        "request": 0,
+        "send": 0,
+        "ws": 0,
+        "state": 0,
+        "bytes": 0
+      }
+    },
+    "airlift": {
+      "setup_protocol": 1,
+      "state": 3,
+      "generation": 1,
+      "operation": 0,
+      "error": 0,
+      "stage": 7,
+      "queries": 5,
+      "version": "3.3.0",
+      "mac": "58:e6:c5:f5:a3:58",
+      "connection": 3,
+      "disconnect_reason": 202,
+      "reason_error": 0,
+      "spi_resync": 0,
+      "busy": 1,
+      "reset_requested": false,
+      "spi_hz": 1000000,
+      "coprocessor_flashed": false,
+      "network_ready": true,
+      "ip": "192.168.1.7",
+      "netmask": "255.255.255.0",
+      "gateway": "192.168.1.1"
+    }
+  },
+  "application_firmware_overwritten": false,
+  "coprocessor_reset": false,
+  "credentials_read": false,
+  "join_submitted": false
+}

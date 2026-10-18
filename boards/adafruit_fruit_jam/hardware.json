@@ -117,8 +117,8 @@
         "rx": 9,
         "boot_mode": 23
       },
-      "upstream_status": "native-http-asset-integrity-vm-websocket-and-real-gp-startup-verified",
-      "smallvm": "native-vm-websocket-and-usb-priority-verified-real-gp-startup-verified",
+      "upstream_status": "native-assets-graphical-edit-save-readback-and-retained-association-boot-verified",
+      "smallvm": "physical-native-gp-edit-reconnect-save-readback-and-usb-priority-verified",
       "physical_tested": true,
       "physical_attempted": true,
       "evidence": [
@@ -134,18 +134,23 @@
         "evidence/2026-10-18/fruit-jam/native-bootstrap-asset-comparison.json",
         "evidence/2026-10-18/fruit-jam/physical-native-bootstrap-installation.json",
         "evidence/2026-10-18/fruit-jam/browser-bootstrap-attempt-02.json",
-        "evidence/2026-10-18/fruit-jam/physical-native-bootstrap-smoke.json"
+        "evidence/2026-10-18/fruit-jam/physical-native-bootstrap-smoke.json",
+        "evidence/2026-10-18/fruit-jam/physical-retained-boot-installation.json",
+        "evidence/2026-10-18/fruit-jam/physical-retained-boot-and-http-timeouts.json",
+        "evidence/2026-10-18/fruit-jam/physical-graphical-editing-stage-01.json",
+        "evidence/2026-10-18/fruit-jam/physical-graphical-save-readback.json",
+        "evidence/2026-10-18/fruit-jam/physical-graphical-cleanup-and-boot.json"
       ],
-      "limitations": "Current powered association verified; full C6 power loss requires secure local setup. RP-only restart requires explicit identification/setup initialization. C6-only reset/service recovery not physically accepted on current image. One bounded HTTP client timeout observed during successful browser startup; no post-startup SPI protocol/first error. No graphical programming gestures repeated on Wi-Fi; direct binary VM sequence verified.",
+      "limitations": "Full C6 reset/power loss requires secure local setup; no credential storage or automatic join. Direct IAB download delivery unconfirmed; alternate official project export and actual UBP reopen/execution verified. Historical unknown HTTP timeout retained; current browser only empty-TCP expiration, no send/WS timeout. C6-only service recovery untested.",
       "identification_physically_verified": true,
       "coprocessor_firmware": "NINA_ADAFRUIT-fruitjam_c6-3.3.0",
       "wifi_setup_compiled": true,
-      "wifi_setup_status": "User-controlled association/DHCP verified; no RP2350 credential storage or automatic boot setup",
+      "wifi_setup_status": "User-controlled association/DHCP and read-only retained-association initialization after RP-only reboot verified; no RP2350 credential storage or vault replay",
       "association_physically_verified": true,
       "dhcp_physically_verified": true,
       "mac_format_physically_verified": true,
       "network_server_compiled": true,
-      "network_server_status": "All147 real assets hash-verified; bootstrap-only HTML update verified with146 identical assets; actual GP startup and post-startup WebSocket/USB regression PASS"
+      "network_server_status": "All147 assets verified, real GP graphical12/edit13/reconnect, fresh board readback after RP-only reset and actual UBP export/import13 PASS; direct IAB download remains unconfirmed"
     },
     {
       "id": "usb_host",
@@ -260,7 +265,7 @@
       "limitations": "Power switch and supply behavior not measured"
     }
   ],
-  "target_firmware_scope": "Physical USB/SmallVM, SWD programming, program persistence, NeoPixels, three buttons and user-triggered Wi-Fi association/DHCP verified; local graphical USB bridge; incomplete peripheral and standalone network coverage",
+  "target_firmware_scope": "Physical USB/SmallVM, native real GP graphical editing/reconnect/board save/readback and UBP export/import, retained-association boot, NeoPixels and buttons verified; full C6 power loss and remaining peripherals incomplete",
   "zephyr_target": "adafruit_fruit_jam/rp2350b/m33_0",
   "digital_gpio": [
     6,
