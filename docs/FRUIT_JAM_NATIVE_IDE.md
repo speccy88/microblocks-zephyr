@@ -92,3 +92,17 @@ reading its response. Do not retry writes, joins or credentials. Record the
 number of recovered stale errors without logging frames or credential values.
 This is a bounded phase-recovery experiment, not a claim that the sustained
 transfer fault has been fixed.
+
+## Bounded write-response follow-up
+
+The single-client largest asset still failed on source `1c9b3cd`; a subsequent
+read-only SPI phase recovery succeeded again and retained the same association.
+The pinned Adafruit driver allows ten seconds for ready-low response preparation.
+Increase only the response preparation budget for socket write command 0x44
+from one to ten seconds; retain the one-second select ACK and other existing
+bounds. Latch the first failing command, phase and error so later cleanup errors
+cannot conceal the first fault. On a socket error, try at most two read-only
+version probes under the same SPI lock to restore phase alignment. Return the
+original socket error; never replay the failed write or a credential command.
+The VM remains on its own thread. Full physical asset and focused VM acceptance
+are still required after this change; the prior timeouts are retained.

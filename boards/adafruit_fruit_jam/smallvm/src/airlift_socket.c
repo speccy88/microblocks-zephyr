@@ -47,7 +47,8 @@ int fj_socket_read(uint8_t socket,uint8_t *dst,size_t size)
 }
 int fj_socket_status(char *dst,unsigned size)
 {
-    int n=snprintf(dst,size,"{\"commands\":%u,\"last_command\":%u,\"last_count\":%u,\"protocol_error\":%d}",commands,last_command,last_count,protocol_error);
+    unsigned first=fj_airlift_socket_failure();
+    int n=snprintf(dst,size,"{\"commands\":%u,\"last_command\":%u,\"last_count\":%u,\"protocol_error\":%d,\"first_error\":%d,\"first_command\":%u,\"first_phase\":%u}",commands,last_command,last_count,protocol_error,-(int)(first>>16),(first>>8)&255,first&255);
     return n<0||(unsigned)n>=size?-ENOSPC:0;
 }
 int fj_socket_write(uint8_t socket,const uint8_t *src,size_t size)

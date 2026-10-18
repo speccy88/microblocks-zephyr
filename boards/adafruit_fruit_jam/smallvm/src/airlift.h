@@ -12,3 +12,5 @@ int fj_airlift_join(const uint8_t *ssid, size_t ssid_length,
 bool fj_airlift_network_ready(char *ip, unsigned size);
 int fj_airlift_socket_command(uint8_t command,const struct fj_nina_parameter *params,
                               unsigned count,uint8_t *dst,size_t capacity,size_t *length);
+
+uint32_t fj_airlift_socket_failure(void);

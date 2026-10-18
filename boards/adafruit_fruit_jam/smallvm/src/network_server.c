@@ -30,7 +30,7 @@ static bool power_save_disabled;
 volatile unsigned fruit_jam_network_started;
 int fj_network_status(char *dst,unsigned size)
 {
-    char socket[160];if(fj_socket_status(socket,sizeof(socket)))strcpy(socket,"{}");
+    char socket[256];if(fj_socket_status(socket,sizeof(socket)))strcpy(socket,"{}");
     unsigned active=0;for(unsigned i=0;i<5;++i)if(clients[i].state)++active;
     int n=snprintf(dst,size,"{\"tick\":%u,\"stage\":%u,\"listener\":%d,\"listener_state\":%d,\"power_save_disabled\":%s,\"active\":%u,\"accepted\":%u,\"completed\":%u,\"aborted\":%u,\"sessions\":%u,\"last_error\":%d,\"socket\":%s}",network_tick,network_stage,listener,listener_state,power_save_disabled?"true":"false",active,accepted_clients,completed,aborted,sessions,last_error,socket);
     return n<0||(unsigned)n>=size?-ENOSPC:0;

@@ -34,11 +34,13 @@ static struct {
     uint8_t ip[4],netmask[4],gateway[4];
 } report;
 static unsigned stale_error_recoveries;
+static volatile uint32_t first_socket_failure;
+uint32_t fj_airlift_socket_failure(void){return first_socket_failure;}
 static struct { uint8_t ssid[32],key[64]; size_t sn,kn; } pending;
 
-static int wait_busy(int level)
+static int wait_busy_for(int level,unsigned timeout_ms)
 {
-    int64_t deadline=k_uptime_get()+1000;
+    int64_t deadline=k_uptime_get()+timeout_ms;
     do {
         int actual=gpio_pin_get_dt(&busy);
         if(actual<0)return actual;
@@ -47,15 +49,16 @@ static int wait_busy(int level)
     }while(k_uptime_get()<deadline);
     return -ETIMEDOUT;
 }
-static int select_device(void)
+static int select_device_for(unsigned timeout_ms)
 {
-    int err=wait_busy(0);
+    int err=wait_busy_for(0,timeout_ms);
     if(err)return err;
     if((err=gpio_pin_set_dt(&cs,1)))return err;
-    err=wait_busy(1);
+    err=wait_busy_for(1,1000);
     if(err)gpio_pin_set_dt(&cs,0);
     return err;
 }
+static int select_device(void){return select_device_for(1000);}
 static int read_byte(void *unused,uint8_t *value)
 {
     (void)unused;
@@ -122,18 +125,31 @@ int fj_airlift_socket_command(uint8_t command,const struct fj_nina_parameter *pa
     uint8_t frame[2060];int n=fj_nina_socket_frame(command,params,count,frame,sizeof(frame));
     if(n<0)return n;
     k_mutex_lock(&spi_lock,K_FOREVER);
-    int err=select_device();
+    unsigned phase=1;int err=select_device();
     if(!err){
+        phase=2;
         const struct spi_buf buffer={.buf=frame,.len=n};
         const struct spi_buf_set buffers={.buffers=&buffer,.count=1};
         err=spi_write(bus,&config,&buffers);
         int released=gpio_pin_set_dt(&cs,0);if(!err)err=released;
     }
-    if(!err)err=select_device();
+    if(!err){phase=3;err=select_device_for(command==0x44?10000:1000);}
     if(!err){
+        phase=4;
         const struct fj_nina_reader io={.byte=read_byte,.bytes=read_bytes,.retry_pause=retry_pause};
         err=fj_nina_socket_reply(&io,command,dst,capacity,length);
-        int released=gpio_pin_set_dt(&cs,0);if(!err)err=released;
+        int released=gpio_pin_set_dt(&cs,0);
+        if(!err&&released){phase=5;err=released;}
+    }
+    if(err){
+        if(!first_socket_failure)first_socket_failure=((uint32_t)(-err&255)<<16)|((uint32_t)command<<8)|phase;
+        /* Restore framing with read-only probes, never replay a write/read
+         * whose effects may already have occurred on the remote socket. */
+        for(unsigned attempt=0;attempt<2;++attempt){
+            uint8_t probe[]={0xe0,0x37,0,0xee},version[31];
+            uint8_t *dest[]={version};const size_t cap[]={sizeof(version)};size_t got=0;
+            if(!exchange_unlocked(0x37,probe,sizeof(probe),dest,cap,&got,1))break;
+        }
     }
     k_mutex_unlock(&spi_lock);return err;
 }
