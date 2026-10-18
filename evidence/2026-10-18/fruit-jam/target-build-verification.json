@@ -1,22 +1,21 @@
 {
   "result": "PASS",
-  "compiled_source_commit": "03ce56a3c65d0a2f3a427d244df66947e32fd647",
-  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
-  "target": "adafruit_fruit_jam/rp2350b/m33_0",
-  "compiler": "Zephyr SDK 1.0.1 Arm GCC 14.3.0",
-  "command_script": "build-fruit-jam-peripherals.sh",
-  "parallel_jobs": 4,
+  "compiled_source_commit": "71f28917bf78cd9e69f18b5e2adafebc6653a188",
   "source_sha256": {
-    "boards/adafruit_fruit_jam/smallvm/app.overlay": "4aa0f85fcf8d572565544d3b7c36319674e5fbf6fffc0ee81b3e5aab9769534b",
-    "boards/adafruit_fruit_jam/smallvm/CMakeLists.txt": "cd645617a77fd5f68f62875aa967d5169852ac406aaf7fd12e1b54aa117034b5",
-    "boards/adafruit_fruit_jam/smallvm/prj.conf": "40eb74646232edc5f7ed97dcf45988fae861db6d47902d62dce9674d8fe3748b",
+    "boards/adafruit_fruit_jam/smallvm/app.overlay": "b00fd0a75677309a2517f1d912952c3182285c0cbb42f69776749eb8d42f2d8e",
+    "boards/adafruit_fruit_jam/smallvm/CMakeLists.txt": "8a9edfe336d9b5c30501a11857a2edf6c3edafb098f8be015e81b78401094da2",
+    "boards/adafruit_fruit_jam/smallvm/prj.conf": "713c27b1c3440919ca008ca9fd14c26b91167ae371335af769d6aa2988804120",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift.c": "4ebe456900c30a876bdd04002f4128e6a648a7e7eab78310cb067a1a7fd7504e",
+    "boards/adafruit_fruit_jam/smallvm/src/airlift.h": "7dc814f3e5f80d7476d67f5c69422ae6b9d7ff8b4de6d2f59146ca02e6b1bf86",
     "boards/adafruit_fruit_jam/smallvm/src/fruit_jam.h": "25c4a9e47857df3d42d6c0825930ebbb5ed87dbb8958f03bdb6758d17a09c2a5",
     "boards/adafruit_fruit_jam/smallvm/src/generic_io.h": "2d7b658e9b9689d3f783611e817f06739c1b762e7b1c70c717b274d4af1dc97b",
     "boards/adafruit_fruit_jam/smallvm/src/generic_primitives.c": "5b2093560f381305d50de27e7c9b856eba4846bad9e7a5e0b00a375d662d7a3f",
     "boards/adafruit_fruit_jam/smallvm/src/io.cpp": "129ee1eff509369f9f6a709b4ea22d388104718ca1117543f8c159220ec16d97",
     "boards/adafruit_fruit_jam/smallvm/src/main.cpp": "47339acb35a555d16eb66a42d6794271e606519de75df5e682fedf8d6d3efc24",
+    "boards/adafruit_fruit_jam/smallvm/src/nina_protocol.c": "3fe9a21830ce168990c95af9e5dccf2e09b60bffd26a38e096ed3a81dceaecbb",
+    "boards/adafruit_fruit_jam/smallvm/src/nina_protocol.h": "4d4c25f4089522598f45bfdf8d3887e4c2537395d142e27cbedb463497161422",
     "boards/adafruit_fruit_jam/smallvm/src/pio_pixels.c": "4d160f98d6ba18a03f57100458b0033fb2fff97493f0a09137a4607a32ad241e",
-    "boards/adafruit_fruit_jam/smallvm/src/platform.c": "9314520f7e5fccc65f2cb96b81bf56c79d0b053464fadb7ccd2b7e2515489efa",
+    "boards/adafruit_fruit_jam/smallvm/src/platform.c": "f9a7f0e0dc7562a72d78c88bfe8b0b2371136ba5580fcc287d2a376a38501dd5",
     "boards/adafruit_fruit_jam/smallvm/src/program_store.c": "190f5d6961ca15d4203368b8093906c71805738e9340f9c0769d46fd4b4fd473",
     "boards/adafruit_fruit_jam/smallvm/src/sht4x.c": "9ad6d93df8583b29c1af0fbc9cc7a05de0f0615e4bf4aa960c283d92e4ede275",
     "boards/adafruit_fruit_jam/smallvm/src/transport.c": "e55fa0e5bd98e0bfe8b8c521fdcc3a918d1032813dbe75af7aaba59cbf2f5038",
@@ -33,48 +32,55 @@
     "tools/prepare_smallvm.py": "18314ae48f2fb815a3fe9371f2d7bd74ad1047f3d3d752f0d8974c798cc6f756",
     "tools/prepare_fruit_jam_arduino.py": "e3fcb9b58af4c3ddd9466c4d02377de29e5985bc24fcffba166dd84d96c8faa9"
   },
+  "target": "adafruit_fruit_jam/rp2350b/m33_0",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "compiler": "Zephyr SDK 1.0.1 Arm GCC 14.3.0",
+  "command_script": "build-fruit-jam-airlift.sh",
+  "parallel_jobs": 4,
   "artifacts": {
     "zephyr.elf": {
-      "bytes": 1850864,
-      "sha256": "aa748a7e23712c63c8c270ac4c743b51425577b15bb6fb5fc84327bacfad7c75"
+      "bytes": 1900480,
+      "sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378"
     },
     "zephyr.uf2": {
-      "bytes": 178688,
-      "sha256": "eccd38f83c67a26d0f48b4bae1d527ed009c88840576e7cd37dc2bddca98e676"
+      "bytes": 185856,
+      "sha256": "12f42d14a42974d2d583a580cfd42b2af97dbeb5426c98c931eede410704f891"
     },
     "zephyr.bin": {
-      "bytes": 89240,
-      "sha256": "315e5192fe722cf0de3164c40addef11d9799037fa2dd05d3390cc87cfb35e77"
+      "bytes": 92736,
+      "sha256": "cc6990aa4234a7e985ce652ac4c8f24eb6862fee43cebc4cff681deb1b55a1d6"
     }
   },
   "load_segments": [
     {
       "load_address": "0x10000000",
-      "bytes": 86540
+      "bytes": 89872
     },
     {
-      "load_address": "0x1001520c",
-      "bytes": 2696
+      "load_address": "0x10015f10",
+      "bytes": 2860
     },
     {
-      "load_address": "0x10015c94",
+      "load_address": "0x10016a3c",
       "bytes": 4
     }
   ],
   "symbols": {
     "main": "0x10000a45",
-    "fruit_jam_status": "0x200111a0",
-    "fj_sht4x_read": "0x10001719",
-    "fj_pixels_set": "0x100019d5",
-    "fj_pixels_off": "0x10001b61"
+    "fruit_jam_status": "0x200112c8",
+    "fj_airlift_request": "0x10001fd1",
+    "fj_airlift_status": "0x10002021",
+    "fj_nina_read_reply": "0x1000dc51"
   },
-  "linker_flash_bytes": 89240,
-  "linker_ram_bytes": 193512,
+  "linker_flash_bytes": 92736,
+  "linker_ram_bytes": 195936,
   "elf_picotool_info": "PASS",
   "uf2_picotool_info": "PASS",
   "load_segments_exclude_program_store": true,
   "hardware_validation": false,
   "flashed": false,
-  "scope": "Compilation and VM simulation only; physical results tracked separately",
-  "sht4x": "User cancelled investigation; retained source unvalidated/inactive; no automatic IO or exposed blocks"
+  "scope": "Compilation and C parser/VM simulation only; physical acceptance separate",
+  "coprocessor_flashed": false,
+  "credentials_used": false,
+  "sht4x": "Cancelled and inactive; no sensor test"
 }

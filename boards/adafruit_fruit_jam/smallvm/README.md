@@ -1,8 +1,8 @@
 # Fruit Jam initial USB/SmallVM application
 
 **Cross-build, mock VM and the physical USB/VM baseline pass.**
-The peripheral image was programmed and verified with authorized SWD access.
-Its linker allocation is 89,240 bytes of flash and 193,512 bytes of internal
+The AirLift identification image was programmed and verified with authorized SWD access.
+Its linker allocation is 92,736 bytes of flash and 195,936 bytes of internal
 RAM; runtime usage has not been measured. Graphical arithmetic/editing work
 through the local USB bridge. Wi-Fi hosting is still being implemented. ELF and UF2 inspection identify RP2350 ARM Secure images.
 See the [build evidence](../../../evidence/2026-10-18/fruit-jam/target-build-verification.json).
@@ -32,7 +32,8 @@ from the memory map. No substitute board has been used.
   extension pins; moving back to digital/analog releases that pin's PWM.
 - Button A/B read physical buttons 2/3 (GPIO4/5). Primitive
   `[fruitJam:buttonPressed]` accepts 1..3 for GPIO0/4/5. Button 1 also controls
-  boot modes and is input-only. `[fruitJam:ioCapabilities]` reports pin mapping
+  RP2350 USB boot and is input-only. ESP32-C6 BOOT9 is on GPIO23.
+  `[fruitJam:ioCapabilities]` reports pin mapping
   and the untested hardware boundary.
 - Native I2C primitives use shared I2C0 GPIO20/21. Reads, writes and bounded
   deferred write/read transactions use the prior v417 adapter contract. There
@@ -50,10 +51,15 @@ bounds exclude the program store. Actual flash writes, USB pauses during XIP
 flash writes have physical reboot/CRC evidence; arbitrary power-loss timing
 during a save remains untested.
 
-NeoPixels use an isolated PIO1/base16 implementation; command completion passes
-with brief 8/255 patterns and final off, while visual acceptance is pending.
+NeoPixels use an isolated PIO1/base16 implementation. The user confirmed the
+five positions, red/green/blue and final off after brief 8/255 patterns.
 Display/HSTX, PIO USB host, PSRAM, AirLift Wi-Fi/BLE, SD, audio and IR remain
-unavailable. SHT4x source is dormant, its library blocks removed, and further
+unavailable. Native AirLift identification is compiled; the initial SPI
+handshake timed out. After official NINA 3.3.0 restoration it passes three
+version/MAC/status cycles; MAC text byte order still needs correction.
+The explicitly requested coprocessor restoration is
+tracked in [the restoration record](../../../docs/FRUIT_JAM_AIRLIFT_RESTORE.md).
+SHT4x source is dormant, its library blocks removed, and further
 sensor diagnosis is cancelled. The red LED shares GPIO29 with IR, so the initial application
 does not drive it. Raw SPI returns unsupported; SD and AirLift buses are not
 exposed as generic SPI. Arduino Serial is a stub with printk disabled, because

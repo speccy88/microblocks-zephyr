@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "scope": "USB/code regression after bounded AirLift diagnostics; not a Wi-Fi PASS",
+  "checked_utc": "2026-10-18T18:14:17.161420+00:00",
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "code_crc32": {
+    "0": "297d191b"
+  },
+  "arithmetic": 12,
+  "coprocessor_flashed": false,
+  "credentials_sent": false,
+  "sht4x_access": false
+}

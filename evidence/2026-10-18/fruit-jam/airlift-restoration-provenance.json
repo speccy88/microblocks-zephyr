@@ -1,0 +1,45 @@
+{
+  "guide": "https://learn.adafruit.com/adafruit-fruit-jam/upgrading-airlift-firmware",
+  "files": {
+    "NINA_ADAFRUIT-fruitjam_c6-3.3.0.bin": {
+      "url": "https://github.com/adafruit/nina-fw/releases/download/3.3.0/NINA_ADAFRUIT-fruitjam_c6-3.3.0.bin",
+      "bytes": 1626112,
+      "sha256": "be9e75c08a4409b6721167cc4c8200180eb4322c89b6848b8fa2573bc77e53f6",
+      "release_digest_verified": true
+    },
+    "SerialESPPassthrough.ino.uf2": {
+      "url": "https://cdn-learn.adafruit.com/assets/assets/000/138/701/original/SerialESPPassthrough.ino.uf2?1754326310=",
+      "bytes": 189440,
+      "sha256": "c9662e4c428fe46454f717f57149109cc23288806cf191cc19fd80dabfc804b4",
+      "release_digest_verified": false
+    },
+    "nina-fw-upgrade-fruitjam.py": {
+      "url": "https://raw.githubusercontent.com/adafruit/Adafruit_Learning_System_Guides/main/Adafruit_ESP32_Arduino_Demos/ESP32_C6_Firmware_Updater/nina-fw-upgrade-fruitjam.py",
+      "bytes": 2010,
+      "sha256": "dc3376cb0a4f1234b36cb981aff578d103aa874a4ca21a82455f7ae1aa22e36e",
+      "release_digest_verified": false
+    },
+    "nina-fw-README.md": {
+      "url": "https://raw.githubusercontent.com/adafruit/nina-fw/3.3.0/README.md",
+      "bytes": 3995,
+      "sha256": "2c4aa498acf45090bad3d4e670fa38f9d51338d78ba4ec3df29040eab2ff0abc",
+      "release_digest_verified": false
+    }
+  },
+  "passthrough": {
+    "blocks": 369,
+    "family": "0xe48bff59",
+    "address": "0x10000000",
+    "end_exclusive": "0x10017100",
+    "bytes": 94464,
+    "sha256": "e1ace17a0cf7fa8e4c2aab96d61e0a555e4fff79387de4b2138de861f4ab0661",
+    "vmstore_untouched": true,
+    "excluded_uf2_blocks": [
+      {
+        "address": "0x10ffff00",
+        "family": "0xe48bff57",
+        "reason": "UF2 absolute preamble omitted from SWD application image; preserve final VM-storage sector"
+      }
+    ]
+  }
+}

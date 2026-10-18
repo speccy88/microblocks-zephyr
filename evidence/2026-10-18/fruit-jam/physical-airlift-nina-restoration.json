@@ -1,0 +1,90 @@
+{
+  "result": "PASS",
+  "checked_utc": "2026-10-18T18:36:44.681601+00:00",
+  "scope": "Explicit official WiFiNINA restoration, exact RP2350 application recovery, retained MicroBlocks program and native SPI identification",
+  "guide": "https://learn.adafruit.com/adafruit-fruit-jam/upgrading-airlift-firmware",
+  "user_authorized_coprocessor_restoration": true,
+  "coprocessor_flashed": true,
+  "firmware_restore": "PASS",
+  "firmware_file": "NINA_ADAFRUIT-fruitjam_c6-3.3.0.bin",
+  "firmware_release": "3.3.0",
+  "firmware_sha256": "be9e75c08a4409b6721167cc4c8200180eb4322c89b6848b8fa2573bc77e53f6",
+  "release_digest_verified": true,
+  "firmware_bytes": 1626112,
+  "firmware_offset": "0x0",
+  "flash_verify": "PASS",
+  "chip_full_erase": false,
+  "efuses_modified": false,
+  "esp32_c6_mac": "58:e6:c5:f5:a3:58",
+  "esp32_c6_flash_bytes": 4194304,
+  "private_backups": {
+    "rp2350_bytes": 16777216,
+    "rp2350_sha256": "49c67ee955f1993982df9e8337d9a93dd9a6a559f83dbfa27ede24160a4a9179",
+    "esp32_c6_bytes": 4194304,
+    "esp32_c6_sha256": "5a65fa92e33852223ba7abb2e43007b95644206bab0d8c601f372ee24352009e",
+    "raw_dumps_published": false
+  },
+  "microblocks_restore": {
+    "result": "PASS",
+    "checked_utc": "2026-10-18T18:35:21.081285+00:00",
+    "scope": "Restored and verified exact MicroBlocks application sectors, unchanged VM storage, binary USB and reconnect",
+    "microblocks_elf_sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378",
+    "restored_sector_bytes": 98304,
+    "restored_sector_sha256": "168e08aff52f131f55c2ccf70dfd58967062e392becfbe1e0c723557c3947308",
+    "vmstore_sha256": "4b46401d93ce5a638a3b5490e9620411d6c41c1a8f659959af1d5f38d611acb7",
+    "vmstore_byte_identical": true,
+    "usb_checks": [
+      {
+        "session": 1,
+        "usb_identity": {
+          "port": "COM8",
+          "vid": 12259,
+          "pid": 4,
+          "serial": "E46570978F1E5A34",
+          "product": null,
+          "location": "1-10:x.0"
+        },
+        "code_crc32": {
+          "0": "297d191b"
+        },
+        "arithmetic": 12
+      },
+      {
+        "session": 2,
+        "usb_identity": {
+          "port": "COM8",
+          "vid": 12259,
+          "pid": 4,
+          "serial": "E46570978F1E5A34",
+          "product": null,
+          "location": "1-10:x.0"
+        },
+        "code_crc32": {
+          "0": "297d191b"
+        },
+        "arithmetic": 12
+      }
+    ],
+    "original_backups_preserved": true,
+    "other_board_access": false
+  },
+  "native_spi_identification": "PASS",
+  "native_spi_evidence": "physical-airlift-after-nina-restore.json",
+  "mac_byte_order": {
+    "uart_actual": "58:e6:c5:f5:a3:58",
+    "native_display": "58:a3:f5:c5:e6:58",
+    "native_display_reversed_matches_uart": true,
+    "native_formatter_correction_pending": true,
+    "reference": "NINA 3.3.0 main/CommandHandler.cpp getMACaddr copies six bytes directly; compiled native formatter reverses them"
+  },
+  "native_query_flash_flag_scope": "The individual query does not flash; this separate preceding restoration did flash the coprocessor",
+  "network_association_verified": false,
+  "dhcp_verified": false,
+  "standalone_ide_verified": false,
+  "credential_values_decoded_or_sent": false,
+  "external_sensor_access": false,
+  "other_board_access": false,
+  "temporary_bridge_windows_dtr": "Official TinyUSB passthrough requires DTR asserted; standard esptool Windows initialization clears it, so a pre-opened serial object was passed to the official esptool API",
+  "boot_mode_entry": "RP2350 GPIO23 drives C6 BOOT9 low while pulsing shared reset GPIO22; GPIO0 is RP2350 USBBOOT",
+  "uf2_preamble_handling": "Only 369 secure ARM application blocks programmed through SWD; absolute block at 0x10ffff00 excluded to preserve VM storage"
+}

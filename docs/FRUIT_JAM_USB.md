@@ -17,11 +17,12 @@ its own DEBUG connector is not the target output connector.
   Its 50-repeat example shows final count 50. Exact sequence evidence belongs
   to the serial test; a screenshot of 50 alone does not establish ordering.
 - PIO1/base16 NeoPixel commands complete with seven brief 8/255 patterns and
-  final off. Emitted light/colors/positions await human observation.
+  final off. After a requested repeat at 700 ms per step, the user confirmed
+  all five positions, colors and extinction. Full-brightness load is untested.
 - The three buttons returned released state. Actual presses, external ADC/PWM
   waveforms and other onboard peripherals remain unverified.
 
-The current peripheral ELF SHA256 is
+The original peripheral checkpoint ELF SHA256 is
 `aa748a7e23712c63c8c270ac4c743b51425577b15bb6fb5fc84327bacfad7c75`.
 The [canonical manifest](../boards/adafruit_fruit_jam/hardware.json) and
 [evidence folder](../evidence/2026-10-18/fruit-jam/) define the exact scope.

@@ -104,7 +104,7 @@
     },
     {
       "id": "airlift",
-      "hardware": "ESP32-C6 factory AirLift",
+      "hardware": "ESP32-C6 AirLift; official Fruit Jam WiFiNINA 3.3.0 restored",
       "pins": {
         "miso": 28,
         "sck": 30,
@@ -114,11 +114,20 @@
         "irq": 23,
         "periph_reset": 22,
         "tx": 8,
-        "rx": 9
+        "rx": 9,
+        "boot_mode": 23
       },
-      "upstream_status": "factory-spi-protocol-integration-missing",
-      "smallvm": "not-yet-implemented",
-      "physical_tested": false
+      "upstream_status": "native-spi-identification-verified-network-service-pending",
+      "smallvm": "identification-verified-network-sockets-pending",
+      "physical_tested": false,
+      "physical_attempted": true,
+      "evidence": [
+        "evidence/2026-10-18/fruit-jam/physical-airlift-nina-restoration.json",
+        "evidence/2026-10-18/fruit-jam/physical-airlift-after-nina-restore.json"
+      ],
+      "limitations": "Version/status and six MAC bytes verified; native MAC text currently reverses byte order and needs correction at next coordinated build. Association, DHCP, sockets and standalone IDE remain unverified; no credentials sent",
+      "identification_physically_verified": true,
+      "coprocessor_firmware": "NINA_ADAFRUIT-fruitjam_c6-3.3.0"
     },
     {
       "id": "usb_host",
@@ -155,16 +164,16 @@
         "data": 32
       },
       "upstream_status": "isolated-pio1-base16-driver",
-      "smallvm": "physical-commands-pass-visual-acceptance-pending",
-      "physical_tested": false,
+      "smallvm": "physical-low-brightness-colors-positions-and-off-pass",
+      "physical_tested": true,
       "evidence": [
-        "evidence/2026-10-18/fruit-jam/physical-pixels.json"
+        "evidence/2026-10-18/fruit-jam/physical-pixels-repeat.json"
       ],
-      "limitations": "Emitted light, colors and positions not observed"
+      "limitations": "Brief 8/255 patterns observed; electrical timing and full-brightness load not measured"
     },
     {
       "id": "buttons",
-      "hardware": "Button1/BOOT, Button2, Button3",
+      "hardware": "Button1/USBBOOT, Button2, Button3; C6 BOOT9 is GPIO23",
       "pins": {
         "boot": 0,
         "button2": 4,

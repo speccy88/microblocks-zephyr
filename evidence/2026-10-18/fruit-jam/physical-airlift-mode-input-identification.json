@@ -1,0 +1,58 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-18T17:56:47.797304+00:00",
+  "firmware_elf_sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378",
+  "checks": {
+    "initial_status": {
+      "state": 4,
+      "generation": 2,
+      "error": -116,
+      "stage": 2,
+      "queries": 0,
+      "version": "",
+      "mac": "",
+      "connection": -1,
+      "busy": 0,
+      "reset_requested": true,
+      "spi_hz": 1000000,
+      "coprocessor_flashed": false
+    },
+    "identification_runs": [
+      {
+        "state": 4,
+        "generation": 3,
+        "error": -116,
+        "stage": 2,
+        "queries": 0,
+        "version": "",
+        "mac": "",
+        "connection": -1,
+        "busy": 0,
+        "reset_requested": true,
+        "spi_hz": 1000000,
+        "coprocessor_flashed": false
+      }
+    ],
+    "arithmetic_after_queries": 12,
+    "retained_code_crc32": {
+      "0": "297d191b"
+    }
+  },
+  "network_credentials_sent": false,
+  "coprocessor_flashed": false,
+  "external_sensor_access": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "temporary_chunks": [
+    254,
+    253
+  ],
+  "error": "AssertionError: [{'state': 4, 'generation': 3, 'error': -116, 'stage': 2, 'queries': 0, 'version': '', 'mac': '', 'connection': -1, 'busy': 0, 'reset_requested': True, 'spi_hz': 1000000, 'coprocessor_flashed': False}]",
+  "finished_utc": "2026-10-18T17:56:49.853733+00:00"
+}

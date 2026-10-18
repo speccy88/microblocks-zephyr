@@ -41,16 +41,16 @@ the narrower measured scope for each feature.
 
 | Hardware | Verified connection/reference | Current software boundary |
 |---|---|---|
-| RP2350B / flash / SWD | Cortex-M33, 16 MiB flash; dedicated JST-SH SWCLK/GND/SWDIO | Backup/program/verify pass; four code CRCs and startup variable 42 survive cold reset and peripheral image update |
+| RP2350B / flash / SWD | Cortex-M33, 16 MiB flash; dedicated JST-SH SWCLK/GND/SWDIO | Backup/program/verify pass; historical four-chunk/autostart-42 checks passed. Current saved arithmetic chunk 0 survives coprocessor restoration |
 | Native USB-C | MCU native USB, device/power/ROM boot | Exclusive binary VM CDC and real IDE bridge pass; no console mixed into the protocol |
 | 8 MiB PSRAM | Shared XIP bus, second chip select GPIO47 | No Fruit Jam PSRAM integration; begin with internal SRAM |
 | DVI output | HSTX GPIO12..19 | No matching display driver found in pinned Zephyr; new HSTX/DMA integration needed |
 | TLV320DAC3100 speaker/headphones | I2S data24/MCLK25/BCLK26/WS27; IRQ23; reset22 | Codec driver family exists; no matching RP2350 I2S driver found; audio remains missing/quiet |
-| ESP32-C6 AirLift | SPI1 MISO28/SCK30/MOSI31, CS46, BUSY3, IRQ23, reset22; UART8/9 | Factory SPI protocol is not ESP32-native Wi-Fi or automatically ESP-Hosted/AT; transport/firmware compatibility must be audited |
+| ESP32-C6 AirLift | SPI1 MISO28/SCK30/MOSI31, CS46, BUSY3, BOOT9/IRQ23, reset22; UART8/9 | Official NINA 3.3.0 restored; version/MAC/status queries pass. MAC text order needs correction; association and socket service pending |
 | Two USB-A ports / CH334F hub | PIO host D+1/D-2, power11; third hub port on header | Generic hub support alone is insufficient; no matching PIO USB host controller found |
 | microSD | SPI0 SCK34/MOSI35/MISO36/CS39, detect33; SDIO37/38 | SPI/FatFS building blocks exist; board integration and bounded read-only acceptance pending |
-| Five NeoPixels | GPIO32 | Dedicated PIO1/base16 driver; low-brightness commands and final off pass; colors/positions await human observation |
-| Three buttons | GPIO0/4/5; button1 also BOOT/ESP boot function | Input-only primitives return released state; actual press acceptance pending |
+| Five NeoPixels | GPIO32 | Dedicated PIO1/base16 driver; five positions, red/green/blue and off confirmed by the user after a brief 8/255 pattern |
+| Three buttons | GPIO0/4/5; button1 also RP2350 USB boot; C6 BOOT9 is GPIO23 | Input-only primitives return released state; actual press acceptance pending |
 | Red LED / IR receiver | Shared GPIO29; LED active low | Modes must be mutually exclusive; no IR decoder claimed |
 | STEMMA QT / codec I2C | I2C0 SDA20/SCL21 | Native adapter compiled; no successful physical transaction claimed. External SHT4x investigation cancelled; no automatic access |
 | Extension / JST-PH analog | GPIO6/7/10; ADC0..5 on GPIO40..45 | Safe variant and GPIO/ADC/PWM cross-built; per-pin mux source reviewed, physical tests pending; no DAC |

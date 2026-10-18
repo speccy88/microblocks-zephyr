@@ -6,13 +6,17 @@ loopback IDE is a verified USB baseline; it is not the standalone endpoint.
 No network credential is requested or reused before setup is functional.
 SHT4x investigation remains cancelled and inactive.
 
-## Stage A — preserve and identify the factory AirLift
+## Stage A - identify the AirLift protocol
 
-- Keep the ESP32-C6 factory firmware. No UART bootloader, erase or firmware
-  upload is part of identification.
+- Identification itself does not enter the UART bootloader, erase or upload
+  firmware. After the initial timeouts the user reported earlier coprocessor
+  experiments and explicitly requested restoring WiFiNINA; see the separate
+  [restoration procedure and evidence](FRUIT_JAM_AIRLIFT_RESTORE.md).
 - Configure only SPI1 MISO28/SCK30/MOSI31, manual CS46, BUSY3 and shared reset22.
-  GPIO0 remains input/pull-up; refuse a reset while BOOT is pressed rather
-  than driving that input high. IRQ23 remains untouched.
+  GPIO0 remains input/pull-up and is the RP2350 USBBOOT button. The schematic
+  places ESP32-C6 BOOT9 on shared I2S/ESP IRQ23, with an external 10k pull-up.
+  The compiled diagnostic leaves IRQ23 untouched. A temporary input/pull-up
+  probe confirmed it high, without resolving the initial handshake timeout.
 - GPIO22 also resets the TLV320 codec. Perform Wi-Fi initialization before
   codec configuration; keep audio muted/idle while bringing up the shared
   reset. This is a dependency, not a reason to revisit the external sensor.
@@ -37,6 +41,15 @@ SHT4x investigation remains cancelled and inactive.
   the chosen network through that page, not chat or logs. Do not read or reuse
   the Waveshare's private credentials without separate explicit approval.
   Avoid embedding credentials in commands, commits, artifacts or URLs.
+- Keep setup secrets out of uploaded VM bytecode: code snapshots are automatic.
+  Use a separately framed board-control extension dispatched without creating
+  code records, with exact magic/version/length checks and cached status ACKs.
+  Wipe transient credential copies after the worker consumes them. The local
+  page must use same-origin POST, loopback binding and no request-body logging.
+- A remembered network requires a visible setup choice and a separate checked
+  configuration-storage boundary; do not assume factory NINA association
+  persists over power loss. Decide the storage format/partition only after the
+  actual firmware behavior is known. Never overlap app or VM snapshots.
 - Association, DHCP and reconnect must produce actual status/IP evidence.
   No Wi-Fi success is inferred from a command ACK or detected coprocessor.
 
@@ -67,7 +80,7 @@ Reference revision/hash records accompany implementation. The pinned Zephyr
 target stays the runtime; factory Arduino/CircuitPython examples are protocol
 and wiring references, not replacement firmware to flash on this board.
 
-## Prepared Stage A implementation
+## Compiled Stage A implementation
 
 `airlift.c` uses an idle diagnostic worker, manual active-low CS and 1 MHz SPI1.
 `nina_protocol.c` only creates the three allowed identification commands and
@@ -90,11 +103,24 @@ truncated, oversized, malformed, delayed and error replies. The physical script
 requests three identifications and verifies USB arithmetic, code CRCs and
 reconnect. A shared reset requires its explicit command-line option.
 
-This Stage A source is **prepared, not yet compiled or physically validated**.
-The installed peripheral image and the remote USB checkpoint remain unchanged.
-The previous build report describes that image; it is intentionally not
-regenerated to pretend the new source has already been built. A new coordinated
-ARM build, parser/VM tests and fresh artifact hashes are required before flash.
+Stage A was compiled at `71f28917bf78cd9e69f18b5e2adafebc6653a188`, with
+ELF SHA256 `6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378`.
+The real C framing harness passed 36 checks and the VM harness passed. The
+image was programmed with verification. Initial identification, explicit reset
+and a GPIO23 input/pull-up probe all timed out at the version handshake, with
+zero successful queries. A bounded slower SPI version-only probe also saw no
+E0 response. These are failed physical AirLift results, not a Wi-Fi PASS.
+USB arithmetic and the current program CRC remained intact after those tests.
+The user's later WiFiNINA restoration request is tracked separately, preserving
+the earlier failed evidence and the distinction between flashing, protocol
+identification, network association and standalone IDE acceptance.
+
+After official Fruit Jam NINA 3.3.0 restoration, three native SPI cycles passed
+version/MAC/status framing, with all nine queries successful. USB arithmetic,
+reconnect and the current program CRC passed. The native MAC formatter still
+reverses the reply bytes and needs correction at the next coordinated build;
+the actual six bytes match the independent UART identity. Version is 3.3.0 and
+the raw connection status is 254. Association, DHCP and sockets remain pending.
 
 The pinned manifest contains 147 original assets, 17,282,925 raw bytes and
 3,512,571 gzip bytes. This suggests the compressed editor can fit in the 4 MiB

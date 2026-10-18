@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "checked_utc": "2026-10-18T17:46:27.861613+00:00",
+  "scope": "Physical SWD installation, cold reset, current code CRC retention and USB arithmetic",
+  "source_commit": "71f28917bf78cd9e69f18b5e2adafebc6653a188",
+  "elf_sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378",
+  "programming_verified": true,
+  "cold_reset_completed": true,
+  "original_full_backup_preserved": true,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "code_crc32": {
+    "0": "297d191b"
+  },
+  "arithmetic_after_update": 12,
+  "coprocessor_flashed": false,
+  "external_sensor_access": false,
+  "vmstore_private_backup_sha256": "eb4c8a1474431f490bc84cf6db64d17adb7ed92b7a2ddd0293c9c7a7f633ba11",
+  "historical_startup_42_scope": "Earlier baseline only; graphical example loads subsequently replaced the VM project"
+}

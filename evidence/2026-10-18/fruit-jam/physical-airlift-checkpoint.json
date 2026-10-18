@@ -1,0 +1,40 @@
+{
+  "result": "FAIL",
+  "scope": "Factory AirLift version identification; no version/MAC/association proven",
+  "firmware_elf_sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378",
+  "trials": [
+    "physical-airlift-identification.json",
+    "physical-airlift-reset-identification.json",
+    "physical-airlift-mode-input-identification.json"
+  ],
+  "native_result": "-116 timeout at version/CS handshake, zero successful queries",
+  "schematic_correction": {
+    "rp2350_gpio0": "USBBOOT/BUTTON1; not the C6 BOOT9 net",
+    "rp2350_gpio23": "I2S_ESP_IRQ connects C6 IO9/BOOT9 and codec GPIO1; external R27 10k pull-up",
+    "reference": "Adafruit Fruit Jam.sch at 252dc09456ee447b3d7eeb4fa99877898503e81a"
+  },
+  "temporary_input_probe": {
+    "gpio": 23,
+    "pad_before": "0x116",
+    "pad_after": "0x5a",
+    "function_after": "SIO input",
+    "output_enable_unchanged": "0x00400000 (GPIO22 only)",
+    "input_high_observed": true,
+    "result": "Reset plus input/pull-up still did not identify firmware"
+  },
+  "bounded_spi_probe": {
+    "command_hex": "e03700ee",
+    "cs_assertion_observed_low": true,
+    "busy_observed": 0,
+    "response_e0_seen": false,
+    "spi_configuration_restored": true,
+    "only_version_command": true,
+    "prescale": 254,
+    "serial_clock_rate": 1,
+    "spi_mode": 0
+  },
+  "coprocessor_flashed": false,
+  "credentials_sent": false,
+  "external_sensor_access": false,
+  "next_step": "Receive-only UART1 GPIO9 boot diagnostics, filtered to ROM signature/boot mode; never log arbitrary serial lines"
+}

@@ -1,0 +1,88 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-18T17:59:16.915567+00:00",
+  "firmware_elf_sha256": "6710409f15e340c0e1d7c691dd9f40a67774b43432e8c8d96f39d6608a62f378",
+  "checks": {
+    "command_sequence": [
+      {
+        "pixel": 1,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 700
+      },
+      {
+        "pixel": 2,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 700
+      },
+      {
+        "pixel": 3,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 700
+      },
+      {
+        "pixel": 4,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 700
+      },
+      {
+        "pixel": 5,
+        "rgb": [
+          8,
+          0,
+          0
+        ],
+        "duration_ms": 700
+      },
+      {
+        "pixel": 1,
+        "rgb": [
+          0,
+          8,
+          0
+        ],
+        "duration_ms": 700
+      },
+      {
+        "pixel": 1,
+        "rgb": [
+          0,
+          0,
+          8
+        ],
+        "duration_ms": 700
+      }
+    ],
+    "final_off_command": true
+  },
+  "visual_confirmation": true,
+  "external_sensor_access": false,
+  "audio_emitted": false,
+  "usb_identity": {
+    "port": "COM8",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E46570978F1E5A34",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "scope": "Physical commands and user-observed five positions, red/green/blue sequence and final extinction at low brightness",
+  "finished_utc": "2026-10-18T17:59:22.131065+00:00",
+  "visual_confirmation_source": "Direct user observation after requested repeat",
+  "user_confirmation": "oui ca marche parfaitement"
+}
