@@ -1,0 +1,65 @@
+{
+  "result": "PASS",
+  "utc": "2026-10-19T03:12:28.851168+00:00",
+  "source_commit": "80b9e3efa01aa3ae083dbaf2166350c63bc56903",
+  "pins": [
+    {
+      "gpio": 34,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    },
+    {
+      "gpio": 35,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    },
+    {
+      "gpio": 32,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    },
+    {
+      "gpio": 33,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    },
+    {
+      "gpio": 20,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    },
+    {
+      "gpio": 21,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    },
+    {
+      "gpio": 10,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    },
+    {
+      "gpio": 11,
+      "output_latch_high": false,
+      "output_enabled": true,
+      "function": 5,
+      "control": "0x5"
+    }
+  ],
+  "scope": "SWD register readback; not an electrical waveform or voltage measurement",
+  "motor_supply": "operator reported off; never energized"
+}

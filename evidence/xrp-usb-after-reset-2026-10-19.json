@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-19T02:36:15.816266+00:00",
+  "phase": "after-reset",
+  "checks": {
+    "ping": true,
+    "retained_crc32": {
+      "230": "297d191b",
+      "231": "ac13eac1",
+      "232": "d8037d65"
+    },
+    "reboot_arithmetic": 12
+  },
+  "motor_power": "operator reported off; never enabled",
+  "motor_or_servo_commands_sent": false,
+  "physical_movement_validation": false,
+  "credentials_supplied": false,
+  "identity": {
+    "port": "COM11",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E464244647564B37",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "version": "v417 XRP RP2350 Zephyr (actuators locked)"
+}

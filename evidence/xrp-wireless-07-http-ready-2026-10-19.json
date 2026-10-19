@@ -1,0 +1,39 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-19T05:34:13.479354+00:00",
+  "host": "192.168.1.169",
+  "source_commit": "ffcac51d9238c08c4bdf042f62a8418952a45c5d",
+  "checks": {
+    "http_status": {
+      "board": "xrp-rp2350",
+      "setup_protocol": 2,
+      "persistence_supported": true,
+      "radio_ready": true,
+      "radio_pm_before": 0,
+      "radio_pm": 0,
+      "rssi_dbm": -74,
+      "boot_attempt": 2,
+      "state": "connected",
+      "busy": false,
+      "ip": "192.168.1.169",
+      "error": 0,
+      "actuators_enabled": false
+    },
+    "cross_origin_rejected": true,
+    "original_code_crc32": {},
+    "second_controller_rejected": true,
+    "arithmetic_runs": 10,
+    "live_edit_result": 13
+  },
+  "actuator_commands_sent": false,
+  "motor_supply_enabled": false,
+  "credentials_logged": false,
+  "scope": "Physical XRP; native same-origin HTTP and binary WebSocket",
+  "http_asset_mode": "HTTP/1.1 keep-alive, two concurrent connections",
+  "version": "v417 XRP RP2350 Zephyr (actuators locked)",
+  "error": "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host",
+  "owned_test_crcs_remaining": {
+    "220": "297d191b",
+    "221": "ac13eac1"
+  }
+}

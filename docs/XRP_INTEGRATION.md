@@ -96,7 +96,7 @@ does not let that same server thread service its other clients.
 
 Generate two exact-source-checked HTTP translation units only in the XRP build.
 Yield a non-final dynamic GET response after one application chunk; resume on
-POLLOUT, one chunk per client per poll turn. Defer parsing pipelined requests
+POLLOUT, one chunk per client per poll turn. Defer parsing buffered request data
 until completion, preserve HTTP/1.0/Connection-close/keep-alive behavior, and
 clear pending state on success, abort and client reuse. Keep public struct ABI
 and original Zephyr workspace untouched; other board targets use original code.
@@ -116,3 +116,11 @@ join-failed and leaves USB available. Holding USER still skips all saved joining
 Explicit local Connect requests retain a single attempt; no host vault replay,
 automatic board reset or actuator output is introduced. Status exposes the
 cached boot attempt count without exposing credentials.
+
+The next physical run exposed an omitted ordinary-GET resource pointer: pinned
+HTTP/1 sets current_detail for WebSocket upgrade, but not a normal dynamic GET.
+Deferred turns must retain the actual dynamic resource before the first yield.
+The generated scheduler now does so; its C fixture starts with a null pointer
+as the real framework does and checks that the first turn initializes it.
+The failed wireless receipt and fault-register metadata remain available. A
+clean fault-status register alone does not identify a network failure's cause.

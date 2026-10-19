@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-19T03:34:29.614777+00:00",
+  "source_commit": "28e72a4ba43922b997107ee88b4a63b8045a1e9e",
+  "scope": "Read-only shared DATA/IRQ GPIO and interrupt control registers",
+  "registers": {
+    "SIO_GPIO_IN": "0xe2000030",
+    "GPIO29_STATUS": "0x4020000",
+    "GPIO29_CTRL": "0x5",
+    "GPIO_INTR3": "0x222ddd21",
+    "PROC0_INTE3": "0x400000",
+    "PROC0_INTF3": "0x0",
+    "PROC0_INTS3": "0x0"
+  },
+  "gpio29_high": true,
+  "function": 5,
+  "gpio29_irq_enable": 4,
+  "gpio29_irq_pending": 0,
+  "core_resumed": true
+}

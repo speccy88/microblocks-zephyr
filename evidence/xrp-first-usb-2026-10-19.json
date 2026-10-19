@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-19T02:29:21.987069+00:00",
+  "scope": "Actual installed XRP over binary USB; no bytecode write or credential entry",
+  "identity": {
+    "port": "COM11",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E464244647564B37",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "version": "\u0002v417 XRP RP2350 Zephyr (actuators locked)",
+  "ping": true,
+  "code_crcs_before": {},
+  "wifi_probe": {
+    "board": "xrp-rp2350",
+    "setup_protocol": 2,
+    "persistence_supported": true,
+    "state": "usb-setup",
+    "busy": false,
+    "ip": "0.0.0.0",
+    "error": 0,
+    "actuators_enabled": false
+  },
+  "flashed_source_commit": "721fb018c9ad72d3020a003ea820445583e20bfc",
+  "motor_power": "operator reported off; not enabled"
+}

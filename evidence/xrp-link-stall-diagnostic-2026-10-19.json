@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-19T03:36:31.435812+00:00",
+  "source_commit": "28e72a4ba43922b997107ee88b4a63b8045a1e9e",
+  "scope": "Radio MAC compared locally with host ARP; last Ethernet/IP/TCP header only, no network payload or credentials",
+  "mac_matches_host_last_observed_arp": true,
+  "prev_irq": 1,
+  "last_ether_type": "0x800",
+  "core_resumed": true,
+  "last_ip_protocol": 6,
+  "last_source_is_xrp": true,
+  "last_tcp_flags": "0x12"
+}

@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-19T04:02:39.655657+00:00",
+  "source_commit": "075e910a7811eeb8f3e7187c08ebe53fc38ccf90",
+  "observed_http_status": 500,
+  "asset_audit": "evidence/xrp-wireless-06-http-fairness-2026-10-19.json",
+  "net_context_sndtimeo_enabled": false,
+  "diagnosis": "Asset callback requested SO_SNDTIMEO while its pinned backend Kconfig capability was disabled",
+  "correction_commit": "ffcac51d9238c08c4bdf042f62a8418952a45c5d",
+  "firmware_or_tail_corruption_observed": false
+}

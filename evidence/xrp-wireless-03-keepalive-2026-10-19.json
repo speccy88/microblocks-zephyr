@@ -1,0 +1,14 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-19T03:35:17.440351+00:00",
+  "host": "192.168.1.169",
+  "source_commit": "28e72a4ba43922b997107ee88b4a63b8045a1e9e",
+  "checks": {},
+  "actuator_commands_sent": false,
+  "motor_supply_enabled": false,
+  "credentials_logged": false,
+  "scope": "Physical XRP; native same-origin HTTP and binary WebSocket",
+  "http_asset_mode": "HTTP/1.1 keep-alive, two concurrent connections",
+  "error": "URLError: <urlopen error timed out>",
+  "owned_test_crcs_remaining": {}
+}

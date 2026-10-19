@@ -10,10 +10,10 @@
   "flash_mib": 16,
   "psram_mib": 8,
   "psram_mapped": false,
-  "physical_identity_verified": false,
+  "physical_identity_verified": true,
   "firmware_cross_built": true,
-  "cross_build_scope": "SmallVM v417 + real isolated Arduino API + RM2/AIROC + native GP/HTTP/WS + common MBNW v2 store; 4008592 flash bytes, 362768 linker RAM bytes; no physical execution",
-  "build_evidence": "evidence/xrp-smallvm-build-verification-2026-10-19.json",
+  "cross_build_scope": "Installed SmallVM v417 + real Arduino API + RM2 + native GP/HTTP/WS + common MBNW v2 store; 4010680 flash bytes, 365240 linker RAM bytes",
+  "build_evidence": "evidence/xrp-smallvm-build-verification-07-http-detail-2026-10-19.json",
   "smallvm_linked": true,
   "arduino_api_linked": true,
   "phase": "integrated-non-actuating-development",
@@ -62,7 +62,7 @@
   "capabilities": [
     {
       "id": "motors_encoders",
-      "status": "Motor inputs low/coast and actuator GPIO blocked; actual upstream encoder API linked; no physical encoder/motion test",
+      "status": "Eight motor inputs read back as SIO outputs low/coast; actuator GPIO blocked. Four encoder start/count/stop APIs execute without driven motion. Direction, edge accuracy and Wi-Fi-load performance unverified.",
       "physical_tested": false
     },
     {
@@ -80,8 +80,9 @@
         "data_and_irq": 29
       },
       "pio": 0,
-      "status": "RM2 PIO/AIROC + asynchronous USB setup + native GP/HTTP/WS cross-built; no radio/RF/association test",
-      "physical_tested": false
+      "status": "Canada RM2 association/DHCP, saved reset/update rejoin and all 147 HTTP assets during live VM traffic pass; measured PM 2 to 0. Graphical use and RF calibration unverified.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/xrp-wireless-08-http-detail-2026-10-19.json"
     },
     {
       "id": "imu",
@@ -91,8 +92,9 @@
       "default_address": "0x6b",
       "alternate_address": "0x6a",
       "who_am_i": "0x6c (family only)",
-      "status": "I2C1 register and bulk APIs linked for stock XRP library; no physical IMU read by integrated firmware",
-      "physical_tested": false
+      "status": "Physical I2C1 WHO_AM_I 0x6c passes. Family compatibility only; acceleration/gyro, orientation, bias and calibration unverified.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/xrp-inputs-02-2026-10-19.json"
     },
     {
       "id": "qwiic0",
@@ -109,7 +111,7 @@
         "sda": 38,
         "scl": 39
       },
-      "status": "Default Arduino Wire and VM I2C1 linked; shared with IMU; untested physically",
+      "status": "Default Wire and VM I2C1 physically read onboard IMU; external Qwiic device testing pending.",
       "physical_tested": false
     },
     {
@@ -118,7 +120,7 @@
         "trigger": 0,
         "echo": 1
       },
-      "status": "Bounded GPIO1 pulse capture and GPIO0 trigger primitives linked; no timing/distance test",
+      "status": "Passive bounded GPIO1 capture executes with zero edges. No trigger sent; waveform and distance accuracy unverified.",
       "physical_tested": false
     },
     {
@@ -127,8 +129,9 @@
         "left": 44,
         "right": 45
       },
-      "status": "10-bit raw ADC API linked; calibration unverified",
-      "physical_tested": false
+      "status": "Physical 10-bit ADC reads GPIO44/45 pass; observed 962/982 in one read. Geometry and calibration unverified.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/xrp-inputs-02-2026-10-19.json"
     },
     {
       "id": "button",
@@ -136,8 +139,9 @@
         "user": 36
       },
       "active_low": true,
-      "status": "USER input and USB-only recovery selection integrated; not physically executed",
-      "physical_tested": false
+      "status": "Physical released USER raw level high observed. Press/release transitions and boot recovery gesture untested.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/xrp-inputs-02-2026-10-19.json"
     },
     {
       "id": "rgb",
@@ -158,8 +162,9 @@
       "pins": {
         "input_measure": 46
       },
-      "status": "GPIO46 raw ADC linked; library scaling and calibration unverified",
-      "physical_tested": false
+      "status": "Physical raw ADC read GPIO46 passes; divider scaling and voltage calibration unverified.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/xrp-inputs-02-2026-10-19.json"
     },
     {
       "id": "current",
@@ -169,8 +174,9 @@
         "motor4": 42,
         "right": 43
       },
-      "status": "GPIO40..43 raw ADC linked; no calibration/current test",
-      "physical_tested": false
+      "status": "Physical raw ADC reads GPIO40..43 pass (zero with motor supply off); current scaling and electrical calibration unverified.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/xrp-inputs-02-2026-10-19.json"
     },
     {
       "id": "psram",
@@ -223,9 +229,36 @@
   "baseline_build_evidence": "evidence/xrp-bringup-build-verification-2026-10-19.json",
   "debug_link_identified": true,
   "debug_identity_evidence": "evidence/xrp-swd-identification-2026-10-19.json",
-  "debug_identity_scope": "USB COM10 1b4f:0046 and RP2350 SWD verified; exact PCB and installed firmware not read",
+  "debug_identity_scope": "Identified XRP; RP2350 rev2 QFN80, Winbond w25q128jv 16MiB; installed USB 2fe3:0004 E464244647564B37 COM11",
   "actuators_enabled": false,
   "common_wifi_setup_protocol": 2,
-  "wifi_persistence": "Two erase pages in dedicated f80000 partition; plaintext journal; physical durability untested",
-  "radio_resource_profile": "Pinned Zephyr CYW43439/MURATA-1YN; RF/NVRAM and deployment country validation pending"
+  "wifi_persistence": "Two erase pages in dedicated f80000 partition; plaintext journal; user Remember, reset/update retention and rejoin pass; full-power-cycle durability unverified",
+  "radio_resource_profile": "Pinned Zephyr CYW43439/MURATA-1YN; Canada; association/DHCP pass; measured PM 2 to 0; RF calibration unverified",
+  "installed_source_commit": "b8232c3aa6abe4e02f459a15ff15a5ed71c2a245",
+  "installed_elf_sha256": "d34073cf266e1b8adbb9f1334e772592b21055fb8afc7b8d9548c0c045f1f655",
+  "installation_evidence": "evidence/xrp-http-detail-boot-2026-10-19.json",
+  "original_firmware_private_backup": true,
+  "wifi_country": "WHD_COUNTRY_CANADA",
+  "wireless_acceptance": {
+    "result": "PASS",
+    "evidence": "evidence/xrp-wireless-08-http-detail-2026-10-19.json",
+    "scope": "147 exact HTTP assets during live binary VM traffic; arithmetic/edit,50 outputs,fragmentation,stop/variables,sensors,origin/controller rejection,reconnect,USB priority,owned-code cleanup",
+    "fairness_evidence": "evidence/xrp-http-fairness-02-2026-10-19.json",
+    "repeated_http_evidence": "evidence/xrp-http-repeated-2026-10-19.json",
+    "graphical_editor_tested": false,
+    "full_power_cycle_tested": false,
+    "rf_calibrated": false
+  },
+  "usb_acceptance": {
+    "result": "PASS",
+    "evidence": "evidence/xrp-usb-baseline-2026-10-19.json",
+    "reboot_evidence": "evidence/xrp-usb-after-reset-2026-10-19.json",
+    "update_retention_evidence": "evidence/xrp-canada-boot-2026-10-19.json",
+    "scope": "Arithmetic/edit,50 outputs,fragmentation,stop/variables,reconnect,reboot and firmware-update retention; no motion"
+  },
+  "adc_fault_acceptance": {
+    "result": "PASS",
+    "evidence": "evidence/xrp-adc-irq-fault-2026-10-19.json",
+    "scope": "Lost IRQ bounded error; pending read rejected; USB responsive; late completion discarded and next conversion succeeds"
+  }
 }

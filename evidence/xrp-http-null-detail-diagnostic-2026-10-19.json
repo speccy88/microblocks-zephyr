@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-19T05:38:08.260664+00:00",
+  "source_commit": "ffcac51d9238c08c4bdf042f62a8418952a45c5d",
+  "scope": "Fault registers and PC/LR only; no application secret or payload read",
+  "register_lines": [
+    "pc (/32): 0x1003102c",
+    "lr (/32): 0x10031035",
+    "CFSR=0x0",
+    "HFSR=0x0",
+    "MMFAR=0x200373c4",
+    "BFAR=0x200373c4"
+  ],
+  "cores_left_halted": true
+}

@@ -1,72 +1,75 @@
-# SparkFun production XRP RP2350 target
+# SparkFun production XRP RP2350
 
-This target is for ROB-26619 with discrete RP2350B/RM2, not the Pico W beta.
-Its primary schematic, part/pin checks and license hashes are recorded in
-[`dependencies/xrp-production-reference.json`](../../dependencies/xrp-production-reference.json).
-See the [feature parity and staged acceptance plan](../../docs/XRP_PARITY.md).
+Production ROB-26619 uses a discrete RP2350B and RM2, not the Pico W beta.
+The [reference inventory](../../dependencies/xrp-production-reference.json),
+[feature acceptance plan](../../docs/XRP_PARITY.md) and
+[canonical capability manifest](hardware.json) record the exact scope.
 
-**Both the quiet baseline and integrated non-actuating SmallVM app cross-build; neither has been installed on this XRP.**
-A read-only USB/SWD check found COM10 and a responding RP2350 debug fabric; no
-CPU halt, reset, flash probe or memory write was requested.
-The baseline below remains available independently. The quiet
-bring-up app only sets the eight motor inputs low (coast), reads the user button
-and attempts one read-only IMU family-ID query. Servo outputs, RGB, ultrasonic
-trigger and flash/settings are not driven or written. It is not SmallVM or an
-XRPCode replacement. Firmware build status belongs in `hardware.json` and exact
-build evidence; it is not a physical PASS. The baseline uses 40,188 flash bytes
-and 18,656 linker-allocated RAM bytes. ELF/UF2 ARM Secure identity and all load
-addresses were verified against the application partition. See
-[the exact build/source evidence](../../evidence/xrp-bringup-build-verification-2026-10-19.json).
+The integrated SmallVM v417 / real Arduino API / Zephyr image is now installed
+on the identified XRP, with the user's flash authorization and motor supply off.
+SWD identified RP2350 rev2, QFN80 and Winbond W25Q128JV 16 MiB. The original
+complete image and subsequent snapshots remain private, outside Git. Current
+USB is COM11, 2fe3:0004, serial E464244647564B37. The earlier MicroPython USB
+COM10 / 1b4f:0046 identity is historical and must not identify the new image.
 
-The target uses Zephyr `a915b2f12675b48b16d56653ea145dcd8f20cbbf`, internal
-SRAM and a separate RP2350B board definition. GPIO32..47 use `gpio0_hi` indices
-0..15. I2C0 is GPIO4/5, I2C1/IMU GPIO38/39. The RM2 definition adapts the pinned
-RP2350B Plus W PIO driver to power26/CS27/CLK28/shared DATA+IRQ29. PIO0 is
-reserved for radio; RGB/encoder PIO resources must be allocated separately.
-PSRAM CS47 is documented but PSRAM is not mapped. No BLE capability is claimed.
+The [Canada build](../../evidence/xrp-smallvm-build-verification-07-http-detail-2026-10-19.json)
+uses source `b8232c3aa6abe4e02f459a15ff15a5ed71c2a245`, Zephyr
+`a915b2f12675b48b16d56653ea145dcd8f20cbbf`, **4,010,680 flash bytes** and
+**365,240 linker RAM bytes**. ELF/UF2 load bounds, actual 48-GPIO/9-ADC compiler
+macros and linked APIs pass inspection. PSRAM remains unmapped.
+[Programming, boot and update retention](../../evidence/xrp-http-detail-boot-2026-10-19.json)
+pass; the existing program/settings tail was byte-for-byte preserved.
 
-The production schematic uses dual-input DRV8411A control. Left34/35,
-right32/33, motor3 20/21, motor4 10/11 must not use beta phase/enable code.
-The overview calls the IMU LSM6DSO; the schematic says LSM6DSOX. Read-only
-WHO_AM_I 0x6C establishes family compatibility only. Physical part/driver,
-motor direction, servo limits and all sensor calibration remain unverified.
+## Physical acceptance
 
-Build with the repository's pinned Zephyr SDK/workspace:
+- [USB VM](../../evidence/xrp-usb-baseline-2026-10-19.json): arithmetic/edit,
+  exactly 50 outputs, fragmented upload, stop/variables and reconnect pass.
+  [Reset retention](../../evidence/xrp-usb-after-reset-2026-10-19.json) passes.
+- [Inputs](../../evidence/xrp-inputs-02-2026-10-19.json): IMU family ID 0x6c,
+  ADC GPIO40..46, released USER level, four encoder start/count/stop APIs and
+  passive bounded echo capture pass. No encoder motion or ultrasonic trigger
+  was driven. Sensor scaling, calibration, accuracy and button transitions
+  remain unverified.
+- [ADC lost-interrupt recovery](../../evidence/xrp-adc-irq-fault-2026-10-19.json):
+  bounded error, USB responsiveness, busy rejection, restored IRQ and discarded
+  late completion pass. [The earlier failure](../../evidence/xrp-adc-diagnostic-2026-10-19.json)
+  is retained with its pinctrl initialization cause.
+- [Motor GPIO registers](../../evidence/xrp-motor-coast-registers-2026-10-19.json)
+  read back as eight low SIO outputs. This is a register check, not an electrical
+  waveform measurement. Motor and servo writes are blocked at both VM and
+  Arduino entry points. No unlock command exists and no motion is accepted.
 
-```sh
-west build -b sparkfun_xrp/rp2350b/m33_0 -d build/xrp-bringup \
-  /path/to/microblocks-zephyr/boards/sparkfun_xrp_rp2350/bringup
-```
+RM2 reports ready with `WHD_COUNTRY_CANADA`, the country confirmed by the user.
+The [wireless acceptance](../../evidence/xrp-wireless-08-http-detail-2026-10-19.json)
+passes all 147 assets (3,511,116 compressed bytes, exact body hashes and
+COOP/COEP headers) over two concurrent HTTP connections during live VM traffic.
+Arithmetic/edit, 50 ordered outputs, fragmented upload, partial-frame recovery,
+stop/variables, IMU/raw ADC, origin/controller rejection, reconnect and USB
+preemption pass. The 2,180,340-byte data file took 57.421 seconds in that run.
+Graphical GP compilation and local-project browser acceptance remain unverified.
+The [HTTP fairness check](../../evidence/xrp-http-fairness-02-2026-10-19.json)
+served eight status requests in 0.093..0.344 seconds during a large download,
+validated sequential keepalive hashes, and recovered after two partial-download
+closes. This does not claim initial HTTP request pipelining support.
+The [repeated-connection check](../../evidence/xrp-http-repeated-2026-10-19.json)
+passes 30 fresh HTTP connections, three matching root HTML reads and three
+WebSocket version/ping reconnects after the bulk-transfer tests.
 
-This command builds only; do not run a flash command against an unidentified
-robot or another RP2350. Installing requires verified robot identity, private
-backup/recovery and a separate concrete installation decision. Motion testing
-also requires confirmed safe physical placement. Preserve existing Fruit Jam
-and Waveshare images/programs. The current Fruit Jam CRC is `651a01da`.
+The local Windows-vault Connect action supplies credentials only to the exact
+USB-identified XRP. Remember is an explicit checkbox, off by default. No key
+passes through chat, browser, VM scripts or Git. The journal is plaintext flash,
+not encryption. Radio calibration and flash power-loss durability are unverified.
 
-The preview editor uses the actual pinned production `XRP.ubl` library (not
-`XRP Beta.ubl`) and permits project editing/storage while its hardware Connect
-path remains disabled. Its upstream motor/servo/sensor functions do not establish
-Zephyr driver support. USB SmallVM/Arduino API, RM2/AIROC, board-hosted GP/WebSocket and common persistent
-configuration now cross-build together in `smallvm/`. Runtime/hardware validation
-remains pending; the Pages preview still rejects hardware connection.
+The native editor uses `http://<board-ip>/` and same-origin `ws://<board-ip>/ws/vm`.
+USB preempts its single wireless controller. The HTTPS Pages XRP profile remains
+an editing preview with hardware connection disabled; use the board-hosted editor
+for compatible firmware. Exact wireless/graphical results are tracked in the
+manifest and evidence; linkage alone never establishes acceptance.
 
+## Rebuild
 
-## Integrated development image
-
-The verified image uses **4,008,592 flash bytes** and **362,768 linker RAM bytes**.
-It links 147 real GP assets occupying 3,511,116 flash bytes. These are cross-build
-measurements, not a physical boot or performance result.
-
-See [the integration contract](../../docs/XRP_INTEGRATION.md) and
-[build/image evidence](../../evidence/xrp-smallvm-build-verification-2026-10-19.json).
-The app uses internal SRAM, raw production GPIO numbering, default Wire/I2C1
-GPIO38/39, ADC GPIO40..46, encoder interrupts and bounded ultrasonic echo capture.
-Motor inputs stay low/coast; motor/servo writes fail through both the VM and
-Arduino core. RGB, PSRAM and BLE remain unavailable. No actuator unlock exists.
-
-Prepare a new isolated Arduino module and only the two verified external RM2
-blobs, then build with the pinned Zephyr workspace/SDK (replace source paths):
+Keep the independent quiet `bringup/` baseline and other boards unchanged.
+Use the pinned workspace/SDK and isolated XRP Arduino module:
 
 ```sh
 python3 tools/prepare_xrp_arduino.py --source "$arduino_source" --output "$arduino_xrp"
@@ -77,14 +80,14 @@ west build -b sparkfun_xrp/rp2350b/m33_0 -d build/xrp-smallvm \
   -DSMALLVM_SOURCE_DIR="$smallvm_snapshot" -DIDE_SOURCE_DIR="$ide_source"
 ```
 
-Wi-Fi joining/persistence runs off the VM thread. USER held at startup skips
-saved-network joining without erasing the program/settings. MBNW v2 setup is
-USB-only; no HTTP credential endpoint exists. Once joined, the same-origin
-native editor uses `ws://<board-ip>/ws/vm`; USB preempts its single controller.
-The native editor and setup flow have not been exercised on this XRP.
+This builds only. Every later installation must preserve the current image,
+program and settings and remain within explicit user authorization. Motion needs
+a separate safe-placement/readiness decision. Keep the motor supply off during
+this non-actuating milestone. Fruit Jam and Waveshare are excluded from these
+flash/reset/test helpers. Fruit Jam's current program CRC remains `651a01da`.
 
-Before installation, preserve the existing full image and user files/settings,
-verify recovery, select the deployment Wi-Fi country and confirm the RM2 radio
-resource configuration. Installation still requires explicit authorization;
-robot motion requires a later safe-placement/readiness decision. The detected
-COM10 identity describes the existing image, not a presumed post-install port.
+Default Wire/I2C1 is GPIO38/39; Wire1/I2C0 is GPIO4/5. PIO0 belongs to RM2.
+Production DRV8411A IN1/IN2 pairs are 34/35,32/33,20/21,10/11; never apply beta
+phase/enable code. RGB, PSRAM and BLE remain unavailable. Full XRPCode parity,
+motor orientation, servo bounds, distance/line/IMU calibration and encoder
+accuracy under Wi-Fi load remain future acceptance gates.

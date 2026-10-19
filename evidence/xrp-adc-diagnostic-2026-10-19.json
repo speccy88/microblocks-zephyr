@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-19T02:49:23.048374+00:00",
+  "scope": "Physical read-only localization on installed XRP source 721fb018c9ad72d3020a003ea820445583e20bfc",
+  "results": {
+    "imu_family_id": {
+      "value": 108,
+      "result": "PASS"
+    },
+    "adc40": {
+      "result": "FAIL",
+      "error": "TimeoutError: Expected VM response was not received"
+    }
+  },
+  "cpu_pc": "0x10028170 (__enable_irq in idle)",
+  "cpu_fault_status": {
+    "CFSR": "0x00000000",
+    "HFSR": "0x00000000"
+  },
+  "adc_registers": {
+    "ADC_CS": "0x00000000",
+    "ADC_FCS": "0x00000100",
+    "ADC_INTE": "0x00000000",
+    "NVIC_ISER1": "0x00000030"
+  },
+  "cause": "Missing ADC/PWM default pinctrl state prevented driver initialization; Arduino analogRead entered a blocking read without a readiness check",
+  "correction_source_commit": "80b9e3efa01aa3ae083dbaf2166350c63bc56903",
+  "correction": "Explicit empty default states; ADC readiness guards; separate real Arduino ADC worker with 50 ms VM wait and late-result discard",
+  "motor_power_enabled": false
+}

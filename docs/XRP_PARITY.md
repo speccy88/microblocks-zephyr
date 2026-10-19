@@ -1,11 +1,11 @@
 # Production XRP feature parity and acceptance
 
 Target: SparkFun XRP Controller ROB-26619, discrete RP2350B and RM2, not the
-Pico W beta ROB-22727. USB/SWD identification now confirms a responding RP2350
-through the known Pico 2 W probe; installed firmware and exact PCB revision
-remain unverified. No motion,
-flash, reset, credential entry or physical feature validation is authorized by
-this source-stage checkpoint alone. Other connected RP2350 boards are excluded.
+Pico W beta ROB-22727. The identified RP2350B/QFN80 and 16 MiB flash now run
+the authorized integrated Canada image. Original full flash and subsequent
+snapshots remain private. USB bytecode, retained reset/update, IMU ID, ADC and
+passive input APIs pass. Other connected RP2350 boards are excluded. Motors
+remain locked with their supply off; movement still requires user readiness.
 
 ## Sources and architecture
 
@@ -52,21 +52,21 @@ add XRPLib's orientation reversal a second time.
 
 | Function | Required behavior / acceptance | Current boundary |
 |---|---|---|
-| Correct production target | RP2350B/high GPIO, exact radio nets, USB identity and firmware/source hashes | USB COM10 + RP2350 SWD identified; PCB/installed image not verified |
-| Live blocks / variables | Real GP compile, 5+7=12, edit=13, stop, variables, reconnect, 50 ordered outputs | VM/Arduino/native GP cross-built; XRP image not installed |
+| Correct production target | RP2350B/high GPIO, exact radio nets, USB identity and firmware/source hashes | RP2350B/QFN80, 16MiB flash and installed Canada image verified; current USB COM11 E464244647564B37 |
+| Live blocks / variables | Real GP compile, 5+7=12, edit=13, stop, variables, reconnect, 50 ordered outputs | Installed; physical USB arithmetic/edit,50 outputs,fragmentation,stop/variables,reconnect and reboot retention pass; graphical acceptance pending |
 | Four motor channels | Signed bounded duty, dual PWM and correct orientation; zero-safe boot/Stop/reset | Hardware primitives pending; no motor commands in baseline |
-| Four quadrature encoders | Signed counts, reset and velocity; pulse-generator accuracy under Wi-Fi load | Driver and measured limits pending |
+| Four quadrature encoders | Signed counts, reset and velocity; pulse-generator accuracy under Wi-Fi load | Four encoder APIs execute; no driven-motion or edge-accuracy measurement |
 | Tank / arcade / drivetrain | Differential scaling, saturation, wheel calibration and cooperative bounded moves | API/control loops pending |
 | Four servos | Explicit pulse/angle bounds and 50 Hz output; detached at boot/Stop by default | Driver/calibration pending; baseline does not drive signals |
 | Ultrasonic distance | Trigger0/Echo1, bounded edge timeout, explicit out-of-range/error | Driver/waveform test pending |
-| Line follower | ADC GPIO44/45, raw/calibrated ranges; no fabricated line classification | Driver/calibration pending |
-| IMU | Identity, acceleration/gyro, units/ranges, bias calibration and orientation limits | Baseline read-only family ID probe; physical test pending |
+| Line follower | ADC GPIO44/45, raw/calibrated ranges; no fabricated line classification | Raw ADC reads pass; scaling/calibration pending |
+| IMU | Identity, acceleration/gyro, units/ranges, bias calibration and orientation limits | Physical family ID 0x6c passes; setup/calibration pending |
 | Button / RGB / STAT | Button36 active-low, RGB37; STAT belongs to radio GPIO0 | Button input only in baseline; no automatic RGB/STAT output |
 | Voltage / current | VIN46 and currents40..43, documented divider/gain and calibration | Scaling and electrical calibration pending |
 | Extension I/O / Qwiic | Safe unused GPIO12..19, I2C0 4/5, I2C1 38/39; enforce reserved pins | Pin ownership specified; broad Arduino API pending |
-| Wi-Fi live programming | RM2 PIO shared DATA/IRQ; association, all assets, fragmented VM traffic and reconnect | RM2/AIROC, native GP and USB/WS arbiter cross-built; no physical radio test |
+| Wi-Fi live programming | RM2 PIO shared DATA/IRQ; association, all assets, fragmented VM traffic and reconnect | Canada association and saved rejoin pass; all 147 HTTP assets during VM traffic, fragmentation, reconnect and USB preemption pass; graphical acceptance pending |
 | Local project storage | Per-board IndexedDB, named save/restore/export, preserve fresh workspace | Shared portal code; XRP browser acceptance pending |
-| Save / boot / update | Separate application, program and Wi-Fi settings; retain current program through update | Program store + common two-slot Wi-Fi journal integrated; real flash/boot tests pending |
+| Save / boot / update | Separate application, program and Wi-Fi settings; retain current program through update | Real VM and user-remembered Wi-Fi reset/update retention pass; full-power-cycle durability unverified |
 | Stop and connection loss | Stop all task outputs; manual/teleop mode stops on loss of control; explicit autonomous policy | Policy must be implemented/tested before actuator release |
 | Python / Blockly / REPL / robot files | XRPCode offers these distinct workflows | Not provided by MicroBlocks; full XRPCode equivalence is not claimed |
 | Optional gamepad / dashboard | Explicit user enable, bounded commands, clear ownership/link loss | Separate future scope |
@@ -117,4 +117,8 @@ The common flash adapter passes 211 synthetic storage/pin checks. The actual
 XRP transport passes 35 synthetic UART/ownership checks, including offline
 output draining, DTR loss, USB preemption and queue overflow. These tests do
 not establish real interrupt timing, encoder accuracy or power-loss safety.
-All sensor, radio, bytecode and flash acceptance on this XRP remains pending.
+USB/Wi-Fi bytecode, all 147 HTTP assets during VM traffic, reset/update retention,
+saved Wi-Fi rejoin, IMU ID, ADC and passive APIs now have physical evidence.
+Graphical acceptance and electrical/motion/calibration gates remain separately
+recorded in hardware.json. The HTTPS XRP editing preview still blocks hardware
+connection; physical tests use native board HTTP/WebSocket and exact-identity USB.

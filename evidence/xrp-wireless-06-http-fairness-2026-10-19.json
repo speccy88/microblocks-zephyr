@@ -1,0 +1,1017 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-19T03:59:24.607303+00:00",
+  "host": "192.168.1.169",
+  "source_commit": "075e910a7811eeb8f3e7187c08ebe53fc38ccf90",
+  "checks": {
+    "http_status": {
+      "board": "xrp-rp2350",
+      "setup_protocol": 2,
+      "persistence_supported": true,
+      "radio_ready": true,
+      "radio_pm_before": 2,
+      "radio_pm": 0,
+      "rssi_dbm": -76,
+      "state": "connected",
+      "busy": false,
+      "ip": "192.168.1.169",
+      "error": 0,
+      "actuators_enabled": false
+    },
+    "cross_origin_rejected": true,
+    "original_code_crc32": {},
+    "second_controller_rejected": true,
+    "arithmetic_runs": 10,
+    "live_edit_result": 13,
+    "ordered_outputs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "fragmented_upload_bytes": 1019,
+    "partial_frame_timeout_recovery": true,
+    "stop_and_variable_inspection": true,
+    "imu_id_over_wifi": 108,
+    "adc_over_wifi": {
+      "40": 0,
+      "41": 0,
+      "42": 0,
+      "43": 0,
+      "44": 961,
+      "45": 983,
+      "46": 19
+    },
+    "io_capabilities": {
+      "digital_raw": true,
+      "analog_gpio": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "i2c_gpio": [
+        38,
+        39
+      ],
+      "actuators_enabled": false,
+      "adc_ready": true,
+      "pwm_ready": true,
+      "adc_timeout_ms": 50,
+      "hardware_tested": false,
+      "error": 0
+    },
+    "assets": {
+      "files": 147,
+      "bytes": 0,
+      "result": "FAIL",
+      "assets": [
+        {
+          "path": "/FileSaver.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/TODO.md",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/boardie/README",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/boardie/boardie.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/boardie/styles.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/buttons.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/categories.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.063
+        },
+        {
+          "path": "/devtools.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.109
+        },
+        {
+          "path": "/emModule.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/emscripten.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/favicon.ico",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/flasher.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/gettext.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.297
+        },
+        {
+          "path": "/gpSupport.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.046
+        },
+        {
+          "path": "/gp_wasm.data",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/gp_wasm.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/gp_wasm.wasm",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/graph.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/icons/Bunny192.png",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.313
+        },
+        {
+          "path": "/icons/Bunny512.png",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/ide.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/img/SVGPrepNotes.txt",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.015
+        },
+        {
+          "path": "/img/big-logo.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/img/bool_false.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/bool_true.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/img/button-down.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.063
+        },
+        {
+          "path": "/img/button-left.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/button-ok.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.328
+        },
+        {
+          "path": "/img/button-right.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/button-up.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.25
+        },
+        {
+          "path": "/img/button-x.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/checkmark.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/colon-double-slash.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/double-arrow-v.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/dropdown-arrow.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-arrow-right--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-checkmark--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/img/icon-close--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-close.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-dropdown--12x6.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-file--24x24.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-gear--24x24.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/img/icon-globe--24x24.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-graph--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-graph.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-graph2.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-plug--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-plus--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-redo--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-start--24x24.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-stop--24x24.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/img/icon-undo--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/icon-usb.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.0
+        },
+        {
+          "path": "/img/icon-usb2.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/img/icon-usb3.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.0
+        },
+        {
+          "path": "/img/icon-zoom-in--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-zoom-out--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/icon-zoom-restore--16x16.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.078
+        },
+        {
+          "path": "/img/keyboard-light.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/img/legacy-restoreZoom.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/legacy-zoomIn.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/legacy-zoomOut.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/logo-preloader.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/microblocks-ide-logo.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/img/mouse-left-button.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.078
+        },
+        {
+          "path": "/img/mouse-right-button.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/note-eighth.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/note-half.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/note-quarter.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.313
+        },
+        {
+          "path": "/img/note-sixteenth.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/note-whole.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/plus1.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.328
+        },
+        {
+          "path": "/img/plus2.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/resize.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.093
+        },
+        {
+          "path": "/img/rounded-corner.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/img/square.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/img/square11.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.297
+        },
+        {
+          "path": "/img/trashcan-dark.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.265
+        },
+        {
+          "path": "/img/trashcan-light.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/img/wave-noise.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/img/wave-sawtooth.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.046
+        },
+        {
+          "path": "/img/wave-sine.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/img/wave-square.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/img/wave-triangle.svg",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.063
+        },
+        {
+          "path": "/lib/usbDfuDevice.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/manifest.json",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/menus.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/microblocks.html",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/precompiled/buildUniversalHex.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/precompiled/package.json",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/precompiled/uf2conv.py",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.235
+        },
+        {
+          "path": "/precompiled/updatePrecompiled.sh",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.281
+        },
+        {
+          "path": "/styles/components/_app-preloader.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/styles/components/_buttons.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/styles/components/_categories-libraries.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/styles/components/_ide.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/styles/components/_menus.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/styles/components/_overlay.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/styles/components/_scripts-pane-controls.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/styles/components/_tips.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/styles/components/_top-bar.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/styles/components/_window.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/styles/components/_wysiwyg.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/styles/config/_config.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/styles/generic/_body.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.015
+        },
+        {
+          "path": "/styles/generic/_button.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/styles/generic/minireset.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/styles/utilities/_drag.css",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.015
+        },
+        {
+          "path": "/sw.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.328
+        },
+        {
+          "path": "/translations/apc.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/ar.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/ca.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/translations/cs.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/translations/de.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/el.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.015
+        },
+        {
+          "path": "/translations/en.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/es.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/translations/eu.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/translations/fa.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.046
+        },
+        {
+          "path": "/translations/fi.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/translations/fr.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/gl.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/translations/he.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.063
+        },
+        {
+          "path": "/translations/id.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.062
+        },
+        {
+          "path": "/translations/it.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.328
+        },
+        {
+          "path": "/translations/ja.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.188
+        },
+        {
+          "path": "/translations/kk.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.25
+        },
+        {
+          "path": "/translations/ko.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/locales.json",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/lt.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/nl.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/pl.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/pt-br.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/pt.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/ro.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/ru.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/sr.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/translations/ta.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.032
+        },
+        {
+          "path": "/translations/template.pot",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.015
+        },
+        {
+          "path": "/translations/tr.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/uk.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/uz.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/vi.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.047
+        },
+        {
+          "path": "/translations/zh-chs.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        },
+        {
+          "path": "/translations/zh-cht.po",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.016
+        },
+        {
+          "path": "/unoq-network.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.266
+        },
+        {
+          "path": "/windows.js",
+          "result": "FAIL",
+          "error_type": "AssertionError",
+          "seconds": 0.031
+        }
+      ]
+    }
+  },
+  "actuator_commands_sent": false,
+  "motor_supply_enabled": false,
+  "credentials_logged": false,
+  "scope": "Physical XRP; native same-origin HTTP and binary WebSocket",
+  "http_asset_mode": "HTTP/1.1 keep-alive, two concurrent connections",
+  "version": "v417 XRP RP2350 Zephyr (actuators locked)",
+  "error": "AssertionError: One or more HTTP assets failed",
+  "owned_test_crcs_remaining": {
+    "220": "297d191b",
+    "221": "ac13eac1",
+    "222": "d8037d65",
+    "223": "6ceeceeb",
+    "224": "8b4f9480"
+  }
+}

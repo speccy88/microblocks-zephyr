@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-19T03:56:56.772278+00:00",
+  "compiled_source_commit": "075e910a7811eeb8f3e7187c08ebe53fc38ccf90",
+  "country": "Canada",
+  "image_sha256": "b7a7a9bb44037ec7414144c3ac1c4611c5626657910c346fbabfedae63d582c3",
+  "program_and_verify_succeeded": true,
+  "settings_and_vm_tail_preserved": true,
+  "reset_run_pending": false,
+  "motor_supply_enabled": false,
+  "result": "FAIL",
+  "network": {
+    "board": "xrp-rp2350",
+    "setup_protocol": 2,
+    "persistence_supported": true,
+    "radio_ready": true,
+    "radio_pm_before": 2,
+    "radio_pm": 0,
+    "rssi_dbm": 0,
+    "state": "join-failed",
+    "busy": false,
+    "ip": "0.0.0.0",
+    "error": -116,
+    "actuators_enabled": false
+  },
+  "failure_scope": "First remembered-network association timed out; USB alive; firmware programming and tail preservation succeeded"
+}

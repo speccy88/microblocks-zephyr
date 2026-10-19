@@ -1,0 +1,3632 @@
+{
+  "tested_at": "2026-10-19T02:22:52.549338+00:00",
+  "url": "https://speccy88.github.io/microblocks-zephyr/",
+  "source_commit": "527311a06d45bbea3b43a27eb5685aecfd8276c0",
+  "files": 453,
+  "bytes": 51763206,
+  "result": "FAIL",
+  "assets": [
+    {
+      "path": "build-manifest.json",
+      "expected_sha256": "ca0a1297417acc779303f8c3b988f2c06e57cccb454ac6fd682ec1d920d77a66",
+      "http_status": 200,
+      "bytes": 1342,
+      "sha256": "ca0a1297417acc779303f8c3b988f2c06e57cccb454ac6fd682ec1d920d77a66",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/boardie/boardie.js",
+      "expected_sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea",
+      "http_status": 200,
+      "bytes": 2632,
+      "sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/boardie/README",
+      "expected_sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc",
+      "http_status": 200,
+      "bytes": 80,
+      "sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/boardie/styles.css",
+      "expected_sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2",
+      "http_status": 200,
+      "bytes": 5173,
+      "sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/buttons.js",
+      "expected_sha256": "55fa00d3608d9762c97956b3081099bdf4a6e0c339b6a6fa405be9d67a555d7c",
+      "http_status": 200,
+      "bytes": 7305,
+      "sha256": "55fa00d3608d9762c97956b3081099bdf4a6e0c339b6a6fa405be9d67a555d7c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/categories.js",
+      "expected_sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5",
+      "http_status": 200,
+      "bytes": 3296,
+      "sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/devtools.js",
+      "expected_sha256": "a3352678531252268ce5fc7bf524f160037dec199d98156d18809f56fb88c94e",
+      "http_status": 200,
+      "bytes": 3526,
+      "sha256": "a3352678531252268ce5fc7bf524f160037dec199d98156d18809f56fb88c94e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/emModule.js",
+      "expected_sha256": "daaa269059d81ccc2a1198015b9db58a3b28bf6f7463b79144fb9fc4eebff118",
+      "http_status": 200,
+      "bytes": 3011,
+      "sha256": "daaa269059d81ccc2a1198015b9db58a3b28bf6f7463b79144fb9fc4eebff118",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/emscripten.css",
+      "expected_sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98",
+      "http_status": 200,
+      "bytes": 1295,
+      "sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/favicon.ico",
+      "expected_sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3",
+      "http_status": 200,
+      "bytes": 1150,
+      "sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/FileSaver.js",
+      "expected_sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3",
+      "http_status": 200,
+      "bytes": 8584,
+      "sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/flasher.js",
+      "expected_sha256": "2338545bc2f81bcf0ceacc90d158dd649df4e20269507c561aabf0fe0a5ac663",
+      "http_status": 200,
+      "bytes": 2888,
+      "sha256": "2338545bc2f81bcf0ceacc90d158dd649df4e20269507c561aabf0fe0a5ac663",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/gettext.js",
+      "expected_sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "http_status": 200,
+      "bytes": 3889,
+      "sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/gp_wasm.data",
+      "expected_sha256": "b54a5553c9bc974371fa061b72130d2f2666de6963be1b4b0d51d8b3f5ee51a7",
+      "http_status": 200,
+      "bytes": 10895342,
+      "sha256": "b54a5553c9bc974371fa061b72130d2f2666de6963be1b4b0d51d8b3f5ee51a7",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/gp_wasm.js",
+      "expected_sha256": "5a8f116e8e7a1a865584ad6881749c7d099de37f21bf371b14aee65348be0619",
+      "http_status": 200,
+      "bytes": 183716,
+      "sha256": "5a8f116e8e7a1a865584ad6881749c7d099de37f21bf371b14aee65348be0619",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/gp_wasm.wasm",
+      "expected_sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "http_status": 200,
+      "bytes": 284918,
+      "sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/gpSupport.js",
+      "expected_sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c",
+      "http_status": 200,
+      "bytes": 42528,
+      "sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/graph.js",
+      "expected_sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157",
+      "http_status": 200,
+      "bytes": 8030,
+      "sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/icons/Bunny192.png",
+      "expected_sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971",
+      "http_status": 200,
+      "bytes": 19500,
+      "sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/icons/Bunny512.png",
+      "expected_sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1",
+      "http_status": 200,
+      "bytes": 72366,
+      "sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/ide.js",
+      "expected_sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5",
+      "http_status": 200,
+      "bytes": 13358,
+      "sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/big-logo.svg",
+      "expected_sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877",
+      "http_status": 200,
+      "bytes": 15505,
+      "sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/bool_false.svg",
+      "expected_sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2",
+      "http_status": 200,
+      "bytes": 518,
+      "sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/bool_true.svg",
+      "expected_sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369",
+      "http_status": 200,
+      "bytes": 523,
+      "sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/button-down.svg",
+      "expected_sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1",
+      "http_status": 200,
+      "bytes": 1302,
+      "sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/button-left.svg",
+      "expected_sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155",
+      "http_status": 200,
+      "bytes": 1300,
+      "sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/button-ok.svg",
+      "expected_sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed",
+      "http_status": 200,
+      "bytes": 1151,
+      "sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/button-right.svg",
+      "expected_sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08",
+      "http_status": 200,
+      "bytes": 1305,
+      "sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/button-up.svg",
+      "expected_sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c",
+      "http_status": 200,
+      "bytes": 1308,
+      "sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/button-x.svg",
+      "expected_sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519",
+      "http_status": 200,
+      "bytes": 893,
+      "sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/checkmark.svg",
+      "expected_sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55",
+      "http_status": 200,
+      "bytes": 541,
+      "sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/colon-double-slash.svg",
+      "expected_sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423",
+      "http_status": 200,
+      "bytes": 851,
+      "sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/double-arrow-v.svg",
+      "expected_sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff",
+      "http_status": 200,
+      "bytes": 1040,
+      "sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/dropdown-arrow.svg",
+      "expected_sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056",
+      "http_status": 200,
+      "bytes": 348,
+      "sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-arrow-right--16x16.svg",
+      "expected_sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89",
+      "http_status": 200,
+      "bytes": 486,
+      "sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-checkmark--16x16.svg",
+      "expected_sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881",
+      "http_status": 200,
+      "bytes": 483,
+      "sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-close--16x16.svg",
+      "expected_sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300",
+      "http_status": 200,
+      "bytes": 618,
+      "sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-close.svg",
+      "expected_sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525",
+      "http_status": 200,
+      "bytes": 634,
+      "sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-dropdown--12x6.svg",
+      "expected_sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f",
+      "http_status": 200,
+      "bytes": 311,
+      "sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-file--24x24.svg",
+      "expected_sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808",
+      "http_status": 200,
+      "bytes": 387,
+      "sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-gear--24x24.svg",
+      "expected_sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3",
+      "http_status": 200,
+      "bytes": 2611,
+      "sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-globe--24x24.svg",
+      "expected_sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2",
+      "http_status": 200,
+      "bytes": 2856,
+      "sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-graph--16x16.svg",
+      "expected_sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884",
+      "http_status": 200,
+      "bytes": 597,
+      "sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-graph.svg",
+      "expected_sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe",
+      "http_status": 200,
+      "bytes": 808,
+      "sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-graph2.svg",
+      "expected_sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429",
+      "http_status": 200,
+      "bytes": 769,
+      "sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-plug--16x16.svg",
+      "expected_sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1",
+      "http_status": 200,
+      "bytes": 886,
+      "sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-plus--16x16.svg",
+      "expected_sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7",
+      "http_status": 200,
+      "bytes": 384,
+      "sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-redo--16x16.svg",
+      "expected_sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f",
+      "http_status": 200,
+      "bytes": 750,
+      "sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-start--24x24.svg",
+      "expected_sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb",
+      "http_status": 200,
+      "bytes": 303,
+      "sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-stop--24x24.svg",
+      "expected_sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb",
+      "http_status": 200,
+      "bytes": 150,
+      "sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-undo--16x16.svg",
+      "expected_sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc",
+      "http_status": 200,
+      "bytes": 750,
+      "sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-usb.svg",
+      "expected_sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-usb2.svg",
+      "expected_sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-usb3.svg",
+      "expected_sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-zoom-in--16x16.svg",
+      "expected_sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8",
+      "http_status": 200,
+      "bytes": 1027,
+      "sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-zoom-out--16x16.svg",
+      "expected_sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f",
+      "http_status": 200,
+      "bytes": 904,
+      "sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/icon-zoom-restore--16x16.svg",
+      "expected_sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5",
+      "http_status": 200,
+      "bytes": 1099,
+      "sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/keyboard-light.svg",
+      "expected_sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c",
+      "http_status": 200,
+      "bytes": 4028,
+      "sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/legacy-restoreZoom.svg",
+      "expected_sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a",
+      "http_status": 200,
+      "bytes": 1548,
+      "sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/legacy-zoomIn.svg",
+      "expected_sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4",
+      "http_status": 200,
+      "bytes": 1513,
+      "sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/legacy-zoomOut.svg",
+      "expected_sha256": "9ac7a1de41b9c3df3caaefbe223b6f1010227660558bc005aa4978f8ddbcfd0e",
+      "http_status": 200,
+      "bytes": 1378,
+      "sha256": "9ac7a1de41b9c3df3caaefbe223b6f1010227660558bc005aa4978f8ddbcfd0e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/logo-preloader.svg",
+      "expected_sha256": "a025de516a6f439863f9dea30b958f790adadbfc001006a69cdc2f7a1b595110",
+      "http_status": 200,
+      "bytes": 14398,
+      "sha256": "a025de516a6f439863f9dea30b958f790adadbfc001006a69cdc2f7a1b595110",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/microblocks-ide-logo.svg",
+      "expected_sha256": "72ba076dc0a84dab1711147570c72d218abce66e5731bbe10e0458f28ee129ae",
+      "http_status": 200,
+      "bytes": 12406,
+      "sha256": "72ba076dc0a84dab1711147570c72d218abce66e5731bbe10e0458f28ee129ae",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/mouse-left-button.svg",
+      "expected_sha256": "75acc013ddf825348e6b2a0f1d57e1d8c7e68e9bfae7394b6de6999292fe5981",
+      "http_status": 200,
+      "bytes": 406,
+      "sha256": "75acc013ddf825348e6b2a0f1d57e1d8c7e68e9bfae7394b6de6999292fe5981",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/mouse-right-button.svg",
+      "expected_sha256": "8311967b5205d0f5aa6b276bb1fd6e4947010d38cc224aa98b81e969634b1ef8",
+      "http_status": 200,
+      "bytes": 406,
+      "sha256": "8311967b5205d0f5aa6b276bb1fd6e4947010d38cc224aa98b81e969634b1ef8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/note-eighth.svg",
+      "expected_sha256": "6bc3bdf4e540b4b803f75abeac89e3aed3851eb358100d959e986e83a7185a01",
+      "http_status": 200,
+      "bytes": 666,
+      "sha256": "6bc3bdf4e540b4b803f75abeac89e3aed3851eb358100d959e986e83a7185a01",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/note-half.svg",
+      "expected_sha256": "70f73d101a48f9396151841a0760563a688964774d122c0e6fe80d5faaf19623",
+      "http_status": 200,
+      "bytes": 690,
+      "sha256": "70f73d101a48f9396151841a0760563a688964774d122c0e6fe80d5faaf19623",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/note-quarter.svg",
+      "expected_sha256": "23610c0bde06d378cda28e33bb006f788447e6714b12d11acd2475cce8f4374b",
+      "http_status": 200,
+      "bytes": 472,
+      "sha256": "23610c0bde06d378cda28e33bb006f788447e6714b12d11acd2475cce8f4374b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/note-sixteenth.svg",
+      "expected_sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb",
+      "http_status": 200,
+      "bytes": 865,
+      "sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/note-whole.svg",
+      "expected_sha256": "2c64d9ea929c3560512a54872692ccd8a2eb594b53ef6ab4da200a3433bb062a",
+      "http_status": 200,
+      "bytes": 615,
+      "sha256": "2c64d9ea929c3560512a54872692ccd8a2eb594b53ef6ab4da200a3433bb062a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/plus1.svg",
+      "expected_sha256": "86e443135bd7552d25d6d6d0ebdabd51427c786c887cf6471ca765e357b89220",
+      "http_status": 200,
+      "bytes": 975,
+      "sha256": "86e443135bd7552d25d6d6d0ebdabd51427c786c887cf6471ca765e357b89220",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/plus2.svg",
+      "expected_sha256": "3f708a31ca2b65346100e13173f6127f40e1008013fa01c34fd5a3aed85a0247",
+      "http_status": 200,
+      "bytes": 549,
+      "sha256": "3f708a31ca2b65346100e13173f6127f40e1008013fa01c34fd5a3aed85a0247",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/resize.svg",
+      "expected_sha256": "98bdc2e96f9b10d533a11d151be1e03fbf01b8f509125a28b95f5fd746d0d15d",
+      "http_status": 200,
+      "bytes": 737,
+      "sha256": "98bdc2e96f9b10d533a11d151be1e03fbf01b8f509125a28b95f5fd746d0d15d",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/rounded-corner.svg",
+      "expected_sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373",
+      "http_status": 200,
+      "bytes": 159,
+      "sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/square.svg",
+      "expected_sha256": "65f32b9121f47aee6cc42972f5d3c591e3b78034075e0364a6ca4e25a68900cb",
+      "http_status": 200,
+      "bytes": 105,
+      "sha256": "65f32b9121f47aee6cc42972f5d3c591e3b78034075e0364a6ca4e25a68900cb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/square11.svg",
+      "expected_sha256": "9215fcf1387df6fdd6e1fbe2f3b8ea9b6d6cd65d7cb17ef9528ecbff6b3be256",
+      "http_status": 200,
+      "bytes": 105,
+      "sha256": "9215fcf1387df6fdd6e1fbe2f3b8ea9b6d6cd65d7cb17ef9528ecbff6b3be256",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/SVGPrepNotes.txt",
+      "expected_sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55",
+      "http_status": 200,
+      "bytes": 1555,
+      "sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/trashcan-dark.svg",
+      "expected_sha256": "ed2844e05677f0b1fb89096acdd1f01a8b7c1eb0a658d86f1a2224ce2628464c",
+      "http_status": 200,
+      "bytes": 1677,
+      "sha256": "ed2844e05677f0b1fb89096acdd1f01a8b7c1eb0a658d86f1a2224ce2628464c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/trashcan-light.svg",
+      "expected_sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186",
+      "http_status": 200,
+      "bytes": 2561,
+      "sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/wave-noise.svg",
+      "expected_sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5",
+      "http_status": 200,
+      "bytes": 2347,
+      "sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/wave-sawtooth.svg",
+      "expected_sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45",
+      "http_status": 200,
+      "bytes": 794,
+      "sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/wave-sine.svg",
+      "expected_sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c",
+      "http_status": 200,
+      "bytes": 911,
+      "sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/wave-square.svg",
+      "expected_sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b",
+      "http_status": 200,
+      "bytes": 380,
+      "sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/img/wave-triangle.svg",
+      "expected_sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c",
+      "http_status": 200,
+      "bytes": 722,
+      "sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/lib/usbDfuDevice.js",
+      "expected_sha256": "711bd38612250bd9a39c505ac3e4afdff44df496aed908d9332200576f1c5f3b",
+      "http_status": 200,
+      "bytes": 15305,
+      "sha256": "711bd38612250bd9a39c505ac3e4afdff44df496aed908d9332200576f1c5f3b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/manifest.json",
+      "expected_sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04",
+      "http_status": 200,
+      "bytes": 404,
+      "sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/menus.js",
+      "expected_sha256": "fd77bba5cca1b39a55b2d23ef12e49deb5826ffb2ef291251fd49a5725960aaf",
+      "http_status": 200,
+      "bytes": 15570,
+      "sha256": "fd77bba5cca1b39a55b2d23ef12e49deb5826ffb2ef291251fd49a5725960aaf",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/microblocks.html",
+      "expected_sha256": "d4bcaf892147c1a1752d62da3b170558636e3f0fcedbfda4d44f0fcb84b4c34f",
+      "http_status": 200,
+      "bytes": 7692,
+      "sha256": "d4bcaf892147c1a1752d62da3b170558636e3f0fcedbfda4d44f0fcb84b4c34f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/precompiled/buildUniversalHex.js",
+      "expected_sha256": "7f1f01c8767ce0451eaeaadb7fa62a4a6a70a1c5fe47606955e1ac0bcbe74da9",
+      "http_status": 200,
+      "bytes": 809,
+      "sha256": "7f1f01c8767ce0451eaeaadb7fa62a4a6a70a1c5fe47606955e1ac0bcbe74da9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/precompiled/package.json",
+      "expected_sha256": "ac8a108b4d646964a88c9d965e7a9a1c62e2d0b714580f1f62415beb7b0e0083",
+      "http_status": 200,
+      "bytes": 77,
+      "sha256": "ac8a108b4d646964a88c9d965e7a9a1c62e2d0b714580f1f62415beb7b0e0083",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/precompiled/uf2conv.py",
+      "expected_sha256": "fb77a31e9d66088e5e8420fcf7e6eda28e180cdff8ded26c4453232590b59b2e",
+      "http_status": 200,
+      "bytes": 8586,
+      "sha256": "fb77a31e9d66088e5e8420fcf7e6eda28e180cdff8ded26c4453232590b59b2e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/precompiled/updatePrecompiled.sh",
+      "expected_sha256": "10bc68120cdc9baec42d1427dbe9b1114be1ac19932d5a6f798efdd006509544",
+      "http_status": 200,
+      "bytes": 2735,
+      "sha256": "10bc68120cdc9baec42d1427dbe9b1114be1ac19932d5a6f798efdd006509544",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_app-preloader.css",
+      "expected_sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad",
+      "http_status": 200,
+      "bytes": 1708,
+      "sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_buttons.css",
+      "expected_sha256": "654a75147db1d5f9804bedf19f1a090d6c323a2241333b4e04d32280ca51147c",
+      "http_status": 200,
+      "bytes": 1359,
+      "sha256": "654a75147db1d5f9804bedf19f1a090d6c323a2241333b4e04d32280ca51147c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_categories-libraries.css",
+      "expected_sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036",
+      "http_status": 200,
+      "bytes": 2489,
+      "sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_ide.css",
+      "expected_sha256": "63bbd1ee4060438456d65bca9fda09c03b119493fbc5dc7155f685b504b38abc",
+      "http_status": 200,
+      "bytes": 2448,
+      "sha256": "63bbd1ee4060438456d65bca9fda09c03b119493fbc5dc7155f685b504b38abc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_menus.css",
+      "expected_sha256": "8b1c0dce1c6e5e3b98a25b59317baf5fefcd6b9c37c53e95f0d1697e55b66b31",
+      "http_status": 200,
+      "bytes": 2879,
+      "sha256": "8b1c0dce1c6e5e3b98a25b59317baf5fefcd6b9c37c53e95f0d1697e55b66b31",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_overlay.css",
+      "expected_sha256": "493f1e8d9b1e186f1f1fdc9e2db7c03d3666a92a3c69660ee931b776bd2b2885",
+      "http_status": 200,
+      "bytes": 1384,
+      "sha256": "493f1e8d9b1e186f1f1fdc9e2db7c03d3666a92a3c69660ee931b776bd2b2885",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_scripts-pane-controls.css",
+      "expected_sha256": "6971d71c49bd14b8f0c678221b41866c9fe7a3a69d45a96139ce93a7be74083a",
+      "http_status": 200,
+      "bytes": 1288,
+      "sha256": "6971d71c49bd14b8f0c678221b41866c9fe7a3a69d45a96139ce93a7be74083a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_tips.css",
+      "expected_sha256": "46fbed75ded65f6426167208d7ef3a66f98742d92cfffead3be9e03cb1fd5125",
+      "http_status": 200,
+      "bytes": 875,
+      "sha256": "46fbed75ded65f6426167208d7ef3a66f98742d92cfffead3be9e03cb1fd5125",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_top-bar.css",
+      "expected_sha256": "a7718679ea9ec78322b2b6be94c19cd68be0764c1a428281265b738931c974ba",
+      "http_status": 200,
+      "bytes": 3346,
+      "sha256": "a7718679ea9ec78322b2b6be94c19cd68be0764c1a428281265b738931c974ba",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_window.css",
+      "expected_sha256": "a2f38cfa51fad193267f5e35160fd1529bab7fa9ea7be4adc0323b0afe525803",
+      "http_status": 200,
+      "bytes": 3225,
+      "sha256": "a2f38cfa51fad193267f5e35160fd1529bab7fa9ea7be4adc0323b0afe525803",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/components/_wysiwyg.css",
+      "expected_sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e",
+      "http_status": 200,
+      "bytes": 1016,
+      "sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/config/_config.css",
+      "expected_sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578",
+      "http_status": 200,
+      "bytes": 4123,
+      "sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/generic/_body.css",
+      "expected_sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f",
+      "http_status": 200,
+      "bytes": 188,
+      "sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/generic/_button.css",
+      "expected_sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee",
+      "http_status": 200,
+      "bytes": 58,
+      "sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/generic/minireset.css",
+      "expected_sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252",
+      "http_status": 200,
+      "bytes": 703,
+      "sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/styles/utilities/_drag.css",
+      "expected_sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3",
+      "http_status": 200,
+      "bytes": 142,
+      "sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/sw.js",
+      "expected_sha256": "492a1ac301474251c593f39c97b6e78914fa4018a43fa21fadee46caab09bae9",
+      "http_status": 200,
+      "bytes": 1842,
+      "sha256": "492a1ac301474251c593f39c97b6e78914fa4018a43fa21fadee46caab09bae9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/TODO.md",
+      "expected_sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142",
+      "http_status": 200,
+      "bytes": 2256,
+      "sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/apc.po",
+      "expected_sha256": "3217c10fe8538873f33fd87af3c9064bb6537666657a794d62b2d3331d7422de",
+      "http_status": 200,
+      "bytes": 136945,
+      "sha256": "3217c10fe8538873f33fd87af3c9064bb6537666657a794d62b2d3331d7422de",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/ar.po",
+      "expected_sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b",
+      "http_status": 200,
+      "bytes": 238394,
+      "sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/ca.po",
+      "expected_sha256": "4734f15e0d59488a5cc098285b017f5c204e895f6426818b2c5995a874cc0473",
+      "http_status": 200,
+      "bytes": 235868,
+      "sha256": "4734f15e0d59488a5cc098285b017f5c204e895f6426818b2c5995a874cc0473",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/cs.po",
+      "expected_sha256": "96bb6ed5ecbf16bc24d20bb683d3a8b4e2c856a87da024e59ef4adbe80bdfabc",
+      "http_status": 200,
+      "bytes": 187220,
+      "sha256": "96bb6ed5ecbf16bc24d20bb683d3a8b4e2c856a87da024e59ef4adbe80bdfabc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/de.po",
+      "expected_sha256": "a40a4d488645fb80a6bda1803e88ef376e6d25a6877aac37ad66c3370886cbe1",
+      "http_status": 200,
+      "bytes": 233186,
+      "sha256": "a40a4d488645fb80a6bda1803e88ef376e6d25a6877aac37ad66c3370886cbe1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/el.po",
+      "expected_sha256": "3b8fd990f253f57485d0f5022b5c2cc2824c1906de5c381c9154f51253bc6893",
+      "http_status": 200,
+      "bytes": 47400,
+      "sha256": "3b8fd990f253f57485d0f5022b5c2cc2824c1906de5c381c9154f51253bc6893",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/en.po",
+      "expected_sha256": "76fc7b1942b5fbad97ef0b8879fe95a93f5ca6f0ca1642aab4966e8cc668fb3c",
+      "http_status": 200,
+      "bytes": 219429,
+      "sha256": "76fc7b1942b5fbad97ef0b8879fe95a93f5ca6f0ca1642aab4966e8cc668fb3c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/es.po",
+      "expected_sha256": "b2bf21b67adf998212086a2d42d6aa191556a5834e1818d762782d5185ce396d",
+      "http_status": 200,
+      "bytes": 236223,
+      "sha256": "b2bf21b67adf998212086a2d42d6aa191556a5834e1818d762782d5185ce396d",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/eu.po",
+      "expected_sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08",
+      "http_status": 200,
+      "bytes": 130662,
+      "sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/fa.po",
+      "expected_sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8",
+      "http_status": 200,
+      "bytes": 133629,
+      "sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/fi.po",
+      "expected_sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9",
+      "http_status": 200,
+      "bytes": 155556,
+      "sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/fr.po",
+      "expected_sha256": "d8f8163368a9d522e0fac6b493b35732243b6704c4091af75ad2b0b7ec0a7f21",
+      "http_status": 200,
+      "bytes": 222151,
+      "sha256": "d8f8163368a9d522e0fac6b493b35732243b6704c4091af75ad2b0b7ec0a7f21",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/gl.po",
+      "expected_sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e",
+      "http_status": 200,
+      "bytes": 92216,
+      "sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/he.po",
+      "expected_sha256": "ab573f1ddb6cd8ed46dba3552b796a3239f06cb0702d783aaf3bf910b02f6b88",
+      "http_status": 200,
+      "bytes": 186997,
+      "sha256": "ab573f1ddb6cd8ed46dba3552b796a3239f06cb0702d783aaf3bf910b02f6b88",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/id.po",
+      "expected_sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1",
+      "http_status": 200,
+      "bytes": 200597,
+      "sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/it.po",
+      "expected_sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790",
+      "http_status": 200,
+      "bytes": 133307,
+      "sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/ja.po",
+      "expected_sha256": "c0a220753dd0190793604a9b4e342848f8d1d9cc4d31c7dec3593d835ea6653c",
+      "http_status": 200,
+      "bytes": 43745,
+      "sha256": "c0a220753dd0190793604a9b4e342848f8d1d9cc4d31c7dec3593d835ea6653c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/kk.po",
+      "expected_sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173",
+      "http_status": 200,
+      "bytes": 159651,
+      "sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/ko.po",
+      "expected_sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4",
+      "http_status": 200,
+      "bytes": 136052,
+      "sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/locales.json",
+      "expected_sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f",
+      "http_status": 200,
+      "bytes": 748,
+      "sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/lt.po",
+      "expected_sha256": "e10a8214ebe630ae0c8bbf05de721a3d2e3c543c85e54402ff3618e5fa7754cf",
+      "http_status": 200,
+      "bytes": 165990,
+      "sha256": "e10a8214ebe630ae0c8bbf05de721a3d2e3c543c85e54402ff3618e5fa7754cf",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/nl.po",
+      "expected_sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76",
+      "http_status": 200,
+      "bytes": 162210,
+      "sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/pl.po",
+      "expected_sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703",
+      "http_status": 200,
+      "bytes": 134645,
+      "sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/pt-br.po",
+      "expected_sha256": "3efa79005344cdfb5a43ada9dc7d58ecb48b38640c3c476c51703aee1ceb1dca",
+      "http_status": 200,
+      "bytes": 229284,
+      "sha256": "3efa79005344cdfb5a43ada9dc7d58ecb48b38640c3c476c51703aee1ceb1dca",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/pt.po",
+      "expected_sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855",
+      "http_status": 200,
+      "bytes": 42658,
+      "sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/ro.po",
+      "expected_sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57",
+      "http_status": 200,
+      "bytes": 146381,
+      "sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/ru.po",
+      "expected_sha256": "137c3d625ab20bd35819b9f37abddeb81b33f8db3ef27008ceea6c31374cfcbe",
+      "http_status": 200,
+      "bytes": 100007,
+      "sha256": "137c3d625ab20bd35819b9f37abddeb81b33f8db3ef27008ceea6c31374cfcbe",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/sr.po",
+      "expected_sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618",
+      "http_status": 200,
+      "bytes": 143336,
+      "sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/ta.po",
+      "expected_sha256": "8e65fd35967c15ca36b106a7c90b82664be9192368512e88605814999b0318f6",
+      "http_status": 200,
+      "bytes": 294610,
+      "sha256": "8e65fd35967c15ca36b106a7c90b82664be9192368512e88605814999b0318f6",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/template.pot",
+      "expected_sha256": "179194da6b615ec29f385d8fdd4a0b17e4190bbd463fdb52303fbc1e84ebae8f",
+      "http_status": 200,
+      "bytes": 175528,
+      "sha256": "179194da6b615ec29f385d8fdd4a0b17e4190bbd463fdb52303fbc1e84ebae8f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/tr.po",
+      "expected_sha256": "3b791f0f20b8a19fd64724f5e68066499949dd9bfce798aaeeb83641a7148928",
+      "http_status": 200,
+      "bytes": 105747,
+      "sha256": "3b791f0f20b8a19fd64724f5e68066499949dd9bfce798aaeeb83641a7148928",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/uk.po",
+      "expected_sha256": "64c43942c105b33607e1ed3dab7df6f857983ab93d5a371b00424f6e6e01462a",
+      "http_status": 200,
+      "bytes": 148598,
+      "sha256": "64c43942c105b33607e1ed3dab7df6f857983ab93d5a371b00424f6e6e01462a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/uz.po",
+      "expected_sha256": "1ee5ec79fd41fec991568c1ff1f7ee88b1e328ac84f3f24d39e46619a2c9a019",
+      "http_status": 200,
+      "bytes": 39502,
+      "sha256": "1ee5ec79fd41fec991568c1ff1f7ee88b1e328ac84f3f24d39e46619a2c9a019",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/vi.po",
+      "expected_sha256": "120db94800f95aa3a88263b65859339ae9aedd418129b8bb5bc2cd2187b6a687",
+      "http_status": 200,
+      "bytes": 211353,
+      "sha256": "120db94800f95aa3a88263b65859339ae9aedd418129b8bb5bc2cd2187b6a687",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/zh-chs.po",
+      "expected_sha256": "9e68fc0db13f553857abe6d80d275227cd517d2625be1bd61b0bbe9ca5882f83",
+      "http_status": 200,
+      "bytes": 170466,
+      "sha256": "9e68fc0db13f553857abe6d80d275227cd517d2625be1bd61b0bbe9ca5882f83",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/translations/zh-cht.po",
+      "expected_sha256": "580a85b03aeacb66b9b71c63a8b39e5567ff25968b68d44d28a96c8524195758",
+      "http_status": 200,
+      "bytes": 117588,
+      "sha256": "580a85b03aeacb66b9b71c63a8b39e5567ff25968b68d44d28a96c8524195758",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/unoq-network.js",
+      "expected_sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "http_status": 200,
+      "bytes": 18522,
+      "sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/fruit-jam/windows.js",
+      "expected_sha256": "1fca26d00e798a379427107e687d232350cc7a1d5b76ff471a708dace45a4069",
+      "http_status": 200,
+      "bytes": 10936,
+      "sha256": "1fca26d00e798a379427107e687d232350cc7a1d5b76ff471a708dace45a4069",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/boardie/boardie.js",
+      "expected_sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea",
+      "http_status": 200,
+      "bytes": 2632,
+      "sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/boardie/README",
+      "expected_sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc",
+      "http_status": 200,
+      "bytes": 80,
+      "sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/boardie/styles.css",
+      "expected_sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2",
+      "http_status": 200,
+      "bytes": 5173,
+      "sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/buttons.js",
+      "expected_sha256": "55fa00d3608d9762c97956b3081099bdf4a6e0c339b6a6fa405be9d67a555d7c",
+      "http_status": 200,
+      "bytes": 7305,
+      "sha256": "55fa00d3608d9762c97956b3081099bdf4a6e0c339b6a6fa405be9d67a555d7c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/categories.js",
+      "expected_sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5",
+      "http_status": 200,
+      "bytes": 3296,
+      "sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/devtools.js",
+      "expected_sha256": "a3352678531252268ce5fc7bf524f160037dec199d98156d18809f56fb88c94e",
+      "http_status": 200,
+      "bytes": 3526,
+      "sha256": "a3352678531252268ce5fc7bf524f160037dec199d98156d18809f56fb88c94e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/emModule.js",
+      "expected_sha256": "daaa269059d81ccc2a1198015b9db58a3b28bf6f7463b79144fb9fc4eebff118",
+      "http_status": 200,
+      "bytes": 3011,
+      "sha256": "daaa269059d81ccc2a1198015b9db58a3b28bf6f7463b79144fb9fc4eebff118",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/emscripten.css",
+      "expected_sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98",
+      "http_status": 200,
+      "bytes": 1295,
+      "sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/favicon.ico",
+      "expected_sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3",
+      "http_status": 200,
+      "bytes": 1150,
+      "sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/FileSaver.js",
+      "expected_sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3",
+      "http_status": 200,
+      "bytes": 8584,
+      "sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/flasher.js",
+      "expected_sha256": "2338545bc2f81bcf0ceacc90d158dd649df4e20269507c561aabf0fe0a5ac663",
+      "http_status": 200,
+      "bytes": 2888,
+      "sha256": "2338545bc2f81bcf0ceacc90d158dd649df4e20269507c561aabf0fe0a5ac663",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/gettext.js",
+      "expected_sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "http_status": 200,
+      "bytes": 3889,
+      "sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/gp_wasm.data",
+      "expected_sha256": "b3f7f7b3ad90cd370a9f1d46234916349aa01470eca4979a7acd407eec1e05d4",
+      "http_status": 200,
+      "bytes": 10896210,
+      "sha256": "b3f7f7b3ad90cd370a9f1d46234916349aa01470eca4979a7acd407eec1e05d4",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/gp_wasm.js",
+      "expected_sha256": "200dd0b0361545f1f70618f8325a38aa6a34a1368a2ec9093893ff2c947560bc",
+      "http_status": 200,
+      "bytes": 183725,
+      "sha256": "200dd0b0361545f1f70618f8325a38aa6a34a1368a2ec9093893ff2c947560bc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/gp_wasm.wasm",
+      "expected_sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "http_status": 200,
+      "bytes": 284918,
+      "sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/gpSupport.js",
+      "expected_sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c",
+      "http_status": 200,
+      "bytes": 42528,
+      "sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/graph.js",
+      "expected_sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157",
+      "http_status": 200,
+      "bytes": 8030,
+      "sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/icons/Bunny192.png",
+      "expected_sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971",
+      "http_status": 200,
+      "bytes": 19500,
+      "sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/icons/Bunny512.png",
+      "expected_sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1",
+      "http_status": 200,
+      "bytes": 72366,
+      "sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/ide.js",
+      "expected_sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5",
+      "http_status": 200,
+      "bytes": 13358,
+      "sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/big-logo.svg",
+      "expected_sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877",
+      "http_status": 200,
+      "bytes": 15505,
+      "sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/bool_false.svg",
+      "expected_sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2",
+      "http_status": 200,
+      "bytes": 518,
+      "sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/bool_true.svg",
+      "expected_sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369",
+      "http_status": 200,
+      "bytes": 523,
+      "sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/button-down.svg",
+      "expected_sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1",
+      "http_status": 200,
+      "bytes": 1302,
+      "sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/button-left.svg",
+      "expected_sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155",
+      "http_status": 200,
+      "bytes": 1300,
+      "sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/button-ok.svg",
+      "expected_sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed",
+      "http_status": 200,
+      "bytes": 1151,
+      "sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/button-right.svg",
+      "expected_sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08",
+      "http_status": 200,
+      "bytes": 1305,
+      "sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/button-up.svg",
+      "expected_sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c",
+      "http_status": 200,
+      "bytes": 1308,
+      "sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/button-x.svg",
+      "expected_sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519",
+      "http_status": 200,
+      "bytes": 893,
+      "sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/checkmark.svg",
+      "expected_sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55",
+      "http_status": 200,
+      "bytes": 541,
+      "sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/colon-double-slash.svg",
+      "expected_sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423",
+      "http_status": 200,
+      "bytes": 851,
+      "sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/double-arrow-v.svg",
+      "expected_sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff",
+      "http_status": 200,
+      "bytes": 1040,
+      "sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/dropdown-arrow.svg",
+      "expected_sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056",
+      "http_status": 200,
+      "bytes": 348,
+      "sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-arrow-right--16x16.svg",
+      "expected_sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89",
+      "http_status": 200,
+      "bytes": 486,
+      "sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-checkmark--16x16.svg",
+      "expected_sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881",
+      "http_status": 200,
+      "bytes": 483,
+      "sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-close--16x16.svg",
+      "expected_sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300",
+      "http_status": 200,
+      "bytes": 618,
+      "sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-close.svg",
+      "expected_sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525",
+      "http_status": 200,
+      "bytes": 634,
+      "sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-dropdown--12x6.svg",
+      "expected_sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f",
+      "http_status": 200,
+      "bytes": 311,
+      "sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-file--24x24.svg",
+      "expected_sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808",
+      "http_status": 200,
+      "bytes": 387,
+      "sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-gear--24x24.svg",
+      "expected_sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3",
+      "http_status": 200,
+      "bytes": 2611,
+      "sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-globe--24x24.svg",
+      "expected_sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2",
+      "http_status": 200,
+      "bytes": 2856,
+      "sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-graph--16x16.svg",
+      "expected_sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884",
+      "http_status": 200,
+      "bytes": 597,
+      "sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-graph.svg",
+      "expected_sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe",
+      "http_status": 200,
+      "bytes": 808,
+      "sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-graph2.svg",
+      "expected_sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429",
+      "http_status": 200,
+      "bytes": 769,
+      "sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-plug--16x16.svg",
+      "expected_sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1",
+      "http_status": 200,
+      "bytes": 886,
+      "sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-plus--16x16.svg",
+      "expected_sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7",
+      "http_status": 200,
+      "bytes": 384,
+      "sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-redo--16x16.svg",
+      "expected_sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f",
+      "http_status": 200,
+      "bytes": 750,
+      "sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-start--24x24.svg",
+      "expected_sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb",
+      "http_status": 200,
+      "bytes": 303,
+      "sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-stop--24x24.svg",
+      "expected_sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb",
+      "http_status": 200,
+      "bytes": 150,
+      "sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-undo--16x16.svg",
+      "expected_sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc",
+      "http_status": 200,
+      "bytes": 750,
+      "sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-usb.svg",
+      "expected_sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-usb2.svg",
+      "expected_sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-usb3.svg",
+      "expected_sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-zoom-in--16x16.svg",
+      "expected_sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8",
+      "http_status": 200,
+      "bytes": 1027,
+      "sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-zoom-out--16x16.svg",
+      "expected_sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f",
+      "http_status": 200,
+      "bytes": 904,
+      "sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/icon-zoom-restore--16x16.svg",
+      "expected_sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5",
+      "http_status": 200,
+      "bytes": 1099,
+      "sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/keyboard-light.svg",
+      "expected_sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c",
+      "http_status": 200,
+      "bytes": 4028,
+      "sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/legacy-restoreZoom.svg",
+      "expected_sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a",
+      "http_status": 200,
+      "bytes": 1548,
+      "sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/legacy-zoomIn.svg",
+      "expected_sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4",
+      "http_status": 200,
+      "bytes": 1513,
+      "sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/legacy-zoomOut.svg",
+      "expected_sha256": "9ac7a1de41b9c3df3caaefbe223b6f1010227660558bc005aa4978f8ddbcfd0e",
+      "http_status": 200,
+      "bytes": 1378,
+      "sha256": "9ac7a1de41b9c3df3caaefbe223b6f1010227660558bc005aa4978f8ddbcfd0e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/logo-preloader.svg",
+      "expected_sha256": "a025de516a6f439863f9dea30b958f790adadbfc001006a69cdc2f7a1b595110",
+      "http_status": 200,
+      "bytes": 14398,
+      "sha256": "a025de516a6f439863f9dea30b958f790adadbfc001006a69cdc2f7a1b595110",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/microblocks-ide-logo.svg",
+      "expected_sha256": "72ba076dc0a84dab1711147570c72d218abce66e5731bbe10e0458f28ee129ae",
+      "http_status": 200,
+      "bytes": 12406,
+      "sha256": "72ba076dc0a84dab1711147570c72d218abce66e5731bbe10e0458f28ee129ae",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/mouse-left-button.svg",
+      "expected_sha256": "75acc013ddf825348e6b2a0f1d57e1d8c7e68e9bfae7394b6de6999292fe5981",
+      "http_status": 200,
+      "bytes": 406,
+      "sha256": "75acc013ddf825348e6b2a0f1d57e1d8c7e68e9bfae7394b6de6999292fe5981",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/mouse-right-button.svg",
+      "expected_sha256": "8311967b5205d0f5aa6b276bb1fd6e4947010d38cc224aa98b81e969634b1ef8",
+      "http_status": 200,
+      "bytes": 406,
+      "sha256": "8311967b5205d0f5aa6b276bb1fd6e4947010d38cc224aa98b81e969634b1ef8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/note-eighth.svg",
+      "expected_sha256": "6bc3bdf4e540b4b803f75abeac89e3aed3851eb358100d959e986e83a7185a01",
+      "http_status": 200,
+      "bytes": 666,
+      "sha256": "6bc3bdf4e540b4b803f75abeac89e3aed3851eb358100d959e986e83a7185a01",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/note-half.svg",
+      "expected_sha256": "70f73d101a48f9396151841a0760563a688964774d122c0e6fe80d5faaf19623",
+      "http_status": 200,
+      "bytes": 690,
+      "sha256": "70f73d101a48f9396151841a0760563a688964774d122c0e6fe80d5faaf19623",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/note-quarter.svg",
+      "expected_sha256": "23610c0bde06d378cda28e33bb006f788447e6714b12d11acd2475cce8f4374b",
+      "http_status": 200,
+      "bytes": 472,
+      "sha256": "23610c0bde06d378cda28e33bb006f788447e6714b12d11acd2475cce8f4374b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/note-sixteenth.svg",
+      "expected_sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb",
+      "http_status": 200,
+      "bytes": 865,
+      "sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/note-whole.svg",
+      "expected_sha256": "2c64d9ea929c3560512a54872692ccd8a2eb594b53ef6ab4da200a3433bb062a",
+      "http_status": 200,
+      "bytes": 615,
+      "sha256": "2c64d9ea929c3560512a54872692ccd8a2eb594b53ef6ab4da200a3433bb062a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/plus1.svg",
+      "expected_sha256": "86e443135bd7552d25d6d6d0ebdabd51427c786c887cf6471ca765e357b89220",
+      "http_status": 200,
+      "bytes": 975,
+      "sha256": "86e443135bd7552d25d6d6d0ebdabd51427c786c887cf6471ca765e357b89220",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/plus2.svg",
+      "expected_sha256": "3f708a31ca2b65346100e13173f6127f40e1008013fa01c34fd5a3aed85a0247",
+      "http_status": 200,
+      "bytes": 549,
+      "sha256": "3f708a31ca2b65346100e13173f6127f40e1008013fa01c34fd5a3aed85a0247",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/resize.svg",
+      "expected_sha256": "98bdc2e96f9b10d533a11d151be1e03fbf01b8f509125a28b95f5fd746d0d15d",
+      "http_status": 200,
+      "bytes": 737,
+      "sha256": "98bdc2e96f9b10d533a11d151be1e03fbf01b8f509125a28b95f5fd746d0d15d",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/rounded-corner.svg",
+      "expected_sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373",
+      "http_status": 200,
+      "bytes": 159,
+      "sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/square.svg",
+      "expected_sha256": "65f32b9121f47aee6cc42972f5d3c591e3b78034075e0364a6ca4e25a68900cb",
+      "http_status": 200,
+      "bytes": 105,
+      "sha256": "65f32b9121f47aee6cc42972f5d3c591e3b78034075e0364a6ca4e25a68900cb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/square11.svg",
+      "expected_sha256": "9215fcf1387df6fdd6e1fbe2f3b8ea9b6d6cd65d7cb17ef9528ecbff6b3be256",
+      "http_status": 200,
+      "bytes": 105,
+      "sha256": "9215fcf1387df6fdd6e1fbe2f3b8ea9b6d6cd65d7cb17ef9528ecbff6b3be256",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/SVGPrepNotes.txt",
+      "expected_sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55",
+      "http_status": 200,
+      "bytes": 1555,
+      "sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/trashcan-dark.svg",
+      "expected_sha256": "ed2844e05677f0b1fb89096acdd1f01a8b7c1eb0a658d86f1a2224ce2628464c",
+      "http_status": 200,
+      "bytes": 1677,
+      "sha256": "ed2844e05677f0b1fb89096acdd1f01a8b7c1eb0a658d86f1a2224ce2628464c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/trashcan-light.svg",
+      "expected_sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186",
+      "http_status": 200,
+      "bytes": 2561,
+      "sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/wave-noise.svg",
+      "expected_sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5",
+      "http_status": 200,
+      "bytes": 2347,
+      "sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/wave-sawtooth.svg",
+      "expected_sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45",
+      "http_status": 200,
+      "bytes": 794,
+      "sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/wave-sine.svg",
+      "expected_sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c",
+      "http_status": 200,
+      "bytes": 911,
+      "sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/wave-square.svg",
+      "expected_sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b",
+      "http_status": 200,
+      "bytes": 380,
+      "sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/img/wave-triangle.svg",
+      "expected_sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c",
+      "http_status": 200,
+      "bytes": 722,
+      "sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/lib/usbDfuDevice.js",
+      "expected_sha256": "711bd38612250bd9a39c505ac3e4afdff44df496aed908d9332200576f1c5f3b",
+      "http_status": 200,
+      "bytes": 15305,
+      "sha256": "711bd38612250bd9a39c505ac3e4afdff44df496aed908d9332200576f1c5f3b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/manifest.json",
+      "expected_sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04",
+      "http_status": 200,
+      "bytes": 404,
+      "sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/menus.js",
+      "expected_sha256": "fd77bba5cca1b39a55b2d23ef12e49deb5826ffb2ef291251fd49a5725960aaf",
+      "http_status": 200,
+      "bytes": 15570,
+      "sha256": "fd77bba5cca1b39a55b2d23ef12e49deb5826ffb2ef291251fd49a5725960aaf",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/microblocks.html",
+      "expected_sha256": "12d89fb81f1660e809d3fa11d092cb5fbd3197b4e783477407d74ba8e890e435",
+      "http_status": 200,
+      "bytes": 7701,
+      "sha256": "12d89fb81f1660e809d3fa11d092cb5fbd3197b4e783477407d74ba8e890e435",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/precompiled/buildUniversalHex.js",
+      "expected_sha256": "7f1f01c8767ce0451eaeaadb7fa62a4a6a70a1c5fe47606955e1ac0bcbe74da9",
+      "http_status": 200,
+      "bytes": 809,
+      "sha256": "7f1f01c8767ce0451eaeaadb7fa62a4a6a70a1c5fe47606955e1ac0bcbe74da9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/precompiled/package.json",
+      "expected_sha256": "ac8a108b4d646964a88c9d965e7a9a1c62e2d0b714580f1f62415beb7b0e0083",
+      "http_status": 200,
+      "bytes": 77,
+      "sha256": "ac8a108b4d646964a88c9d965e7a9a1c62e2d0b714580f1f62415beb7b0e0083",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/precompiled/uf2conv.py",
+      "expected_sha256": "fb77a31e9d66088e5e8420fcf7e6eda28e180cdff8ded26c4453232590b59b2e",
+      "http_status": 200,
+      "bytes": 8586,
+      "sha256": "fb77a31e9d66088e5e8420fcf7e6eda28e180cdff8ded26c4453232590b59b2e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/precompiled/updatePrecompiled.sh",
+      "expected_sha256": "10bc68120cdc9baec42d1427dbe9b1114be1ac19932d5a6f798efdd006509544",
+      "http_status": 200,
+      "bytes": 2735,
+      "sha256": "10bc68120cdc9baec42d1427dbe9b1114be1ac19932d5a6f798efdd006509544",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_app-preloader.css",
+      "expected_sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad",
+      "http_status": 200,
+      "bytes": 1708,
+      "sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_buttons.css",
+      "expected_sha256": "654a75147db1d5f9804bedf19f1a090d6c323a2241333b4e04d32280ca51147c",
+      "http_status": 200,
+      "bytes": 1359,
+      "sha256": "654a75147db1d5f9804bedf19f1a090d6c323a2241333b4e04d32280ca51147c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_categories-libraries.css",
+      "expected_sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036",
+      "http_status": 200,
+      "bytes": 2489,
+      "sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_ide.css",
+      "expected_sha256": "63bbd1ee4060438456d65bca9fda09c03b119493fbc5dc7155f685b504b38abc",
+      "http_status": 200,
+      "bytes": 2448,
+      "sha256": "63bbd1ee4060438456d65bca9fda09c03b119493fbc5dc7155f685b504b38abc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_menus.css",
+      "expected_sha256": "8b1c0dce1c6e5e3b98a25b59317baf5fefcd6b9c37c53e95f0d1697e55b66b31",
+      "http_status": 200,
+      "bytes": 2879,
+      "sha256": "8b1c0dce1c6e5e3b98a25b59317baf5fefcd6b9c37c53e95f0d1697e55b66b31",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_overlay.css",
+      "expected_sha256": "493f1e8d9b1e186f1f1fdc9e2db7c03d3666a92a3c69660ee931b776bd2b2885",
+      "http_status": 200,
+      "bytes": 1384,
+      "sha256": "493f1e8d9b1e186f1f1fdc9e2db7c03d3666a92a3c69660ee931b776bd2b2885",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_scripts-pane-controls.css",
+      "expected_sha256": "6971d71c49bd14b8f0c678221b41866c9fe7a3a69d45a96139ce93a7be74083a",
+      "http_status": 200,
+      "bytes": 1288,
+      "sha256": "6971d71c49bd14b8f0c678221b41866c9fe7a3a69d45a96139ce93a7be74083a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_tips.css",
+      "expected_sha256": "46fbed75ded65f6426167208d7ef3a66f98742d92cfffead3be9e03cb1fd5125",
+      "http_status": 200,
+      "bytes": 875,
+      "sha256": "46fbed75ded65f6426167208d7ef3a66f98742d92cfffead3be9e03cb1fd5125",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_top-bar.css",
+      "expected_sha256": "a7718679ea9ec78322b2b6be94c19cd68be0764c1a428281265b738931c974ba",
+      "http_status": 200,
+      "bytes": 3346,
+      "sha256": "a7718679ea9ec78322b2b6be94c19cd68be0764c1a428281265b738931c974ba",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_window.css",
+      "expected_sha256": "a2f38cfa51fad193267f5e35160fd1529bab7fa9ea7be4adc0323b0afe525803",
+      "http_status": 200,
+      "bytes": 3225,
+      "sha256": "a2f38cfa51fad193267f5e35160fd1529bab7fa9ea7be4adc0323b0afe525803",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/components/_wysiwyg.css",
+      "expected_sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e",
+      "http_status": 200,
+      "bytes": 1016,
+      "sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/config/_config.css",
+      "expected_sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578",
+      "http_status": 200,
+      "bytes": 4123,
+      "sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/generic/_body.css",
+      "expected_sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f",
+      "http_status": 200,
+      "bytes": 188,
+      "sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/generic/_button.css",
+      "expected_sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee",
+      "http_status": 200,
+      "bytes": 58,
+      "sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/generic/minireset.css",
+      "expected_sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252",
+      "http_status": 200,
+      "bytes": 703,
+      "sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/styles/utilities/_drag.css",
+      "expected_sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3",
+      "http_status": 200,
+      "bytes": 142,
+      "sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/sw.js",
+      "expected_sha256": "492a1ac301474251c593f39c97b6e78914fa4018a43fa21fadee46caab09bae9",
+      "http_status": 200,
+      "bytes": 1842,
+      "sha256": "492a1ac301474251c593f39c97b6e78914fa4018a43fa21fadee46caab09bae9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/TODO.md",
+      "expected_sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142",
+      "http_status": 200,
+      "bytes": 2256,
+      "sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/apc.po",
+      "expected_sha256": "3217c10fe8538873f33fd87af3c9064bb6537666657a794d62b2d3331d7422de",
+      "http_status": 200,
+      "bytes": 136945,
+      "sha256": "3217c10fe8538873f33fd87af3c9064bb6537666657a794d62b2d3331d7422de",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/ar.po",
+      "expected_sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b",
+      "http_status": 200,
+      "bytes": 238394,
+      "sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/ca.po",
+      "expected_sha256": "4734f15e0d59488a5cc098285b017f5c204e895f6426818b2c5995a874cc0473",
+      "http_status": 200,
+      "bytes": 235868,
+      "sha256": "4734f15e0d59488a5cc098285b017f5c204e895f6426818b2c5995a874cc0473",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/cs.po",
+      "expected_sha256": "96bb6ed5ecbf16bc24d20bb683d3a8b4e2c856a87da024e59ef4adbe80bdfabc",
+      "http_status": 200,
+      "bytes": 187220,
+      "sha256": "96bb6ed5ecbf16bc24d20bb683d3a8b4e2c856a87da024e59ef4adbe80bdfabc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/de.po",
+      "expected_sha256": "a40a4d488645fb80a6bda1803e88ef376e6d25a6877aac37ad66c3370886cbe1",
+      "http_status": 200,
+      "bytes": 233186,
+      "sha256": "a40a4d488645fb80a6bda1803e88ef376e6d25a6877aac37ad66c3370886cbe1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/el.po",
+      "expected_sha256": "3b8fd990f253f57485d0f5022b5c2cc2824c1906de5c381c9154f51253bc6893",
+      "http_status": 200,
+      "bytes": 47400,
+      "sha256": "3b8fd990f253f57485d0f5022b5c2cc2824c1906de5c381c9154f51253bc6893",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/en.po",
+      "expected_sha256": "76fc7b1942b5fbad97ef0b8879fe95a93f5ca6f0ca1642aab4966e8cc668fb3c",
+      "http_status": 200,
+      "bytes": 219429,
+      "sha256": "76fc7b1942b5fbad97ef0b8879fe95a93f5ca6f0ca1642aab4966e8cc668fb3c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/es.po",
+      "expected_sha256": "b2bf21b67adf998212086a2d42d6aa191556a5834e1818d762782d5185ce396d",
+      "http_status": 200,
+      "bytes": 236223,
+      "sha256": "b2bf21b67adf998212086a2d42d6aa191556a5834e1818d762782d5185ce396d",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/eu.po",
+      "expected_sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08",
+      "http_status": 200,
+      "bytes": 130662,
+      "sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/fa.po",
+      "expected_sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8",
+      "http_status": 200,
+      "bytes": 133629,
+      "sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/fi.po",
+      "expected_sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9",
+      "http_status": 200,
+      "bytes": 155556,
+      "sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/fr.po",
+      "expected_sha256": "d8f8163368a9d522e0fac6b493b35732243b6704c4091af75ad2b0b7ec0a7f21",
+      "http_status": 200,
+      "bytes": 222151,
+      "sha256": "d8f8163368a9d522e0fac6b493b35732243b6704c4091af75ad2b0b7ec0a7f21",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/gl.po",
+      "expected_sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e",
+      "http_status": 200,
+      "bytes": 92216,
+      "sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/he.po",
+      "expected_sha256": "ab573f1ddb6cd8ed46dba3552b796a3239f06cb0702d783aaf3bf910b02f6b88",
+      "result": "FAIL",
+      "error_type": "HTTPError"
+    },
+    {
+      "path": "editor/waveshare/translations/id.po",
+      "expected_sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1",
+      "http_status": 200,
+      "bytes": 200597,
+      "sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/it.po",
+      "expected_sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790",
+      "http_status": 200,
+      "bytes": 133307,
+      "sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/ja.po",
+      "expected_sha256": "c0a220753dd0190793604a9b4e342848f8d1d9cc4d31c7dec3593d835ea6653c",
+      "http_status": 200,
+      "bytes": 43745,
+      "sha256": "c0a220753dd0190793604a9b4e342848f8d1d9cc4d31c7dec3593d835ea6653c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/kk.po",
+      "expected_sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173",
+      "http_status": 200,
+      "bytes": 159651,
+      "sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/ko.po",
+      "expected_sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4",
+      "http_status": 200,
+      "bytes": 136052,
+      "sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/locales.json",
+      "expected_sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f",
+      "http_status": 200,
+      "bytes": 748,
+      "sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/lt.po",
+      "expected_sha256": "e10a8214ebe630ae0c8bbf05de721a3d2e3c543c85e54402ff3618e5fa7754cf",
+      "http_status": 200,
+      "bytes": 165990,
+      "sha256": "e10a8214ebe630ae0c8bbf05de721a3d2e3c543c85e54402ff3618e5fa7754cf",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/nl.po",
+      "expected_sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76",
+      "http_status": 200,
+      "bytes": 162210,
+      "sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/pl.po",
+      "expected_sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703",
+      "http_status": 200,
+      "bytes": 134645,
+      "sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/pt-br.po",
+      "expected_sha256": "3efa79005344cdfb5a43ada9dc7d58ecb48b38640c3c476c51703aee1ceb1dca",
+      "http_status": 200,
+      "bytes": 229284,
+      "sha256": "3efa79005344cdfb5a43ada9dc7d58ecb48b38640c3c476c51703aee1ceb1dca",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/pt.po",
+      "expected_sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855",
+      "http_status": 200,
+      "bytes": 42658,
+      "sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/ro.po",
+      "expected_sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57",
+      "http_status": 200,
+      "bytes": 146381,
+      "sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/ru.po",
+      "expected_sha256": "137c3d625ab20bd35819b9f37abddeb81b33f8db3ef27008ceea6c31374cfcbe",
+      "http_status": 200,
+      "bytes": 100007,
+      "sha256": "137c3d625ab20bd35819b9f37abddeb81b33f8db3ef27008ceea6c31374cfcbe",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/sr.po",
+      "expected_sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618",
+      "http_status": 200,
+      "bytes": 143336,
+      "sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/ta.po",
+      "expected_sha256": "8e65fd35967c15ca36b106a7c90b82664be9192368512e88605814999b0318f6",
+      "http_status": 200,
+      "bytes": 294610,
+      "sha256": "8e65fd35967c15ca36b106a7c90b82664be9192368512e88605814999b0318f6",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/template.pot",
+      "expected_sha256": "179194da6b615ec29f385d8fdd4a0b17e4190bbd463fdb52303fbc1e84ebae8f",
+      "http_status": 200,
+      "bytes": 175528,
+      "sha256": "179194da6b615ec29f385d8fdd4a0b17e4190bbd463fdb52303fbc1e84ebae8f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/tr.po",
+      "expected_sha256": "3b791f0f20b8a19fd64724f5e68066499949dd9bfce798aaeeb83641a7148928",
+      "http_status": 200,
+      "bytes": 105747,
+      "sha256": "3b791f0f20b8a19fd64724f5e68066499949dd9bfce798aaeeb83641a7148928",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/uk.po",
+      "expected_sha256": "64c43942c105b33607e1ed3dab7df6f857983ab93d5a371b00424f6e6e01462a",
+      "http_status": 200,
+      "bytes": 148598,
+      "sha256": "64c43942c105b33607e1ed3dab7df6f857983ab93d5a371b00424f6e6e01462a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/uz.po",
+      "expected_sha256": "1ee5ec79fd41fec991568c1ff1f7ee88b1e328ac84f3f24d39e46619a2c9a019",
+      "http_status": 200,
+      "bytes": 39502,
+      "sha256": "1ee5ec79fd41fec991568c1ff1f7ee88b1e328ac84f3f24d39e46619a2c9a019",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/vi.po",
+      "expected_sha256": "120db94800f95aa3a88263b65859339ae9aedd418129b8bb5bc2cd2187b6a687",
+      "http_status": 200,
+      "bytes": 211353,
+      "sha256": "120db94800f95aa3a88263b65859339ae9aedd418129b8bb5bc2cd2187b6a687",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/zh-chs.po",
+      "expected_sha256": "9e68fc0db13f553857abe6d80d275227cd517d2625be1bd61b0bbe9ca5882f83",
+      "http_status": 200,
+      "bytes": 170466,
+      "sha256": "9e68fc0db13f553857abe6d80d275227cd517d2625be1bd61b0bbe9ca5882f83",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/translations/zh-cht.po",
+      "expected_sha256": "580a85b03aeacb66b9b71c63a8b39e5567ff25968b68d44d28a96c8524195758",
+      "http_status": 200,
+      "bytes": 117588,
+      "sha256": "580a85b03aeacb66b9b71c63a8b39e5567ff25968b68d44d28a96c8524195758",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/unoq-network.js",
+      "expected_sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "http_status": 200,
+      "bytes": 18522,
+      "sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/waveshare/windows.js",
+      "expected_sha256": "1fca26d00e798a379427107e687d232350cc7a1d5b76ff471a708dace45a4069",
+      "http_status": 200,
+      "bytes": 10936,
+      "sha256": "1fca26d00e798a379427107e687d232350cc7a1d5b76ff471a708dace45a4069",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/boardie/boardie.js",
+      "expected_sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea",
+      "http_status": 200,
+      "bytes": 2632,
+      "sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/boardie/README",
+      "expected_sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc",
+      "http_status": 200,
+      "bytes": 80,
+      "sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/boardie/styles.css",
+      "expected_sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2",
+      "http_status": 200,
+      "bytes": 5173,
+      "sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/buttons.js",
+      "expected_sha256": "55fa00d3608d9762c97956b3081099bdf4a6e0c339b6a6fa405be9d67a555d7c",
+      "http_status": 200,
+      "bytes": 7305,
+      "sha256": "55fa00d3608d9762c97956b3081099bdf4a6e0c339b6a6fa405be9d67a555d7c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/categories.js",
+      "expected_sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5",
+      "http_status": 200,
+      "bytes": 3296,
+      "sha256": "ba17a64eccdd98d91c9d5caaa7466bf2425be9d802cf8957b6eeac0f333c74b5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/devtools.js",
+      "expected_sha256": "a3352678531252268ce5fc7bf524f160037dec199d98156d18809f56fb88c94e",
+      "http_status": 200,
+      "bytes": 3526,
+      "sha256": "a3352678531252268ce5fc7bf524f160037dec199d98156d18809f56fb88c94e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/emModule.js",
+      "expected_sha256": "daaa269059d81ccc2a1198015b9db58a3b28bf6f7463b79144fb9fc4eebff118",
+      "http_status": 200,
+      "bytes": 3011,
+      "sha256": "daaa269059d81ccc2a1198015b9db58a3b28bf6f7463b79144fb9fc4eebff118",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/emscripten.css",
+      "expected_sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98",
+      "http_status": 200,
+      "bytes": 1295,
+      "sha256": "5885a5b55d4cdae44366ae08f98511b84af33c601d148ca660400bd7beb39a98",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/favicon.ico",
+      "expected_sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3",
+      "http_status": 200,
+      "bytes": 1150,
+      "sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/FileSaver.js",
+      "expected_sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3",
+      "http_status": 200,
+      "bytes": 8584,
+      "sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/flasher.js",
+      "expected_sha256": "2338545bc2f81bcf0ceacc90d158dd649df4e20269507c561aabf0fe0a5ac663",
+      "http_status": 200,
+      "bytes": 2888,
+      "sha256": "2338545bc2f81bcf0ceacc90d158dd649df4e20269507c561aabf0fe0a5ac663",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/gettext.js",
+      "expected_sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "http_status": 200,
+      "bytes": 3889,
+      "sha256": "c3fdb1f1fdbd40c11e11ef435f58428f116690fe329a99071575dbc823ad4893",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/gp_wasm.data",
+      "expected_sha256": "6716a481c4a7e7d771ad32b0ff9c29e6dcffee10a64a458793811e090ab7739f",
+      "http_status": 200,
+      "bytes": 10895959,
+      "sha256": "6716a481c4a7e7d771ad32b0ff9c29e6dcffee10a64a458793811e090ab7739f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/gp_wasm.js",
+      "expected_sha256": "4038e67f644826e138f0b4d98969af56c3e552a352baf5956b4d65fd02b7159c",
+      "http_status": 200,
+      "bytes": 183703,
+      "sha256": "4038e67f644826e138f0b4d98969af56c3e552a352baf5956b4d65fd02b7159c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/gp_wasm.wasm",
+      "expected_sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "http_status": 200,
+      "bytes": 284918,
+      "sha256": "79d299c6fea8278bbcff57d02121684c25e3ac2f94f29df0e8bb6733a99e8a87",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/gpSupport.js",
+      "expected_sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c",
+      "http_status": 200,
+      "bytes": 42528,
+      "sha256": "f087452b550912b83303ddcb78564ef0436b7e3b4826dbec42f9fa883bf4b39c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/graph.js",
+      "expected_sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157",
+      "http_status": 200,
+      "bytes": 8030,
+      "sha256": "85e8c453578aed31ce425f3b154e5d80c82479d544d9f3db009fff2dc06a8157",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/icons/Bunny192.png",
+      "expected_sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971",
+      "http_status": 200,
+      "bytes": 19500,
+      "sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/icons/Bunny512.png",
+      "expected_sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1",
+      "http_status": 200,
+      "bytes": 72366,
+      "sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/ide.js",
+      "expected_sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5",
+      "http_status": 200,
+      "bytes": 13358,
+      "sha256": "20233a59b555bd86fd68429be3d61e07e78e9f12ce3877b22f6c3a1e096737a5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/big-logo.svg",
+      "expected_sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877",
+      "http_status": 200,
+      "bytes": 15505,
+      "sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/bool_false.svg",
+      "expected_sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2",
+      "http_status": 200,
+      "bytes": 518,
+      "sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/bool_true.svg",
+      "expected_sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369",
+      "http_status": 200,
+      "bytes": 523,
+      "sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/button-down.svg",
+      "expected_sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1",
+      "http_status": 200,
+      "bytes": 1302,
+      "sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/button-left.svg",
+      "expected_sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155",
+      "http_status": 200,
+      "bytes": 1300,
+      "sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/button-ok.svg",
+      "expected_sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed",
+      "http_status": 200,
+      "bytes": 1151,
+      "sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/button-right.svg",
+      "expected_sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08",
+      "http_status": 200,
+      "bytes": 1305,
+      "sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/button-up.svg",
+      "expected_sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c",
+      "http_status": 200,
+      "bytes": 1308,
+      "sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/button-x.svg",
+      "expected_sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519",
+      "http_status": 200,
+      "bytes": 893,
+      "sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/checkmark.svg",
+      "expected_sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55",
+      "http_status": 200,
+      "bytes": 541,
+      "sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/colon-double-slash.svg",
+      "expected_sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423",
+      "http_status": 200,
+      "bytes": 851,
+      "sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/double-arrow-v.svg",
+      "expected_sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff",
+      "http_status": 200,
+      "bytes": 1040,
+      "sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/dropdown-arrow.svg",
+      "expected_sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056",
+      "http_status": 200,
+      "bytes": 348,
+      "sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-arrow-right--16x16.svg",
+      "expected_sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89",
+      "http_status": 200,
+      "bytes": 486,
+      "sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-checkmark--16x16.svg",
+      "expected_sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881",
+      "http_status": 200,
+      "bytes": 483,
+      "sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-close--16x16.svg",
+      "expected_sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300",
+      "http_status": 200,
+      "bytes": 618,
+      "sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-close.svg",
+      "expected_sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525",
+      "http_status": 200,
+      "bytes": 634,
+      "sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-dropdown--12x6.svg",
+      "expected_sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f",
+      "http_status": 200,
+      "bytes": 311,
+      "sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-file--24x24.svg",
+      "expected_sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808",
+      "http_status": 200,
+      "bytes": 387,
+      "sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-gear--24x24.svg",
+      "expected_sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3",
+      "http_status": 200,
+      "bytes": 2611,
+      "sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-globe--24x24.svg",
+      "expected_sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2",
+      "http_status": 200,
+      "bytes": 2856,
+      "sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-graph--16x16.svg",
+      "expected_sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884",
+      "http_status": 200,
+      "bytes": 597,
+      "sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-graph.svg",
+      "expected_sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe",
+      "http_status": 200,
+      "bytes": 808,
+      "sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-graph2.svg",
+      "expected_sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429",
+      "http_status": 200,
+      "bytes": 769,
+      "sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-plug--16x16.svg",
+      "expected_sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1",
+      "http_status": 200,
+      "bytes": 886,
+      "sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-plus--16x16.svg",
+      "expected_sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7",
+      "http_status": 200,
+      "bytes": 384,
+      "sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-redo--16x16.svg",
+      "expected_sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f",
+      "http_status": 200,
+      "bytes": 750,
+      "sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-start--24x24.svg",
+      "expected_sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb",
+      "http_status": 200,
+      "bytes": 303,
+      "sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-stop--24x24.svg",
+      "expected_sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb",
+      "http_status": 200,
+      "bytes": 150,
+      "sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-undo--16x16.svg",
+      "expected_sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc",
+      "http_status": 200,
+      "bytes": 750,
+      "sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-usb.svg",
+      "expected_sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-usb2.svg",
+      "expected_sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-usb3.svg",
+      "expected_sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2",
+      "http_status": 200,
+      "bytes": 1127,
+      "sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-zoom-in--16x16.svg",
+      "expected_sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8",
+      "http_status": 200,
+      "bytes": 1027,
+      "sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-zoom-out--16x16.svg",
+      "expected_sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f",
+      "http_status": 200,
+      "bytes": 904,
+      "sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/icon-zoom-restore--16x16.svg",
+      "expected_sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5",
+      "http_status": 200,
+      "bytes": 1099,
+      "sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/keyboard-light.svg",
+      "expected_sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c",
+      "http_status": 200,
+      "bytes": 4028,
+      "sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/legacy-restoreZoom.svg",
+      "expected_sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a",
+      "http_status": 200,
+      "bytes": 1548,
+      "sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/legacy-zoomIn.svg",
+      "expected_sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4",
+      "http_status": 200,
+      "bytes": 1513,
+      "sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/legacy-zoomOut.svg",
+      "expected_sha256": "9ac7a1de41b9c3df3caaefbe223b6f1010227660558bc005aa4978f8ddbcfd0e",
+      "http_status": 200,
+      "bytes": 1378,
+      "sha256": "9ac7a1de41b9c3df3caaefbe223b6f1010227660558bc005aa4978f8ddbcfd0e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/logo-preloader.svg",
+      "expected_sha256": "a025de516a6f439863f9dea30b958f790adadbfc001006a69cdc2f7a1b595110",
+      "http_status": 200,
+      "bytes": 14398,
+      "sha256": "a025de516a6f439863f9dea30b958f790adadbfc001006a69cdc2f7a1b595110",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/microblocks-ide-logo.svg",
+      "expected_sha256": "72ba076dc0a84dab1711147570c72d218abce66e5731bbe10e0458f28ee129ae",
+      "http_status": 200,
+      "bytes": 12406,
+      "sha256": "72ba076dc0a84dab1711147570c72d218abce66e5731bbe10e0458f28ee129ae",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/mouse-left-button.svg",
+      "expected_sha256": "75acc013ddf825348e6b2a0f1d57e1d8c7e68e9bfae7394b6de6999292fe5981",
+      "http_status": 200,
+      "bytes": 406,
+      "sha256": "75acc013ddf825348e6b2a0f1d57e1d8c7e68e9bfae7394b6de6999292fe5981",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/mouse-right-button.svg",
+      "expected_sha256": "8311967b5205d0f5aa6b276bb1fd6e4947010d38cc224aa98b81e969634b1ef8",
+      "http_status": 200,
+      "bytes": 406,
+      "sha256": "8311967b5205d0f5aa6b276bb1fd6e4947010d38cc224aa98b81e969634b1ef8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/note-eighth.svg",
+      "expected_sha256": "6bc3bdf4e540b4b803f75abeac89e3aed3851eb358100d959e986e83a7185a01",
+      "http_status": 200,
+      "bytes": 666,
+      "sha256": "6bc3bdf4e540b4b803f75abeac89e3aed3851eb358100d959e986e83a7185a01",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/note-half.svg",
+      "expected_sha256": "70f73d101a48f9396151841a0760563a688964774d122c0e6fe80d5faaf19623",
+      "http_status": 200,
+      "bytes": 690,
+      "sha256": "70f73d101a48f9396151841a0760563a688964774d122c0e6fe80d5faaf19623",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/note-quarter.svg",
+      "expected_sha256": "23610c0bde06d378cda28e33bb006f788447e6714b12d11acd2475cce8f4374b",
+      "http_status": 200,
+      "bytes": 472,
+      "sha256": "23610c0bde06d378cda28e33bb006f788447e6714b12d11acd2475cce8f4374b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/note-sixteenth.svg",
+      "expected_sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb",
+      "http_status": 200,
+      "bytes": 865,
+      "sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/note-whole.svg",
+      "expected_sha256": "2c64d9ea929c3560512a54872692ccd8a2eb594b53ef6ab4da200a3433bb062a",
+      "http_status": 200,
+      "bytes": 615,
+      "sha256": "2c64d9ea929c3560512a54872692ccd8a2eb594b53ef6ab4da200a3433bb062a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/plus1.svg",
+      "expected_sha256": "86e443135bd7552d25d6d6d0ebdabd51427c786c887cf6471ca765e357b89220",
+      "http_status": 200,
+      "bytes": 975,
+      "sha256": "86e443135bd7552d25d6d6d0ebdabd51427c786c887cf6471ca765e357b89220",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/plus2.svg",
+      "expected_sha256": "3f708a31ca2b65346100e13173f6127f40e1008013fa01c34fd5a3aed85a0247",
+      "http_status": 200,
+      "bytes": 549,
+      "sha256": "3f708a31ca2b65346100e13173f6127f40e1008013fa01c34fd5a3aed85a0247",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/resize.svg",
+      "expected_sha256": "98bdc2e96f9b10d533a11d151be1e03fbf01b8f509125a28b95f5fd746d0d15d",
+      "http_status": 200,
+      "bytes": 737,
+      "sha256": "98bdc2e96f9b10d533a11d151be1e03fbf01b8f509125a28b95f5fd746d0d15d",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/rounded-corner.svg",
+      "expected_sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373",
+      "http_status": 200,
+      "bytes": 159,
+      "sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/square.svg",
+      "expected_sha256": "65f32b9121f47aee6cc42972f5d3c591e3b78034075e0364a6ca4e25a68900cb",
+      "http_status": 200,
+      "bytes": 105,
+      "sha256": "65f32b9121f47aee6cc42972f5d3c591e3b78034075e0364a6ca4e25a68900cb",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/square11.svg",
+      "expected_sha256": "9215fcf1387df6fdd6e1fbe2f3b8ea9b6d6cd65d7cb17ef9528ecbff6b3be256",
+      "http_status": 200,
+      "bytes": 105,
+      "sha256": "9215fcf1387df6fdd6e1fbe2f3b8ea9b6d6cd65d7cb17ef9528ecbff6b3be256",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/SVGPrepNotes.txt",
+      "expected_sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55",
+      "http_status": 200,
+      "bytes": 1555,
+      "sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/trashcan-dark.svg",
+      "expected_sha256": "ed2844e05677f0b1fb89096acdd1f01a8b7c1eb0a658d86f1a2224ce2628464c",
+      "http_status": 200,
+      "bytes": 1677,
+      "sha256": "ed2844e05677f0b1fb89096acdd1f01a8b7c1eb0a658d86f1a2224ce2628464c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/trashcan-light.svg",
+      "expected_sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186",
+      "http_status": 200,
+      "bytes": 2561,
+      "sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/wave-noise.svg",
+      "expected_sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5",
+      "http_status": 200,
+      "bytes": 2347,
+      "sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/wave-sawtooth.svg",
+      "expected_sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45",
+      "http_status": 200,
+      "bytes": 794,
+      "sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/wave-sine.svg",
+      "expected_sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c",
+      "http_status": 200,
+      "bytes": 911,
+      "sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/wave-square.svg",
+      "expected_sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b",
+      "http_status": 200,
+      "bytes": 380,
+      "sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/img/wave-triangle.svg",
+      "expected_sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c",
+      "http_status": 200,
+      "bytes": 722,
+      "sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/lib/usbDfuDevice.js",
+      "expected_sha256": "711bd38612250bd9a39c505ac3e4afdff44df496aed908d9332200576f1c5f3b",
+      "http_status": 200,
+      "bytes": 15305,
+      "sha256": "711bd38612250bd9a39c505ac3e4afdff44df496aed908d9332200576f1c5f3b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/manifest.json",
+      "expected_sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04",
+      "http_status": 200,
+      "bytes": 404,
+      "sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/menus.js",
+      "expected_sha256": "fd77bba5cca1b39a55b2d23ef12e49deb5826ffb2ef291251fd49a5725960aaf",
+      "http_status": 200,
+      "bytes": 15570,
+      "sha256": "fd77bba5cca1b39a55b2d23ef12e49deb5826ffb2ef291251fd49a5725960aaf",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/microblocks.html",
+      "expected_sha256": "cbdc25480416e37f488a6e6ac634a47cd127a3ea586855a6f384e62b1b05536b",
+      "http_status": 200,
+      "bytes": 7744,
+      "sha256": "cbdc25480416e37f488a6e6ac634a47cd127a3ea586855a6f384e62b1b05536b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/precompiled/buildUniversalHex.js",
+      "expected_sha256": "7f1f01c8767ce0451eaeaadb7fa62a4a6a70a1c5fe47606955e1ac0bcbe74da9",
+      "http_status": 200,
+      "bytes": 809,
+      "sha256": "7f1f01c8767ce0451eaeaadb7fa62a4a6a70a1c5fe47606955e1ac0bcbe74da9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/precompiled/package.json",
+      "expected_sha256": "ac8a108b4d646964a88c9d965e7a9a1c62e2d0b714580f1f62415beb7b0e0083",
+      "http_status": 200,
+      "bytes": 77,
+      "sha256": "ac8a108b4d646964a88c9d965e7a9a1c62e2d0b714580f1f62415beb7b0e0083",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/precompiled/uf2conv.py",
+      "expected_sha256": "fb77a31e9d66088e5e8420fcf7e6eda28e180cdff8ded26c4453232590b59b2e",
+      "http_status": 200,
+      "bytes": 8586,
+      "sha256": "fb77a31e9d66088e5e8420fcf7e6eda28e180cdff8ded26c4453232590b59b2e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/precompiled/updatePrecompiled.sh",
+      "expected_sha256": "10bc68120cdc9baec42d1427dbe9b1114be1ac19932d5a6f798efdd006509544",
+      "http_status": 200,
+      "bytes": 2735,
+      "sha256": "10bc68120cdc9baec42d1427dbe9b1114be1ac19932d5a6f798efdd006509544",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_app-preloader.css",
+      "expected_sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad",
+      "http_status": 200,
+      "bytes": 1708,
+      "sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_buttons.css",
+      "expected_sha256": "654a75147db1d5f9804bedf19f1a090d6c323a2241333b4e04d32280ca51147c",
+      "http_status": 200,
+      "bytes": 1359,
+      "sha256": "654a75147db1d5f9804bedf19f1a090d6c323a2241333b4e04d32280ca51147c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_categories-libraries.css",
+      "expected_sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036",
+      "http_status": 200,
+      "bytes": 2489,
+      "sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_ide.css",
+      "expected_sha256": "63bbd1ee4060438456d65bca9fda09c03b119493fbc5dc7155f685b504b38abc",
+      "http_status": 200,
+      "bytes": 2448,
+      "sha256": "63bbd1ee4060438456d65bca9fda09c03b119493fbc5dc7155f685b504b38abc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_menus.css",
+      "expected_sha256": "8b1c0dce1c6e5e3b98a25b59317baf5fefcd6b9c37c53e95f0d1697e55b66b31",
+      "http_status": 200,
+      "bytes": 2879,
+      "sha256": "8b1c0dce1c6e5e3b98a25b59317baf5fefcd6b9c37c53e95f0d1697e55b66b31",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_overlay.css",
+      "expected_sha256": "493f1e8d9b1e186f1f1fdc9e2db7c03d3666a92a3c69660ee931b776bd2b2885",
+      "http_status": 200,
+      "bytes": 1384,
+      "sha256": "493f1e8d9b1e186f1f1fdc9e2db7c03d3666a92a3c69660ee931b776bd2b2885",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_scripts-pane-controls.css",
+      "expected_sha256": "6971d71c49bd14b8f0c678221b41866c9fe7a3a69d45a96139ce93a7be74083a",
+      "http_status": 200,
+      "bytes": 1288,
+      "sha256": "6971d71c49bd14b8f0c678221b41866c9fe7a3a69d45a96139ce93a7be74083a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_tips.css",
+      "expected_sha256": "46fbed75ded65f6426167208d7ef3a66f98742d92cfffead3be9e03cb1fd5125",
+      "http_status": 200,
+      "bytes": 875,
+      "sha256": "46fbed75ded65f6426167208d7ef3a66f98742d92cfffead3be9e03cb1fd5125",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_top-bar.css",
+      "expected_sha256": "a7718679ea9ec78322b2b6be94c19cd68be0764c1a428281265b738931c974ba",
+      "http_status": 200,
+      "bytes": 3346,
+      "sha256": "a7718679ea9ec78322b2b6be94c19cd68be0764c1a428281265b738931c974ba",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_window.css",
+      "expected_sha256": "a2f38cfa51fad193267f5e35160fd1529bab7fa9ea7be4adc0323b0afe525803",
+      "http_status": 200,
+      "bytes": 3225,
+      "sha256": "a2f38cfa51fad193267f5e35160fd1529bab7fa9ea7be4adc0323b0afe525803",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/components/_wysiwyg.css",
+      "expected_sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e",
+      "http_status": 200,
+      "bytes": 1016,
+      "sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/config/_config.css",
+      "expected_sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578",
+      "http_status": 200,
+      "bytes": 4123,
+      "sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/generic/_body.css",
+      "expected_sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f",
+      "http_status": 200,
+      "bytes": 188,
+      "sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/generic/_button.css",
+      "expected_sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee",
+      "http_status": 200,
+      "bytes": 58,
+      "sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/generic/minireset.css",
+      "expected_sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252",
+      "http_status": 200,
+      "bytes": 703,
+      "sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/styles/utilities/_drag.css",
+      "expected_sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3",
+      "http_status": 200,
+      "bytes": 142,
+      "sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/sw.js",
+      "expected_sha256": "492a1ac301474251c593f39c97b6e78914fa4018a43fa21fadee46caab09bae9",
+      "http_status": 200,
+      "bytes": 1842,
+      "sha256": "492a1ac301474251c593f39c97b6e78914fa4018a43fa21fadee46caab09bae9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/TODO.md",
+      "expected_sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142",
+      "http_status": 200,
+      "bytes": 2256,
+      "sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/apc.po",
+      "expected_sha256": "3217c10fe8538873f33fd87af3c9064bb6537666657a794d62b2d3331d7422de",
+      "http_status": 200,
+      "bytes": 136945,
+      "sha256": "3217c10fe8538873f33fd87af3c9064bb6537666657a794d62b2d3331d7422de",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/ar.po",
+      "expected_sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b",
+      "http_status": 200,
+      "bytes": 238394,
+      "sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/ca.po",
+      "expected_sha256": "4734f15e0d59488a5cc098285b017f5c204e895f6426818b2c5995a874cc0473",
+      "http_status": 200,
+      "bytes": 235868,
+      "sha256": "4734f15e0d59488a5cc098285b017f5c204e895f6426818b2c5995a874cc0473",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/cs.po",
+      "expected_sha256": "96bb6ed5ecbf16bc24d20bb683d3a8b4e2c856a87da024e59ef4adbe80bdfabc",
+      "http_status": 200,
+      "bytes": 187220,
+      "sha256": "96bb6ed5ecbf16bc24d20bb683d3a8b4e2c856a87da024e59ef4adbe80bdfabc",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/de.po",
+      "expected_sha256": "a40a4d488645fb80a6bda1803e88ef376e6d25a6877aac37ad66c3370886cbe1",
+      "http_status": 200,
+      "bytes": 233186,
+      "sha256": "a40a4d488645fb80a6bda1803e88ef376e6d25a6877aac37ad66c3370886cbe1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/el.po",
+      "expected_sha256": "3b8fd990f253f57485d0f5022b5c2cc2824c1906de5c381c9154f51253bc6893",
+      "http_status": 200,
+      "bytes": 47400,
+      "sha256": "3b8fd990f253f57485d0f5022b5c2cc2824c1906de5c381c9154f51253bc6893",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/en.po",
+      "expected_sha256": "76fc7b1942b5fbad97ef0b8879fe95a93f5ca6f0ca1642aab4966e8cc668fb3c",
+      "http_status": 200,
+      "bytes": 219429,
+      "sha256": "76fc7b1942b5fbad97ef0b8879fe95a93f5ca6f0ca1642aab4966e8cc668fb3c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/es.po",
+      "expected_sha256": "b2bf21b67adf998212086a2d42d6aa191556a5834e1818d762782d5185ce396d",
+      "http_status": 200,
+      "bytes": 236223,
+      "sha256": "b2bf21b67adf998212086a2d42d6aa191556a5834e1818d762782d5185ce396d",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/eu.po",
+      "expected_sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08",
+      "http_status": 200,
+      "bytes": 130662,
+      "sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/fa.po",
+      "expected_sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8",
+      "http_status": 200,
+      "bytes": 133629,
+      "sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/fi.po",
+      "expected_sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9",
+      "http_status": 200,
+      "bytes": 155556,
+      "sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/fr.po",
+      "expected_sha256": "d8f8163368a9d522e0fac6b493b35732243b6704c4091af75ad2b0b7ec0a7f21",
+      "http_status": 200,
+      "bytes": 222151,
+      "sha256": "d8f8163368a9d522e0fac6b493b35732243b6704c4091af75ad2b0b7ec0a7f21",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/gl.po",
+      "expected_sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e",
+      "http_status": 200,
+      "bytes": 92216,
+      "sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/he.po",
+      "expected_sha256": "ab573f1ddb6cd8ed46dba3552b796a3239f06cb0702d783aaf3bf910b02f6b88",
+      "http_status": 200,
+      "bytes": 186997,
+      "sha256": "ab573f1ddb6cd8ed46dba3552b796a3239f06cb0702d783aaf3bf910b02f6b88",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/id.po",
+      "expected_sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1",
+      "http_status": 200,
+      "bytes": 200597,
+      "sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/it.po",
+      "expected_sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790",
+      "http_status": 200,
+      "bytes": 133307,
+      "sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/ja.po",
+      "expected_sha256": "c0a220753dd0190793604a9b4e342848f8d1d9cc4d31c7dec3593d835ea6653c",
+      "http_status": 200,
+      "bytes": 43745,
+      "sha256": "c0a220753dd0190793604a9b4e342848f8d1d9cc4d31c7dec3593d835ea6653c",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/kk.po",
+      "expected_sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173",
+      "http_status": 200,
+      "bytes": 159651,
+      "sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/ko.po",
+      "expected_sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4",
+      "http_status": 200,
+      "bytes": 136052,
+      "sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/locales.json",
+      "expected_sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f",
+      "http_status": 200,
+      "bytes": 748,
+      "sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/lt.po",
+      "expected_sha256": "e10a8214ebe630ae0c8bbf05de721a3d2e3c543c85e54402ff3618e5fa7754cf",
+      "http_status": 200,
+      "bytes": 165990,
+      "sha256": "e10a8214ebe630ae0c8bbf05de721a3d2e3c543c85e54402ff3618e5fa7754cf",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/nl.po",
+      "expected_sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76",
+      "http_status": 200,
+      "bytes": 162210,
+      "sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/pl.po",
+      "expected_sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703",
+      "http_status": 200,
+      "bytes": 134645,
+      "sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/pt-br.po",
+      "expected_sha256": "3efa79005344cdfb5a43ada9dc7d58ecb48b38640c3c476c51703aee1ceb1dca",
+      "http_status": 200,
+      "bytes": 229284,
+      "sha256": "3efa79005344cdfb5a43ada9dc7d58ecb48b38640c3c476c51703aee1ceb1dca",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/pt.po",
+      "expected_sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855",
+      "http_status": 200,
+      "bytes": 42658,
+      "sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/ro.po",
+      "expected_sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57",
+      "http_status": 200,
+      "bytes": 146381,
+      "sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/ru.po",
+      "expected_sha256": "137c3d625ab20bd35819b9f37abddeb81b33f8db3ef27008ceea6c31374cfcbe",
+      "http_status": 200,
+      "bytes": 100007,
+      "sha256": "137c3d625ab20bd35819b9f37abddeb81b33f8db3ef27008ceea6c31374cfcbe",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/sr.po",
+      "expected_sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618",
+      "http_status": 200,
+      "bytes": 143336,
+      "sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/ta.po",
+      "expected_sha256": "8e65fd35967c15ca36b106a7c90b82664be9192368512e88605814999b0318f6",
+      "http_status": 200,
+      "bytes": 294610,
+      "sha256": "8e65fd35967c15ca36b106a7c90b82664be9192368512e88605814999b0318f6",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/template.pot",
+      "expected_sha256": "179194da6b615ec29f385d8fdd4a0b17e4190bbd463fdb52303fbc1e84ebae8f",
+      "http_status": 200,
+      "bytes": 175528,
+      "sha256": "179194da6b615ec29f385d8fdd4a0b17e4190bbd463fdb52303fbc1e84ebae8f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/tr.po",
+      "expected_sha256": "3b791f0f20b8a19fd64724f5e68066499949dd9bfce798aaeeb83641a7148928",
+      "http_status": 200,
+      "bytes": 105747,
+      "sha256": "3b791f0f20b8a19fd64724f5e68066499949dd9bfce798aaeeb83641a7148928",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/uk.po",
+      "expected_sha256": "64c43942c105b33607e1ed3dab7df6f857983ab93d5a371b00424f6e6e01462a",
+      "http_status": 200,
+      "bytes": 148598,
+      "sha256": "64c43942c105b33607e1ed3dab7df6f857983ab93d5a371b00424f6e6e01462a",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/uz.po",
+      "expected_sha256": "1ee5ec79fd41fec991568c1ff1f7ee88b1e328ac84f3f24d39e46619a2c9a019",
+      "http_status": 200,
+      "bytes": 39502,
+      "sha256": "1ee5ec79fd41fec991568c1ff1f7ee88b1e328ac84f3f24d39e46619a2c9a019",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/vi.po",
+      "expected_sha256": "120db94800f95aa3a88263b65859339ae9aedd418129b8bb5bc2cd2187b6a687",
+      "http_status": 200,
+      "bytes": 211353,
+      "sha256": "120db94800f95aa3a88263b65859339ae9aedd418129b8bb5bc2cd2187b6a687",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/zh-chs.po",
+      "expected_sha256": "9e68fc0db13f553857abe6d80d275227cd517d2625be1bd61b0bbe9ca5882f83",
+      "http_status": 200,
+      "bytes": 170466,
+      "sha256": "9e68fc0db13f553857abe6d80d275227cd517d2625be1bd61b0bbe9ca5882f83",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/translations/zh-cht.po",
+      "expected_sha256": "580a85b03aeacb66b9b71c63a8b39e5567ff25968b68d44d28a96c8524195758",
+      "http_status": 200,
+      "bytes": 117588,
+      "sha256": "580a85b03aeacb66b9b71c63a8b39e5567ff25968b68d44d28a96c8524195758",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/unoq-network.js",
+      "expected_sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "http_status": 200,
+      "bytes": 18522,
+      "sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "result": "PASS"
+    },
+    {
+      "path": "editor/xrp-rp2350/windows.js",
+      "expected_sha256": "1fca26d00e798a379427107e687d232350cc7a1d5b76ff471a708dace45a4069",
+      "http_status": 200,
+      "bytes": 10936,
+      "sha256": "1fca26d00e798a379427107e687d232350cc7a1d5b76ff471a708dace45a4069",
+      "result": "PASS"
+    },
+    {
+      "path": "index.html",
+      "expected_sha256": "e66bbaf44dc4ae149617e08cbfe0e9256ba3dec7529952b8e25188fc683390d4",
+      "http_status": 200,
+      "bytes": 4624,
+      "sha256": "e66bbaf44dc4ae149617e08cbfe0e9256ba3dec7529952b8e25188fc683390d4",
+      "result": "PASS"
+    },
+    {
+      "path": "LICENSE",
+      "expected_sha256": "f0a4c033c8e6e65d7bd809346ce44e2630331d27499ef869a32e8c2a6a536d01",
+      "http_status": 200,
+      "bytes": 1106,
+      "sha256": "f0a4c033c8e6e65d7bd809346ce44e2630331d27499ef869a32e8c2a6a536d01",
+      "result": "PASS"
+    },
+    {
+      "path": "licenses/Adafruit-ESP32SPI-MIT.txt",
+      "expected_sha256": "20696aa4836f387b58a83b7329020fc53b52809ebcbf3a5a869e19701e16ac7d",
+      "http_status": 200,
+      "bytes": 1098,
+      "sha256": "20696aa4836f387b58a83b7329020fc53b52809ebcbf3a5a869e19701e16ac7d",
+      "result": "PASS"
+    },
+    {
+      "path": "licenses/Apache-2.0.txt",
+      "expected_sha256": "bb01037d243b2614f6c0bcf65671eff4a004b65ef687a4fd4925a9ab068bd613",
+      "http_status": 200,
+      "bytes": 11338,
+      "sha256": "bb01037d243b2614f6c0bcf65671eff4a004b65ef687a4fd4925a9ab068bd613",
+      "result": "PASS"
+    },
+    {
+      "path": "licenses/MPL-2.0.txt",
+      "expected_sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+      "http_status": 200,
+      "bytes": 16726,
+      "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+      "result": "PASS"
+    },
+    {
+      "path": "LICENSES.md",
+      "expected_sha256": "2b30b2e9915565faa17f98845000c471ca29bcfdc18e85ac2e5dff66ba8650db",
+      "http_status": 200,
+      "bytes": 4325,
+      "sha256": "2b4872998340ecaf6186ffaa2f17bc4a99f444889a631d7c515482637e57eb09",
+      "result": "FAIL"
+    },
+    {
+      "path": "portal-adapter.js",
+      "expected_sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "http_status": 200,
+      "bytes": 18522,
+      "sha256": "dd891191c2ff2c5a3f1b5e9a252deb0aa4b6ce63f95540dbe322694a9b1f217f",
+      "result": "PASS"
+    },
+    {
+      "path": "portal-core.js",
+      "expected_sha256": "d3e6e0729f051d8bbe8adc1eebd14417442f1151571e7745433722cd18be0ccd",
+      "http_status": 200,
+      "bytes": 5107,
+      "sha256": "d3e6e0729f051d8bbe8adc1eebd14417442f1151571e7745433722cd18be0ccd",
+      "result": "PASS"
+    },
+    {
+      "path": "portal.css",
+      "expected_sha256": "f1d2ee7b71fcabca241e5b2f096dba4cb6baaae36ba2a30136fc9f08f818102c",
+      "http_status": 200,
+      "bytes": 6290,
+      "sha256": "f1d2ee7b71fcabca241e5b2f096dba4cb6baaae36ba2a30136fc9f08f818102c",
+      "result": "PASS"
+    },
+    {
+      "path": "portal.js",
+      "expected_sha256": "629d9f42b88b87758d9c0c3bae49d49d3ec5ac15cdfc86db2ce12343327b4ad8",
+      "http_status": 200,
+      "bytes": 1307,
+      "sha256": "629d9f42b88b87758d9c0c3bae49d49d3ec5ac15cdfc86db2ce12343327b4ad8",
+      "result": "PASS"
+    },
+    {
+      "path": "UPSTREAM.md",
+      "expected_sha256": "e8528e9dc8314e25d6803fd0ca137f0327f0a0d92462217778a32d2d6822ccd0",
+      "http_status": 200,
+      "bytes": 342,
+      "sha256": "e8528e9dc8314e25d6803fd0ca137f0327f0a0d92462217778a32d2d6822ccd0",
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base (cached)).
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm
+-- CMake version: 4.4.4
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: sparkfun_xrp, qualifiers: rp2350b/m33_0
+-- Found host-tools: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found BOARD.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/app.overlay
+-- Generated zephyr.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/zephyr.dts
+-- Generated pickled edt: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/include/generated/zephyr/devicetree_generated.h
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/zephyr.dts:618.23-623.5: Warning (unique_unit_address_if_enabled): /soc/vreg@40100000: duplicate unit-address (also used in node /soc/powman@40100000)
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+Parsing /home/fred/microblocks-zephyr-work/zephyr/Kconfig
+Loaded configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/.config'
+No change to configuration in '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/.config'
+No change to Kconfig header in '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found version "3.12.15") found components: Interpreter
+-- Found gen_kobject_list: /home/fred/microblocks-zephyr-work/zephyr/scripts/build/gen_kobject_list.py
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+Packaged 147 real IDE files into 3511116 flash bytes
+-- Configuring done (21.0s)
+-- Generating done (19.8s)
+-- Build files have been written to: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02
+-- west build: building application
+[1/277] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[2/25] Building C object CMakeFiles/app.dir/src/platform.c.obj
+[3/25] Building C object CMakeFiles/app.dir/src/generic_primitives.c.obj
+[4/25] Building CXX object CMakeFiles/app.dir/src/main.cpp.obj
+[5/25] Building C object CMakeFiles/app.dir/src/capture.c.obj
+[6/25] Building CXX object CMakeFiles/app.dir/src/io.cpp.obj
+[7/25] Building C object CMakeFiles/app.dir/src/provisioning.c.obj
+[8/25] Building ASM object CMakeFiles/app.dir/web-xrp/assets.S.obj
+[9/25] Building C object CMakeFiles/app.dir/web-xrp/assets.c.obj
+[10/25] Building C object CMakeFiles/app.dir/smallvm/vm/runtime.c.obj
+[11/25] Building C object CMakeFiles/app.dir/smallvm/vm/mem.c.obj
+[12/25] Building CXX object CMakeFiles/app.dir/smallvm/vm/encoderPrims.cpp.obj
+[13/25] Building C object CMakeFiles/app.dir/smallvm/vm/varPrims.c.obj
+[14/25] Building C object CMakeFiles/app.dir/smallvm/vm/persist.c.obj
+[15/25] Building C object CMakeFiles/app.dir/smallvm/vm/interp.c.obj
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/smallvm/vm/interp.c:427:13: warning: 'interpDebug' defined but not used [-Wunused-function]
+  427 | static void interpDebug(int ip, int cmd, int arg, int sp) {
+      |             ^~~~~~~~~~~
+[16/25] Building C object CMakeFiles/app.dir/smallvm/vm/mbFont.c.obj
+[17/25] Building C object CMakeFiles/app.dir/smallvm/vm/tinyJSON.c.obj
+[18/25] Building C object CMakeFiles/app.dir/smallvm/vm/boardHooks.c.obj
+[19/25] Building C object CMakeFiles/app.dir/smallvm/vm/dataPrims.c.obj
+[20/25] Linking CXX static library app/libapp.a
+[21/25] Linking CXX executable zephyr/zephyr_pre0.elf; Logical command for additional byproducts on target: zephyr_pre0
+[22/25] Generating linker.cmd
+[23/25] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[24/25] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[25/25] Linking CXX executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:     4010052 B         8 MB     47.80%
+             RAM:      365080 B       520 KB     68.56%
+        IDT_LIST:           0 B        32 KB      0.00%
+Generating files from /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/zephyr.elf for board: sparkfun_xrp/rp2350b/m33_0
+Converted to uf2, output size: 8020480, start address: 0x10000000
+Wrote 8020480 bytes to zephyr.uf2

@@ -1,0 +1,57 @@
+{
+  "utc": "2026-10-19T03:04:07.710558+00:00",
+  "identity": {
+    "port": "COM11",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E464244647564B37",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "version": "v417 XRP RP2350 Zephyr (actuators locked)",
+  "compiled_source_commit": "80b9e3efa01aa3ae083dbaf2166350c63bc56903",
+  "checks": {
+    "code_crcs": {
+      "230": 696064283,
+      "231": 2886986433,
+      "232": 3624107365
+    },
+    "retained_arithmetic": 12,
+    "io_capabilities": {
+      "digital_raw": true,
+      "analog_gpio": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "i2c_gpio": [
+        38,
+        39
+      ],
+      "actuators_enabled": false,
+      "adc_ready": true,
+      "pwm_ready": true,
+      "adc_timeout_ms": 50,
+      "hardware_tested": false,
+      "error": 0
+    },
+    "adc_gpio40": 0,
+    "network_capabilities": {
+      "board": "xrp-rp2350",
+      "setup_protocol": 2,
+      "persistence_supported": true,
+      "radio_ready": true,
+      "state": "usb-setup",
+      "busy": false,
+      "ip": "0.0.0.0",
+      "error": 0,
+      "actuators_enabled": false
+    },
+    "temporary_chunk_removed": true
+  },
+  "result": "PASS"
+}

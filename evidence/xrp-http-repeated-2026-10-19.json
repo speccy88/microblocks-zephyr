@@ -1,0 +1,228 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-19T05:48:11.137126+00:00",
+  "source_commit": "b8232c3aa6abe4e02f459a15ff15a5ed71c2a245",
+  "host": "192.168.1.169",
+  "scope": "30 fresh HTTP status connections at one-second intervals, three root HTML reads and three real WebSocket version/ping reconnects",
+  "checks": [
+    {
+      "index": 1,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74,
+      "root_html_sha256": "ca7776c644448974a42a923143e2a43ba48566a220949a70aa74ed09c02a8e78",
+      "wireless_version_and_ping": true
+    },
+    {
+      "index": 2,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 3,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 4,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 5,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 6,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 7,
+      "http_status": true,
+      "seconds": 0.047,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 8,
+      "http_status": true,
+      "seconds": 0.047,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 9,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 10,
+      "http_status": true,
+      "seconds": 0.047,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 11,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 12,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 13,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 14,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 15,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74,
+      "root_html_sha256": "ca7776c644448974a42a923143e2a43ba48566a220949a70aa74ed09c02a8e78",
+      "wireless_version_and_ping": true
+    },
+    {
+      "index": 16,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 17,
+      "http_status": true,
+      "seconds": 0.313,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 18,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 19,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 20,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 21,
+      "http_status": true,
+      "seconds": 0.062,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 22,
+      "http_status": true,
+      "seconds": 0.047,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 23,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 24,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 25,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 26,
+      "http_status": true,
+      "seconds": 0.312,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 27,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 28,
+      "http_status": true,
+      "seconds": 0.031,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 29,
+      "http_status": true,
+      "seconds": 0.016,
+      "radio_pm": 0,
+      "rssi_dbm": -74
+    },
+    {
+      "index": 30,
+      "http_status": true,
+      "seconds": 0.015,
+      "radio_pm": 0,
+      "rssi_dbm": -74,
+      "root_html_sha256": "ca7776c644448974a42a923143e2a43ba48566a220949a70aa74ed09c02a8e78",
+      "wireless_version_and_ping": true
+    }
+  ],
+  "actuator_commands_sent": false,
+  "motor_supply_enabled": false,
+  "vm_code_modified": false
+}

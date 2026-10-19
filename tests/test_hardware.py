@@ -65,7 +65,7 @@ class HardwareManifestTests(unittest.TestCase):
 
     def test_unintegrated_features_are_explicitly_marked(self):
         self.assertTrue(any(c["smallvm"] == "planned" for c in CAPS.values()))
-        self.assertIn("SmallVM", (ROOT / "README.md").read_text())
+        self.assertIn("SmallVM", (ROOT / "README.md").read_text(encoding="utf-8"))
 
     def test_compilation_guard_exists(self):
         src = (ROOT / "boards" / "waveshare_esp32s3_rlcd_4_2" / "bringup" / "src" / "rlcd_board.c").read_text()

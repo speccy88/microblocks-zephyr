@@ -14,7 +14,7 @@ class XRPProductionContracts(unittest.TestCase):
     def test_no_beta_or_wrong_soc_claim(self):
         self.assertFalse(DATA['beta'])
         self.assertEqual(DATA['soc'], 'RP2350B')
-        self.assertFalse(DATA['physical_identity_verified'])
+        self.assertTrue(DATA['physical_identity_verified'])
         self.assertFalse(DATA['portal_hardware_connection_enabled'])
         self.assertFalse(DATA['psram_mapped'])
 
@@ -52,7 +52,10 @@ class XRPProductionContracts(unittest.TestCase):
             self.assertNotIn(forbidden, main)
         self.assertIn('GPIO_OUTPUT_INACTIVE', main)
         self.assertIn('i2c_reg_read_byte(imu_bus, 0x6b, 0x0f', main)
-        self.assertTrue(all(not c['physical_tested'] for c in DATA['capabilities']))
+        for capability in DATA['capabilities']:
+            if capability['physical_tested']:
+                evidence=json.loads((ROOT/capability['physical_evidence']).read_text())
+                self.assertEqual(evidence['result'],'PASS')
 
     def test_integrated_arduino_raw_gpio_and_default_imu_bus(self):
         overlay=(BOARD/'smallvm/app.overlay').read_text()
@@ -78,5 +81,5 @@ class XRPProductionContracts(unittest.TestCase):
         self.assertIn('return host && origin',server)
         config=(BOARD/'smallvm/prj.conf').read_text()
         for required in ('CONFIG_CONSOLE=n','CONFIG_UART_CONSOLE=n','CONFIG_PRINTK=n','CONFIG_BT=n',
-                         'CONFIG_WHD_WIFI_COUNTRY="WHD_COUNTRY_CANADA"'):
+                         'CONFIG_WHD_WIFI_COUNTRY="WHD_COUNTRY_CANADA"','CONFIG_NET_CONTEXT_SNDTIMEO=y'):
             self.assertIn(required,config)

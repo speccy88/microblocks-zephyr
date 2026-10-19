@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "utc": "2026-10-19T03:22:56.421440+00:00",
+  "source_commit": "28e72a4ba43922b997107ee88b4a63b8045a1e9e",
+  "country": "Canada",
+  "user_clicked_remember": true,
+  "credentials_replayed_by_host": false,
+  "swd_reset_only": true,
+  "full_power_cycle_tested": false,
+  "remembered_association_and_dhcp": true,
+  "http_after_reset": true,
+  "ip": "192.168.1.169",
+  "owned_test_chunks_verified_and_removed": true,
+  "empty_program_store_retained": true,
+  "motor_supply_enabled": false,
+  "actuator_commands_sent": false
+}

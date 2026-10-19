@@ -57,6 +57,11 @@ preserved in `licenses/Infineon-WHD-Blob.txt`. These terms remain distinct from
 this repository's source licenses; local build binaries are not published by
 the Pages workflow. Host-driver source retains the external HAL's notices.
 
+The XRP-only cooperative HTTP preparation retains Zephyr's Apache-2.0 notices
+in both generated source files. Original pinned HTTP sources remain external
+and unchanged. The preparation script and synthetic test harness have their
+own SPDX headers; generated files and test binaries are not committed.
+
 Fruit Jam's `smallvm/src/nina_protocol.c` and `nina_socket_protocol.c` adapt the MIT-licensed command/reply
 framing from Adafruit CircuitPython ESP32SPI, copyright (c) 2019 ladyada for
 Adafruit Industries. The pinned reference and SHA256s are recorded in

@@ -1,0 +1,45 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-19T05:47:24.055773+00:00",
+  "source_commit": "b8232c3aa6abe4e02f459a15ff15a5ed71c2a245",
+  "host": "192.168.1.169",
+  "checks": {
+    "status_during_large_transfer": {
+      "result": "PASS",
+      "latencies_seconds": [
+        0.093,
+        0.344,
+        0.266,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.265
+      ],
+      "probes_before_large_complete": 8
+    },
+    "large_then_small": {
+      "result": "PASS",
+      "large_then_small_content_hashes": true,
+      "seconds": 36.953,
+      "large_compressed_bytes": 2180340
+    },
+    "aborted_resource_reusable": [
+      {
+        "index": 1,
+        "http_status": 200,
+        "bytes_before_close": 4096
+      },
+      {
+        "index": 2,
+        "http_status": 200,
+        "bytes_before_close": 4096
+      }
+    ],
+    "status_after_aborts_seconds": 0.031
+  },
+  "request_mode": "sequential keepalive",
+  "scope": "Physical XRP HTTP fairness, two responses and partial-download cleanup; no browser/VM code change",
+  "motor_supply_enabled": false,
+  "actuator_commands_sent": false
+}

@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "checks": 38,
+  "scope": "Actual generated HTTP/1 scheduler functions; synthetic callbacks/sends only; no framing/network/hardware claim",
+  "runtime": "Node WASI",
+  "command": [
+    "wsl.exe",
+    "--exec",
+    "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang",
+    "-std=c11",
+    "-O1",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/mnt/c/Users/fred_/AppData/Local/Temp/xrp-http-scheduler-ue1mdt0e",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tests/xrp_http_scheduler_host.c",
+    "-Wl,-z,stack-size=65536",
+    "-Wl,--max-memory=1048576",
+    "-o",
+    "/mnt/c/Users/fred_/AppData/Local/Temp/xrp-http-scheduler-ue1mdt0e/scheduler.wasm"
+  ],
+  "generated_source_sha256": "833033bf50fe69b60611ea785f8d3fee821e40b1bb85b3b6472b865a7edd71be",
+  "fragment_sha256": "12e83bbfd5c6c5e6e6c8b84266966dc666633af96cc7bea80badc42b96400eac",
+  "fixture_sha256": "1109a5aaffa39583b69cbc99e6d7edb9e4d4afb85627858e3e8dfb823c85b9a0"
+}

@@ -1,0 +1,22 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-19T02:32:24.332586+00:00",
+  "phase": "inputs",
+  "checks": {
+    "ping": true
+  },
+  "motor_power": "operator reported off; never enabled",
+  "motor_or_servo_commands_sent": false,
+  "physical_movement_validation": false,
+  "credentials_supplied": false,
+  "identity": {
+    "port": "COM11",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E464244647564B37",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "version": "v417 XRP RP2350 Zephyr (actuators locked)",
+  "error": "TimeoutError: Expected VM response was not received"
+}

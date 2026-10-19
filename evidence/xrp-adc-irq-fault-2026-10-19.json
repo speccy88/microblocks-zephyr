@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "utc": "2026-10-19T03:09:37.447492+00:00",
+  "source_commit": "80b9e3efa01aa3ae083dbaf2166350c63bc56903",
+  "motor_supply_enabled": false,
+  "checks": {
+    "lost_irq_returns_error": {
+      "vm_error": true,
+      "driver_error": -116,
+      "host_observed_seconds": 0.063,
+      "firmware_wait_limit_ms": 50
+    },
+    "pending_conversion_rejects_another": {
+      "driver_error": -16,
+      "host_observed_seconds": 0.016
+    },
+    "usb_responsive_while_irq_masked": true,
+    "late_completion_discarded_and_next_read_succeeds": 0,
+    "original_program_crcs_preserved": true
+  },
+  "temporary_chunk_may_remain": false
+}

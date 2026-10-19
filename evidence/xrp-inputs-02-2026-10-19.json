@@ -1,0 +1,88 @@
+{
+  "result": "PASS",
+  "started_utc": "2026-10-19T03:07:37.495142+00:00",
+  "phase": "inputs",
+  "checks": {
+    "ping": true,
+    "read_only_inputs": {
+      "imu_family_id": {
+        "result": "PASS",
+        "value": 108
+      },
+      "adc_gpio_40": {
+        "result": "PASS",
+        "value": 0
+      },
+      "adc_gpio_41": {
+        "result": "PASS",
+        "value": 0
+      },
+      "adc_gpio_42": {
+        "result": "PASS",
+        "value": 0
+      },
+      "adc_gpio_43": {
+        "result": "PASS",
+        "value": 0
+      },
+      "adc_gpio_44": {
+        "result": "PASS",
+        "value": 962
+      },
+      "adc_gpio_45": {
+        "result": "PASS",
+        "value": 982
+      },
+      "adc_gpio_46": {
+        "result": "PASS",
+        "value": 20
+      },
+      "user_button_level": {
+        "result": "PASS",
+        "value": true
+      },
+      "encoder_api_1": {
+        "result": "PASS",
+        "count": 0,
+        "motion_driven": false,
+        "edge_accuracy_validated": false
+      },
+      "encoder_api_2": {
+        "result": "PASS",
+        "count": 0,
+        "motion_driven": false,
+        "edge_accuracy_validated": false
+      },
+      "encoder_api_3": {
+        "result": "PASS",
+        "count": 0,
+        "motion_driven": false,
+        "edge_accuracy_validated": false
+      },
+      "encoder_api_4": {
+        "result": "PASS",
+        "count": 0,
+        "motion_driven": false,
+        "edge_accuracy_validated": false
+      },
+      "bounded_echo_capture_without_trigger": {
+        "result": "PASS",
+        "edges": 0,
+        "distance_validated": false
+      }
+    }
+  },
+  "motor_power": "operator reported off; never enabled",
+  "motor_or_servo_commands_sent": false,
+  "physical_movement_validation": false,
+  "credentials_supplied": false,
+  "identity": {
+    "port": "COM11",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E464244647564B37",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "version": "v417 XRP RP2350 Zephyr (actuators locked)"
+}

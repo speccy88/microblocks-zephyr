@@ -1,0 +1,57 @@
+{
+  "utc": "2026-10-19T03:16:14.436240+00:00",
+  "compiled_source_commit": "28e72a4ba43922b997107ee88b4a63b8045a1e9e",
+  "country": "Canada",
+  "image_sha256": "d7cd29f81a4f6d0b4ac6d72ebce57e9abc2d9dadfc8e50da473fca17add85142",
+  "program_and_verify_succeeded": true,
+  "settings_and_vm_tail_preserved": true,
+  "reset_run_pending": false,
+  "motor_supply_enabled": false,
+  "result": "PASS",
+  "usb_version": "v417 XRP RP2350 Zephyr (actuators locked)",
+  "usb_identity": {
+    "port": "COM11",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E464244647564B37",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "program_crcs_retained": true,
+  "retained_arithmetic": 12,
+  "io_capabilities": {
+    "digital_raw": true,
+    "analog_gpio": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "i2c_gpio": [
+      38,
+      39
+    ],
+    "actuators_enabled": false,
+    "adc_ready": true,
+    "pwm_ready": true,
+    "adc_timeout_ms": 50,
+    "hardware_tested": false,
+    "error": 0
+  },
+  "usb_open_attempts": 1,
+  "checked_utc": "2026-10-19T03:16:57.378714+00:00",
+  "network_probe": {
+    "board": "xrp-rp2350",
+    "setup_protocol": 2,
+    "persistence_supported": true,
+    "radio_ready": true,
+    "state": "usb-setup",
+    "busy": false,
+    "ip": "0.0.0.0",
+    "error": 0,
+    "actuators_enabled": false
+  }
+}

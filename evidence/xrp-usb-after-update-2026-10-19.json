@@ -1,0 +1,11 @@
+{
+  "result": "FAIL",
+  "started_utc": "2026-10-19T02:56:47.116976+00:00",
+  "phase": "after-reset",
+  "checks": {},
+  "motor_power": "operator reported off; never enabled",
+  "motor_or_servo_commands_sent": false,
+  "physical_movement_validation": false,
+  "credentials_supplied": false,
+  "error": "RuntimeError: Expected exact XRP Zephyr port and serial: []"
+}

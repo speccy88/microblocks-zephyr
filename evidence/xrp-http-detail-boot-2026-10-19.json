@@ -1,0 +1,39 @@
+{
+  "utc": "2026-10-19T05:45:09.078784+00:00",
+  "compiled_source_commit": "b8232c3aa6abe4e02f459a15ff15a5ed71c2a245",
+  "country": "Canada",
+  "image_sha256": "d34073cf266e1b8adbb9f1334e772592b21055fb8afc7b8d9548c0c045f1f655",
+  "program_and_verify_succeeded": true,
+  "settings_and_vm_tail_preserved": true,
+  "reset_run_pending": false,
+  "motor_supply_enabled": false,
+  "verified_owned_test_chunks_removed": [],
+  "unrelated_program_crcs_preserved": true,
+  "remaining_program_crc_count": 0,
+  "result": "PASS",
+  "usb_identity": {
+    "port": "COM11",
+    "vid": 12259,
+    "pid": 4,
+    "serial": "E464244647564B37",
+    "product": null,
+    "location": "1-10:x.0"
+  },
+  "network": {
+    "board": "xrp-rp2350",
+    "setup_protocol": 2,
+    "persistence_supported": true,
+    "radio_ready": true,
+    "radio_pm_before": 2,
+    "radio_pm": 0,
+    "rssi_dbm": -74,
+    "boot_attempt": 1,
+    "state": "connected",
+    "busy": false,
+    "ip": "192.168.1.169",
+    "error": 0,
+    "actuators_enabled": false
+  },
+  "credentials_replayed_by_host": false,
+  "remembered_rejoin_verified": true
+}

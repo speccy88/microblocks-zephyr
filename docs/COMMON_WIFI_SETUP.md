@@ -68,9 +68,16 @@ interface in RAM and do not prove real flash power-loss behavior.
    remember action. Preserve current Fruit Jam program CRC `651a01da`; the old
    `297d191b` snapshot is not the current program and must not be restored.
 
-XRP now integrates stage 2 in its non-actuating image: the shared Zephyr flash
-backend verifies dedicated erase-page geometry and the asynchronous RM2 worker
-uses the exact v2 schema. Stages 3..5 and physical acceptance remain pending.
+XRP integrates stage 2 in its installed non-actuating image: the shared Zephyr
+flash backend verifies dedicated erase-page geometry and the asynchronous RM2
+worker uses the exact v2 schema. The user's local Windows-vault Connect and
+Remember actions achieved association/DHCP; a reset rejoined from flash without
+host credential replay. This is not a full-power-cycle or power-loss durability
+test. Real wireless VM traffic and all 147 HTTP assets now pass concurrently;
+HTTP fairness and partial-download cleanup also pass. The earlier failures and
+their diagnostics are retained. Follow the XRP manifest for exact acceptance
+scope; graphical use and full-power durability remain unverified. Stages 3..4
+remain separate work.
 Fruit Jam still uses its existing NINA v1 setup; Waveshare keeps its legacy
 NVS settings and network startup. Neither existing board is upgraded or flashed
 by the XRP work. Their common-v2 integration remains separate follow-up work.
@@ -93,5 +100,9 @@ For the compatible XRP image, `tools/network_setup_client.py --help` describes
 the identity-checked USB client. It requires the freshly observed Zephyr port
 and USB serial, verifies `board=xrp-rp2350` / protocol 2 before requesting a
 key, and writes settings only with `--connect --remember`. Keys are entered
-locally without a command-line/password option. This client has not been run
-against the connected XRP and does not read the Windows credential vault.
+locally without a command-line/password option. This interactive client does not
+read the Windows credential vault. The target-specific `provision_xrp_wifi.py`
+GUI is the approved local vault workflow: only the user's Connect click reads
+the selected credential and sends it over USB to the exact identified XRP.
+Remember is off by default and explicitly chosen by the user. Keys never pass
+through chat, HTTP, VM programs or Git.
