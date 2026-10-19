@@ -1,0 +1,38 @@
+{
+  "result": "PARTIAL: source target and development preview, not full XRP support",
+  "published_portal_source": "1f73f4014da39aea463f022b043a4678cca7ef98",
+  "url": "https://speccy88.github.io/microblocks-zephyr/",
+  "source_validation_ci": "https://github.com/speccy88/microblocks-zephyr/actions/runs/39185101620",
+  "portal_deployment_ci": "https://github.com/speccy88/microblocks-zephyr/actions/runs/39185101737",
+  "deployed_assets": "PASS, 453 files, 51950202 bytes; all exact hashes match the verified local build",
+  "asset_evidence": "xrp-pages-assets-2026-10-19.json",
+  "baseline": {
+    "target": "sparkfun_xrp/rp2350b/m33_0",
+    "source_commit": "b81ec7939f30ad9a495c231af70a10f909663e9c",
+    "cross_build": "PASS",
+    "flash_linker_bytes": 40188,
+    "ram_linker_bytes": 18656,
+    "elf_uf2_and_partition_bounds": "PASS",
+    "physical_boot_or_peripherals": "NOT TESTED",
+    "smallvm_arduino_api_wifi_linked": false
+  },
+  "preview": {
+    "editor": "actual GP 2.5.8",
+    "library": "unchanged production XRP.ubl, not XRP Beta.ubl",
+    "package_offsets_and_source_hash": "PASS",
+    "hardware_connection_gate": "PASS, actual adapter entry points tested with synthetic providers; zero USB/socket requests",
+    "fresh_graphical_browser_load": "BLOCKED, browser provider unavailable after app restart",
+    "wireless_programming_or_motor_execution": "NOT IMPLEMENTED/NOT TESTED for this XRP target"
+  },
+  "preservation": {
+    "any_board_flash_or_reset": false,
+    "motor_or_servo_motion": false,
+    "real_credentials_accessed_or_transmitted": false,
+    "fruit_jam_last_verified_program_crc": "651a01da",
+    "old_program_297d191b_restored": false,
+    "fruit_jam_new_usb_read": "BLOCKED by Windows access denial; existing connection not closed",
+    "browser_file_upload_retried": false
+  },
+  "next_source_work": "XRP USB SmallVM/Arduino pin API, RM2 driver/service integration and actual actuator/sensor primitives; common persistence board backends/workers remain pending",
+  "physical_gates": "Identify this production XRP, preserve its image/program/filesystem/settings and recovery; confirm safe robot placement before motion; no substitute RP2350"
+}

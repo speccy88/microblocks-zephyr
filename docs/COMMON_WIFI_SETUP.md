@@ -35,6 +35,10 @@ a dedicated settings partition, with build-time overlap checks against the
 application, program store and existing settings. No backend or partition is
 selected by this portable component.
 
+The board worker must serialize load/save operations and implement the flash
+device's actual alignment/programming constraints in its backend. The journal
+must not be mapped over an existing NVS store or filesystem to add persistence.
+
 Each 116-byte record contains magic/version, lengths, a generation, zero-padded
 SSID/key fields, CRC32 and a separately written four-byte commit marker. Save
 erases only the inactive slot, writes data and CRC, then the commit marker, and

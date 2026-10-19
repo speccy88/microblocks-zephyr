@@ -19,11 +19,12 @@
   "phase": "source-backed-non-actuating-baseline",
   "motor_driver": "DRV8411A dual-input PWM; not beta phase/enable",
   "motors": [
-    {"id": "left", "in1": 34, "in2": 35, "encoder_a": 30, "encoder_b": 31, "logical_reversed": true},
-    {"id": "right", "in1": 32, "in2": 33, "encoder_a": 24, "encoder_b": 25, "logical_reversed": false},
-    {"id": "3", "in1": 20, "in2": 21, "encoder_a": 22, "encoder_b": 23, "logical_reversed": true},
-    {"id": "4", "in1": 10, "in2": 11, "encoder_a": 2, "encoder_b": 3, "logical_reversed": false}
+    {"id": "left", "in1": 34, "in2": 35, "encoder_a": 30, "encoder_b": 31, "xrplib_reference_reversed": true},
+    {"id": "right", "in1": 32, "in2": 33, "encoder_a": 24, "encoder_b": 25, "xrplib_reference_reversed": false},
+    {"id": "3", "in1": 20, "in2": 21, "encoder_a": 22, "encoder_b": 23, "xrplib_reference_reversed": true},
+    {"id": "4", "in1": 10, "in2": 11, "encoder_a": 2, "encoder_b": 3, "xrplib_reference_reversed": false}
   ],
+  "motor_orientation_validation": "Unverified. XRPLib reference flags are not applied by this target; the upstream GP XRP library has its own direction convention.",
   "servos_gpio_in_connector_order": [6, 9, 7, 8],
   "capabilities": [
     {"id": "motors_encoders", "status": "planned; baseline only coasts motors", "physical_tested": false},

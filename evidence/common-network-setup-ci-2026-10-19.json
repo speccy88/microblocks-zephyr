@@ -1,0 +1,12 @@
+{
+  "result": "PASS, native CI and wasm32 fixture only",
+  "source_commit": "29093a676853790b564783fc936df8a65dc02b7b",
+  "native_ci": "https://github.com/speccy88/microblocks-zephyr/actions/runs/39183657976",
+  "native_command": "python3 tools/test_network_setup.py --native-compiler cc",
+  "wasm32_checks": 7319,
+  "wasm32_evidence": "common-network-setup-wasi-2026-10-19.json",
+  "scope": "Actual portable C decoder and two-slot plaintext journal; synthetic requests/RAM flash",
+  "board_firmware_integration": false,
+  "physical_storage_or_power_loss_test": false,
+  "real_credentials_accessed_or_submitted": false
+}
