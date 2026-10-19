@@ -10,6 +10,8 @@
 #include <zephyr/net/dhcpv4.h>
 #include <zephyr/net/http/server.h>
 #include <zephyr/sys/atomic.h>
+#include <airoc_wifi.h>
+#include <whd_wifi_api.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -26,6 +28,24 @@ static int last_error;
 static char board_ip[NET_IPV4_ADDR_LEN]="0.0.0.0";
 static struct net_mgmt_event_callback wifi_events;
 static bool server_started;
+static int radio_pm_before=-1,radio_pm_after=-1,radio_rssi;
+/* Live programming favors deterministic latency over radio sleep. All WHD
+ * calls stay on this worker, never the USB/VM/status thread. The AIROC helper
+ * is provided by the exact pinned Zephyr driver used by this target. */
+static int radio_awake(void)
+{
+    whd_interface_t iface=airoc_wifi_get_whd_interface();
+    uint32_t before=UINT32_MAX,after=UINT32_MAX;
+    if(!iface)return -ENODEV;
+    whd_result_t e=whd_wifi_get_powersave_mode(iface,&before);
+    if(!e)e=whd_wifi_disable_powersave(iface);
+    if(!e)e=whd_wifi_get_powersave_mode(iface,&after);
+    k_mutex_lock(&state_lock,K_FOREVER);
+    radio_pm_before=before==UINT32_MAX ? -1 : (int)before;
+    radio_pm_after=after==UINT32_MAX ? -1 : (int)after;
+    k_mutex_unlock(&state_lock);
+    return e || after!=0 ? -EIO : 0;
+}
 int mb_server_start(void);
 const char *mb_network_ip(void) { return board_ip; }
 static void set_state(const char *s,int error)
@@ -44,6 +64,7 @@ static int join(struct job *j)
 {
     struct net_if *iface=net_if_get_wifi_sta();
     if(!iface || !device_is_ready(net_if_get_device(iface)))return -ENODEV;
+    int awake_error=radio_awake();if(awake_error)return awake_error;
     if(server_started){http_server_stop();server_started=false;}
     k_mutex_lock(&state_lock,K_FOREVER);strcpy(board_ip,"0.0.0.0");k_mutex_unlock(&state_lock);
     net_dhcpv4_stop(iface);
@@ -73,6 +94,11 @@ static int join(struct job *j)
             net_addr_ntop(NET_AF_INET,addr,board_ip,sizeof(board_ip));
             k_mutex_unlock(&state_lock);
             e=mb_server_start();if(e)return e;server_started=true;
+            int32_t rssi=0;
+            whd_interface_t radio=airoc_wifi_get_whd_interface();
+            if(radio && !whd_wifi_get_rssi(radio,&rssi)){
+                k_mutex_lock(&state_lock,K_FOREVER);radio_rssi=rssi;k_mutex_unlock(&state_lock);
+            }
             if(j->remember){
                 e=mbnw_store_save(&store.io,j->ssid,j->ssid_length,j->key,j->key_length);
                 if(e){set_state("connected-save-failed",e);return e;}
@@ -123,8 +149,8 @@ int xrp_network_status(char *dst,size_t n)
     bool radio_ready=iface && device_is_ready(net_if_get_device(iface));
     k_mutex_lock(&state_lock,K_FOREVER);
     int count=snprintf(dst,n,"{\"board\":\"xrp-rp2350\",\"setup_protocol\":2,"
-        "\"persistence_supported\":%s,\"radio_ready\":%s,\"state\":\"%s\",\"busy\":%s,\"ip\":\"%s\",\"error\":%d,\"actuators_enabled\":false}",
-        atomic_get(&storage_ready)?"true":"false",radio_ready?"true":"false",state,atomic_get(&busy)?"true":"false",board_ip,last_error);
+        "\"persistence_supported\":%s,\"radio_ready\":%s,\"radio_pm_before\":%d,\"radio_pm\":%d,\"rssi_dbm\":%d,\"state\":\"%s\",\"busy\":%s,\"ip\":\"%s\",\"error\":%d,\"actuators_enabled\":false}",
+        atomic_get(&storage_ready)?"true":"false",radio_ready?"true":"false",radio_pm_before,radio_pm_after,radio_rssi,state,atomic_get(&busy)?"true":"false",board_ip,last_error);
     k_mutex_unlock(&state_lock);return count<0 || (size_t)count>=n ? -ENOBUFS : 0;
 }
 void xrp_provision_message(char *body,unsigned size)

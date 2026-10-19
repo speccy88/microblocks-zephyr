@@ -27,8 +27,9 @@ and settings partitions; run protocol/store fault tests and pin/transport
 contracts; retain build logs and exact source identity. Simulated results do not
 prove USB, sensor accuracy, flash durability or radio behavior on a robot.
 
-Physical work remains a separate gate: identify the attached XRP, preserve its
-current firmware/files/settings, verify recovery, then request installation.
+Physical installation was subsequently authorized by the user with motor power
+off. Complete 16 MiB original and current-image backups remain private; the
+integrated Canada image is installed and its program/settings tail preserved.
 Motion additionally requires explicit readiness with wheels safely raised or
 the robot restrained. No reset, halt, flash or motion follows from detection.
 The read-only identification on 2026-10-19 found COM10 (1b4f:0046,
@@ -57,7 +58,7 @@ as rejecting access to reserved/actuator pins.
 
 `tools/network_setup_client.py` provides an identity-checked USB setup client
 for the compatible image. It probes before asking for a key and has no password
-CLI option. It is not run against the currently installed firmware.
+CLI option. The target-specific local vault GUI has been used only after identity checks.
 Use the port and USB serial observed after an authorized installation; COM10
 and its current VID/PID must not be presumed to identify the new image.
 The plaintext journal is written only with explicit `--remember`; transient
@@ -70,3 +71,19 @@ pinned Zephyr CYW43439/MURATA-1YN firmware, CLM and NVRAM resource selection.
 Record the actual resolved country in build evidence before installation and
 radio acceptance. Successful association does not establish RF calibration.
 Credentials are supplied only through the user's local Connect action.
+
+Physical HTTP acceptance retained failures: 145/147 assets completed in the
+first audit, followed by intermittent new TCP connection timeouts. USB and ICMP
+remained available. Named SWD metadata showed free HTTP client slots, a single
+TCP listener with available backlog, no CPU fault, and a valid last SYN-ACK
+checksum. These measurements do not establish the root cause. Keep failed
+receipts and distinguish a successful retry from a stability result.
+
+Interactive programming now requests and verifies WHD PM=0 before association.
+Read initial/final power mode and RSSI only on the asynchronous network worker;
+status reports cached numbers without blocking the VM or exposing credentials.
+A failed mode query/change leaves setup available over USB and fails joining.
+Acceptance must record the initial measured mode, verify remembered rejoin and
+complete all 147 HTTP assets concurrently with live VM traffic, then repeat
+HTTP/reconnect checks. Do not attribute an improvement to power management if
+the measured initial mode was already zero.
