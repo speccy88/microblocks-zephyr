@@ -47,7 +47,7 @@ def build(source, output, repo):
     output.mkdir(parents=True,exist_ok=True)
     marker=output/'.portal-build'
     if any(output.iterdir()) and not marker.exists(): raise ValueError('Output is not an owned portal build')
-    marker.write_text('hash-pinned GP portal\n',encoding='utf-8')
+    marker.write_text('hash-pinned GP portal\n',encoding='utf-8',newline='\n')
     for path in (repo/'web/portal').rglob('*'):
         if path.is_file():
             target=output/path.relative_to(repo/'web/portal');target.parent.mkdir(parents=True,exist_ok=True)
@@ -56,7 +56,7 @@ def build(source, output, repo):
     portal_version=hashlib.sha256(b''.join(p.read_bytes() for p in sorted((repo/'web/portal').rglob('*')) if p.is_file())).hexdigest()[:16]
     root_html=(output/'index.html').read_text(encoding='utf-8')
     root_html=root_html.replace('href="portal.css"','href="portal.css?v='+portal_version+'"').replace('src="portal.js"','src="portal.js?v='+portal_version+'"')
-    (output/'index.html').write_text(root_html,encoding='utf-8')
+    (output/'index.html').write_text(root_html,encoding='utf-8',newline='\n')
     report={'real_editor':'MicroBlocks GP 2.5.8','upstream_commit':manifest['source_commit'],
             'source_manifest_sha256':hashlib.sha256((repo/'dependencies/ide-assets.json').read_bytes()).hexdigest(),
             'runtime_third_party_network':False,'boards':{}}
@@ -103,9 +103,9 @@ def build(source, output, repo):
         'Pinned source and corresponding GP source are retained in the GP package.\n'
         f"Source: {manifest['source_repository']}/tree/{manifest['source_commit']}\n"
         'Original website code, mascot artwork and website fonts are not copied.\n'
-        'See LICENSES.md and licenses/ for component notices.\n',encoding='utf-8')
+        'See LICENSES.md and licenses/ for component notices.\n',encoding='utf-8',newline='\n')
     (output/'.nojekyll').write_text('',encoding='utf-8')
-    (output/'build-manifest.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+    (output/'build-manifest.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
     return report
 
 def fetch(source,repo):

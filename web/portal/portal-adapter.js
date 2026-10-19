@@ -168,7 +168,14 @@
   if(!navigator.serial)notify('This browser cannot connect USB. Use desktop Chrome or Edge; you can still edit and save projects here.');
   const fresh=element('button','Use this workspace for autosave');fresh.onclick=()=>{autosaveArmed=true;lastSource=null;saveStatus.textContent='Autosave enabled for this workspace.';};panel.insertBefore(fresh,name);
   try{const items=await listProjects();autosaveArmed=!items.some(item=>item.id.endsWith(':workspace'));if(items.length)saveStatus.textContent='Saved projects found. Restore one, or choose Use this workspace. Your old autosave is preserved until then.';}catch(error){saveStatus.textContent=error.message;}
-  window.portalSaveBeforeLeaving=async()=>{if(autosaveArmed)await save('Workspace',await call('portal.serialize'),true);};
+  window.portalSaveBeforeLeaving=async()=>{
+   const source=await call('portal.serialize');
+   if(autosaveArmed)await save('Workspace',source,true);
+   else await save('Workspace before switching '+new Date().toISOString(),source);
+   // GP warns on every navigation. A completed browser save is the guard for
+   // this explicit board switch; a failed save keeps the current editor open.
+   window.onbeforeunload=null;
+  };
   setInterval(async()=>{if(!autosaveArmed||saving||document.hidden)return;saving=true;try{const source=await call('portal.serialize');if(source!==lastSource){await save('Workspace',source,true);lastSource=source;}}catch(error){saveStatus.textContent=error.message;}finally{saving=false;}},3000);
  });
  document.addEventListener('board.type',event=>{
