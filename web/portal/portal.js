@@ -13,5 +13,5 @@
   }catch(error){status.textContent=error.message+' Export your project before switching boards.';board.value=selected;}
   finally{button.disabled=false;}
  };
- frame.onload=()=>{status.textContent='Choose Projects & board inside the editor for USB, Wi-Fi setup and browser projects. A board never connects automatically.';};
+ frame.onload=()=>{status.textContent=selected==='xrp-rp2350'?'XRP development preview: edit and save projects. Hardware connection is not enabled yet.':'Choose Projects & board inside the editor for USB, Wi-Fi setup and browser projects. A board never connects automatically.';};
 })();

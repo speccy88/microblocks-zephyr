@@ -37,6 +37,15 @@ endpoint. Board-hosted HTTP/WebSocket does not require WSS to function on its
 own origin. BLE and a PC UDP remote-control compatibility layer are separate
 features, not prerequisites for the requested Wi-Fi mode.
 
+The pinned MicroBlocks GP distribution already contains Russell Owen's
+production `/Libraries/Robots/XRP.ubl`, separate from `XRP Beta.ubl`. The preview
+selects that unchanged production library and its existing dependencies. Its
+SHA256 is `c137323584dbe1401b24962eed68a6a5a168215c30094ecf9098430a4c48aa66`.
+This is MPL-covered MicroBlocks distribution material, not copied GPL XRPCode
+or XRPLib code. Zephyr primitive/driver support remains separate. In particular,
+its drive functions already apply their own sign conventions: do not blindly
+add XRPLib's orientation reversal a second time.
+
 ## Feature and test matrix
 
 | Function | Required behavior / acceptance | Current boundary |
@@ -66,6 +75,9 @@ features, not prerequisites for the requested Wi-Fi mode.
 1. Source-backed manifest and independent RP2350B board target. Compile a quiet,
    non-actuating baseline: motors coast, servo signals untouched, button input,
    one read-only IMU family-ID query. No Wi-Fi join, scan, reset or flash writes.
+   This cross-build now passes: 40,188 flash bytes, 18,656 linker RAM bytes,
+   verified ARM Secure ELF/UF2 and non-overlapping load addresses. This is not
+   a physical boot, sensor, motor, USB or Wi-Fi result.
 2. Compile USB SmallVM and actual Arduino API with safe GPIO ownership, exact
    source/image/partition evidence. The preview must reject hardware connection
    until a compatible XRP image exists; no substitute board is accepted.

@@ -1,0 +1,69 @@
+{
+  "result": "PASS, cross-build only",
+  "tested_at": "2026-10-19T01:17:34.538387+00:00",
+  "source_commit": "b81ec7939f30ad9a495c231af70a10f909663e9c",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "target": "sparkfun_xrp/rp2350b/m33_0",
+  "command": "west build -b sparkfun_xrp/rp2350b/m33_0 -d build-artifacts/xrp-bringup-01 boards/sparkfun_xrp_rp2350/bringup",
+  "flash_used_bytes": 40188,
+  "ram_linker_used_bytes": 18656,
+  "physical_hardware_access": false,
+  "flash_installation": false,
+  "actuator_motion": false,
+  "smallvm_linked": false,
+  "arduino_api_linked": false,
+  "wifi_join_or_credentials": false,
+  "psram_mapped": false,
+  "elf": {
+    "bytes": 1243084,
+    "sha256": "2cc665887b626185990d57ffbd7830e6315b785b575fdaa1186f56116a779b07",
+    "machine": "ARM",
+    "segments": [
+      {
+        "physical": "0x10000000",
+        "virtual": "0x10000000",
+        "file_bytes": 38496,
+        "memory_bytes": 38496
+      },
+      {
+        "physical": "0x10009660",
+        "virtual": "0x20000000",
+        "file_bytes": 1688,
+        "memory_bytes": 1688
+      },
+      {
+        "physical": "0x10009cf8",
+        "virtual": "0x10009cf8",
+        "file_bytes": 4,
+        "memory_bytes": 4
+      },
+      {
+        "physical": "0x20000698",
+        "virtual": "0x20000698",
+        "file_bytes": 0,
+        "memory_bytes": 16968
+      }
+    ]
+  },
+  "uf2": {
+    "bytes": 80384,
+    "sha256": "c045869a7411d860ac03d3b1f5ebb1f51d1b84cc9d2303a52fe77f04e1bca964",
+    "family": "0xe48bff59 ARM Secure",
+    "all_payload_addresses_within_application": true
+  },
+  "source_sha256": {
+    "boards/sparkfun_xrp_rp2350/bringup/app.overlay": "8799ce98fcf56573bb6f0531d0e7e3bca77c2d7f52ac6a38819dd02e33f7bcbc",
+    "boards/sparkfun_xrp_rp2350/bringup/CMakeLists.txt": "2cfb6a935247760732f97b3ccced1741ceb85a51eed73873322056edae58ca12",
+    "boards/sparkfun_xrp_rp2350/bringup/prj.conf": "2cbfbb469259bc2765f33bd696bc57e868c2150cea76a8b05faca0f35510373d",
+    "boards/sparkfun_xrp_rp2350/bringup/src/main.c": "4b836f2966097c4d0210022b25cbc05c019d89b756478ce8231fb7f093545e1e",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/board.cmake": "d0a777b7b57c17ca56e11ae092956d71c61f0c301649b1c19229e176aa70b8f5",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/board.yml": "b636a05230c6bcf4b9444f4a5dfc8a4f65febabb83ed560e65910b378f18d3e7",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/Kconfig.defconfig": "7d8b0ca2690c830af1a6030697db04d74b6bec95a12762c38aeaf9bb69a28537",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/Kconfig.sparkfun_xrp": "b4a18eaa6f2cea9892113b114ee80f91d747e3346e0164c5384b6db842b944e0",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp-pinctrl.dtsi": "b3346b2d0b57cf5ba538fa9cdf5d69b07113489b1f9d03d940fa8be22d861d80",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0.dts": "4793c50064d606ce92e6e976e4359d606bb41f8ad426148507ce4068ee390e58",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0.yaml": "3f21fbfa6247dcd57a930a67ec52280a6a35d09f5341ec5543ca99b9f879293c",
+    "boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0_defconfig": "6b3b3e22ac06c08e9cef84bc186635b013e73a660b6da8c269f27b4854084428"
+  },
+  "limitations": "Quiet non-actuating baseline only; not an XRP SmallVM/wireless firmware and not a physical test"
+}

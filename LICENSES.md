@@ -44,6 +44,15 @@ preserve its own licensing and attribution when integrated:
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
 
+The production XRP target references SparkFun's schematic at `86c4cd7f`
+(hardware CC BY-SA 4.0; software MIT) for factual wiring/part data; no schematic
+artwork is copied. The RP2350B/RM2 DeviceTree composition retains Apache-2.0
+upstream notices. The portal selects Russell Owen's unchanged production XRP
+library already present in the pinned MPL-2.0 MicroBlocks GP package. XRPCode
+and XRPLib GPLv3 sources are behavioral references only and are not copied.
+No Infineon firmware/CLM blob is committed; a future wireless firmware build
+must separately preserve those blobs' redistribution terms.
+
 Fruit Jam's `smallvm/src/nina_protocol.c` and `nina_socket_protocol.c` adapt the MIT-licensed command/reply
 framing from Adafruit CircuitPython ESP32SPI, copyright (c) 2019 ladyada for
 Adafruit Industries. The pinned reference and SHA256s are recorded in

@@ -20,6 +20,12 @@ allow. Do not reproduce that permission loop or bypass it. Named save,
 restore and a real downloaded UBP export have separate evidence. This tool
 limitation does not establish whether importing works in a normal browser.
 
+The production XRP RP2350 profile is an editing preview. It selects the actual
+pinned production XRP library, keeps a separate browser project namespace and
+rejects hardware connection before asking for a device or opening a socket.
+The baseline image is a cross-built non-actuating diagnostic, not a compatible
+SmallVM/Arduino/Wi-Fi image. See [XRP parity and acceptance](XRP_PARITY.md).
+
 ## Browser and hosting behavior
 
 - Package the hash-pinned real GP 2.5.8 editor, compiler and both board libraries;

@@ -5,7 +5,7 @@
  'use strict';
  const {ProjectStore,ByteQueue,SerialTransport,MAX_PROJECT}=MicroBlocksPortal;
  const profile=PORTAL_BOARD,store=new ProjectStore(),input=new ByteQueue();
- const filters=profile.board==='fruit-jam'?[{usbVendorId:0x2fe3,usbProductId:4}]:[{usbVendorId:0x303a},{usbVendorId:0x10c4}];
+ const filters=profile.board==='fruit-jam'?[{usbVendorId:0x2fe3,usbProductId:4}]:profile.board==='waveshare'?[{usbVendorId:0x303a},{usbVendorId:0x10c4}]:[];
  let status,saveStatus,projectList,mode,endpoint,socket=null,ready=false,apiReady=false,lastSource=null,saving=false;
  let assembly=new Uint8Array(),caps=null,autosaveArmed=false;
  const requests=new Map();const encoder=new TextEncoder(),decoder=new TextDecoder();
@@ -37,6 +37,7 @@
  const disconnect=()=>{if(socket){socket.close(1000,'Client disconnect');socket=null;}ready=false;void serial.disconnect();input.clear();rejectControls();update();};
  const connect=async()=>{
   try{
+   if(profile.connection_enabled===false)throw Error('XRP development preview: edit and save projects here. Hardware connection awaits compatible XRP firmware and validation.');
    if(mode&&mode.value==='wifi'){
     const url=new URL(endpoint.value);
     if(url.protocol!=='wss:'||url.username||url.password||url.hash)throw Error('This HTTPS portal needs a secure wss:// endpoint. Use the board-hosted IDE for ws:// LAN boards.');
@@ -121,6 +122,7 @@
    }catch(error){notify(error.message);}
   };panel.append(local);
   const read=element('button','Read project from board');read.onclick=()=>GP.apiCall('board.retrieveProject');panel.append(read);
+  read.disabled=profile.connection_enabled===false;
   panel.append(element('p','Read from board before connecting to retrieve its existing program. Connecting otherwise synchronizes the current editor project.'));
   panel.append(element('h3','Projects in this browser'));saveStatus=element('p','Autosave starts when the editor is ready.');saveStatus.setAttribute('role','status');panel.append(saveStatus);
   const name=element('input');name.value='My project';name.maxLength=100;name.setAttribute('aria-label','Project name');panel.append(name);
@@ -143,6 +145,7 @@
   }catch(error){saveStatus.textContent=error.message;}finally{importInput.value='';}};
   panel.append(element('p','Projects stay in this browser and on this site. Clearing site data, private mode or storage eviction may remove them. Export files for backups or another device. Wi-Fi passwords are never saved here.'));
   const wifi=element('details');wifi.append(element('summary','Wi-Fi setup over USB'));const form=element('form');wifi.append(form);panel.append(wifi);
+  wifi.hidden=profile.connection_enabled===false;
   const ssid=element('input');ssid.placeholder='Network name (2.4 GHz)';ssid.required=true;ssid.autocomplete='off';ssid.maxLength=32;ssid.setAttribute('aria-label','Wi-Fi network name');
   const key=element('input');key.type='password';key.placeholder='Wi-Fi password';key.autocomplete='off';key.maxLength=64;key.setAttribute('aria-label','Wi-Fi password');
   const label=element('label'),remember=element('input');remember.type='checkbox';remember.disabled=true;label.append(remember,document.createTextNode(' Remember on the board (stored in flash)'));
@@ -161,11 +164,13 @@
   Menus.connection.items=[{label:'Connect '+profile.name,action:()=>GP.apiCall('board.connect',['USB']),hidden:()=>IDE.board.connected},
    {label:'Disconnect',action:()=>GP.apiCall('board.disconnect'),hidden:()=>!IDE.board.connected}];
   Menus.settings.items=Menus.settings.items.filter(x=>!/(firmware|ESP firmware|new versions)/i.test(x.label||''));
-  const boardEndpoint=profile.board==='fruit-jam'?'fruitJam':'rlcd';GP.apiCall(boardEndpoint+'.loadLibrary');
+  const boardEndpoint={'fruit-jam':'fruitJam','waveshare':'rlcd','xrp-rp2350':'xrp'}[profile.board];GP.apiCall(boardEndpoint+'.loadLibrary');
   const examples=element('select');examples.setAttribute('aria-label','Board examples');
   for(const [value,text] of [['','Examples'],['arithmetic','5 + 7'],['output','50 outputs']]){const option=element('option',text);option.value=value;examples.append(option);}
   examples.onchange=()=>{if(examples.value)GP.apiCall(boardEndpoint+'.openExample',[examples.value]);examples.value='';toolbar.open=false;};panel.insertBefore(examples,read);
-  if(!navigator.serial)notify('This browser cannot connect USB. Use desktop Chrome or Edge; you can still edit and save projects here.');
+  if(profile.connection_enabled===false)notify('XRP development preview: the production RP2350 library is available for editing. Hardware connection is not enabled yet.');
+  else if(!navigator.serial)notify('This browser cannot connect USB. Use desktop Chrome or Edge; you can still edit and save projects here.');
+  else if(profile.board==='waveshare')notify('Current Waveshare standalone firmware uses its board-hosted Wi-Fi editor. USB requires the separate binary-USB VM firmware.');
   const fresh=element('button','Use this workspace for autosave');fresh.onclick=()=>{autosaveArmed=true;lastSource=null;saveStatus.textContent='Autosave enabled for this workspace.';};panel.insertBefore(fresh,name);
   try{const items=await listProjects();autosaveArmed=!items.some(item=>item.id.endsWith(':workspace'));if(items.length)saveStatus.textContent='Saved projects found. Restore one, or choose Use this workspace. Your old autosave is preserved until then.';}catch(error){saveStatus.textContent=error.message;}
   window.portalSaveBeforeLeaving=async()=>{
@@ -180,7 +185,8 @@
  });
  document.addEventListener('board.type',event=>{
   const type=event.detail.value;if(!type)return;
-  if(profile.board==='fruit-jam'?!type.includes('Fruit Jam'):!type.includes('Waveshare')){notify('The connected board differs from this editor selection.');disconnect();}
+  const expected={'fruit-jam':'Fruit Jam','waveshare':'Waveshare','xrp-rp2350':'XRP'}[profile.board];
+  if(!expected||!type.includes(expected)){notify('The connected board differs from this editor selection.');disconnect();}
  });
  window.addEventListener('pagehide',disconnect);
 })();

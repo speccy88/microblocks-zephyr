@@ -35,6 +35,48 @@ def project_api(javascript, data):
     replacement=json.dumps(dict(files=entries,remote_package_size=len(packed)),separators=(',',':'))
     return (source[:match.start(1)]+replacement+source[match.end(1):]).encode(),bytes(packed)
 
+def xrp_package(javascript, data):
+    """Select the authentic production XRP library, never the beta library.
+
+    The editor remains usable offline; the portal separately disables hardware
+    connection while the XRP SmallVM/transport implementation is incomplete.
+    """
+    source=javascript.decode('utf-8')
+    match=re.search(r'loadPackage\((\{files:\[.*?\],remote_package_size:\d+\})\)',source)
+    if not match:raise ValueError('Unexpected pinned XRP package metadata')
+    metadata=json.loads(re.sub(r'([,{])(\w+):',r'\1"\2":',match[1]))
+    packed=bytearray();entries=[];api_count=compiler_count=library_count=0
+    for item in metadata['files']:
+        start_offset,end_offset=int(item['start']),int(item['end'])
+        if start_offset!=item['start'] or end_offset!=item['end'] or not 0<=start_offset<=end_offset<=len(data):
+            raise ValueError('Invalid XRP package range')
+        name=item['filename'];payload=data[start_offset:end_offset]
+        if name=='/Libraries/Robots/XRP.ubl':
+            assert hashlib.sha256(payload).hexdigest()=='c137323584dbe1401b24962eed68a6a5a168215c30094ecf9098430a4c48aa66'
+            library_count+=1
+        if b"atPut primsets 'unoq' (at primsets 'io')" in payload:
+            payload=payload.replace(b"atPut primsets 'unoq' (at primsets 'io')",b"atPut primsets 'xrp' (at primsets 'io')")
+            compiler_count+=1
+        if b"endPoint == 'unoq.loadLibrary'" in payload:
+            for before,after in [(b'Libraries/UNO_Q_Hardware.ubl',b'Libraries/Robots/XRP.ubl'),
+                (b"'UNO Q Hardware'",b"'XRP'"),(b'unoq.loadLibrary',b'xrp.loadLibrary'),
+                (b'unoq.openExample',b'xrp.openExample'),(b'Examples/UNO Q/',b'Examples/XRP/'),
+                (b"'arithmetic' 'output' 'rgb' 'matrix' 'combined' 'matrix-drawing'",b"'arithmetic' 'output'")]:
+                payload=payload.replace(before,after)
+            api_count+=1
+        if name.startswith('/Examples/UNO Q/'):
+            if name.rsplit('/',1)[-1] not in ('arithmetic.ubp','output.ubp'):continue
+            name=name.replace('/Examples/UNO Q/','/Examples/XRP/')
+            if name.endswith('/output.ubp'):
+                assert payload.count(b'repeat 500 {')==1
+                payload=payload.replace(b'repeat 500 {',b'repeat 50 {')
+        start=len(packed);packed.extend(payload)
+        entries.append(dict(filename=name,start=start,end=len(packed)))
+    assert (api_count,compiler_count,library_count)==(1,1,1)
+    replacement=json.dumps(dict(files=entries,remote_package_size=len(packed)),separators=(',',':'))
+    source=(source[:match.start(1)]+replacement+source[match.end(1):]).replace('"/Examples","UNO Q"','"/Examples","XRP"')
+    return source.encode(),bytes(packed)
+
 def build(source, output, repo):
     manifest=json.loads((repo/'dependencies/ide-assets.json').read_text(encoding='utf-8'))
     originals={}
@@ -60,11 +102,13 @@ def build(source, output, repo):
     report={'real_editor':'MicroBlocks GP 2.5.8','upstream_commit':manifest['source_commit'],
             'source_manifest_sha256':hashlib.sha256((repo/'dependencies/ide-assets.json').read_bytes()).hexdigest(),
             'runtime_third_party_network':False,'boards':{}}
-    for board in ('fruit-jam','waveshare'):
+    for board in ('fruit-jam','waveshare','xrp-rp2350'):
         assets=dict(originals);assets.update(common)
-        if board=='waveshare':
-            js,data=patch_ide(originals['gp_wasm.js'],originals['gp_wasm.data'],
-                (repo/'boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl').read_bytes())
+        if board in ('waveshare','xrp-rp2350'):
+            if board=='waveshare':
+                js,data=patch_ide(originals['gp_wasm.js'],originals['gp_wasm.data'],
+                    (repo/'boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl').read_bytes())
+            else:js,data=xrp_package(originals['gp_wasm.js'],originals['gp_wasm.data'])
             # The same locale dependency used by the physically accepted hosts.
             gate=b"""Module.preRun.push(function() {
  addRunDependency('board-english');
@@ -78,7 +122,10 @@ def build(source, output, repo):
         html=assets['microblocks.html'].decode('utf-8')
         tag='<script src="unoq-network.js"></script>'
         assert html.count(tag)==1
-        config=json.dumps({'board':board,'name':'Fruit Jam' if board=='fruit-jam' else 'Waveshare RLCD 4.2'},separators=(',',':'))
+        profile={'board':board,'name':{'fruit-jam':'Fruit Jam','waveshare':'Waveshare RLCD 4.2',
+                  'xrp-rp2350':'SparkFun XRP RP2350 (development)'}[board]}
+        if board=='xrp-rp2350':profile['connection_enabled']=False
+        config=json.dumps(profile,separators=(',',':'))
         html=html.replace(tag,'<link rel="stylesheet" href="../../portal.css?v='+portal_version+'">\n'
             '<script>window.PORTAL_BOARD='+config+';</script>\n'
             '<script src="../../portal-core.js?v='+portal_version+'"></script>\n'
@@ -94,7 +141,8 @@ def build(source, output, repo):
         folder=output/'editor'/board;folder.mkdir(parents=True,exist_ok=True)
         for name,raw in assets.items():
             target=folder/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
-        report['boards'][board]={'files':len(assets),'gp_data_sha256':hashlib.sha256(assets['gp_wasm.data']).hexdigest(),
+        report['boards'][board]={'files':len(assets),'hardware_connection_enabled':board!='xrp-rp2350',
+             'gp_data_sha256':hashlib.sha256(assets['gp_wasm.data']).hexdigest(),
              'gp_js_sha256':hashlib.sha256(assets['gp_wasm.js']).hexdigest(),'html_sha256':hashlib.sha256(assets['microblocks.html']).hexdigest()}
     for name in ('LICENSE','LICENSES.md'):
         shutil.copyfile(repo/name,output/name)

@@ -14,5 +14,8 @@
   "zephyr_radio_reference_sha256": "620a080f971e74f9132bc860acbaa3b063fde6cfc0e15ae5e1255002266b1f24",
   "zephyr_reference_license": "Apache-2.0",
   "xrpcode_reference": "https://github.com/Open-STEM/XRPCode/tree/108010b3d62086bc9f79fc92876c752add584c52",
+  "microblocks_editor_source_commit": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+  "microblocks_production_library": {"path": "/Libraries/Robots/XRP.ubl", "bytes": 6680, "sha256": "c137323584dbe1401b24962eed68a6a5a168215c30094ecf9098430a4c48aa66", "author": "Russell Owen", "distribution_license": "MPL-2.0"},
+  "microblocks_encoder_library": {"path": "/Libraries/Motors/Encoded DC Motors.ubl", "bytes": 19371, "sha256": "9a32957787004b7b956754eda268ec56fc909fbc86d7255224aa970d5256cded"},
   "hardware_access_or_flash": false
 }

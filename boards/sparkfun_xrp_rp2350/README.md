@@ -5,12 +5,15 @@ Its primary schematic, part/pin checks and license hashes are recorded in
 [`dependencies/xrp-production-reference.json`](../../dependencies/xrp-production-reference.json).
 See the [feature parity and staged acceptance plan](../../docs/XRP_PARITY.md).
 
-**Source-stage target; no physical XRP has been accessed or flashed.** The quiet
+**The quiet baseline cross-build passes; no physical XRP has been accessed or flashed.** The quiet
 bring-up app only sets the eight motor inputs low (coast), reads the user button
 and attempts one read-only IMU family-ID query. Servo outputs, RGB, ultrasonic
 trigger and flash/settings are not driven or written. It is not SmallVM or an
 XRPCode replacement. Firmware build status belongs in `hardware.json` and exact
-build evidence; it is not a physical PASS.
+build evidence; it is not a physical PASS. The baseline uses 40,188 flash bytes
+and 18,656 linker-allocated RAM bytes. ELF/UF2 ARM Secure identity and all load
+addresses were verified against the application partition. See
+[the exact build/source evidence](../../evidence/xrp-bringup-build-verification-2026-10-19.json).
 
 The target uses Zephyr `a915b2f12675b48b16d56653ea145dcd8f20cbbf`, internal
 SRAM and a separate RP2350B board definition. GPIO32..47 use `gpio0_hi` indices
@@ -38,6 +41,8 @@ backup/recovery and a separate concrete installation decision. Motion testing
 also requires confirmed safe physical placement. Preserve existing Fruit Jam
 and Waveshare images/programs. The current Fruit Jam CRC is `651a01da`.
 
-The preview editor permits project editing/storage while its hardware Connect
-path remains disabled. Full USB SmallVM/Arduino API, Wi-Fi live programming,
+The preview editor uses the actual pinned production `XRP.ubl` library (not
+`XRP Beta.ubl`) and permits project editing/storage while its hardware Connect
+path remains disabled. Its upstream motor/servo/sensor functions do not establish
+Zephyr driver support. Full USB SmallVM/Arduino API, Wi-Fi live programming,
 board-hosted GP and persistent configuration remain staged implementation work.

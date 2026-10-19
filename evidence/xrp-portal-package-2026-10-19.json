@@ -1,0 +1,16 @@
+{
+  "result": "PASS, packaging/source contract only",
+  "real_gp_editor": "2.5.8",
+  "files_per_profile": 147,
+  "profiles": [
+    "fruit-jam",
+    "waveshare",
+    "xrp-rp2350"
+  ],
+  "existing_fruit_jam_and_waveshare_gp_data_unchanged": true,
+  "xrp_production_library_unchanged_sha256": "c137323584dbe1401b24962eed68a6a5a168215c30094ecf9098430a4c48aa66",
+  "all_xrp_gp_package_offsets_valid": true,
+  "hardware_connection_enabled": false,
+  "actual_browser_xrp_load": "NOT RUN: browser control unavailable",
+  "hardware_execution": "NOT RUN"
+}
