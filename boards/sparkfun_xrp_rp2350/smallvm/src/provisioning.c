@@ -29,6 +29,7 @@ static char board_ip[NET_IPV4_ADDR_LEN]="0.0.0.0";
 static struct net_mgmt_event_callback wifi_events;
 static bool server_started;
 static int radio_pm_before=-1,radio_pm_after=-1,radio_rssi;
+static unsigned boot_attempt;
 /* Live programming favors deterministic latency over radio sleep. All WHD
  * calls stay on this worker, never the USB/VM/status thread. The AIROC helper
  * is provided by the exact pinned Zephyr driver used by this target. */
@@ -126,7 +127,13 @@ static void worker(void *a,void *b,void *c)
         struct job initial={.ssid_length=saved.ssid_length,.key_length=saved.key_length};
         memcpy(initial.ssid,saved.ssid,saved.ssid_length);memcpy(initial.key,saved.key,saved.key_length);
         mbnw_clear(&saved,sizeof(saved));
-        atomic_set(&busy,1);e=join(&initial);mbnw_clear(&initial,sizeof(initial));
+        atomic_set(&busy,1);
+        for(unsigned attempt=1;attempt<=3;++attempt){
+            k_mutex_lock(&state_lock,K_FOREVER);boot_attempt=attempt;k_mutex_unlock(&state_lock);
+            e=join(&initial);if(!e)break;
+            if(attempt<3){set_state("retry-wait",e);k_sleep(K_SECONDS(2));}
+        }
+        mbnw_clear(&initial,sizeof(initial));
         if(e)set_state("join-failed",e);
         atomic_clear(&busy);
     }
@@ -149,8 +156,8 @@ int xrp_network_status(char *dst,size_t n)
     bool radio_ready=iface && device_is_ready(net_if_get_device(iface));
     k_mutex_lock(&state_lock,K_FOREVER);
     int count=snprintf(dst,n,"{\"board\":\"xrp-rp2350\",\"setup_protocol\":2,"
-        "\"persistence_supported\":%s,\"radio_ready\":%s,\"radio_pm_before\":%d,\"radio_pm\":%d,\"rssi_dbm\":%d,\"state\":\"%s\",\"busy\":%s,\"ip\":\"%s\",\"error\":%d,\"actuators_enabled\":false}",
-        atomic_get(&storage_ready)?"true":"false",radio_ready?"true":"false",radio_pm_before,radio_pm_after,radio_rssi,state,atomic_get(&busy)?"true":"false",board_ip,last_error);
+        "\"persistence_supported\":%s,\"radio_ready\":%s,\"radio_pm_before\":%d,\"radio_pm\":%d,\"rssi_dbm\":%d,\"boot_attempt\":%u,\"state\":\"%s\",\"busy\":%s,\"ip\":\"%s\",\"error\":%d,\"actuators_enabled\":false}",
+        atomic_get(&storage_ready)?"true":"false",radio_ready?"true":"false",radio_pm_before,radio_pm_after,radio_rssi,boot_attempt,state,atomic_get(&busy)?"true":"false",board_ip,last_error);
     k_mutex_unlock(&state_lock);return count<0 || (size_t)count>=n ? -ENOBUFS : 0;
 }
 void xrp_provision_message(char *body,unsigned size)

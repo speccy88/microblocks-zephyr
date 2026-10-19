@@ -58,7 +58,7 @@ def verify(args):
         assert flags&0x2000 and not flags&1 and family==0xe48bff59 and index==i and total==blocks
         assert 0<size<=476 and 0x10000000<=address and address+size<=0x10800000
     config=dict(line.split('=',1) for line in (z/'.config').read_text().splitlines() if line.startswith('CONFIG_') and '=' in line)
-    enabled=('CONFIG_SOC_RP2350B','CONFIG_WIFI_AIROC','CONFIG_CYW43439','CONFIG_ARDUINO_API','CONFIG_ENTROPY_RPI_PICO_RNG')
+    enabled=('CONFIG_SOC_RP2350B','CONFIG_WIFI_AIROC','CONFIG_CYW43439','CONFIG_ARDUINO_API','CONFIG_ENTROPY_RPI_PICO_RNG','CONFIG_NET_CONTEXT_SNDTIMEO')
     disabled=('CONFIG_CONSOLE','CONFIG_PRINTK','CONFIG_LOG','CONFIG_BT','CONFIG_TIMER_RANDOM_GENERATOR','CONFIG_TEST_CSPRNG_GENERATOR')
     assert all(config.get(k)=='y' for k in enabled),{k:config.get(k) for k in enabled}
     assert all(config.get(k)!='y' for k in disabled)

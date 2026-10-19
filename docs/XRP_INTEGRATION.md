@@ -105,3 +105,14 @@ hashes and require linked scheduler symbols in image verification. Acceptance:
 all 147 assets/content headers during VM traffic, a slow/aborted large download
 while other HTTP requests remain responsive, reconnect/USB priority and repeated
 fresh HTTP accesses. Preserve original failure records and graphical-test limits.
+
+The first scheduler image retained an HTTP 500 regression: the asset handler
+requested SO_SNDTIMEO while CONFIG_NET_CONTEXT_SNDTIMEO was disabled. Enable
+that option in this target, require it in image verification, and keep the
+failed all-asset receipt. A first remembered join also timed out while USB stayed
+responsive, then succeeded after one authorized reset. Boot-only remembered
+joining now makes at most three attempts with two-second pauses, then reports
+join-failed and leaves USB available. Holding USER still skips all saved joining.
+Explicit local Connect requests retain a single attempt; no host vault replay,
+automatic board reset or actuator output is introduced. Status exposes the
+cached boot attempt count without exposing credentials.
