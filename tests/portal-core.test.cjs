@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MPL-2.0
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
 const {ByteQueue,EditorAPI,SerialTransport,ProjectStore,MAX_QUEUE,MAX_PROJECT}=require('../web/portal/portal-core.js');
 
 function editorHarness(hidden=false){
@@ -44,6 +46,19 @@ test('editor request made while hidden gets its full active-time budget',async()
  f.advance(60000);assert.equal(f.timers.size,0);f.hide(false);f.advance(5999);
  f.gp.apiCall('ide.version',[],()=>{});f.answer(0,'module main');assert.equal(await pending,'module main');
  assert.equal(f.gp.callQueue[0][1],'ide.version');assert.equal(f.gp.callQueue.length,1);
+});
+
+test('default editor timers retain the Window receiver required by browser Web IDL',async()=>{
+ let callback;
+ const window={
+  setTimeout(fn){assert.equal(this,window);callback=fn;return 1;},
+  clearTimeout(){assert.equal(this,window);}};
+ const context={window,setTimeout:window.setTimeout,clearTimeout:window.clearTimeout,performance:{now:()=>0}};
+ vm.runInNewContext(fs.readFileSync(require.resolve('../web/portal/portal-core.js'),'utf8'),context);
+ const gp={callQueue:[],apiCall(name,params,answer){this.callQueue.push([1,name,answer]);}};
+ const api=new window.MicroBlocksPortal.EditorAPI(gp);
+ const pending=api.call('portal.serialize'),rejected=assert.rejects(pending,/did not respond/);
+ callback();await rejected;assert.equal(gp.callQueue.length,0);
 });
 
 function fakeSerial(){

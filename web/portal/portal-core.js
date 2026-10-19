@@ -44,7 +44,7 @@
   }
  }
  class EditorAPI{
-  constructor(gp,document=root.document,{timeout=6000,now=()=>performance.now(),setTimer=setTimeout,clearTimer=clearTimeout}={}){
+  constructor(gp,document=root.document,{timeout=6000,now=()=>performance.now(),setTimer=(fn,delay)=>root.setTimeout(fn,delay),clearTimer=id=>root.clearTimeout(id)}={}){
    Object.assign(this,{gp,document,timeout,now,setTimer,clearTimer});
   }
   call(name,params=[]){
