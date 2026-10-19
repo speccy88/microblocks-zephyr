@@ -1,0 +1,16 @@
+{
+  "result": "BLOCKED",
+  "target": "positively identified Fruit Jam USB CDC on COM8",
+  "action": "open the serial port for read-only all-chunk CRC comparison",
+  "error": "Windows Access is denied (error 5)",
+  "port_opened": false,
+  "retry": false,
+  "processes_or_existing_connections_closed": false,
+  "program_upload": false,
+  "flash_or_reset": false,
+  "credential_access": false,
+  "last_verified_program_crc": "651a01da",
+  "last_verified_evidence": "portal-fruit-jam-usb-before-2026-10-19.json",
+  "browser_control": "Unavailable after app restart: inventory has no browsers and createBrowserTab(iab) reports Browser is not available",
+  "browser_import_test": "Not retried; remains blocked by the earlier repeating permission defect"
+}

@@ -66,6 +66,12 @@ and source/artifact audit. Actual secret entry and any required action-time
 device-access approval remain a bundled human handoff after the portal and
 firmware are concrete and reviewable. No secret replay while the user is away.
 
+The [portable protocol/storage component](COMMON_WIFI_SETUP.md) now has C source
+and synthetic two-slot journal fixtures. It is not linked into either installed
+image. Board workers, flash partition mappings, Waveshare USB ownership and
+physical credential persistence remain pending; the portal must not advertise
+those capabilities based on the portable tests alone.
+
 ## Acceptance
 
 1. Verify all fetched upstream assets and notices; build Pages from a clean

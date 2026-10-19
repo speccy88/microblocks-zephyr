@@ -1,0 +1,35 @@
+{
+  "result": "PASS",
+  "checks": 7319,
+  "partial_write_cuts": 117,
+  "corrupt_new_record_bit_flips": 928,
+  "hardware": false,
+  "credential_fixture": "synthetic public strings only",
+  "command": [
+    "wsl.exe",
+    "--exec",
+    "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang",
+    "-std=c11",
+    "-O1",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common/network_setup.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common/network_setup_store.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tests/network_setup_host.c",
+    "-Wl,-z,stack-size=65536",
+    "-Wl,--max-memory=1048576",
+    "-o",
+    "/mnt/c/Users/fred_/AppData/Local/Temp/mb-network-setup-lm_skyeq/test.wasm"
+  ],
+  "runtime": "Node WASI",
+  "scope": "Portable C decoder and two-slot plaintext journal; RAM I/O only; no firmware integration or device/credential access",
+  "source_sha256": {
+    "common/network_setup.c": "141049e3e75508e26ad61d799e480c025ed7d89c139ec33e6af11136c1267e88",
+    "common/network_setup_store.c": "f92d4f0746e0d885629a88f065ff7d212d9a1f6b32b3273c9482fc754904d533",
+    "tests/network_setup_host.c": "f4a4270c7b03e0ed8816d610442781f904cd0d00e3c8b41befe9682e5f43e1b5",
+    "common/network_setup.h": "40c7dc7a6f60a6c0da4876044952cc269b733bb1766bed70dc4ac5bd4cc452ae",
+    "common/network_setup_store.h": "be38ffce66bab2225542b061ce67726a64188eb8231560073562b522979f256f"
+  }
+}

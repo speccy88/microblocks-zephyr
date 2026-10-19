@@ -93,6 +93,7 @@ tests/                         Offline source/manifest checks
 tools/                         Source verification, editor packaging and validators
 dependencies/                  Pinned sources and per-file hashes
 web/                           Board transport and saved Wi-Fi setup page
+common/                        Portable setup decoder/journal, not yet linked into board images
 evidence/                      Build and physical observations, no credentials
 .github/workflows/             Offline CI only — not a firmware build
 ```
@@ -122,6 +123,11 @@ The [browser portal](https://speccy88.github.io/microblocks-zephyr/) is built
 by the Browser portal workflow from `main`. See [portal acceptance and current
 limitations](docs/PAGES_PORTAL.md) and [website source/license review](docs/SITE_DESIGN_LICENSES.md).
 Build success alone does not establish deployment or physical USB acceptance.
+
+The common USB Wi-Fi provisioning work has a tested portable decoder and
+two-slot flash-record format; [board integration remains pending](docs/COMMON_WIFI_SETUP.md).
+No persistent configuration capability is claimed for either current image
+on the strength of synthetic storage tests.
 
 For a separate new repository only:
 

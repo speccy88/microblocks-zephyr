@@ -1,0 +1,38 @@
+{
+  "result": "PARTIAL",
+  "publication": {
+    "url": "https://speccy88.github.io/microblocks-zephyr/",
+    "repository_visibility": "public",
+    "history_preserved": true,
+    "tested_portal_source_commit": "041b2c4ddf2613203cffcd623b383d10f7c6a1a5",
+    "asset_integrity": "PASS, all 306 HTTP-served files match the verified local build exactly",
+    "asset_evidence": "portal-pages-assets-corrected-2026-10-19.json"
+  },
+  "actual_browser_results_before_app_restart": {
+    "fruit_jam_gp_and_library_on_https_pages": "PASS",
+    "waveshare_gp_and_library_on_https_pages": "PASS",
+    "waveshare_arithmetic_example": "PASS, 5 + 7 visible; not a hardware execution claim",
+    "waveshare_named_save_on_pages": "PASS, Pages Waveshare 5 plus 7 listed in browser storage",
+    "fruit_jam_named_save_restore_export_on_local_preview": "PASS; actual downloaded 79-byte UBP contains script 102 48 (5 + 7)",
+    "board_switch_after_saved_workspace": "PASS on local build of 041b2c4, actual iframe navigated to Waveshare and its library appeared",
+    "fresh_autosave_preservation_and_fruit_jam_restore": "PASS, prior stage",
+    "full_two_board_storage_round_trip": "PENDING",
+    "file_import": "BLOCKED by repeated browser permission prompts despite Always allow. No further upload attempts permitted."
+  },
+  "resume_after_app_restart": {
+    "browser_control": "UNAVAILABLE; no browsers in inventory; opening iab reports Browser is not available",
+    "fruit_jam_usb_crc_recheck": "BLOCKED; COM8 identified correctly but Windows denied opening the port. Existing connection left intact; no retry.",
+    "last_verified_fruit_jam_program_crc": "651a01da",
+    "previous_program_snapshot_297d191b_restored": false,
+    "self_hosted_http": "Fruit Jam editor and status HTTP 200; Waveshare known address unavailable. No new graphical self-hosted session claimed.",
+    "evidence": ["portal-usb-resume-2026-10-19.json", "portal-self-hosted-http-2026-10-19.json"]
+  },
+  "boundaries": {
+    "browser_web_serial_physical_acceptance": "NOT CONFIRMED; a single prior read-mode Connect attempt stayed disconnected and its tab was closed",
+    "new_board_image_build_or_flash": false,
+    "credential_read_submit_or_persist": false,
+    "common_persistent_wifi": "Portable C component only, 7319 synthetic wasm32 checks; board workers/partitions/USB integration still pending",
+    "secure_websocket_from_pages": "No WSS endpoint supplied or verified. HTTPS cannot use existing plain ws:// firmware endpoints.",
+    "self_hosted_websocket": "Existing board-origin HTTP/ws mode is separate and does not require WSS to operate on its LAN origin"
+  }
+}

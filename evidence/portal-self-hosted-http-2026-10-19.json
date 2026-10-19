@@ -1,0 +1,67 @@
+{
+  "tested_at": "2026-10-19T00:53:35.708106+00:00",
+  "actions": "HTTP GET only; no board control, credentials, program upload, reset or flash",
+  "boards": [
+    {
+      "url": "http://192.168.1.7/",
+      "http_status": 200,
+      "bytes": 3168,
+      "sha256": "6a6f19ec4f0a030f545169dafbeb44d315af15a5d6d548d58ccd69284df62f1a",
+      "content_type": "text/html",
+      "status": {
+        "board": "Adafruit Fruit Jam",
+        "vm": 417,
+        "ide": "2.5.8",
+        "saved_generation": 63,
+        "network": {
+          "listener": 0,
+          "port": 80,
+          "accepted": 11,
+          "completed": 6,
+          "aborted": 4,
+          "sessions": 4,
+          "ws_errors": 0,
+          "last_error": -116,
+          "chunk_bytes": 2048,
+          "timeouts": {
+            "idle": 0,
+            "request": 0,
+            "send": 0,
+            "ws": 1,
+            "state": 4,
+            "bytes": 0
+          }
+        },
+        "airlift": {
+          "setup_protocol": 1,
+          "state": 3,
+          "generation": 1,
+          "operation": 0,
+          "error": 0,
+          "stage": 7,
+          "queries": 5,
+          "version": "3.3.0",
+          "mac": "58:e6:c5:f5:a3:58",
+          "connection": 3,
+          "disconnect_reason": 202,
+          "reason_error": 0,
+          "spi_resync": 0,
+          "busy": 1,
+          "reset_requested": false,
+          "spi_hz": 1000000,
+          "coprocessor_flashed": false,
+          "network_ready": true,
+          "ip": "192.168.1.7",
+          "netmask": "255.255.255.0",
+          "gateway": "192.168.1.1"
+        }
+      },
+      "result": "PASS, HTTP editor and read-only status; no new graphical session claimed"
+    },
+    {
+      "url": "http://192.168.1.69/",
+      "result": "UNAVAILABLE",
+      "error_type": "URLError"
+    }
+  ]
+}
