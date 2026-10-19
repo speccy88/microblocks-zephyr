@@ -1,0 +1,47 @@
+{
+  "result": "PASS",
+  "tested_at": "2026-10-19T21:46:43.499137+00:00",
+  "browser": "Windows Edge",
+  "editor": "real MicroBlocks GP 2.5.8",
+  "url": "http://127.0.0.1:8872/editor/propeller2/microblocks.html",
+  "transport": "native browser Web Serial directly to COM12",
+  "user_selected_port": "USB Serial Port (COM12)",
+  "board_reported": "Parallax P2 Edge 32MB",
+  "firmware_notice": "v405 vs. v417 displayed and acknowledged; version and minimum-version checks unchanged",
+  "checks": {
+    "arithmetic_5_plus_7": 12,
+    "live_edit_5_plus_8": 13,
+    "named_project_save": true,
+    "autosave": true,
+    "restore_named_5_plus_7_and_run": 12,
+    "named_project_survives_full_page_reload": true,
+    "restored_after_page_reload": true,
+    "serial_reconnect_after_page_reload": true,
+    "arithmetic_after_reconnect": 12
+  },
+  "full_cdp_used": false,
+  "serial_bridge_used": false,
+  "mock_serial_used": false,
+  "external_output_hardware_activated": false,
+  "file_import_export_tested": false,
+  "published_origin_serial_tested": false,
+  "console_errors_or_warnings_observed": [],
+  "source_sha256": {
+    "web/portal/portal-core.js": "a1d6aabed3f2f734760e621ae12214c6011b083e21a6f8dc30638d90f2a786e5",
+    "web/portal/portal-adapter.js": "d81b7342ac4834439af3e9852d7c2c6209932bb0e76dfd112d74f6fc5ceb0690"
+  },
+  "screenshots": {
+    "arithmetic": {
+      "path": "p2-browser-arithmetic-12.jpg",
+      "sha256": "cc8a8b22d428533cf6bdf660d44f173567335e43a7e0121fc9d05588fba13328"
+    },
+    "live_edit": {
+      "path": "p2-browser-live-edit-13.jpg",
+      "sha256": "10627bcbf4f68a9f761f531e31f801abb4c0b452ff5f5e2d98f54c9f0bc4b3e8"
+    },
+    "reconnect_restored": {
+      "path": "p2-browser-reconnect-12.jpg",
+      "sha256": "1d7d644e62ade13404d34cb6eccc594adb87ee85082f9bd8687397f902b960b2"
+    }
+  }
+}

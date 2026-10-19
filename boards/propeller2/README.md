@@ -67,7 +67,8 @@ The P2 portal keeps DTR/RTS deasserted so a Prop Plug does not hold P2 in reset.
 Choose **Propeller 2** in the portal, select Connect, then the correct FTDI
 port. The firmware reports its exact variant; the P2 Hardware library loads
 automatically. Browser project saves and `.ubp` import/export use the shared
-portal implementation; their P2 browser acceptance is pending. Wi-Fi and
+portal implementation. Named saves, autosave, restore and reload recovery
+have been verified in Edge; file import/export remains untested for P2. Wi-Fi and
 board-hosted editor controls are absent for this port.
 
 For the bounded hardware test, install `pyserial==3.5` and
@@ -117,9 +118,11 @@ FlexProp release. Electrical limits remain those of the module.
 
 ## Current limitations
 
-The retained native core is v405; portal compatibility must be tested with the
-pinned real GP 2.5.8 editor. No minimum-version check is bypassed and the VM
-version is not relabeled. Networking, secondary UART, NeoPixels, PSRAM object
+The retained native core is v405. The pinned real GP 2.5.8 editor displays its
+normal v405-versus-v417 notice; acknowledging it allows the tested arithmetic
+and live-edit workflows. No minimum-version check is bypassed and the VM
+version is not relabeled. Other newer-editor features need their own tests.
+Networking, secondary UART, NeoPixels, PSRAM object
 storage and one-click browser firmware installation are unsupported.
 
 ## Recorded physical acceptance (2026-10-19)
@@ -139,13 +142,21 @@ upload CRC wait in this run was 0.719 seconds.
 
 These results exercise the physical VM and flash through the serial protocol.
 The real GP 2.5.8 editor loads the P2 library and renders its command blocks.
-Actual Web Serial acceptance is pending selection of COM12 in the browser
-native device picker; the automation browser cannot operate that dialog.
+The [real browser acceptance record](../../evidence/2026-10-19/propeller2/browser-acceptance.json)
+also passes Edge Web Serial on COM12: `5+7=12`, live editing to `5+8=13`,
+named project save, autosave, restoration of the original `5+7` project,
+full page reload, named-project recovery, and a new USB connection that runs
+the recovered project as `12`. The user selected COM12 in the native browser
+chooser; normal portal controls and canvas blocks performed the tests.
+This acceptance used the local preview; published assets are audited separately.
 No external output waveform or attached peripheral behavior was measured.
 
 The initial graphical attempt also showed an editor-response timeout during
 autosave. The packaged GP source successfully serializes and reloads the P2
 library in a headless native GP test. The shared request wrapper now pauses
 its timeout while the tab is hidden and removes its own timed-out GP queue
-entry, preventing repeated autosaves from accumulating stale work. Those
-offline checks do not prove the original browser timeout is resolved.
+entry, preventing repeated autosaves from accumulating stale work. Browser
+testing then caught and fixed the Window receiver required by native timers.
+Named saves and autosave succeeded after that fix. The earlier headless record
+is historical evidence for its recorded source hashes; the browser record
+identifies the final tested adapter sources.

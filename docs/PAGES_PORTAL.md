@@ -111,9 +111,11 @@ This is a native FlexC SmallVM port, without Zephyr or ArduinoCore-Zephyr.
 See [P2 installation, pins and physical acceptance](../boards/propeller2/README.md).
 
 Terminal COM12 protocol results establish real VM execution and storage.
-They do not establish actual browser Web Serial or graphical acceptance.
-The latter requires an available browser window and the real device chooser;
-a simulated provider or serial bridge does not substitute for that check.
+Separate [browser acceptance](../evidence/2026-10-19/propeller2/browser-acceptance.json)
+now verifies actual Edge Web Serial: arithmetic, live edit, named save,
+autosave, restoration after a full reload and execution after reconnect.
+The user chose COM12 in the native chooser. The test used the local preview;
+it used no simulated provider, serial bridge or full-CDP access.
 
 The shared editor API wrapper counts six seconds of visible-tab time and
 cancels its own queued call on timeout. GP processes queued calls from its
@@ -133,4 +135,8 @@ python tools/test_gp_project_api.py --gp /path/to/gp-win.exe --editor build-arti
 The test substitutes the browser editor lookup and response sink, uses a
 native GP interpreter, and requires an actual serialized response plus an
 equal save/load roundtrip. It is a source-level compatibility check, not
-browser storage or Web Serial proof. P2 browser acceptance remains pending.
+browser storage or Web Serial proof. The later browser evidence establishes
+the tested P2 workflows. Native timer functions retain their Window receiver;
+the regression test covers the browser's receiver requirement as well as the
+queue and visibility behavior. File import/export and external peripherals
+still require separate P2 acceptance.

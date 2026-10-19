@@ -77,9 +77,10 @@
     },
     {
       "id": "vm_usb",
-      "status": "Installed native v405: ten arithmetic runs, live edit, 50 ordered outputs, fragmented CRC and reconnect PASS on COM12. Graphical Web Serial pending.",
+      "status": "Installed native v405: terminal arithmetic, live edit, ordered output, fragmented CRC and reset persistence PASS. Real GP 2.5.8 Edge Web Serial arithmetic/live edit, project save/reload/restore and reconnect PASS on COM12.",
       "physical_tested": true,
-      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json"
+      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
+      "browser_evidence": "evidence/2026-10-19/propeller2/browser-acceptance.json"
     },
     {
       "id": "smart_pin",
