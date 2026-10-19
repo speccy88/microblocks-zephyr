@@ -6,14 +6,19 @@ LAN IDEs. All verified board work is now a fast-forward ancestor of `main`.
 
 ## Publication gate
 
-The private reachable-history audit found local user paths, owned device
-identifiers and private network addresses in historical acceptance evidence.
-The repository must remain private until the owner chooses an explicitly
-authorized history-cleaning or private-archive/public-snapshot route. Removing
-only current files cannot remove reachable historical data. No automatic
-history rewrite, force push or branch deletion is permitted by this contract.
-Audit details stay outside Git. The portal can be implemented and tested
-privately before publication.
+The reachable-history audit found local user paths, owned device identifiers
+and private network addresses in historical acceptance evidence. The owner
+explicitly accepted publishing these audited technical details on 2026-10-19.
+Preserve the existing repository and history; no anonymization, history
+rewrite, force push, rename or replacement repository is authorized. Complete
+private Git bundles remain outside Git. No actual password, private key or
+token was detected by the audit; scanning is not a guarantee of absence.
+
+The browser file-import acceptance test is blocked by repeated permission
+prompts in the automation browser, including after the user selected Always
+allow. Do not reproduce that permission loop or bypass it. Named save,
+restore and a real downloaded UBP export have separate evidence. This tool
+limitation does not establish whether importing works in a normal browser.
 
 ## Browser and hosting behavior
 

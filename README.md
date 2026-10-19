@@ -113,9 +113,15 @@ Follow [ARCHITECTURE.md](docs/ARCHITECTURE.md),
 ## GitHub repository
 
 The repository is [speccy88/microblocks-zephyr](https://github.com/speccy88/microblocks-zephyr),
-created private. Hardware integration lives on `development/waveshare-rlcd`
-and the separate `development/fruit-jam` branch.
-Preserve existing branches and history when pushing further changes.
+initially created private. All accepted Fruit Jam and Waveshare development
+is now integrated on `main`; further work uses `main` only. Existing history
+is preserved. The owner approved public visibility with the audited technical
+diagnostic metadata on 2026-10-19.
+
+The [browser portal](https://speccy88.github.io/microblocks-zephyr/) is built
+by the Browser portal workflow from `main`. See [portal acceptance and current
+limitations](docs/PAGES_PORTAL.md) and [website source/license review](docs/SITE_DESIGN_LICENSES.md).
+Build success alone does not establish deployment or physical USB acceptance.
 
 For a separate new repository only:
 

@@ -12,7 +12,9 @@
     "fresh_editor_preserves_existing_autosave_before_restore": "PASS",
     "explicit_restore_after_fresh_load": "PASS, actual 5 + 7 script restored visibly from browser storage",
     "web_serial_api_feature_detection": "Available in the selected browser; no device chooser or port opened",
-    "named_save_export_import": "PENDING",
+    "named_save": "PASS, Portal Fruit Jam 5 plus 7 saved in IndexedDB and listed",
+    "named_restore_and_ubp_export": "PASS, named copy restored after loading output example; downloaded 79-byte UBP contains script 102 48 (5 + 7)",
+    "file_import": "BLOCKED, browser repeatedly requested upload permission despite Always allow; one setFiles call during resumed test stalled then control session exited. No retry or bypass. Import success unconfirmed.",
     "waveshare_graphical_editor": "PENDING"
   },
   "test_boundaries": {
@@ -27,7 +29,7 @@
   "publication": {
     "repository_visibility": "private",
     "pages_deployment": "NOT RUN",
-    "gate": "Explicit history-anonymization decision pending because reachable diagnostic history contains personal paths and owned-device identifiers",
+    "gate": "Owner accepted public exposure of audited technical metadata on 2026-10-19. Publication/deployment still require verified action results.",
     "complete_private_history_backup_verified": true,
     "history_rewrite": false,
     "force_push": false,

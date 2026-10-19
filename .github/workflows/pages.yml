@@ -35,9 +35,9 @@ jobs:
         with:
           path: build-artifacts/pages
   deploy:
-    # A private build must never silently expose a site. Public exposure remains
-    # gated on the separate reachable-history audit and explicit dispatch.
-    if: github.event_name == 'workflow_dispatch' && inputs.publish && !github.event.repository.private
+    # The owner approved public visibility after the reachable-history audit.
+    # Private builds still cannot deploy; public main pushes keep Pages current.
+    if: "!github.event.repository.private && (github.event_name == 'push' || inputs.publish)"
     needs: build
     runs-on: ubuntu-latest
     permissions:
