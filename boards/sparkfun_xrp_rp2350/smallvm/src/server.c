@@ -5,6 +5,8 @@
 #include <zephyr/kernel.h>
 #include <zephyr/sys/sys_heap.h>
 #include <zephyr/sys/atomic.h>
+#include <zephyr/net/socket.h>
+#include <sys/time.h>
 #include <string.h>
 #include <strings.h>
 #include <stdio.h>
@@ -71,6 +73,10 @@ int mb_asset_handler(struct http_client_ctx *client, enum http_transaction_statu
     if (!state) {
         state = empty;
         if (!state) { k_mutex_unlock(&asset_transfers_lock); return -ENOMEM; }
+        struct timeval timeout = {.tv_sec=5,.tv_usec=0};
+        if (zsock_setsockopt(client->fd,SOL_SOCKET,SO_SNDTIMEO,&timeout,sizeof(timeout))) {
+            k_mutex_unlock(&asset_transfers_lock);return -errno;
+        }
         *state = (struct asset_transfer){.client = client, .asset = asset};
     }
     bool first = state->offset == 0;

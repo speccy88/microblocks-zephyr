@@ -25,7 +25,7 @@ def verify(args):
         (Path(p).suffix in ('.c','.cpp','.h','.dts','.dtsi','.conf','.yml','.yaml','.cmake','.ld') or
          Path(p).name.startswith('Kconfig') or Path(p).name=='CMakeLists.txt')) or p in (
         'tools/prepare_smallvm.py','tools/prepare_xrp_runtime.py','tools/prepare_xrp_arduino.py',
-        'tools/package_xrp_ide.py','tools/package_pages.py','web/xrp-network.js')]
+        'tools/package_xrp_ide.py','tools/prepare_xrp_http.py','tools/package_pages.py','web/xrp-network.js')]
     hashes={}
     for relative in selected:
         data=(repo/relative).read_bytes()
@@ -43,7 +43,8 @@ def verify(args):
             segments.append(dict(physical=hex(p['p_paddr']),virtual=hex(p['p_vaddr']),file_bytes=p['p_filesz'],memory_bytes=p['p_memsz']))
         symbols={s.name for s in elf.get_section_by_name('.symtab').iter_symbols()}
     required=['vmSlice','restoreScripts','xrp_transport_poll','xrp_provision_message','mbnw_flash_store_open',
-              'mbnw_store_save','mb_store_load','mb_store_poll','addEncoderPrims','xrp_capture_start','whd_wifi_join']
+              'mbnw_store_save','mb_store_load','mb_store_poll','addEncoderPrims','xrp_capture_start','whd_wifi_join',
+              'xrp_http1_continue','xrp_http1_pending']
     assert all(s in symbols for s in required),set(required)-symbols
     demangled=subprocess.check_output([args.nm,'-C','--defined-only',str(z/'zephyr.elf')],text=True)
     for api in (r'\banalogRead(?:\(|$)', r'\bpinMode(?:\(|$)', r'arduino::ZephyrI2C::begin\(\)'):
@@ -85,6 +86,7 @@ def verify(args):
         config={k:config.get(k,'n') for k in enabled+disabled+('CONFIG_WHD_WIFI_COUNTRY',)},
         artifacts={n:dict(bytes=(z/n).stat().st_size,sha256=digest(z/n)) for n in ('zephyr.elf','zephyr.uf2','zephyr.bin')},
         source_sha256=hashes,assets=json.loads((build/'web-xrp/assets-report.json').read_text()),
+        http_scheduler=json.loads((build/'xrp-http/provenance.json').read_text()),
         uf2_family='0xe48bff59 ARM Secure',program_and_settings_not_loaded=True,
         flashed=False,physical_tested=False,actuators_enabled=False,credentials_used=False,psram_mapped=False)
 

@@ -87,3 +87,21 @@ Acceptance must record the initial measured mode, verify remembered rejoin and
 complete all 147 HTTP assets concurrently with live VM traffic, then repeat
 HTTP/reconnect checks. Do not attribute an improvement to power management if
 the measured initial mode was already zero.
+
+The PM=0 audit still exposed head-of-line blocking: the 2,180,340-byte compressed
+GP data asset occupied one HTTP request for 86.985 seconds while GP JS/WASM
+requests timed out at 30 seconds. The pinned HTTP/1 dynamic GET implementation
+loops synchronously until the final response chunk; sleeping in the app callback
+does not let that same server thread service its other clients.
+
+Generate two exact-source-checked HTTP translation units only in the XRP build.
+Yield a non-final dynamic GET response after one application chunk; resume on
+POLLOUT, one chunk per client per poll turn. Defer parsing pipelined requests
+until completion, preserve HTTP/1.0/Connection-close/keep-alive behavior, and
+clear pending state on success, abort and client reuse. Keep public struct ABI
+and original Zephyr workspace untouched; other board targets use original code.
+Bound each asset socket's send wait to five seconds. Record generated source
+hashes and require linked scheduler symbols in image verification. Acceptance:
+all 147 assets/content headers during VM traffic, a slow/aborted large download
+while other HTTP requests remain responsive, reconnect/USB priority and repeated
+fresh HTTP accesses. Preserve original failure records and graphical-test limits.
