@@ -83,7 +83,7 @@ def prepare(zephyr,output):
     h=sources['http_server_http1.c'];anchor='static int dynamic_get_del_opts_req('
     h=replace_once(h,anchor,PENDING+'\n'+anchor)
     old='\tstatus = HTTP_SERVER_REQUEST_DATA_FINAL;\n\n\tdo {'
-    new='\tstatus = HTTP_SERVER_REQUEST_DATA_FINAL;\n\tif (xrp_http1_pending(client)) len=0;\n\n\tdo {'
+    new='\tstatus = HTTP_SERVER_REQUEST_DATA_FINAL;\n\t/* HTTP/1 GET does not initialize this upstream; retain it for deferred turns. */\n\tclient->current_detail = &dynamic_detail->common;\n\tif (xrp_http1_pending(client)) len=0;\n\n\tdo {'
     h=replace_once(h,old,new)
     old='\t} while (!http_response_is_final(&response_ctx, status));'
     new='\t\tif (!http_response_is_final(&response_ctx,status)) return xrp_http1_defer(client);\n\t} while (false);\n\txrp_http1_cancel(client);'

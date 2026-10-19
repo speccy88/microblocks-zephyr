@@ -1,0 +1,35 @@
+name: XRP HTTP scheduler contracts
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  generated-scheduler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read only the two pinned upstream HTTP sources
+        uses: actions/checkout@v4
+        with:
+          repository: zephyrproject-rtos/zephyr
+          ref: a915b2f12675b48b16d56653ea145dcd8f20cbbf
+          path: build-artifacts/zephyr-http-ci
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /subsys/net/lib/http/http_server_http1.c
+            /subsys/net/lib/http/http_server_core.c
+      - name: Generate exact-source-checked XRP-only HTTP adaptations
+        run: python tools/prepare_xrp_http.py --zephyr build-artifacts/zephyr-http-ci --output build-artifacts/http-contracts
+      - name: Compile and execute the actual generated scheduler functions
+        run: python tools/test_xrp_http_scheduler.py --generated build-artifacts/http-contracts --native-compiler cc --evidence build-artifacts/http-contracts/scheduler-contracts.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xrp-http-scheduler-contracts
+          path: build-artifacts/http-contracts/scheduler-contracts.json
