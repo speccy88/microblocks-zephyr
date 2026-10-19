@@ -39,6 +39,15 @@ non-actuating development milestone. Encoder performance under Wi-Fi requires
 measurement; GPIO interrupts are not claimed equivalent to a validated PIO
 implementation.
 
+Physical ADC acceptance found that missing default pinctrl states left ADC/PWM
+devices uninitialized. Match the reviewed Fruit Jam pattern: explicit empty
+default states initialize clock/reset/IRQ without selecting any GPIO. Arduino
+and VM ADC entry points must reject an unready device. Run actual analogRead
+on a dedicated worker; the VM waits at most 50 ms, rejects another conversion
+while the old one is pending, and discards an abandoned late completion. A lost
+ADC IRQ must not prevent USB ping/recovery. Validate both normal inputs and
+temporary IRQ suppression/restoration before accepting this correction.
+
 The native server includes the unchanged production XRP library. GPIO encoder
 interrupts and bounded echo capture implement its existing primitive contracts;
 motor and servo primitives remain deliberately unavailable. GPIO12..19 PWM uses

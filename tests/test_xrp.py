@@ -61,6 +61,8 @@ class XRPProductionContracts(unittest.TestCase):
         self.assertEqual([int(p)+(32 if bank=='gpio0_hi' else 0) for bank,p in pins],list(range(48)))
         self.assertIn('i2cs = <&i2c1>, <&i2c0>',overlay)
         self.assertIn('zephyr,entropy = &rng',overlay)
+        self.assertIn('pinctrl-0 = <&xrp_adc_idle>',overlay)
+        self.assertIn('pinctrl-0 = <&xrp_pwm_idle>',overlay)
 
     def test_extension_pwm_uses_correct_slices_without_motor_channels(self):
         overlay=(BOARD/'smallvm/app.overlay').read_text()

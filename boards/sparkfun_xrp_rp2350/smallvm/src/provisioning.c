@@ -119,10 +119,12 @@ K_THREAD_DEFINE(network_worker,6144,worker,NULL,NULL,NULL,8,0,0);
 void xrp_provision_start(void) { atomic_set(&busy,1);k_sem_give(&started); }
 int xrp_network_status(char *dst,size_t n)
 {
+    struct net_if *iface=net_if_get_wifi_sta();
+    bool radio_ready=iface && device_is_ready(net_if_get_device(iface));
     k_mutex_lock(&state_lock,K_FOREVER);
     int count=snprintf(dst,n,"{\"board\":\"xrp-rp2350\",\"setup_protocol\":2,"
-        "\"persistence_supported\":%s,\"state\":\"%s\",\"busy\":%s,\"ip\":\"%s\",\"error\":%d,\"actuators_enabled\":false}",
-        atomic_get(&storage_ready)?"true":"false",state,atomic_get(&busy)?"true":"false",board_ip,last_error);
+        "\"persistence_supported\":%s,\"radio_ready\":%s,\"state\":\"%s\",\"busy\":%s,\"ip\":\"%s\",\"error\":%d,\"actuators_enabled\":false}",
+        atomic_get(&storage_ready)?"true":"false",radio_ready?"true":"false",state,atomic_get(&busy)?"true":"false",board_ip,last_error);
     k_mutex_unlock(&state_lock);return count<0 || (size_t)count>=n ? -ENOBUFS : 0;
 }
 void xrp_provision_message(char *body,unsigned size)

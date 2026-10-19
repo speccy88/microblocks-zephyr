@@ -16,12 +16,35 @@ static_assert(NUM_OF_DIGITAL_PINS == 48, "Raw XRP mapping changed");
 static const device *const bus = DEVICE_DT_GET(DT_NODELABEL(i2c1));
 static const device *const hi = DEVICE_DT_GET(DT_NODELABEL(gpio0_hi));
 static const device *const pwm = DEVICE_DT_GET(DT_NODELABEL(pwm));
+static const device *const adc = DEVICE_DT_GET(DT_NODELABEL(adc));
 /* SDK PWM_GPIO_SLICE_NUM: GPIO16..31 alias slices0..7. */
 static unsigned pwm_channel(unsigned p) { return p & 15u; }
 static int last_error;
 static uint8_t pending_data[32];
 static size_t pending_count;
 static unsigned pending_address;
+K_MUTEX_DEFINE(adc_job_lock);
+K_SEM_DEFINE(adc_request,0,1);
+K_SEM_DEFINE(adc_done,0,1);
+static bool adc_busy,adc_finished,adc_abandoned;
+static unsigned adc_pin;
+static int adc_value,adc_error;
+static void adc_worker(void *a,void *b,void *c)
+{
+    (void)a;(void)b;(void)c;
+    for(;;){
+        k_sem_take(&adc_request,K_FOREVER);
+        k_mutex_lock(&adc_job_lock,K_FOREVER);unsigned pin=adc_pin;k_mutex_unlock(&adc_job_lock);
+        analogReadResolution(10);
+        int sample=analogRead(pin);
+        int error=sample<0 ? sample : sample>1023 ? -ERANGE : 0;
+        k_mutex_lock(&adc_job_lock,K_FOREVER);
+        if(adc_abandoned){adc_busy=false;adc_finished=false;}
+        else {adc_value=sample;adc_error=error;adc_finished=true;k_sem_give(&adc_done);}
+        k_mutex_unlock(&adc_job_lock);
+    }
+}
+K_THREAD_DEFINE(xrp_adc_worker,2048,adc_worker,NULL,NULL,NULL,8,0,0);
 static bool output_allowed(unsigned p) { return sparkfun_xrp_output_allowed(p); }
 extern "C" void xrp_io_init(void)
 {
@@ -79,9 +102,18 @@ extern "C" void turnOffPins(void) { xrp_capture_stop();xrp_io_i2c_cancel();xrp_i
 extern "C" int xrp_io_analog_read(unsigned p,unsigned mode,int *v)
 {
     if(p<40 || p>46 || mode || !v)return -EINVAL;
-    analogReadResolution(10);int sample=analogRead(p);
-    if(sample<0 || sample>1023)return last_error=-ERANGE;
-    *v=sample;return last_error=0;
+    if(!device_is_ready(adc))return last_error=-ENODEV;
+    k_mutex_lock(&adc_job_lock,K_FOREVER);
+    if(adc_busy){k_mutex_unlock(&adc_job_lock);return last_error=-EBUSY;}
+    adc_pin=p;adc_busy=true;adc_finished=false;adc_abandoned=false;
+    k_sem_reset(&adc_done);k_sem_give(&adc_request);k_mutex_unlock(&adc_job_lock);
+    int wait_error=k_sem_take(&adc_done,K_MSEC(50));
+    k_mutex_lock(&adc_job_lock,K_FOREVER);
+    int error;
+    if(!adc_finished){adc_abandoned=true;error=wait_error ? -ETIMEDOUT : -EIO;}
+    else {error=adc_error;if(!error)*v=adc_value;adc_busy=false;adc_finished=false;}
+    k_mutex_unlock(&adc_job_lock);
+    return last_error=error;
 }
 extern "C" int xrp_io_pwm_write(unsigned p,unsigned v)
 {
@@ -147,6 +179,6 @@ extern "C" int xrp_io_spi_transfer(const uint8_t *tx, uint8_t *rx, size_t count)
 
 extern "C" int xrp_io_info(char *dst,unsigned n)
 {
-    snprintf(dst,n,"{\"digital_raw\":true,\"analog_gpio\":[40,41,42,43,44,45,46],\"i2c_gpio\":[38,39],\"actuators_enabled\":false,\"hardware_tested\":false,\"error\":%d}",last_error);
+    snprintf(dst,n,"{\"digital_raw\":true,\"analog_gpio\":[40,41,42,43,44,45,46],\"i2c_gpio\":[38,39],\"actuators_enabled\":false,\"adc_ready\":%s,\"pwm_ready\":%s,\"adc_timeout_ms\":50,\"hardware_tested\":false,\"error\":%d}",device_is_ready(adc)?"true":"false",device_is_ready(pwm)?"true":"false",last_error);
     return 0;
 }

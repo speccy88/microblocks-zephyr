@@ -81,6 +81,13 @@ def prepare(source, output):
             raise ValueError('Unexpected digital API guard anchor')
         digital = digital.replace(signature, signature+'\n\tif ('+condition+') return;')
     digital_path.write_text(digital, encoding='utf-8', newline='\n')
+    analog_path = output/'cores/arduino/wiring_analog.cpp'
+    analog = analog_path.read_text(encoding='utf-8')
+    anchor = '\t_reinit_peripheral_if_needed(pinNumber, arduino_adc[idx].dev);'
+    if analog.count(anchor) != 1:
+        raise ValueError('Unexpected ADC API readiness anchor')
+    analog = analog.replace(anchor, '\tif (!device_is_ready(arduino_adc[idx].dev)) return -ENODEV;\n'+anchor)
+    analog_path.write_text(analog, encoding='utf-8', newline='\n')
 
     variant = Path(__file__).resolve().parents[1]/'boards/sparkfun_xrp_rp2350/arduino/variant.h'
     target = output/'variants/sparkfun_xrp/variant.h'
@@ -102,6 +109,7 @@ def prepare(source, output):
         core_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
         pin_policy_sha256=hashlib.sha256(variant.with_name('pin_policy.h').read_bytes()).hexdigest(),
         digital_guard_sha256=hashlib.sha256(digital_path.read_bytes()).hexdigest(),
+        analog_guard_sha256=hashlib.sha256(analog_path.read_bytes()).hexdigest(),
         changes=['Existing reviewed Wire fixes', 'Raw production GPIO variant with reserved-pin guards',
                  'RP2350 per-pin ADC/PWM mux, without device reinitialization'],
         upstream_checkout_modified=False, compiled=False, physical_tested=False)
