@@ -44,7 +44,7 @@
   }
  }
  class SerialTransport{
-  constructor(provider,filters,onData,onState){Object.assign(this,{provider,filters,onData,onState});this.port=null;this.reader=null;this.writer=null;this.pending=0;this.chain=Promise.resolve();this.closing=false;}
+  constructor(provider,filters,onData,onState,signals={dataTerminalReady:true,requestToSend:false}){Object.assign(this,{provider,filters,onData,onState,signals});this.port=null;this.reader=null;this.writer=null;this.pending=0;this.chain=Promise.resolve();this.closing=false;}
   async connect(){
    if(this.port||this.connecting)return;
    if(this.closing)throw Error('USB is still disconnecting. Connect again when it finishes.');
@@ -53,7 +53,7 @@
    try{
     const port=await this.provider.requestPort({filters:this.filters});this.port=port;
     await port.open({baudRate:115200,bufferSize:8192});
-    await port.setSignals({dataTerminalReady:true,requestToSend:false});
+    await port.setSignals(this.signals);
     this.reader=port.readable.getReader();this.writer=port.writable.getWriter();this.closing=false;
     this.onState(true);this.loop=this.readLoop(port,this.reader);
    }catch(error){await this.disconnect();throw error;}finally{this.connecting=false;}

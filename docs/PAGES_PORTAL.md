@@ -95,3 +95,22 @@ those capabilities based on the portable tests alone.
 5. Confirm Pages deployment and URL, repository visibility, remote `main`
    commit/tree, safe ref consolidation, clean publication audit and remaining
    physical or credential handoffs. Never describe pending work as PASS.
+
+## Native Propeller 2 profile
+
+The P2 profile uses the same real GP 2.5.8 editor and browser project store,
+with an independent `propeller2` namespace. Its compiler aliases `p2` to the
+existing IO primitive set, and loads `P2_Hardware.ubl` through the original GP
+library API. The stackable Smart Pin commands also expose checked boolean
+variants for advanced scripts. Firmware reports the exact Eval/Edge/EC32MB
+variant; other board identities disconnect this profile.
+
+P2 connects through FTDI Web Serial at 115200 baud with DTR/RTS deasserted.
+It has no Wi-Fi provisioning, WebSocket mode or board-hosted editor controls.
+This is a native FlexC SmallVM port, without Zephyr or ArduinoCore-Zephyr.
+See [P2 installation, pins and physical acceptance](../boards/propeller2/README.md).
+
+Terminal COM12 protocol results establish real VM execution and storage.
+They do not establish actual browser Web Serial or graphical acceptance.
+The latter requires an available browser window and the real device chooser;
+a simulated provider or serial bridge does not substitute for that check.

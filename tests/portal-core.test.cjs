@@ -34,6 +34,15 @@ test('disconnect drains queued writes before releasing the port',async()=>{
  await transport.disconnect();assert.deepEqual(f.sent,[[1],[2]]);assert.equal(transport.pending,0);assert.equal(f.events.at(-1),'close');
 });
 
+test('P2 Prop Plug never asserts reset DTR on connect or disconnect',async()=>{
+ const f=fakeSerial();
+ const transport=new SerialTransport(f.provider,[{usbVendorId:0x2fe3,usbProductId:4}],()=>{},()=>{},
+  {dataTerminalReady:false,requestToSend:false});
+ await transport.connect();await transport.disconnect();
+ assert.equal(f.events.includes('dtr-on'),false);
+ assert.equal(f.events.filter(x=>x==='dtr-off').length,2);
+});
+
 test('no duplicate chooser while an explicit Connect request is pending',async()=>{
  const f=fakeSerial();let release,calls=0;
  const provider={requestPort(){calls++;return new Promise(r=>release=()=>r(f.port));}};

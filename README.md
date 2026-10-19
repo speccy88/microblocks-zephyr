@@ -52,6 +52,15 @@ pattern uses one atomic transaction; see [its exact bounds](docs/GENERIC_IO.md).
 | [Adafruit Fruit Jam RP2350B](boards/adafruit_fruit_jam/README.md) | Pinned ARM build and physical boot | v417 USB/graphical calculations, reconnect and reboot persistence pass | Real module/variant compiled | SWD/USB, NeoPixels, three buttons and user-triggered Wi-Fi, native graphical edit/save/readback and retained-association boot verified; full-power Wi-Fi and remaining peripherals pending |
 | [SparkFun XRP production RP2350B](boards/sparkfun_xrp_rp2350/README.md) | Integrated Canada image installed and verified | v417 USB and Wi-Fi arithmetic/edit,50 outputs,fragmentation,reconnect and retained boot pass | Real isolated module linked; ADC/I2C reads pass | All 147 HTTP assets pass during VM traffic; IMU ID and raw ADC verified; graphical acceptance pending; motors/servos locked |
 
+## Native Propeller 2
+
+The [P2 port](boards/propeller2/README.md) runs the recovered native FlexC
+SmallVM over USB Web Serial in the same portal, with P2 hardware and Smart Pin
+blocks. It runs directly on P2; it does not use Zephyr, ArduinoCore-Zephyr,
+Wi-Fi or board-hosted HTTP. Select the exact Eval/original Edge/EC32MB image
+when installing firmware. Physical acceptance and limits are recorded in its
+[capability manifest](boards/propeller2/hardware.json).
+
 ## Start here: Waveshare ESP32-S3-RLCD-4.2
 
 Read **[hardware inventory, Zephyr installation, flashing precautions, and

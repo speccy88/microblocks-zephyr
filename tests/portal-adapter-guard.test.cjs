@@ -24,3 +24,27 @@ test('the XRP editing preview cannot open USB or WebSocket through either GP ent
  assert.equal(window.webSerialIsConnected(),false);
  assert.equal(window.GP_writeSerialPort(new Uint8Array([250,26,0])),0);
 });
+
+test('actual P2 adapter uses FTDI selection, releases reset, and rejects another VM identity',async()=>{
+ const signals=[],listeners={},calls=[];let closed=false;
+ const port={readable:new ReadableStream({cancel(){}}),
+  writable:{getWriter(){return {async write(){},releaseLock(){}};}},
+  async open(options){calls.push(options.baudRate);},
+  async setSignals(value){signals.push(JSON.parse(JSON.stringify(value)));},
+  async close(){closed=true;}};
+ const window={addEventListener(){}};
+ const context={window,MicroBlocksPortal:core,PORTAL_BOARD:{board:'propeller2',name:'Parallax Propeller 2'},
+  navigator:{serial:{async requestPort(options){calls.push(JSON.parse(JSON.stringify(options.filters)));return port;}}},
+  document:{addEventListener(name,handler){listeners[name]=handler;}},
+  GP_writeFile(){},GP:{apiCall(){}},TextEncoder,TextDecoder,setTimeout,clearTimeout,Uint8Array,Uint32Array,Map,URL};
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../web/portal/portal-adapter.js'),'utf8'),context);
+ assert.equal(calls.length,0);await window.webSerialConnect();
+ assert.deepEqual(calls,[[{usbVendorId:0x0403}],115200]);
+ assert.deepEqual(signals,[{dataTerminalReady:false,requestToSend:false}]);
+ listeners['board.type']({detail:{value:'Parallax P2 Edge 32MB'}});
+ assert.equal(window.webSerialIsConnected(),true);
+ listeners['board.type']({detail:{value:'Fruit Jam'}});
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(window.webSerialIsConnected(),false);assert.equal(closed,true);
+ assert.deepEqual(signals.at(-1),{dataTerminalReady:false,requestToSend:false});
+});

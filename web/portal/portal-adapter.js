@@ -5,7 +5,8 @@
  'use strict';
  const {ProjectStore,ByteQueue,SerialTransport,MAX_PROJECT}=MicroBlocksPortal;
  const profile=PORTAL_BOARD,store=new ProjectStore(),input=new ByteQueue();
- const filters=profile.board==='fruit-jam'?[{usbVendorId:0x2fe3,usbProductId:4}]:profile.board==='waveshare'?[{usbVendorId:0x303a},{usbVendorId:0x10c4}]:[];
+ const isP2=profile.board==='propeller2';
+ const filters=profile.board==='fruit-jam'?[{usbVendorId:0x2fe3,usbProductId:4}]:profile.board==='waveshare'?[{usbVendorId:0x303a},{usbVendorId:0x10c4}]:isP2?[{usbVendorId:0x0403}]:[];
  let status,saveStatus,projectList,mode,endpoint,socket=null,ready=false,apiReady=false,lastSource=null,saving=false;
  let assembly=new Uint8Array(),caps=null,autosaveArmed=false;
  const requests=new Map();const encoder=new TextEncoder(),decoder=new TextDecoder();
@@ -33,7 +34,7 @@
  const serial=new SerialTransport(navigator.serial,filters,accept,(connected,message)=>{
   if(!connected){input.clear();assembly.fill(0);assembly=new Uint8Array();rejectControls();caps=null;}
   notify(message||(connected?'USB connected to '+profile.name:'Disconnected'));update();
- });
+ },isP2?{dataTerminalReady:false,requestToSend:false}:undefined);
  const disconnect=()=>{if(socket){socket.close(1000,'Client disconnect');socket=null;}ready=false;void serial.disconnect();input.clear();rejectControls();update();};
  const connect=async()=>{
   try{
@@ -110,17 +111,18 @@
   panel.append(element('h2',profile.name));status=element('p','Choose Connect to select your USB board.');status.setAttribute('role','status');panel.append(status);
   panel.append(element('p',navigator.serial?'USB browser support is available. Connect opens the device chooser.':'USB is unavailable in this browser. Use desktop Chrome or Edge; project editing and browser saves still work.'));
   mode=element('select');mode.setAttribute('aria-label','Connection mode');
-  for(const [value,label] of [['usb','USB Web Serial'],['wifi','Wi-Fi secure WebSocket']]){const option=element('option',label);option.value=value;mode.append(option);}panel.append(mode);
+  for(const [value,label] of (isP2?[['usb','USB Web Serial']]:[['usb','USB Web Serial'],['wifi','Wi-Fi secure WebSocket']])){const option=element('option',label);option.value=value;mode.append(option);}panel.append(mode);
   endpoint=element('input');endpoint.placeholder='wss://your-secure-endpoint/ws/vm';endpoint.setAttribute('aria-label','Secure WebSocket address');endpoint.hidden=true;panel.append(endpoint);
   mode.onchange=()=>{disconnect();endpoint.hidden=mode.value!=='wifi';};
-  panel.append(element('p','Current LAN firmware uses ws://. From this HTTPS portal, open its own IDE instead; browser security is not bypassed.'));
+  const lanNote=element('p',isP2?'P2 runs a native FlexC VM over USB. Select the exact module variant when installing its firmware; P58–P63 are reserved, and EC32MB also reserves P40–P57.':'Current LAN firmware uses ws://. From this HTTPS portal, open its own IDE instead; browser security is not bypassed.');panel.append(lanNote);
+  if(isP2){const setup=element('a','P2 setup and firmware instructions');setup.href='https://github.com/speccy88/microblocks-zephyr/blob/main/boards/propeller2/README.md';setup.target='_blank';setup.rel='noopener noreferrer';panel.append(setup);}
   const ip=element('input');ip.placeholder='Board address, e.g. 192.168.x.x';ip.setAttribute('aria-label','Self-hosted board address');panel.append(ip);
   const local=element('button','Open board-hosted IDE');local.onclick=()=>{
    try{const url=new URL(ip.value.includes('://')?ip.value:'http://'+ip.value);
     if(!['http:','https:'].includes(url.protocol)||url.username||url.password||url.search||url.hash)throw Error('Enter a board HTTP or HTTPS address.');
     window.open(url.origin+'/','_blank','noopener,noreferrer');
    }catch(error){notify(error.message);}
-  };panel.append(local);
+  };if(!isP2)panel.append(local);ip.hidden=isP2;
   const read=element('button','Read project from board');read.onclick=()=>GP.apiCall('board.retrieveProject');panel.append(read);
   read.disabled=profile.connection_enabled===false;
   panel.append(element('p','Read from board before connecting to retrieve its existing program. Connecting otherwise synchronizes the current editor project.'));
@@ -145,7 +147,7 @@
   }catch(error){saveStatus.textContent=error.message;}finally{importInput.value='';}};
   panel.append(element('p','Projects stay in this browser and on this site. Clearing site data, private mode or storage eviction may remove them. Export files for backups or another device. Wi-Fi passwords are never saved here.'));
   const wifi=element('details');wifi.append(element('summary','Wi-Fi setup over USB'));const form=element('form');wifi.append(form);panel.append(wifi);
-  wifi.hidden=profile.connection_enabled===false;
+  wifi.hidden=profile.connection_enabled===false||isP2;
   const ssid=element('input');ssid.placeholder='Network name (2.4 GHz)';ssid.required=true;ssid.autocomplete='off';ssid.maxLength=32;ssid.setAttribute('aria-label','Wi-Fi network name');
   const key=element('input');key.type='password';key.placeholder='Wi-Fi password';key.autocomplete='off';key.maxLength=64;key.setAttribute('aria-label','Wi-Fi password');
   const label=element('label'),remember=element('input');remember.type='checkbox';remember.disabled=true;label.append(remember,document.createTextNode(' Remember on the board (stored in flash)'));
@@ -164,7 +166,7 @@
   Menus.connection.items=[{label:'Connect '+profile.name,action:()=>GP.apiCall('board.connect',['USB']),hidden:()=>IDE.board.connected},
    {label:'Disconnect',action:()=>GP.apiCall('board.disconnect'),hidden:()=>!IDE.board.connected}];
   Menus.settings.items=Menus.settings.items.filter(x=>!/(firmware|ESP firmware|new versions)/i.test(x.label||''));
-  const boardEndpoint={'fruit-jam':'fruitJam','waveshare':'rlcd','xrp-rp2350':'xrp'}[profile.board];GP.apiCall(boardEndpoint+'.loadLibrary');
+  const boardEndpoint={'fruit-jam':'fruitJam','waveshare':'rlcd','xrp-rp2350':'xrp','propeller2':'p2'}[profile.board];GP.apiCall(boardEndpoint+'.loadLibrary');
   const examples=element('select');examples.setAttribute('aria-label','Board examples');
   for(const [value,text] of [['','Examples'],['arithmetic','5 + 7'],['output','50 outputs']]){const option=element('option',text);option.value=value;examples.append(option);}
   examples.onchange=()=>{if(examples.value)GP.apiCall(boardEndpoint+'.openExample',[examples.value]);examples.value='';toolbar.open=false;};panel.insertBefore(examples,read);
@@ -185,7 +187,7 @@
  });
  document.addEventListener('board.type',event=>{
   const type=event.detail.value;if(!type)return;
-  const expected={'fruit-jam':'Fruit Jam','waveshare':'Waveshare','xrp-rp2350':'XRP'}[profile.board];
+  const expected={'fruit-jam':'Fruit Jam','waveshare':'Waveshare','xrp-rp2350':'XRP','propeller2':'Parallax P2'}[profile.board];
   if(!expected||!type.includes(expected)){notify('The connected board differs from this editor selection.');disconnect();}
  });
  window.addEventListener('pagehide',disconnect);

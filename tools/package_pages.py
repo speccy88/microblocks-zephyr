@@ -77,6 +77,27 @@ def xrp_package(javascript, data):
     source=(source[:match.start(1)]+replacement+source[match.end(1):]).replace('"/Examples","UNO Q"','"/Examples","XRP"')
     return source.encode(),bytes(packed)
 
+def p2_package(javascript, data, library):
+    """Use the normal compiler, IO primitive index, and P2's own library."""
+    js, data = patch_ide(javascript, data, library)
+    source = js.decode('utf-8')
+    match = re.search(r'loadPackage\((\{"files":\[.*?\],"remote_package_size":\d+\})\)', source)
+    metadata = json.loads(match[1]); packed = bytearray(); entries = []
+    for item in metadata['files']:
+        name = item['filename']; payload = data[item['start']:item['end']]
+        for before, after in [(b"atPut primsets 'rlcd'", b"atPut primsets 'p2'"),
+            (b'rlcd.loadLibrary', b'p2.loadLibrary'), (b'rlcd.openExample', b'p2.openExample'),
+            (b'Waveshare_RLCD_4_2.ubl', b'P2_Hardware.ubl'), (b'Waveshare RLCD 4.2', b'P2 Hardware'),
+            (b'Examples/Waveshare/', b'Examples/P2/')]:
+            payload = payload.replace(before, after)
+        name = name.replace('Waveshare_RLCD_4_2.ubl', 'P2_Hardware.ubl').replace('Examples/Waveshare/', 'Examples/P2/')
+        start = len(packed); packed.extend(payload)
+        entries.append(dict(filename=name, start=start, end=len(packed)))
+    replacement = json.dumps(dict(files=entries, remote_package_size=len(packed)), separators=(',', ':'))
+    source = (source[:match.start(1)]+replacement+source[match.end(1):]).replace('"/Examples","Waveshare"', '"/Examples","P2"')
+    return source.encode(), bytes(packed)
+
+
 def build(source, output, repo):
     manifest=json.loads((repo/'dependencies/ide-assets.json').read_text(encoding='utf-8'))
     originals={}
@@ -102,12 +123,15 @@ def build(source, output, repo):
     report={'real_editor':'MicroBlocks GP 2.5.8','upstream_commit':manifest['source_commit'],
             'source_manifest_sha256':hashlib.sha256((repo/'dependencies/ide-assets.json').read_bytes()).hexdigest(),
             'runtime_third_party_network':False,'boards':{}}
-    for board in ('fruit-jam','waveshare','xrp-rp2350'):
+    for board in ('fruit-jam','waveshare','xrp-rp2350','propeller2'):
         assets=dict(originals);assets.update(common)
-        if board in ('waveshare','xrp-rp2350'):
+        if board in ('waveshare','xrp-rp2350','propeller2'):
             if board=='waveshare':
                 js,data=patch_ide(originals['gp_wasm.js'],originals['gp_wasm.data'],
                     (repo/'boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl').read_bytes())
+            elif board=='propeller2':
+                js,data=p2_package(originals['gp_wasm.js'],originals['gp_wasm.data'],
+                    (repo/'boards/propeller2/integration/P2_Hardware.ubl').read_bytes())
             else:js,data=xrp_package(originals['gp_wasm.js'],originals['gp_wasm.data'])
             # The same locale dependency used by the physically accepted hosts.
             gate=b"""Module.preRun.push(function() {
@@ -123,7 +147,7 @@ def build(source, output, repo):
         tag='<script src="unoq-network.js"></script>'
         assert html.count(tag)==1
         profile={'board':board,'name':{'fruit-jam':'Fruit Jam','waveshare':'Waveshare RLCD 4.2',
-                  'xrp-rp2350':'SparkFun XRP RP2350 (development)'}[board]}
+                  'xrp-rp2350':'SparkFun XRP RP2350 (development)','propeller2':'Parallax Propeller 2'}[board]}
         if board=='xrp-rp2350':profile['connection_enabled']=False
         config=json.dumps(profile,separators=(',',':'))
         html=html.replace(tag,'<link rel="stylesheet" href="../../portal.css?v='+portal_version+'">\n'
