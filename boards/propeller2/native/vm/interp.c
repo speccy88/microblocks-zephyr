@@ -931,10 +931,10 @@ static void runTask(Task *task) {
 		fp = task->stack + obj2int(*(fp - 1)); // restore the old fp
 		DISPATCH();
 	waitMicros_op:
-	 	tmp = evalInt(*(sp - 1)); // wait time in usecs
-	 	POP_ARGS_COMMAND();
-	 	if (tmp <= 30) {
-	 		if (tmp <= 0) { DISPATCH(); } // don't wait at all
+		tmp = evalInt(*(sp - 1)); // wait time in usecs
+		POP_ARGS_COMMAND();
+		if (tmp <= 30) {
+			if (tmp <= 0) { DISPATCH(); } // don't wait at all
 			// busy-wait for wait times up to 30 usecs to avoid a context switch
 			tmp = microsecs() + tmp - 3; // wake time
 			while ((microsecs() - tmp) >= RECENT) { } // busy wait
@@ -944,13 +944,13 @@ static void runTask(Task *task) {
 		task->wakeTime = (microsecs() + tmp) - 7; // adjusted for approximate scheduler overhead
 		goto suspend;
 	waitMillis_op:
-	 	tmp = evalInt(*(sp - 1)); // wait time in usecs
-	 	POP_ARGS_COMMAND();
-	 	if (tmp <= 0) { DISPATCH(); } // don't wait at all
-	 	if (tmp > 3600000) {
-	 		fail(waitTooLong);
-	 		goto error;
-	 	}
+		tmp = evalInt(*(sp - 1)); // wait time in usecs
+		POP_ARGS_COMMAND();
+		if (tmp <= 0) { DISPATCH(); } // don't wait at all
+		if (tmp > 3600000) {
+			fail(waitTooLong);
+			goto error;
+		}
 		task->status = waiting_micros;
 		task->wakeTime = microsecs() + ((1000 * tmp) - 7);
 		goto suspend;
