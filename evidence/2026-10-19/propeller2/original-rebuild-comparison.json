@@ -1,0 +1,17 @@
+{
+  "vm_propeller2_edge.bin": {
+    "original_sha256": "a19e8da21ee5c9bc7b72080954e32aa356ebf18336121e19620636106515853a",
+    "rebuilt_sha256": "a19e8da21ee5c9bc7b72080954e32aa356ebf18336121e19620636106515853a",
+    "exact_match": true
+  },
+  "vm_propeller2_edge32.bin": {
+    "original_sha256": "2d9857b5e286e013d8226805e6ad7f0faac1e4b139be23403db7587fc4d37246",
+    "rebuilt_sha256": "2d9857b5e286e013d8226805e6ad7f0faac1e4b139be23403db7587fc4d37246",
+    "exact_match": true
+  },
+  "vm_propeller2_eval.bin": {
+    "original_sha256": "50dda61a7980c51b31fad8a6e501964f5d1bcfa6249409f7c0a26fa92b230b20",
+    "rebuilt_sha256": "50dda61a7980c51b31fad8a6e501964f5d1bcfa6249409f7c0a26fa92b230b20",
+    "exact_match": true
+  }
+}

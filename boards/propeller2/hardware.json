@@ -1,0 +1,114 @@
+{
+  "board": "Parallax Propeller 2",
+  "soc": "P2X8C4M64P",
+  "runtime": "native FlexC SmallVM v405",
+  "zephyr": false,
+  "arduino_api_linked": false,
+  "clock_hz": 180000000,
+  "clock_source_hz": 20000000,
+  "flash_mib": 16,
+  "code_flash_offsets_mib": [
+    2,
+    8
+  ],
+  "variants": {
+    "eval": {
+      "board_name": "Parallax P2 Eval Rev C",
+      "user_pins": [
+        0,
+        57
+      ],
+      "led": 56,
+      "led_active_low": true
+    },
+    "edge": {
+      "board_name": "Parallax P2 Edge",
+      "user_pins": [
+        0,
+        57
+      ],
+      "led": 56,
+      "led_active_low": false
+    },
+    "edge32": {
+      "board_name": "Parallax P2 Edge 32MB",
+      "user_pins": [
+        0,
+        39
+      ],
+      "led": 38,
+      "led_active_low": false,
+      "psram_reserved_pins": [
+        40,
+        57
+      ],
+      "psram_mib": 32,
+      "psram_used": false
+    }
+  },
+  "reserved_pins": {
+    "boot_flash": [
+      58,
+      61
+    ],
+    "ide_serial": [
+      62,
+      63
+    ]
+  },
+  "transport": {
+    "baud": 115200,
+    "rx_ring_bytes": 2048,
+    "dedicated_rx_cog": true,
+    "webserial_dtr": false,
+    "webserial_rts": false
+  },
+  "physical_identity": {
+    "rom": "Prop_Ver G",
+    "module_variant": "P2-EC32MB Rev B (matched historical adapter record; module marking not visually reinspected)",
+    "usb_identity_identifies_variant": false,
+    "observed_flash_jedec_hex": "00ef7018"
+  },
+  "capabilities": [
+    {
+      "id": "rom_serial",
+      "status": "COM12 opens; documented ROM identity query returned Prop_Ver G on 2026-10-19",
+      "physical_tested": true
+    },
+    {
+      "id": "vm_usb",
+      "status": "Installed native v405: ten arithmetic runs, live edit, 50 ordered outputs, fragmented CRC and reconnect PASS on COM12. Graphical Web Serial pending.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json"
+    },
+    {
+      "id": "smart_pin",
+      "status": "Named input counting mode, full-width raw mode/X/Y, invalid values and reserved pins physically exercised. Input configuration restored by saved start hat after reset. External output waveforms unverified.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
+      "external_output_waveforms_tested": false
+    },
+    {
+      "id": "gpio_adc_pwm_tone_servo_i2c_spi",
+      "status": "recovered implementations retained; external hardware tests pending",
+      "physical_tested": false
+    },
+    {
+      "id": "project_persistence",
+      "status": "Single-stage boot installation, hardware reset without RAM reload, matching stored CRCs, arithmetic, variable start hat and input Smart Pin start hat PASS.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json"
+    },
+    {
+      "id": "wifi_self_hosting",
+      "status": "unsupported",
+      "physical_tested": false
+    }
+  ],
+  "references": [
+    "https://www.parallax.com/products/p2-edge-module-with-32mb-ram",
+    "https://github.com/parallaxinc/P2_PNut_Public/blob/master/p2com.asm",
+    "https://github.com/totalspectrum/flexprop/releases/tag/v7.7.0"
+  ],
+  "code_flash_erase_bytes": 4096
+}

@@ -1,0 +1,98 @@
+{
+  "source_repository": "https://github.com/speccy88/smallvm",
+  "source_commit": "4dc5f4df2fe1eeb0ee3bb9c4bf694e2e34087e8c",
+  "vm_version": "v405",
+  "recovered_uncommitted_native_port": true,
+  "archive_sha256": "bdde563c7d5221132a02c1c4ebea0050d89c22fc57830d099ab070d4297f0ce5",
+  "license": "MPL-2.0",
+  "files": [
+    {
+      "path": "propeller2/p2IOPrims.c",
+      "recovered_sha256": "cc8a850b81a1e3e596be9c5d5b35fcca3e4d1022d2964a72e3950f70317cc324"
+    },
+    {
+      "path": "propeller2/p2Main.c",
+      "recovered_sha256": "cd31298521f8f41e1b2c056c50b483e9937cfa89b81f543b1e36c170d6ceb23a"
+    },
+    {
+      "path": "propeller2/p2OutputPrims.c",
+      "recovered_sha256": "3a7bbc926fb98d1c9e7c79a96c810df80f57694f20fe725c8eaf7c340bd8f954"
+    },
+    {
+      "path": "propeller2/p2PersistFile.c",
+      "recovered_sha256": "4c9e7b60ddf8464e9b2ce610101221cb65a20a8a75fc20e56395d751b09cad73"
+    },
+    {
+      "path": "propeller2/p2SensorPrims.c",
+      "recovered_sha256": "9813a953de3233eaab3853829e9c0ccbbe7a02038730a2a22af3b0995b0cf38e"
+    },
+    {
+      "path": "propeller2/p2SerialPrims.c",
+      "recovered_sha256": "01e06f90698af4f0dc1f3c7e4e4126894dbe928b0ffeb074f1a9646a35b2aedb"
+    },
+    {
+      "path": "propeller2/p2Board.h",
+      "recovered_sha256": "7944d642898d805247ca20d02e1ef77b6aadc7f75368fb12e7f5f22fe2bea85f"
+    },
+    {
+      "path": "vm/fileSys.h",
+      "recovered_sha256": "6f6c5417a544c464cd63ae364d24703a1d7afdc5ec08943683f94dcfd469ace7"
+    },
+    {
+      "path": "vm/interp.h",
+      "recovered_sha256": "78f99096f9fba7a7f7aed6c3a6d8a6f97fba82c8fcfce636baf3c556979a45b3"
+    },
+    {
+      "path": "vm/mem.h",
+      "recovered_sha256": "670b2d64c04822c4440476a8eab4a4a7bdf4f049eca7cd7245445c5dfe2a80b0"
+    },
+    {
+      "path": "vm/persist.h",
+      "recovered_sha256": "1cc72665eddaaa20c4e95b5e6b0c943cbc949e59af557c7d1a9759fb723653ff"
+    },
+    {
+      "path": "vm/tinyJSON.h",
+      "recovered_sha256": "c97e03ef56f461c12011a6ca0f254b5db7b9e17ab3b69a59090141f89a856f5f"
+    },
+    {
+      "path": "vm/version.h",
+      "recovered_sha256": "b34157268c3739c6b6badb16d7ce5e7dc4ff75b2f0163b506429ae17d55b10a7"
+    },
+    {
+      "path": "vm/mem.c",
+      "recovered_sha256": "d0753bf739caf22627f756ca8b5b1f0db14864ab19929ef93e85de1f8ab698eb"
+    },
+    {
+      "path": "vm/interp.c",
+      "recovered_sha256": "4433fe319df036b7a12798ef491e42457cfe514f6de365e8d3ffa44f8ac87b2c"
+    },
+    {
+      "path": "vm/runtime.c",
+      "recovered_sha256": "eb776d5b51958407641f8c925af06d7f4e0fc1c14d6922fa488d63bf279bb741"
+    },
+    {
+      "path": "vm/persist.c",
+      "recovered_sha256": "07f816133be8bf9fcedd3a742ab53e4c9f8c82bed55e4b0bbf7cbb85a256bf3e"
+    },
+    {
+      "path": "vm/dataPrims.c",
+      "recovered_sha256": "af314984d4b6b71b9eaff28fe0dc65d184afbcfc3d1865895580bd55c958a715"
+    },
+    {
+      "path": "vm/miscPrims.c",
+      "recovered_sha256": "262893f896d4dc23258a58cdc1846ea2e9023943687016a02033d1401fec97c6"
+    },
+    {
+      "path": "vm/varPrims.c",
+      "recovered_sha256": "45d178e6e5a3793fc71b33084b7b0922eaede739461ddd25b0f31be3a42348f9"
+    },
+    {
+      "path": "vm/tinyJSON.c",
+      "recovered_sha256": "c93da120db48a6c50b8a2472459eb61e3ab6a090451113a5481d0087144c6372"
+    },
+    {
+      "path": "vm/mbFont.c",
+      "recovered_sha256": "5ab121ca6ae9750889367a354ea263a21662e4fde5f19807e76e5d4bf8fda4e2"
+    }
+  ]
+}

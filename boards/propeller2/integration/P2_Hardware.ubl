@@ -1,0 +1,38 @@
+module 'P2 Hardware' Output
+author 'Native FlexC port; MicroBlocks SmallVM contributors'
+version 0 1
+description 'Native Propeller 2 firmware, USB at 115200. Not Zephyr. Pins P58–63 are reserved; EC32MB also reserves P40–57. NCO/PWM and raw modes can drive hardware. Smart Pin X/Y are hardware register values. Read the board documentation before using outputs.'
+choices p2Mode 'input' 'pull-up' 'pull-down' 'NCO frequency' 'NCO duty' 'PWM sawtooth' 'PWM triangle' 'count rises' 'count highs'
+spec 'r' '[p2:p2Board]' 'P2 board'
+spec 'r' '[p2:p2FlashID]' 'P2 boot flash JEDEC (hex)'
+spec 'r' '[p2:p2ClockHz]' 'P2 clock (Hz)'
+spec 'r' '[p2:p2Cog]' 'P2 current cog'
+spec 'r' '[p2:p2PinCount]' 'P2 usable pin count'
+spec 'b' '[p2:p2PinUsable]' 'P2 pin _ usable?' 'num' 0
+spec ' ' '[p2:setUserLED]' 'P2 user LED _' 'bool' false
+spec ' ' 'p2ConfigureSmartPin' 'P2 configure Smart Pin _ mode _ X _ Y _' 'num menu.p2Mode num num' 0 'input' 0 0
+spec ' ' 'p2FrequencyHz' 'P2 Smart Pin _ frequency _ Hz' 'num num' 0 1000
+spec ' ' '[p2:p2PinRelease]' 'P2 release pin _' 'num' 0
+spec 'b' '[p2:p2PinReady]' 'P2 Smart Pin _ ready?' 'num' 0
+spec 'r' '[p2:p2PinReadHex]' 'P2 Smart Pin _ read Z (hex)' 'num' 0
+advanced
+spec ' ' 'p2StartSmartPinRaw' 'P2 start Smart Pin _ raw mode hex _ X hex _ Y hex _' 'num str str str' 0 '00000002' '00000000' '00000000'
+spec 'b' '[p2:p2SmartPin]' 'P2 try configure pin _ mode _ X _ Y _' 'num menu.p2Mode num num' 0 'input' 0 0
+spec 'b' '[p2:p2SmartPinRaw]' 'P2 try raw pin _ mode hex _ X hex _ Y hex _' 'num str str str' 0 '00000002' '00000000' '00000000'
+spec 'b' '[p2:p2Frequency]' 'P2 try pin _ frequency _ Hz' 'num num' 0 1000
+spec 'b' '[p2:p2PinWriteX]' 'P2 Smart Pin _ write X hex _' 'num str' 0 '00000000'
+spec 'b' '[p2:p2PinWriteY]' 'P2 Smart Pin _ write Y hex _' 'num str' 0 '00000000'
+spec 'r' '[p2:p2PinModeHex]' 'P2 Smart Pin _ configured mode (hex)' 'num' 0
+spec 'r' '[p2:p2PinRead]' 'P2 Smart Pin _ read Z (VM integer)' 'num' 0
+
+to p2ConfigureSmartPin pin mode x y {
+    '[p2:p2SmartPin]' pin mode x y
+}
+
+to p2FrequencyHz pin hz {
+    '[p2:p2Frequency]' pin hz
+}
+
+to p2StartSmartPinRaw pin mode x y {
+    '[p2:p2SmartPinRaw]' pin mode x y
+}

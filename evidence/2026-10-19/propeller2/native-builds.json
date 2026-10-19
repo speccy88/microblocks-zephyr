@@ -1,0 +1,50 @@
+{
+  "compiler": "Official portable FlexProp/FlexC 7.7.0 (2026-07-16)",
+  "flashed_variant": "edge32",
+  "flash_method": "loadp2 0.078 -p COM12 -b 115200 -l 460800 -SINGLE -FLASH",
+  "variants": {
+    "eval": {
+      "bytes": 336808,
+      "sha256": "558c90ee48f584fe157e103c970e90ee7a7f1cec6112a31e236a6829b016b113",
+      "compile_exit": 0,
+      "warning_lines": 16
+    },
+    "edge": {
+      "bytes": 336796,
+      "sha256": "ab98fbe591ac08c1b567ad41b5281c70482f100acc7b376cee751d7a49c149f7",
+      "compile_exit": 0,
+      "warning_lines": 16
+    },
+    "edge32": {
+      "bytes": 336644,
+      "sha256": "ed2353e9b98c60a5d63360db50905949d201a4769452b4b6adea96aead29406e",
+      "compile_exit": 0,
+      "warning_lines": 16
+    }
+  },
+  "native_source_sha256": {
+    "boards/propeller2/native/propeller2/p2Board.h": "7944d642898d805247ca20d02e1ef77b6aadc7f75368fb12e7f5f22fe2bea85f",
+    "boards/propeller2/native/propeller2/p2FlashDevice.c": "5d38f84f0f5f4b8a99c7f37f12230349c34b6a1a98c16b614aa9bed8b5d7a82e",
+    "boards/propeller2/native/propeller2/p2IOPrims.c": "38acee6fe1119aeda5fd7c06eb13a1cd7d5d3d822b05b4f2e02d000ed512ba09",
+    "boards/propeller2/native/propeller2/p2Main.c": "cd31298521f8f41e1b2c056c50b483e9937cfa89b81f543b1e36c170d6ceb23a",
+    "boards/propeller2/native/propeller2/p2OutputPrims.c": "3a7bbc926fb98d1c9e7c79a96c810df80f57694f20fe725c8eaf7c340bd8f954",
+    "boards/propeller2/native/propeller2/p2PersistFile.c": "0544de1390441d1b998fd34cbe8a222921ab4e3fcd7e5c32b37d4b49f5d85881",
+    "boards/propeller2/native/propeller2/p2SensorPrims.c": "9813a953de3233eaab3853829e9c0ccbbe7a02038730a2a22af3b0995b0cf38e",
+    "boards/propeller2/native/propeller2/p2SerialPrims.c": "01e06f90698af4f0dc1f3c7e4e4126894dbe928b0ffeb074f1a9646a35b2aedb",
+    "boards/propeller2/native/vm/dataPrims.c": "af314984d4b6b71b9eaff28fe0dc65d184afbcfc3d1865895580bd55c958a715",
+    "boards/propeller2/native/vm/fileSys.h": "6f6c5417a544c464cd63ae364d24703a1d7afdc5ec08943683f94dcfd469ace7",
+    "boards/propeller2/native/vm/interp.c": "4433fe319df036b7a12798ef491e42457cfe514f6de365e8d3ffa44f8ac87b2c",
+    "boards/propeller2/native/vm/interp.h": "78f99096f9fba7a7f7aed6c3a6d8a6f97fba82c8fcfce636baf3c556979a45b3",
+    "boards/propeller2/native/vm/mbFont.c": "5ab121ca6ae9750889367a354ea263a21662e4fde5f19807e76e5d4bf8fda4e2",
+    "boards/propeller2/native/vm/mem.c": "d0753bf739caf22627f756ca8b5b1f0db14864ab19929ef93e85de1f8ab698eb",
+    "boards/propeller2/native/vm/mem.h": "670b2d64c04822c4440476a8eab4a4a7bdf4f049eca7cd7245445c5dfe2a80b0",
+    "boards/propeller2/native/vm/miscPrims.c": "262893f896d4dc23258a58cdc1846ea2e9023943687016a02033d1401fec97c6",
+    "boards/propeller2/native/vm/persist.c": "07f816133be8bf9fcedd3a742ab53e4c9f8c82bed55e4b0bbf7cbb85a256bf3e",
+    "boards/propeller2/native/vm/persist.h": "1cc72665eddaaa20c4e95b5e6b0c943cbc949e59af557c7d1a9759fb723653ff",
+    "boards/propeller2/native/vm/runtime.c": "eb776d5b51958407641f8c925af06d7f4e0fc1c14d6922fa488d63bf279bb741",
+    "boards/propeller2/native/vm/tinyJSON.c": "c93da120db48a6c50b8a2472459eb61e3ab6a090451113a5481d0087144c6372",
+    "boards/propeller2/native/vm/tinyJSON.h": "c97e03ef56f461c12011a6ca0f254b5db7b9e17ab3b69a59090141f89a856f5f",
+    "boards/propeller2/native/vm/varPrims.c": "45d178e6e5a3793fc71b33084b7b0922eaede739461ddd25b0f31be3a42348f9",
+    "boards/propeller2/native/vm/version.h": "b34157268c3739c6b6badb16d7ce5e7dc4ff75b2f0163b506429ae17d55b10a7"
+  }
+}

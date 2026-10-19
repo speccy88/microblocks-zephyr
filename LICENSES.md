@@ -27,7 +27,7 @@ and minimal guard are recorded in `tools/prepare_i2s.py`.
 Source from the following projects is **not vendored** in this starter and must
 preserve its own licensing and attribution when integrated:
 
-- [MicroBlocks SmallVM and GP editor](https://codeberg.org/MicroBlocks/smallvm)
+- [MicroBlocks GP editor](https://codeberg.org/MicroBlocks/smallvm)
 - [Zephyr RTOS](https://github.com/zephyrproject-rtos/zephyr)
 - [Pinned ArduinoCore-Zephyr module](https://github.com/zephyrproject-rtos/arduino-core-zephyr)
 - [BeagleBoard MicroBlocks-Zephyr](https://github.com/beagleboard/microblocks-zephyr)
@@ -43,6 +43,16 @@ preserve its own licensing and attribution when integrated:
 
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
+
+`boards/propeller2/native/` contains the required C/header subset of the
+recovered MicroBlocks SmallVM v405 native FlexC port, derived from commit
+`4dc5f4df2fe1eeb0ee3bb9c4bf694e2e34087e8c` plus recovered uncommitted changes.
+It retains MPL-2.0 file notices and its full upstream LICENSE. Original file
+hashes are in `boards/propeller2/recovery-provenance.json`. New P2 primitive
+changes retain MPL-2.0. The recovery archive, Git database, executables and
+unrelated recovered files are not vendored. P2 mode encodings are factual
+constants verified against Parallax's official PNut table; PNut source is not
+copied. FlexProp/loadp2 binaries stay external and retain their own licenses.
 
 The production XRP target references SparkFun's schematic at `86c4cd7f`
 (hardware CC BY-SA 4.0; software MIT) for factual wiring/part data; no schematic
