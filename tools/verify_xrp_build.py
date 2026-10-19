@@ -61,6 +61,7 @@ def verify(args):
     disabled=('CONFIG_CONSOLE','CONFIG_PRINTK','CONFIG_LOG','CONFIG_BT','CONFIG_TIMER_RANDOM_GENERATOR','CONFIG_TEST_CSPRNG_GENERATOR')
     assert all(config.get(k)=='y' for k in enabled),{k:config.get(k) for k in enabled}
     assert all(config.get(k)!='y' for k in disabled)
+    assert config.get('CONFIG_WHD_WIFI_COUNTRY')=='"WHD_COUNTRY_CANADA"'
     commands=subprocess.check_output([args.ninja,'-C',str(build),'-t','commands'],text=True)
     line=next(l for l in commands.splitlines() if '/variants/sparkfun_xrp/pinmux.c' in l and ' -c ' in l)
     tokens=shlex.split(line);clean=[];i=0

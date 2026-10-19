@@ -77,5 +77,6 @@ class XRPProductionContracts(unittest.TestCase):
         self.assertNotIn('/api/wifi',server)
         self.assertIn('return host && origin',server)
         config=(BOARD/'smallvm/prj.conf').read_text()
-        for required in ('CONFIG_CONSOLE=n','CONFIG_UART_CONSOLE=n','CONFIG_PRINTK=n','CONFIG_BT=n'):
+        for required in ('CONFIG_CONSOLE=n','CONFIG_UART_CONSOLE=n','CONFIG_PRINTK=n','CONFIG_BT=n',
+                         'CONFIG_WHD_WIFI_COUNTRY="WHD_COUNTRY_CANADA"'):
             self.assertIn(required,config)

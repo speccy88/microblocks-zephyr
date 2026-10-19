@@ -63,8 +63,10 @@ and its current VID/PID must not be presumed to identify the new image.
 The plaintext journal is written only with explicit `--remember`; transient
 connections leave any older saved network intact. USER recovery never erases it.
 
-The RM2 build currently uses the pinned Zephyr CYW43439/MURATA-1YN resource
-selection and upstream `WHD_COUNTRY_AUSTRALIA` default. Before RF acceptance,
-choose the deployment country through `CONFIG_WHD_WIFI_COUNTRY` and validate
-the RM2 NVRAM/antenna configuration. Compilation alone proves neither RF
-calibration nor association. No live network credentials were used in tests.
+The deployment country confirmed by the user is Canada. The integrated app
+sets `CONFIG_WHD_WIFI_COUNTRY="WHD_COUNTRY_CANADA"`; the earlier build used
+the upstream Australia default and was not used for association. Keep the
+pinned Zephyr CYW43439/MURATA-1YN firmware, CLM and NVRAM resource selection.
+Record the actual resolved country in build evidence before installation and
+radio acceptance. Successful association does not establish RF calibration.
+Credentials are supplied only through the user's local Connect action.
