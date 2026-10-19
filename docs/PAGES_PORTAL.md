@@ -114,3 +114,23 @@ Terminal COM12 protocol results establish real VM execution and storage.
 They do not establish actual browser Web Serial or graphical acceptance.
 The latter requires an available browser window and the real device chooser;
 a simulated provider or serial bridge does not substitute for that check.
+
+The shared editor API wrapper counts six seconds of visible-tab time and
+cancels its own queued call on timeout. GP processes queued calls from its
+animation loop; a hidden tab can suspend that loop. Leaving timed-out calls
+in the pinned GP queue caused stale saves to accumulate and could leave a
+project-load request waiting to execute after its caller reported failure.
+Successful callbacks keep GP's original callback-then-remove ordering.
+
+Offline checks cover visibility changes, bounded retries, cancellation of a
+timed-out load and GP response ordering. To exercise the actual packaged GP
+serialization source without opening a browser or serial port:
+
+```text
+python tools/test_gp_project_api.py --gp /path/to/gp-win.exe --editor build-artifacts/pages/editor/propeller2 --output build-artifacts/gp-project-api
+```
+
+The test substitutes the browser editor lookup and response sink, uses a
+native GP interpreter, and requires an actual serialized response plus an
+equal save/load roundtrip. It is a source-level compatibility check, not
+browser storage or Web Serial proof. P2 browser acceptance remains pending.

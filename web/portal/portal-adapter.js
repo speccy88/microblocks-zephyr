@@ -3,7 +3,7 @@
  * No network credential requests, server project writes or analytics. */
 (() => {
  'use strict';
- const {ProjectStore,ByteQueue,SerialTransport,MAX_PROJECT}=MicroBlocksPortal;
+ const {ProjectStore,ByteQueue,EditorAPI,SerialTransport,MAX_PROJECT}=MicroBlocksPortal;
  const profile=PORTAL_BOARD,store=new ProjectStore(),input=new ByteQueue();
  const isP2=profile.board==='propeller2';
  const filters=profile.board==='fruit-jam'?[{usbVendorId:0x2fe3,usbProductId:4}]:profile.board==='waveshare'?[{usbVendorId:0x303a},{usbVendorId:0x10c4}]:isP2?[{usbVendorId:0x0403}]:[];
@@ -62,10 +62,8 @@
  window.GP_getSerialPorts=()=>{GP_serialPortNames=[toUTF8Array(profile.name)];};
  window.GP_readSerialPort=max=>input.read(max);window.GP_writeSerialPort=write;
  window.GP_setSerialPortDTR=()=>{};window.GP_setSerialPortRTS=()=>{};window.GP_setSerialPortDTRandRTS=()=>{};
- const call=(name,params=[])=>new Promise((resolve,reject)=>{
-  const timer=setTimeout(()=>reject(Error('Editor did not respond. Keep this tab active and retry.')),6000);
-  GP.apiCall(name,params,value=>{clearTimeout(timer);resolve(value);});
- });
+ const editorAPI=new EditorAPI(GP,document);
+ const call=(name,params=[])=>editorAPI.call(name,params);
  const listProjects=async()=>{
   const items=await store.list(profile.board);projectList.replaceChildren();
   for(const item of items){const option=document.createElement('option');option.value=item.id;option.textContent=(item.id.endsWith(':workspace')?'Autosaved workspace':item.name)+' — '+new Date(item.updated).toLocaleString();projectList.append(option);}

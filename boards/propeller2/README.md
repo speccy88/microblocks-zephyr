@@ -66,8 +66,9 @@ are retained.
 The P2 portal keeps DTR/RTS deasserted so a Prop Plug does not hold P2 in reset.
 Choose **Propeller 2** in the portal, select Connect, then the correct FTDI
 port. The firmware reports its exact variant; the P2 Hardware library loads
-automatically. Browser project saves and `.ubp` import/export work as for the
-other boards. Wi-Fi and board-hosted editor controls are absent for this port.
+automatically. Browser project saves and `.ubp` import/export use the shared
+portal implementation; their P2 browser acceptance is pending. Wi-Fi and
+board-hosted editor controls are absent for this port.
 
 For the bounded hardware test, install `pyserial==3.5` and
 `websocket-client==1.9.0` in a Python environment, then run:
@@ -141,3 +142,10 @@ The real GP 2.5.8 editor loads the P2 library and renders its command blocks.
 Actual Web Serial acceptance is pending selection of COM12 in the browser
 native device picker; the automation browser cannot operate that dialog.
 No external output waveform or attached peripheral behavior was measured.
+
+The initial graphical attempt also showed an editor-response timeout during
+autosave. The packaged GP source successfully serializes and reloads the P2
+library in a headless native GP test. The shared request wrapper now pauses
+its timeout while the tab is hidden and removes its own timed-out GP queue
+entry, preventing repeated autosaves from accumulating stale work. Those
+offline checks do not prove the original browser timeout is resolved.

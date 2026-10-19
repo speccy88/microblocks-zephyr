@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "tested_at": "2026-10-19T13:27:30.138807+00:00",
+  "scope": "headless packaged GP source API; browser response sink substituted",
+  "gp_executable_sha256": "b30af74ce4a22624d27934f31fcc05e0e1863fd79cc9d669789fa4433bece4f4",
+  "gp_data_sha256": "cbf5f8e6ad80d7bb83ffd144ecfe4869ba38242b118252b3f76bc22e4160f6d7",
+  "project_bytes": 2272,
+  "roundtrip_equal": true,
+  "graphical_browser_test": false,
+  "web_serial_test": false,
+  "source_api": "portal.serialize: real packaged dispatch/saveScripts/codeString/jsonStringify",
+  "browser_environment_substitutions": [
+    "editor lookup",
+    "response sink"
+  ],
+  "request_regression_tests_passed": 4,
+  "node_tests_passed": 13,
+  "python_validation_tests_passed": 30,
+  "original_browser_timeout_cause_confirmed": false,
+  "browser_followup_required": true,
+  "source_sha256": {
+    "web/portal/portal-core.js": "972e8bfe49a57a405495c50f62572f0904c9c053f83527263d7953552cd7d858",
+    "web/portal/portal-adapter.js": "d81b7342ac4834439af3e9852d7c2c6209932bb0e76dfd112d74f6fc5ceb0690",
+    "tools/test_gp_project_api.py": "8a5136ba2bdff4f98ab6ec329eb48f1099ab5ee62f69569818d3750ed6e44463"
+  }
+}

@@ -43,6 +43,36 @@
    this.bytes-=out.length;return out;
   }
  }
+ class EditorAPI{
+  constructor(gp,document=root.document,{timeout=6000,now=()=>performance.now(),setTimer=setTimeout,clearTimer=clearTimeout}={}){
+   Object.assign(this,{gp,document,timeout,now,setTimer,clearTimer});
+  }
+  call(name,params=[]){
+   return new Promise((resolve,reject)=>{
+    let timer,started,remaining=this.timeout,settled=false;
+    const cleanup=()=>{this.clearTimer(timer);this.document?.removeEventListener('visibilitychange',visibility);};
+    const fail=error=>{
+     if(settled)return;settled=true;cleanup();
+     // Pinned GP keeps a call until its response callback runs. A timeout must
+     // cancel our own entry, or inactive tabs accumulate stale requests and a
+     // timed-out load can replace the workspace much later. Never remove a
+     // successful call here: GP removes it after invoking the callback.
+     const queue=this.gp.callQueue,index=queue?.findIndex(item=>item[2]===answer);
+     if(index>=0)queue.splice(index,1);
+     reject(error);
+    };
+    const arm=()=>{this.clearTimer(timer);started=this.now();timer=this.setTimer(()=>fail(Error('Editor did not respond while this tab was active. Click the workspace and retry.')),remaining);};
+    const visibility=()=>{
+     if(this.document.hidden){if(timer!==undefined)remaining=Math.max(0,remaining-(this.now()-started));this.clearTimer(timer);timer=undefined;}
+     else arm();
+    };
+    const answer=value=>{if(settled)return;settled=true;cleanup();resolve(value);};
+    this.document?.addEventListener('visibilitychange',visibility);
+    if(!this.document?.hidden)arm();
+    try{this.gp.apiCall(name,params,answer);}catch(error){fail(error);}
+   });
+  }
+ }
  class SerialTransport{
   constructor(provider,filters,onData,onState,signals={dataTerminalReady:true,requestToSend:false}){Object.assign(this,{provider,filters,onData,onState,signals});this.port=null;this.reader=null;this.writer=null;this.pending=0;this.chain=Promise.resolve();this.closing=false;}
   async connect(){
@@ -80,6 +110,6 @@
    this.onState(false);this.closing=false;
   }
  }
- const api={ProjectStore,ByteQueue,SerialTransport,MAX_PROJECT,MAX_QUEUE};
+ const api={ProjectStore,ByteQueue,EditorAPI,SerialTransport,MAX_PROJECT,MAX_QUEUE};
  root.MicroBlocksPortal=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);
