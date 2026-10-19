@@ -104,7 +104,7 @@
  const element=(tag,text)=>{const node=document.createElement(tag);if(text)node.textContent=text;return node;};
  document.addEventListener('board-ide-ready',async()=>{
   apiReady=true;document.documentElement.dataset.portalReady='true';
-  const toolbar=element('details');toolbar.className='portal-tools';
+  const toolbar=element('details');toolbar.className='portal-tools';toolbar.open=profile.connection_enabled===false;
   toolbar.append(element('summary','Projects & board'));const panel=element('section');panel.className='portal-panel';toolbar.append(panel);
   document.querySelector('[data-ide="controls"]').prepend(toolbar);
   panel.append(element('h2',profile.name));status=element('p','Choose Connect to select your USB board.');status.setAttribute('role','status');panel.append(status);
