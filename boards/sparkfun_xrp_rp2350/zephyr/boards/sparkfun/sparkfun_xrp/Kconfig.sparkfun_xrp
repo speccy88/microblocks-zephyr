@@ -1,0 +1,3 @@
+# SPDX-License-Identifier: Apache-2.0
+config BOARD_SPARKFUN_XRP
+    select SOC_RP2350B_M33_0 if BOARD_SPARKFUN_XRP_RP2350B_M33_0

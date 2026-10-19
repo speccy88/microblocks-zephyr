@@ -1,0 +1,20 @@
+/* SPDX-License-Identifier: Apache-2.0
+ * Factual production wiring: SparkFun schematic 86c4cd7f. */
+#include <zephyr/dt-bindings/pinctrl/rpi-pico-rp2350b-pinctrl.h>
+&pinctrl {
+    i2c0_default: i2c0_default {
+        group1 { pinmux = <I2C0_SDA_P4>, <I2C0_SCL_P5>;
+            input-enable; input-schmitt-enable; bias-pull-up; };
+    };
+    i2c1_default: i2c1_default {
+        group1 { pinmux = <I2C1_SDA_P38>, <I2C1_SCL_P39>;
+            input-enable; input-schmitt-enable; bias-pull-up; };
+    };
+    xrp_radio_clock: xrp_radio_clock { group1 { pinmux = <PIO0_P28>; }; };
+    xrp_radio_data: xrp_radio_data {
+        group1 { pinmux = <PIO0_P29>; input-enable; };
+    };
+    xrp_radio_irq: xrp_radio_irq {
+        group1 { pinmux = <GPIO_P29>; input-enable; };
+    };
+};

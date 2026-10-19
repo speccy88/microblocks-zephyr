@@ -1,0 +1,6 @@
+board:
+  name: sparkfun_xrp
+  full_name: SparkFun XRP RP2350 production (experimental MicroBlocks port)
+  vendor: sparkfun
+  socs:
+    - name: rp2350b

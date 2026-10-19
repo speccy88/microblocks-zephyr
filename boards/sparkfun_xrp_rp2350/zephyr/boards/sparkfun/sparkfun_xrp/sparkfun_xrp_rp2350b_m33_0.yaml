@@ -1,0 +1,13 @@
+identifier: sparkfun_xrp/rp2350b/m33_0
+name: SparkFun XRP RP2350 production
+type: mcu
+arch: arm
+ram: 520
+flash: 16384
+toolchain:
+  - zephyr
+supported:
+  - gpio
+  - i2c
+  - usb_device
+vendor: sparkfun

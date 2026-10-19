@@ -1,0 +1,18 @@
+{
+  "hardware_repository": "https://github.com/sparkfun/SparkFun_XRP_Controller",
+  "hardware_commit": "86c4cd7fbc40c49308ec9d28007809906f18eec3",
+  "product": "ROB-26619 production XRP Controller, not beta ROB-22727",
+  "references": [
+    {"path": "Hardware/core.kicad_sch", "bytes": 254813, "sha256": "d9732cacbe5cbce3b09b3b93ac613cf46ba91999c398009c37935f0c5db238b3"},
+    {"path": "Hardware/peripherals.kicad_sch", "bytes": 284179, "sha256": "91a310fc74d8c703b3e6d93204fc47203c6815aeea2b03398204cd9fab7aa97d"},
+    {"path": "LICENSE.md", "bytes": 2885, "sha256": "cc2731bed1b3d28242eaa4bc9992864b28650bdc69fb4c558ce6e0b7bfc74680"}
+  ],
+  "reference_license": {"hardware": "CC-BY-SA-4.0", "software": "MIT"},
+  "copied_design_artwork_or_upstream_robot_code": false,
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "zephyr_radio_reference": "boards/waveshare/rp2350b_plus_w/rp2350b_plus_w_rp2350b_m33_0.dts",
+  "zephyr_radio_reference_sha256": "620a080f971e74f9132bc860acbaa3b063fde6cfc0e15ae5e1255002266b1f24",
+  "zephyr_reference_license": "Apache-2.0",
+  "xrpcode_reference": "https://github.com/Open-STEM/XRPCode/tree/108010b3d62086bc9f79fc92876c752add584c52",
+  "hardware_access_or_flash": false
+}

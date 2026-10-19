@@ -1,0 +1,4 @@
+/* SPDX-License-Identifier: MIT */
+&zephyr_udc0 {
+    xrp_cdc: xrp_cdc { compatible = "zephyr,cdc-acm-uart"; };
+};
