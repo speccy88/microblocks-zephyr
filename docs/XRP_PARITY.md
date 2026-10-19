@@ -1,7 +1,9 @@
 # Production XRP feature parity and acceptance
 
 Target: SparkFun XRP Controller ROB-26619, discrete RP2350B and RM2, not the
-Pico W beta ROB-22727. The robot has not been identified or accessed. No motion,
+Pico W beta ROB-22727. USB/SWD identification now confirms a responding RP2350
+through the known Pico 2 W probe; installed firmware and exact PCB revision
+remain unverified. No motion,
 flash, reset, credential entry or physical feature validation is authorized by
 this source-stage checkpoint alone. Other connected RP2350 boards are excluded.
 
@@ -50,8 +52,8 @@ add XRPLib's orientation reversal a second time.
 
 | Function | Required behavior / acceptance | Current boundary |
 |---|---|---|
-| Correct production target | RP2350B/high GPIO, exact radio nets, USB identity and firmware/source hashes | Source definition; no physical identity |
-| Live blocks / variables | Real GP compile, 5+7=12, edit=13, stop, variables, reconnect, 50 ordered outputs | Portal preview; XRP VM not installed |
+| Correct production target | RP2350B/high GPIO, exact radio nets, USB identity and firmware/source hashes | USB COM10 + RP2350 SWD identified; PCB/installed image not verified |
+| Live blocks / variables | Real GP compile, 5+7=12, edit=13, stop, variables, reconnect, 50 ordered outputs | VM/Arduino/native GP cross-built; XRP image not installed |
 | Four motor channels | Signed bounded duty, dual PWM and correct orientation; zero-safe boot/Stop/reset | Hardware primitives pending; no motor commands in baseline |
 | Four quadrature encoders | Signed counts, reset and velocity; pulse-generator accuracy under Wi-Fi load | Driver and measured limits pending |
 | Tank / arcade / drivetrain | Differential scaling, saturation, wheel calibration and cooperative bounded moves | API/control loops pending |
@@ -62,9 +64,9 @@ add XRPLib's orientation reversal a second time.
 | Button / RGB / STAT | Button36 active-low, RGB37; STAT belongs to radio GPIO0 | Button input only in baseline; no automatic RGB/STAT output |
 | Voltage / current | VIN46 and currents40..43, documented divider/gain and calibration | Scaling and electrical calibration pending |
 | Extension I/O / Qwiic | Safe unused GPIO12..19, I2C0 4/5, I2C1 38/39; enforce reserved pins | Pin ownership specified; broad Arduino API pending |
-| Wi-Fi live programming | RM2 PIO shared DATA/IRQ; association, all assets, fragmented VM traffic and reconnect | Pinned Zephyr radio definition adapted; board integration pending |
+| Wi-Fi live programming | RM2 PIO shared DATA/IRQ; association, all assets, fragmented VM traffic and reconnect | RM2/AIROC, native GP and USB/WS arbiter cross-built; no physical radio test |
 | Local project storage | Per-board IndexedDB, named save/restore/export, preserve fresh workspace | Shared portal code; XRP browser acceptance pending |
-| Save / boot / update | Separate application, program and Wi-Fi settings; retain current program through update | Partitions reserved; firmware storage integration pending |
+| Save / boot / update | Separate application, program and Wi-Fi settings; retain current program through update | Program store + common two-slot Wi-Fi journal integrated; real flash/boot tests pending |
 | Stop and connection loss | Stop all task outputs; manual/teleop mode stops on loss of control; explicit autonomous policy | Policy must be implemented/tested before actuator release |
 | Python / Blockly / REPL / robot files | XRPCode offers these distinct workflows | Not provided by MicroBlocks; full XRPCode equivalence is not claimed |
 | Optional gamepad / dashboard | Explicit user enable, bounded commands, clear ownership/link loss | Separate future scope |
@@ -80,7 +82,7 @@ add XRPLib's orientation reversal a second time.
    a physical boot, sensor, motor, USB or Wi-Fi result.
 2. Compile USB SmallVM and actual Arduino API with safe GPIO ownership, exact
    source/image/partition evidence. The preview must reject hardware connection
-   until a compatible XRP image exists; no substitute board is accepted.
+   until the compatible image is installed and verified; no substitute board is accepted.
 3. Integrate RM2 Wi-Fi and board-hosted GP/WebSocket, one-controller ownership,
    common USB setup and dedicated persistent settings. Reserve PIO0 for radio;
    budget encoder/RGB PIO separately. Preserve Infineon firmware/CLM blob terms.
@@ -101,3 +103,18 @@ composition keeps Apache-2.0 notices. XRPCode/XRPLib are GPLv3 references; their
 source is not copied into the MIT/MPL implementation. WPILib firmware has no
 general root license grant established here and is not copied. No schematic
 artwork, firmware blob, secret or full robot flash dump is committed.
+
+## Integrated non-actuating checkpoint
+
+`smallvm/` now links actual SmallVM v417, the isolated Arduino API, upstream
+encoder primitives with initialization fixes, bounded GPIO1 echo capture,
+RM2/AIROC, native GP assets and common MBNW v2 provisioning/storage. Source,
+build log and image verification are recorded with the board. Motors remain
+low/coast and motor/servo GPIO requests fail; there is no unlock command.
+The quiet `bringup/` baseline remains available and unchanged.
+
+The common flash adapter passes 211 synthetic storage/pin checks. The actual
+XRP transport passes 35 synthetic UART/ownership checks, including offline
+output draining, DTR loss, USB preemption and queue overflow. These tests do
+not establish real interrupt timing, encoder accuracy or power-loss safety.
+All sensor, radio, bytecode and flash acceptance on this XRP remains pending.

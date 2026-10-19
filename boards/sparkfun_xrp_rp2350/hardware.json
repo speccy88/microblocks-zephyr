@@ -12,39 +12,220 @@
   "psram_mapped": false,
   "physical_identity_verified": false,
   "firmware_cross_built": true,
-  "cross_build_scope": "Quiet non-actuating baseline only; 40188 bytes flash and 18656 bytes linker RAM; SmallVM/Arduino/Wi-Fi integration not built",
-  "build_evidence": "evidence/xrp-bringup-build-verification-2026-10-19.json",
-  "smallvm_linked": false,
-  "arduino_api_linked": false,
-  "phase": "source-backed-non-actuating-baseline",
+  "cross_build_scope": "SmallVM v417 + real isolated Arduino API + RM2/AIROC + native GP/HTTP/WS + common MBNW v2 store; 4008592 flash bytes, 362768 linker RAM bytes; no physical execution",
+  "build_evidence": "evidence/xrp-smallvm-build-verification-2026-10-19.json",
+  "smallvm_linked": true,
+  "arduino_api_linked": true,
+  "phase": "integrated-non-actuating-development",
   "motor_driver": "DRV8411A dual-input PWM; not beta phase/enable",
   "motors": [
-    {"id": "left", "in1": 34, "in2": 35, "encoder_a": 30, "encoder_b": 31, "xrplib_reference_reversed": true},
-    {"id": "right", "in1": 32, "in2": 33, "encoder_a": 24, "encoder_b": 25, "xrplib_reference_reversed": false},
-    {"id": "3", "in1": 20, "in2": 21, "encoder_a": 22, "encoder_b": 23, "xrplib_reference_reversed": true},
-    {"id": "4", "in1": 10, "in2": 11, "encoder_a": 2, "encoder_b": 3, "xrplib_reference_reversed": false}
+    {
+      "id": "left",
+      "in1": 34,
+      "in2": 35,
+      "encoder_a": 30,
+      "encoder_b": 31,
+      "xrplib_reference_reversed": true
+    },
+    {
+      "id": "right",
+      "in1": 32,
+      "in2": 33,
+      "encoder_a": 24,
+      "encoder_b": 25,
+      "xrplib_reference_reversed": false
+    },
+    {
+      "id": "3",
+      "in1": 20,
+      "in2": 21,
+      "encoder_a": 22,
+      "encoder_b": 23,
+      "xrplib_reference_reversed": true
+    },
+    {
+      "id": "4",
+      "in1": 10,
+      "in2": 11,
+      "encoder_a": 2,
+      "encoder_b": 3,
+      "xrplib_reference_reversed": false
+    }
   ],
   "motor_orientation_validation": "Unverified. XRPLib reference flags are not applied by this target; the upstream GP XRP library has its own direction convention.",
-  "servos_gpio_in_connector_order": [6, 9, 7, 8],
-  "capabilities": [
-    {"id": "motors_encoders", "status": "planned; baseline only coasts motors", "physical_tested": false},
-    {"id": "servos", "status": "planned; baseline leaves signals untouched", "physical_tested": false},
-    {"id": "wifi", "chip": "RM2 / CYW43439", "pins": {"reg_on": 26, "cs": 27, "clock": 28, "data_and_irq": 29}, "pio": 0, "status": "pinned Zephyr half-duplex definition; integration pending", "physical_tested": false},
-    {"id": "imu", "schematic_part": "LSM6DSOX", "overview_part": "LSM6DSO", "i2c_bus": 1, "default_address": "0x6b", "alternate_address": "0x6a", "who_am_i": "0x6c (family only)", "status": "read-only identity baseline; driver/physical validation pending", "physical_tested": false},
-    {"id": "qwiic0", "pins": {"sda": 4, "scl": 5}, "status": "target definition", "physical_tested": false},
-    {"id": "qwiic1", "pins": {"sda": 38, "scl": 39}, "status": "shared with IMU", "physical_tested": false},
-    {"id": "distance", "pins": {"trigger": 0, "echo": 1}, "status": "planned bounded ultrasonic driver", "physical_tested": false},
-    {"id": "line", "pins": {"left": 44, "right": 45}, "status": "planned ADC/calibration", "physical_tested": false},
-    {"id": "button", "pins": {"user": 36}, "active_low": true, "status": "input-only baseline", "physical_tested": false},
-    {"id": "rgb", "pins": {"data": 37}, "status": "planned; no automatic output", "physical_tested": false},
-    {"id": "status_led", "radio_gpio": 0, "status": "radio GPIO, not RP2350 GPIO0", "physical_tested": false},
-    {"id": "voltage", "pins": {"input_measure": 46}, "status": "planned calibration", "physical_tested": false},
-    {"id": "current", "pins": {"left": 40, "motor3": 41, "motor4": 42, "right": 43}, "status": "planned calibration", "physical_tested": false},
-    {"id": "psram", "pins": {"cs": 47}, "status": "unmapped; not usable heap", "physical_tested": false},
-    {"id": "external_gpio", "pins": {"unreserved": [12, 13, 14, 15, 16, 17, 18, 19]}, "status": "source ownership only", "physical_tested": false},
-    {"id": "ble", "status": "not supported by this stage; RM2 shared gSPI HCI must be resolved", "physical_tested": false}
+  "servos_gpio_in_connector_order": [
+    6,
+    9,
+    7,
+    8
   ],
-  "partitions": {"application": {"offset": 0, "size": 8388608}, "wifi_settings": {"offset": 16252928, "size": 65536}, "vmstore": {"offset": 16515072, "size": 262144}},
+  "capabilities": [
+    {
+      "id": "motors_encoders",
+      "status": "Motor inputs low/coast and actuator GPIO blocked; actual upstream encoder API linked; no physical encoder/motion test",
+      "physical_tested": false
+    },
+    {
+      "id": "servos",
+      "status": "Output GPIO blocked; servo primitives not implemented in this non-actuating image",
+      "physical_tested": false
+    },
+    {
+      "id": "wifi",
+      "chip": "RM2 / CYW43439",
+      "pins": {
+        "reg_on": 26,
+        "cs": 27,
+        "clock": 28,
+        "data_and_irq": 29
+      },
+      "pio": 0,
+      "status": "RM2 PIO/AIROC + asynchronous USB setup + native GP/HTTP/WS cross-built; no radio/RF/association test",
+      "physical_tested": false
+    },
+    {
+      "id": "imu",
+      "schematic_part": "LSM6DSOX",
+      "overview_part": "LSM6DSO",
+      "i2c_bus": 1,
+      "default_address": "0x6b",
+      "alternate_address": "0x6a",
+      "who_am_i": "0x6c (family only)",
+      "status": "I2C1 register and bulk APIs linked for stock XRP library; no physical IMU read by integrated firmware",
+      "physical_tested": false
+    },
+    {
+      "id": "qwiic0",
+      "pins": {
+        "sda": 4,
+        "scl": 5
+      },
+      "status": "Arduino Wire1 on I2C0 linked; MicroBlocks secondary-bus selector pending",
+      "physical_tested": false
+    },
+    {
+      "id": "qwiic1",
+      "pins": {
+        "sda": 38,
+        "scl": 39
+      },
+      "status": "Default Arduino Wire and VM I2C1 linked; shared with IMU; untested physically",
+      "physical_tested": false
+    },
+    {
+      "id": "distance",
+      "pins": {
+        "trigger": 0,
+        "echo": 1
+      },
+      "status": "Bounded GPIO1 pulse capture and GPIO0 trigger primitives linked; no timing/distance test",
+      "physical_tested": false
+    },
+    {
+      "id": "line",
+      "pins": {
+        "left": 44,
+        "right": 45
+      },
+      "status": "10-bit raw ADC API linked; calibration unverified",
+      "physical_tested": false
+    },
+    {
+      "id": "button",
+      "pins": {
+        "user": 36
+      },
+      "active_low": true,
+      "status": "USER input and USB-only recovery selection integrated; not physically executed",
+      "physical_tested": false
+    },
+    {
+      "id": "rgb",
+      "pins": {
+        "data": 37
+      },
+      "status": "planned; no automatic output",
+      "physical_tested": false
+    },
+    {
+      "id": "status_led",
+      "radio_gpio": 0,
+      "status": "radio GPIO, not RP2350 GPIO0",
+      "physical_tested": false
+    },
+    {
+      "id": "voltage",
+      "pins": {
+        "input_measure": 46
+      },
+      "status": "GPIO46 raw ADC linked; library scaling and calibration unverified",
+      "physical_tested": false
+    },
+    {
+      "id": "current",
+      "pins": {
+        "left": 40,
+        "motor3": 41,
+        "motor4": 42,
+        "right": 43
+      },
+      "status": "GPIO40..43 raw ADC linked; no calibration/current test",
+      "physical_tested": false
+    },
+    {
+      "id": "psram",
+      "pins": {
+        "cs": 47
+      },
+      "status": "unmapped; not usable heap",
+      "physical_tested": false
+    },
+    {
+      "id": "external_gpio",
+      "pins": {
+        "unreserved": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      "status": "GPIO12..19 digital/PWM linked with correct slice aliases; physical electrical/timing validation pending",
+      "physical_tested": false
+    },
+    {
+      "id": "ble",
+      "status": "not supported by this stage; RM2 shared gSPI HCI must be resolved",
+      "physical_tested": false
+    }
+  ],
+  "partitions": {
+    "application": {
+      "offset": 0,
+      "size": 8388608
+    },
+    "wifi_settings": {
+      "offset": 16252928,
+      "size": 65536
+    },
+    "vmstore": {
+      "offset": 16515072,
+      "size": 262144
+    }
+  },
   "baseline_flash_writes": false,
-  "portal_hardware_connection_enabled": false
+  "portal_hardware_connection_enabled": false,
+  "wifi_driver_linked": true,
+  "baseline_build_evidence": "evidence/xrp-bringup-build-verification-2026-10-19.json",
+  "debug_link_identified": true,
+  "debug_identity_evidence": "evidence/xrp-swd-identification-2026-10-19.json",
+  "debug_identity_scope": "USB COM10 1b4f:0046 and RP2350 SWD verified; exact PCB and installed firmware not read",
+  "actuators_enabled": false,
+  "common_wifi_setup_protocol": 2,
+  "wifi_persistence": "Two erase pages in dedicated f80000 partition; plaintext journal; physical durability untested",
+  "radio_resource_profile": "Pinned Zephyr CYW43439/MURATA-1YN; RF/NVRAM and deployment country validation pending"
 }

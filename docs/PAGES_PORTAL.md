@@ -23,8 +23,10 @@ limitation does not establish whether importing works in a normal browser.
 The production XRP RP2350 profile is an editing preview. It selects the actual
 pinned production XRP library, keeps a separate browser project namespace and
 rejects hardware connection before asking for a device or opening a socket.
-The baseline image is a cross-built non-actuating diagnostic, not a compatible
-SmallVM/Arduino/Wi-Fi image. See [XRP parity and acceptance](XRP_PARITY.md).
+The separate integrated XRP image now cross-builds SmallVM/Arduino/RM2 and the
+native editor with actuators locked. It has not been installed or physically
+validated, so the preview still rejects hardware connection. The original
+quiet diagnostic remains available. See [XRP parity and acceptance](XRP_PARITY.md).
 
 ## Browser and hosting behavior
 

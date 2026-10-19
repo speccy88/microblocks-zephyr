@@ -5,7 +5,10 @@ Its primary schematic, part/pin checks and license hashes are recorded in
 [`dependencies/xrp-production-reference.json`](../../dependencies/xrp-production-reference.json).
 See the [feature parity and staged acceptance plan](../../docs/XRP_PARITY.md).
 
-**The quiet baseline cross-build passes; no physical XRP has been accessed or flashed.** The quiet
+**Both the quiet baseline and integrated non-actuating SmallVM app cross-build; neither has been installed on this XRP.**
+A read-only USB/SWD check found COM10 and a responding RP2350 debug fabric; no
+CPU halt, reset, flash probe or memory write was requested.
+The baseline below remains available independently. The quiet
 bring-up app only sets the eight motor inputs low (coast), reads the user button
 and attempts one read-only IMU family-ID query. Servo outputs, RGB, ultrasonic
 trigger and flash/settings are not driven or written. It is not SmallVM or an
@@ -44,5 +47,44 @@ and Waveshare images/programs. The current Fruit Jam CRC is `651a01da`.
 The preview editor uses the actual pinned production `XRP.ubl` library (not
 `XRP Beta.ubl`) and permits project editing/storage while its hardware Connect
 path remains disabled. Its upstream motor/servo/sensor functions do not establish
-Zephyr driver support. Full USB SmallVM/Arduino API, Wi-Fi live programming,
-board-hosted GP and persistent configuration remain staged implementation work.
+Zephyr driver support. USB SmallVM/Arduino API, RM2/AIROC, board-hosted GP/WebSocket and common persistent
+configuration now cross-build together in `smallvm/`. Runtime/hardware validation
+remains pending; the Pages preview still rejects hardware connection.
+
+
+## Integrated development image
+
+The verified image uses **4,008,592 flash bytes** and **362,768 linker RAM bytes**.
+It links 147 real GP assets occupying 3,511,116 flash bytes. These are cross-build
+measurements, not a physical boot or performance result.
+
+See [the integration contract](../../docs/XRP_INTEGRATION.md) and
+[build/image evidence](../../evidence/xrp-smallvm-build-verification-2026-10-19.json).
+The app uses internal SRAM, raw production GPIO numbering, default Wire/I2C1
+GPIO38/39, ADC GPIO40..46, encoder interrupts and bounded ultrasonic echo capture.
+Motor inputs stay low/coast; motor/servo writes fail through both the VM and
+Arduino core. RGB, PSRAM and BLE remain unavailable. No actuator unlock exists.
+
+Prepare a new isolated Arduino module and only the two verified external RM2
+blobs, then build with the pinned Zephyr workspace/SDK (replace source paths):
+
+```sh
+python3 tools/prepare_xrp_arduino.py --source "$arduino_source" --output "$arduino_xrp"
+python3 tools/prepare_xrp_radio.py --hal "$hal_infineon" --fetch
+west build -b sparkfun_xrp/rp2350b/m33_0 -d build/xrp-smallvm \
+  "$repo/boards/sparkfun_xrp_rp2350/smallvm" -- \
+  -DZEPHYR_EXTRA_MODULES="$arduino_xrp" -DXRP_ARDUINO_DIR="$arduino_xrp" \
+  -DSMALLVM_SOURCE_DIR="$smallvm_snapshot" -DIDE_SOURCE_DIR="$ide_source"
+```
+
+Wi-Fi joining/persistence runs off the VM thread. USER held at startup skips
+saved-network joining without erasing the program/settings. MBNW v2 setup is
+USB-only; no HTTP credential endpoint exists. Once joined, the same-origin
+native editor uses `ws://<board-ip>/ws/vm`; USB preempts its single controller.
+The native editor and setup flow have not been exercised on this XRP.
+
+Before installation, preserve the existing full image and user files/settings,
+verify recovery, select the deployment Wi-Fi country and confirm the RM2 radio
+resource configuration. Installation still requires explicit authorization;
+robot motion requires a later safe-placement/readiness decision. The detected
+COM10 identity describes the existing image, not a presumed post-install port.

@@ -46,8 +46,8 @@ def verify(args):
               'mbnw_store_save','mb_store_load','mb_store_poll','addEncoderPrims','xrp_capture_start','whd_wifi_join']
     assert all(s in symbols for s in required),set(required)-symbols
     demangled=subprocess.check_output([args.nm,'-C','--defined-only',str(z/'zephyr.elf')],text=True)
-    for api in (' analogRead(', ' pinMode(', 'arduino::ZephyrI2C::begin()'):
-        assert api in demangled,api
+    for api in (r'\banalogRead(?:\(|$)', r'\bpinMode(?:\(|$)', r'arduino::ZephyrI2C::begin\(\)'):
+        assert re.search(api,demangled,re.M),api
     uf2=(z/'zephyr.uf2').read_bytes();assert len(uf2)%512==0
     blocks=len(uf2)//512
     for i in range(blocks):

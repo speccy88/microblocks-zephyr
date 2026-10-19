@@ -68,8 +68,13 @@ interface in RAM and do not prove real flash power-loss behavior.
    remember action. Preserve current Fruit Jam program CRC `651a01da`; the old
    `297d191b` snapshot is not the current program and must not be restored.
 
-Stages 2..5 remain pending. The portable component does not provide a finished
-setup flow, automatic full-power recovery, mDNS, TLS or new coprocessor firmware.
+XRP now integrates stage 2 in its non-actuating image: the shared Zephyr flash
+backend verifies dedicated erase-page geometry and the asynchronous RM2 worker
+uses the exact v2 schema. Stages 3..5 and physical acceptance remain pending.
+Fruit Jam still uses its existing NINA v1 setup; Waveshare keeps its legacy
+NVS settings and network startup. Neither existing board is upgraded or flashed
+by the XRP work. Their common-v2 integration remains separate follow-up work.
+The component does not establish mDNS, TLS or full-power recovery on hardware.
 
 The actual C component passes 7,319 checks in wasm32/Node WASI, including 117
 interrupted-write positions and 928 single-bit corruptions of the newer slot.
@@ -77,3 +82,16 @@ The exact compiler command and source hashes are recorded in
 `evidence/common-network-setup-wasi-2026-10-19.json`. CI also compiles/runs the
 same fixture natively with `python3 tools/test_network_setup.py --native-compiler cc`.
 Neither result substitutes for a real flash/board/power-loss test.
+
+The actual Zephyr journal adapter additionally passes 211 synthetic geometry,
+NOR-write and XRP pin ownership checks. Run
+`python3 tools/test_network_setup.py --native-compiler cc --flash-backend`.
+The XRP USB/WS arbiter has 35 synthetic checks via `--xrp-transport`; both suites
+also execute as wasm32/Node WASI. These fixtures never open a USB port.
+
+For the compatible XRP image, `tools/network_setup_client.py --help` describes
+the identity-checked USB client. It requires the freshly observed Zephyr port
+and USB serial, verifies `board=xrp-rp2350` / protocol 2 before requesting a
+key, and writes settings only with `--connect --remember`. Keys are entered
+locally without a command-line/password option. This client has not been run
+against the connected XRP and does not read the Windows credential vault.

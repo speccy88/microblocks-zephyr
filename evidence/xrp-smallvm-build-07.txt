@@ -1,0 +1,98 @@
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base (cached)).
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm
+-- CMake version: 4.4.4
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: sparkfun_xrp, qualifiers: rp2350b/m33_0
+-- Found host-tools: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found BOARD.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/app.overlay
+-- Generated zephyr.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/zephyr.dts
+-- Generated pickled edt: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/include/generated/zephyr/devicetree_generated.h
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/zephyr.dts:614.23-619.5: Warning (unique_unit_address_if_enabled): /soc/vreg@40100000: duplicate unit-address (also used in node /soc/powman@40100000)
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+Parsing /home/fred/microblocks-zephyr-work/zephyr/Kconfig
+Loaded configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/.config'
+No change to configuration in '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/.config'
+No change to Kconfig header in '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found version "3.12.15") found components: Interpreter
+-- Found gen_kobject_list: /home/fred/microblocks-zephyr-work/zephyr/scripts/build/gen_kobject_list.py
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+Packaged 147 real IDE files into 3511116 flash bytes
+-- Configuring done (17.3s)
+-- Generating done (16.3s)
+-- Build files have been written to: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02
+-- west build: building application
+[1/277] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[2/26] Building C object CMakeFiles/app.dir/src/platform.c.obj
+[3/26] Building C object CMakeFiles/app.dir/src/generic_primitives.c.obj
+[4/26] Building C object CMakeFiles/app.dir/src/transport.c.obj
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c: In function 'discard_rx':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:25:5: warning: 'ring_buf_get_claim' is deprecated [-Wdeprecated-declarations]
+   25 |     while ((count=ring_buf_get_claim(&rx,&part,4096))) {
+      |     ^~~~~
+In file included from /home/fred/microblocks-zephyr-work/zephyr/include/zephyr/kernel.h:26,
+                 from /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:2:
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:662:24: note: declared here
+  662 | static inline uint32_t ring_buf_get_claim(struct ring_buf *rb, uint8_t **data, uint32_t size)
+      |                        ^~~~~~~~~~~~~~~~~~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:26:9: warning: 'ring_buf_get_finish' is deprecated [-Wdeprecated-declarations]
+   26 |         mbnw_clear(part,count);ring_buf_get_finish(&rx,count);
+      |         ^~~~~~~~~~
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:693:19: note: declared here
+  693 | static inline int ring_buf_get_finish(struct ring_buf *rb, uint32_t size)
+      |                   ^~~~~~~~~~~~~~~~~~~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c: In function 'recvBytes':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:136:9: warning: 'ring_buf_get_claim' is deprecated [-Wdeprecated-declarations]
+  136 |         unsigned n=ring_buf_get_claim(&rx,&part,count-got);
+      |         ^~~~~~~~
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:662:24: note: declared here
+  662 | static inline uint32_t ring_buf_get_claim(struct ring_buf *rb, uint8_t **data, uint32_t size)
+      |                        ^~~~~~~~~~~~~~~~~~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:139:9: warning: 'ring_buf_get_finish' is deprecated [-Wdeprecated-declarations]
+  139 |         ring_buf_get_finish(&rx,n);got+=n;
+      |         ^~~~~~~~~~~~~~~~~~~
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:693:19: note: declared here
+  693 | static inline int ring_buf_get_finish(struct ring_buf *rb, uint32_t size)
+      |                   ^~~~~~~~~~~~~~~~~~~
+[5/26] Building CXX object CMakeFiles/app.dir/src/main.cpp.obj
+[6/26] Building CXX object CMakeFiles/app.dir/src/io.cpp.obj
+[7/26] Building C object CMakeFiles/app.dir/src/capture.c.obj
+[8/26] Building ASM object CMakeFiles/app.dir/web-xrp/assets.S.obj
+[9/26] Building C object CMakeFiles/app.dir/src/provisioning.c.obj
+[10/26] Building C object CMakeFiles/app.dir/web-xrp/assets.c.obj
+[11/26] Building C object CMakeFiles/app.dir/smallvm/vm/runtime.c.obj
+[12/26] Building C object CMakeFiles/app.dir/smallvm/vm/mem.c.obj
+[13/26] Building CXX object CMakeFiles/app.dir/smallvm/vm/encoderPrims.cpp.obj
+[14/26] Building C object CMakeFiles/app.dir/smallvm/vm/persist.c.obj
+[15/26] Building C object CMakeFiles/app.dir/smallvm/vm/interp.c.obj
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/smallvm/vm/interp.c:427:13: warning: 'interpDebug' defined but not used [-Wunused-function]
+  427 | static void interpDebug(int ip, int cmd, int arg, int sp) {
+      |             ^~~~~~~~~~~
+[16/26] Building C object CMakeFiles/app.dir/smallvm/vm/varPrims.c.obj
+[17/26] Building C object CMakeFiles/app.dir/smallvm/vm/tinyJSON.c.obj
+[18/26] Building C object CMakeFiles/app.dir/smallvm/vm/boardHooks.c.obj
+[19/26] Building C object CMakeFiles/app.dir/smallvm/vm/mbFont.c.obj
+[20/26] Building C object CMakeFiles/app.dir/smallvm/vm/dataPrims.c.obj
+[21/26] Linking CXX static library app/libapp.a
+[22/26] Linking CXX executable zephyr/zephyr_pre0.elf; Logical command for additional byproducts on target: zephyr_pre0
+[23/26] Generating linker.cmd
+[24/26] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[25/26] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[26/26] Linking CXX executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:     4008592 B         8 MB     47.79%
+             RAM:      362768 B       520 KB     68.13%
+        IDT_LIST:           0 B        32 KB      0.00%
+Generating files from /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-02/zephyr/zephyr.elf for board: sparkfun_xrp/rp2350b/m33_0
+Converted to uf2, output size: 8017408, start address: 0x10000000
+Wrote 8017408 bytes to zephyr.uf2

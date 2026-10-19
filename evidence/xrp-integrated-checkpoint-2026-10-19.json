@@ -1,0 +1,59 @@
+{
+  "checked_utc": "2026-10-19T02:15:25.331467+00:00",
+  "repository": "https://github.com/speccy88/microblocks-zephyr",
+  "pages": "https://speccy88.github.io/microblocks-zephyr/",
+  "compiled_source_commit": "721fb018c9ad72d3020a003ea820445583e20bfc",
+  "target": "sparkfun_xrp/rp2350b/m33_0",
+  "build_command": "west build -b sparkfun_xrp/rp2350b/m33_0 -d build-artifacts/xrp-smallvm-02 boards/sparkfun_xrp_rp2350/smallvm -- -DZEPHYR_EXTRA_MODULES=/home/fred/microblocks-zephyr-work/build/arduino-xrp-02 -DXRP_ARDUINO_DIR=/home/fred/microblocks-zephyr-work/build/arduino-xrp-02 -DSMALLVM_SOURCE_DIR=../upstream-smallvm-v417-snapshot -DIDE_SOURCE_DIR=../upstream-ide-2.5.8",
+  "final_rebuild": "west build -c -d build-artifacts/xrp-smallvm-02",
+  "toolchain": "Zephyr SDK 1.0.1 / GNU ARM 14.3.0; pinned Zephyr a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "build_evidence": "evidence/xrp-smallvm-build-verification-2026-10-19.json",
+  "flash_used_bytes": 4008592,
+  "ram_linker_used_bytes": 362768,
+  "uf2": {
+    "bytes": 8017408,
+    "sha256": "e8ea0afedab26694fff96801847e17830d3939222e2b34c489b5297a26020174"
+  },
+  "validation": {
+    "python_unit_contracts": 28,
+    "portal_node_contracts": 7,
+    "common_journal_checks": 7319,
+    "common_flash_and_pin_checks": 211,
+    "xrp_transport_checks": 35,
+    "physical_runtime_tests": false,
+    "common_journal_source_unchanged": true
+  },
+  "physical_actions": {
+    "swd_identification_only": true,
+    "reset": false,
+    "halt": false,
+    "flash": false,
+    "robot_motion": false,
+    "serial_COM10_opened": false,
+    "credentials_supplied": false
+  },
+  "remaining_software": [
+    "Motor/servo/RGB feature implementation and measured stop/link-loss behavior",
+    "Common-v2 integration into existing Fruit Jam and Waveshare images; legacy paths preserved",
+    "XRP hardware enable in portal after compatible image acceptance"
+  ],
+  "next_physical_stage": [
+    "Verify current XRP identity and safe stationary placement",
+    "Preserve full current image and files/settings privately and verify recovery before changing firmware",
+    "Select deployment country / validate RM2 radio resource profile",
+    "Installation authorization received; apply only after target-verified private backup/recovery",
+    "Verify quiet USB identity, real 5+7/edit/ordered-output roundtrip, button/IMU/ADC/echo/encoder inputs",
+    "Use local credential entry for RM2 join/native IDE and opt-in remember; test recovery/power-loss preserving programs"
+  ],
+  "exclusions": [
+    "No browser import permission-loop retry",
+    "No full firmware binary or credential published",
+    "No Fruit Jam or Waveshare flash/reset/restore script executed"
+  ],
+  "hardware_stage_authorization": {
+    "received_utc": "2026-10-19T02:15:02Z",
+    "scope": "Identified XRP SWD flashing, reset and nonmoving hardware validation; operator reports motor power off",
+    "motor_power_enable_authorized": false,
+    "actual_movement_deferred": true
+  }
+}

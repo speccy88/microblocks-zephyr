@@ -48,9 +48,9 @@ as rejecting access to reserved/actuator pins.
 
 `tools/network_setup_client.py` provides an identity-checked USB setup client
 for the compatible image. It probes before asking for a key and has no password
-CLI option. It is not run against the currently installed factory firmware.
+CLI option. It is not run against the currently installed firmware.
 Use the port and USB serial observed after an authorized installation; COM10
-and its current factory VID/PID must not be presumed to identify the new image.
+and its current VID/PID must not be presumed to identify the new image.
 The plaintext journal is written only with explicit `--remember`; transient
 connections leave any older saved network intact. USER recovery never erases it.
 
