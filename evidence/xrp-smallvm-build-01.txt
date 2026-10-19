@@ -1,0 +1,67 @@
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base).
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm
+-- CMake version: 4.4.4
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: sparkfun_xrp, qualifiers: rp2350b/m33_0
+-- Found host-tools: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found Dtc: /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/dtc (found suitable version "1.7.0", minimum required is "1.4.6")
+-- Found BOARD.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/app.overlay
+-- Generated zephyr.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/zephyr.dts
+-- Generated pickled edt: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/include/generated/zephyr/devicetree_generated.h
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/zephyr.dts:612.23-617.5: Warning (unique_unit_address_if_enabled): /soc/vreg@40100000: duplicate unit-address (also used in node /soc/powman@40100000)
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+Parsing /home/fred/microblocks-zephyr-work/zephyr/Kconfig
+Loaded configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0_defconfig'
+Merged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/prj.conf'
+Configuration saved to '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/.config'
+Kconfig header saved to '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found GnuLd: /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/arm-zephyr-eabi/bin/ld.bfd (found version "2.43.1")
+-- The C compiler identification is GNU 14.3.0
+-- The CXX compiler identification is GNU 14.3.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc
+CMake Warning at /home/fred/microblocks-zephyr-work/zephyr/subsys/random/CMakeLists.txt:12 (message):
+
+
+      Warning: CONFIG_TIMER_RANDOM_GENERATOR and CONFIG_TEST_CSPRNG_GENERATOR are
+      not truly random generators. This capability is not secure and it is
+      provided for testing purposes only. Use it carefully.
+
+
+CMake Error at /home/fred/microblocks-zephyr-work/zephyr/modules/hal_infineon/whd-expansion/CMakeLists.txt:338 (file):
+  file SIZE requested of path that is not readable:
+
+    /home/fred/microblocks-zephyr-work/modules/hal/infineon/zephyr/blobs/img/whd/resources/firmware/COMPONENT_43439/43439A0.bin
+
+
+CMake Error at /home/fred/microblocks-zephyr-work/zephyr/modules/hal_infineon/whd-expansion/CMakeLists.txt:343 (file):
+  file SIZE requested of path that is not readable:
+
+    /home/fred/microblocks-zephyr-work/modules/hal/infineon/zephyr/blobs/img/whd/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/43439A0.clm_blob
+
+
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found version "3.12.15") found components: Interpreter
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- Found gen_kobject_list: /home/fred/microblocks-zephyr-work/zephyr/scripts/build/gen_kobject_list.py
+CMake Warning at /home/fred/microblocks-zephyr-work/zephyr/CMakeLists.txt:1084 (message):
+  No SOURCES given to Zephyr library: drivers__entropy
+
+  Excluding target from build.
+
+
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+Packaged 147 real IDE files into 3511116 flash bytes
+-- Configuring incomplete, errors occurred!
+FATAL ERROR: command exited with status 1: /home/fred/microblocks-zephyr-work/.venv/bin/cmake -DWEST_PYTHON=/home/fred/microblocks-zephyr-work/.venv/bin/python -DWEST_TOPDIR=/home/fred/microblocks-zephyr-work -DWEST_VERSION=1.5.0 -B/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01 -GNinja '-DWEST_PYTHON_PROPERTIES="Python;3;12;15;64;;cpython-312-x86_64-linux-gnu.so;abi3;/home/fred/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages"' -DBOARD=sparkfun_xrp/rp2350b/m33_0 -DZEPHYR_EXTRA_MODULES=/home/fred/microblocks-zephyr-work/build/arduino-xrp-01 -DXRP_ARDUINO_DIR=/home/fred/microblocks-zephyr-work/build/arduino-xrp-01 -DSMALLVM_SOURCE_DIR=/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/upstream-smallvm-v417-snapshot -DIDE_SOURCE_DIR=/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/upstream-ide-2.5.8 -S/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm

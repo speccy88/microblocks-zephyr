@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "checks": 35,
+  "transport_resets": 8,
+  "command": [
+    "wsl.exe",
+    "--exec",
+    "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang",
+    "-std=c11",
+    "-O1",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common/network_setup.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tests/xrp_transport_host.c",
+    "-I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tests/zephyr_stubs",
+    "-I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src",
+    "-Wl,-z,stack-size=65536",
+    "-Wl,--max-memory=1048576",
+    "-o",
+    "/mnt/c/Users/fred_/AppData/Local/Temp/mb-network-setup-tu8qs44f/test.wasm"
+  ],
+  "runtime": "Node WASI",
+  "scope": "Actual XRP transport under single-threaded simulated UART/rings; no real IRQ/USB timing or board test",
+  "source_sha256": {
+    "common/network_setup.c": "141049e3e75508e26ad61d799e480c025ed7d89c139ec33e6af11136c1267e88",
+    "boards/sparkfun_xrp_rp2350/smallvm/src/transport.c": "7dc22f569b0c2f882df0753ee7f7ff45e01b8d9472ab3eb8489670ea77055bbb",
+    "tests/xrp_transport_host.c": "f730a0a0215f78f7cb6e43936afa426d48e06c559e85ca623b271f12e139a2dd",
+    "common/network_setup.h": "40c7dc7a6f60a6c0da4876044952cc269b733bb1766bed70dc4ac5bd4cc452ae",
+    "common/network_setup_store.h": "be38ffce66bab2225542b061ce67726a64188eb8231560073562b522979f256f",
+    "tests/zephyr_stubs/zephyr/device.h": "2594dbb18a457084ef831082ddf4078ac5371da4a78589705bdc8a2fdf6a0236",
+    "tests/zephyr_stubs/zephyr/drivers/flash.h": "053f0200c53c3e1d604402d95cbf4446241e16433a566d8134a046efc5c1465f",
+    "tests/zephyr_stubs/zephyr/drivers/uart.h": "1eca1e8748d569ffb2f94ba456b5fe627bb98953df621fdcbc738f654119ffb6",
+    "tests/zephyr_stubs/zephyr/kernel.h": "0db219169a9a1e4b3f5f678f78fa9dead177903aeb1896bfd743e0c0832522b6",
+    "tests/zephyr_stubs/zephyr/storage/flash_map.h": "87a897fb5576c18c47135c5f6935ec9c2dcce5b702a47343ecd893d2ad0777c7",
+    "tests/zephyr_stubs/zephyr/sys/atomic.h": "9a36d098335417d4d498617c03bd64e781c7d2bc8700094dc5ea028d151ad74f",
+    "tests/zephyr_stubs/zephyr/sys/ring_buffer.h": "bde45363650064e5446edeb1e0dbd5a081b0f174efc5fbe681de20309b807cba"
+  }
+}

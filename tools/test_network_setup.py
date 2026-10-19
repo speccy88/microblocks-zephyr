@@ -41,7 +41,11 @@ def main():
     parser.add_argument('--wsl', action='store_true')
     parser.add_argument('--node', help='Use an existing Node WASI runtime instead of Python wasmtime')
     parser.add_argument('--evidence', type=Path)
+    parser.add_argument('--flash-backend', action='store_true', help='Test the actual Zephyr backend against synthetic flash geometry')
+    parser.add_argument('--xrp-transport', action='store_true', help='Test actual XRP USB/WS ownership with synthetic UART/rings')
     args = parser.parse_args()
+    if args.flash_backend and args.xrp_transport:
+        parser.error('Choose one fixture suite')
     if args.wsl and not args.wasi_sdk:
         parser.error('--wsl requires --wasi-sdk')
     if args.node and not args.wasi_sdk:
@@ -49,6 +53,10 @@ def main():
     repo = Path(__file__).resolve().parents[1]
     sources = [repo / name for name in ('common/network_setup.c', 'common/network_setup_store.c',
                                        'tests/network_setup_host.c')]
+    if args.flash_backend:
+        sources = sources[:2] + [repo / 'common/zephyr_network_store.c', repo / 'tests/zephyr_network_store_host.c']
+    if args.xrp_transport:
+        sources = sources[:1] + [repo/'boards/sparkfun_xrp_rp2350/smallvm/src/transport.c', repo/'tests/xrp_transport_host.c']
     translate = unix_path if args.wsl else lambda p: str(p.resolve())
     with tempfile.TemporaryDirectory(prefix='mb-network-setup-') as temporary:
         work = Path(temporary)
@@ -57,6 +65,10 @@ def main():
             str(Path(args.wasi_sdk) / 'bin/clang') if args.wasi_sdk else args.native_compiler]
         command = compiler + ['-std=c11', '-O1', '-Wall', '-Wextra', '-Werror',
                               '-I' + translate(repo / 'common'), *map(translate, sources)]
+        if args.flash_backend or args.xrp_transport:
+            command += ['-I' + translate(repo / 'tests/zephyr_stubs')]
+        if args.xrp_transport:
+            command += ['-I' + translate(repo/'boards/sparkfun_xrp_rp2350/smallvm/src')]
         if args.wasi_sdk:
             command += ['-Wl,-z,stack-size=65536', '-Wl,--max-memory=1048576']
         command += ['-o', translate(output)]
@@ -81,6 +93,15 @@ def main():
                       scope='Portable C decoder and two-slot plaintext journal; RAM I/O only; no firmware integration or device/credential access',
                       source_sha256={p.relative_to(repo).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                                      for p in sources + [repo / 'common/network_setup.h', repo / 'common/network_setup_store.h']})
+        if args.flash_backend:
+            report['scope'] = 'Actual Zephyr flash backend with synthetic geometry/NOR I/O; no device access or hardware durability claim'
+            for relative in ('common/zephyr_network_store.h', 'boards/sparkfun_xrp_rp2350/arduino/pin_policy.h',
+                             'tests/zephyr_stubs/zephyr/drivers/flash.h', 'tests/zephyr_stubs/zephyr/storage/flash_map.h'):
+                report['source_sha256'][relative] = hashlib.sha256((repo/relative).read_bytes()).hexdigest()
+        if args.xrp_transport:
+            report['scope']='Actual XRP transport under single-threaded simulated UART/rings; no real IRQ/USB timing or board test'
+            for p in sorted((repo/'tests/zephyr_stubs').rglob('*.h')):
+                report['source_sha256'][p.relative_to(repo).as_posix()]=hashlib.sha256(p.read_bytes()).hexdigest()
         if args.evidence:
             args.evidence.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8', newline='\n')
         print(json.dumps(report, indent=2))

@@ -150,6 +150,11 @@ without `public` or `private` being supplied.
 
 ## References and licenses
 
+The production [XRP integration](boards/sparkfun_xrp_rp2350/README.md) is a
+separate non-actuating SmallVM/Arduino/RM2 application. Its physical release
+gates and current evidence are recorded with that board; existing Fruit Jam
+and Waveshare firmware are preserved.
+
 - [Waveshare hardware/examples](https://github.com/waveshareteam/ESP32-S3-RLCD-4.2)
 - [Zephyr official board](https://github.com/zephyrproject-rtos/zephyr/tree/main/boards/waveshare/esp32s3_rlcd_4_2)
 - [BeagleBoard MicroBlocks-Zephyr](https://github.com/beagleboard/microblocks-zephyr)

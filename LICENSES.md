@@ -50,8 +50,12 @@ artwork is copied. The RP2350B/RM2 DeviceTree composition retains Apache-2.0
 upstream notices. The portal selects Russell Owen's unchanged production XRP
 library already present in the pinned MPL-2.0 MicroBlocks GP package. XRPCode
 and XRPLib GPLv3 sources are behavioral references only and are not copied.
-No Infineon firmware/CLM blob is committed; a future wireless firmware build
-must separately preserve those blobs' redistribution terms.
+No Infineon firmware/CLM blob is committed. The XRP wireless build verifies
+two external CYW43439 blobs from pinned `hal_infineon` metadata; their hashes
+are in `dependencies/xrp-radio-blobs.json`. The complete applicable EULA is
+preserved in `licenses/Infineon-WHD-Blob.txt`. These terms remain distinct from
+this repository's source licenses; local build binaries are not published by
+the Pages workflow. Host-driver source retains the external HAL's notices.
 
 Fruit Jam's `smallvm/src/nina_protocol.c` and `nina_socket_protocol.c` adapt the MIT-licensed command/reply
 framing from Adafruit CircuitPython ESP32SPI, copyright (c) 2019 ladyada for

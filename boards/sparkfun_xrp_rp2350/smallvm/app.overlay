@@ -1,0 +1,26 @@
+/* SPDX-License-Identifier: MIT */
+#include <zephyr/dt-bindings/adc/adc.h>
+#include <zephyr/dt-bindings/pwm/pwm.h>
+/ {
+    chosen { zephyr,entropy = &rng; };
+    zephyr,user {
+        i2cs = <&i2c1>, <&i2c0>;
+        digital-pin-gpios = <&gpio0 0 0>, <&gpio0 1 0>, <&gpio0 2 0>, <&gpio0 3 0>, <&gpio0 4 0>, <&gpio0 5 0>, <&gpio0 6 0>, <&gpio0 7 0>, <&gpio0 8 0>, <&gpio0 9 0>, <&gpio0 10 0>, <&gpio0 11 0>, <&gpio0 12 0>, <&gpio0 13 0>, <&gpio0 14 0>, <&gpio0 15 0>, <&gpio0 16 0>, <&gpio0 17 0>, <&gpio0 18 0>, <&gpio0 19 0>, <&gpio0 20 0>, <&gpio0 21 0>, <&gpio0 22 0>, <&gpio0 23 0>, <&gpio0 24 0>, <&gpio0 25 0>, <&gpio0 26 0>, <&gpio0 27 0>, <&gpio0 28 0>, <&gpio0 29 0>, <&gpio0 30 0>, <&gpio0 31 0>, <&gpio0_hi 0 0>, <&gpio0_hi 1 0>, <&gpio0_hi 2 0>, <&gpio0_hi 3 0>, <&gpio0_hi 4 0>, <&gpio0_hi 5 0>, <&gpio0_hi 6 0>, <&gpio0_hi 7 0>, <&gpio0_hi 8 0>, <&gpio0_hi 9 0>, <&gpio0_hi 10 0>, <&gpio0_hi 11 0>, <&gpio0_hi 12 0>, <&gpio0_hi 13 0>, <&gpio0_hi 14 0>, <&gpio0_hi 15 0>;
+        adc-pin-gpios = <&gpio0_hi 8 0>, <&gpio0_hi 9 0>, <&gpio0_hi 10 0>, <&gpio0_hi 11 0>, <&gpio0_hi 12 0>, <&gpio0_hi 13 0>, <&gpio0_hi 14 0>;
+        io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>, <&adc 4>, <&adc 5>, <&adc 6>;
+        pwm-pin-gpios = <&gpio0 12 0>, <&gpio0 13 0>, <&gpio0 14 0>, <&gpio0 15 0>, <&gpio0 16 0>, <&gpio0 17 0>, <&gpio0 18 0>, <&gpio0 19 0>;
+        pwms = <&pwm 12 PWM_USEC(1000) PWM_POLARITY_NORMAL>, <&pwm 13 PWM_USEC(1000) PWM_POLARITY_NORMAL>, <&pwm 14 PWM_USEC(1000) PWM_POLARITY_NORMAL>, <&pwm 15 PWM_USEC(1000) PWM_POLARITY_NORMAL>, <&pwm 0 PWM_USEC(1000) PWM_POLARITY_NORMAL>, <&pwm 1 PWM_USEC(1000) PWM_POLARITY_NORMAL>, <&pwm 2 PWM_USEC(1000) PWM_POLARITY_NORMAL>, <&pwm 3 PWM_USEC(1000) PWM_POLARITY_NORMAL>;
+    };
+};
+&zephyr_udc0 { mb_cdc: mb_cdc { compatible="zephyr,cdc-acm-uart"; }; };
+&adc { #address-cells=<1>; #size-cells=<0>; status="okay";
+        channel@0 { reg=<0>; zephyr,gain="ADC_GAIN_1"; zephyr,reference="ADC_REF_VDD_1"; zephyr,acquisition-time=<ADC_ACQ_TIME_DEFAULT>; zephyr,resolution=<12>; };
+        channel@1 { reg=<1>; zephyr,gain="ADC_GAIN_1"; zephyr,reference="ADC_REF_VDD_1"; zephyr,acquisition-time=<ADC_ACQ_TIME_DEFAULT>; zephyr,resolution=<12>; };
+        channel@2 { reg=<2>; zephyr,gain="ADC_GAIN_1"; zephyr,reference="ADC_REF_VDD_1"; zephyr,acquisition-time=<ADC_ACQ_TIME_DEFAULT>; zephyr,resolution=<12>; };
+        channel@3 { reg=<3>; zephyr,gain="ADC_GAIN_1"; zephyr,reference="ADC_REF_VDD_1"; zephyr,acquisition-time=<ADC_ACQ_TIME_DEFAULT>; zephyr,resolution=<12>; };
+        channel@4 { reg=<4>; zephyr,gain="ADC_GAIN_1"; zephyr,reference="ADC_REF_VDD_1"; zephyr,acquisition-time=<ADC_ACQ_TIME_DEFAULT>; zephyr,resolution=<12>; };
+        channel@5 { reg=<5>; zephyr,gain="ADC_GAIN_1"; zephyr,reference="ADC_REF_VDD_1"; zephyr,acquisition-time=<ADC_ACQ_TIME_DEFAULT>; zephyr,resolution=<12>; };
+        channel@6 { reg=<6>; zephyr,gain="ADC_GAIN_1"; zephyr,reference="ADC_REF_VDD_1"; zephyr,acquisition-time=<ADC_ACQ_TIME_DEFAULT>; zephyr,resolution=<12>; };
+};
+&pwm { status="okay"; };
+&rng { status="okay"; };

@@ -1,0 +1,27 @@
+Open On-Chip Debugger 0.12.0+dev-gacff23f (2026-09-05-16:12)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+DEPRECATED! use 'gdb port', not 'gdb_port'
+DEPRECATED! use 'tcl port' not 'tcl_port'
+DEPRECATED! use 'telnet port', not 'telnet_port'
+Info : Using CMSIS-DAPv2 interface with VID:PID=0x2e8a:0x000c, serial=B2047FF29EB03C7E
+Info : CMSIS-DAP: SWD supported
+Info : CMSIS-DAP: Atomic commands supported
+Info : CMSIS-DAP: Test domain timer supported
+Info : CMSIS-DAP: FW Version = 2.0.0
+Info : CMSIS-DAP: Interface Initialised (SWD)
+Info : SWCLK/TCK = 0 SWDIO/TMS = 0 TDI = 0 TDO = 0 nTRST = 0 nRESET = 1
+Info : CMSIS-DAP: Interface ready
+Info : clock speed 100 kHz
+Info : SWD DPIDR 0x4c013477 DPv3
+Warn : gdb services need one or more targets defined
+READONLY_DPIDR=0x4c013477
+READONLY_DP_CTRL_STAT=0xf0000040
+READONLY_CM0_ROM_ENTRY=0x00002003
+READONLY_CM1_ROM_ENTRY=0x00004003
+READONLY_RP_AP_IDR=0x09260040
+READONLY_CM0_AP_IDR=0x34770008
+READONLY_CM1_AP_IDR=0x34770008
+READONLY_IDENTIFICATION_COMPLETE
+shutdown command invoked

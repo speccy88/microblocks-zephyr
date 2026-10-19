@@ -1,0 +1,50 @@
+{
+  "checked_utc": "2026-10-19T01:42:26.2281815Z",
+  "outcome": "read-only SWD identification passed",
+  "adapter": {
+    "serial": "B2047FF29EB03C7E",
+    "vid": "2e8a",
+    "pid": "000c",
+    "interface": "CMSIS-DAP v2",
+    "uart": "COM7",
+    "firmware": "2.0.0",
+    "clock_khz": 100
+  },
+  "xrp_usb": {
+    "port": "COM10",
+    "vid": "1b4f",
+    "pid": "0046",
+    "serial": "6F937DF0E8E8A5A8",
+    "windows_status": "OK",
+    "serial_opened": false
+  },
+  "swd": {
+    "dpidr": "0x4c013477",
+    "dp_version": 3,
+    "dp_ctrl_stat": "0xf0000040",
+    "cm0_rom_entry": "0x00002003",
+    "cm1_rom_entry": "0x00004003",
+    "rp_ap_idr": "0x09260040",
+    "cm0_ap_idr": "0x34770008",
+    "cm1_ap_idr": "0x34770008"
+  },
+  "reset_requested": false,
+  "halt_requested": false,
+  "cpu_targets_created": false,
+  "flash_banks_created": false,
+  "flash_operations_requested": false,
+  "target_memory_writes_requested": false,
+  "robot_motion_requested": false,
+  "installed_firmware_identified": false,
+  "flash_capacity_probed": false,
+  "limitations": [
+    "Debug ID confirms RP2350 debug fabric, not exact PCB revision or installed firmware.",
+    "No flash-ID algorithm was executed because robot state is unknown.",
+    "Fruit Jam COM8 is no longer present; no former Fruit Jam target script was run."
+  ],
+  "cfg_sha256": "e4a89b467d3526086073410621cb93ae140ab5db88ad3e8a510ff08949682373",
+  "log_sha256": "b8eeadaed1770491b6c8d5da34260312010542e652cdd866f9d56ac875e0bc54",
+  "raw_cfg_sha256": "1305cfc6ac0ed6fd1936476c7c0dabe7ed1e32d8107cab9fe09db97f9b590144",
+  "raw_log_sha256": "4380f82a210a3528487e327bffe46935374d839fa237d5fafc550d6195d59431",
+  "text_normalization": "Published UTF-8 text uses LF and removes trailing whitespace; original bytes retained privately."
+}

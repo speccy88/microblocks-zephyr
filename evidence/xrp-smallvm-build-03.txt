@@ -1,0 +1,211 @@
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base (cached)).
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm
+-- CMake version: 4.4.4
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: sparkfun_xrp, qualifiers: rp2350b/m33_0
+-- Found host-tools: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1)
+-- Found BOARD.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/app.overlay
+-- Generated zephyr.dts: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/zephyr.dts
+-- Generated pickled edt: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/include/generated/zephyr/devicetree_generated.h
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/zephyr.dts:614.23-619.5: Warning (unique_unit_address_if_enabled): /soc/vreg@40100000: duplicate unit-address (also used in node /soc/powman@40100000)
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+Parsing /home/fred/microblocks-zephyr-work/zephyr/Kconfig
+Loaded configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/zephyr/boards/sparkfun/sparkfun_xrp/sparkfun_xrp_rp2350b_m33_0_defconfig'
+Merged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/prj.conf'
+Configuration saved to '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/.config'
+Kconfig header saved to '/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found version "3.12.15") found components: Interpreter
+-- Found gen_kobject_list: /home/fred/microblocks-zephyr-work/zephyr/scripts/build/gen_kobject_list.py
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+Packaged 147 real IDE files into 3511116 flash bytes
+-- Configuring done (18.1s)
+-- Generating done (15.1s)
+-- Build files have been written to: /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01
+-- west build: building application
+[1/467] Preparing syscall dependency handling
+
+[2/467] Generating include/generated/zephyr/version.h
+-- Zephyr version: 4.5.0-rc2 (/home/fred/microblocks-zephyr-work/zephyr), build: a915b2f12675
+[3/467] Generating misc/generated/syscalls_subdirs.trigger
+[4/467] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[5/467] Generating include/generated/device-api-sections.ld, include/generated/device-api-sections.cmake
+[6/467] Generating include/generated/zephyr/driver-validation.h
+[7/467] Generating include/generated/zephyr/kobj-types-enum.h, include/generated/zephyr/otype-to-str.h, include/generated/zephyr/otype-to-size.h
+[8/467] Generating include/generated/zephyr/syscall_dispatch.c, include/generated/zephyr/syscall_exports_llext.c, syscall_weakdefs_llext.c, include/generated/zephyr/syscall_list.h
+[9/467] Building C object zephyr/lib/heap/CMakeFiles/heap_constants.dir/heap_constants.c.obj
+[10/467] Generating ../../include/generated/zephyr/heap_constants.h
+[11/467] Building C object zephyr/CMakeFiles/offsets.dir/arch/arm/core/offsets/offsets.c.obj
+[12/467] Generating include/generated/zephyr/offsets.h
+[13/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/CMakeFiles/everest.dir/library/x25519.c.obj
+[14/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/CMakeFiles/everest.dir/library/Hacl_Curve25519_joined.c.obj
+[15/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/CMakeFiles/p256-m.dir/p256-m_driver_entrypoints.c.obj
+[16/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/CMakeFiles/p256-m.dir/p256-m/p256-m.c.obj
+[17/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aes.c.obj
+[18/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aesce.c.obj
+[19/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aesni.c.obj
+[20/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aria.c.obj
+[21/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum.c.obj
+[22/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_core.c.obj
+[23/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_mod.c.obj
+[24/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_mod_raw.c.obj
+[25/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/block_cipher.c.obj
+[26/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/camellia.c.obj
+[27/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ccm.c.obj
+[28/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chacha20.c.obj
+[29/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chacha20_neon.c.obj
+[30/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chachapoly.c.obj
+[31/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cipher.c.obj
+[32/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cipher_wrap.c.obj
+[33/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cmac.c.obj
+[34/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ctr_drbg.c.obj
+[35/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecdsa.c.obj
+[36/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecjpake.c.obj
+[37/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp_curves_new.c.obj
+[38/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp.c.obj
+[39/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp_curves.c.obj
+[40/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/entropy.c.obj
+[41/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/gcm.c.obj
+[42/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/entropy_poll.c.obj
+[43/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/hmac_drbg.c.obj
+[44/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/md5.c.obj
+[45/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/poly1305.c.obj
+[46/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_aead.c.obj
+[47/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_cipher.c.obj
+[48/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_ecp.c.obj
+[49/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_ffdh.c.obj
+[50/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_mac.c.obj
+[51/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_hash.c.obj
+[52/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_pake.c.obj
+[53/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_rsa.c.obj
+[54/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_xof.c.obj
+[55/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_util_internal.c.obj
+[56/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ripemd160.c.obj
+[57/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/rsa.c.obj
+[58/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/rsa_alt_helpers.c.obj
+[59/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha256.c.obj
+[60/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha3.c.obj
+[61/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha512.c.obj
+[62/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/CMakeFiles/pqcp.dir/src/wrap_mldsa_native.c.obj
+[63/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/CMakeFiles/pqcp.dir/src/psa_crypto_mldsa.c.obj
+[64/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/lmots.c.obj
+[65/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/lms.c.obj
+[66/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/md.c.obj
+[67/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha1.c.obj
+[68/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/nist_kw.c.obj
+[69/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk.c.obj
+[70/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_wrap.c.obj
+[71/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_ecc.c.obj
+[72/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_rsa.c.obj
+[73/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pkparse.c.obj
+[74/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pkwrite.c.obj
+[75/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/platform.c.obj
+[76/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/platform_util.c.obj
+[77/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/memory_buffer_alloc.c.obj
+[78/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/threading.c.obj
+[79/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/asn1parse.c.obj
+[80/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/asn1write.c.obj
+[81/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/base64.c.obj
+[82/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/constant_time.c.obj
+[83/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/pem.c.obj
+[84/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/pkcs5.c.obj
+[85/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/oid.c.obj
+[86/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_random.c.obj
+[87/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_client.c.obj
+[88/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_storage.c.obj
+[89/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_slot_management.c.obj
+[90/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_its_file.c.obj
+[91/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_util.c.obj
+[92/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/tf_psa_crypto_version.c.obj
+[93/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/tf_psa_crypto_config.c.obj
+[94/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/error.c.obj
+[95/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/mbedtls_config.c.obj
+[96/467] Building C object zephyr/arch/common/CMakeFiles/isr_tables.dir/isr_tables.c.obj
+[97/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/dispatch/psa_crypto_driver_wrappers_no_static.c.obj
+[98/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/pkcs7.c.obj
+[99/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509.c.obj
+[100/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_create.c.obj
+[101/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_crl.c.obj
+[102/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_crt.c.obj
+[103/467] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto.c.obj
+[104/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_csr.c.obj
+[105/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_oid.c.obj
+[106/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write.c.obj
+[107/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_crt.c.obj
+[108/467] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_csr.c.obj
+[109/467] Building C object CMakeFiles/app.dir/src/platform.c.obj
+[110/467] Linking C static library modules/mbedtls/mbedtls/tf-psa-crypto/core/libtfpsacrypto.a
+[111/467] Building C object CMakeFiles/app.dir/src/transport.c.obj
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c: In function 'discard_rx':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:25:5: warning: 'ring_buf_get_claim' is deprecated [-Wdeprecated-declarations]
+   25 |     while ((count=ring_buf_get_claim(&rx,&part,4096))) {
+      |     ^~~~~
+In file included from /home/fred/microblocks-zephyr-work/zephyr/include/zephyr/kernel.h:26,
+                 from /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:2:
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:662:24: note: declared here
+  662 | static inline uint32_t ring_buf_get_claim(struct ring_buf *rb, uint8_t **data, uint32_t size)
+      |                        ^~~~~~~~~~~~~~~~~~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:26:9: warning: 'ring_buf_get_finish' is deprecated [-Wdeprecated-declarations]
+   26 |         mbnw_clear(part,count);ring_buf_get_finish(&rx,count);
+      |         ^~~~~~~~~~
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:693:19: note: declared here
+  693 | static inline int ring_buf_get_finish(struct ring_buf *rb, uint32_t size)
+      |                   ^~~~~~~~~~~~~~~~~~~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c: In function 'recvBytes':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:136:9: warning: 'ring_buf_get_claim' is deprecated [-Wdeprecated-declarations]
+  136 |         unsigned n=ring_buf_get_claim(&rx,&part,count-got);
+      |         ^~~~~~~~
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:662:24: note: declared here
+  662 | static inline uint32_t ring_buf_get_claim(struct ring_buf *rb, uint8_t **data, uint32_t size)
+      |                        ^~~~~~~~~~~~~~~~~~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/transport.c:139:9: warning: 'ring_buf_get_finish' is deprecated [-Wdeprecated-declarations]
+  139 |         ring_buf_get_finish(&rx,n);got+=n;
+      |         ^~~~~~~~~~~~~~~~~~~
+/home/fred/microblocks-zephyr-work/zephyr/include/zephyr/sys/ring_buffer.h:693:19: note: declared here
+  693 | static inline int ring_buf_get_finish(struct ring_buf *rb, uint32_t size)
+      |                   ^~~~~~~~~~~~~~~~~~~
+[112/467] Building C object CMakeFiles/app.dir/src/generic_primitives.c.obj
+[113/467] Building CXX object CMakeFiles/app.dir/src/main.cpp.obj
+[114/467] Building CXX object CMakeFiles/app.dir/src/io.cpp.obj
+FAILED: [code=1] CMakeFiles/app.dir/src/io.cpp.obj
+/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-g++ -DCLM_IMAGE_NAME=\"/home/fred/microblocks-zephyr-work/modules/hal/infineon/zephyr/blobs/img/whd/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/43439A0.clm_blob\" -DCLM_IMAGE_SIZE=4752 -DCYBSP_WIFI_CAPABLE -DCY_RTOS_AWARE -DCY_WIFI_COUNTRY=WHD_COUNTRY_AUSTRALIA -DFW_IMAGE_NAME=\"/home/fred/microblocks-zephyr-work/modules/hal/infineon/zephyr/blobs/img/whd/resources/firmware/COMPONENT_43439/43439A0.bin\" -DFW_IMAGE_SIZE=249066 -DK_HEAP_MEM_POOL_SIZE=32768 -DMBEDTLS_CONFIG_FILE=\"config-mbedtls.h\" -DNET_ETH_MCAST_FILTER_COUNT=1 -DNVRAM_IMAGE_NAME=\"/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMPONENT_WIFI5/resources/nvram/COMPONENT_43439/COMPONENT_MURATA-1YN/cyfmac43439-1YN.txt\" -DNVRAM_IMAGE_SIZE=812 -DPICOLIBC_DOUBLE_PRINTF_SCANF -DPICO_RP2350 -DSMALLVM_ZEPHYR=1 -DTF_PSA_CRYPTO_CONFIG_FILE=\"config-tf-psa-crypto.h\" -DWHD_DISABLE_SDIO_PULLUP_DURING_SPI_SLEEP -DWHD_USE_CUSTOM_HAL_IMPL -DWHD_USE_CUSTOM_MALLOC_IMPL -DWHD_ZEPHYR -DZVFS_EVENTFD_SIZE=1 -DZVFS_OPEN_SIZE=14 -D_POSIX_THREAD_SAFE_FUNCTIONS=200809L -D__LINUX_ERRNO_EXTENSIONS__ -D__PROGRAM_START -D__ZEPHYR__=1 -I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/smallvm -I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/smallvm/vm -I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src -I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/../../../common -I/home/fred/microblocks-zephyr-work/zephyr/include -I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/include/generated -I/home/fred/microblocks-zephyr-work/zephyr/soc/raspberrypi/rpi_pico -I/home/fred/microblocks-zephyr-work/zephyr/lib/libc/picolibc/include -I/home/fred/microblocks-zephyr-work/zephyr/soc/raspberrypi/rpi_pico/common/. -I/home/fred/microblocks-zephyr-work/zephyr/soc/raspberrypi/rpi_pico/rp2350/. -I/home/fred/microblocks-zephyr-work/zephyr/subsys/portability/posix/c_lib_ext/getopt -I/home/fred/microblocks-zephyr-work/zephyr/subsys/net/l2 -I/home/fred/microblocks-zephyr-work/zephyr/subsys/net/ip -I/home/fred/microblocks-zephyr-work/zephyr/subsys/net/lib/sockets -I/home/fred/microblocks-zephyr-work/zephyr/drivers/wifi/infineon/. -I/home/fred/microblocks-zephyr-work/zephyr/modules/cmsis_6/. -I/home/fred/microblocks-zephyr-work/modules/hal/cmsis_6/CMSIS/Core/Include -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMPONENT_WIFI5/inc -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMPONENT_WIFI5/src -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMPONENT_WIFI5/src/include -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMPONENT_WIFI5/resources -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMPONENT_WIFI5/src/bus_protocols -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMPONENT_WIFI5/resources/resource_imp -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/whd-expansion/WHD/COMMON/inc -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/core-lib/include -I/home/fred/microblocks-zephyr-work/modules/hal/infineon/abstraction-rtos/include -I/home/fred/microblocks-zephyr-work/zephyr/modules/hal_infineon/abstraction-rtos/include/COMPONENT_ZEPHYR -I/home/fred/microblocks-zephyr-work/zephyr/modules/hal_rpi_pico -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/boot_picobin_headers/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/boot_picoboot_headers/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/pico_base_headers/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/pico_binary_info/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/pico_util/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/boot_bootrom_headers/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_base/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_boot_lock/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_clocks/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_irq/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_pll/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_rcp/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_resets/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_sync_spin_lock/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_sync/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_ticks/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_timer/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_watchdog/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_xosc/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_bootrom/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_flash/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_platform_common/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_platform_compiler/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_platform_panic/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_platform_sections/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2350/hardware_regs/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2350/hardware_structs/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2350/pico_platform/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2350/boot_stage2/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_gpio/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_flash/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_xip_cache/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_pwm/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_adc/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/hardware_pio/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/hardware_claim/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/pico_sync/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/common/pico_time/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_rand/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_time_adapter/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_unique_id/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_runtime/include -I/home/fred/microblocks-zephyr-work/modules/hal/rpi_pico/src/rp2_common/pico_runtime_init/include -I/home/fred/microblocks-zephyr-work/build/arduino-xrp-01/cores/arduino/. -I/home/fred/microblocks-zephyr-work/build/arduino-xrp-01/cores/arduino/../../variants -I/home/fred/microblocks-zephyr-work/build/arduino-xrp-01/libraries/Wire/. -I/home/fred/microblocks-zephyr-work/build/arduino-xrp-01/libraries/SPI/. -I/home/fred/microblocks-zephyr-work/build/arduino-xrp-01/libraries/CAN/. -I/home/fred/microblocks-zephyr-work/build/arduino-xrp-01/variants/sparkfun_xrp -I/home/fred/microblocks-zephyr-work/build/arduino-xrp-01/zephyr/blobs/ArduinoCore-API -I/home/fred/microblocks-zephyr-work/modules/crypto/mbedtls/include -I/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/include -I/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/drivers/builtin/include -I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/modules/mbedtls/mbedtls/tf-psa-crypto/include -I/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/dispatch/include -I/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/drivers/everest/include -I/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/drivers/p256-m/p256-m -I/home/fred/microblocks-zephyr-work/modules/crypto/tf-psa-crypto/drivers/pqcp/include -I/home/fred/microblocks-zephyr-work/zephyr/modules/mbedtls/configs -I/home/fred/microblocks-zephyr-work/zephyr/modules/mbedtls/include -isystem /home/fred/microblocks-zephyr-work/zephyr/lib/libc/common/include -isystem /home/fred/microblocks-zephyr-work/zephyr/lib/cpp/minimal/include -fno-strict-aliasing -Os -fcheck-new -std=c++11 -fno-exceptions -fno-rtti -imacros /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01/zephyr/include/generated/zephyr/autoconf.h -fno-common -g -fdiagnostics-color=always -mcpu=cortex-m33 -mthumb -mabi=aapcs -mfp16-format=ieee --sysroot=/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/arm-zephyr-eabi -imacros /home/fred/microblocks-zephyr-work/zephyr/include/zephyr/toolchain/zephyr_stdint.h -Wall -Wformat -Wformat-security -Wno-format-zero-length -Wdouble-promotion -Wpointer-arith -Wexpansion-to-defined -Wno-unused-but-set-variable -fno-pic -fno-pie -fno-asynchronous-unwind-tables -ftls-model=local-exec -fno-reorder-functions --param=min-pagesize=0 -fno-defer-pop -fmacro-prefix-map=/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm=CMAKE_SOURCE_DIR -fmacro-prefix-map=/home/fred/microblocks-zephyr-work/zephyr=ZEPHYR_BASE -fmacro-prefix-map=/home/fred/microblocks-zephyr-work=WEST_TOPDIR -ffunction-sections -fdata-sections -mtp=soft -specs=picolibc.specs -nostdinc++ -MD -MT CMakeFiles/app.dir/src/io.cpp.obj -MF CMakeFiles/app.dir/src/io.cpp.obj.d -o CMakeFiles/app.dir/src/io.cpp.obj -c /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/io.cpp
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/io.cpp: In function 'bool output_allowed(unsigned int)':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/io.cpp:23:49: error: 'sparkfun_xrp_output_allowed' was not declared in this scope; did you mean 'sparkfun_xrp_pin_allowed'?
+   23 | static bool output_allowed(unsigned p) { return sparkfun_xrp_output_allowed(p); }
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                 sparkfun_xrp_pin_allowed
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/io.cpp: In function 'int xrp_io_pwm_write(unsigned int, unsigned int)':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/io.cpp:89:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   89 |     if(!e)sparkfun_xrp_pwm_mux(p);return last_error=e;
+      |     ^~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/io.cpp:89:35: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   89 |     if(!e)sparkfun_xrp_pwm_mux(p);return last_error=e;
+      |                                   ^~~~~~
+[115/467] Building C object CMakeFiles/app.dir/src/program_store.c.obj
+[116/467] Building C object CMakeFiles/app.dir/src/safety.c.obj
+[117/467] Building C object CMakeFiles/app.dir/src/provisioning.c.obj
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/provisioning.c: In function 'worker':
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/provisioning.c:97:9: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   97 |         if(e)set_state("join-failed",e);atomic_clear(&busy);
+      |         ^~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/provisioning.c:97:41: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   97 |         if(e)set_state("join-failed",e);atomic_clear(&busy);
+      |                                         ^~~~~~~~~~~~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/provisioning.c:106:9: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  106 |         if(e)set_state("join-failed",e);atomic_clear(&busy);
+      |         ^~
+/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/boards/sparkfun_xrp_rp2350/smallvm/src/provisioning.c:106:41: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  106 |         if(e)set_state("join-failed",e);atomic_clear(&busy);
+      |                                         ^~~~~~~~~~~~
+ninja: build stopped: subcommand failed.
+FATAL ERROR: command exited with status 1: /home/fred/microblocks-zephyr-work/.venv/bin/cmake --build /mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/build-artifacts/xrp-smallvm-01

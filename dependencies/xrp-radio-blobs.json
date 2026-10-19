@@ -1,0 +1,22 @@
+{
+  "hal_revision": "2191db4d7723737ffd3d59d01b50f7595dac2944",
+  "blobs": [
+    {
+      "path": "img/whd/resources/firmware/COMPONENT_43439/43439A0.bin",
+      "sha256": "bf545b5e5796e7f9348ec4a77f87d25e557ab97378dc2046a99e70997d2e1ca8",
+      "url": "https://github.com/Infineon/whd-expansion/raw/release-v1.1.0/WHD/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439A0.bin",
+      "version": "v1.1.0",
+      "bytes": 249066
+    },
+    {
+      "path": "img/whd/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/43439A0.clm_blob",
+      "sha256": "07bc4851449db809ce154ff79194a36cc6a2f7015c8b80b4073b5aa6f862ccb6",
+      "url": "https://github.com/Infineon/wifi-resources/raw/release-v2.0.0/clm/COMPONENT_WIFI5/COMPONENT_43439/COMPONENT_MURATA-1YN/43439A0.clm_blob",
+      "version": "v2.0.0",
+      "bytes": 4752
+    }
+  ],
+  "license_sha256": "aed445dc4b6832c07501ddb0c937a7bc342bb630d54636fca2b8177ec5722de0",
+  "board_access": false,
+  "binaries_committed": false
+}

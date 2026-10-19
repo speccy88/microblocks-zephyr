@@ -53,3 +53,27 @@ class XRPProductionContracts(unittest.TestCase):
         self.assertIn('GPIO_OUTPUT_INACTIVE', main)
         self.assertIn('i2c_reg_read_byte(imu_bus, 0x6b, 0x0f', main)
         self.assertTrue(all(not c['physical_tested'] for c in DATA['capabilities']))
+
+    def test_integrated_arduino_raw_gpio_and_default_imu_bus(self):
+        overlay=(BOARD/'smallvm/app.overlay').read_text()
+        section=re.search(r'digital-pin-gpios\s*=\s*(.*?);',overlay,re.S)[1]
+        pins=re.findall(r'<&(gpio0_hi|gpio0)\s+(\d+)\s+0>',section)
+        self.assertEqual([int(p)+(32 if bank=='gpio0_hi' else 0) for bank,p in pins],list(range(48)))
+        self.assertIn('i2cs = <&i2c1>, <&i2c0>',overlay)
+        self.assertIn('zephyr,entropy = &rng',overlay)
+
+    def test_extension_pwm_uses_correct_slices_without_motor_channels(self):
+        overlay=(BOARD/'smallvm/app.overlay').read_text()
+        channels=[int(x) for x in re.findall(r'<&pwm (\d+) PWM_USEC',overlay)]
+        self.assertEqual(channels,[12,13,14,15,0,1,2,3])
+        self.assertEqual(len(channels),len(set(channels)))
+        self.assertFalse(set(channels)&{4,5,10,11,16,17,18,19})
+
+    def test_setup_and_native_server_have_no_http_credential_write_endpoint(self):
+        server=(BOARD/'smallvm/src/server.c').read_text()
+        self.assertNotIn('HTTP_POST',server)
+        self.assertNotIn('/api/wifi',server)
+        self.assertIn('return host && origin',server)
+        config=(BOARD/'smallvm/prj.conf').read_text()
+        for required in ('CONFIG_CONSOLE=n','CONFIG_UART_CONSOLE=n','CONFIG_PRINTK=n','CONFIG_BT=n'):
+            self.assertIn(required,config)

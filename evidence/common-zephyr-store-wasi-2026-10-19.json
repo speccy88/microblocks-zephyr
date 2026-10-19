@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "checks": 211,
+  "erase_calls": 6,
+  "write_calls": 12,
+  "command": [
+    "wsl.exe",
+    "--exec",
+    "/home/fred/microblocks-zephyr-work/tools/wasi/opt/wasi-sdk/bin/clang",
+    "-std=c11",
+    "-O1",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common/network_setup.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common/network_setup_store.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/common/zephyr_network_store.c",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tests/zephyr_network_store_host.c",
+    "-I/mnt/c/Users/fred_/Documents/Codex/2026-10-17/task-5/microblocks-zephyr/tests/zephyr_stubs",
+    "-Wl,-z,stack-size=65536",
+    "-Wl,--max-memory=1048576",
+    "-o",
+    "/mnt/c/Users/fred_/AppData/Local/Temp/mb-network-setup-v6ez9xpq/test.wasm"
+  ],
+  "runtime": "Node WASI",
+  "scope": "Actual Zephyr flash backend with synthetic geometry/NOR I/O; no device access or hardware durability claim",
+  "source_sha256": {
+    "common/network_setup.c": "141049e3e75508e26ad61d799e480c025ed7d89c139ec33e6af11136c1267e88",
+    "common/network_setup_store.c": "f92d4f0746e0d885629a88f065ff7d212d9a1f6b32b3273c9482fc754904d533",
+    "common/zephyr_network_store.c": "a3c8c9a1c654e5d40f554c5ca4bd131a16255b82fad3fd44d3d96fe0f1181613",
+    "tests/zephyr_network_store_host.c": "cfa5c4324af94812bec409fc2f80f6412fe71b239cf10c8bba0b582fe03e6897",
+    "common/network_setup.h": "40c7dc7a6f60a6c0da4876044952cc269b733bb1766bed70dc4ac5bd4cc452ae",
+    "common/network_setup_store.h": "be38ffce66bab2225542b061ce67726a64188eb8231560073562b522979f256f",
+    "common/zephyr_network_store.h": "7ac843f225c65c2296a5cbebd2228397ae95abf4bd6c219c108b9d03016a53fa",
+    "boards/sparkfun_xrp_rp2350/arduino/pin_policy.h": "84303aba3717d5cf2f08ba94f2bd4c034219a556ff23b030d320f0889f47196c",
+    "tests/zephyr_stubs/zephyr/drivers/flash.h": "053f0200c53c3e1d604402d95cbf4446241e16433a566d8134a046efc5c1465f",
+    "tests/zephyr_stubs/zephyr/storage/flash_map.h": "87a897fb5576c18c47135c5f6935ec9c2dcce5b702a47343ecd893d2ad0777c7"
+  }
+}

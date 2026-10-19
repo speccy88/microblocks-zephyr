@@ -20,5 +20,9 @@ jobs:
         run: python3 tools/test_calendar.py
       - name: Compile and run portable Wi-Fi setup and journal fixtures
         run: python3 tools/test_network_setup.py --native-compiler cc
+      - name: Compile and run common Zephyr flash backend fixtures
+        run: python3 tools/test_network_setup.py --native-compiler cc --flash-backend
+      - name: Compile and run XRP transport ownership fixtures
+        run: python3 tools/test_network_setup.py --native-compiler cc --xrp-transport
       - name: Explain validation boundary
         run: echo 'This workflow does NOT build Zephyr or test physical hardware.'
