@@ -30,6 +30,44 @@ Run `tools/fetch_p4_sources.py --help` for the verified existing SmallVM and
 editor source manifests. The build consumes `build-artifacts/p4-sources/smallvm`.
 Use a persistent build directory: WSL restart clears `/tmp` on this computer.
 
+Before building, apply the small reviewed fixes to that exact Zephyr commit:
+
+```bash
+python3 /path/to/microblocks-zephyr/tools/apply_p4_zephyr_patches.py \
+  --zephyr /home/fred/microblocks-zephyr-work/zephyr --execute
+```
+
+The build checks that these patches are applied. Pre-v3 P4 I2S uses XTAL,
+because its PLL/APLL selection otherwise stalls the RX register update.
+The SDHC patch preserves native interrupt-allocation errors. Unused AXI DMA
+is disabled to leave CPU interrupt vectors for SDIO; camera DW-DMA and audio
+AHB-DMA are separate. These are native Zephyr fixes, without an IDF RTOS shim.
+
+## Bounded PCM blocks
+
+The editor also loads **P4 Audio**. Select **Bounded PCM levels (acoustics
+unverified)** and press Start explicitly for a 500 ms recording, RMS/peak
+report and release. No recording/listening begins merely by opening the page.
+Stop All cancels pending recording and releases completed audio handles.
+At startup the identified ES8311 ADC and speaker amplifier are disabled.
+
+Actual codec ID, 16 kHz DMA timing, two-handle capacity, release/cancellation
+and concurrent VM execution passed physical tests. The one-second run measured
+15,999.1 frames/s from DMA completion timing. Quiet samples alone do not verify
+microphone acoustic response, speech recognition or wake-word detection; these
+remain separate controlled tests. No raw recordings are committed or uploaded.
+
+```powershell
+python tools/test_p4_audio_usb.py --execute --evidence evidence/2026-10-25/p4-audio-pcm.json
+```
+
+The default build remains USB-only. The separate `profiles/c6-probe.conf`
+and `profiles/c6-sdio.overlay` build is a transport/version diagnostic, with no
+Wi-Fi consumer or credential/AP RPC. It requires the pinned Nanopb module
+(`west update nanopb`) and `grpcio-tools` for code generation. SDIO initializes;
+the installed companion has not yet answered the current version protocol.
+No companion firmware was changed. See [network proposal](docs/NETWORK_PLAN.md).
+
 ## Flash and physical checks
 
 Copy `build-p4-native/zephyr/zephyr.bin` to `build-artifacts/p4-zephyr/zephyr.bin`.

@@ -1,0 +1,19 @@
+diff --git a/drivers/i2s/i2s_esp32.c b/drivers/i2s/i2s_esp32.c
+index 758090c1e..48765afdf 100644
+--- a/drivers/i2s/i2s_esp32.c
++++ b/drivers/i2s/i2s_esp32.c
+@@ -41,7 +41,14 @@ LOG_MODULE_REGISTER(i2s_esp32, CONFIG_I2S_LOG_LEVEL);
+  * available on the revisions zephyr supports.
+  */
+ #ifdef CONFIG_SOC_SERIES_ESP32P4
++/* The pre-v3 P4 has no I2S PLL_160M source. Its default APLL also
++ * needs explicit setup that this native driver does not perform. XTAL has
++ * a valid fractional divider and avoids an unclocked rx_update wait. */
++#if CONFIG_SOC_ESP32P4_REV_MIN_FULL < 300
++#define I2S_ESP32_CLK_SRC I2S_CLK_SRC_XTAL
++#else
+ #define I2S_ESP32_CLK_SRC I2S_CLK_SRC_PLL_160M
++#endif
+ #else
+ #define I2S_ESP32_CLK_SRC I2S_CLK_SRC_DEFAULT
+ #endif

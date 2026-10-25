@@ -1,0 +1,14 @@
+{
+  "scope": "real GP 2.5.8 GUI compiled audio-levels, connected to native P4 through loopback COM5 bridge; terminal readback after Stop/Disconnect",
+  "gp_data_sha256": "9f0db90348b9d235a17fe4bcabf9d73a8f272c7bbdfea70cf60f2dbb23b06a8e",
+  "compiled_functions": 1,
+  "compiled_scripts": 1,
+  "unknown_ops_after_example_fix": 0,
+  "variable_zero_after_stop": 0,
+  "audio_status": "PCM ready; mic stopped; 8000/8000 frames, 34 blocks, 544254 us, L=2670 R=2670, drop=0 slab=0 off=0",
+  "final_audio_handles": 0,
+  "final_audio_busy": false,
+  "acoustic_test": "unverified",
+  "self_hosted": false,
+  "result": "PASS"
+}

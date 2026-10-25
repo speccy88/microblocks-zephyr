@@ -1,0 +1,13 @@
+module main
+variables clip
+script 80 80 {
+    whenStarted
+    '[p4:audioReleaseAll]'
+    clip = (p4RecordPCM 500)
+    if (clip > 0) {
+        sayIt ('[p4:audioRMS]' clip)
+        sayIt ('[p4:audioPeak]' clip)
+        sayIt ('[p4:audioStatus]')
+        '[p4:audioRelease]' clip
+    }
+}

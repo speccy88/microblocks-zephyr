@@ -31,6 +31,11 @@ available, unavailable and physically untested operations.
    networking and companion firmware changes require exact authorization.
 7. Board-hosted assets and live WebSocket programming, independently tested.
 
+Retain two deployable native Zephyr build profiles: USB-only and C6 Wi-Fi
+board hosting. The hosted profile also retains exclusive USB control/recovery.
+The public Pages editor is a separate distribution surface. See
+[the concrete network proposal and approval boundary](NETWORK_PLAN.md).
+
 SmallVM core, image algorithms, .ubl library and browser protocol are reusable.
 An IDF physical pass does not satisfy the native Zephyr camera acceptance gate.
 ONNX/YOLO remains future work through an explicit preprocessing/model contract.

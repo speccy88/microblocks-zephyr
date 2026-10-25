@@ -1,0 +1,13 @@
+diff --git a/drivers/sdhc/sdhc_esp32.c b/drivers/sdhc/sdhc_esp32.c
+index 7c4750184..224053e85 100644
+--- a/drivers/sdhc/sdhc_esp32.c
++++ b/drivers/sdhc/sdhc_esp32.c
+@@ -1761,7 +1761,7 @@ static int sdhc_esp32_controller_init(const struct device *dev)
+ 	if (ret != 0) {
+ 		k_msgq_purge(data->s_host_ctx.event_queue);
+ 		sdhc_esp32_ctrl.slot_dev[cfg->slot] = NULL;
+-		return -EFAULT;
++		return ret;
+ 	}
+ 
+ 	/* Enable interrupts, sdio interrupt is enabled only when in use */

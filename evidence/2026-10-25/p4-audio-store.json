@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "reuse_cycles": 10000,
+  "pcm_extremes_rms_le_float": true,
+  "typed_handle_separation": true,
+  "capacity_bounds_lifecycle": true,
+  "scope": "offline PCM store; no physical mic or speech claim"
+}

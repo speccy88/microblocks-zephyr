@@ -2,9 +2,15 @@
 #include "vm/interp.h"
 #include "image_store.h"
 #include "camera_backend.h"
+#include "audio_backend.h"
+#include "audio_store.h"
 
 #include <string.h>
 #include <stdio.h>
+#if defined(CONFIG_ESP_HOSTED_MCU)
+#include <zephyr/device.h>
+extern uint32_t esp_hosted_mcu_fw_version(void);
+#endif
 static int integer_args(int n,OBJ *a,int expected) {
     if(n!=expected){fail(notEnoughArguments);return 0;}
     for(int i=0;i<n;i++)if(!isInt(a[i])){fail(needsIntegerError);return 0;}
@@ -71,12 +77,52 @@ static OBJ capabilities(int n,OBJ *a){
 }
 static OBJ dsp_capabilities(int n,OBJ *a){
     (void)a;if(n)return fail(notEnoughArguments);
-    const char *s="{\"resize_nearest\":\"software\",\"grayscale\":\"software\",\"rgb888_hwc_u8\":\"software\",\"isp_demosaic\":\"hardware\",\"ppa_srm\":\"unsupported\",\"jpeg_encode\":\"unsupported\",\"jpeg_decode\":\"unsupported\",\"h264_encode\":\"unsupported\",\"h264_decode\":\"unsupported\",\"audio_input\":\"unconfigured\",\"audio_output\":\"unconfigured\",\"inference\":\"unsupported\"}";
+    const char *s="{\"resize_nearest\":\"software\",\"grayscale\":\"software\",\"rgb888_hwc_u8\":\"software\",\"isp_demosaic\":\"hardware\",\"ppa_srm\":\"unsupported\",\"jpeg_encode\":\"unsupported\",\"jpeg_decode\":\"unsupported\",\"h264_encode\":\"unsupported\",\"h264_decode\":\"unsupported\",\"audio_input\":\"native_I2S_PCM_acoustics_unverified\",\"audio_output\":\"unconfigured\",\"inference\":\"unsupported\"}";
     return newStringFromBytes(s,strlen(s));
 }
 static OBJ ids(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);unsigned imx,ov;p4_sensor_ids(&imx,&ov);char s[64];snprintf(s,sizeof(s),"IMX219=%04x OV5647=%04x",imx,ov);return newStringFromBytes(s,strlen(s));}
 static OBJ create(int n,OBJ *a){if(!integer_args(n,a,3))return falseObj;int h=image_create(obj2int(a[0]),obj2int(a[1]),obj2int(a[2]));if(h){const image_view *v=image_get(h);memset(v->pixels,0,v->bytes);}return int2obj(h);}
+static OBJ audio_id(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return int2obj(p4_audio_codec_id());}
+static OBJ c6_status(int n,OBJ *a){
+    (void)a;if(n)return fail(notEnoughArguments);
+    char s[256];
+#if defined(CONFIG_ESP_HOSTED_MCU)
+    uint32_t v=esp_hosted_mcu_fw_version();
+    const struct device *dev=DEVICE_DT_GET(DT_NODELABEL(p4_c6));
+    const struct device *slot=DEVICE_DT_GET(DT_PARENT(DT_NODELABEL(p4_c6)));
+    int size=snprintf(s,sizeof(s),"{\"transport\":\"SDIO\",\"ready\":%s,\"version_raw\":%u,\"core_error\":%d,\"slot_ready\":%s,\"slot_error\":%d,\"host_wifi_requests\":false}",
+        device_is_ready(dev)?"true":"false",v,-dev->state->init_res,device_is_ready(slot)?"true":"false",-slot->state->init_res);
+#else
+    int size=snprintf(s,sizeof(s),"{\"transport\":\"disabled in USB-only profile\",\"ready\":false}");
+#endif
+    return newStringFromBytes(s,size);
+}
+static OBJ audio_request(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;return p4_audio_request(obj2int(a[0]))?trueObj:falseObj;}
+static OBJ audio_busy(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return p4_audio_busy()?trueObj:falseObj;}
+static OBJ audio_result(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return int2obj(p4_audio_result());}
+static OBJ audio_status(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);const char *s=p4_audio_status();return newStringFromBytes(s,strlen(s));}
+static OBJ audio_valid(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;return audio_get(obj2int(a[0]))?trueObj:falseObj;}
+static OBJ audio_frames(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;const audio_view *v=audio_get(obj2int(a[0]));return v?int2obj(v->frames):fail(indexOutOfRangeError);}
+static OBJ audio_rate(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;const audio_view *v=audio_get(obj2int(a[0]));return v?int2obj(v->rate):fail(indexOutOfRangeError);}
+static OBJ audio_peak(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;unsigned p,r;return audio_stats(obj2int(a[0]),&p,&r)?int2obj(p):fail(indexOutOfRangeError);}
+static OBJ audio_rms(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;unsigned p,r;return audio_stats(obj2int(a[0]),&p,&r)?int2obj(r):fail(indexOutOfRangeError);}
+static OBJ audio_release_one(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;return audio_release(obj2int(a[0]))?trueObj:falseObj;}
+static OBJ audio_release_every(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);p4_audio_discard();audio_release_all();return falseObj;}
+static OBJ audio_memory(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return int2obj(audio_bytes_used());}
+static OBJ audio_handles(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return int2obj(audio_count());}
+static OBJ audio_read_bytes(int n,OBJ *a){
+    if(!integer_args(n,a,3))return falseObj;
+    int h=obj2int(a[0]),offset=obj2int(a[1]),count=obj2int(a[2]);
+    const audio_view *v=audio_get(h);
+    if(!v || offset<0 || count<0 || count>512 || (size_t)offset>v->frames*2 || (size_t)count>v->frames*2-offset)return fail(indexOutOfRangeError);
+    OBJ out=newObj(ByteArrayType,(count+3)/4,zeroObj);if(out==falseObj)return out;
+    setByteCountAdjust(out,count);audio_read(h,offset,(uint8_t *)&FIELD(out,0),count);return out;
+}
 static PrimEntry entries[]={
+ {"c6Status",c6_status},
+ {"audioCodecID",audio_id},{"audioRequest",audio_request},{"audioBusy",audio_busy},{"audioResult",audio_result},{"audioStatus",audio_status},
+ {"audioValid",audio_valid},{"audioFrames",audio_frames},{"audioRate",audio_rate},{"audioPeak",audio_peak},{"audioRMS",audio_rms},
+ {"audioRelease",audio_release_one},{"audioReleaseAll",audio_release_every},{"audioRead",audio_read_bytes},{"audioMemory",audio_memory},{"audioCount",audio_handles},
  {"capabilities",capabilities},{"dspCapabilities",dsp_capabilities},{"sensorIDs",ids},{"imageCreate",create},
  {"cameraRequest",request},{"cameraBusy",busy},{"cameraResult",result},{"cameraStatus",status},
  {"imageValid",valid},{"imageWidth",width},{"imageHeight",height},{"imageBytes",bytes},{"imageFormat",format},

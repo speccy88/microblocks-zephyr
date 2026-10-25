@@ -1,0 +1,59 @@
+{
+  "tested_at": "2026-10-25T20:37:39.025787+00:00",
+  "scope": "native ES8311/I2S actual bounded PCM and SmallVM ownership; no recognition/acoustic-quality claim",
+  "COM12_accessed": false,
+  "raw_audio_saved": false,
+  "checks": {
+    "codec_id": "0x8311",
+    "clips": [
+      {
+        "milliseconds": 100,
+        "frames": 1600,
+        "nominal_rate": 16000,
+        "peak": 1,
+        "rms": 0,
+        "dma_clock_rate_estimate": 15972.3,
+        "capture_poll_s": 0.187,
+        "pcm_crc32": "8cced1ba",
+        "distinct_pcm_bytes": 2,
+        "vm_roundtrips_during_capture": 3,
+        "elapsed_including_reporter_poll_s": 1.375,
+        "status": "PCM ready; mic stopped; 1600/1600 frames, 9 blocks, 144250 us, L=847 R=847, drop=0 slab=0 off=0"
+      },
+      {
+        "milliseconds": 250,
+        "frames": 4000,
+        "nominal_rate": 16000,
+        "peak": 1,
+        "rms": 0,
+        "dma_clock_rate_estimate": 15996.7,
+        "capture_poll_s": 0.296,
+        "pcm_crc32": "118ce4f8",
+        "distinct_pcm_bytes": 2,
+        "vm_roundtrips_during_capture": 5,
+        "elapsed_including_reporter_poll_s": 2.953,
+        "status": "PCM ready; mic stopped; 4000/4000 frames, 18 blocks, 288059 us, L=985 R=985, drop=0 slab=0 off=0"
+      },
+      {
+        "milliseconds": 1000,
+        "frames": 16000,
+        "nominal_rate": 16000,
+        "peak": 28,
+        "rms": 4,
+        "dma_clock_rate_estimate": 15999.1,
+        "capture_poll_s": 1.079,
+        "pcm_crc32": "b40c3061",
+        "distinct_pcm_bytes": 54,
+        "vm_roundtrips_during_capture": 19,
+        "elapsed_including_reporter_poll_s": 11.0,
+        "status": "PCM ready; mic stopped; 16000/16000 frames, 65 blocks, 1040058 us, L=318120 R=318120, drop=0 slab=0 off=0"
+      }
+    ],
+    "two_slot_capacity_reuse_release": true,
+    "cancel_cleanup": true,
+    "final_status": "record error -140; 0/16000 frames, 1 blocks, 16182 us, L=0 R=0, drop=0 slab=0 off=0",
+    "vm_still_runs": true
+  },
+  "firmware": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "result": "PASS"
+}

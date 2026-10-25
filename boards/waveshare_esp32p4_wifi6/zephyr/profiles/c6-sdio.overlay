@@ -1,0 +1,23 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* SD card slot0 remains separate. No Wi-Fi child: link/version probe only. */
+&sdhc0 { status = "disabled"; };
+&sdhc1 {
+    status = "okay";
+    bus-width = <4>;
+    max-bus-freq = <20000000>;
+    clk-pin = <18>;
+    cmd-pin = <19>;
+    d0-pin = <14>;
+    d1-pin = <15>;
+    d2-pin = <16>;
+    d3-pin = <17>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    p4_c6: esp-hosted-mcu@0 {
+        compatible = "espressif,esp-hosted-mcu";
+        reg = <0>;
+        /* Driver pulses physical high/low/high for CHIP_PU. */
+        reset-gpios = <&gpio1 22 GPIO_ACTIVE_HIGH>;
+        status = "okay";
+    };
+};

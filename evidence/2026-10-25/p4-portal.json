@@ -17,8 +17,16 @@
     "automatic_board_connection": false
   },
   "existing_browser_transport_tests": {"passed": 14, "failed": 0},
+  "live_verification": {
+    "commit": "7de0bd53108d6d2051991cc199881df6ceef05ee",
+    "url": "https://speccy88.github.io/microblocks-zephyr/",
+    "all_three_workflows": "success",
+    "pages_build_and_deploy_jobs": "success",
+    "visible_selector_library_example_preview_panel": true,
+    "actual_camera_pipeline_script_loaded_visually": true,
+    "usb_connected_during_live_site_check": false
+  },
   "limitations": [
-    "Live Pages deployment is verified separately after publication",
     "Mobile Safari can select/edit but does not provide USB Web Serial",
     "Direct P4 browser Web Serial on the published site is not physically tested",
     "Earlier real-board graphical camera tests used an explicit loopback serial bridge",

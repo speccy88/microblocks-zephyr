@@ -1,0 +1,17 @@
+{
+  "tested_at": "2026-10-25T20:35:18.299535+00:00",
+  "scope": "native SDIO transport/version-only; no host Wi-Fi consumer or network config",
+  "firmware": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "companion": {
+    "transport": "SDIO",
+    "ready": true,
+    "version_raw": 0,
+    "core_error": 0,
+    "slot_ready": true,
+    "slot_error": 0,
+    "host_wifi_requests": false
+  },
+  "COM12_accessed": false,
+  "C6_flashing": false,
+  "AP_or_station_configuration": false
+}

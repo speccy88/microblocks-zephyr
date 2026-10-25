@@ -1,0 +1,27 @@
+module 'P4 Audio' Input
+author 'Native Zephyr P4 integration; MicroBlocks contributors'
+version 0 1
+description 'Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing and cleanup are tested; microphone acoustic response is not yet verified. No speech recognition or wake-word listener is installed. Recording is off at startup and Stop All cancels it.'
+spec 'r' 'p4RecordPCM' 'record PCM for _ milliseconds' 'num' 1000
+spec 'r' '[p4:audioFrames]' 'audio _ sample count' 'num' 536870913
+spec 'r' '[p4:audioRate]' 'audio _ sample rate' 'num' 536870913
+spec 'r' '[p4:audioRMS]' 'audio _ RMS level' 'num' 536870913
+spec 'r' '[p4:audioPeak]' 'audio _ peak level' 'num' 536870913
+spec 'b' '[p4:audioValid]' 'audio _ valid?' 'num' 536870913
+spec 'b' '[p4:audioRelease]' 'release audio _' 'num' 536870913
+spec ' ' '[p4:audioReleaseAll]' 'release all audio'
+spec 'r' '[p4:audioStatus]' 'audio status'
+advanced
+spec 'b' '[p4:audioRequest]' 'start PCM recording _ milliseconds' 'num' 1000
+spec 'b' '[p4:audioBusy]' 'audio recording busy?'
+spec 'r' '[p4:audioResult]' 'completed audio handle'
+spec 'r' '[p4:audioRead]' 'audio _ bytes from offset _ count _' 'num num num' 536870913 0 100
+spec 'r' '[p4:audioCount]' 'audio handle count'
+spec 'r' '[p4:audioMemory]' 'audio memory used'
+spec 'r' '[p4:audioCodecID]' 'audio codec ID'
+
+to p4RecordPCM milliseconds {
+    if (not ('[p4:audioRequest]' milliseconds)) { return 0 }
+    waitUntil (not ('[p4:audioBusy]'))
+    return ('[p4:audioResult]')
+}

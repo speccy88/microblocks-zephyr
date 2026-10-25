@@ -21,10 +21,10 @@
     {"id":"ppa","hardware":"P4 PPA and 2D DMA","pins":{},"smallvm":"native-upstream-backend-available-integration-next-stage","physical_tested":false},
     {"id":"jpeg","hardware":"P4 JPEG encoder/decoder","pins":{},"smallvm":"unsupported-native-codec-port-not-implemented","physical_tested":false},
     {"id":"h264","hardware":"P4 hardware encoder; software decoding separate","pins":{},"smallvm":"unsupported-native-codec-port-not-implemented","physical_tested":false},
-    {"id":"audio","hardware":"ES8311 codec/mic circuit in schematic","pins":{"sda":7,"scl":8,"mclk":13,"bclk":12,"lrck":10,"rx":11,"tx":9,"pa":53},"smallvm":"unconfigured-no-recording-performed","physical_tested":false},
+    {"id":"audio","hardware":"ES8311 ID 0x8311; native I2S0 AHB DMA","pins":{"sda":7,"scl":8,"mclk":13,"bclk":12,"lrck":10,"rx":11,"tx":9,"pa":53},"smallvm":"bounded-PCM-DMA-timing-lifecycle-and-graphical-block-pass; acoustic-response-unverified","physical_tested":true},
     {"id":"whistle","hardware":"CPU/PSRAM, portable C99 engine candidate","pins":{},"smallvm":"prior-S3-project-located-native-P4-port-pending","physical_tested":false},
     {"id":"wake_word","hardware":"Local TFLM keyword-spotter candidate","pins":{},"smallvm":"unimplemented-default-listener-off","physical_tested":false},
-    {"id":"wifi","hardware":"ESP32-C6-MINI-1 over SDIO","pins":{"d0":14,"d1":15,"d2":16,"d3":17,"clk":18,"cmd":19,"reset":54},"smallvm":"handshake-and-approved-network-configuration-pending","physical_tested":false},
+    {"id":"wifi","hardware":"ESP32-C6-MINI-1 over SDIO","pins":{"d0":14,"d1":15,"d2":16,"d3":17,"clk":18,"cmd":19,"reset":54},"smallvm":"SDIO-initialization-pass; version-protocol-unresolved; AP-approved-not-applied","physical_tested":false},
     {"id":"board_hosting","hardware":"C6 Wi-Fi plus P4 HTTP/WebSocket","pins":{},"smallvm":"unimplemented-loopback-editor-is-host-assisted","physical_tested":false},
     {"id":"arduino_api","hardware":"Future ArduinoCore-Zephyr variant","pins":{},"smallvm":"not-linked-not-validated","physical_tested":false},
     {"id":"persistent_code","hardware":"NOR flash","pins":{},"smallvm":"not-implemented-code-currently-RAM-only","physical_tested":false}

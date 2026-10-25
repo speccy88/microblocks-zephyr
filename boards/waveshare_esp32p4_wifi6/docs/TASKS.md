@@ -11,10 +11,12 @@
 - [x] Graphical MicroBlocks browser camera-pipeline execution.
 - [ ] Companion handshake, approved network configuration, board hosting.
 - [ ] ArduinoCore-Zephyr variant compatibility verification.
-- [ ] Accurate source/evidence publication.
+- [x] Accurate source/evidence publication: native camera 0fb2aa74 on main;
+  all three GitHub workflows passed.
 - [x] Truthful image/DSP backend query.
 - [ ] Native PPA transform measurement.
-- [ ] ES8311/I2S bounded mic capture and PCM lifecycle tests.
+- [x] ES8311/I2S bounded PCM transport, DMA rate and lifecycle tests.
+- [ ] Controlled microphone acoustic/known-phrase test with Fred present.
 - [ ] Reuse prior Whistle C99 engine with native allocator/storage/worker.
 - [ ] Separate lightweight wake-word listener and MicroBlocks event contract.
 - [ ] Measure compatible NN/DSP kernel optimizations against reference paths.

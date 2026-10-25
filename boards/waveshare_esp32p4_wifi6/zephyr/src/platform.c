@@ -59,6 +59,8 @@ OMIT(addElecfreaksSensorPrims) OMIT(addSoundPrims)
 #include <zephyr/sys/ring_buffer.h>
 #include "image_store.h"
 #include "camera_backend.h"
+#include "audio_backend.h"
+#include "audio_store.h"
 static const struct device *const serial=DEVICE_DT_GET(DT_NODELABEL(uart0));
 RING_BUF_DECLARE(input,8192);
 static void rx_isr(const struct device *dev,void *arg){
@@ -72,6 +74,7 @@ static void rx_isr(const struct device *dev,void *arg){
 }
 void hardwareInit(void){
     initTasks();
+    p4_audio_init();
     if(device_is_ready(serial)){uart_irq_callback_user_data_set(serial,rx_isr,NULL);uart_irq_rx_enable(serial);}
 }
 uint32 microsecs(void){return (uint32)k_ticks_to_us_floor64(k_uptime_ticks());}
@@ -100,6 +103,6 @@ void primAnalogWrite(OBJ *a){(void)a;fail(primitiveNotImplemented);}
 void boardInit(void){}
 void boardAddPrims(void){}
 void boardPoll(void){}
-void boardStopAll(void){camera_discard();image_release_all();}
+void boardStopAll(void){camera_discard();image_release_all();p4_audio_discard();audio_release_all();}
 void boardIDEConnectionChanged(int connected){(void)connected;}
 int boardStartAtBoot(void){return true;}

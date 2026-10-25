@@ -33,10 +33,16 @@ def patch_p4(js,data,repo):
     payload=payload.replace(header,header+b"\tif (and (notNil boardType) (beginsWith boardType 'Waveshare ESP32-P4')) { return false }\n")
   for before,after in [(b"atPut primsets 'rlcd'",b"atPut primsets 'p4'"),(b'rlcd.loadLibrary',b'p4.loadLibrary'),(b'rlcd.openExample',b'p4.openExample'),(b'Waveshare_RLCD_4_2.ubl',b'P4_Camera.ubl'),(b'Waveshare RLCD 4.2',b'P4 Camera'),(b'Examples/Waveshare/',b'Examples/P4/')]:payload=payload.replace(before,after)
   payload=payload.replace(b"'arithmetic' 'output'",b"'arithmetic' 'output' 'camera-pipeline'")
+  audio_anchor=b"if (notNil data) { importLibraryFromString scripter data 'P4 Camera' '' }"
+  if audio_anchor in payload:
+   payload=payload.replace(audio_anchor,audio_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Audio.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Audio' '' }")
+  payload=payload.replace(b"'output' 'camera-pipeline'",b"'output' 'camera-pipeline' 'audio-levels'")
   name=name.replace('Waveshare_RLCD_4_2.ubl','P4_Camera.ubl').replace('Examples/Waveshare/','Examples/P4/')
   start=len(out);out.extend(payload);files.append(dict(filename=name,start=start,end=len(out)))
- payload=(board/'camera-pipeline.ubp').read_bytes()+b'\n'+(board/'P4_Camera.ubl').read_bytes()
- start=len(out);out.extend(payload);files.append(dict(filename='/Examples/P4/camera-pipeline.ubp',start=start,end=len(out)))
+ payload=(board/'P4_Audio.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Audio.ubl',start=start,end=len(out)))
+ for example in ['camera-pipeline','audio-levels']:
+  payload=(board/(example+'.ubp')).read_bytes()+b'\n'+(board/'P4_Camera.ubl').read_bytes()+b'\n'+(board/'P4_Audio.ubl').read_bytes()
+  start=len(out);out.extend(payload);files.append(dict(filename='/Examples/P4/'+example+'.ubp',start=start,end=len(out)))
  source=source[:m.start(1)]+json.dumps(dict(files=files,remote_package_size=len(out)),separators=(',',':'))+source[m.end(1):]
  source=source.replace('"/Examples","Waveshare"','"/Examples","P4"')
  return project_api(source.encode(),bytes(out))
@@ -57,6 +63,7 @@ def adapter(repo):
  # an actual board identity, otherwise the ready handshake closes itself.
  text=text.replace("const type=event.detail.value;if(!type)return;", "const type=event.detail.value;if(!type||type==='Connect')return;")
  text=text.replace("['output','50 outputs']", "['output','50 outputs'],['camera-pipeline','Camera grayscale preview']")
+ text=text.replace("['camera-pipeline','Camera grayscale preview']", "['camera-pipeline','Camera grayscale preview'],['audio-levels','Bounded PCM levels (acoustics unverified)']")
  text=text.replace("const lanNote=element('p',(isP2||isP4)?", "const lanNote=element('p',isP4?'P4 runs native Zephyr. USB programming and local image preview are available. Board Wi-Fi hosting is not enabled.':isP2?")
  return text.encode()
 
@@ -76,6 +83,7 @@ def build(source,output,repo):
  # Match the physically accepted editor startup: wait for local English assets.
  gate=b"Module.preRun.push(function(){addRunDependency('board-english');Promise.resolve(GetText.ready).then(function(){removeRunDependency('board-english');});});\n"
  assets['gp_wasm.js']=gate+js
+ html=html.replace('26eb855451371f4c',hashlib.sha256(assets['gp_wasm.js']+data).hexdigest()[:16])
  assets['microblocks.html']=html.encode()
  output.mkdir(parents=True,exist_ok=True)
  for name,raw in assets.items():target=output/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)

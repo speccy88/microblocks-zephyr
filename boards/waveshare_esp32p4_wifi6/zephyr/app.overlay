@@ -1,4 +1,26 @@
 /* SPDX-License-Identifier: Apache-2.0 */
+#include <zephyr/dt-bindings/pinctrl/esp32p4-pinctrl.h>
+&pinctrl {
+    p4_i2s0_rx: p4_i2s0_rx {
+        group1 {
+            pinmux = <I2S0_I_BCK_GPIO12 I2S0_I_WS_GPIO10 I2S0_I_SD_GPIO11 I2S0_MCLK_GPIO13>;
+        };
+    };
+};
+/* P4's I2S0 trigger is on AHB GDMA (hal/gdma_channel.h), independently
+ * of the camera's dedicated DW-GDMA. AXI cannot service this peripheral. */
+&dma { status = "okay"; };
+/* The board default enables AXI GDMA too, allocating six unused CPU
+ * interrupt vectors. Camera uses DW-GDMA and audio uses AHB, so leave
+ * AXI off to retain vectors for SDIO and future required peripherals. */
+&dma_axi { status = "disabled"; };
+&i2s0 {
+    status = "okay";
+    dmas = <&dma 0>;
+    dma-names = "rx";
+    pinctrl-0 = <&p4_i2s0_rx>;
+    pinctrl-names = "default";
+};
 &i2c0 { clock-frequency = <100000>; };
 /* Dedicated MIPI D-PHY supply, matching the board and tested camera source.
  * Other LDOs (including PSRAM) retain their board settings. */

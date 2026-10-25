@@ -55,6 +55,13 @@ private frames, credentials and raw logs are excluded. The shared image engine
 and backend use MIT; SmallVM primitive/transport/editor adaptations use MPL-2.0.
 No speech model weights or speech engine code is imported in this milestone.
 
+The native P4 ADC-only ES8311 register sequence adapts Espressif
+`esp_codec_dev` 1.5.4 (Apache-2.0), source commit
+`fcce23e3d5ecf7ba75ce9f4e3761489dc9e0299e` in `esp-adf`.
+Its Espressif copyright notice is retained in `audio_backend.c`; native
+Zephyr I2S transport/ownership is integrated locally. The portable PCM store
+uses MIT, and SmallVM/editor/audio-library adaptations use MPL-2.0.
+
 `boards/propeller2/native/` contains the required C/header subset of the
 recovered MicroBlocks SmallVM v405 native FlexC port, derived from commit
 `4dc5f4df2fe1eeb0ee3bb9c4bf694e2e34087e8c` plus recovered uncommitted changes.

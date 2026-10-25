@@ -14,14 +14,14 @@ static int dimensions(unsigned w,unsigned h,unsigned f,size_t *size) {
     *size=(size_t)w*h*f; return 1;
 }
 const image_view *image_get(int handle) {
-    if(handle<=0)return NULL;
+    if(handle<=0 || (unsigned)handle>=0x20000000u)return NULL; /* typed audio handles use the upper range */
     unsigned value=(unsigned)handle-1,index=value%IMAGE_SLOTS,generation=value/IMAGE_SLOTS;
     return slots[index].view.pixels && slots[index].generation==generation ? &slots[index].view : NULL;
 }
 int image_adopt(unsigned w,unsigned h,unsigned f,uint8_t *pixels,size_t size) {
     size_t expected;
     if(!pixels || !dimensions(w,h,f,&expected) || expected!=size || size>IMAGE_BUDGET-used)return 0;
-    for(unsigned i=0;i<IMAGE_SLOTS;i++)if(!slots[i].view.pixels && slots[i].generation<0x0fffffffu) {
+    for(unsigned i=0;i<IMAGE_SLOTS;i++)if(!slots[i].view.pixels && slots[i].generation<0x07ffffffu) {
         slots[i].view=(image_view){w,h,w*f,f,size,pixels};used+=size;
         return (int)(slots[i].generation*IMAGE_SLOTS+i+1);
     }

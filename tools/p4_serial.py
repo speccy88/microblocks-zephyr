@@ -5,7 +5,32 @@ import struct,time,zlib
 import serial
 from serial.tools import list_ports
 from test_wireless_vm import VM,op,words
-from p2_serial import primitive
+def primitive(name,arguments=()):
+ """Real IOPrims bytecode, including full SmallVM integers for typed handles.
+
+ Follows the repository's P2 encoder; P4 adds pushHugeInteger (opcode 4).
+ No device access occurs while assembling bytecode.
+ """
+ ops=[op(9)];literals=[]
+ def string(text,reference,prim=False):
+  raw=text.encode()+b'\0';raw+=b'\0'*(-len(raw)%4)
+  literals.append((reference,struct.pack('<I',(len(raw)//4<<4)|4)+raw,prim))
+ for value in arguments:
+  if isinstance(value,str):ops.extend([op(5),0]);string(value,len(ops)-1)
+  elif isinstance(value,bool):ops.append(op(2,4 if value else 0))
+  elif -64<=value<=63:ops.append(op(2,2*value+1))
+  elif -4194304<=value<=4194303:
+   tagged=2*value+1;ops.extend([op(3,tagged&255),tagged>>8&65535])
+  elif -0x40000000<=value<=0x3fffffff:
+   tagged=(2*value+1)&0xffffffff;ops.extend([op(4),tagged&65535,tagged>>16])
+  else:raise ValueError('Argument outside SmallVM integer range')
+ ops.extend([op(37,len(arguments)),0,op(35),op(127)]);string(name,len(ops)-3,True)
+ if len(ops)%2:ops.append(0)
+ out=bytearray(words(ops))
+ for reference,literal,prim in literals:
+  offset=len(out)//2-reference+(3<<10 if prim else 0)
+  struct.pack_into('<H',out,reference*2,offset);out.extend(literal)
+ return bytes(out)
 
 def require_com5():
  items=[p for p in list_ports.comports() if p.device.upper()=='COM5']
@@ -55,6 +80,17 @@ class P4SerialVM(VM):
   if actual!=zlib.crc32(code):raise AssertionError('P4 upload CRC mismatch')
   return actual
  def call(self,name,*args):self.upload(10,primitive(name,args),2);return self.run_reporter(10)
+ def run_reporter(self,chunk):
+  start=len(self.events);self.short(3,chunk)
+  body=self.wait(lambda e:e[0]==18 and e[1]==chunk,after=start)[2]
+  if body[0]==1:return int.from_bytes(body[1:5],'little',signed=True)
+  if body[0]==2:return body[1:].decode()
+  if body[0]==3:return bool(body[1])
+  if body[0]==5:
+   total=int.from_bytes(body[1:3],'little');sent=body[3]
+   if total!=sent or len(body)!=sent+4:raise RuntimeError('Reporter bytearray truncated; request at most 100 bytes')
+   return body[4:]
+  raise RuntimeError('Unexpected P4 reporter value type')
  def all_crcs(self):
   start=len(self.events);self.short(38,1);body=self.wait(lambda e:e[:2]==(39,0),after=start)[2]
   if len(body)%5:raise RuntimeError('Invalid CRC table')
