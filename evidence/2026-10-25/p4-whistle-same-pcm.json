@@ -1,0 +1,61 @@
+{
+  "scope": "authorized controlled phrase; private same-PCM host/native diagnostic",
+  "raw_audio_uploaded": false,
+  "capture_status": "PCM ready; mic stopped; 64000/64000 frames, 252 blocks, 4032271 us, L=24466774 R=24466774, drop=0 slab=0 off=0",
+  "peak": 246,
+  "rms": 19,
+  "pcm_sha256": "ada42772eb94d762a16898d209a34d57ab89d4bb1b8ebd009d063a237653b356",
+  "native_held": {
+    "transcript": "The camera is ready.",
+    "status": {
+      "phase": "ready",
+      "message": "local text ready; 5 tokens; input PCM released",
+      "frames": 64000,
+      "elapsed_ms": 32156,
+      "encode_ms": 24672,
+      "decode_ms": 7427,
+      "peak_requested_bytes": 2804664,
+      "reserved_arena_bytes": 12582912,
+      "stack_unused_bytes": 21572,
+      "buffers_released": true
+    },
+    "vm_roundtrips": 0,
+    "max_vm_rtt_s": 0,
+    "wall_s": 0.094
+  },
+  "native_released": {
+    "transcript": "The camera is ready.",
+    "status": {
+      "phase": "ready",
+      "message": "local text ready; 5 tokens; input PCM released",
+      "frames": 64000,
+      "elapsed_ms": 33446,
+      "encode_ms": 25710,
+      "decode_ms": 7678,
+      "peak_requested_bytes": 2804664,
+      "reserved_arena_bytes": 12582912,
+      "stack_unused_bytes": 21572,
+      "buffers_released": true
+    },
+    "vm_roundtrips": 187,
+    "max_vm_rtt_s": 0.047,
+    "wall_s": 33.484
+  },
+  "copy_ownership_same_text": true,
+  "controlled_phrase": "The camera is ready.",
+  "pcm_export_vm_calls": 1280,
+  "host_reference": {
+    "engine_source_commit": "9e9e996e55b0f945438da1082eac4a087ed3ca39",
+    "gate_margin_ms": 200,
+    "speech_range_seconds": [
+      0.46,
+      4.0
+    ],
+    "transcript": "The camera is ready.",
+    "encoder_frames": 45,
+    "encode_ms": 139,
+    "decode_ms": 46
+  },
+  "exact_phrase_match": true,
+  "result": "PASS_SAME_PCM_COPY_AND_INFERENCE"
+}

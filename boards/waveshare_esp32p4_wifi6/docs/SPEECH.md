@@ -2,8 +2,9 @@
 
 Fred requested local Whistle speech-to-text, a separate wake-word event block,
 and reuse of established NN/DSP optimizations on 2026-10-25. Camera bringup
-remains the first milestone. Bounded PCM blocks are implemented and tested;
-speech recognition and wake-word blocks are not yet implemented or claimed.
+established the first milestone. Bounded PCM and experimental native Whistle
+blocks are implemented and physically tested. Wake-word blocks remain
+unimplemented; no listener is started by default.
 
 ## Existing work inspected
 
@@ -17,7 +18,7 @@ old board's ES7210 dual-mic/GPIO18 wiring for this ES8311 P4 board.
 The Apache-2.0 C99 engine has scalar kernels as well as S3-only Xtensa PIE
 paths. P4 is not intrinsically excluded by the absence of an official RV32
 Cactus binary. The native port must override all allocation/time/platform
-hooks and keep IDF/FreeRTOS application glue out of Zephyr. `nd_wh_encode`
+hooks and keep IDF/FreeRTOS application glue out of Zephyr. `nd_whistle_encode`
 accepts PCM and computes log-mel itself; its input is not an arbitrary mel
 tensor. Preserve quantization scales and int32 accumulation when optimizing.
 
@@ -45,14 +46,31 @@ Physical PCM transport/timing/lifecycle evidence is in
 handles, typed image/audio separation, release/reuse, cancellation, zero slab
 blocks outstanding, ADC stop and live VM execution. The one-second request
 measured 15,999.1 frames/s by counting full DMA blocks over 1.040058 seconds.
-The microphone samples were quiet; this does not verify an acoustic stimulus
-or recognition accuracy. A short known phrase will be requested when Fred is
-present and the recognition path is ready. No raw audio is saved by the test.
+An additional explicitly approved Windows-speaker test verified microphone
+acoustic response: correlation 0.7442, baseline/window RMS 0.57/103.49.
+The same captured four-second PCM returned `The camera is ready.` twice on
+the P4, including after releasing its original handle, and on the host using
+the identical 200 ms gate margin. The P4 took 32.2–33.4 seconds; the scalar
+reference is much slower than real time. Another capture was misrecognized,
+and the real GP example returned `The cameras is ready.` (extra plural).
+These observations establish local execution, not general speech accuracy.
+Private recordings and generated fixtures remain excluded from Git/Pages.
 
 The pre-v3 I2S clock fix is retained as a reproducible pinned Zephyr patch.
 Camera regression after audio integration passed three real pipelines,
 reconnect, cancellation and 8,294,400-byte PSRAM reallocation. Capabilities
-continue to report inference as unsupported until measured native execution.
+use the dedicated `local speech available?` query for the optional Whistle
+profile. The generic model-inference entry remains unsupported; this is not
+an ONNX/YOLO runtime. The default small USB firmware contains no speech model.
+
+Whistle's native worker reserves a 12 MiB external job arena, separately
+accounts requested peak (2.27 MB for the clean fixture; 2.80 MB for the
+four-second recording), owns an independent PCM copy, and frees its arena on
+success/error/cancel. A guarded 64 KiB internal stack has 21,572 bytes unused
+at the measured high water. The initial 24 KiB stack could overwrite the idle
+audio stack; it was corrected before this stage was published. Actual fixture,
+copy/release, cancellation and GUI evidence accompanies the implementation.
+See [native storage/memory contract](WHISTLE_NATIVE.md).
 
 ## Required behavior and gates
 

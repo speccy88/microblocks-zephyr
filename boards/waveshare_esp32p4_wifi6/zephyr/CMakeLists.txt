@@ -14,7 +14,7 @@ execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/prepare_p4_zephyr_r
 target_include_directories(app PRIVATE "${vm_root}" "${vm_root}/vm" "${repo}/common/image" "${repo}/common/audio" src "${ZEPHYR_BASE}/drivers/video")
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1 HAS_BOARD_HOOKS=1 IMAGE_ALLOC_EXTERNAL=1 AUDIO_ALLOC_EXTERNAL=1)
 target_sources(app PRIVATE src/main.c src/platform.c src/image_primitives.c src/camera_backend.c
-  src/p4_sensors.c src/p4_csi.c src/audio_backend.c
+  src/p4_sensors.c src/p4_csi.c src/audio_backend.c src/whistle_backend.c
   "${repo}/common/image/image_store.c"
   "${repo}/common/audio/audio_store.c"
   ${vm_root}/vm/interp.c ${vm_root}/vm/runtime.c ${vm_root}/vm/mem.c
@@ -25,3 +25,27 @@ target_sources(app PRIVATE
   ${ZEPHYR_HAL_ESPRESSIF_MODULE_DIR}/components/esp_hal_cam/mipi_csi_hal.c
   ${ZEPHYR_HAL_ESPRESSIF_MODULE_DIR}/components/esp_hal_cam/esp32p4/mipi_csi_periph.c
   ${ZEPHYR_HAL_ESPRESSIF_MODULE_DIR}/components/esp_hal_dma/dw_gdma_hal.c)
+
+if(P4_WHISTLE_MODEL)
+  if(NOT P4_WHISTLE_SOURCES)
+    set(P4_WHISTLE_SOURCES "${repo}/build-artifacts/whistle-sources")
+  endif()
+  set(whistle_generated "${CMAKE_CURRENT_BINARY_DIR}/whistle")
+  set(whistle_args --sources "${P4_WHISTLE_SOURCES}" --model "${P4_WHISTLE_MODEL}" --output "${whistle_generated}")
+  if(P4_WHISTLE_FIXTURE)
+    list(APPEND whistle_args --fixture "${P4_WHISTLE_FIXTURE}")
+    target_compile_definitions(app PRIVATE P4_WHISTLE_FIXTURE=1)
+  endif()
+  execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/prepare_p4_whistle.py" ${whistle_args}
+    COMMAND_ERROR_IS_FATAL ANY)
+  target_compile_definitions(app PRIVATE P4_WHISTLE=1)
+  target_include_directories(app PRIVATE "${P4_WHISTLE_SOURCES}/engine/include")
+  target_sources(app PRIVATE "${whistle_generated}/whistle_assets.S")
+  foreach(source nd_cact nd_quant nd_tokenizer nd_ledcmd nd_whistle)
+    target_sources(app PRIVATE "${whistle_generated}/${source}_zephyr.c")
+  endforeach()
+  add_custom_target(p4_whistle_validate ALL DEPENDS zephyr_final
+    COMMAND ${Python3_EXECUTABLE} "${repo}/tools/check_p4_whistle_image.py"
+      --elf "${CMAKE_BINARY_DIR}/zephyr/zephyr.elf"
+      --bin "${CMAKE_BINARY_DIR}/zephyr/zephyr.bin")
+endif()

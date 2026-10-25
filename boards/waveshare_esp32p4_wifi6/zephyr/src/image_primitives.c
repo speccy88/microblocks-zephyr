@@ -4,6 +4,7 @@
 #include "camera_backend.h"
 #include "audio_backend.h"
 #include "audio_store.h"
+#include "whistle_backend.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -118,7 +119,15 @@ static OBJ audio_read_bytes(int n,OBJ *a){
     OBJ out=newObj(ByteArrayType,(count+3)/4,zeroObj);if(out==falseObj)return out;
     setByteCountAdjust(out,count);audio_read(h,offset,(uint8_t *)&FIELD(out,0),count);return out;
 }
+static OBJ stt_available(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return p4_whistle_available()?trueObj:falseObj;}
+static OBJ stt_request(int n,OBJ *a){if(!integer_args(n,a,2))return falseObj;return p4_whistle_request(obj2int(a[0]),obj2int(a[1]))?trueObj:falseObj;}
+static OBJ stt_fixture(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;return p4_whistle_fixture(obj2int(a[0]))?trueObj:falseObj;}
+static OBJ stt_busy(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return p4_whistle_busy()?trueObj:falseObj;}
+static OBJ stt_status(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);char s[512];p4_whistle_status(s,sizeof(s));return newStringFromBytes(s,strlen(s));}
+static OBJ stt_result(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);char s[512];p4_whistle_result(s,sizeof(s));return newStringFromBytes(s,strlen(s));}
+static OBJ stt_cancel(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);p4_whistle_cancel();return falseObj;}
 static PrimEntry entries[]={
+ {"sttAvailable",stt_available},{"sttRequest",stt_request},{"sttFixture",stt_fixture},{"sttBusy",stt_busy},{"sttStatus",stt_status},{"sttResult",stt_result},{"sttCancel",stt_cancel},
  {"c6Status",c6_status},
  {"audioCodecID",audio_id},{"audioRequest",audio_request},{"audioBusy",audio_busy},{"audioResult",audio_result},{"audioStatus",audio_status},
  {"audioValid",audio_valid},{"audioFrames",audio_frames},{"audioRate",audio_rate},{"audioPeak",audio_peak},{"audioRMS",audio_rms},

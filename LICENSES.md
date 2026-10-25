@@ -53,7 +53,7 @@ notice. The tested authored sensor initialization was explicitly requested
 from private source commit `fc60acbb0c1eb080ee57b3aca5942e81539e6049`;
 private frames, credentials and raw logs are excluded. The shared image engine
 and backend use MIT; SmallVM primitive/transport/editor adaptations use MPL-2.0.
-No speech model weights or speech engine code is imported in this milestone.
+Speech model weights remain external and are not committed.
 
 The native P4 ADC-only ES8311 register sequence adapts Espressif
 `esp_codec_dev` 1.5.4 (Apache-2.0), source commit
@@ -61,6 +61,18 @@ The native P4 ADC-only ES8311 register sequence adapts Espressif
 Its Espressif copyright notice is retained in `audio_backend.c`; native
 Zephyr I2S transport/ownership is integrated locally. The portable PCM store
 uses MIT, and SmallVM/editor/audio-library adaptations use MPL-2.0.
+
+The optional native P4 Whistle profile fetches and verifies the independent
+Apache-2.0 C99 engine from `andrisgauracs/whistle-esp32` commit
+`9e9e996e55b0f945438da1082eac4a087ed3ca39`. Its complete upstream LICENSE
+is retained with the external fetched source. Generated wrappers select the
+portable RV32 C branch and redirect allocations without modifying those
+verified upstream files. Native worker/SmallVM/editor adapters are MPL-2.0;
+the build/fetch/validation helpers have their own MIT notices. The optional
+Cactus Whistle model is Apache-2.0, with source revision, exact derived-model
+size and SHA256 in `dependencies/p4-whistle.json`. Model weights, generated
+speech fixtures and private microphone captures are excluded from Git and
+Pages deployment; this change does not redistribute a model binary.
 
 `boards/propeller2/native/` contains the required C/header subset of the
 recovered MicroBlocks SmallVM v405 native FlexC port, derived from commit

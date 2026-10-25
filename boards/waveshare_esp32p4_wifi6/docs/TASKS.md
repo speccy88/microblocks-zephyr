@@ -16,8 +16,16 @@
 - [x] Truthful image/DSP backend query.
 - [ ] Native PPA transform measurement.
 - [x] ES8311/I2S bounded PCM transport, DMA rate and lifecycle tests.
-- [ ] Controlled microphone acoustic/known-phrase test with Fred present.
-- [ ] Reuse prior Whistle C99 engine with native allocator/storage/worker.
+- [x] Controlled Windows speaker/P4 microphone acoustic-response test;
+  correlation 0.7442, RMS rise 0.57 to 103.49, stopped and private PCM excluded.
+- [x] Reuse prior Whistle C99 engine with native allocator/storage/worker.
+- [x] Cross-build pinned C99 Whistle engine with 12 MiB bounded job arena,
+  flash-mapped verified model and explicit native simple-boot partition map.
+- [x] Native P4 fixture transcription, cancellation/reuse and memory metrics.
+- [x] Native microphone handle to actual STT text and graphical example;
+  experimental accuracy, scalar latency measured, no generic model runtime.
+- [ ] Per-block expandable image snapshots and explicit audio playback;
+  contract in INLINE_RESULTS.md, not implemented by the global camera panel.
 - [ ] Separate lightweight wake-word listener and MicroBlocks event contract.
 - [ ] Measure compatible NN/DSP kernel optimizations against reference paths.
 

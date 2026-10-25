@@ -1,0 +1,23 @@
+{
+  "tested_at": "2026-10-25T21:40:24.480261+00:00",
+  "scope": "controlled acoustic trial; inaccurate recognition preserved as a failure, raw transcript kept private",
+  "controlled_phrase": "The camera is ready.",
+  "exact_phrase_match": false,
+  "native_inference_completed": true,
+  "status": {
+    "phase": "ready",
+    "message": "local text ready; 9 tokens; input PCM released",
+    "frames": 64000,
+    "elapsed_ms": 36643,
+    "encode_ms": 25718,
+    "decode_ms": 10867,
+    "peak_requested_bytes": 2804664,
+    "reserved_arena_bytes": 12582912,
+    "stack_unused_bytes": 21572,
+    "buffers_released": true
+  },
+  "capture_status": "PCM ready; mic stopped; 64000/64000 frames, 252 blocks, 4032273 us, L=24686834 R=24686834, drop=0 slab=0 off=0",
+  "max_vm_rtt_s": 0.032,
+  "raw_audio_uploaded": false,
+  "result": "FAIL_ACCURACY"
+}

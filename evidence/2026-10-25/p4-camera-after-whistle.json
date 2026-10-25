@@ -1,0 +1,21 @@
+{
+  "tested_at": "2026-10-25T21:46:56.141585+00:00",
+  "scope": "physical COM5, native SmallVM bytecode and IMX219 still pipeline",
+  "checks": {
+    "arithmetic_10_runs_and_live_edit": true,
+    "ordered_outputs": 50,
+    "fragmented_upload_bytes": 1019
+  },
+  "graphical_browser_test": false,
+  "COM12_accessed": false,
+  "version": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "latest_scene": {
+    "gray_range": [
+      10,
+      16
+    ],
+    "unique_levels": 4
+  },
+  "result": "FAIL",
+  "error": "AssertionError: Scene has too few measured grayscale levels; inspect private capture"
+}

@@ -1,0 +1,20 @@
+{
+  "scope": "explicitly authorized Windows-speaker/P4-microphone controlled phrase; no volume change or cloud/audio upload",
+  "fixture_phrase": "The camera is ready.",
+  "fixture_source": "offline installed Windows SAPI voice",
+  "speaker_status": {
+    "available": true,
+    "muted": false,
+    "existing_volume_percent": 50
+  },
+  "capture_frames": 64000,
+  "sample_rate": 16000,
+  "native_status": "PCM ready; mic stopped; 64000/64000 frames, 252 blocks, 4032267 us, L=24775883 R=24775883, drop=0 slab=0 off=0",
+  "baseline_rms": 0.57,
+  "maximum_window_rms": 103.49,
+  "envelope_correlation": 0.7442,
+  "alignment_s": 0.86,
+  "acoustic_response_verified": true,
+  "raw_audio": "private ignored local output only; not committed",
+  "native_STT_verified": false
+}

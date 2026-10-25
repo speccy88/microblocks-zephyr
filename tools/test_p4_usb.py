@@ -38,11 +38,13 @@ def test(a):
    assert vm.call('imageBytes',gray)==14400 and vm.call('imageBytes',tensor)==27648
    meta=json.loads(vm.image_request(1,gray));raw=bytearray()
    for offset in range(0,meta['bytes'],512):raw.extend(vm.image_request(2,gray,offset,min(512,meta['bytes']-offset)))
-   assert len(raw)==14400 and len(set(raw))>10
+   assert len(raw)==14400
    a.private.mkdir(parents=True,exist_ok=True)
    if attempt==0:
     from PIL import Image
     Image.frombytes('L',(160,90),bytes(raw)).save(a.private/'camera-gray.png')
+   report['latest_scene']={'gray_range':[min(raw),max(raw)],'unique_levels':len(set(raw))}
+   assert len(set(raw))>10,'Scene has too few measured grayscale levels; inspect private capture'
    for h in [small,gray,tensor,handle]:assert vm.call('imageRelease',h) is True;assert vm.call('imageValid',h) is False
    assert vm.call('imageRelease',handle) is False;assert vm.call('imageCount')==0;assert vm.call('imageMemory')==0
    captures.append(dict(width=1280,height=720,gray_width=160,gray_height=90,gray_crc32=f'{zlib.crc32(raw):08x}',gray_range=[min(raw),max(raw)],vm_roundtrips_during_capture=polls,status=status))

@@ -1,0 +1,12 @@
+{
+  "native_elf": "RV32 Zephyr",
+  "image_bytes": 14858320,
+  "flash_offset": "0x2000",
+  "reserved_boundary": "0xfe0000",
+  "model_start": "0x40020400",
+  "model_end": "0x40df82af",
+  "model_bytes": 14515887,
+  "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+  "image_sha256": "9e067fedce54674883c691d3826924f9bf1a20bfa917a85d158d6b63188128cf",
+  "weights_copied_to_psram": false
+}

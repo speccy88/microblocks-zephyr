@@ -1,0 +1,20 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* Direct ROM simple-boot at 0x2000. Model is part of mapped app rodata.
+ * This profile deliberately has no MCUboot/OTA or companion flash target. */
+&flash0 {
+    /delete-node/ partitions;
+    partitions {
+        compatible = "fixed-partitions";
+        #address-cells = <1>;
+        #size-cells = <1>;
+        boot_partition: slot0_partition: p4_whistle_app: partition@2000 {
+            compatible = "zephyr,mapped-partition";
+            label = "p4-app-and-model";
+            reg = <0x2000 0xfde000>;
+        };
+        p4_reserved: partition@fe0000 {
+            label = "reserved-assets-storage";
+            reg = <0xfe0000 0x1020000>;
+        };
+    };
+};

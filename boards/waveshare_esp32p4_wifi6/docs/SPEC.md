@@ -39,3 +39,23 @@ The public Pages editor is a separate distribution surface. See
 SmallVM core, image algorithms, .ubl library and browser protocol are reusable.
 An IDF physical pass does not satisfy the native Zephyr camera acceptance gate.
 ONNX/YOLO remains future work through an explicit preprocessing/model contract.
+
+## Audio, local speech and editor results
+
+Native PCM handles use a separate typed integer range, with explicit bounded
+recording and release. The optional Whistle profile implements local C99
+speech-to-text through copied PCM and an asynchronous Zephyr worker; no
+default listener, cloud transcription, generic ONNX support or IDF task shim.
+Storage, cancellation, measured stack and reserved/requested PSRAM limits are
+specified in [WHISTLE_NATIVE](WHISTLE_NATIVE.md) and [SPEECH](SPEECH.md).
+
+Native fixture and microphone-copy execution are physically verified, with
+experimental accuracy and scalar latency of tens of seconds. The real GP
+compiler executes the audio-to-text example. Latest camera scene contrast
+remains a failed gate under current lighting, independently of frame-size,
+transform/export and resource-lifetime checks.
+
+Per-block image snapshots and explicit browser audio playback are required by
+[INLINE_RESULTS](INLINE_RESULTS.md). The existing global camera panel does not
+satisfy that requirement. Independent wake-word events, PPA/codecs and actual
+C6 board hosting remain staged tasks with honest unsupported capabilities.

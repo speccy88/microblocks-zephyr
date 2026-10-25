@@ -1,0 +1,17 @@
+module main
+variables clip transcript
+script 80 80 {
+    whenStarted
+    '[p4:audioReleaseAll]'
+    if ('[p4:sttAvailable]') {
+        clip = (p4RecordPCM 3000)
+        if (clip > 0) {
+            transcript = (p4Transcribe clip 0)
+            '[p4:audioRelease]' clip
+            sayIt transcript
+            sayIt ('[p4:sttStatus]')
+        }
+    } else {
+        sayIt 'Install the verified native Whistle model profile.'
+    }
+}

@@ -1,0 +1,104 @@
+{
+  "source_repository": "https://github.com/andrisgauracs/whistle-esp32",
+  "source_commit": "9e9e996e55b0f945438da1082eac4a087ed3ca39",
+  "license": "Apache-2.0",
+  "reuse": "same engine revision as the prior tested RLCD project; no IDF application glue",
+  "files": [
+    {
+      "path": "engine/include/nd_cact.h",
+      "sha256": "6df6e670a72e3081441d6725810b895ee336210bb940db90a6e0dc89b191efd5"
+    },
+    {
+      "path": "engine/include/nd_grammar.h",
+      "sha256": "4637871fccffbcdf9c349fb9948a02072c05430c6fd255103b947ffa316e92c0"
+    },
+    {
+      "path": "engine/include/nd_ledcmd.h",
+      "sha256": "917353f0e546151060908c1babc39372ec70a30fec1f16919031d36ec2e8c3f9"
+    },
+    {
+      "path": "engine/include/nd_model.h",
+      "sha256": "f1f300e8c914d065d105c2fc5c7cd2a9ef7d36aabfd652bc0ba8492a24cb74ba"
+    },
+    {
+      "path": "engine/include/nd_quant.h",
+      "sha256": "923e4d5dcfab987ebd1ebcbc39c594cd6831273475362790bc2d528a639d21a9"
+    },
+    {
+      "path": "engine/include/nd_sample.h",
+      "sha256": "83a9dd088f828f6131ab224387a63c12f32aa312a15ea618c35b0463697b6311"
+    },
+    {
+      "path": "engine/include/nd_tokenizer.h",
+      "sha256": "4bf00b46278f756ce5ae397ff084e843c5df2610f4b8c932c118dbe4a9edfd6f"
+    },
+    {
+      "path": "engine/include/nd_whistle.h",
+      "sha256": "ee927dc2d558d091be49c4212815decf38145ac871ed261d1286344545ec7f6a"
+    },
+    {
+      "path": "engine/src/nd_cact.c",
+      "sha256": "3b17c59a26b7d29546eea490d5dc7ccf152976a8885e6f279e8bbccbd20be578"
+    },
+    {
+      "path": "engine/src/nd_grammar.c",
+      "sha256": "4856092892dad75a462d3e1c449ea16ea6d83c31936b2d78402acd12d73bdfdb"
+    },
+    {
+      "path": "engine/src/nd_ledcmd.c",
+      "sha256": "4ba921d5f4731dbab912427f954441b65575bcf2ff49f58d1be7aa46abc3f40f"
+    },
+    {
+      "path": "engine/src/nd_model.c",
+      "sha256": "d80cc505f17413a11993c6f6b141fee561a94fc6ea9f644065c938152c61ffb0"
+    },
+    {
+      "path": "engine/src/nd_quant.c",
+      "sha256": "9e09a1f4ab413c1bb1b7b65854ddbff60c23c447357195aeaa910ec089cc4099"
+    },
+    {
+      "path": "engine/src/nd_sample.c",
+      "sha256": "cbed3cde6590f93c03464d783a6d1e973734eacafadd4834165485c0825a3770"
+    },
+    {
+      "path": "engine/src/nd_tokenizer.c",
+      "sha256": "f6cf6b5904ee415afa89dc8962bd34cbe69b77b85d3075316bcbe45fe6555a60"
+    },
+    {
+      "path": "engine/src/nd_whistle.c",
+      "sha256": "7599be8184095236bcf02d496cd5beae84f40f81aefefc55a9abd582fec90282"
+    },
+    {
+      "path": "host/CMakeLists.txt",
+      "sha256": "0a31ff94ad0c848b172ad51bedb489e50821079bbad59417edeb1a211bb60dce"
+    },
+    {
+      "path": "host/ledcmd_test.c",
+      "sha256": "2acc0e97dc0aed93059280896d08e85f3d2335f2e7bbf948d4e8144713862a01"
+    },
+    {
+      "path": "host/nd_dump.c",
+      "sha256": "de17c228e0ced5cf38b9be7b3f75f90ee150620f9e695b06c6a63cba1f93abf2"
+    },
+    {
+      "path": "host/nd_gtest.c",
+      "sha256": "ff375b18a2a8d153e34e8f5f36c62fc4aa570b6363dc4cca40ee8885a0e5b997"
+    },
+    {
+      "path": "host/wh_run.c",
+      "sha256": "2a28e75d7f911b8366f6e1f25181253d065a1a9cb7784f564470239f69d0fa8d"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  ],
+  "model": {
+    "bytes": 14515887,
+    "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+    "format": "four-decoder-layer Whistle cact v4",
+    "source": "https://huggingface.co/Cactus-Compute/whistle/tree/741118687e1f008f06d1351a402a731274789790",
+    "license": "Apache-2.0",
+    "weights_in_git": false
+  }
+}

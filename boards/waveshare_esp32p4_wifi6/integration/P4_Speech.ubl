@@ -1,0 +1,18 @@
+module 'P4 Local Speech' Input
+author 'Native Zephyr integration; Whistle C99 authors retain Apache-2.0'
+version 0 1
+description 'Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.'
+spec 'r' 'p4Transcribe' 'transcribe audio _ language _' 'num num' 536870913 0
+spec 'b' '[p4:sttAvailable]' 'local speech available?'
+spec 'r' '[p4:sttStatus]' 'local speech status'
+spec ' ' '[p4:sttCancel]' 'cancel local speech'
+advanced
+spec 'b' '[p4:sttRequest]' 'start transcription audio _ language _' 'num num' 536870913 0
+spec 'b' '[p4:sttBusy]' 'local speech busy?'
+spec 'r' '[p4:sttResult]' 'completed speech text'
+
+to p4Transcribe clip language {
+    if (not ('[p4:sttRequest]' clip language)) { return '' }
+    waitUntil (not ('[p4:sttBusy]'))
+    return ('[p4:sttResult]')
+}
