@@ -45,6 +45,23 @@ AHB-DMA are separate. These are native Zephyr fixes, without an IDF RTOS shim.
 
 ## Bounded PCM blocks
 
+Image-producing blocks now show their own inline thumbnail. Results expand
+on first execution; use +/minus to show or hide them without executing the
+block. A deliberate collapse survives reruns. With no image, the view is
+collapsed. Snapshots are bounded copies, so releasing an image handle does
+not invalidate its displayed thumbnail. Reloading the project clears them.
+
+The record PCM block similarly displays duration and an explicit browser
+Play/Pause button. Playback does not record again and never starts by itself.
+Results stay local to the editor, outside `.ubp` files and autosave. Rerun,
+disconnect and project replacement clear old audio and revoke playback URLs.
+These views use the same USB/WebSocket byte protocol; actual board-hosted
+Wi-Fi remains pending the companion protocol work described below.
+
+The physical inline acceptance used generated image create/resize/grayscale
+and two bounded 500 ms captures, without taking another camera picture.
+See `evidence/2026-10-25/p4-media-browser.json` and `p4-media-native.json`.
+
 The editor also loads **P4 Audio**. Select **Bounded PCM levels** and press
 Start explicitly for a 500 ms recording, RMS/peak
 report and release. No recording/listening begins merely by opening the page.

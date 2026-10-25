@@ -1,0 +1,10 @@
+/* SPDX-License-Identifier: MIT */
+#p4-inline-results{position:fixed;inset:0;z-index:20;pointer-events:none}
+.p4-inline-result{position:fixed;pointer-events:none;box-sizing:border-box;color:#252936;font:calc(11px * var(--zoom,1)) sans-serif;overflow:hidden}
+.p4-inline-result [data-title]{position:absolute;left:calc(5px * var(--zoom));top:calc(4px * var(--zoom));max-width:calc(127px * var(--zoom));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p4-inline-result button{pointer-events:auto;position:absolute;box-sizing:border-box;height:calc(20px * var(--zoom));min-width:calc(24px * var(--zoom));padding:0 calc(4px * var(--zoom));border:1px solid #8a93a2;border-radius:3px;background:#fff;color:#212634;font:calc(13px * var(--zoom)) sans-serif;cursor:pointer}
+.p4-inline-result button:focus-visible{outline:2px solid #2865d5;outline-offset:1px}
+.p4-inline-result [data-toggle]{right:calc(2px * var(--zoom));top:calc(1px * var(--zoom))}
+.p4-inline-result [data-play]{left:calc(5px * var(--zoom));min-width:calc(48px * var(--zoom))}
+.p4-inline-result button:disabled{opacity:.55;cursor:default}
+.p4-inline-result [hidden]{display:none!important}

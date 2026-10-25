@@ -109,6 +109,13 @@
       "physical_tested": true
     },
     {
+      "id": "inline_media",
+      "hardware": "Native bounded PSRAM snapshots and genuine GP block views",
+      "pins": {},
+      "smallvm": "physical generated image pipeline and 500ms audio results, rerun, collapse, playback and cleanup PASS via USB loopback; board hosting pending",
+      "physical_tested": true
+    },
+    {
       "id": "wake_word",
       "hardware": "Local TFLM keyword-spotter candidate",
       "pins": {},

@@ -15,7 +15,8 @@ const char *boardType(void) { return "Waveshare ESP32-P4 WIFI6 Zephyr"; }
 void consolePrint(const char *s) { (void)s; }
 void consoleReportNum(const char *s, int n) { (void)s; (void)n; }
 extern void p4_image_message(int,int,char *);
-void processFileMessage(int t, int n, char *p) { p4_image_message(t,n,p); }
+extern void p4_media_message(int,int,char *);
+void processFileMessage(int t, int n, char *p) { p4_image_message(t,n,p);p4_media_message(t,n,p); }
 void stopPWM(void) {  }
 void stopServos(void) {}
 void stopTone(void) {  }
@@ -62,6 +63,7 @@ OMIT(addElecfreaksSensorPrims) OMIT(addSoundPrims)
 #include "audio_backend.h"
 #include "audio_store.h"
 #include "whistle_backend.h"
+#include "result_store.h"
 static const struct device *const serial=DEVICE_DT_GET(DT_NODELABEL(uart0));
 RING_BUF_DECLARE(input,8192);
 static void rx_isr(const struct device *dev,void *arg){
@@ -104,6 +106,6 @@ void primAnalogWrite(OBJ *a){(void)a;fail(primitiveNotImplemented);}
 void boardInit(void){}
 void boardAddPrims(void){}
 void boardPoll(void){}
-void boardStopAll(void){p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();}
+void boardStopAll(void){p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
 void boardIDEConnectionChanged(int connected){(void)connected;}
 int boardStartAtBoot(void){return true;}

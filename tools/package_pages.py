@@ -166,6 +166,8 @@ def build(source, output, repo):
         if board=='esp32p4':
             camera_version=hashlib.sha256(assets['p4-camera.js']).hexdigest()[:16]
             html=html.replace('</head>','<script src="p4-camera.js?v='+camera_version+'"></script>\n</head>')
+            from package_p4_ide import media_assets
+            html=media_assets(assets,html,repo)
         gp_version=hashlib.sha256(assets['gp_wasm.js']+assets['gp_wasm.data']).hexdigest()[:16]
         html=html.replace('26eb855451371f4c',gp_version)
         html=html.replace('<meta charset="utf-8">','<meta charset="utf-8">\n'

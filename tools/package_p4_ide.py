@@ -4,6 +4,7 @@
 import argparse,hashlib,json,re
 from pathlib import Path
 from patch_ide import patch_ide
+from patch_p4_media import patch_source
 from fruit_jam_ide_assets import prepare_assets
 
 def patch_p4(js,data,repo):
@@ -37,6 +38,7 @@ def patch_p4(js,data,repo):
   if audio_anchor in payload:
    payload=payload.replace(audio_anchor,audio_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Audio.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Audio' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Speech.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Local Speech' '' }")
   payload=payload.replace(b"'output' 'camera-pipeline'",b"'output' 'camera-pipeline' 'audio-levels' 'local-speech'")
+  if name.endswith('.gp'):payload=patch_source(name,payload,repo)
   name=name.replace('Waveshare_RLCD_4_2.ubl','P4_Camera.ubl').replace('Examples/Waveshare/','Examples/P4/')
   start=len(out);out.extend(payload);files.append(dict(filename=name,start=start,end=len(out)))
  payload=(board/'P4_Audio.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Audio.ubl',start=start,end=len(out)))
@@ -56,7 +58,7 @@ def adapter(repo):
  text=text.replace("if(mode&&mode.value==='wifi'){", "if(profile.bridge||mode&&mode.value==='wifi'){")
  text=text.replace('const url=new URL(endpoint.value);',"const url=new URL(profile.bridge?location.origin.replace('http:','ws:')+'/ws/vm':endpoint.value);")
  text=text.replace("if(url.protocol!=='wss:'||url.username", "if((url.protocol!=='wss:'&&!(profile.bridge&&url.protocol==='ws:'&&url.hostname==='127.0.0.1'))||url.username")
- text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
+ text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&(frame[1]===208||frame[1]===209)){}else if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
  frame_anchor='const frame=assembly.slice(0,size);assembly=assembly.slice(size);'
  if text.count(frame_anchor)!=1:raise ValueError('Changed bounded frame transport anchor')
  # Local read-only observers support result views and acceptance checks.
@@ -72,6 +74,18 @@ def adapter(repo):
  text=text.replace("['camera-pipeline','Camera grayscale preview']", "['camera-pipeline','Camera grayscale preview'],['audio-levels','Bounded PCM levels'],['local-speech','Local speech (model profile required)']")
  text=text.replace("const lanNote=element('p',(isP2||isP4)?", "const lanNote=element('p',isP4?'P4 runs native Zephyr. USB programming and local image preview are available. Board Wi-Fi hosting is not enabled.':isP2?")
  return text.encode()
+
+def media_assets(assets,html,repo):
+ for name in ['p4-media-core.js','p4-media.js','p4-media.css']:
+  assets[name]=(repo/'web'/name).read_bytes()
+ tags=[]
+ for name in ['p4-media.css','p4-media-core.js','p4-media.js']:
+  url=name+'?v='+hashlib.sha256(assets[name]).hexdigest()[:16]
+  tags.append('<link rel="stylesheet" href="'+url+'">' if name.endswith('.css') else '<script src="'+url+'"></script>')
+ html=html.replace('</head>','\n'.join(tags)+'\n</head>')
+ # The P4 adapter evolves independently of the shared portal assets.
+ html=re.sub(r'src="unoq-network.js(?:\?v=[^"]*)?"','src="unoq-network.js?v='+hashlib.sha256(assets['unoq-network.js']).hexdigest()[:16]+'"',html)
+ return html
 
 def build(source,output,repo):
  manifest=json.loads((repo/'dependencies/ide-assets.json').read_text());assets={}
@@ -89,6 +103,7 @@ def build(source,output,repo):
  # Match the physically accepted editor startup: wait for local English assets.
  gate=b"Module.preRun.push(function(){addRunDependency('board-english');Promise.resolve(GetText.ready).then(function(){removeRunDependency('board-english');});});\n"
  assets['gp_wasm.js']=gate+js
+ html=media_assets(assets,html,repo)
  html=html.replace('26eb855451371f4c',hashlib.sha256(assets['gp_wasm.js']+data).hexdigest()[:16])
  assets['microblocks.html']=html.encode()
  output.mkdir(parents=True,exist_ok=True)

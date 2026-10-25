@@ -5,6 +5,7 @@
 #include "audio_backend.h"
 #include "audio_store.h"
 #include "whistle_backend.h"
+#include "result_store.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -126,7 +127,14 @@ static OBJ stt_busy(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);r
 static OBJ stt_status(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);char s[512];p4_whistle_status(s,sizeof(s));return newStringFromBytes(s,strlen(s));}
 static OBJ stt_result(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);char s[512];p4_whistle_result(s,sizeof(s));return newStringFromBytes(s,strlen(s));}
 static OBJ stt_cancel(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);p4_whistle_cancel();return falseObj;}
+static OBJ media_snapshot(int n,OBJ *a){
+    if(!integer_args(n,a,3))return falseObj;
+    int h=obj2int(a[0]);uint32_t uid=obj2int(a[1]),session=obj2int(a[2]);
+    if(session && session==media_session_id())media_publish(uid,h);
+    return int2obj(h); /* Result tracing never changes expression semantics. */
+}
 static PrimEntry entries[]={
+ {"mediaSnapshot",media_snapshot},
  {"sttAvailable",stt_available},{"sttRequest",stt_request},{"sttFixture",stt_fixture},{"sttBusy",stt_busy},{"sttStatus",stt_status},{"sttResult",stt_result},{"sttCancel",stt_cancel},
  {"c6Status",c6_status},
  {"audioCodecID",audio_id},{"audioRequest",audio_request},{"audioBusy",audio_busy},{"audioResult",audio_result},{"audioStatus",audio_status},

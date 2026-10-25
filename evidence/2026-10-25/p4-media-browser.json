@@ -1,0 +1,63 @@
+{
+  "tested_at": "2026-10-25T23:13:00Z",
+  "editor": "genuine pinned MicroBlocks GP 2.5.8",
+  "firmware": "v417 Waveshare ESP32-P4 WIFI6 native Zephyr",
+  "firmware_guarded_sha256": "c1076455775d68044c6d7549613aa1ca58b0d9d6fe95ee13c0599bc7503d459f",
+  "transport": "real COM5 through explicit loopback WebSocket bridge, http://127.0.0.1:8875",
+  "board_self_hosted": false,
+  "camera_recaptured": false,
+  "image_pipeline": {
+    "source": "native generated blank RGB888, 128 x 64",
+    "resize": [64, 32],
+    "grayscale": [64, 32],
+    "distinct_actual_block_results": 3,
+    "all_source_handles_released_by_script": true,
+    "first_result_expands": true,
+    "no_result_collapsed": true,
+    "resize_user_collapse_preserved_after_native_rerun": true,
+    "all_three_ready_after_rerun": true,
+    "browser_accounted_cache_bytes": 81920
+  },
+  "audio": {
+    "actual_record_block_runs": 2,
+    "each_capture_ms": 500,
+    "frames_each": 8000,
+    "rate_hz": 16000,
+    "channels": 1,
+    "original_handle_released_by_example": true,
+    "browser_cache_bytes_including_wav_header": 16044,
+    "no_autoplay": true,
+    "explicit_play_and_pause_button_states_verified": true,
+    "collapse_produced_result_notifications": 0,
+    "explicit_rerun_produced_result_notifications": 1,
+    "user_collapse_preserved_on_rerun": true,
+    "stored_silence_renderer_cases_ms": [100, 4000],
+    "microphone_stopped_after_tests": true,
+    "acoustic_quality_not_reassessed": true
+  },
+  "privacy_and_cleanup": {
+    "serialized_project_contains_media_or_tracing": false,
+    "reload_clears_results": true,
+    "project_replacement_clears_results": true,
+    "disconnect_cache_bytes": 0,
+    "disconnect_cache_entries": 0,
+    "disconnect_pending_transfers": 0,
+    "disconnect_queued_transfers": 0,
+    "disconnect_playing": null,
+    "disconnect_session": 0,
+    "raw_recordings_or_camera_images_saved_to_git": false
+  },
+  "issues_found_and_fixed": [
+    "SmallVM dispatcher initially excluded message 208",
+    "negotiation now synchronizes recompiled tracing before execution",
+    "GP drawing uses warpBitmap for scaled native pixels",
+    "serialized lifecycle API calls avoid last-request-first expiry races"
+  ],
+  "remaining_limits": [
+    "camera lighting/content retest remains pending user response",
+    "C6 firmware version protocol unresolved; no board-hosted editor verification",
+    "PPA, generic inference, wake-word blocks remain separate unimplemented stages"
+  ],
+  "COM12_accessed": false,
+  "result": "PASS"
+}

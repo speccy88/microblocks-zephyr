@@ -24,8 +24,9 @@
 - [x] Native P4 fixture transcription, cancellation/reuse and memory metrics.
 - [x] Native microphone handle to actual STT text and graphical example;
   experimental accuracy, scalar latency measured, no generic model runtime.
-- [ ] Per-block expandable image snapshots and explicit audio playback;
-  contract in INLINE_RESULTS.md, not implemented by the global camera panel.
+- [x] Actual GP per-block expandable image snapshots and explicit audio
+  playback; native generated pipeline and bounded microphone widget tested.
+  See INLINE_RESULTS.md and p4-media-browser.json. Board hosting is separate.
 - [ ] Separate lightweight wake-word listener and MicroBlocks event contract.
 - [ ] Measure compatible NN/DSP kernel optimizations against reference paths.
 

@@ -9,4 +9,4 @@ if __name__=='__main__':
  prepare(a.source.resolve(),a.output.resolve(),strict_digital_arity=True)
  path=a.output/'vm/runtime.c';text=path.read_text()
  if text.count('(cmd <= 205)')!=2:raise ValueError('Unexpected extension dispatch')
- path.write_text(text.replace('(cmd <= 205)','(cmd <= 206)'),newline='\n')
+ path.write_text(text.replace('(cmd <= 205)','(cmd <= 208)'),newline='\n')

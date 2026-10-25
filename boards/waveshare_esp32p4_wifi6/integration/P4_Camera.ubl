@@ -13,6 +13,7 @@ spec ' ' '[p4:imageReleaseAll]' 'release all images'
 spec 'b' '[p4:imageValid]' 'image _ valid?' 'num' 1
 spec 'r' '[p4:cameraStatus]' 'camera status'
 advanced
+spec 'r' '[p4:imageCreate]' 'blank image width _ height _ format _' 'num num num' 160 90 1
 spec 'r' '[p4:dspCapabilities]' 'DSP backends'
 spec 'r' '[p4:imageRGBTensor]' 'image _ to RGB888 tensor width _ height _' 'num num num' 1 96 96
 spec 'r' '[p4:imageFormat]' 'image _ format' 'num' 1
