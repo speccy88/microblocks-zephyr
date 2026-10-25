@@ -5,9 +5,9 @@ import argparse,hashlib,json,re
 from pathlib import Path
 from patch_ide import patch_ide
 from fruit_jam_ide_assets import prepare_assets
-from package_pages import project_api
 
 def patch_p4(js,data,repo):
+ from package_pages import project_api
  board=repo/'boards/waveshare_esp32p4_wifi6/integration'
  js,data=patch_ide(js,data,(board/'P4_Camera.ubl').read_bytes())
  source=js.decode();m=re.search(r'loadPackage\((\{"files":\[.*?\],"remote_package_size":\d+\})\)',source)

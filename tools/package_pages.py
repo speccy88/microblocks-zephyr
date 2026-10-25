@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the static two-board portal with the real, hash-pinned GP editor.
+"""Build the static multi-board portal with the real, hash-pinned GP editor.
 
 No credentials or hardware access. The original self-hosted asset packagers
 are unchanged. --fetch downloads only manifest-listed immutable public files.
@@ -123,15 +123,18 @@ def build(source, output, repo):
     report={'real_editor':'MicroBlocks GP 2.5.8','upstream_commit':manifest['source_commit'],
             'source_manifest_sha256':hashlib.sha256((repo/'dependencies/ide-assets.json').read_bytes()).hexdigest(),
             'runtime_third_party_network':False,'boards':{}}
-    for board in ('fruit-jam','waveshare','xrp-rp2350','propeller2'):
+    for board in ('fruit-jam','waveshare','xrp-rp2350','propeller2','esp32p4'):
         assets=dict(originals);assets.update(common)
-        if board in ('waveshare','xrp-rp2350','propeller2'):
+        if board in ('waveshare','xrp-rp2350','propeller2','esp32p4'):
             if board=='waveshare':
                 js,data=patch_ide(originals['gp_wasm.js'],originals['gp_wasm.data'],
                     (repo/'boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl').read_bytes())
             elif board=='propeller2':
                 js,data=p2_package(originals['gp_wasm.js'],originals['gp_wasm.data'],
                     (repo/'boards/propeller2/integration/P2_Hardware.ubl').read_bytes())
+            elif board=='esp32p4':
+                from package_p4_ide import patch_p4
+                js,data=patch_p4(originals['gp_wasm.js'],originals['gp_wasm.data'],repo)
             else:js,data=xrp_package(originals['gp_wasm.js'],originals['gp_wasm.data'])
             # The same locale dependency used by the physically accepted hosts.
             gate=b"""Module.preRun.push(function() {
@@ -141,19 +144,28 @@ def build(source, output, repo):
 });
 """
             assets['gp_wasm.js']=gate+js;assets['gp_wasm.data']=data
-        assets['gp_wasm.js'],assets['gp_wasm.data']=project_api(assets['gp_wasm.js'],assets['gp_wasm.data'])
+        if board!='esp32p4':
+            assets['gp_wasm.js'],assets['gp_wasm.data']=project_api(assets['gp_wasm.js'],assets['gp_wasm.data'])
         assets['unoq-network.js']=(repo/'web/portal/portal-adapter.js').read_bytes()
+        if board=='esp32p4':
+            from package_p4_ide import adapter
+            assets['unoq-network.js']=adapter(repo)
+            assets['p4-camera.js']=(repo/'web/p4-camera.js').read_bytes()
         html=assets['microblocks.html'].decode('utf-8')
         tag='<script src="unoq-network.js"></script>'
         assert html.count(tag)==1
         profile={'board':board,'name':{'fruit-jam':'Fruit Jam','waveshare':'Waveshare RLCD 4.2',
-                  'xrp-rp2350':'SparkFun XRP RP2350 (development)','propeller2':'Parallax Propeller 2'}[board]}
+                  'xrp-rp2350':'SparkFun XRP RP2350 (development)','propeller2':'Parallax Propeller 2',
+                  'esp32p4':'Waveshare ESP32-P4 WIFI6 camera (native Zephyr)'}[board]}
         if board=='xrp-rp2350':profile['connection_enabled']=False
         config=json.dumps(profile,separators=(',',':'))
         html=html.replace(tag,'<link rel="stylesheet" href="../../portal.css?v='+portal_version+'">\n'
             '<script>window.PORTAL_BOARD='+config+';</script>\n'
             '<script src="../../portal-core.js?v='+portal_version+'"></script>\n'
             '<script src="unoq-network.js?v='+portal_version+'"></script>')
+        if board=='esp32p4':
+            camera_version=hashlib.sha256(assets['p4-camera.js']).hexdigest()[:16]
+            html=html.replace('</head>','<script src="p4-camera.js?v='+camera_version+'"></script>\n</head>')
         gp_version=hashlib.sha256(assets['gp_wasm.js']+assets['gp_wasm.data']).hexdigest()[:16]
         html=html.replace('26eb855451371f4c',gp_version)
         html=html.replace('<meta charset="utf-8">','<meta charset="utf-8">\n'

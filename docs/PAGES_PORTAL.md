@@ -30,6 +30,15 @@ quiet diagnostic remains available. See [XRP parity and acceptance](XRP_PARITY.m
 
 ## Browser and hosting behavior
 
+The P4 profile is included in the board selector and in the same Pages build.
+It packages the physically tested native Zephyr camera library, camera pipeline
+example, GP board capability fixes and bounded image preview/export extension.
+It uses a separate `esp32p4` browser-project namespace and USB Web Serial with
+DTR/RTS deasserted. Wi-Fi setup and board-hosted controls are hidden while that
+backend is unavailable. Desktop Chrome/Edge is required to connect USB; mobile
+Safari can select the profile and edit projects but cannot connect Web Serial.
+The localhost bridge used in earlier physical tests is not enabled on Pages.
+
 - Package the hash-pinned real GP 2.5.8 editor, compiler and both board libraries;
   preserve upstream licenses, corresponding GP source and provenance.
 - Serve a static HTTPS Pages site built from `main`. Runtime code, fonts and

@@ -1,0 +1,27 @@
+{
+  "scope": "P4 profile added to the actual multi-board Pages portal; no new hardware test",
+  "source_camera_commit": "0fb2aa74fd536324e629bcb89d573a52a92551a4",
+  "camera_commit_ci": "Offline validation, XRP HTTP scheduler contracts and Browser portal all completed successfully",
+  "screenshot_finding": "The user's mobile Safari screenshot showed the GitHub Pages board selector without P4",
+  "local_build": "package_pages.py verified pinned upstream assets and produced all five board profiles",
+  "p4_gp_data_sha256": "f4aab1797bf4ccb4b1512b4ad5ed55447f662e72bee226439dfcf30e48fe515f",
+  "p4_gp_data_matches_physically_tested_camera_editor": true,
+  "browser_observations": {
+    "selector_option": "Waveshare ESP32-P4 WIFI6 camera (Zephyr USB)",
+    "selector_opens": "editor/esp32p4/microblocks.html",
+    "actual_gp_library": "P4 Camera",
+    "example": "Camera grayscale preview",
+    "preview_panel": "Camera image",
+    "connection_modes": ["USB Web Serial"],
+    "wifi_setup_hidden": true,
+    "automatic_board_connection": false
+  },
+  "existing_browser_transport_tests": {"passed": 14, "failed": 0},
+  "limitations": [
+    "Live Pages deployment is verified separately after publication",
+    "Mobile Safari can select/edit but does not provide USB Web Serial",
+    "Direct P4 browser Web Serial on the published site is not physically tested",
+    "Earlier real-board graphical camera tests used an explicit loopback serial bridge",
+    "Native P4 Wi-Fi hosting remains unavailable"
+  ]
+}
