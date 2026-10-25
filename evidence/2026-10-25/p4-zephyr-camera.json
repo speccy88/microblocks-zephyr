@@ -1,0 +1,83 @@
+{
+  "tested_at": "2026-10-25T19:33:55.807110+00:00",
+  "scope": "physical COM5, native SmallVM bytecode and IMX219 still pipeline",
+  "checks": {
+    "arithmetic_10_runs_and_live_edit": true,
+    "ordered_outputs": 50,
+    "fragmented_upload_bytes": 1019,
+    "captures": [
+      {
+        "width": 1280,
+        "height": 720,
+        "gray_width": 160,
+        "gray_height": 90,
+        "gray_crc32": "cabd6ca3",
+        "gray_range": [
+          10,
+          97
+        ],
+        "vm_roundtrips_during_capture": 1,
+        "status": "native Zephyr: 1280x720 RGB565 ready; sensor stopped"
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "gray_width": 160,
+        "gray_height": 90,
+        "gray_crc32": "6b5e57fb",
+        "gray_range": [
+          10,
+          114
+        ],
+        "vm_roundtrips_during_capture": 1,
+        "status": "native Zephyr: 1280x720 RGB565 ready; sensor stopped"
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "gray_width": 160,
+        "gray_height": 90,
+        "gray_crc32": "55817797",
+        "gray_range": [
+          10,
+          94
+        ],
+        "vm_roundtrips_during_capture": 1,
+        "status": "native Zephyr: 1280x720 RGB565 ready; sensor stopped"
+      }
+    ],
+    "discard_and_recapture": true,
+    "post_capture_psram_reallocation_bytes": 8294400,
+    "capabilities": {
+      "runtime": "Zephyr",
+      "image_store": true,
+      "camera_receiver": true,
+      "wifi": false,
+      "arduino_api": false,
+      "persistent_code": false
+    },
+    "dsp_backends": {
+      "resize_nearest": "software",
+      "grayscale": "software",
+      "rgb888_hwc_u8": "software",
+      "isp_demosaic": "hardware",
+      "ppa_srm": "unsupported",
+      "jpeg_encode": "unsupported",
+      "jpeg_decode": "unsupported",
+      "h264_encode": "unsupported",
+      "h264_decode": "unsupported",
+      "audio_input": "unconfigured",
+      "audio_output": "unconfigured",
+      "inference": "unsupported"
+    },
+    "final_camera_status": "native Zephyr: 1280x720 RGB565 ready; sensor stopped",
+    "saved_crc32": {
+      "0": "297d191b"
+    },
+    "usb_reconnect": true
+  },
+  "graphical_browser_test": false,
+  "COM12_accessed": false,
+  "version": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "result": "PASS"
+}

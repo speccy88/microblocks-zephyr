@@ -1,0 +1,48 @@
+{
+  "tested_at": "2026-10-25T19:24:35Z",
+  "result": "PASS",
+  "scope": "Actual graphical MicroBlocks GP compiler to physical COM5 native Zephyr VM",
+  "editor": "MicroBlocks GP 2.5.8",
+  "runtime": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "transport": "loopback HTTP/WebSocket to COM5 bridge; not board-hosted Wi-Fi",
+  "packaged_gp_data_sha256": "779fa478cab4b59a88497fdc960d294d8ae455404701d45cbe909ec93bbcff82",
+  "checks": {
+    "real_camera_blocks_rendered": true,
+    "board_identity_green_and_connected": true,
+    "genuine_compiler_functions_uploaded": 1,
+    "genuine_compiler_scripts_uploaded": 1,
+    "function_upload_milliseconds": 302,
+    "script_upload_milliseconds": 88,
+    "start_button_executed_camera_pipeline": true,
+    "preview_width": 160,
+    "preview_height": 90,
+    "preview_format": "GRAY8",
+    "preview_bytes": 14400,
+    "private_scene_visually_inspected": true,
+    "png_export_link_available": true,
+    "stop_button_clicked_after_transfer": true,
+    "controller_disconnected_before_flash": true,
+    "COM12_accessed": false
+  },
+  "limits": [
+    "Fixed camera exposure/gain and image quality remain untuned.",
+    "This validates the loopback bridge; direct Web Serial is separately unverified.",
+    "Initial generic GP ESP-name BLE/filesystem inference was disabled and verified false in the final package."
+  ],
+  "final_regression": {
+    "tested_at": "2026-10-25T19:39:03.056336+00:00",
+    "result": "PASS",
+    "gp_data_sha256": "f4aab1797bf4ccb4b1512b4ad5ed55447f662e72bee226439dfcf30e48fe515f",
+    "firmware_sha256": "5a5ffed665a0cba5ec10d8bf85e46609a605cf41229c3a67c5db2c982e0ce796",
+    "hasFS": false,
+    "canDoBLE": false,
+    "connected_native_board": true,
+    "preview": {
+      "width": 160,
+      "height": 90,
+      "format": 1,
+      "bytes": 14400
+    },
+    "stopped_and_disconnected": true
+  }
+}

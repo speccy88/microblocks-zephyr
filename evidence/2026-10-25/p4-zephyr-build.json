@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "runtime": "native Zephyr; no FreeRTOS camera or ISP RTOS driver",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "hal_espressif_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "sdk": "Zephyr SDK 1.0.1 riscv64-zephyr-elf GCC 14.3.0",
+  "target": "esp32p4_wifi6/esp32p4/hpcore",
+  "cpu_mhz": 360,
+  "flash_mib": 32,
+  "psram_mib": 32,
+  "external_heap_bytes": 16777216,
+  "simple_boot_flash_offset": "0x2000",
+  "image_bytes": 254752,
+  "unguarded_image_sha256": "c7d924315de1bf19ce3b50020185b26004dc82f5b38253a7522010c38d27427b",
+  "revision_guarded_image_sha256": "5a5ffed665a0cba5ec10d8bf85e46609a605cf41229c3a67c5db2c982e0ce796",
+  "minimum_revision": "1.3",
+  "maximum_revision": "1.99",
+  "reproduction": "boards/waveshare_esp32p4_wifi6/START_HERE.md"
+}

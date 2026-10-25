@@ -1,0 +1,15 @@
+module main
+variables original small gray
+
+script 80 80 {
+    whenStarted
+    '[p4:imageReleaseAll]'
+    original = (p4TakePicture)
+    if (original > 0) {
+        small = ('[p4:imageResize]' original 160 90)
+        gray = ('[p4:imageGrayscale]' small)
+        '[p4:imagePreview]' gray
+        '[p4:imageRelease]' original
+        '[p4:imageRelease]' small
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "reuse_cycles": 10000,
+  "pixel_formats": 3,
+  "bounds_capacity_allocation_failure": true,
+  "scope": "offline shared image engine; no camera/VM hardware claim"
+}

@@ -1,0 +1,4 @@
+vendor/
+firmware/
+outputs/
+zephyr/build*/

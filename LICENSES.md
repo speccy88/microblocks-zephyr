@@ -44,6 +44,17 @@ preserve its own licensing and attribution when integrated:
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
 
+The P4 native camera port uses the pinned external Zephyr/Espressif HAL
+(Apache-2.0), without linking FreeRTOS or ESP-IDF camera/ISP RTOS drivers.
+`p4_csi.c` retains Espressif's Apache-2.0 notice for adapted CSI/ISP/DW-GDMA
+register setup. `p4_sensors.c` retains Circuit Valley, tinyVision.ai and
+Espressif Apache-2.0 notices; `ov5647_mode.h` preserves the Espressif mode-table
+notice. The tested authored sensor initialization was explicitly requested
+from private source commit `fc60acbb0c1eb080ee57b3aca5942e81539e6049`;
+private frames, credentials and raw logs are excluded. The shared image engine
+and backend use MIT; SmallVM primitive/transport/editor adaptations use MPL-2.0.
+No speech model weights or speech engine code is imported in this milestone.
+
 `boards/propeller2/native/` contains the required C/header subset of the
 recovered MicroBlocks SmallVM v405 native FlexC port, derived from commit
 `4dc5f4df2fe1eeb0ee3bb9c4bf694e2e34087e8c` plus recovered uncommitted changes.

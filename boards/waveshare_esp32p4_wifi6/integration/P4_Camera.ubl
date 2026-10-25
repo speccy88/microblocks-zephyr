@@ -1,0 +1,31 @@
+module 'P4 Camera' Output
+author 'ESP32-P4 SmallVM integration; MicroBlocks contributors'
+version 0 1
+description 'Native Zephyr P4 camera and portable image processing. IMX219 manual exposure is untuned. Four immutable native images, 8 MiB total. Release images when finished. A handle is not pixel data. Resize is nearest neighbor. Preview/export stays in this browser. No model runtime is installed. Check camera status for hardware errors.'
+spec 'r' 'p4TakePicture' 'take picture'
+spec 'r' '[p4:imageWidth]' 'image _ width' 'num' 1
+spec 'r' '[p4:imageHeight]' 'image _ height' 'num' 1
+spec 'r' '[p4:imageResize]' 'resize image _ width _ height _' 'num num num' 1 160 90
+spec 'r' '[p4:imageGrayscale]' 'grayscale image _' 'num' 1
+spec 'b' '[p4:imagePreview]' 'preview / export image _' 'num' 1
+spec 'b' '[p4:imageRelease]' 'release image _' 'num' 1
+spec ' ' '[p4:imageReleaseAll]' 'release all images'
+spec 'b' '[p4:imageValid]' 'image _ valid?' 'num' 1
+spec 'r' '[p4:cameraStatus]' 'camera status'
+advanced
+spec 'r' '[p4:dspCapabilities]' 'DSP backends'
+spec 'r' '[p4:imageRGBTensor]' 'image _ to RGB888 tensor width _ height _' 'num num num' 1 96 96
+spec 'r' '[p4:imageFormat]' 'image _ format' 'num' 1
+spec 'r' '[p4:imageBytes]' 'image _ byte count' 'num' 1
+spec 'r' '[p4:imageRead]' 'image _ bytes from offset _ count _' 'num num num' 1 0 100
+spec 'r' '[p4:imageMemory]' 'image memory used'
+spec 'r' '[p4:imageCount]' 'image count'
+spec 'b' '[p4:cameraRequest]' 'start camera still'
+spec 'b' '[p4:cameraBusy]' 'camera busy?'
+spec 'r' '[p4:cameraResult]' 'camera result handle'
+
+to p4TakePicture {
+    if (not ('[p4:cameraRequest]')) { return 0 }
+    waitUntil (not ('[p4:cameraBusy]'))
+    return ('[p4:cameraResult]')
+}

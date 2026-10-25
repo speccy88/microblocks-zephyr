@@ -1,0 +1,26 @@
+{
+  "tested_at": "2026-10-25T18:38:13.624689+00:00",
+  "scope": "physical native Zephyr SmallVM UART and PSRAM; no image capture",
+  "checks": {
+    "arithmetic_runs": 10,
+    "live_edit": 13,
+    "ordered_outputs": 50,
+    "fragmented_upload_bytes": 1019,
+    "capabilities": {
+      "runtime": "Zephyr",
+      "image_store": true,
+      "camera_receiver": false,
+      "wifi": false,
+      "arduino_api": false
+    },
+    "sensor_ids": "IMX219=0219 OV5647=0000",
+    "full_frame_psram_allocation_bytes": 1843200,
+    "native_resize_grayscale_and_bounded_export": true,
+    "physical_handle_reuse_cycles": 25,
+    "camera_status": "native Zephyr: CSI/ISP receiver not ready; no capture",
+    "reconnect": true
+  },
+  "COM12_accessed": false,
+  "version": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "result": "PASS"
+}

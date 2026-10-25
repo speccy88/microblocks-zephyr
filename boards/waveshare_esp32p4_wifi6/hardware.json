@@ -1,0 +1,32 @@
+{
+  "board": "Waveshare ESP32-P4-WIFI6",
+  "soc": "ESP32-P4",
+  "silicon_revision": "1.3/pre-v3",
+  "flash_mib": 32,
+  "psram_mib": 32,
+  "phase": "physical-native-zephyr-camera-and-graphical-vm-verified",
+  "target_firmware_cross_built": true,
+  "physical_hardware_available": true,
+  "zephyr_target": "esp32p4_wifi6/esp32p4/hpcore",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "hal_espressif_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "camera_reference_commit": "fc60acbb0c1eb080ee57b3aca5942e81539e6049",
+  "capabilities": [
+    {"id":"smallvm_uart","hardware":"UART0 CH343","pins":{"tx":37,"rx":38},"smallvm":"physical-program-edit-run-reconnect-pass","physical_tested":true},
+    {"id":"imx219_csi_isp","hardware":"IMX219 0x0219 at 0x10, two lanes 400 Mbps/lane, RAW10","pins":{"sda":7,"scl":8},"smallvm":"physical-1280x720-RGB565-capture-transform-export-pass","physical_tested":true},
+    {"id":"ov5647_csi_isp","hardware":"OV5647 0x5647 at 0x36, two lanes RAW8 800x640 GBRG","pins":{"sda":7,"scl":8},"smallvm":"native-driver-compiled-current-sensor-not-attached","physical_tested":false},
+    {"id":"image_store","hardware":"PSRAM","pins":{},"smallvm":"four-handles-8MiB-plus-one-bounded-capture-workspace","physical_tested":true},
+    {"id":"resize_grayscale_rgb888","hardware":"CPU software","pins":{},"smallvm":"physical-and-sanitizer-pass","physical_tested":true},
+    {"id":"graphical_camera","hardware":"Real GP editor via loopback COM5 bridge","pins":{},"smallvm":"actual-compiled-camera-script-and-160x90-preview-pass","physical_tested":true},
+    {"id":"ppa","hardware":"P4 PPA and 2D DMA","pins":{},"smallvm":"native-upstream-backend-available-integration-next-stage","physical_tested":false},
+    {"id":"jpeg","hardware":"P4 JPEG encoder/decoder","pins":{},"smallvm":"unsupported-native-codec-port-not-implemented","physical_tested":false},
+    {"id":"h264","hardware":"P4 hardware encoder; software decoding separate","pins":{},"smallvm":"unsupported-native-codec-port-not-implemented","physical_tested":false},
+    {"id":"audio","hardware":"ES8311 codec/mic circuit in schematic","pins":{"sda":7,"scl":8,"mclk":13,"bclk":12,"lrck":10,"rx":11,"tx":9,"pa":53},"smallvm":"unconfigured-no-recording-performed","physical_tested":false},
+    {"id":"whistle","hardware":"CPU/PSRAM, portable C99 engine candidate","pins":{},"smallvm":"prior-S3-project-located-native-P4-port-pending","physical_tested":false},
+    {"id":"wake_word","hardware":"Local TFLM keyword-spotter candidate","pins":{},"smallvm":"unimplemented-default-listener-off","physical_tested":false},
+    {"id":"wifi","hardware":"ESP32-C6-MINI-1 over SDIO","pins":{"d0":14,"d1":15,"d2":16,"d3":17,"clk":18,"cmd":19,"reset":54},"smallvm":"handshake-and-approved-network-configuration-pending","physical_tested":false},
+    {"id":"board_hosting","hardware":"C6 Wi-Fi plus P4 HTTP/WebSocket","pins":{},"smallvm":"unimplemented-loopback-editor-is-host-assisted","physical_tested":false},
+    {"id":"arduino_api","hardware":"Future ArduinoCore-Zephyr variant","pins":{},"smallvm":"not-linked-not-validated","physical_tested":false},
+    {"id":"persistent_code","hardware":"NOR flash","pins":{},"smallvm":"not-implemented-code-currently-RAM-only","physical_tested":false}
+  ]
+}

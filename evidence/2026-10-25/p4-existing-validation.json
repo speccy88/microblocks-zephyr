@@ -1,0 +1,8 @@
+{
+  "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
+  "head": "38aa2055cd377c192feba1f08bc4ff5383e95832",
+  "exit_code": 0,
+  "result": "PASS",
+  "tests": 33,
+  "checkout_issue": "Windows CRLF materialization changes raw hash; LF-normalized content equals HEAD; direct checkout root run retains this existing failure"
+}
