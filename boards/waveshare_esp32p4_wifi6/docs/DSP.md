@@ -31,14 +31,15 @@ is checked before allocation. Failure never returns an apparently valid image.
 | JPEG encode and decode | P4 hardware baseline JPEG codec, both directions | No P4 Zephyr video codec driver in pinned tree; separate bounded codec port and round-trip test required |
 | H.264 encode | P4 hardware baseline encoder | Separate native port, revision errata, format conversion and RAM/bitstream validation required; no continuous video enabled |
 | H.264 decode | Espressif component uses a software decoder | No claim of hardware decoding; unsupported in this port |
-| PCM audio input/output | Native Zephyr ESP32 I2S driver has P4 paths | Board schematic contains ES8311 codec, I2S GPIO9..13, shared I2C7/8, microphone/PA circuit; actual populated hardware/configuration unverified. No recording performed |
+| PCM audio input/output | Native Zephyr ESP32 I2S driver has P4 paths | ES8311 ID8311, 16 kHz mono capture, DMA timing/lifecycle and controlled acoustic response physically passed. Browser inline playback passed; board speaker remains disabled/unconfigured |
 | PDM | P4 I2S silicon functionality | Native driver mode support must be checked independently; not an audio recognition engine |
-| FFT/filter/RMS/inference | CPU/software DSP and model-specific libraries | Future portable bounded sample/tensor API; no generic ONNX Runtime or YOLO promise |
+| FFT/filter/RMS/inference | CPU/software DSP and model-specific libraries | Bounded native PCM RMS/peak and Whistle STT passed. Standalone TFLM INT8 fixture passed; portable model/tensor API remains staged. No generic ONNX Runtime or YOLO claim |
 
-Current pin/configuration decisions are limited to camera I2C and MIPI.
-Audio setup requires verified codec address, clocks, sample format and actual
-attached input/output; no microphone sampling or speaker activation is implied.
-Future audio buffers need their own bounded sample pool and stop semantics.
+Audio uses ES8311 at I2C0x18, SDA7/SCL8, MCLK13/BCLK12/LRCK10 and RX11,
+16 kHz mono PCM. Its separate bounded sample pool and stop/cancellation were
+tested; the PA remains off. No continuous microphone listener starts by
+default. TFLM and model-resource contracts are in NEURAL_NETWORKS.md; PPA,
+codecs and keyword-spotting still require their own native acceptance tests.
 
 ## Primary sources
 

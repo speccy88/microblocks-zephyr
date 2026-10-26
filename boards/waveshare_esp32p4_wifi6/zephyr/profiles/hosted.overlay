@@ -1,0 +1,29 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* Add to app.overlay + c6-sdio.overlay. App/model and assets never overlap. */
+&p4_c6 {
+ p4_wifi: wifi {
+  compatible = "espressif,esp-hosted-mcu-wifi";
+  status = "okay";
+ };
+};
+&flash0 {
+ /delete-node/ partitions;
+ partitions {
+  compatible = "fixed-partitions";
+  #address-cells = <1>;
+  #size-cells = <1>;
+  boot_partition: slot0_partition: p4_whistle_app: partition@2000 {
+   compatible = "zephyr,mapped-partition";
+   label = "p4-app-and-model";
+   reg = <0x2000 0xfde000>;
+  };
+  p4_assets: partition@fe0000 {
+   label = "p4-editor-assets";
+   reg = <0xfe0000 0x1000000>;
+  };
+  p4_settings: partition@1fe0000 {
+   label = "p4-approved-ap-settings";
+   reg = <0x1fe0000 0x20000>;
+  };
+ };
+};

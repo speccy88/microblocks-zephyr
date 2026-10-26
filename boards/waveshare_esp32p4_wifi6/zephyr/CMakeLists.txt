@@ -13,8 +13,11 @@ execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/prepare_p4_zephyr_r
   "${SMALLVM_SOURCE_DIR}" "${vm_root}" COMMAND_ERROR_IS_FATAL ANY)
 target_include_directories(app PRIVATE "${vm_root}" "${vm_root}/vm" "${repo}/common/image" "${repo}/common/audio" "${repo}/common/media" src "${ZEPHYR_BASE}/drivers/video")
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1 HAS_BOARD_HOOKS=1 IMAGE_ALLOC_EXTERNAL=1 AUDIO_ALLOC_EXTERNAL=1 MEDIA_ALLOC_EXTERNAL=1)
+if(CONFIG_ESP_HOSTED_MCU)
+  target_include_directories(app PRIVATE "${ZEPHYR_BASE}/drivers/misc/esp_hosted_mcu")
+endif()
 target_sources(app PRIVATE src/main.c src/platform.c src/image_primitives.c src/camera_backend.c
-  src/p4_sensors.c src/p4_csi.c src/audio_backend.c src/whistle_backend.c src/media_protocol.c
+  src/p4_sensors.c src/p4_csi.c src/audio_backend.c src/whistle_backend.c src/media_protocol.c src/c6_trace.c
   "${repo}/common/image/image_store.c"
   "${repo}/common/audio/audio_store.c"
   "${repo}/common/media/result_store.c"
@@ -22,6 +25,23 @@ target_sources(app PRIVATE src/main.c src/platform.c src/image_primitives.c src/
   ${vm_root}/vm/persist.c ${vm_root}/vm/dataPrims.c ${vm_root}/vm/varPrims.c
   ${vm_root}/vm/tinyJSON.c ${vm_root}/vm/mbFont.c ${vm_root}/vm/boardHooks.c)
 # Native HAL only: no esp_driver_cam/ISP FreeRTOS drivers are linked.
+if(CONFIG_P4_HOSTED)
+  zephyr_linker_section(NAME http_resource_desc_p4_http KVMA RAM_REGION GROUP RODATA_REGION)
+  zephyr_linker_sources(SECTIONS sections-rom.ld)
+  if(NOT P4_HOSTED_ASSETS_DIR)
+    set(P4_HOSTED_ASSETS_DIR "${repo}/build-artifacts/p4-hosted-assets")
+  endif()
+  if(NOT EXISTS "${P4_HOSTED_ASSETS_DIR}/assets.c")
+    message(FATAL_ERROR "Run tools/package_p4_hosted.py before building hosted profile")
+  endif()
+  target_sources(app PRIVATE src/hosted_transport.c src/hosted_server.c src/network_backend.c "${P4_HOSTED_ASSETS_DIR}/assets.c")
+  set(hosted_layout_args --elf "${CMAKE_BINARY_DIR}/zephyr/zephyr.elf" --image "${CMAKE_BINARY_DIR}/zephyr/zephyr.bin" --assets "${P4_HOSTED_ASSETS_DIR}/assets.bin" --dts "${CMAKE_BINARY_DIR}/zephyr/zephyr.dts")
+  if(NOT P4_WHISTLE_MODEL)
+    list(APPEND hosted_layout_args --allow-no-model)
+  endif()
+  add_custom_target(p4_hosted_layout ALL DEPENDS zephyr_final
+    COMMAND ${Python3_EXECUTABLE} "${repo}/tools/check_p4_hosted_layout.py" ${hosted_layout_args})
+endif()
 target_sources(app PRIVATE
   ${ZEPHYR_HAL_ESPRESSIF_MODULE_DIR}/components/esp_hal_cam/mipi_csi_hal.c
   ${ZEPHYR_HAL_ESPRESSIF_MODULE_DIR}/components/esp_hal_cam/esp32p4/mipi_csi_periph.c

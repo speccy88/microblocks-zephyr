@@ -38,7 +38,9 @@ The public Pages editor is a separate distribution surface. See
 
 SmallVM core, image algorithms, .ubl library and browser protocol are reusable.
 An IDF physical pass does not satisfy the native Zephyr camera acceptance gate.
-ONNX/YOLO remains future work through an explicit preprocessing/model contract.
+Generic neural models are a separately requested subsystem with an explicit
+format/backend contract; see [NEURAL_NETWORKS](NEURAL_NETWORKS.md). Direct
+ONNX Runtime, converted ONNX and model-specific engines must be distinguished.
 
 ## Audio, local speech and editor results
 
@@ -59,3 +61,12 @@ Per-block image snapshots and explicit browser audio playback are required by
 [INLINE_RESULTS](INLINE_RESULTS.md). The existing global camera panel does not
 satisfy that requirement. Independent wake-word events, PPA/codecs and actual
 C6 board hosting remain staged tasks with honest unsupported capabilities.
+
+## Portable neural-network blocks
+
+Fred requested a model library and custom import for sensor, image, audio
+and robotic inference. Implement typed tensors, model metadata and resource
+validation, asynchronous run/cancel/status, safe unload and backend queries.
+Inference outputs do not authorize physical actuation. No cloud inference or
+automatic model/audio/image upload. A CPU fallback applies only to models,
+operators and boards whose resources and runtime have been verified.

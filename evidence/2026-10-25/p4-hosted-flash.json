@@ -1,0 +1,13 @@
+{
+  "runtime": "native Zephyr",
+  "target": "COM5 ESP32-P4 revision 1.3",
+  "offset": "0x2000",
+  "image_sha256": "22e8d31fb432861cd091e8eac13b9dafa952ff64975a249a21d48067f997e146",
+  "bytes": 15067200,
+  "minimum_revision": "1.3",
+  "maximum_revision": "1.99",
+  "exit_code": 0,
+  "hash_verified": true,
+  "backup_performed": false,
+  "COM12_accessed": false
+}

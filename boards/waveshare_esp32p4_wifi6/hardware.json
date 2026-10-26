@@ -134,14 +134,14 @@
         "cmd": 19,
         "reset": 54
       },
-      "smallvm": "SDIO-initialization-pass; version-protocol-unresolved; AP-approved-not-applied",
+      "smallvm": "SDIO-and-WiFi-initialization-pass; AP-config-request-284-times-out; credentials-privately-saved; version-unknown",
       "physical_tested": false
     },
     {
       "id": "board_hosting",
       "hardware": "C6 Wi-Fi plus P4 HTTP/WebSocket",
       "pins": {},
-      "smallvm": "unimplemented-loopback-editor-is-host-assisted",
+      "smallvm": "native-target-compiled-and-assets-flashed; USB-Whistle-regression-pass; AP-failure-blocks-HTTP-browser-test",
       "physical_tested": false
     },
     {

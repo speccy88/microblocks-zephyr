@@ -6,6 +6,10 @@
 #include "audio_store.h"
 #include "whistle_backend.h"
 #include "result_store.h"
+#include "c6_trace.h"
+#if defined(CONFIG_P4_HOSTED)
+#include "network_backend.h"
+#endif
 
 #include <string.h>
 #include <stdio.h>
@@ -92,14 +96,28 @@ static OBJ c6_status(int n,OBJ *a){
     uint32_t v=esp_hosted_mcu_fw_version();
     const struct device *dev=DEVICE_DT_GET(DT_NODELABEL(p4_c6));
     const struct device *slot=DEVICE_DT_GET(DT_PARENT(DT_NODELABEL(p4_c6)));
-    int size=snprintf(s,sizeof(s),"{\"transport\":\"SDIO\",\"ready\":%s,\"version_raw\":%u,\"core_error\":%d,\"slot_ready\":%s,\"slot_error\":%d,\"host_wifi_requests\":false}",
+#if defined(CONFIG_P4_HOSTED)
+    int size=snprintf(s,sizeof(s),"{\"transport\":\"SDIO\",\"ready\":%s,\"version_raw\":%u,\"core_error\":%d,\"slot_ready\":%s,\"slot_error\":%d,\"control_profile\":\"approved AP only; see networkStatus\"}",
         device_is_ready(dev)?"true":"false",v,-dev->state->init_res,device_is_ready(slot)?"true":"false",-slot->state->init_res);
+#else
+    int size=snprintf(s,sizeof(s),"{\"transport\":\"SDIO\",\"ready\":%s,\"version_raw\":%u,\"core_error\":%d,\"slot_ready\":%s,\"slot_error\":%d,\"host_wifi_requests\":%s,\"rf_configuration_requests\":false}",
+        device_is_ready(dev)?"true":"false",v,-dev->state->init_res,device_is_ready(slot)?"true":"false",-slot->state->init_res,p4_c6_query_count()?"true":"false");
+#endif
 #else
     int size=snprintf(s,sizeof(s),"{\"transport\":\"disabled in USB-only profile\",\"ready\":false}");
 #endif
     return newStringFromBytes(s,size);
 }
 static OBJ audio_request(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;return p4_audio_request(obj2int(a[0]))?trueObj:falseObj;}
+static OBJ c6_trace(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;char s[600];p4_c6_trace_json(obj2int(a[0]),s,sizeof(s));return newStringFromBytes(s,strlen(s));}
+static OBJ c6_read_only(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return p4_c6_query_start()?trueObj:falseObj;}
+static OBJ network_status(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);
+#if defined(CONFIG_P4_HOSTED)
+char s[512];p4_network_status(s,sizeof(s));return newStringFromBytes(s,strlen(s));
+#else
+const char *s="{\"target\":\"USB-only\",\"ap_running\":false}";return newStringFromBytes(s,strlen(s));
+#endif
+}
 static OBJ audio_busy(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return p4_audio_busy()?trueObj:falseObj;}
 static OBJ audio_result(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return int2obj(p4_audio_result());}
 static OBJ audio_status(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);const char *s=p4_audio_status();return newStringFromBytes(s,strlen(s));}
@@ -136,7 +154,7 @@ static OBJ media_snapshot(int n,OBJ *a){
 static PrimEntry entries[]={
  {"mediaSnapshot",media_snapshot},
  {"sttAvailable",stt_available},{"sttRequest",stt_request},{"sttFixture",stt_fixture},{"sttBusy",stt_busy},{"sttStatus",stt_status},{"sttResult",stt_result},{"sttCancel",stt_cancel},
- {"c6Status",c6_status},
+ {"c6Status",c6_status},{"c6Trace",c6_trace},{"c6ReadOnlyProbe",c6_read_only},{"networkStatus",network_status},
  {"audioCodecID",audio_id},{"audioRequest",audio_request},{"audioBusy",audio_busy},{"audioResult",audio_result},{"audioStatus",audio_status},
  {"audioValid",audio_valid},{"audioFrames",audio_frames},{"audioRate",audio_rate},{"audioPeak",audio_peak},{"audioRMS",audio_rms},
  {"audioRelease",audio_release_one},{"audioReleaseAll",audio_release_every},{"audioRead",audio_read_bytes},{"audioMemory",audio_memory},{"audioCount",audio_handles},

@@ -16,7 +16,15 @@ void consolePrint(const char *s) { (void)s; }
 void consoleReportNum(const char *s, int n) { (void)s; (void)n; }
 extern void p4_image_message(int,int,char *);
 extern void p4_media_message(int,int,char *);
-void processFileMessage(int t, int n, char *p) { p4_image_message(t,n,p);p4_media_message(t,n,p); }
+#if defined(CONFIG_P4_HOSTED)
+#include "hosted_server.h"
+#include "network_backend.h"
+#endif
+void processFileMessage(int t, int n, char *p) { p4_image_message(t,n,p);p4_media_message(t,n,p);
+#if defined(CONFIG_P4_HOSTED)
+p4_network_message(t,n,p);
+#endif
+}
 void stopPWM(void) {  }
 void stopServos(void) {}
 void stopTone(void) {  }
@@ -64,6 +72,7 @@ OMIT(addElecfreaksSensorPrims) OMIT(addSoundPrims)
 #include "audio_store.h"
 #include "whistle_backend.h"
 #include "result_store.h"
+#if !defined(CONFIG_P4_HOSTED)
 static const struct device *const serial=DEVICE_DT_GET(DT_NODELABEL(uart0));
 RING_BUF_DECLARE(input,8192);
 static void rx_isr(const struct device *dev,void *arg){
@@ -75,10 +84,15 @@ static void rx_isr(const struct device *dev,void *arg){
         if(n>0)ring_buf_put(&input,data,n);else break;
     }
 }
+#endif
 void hardwareInit(void){
     initTasks();
     p4_audio_init();
+#if defined(CONFIG_P4_HOSTED)
+    p4_transport_init();p4_network_init();
+#else
     if(device_is_ready(serial)){uart_irq_callback_user_data_set(serial,rx_isr,NULL);uart_irq_rx_enable(serial);}
+#endif
 }
 uint32 microsecs(void){return (uint32)k_ticks_to_us_floor64(k_uptime_ticks());}
 uint32 millisecs(void){return (uint32)k_uptime_get();}
@@ -88,8 +102,13 @@ void handleMicosecondClockWrap(void){}
 void smallvmDelay(unsigned long ms){k_sleep(K_MSEC(ms));}
 void lightSleep(int ms){if(ms>0)smallvmDelay(ms);}
 void deepSleep(int secs){(void)secs;fail(primitiveNotImplemented);}
+#if defined(CONFIG_P4_HOSTED)
+int recvBytes(uint8 *dst,int n){return p4_transport_recv(dst,n);}
+int sendBytes(uint8 *src,int start,int end){return p4_transport_send(src,start,end);}
+#else
 int recvBytes(uint8 *dst,int n){return n>0?ring_buf_get(&input,dst,n):0;}
 int sendBytes(uint8 *src,int start,int end){if(start<0||end<start)return 0;for(int i=start;i<end;i++)uart_poll_out(serial,src[i]);return end-start;}
+#endif
 int pinCount(void){return 0;}
 OBJ primDigitalPins(OBJ *a){(void)a;return zeroObj;}
 OBJ primAnalogPins(OBJ *a){(void)a;return zeroObj;}

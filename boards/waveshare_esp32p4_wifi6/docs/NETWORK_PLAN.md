@@ -19,21 +19,59 @@ test enumeration and version without changing it; document the actual result.
 No C6 flashing is authorized yet. If required, prepare exact source/version,
 artifact hash, access method and recovery steps for separate approval.
 
-## Approved initial self-hosted configuration (not applied)
+## Approved initial self-hosted configuration (startup currently failing)
 
 Fred approved the password-protected standalone AP proposal on 2026-10-25
 at 20:47 UTC, including saving its unique password on board for reuse.
 This does not authorize C6 firmware replacement or Windows network changes.
-Credentials have not yet been generated/provisioned. SDHC/SDIO initialization
+The unique key is privately generated and stored on P4 for reuse, absent from
+source, logs and evidence. SDHC/SDIO initialization
 now passes after freeing unused AXI DMA interrupt vectors; the current version
-RPC still has no reply, so protocol identification remains in progress.
+RPC still has no reply. Bounded tracing now verifies a current-numbered V1
+private frame and `RPCEvt` boot event 769, no SDIO/decode errors, and transmit
+credits replenished after host writes. A read-only MAC-query RPC returned
+response 513 in 12 ms with `ESP_ERR_WIFI_NOT_INIT` (0x3001), before driver
+initialization; the address was not retained. This establishes a responding
+basic control path even though the version RPC is unavailable. It is not
+evidence that C6 replacement is required or that networking is already up.
+Next use the approved AP-only configuration through compatible native control
+requests, with no automatic station association or saved foreign credentials.
+
+The native hosted image and all 154 verified editor assets are now flashed.
+Safe initialization passes, including C6 Wi-Fi init, compatible post-init MAC
+queries, USB programming/reconnect, generated-image transforms and Whistle.
+AP enable currently fails: SetMode request 260 receives response 516, followed
+by configuration request 284 without a response and SDHC timeouts (-116).
+Zero counter fields on failed register reads are placeholders, not proof of
+a reset or actual zero credits. The underlying cause remains unresolved.
+Disabling the documented `sta_disconnected_pm` flag reproduced the same
+failure, so it is not claimed as a fix. See `p4-hosted-pm-result.json` and
+`p4-hosted-pm-runtime.json` under `evidence/2026-10-25/`.
+No C6 replacement is justified by this result alone. The AP has not passed
+radio/DHCP/browser tests and must not be presented as working self-hosting.
+
+The power flag is documented in the official
+[ESP32-C6 Wi-Fi API](https://docs.espressif.com/projects/esp-idf/en/v5.5.1/esp32c6/api-reference/network/esp_wifi.html#_CPPv418wifi_init_config_t).
+The official control implementation copies AP beacon/DTIM fields directly;
+their documented defaults are 100/1, rather than the uninitialized zero values
+in the pinned Zephyr driver. The opt-in AP patch supplies those defaults:
+[coprocessor configuration source](https://github.com/espressif/esp-hosted-mcu/blob/0e8d0e3f0c2723deaf15441200cb4d8c53fea230/slave/main/slave_wifi_std.c),
+[wire schema](https://github.com/espressif/esp-hosted-mcu/blob/0e8d0e3f0c2723deaf15441200cb4d8c53fea230/common/proto/esp_hosted_rpc.proto).
+This reference version is not asserted to be the unknown installed C6 build.
+The nonzero timing-default trial also reproduced the same request-284/SDHC
+failure (`p4-hosted-timing-result.json`). Further AP retries are paused; USB,
+generated images and local speech remain independently usable. No Windows
+association is requested while there is no working AP to test. C6 firmware
+replacement is neither performed nor established as necessary. Resolving the
+remaining transport/companion failure needs additional diagnostic evidence;
+it is not an unanswered permission request.
 
 Recommended for an independent board and phone/tablet use:
 
 - Create a new 2.4 GHz access point named `MicroBlocks-P4`, channel 6.
-- Require WPA2-PSK with a newly generated unique 16-character password. Present
-  that password privately to Fred before provisioning; do not put it in Git,
-  evidence, browser storage or URLs. Provision only after approval. If saved
+- Require WPA2-PSK with a newly generated unique 16-character password. Keep
+  it in an ignored local private file; do not print it or put it in Git,
+  evidence, browser storage or URLs. The AP provisioning was approved. If saved
   for autonomous boot it is stored on board flash; no flash encryption/eFuse
   changes are proposed. A RAM-only test can precede persistence.
 - Board address `192.168.4.1/24`, DHCP clients beginning at `.10`, at most two

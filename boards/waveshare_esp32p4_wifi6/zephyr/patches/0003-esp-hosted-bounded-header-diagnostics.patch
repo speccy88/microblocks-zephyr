@@ -1,0 +1,153 @@
+diff --git a/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c b/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
+index 8289f5994..983855f43 100644
+--- a/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -40,6 +40,13 @@ extern const struct esp_hosted_mcu_spi_config esp_hosted_mcu_spi_config_0;
+ #define ESP_HOSTED_MCU_TRANSPORT_CONFIG (&esp_hosted_mcu_spi_config_0)
+ #endif
+ 
++/* Optional bounded host diagnostics. No payload or credentials are passed. */
++__weak void esp_hosted_mcu_diag(unsigned stage, uint32_t a, uint32_t b,
++                               uint32_t c, uint32_t d, int error)
++{
++ ARG_UNUSED(stage); ARG_UNUSED(a); ARG_UNUSED(b); ARG_UNUSED(c); ARG_UNUSED(d); ARG_UNUSED(error);
++}
++
+ /* A response msg_id is its request msg_id shifted by this fixed offset. */
+ #define ESP_HOSTED_MCU_REQ_TO_RESP_ID 256
+ 
+@@ -220,6 +227,7 @@ int esp_hosted_mcu_rpc_call(Rpc *req, Rpc *resp, int32_t timeout)
+ 	 */
+ 	k_mutex_lock(&esp_hosted_mcu_tx_lock, K_FOREVER);
+ 	int len = esp_hosted_mcu_frame_rpc(data, ESP_HOSTED_MCU_EP_RSP, req, tx, sizeof(tx));
++	esp_hosted_mcu_diag(10, req->msg_id, req->which_payload, req->uid, len > 0 ? ((struct esp_hosted_mcu_header *)tx)->checksum : 0, len < 0 ? len : 0);
+ 
+ 	if (len < 0) {
+ 		ret = len;
+@@ -309,6 +317,17 @@ static void esp_hosted_mcu_dispatch_serial(struct esp_hosted_mcu_data *data,
+ 	Rpc rpc = Rpc_init_zero;
+ 	pb_istream_t stream;
+ 
++	const uint8_t *wire = (const uint8_t *)tlv;
++	uint16_t ep_len = payload_len >= 3 ? sys_get_le16(wire + 1) : 0;
++	uint32_t ep_kind = 0;
++	if (ep_len <= payload_len - MIN(payload_len, 3) && payload_len >= 3) {
++	 if (ep_len == 6 && !memcmp(wire + 3, "RPCRsp", 6)) ep_kind = 1;
++	 if (ep_len == 6 && !memcmp(wire + 3, "RPCEvt", 6)) ep_kind = 2;
++	 if (ep_len == 8 && !memcmp(wire + 3, "ctrlResp", 8)) ep_kind = 3;
++	 if (ep_len == 8 && !memcmp(wire + 3, "ctrlEvnt", 8)) ep_kind = 4;
++	}
++	esp_hosted_mcu_diag(8, payload_len, ep_len, ep_kind, 0, 0);
++
+ 	/*
+ 	 * The coprocessor controls the frame contents, so bound the inner TLV against
+ 	 * the validated payload length before handing data_value/data_length to
+@@ -323,10 +342,12 @@ static void esp_hosted_mcu_dispatch_serial(struct esp_hosted_mcu_data *data,
+ 	stream = pb_istream_from_buffer(tlv->data_value, tlv->data_length);
+ 
+ 	if (!pb_decode(&stream, Rpc_fields, &rpc)) {
++		esp_hosted_mcu_diag(9, 0, 0, 0, 0, 1);
+ 		LOG_ERR("RPC decode failed");
+ 		return;
+ 	}
+ 
++	esp_hosted_mcu_diag(9, rpc.msg_type, rpc.msg_id, rpc.uid, rpc.which_payload, 0);
+ 	if (rpc.msg_type == RpcType_Event) {
+ 		if (data->rpc_event_cb != NULL) {
+ 			data->rpc_event_cb(&rpc, data->rpc_event_user);
+@@ -395,6 +416,7 @@ static void esp_hosted_mcu_priv_event(struct esp_hosted_mcu_data *data, const ui
+ 			return;
+ 		}
+ 
++		esp_hosted_mcu_diag(11, tag, tag_len, (tag_len == 1 && tag >= 0x11 && tag <= 0x14) ? ev->event_data[off] : 0, 0, 0);
+ 		if (tag == ESP_HOSTED_MCU_PRIV_TAG_FIRMWARE_VERSION &&
+ 		    tag_len == sizeof(uint32_t) && data->fw_version == 0) {
+ 			data->fw_version = sys_get_le32(&ev->event_data[off]);
+@@ -486,6 +508,7 @@ static uint16_t esp_hosted_mcu_process_frame(struct esp_hosted_mcu_data *data, c
+ 			 * The header itself is not usable, so no resync point
+ 			 * can be derived from it. Drop what is left.
+ 			 */
++			esp_hosted_mcu_diag(2, 0, 0, 0, 0, 0);
+ 			return len;
+ 		}
+ 		if (off + frame_len > len) {
+@@ -493,6 +516,7 @@ static uint16_t esp_hosted_mcu_process_frame(struct esp_hosted_mcu_data *data, c
+ 			return off;
+ 		}
+ 
++		esp_hosted_mcu_diag(1, hdr->if_type | (hdr->if_num << 8) | (hdr->flags << 16) | ((uint32_t)hdr->priv_pkt_type << 24), hdr->len, hdr->offset, hdr->seq_num, 0);
+ 		esp_hosted_mcu_process_one(data, hdr);
+ 
+ 		/*
+@@ -668,8 +692,12 @@ static void esp_hosted_mcu_check_fw_version(struct esp_hosted_mcu_data *data)
+ 
+ 	if (data->fw_version == 0) {
+ 		req.msg_id = RpcId_Req_GetCoprocessorFwVersion;
++		/* Even an empty request must select its protobuf oneof body. */
++		req.which_payload = Rpc_req_get_coprocessor_fwversion_tag;
+ 
+-		if (esp_hosted_mcu_rpc_call(&req, &resp, ESP_HOSTED_MCU_RPC_TIMEOUT) == 0) {
++		int version_ret = esp_hosted_mcu_rpc_call(&req, &resp, ESP_HOSTED_MCU_RPC_TIMEOUT);
++		esp_hosted_mcu_diag(7, 0, 0, 0, 0, version_ret);
++		if (version_ret == 0) {
+ 			const Rpc_Resp_GetCoprocessorFwVersion *fw =
+ 				&resp.payload.resp_get_coprocessor_fwversion;
+ 
+diff --git a/drivers/misc/esp_hosted_mcu/esp_hosted_mcu_sdio.c b/drivers/misc/esp_hosted_mcu/esp_hosted_mcu_sdio.c
+index 0a4ba9bfa..13bf5cdf4 100644
+--- a/drivers/misc/esp_hosted_mcu/esp_hosted_mcu_sdio.c
++++ b/drivers/misc/esp_hosted_mcu/esp_hosted_mcu_sdio.c
+@@ -20,6 +20,8 @@
+ #include <zephyr/logging/log.h>
+ LOG_MODULE_REGISTER(esp_hosted_mcu_sdio, CONFIG_ESP_HOSTED_MCU_LOG_LEVEL);
+ 
++extern void esp_hosted_mcu_diag(unsigned, uint32_t, uint32_t, uint32_t, uint32_t, int);
++
+ /*
+  * Host-visible SLC register window on the coprocessor. The coprocessor decodes only the
+  * low 10 bits of the SDIO address, so these offsets are used directly as the
+@@ -137,6 +139,7 @@ static int esp_slc_clear_int(struct esp_hosted_mcu_sdio_data *data)
+ {
+ 	uint32_t status;
+ 	int ret = esp_slc_read_u32(data, ESP_SLC_INT_ST_REG, &status);
++	esp_hosted_mcu_diag(6, ret ? 0 : status, 0, 0, 0, ret);
+ 
+ 	if (ret != 0 || status == 0) {
+ 		return ret;
+@@ -150,6 +153,7 @@ static int esp_slc_rx_pending(struct esp_hosted_mcu_sdio_data *data, uint32_t *p
+ {
+ 	uint32_t len;
+ 	int ret = esp_slc_read_u32(data, ESP_SLC_PKT_LEN_REG, &len);
++	esp_hosted_mcu_diag(3, ret ? 0 : (len & ESP_SLC_RX_BYTE_MASK), data->rx_got_bytes, 0, 0, ret);
+ 
+ 	if (ret != 0) {
+ 		return ret;
+@@ -177,6 +181,7 @@ static int esp_slc_tx_free(struct esp_hosted_mcu_sdio_data *data, uint32_t *free
+ {
+ 	uint32_t token;
+ 	int ret = esp_slc_read_u32(data, ESP_SLC_TOKEN_RDATA_REG, &token);
++	esp_hosted_mcu_diag(4, ret ? 0 : ((token >> 16) & ESP_SLC_TX_BUFFER_MASK), data->tx_sent_buffers, 0, 0, ret);
+ 
+ 	if (ret != 0) {
+ 		return ret;
+@@ -221,6 +226,7 @@ static int esp_slc_fifo_xfer(struct esp_hosted_mcu_sdio_data *data, const uint8_
+ 			return ret;
+ 		}
+ 
++		esp_hosted_mcu_diag(5, tx != NULL, chunk, 0, 0, ret);
+ 		/* Advance by the real payload, not the padded chunk. */
+ 		uint32_t consumed = (chunk > remain) ? remain : chunk;
+ 
+@@ -381,6 +387,12 @@ static bool esp_hosted_mcu_sdio_data_ready(const struct device *dev)
+ 
+ 	k_mutex_lock(&data->bus_lock, K_FOREVER);
+ 	ret = esp_slc_rx_pending(data, &pending);
++	/* Bounded diagnostic credit sampling; no payload/RF requests. */
++	static unsigned diag_polls;
++	if ((++diag_polls % 50) == 0) {
++		uint32_t ignored;
++		(void)esp_slc_tx_free(data, &ignored);
++	}
+ 	k_mutex_unlock(&data->bus_lock);
+ 
+ 	if (ret != 0) {

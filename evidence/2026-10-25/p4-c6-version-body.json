@@ -1,0 +1,109 @@
+{
+  "tested_at": "2026-10-25T23:34:25.698290+00:00",
+  "scope": "native C6 transport/version only, eight validated headers and numeric counters",
+  "payloads_or_credentials_recorded": false,
+  "C6_flashed": false,
+  "AP_or_station_configured": false,
+  "COM12_accessed": false,
+  "firmware": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "companion": {
+    "transport": "SDIO",
+    "ready": true,
+    "version_raw": 0,
+    "core_error": 0,
+    "slot_ready": true,
+    "slot_error": 0,
+    "host_wifi_requests": false
+  },
+  "first": {
+    "enabled": true,
+    "rx_polls": 2183,
+    "rx_counter": 58,
+    "rx_consumed": 58,
+    "tx_credit_polls": 1,
+    "tx_credits": 20,
+    "tx_spent": 0,
+    "rx_transfers": 2,
+    "rx_bytes": 60,
+    "tx_transfers": 1,
+    "tx_bytes": 36,
+    "valid_headers": 2,
+    "invalid_headers": 0,
+    "bus_errors": 0,
+    "last_bus_error": 0,
+    "floating_reads": 0,
+    "interrupt_status": 0,
+    "version_rpc_error": -116
+  },
+  "second": {
+    "enabled": true,
+    "rx_polls": 2281,
+    "rx_counter": 58,
+    "rx_consumed": 58,
+    "tx_credit_polls": 1,
+    "tx_credits": 20,
+    "tx_spent": 0,
+    "rx_transfers": 2,
+    "rx_bytes": 60,
+    "tx_transfers": 1,
+    "tx_bytes": 36,
+    "valid_headers": 2,
+    "invalid_headers": 0,
+    "bus_errors": 0,
+    "last_bus_error": 0,
+    "floating_reads": 0,
+    "interrupt_status": 0,
+    "version_rpc_error": -116
+  },
+  "headers": [
+    {
+      "if": 5,
+      "number": 0,
+      "flags": 0,
+      "packet_type": 51,
+      "length": 14,
+      "offset": 12,
+      "sequence": 0
+    },
+    {
+      "if": 3,
+      "number": 0,
+      "flags": 0,
+      "packet_type": 0,
+      "length": 20,
+      "offset": 12,
+      "sequence": 1
+    }
+  ],
+  "protocol": {
+    "tlv_length": 20,
+    "endpoint_length": 6,
+    "endpoint_kind": 2,
+    "rpc_type": 3,
+    "rpc_id": 769,
+    "rpc_uid": 0,
+    "rpc_payload": 769,
+    "rpc_decode_errors": 0,
+    "tag_count": 4
+  },
+  "private_tags": [
+    {
+      "tag": 18,
+      "length": 1
+    },
+    {
+      "tag": 17,
+      "length": 1
+    },
+    {
+      "tag": 19,
+      "length": 1
+    },
+    {
+      "tag": 20,
+      "length": 1
+    }
+  ],
+  "diagnostic_result": "PASS_READ",
+  "network_ready": false
+}

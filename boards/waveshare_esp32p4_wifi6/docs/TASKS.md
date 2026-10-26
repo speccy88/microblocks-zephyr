@@ -10,6 +10,8 @@
 - [x] Native real-frame capture/resize/grayscale/RGB888/export, three runs.
 - [x] Graphical MicroBlocks browser camera-pipeline execution.
 - [ ] Companion handshake, approved network configuration, board hosting.
+- [x] Companion transport and basic read-only control response: valid boot
+  event and MAC-query status, 12 ms; no C6 flash, address logging or RF config.
 - [ ] ArduinoCore-Zephyr variant compatibility verification.
 - [x] Accurate source/evidence publication: native camera 0fb2aa74 on main;
   all three GitHub workflows passed.
@@ -29,6 +31,17 @@
   See INLINE_RESULTS.md and p4-media-browser.json. Board hosting is separate.
 - [ ] Separate lightweight wake-word listener and MicroBlocks event contract.
 - [ ] Measure compatible NN/DSP kernel optimizations against reference paths.
+- [ ] Portable neural-network model catalog/import, verified backend and typed
+  async tensor API; see NEURAL_NETWORKS.md. Direct ONNX versus conversion
+  feasibility and actual board resource/operator limits remain to be measured.
+- [x] Native Zephyr TFLM INT8 fixture cross-build and physical inference on P4;
+  ten bounded outputs, no sensor sampling/actuation. Catalog/blocks not yet done.
+- [x] Both native hosted and USB-only profiles cross-build with mapped Whistle;
+  full app/model/assets/NVS overlap checks and bounded COM5 asset flashing.
+- [x] Native C6 initialization and safe USB credential provisioning using the
+  approved AP settings; secret is private and excluded from source/evidence.
+- [ ] AP radio/DHCP and actual board-served GP/WebSocket acceptance. Blocked by
+  request-284/SDHC timeout after mode response; PM/timing trials did not fix it.
 
 Native VM evidence: `evidence/2026-10-25/p4-zephyr-vm.json`. This establishes
 actual UART programming, full-frame-sized PSRAM allocation, blank-image

@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: MPL-2.0
+mainmenu "Native P4 MicroBlocks"
+source "Kconfig.zephyr"
+config P4_HOSTED
+ bool "P4-hosted editor on the approved standalone AP"
+ depends on WIFI_ESP_HOSTED_MCU_AP_ONLY
+ default n

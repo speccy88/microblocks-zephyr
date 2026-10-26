@@ -1,0 +1,79 @@
+{
+  "tested_at": "2026-10-25T23:53:13.995473+00:00",
+  "profile": "standalone native Zephyr TFLM fixture, not SmallVM model import",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "tflm_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+  "backend": "TFLM reference INT8 FullyConnected",
+  "image_sha256": "bef2ac8cf7237f1d5649d56867be43d66d72640fa0c31e1af9564d86cc8111e7",
+  "configured_tensor_arena_bytes": 2000,
+  "camera_or_microphone_used": false,
+  "actuation": false,
+  "COM12_accessed": false,
+  "model_bytes": 2488,
+  "model_sha256": "b8ba5f16b2427f043058c4ee9d22558dc31a7f162a0e2f053712118088d524dc",
+  "points": [
+    {
+      "x": 0.0,
+      "y": 0.0,
+      "expected_sin": 0.0,
+      "absolute_error": 0.0
+    },
+    {
+      "x": 0.314159,
+      "y": 0.37277,
+      "expected_sin": 0.309017,
+      "absolute_error": 0.063753
+    },
+    {
+      "x": 0.628319,
+      "y": 0.559154,
+      "expected_sin": 0.587786,
+      "absolute_error": 0.028632
+    },
+    {
+      "x": 0.942478,
+      "y": 0.847203,
+      "expected_sin": 0.809017,
+      "absolute_error": 0.038186
+    },
+    {
+      "x": 1.256637,
+      "y": 0.982756,
+      "expected_sin": 0.951056,
+      "absolute_error": 0.0317
+    },
+    {
+      "x": 1.570796,
+      "y": 1.04206,
+      "expected_sin": 1.0,
+      "absolute_error": 0.04206
+    },
+    {
+      "x": 1.884956,
+      "y": 0.95734,
+      "expected_sin": 0.951056,
+      "absolute_error": 0.006284
+    },
+    {
+      "x": 2.199115,
+      "y": 0.864148,
+      "expected_sin": 0.809017,
+      "absolute_error": 0.055131
+    },
+    {
+      "x": 2.513274,
+      "y": 0.609986,
+      "expected_sin": 0.587785,
+      "absolute_error": 0.022201
+    },
+    {
+      "x": 2.827433,
+      "y": 0.313,
+      "expected_sin": 0.309017,
+      "absolute_error": 0.003983
+    }
+  ],
+  "maximum_absolute_error": 0.063753,
+  "acceptance_absolute_tolerance": 0.2,
+  "result": "PASS"
+}

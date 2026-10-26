@@ -8,6 +8,9 @@ unused. Keep COM12 untouched. Do not use ESP32-P4 revision-v3 firmware.
 Physical tests: three 1280x720 RGB565 stills, 160x90 resize/grayscale,
 RGB888 HWC uint8 preprocessing, bounded export and handle lifecycle passed.
 Scene quality is untuned: fixed exposure/gain, no calibrated AWB/AE/LSC.
+The latest dark scene failed the strict content check; new camera captures
+are on hold pending Fred's lighting confirmation. Historical frame/pipeline
+passes do not override that current quality limit.
 The OV5647 800x640 RAW8 driver is retained but not physically retested under
 Zephyr with the current IMX219 attached. See [tasks](docs/TASKS.md).
 
@@ -85,6 +88,13 @@ Wi-Fi consumer or credential/AP RPC. It requires the pinned Nanopb module
 (`west update nanopb`) and `grpcio-tools` for code generation. SDIO initializes;
 the installed companion has not yet answered the current version protocol.
 No companion firmware was changed. See [network proposal](docs/NETWORK_PLAN.md).
+
+The separate [native hosted target](docs/HOSTED.md) is now built and flashed
+with verified local editor assets and nonoverlapping app/model/settings regions.
+C6 initialization and USB/Whistle regression pass. AP configuration request
+284 currently times out, so board-hosted HTTP/GP/WebSocket functionality is
+blocked. The approved unique key is privately saved on P4, excluded from
+source/evidence; C6 firmware and Windows networking remain unchanged.
 
 ## Flash and physical checks
 
@@ -199,9 +209,10 @@ Only one browser/serial controller can own COM5 at a time; close/disconnect
 the graphical session before running Python board tests or flashing.
 
 This bridge binds loopback only. It is a local development client, not
-board-hosted Wi-Fi. C6 SDIO handshake, approved network setup and true
-board-hosted assets/WebSockets remain separate acceptance gates. No Wi-Fi,
-firewall or network security configuration has been applied.
+board-hosted Wi-Fi. The native C6 hosted profile has passed initialization and
+asset checks, but AP startup fails and actual network/editor acceptance is
+blocked. Approved AP credentials were privately saved. No Windows firewall,
+association or network-security setting was changed.
 
 ## Ownership and limits
 
@@ -217,9 +228,11 @@ explicit dimensions and no hidden normalization/letterboxing.
 
 The code store is currently RAM-only: programs survive a USB reconnect but
 not power loss/reset. ArduinoCore-Zephyr is not linked or validated for P4.
-DSP acceleration, codecs, microphone/Whistle and wake word are staged in
-[DSP](docs/DSP.md) and [speech](docs/SPEECH.md); unsupported functions are not
-presented as working blocks. No generic ONNX/YOLO runtime is installed.
+Native bounded microphone PCM and experimental local Whistle are physically
+validated. DSP acceleration, codecs and wake word remain staged in
+[DSP](docs/DSP.md) and [speech](docs/SPEECH.md). The native TFLM INT8 fixture
+also passed on P4; a generic model loader/NN block is still pending as described
+in [neural networks](docs/NEURAL_NETWORKS.md). No generic ONNX/YOLO runtime is installed.
 
 Offline shared image tests: `python3 tools/test_p4_images.py` under WSL with
 a host C compiler. They include ASan/UBSan, 10,000 reuse cycles, three formats,

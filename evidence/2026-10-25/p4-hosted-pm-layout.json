@@ -1,0 +1,38 @@
+{
+  "flash_bytes": 33554432,
+  "regions": {
+    "p4_whistle_app": {
+      "offset": "0x2000",
+      "bytes": 16637952,
+      "end_exclusive": "0xfe0000"
+    },
+    "p4_assets": {
+      "offset": "0xfe0000",
+      "bytes": 16777216,
+      "end_exclusive": "0x1fe0000"
+    },
+    "p4_settings": {
+      "offset": "0x1fe0000",
+      "bytes": 131072,
+      "end_exclusive": "0x2000000"
+    }
+  },
+  "application_bytes": 15067200,
+  "application_sha256": "94a5372779b537ee5a5338e1c3f846977aebcf3281e4b835327d89c01808946a",
+  "application_end_exclusive": "0xe60840",
+  "assets_bytes": 3534149,
+  "assets_sha256": "0f959cbaf1d5df7f6088bee20af05c53d0b861d5d578250beb66d3e9f217c73f",
+  "assets_end_exclusive": "0x133ed45",
+  "model": {
+    "present": true,
+    "bytes": 14515887,
+    "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+    "mapped_begin": "0x40050d00",
+    "mapped_end": "0x40e28baf",
+    "physical_begin": "0x20d00",
+    "physical_end": "0xdf8baf",
+    "copied_to_psram": false
+  },
+  "overlap": false,
+  "result": "PASS"
+}

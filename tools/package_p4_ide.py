@@ -56,8 +56,8 @@ def adapter(repo):
  text=text.replace('const filters=profile.board',"const filters=isP4?[{usbVendorId:0x1a86},{usbVendorId:0x303a}]:profile.board")
  text=text.replace('isP2?', '(isP2||isP4)?').replace('||isP2;', '||isP2||isP4;').replace('if(!isP2)panel.append(local);ip.hidden=isP2;', 'if(!isP2&&!isP4)panel.append(local);ip.hidden=isP2||isP4;')
  text=text.replace("if(mode&&mode.value==='wifi'){", "if(profile.bridge||mode&&mode.value==='wifi'){")
- text=text.replace('const url=new URL(endpoint.value);',"const url=new URL(profile.bridge?location.origin.replace('http:','ws:')+'/ws/vm':endpoint.value);")
- text=text.replace("if(url.protocol!=='wss:'||url.username", "if((url.protocol!=='wss:'&&!(profile.bridge&&url.protocol==='ws:'&&url.hostname==='127.0.0.1'))||url.username")
+ text=text.replace('const url=new URL(endpoint.value);',"const url=new URL(profile.bridge||profile.hosted?location.origin.replace('http:','ws:')+'/ws/vm':endpoint.value);")
+ text=text.replace("if(url.protocol!=='wss:'||url.username", "if((url.protocol!=='wss:'&&!(profile.bridge&&url.protocol==='ws:'&&url.hostname==='127.0.0.1')&&!(profile.hosted&&location.protocol==='http:'&&location.hostname==='192.168.4.1'&&url.href===location.origin.replace('http:','ws:')+'/ws/vm'))||url.username")
  text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&(frame[1]===208||frame[1]===209)){}else if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
  frame_anchor='const frame=assembly.slice(0,size);assembly=assembly.slice(size);'
  if text.count(frame_anchor)!=1:raise ValueError('Changed bounded frame transport anchor')
@@ -72,7 +72,10 @@ def adapter(repo):
  text=text.replace("const type=event.detail.value;if(!type)return;", "const type=event.detail.value;if(!type||type==='Connect')return;")
  text=text.replace("['output','50 outputs']", "['output','50 outputs'],['camera-pipeline','Camera grayscale preview']")
  text=text.replace("['camera-pipeline','Camera grayscale preview']", "['camera-pipeline','Camera grayscale preview'],['audio-levels','Bounded PCM levels'],['local-speech','Local speech (model profile required)']")
- text=text.replace("const lanNote=element('p',(isP2||isP4)?", "const lanNote=element('p',isP4?'P4 runs native Zephyr. USB programming and local image preview are available. Board Wi-Fi hosting is not enabled.':isP2?")
+ text=text.replace("const lanNote=element('p',(isP2||isP4)?", "const lanNote=element('p',profile.hosted?'This editor is served by your board. Connect over its Wi-Fi, or select USB on a supported desktop browser.':isP4?'P4 runs native Zephyr. USB programming and local image preview are available. Open the board-hosted editor after joining its approved AP.':isP2?")
+ text=text.replace("(isP2||isP4)?[['usb','USB Web Serial']]", "profile.hosted?[['wifi','Board Wi-Fi WebSocket'],['usb','USB Web Serial']]:(isP2||isP4)?[['usb','USB Web Serial']]")
+ text=text.replace("endpoint.hidden=mode.value!=='wifi';", "endpoint.hidden=profile.hosted||mode.value!=='wifi';")
+ text=text.replace("Choose Connect to select your USB board.", "Choose Connect to program your board.")
  return text.encode()
 
 def media_assets(assets,html,repo):
@@ -87,7 +90,7 @@ def media_assets(assets,html,repo):
  html=re.sub(r'src="unoq-network.js(?:\?v=[^"]*)?"','src="unoq-network.js?v='+hashlib.sha256(assets['unoq-network.js']).hexdigest()[:16]+'"',html)
  return html
 
-def build(source,output,repo):
+def build(source,output,repo,hosted=False):
  manifest=json.loads((repo/'dependencies/ide-assets.json').read_text());assets={}
  for item in manifest['files']:
   raw=(source/item['path']).read_bytes()
@@ -100,6 +103,7 @@ def build(source,output,repo):
  html=assets['microblocks.html'].decode();tag='<script src="unoq-network.js"></script>'
  assert html.count(tag)==1
  html=html.replace(tag,'<link rel="stylesheet" href="portal.css"><script>window.PORTAL_BOARD={board:"esp32p4",name:"Waveshare ESP32-P4 camera",bridge:location.hostname==="127.0.0.1"&&new URLSearchParams(location.search).get("bridge")==="1"};</script><script src="portal-core.js"></script>'+tag+'<script src="p4-camera.js"></script>')
+ if hosted:html=html.replace('bridge:location.hostname==="127.0.0.1"&&new URLSearchParams(location.search).get("bridge")==="1"','hosted:true,bridge:false')
  # Match the physically accepted editor startup: wait for local English assets.
  gate=b"Module.preRun.push(function(){addRunDependency('board-english');Promise.resolve(GetText.ready).then(function(){removeRunDependency('board-english');});});\n"
  assets['gp_wasm.js']=gate+js

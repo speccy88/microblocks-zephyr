@@ -1,0 +1,94 @@
+--- a/drivers/wifi/esp_hosted_mcu/Kconfig.esp_hosted_mcu
++++ b/drivers/wifi/esp_hosted_mcu/Kconfig.esp_hosted_mcu
+@@ -18,6 +18,14 @@
+ 	  over SPI or SDIO using the esp-hosted-mcu transport core.
+ 
+ if WIFI_ESP_HOSTED_MCU
++
++config WIFI_ESP_HOSTED_MCU_AP_ONLY
++ bool "Defer radio start until explicit AP configuration"
++ depends on WIFI_ESP_HOSTED_MCU_AP_STA_MODE
++ help
++   Initialize Wi-Fi without starting a station, use compatible post-init MAC
++   reads, and select AP-only mode on AP enable. Settings remain in coprocessor
++   RAM; the host application owns any approved persistent credentials.
+ 
+ # The RPC decode and connection-result dispatch run on the net
+ # management event thread; size it for that path.
+--- a/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -465,7 +465,8 @@
+ 	 */
+ 	req.msg_id = RpcId_Req_SetWifiMode;
+ 	req.which_payload = Rpc_req_set_wifi_mode_tag;
+-	req.payload.req_set_wifi_mode.mode = ESP_HOSTED_MCU_WIFI_MODE_APSTA;
++	req.payload.req_set_wifi_mode.mode = IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_AP_ONLY)
++		? ESP_HOSTED_MCU_WIFI_MODE_AP : ESP_HOSTED_MCU_WIFI_MODE_APSTA;
+ 	ret = esp_hosted_mcu_rpc_call(&req, &resp, ESP_HOSTED_MCU_RPC_TIMEOUT);
+ 	if (ret) {
+ 		ret = -EIO;
+@@ -491,6 +492,12 @@
+ 			      ? CONFIG_WIFI_ESP_HOSTED_MCU_AP_CHANNEL_DEF
+ 			      : params->channel;
+ 	ap->max_connection = CONFIG_WIFI_MGMT_AP_MAX_NUM_STA;
++	if (IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_AP_ONLY)) {
++		/* Non-zero defaults required by the official AP configuration contract. */
++		ap->beacon_interval = 100;
++		ap->dtim_period = 1;
++		ap->csa_count = 3;
++	}
+ 
+ 	authmode = esp_hosted_mcu_ap_authmode(params->security);
+ 	if (authmode < 0) {
+@@ -943,6 +950,40 @@
+ 	cfg->dump_hesigb_enable = 0;
+ }
+ 
++/* The older compatible control path has no pre-init IfaceMac RPC. */
++static int esp_hosted_mcu_ap_only_init(struct esp_hosted_mcu_data *data)
++{
++ Rpc req = Rpc_init_zero, resp = Rpc_init_zero;
++ req.msg_id = RpcId_Req_WifiInit;
++ req.which_payload = Rpc_req_wifi_init_tag;
++ esp_hosted_mcu_default_init_config(&req.payload.req_wifi_init);
++ /* Host-side approved storage is separate; do not load a foreign C6 NVS config. */
++ req.payload.req_wifi_init.cfg.nvs_enable = 0;
++ /* AP-only control must stay awake while mode/config/start are sequenced. */
++ req.payload.req_wifi_init.cfg.sta_disconnected_pm = 0;
++ int ret = esp_hosted_mcu_rpc_call(&req, &resp, ESP_HOSTED_MCU_RPC_TIMEOUT);
++ pb_release(Rpc_fields, &resp);
++ if (ret) return -EIO;
++ for (size_t i = 0; i < ESP_HOSTED_MCU_IFACE_COUNT; i++) {
++  req = (Rpc)Rpc_init_zero;
++  resp = (Rpc)Rpc_init_zero;
++  req.msg_id = RpcId_Req_GetMACAddress;
++  req.which_payload = Rpc_req_get_mac_address_tag;
++  req.payload.req_get_mac_address.mode = (i == ESP_HOSTED_MCU_IFACE_STA)
++   ? ESP_HOSTED_MCU_WIFI_IF_STA : ESP_HOSTED_MCU_WIFI_IF_AP;
++  ret = esp_hosted_mcu_rpc_call(&req, &resp, ESP_HOSTED_MCU_RPC_TIMEOUT);
++  if (!ret && resp.which_payload == Rpc_resp_get_mac_address_tag &&
++      resp.payload.resp_get_mac_address.resp == 0 &&
++      resp.payload.resp_get_mac_address.mac.size == ESP_HOSTED_MCU_MAC_ADDR_LEN) {
++   memcpy(data->mac_addr[i], resp.payload.resp_get_mac_address.mac.bytes,
++          ESP_HOSTED_MCU_MAC_ADDR_LEN);
++  } else ret = -EIO;
++  pb_release(Rpc_fields, &resp);
++  if (ret) return ret;
++ }
++ return 0; /* No SetMode/Start/Connect until the application configures AP. */
++}
++
+ /* Register with the core and run the coprocessor esp_wifi init sequence. */
+ static int esp_hosted_mcu_wifi_init(const struct device *dev)
+ {
+@@ -959,6 +1000,10 @@
+ 
+ 	/* Route asynchronous coprocessor events (connect/disconnect/scan) here. */
+ 	esp_hosted_mcu_register_rpc_event(esp_hosted_mcu_handle_event, data);
++
++	if (IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_AP_ONLY)) {
++		return esp_hosted_mcu_ap_only_init(data);
++	}
+ 
+ 	/* Read the STA and AP MAC addresses the coprocessor reports. */
+ 	for (size_t i = 0; i < ESP_HOSTED_MCU_IFACE_COUNT; i++) {

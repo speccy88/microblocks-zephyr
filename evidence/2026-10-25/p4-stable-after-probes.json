@@ -1,0 +1,12 @@
+{
+  "tested_at": "2026-10-26T00:02:06.272156+00:00",
+  "firmware": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "stt_available": true,
+  "audio_busy": false,
+  "camera_busy": false,
+  "image_count": 0,
+  "audio_count": 0,
+  "camera_recaptured": false,
+  "COM12_accessed": false,
+  "result": "PASS"
+}

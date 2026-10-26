@@ -1,0 +1,154 @@
+{
+  "tested_at": "2026-10-26T00:47:43.996210+00:00",
+  "target": "COM5 native P4 application only",
+  "baseline_sha256": "22e8d31fb432861cd091e8eac13b9dafa952ff64975a249a21d48067f997e146",
+  "image_sha256": "94a5372779b537ee5a5338e1c3f846977aebcf3281e4b835327d89c01808946a",
+  "image_bytes": 15067200,
+  "changed_sectors": [
+    {
+      "offset": "0xe12000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe13000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe14000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe15000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe20000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe21000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe22000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe23000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe24000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe26000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe28000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe29000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe2a000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe2b000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe2d000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe2f000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe30000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe32000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe33000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe34000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe41000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe4e000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe4f000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe51000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe57000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe58000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe59000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe5a000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe5b000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe5c000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe5d000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe5e000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe5f000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe60000",
+      "bytes": 4096
+    }
+  ],
+  "changed_bytes": 139264,
+  "backup_performed": false,
+  "firmware_readback_performed": false,
+  "assets_or_NVS_written": false,
+  "C6_flashed": false,
+  "COM12_accessed": false,
+  "baseline_verified": true,
+  "hash_verified": true,
+  "result": "PASS"
+}

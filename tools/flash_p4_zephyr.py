@@ -11,6 +11,7 @@ if __name__=='__main__':
  ports=[x for x in list_ports.comports() if x.device.upper()=='COM5']
  if len(ports)!=1 or (ports[0].vid,ports[0].pid)!=(0x1a86,0x55d3):raise RuntimeError('COM5 CH343 identity mismatch')
  raw=a.image.read_bytes()
+ if not 24<=len(raw)<=0xfe0000-0x2000:raise RuntimeError('Application/model crosses reserved editor or settings boundary')
  if raw[0]!=0xe9 or struct.unpack_from('<H',raw,12)[0]!=18 or struct.unpack_from('<HH',raw,15)!=(103,199):raise RuntimeError('Expected guarded pre-v3 native P4 image')
  cmd=[sys.executable,'-m','esptool','--chip','esp32p4','--port','COM5','--baud',str(a.baud),'--before','default-reset','--after','hard-reset','write-flash','--flash-size','32MB','--flash-mode','dio','--flash-freq','80m','0x2000',str(a.image.resolve())]
  r=subprocess.run(cmd,capture_output=True,text=True,encoding='utf-8',errors='replace')

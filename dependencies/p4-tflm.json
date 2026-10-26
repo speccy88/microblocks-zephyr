@@ -1,0 +1,20 @@
+{
+  "runtime": "TensorFlow Lite Micro, native Zephyr reference kernels",
+  "source_repository": "https://github.com/zephyrproject-rtos/tflite-micro",
+  "source_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+  "license": "Apache-2.0",
+  "workspace_path": "optional/modules/lib/tflite-micro",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "module_activation": "ZEPHYR_EXTRA_MODULES; optional west group need not be globally enabled",
+  "physical_probe": {
+    "source": "https://github.com/zephyrproject-rtos/zephyr/tree/a915b2f12675b48b16d56653ea145dcd8f20cbbf/samples/modules/tflite-micro/hello_world",
+    "model_source": "src/model.cpp",
+    "model_bytes": 2488,
+    "model_sha256": "b8ba5f16b2427f043058c4ee9d22558dc31a7f162a0e2f053712118088d524dc",
+    "configured_tensor_arena_bytes": 2000,
+    "operators": ["FullyConnected"],
+    "quantization": "INT8",
+    "physical_native_inference": true,
+    "proof_boundary": "standalone native fixture; no generic loader, NN blocks or ESP-NN acceleration yet"
+  }
+}

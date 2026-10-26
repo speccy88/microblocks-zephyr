@@ -112,3 +112,10 @@ user-requested official WiFiNINA restoration has its own provenance and private
 backups; no firmware blob is vendored here. The official NINA 3.3.0 command-handler
 source is an external LGPL-2.1 reference for factual wire formats, not copied
 into this native application.
+
+The optional native P4 TensorFlow Lite Micro probe uses the pinned external
+Zephyr TFLM module under Apache-2.0. Its sine fixture and model remain external
+build inputs with source/hash attribution in `dependencies/p4-tflm.json`.
+It is a tested reference-kernel probe, not a generic model loader. P4 C6/AP
+driver patches retain the pinned Zephyr/Espressif Apache-2.0 attribution;
+new application transport/server code carries its own MPL-2.0 headers.

@@ -1,0 +1,60 @@
+{
+  "trial": "AP-only sta_disconnected_pm=0",
+  "network": {
+    "target": "native Zephyr board-hosted",
+    "phase": "AP configuration failed",
+    "error": -5,
+    "wifi_driver_ready": true,
+    "assets_valid": true,
+    "credentials_saved": true,
+    "ap_running": false,
+    "ssid": "MicroBlocks-P4",
+    "address": "192.168.4.1",
+    "channel": 6,
+    "security": "WPA2-PSK",
+    "max_clients": 2,
+    "controller": "USB",
+    "station_association": false,
+    "internet_sharing": false
+  },
+  "request": {
+    "request_id": 284,
+    "request_payload": 284,
+    "request_uid": 6,
+    "request_checksum": 0
+  },
+  "protocol": {
+    "tlv_length": 22,
+    "endpoint_length": 6,
+    "endpoint_kind": 1,
+    "rpc_type": 2,
+    "rpc_id": 516,
+    "rpc_uid": 5,
+    "rpc_payload": 516,
+    "rpc_decode_errors": 0,
+    "tag_count": 4
+  },
+  "counters": {
+    "enabled": true,
+    "rx_polls": 1319,
+    "rx_counter": 0,
+    "rx_consumed": 210,
+    "tx_credit_polls": 32,
+    "tx_credits": 0,
+    "tx_spent": 6,
+    "rx_transfers": 6,
+    "rx_bytes": 220,
+    "tx_transfers": 6,
+    "tx_bytes": 304,
+    "valid_headers": 6,
+    "invalid_headers": 0,
+    "bus_errors": 1826,
+    "last_bus_error": -116,
+    "floating_reads": 0,
+    "interrupt_status": 0,
+    "version_rpc_error": -116
+  },
+  "camera_busy": false,
+  "audio_busy": false,
+  "stt_available": true
+}

@@ -8,8 +8,11 @@ Bounded ES8311 PCM capture and experimental local Whistle speech-to-text are
 implemented. A private controlled microphone clip matched the host/P4 text;
 the actual graphical speech block also executes, with variable recognition
 accuracy and scalar latency of tens of seconds. Wake word, acceleration and
-true board hosting remain separate unfinished stages. The approved C6 AP has
-not yet been enabled. Current dark camera frames need a lit-scene retest;
+true board hosting remain separate unfinished stages. The native hosted build
+and assets are flashed, but the approved C6 AP fails during configuration.
+Its password is privately saved; no C6 firmware or Windows network change was
+made. See [hosted target](docs/HOSTED.md) and [failure evidence](docs/NETWORK_PLAN.md).
+Current dark camera frames need a lit-scene retest;
 the strict content check remains failed in the latest evidence.
 See [START_HERE](START_HERE.md) for reproduction and current limitations.
 

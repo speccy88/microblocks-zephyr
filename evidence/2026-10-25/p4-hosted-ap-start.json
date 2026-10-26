@@ -1,0 +1,43 @@
+{
+  "tested_at": "2026-10-26T00:40:01.669838+00:00",
+  "target": "COM5 approved MicroBlocks-P4 WPA2 AP",
+  "password_recorded": false,
+  "C6_flashed": false,
+  "Windows_network_changed": false,
+  "before": {
+    "target": "native Zephyr board-hosted",
+    "phase": "awaiting approved USB credential provisioning",
+    "error": 0,
+    "wifi_driver_ready": true,
+    "assets_valid": true,
+    "credentials_saved": false,
+    "ap_running": false,
+    "ssid": "MicroBlocks-P4",
+    "address": "192.168.4.1",
+    "channel": 6,
+    "security": "WPA2-PSK",
+    "max_clients": 2,
+    "controller": "USB",
+    "station_association": false,
+    "internet_sharing": false
+  },
+  "private_file_created": true,
+  "after": {
+    "target": "native Zephyr board-hosted",
+    "phase": "AP configuration failed",
+    "error": -5,
+    "wifi_driver_ready": true,
+    "assets_valid": true,
+    "credentials_saved": true,
+    "ap_running": false,
+    "ssid": "MicroBlocks-P4",
+    "address": "192.168.4.1",
+    "channel": 6,
+    "security": "WPA2-PSK",
+    "max_clients": 2,
+    "controller": "USB",
+    "station_association": false,
+    "internet_sharing": false
+  },
+  "result": "FAIL"
+}
