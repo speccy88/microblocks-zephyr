@@ -245,7 +245,7 @@ No direct ONNX Runtime or generic YOLO runtime is installed.
 
 Choose **Find I2C devices and read IDs** in Projects & board, or open
 `integration/i2c-devices.ubp`. The I2C Devices library has separate **scan I2C
-bus** (addresses only) and **identify devices on bus** (documented ID reads).
+bus** (addresses only) and **identify on bus** (documented ID reads).
 Bus 0 is SDA7/SCL8; other buses return an explicit unsupported error. Use
 device name/address/identification/measurement reporters before reading.
 The read reporter formats the value and unit; advanced numeric value/unit/scale

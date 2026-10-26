@@ -23,6 +23,13 @@ unknown bus. Reserved addresses are excluded.
 Report address, bus, sensor name, confidence and supported measurements.
 The scan reporter returns completion/error text; `devices found` separately
 reports the bounded numeric count, including partial results after cancellation.
+The primary bus-address reporter formats `bus 0 / 0x10`; a device ID is a
+separate identification field formatted `device ID 0x0219`, not a measured
+physical quantity. Raw address/ID integers remain available for computation.
+The example shows device name, bus address and device ID separately. A compact
+readings reporter lists supported names; unknown devices say no supported
+readings. Primary labels are kept short for larger saved block zoom as well
+as the normal viewport. Cross-library polish remains a separate acceptance task.
 An ACK is not an identity. Address candidates remain unconfirmed; unknowns
 stay unknown. A bounded scan holds at most 32 results and reports truncation,
 timeout and cancellation. Every scan invalidates prior sensor references.

@@ -31,10 +31,12 @@ if __name__=='__main__':
   for i in range(1,call('count')+1):
    ref=call('sensorAt',i);address=call('address',ref);name=call('name',ref);identity=call('confidence',ref)
    measurements=[call('measurement',ref,j) for j in range(1,call('measurementCount',ref)+1)]
-   devices.append({'address':address,'name':name,'identity':identity,'bus':call('bus',ref),'measurements':measurements})
+   devices.append({'address':address,'bus_address':call('addressText',ref),'name':name,'identity':identity,'bus':call('bus',ref),'measurements':measurements})
+   assert devices[-1]['bus_address']==f'bus 0 / 0x{address:02X}'
    if address in [0x10,0x18]:
     assert identity=='confirmed ID',(address,name,identity);assert call('read',ref,'device ID') is True;finish()
     assert call('value')==({0x10:0x219,0x18:0x8311}[address]);assert call('unit')=='ID' and call('scale')==1
+    assert call('readingText')==f'device ID 0x{call("value"):04X}'
     devices[-1]['actual_device_ID']=call('value')
    if address==0x10:camera=ref
   assert camera

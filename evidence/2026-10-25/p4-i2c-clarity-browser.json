@@ -1,0 +1,22 @@
+{
+  "tested_at": "2026-10-26T05:09:33.672355+00:00",
+  "real_editor": "MicroBlocks GP 2.5.8",
+  "physical_transport": "localhost bridge to COM5 native Zephyr; not board hosted",
+  "actual_name": "IMX219 camera",
+  "actual_bus_address": "bus 0 / 0x10",
+  "actual_chip_identity": "device ID 0x0219",
+  "raw_ID_integer": 537,
+  "identifier_is_physical_measurement": false,
+  "actual_supported_fields": "device ID, exposure lines, analog gain code",
+  "short_ID_alias": "PASS",
+  "explicit_bus_error": "Error: Only bus 0 is configured on this board",
+  "explicit_read_error": "Error: Measurement unsupported; inspect this sensor's measurements",
+  "qualified_VM_string_join": "PASS; actual helper and error paths no longer report zero",
+  "normal_and_larger_block_zoom": "PASS; full primary labels and non-overlapping example",
+  "simultaneous_displays": "local MicroBlocks message hats; actual separate native values",
+  "screenshot_delivered_separately": true,
+  "camera_captured": false,
+  "microphone_recorded": false,
+  "TMP117_physical_tested": false,
+  "result": "PASS"
+}

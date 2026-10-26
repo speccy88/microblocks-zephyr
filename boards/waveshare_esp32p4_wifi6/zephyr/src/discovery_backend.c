@@ -120,6 +120,7 @@ void p4_discovery_read_text(char *out,size_t n)
 {
  discovery_reading v=p4_discovery_reading();
  if(v.error){snprintf(out,n,"Error: %s",discovery_error_name(v.error));return;}
- if(v.scale==1000){int32_t a=v.value<0?-v.value:v.value;snprintf(out,n,"%s%d.%03d degrees C",v.value<0?"-":"",(int)(a/1000),(int)(a%1000));}
+ if(!strcmp(v.unit,"ID"))snprintf(out,n,"device ID 0x%04X",(unsigned)v.value);
+ else if(v.scale==1000){int32_t a=v.value<0?-v.value:v.value;snprintf(out,n,"%s%d.%03d degrees C",v.value<0?"-":"",(int)(a/1000),(int)(a%1000));}
  else snprintf(out,n,"%d %s",(int)v.value,v.unit);
 }

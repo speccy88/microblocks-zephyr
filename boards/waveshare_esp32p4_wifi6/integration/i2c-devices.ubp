@@ -1,20 +1,20 @@
 module main
-variables devices
 script 100 30 {
     whenStarted
     sayIt (i2cIdentifyDevices 0)
-    devices = ('[i2cDetect:count]')
-    waitMillis 1000
+    sendBroadcast 'show name'
+}
+script 260 180 {
+    whenBroadcastReceived 'show name'
     sayIt (i2cDeviceName 1)
-    waitMillis 1000
+    sendBroadcast 'show address'
+}
+script 260 300 {
+    whenBroadcastReceived 'show address'
+    sayIt (i2cDeviceBusAddress 1)
+    sendBroadcast 'show ID'
+}
+script 260 420 {
+    whenBroadcastReceived 'show ID'
     sayIt (i2cReadMeasurement 'device ID' 1)
-}
-script 100 380 {
-    i2cDeviceAddress 1
-}
-script 100 430 {
-    i2cDeviceConfidence 1
-}
-script 100 480 {
-    i2cMeasurementName 1 1
 }
