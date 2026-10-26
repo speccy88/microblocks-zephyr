@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "source": "esphome/micro-wake-word-models",
+  "source_commit": "40ff33f57f8fc6ad71a75ef085abbf742495b225",
+  "path": "models/v2/okay_nabu.tflite",
+  "model": "Okay Nabu",
+  "model_bytes": 60264,
+  "model_sha256": "0689abe1912a95a3318a0d8cb2e67bad0cbcfe3e24dd6e050c75debddfb6f891",
+  "license": "Apache-2.0",
+  "license_covers_weights": true,
+  "languages": [
+    "en"
+  ],
+  "sample_rate_hz": 16000,
+  "channels": 1,
+  "window_ms": 30,
+  "step_ms": 10,
+  "features": 40,
+  "input_shape": [
+    1,
+    3,
+    40
+  ],
+  "input_dtype": "int8",
+  "output_shape": [
+    1,
+    1
+  ],
+  "output_dtype": "uint8",
+  "output_scale": 0.00390625,
+  "output_zero_point": 0,
+  "manifest_arena_bytes_excludes_other_buffers": 26080,
+  "probability_cutoff": 0.97,
+  "sliding_window_predictions": 5,
+  "resource_handles": 6,
+  "operators": [
+    "CALL_ONCE",
+    "VAR_HANDLE",
+    "RESHAPE",
+    "READ_VARIABLE",
+    "CONCATENATION",
+    "STRIDED_SLICE",
+    "ASSIGN_VARIABLE",
+    "CONV_2D",
+    "DEPTHWISE_CONV_2D",
+    "SPLIT_V",
+    "FULLY_CONNECTED",
+    "LOGISTIC",
+    "QUANTIZE"
+  ],
+  "TFLM_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+  "general_custom_model_loader_unchanged": true,
+  "hardware_status": "native fixture score parity, bounded microphone lifecycle and actual GP event handlers tested; acoustic wake detection unverified"
+}

@@ -1,0 +1,68 @@
+{
+  "profile": "usb",
+  "compiler": "Zephyr SDK 1.0.1 GCC 14.3.0",
+  "Zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "HAL_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "build_passed": true,
+  "postlink_checks": [
+    {
+      "model_sha256": "0689abe1912a95a3318a0d8cb2e67bad0cbcfe3e24dd6e050c75debddfb6f891",
+      "model_bytes": 60264,
+      "fixtures": [
+        {
+          "name": "positive",
+          "frames": 58560,
+          "sha256": "d7c0d45f5d335b6ac325e84295493a1d155dbe3a506533b7ac4c01aa659f93ab"
+        },
+        {
+          "name": "negative",
+          "frames": 63920,
+          "sha256": "afa83abc4b4e0ac319af1a41f69e720aaf762618acadc0a95d62a50e6cb0d343"
+        }
+      ],
+      "frontend_fix": {
+        "upstream_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+        "upstream_source": "tensorflow/lite/experimental/microfrontend/lib/filterbank_util.c",
+        "source_sha256": "b06f95eac9f5d53147896afe0e8deafc9984d68a68cf2f3118efd4da50fde8c8",
+        "prepared_sha256": "e87307296b004f263add1ff14b515eeb3cea4534ab798bb32effe9f4ecd43a23",
+        "fix": "Reject NULL filterbank work allocation before resetting state",
+        "external_source_modified": false,
+        "upstream_notice_preserved": true
+      }
+    },
+    {
+      "builtin": "sine-int8-v1",
+      "bytes": 2488,
+      "sha256": "097160f7f3ec5efacdddc24bea52bc34a0483161894e735995c4d7882c1c2fad",
+      "source_sha256": "b8ba5f16b2427f043058c4ee9d22558dc31a7f162a0e2f053712118088d524dc",
+      "static_batch_one_tensors": [
+        0,
+        7,
+        8,
+        9
+      ],
+      "runtime": "43b2a106a391dd8a099ac47f2ae858630a397264"
+    },
+    {
+      "source_commit": "9e9e996e55b0f945438da1082eac4a087ed3ca39",
+      "model_bytes": 14515887,
+      "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "fixture_frames": 31920,
+      "backend": "native Zephyr portable C99 int8; model mapped flash; 12MiB bounded PSRAM arena"
+    },
+    {
+      "native_elf": "RV32 Zephyr",
+      "image_bytes": 15293168,
+      "flash_offset": "0x2000",
+      "reserved_boundary": "0xfe0000",
+      "model_start": "0x40040580",
+      "model_end": "0x40e1842f",
+      "model_bytes": 14515887,
+      "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "image_sha256": "8bcbca148e851e9947604f9e2f8e77e61618bd32b6b4201b487cd16b2be8f046",
+      "weights_copied_to_psram": false
+    }
+  ],
+  "station_radio_activated": false,
+  "C6_flashed": false
+}

@@ -1,0 +1,31 @@
+module 'Steps & Transitions' Control
+author 'MicroBlocks Zephyr contributors'
+version 0 1
+description 'GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.'
+spec ' ' 'stepsClear' 'clear step definitions'
+spec ' ' 'stepsAdd' 'define step _ initial _' 'num bool' 1 true
+spec ' ' 'stepsTransition' 'transition _ step _ to _' 'num num num' 1 1 2
+spec ' ' 'stepsCondition' 'transition _ condition _' 'num bool' 1 false
+spec ' ' 'stepsStart' 'start steps'
+spec ' ' 'stepsScan' 'advance one step scan'
+spec ' ' 'stepsStop' 'stop / reset steps'
+spec 'b' '[steps:running]' 'steps running?'
+spec 'b' '[steps:active]' 'step _ active?' 'num' 1
+spec 'r' '[steps:activeText]' 'active steps'
+spec 'r' '[steps:elapsed]' 'step _ elapsed ms' 'num' 1
+spec 'r' '[steps:status]' 'last step status'
+advanced
+spec 'r' '[steps:group]' 'group _ plus step _' 'num num' 0 1
+spec ' ' 'stepsGroups' 'transition _ group _ to _ after _ ms' 'num num num num' 1 1 2 0
+spec 'b' '[steps:entered]' 'step _ entered this scan?' 'num' 1
+spec 'b' '[steps:exited]' 'step _ left this scan?' 'num' 1
+
+to stepsCheck success { if (not success) { sayIt ('[data:join]' 'Steps: ' ('[steps:status]')) } }
+to stepsClear { stepsCheck ('[steps:clear]') }
+to stepsAdd step initial { stepsCheck ('[steps:add]' step initial) }
+to stepsTransition id from to { stepsCheck ('[steps:transition]' id from to) }
+to stepsCondition id condition { stepsCheck ('[steps:condition]' id condition) }
+to stepsStart { stepsCheck ('[steps:start]') }
+to stepsScan { stepsCheck ('[steps:scan]') }
+to stepsStop { stepsCheck ('[steps:stop]') }
+to stepsGroups id from to delay { stepsCheck ('[steps:groups]' id from to delay) }

@@ -1,0 +1,42 @@
+--- a/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -502,7 +502,7 @@
+ {
+ 	uint16_t off = 0;
+ 
+-	while (len - off >= ESP_HOSTED_MCU_HEADER_SIZE) {
++	while ((uint32_t)off + ESP_HOSTED_MCU_HEADER_SIZE <= len) {
+ 		const struct esp_hosted_mcu_header *hdr =
+ 			(const struct esp_hosted_mcu_header *)(buf + off);
+ 		uint32_t frame_len = (uint32_t)hdr->offset + hdr->len;
+@@ -516,23 +516,19 @@
+ 			esp_hosted_mcu_diag(2, 0, 0, 0, 0, 0);
+ 			return len;
+ 		}
+-		if (off + frame_len > len) {
+-			/* Partial frame: hand the tail back to the caller. */
++		/* The aggregate stride includes padding. Wait for the entire stride
++		 * before dispatch: a partial pad must not make off exceed len and
++		 * turn the next unsigned remaining-length check into an over-read. */
++		if (data->rx_stride_aligned) {
++			frame_len = ROUND_UP(frame_len, 4);
++		}
++		if ((uint32_t)off + frame_len > len) {
+ 			return off;
+ 		}
+ 
+ 		esp_hosted_mcu_diag(1, hdr->if_type | (hdr->if_num << 8) | (hdr->flags << 16) | ((uint32_t)hdr->priv_pkt_type << 24), hdr->len, hdr->offset, hdr->seq_num, 0);
+ 		esp_hosted_mcu_process_one(data, hdr);
+ 
+-		/*
+-		 * When the coprocessor aggregates frames it pads each one to a
+-		 * four-byte boundary, so step to the next aligned header. A
+-		 * byte-tight coprocessor sets no padding and the stride equals
+-		 * the frame length.
+-		 */
+-		if (data->rx_stride_aligned) {
+-			frame_len = ROUND_UP(frame_len, 4);
+-		}
+ 		off += frame_len;
+ 	}
+ 

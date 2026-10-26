@@ -9,4 +9,8 @@ if __name__=='__main__':
  prepare(a.source.resolve(),a.output.resolve(),strict_digital_arity=True)
  path=a.output/'vm/runtime.c';text=path.read_text()
  if text.count('(cmd <= 205)')!=2:raise ValueError('Unexpected extension dispatch')
- path.write_text(text.replace('(cmd <= 205)','(cmd <= 216)'),newline='\n')
+ path.write_text(text.replace('(cmd <= 205)','(cmd <= 217)'),newline='\n')
+ path=a.output/'vm/interp.h';text=path.read_text()
+ anchor='\tSoundPrims,\n\tPrimitiveSetCount'
+ if text.count(anchor)!=1:raise ValueError('Changed primitive set ordering')
+ path.write_text(text.replace(anchor,'\tSoundPrims,\n\tJSONPrims,\n\tClockPrims,\n\tStepPrims,\n\tStoragePrims,\n\tPrimitiveSetCount'),newline='\n')

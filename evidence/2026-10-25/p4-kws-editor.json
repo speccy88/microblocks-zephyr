@@ -1,0 +1,45 @@
+{
+  "tested_at": "2026-10-26T07:56:23.789591+00:00",
+  "editor": "actual GP 2.5.8 in browser, COM5 loopback transport, native Zephyr SmallVM",
+  "installed_image_sha256": "1a3d75e0a67b176b3b16cf48eea7a3767976b6d1093e79f3bd24b324d386965b",
+  "microphone_started": false,
+  "positive": {
+    "phrase": "Okay Nabu",
+    "single_hat_count": 1,
+    "confidence_milli": 992,
+    "two_hat_counts": [
+      1,
+      1
+    ],
+    "native_say_output": "Okay Nabu detected"
+  },
+  "negative": {
+    "phrase": "The camera is ready",
+    "two_hat_counts": [
+      0,
+      0
+    ],
+    "confidence_milli": 0
+  },
+  "render": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "compact_clip_label_visible": true,
+    "actual_output_bubble": true
+  },
+  "cleanup": "Stop All, board.disconnect; temporary browser frame observers removed",
+  "result": "PASS",
+  "limitations": [
+    "No acoustic recognition proof",
+    "No Wi-Fi transport proof",
+    "No injected DMA or queue fault proof"
+  ],
+  "publication_redactions": {
+    "private_screenshot_fields_omitted": [
+      "library_screenshot"
+    ],
+    "test_results_unchanged": true
+  }
+}

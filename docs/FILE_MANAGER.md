@@ -1,0 +1,93 @@
+# Device file manager: shared UI and transport contract
+
+This stage adds a shared frontend to the real editor's **Projects & board →
+Device files** entry. The same production assets are packaged for Pages and
+the station-hosted editor. The controller and RAM service are installed in the
+local USB firmware, with real GP editing and independent COM5 byte readback
+verified in [physical acceptance](STORAGE_PHYSICAL.md). Station network transfer
+remains unverified. A separate local-only
+fixture adapter demonstrates and tests the UI using browser memory; its banner
+must always say **Browser fixture — not the board**. It is opt-in, loopback-only
+and excluded from Pages/hosted packages. No network connection is opened.
+
+## Acceptance contract
+
+- List canonical paths and byte sizes, show capacity/file slots/per-file limit,
+  open strict UTF-8 text or identify binary content, create/edit text, and
+  download raw bytes through an explicit user click. Flash/SD stay unavailable.
+- Preserve native editor styling. A keyboard-accessible dialog uses text-only
+  DOM insertion and a textarea, never HTML rendering. Dirty edits require an
+  explicit discard before changing selection/closing. Save and overwrite use
+  distinct create/conditional-replace semantics. No automatic save or upload.
+- File text, credentials and transfer payloads never enter project serialization,
+  localStorage, analytics, console logs or URLs. No credential partition is
+  browsable. File names follow the existing RAM service's strict path grammar.
+- Every operation is bounded: eight files, 8192 bytes per file, 1024-byte chunks,
+  one foreground operation, per-request timeout and explicit cancel. Stale,
+  duplicate/mismatched or malformed replies are rejected. No automatic retries
+  of mutations; uncertain commits block further writes until reconnect.
+- Downloads use an opaque `application/octet-stream` Blob and a sanitized
+  basename. HTML/SVG/script contents are shown only as literal text or downloaded,
+  never executed or embedded. Blob URLs are revoked; all state is cleared when
+  the page closes or the transport changes.
+
+## Abstract transport v1 (not a wire protocol)
+
+`request({version:1,id,op,args}, {signal})` resolves an envelope
+`{version:1,id,ok:true,data}` or `{version:1,id,ok:false,code}`. IDs are monotonic,
+not reused during a client session. Data bytes are bounded `Uint8Array`s; a
+USB/WebSocket adapter must encode/fragment them through the existing
+controller and enforce the same limits, not open a second connection.
+
+Operations: `capabilities`, `list`, `stat`, `read`, `begin`, `append`, `finish`,
+`cancel`. A write begins with path, declared byte length and expected revision
+(`null` means create only). Chunks are sequential. Finish commits atomically
+and returns a new revision. Reads carry the selected revision for every chunk,
+so concurrent replacement cannot mix file versions. An expired read or changed
+file returns a conflict; the UI preserves the draft. A lost finish reply is
+uncertain, not success. The native server binds staging to its controller
+session, expires incomplete writes and cancels them on disconnect.
+
+The native C RAM core now has per-file revision guards and a controller-owned
+dispatcher, with a bounded binary codec and injected JavaScript frame adapter.
+The actual JavaScript client is tested against that C implementation through a
+synthetic stdio harness. See [the dispatcher contract](STORAGE_DISPATCH.md).
+The [controller integration](STORAGE_CONTROLLER.md) now packages the adapter,
+routes extension217 through the actual P4 controller and VM, and opens files
+only after **Connect files**. Replacing a connection clears pending replies,
+loaded contents and drafts. No extra serial/socket connection is opened.
+Generated-adapter/native-bridge tests use synthetic streams. The subsequent
+physical acceptance uses the production GP editor, loopback WebSocket bridge
+and COM5, without the browser fixture. It does not establish board-hosted Wi-Fi.
+
+## Local-only verification plan
+
+1. Node tests: request/reply bounds, response IDs, path/UTF-8 validation, byte
+   caps, staged writes/cancel, revision conflicts, mixed reads, malformed data,
+   timeout/late replies, uncertain outcome and safe download names.
+2. Actual disconnected GP editor: unavailable state; opt-in fixture list,
+   capacity, literal markup, edit/save/reopen, dirty-discard handling, binary
+   download, empty/large/invalid text and keyboard/normal viewport behavior.
+3. Verify production Pages/hosted assets exclude fixture code. Carry prior
+   JSON, automation and storage checks forward; no flash, publication or
+   deployment. Capture actual labeled screenshots for feedback.
+
+## Reproduction and current limits
+
+Run `node --test tests/device_files.test.js` and the repository Python validation.
+Package normal USB/Pages/hosted assets without any fixture flag. For a separate
+local preview only, use `tools/package_p4_ide.py --ide-source <pinned-assets>
+--output build-artifacts/p4-files-fixture-editor --file-fixture`, then serve that
+directory on `http://127.0.0.1`. The fixture is unavailable on other origins and
+cannot be included in a hosted image. Reusing a fixture directory for production
+packaging is rejected so stale fixture code cannot leak into an artifact.
+
+The real GP editor has been checked while disconnected: listing and capacity,
+literal script text, save/reopen, Unicode creation, dirty-edit protection,
+unsafe-path rejection and binary-only display work with synthetic browser data.
+The browser download verification was interrupted; completed download bytes are
+not verified. Core tests verify the copied download bytes, MIME and safe name.
+The later physical USB tests validate create/edit/reopen, capacity, revisions,
+session cleanup, exact bytes and RAM clearing on reset. A filesystem mount,
+Flash/SD support, large media archive and completed browser download remain
+unverified or unavailable. See the [release boundaries](P4_RELEASE_2026_10_26.md).

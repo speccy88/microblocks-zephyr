@@ -1,0 +1,183 @@
+{
+  "tested_at": "2026-10-26T18:15:14.159598+00:00",
+  "scope": "local-only native RAM revision/session dispatcher and injected editor-frame adapter",
+  "head_unchanged": "00545be3efbb2e34405984834b344d9f29d9a91e",
+  "source_sha256": {
+    "common/storage/storage.h": "0789ce5dba38306bf9af8633b0386d13b4fa07942d7fbd604896cde1c1113007",
+    "common/storage/storage.c": "b956a49e3b28500ab060825db127d22716fa47a74c82c393909b6e9377dbdbd0",
+    "common/storage/storage_primitives.c": "fe644b7daa2cbb56b8ebc96b22348bf4c51bc1ec93995eeb044704bb2170e0a8",
+    "common/storage/dispatcher.h": "1ec2c889007a6bfe34cb3fce09907129abe90738685524686acf0d71be2e392e",
+    "common/storage/dispatcher.c": "f64a2c9bcb7a8c8ed6a8a317284884f0e39376cec597e31459cfe9ccab1b3520",
+    "common/storage/wire.h": "a3446ea1973f86c2c3663a11074bb53ffc7ae98f814b841e54321cd686fc6e54",
+    "common/storage/wire.c": "ce7400108d79c88438116ba2b599f52e9b8f111ec964993c13f704a98d376657",
+    "web/device-files-core.js": "62daf1115b35e9929c8cad204dd56c7b00228940a3e5adeea2b6b24ebca326aa",
+    "web/device-files-wire.js": "ad90a9e82a1015cbcbf0e017ae80378e446ea4d56bc89c9c86b630593afab5b0",
+    "tests/storage_dispatch_test.c": "cf54a77e2caccc5fb55d99f5238be51d007362f3403c8adaacc887140025c833",
+    "tests/storage_wire_host.c": "4e73a8739c2af1a3bfeae86d50209f8ea3111dd6a4e04c957f0d9ee77c0f9700",
+    "tests/device_files_wire.test.js": "6bd00bac9a03f8cdb0cbaf63141d0a0c0bcb2f5cfea2251ac97924a2e8492a6d",
+    "tests/test_storage_dispatch_contract.py": "e8db4db413a1e543ad418c8db03de0c5693ff8f4bd3bdc4e4b5114afa16a83ad",
+    "tools/test_storage_dispatch.py": "7640da180fd535a8e0a82f69179531d820239db59157e3f0698a90ae44c5b157",
+    "boards/waveshare_esp32p4_wifi6/zephyr/CMakeLists.txt": "7e5dfb808177ca2a308157ad7efe415a0d51c941d4fbbb81de20bddaddfe0c24",
+    "docs/STORAGE_DISPATCH.md": "da03617197392d6ea3b6a0d84a7f12f1c94d2943f56e7b335c823df3c70458d5",
+    "docs/FILE_MANAGER.md": "69100b17a31f293d2d3782b3c4df430d9d7aabaaf37f0d1afa34758c790fe44d",
+    "docs/STORAGE.md": "b926bb74c2a8e87fd8df463bab1f00b3ec5110a69779251dfe3a5b9dd351e417"
+  },
+  "native_dispatcher": {
+    "result": "PASS",
+    "scenario_groups": 23,
+    "malformed_packets": 10000,
+    "store_bytes": 74396,
+    "dispatcher_bytes": 40,
+    "wire_workspace_bytes": 1712,
+    "hardware_access": false,
+    "sanitizers": [
+      "address",
+      "undefined"
+    ],
+    "physical_tested": false
+  },
+  "legacy_storage": {
+    "result": "PASS",
+    "named_checks": 49,
+    "malformed_inputs": 10000,
+    "file_slots": 8,
+    "max_file_bytes": 8192,
+    "host_state_bytes": 74396,
+    "hardware_access": false,
+    "sanitizers": [
+      "address",
+      "undefined"
+    ],
+    "physical_tested": false
+  },
+  "javascript": {
+    "tests": 24,
+    "result": "PASS",
+    "malformed_paths": 10000,
+    "malformed_response_frames": 10000,
+    "native_integration": "Real JS Client -> injected complete MicroBlocks frames -> sanitized C stdio harness; synthetic data only",
+    "passed": [
+      "empty/UTF-8/8192-byte binary roundtrip",
+      "maximum path",
+      "create-only overwrite rejection",
+      "stale replace/read rejection",
+      "cancel after native append preserves old file",
+      "lost native commit reply blocks further writes without retry",
+      "framing/identity/bounds rejection",
+      "abort/late reply/close lifecycle"
+    ],
+    "log_sha256": "da1d622b250dce8bc7a68643503406dfc1a688f151126adae6e59db2cb581b78"
+  },
+  "canonical_regression": {
+    "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
+    "head": "00545be3efbb2e34405984834b344d9f29d9a91e",
+    "exit_code": 0,
+    "result": "PASS",
+    "tests": 61,
+    "checkout_issue": "Windows CRLF materialization changes raw hash; LF-normalized content equals HEAD; direct checkout root run retains this existing failure"
+  },
+  "builds": {
+    "usb": {
+      "compiled": true,
+      "installed": false,
+      "image": {
+        "native_elf": "RV32 Zephyr",
+        "image_bytes": 15408144,
+        "flash_offset": "0x2000",
+        "reserved_boundary": "0xfe0000",
+        "model_start": "0x400605c0",
+        "model_end": "0x40e3846f",
+        "model_bytes": 14515887,
+        "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+        "image_sha256": "b43b5beeae6d98cac491080cc2e99c31e325a34537591752e11d98a0de283c84",
+        "weights_copied_to_psram": false
+      },
+      "log_sha256": "30ad0f85c85235ea7a5a6abd45aa05c2e0a8076e0a74ade4b963eb003016f8b9",
+      "command": "bash ../build_p4_kws.sh"
+    },
+    "station": {
+      "compiled": true,
+      "installed": false,
+      "image": {
+        "native_elf": "RV32 Zephyr",
+        "image_bytes": 15347040,
+        "flash_offset": "0x2000",
+        "reserved_boundary": "0xfe0000",
+        "model_start": "0x40080e80",
+        "model_end": "0x40e58d2f",
+        "model_bytes": 14515887,
+        "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+        "image_sha256": "3b5351abe0f7de5086578b725a14c060d84e29156fff4287eb5be705fb7a22a8",
+        "weights_copied_to_psram": false
+      },
+      "log_sha256": "4cf786d17820bc128d61017e3eb4d307f78e88e445ffcbdf4a88e8932bdd064f",
+      "command": "bash ../build_p4_kws_station.sh",
+      "layout": {
+        "flash_bytes": 33554432,
+        "regions": {
+          "p4_whistle_app": {
+            "offset": "0x2000",
+            "bytes": 16637952,
+            "end_exclusive": "0xfe0000"
+          },
+          "p4_assets": {
+            "offset": "0xfe0000",
+            "bytes": 16777216,
+            "end_exclusive": "0x1fe0000"
+          },
+          "p4_settings": {
+            "offset": "0x1fe0000",
+            "bytes": 131072,
+            "end_exclusive": "0x2000000"
+          }
+        },
+        "application_bytes": 15347040,
+        "application_sha256": "3b5351abe0f7de5086578b725a14c060d84e29156fff4287eb5be705fb7a22a8",
+        "application_end_exclusive": "0xea4d60",
+        "assets_bytes": 3558221,
+        "assets_sha256": "d8c572b86770ae39ffd11e6ae79c8bc6fedeaa574ef71f6f1a27f17a8eccf014",
+        "assets_end_exclusive": "0x1344b4d",
+        "model": {
+          "present": true,
+          "bytes": 14515887,
+          "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "mapped_begin": "0x40080e80",
+          "mapped_end": "0x40e58d2f",
+          "physical_begin": "0x20e80",
+          "physical_end": "0xdf8d2f",
+          "copied_to_psram": false
+        },
+        "overlap": false,
+        "result": "PASS"
+      }
+    }
+  },
+  "limits": {
+    "files": 8,
+    "bytes_per_file": 8192,
+    "rpc_chunk_bytes": 512,
+    "native_chunk_max": 1024,
+    "idle_expiry_ms": 30000,
+    "read_revision_required": true,
+    "session_is_authentication": false,
+    "one_execution_owner": true
+  },
+  "live_controller_hooks": "unimplemented; runtime extension 217 remains disabled; JS adapter excluded from packages",
+  "physical_tested": false,
+  "board_accessed": false,
+  "browser_retested": false,
+  "ui_changed": false,
+  "browser_download": "Prior interrupted operation remains unverified and was not retried",
+  "flash_storage": "unavailable",
+  "sd_storage": "unavailable",
+  "firmware_installation": "held, not attempted",
+  "commit_push_publication": "held, not attempted",
+  "credentials_touched": false,
+  "network_settings_changed": false,
+  "known_limit": "Prior direct Windows FruitJam CRLF/provenance failure unchanged; canonical suite uses unchanged HEAD bytes plus current edits",
+  "next_steps": [
+    "Review trusted controller grant/close/expiry and single VM-thread routing locally",
+    "Resolve existing installation/publication holds before any flash or external write",
+    "Then validate real board file transfers, concurrency, reboot and browser download completion"
+  ]
+}

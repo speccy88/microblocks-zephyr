@@ -10,7 +10,9 @@ the actual graphical speech block also executes, with variable recognition
 accuracy and scalar latency of tens of seconds. Native TFLM neural blocks now
 run tested INT8 and float32 dense models, including a restricted offline ONNX
 Gemm/Relu conversion. PPA smooth resize/rotate/flip now run in native hardware;
-direct ONNX Runtime, KWS and NN kernel acceleration remain unavailable.
+native Okay Nabu wake-word clip inference, bounded microphone streaming and GP
+event hats also pass. Acoustic wake detection remains unverified. Direct ONNX
+Runtime and NN kernel acceleration remain unavailable.
 Native model transfer/rejection and actual GP catalog/custom file import and
 inference passed. AP was canceled; station-only firmware and flash-hosted assets
 are built and hash-flashed. User-entered station credentials were saved and
@@ -33,3 +35,6 @@ See [discovery contract and limits](docs/I2C_DISCOVERY.md).
 The working ESP-IDF camera proof is preserved on the separate **local-only**
 branch `codex/p4-idf-reference` at `86c116b`. It is not the requested final port.
 See [architecture review](docs/ARCHITECTURE_REVIEW.md) and [spec](docs/SPEC.md).
+
+See [Wake Word](docs/WAKE_WORD.md) for the optional model profile, measured
+memory/latency, explicit listening controls and acoustic-test limits.

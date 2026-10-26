@@ -1,0 +1,32 @@
+module 'Storage' Data
+author 'MicroBlocks Zephyr contributors'
+version 0 1
+description 'RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.'
+spec 'r' 'storageSaveNew' 'save _ as _' 'str str' '' '/RAM/note.txt'
+spec 'r' 'storageReplace' 'replace _ with _' 'str str' '/RAM/note.txt' ''
+spec ' ' 'storageWait' 'wait for file write _' 'num' 0
+spec 'r' '[storage:text]' 'read text _' 'str' '/RAM/note.txt'
+spec 'b' '[storage:exists]' 'file _ exists?' 'str' '/RAM/note.txt'
+spec 'r' '[storage:size]' 'file _ bytes' 'str' '/RAM/note.txt'
+spec 'r' '[storage:list]' 'RAM files'
+spec ' ' 'storageDelete' 'delete file _' 'str' '/RAM/note.txt'
+spec 'r' '[storage:used]' 'RAM file bytes used'
+spec 'r' '[storage:slots]' 'RAM free file slots'
+spec 'r' '[storage:maxFile]' 'maximum file bytes'
+spec 'r' '[storage:status]' 'last storage status'
+advanced
+spec 'r' 'storageSave' 'save _ as _ replace _' 'str str bool' '' '' false
+spec 'r' '[storage:bytes]' 'read bytes _' 'str' '/RAM/note.txt'
+spec 'r' '[storage:state]' 'file write _ state' 'num' 0
+spec ' ' 'storageCancel' 'cancel file write _' 'num' 0
+spec 'b' '[storage:available]' 'storage _ available?' 'str' 'RAM'
+
+to storageSave data path replace { return ('[storage:write]' path data replace) }
+to storageSaveNew data path { return ('[storage:write]' path data false) }
+to storageReplace path data { return ('[storage:write]' path data true) }
+to storageWait job {
+    while (or (('[storage:state]' job) == 'receiving') (('[storage:state]' job) == 'ready')) { waitMillis 1 }
+    if (('[storage:state]' job) != 'done') { sayIt ('[data:join]' 'File write: ' ('[storage:state]' job) ' / ' ('[storage:status]')) }
+}
+to storageDelete path { if (not ('[storage:delete]' path)) { sayIt ('[storage:status]') } }
+to storageCancel job { if (not ('[storage:cancel]' job)) { sayIt ('[storage:status]') } }

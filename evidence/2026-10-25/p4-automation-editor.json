@@ -1,0 +1,27 @@
+{
+  "editor": "actual GP MicroBlocks 2.5.8",
+  "viewport": [
+    1280,
+    720
+  ],
+  "libraries": [
+    "Clock & Timers",
+    "Steps & Transitions"
+  ],
+  "example": "steps-timer",
+  "normal_zoom": true,
+  "palette_clipping": false,
+  "script_overlap": false,
+  "board_connected": false,
+  "physical_execution": false,
+  "result": "PASS for rendering/import only",
+  "gp_data_sha256": "18405cdc619ccf98b4637328b23e9c5dc1802b800b379eadcedd8ff64a5b8986",
+  "local_usb_and_hosted_packages_refreshed": true,
+  "public_deployment": false,
+  "publication_redactions": {
+    "private_screenshot_fields_omitted": [
+      "library_screenshot"
+    ],
+    "test_results_unchanged": true
+  }
+}

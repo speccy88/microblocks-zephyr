@@ -102,8 +102,8 @@
    }catch(error){await this.disconnect();throw error;}finally{this.connecting=false;}
   }
   async readLoop(port,reader){
-   try{while(!this.closing&&this.port===port){const {value,done}=await reader.read();if(done)break;if(value)this.onData(value);}}
-   catch(error){if(!this.closing)this.onState(false,'USB connection closed.');}
+   try{while(!this.closing&&this.port===port){const {value,done}=await reader.read();if(done||this.closing||this.port!==port)break;if(value)this.onData(value);}}
+   catch(error){if(!this.closing&&this.port===port)this.onState(false,'USB connection closed.');}
    finally{if(!this.closing&&this.port===port)await this.disconnect();}
   }
   write(data){

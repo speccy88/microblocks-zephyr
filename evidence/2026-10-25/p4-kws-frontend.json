@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "scope": "offline trained audio frontend; no model or microphone execution",
+  "features": 98,
+  "feature_fnv1a": "feeacf0a",
+  "peak_requested_bytes": 11056,
+  "allocations": 17,
+  "injected_allocation_failures": 17,
+  "split_buffer_sizes": [
+    1,
+    7,
+    160,
+    479,
+    16000
+  ],
+  "sanitizers": "ASan+UBSan",
+  "TFLM_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+  "dependency_fix": {
+    "upstream_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+    "upstream_source": "tensorflow/lite/experimental/microfrontend/lib/filterbank_util.c",
+    "source_sha256": "b06f95eac9f5d53147896afe0e8deafc9984d68a68cf2f3118efd4da50fde8c8",
+    "prepared_sha256": "e87307296b004f263add1ff14b515eeb3cea4534ab798bb32effe9f4ecd43a23",
+    "fix": "Reject NULL filterbank work allocation before resetting state",
+    "external_source_modified": false,
+    "upstream_notice_preserved": true
+  }
+}

@@ -1,0 +1,16 @@
+module main
+variables detected confidence status
+
+script 25 30 {
+    whenStarted
+    detected = 0
+    confidence = 0
+    p4TestWakeWord 'Okay Nabu'
+    status = ('[p4:kwsState]')
+}
+script 385 30 {
+    p4WhenWakeWord
+    detected = (detected + 1)
+    confidence = ('[p4:kwsConfidence]')
+    sayIt 'Okay Nabu detected'
+}

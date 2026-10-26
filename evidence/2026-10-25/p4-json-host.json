@@ -1,0 +1,31 @@
+{
+  "result": "PASS",
+  "cases": 62,
+  "workspace_sizes_failed_cleanly": 8,
+  "workspace_sizes_succeeded": 375,
+  "fuzz_cases": 10000,
+  "arena_reserved_bytes": 98304,
+  "scope": "host portable core, no VM/hardware claim",
+  "dependency": "6447536015f3d600f3d65323b10976103b337ca7",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "command": [
+    "python3",
+    "tools/test_json_service.py"
+  ],
+  "physical_tested": false,
+  "includes": [
+    "strict syntax/UTF-8",
+    "exact raw numbers",
+    "duplicate decoded keys",
+    "RFC6901 paths",
+    "immutable CRUD/arrays",
+    "depth/value/byte limits",
+    "oversized escaped output",
+    "NUL/padded VM strings",
+    "workspace exhaustion",
+    "deterministic malformed data"
+  ]
+}

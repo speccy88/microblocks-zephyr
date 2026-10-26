@@ -21,19 +21,24 @@ and blocks. AP was canceled. See [station setup](docs/NETWORK_STATION.md).
 For the tested bounded neural backend, add `profiles/neural.conf` and the
 pinned TFLM module with `P4_TFLM_SOURCE`/`ZEPHYR_EXTRA_MODULES`; see
 [NN contract and measured tests](docs/NEURAL_NETWORKS.md). Direct ONNX Runtime,
-CNN/KWS operators and P4 kernel acceleration remain unavailable.
+arbitrary CNN import and P4 NN kernel acceleration remain unavailable. A separate
+trusted-model [Wake Word library](docs/WAKE_WORD.md) now provides native Okay Nabu
+inference and an event hat without weakening the general dense-model validator.
 PPA image scale/rotate/mirror is separate: it now runs through the native
 Zephyr accelerator and has physical generated-pixel and GP preview evidence.
 
 Use the pinned Zephyr workspace, not an ESP-IDF application build:
 
 ```bash
-source /home/fred/microblocks-zephyr-work/.venv/bin/activate
-export ZEPHYR_SDK_INSTALL_DIR=/home/fred/microblocks-zephyr-work/tools/zephyr-sdk-1.0.1
-cd /home/fred/microblocks-zephyr-work
+# Set these to your existing pinned west workspace and this repository:
+export P4_WORKSPACE=/absolute/path/to/microblocks-zephyr-work
+export P4_REPO=/absolute/path/to/microblocks-zephyr
+source "$P4_WORKSPACE/.venv/bin/activate"
+export ZEPHYR_SDK_INSTALL_DIR="$P4_WORKSPACE/tools/zephyr-sdk-1.0.1"
+cd "$P4_WORKSPACE"
 west build -b esp32p4_wifi6/esp32p4/hpcore \
-  -s /mnt/c/Users/fred_/Documents/Codex/2026-10-25/task-2/microblocks-zephyr/boards/waveshare_esp32p4_wifi6/zephyr \
-  -d /home/fred/microblocks-zephyr-work/build-p4-native
+  -s "$P4_REPO/boards/waveshare_esp32p4_wifi6/zephyr" \
+  -d "$P4_WORKSPACE/build-p4-native"
 ```
 
 Zephyr is `a915b2f12675b48b16d56653ea145dcd8f20cbbf`, Espressif HAL is
@@ -45,8 +50,8 @@ Use a persistent build directory: WSL restart clears `/tmp` on this computer.
 Before building, apply the small reviewed fixes to that exact Zephyr commit:
 
 ```bash
-python3 /path/to/microblocks-zephyr/tools/apply_p4_zephyr_patches.py \
-  --zephyr /home/fred/microblocks-zephyr-work/zephyr --execute
+python3 "$P4_REPO/tools/apply_p4_zephyr_patches.py" \
+  --zephyr "$P4_WORKSPACE/zephyr" --execute
 ```
 
 The build checks that these patches are applied. Pre-v3 P4 I2S uses XTAL,
@@ -113,14 +118,15 @@ and `profiles/c6-sdio.overlay` build is a transport/version diagnostic, with no
 Wi-Fi consumer or credential/AP RPC. It requires the pinned Nanopb module
 (`west update nanopb`) and `grpcio-tools` for code generation. SDIO initializes;
 the installed companion has not yet answered the current version protocol.
-No companion firmware was changed. See [network proposal](docs/NETWORK_PLAN.md).
+No companion firmware was changed. See [station target](docs/NETWORK_STATION.md).
 
-The separate [native hosted target](docs/HOSTED.md) is now built and flashed
-with verified local editor assets and nonoverlapping app/model/settings regions.
-C6 initialization and USB/Whistle regression pass. AP configuration request
-284 currently times out, so board-hosted HTTP/GP/WebSocket functionality is
-blocked. The approved unique key is privately saved on P4, excluded from
-source/evidence; C6 firmware and Windows networking remain unchanged.
+The separate [station-only hosted target](docs/NETWORK_STATION.md) builds with
+verified local editor assets and nonoverlapping app/model/settings regions.
+C6 initialization, station mode/start and USB/Whistle regression pass. Station
+configuration request 284 still times out, blocking association, DHCP and
+board-hosted HTTP/GP/WebSocket acceptance. AP was canceled and remains disabled.
+User-entered station credentials were saved/readback-verified and remain private;
+no new credential prompt, C6 firmware or Windows network change is involved.
 
 ## Flash and physical checks
 
@@ -182,7 +188,8 @@ returned `The camera is ready.` on the host and twice on P4; releasing the
 original audio handle did not change the copied-input result. The genuine
 graphical example returned `The cameras is ready.` in 26.39 seconds. Another
 microphone trial was misrecognized. This is an experimental local recognizer,
-not a general accuracy or real-time claim. No wake-word listener is installed.
+not a general accuracy or real-time claim. An optional independent Wake Word profile is now available; see
+[its contract and acoustic limits](docs/WAKE_WORD.md).
 
 With explicit acoustic-test authorization, the reusable same-PCM diagnostic
 exports only to an ignored private path for offline host comparison:
@@ -235,10 +242,11 @@ Only one browser/serial controller can own COM5 at a time; close/disconnect
 the graphical session before running Python board tests or flashing.
 
 This bridge binds loopback only. It is a local development client, not
-board-hosted Wi-Fi. The native C6 hosted profile has passed initialization and
-asset checks, but AP startup fails and actual network/editor acceptance is
-blocked. Approved AP credentials were privately saved. No Windows firewall,
-association or network-security setting was changed.
+board-hosted Wi-Fi. The native C6 station profile has passed initialization and
+asset checks, but request 284 blocks association and actual network/editor
+acceptance. AP mode is retired. Station credentials were previously saved with
+approval; this USB storage validation did not access or modify them. No Windows
+firewall, association or network-security setting was changed.
 
 ## Ownership and limits
 
@@ -276,3 +284,18 @@ a host C compiler. They include ASan/UBSan, 10,000 reuse cycles, three formats,
 capacity/bounds/stale handles and allocation failure. Root regression check:
 `python tools/validate.py`; any pre-existing checkout/provenance failure is
 reported separately, without rewriting unrelated board sources.
+
+Local libraries included in the authorized 2026-10-26 USB installation: [JSON](../../docs/JSON.md)
+and [Clock & Timers / Steps & Transitions](../../docs/AUTOMATION.md). Their
+portable tests, USB/station builds and disconnected editor examples pass.
+Those primitive sets are compiled into the installed image, but their physical
+functional acceptance remains separate from the RAM-storage tests. RTC/NTP
+remain unavailable; the calendar clock is manually set and volatile.
+The local [Storage](../../docs/STORAGE.md) library adds small volatile RAM
+files. Its blocks and the web file manager now pass real GP/USB create, edit,
+reopen and byte-readback tests, plus reset volatility and resource-pressure
+regressions. See [physical evidence and artifact identity](../../docs/STORAGE_PHYSICAL.md).
+Flash/SD, large media archives and completed browser download remain unverified
+or unavailable. See the [release verification boundaries](../../docs/P4_RELEASE_2026_10_26.md).
+The board currently runs USB-only;
+the loopback editor does not establish board-hosted Wi-Fi support.

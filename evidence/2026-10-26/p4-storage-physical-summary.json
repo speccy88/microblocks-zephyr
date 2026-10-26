@@ -1,0 +1,181 @@
+{
+  "created_utc": "2026-10-26T21:23:01.851623+00:00",
+  "scope": "authorized COM5 P4 USB firmware flash and real RAM storage acceptance; no publication",
+  "head_unchanged": "00545be3efbb2e34405984834b344d9f29d9a91e",
+  "worktree_uncommitted": true,
+  "profile_before_and_after": "USB-only; networking disabled; no C6 access",
+  "target": {
+    "port": "COM5",
+    "bridge_vid_pid": "1a86:55d3",
+    "rom_chip": "ESP32-P4 revision 1.3",
+    "flash_bytes": 33554432,
+    "vm": "v417 Waveshare ESP32-P4 WIFI6 Zephyr"
+  },
+  "artifact": {
+    "runtime": "native Zephyr",
+    "target": "COM5 ESP32-P4 revision 1.3",
+    "offset": "0x2000",
+    "image_sha256": "b46a58136e264d54ab7944471f8cfc5ae918d29f9e5ca3dca620ca34c8beb065",
+    "bytes": 15411312,
+    "minimum_revision": "1.3",
+    "maximum_revision": "1.99",
+    "exit_code": 0,
+    "hash_verified": true,
+    "backup_performed": false,
+    "COM12_accessed": false
+  },
+  "compiled_usb_sha256": "3b334cf5b7fb45c75b38fa3e89a10af00679ce1e0120543605bdd267591b990b",
+  "preflash_final_usb_and_station_elf_config_binary_hashes_verified": true,
+  "preflash_firmware_source_hashes_match": true,
+  "firmware_flash_count": 1,
+  "physical_protocol": {
+    "requests": 918,
+    "max_observed_request_rtt_ms": 63.0,
+    "tests": {
+      "/RAM/accept-empty": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "/RAM/accept-text": {
+        "bytes": 23,
+        "sha256": "07437c576dffeae0b892146ac75141c658e56f1d4d4bb2e868347f485c2e2639"
+      },
+      "/RAM/accept-binary": {
+        "bytes": 8192,
+        "sha256": "dc404a613fedaeb54034514bc6505f56b933caa5250299ba7d094377a51caa46"
+      },
+      "shared_vm_store_and_revision_errors": true,
+      "cancel_and_vm_contention": true,
+      "stop_all_preserves_committed_file": true,
+      "replay_and_malformed_recovery": true,
+      "full_ram_and_independent_psram_image_allocation": {
+        "ram_bytes": 65536,
+        "image_bytes": 8294400
+      },
+      "full_size_replace_read_cycles": 16,
+      "close_cancels_staging_and_usb_reconnect_preserves_files": true
+    }
+  },
+  "physical_editor": {
+    "transport": "genuine GP -> loopback WebSocket bridge -> COM5 -> Zephyr RAM",
+    "browser_fixture": false,
+    "gp_example_executed": true,
+    "gp_example_reported": "Hello from MicroBlocks",
+    "create_edit_save_reopen": true,
+    "dirty_edit_keep_and_discard": true,
+    "independent_COM5_byte_readback": "p4-storage-editor-readback.json",
+    "fresh_final_editor_shows_empty_ram_after_reset": true,
+    "connection_label": "USB bridge connected",
+    "final_adapter_sha256": "6592c58a62c4b19463232db5122ce1cf6f6d9663e22d2256ff26db34776992c3",
+    "board_hosted_wifi": false,
+    "web_serial_device_chooser_verified": false,
+    "completed_browser_download_verified": false,
+    "prior_interrupted_download_retried": false
+  },
+  "memory": {
+    "full_ram_payload_bytes": 65536,
+    "concurrent_image_bytes": 8294400,
+    "pressure_error_and_image_preservation": true,
+    "whistle_fixture_after_pressure": {
+      "phase": "ready",
+      "message": "local text ready; 6 tokens; input PCM released",
+      "frames": 31920,
+      "elapsed_ms": 21143,
+      "encode_ms": 13993,
+      "decode_ms": 7100,
+      "peak_requested_bytes": 2266424,
+      "reserved_arena_bytes": 12582912,
+      "stack_unused_bytes": 21572,
+      "buffers_released": true
+    },
+    "whistle_fixture_transcript": "The camera is ready.",
+    "usb_static_internal_bytes": 243856,
+    "usb_libc_arena_bytes": 149360,
+    "station_static_internal_bytes": 383792,
+    "station_libc_arena_bytes": 9424,
+    "station_rpc_pool_bytes": 65536,
+    "station_runtime_exercised": false,
+    "general_free_heap_and_all_thread_watermarks": "unavailable; freePSRAM reporter unimplemented",
+    "cache_dma_limit": "CPU-owned storage and exercised PPA pressure passed; exhaustive cache-disabled/DMA interleavings not established"
+  },
+  "local_tests": {
+    "node": {
+      "passed": 47
+    },
+    "canonical": {
+      "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
+      "head": "00545be3efbb2e34405984834b344d9f29d9a91e",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests": 61,
+      "checkout_issue": "Windows CRLF materialization changes raw hash; LF-normalized content equals HEAD; direct checkout root run retains this existing failure"
+    },
+    "firmware_builds": "unchanged final USB/station builds verified before flash; no firmware code changed in this acceptance",
+    "diff_check": "PASS"
+  },
+  "cleanup": {
+    "reset_verified": {
+      "utc": "2026-10-26T21:11:42.483708+00:00",
+      "physical_tested": true,
+      "firmware_reflashed": false,
+      "COM12_accessed": false,
+      "C6_accessed": false,
+      "editor_files_survived_PPA_NN_STT_memory_regressions": true,
+      "result": "PASS",
+      "vm": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+      "ram_bytes_after_reset": 0,
+      "free_slots_after_reset": 8,
+      "camera_busy": false,
+      "audio_busy": false,
+      "kws_listening": false,
+      "network": {
+        "target": "USB-only",
+        "ap_running": false
+      }
+    },
+    "file_session_closed": true,
+    "editor_disconnected": true,
+    "COM5_released": true,
+    "loopback_editor_left_available": true,
+    "temporary_files_after_reset": 0
+  },
+  "scope_guards": {
+    "C6_accessed": false,
+    "COM12_accessed": false,
+    "camera_capture": false,
+    "microphone_recording": false,
+    "speaker_playback": false,
+    "station_credentials_modified": false,
+    "network_security_changed": false,
+    "AP_started": false,
+    "firmware_backup": false,
+    "git_commit_push_publication": false
+  },
+  "remaining": [
+    "Station request-284 association blocker unchanged",
+    "Station protobuf allocator/libc/cache/runtime acceptance not performed",
+    "Flash/SD filesystem, large media archive and database unavailable",
+    "Browser download completion, physical cable/power removal unverified",
+    "Publication remains held"
+  ],
+  "evidence": {
+    "p4-storage-editor-readback.json": "7b1ebd3efd277982e34db5acc73133c83cd06c5dacd1f7f9ace850407e2ec478",
+    "p4-storage-flash.json": "4f95e0eab9d58547692f79b308fd98d9e4dfcd6cfe88b4a600e398e1bf6fb459",
+    "p4-storage-memory-regression.json": "854598eca35036c5ad424c6a18a14d7652f7425defb13bc17249f21db1f4109c",
+    "p4-storage-native.json": "9606ea95866fad054608138eb393a3debd10093762a16ba97b8dcf46e67b4ba8",
+    "p4-storage-neural-regression.json": "bb20d6cd2bbd8246acdacafe82047fe4190c01858e54a1eca2ad0d35cf55fea7",
+    "p4-storage-ppa-regression.json": "d3641219c128f76842fc7d462f6e0485256bec054b13356fccb7c8234fde9d7a",
+    "p4-storage-preflight.json": "8afa459dabbf68bd67449abe835fd9a7bed2cbd008fa55f8524e2d6f8222645b",
+    "p4-storage-reboot.json": "40a059585e09b539721d2ca7540a2d95c63bf82cf04ff17d4b3bbceb4da3fc85"
+  },
+  "acceptance_source_hashes": {
+    "tools/test_p4_storage_usb.py": "1bf3181d1d3eb8493b4309872496fd6295a0d0cb13b85d03aba92c7ff1fb48f0",
+    "tools/package_p4_ide.py": "5b1f1ec711d5e8f42558699f0728994932ce57501f92a2bd4bb3962b89297c16"
+  },
+  "publication_redactions": {
+    "private_screenshot_fields_omitted": [
+      "screenshot"
+    ],
+    "test_results_unchanged": true
+  }
+}

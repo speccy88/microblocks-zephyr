@@ -1,0 +1,24 @@
+module main
+variables timer state
+
+script 30 30 {
+    whenStarted
+    stepsStop
+    stepsClear
+    stepsAdd 1 true
+    stepsAdd 2 false
+    stepsTransition 1 1 2
+    stepsTransition 2 2 1
+    stepsStart
+    timer = ('[clock:interval]' 1000)
+    repeat 6 {
+        clockWaitTimer timer
+        stepsCondition 1 ('[steps:active]' 1)
+        stepsCondition 2 ('[steps:active]' 2)
+        stepsScan
+        state = ('[steps:activeText]')
+        sayIt state
+    }
+    clockDeleteTimer timer
+    stepsStop
+}

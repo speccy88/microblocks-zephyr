@@ -1,0 +1,82 @@
+{
+  "tested_at": "2026-10-26T07:59:21.420429+00:00",
+  "scope": "native Zephyr COM5 real I2C bus 0",
+  "camera_captured": false,
+  "audio_recorded": false,
+  "COM12_accessed": false,
+  "checks": {
+    "address_scan": {
+      "elapsed_ms": 16.0,
+      "vm_calls_while_busy": 0,
+      "max_vm_rtt_ms": 0,
+      "status": "Scan complete: 3 devices; bus 0"
+    },
+    "address_only_addresses": [
+      16,
+      24,
+      100
+    ],
+    "identified_scan": {
+      "elapsed_ms": 16.0,
+      "vm_calls_while_busy": 0,
+      "max_vm_rtt_ms": 0,
+      "status": "Scan complete: 3 devices; bus 0"
+    },
+    "exposure lines": {
+      "value": 800,
+      "unit": "lines",
+      "scale": 1,
+      "meaning": "sensor configuration register, not a captured image"
+    },
+    "analog gain code": {
+      "value": 128,
+      "unit": "register code",
+      "scale": 1,
+      "meaning": "sensor configuration register, not a captured image"
+    },
+    "stop_all": {
+      "elapsed_ms": 31.0,
+      "vm_calls_while_busy": 0,
+      "max_vm_rtt_ms": 0,
+      "status": "cancelled; 3 devices found"
+    },
+    "devices": [
+      {
+        "address": 16,
+        "bus_address": "bus 0 / 0x10",
+        "name": "IMX219 camera",
+        "identity": "confirmed ID",
+        "bus": 0,
+        "measurements": [
+          "device ID",
+          "exposure lines",
+          "analog gain code"
+        ],
+        "actual_device_ID": 537
+      },
+      {
+        "address": 24,
+        "bus_address": "bus 0 / 0x18",
+        "name": "ES8311 audio codec",
+        "identity": "confirmed ID",
+        "bus": 0,
+        "measurements": [
+          "device ID"
+        ],
+        "actual_device_ID": 33553
+      },
+      {
+        "address": 100,
+        "bus_address": "bus 0 / 0x64",
+        "name": "unknown device",
+        "identity": "address only",
+        "bus": 0,
+        "measurements": []
+      }
+    ],
+    "rescan_rounds": 3,
+    "stale_refs_and_unsupported_measurements": true,
+    "capture_idle": true
+  },
+  "result": "PASS"
+}

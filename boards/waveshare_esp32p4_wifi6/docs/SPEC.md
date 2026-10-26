@@ -59,8 +59,9 @@ transform/export and resource-lifetime checks.
 
 Per-block image snapshots and explicit browser audio playback are required by
 [INLINE_RESULTS](INLINE_RESULTS.md). The existing global camera panel does not
-satisfy that requirement. Independent wake-word events, PPA/codecs and actual
-C6 board hosting remain staged tasks with honest unsupported capabilities.
+satisfy that requirement. PPA transforms, inline results and native wake-word fixture/events/microphone
+lifecycle now have physical evidence. Acoustic wake recognition, native codecs
+and actual C6 board hosting remain open gates; see WAKE_WORD and HARDWARE_SUPPORT.
 
 ## Portable neural-network blocks
 
@@ -70,3 +71,14 @@ validation, asynchronous run/cancel/status, safe unload and backend queries.
 Inference outputs do not authorize physical actuation. No cloud inference or
 automatic model/audio/image upload. A CPU fallback applies only to models,
 operators and boards whose resources and runtime have been verified.
+
+## Portable data and automation services
+
+Keep JSON, clock/timers, steps/transitions and storage as distinct libraries
+with portable C logic and thin native adapters. Preserve every existing
+primitive-set index and append new sets. See the detailed contracts in
+[JSON](../../../docs/JSON.md), [automation](../../../docs/AUTOMATION.md) and
+[storage](../../../docs/STORAGE.md). Host/build/editor acceptance must remain
+separate from physical acceptance while installation/publication is held.
+Manual wall time is not RTC/NTP, fixed offsets are not automatic DST, logical
+steps do not actuate hardware, and RAM files are not persistent Flash/SD.

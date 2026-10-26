@@ -1,0 +1,23 @@
+{
+  "editor": "actual GP MicroBlocks 2.5.8",
+  "viewport": [
+    1280,
+    720
+  ],
+  "library": "JSON",
+  "example": "json-edit",
+  "palette_clipping_fixed": true,
+  "script_overlap_fixed": true,
+  "board_connected": false,
+  "physical_execution": false,
+  "result": "PASS for rendering/import only",
+  "gp_data_sha256": "de1fbf3bc80eb2be152feb6687cc7e8b8c9dc9dc0a1a9fb78d7cab108a52a44a",
+  "local_usb_and_hosted_packages_refreshed": true,
+  "public_deployment": false,
+  "publication_redactions": {
+    "private_screenshot_fields_omitted": [
+      "library_screenshot"
+    ],
+    "test_results_unchanged": true
+  }
+}

@@ -1,0 +1,37 @@
+module 'JSON' Data
+author 'MicroBlocks Zephyr contributors; yyjson by YaoYuan'
+version 0 1
+description 'Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.'
+spec 'r' 'jsonObject' 'empty JSON object'
+spec 'r' 'jsonArray' 'empty JSON array'
+spec 'b' '[json:valid]' 'valid JSON _ ?' 'str' '{}'
+spec 'r' 'jsonQuote' 'text _ as JSON' 'str' 'hello'
+spec 'r' 'jsonGet' 'JSON _ value at _' 'str str' '{"x":21}' '/x'
+spec 'r' 'jsonText' 'JSON _ text at _' 'str str' '{"x":"hi"}' '/x'
+spec 'r' 'jsonSet' 'JSON _ set _ to _' 'str str str' '{}' '/x' '21'
+spec 'r' 'jsonRemove' 'JSON _ remove _' 'str str' '{"x":0}' '/x'
+spec 'r' 'jsonAppend' 'JSON _ append _ at _' 'str str str' '[]' '42' ''
+spec 'r' 'jsonKeys' 'JSON _ fields at _' 'str str' '{}' ''
+spec 'r' 'jsonLength' 'JSON _ count at _' 'str str' '[10,20]' ''
+spec 'r' 'jsonType' 'JSON _ type at _' 'str str' '{"x":true}' '/x'
+spec 'r' 'jsonCompact' 'compact JSON _' 'str' '{}'
+spec 'r' '[json:status]' 'last JSON status'
+advanced
+spec 'b' '[json:available]' 'JSON library available?'
+
+to jsonObject { return '{}' }
+to jsonArray { return '[]' }
+to jsonResult result {
+ if (result == false) { return ('[data:join]' 'JSON error: ' ('[json:status]')) }
+ return result
+}
+to jsonQuote text { return (jsonResult ('[json:quote]' text)) }
+to jsonGet json path { return (jsonResult ('[json:get]' json path)) }
+to jsonText json path { return (jsonResult ('[json:text]' json path)) }
+to jsonSet json path value { return (jsonResult ('[json:set]' json path value)) }
+to jsonRemove json path { return (jsonResult ('[json:remove]' json path)) }
+to jsonAppend json value path { return (jsonResult ('[json:append]' json path value)) }
+to jsonKeys json path { return (jsonResult ('[json:keys]' json path)) }
+to jsonLength json path { return (jsonResult ('[json:length]' json path)) }
+to jsonType json path { return (jsonResult ('[json:type]' json path)) }
+to jsonCompact json { return (jsonResult ('[json:compact]' json)) }

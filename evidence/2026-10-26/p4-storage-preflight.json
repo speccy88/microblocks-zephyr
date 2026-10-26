@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-26T20:56:02.433945+00:00",
+  "port": {
+    "port": "COM5",
+    "vid": 6790,
+    "pid": 21971
+  },
+  "vm": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "network_status": {
+    "target": "USB-only",
+    "ap_running": false
+  },
+  "source_hashes_match": true,
+  "camera_busy": false,
+  "audio_busy": false,
+  "free_psram": "reporter explicitly unimplemented; not measured",
+  "firmware_write": false
+}

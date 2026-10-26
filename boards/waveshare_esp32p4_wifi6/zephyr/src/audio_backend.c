@@ -37,10 +37,12 @@ K_MEM_SLAB_DEFINE_STATIC(dma_slab,BLOCK,SLABS,64);
 K_SEM_DEFINE(audio_requested,0,1);
 K_MUTEX_DEFINE(audio_mutex);
 static atomic_t cancelled;
-enum { IDLE,RECORDING,READY,ERROR,FAULT };
+enum { IDLE,RECORDING,STREAMING,READY,ERROR,FAULT };
 static int state,identity;
 static unsigned requested_frames;
 static int16_t *pending;
+static p4_audio_sink stream_sink;
+static void *stream_context;
 static char message[192]="idle; microphone is off";
 void *audio_alloc(size_t n){return shared_multi_heap_aligned_alloc(SMH_REG_ATTR_EXTERNAL,64,n);}
 void audio_free(void *p){if(p)shared_multi_heap_free(p);}
@@ -55,7 +57,7 @@ static int probe(void)
 int p4_audio_codec_id(void)
 {
     k_mutex_lock(&audio_mutex,K_FOREVER);
-    if(state!=RECORDING)identity=probe();
+    if(state!=RECORDING && state!=STREAMING)identity=probe();
     int result=identity;k_mutex_unlock(&audio_mutex);return result;
 }
 int p4_audio_available(void){return identity==0x8311 && device_is_ready(rx);}
@@ -90,7 +92,7 @@ static int codec_start(void)
     for(unsigned i=0;i<ARRAY_SIZE(start);i++){int e=wr(start[i][0],start[i][1]);if(e)return e;}
     return 0;
 }
-static int capture(int16_t *pcm,unsigned frames,char *detail,size_t size)
+static int capture(int16_t *pcm,unsigned frames,bool stream,char *detail,size_t size)
 {
     trace("audio: amp");
     if(!device_is_ready(amp_gpio))return -ENODEV;
@@ -106,22 +108,30 @@ static int capture(int16_t *pcm,unsigned frames,char *detail,size_t size)
     uint64_t started_us=k_cyc_to_us_floor64(k_cycle_get_64());
     trace("audio: trigger");if(!error)error=i2s_trigger(rx,I2S_DIR_RX,I2S_TRIGGER_START);
     trace("audio: reading");
-    unsigned copied=0,skip=2,blocks=0;
+    uint64_t copied=0;
+    unsigned skip=2,blocks=0;
     uint64_t left_energy=0,right_energy=0;
-    int64_t deadline=k_uptime_get()+frames*1000/AUDIO_RATE+1500;
-    while(!error && copied<frames){
+    int64_t deadline=k_uptime_get()+(uint64_t)frames*1000/AUDIO_RATE+1500;
+    while(!error && ((stream && !frames) || copied<frames)){
         if(atomic_get(&cancelled)){error=-ECANCELED;break;}
-        if(k_uptime_get()>deadline){error=-ETIMEDOUT;break;}
+        if(frames && k_uptime_get()>deadline){error=-ETIMEDOUT;break;}
         void *data=NULL;size_t bytes=0;
         error=i2s_read(rx,&data,&bytes);
         if(error)break;
         if(!data || bytes!=BLOCK){if(data)k_mem_slab_free(&dma_slab,data);error=-EIO;break;}
         int16_t *s=data;blocks++;
         if(skip)skip--;
-        else for(unsigned i=0;i<bytes/4 && copied<frames;i++){
-            int32_t l=s[2*i],r=s[2*i+1];
-            left_energy+=(int64_t)l*l;right_energy+=(int64_t)r*r;
-            pcm[copied++]=(int16_t)l; /* ES8311 mono ADC in the left slot */
+        else {
+            int16_t mono[BLOCK/4];unsigned count=0;
+            for(unsigned i=0;i<bytes/4 && (!frames || copied<frames);i++){
+                int32_t l=s[2*i],r=s[2*i+1];
+                /* Long listeners do not accumulate unbounded energy sums. */
+                if(!stream){left_energy+=(int64_t)l*l;right_energy+=(int64_t)r*r;pcm[copied]=(int16_t)l;}
+                else mono[count++]=(int16_t)l;
+                copied++;
+            }
+            if(stream && count && !stream_sink(mono,count,stream_context))error=atomic_get(&cancelled)?-ECANCELED:-ENOBUFS;
+            if(stream)memset(mono,0,sizeof(mono));
         }
         k_mem_slab_free(&dma_slab,data);
     }
@@ -129,11 +139,13 @@ static int capture(int16_t *pcm,unsigned frames,char *detail,size_t size)
     trace("audio: stop");int off=codec_stop();
     int dropped=i2s_trigger(rx,I2S_DIR_RX,I2S_TRIGGER_DROP);
     unsigned inuse=k_mem_slab_num_used_get(&dma_slab);
-    snprintf(detail,size,"%u/%u frames, %u blocks, %llu us, L=%llu R=%llu, drop=%d slab=%u off=%d",
-        copied,frames,blocks,(unsigned long long)dma_us,(unsigned long long)left_energy,(unsigned long long)right_energy,dropped,inuse,off);
+    if(stream)snprintf(detail,size,"%llu/%u frames, %u blocks, %llu us, energy not accumulated, drop=%d slab=%u off=%d",
+        (unsigned long long)copied,frames,blocks,(unsigned long long)dma_us,dropped,inuse,off);
+    else snprintf(detail,size,"%llu/%u frames, %u blocks, %llu us, L=%llu R=%llu, drop=%d slab=%u off=%d",
+        (unsigned long long)copied,frames,blocks,(unsigned long long)dma_us,(unsigned long long)left_energy,(unsigned long long)right_energy,dropped,inuse,off);
     /* A failed DROP never permits reuse of the permanently allocated DMA slab.
      * PCM is CPU-only, so it can be erased/released independently. */
-    if(dropped || inuse)return -EBUSY;
+    if(dropped || inuse || off)return -EBUSY;
     if(!error)error=off;
     return error;
 }
@@ -142,16 +154,19 @@ static void worker(void *a,void *b,void *c)
     ARG_UNUSED(a);ARG_UNUSED(b);ARG_UNUSED(c);
     for(;;){
         k_sem_take(&audio_requested,K_FOREVER);
+        bool stream=state==STREAMING;
         unsigned frames=requested_frames;
-        int16_t *pcm=audio_alloc(frames*sizeof(int16_t));
+        int16_t *pcm=stream?NULL:audio_alloc(frames*sizeof(int16_t));
         char detail[144]="allocation failed";
-        int error=pcm?capture(pcm,frames,detail,sizeof(detail)):-ENOMEM;
+        int error=(stream||pcm)?capture(pcm,frames,stream,detail,sizeof(detail)):-ENOMEM;
         k_mutex_lock(&audio_mutex,K_FOREVER);
         if(error || atomic_get(&cancelled)){
             if(pcm){memset(pcm,0,frames*sizeof(int16_t));audio_free(pcm);}
             state=error==-EBUSY?FAULT:atomic_get(&cancelled)?IDLE:ERROR;
             snprintf(message,sizeof(message),"record error %d; %s",error,detail);
-        }else{pending=pcm;state=READY;snprintf(message,sizeof(message),"PCM ready; mic stopped; %s",detail);}
+        }else if(stream){state=IDLE;snprintf(message,sizeof(message),"Stream stopped; %s",detail);}
+        else{pending=pcm;state=READY;snprintf(message,sizeof(message),"PCM ready; mic stopped; %s",detail);}
+        if(stream){stream_sink=NULL;stream_context=NULL;}
         k_mutex_unlock(&audio_mutex);
     }
 }
@@ -160,7 +175,7 @@ int p4_audio_request(unsigned ms)
 {
     if(p4_discovery_busy())return 0;
     k_mutex_lock(&audio_mutex,K_FOREVER);
-    if(state==RECORDING || state==READY || state==FAULT || ms<20 || ms>8000 ||
+    if(state==RECORDING || state==STREAMING || state==READY || state==FAULT || ms<20 || ms>8000 ||
        audio_count()>=AUDIO_SLOTS || !device_is_ready(rx)){
         k_mutex_unlock(&audio_mutex);return 0;
     }
@@ -170,7 +185,18 @@ int p4_audio_request(unsigned ms)
     snprintf(message,sizeof(message),"recording bounded %u ms",ms);
     k_sem_give(&audio_requested);k_mutex_unlock(&audio_mutex);return 1;
 }
-int p4_audio_busy(void){k_mutex_lock(&audio_mutex,K_FOREVER);int b=state==RECORDING;k_mutex_unlock(&audio_mutex);return b;}
+int p4_audio_busy(void){k_mutex_lock(&audio_mutex,K_FOREVER);int b=state==RECORDING||state==STREAMING;k_mutex_unlock(&audio_mutex);return b;}
+int p4_audio_stream_start(unsigned ms,p4_audio_sink sink,void *context)
+{
+    if(!sink||ms>300000||p4_discovery_busy())return 0;
+    k_mutex_lock(&audio_mutex,K_FOREVER);
+    int ok=state!=RECORDING&&state!=STREAMING&&state!=READY&&state!=FAULT&&device_is_ready(rx);
+    if(ok){identity=probe();ok=identity==0x8311;}
+    if(ok){requested_frames=ms*(AUDIO_RATE/1000);stream_sink=sink;stream_context=context;state=STREAMING;atomic_clear(&cancelled);snprintf(message,sizeof(message),"Explicit wake-word stream starting");k_sem_give(&audio_requested);}
+    k_mutex_unlock(&audio_mutex);return ok;
+}
+void p4_audio_stream_stop(void){k_mutex_lock(&audio_mutex,K_FOREVER);if(state==STREAMING)atomic_set(&cancelled,1);k_mutex_unlock(&audio_mutex);}
+int p4_audio_stream_state(void){k_mutex_lock(&audio_mutex,K_FOREVER);int value=state==STREAMING?1:(state==ERROR||state==FAULT)?-1:0;k_mutex_unlock(&audio_mutex);return value;}
 int p4_audio_result(void)
 {
     k_mutex_lock(&audio_mutex,K_FOREVER);int h=0;

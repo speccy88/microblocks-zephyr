@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-26T21:08:19.131366+00:00",
+  "result": "PASS",
+  "physical_tested": true,
+  "independent_COM5_readback_of_editor_writes": {
+    "/RAM/note.txt": {
+      "bytes": 58,
+      "sha256": "5bb1c7d175b4470c50f751705ce42f8d84521a4ea625c90b1ca843cc5eb3b5d9"
+    },
+    "/RAM/check.json": {
+      "bytes": 53,
+      "sha256": "1226f11db763d921ae3c6bbe70c59ee407629042b2cccb4257a1efc00123ddbe"
+    }
+  },
+  "browser_fixture": false,
+  "transport": "real browser GP -> loopback bridge -> COM5 -> native Zephyr RAM",
+  "board_hosted_wifi": false
+}

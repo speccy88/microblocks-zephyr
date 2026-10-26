@@ -1,0 +1,246 @@
+{
+  "tested_at": "2026-10-26T18:47:33.841662+00:00",
+  "scope": "local actual editor-controller lifecycle and VM frame routing with synthetic streams",
+  "head_unchanged": "00545be3efbb2e34405984834b344d9f29d9a91e",
+  "source_sha256": {
+    "common/storage/controller.c": "7a4a2d455493fac102987ebdf02389def8a85ba43009226c33d267cc0bcdc1c7",
+    "common/storage/controller.h": "5143e34645b97c503ca52212666f11933fe7a49e4deedaeba1c321b3e4f7e2c9",
+    "common/storage/dispatcher.c": "f64a2c9bcb7a8c8ed6a8a317284884f0e39376cec597e31459cfe9ccab1b3520",
+    "common/storage/dispatcher.h": "1ec2c889007a6bfe34cb3fce09907129abe90738685524686acf0d71be2e392e",
+    "common/storage/storage.c": "b956a49e3b28500ab060825db127d22716fa47a74c82c393909b6e9377dbdbd0",
+    "common/storage/storage.h": "0789ce5dba38306bf9af8633b0386d13b4fa07942d7fbd604896cde1c1113007",
+    "common/storage/storage_primitives.c": "566340535e8c4f97e47efc1a6da96bea09e6f390fb910176d0ea92f3a63a60ec",
+    "common/storage/storage_primitives.h": "c0e67fb1799ebc008543592a1133d009d5f5c63a2b41c8af635f408d782fb41e",
+    "common/storage/storage_protocol.c": "e8152ec67d35225180def18dfd13d13d17d8ce8f2067a57daedbb251911672d9",
+    "common/storage/storage_protocol.h": "954f7742d6a1dff6a7602beef09b4962114dc2b1d12a9a8f869ce7f22ae42b65",
+    "common/storage/wire.c": "ce7400108d79c88438116ba2b599f52e9b8f111ec964993c13f704a98d376657",
+    "common/storage/wire.h": "a3446ea1973f86c2c3663a11074bb53ffc7ae98f814b841e54321cd686fc6e54",
+    "web/device-files-core.js": "e92f016bd55578962fd93db26144e810a8707085fdc302cede20a69d5b2b7139",
+    "web/device-files-wire.js": "8c3eca2dde0a73ec40107fdc7c31573a6d22f39c65cd84fde659cfdb6b88e8d8",
+    "web/device-files-controller.js": "90997067dcd5fd4b40fbf2b34a6c660e6d405a5d39e2262e2b41efd54b364585",
+    "web/device-files.js": "000741930e1d396f9934363593586ba3b8b8f858d01def75dc872b7fe74db0b2",
+    "web/portal/portal-core.js": "4003ba6e3a132e203b55f3408810b0e9e3ade3b863a270c8d703b0cdb243aad8",
+    "tools/package_p4_ide.py": "ce155afad2e6f88f2ebb22bb024303cc4828e2f1c777b9c073923444bf643c56",
+    "tools/prepare_p4_zephyr_runtime.py": "562f919eb2afe144ff6fbdaf0e585488eaad8336cc71b9603a1fda79911c2977",
+    "tests/storage_controller_test.c": "5ecc7e3805a36bfe8d9b1a17a19d2e1786a2e7108221fb6cdc8d2b9e9df138c6",
+    "tests/storage_application_host.c": "7e53ccaa787e0ab4bede84fc98c9d4e9006e61ed42fb7dd2db0349ad02358f39",
+    "tests/storage_vm_fakes.c": "8831dfbfa54a42f742d9c8943770d0255870d472d2fb555c7163ee4a6f6e0ab4",
+    "tests/storage_wire_host.c": "f43a51593784cac399d201e961e8c8fb49a0436901e4022232b0d3217ac1d213",
+    "tests/device_files_application.test.js": "8ed1a03be5b4b74d818dd871696bc970d5161439650ef03e083e477984703eb5",
+    "tests/device_files_wire.test.js": "29a936ffb2479a2e20ebe77422123cf679f9de8b9f7bcb91bd8ecea9afe9496c",
+    "tests/p4-transport.test.cjs": "82227ddb7e1d0b5dbff21a8e5704008a226f71b95d8ef01387bd1d8804eb88de",
+    "tests/portal-core.test.cjs": "3d381f9882fd1cc860406a339bea0db5502733e63eea3e24b249b58f64432406",
+    "tests/test_device_files_contract.py": "cb25ca06908c204a0774cb700b95947610e3c28b59ec33525bad859770d3fecc",
+    "tests/test_storage_dispatch_contract.py": "c266834e70487ba319b96cfeacdf3146b41d6e5b7ec7e1fc15bf18d3577923fd",
+    "tools/test_storage_controller.py": "618314f9d7ad9330a35f5ea79b2e79a9310aeca1e40f1bc2a3faaff4a3feee55",
+    "boards/waveshare_esp32p4_wifi6/zephyr/CMakeLists.txt": "21e00e8083e29a02bd8cf2dec9c1172e77b85d22765c6fc271f8fbbdbe275f68",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/platform.c": "eae39bb183f07c38766843415b9e7318f6f029899463ad503c47c44f04f41974",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/main.c": "c73c0fa99ce3c23cf03deba2ab5a064433427d6d32c2589662b8cf208373a340",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/hosted_transport.c": "7a26bddc7b63c593cda278a4a1ccc33f9c02ca5ae15d194ee5d2fb1ea63d5030",
+    "docs/STORAGE_CONTROLLER.md": "b45eec4a586e05a555ccd160d433ea6ffa56a513c2e43715b93d9c0a71ae4172",
+    "docs/STORAGE_DISPATCH.md": "aff8bc84acfdbe2c894aa766427e6ec53d7f9106a342bc011200c10889d7bee8",
+    "docs/FILE_MANAGER.md": "2d08d2ef66d00e7702a9e4e4a1fa4767b9b55a0dc587620f0229841808b2cd4f",
+    "docs/STORAGE.md": "21801ed46a4a0fd1ba44e6187701313f6c65eff956b9545a51ca9da2f46c8e00"
+  },
+  "native_application_bridge": {
+    "result": "PASS",
+    "application_bridge_scenarios": 12,
+    "native_sender": "pinned SmallVM sendMessage and waitAndSendMessage",
+    "physical_tested": false,
+    "sanitizers": [
+      "address",
+      "undefined"
+    ],
+    "runtime_sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b",
+    "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+    "sender_sha256": "21c3c71bce5b86e4561b21daab17866a23fa1ff2d0108c50ca34524b3d57d211"
+  },
+  "native_dispatcher": {
+    "result": "PASS",
+    "scenario_groups": 23,
+    "malformed_packets": 10000,
+    "store_bytes": 74396,
+    "dispatcher_bytes": 40,
+    "wire_workspace_bytes": 1712,
+    "hardware_access": false,
+    "sanitizers": [
+      "address",
+      "undefined"
+    ],
+    "physical_tested": false
+  },
+  "javascript": {
+    "result": "PASS",
+    "tests": 47,
+    "log_sha256": "7c2589e55b77ba6cb0fd135c0386694871788074756283b1bfad70424412d5e1",
+    "actual_code": "Generated production P4 adapter, SerialTransport, Client, controller, native VM bridge and pinned SmallVM sender",
+    "synthetic_boundary": "Serial provider/selection/streams and reset marker use child-process stdio; no browser or board connection",
+    "passed": [
+      "explicit open without auto-access",
+      "fragmented real VM framing",
+      "ordinary GP frames remain intact",
+      "UTF-8/binary repeated operations",
+      "close/reopen preserves files",
+      "replacement generations",
+      "stale session with reused request ID ignored",
+      "cancel after native append preserves old contents",
+      "in-flight disconnect and partial frame cleared",
+      "open cancellation/late grant/timeout",
+      "old WebSocket callbacks cannot affect replacement",
+      "old serial reader cannot affect replacement"
+    ]
+  },
+  "canonical_regression": {
+    "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
+    "head": "00545be3efbb2e34405984834b344d9f29d9a91e",
+    "exit_code": 0,
+    "result": "PASS",
+    "tests": 61,
+    "checkout_issue": "Windows CRLF materialization changes raw hash; LF-normalized content equals HEAD; direct checkout root run retains this existing failure"
+  },
+  "canonical_log_sha256": "40b0b8a4097af3bdba603d7f476770737be453ec3f5c053f04e175812b7f0cd2",
+  "builds": {
+    "usb": {
+      "compiled": true,
+      "installed": false,
+      "image": {
+        "native_elf": "RV32 Zephyr",
+        "image_bytes": 15411312,
+        "flash_offset": "0x2000",
+        "reserved_boundary": "0xfe0000",
+        "model_start": "0x400605c0",
+        "model_end": "0x40e3846f",
+        "model_bytes": 14515887,
+        "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+        "image_sha256": "44c6d19f31b44ed9cdf3f4a16105c325a374bec8e15593dabe75a85c6554d7a2",
+        "weights_copied_to_psram": false
+      },
+      "internal_sram_static_bytes": 243888,
+      "internal_sram_capacity": 393216,
+      "internal_sram_linker_margin": 149328,
+      "runtime_memory_measured": false,
+      "log_sha256": "17a05ef12c1009090cc133c049dedbafa42ec9bb4e40e8e4716819464f8e98e3",
+      "command": "bash ../build_p4_kws.sh"
+    },
+    "station": {
+      "compiled": true,
+      "installed": false,
+      "image": {
+        "native_elf": "RV32 Zephyr",
+        "image_bytes": 15350208,
+        "flash_offset": "0x2000",
+        "reserved_boundary": "0xfe0000",
+        "model_start": "0x40080e80",
+        "model_end": "0x40e58d2f",
+        "model_bytes": 14515887,
+        "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+        "image_sha256": "95199fcb2dd5ff7883ce5768373a805e66676d823057f060b92debe45f23feed",
+        "weights_copied_to_psram": false
+      },
+      "internal_sram_static_bytes": 391488,
+      "internal_sram_capacity": 393216,
+      "internal_sram_linker_margin": 1728,
+      "runtime_memory_measured": false,
+      "log_sha256": "5a699d4b6eaa79b835b84b00e9edfb8c535981d13d6ad1914ca18fc75db29f62",
+      "command": "bash ../build_p4_kws_station.sh",
+      "layout": {
+        "flash_bytes": 33554432,
+        "regions": {
+          "p4_whistle_app": {
+            "offset": "0x2000",
+            "bytes": 16637952,
+            "end_exclusive": "0xfe0000"
+          },
+          "p4_assets": {
+            "offset": "0xfe0000",
+            "bytes": 16777216,
+            "end_exclusive": "0x1fe0000"
+          },
+          "p4_settings": {
+            "offset": "0x1fe0000",
+            "bytes": 131072,
+            "end_exclusive": "0x2000000"
+          }
+        },
+        "application_bytes": 15350208,
+        "application_sha256": "95199fcb2dd5ff7883ce5768373a805e66676d823057f060b92debe45f23feed",
+        "application_end_exclusive": "0xea59c0",
+        "assets_bytes": 3563357,
+        "assets_sha256": "5db3dcb74201cb2617f47887da886c4810fe3edbb7421c2cbd63ba172cc28643",
+        "assets_end_exclusive": "0x1345f5d",
+        "model": {
+          "present": true,
+          "bytes": 14515887,
+          "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "mapped_begin": "0x40080e80",
+          "mapped_end": "0x40e58d2f",
+          "physical_begin": "0x20e80",
+          "physical_end": "0xdf8d2f",
+          "copied_to_psram": false
+        },
+        "overlap": false,
+        "result": "PASS"
+      }
+    }
+  },
+  "linked_buffers": {
+    "workspace": {
+      "address": "0x4803c890",
+      "bytes": 1712,
+      "section": ".ext_ram.data"
+    },
+    "response": {
+      "address": "0x4803c610",
+      "bytes": 640,
+      "section": ".ext_ram.data"
+    },
+    "method": "read-only objdump of final station ELF; controller message/poll/reset symbols retained",
+    "dma_or_isr_access": false
+  },
+  "memory_fix": "Initial station link overflowed internal SRAM by 624 bytes; move CPU-only buffers to existing PSRAM section. Final static linker margin 1728 bytes; runtime headroom not measured.",
+  "framing_correction": "Earlier injected dispatcher harness used request-style reply terminator; corrected to actual SmallVM body-length/no-terminator replies and pinned sender tests. Historical earlier evidence retained, not treated as physical proof.",
+  "browser": {
+    "actual_editor": "MicroBlocks GP 2.5.8",
+    "fixture_only": true,
+    "passed": [
+      "disconnected Connect files disabled",
+      "Flash/SD unavailable",
+      "explicit fixture loading",
+      "JSON edit/save/refresh/reopen returned 22.25 and 75 UTF-8 bytes",
+      "1280x720 readable layout"
+    ],
+    "download": "Previous interrupted download remains uncertain and was not retried",
+    "server": "Loopback-only static fixture server restored; no serial bridge"
+  },
+  "limits": {
+    "files": 8,
+    "bytes_per_file": 8192,
+    "rpc_chunk_bytes": 512,
+    "idle_expiry_ms": 30000,
+    "session_is_authentication": false,
+    "one_vm_execution_owner": true,
+    "auto_mutation_retry": false
+  },
+  "physical_tested": false,
+  "board_accessed": false,
+  "credentials_touched": false,
+  "flash_storage": "unavailable",
+  "sd_storage": "unavailable",
+  "installation": "held by parent; not attempted",
+  "commit_push_publication": "held pending user response; not attempted",
+  "network_security_changes": false,
+  "remaining": [
+    "Approved installation and physical USB file read/write",
+    "Physical disconnect/reboot/VM concurrency and timing",
+    "Station request284 still blocks network acceptance",
+    "Browser download outcome unresolved; no retry",
+    "Flash/SD/media archives/database remain separate stages"
+  ],
+  "publication_redactions": {
+    "private_screenshot_fields_omitted": [
+      "browser.screenshot_library_id",
+      "browser.screenshot_sha256"
+    ],
+    "test_results_unchanged": true
+  }
+}

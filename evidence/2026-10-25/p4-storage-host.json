@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "named_checks": 49,
+  "malformed_inputs": 10000,
+  "file_slots": 8,
+  "max_file_bytes": 8192,
+  "host_state_bytes": 74352,
+  "hardware_access": false,
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "physical_tested": false,
+  "command": [
+    "python3",
+    "tools/test_storage.py"
+  ],
+  "tested_at": "2026-10-26T09:39:31.212706+00:00"
+}

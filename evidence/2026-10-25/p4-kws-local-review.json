@@ -1,0 +1,11 @@
+{
+  "invalid_clip": 0,
+  "actual_GP_error_bubble": "Cannot check audio: use a saved clip and wait for other work.",
+  "actual_USB_firmware_sha256": "5cdc2238a5390c1b462cd350ebf3a0b6f0daaca03008201ce3a2f52ca3ebf0b8",
+  "result": "PASS",
+  "microphone_started": false,
+  "audio_played": false,
+  "after_test": "Stop All and USB disconnect",
+  "publication": "held",
+  "new_firmware_installed": false
+}

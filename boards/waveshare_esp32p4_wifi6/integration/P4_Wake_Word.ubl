@@ -1,0 +1,38 @@
+module 'Wake Word' Input
+author 'Native Zephyr adapter; TensorFlow and ESPHome model authors retain their licenses'
+version 0 1
+description 'Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.'
+spec 'h' 'p4WhenWakeWord' 'when Okay Nabu is heard'
+spec ' ' 'p4StartWakeWord' 'listen for Okay Nabu'
+spec ' ' '[p4:kwsCancel]' 'stop wake-word detection'
+spec 'b' '[p4:kwsListening]' 'listening for wake word?'
+spec 'b' '[p4:kwsAvailable]' 'wake-word model available?'
+spec ' ' 'p4CheckWakeClip' 'check audio _ for wake word' 'num' 0
+spec 'r' '[p4:kwsConfidence]' 'wake confidence (0-1000)'
+spec 'r' '[p4:kwsState]' 'wake-word status'
+advanced
+spec 'b' '[p4:kwsBusy]' 'wake-word busy?'
+spec ' ' 'p4TestWakeWord' 'check test phrase _' 'str' 'Okay Nabu'
+spec 'b' '[p4:kwsListen]' 'listen _ ms confidence _ cooldown _ ms' 'num num num' 3000 970 1000
+spec 'r' '[p4:kwsStatus]' 'wake-word diagnostics'
+spec 'b' '[p4:kwsClip]' 'start checking audio _' 'num' 536870913
+
+to p4StartWakeWord {
+    if (not ('[p4:kwsListen]' 0 970 1000)) {
+        sayIt 'Cannot listen: model unavailable or microphone busy.'
+    }
+}
+
+to p4CheckWakeClip clip {
+    if ('[p4:kwsClip]' clip) {
+        waitUntil (not ('[p4:kwsBusy]'))
+    } else {
+        sayIt 'Cannot check audio: use a saved clip and wait for other work.'
+    }
+}
+to p4TestWakeWord phrase {
+    if (not (or (phrase == 'Okay Nabu') (phrase == 'The camera is ready'))) { return }
+    local fixture 1
+    if (phrase == 'The camera is ready') { fixture = 2 }
+    if ('[p4:kwsFixture]' fixture) { waitUntil (not ('[p4:kwsBusy]')) }
+}

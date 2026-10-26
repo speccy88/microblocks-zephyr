@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-26T21:04:31.250065+00:00",
+  "scope": "physical COM5 USB RAM storage",
+  "physical_tested": true,
+  "camera_capture": false,
+  "audio_recording": false,
+  "C6_accessed": false,
+  "COM12_accessed": false,
+  "checks": {
+    "/RAM/accept-empty": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/RAM/accept-text": {
+      "bytes": 23,
+      "sha256": "07437c576dffeae0b892146ac75141c658e56f1d4d4bb2e868347f485c2e2639"
+    },
+    "/RAM/accept-binary": {
+      "bytes": 8192,
+      "sha256": "dc404a613fedaeb54034514bc6505f56b933caa5250299ba7d094377a51caa46"
+    },
+    "shared_vm_store_and_revision_errors": true,
+    "cancel_and_vm_contention": true,
+    "stop_all_preserves_committed_file": true,
+    "replay_and_malformed_recovery": true,
+    "full_ram_and_independent_psram_image_allocation": {
+      "ram_bytes": 65536,
+      "image_bytes": 8294400
+    },
+    "full_size_replace_read_cycles": 16,
+    "close_cancels_staging_and_usb_reconnect_preserves_files": true
+  },
+  "vm": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "max_request_rtt_ms": 63.0,
+  "file_requests": 918,
+  "result": "PASS",
+  "cleanup": {
+    "ram_bytes": 0,
+    "free_slots": 8,
+    "camera_busy": false,
+    "audio_busy": false
+  }
+}

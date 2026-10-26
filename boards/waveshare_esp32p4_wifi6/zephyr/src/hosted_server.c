@@ -23,7 +23,18 @@ static const struct http_header headers[]={
  {"Content-Encoding","gzip"}
 };
 struct transfer {struct http_client_ctx *client;const struct p4_asset *asset;size_t offset;uint8_t buffer[2048];};
-static struct transfer transfers[CONFIG_HTTP_SERVER_MAX_CLIENTS];
+/* HTTP/1 consumes body before the next callback; native TCP copies it. These
+ * slots are CPU-only and remain owned until completion/abort. See the pinned
+ * source/lifetime audit in docs/HOSTED_MEMORY_AUDIT.md before changing backends. */
+#if defined(CONFIG_ESP_SPIRAM)
+#define ASSET_TRANSFER_RAM __attribute__((section(".ext_ram.bss.http_assets"), aligned(16)))
+#else
+#define ASSET_TRANSFER_RAM
+#endif
+static struct transfer transfers[CONFIG_HTTP_SERVER_MAX_CLIENTS] ASSET_TRANSFER_RAM;
+/* Keep flash's destination internal while cache is disabled. Serialized by
+ * transfers_lock; never returned to HTTP and never dynamically allocated. */
+static uint8_t flash_scratch[512] __attribute__((aligned(16)));
 K_MUTEX_DEFINE(transfers_lock);
 int p4_assets_check(void)
 {
@@ -41,15 +52,23 @@ int p4_asset_handler(struct http_client_ctx *client,enum http_transaction_status
  const struct http_request_ctx *request,struct http_response_ctx *response,void *user)
 {
  (void)request;const struct p4_asset *asset=user;struct transfer *state=NULL,*empty=NULL;
+ if(!client || !asset)return -EINVAL;
  k_mutex_lock(&transfers_lock,K_FOREVER);
  for(unsigned i=0;i<ARRAY_SIZE(transfers);i++){if(transfers[i].client==client&&transfers[i].asset==asset)state=&transfers[i];if(!transfers[i].client&&!empty)empty=&transfers[i];}
  if(status==HTTP_SERVER_TRANSACTION_COMPLETE||status==HTTP_SERVER_TRANSACTION_ABORTED){if(state)memset(state,0,sizeof(*state));k_mutex_unlock(&transfers_lock);return 0;}
  if(status!=HTTP_SERVER_REQUEST_DATA_FINAL){k_mutex_unlock(&transfers_lock);return 0;}
- if(!assets || asset->offset>p4_asset_total || asset->size>p4_asset_total-asset->offset){k_mutex_unlock(&transfers_lock);return -EBADMSG;}
+ if(!response){k_mutex_unlock(&transfers_lock);return -EINVAL;}
+ if(!assets || asset->offset>p4_asset_total || asset->size>p4_asset_total-asset->offset ||
+    (state && state->offset>asset->size)){if(state)memset(state,0,sizeof(*state));k_mutex_unlock(&transfers_lock);return -EBADMSG;}
  if(!state){state=empty;if(!state){k_mutex_unlock(&transfers_lock);return -ENOMEM;}state->client=client;state->asset=asset;}
  size_t n=MIN(asset->size-state->offset,sizeof(state->buffer));
- int err=flash_area_read(assets,asset->offset+state->offset,state->buffer,n);
- if(err){memset(state,0,sizeof(*state));k_mutex_unlock(&transfers_lock);return err;}
+ for(size_t copied=0;copied<n;){
+  size_t part=MIN(n-copied,sizeof(flash_scratch));
+  int err=flash_area_read(assets,asset->offset+state->offset+copied,flash_scratch,part);
+  if(err){memset(state,0,sizeof(*state));k_mutex_unlock(&transfers_lock);return err;}
+  /* flash_area_read has restored cache access before this CPU-only copy. */
+  memcpy(state->buffer+copied,flash_scratch,part);copied+=part;
+ }
  response->body=state->buffer;response->body_len=n;
  if(!state->offset){response->headers=headers;response->header_count=ARRAY_SIZE(headers)-(asset->gzip?0:1);}
  state->offset+=n;response->final_chunk=state->offset==asset->size;k_mutex_unlock(&transfers_lock);

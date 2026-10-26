@@ -17,12 +17,16 @@ void consoleReportNum(const char *s, int n) { (void)s; (void)n; }
 extern void p4_image_message(int,int,char *);
 extern void p4_media_message(int,int,char *);
 #include "neural_backend.h"
+#include "kws_backend.h"
+#include "storage_protocol.h"
+#include <zephyr/kernel.h>
 #include "neural_primitives.h"
 #if defined(CONFIG_P4_HOSTED)
 #include "hosted_server.h"
 #include "network_backend.h"
 #endif
 void processFileMessage(int t, int n, char *p) { p4_image_message(t,n,p);p4_media_message(t,n,p);p4_nn_message(t,n,p);
+mb_storage_protocol_message(t,n,p,k_uptime_get());
 #if defined(CONFIG_P4_HOSTED)
 p4_network_message(t,n,p);
 #endif
@@ -93,6 +97,7 @@ void hardwareInit(void){
     initTasks();
     p4_audio_init();
     p4_nn_init();
+    p4_kws_init();
     p4_discovery_init();
 #if defined(CONFIG_P4_HOSTED)
     p4_transport_init();p4_network_init();
@@ -129,8 +134,11 @@ OBJ primSPIRecv(OBJ *a){(void)a;return fail(primitiveNotImplemented);}
 OBJ primAnalogRead(int n,OBJ *a){(void)n;(void)a;return fail(primitiveNotImplemented);}
 void primAnalogWrite(OBJ *a){(void)a;fail(primitiveNotImplemented);}
 void boardInit(void){}
-void boardAddPrims(void){}
+extern void addJSONPrims(void);
+#include "primitives.h"
+#include "storage_primitives.h"
+void boardAddPrims(void){addJSONPrims();addClockPrims();addStepPrims();addStoragePrims();}
 void boardPoll(void){}
-void boardStopAll(void){p4_ppa_cancel();p4_discovery_cancel();p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
-void boardIDEConnectionChanged(int connected){(void)connected;}
+void boardStopAll(void){mb_storage_stop();mb_automation_stop();p4_kws_cancel();p4_ppa_cancel();p4_discovery_cancel();p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
+void boardIDEConnectionChanged(int connected){if(!connected)mb_storage_protocol_reset();}
 int boardStartAtBoot(void){return true;}

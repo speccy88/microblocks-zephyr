@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-26T21:11:42.483708+00:00",
+  "physical_tested": true,
+  "firmware_reflashed": false,
+  "COM12_accessed": false,
+  "C6_accessed": false,
+  "editor_files_survived_PPA_NN_STT_memory_regressions": true,
+  "result": "PASS",
+  "vm": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "ram_bytes_after_reset": 0,
+  "free_slots_after_reset": 8,
+  "camera_busy": false,
+  "audio_busy": false,
+  "kws_listening": false,
+  "network": {
+    "target": "USB-only",
+    "ap_running": false
+  }
+}

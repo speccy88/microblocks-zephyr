@@ -1,0 +1,36 @@
+--- a/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -308,6 +308,14 @@
+ 	}
+ }
+ 
++/* Application may isolate decoded pointer fields in a bounded CPU-only pool.
++ * The default retains upstream nanopb behavior. Never publish partial results. */
++__weak int esp_hosted_mcu_decode_rpc(const uint8_t *wire, size_t length, Rpc *rpc)
++{
++	pb_istream_t stream = pb_istream_from_buffer(wire, length);
++	return pb_decode(&stream, Rpc_fields, rpc) ? 0 : -EBADMSG;
++}
++
+ /* Decode one RPC blob out of a received SERIAL frame and dispatch it. */
+ static void esp_hosted_mcu_dispatch_serial(struct esp_hosted_mcu_data *data,
+ 					   const struct esp_hosted_mcu_tlv *tlv,
+@@ -315,7 +323,6 @@
+ {
+ 	const uint16_t tlv_hdr = offsetof(struct esp_hosted_mcu_tlv, data_value);
+ 	Rpc rpc = Rpc_init_zero;
+-	pb_istream_t stream;
+ 
+ 	const uint8_t *wire = (const uint8_t *)tlv;
+ 	uint16_t ep_len = payload_len >= 3 ? sys_get_le16(wire + 1) : 0;
+@@ -339,9 +346,7 @@
+ 		return;
+ 	}
+ 
+-	stream = pb_istream_from_buffer(tlv->data_value, tlv->data_length);
+-
+-	if (!pb_decode(&stream, Rpc_fields, &rpc)) {
++	if (esp_hosted_mcu_decode_rpc(tlv->data_value, tlv->data_length, &rpc) != 0) {
+ 		esp_hosted_mcu_diag(9, 0, 0, 0, 0, 1);
+ 		LOG_ERR("RPC decode failed");
+ 		return;

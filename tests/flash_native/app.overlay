@@ -1,0 +1,17 @@
+/* SPDX-License-Identifier: MIT */
+/* Test-only device. Never included by any production board profile. */
+/ { chosen { /delete-property/ zephyr,code-partition; }; };
+&flashcontroller0 { reg = <0x00000000 0x40000>; };
+&flash0 {
+    reg = <0x00000000 0x40000>;
+    /delete-node/ partitions;
+    partitions {
+        compatible = "fixed-partitions";
+        #address-cells = <1>;
+        #size-cells = <1>;
+        mb_test_flash: partition@0 {
+            label = "test-only-mb-flash";
+            reg = <0x00000000 0x40000>;
+        };
+    };
+};

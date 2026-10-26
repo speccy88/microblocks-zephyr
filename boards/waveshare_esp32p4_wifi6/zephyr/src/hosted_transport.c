@@ -2,6 +2,7 @@
 /* Bounded native transport pattern from this repository's XRP and S3 ports. */
 #include "hosted_server.h"
 #include "result_store.h"
+#include "storage_protocol.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/uart.h>
 #include <zephyr/net/websocket.h>
@@ -57,7 +58,7 @@ void p4_transport_poll(void)
  k_spin_unlock(&io_lock,key);
  if(!action)return;
  /* This function only runs on the VM thread. No worker/ISR enters VM state. */
- smallvmResetTransport();media_session(0);
+ smallvmResetTransport();media_session(0);mb_storage_protocol_reset();
  key=k_spin_lock(&io_lock);
  if(action==1 && owner==1)owner=2;
  if(action==3 && owner==3)owner=4;

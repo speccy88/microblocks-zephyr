@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: MIT
+cmake_minimum_required(VERSION 3.28)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(mb_flash_native LANGUAGES C)
+if(NOT CONFIG_BOARD_NATIVE_SIM)
+  message(FATAL_ERROR "This destructive fixture formats SIMULATED flash only")
+endif()
+target_include_directories(app PRIVATE ../../common/storage/flash)
+target_sources(app PRIVATE main.c ../../common/storage/flash/flash_store.c ../../common/storage/flash/zephyr_flash.c)
+target_compile_options(app PRIVATE -Wall -Wextra -Werror)

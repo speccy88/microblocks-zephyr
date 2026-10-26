@@ -1,0 +1,144 @@
+{
+  "tested_at": "2026-10-26T17:46:32.078635+00:00",
+  "scope": "local-only frontend and abstract transport; no board file access",
+  "node_tests": 16,
+  "malformed_paths": 10000,
+  "root_validation": {
+    "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
+    "head": "00545be3efbb2e34405984834b344d9f29d9a91e",
+    "exit_code": 0,
+    "result": "PASS",
+    "tests": 57,
+    "checkout_issue": "Windows CRLF materialization changes raw hash; LF-normalized content equals HEAD; direct checkout root run retains this existing failure"
+  },
+  "source_sha256": {
+    "web/device-files-core.js": "62daf1115b35e9929c8cad204dd56c7b00228940a3e5adeea2b6b24ebca326aa",
+    "web/device-files.js": "cbf4934267d8fc45840646591b9cac91ad2ff5538198cc0180917bb4eb7a2c38",
+    "web/device-files.css": "99ee379d599f8c9115deb1a475cafbd03e516ecda0ad19a07e4cfdab02cf2822",
+    "web/device-files-fixture.js": "bd063347a54861567413037a1cbd5b64b32fd004d45a8be9a0a193fa125c28b4",
+    "tests/device_files.test.js": "00a8d3432a7d493e2ffe8d95bcb41bdd74b4544c29dc691d0f332fcbf90a7b0b",
+    "tests/test_device_files_contract.py": "e09499e55ce14e6434d9162540ea90b2b2e00244835a04f3c037bca2d358f07a",
+    "tools/package_p4_ide.py": "09505e9c9e2ee901ec5901c39ffc6b3140841fc6c7d2ebf8ef780a78023d7218"
+  },
+  "regressions": {
+    "json": {
+      "result": "PASS",
+      "cases": 62,
+      "workspace_sizes_failed_cleanly": 8,
+      "workspace_sizes_succeeded": 375,
+      "fuzz_cases": 10000,
+      "arena_reserved_bytes": 98304,
+      "scope": "host portable core, no VM/hardware claim",
+      "dependency": "6447536015f3d600f3d65323b10976103b337ca7",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "physical_tested": false
+    },
+    "automation": {
+      "result": "PASS",
+      "clock": "fake monotonic/UTC/offset",
+      "steps": "deterministic logical state only",
+      "hardware_access": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "physical_tested": false
+    },
+    "storage": {
+      "result": "PASS",
+      "named_checks": 49,
+      "malformed_inputs": 10000,
+      "file_slots": 8,
+      "max_file_bytes": 8192,
+      "host_state_bytes": 74352,
+      "hardware_access": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "physical_tested": false
+    }
+  },
+  "packages": {
+    "usb": {
+      "fixture_excluded": true,
+      "shared_assets_match": true,
+      "published": false
+    },
+    "pages": {
+      "fixture_excluded": true,
+      "shared_assets_match": true,
+      "published": false
+    },
+    "station": {
+      "fixture_excluded": true,
+      "shared_assets_match": true,
+      "bytes": 3558221,
+      "sha256": "d8c572b86770ae39ffd11e6ae79c8bc6fedeaa574ef71f6f1a27f17a8eccf014",
+      "installed": false
+    }
+  },
+  "station_postlink": [
+    {
+      "native_elf": "RV32 Zephyr",
+      "image_bytes": 15346656,
+      "flash_offset": "0x2000",
+      "reserved_boundary": "0xfe0000",
+      "model_start": "0x40080e80",
+      "model_end": "0x40e58d2f",
+      "model_bytes": 14515887,
+      "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "image_sha256": "5dab280f97c7af4711be8c064dcf20453ed360d297fb3d6047a461f04a1d6885",
+      "weights_copied_to_psram": false
+    },
+    {
+      "flash_bytes": 33554432,
+      "regions": {
+        "p4_whistle_app": {
+          "offset": "0x2000",
+          "bytes": 16637952,
+          "end_exclusive": "0xfe0000"
+        },
+        "p4_assets": {
+          "offset": "0xfe0000",
+          "bytes": 16777216,
+          "end_exclusive": "0x1fe0000"
+        },
+        "p4_settings": {
+          "offset": "0x1fe0000",
+          "bytes": 131072,
+          "end_exclusive": "0x2000000"
+        }
+      },
+      "application_bytes": 15346656,
+      "application_sha256": "5dab280f97c7af4711be8c064dcf20453ed360d297fb3d6047a461f04a1d6885",
+      "application_end_exclusive": "0xea4be0",
+      "assets_bytes": 3558221,
+      "assets_sha256": "d8c572b86770ae39ffd11e6ae79c8bc6fedeaa574ef71f6f1a27f17a8eccf014",
+      "assets_end_exclusive": "0x1344b4d",
+      "model": {
+        "present": true,
+        "bytes": 14515887,
+        "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+        "mapped_begin": "0x40080e80",
+        "mapped_end": "0x40e58d2f",
+        "physical_begin": "0x20e80",
+        "physical_end": "0xdf8d2f",
+        "copied_to_psram": false
+      },
+      "overlap": false,
+      "result": "PASS"
+    }
+  ],
+  "physical_tested": false,
+  "board_transport": "unimplemented",
+  "flash_storage": "unavailable",
+  "sd_storage": "unavailable",
+  "publication": "held",
+  "firmware_installation": "held",
+  "browser_download_completion": "unverified: browser tool was interrupted; no retry",
+  "installed_firmware_unchanged_sha256": "5cdc2238a5390c1b462cd350ebf3a0b6f0daaca03008201ce3a2f52ca3ebf0b8"
+}

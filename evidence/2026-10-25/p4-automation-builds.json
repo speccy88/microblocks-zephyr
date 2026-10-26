@@ -1,0 +1,118 @@
+{
+  "tested_at": "2026-10-26T09:13:50.307258+00:00",
+  "profiles": {
+    "usb": {
+      "result": "PASS",
+      "postlink": [
+        {
+          "native_elf": "RV32 Zephyr",
+          "image_bytes": 15404496,
+          "flash_offset": "0x2000",
+          "reserved_boundary": "0xfe0000",
+          "model_start": "0x400605c0",
+          "model_end": "0x40e3846f",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "image_sha256": "0203fa36bf5e16c99b599215e6a6306d26c9b05be250369e733e71a2b0662143",
+          "weights_copied_to_psram": false
+        }
+      ],
+      "installed": false,
+      "network_activated": false
+    },
+    "station": {
+      "result": "PASS",
+      "postlink": [
+        {
+          "native_elf": "RV32 Zephyr",
+          "image_bytes": 15343392,
+          "flash_offset": "0x2000",
+          "reserved_boundary": "0xfe0000",
+          "model_start": "0x40080e80",
+          "model_end": "0x40e58d2f",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "image_sha256": "dced267343804376282ff174cc184127919816be0a8a51d5832c203e6037c9f7",
+          "weights_copied_to_psram": false
+        },
+        {
+          "flash_bytes": 33554432,
+          "regions": {
+            "p4_whistle_app": {
+              "offset": "0x2000",
+              "bytes": 16637952,
+              "end_exclusive": "0xfe0000"
+            },
+            "p4_assets": {
+              "offset": "0xfe0000",
+              "bytes": 16777216,
+              "end_exclusive": "0x1fe0000"
+            },
+            "p4_settings": {
+              "offset": "0x1fe0000",
+              "bytes": 131072,
+              "end_exclusive": "0x2000000"
+            }
+          },
+          "application_bytes": 15343392,
+          "application_sha256": "dced267343804376282ff174cc184127919816be0a8a51d5832c203e6037c9f7",
+          "application_end_exclusive": "0xea3f20",
+          "assets_bytes": 3548813,
+          "assets_sha256": "9f123edef7baac70364d4b32ff98ebef1285a42cfb0dd04b7a7e96ecb52d8fc7",
+          "assets_end_exclusive": "0x134268d",
+          "model": {
+            "present": true,
+            "bytes": 14515887,
+            "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+            "mapped_begin": "0x40080e80",
+            "mapped_end": "0x40e58d2f",
+            "physical_begin": "0x20e80",
+            "physical_end": "0xdf8d2f",
+            "copied_to_psram": false
+          },
+          "overlap": false,
+          "result": "PASS"
+        }
+      ],
+      "installed": false,
+      "network_activated": false
+    }
+  },
+  "compiler": "Zephyr SDK 1.0.1 GCC 14.3.0",
+  "Zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "HAL_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "target": "esp32p4_wifi6/esp32p4/hpcore",
+  "configs": {
+    "usb": [
+      "profiles/neural.conf",
+      "profiles/whistle.conf"
+    ],
+    "station": [
+      "profiles/station.conf",
+      "profiles/neural.conf",
+      "profiles/whistle.conf"
+    ]
+  },
+  "source_sha256": {
+    "common/automation/clock.c": "6c19fefe947b7cec52c0f62094e664e2fcb10be69d26e9ec1ac284dd7a24831b",
+    "common/automation/clock.h": "c00a2ff8351a950899a975bac8b6ae0125b1451dd862869052e525a111b4a8dd",
+    "common/automation/primitives.c": "f03188b953ec78cf91821841056cfc6e42f51107342ef6ba86bfd98d9d3bb3f0",
+    "common/automation/primitives.h": "24bc13072e87e3e667b1fa6e4be5f7ac7ab62ba130ca0bfc20294f1d851ba1a1",
+    "common/automation/steps.c": "4b36b9cce5729809eeb7bb6d694a2137a13471377ce8b47bf04f2a36ed375c23",
+    "common/automation/steps.h": "95bedbf02408da023ce13d6a430ed902f4cdc226a0d836d85f618ba0596cbe5b",
+    "tests/automation_test.c": "a60111eeeefbe6906f28e58f2e17855efefc8ac0d10ce545099e2508cff0fd3f",
+    "tools/test_automation.py": "16dbfc56563b8befd2a8e5d38160bf03e9d489d99b660f3711525f027011518d",
+    "integration/Clock_Timers.ubl": "fd720f6e5588a2e46331836ae6507e68e0b564692bd7cfaae47559ae99a54b9c",
+    "integration/Steps_Transitions.ubl": "26f6d2703b809303614ce4bf270a3f375cb944b1c0b68d60bed45722953d08eb",
+    "integration/steps-timer.ubp": "e77bb4bba187f3bdd612ec780c8f217859485dd37a6a0b1b5f3f7fcec1db20b5",
+    "tools/prepare_p4_zephyr_runtime.py": "d7f6938fb81b59fe34fd367d4aa98c81dc41b3474fc2caf756500478ae1736c2",
+    "tools/package_p4_ide.py": "816e0fd554a49ed0af693f8f3595ef6acf8a659d0ddd1b95a4c0e27640ed9ff9",
+    "boards/waveshare_esp32p4_wifi6/zephyr/CMakeLists.txt": "5029d00f88c0afa4b857e90426b6bca2bc34045438844f5e13aedadaad550167",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/main.c": "2c2babc81b68d5f60eeff49d20e35d958a26773ae57ca4fcade43a59687f43b3",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/platform.c": "94669c569424298044499637b48d57098c76ece7ef2322feb6ee9004e770469b"
+  },
+  "physical_automation_tested": false,
+  "publication": "held",
+  "firmware_installation": "held",
+  "installed_firmware_unchanged_sha256": "5cdc2238a5390c1b462cd350ebf3a0b6f0daaca03008201ce3a2f52ca3ebf0b8"
+}

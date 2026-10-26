@@ -1,0 +1,11 @@
+{
+  "tested_at": "2026-10-26T07:56:23.790592+00:00",
+  "status": "BLOCKED",
+  "reason": "current Windows output muted at 0 percent",
+  "output_available": true,
+  "output_kind": "other output",
+  "settings_changed": false,
+  "playback_started": false,
+  "microphone_started": false,
+  "next_action": "User enables an audible output at a comfortable volume, then one explicitly bounded controlled phrase test"
+}

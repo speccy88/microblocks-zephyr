@@ -1,0 +1,100 @@
+{
+  "tested_at": "2026-10-26T08:40:56.648998+00:00",
+  "profiles": {
+    "usb": {
+      "result": "PASS",
+      "postlink": [
+        {
+          "native_elf": "RV32 Zephyr",
+          "image_bytes": 15397920,
+          "flash_offset": "0x2000",
+          "reserved_boundary": "0xfe0000",
+          "model_start": "0x40060580",
+          "model_end": "0x40e3842f",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "image_sha256": "c5b9bd356ae99a3fbfdf0826b4e1801a77595384fc37acad2aaf2acda6b78823",
+          "weights_copied_to_psram": false
+        }
+      ],
+      "installed": false,
+      "radio_activated": false
+    },
+    "station": {
+      "result": "PASS",
+      "postlink": [
+        {
+          "native_elf": "RV32 Zephyr",
+          "image_bytes": 15336816,
+          "flash_offset": "0x2000",
+          "reserved_boundary": "0xfe0000",
+          "model_start": "0x40080e80",
+          "model_end": "0x40e58d2f",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "image_sha256": "4e3ba81a55f0a946012879d6ebd4edf159f4a8f408d896cd73eced39403dcb46",
+          "weights_copied_to_psram": false
+        },
+        {
+          "flash_bytes": 33554432,
+          "regions": {
+            "p4_whistle_app": {
+              "offset": "0x2000",
+              "bytes": 16637952,
+              "end_exclusive": "0xfe0000"
+            },
+            "p4_assets": {
+              "offset": "0xfe0000",
+              "bytes": 16777216,
+              "end_exclusive": "0x1fe0000"
+            },
+            "p4_settings": {
+              "offset": "0x1fe0000",
+              "bytes": 131072,
+              "end_exclusive": "0x2000000"
+            }
+          },
+          "application_bytes": 15336816,
+          "application_sha256": "4e3ba81a55f0a946012879d6ebd4edf159f4a8f408d896cd73eced39403dcb46",
+          "application_end_exclusive": "0xea2570",
+          "assets_bytes": 3546173,
+          "assets_sha256": "8f4528e1aecd456cb5278eecd0a908423ee6af29821e921048dffe856d3beef9",
+          "assets_end_exclusive": "0x1341c3d",
+          "model": {
+            "present": true,
+            "bytes": 14515887,
+            "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+            "mapped_begin": "0x40080e80",
+            "mapped_end": "0x40e58d2f",
+            "physical_begin": "0x20e80",
+            "physical_end": "0xdf8d2f",
+            "copied_to_psram": false
+          },
+          "overlap": false,
+          "result": "PASS"
+        }
+      ],
+      "installed": false,
+      "radio_activated": false
+    }
+  },
+  "compiler": "Zephyr SDK 1.0.1 GCC 14.3.0",
+  "Zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "HAL_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "source_sha256": {
+    "common/json/json_service.c": "93363ad29956b8ecb2c85d1a131dc1101087b0390e701d932af2b1f6ad365091",
+    "common/json/json_service.h": "4b42600f548d59a7b7656bdc199a5b291132af62c8cb943c866868f86e385721",
+    "common/json/json_config.h": "a6f916d01cdb343828697d7eec2b1d94f51d4d4279bcebe4ae31125a6d1355d3",
+    "common/json/json_primitives.c": "b5545c8bda6f4eb5681e988af3234c4e7c0e6f306fccdfb878809e1f811e954f",
+    "integration/JSON.ubl": "3ebc61241119902262ddd55d35e8ad5dba410c8f4c65394a5d6bd505d3ec3e64",
+    "integration/json-edit.ubp": "c36c0a45c077f10629e9ce23166ca7f98ef6312e706445b9e7702009010f4054",
+    "tools/package_p4_ide.py": "a9a51bbbbe905cc09e921f29f1ebb6ee43014134f920396746c0bf1b7d87cffe",
+    "tools/prepare_p4_zephyr_runtime.py": "10a8c4d72f729566219d1021327db6f46b8ab22eb93d2880477f35b709f26f98",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/platform.c": "cee1f5b8415556bdf8b225ac5f8923647d29154260f7556cc9274e0de11ec501",
+    "boards/waveshare_esp32p4_wifi6/zephyr/CMakeLists.txt": "9456a79033f152256ed834a5f42a787de174af0a8e5ff0e184da61b298036bca"
+  },
+  "physical_json_tested": false,
+  "publication": "held",
+  "firmware_installation": "held",
+  "installed_firmware_unchanged_sha256": "5cdc2238a5390c1b462cd350ebf3a0b6f0daaca03008201ce3a2f52ca3ebf0b8"
+}

@@ -1,0 +1,111 @@
+{
+  "tested_at": "2026-10-26T21:09:37.238104+00:00",
+  "scope": "COM5 native PPA with generated images",
+  "camera_captured": false,
+  "microphone_started": false,
+  "COM12_accessed": false,
+  "checks": {
+    "jobs": [
+      {
+        "status": "PPA ready: 48x32; hardware API 310 us; allocation/copy 128 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 32x48; hardware API 96 us; allocation/copy 60 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 91 us; allocation/copy 54 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 32x48; hardware API 92 us; allocation/copy 54 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 91 us; allocation/copy 54 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 91 us; allocation/copy 54 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 91 us; allocation/copy 54 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 96x64; hardware API 130 us; allocation/copy 212 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 102 us; allocation/copy 29 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 91 us; allocation/copy 44 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 95 us; allocation/copy 102 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 95 us; allocation/copy 103 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 94 us; allocation/copy 103 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 95 us; allocation/copy 103 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 95 us; allocation/copy 102 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 94 us; allocation/copy 103 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 95 us; allocation/copy 102 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      },
+      {
+        "status": "PPA ready: 48x32; hardware API 95 us; allocation/copy 103 us",
+        "vm_roundtrips_while_busy": 0,
+        "max_vm_roundtrip_s": 0
+      }
+    ],
+    "exact_identity_rotations_mirrors_rgb888": true,
+    "bilinear_2x_geometry_and_quadrant_channels": true,
+    "bilinear_intermediate_boundary_colors": true,
+    "rgb565_colored_identity": true,
+    "source_release_does_not_invalidate_owned_copy": true,
+    "cancel_and_reuse_rounds": 8,
+    "result_capacity_race_releases_unadopted_output": true,
+    "post_job_store_allocation_bytes": 8294400,
+    "final_status": "PPA result capacity exhausted; release an image"
+  },
+  "result": "PASS"
+}

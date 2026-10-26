@@ -1,0 +1,3533 @@
+{
+  "created_utc": "2026-10-26T19:56:17.025060+00:00",
+  "scope": "local-only bounded protobuf allocation and receive-frame hardening; feature expansion paused",
+  "head": "00545be3efbb2e34405984834b344d9f29d9a91e",
+  "before": {
+    "usb": {
+      "elf_sha256": "09325741f7ff29bbec7e5b7aab80e61708793dadb18cb3e02282a284055888e6",
+      "config_sha256": "12332fa338ceec67a152c5c221819e5d3e89e9a0e304b57cda5da3494ccd3abb",
+      "map_sha256": "7c996896d091707b8e5f363be3a6bc7bf85febe802b4798663b0ca2f94e0bb0e",
+      "static_internal_bytes": 243856,
+      "internal_capacity": 393216,
+      "remaining_internal_bytes": 149360,
+      "libc_malloc_arena_bytes": 149360,
+      "libc_malloc_arena_policy": "-1",
+      "system_heap_requested_bytes": 16384,
+      "internal_sections": [
+        {
+          "name": ".iram0.text",
+          "address": 1341390848,
+          "bytes": 60740
+        },
+        {
+          "name": ".loader.text",
+          "address": 1341451588,
+          "bytes": 1268
+        },
+        {
+          "name": ".iram0.text_end",
+          "address": 1341452856,
+          "bytes": 8
+        },
+        {
+          "name": ".iram0.bss",
+          "address": 1341452864,
+          "bytes": 16
+        },
+        {
+          "name": ".dram0.data",
+          "address": 1341452928,
+          "bytes": 17488
+        },
+        {
+          "name": ".loader.data",
+          "address": 1341470416,
+          "bytes": 688
+        },
+        {
+          "name": "sw_isr_table",
+          "address": 1341471104,
+          "bytes": 384
+        },
+        {
+          "name": "device_states",
+          "address": 1341471488,
+          "bytes": 28
+        },
+        {
+          "name": "k_mem_slab_area",
+          "address": 1341471516,
+          "bytes": 32
+        },
+        {
+          "name": "k_heap_area",
+          "address": 1341471548,
+          "bytes": 24
+        },
+        {
+          "name": "k_mutex_area",
+          "address": 1341471572,
+          "bytes": 140
+        },
+        {
+          "name": "k_sem_area",
+          "address": 1341471712,
+          "bytes": 112
+        },
+        {
+          "name": "video_device_area",
+          "address": 1341471824,
+          "bytes": 32
+        },
+        {
+          "name": ".dram0.noinit",
+          "address": 1341471872,
+          "bytes": 135756
+        },
+        {
+          "name": ".dram0.bss",
+          "address": 1341607632,
+          "bytes": 27072
+        }
+      ],
+      "internal_objects_largest": [
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341494400,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "kheap__system_heap",
+          "source": null,
+          "address": 1341582976,
+          "bytes": 16460,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341566592,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ring_buffer_data_input",
+          "source": "platform.c",
+          "address": 1341599436,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341478016,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341486208,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "dma_config_0",
+          "source": "dma_esp32_gdma.c",
+          "address": 1341453800,
+          "bytes": 6360,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "_k_mem_slab_buf_dma_slab",
+          "source": "audio_backend.c",
+          "address": 1341471872,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "tasks",
+          "source": null,
+          "address": 1341615216,
+          "bytes": 5240,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341559936,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L8suppliedE",
+          "source": "neural_backend.cpp",
+          "address": 1341626832,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm1",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341630928,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm2",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341628880,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341564032,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "chunks",
+          "source": null,
+          "address": 1341620456,
+          "bytes": 2040,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "outBuf",
+          "source": "runtime.c",
+          "address": 1341623520,
+          "bytes": 1024,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "rcvBuf",
+          "source": "runtime.c",
+          "address": 1341622496,
+          "bytes": 1024,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "printBuffer",
+          "source": "interp.c",
+          "address": 1341613704,
+          "bytes": 1000,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "global_data",
+          "source": "psa_crypto_slot_management.c",
+          "address": 1341634052,
+          "bytes": 644,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "ppa_state",
+          "source": "esp_ppa.c",
+          "address": 1341452928,
+          "bytes": 640,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "primSets",
+          "source": null,
+          "address": 1341624544,
+          "bytes": 520,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "z_idle_stacks",
+          "source": "init.c",
+          "address": 1341566080,
+          "bytes": 512,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "s_test_data",
+          "source": "mspi_timing_by_dqs.c",
+          "address": 1341469116,
+          "bytes": 512,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "text",
+          "source": "whistle_backend.c",
+          "address": 1341612700,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "vars",
+          "source": null,
+          "address": 1341614704,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L8resolverE",
+          "source": "kws_backend.cpp",
+          "address": 1341625540,
+          "bytes": 480,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "_sw_isr_table",
+          "source": null,
+          "address": 1341471104,
+          "bytes": 384,
+          "section": "sw_isr_table",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L7metricsE",
+          "source": "kws_backend.cpp",
+          "address": 1341610112,
+          "bytes": 344,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "unwind",
+          "source": "whistle_backend.c",
+          "address": 1341609184,
+          "bytes": 304,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "smh_data",
+          "source": "shared_multi_heap.c",
+          "address": 1341632976,
+          "bytes": 300,
+          "section": ".dram0.bss",
+          "region": "internal"
+        }
+      ],
+      "stacks": [
+        {
+          "name": "z_idle_stacks",
+          "source": "init.c",
+          "address": 1341566080,
+          "bytes": 512,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341564032,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341559936,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341478016,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341566592,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341486208,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341494400,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        }
+      ],
+      "stack_reservations_total": 104960,
+      "storage_objects": [
+        {
+          "name": "text.1",
+          "source": "storage.c",
+          "address": 1089067324,
+          "bytes": 56,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "text.0",
+          "source": "storage.c",
+          "address": 1089067300,
+          "bytes": 24,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "last_error",
+          "source": "storage_primitives.c",
+          "address": 1341607984,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_primitives.c",
+          "address": 1341608275,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "entries",
+          "source": "storage_primitives.c",
+          "address": 1089067380,
+          "bytes": 112,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "CSWTCH.10",
+          "source": "dispatcher.c",
+          "address": 1089067556,
+          "bytes": 14,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_protocol.c",
+          "address": 1341608276,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "storage_internal_object_bytes": 6,
+      "hosted_objects": [],
+      "psram_sections": [
+        {
+          "name": ".ext_ram.data",
+          "address": 1207959552,
+          "bytes": 17149888
+        }
+      ],
+      "psram_objects": [
+        {
+          "name": "flash",
+          "source": "persist.c",
+          "address": 1207959552,
+          "bytes": 65536,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "memory",
+          "source": "discovery_backend.c",
+          "address": 1208025088,
+          "bytes": 4096,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "output",
+          "source": "json_primitives.c",
+          "address": 1208029184,
+          "bytes": 4097,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "arena",
+          "source": "json_primitives.c",
+          "address": 1208033296,
+          "bytes": 98304,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "step_state",
+          "source": "primitives.c",
+          "address": 1208131600,
+          "bytes": 448,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "clock_state",
+          "source": "primitives.c",
+          "address": 1208132048,
+          "bytes": 408,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208209264,
+          "bytes": 16384,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "neural_backend.cpp",
+          "address": 1208225648,
+          "bytes": 32768,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "objstore",
+          "source": "mem.c",
+          "address": 1208258416,
+          "bytes": 65552,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L11ring_memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208323968,
+          "bytes": 8256,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "psram_heap_start": 1208332224,
+      "psram_heap_end": 1225109440,
+      "configuration": {
+        "CONFIG_DT_HAS_ESPRESSIF_ESP32_PSRAM_ENABLED": "y",
+        "CONFIG_MAIN_STACK_SIZE": "16384",
+        "CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE": "1024",
+        "CONFIG_DCACHE_LINE_SIZE": "64",
+        "CONFIG_CACHE_MANAGEMENT": "y",
+        "CONFIG_IDLE_STACK_SIZE": "512",
+        "CONFIG_ISR_STACK_SIZE": "2048",
+        "CONFIG_TEST_EXTRA_STACK_SIZE": "1536",
+        "CONFIG_INIT_STACKS": "y",
+        "CONFIG_DCACHE": "y",
+        "CONFIG_CACHE": "y",
+        "CONFIG_COMMON_LIBC_MALLOC_ARENA_SIZE": "-1",
+        "CONFIG_SOC_SHARED_IDCACHE_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_SUPPORTED": "y",
+        "CONFIG_SOC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_CACHE_WRITEBACK_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_XIP_SUPPORTED": "y",
+        "CONFIG_SOC_CACHE_FREEZE_SUPPORTED": "y",
+        "CONFIG_SOC_SPI_MEM_SUPPORT_CACHE_32BIT_ADDR_MAP": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_SEPARATE_KEY": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_PAGE_CONFIGURABLE": "y",
+        "CONFIG_SOC_PM_PAU_REGDMA_UPDATE_CACHE_BEFORE_WAIT_COMPARE": "y",
+        "CONFIG_SOC_CACHE_INTERNAL_MEM_VIA_L1CACHE": "y",
+        "CONFIG_SOC_SDMMC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_PSRAM_MEMSPI_IS_INDEPENDENT": "y",
+        "CONFIG_SOC_PM_CACHE_RETENTION_BY_PAU": "y",
+        "CONFIG_PM_SLP_SPIRAM_HALFSLEEP_EXIT_WAIT_DELAY": "150",
+        "CONFIG_ESP_SLEEP_PSRAM_LEAKAGE_WORKAROUND": "y",
+        "CONFIG_HEAP_MEM_POOL_ADD_SIZE_BOARD": "4096",
+        "CONFIG_ESP32_TIMER_TASK_STACK_SIZE": "1536",
+        "CONFIG_ESP_SPIRAM": "y",
+        "CONFIG_SHARED_MULTI_HEAP": "y",
+        "CONFIG_ESP_SPIRAM_HEAP_SIZE": "16777216",
+        "CONFIG_ESP_SPIRAM_MEMTEST": "y",
+        "CONFIG_SPIRAM_MODE_HEX": "y",
+        "CONFIG_ESP_SPIRAM_SIZE": "33554432",
+        "CONFIG_SPIRAM_SPEED_200M": "y",
+        "CONFIG_SPIRAM_SPEED": "200",
+        "CONFIG_ESP_SPIRAM_BSS_RELOC_LIBS_AND_OBJS": "\"\"",
+        "CONFIG_ESP32_CACHE_L2_128KB": "y",
+        "CONFIG_ESP32_CACHE_L2_SIZE": "0x20000",
+        "CONFIG_ESP32_CACHE_L2_LINE_64B": "y",
+        "CONFIG_ESP32_CACHE_L2_LINE_SIZE": "64",
+        "CONFIG_ARCH_HAS_STACKWALK": "y",
+        "CONFIG_ARCH_STACKWALK": "y",
+        "CONFIG_ARCH_STACKWALK_MAX_FRAMES": "8",
+        "CONFIG_ARCH_HAS_NOCACHE_MEMORY_SUPPORT": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_PRIV_STACKS": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_STACK_PTR": "y",
+        "CONFIG_ARCH_HAS_STACK_CANARIES_TLS": "y",
+        "CONFIG_CPU_HAS_DCACHE": "y",
+        "CONFIG_EXTERNAL_CACHE": "y",
+        "CONFIG_MAIN_THREAD_PRIORITY": "0",
+        "CONFIG_THREAD_STACK_INFO": "y",
+        "CONFIG_HEAP_MEM_POOL_SIZE": "16384",
+        "CONFIG_STACK_POINTER_RANDOM": "0",
+        "CONFIG_CACHE_HAS_DRIVER": "y",
+        "CONFIG_CACHE_ESP32": "y",
+        "CONFIG_VIDEO_BUFFER_POOL_HEAP_SIZE": "0",
+        "CONFIG_VIDEO_BUFFER_USE_SHARED_MULTI_HEAP": "y",
+        "CONFIG_COMMON_LIBC_MALLOC": "y",
+        "CONFIG_SYS_HEAP_ALLOC_LOOPS": "3",
+        "CONFIG_SYS_HEAP_ARRAY_SIZE": "0",
+        "CONFIG_SYS_HEAP_HARDENING_MODERATE": "y",
+        "CONFIG_SYS_HEAP_HARDENING_LEVEL": "2",
+        "CONFIG_SYS_HEAP_AUTO": "y",
+        "CONFIG_MULTI_HEAP": "y",
+        "CONFIG_STACK_SENTINEL": "y",
+        "CONFIG_EXCEPTION_STACK_TRACE": "y"
+      },
+      "runtime_measured": false
+    },
+    "station": {
+      "elf_sha256": "b396878ed505d8ca6efa4b3076d1f384dfd8b6248a7db9c60191f15b4ee8f82e",
+      "config_sha256": "c14748201fcb4aa8b683cc6926ee1f24228a7b0b2e3c4843bbb3aba566306ed6",
+      "map_sha256": "d4e6562fd14fc22f3755636527d828647533ae96b8e6fb675c881e29d3c5ffcb",
+      "static_internal_bytes": 383728,
+      "internal_capacity": 393216,
+      "remaining_internal_bytes": 9488,
+      "libc_malloc_arena_bytes": 9488,
+      "libc_malloc_arena_policy": "-1",
+      "system_heap_requested_bytes": 32768,
+      "internal_sections": [
+        {
+          "name": ".iram0.text",
+          "address": 1341390848,
+          "bytes": 69808
+        },
+        {
+          "name": ".loader.text",
+          "address": 1341460656,
+          "bytes": 1308
+        },
+        {
+          "name": ".iram0.text_end",
+          "address": 1341461964,
+          "bytes": 4
+        },
+        {
+          "name": ".iram0.bss",
+          "address": 1341461968,
+          "bytes": 16
+        },
+        {
+          "name": ".dram0.data",
+          "address": 1341462016,
+          "bytes": 23468
+        },
+        {
+          "name": ".loader.data",
+          "address": 1341485484,
+          "bytes": 692
+        },
+        {
+          "name": "sw_isr_table",
+          "address": 1341486176,
+          "bytes": 384
+        },
+        {
+          "name": "device_states",
+          "address": 1341486560,
+          "bytes": 36
+        },
+        {
+          "name": "k_mem_slab_area",
+          "address": 1341486596,
+          "bytes": 128
+        },
+        {
+          "name": "k_heap_area",
+          "address": 1341486724,
+          "bytes": 24
+        },
+        {
+          "name": "k_mutex_area",
+          "address": 1341486748,
+          "bytes": 440
+        },
+        {
+          "name": "k_msgq_area",
+          "address": 1341487188,
+          "bytes": 104
+        },
+        {
+          "name": "k_sem_area",
+          "address": 1341487292,
+          "bytes": 336
+        },
+        {
+          "name": "net_buf_pool_area",
+          "address": 1341487628,
+          "bytes": 96
+        },
+        {
+          "name": "net_if_area",
+          "address": 1341487728,
+          "bytes": 152
+        },
+        {
+          "name": "net_if_dev_area",
+          "address": 1341487880,
+          "bytes": 40
+        },
+        {
+          "name": "net_l2_area",
+          "address": 1341487920,
+          "bytes": 20
+        },
+        {
+          "name": "video_device_area",
+          "address": 1341487940,
+          "bytes": 32
+        },
+        {
+          "name": "wifi_nm_instance_area",
+          "address": 1341487972,
+          "bytes": 16
+        },
+        {
+          "name": ".dram0.noinit",
+          "address": 1341488000,
+          "bytes": 227228
+        },
+        {
+          "name": ".dram0.bss",
+          "address": 1341715264,
+          "bytes": 59312
+        }
+      ],
+      "internal_objects_largest": [
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341510528,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "kheap__system_heap",
+          "source": null,
+          "address": 1341641832,
+          "bytes": 32852,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "net_buf_data_rx_bufs",
+          "source": "net_pkt.c",
+          "address": 1341695836,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341617024,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "server_ctx",
+          "source": "http_server_core.c",
+          "address": 1341729016,
+          "bytes": 13944,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "net_buf_data_tx_bufs",
+          "source": "net_pkt.c",
+          "address": 1341682876,
+          "bytes": 12288,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_station_worker",
+          "source": null,
+          "address": 1341586304,
+          "bytes": 12288,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ring_buffer_data_uart_rx",
+          "source": "hosted_transport.c",
+          "address": 1341674684,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341494144,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341502336,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_mem_slab_buf_tcp_conns_slab",
+          "source": "tcp.c",
+          "address": 1341635032,
+          "bytes": 6800,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "dma_config_0",
+          "source": "dma_esp32_gdma.c",
+          "address": 1341463368,
+          "bytes": 6360,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "_k_mem_slab_buf_dma_slab",
+          "source": "audio_backend.c",
+          "address": 1341488000,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_ws_worker",
+          "source": null,
+          "address": 1341580160,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_http_server_tid",
+          "source": null,
+          "address": 1341604224,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "tasks",
+          "source": null,
+          "address": 1341748408,
+          "bytes": 5240,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "event_stack.4",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341610368,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341576064,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "rx.0",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341716160,
+          "bytes": 3200,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "rx_stack",
+          "source": null,
+          "address": 1341600640,
+          "bytes": 2560,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L8suppliedE",
+          "source": "neural_backend.cpp",
+          "address": 1341760032,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm1",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341765352,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm2",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341763304,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341614464,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "mgmt_stack",
+          "source": null,
+          "address": 1341598592,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "chunks",
+          "source": null,
+          "address": 1341753648,
+          "bytes": 2040,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "tx.3",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341720960,
+          "bytes": 1600,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "tx.2",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341719360,
+          "bytes": 1600,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "buf.0",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341772176,
+          "bytes": 1588,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "contexts",
+          "source": "net_context.c",
+          "address": 1341769140,
+          "bytes": 1560,
+          "section": ".dram0.bss",
+          "region": "internal"
+        }
+      ],
+      "stacks": [
+        {
+          "name": "z_idle_stacks",
+          "source": "init.c",
+          "address": 1341616512,
+          "bytes": 512,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "sys_work_q_stack",
+          "source": "system_work_q.c",
+          "address": 1341633408,
+          "bytes": 1024,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "event_stack.4",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341610368,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "work_q_stack",
+          "source": "tcp.c",
+          "address": 1341603200,
+          "bytes": 1024,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_ws_worker",
+          "source": null,
+          "address": 1341580160,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_station_worker",
+          "source": null,
+          "address": 1341586304,
+          "bytes": 12288,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341614464,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341576064,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341494144,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341617024,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341502336,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "mgmt_stack",
+          "source": null,
+          "address": 1341598592,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "rx_stack",
+          "source": null,
+          "address": 1341600640,
+          "bytes": 2560,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341510528,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_http_server_tid",
+          "source": null,
+          "address": 1341604224,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        }
+      ],
+      "stack_reservations_total": 140288,
+      "storage_objects": [
+        {
+          "name": "text.1",
+          "source": "storage.c",
+          "address": 1088972280,
+          "bytes": 56,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "text.0",
+          "source": "storage.c",
+          "address": 1088972256,
+          "bytes": 24,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "last_error",
+          "source": "storage_primitives.c",
+          "address": 1341715624,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_primitives.c",
+          "address": 1341716096,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "entries",
+          "source": "storage_primitives.c",
+          "address": 1088972336,
+          "bytes": 112,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "CSWTCH.10",
+          "source": "dispatcher.c",
+          "address": 1088972512,
+          "bytes": 14,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_protocol.c",
+          "address": 1341716097,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "storage_internal_object_bytes": 6,
+      "hosted_objects": [
+        {
+          "name": "body.0",
+          "source": "hosted_server.c",
+          "address": 1341762112,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "headers",
+          "source": "hosted_server.c",
+          "address": 1088973580,
+          "bytes": 56,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "assets",
+          "source": "hosted_server.c",
+          "address": 1341715776,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "transfers",
+          "source": "hosted_server.c",
+          "address": 1208258416,
+          "bytes": 8240,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "flash_scratch",
+          "source": "hosted_server.c",
+          "address": 1341723392,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "status_api",
+          "source": "hosted_server.c",
+          "address": 1341470656,
+          "bytes": 32,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "websocket",
+          "source": "hosted_server.c",
+          "address": 1341470688,
+          "bytes": 40,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "ws_buffer",
+          "source": "hosted_server.c",
+          "address": 1341762624,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "p4_host",
+          "source": "hosted_server.c",
+          "address": 1089001112,
+          "bytes": 4,
+          "section": "http_header_name_area",
+          "region": "other"
+        },
+        {
+          "name": "p4_origin",
+          "source": "hosted_server.c",
+          "address": 1089001116,
+          "bytes": 4,
+          "section": "http_header_name_area",
+          "region": "other"
+        },
+        {
+          "name": "port",
+          "source": "hosted_server.c",
+          "address": 1341476744,
+          "bytes": 2,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "p4_http_fd",
+          "source": "hosted_server.c",
+          "address": 1341476676,
+          "bytes": 4,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "p4_http_data",
+          "source": "hosted_server.c",
+          "address": 1341715780,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        }
+      ],
+      "psram_sections": [
+        {
+          "name": ".ext_ram.data",
+          "address": 1207959552,
+          "bytes": 17158128
+        }
+      ],
+      "psram_objects": [
+        {
+          "name": "flash",
+          "source": "persist.c",
+          "address": 1207959552,
+          "bytes": 65536,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "memory",
+          "source": "discovery_backend.c",
+          "address": 1208025088,
+          "bytes": 4096,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "output",
+          "source": "json_primitives.c",
+          "address": 1208029184,
+          "bytes": 4097,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "arena",
+          "source": "json_primitives.c",
+          "address": 1208033296,
+          "bytes": 98304,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "step_state",
+          "source": "primitives.c",
+          "address": 1208131600,
+          "bytes": 448,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "clock_state",
+          "source": "primitives.c",
+          "address": 1208132048,
+          "bytes": 408,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208209264,
+          "bytes": 16384,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "neural_backend.cpp",
+          "address": 1208225648,
+          "bytes": 32768,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "transfers",
+          "source": "hosted_server.c",
+          "address": 1208258416,
+          "bytes": 8240,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "objstore",
+          "source": "mem.c",
+          "address": 1208266656,
+          "bytes": 65552,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L11ring_memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208332208,
+          "bytes": 8256,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "psram_heap_start": 1208340464,
+      "psram_heap_end": 1225117680,
+      "configuration": {
+        "CONFIG_DT_HAS_ESPRESSIF_ESP32_PSRAM_ENABLED": "y",
+        "CONFIG_MAIN_STACK_SIZE": "16384",
+        "CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE": "1024",
+        "CONFIG_DCACHE_LINE_SIZE": "64",
+        "CONFIG_CACHE_MANAGEMENT": "y",
+        "CONFIG_IDLE_STACK_SIZE": "512",
+        "CONFIG_ISR_STACK_SIZE": "2048",
+        "CONFIG_TEST_EXTRA_STACK_SIZE": "1536",
+        "CONFIG_INIT_STACKS": "y",
+        "CONFIG_DCACHE": "y",
+        "CONFIG_CACHE": "y",
+        "CONFIG_COMMON_LIBC_MALLOC_ARENA_SIZE": "-1",
+        "CONFIG_NET_MGMT_EVENT_STACK_SIZE": "2048",
+        "CONFIG_SOC_SHARED_IDCACHE_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_SUPPORTED": "y",
+        "CONFIG_SOC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_CACHE_WRITEBACK_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_XIP_SUPPORTED": "y",
+        "CONFIG_SOC_CACHE_FREEZE_SUPPORTED": "y",
+        "CONFIG_SOC_SPI_MEM_SUPPORT_CACHE_32BIT_ADDR_MAP": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_SEPARATE_KEY": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_PAGE_CONFIGURABLE": "y",
+        "CONFIG_SOC_PM_PAU_REGDMA_UPDATE_CACHE_BEFORE_WAIT_COMPARE": "y",
+        "CONFIG_SOC_CACHE_INTERNAL_MEM_VIA_L1CACHE": "y",
+        "CONFIG_SOC_SDMMC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_PSRAM_MEMSPI_IS_INDEPENDENT": "y",
+        "CONFIG_SOC_PM_CACHE_RETENTION_BY_PAU": "y",
+        "CONFIG_PM_SLP_SPIRAM_HALFSLEEP_EXIT_WAIT_DELAY": "150",
+        "CONFIG_ESP_SLEEP_PSRAM_LEAKAGE_WORKAROUND": "y",
+        "CONFIG_NANOPB_ENABLE_MALLOC": "y",
+        "CONFIG_HEAP_MEM_POOL_ADD_SIZE_BOARD": "4096",
+        "CONFIG_ESP32_TIMER_TASK_STACK_SIZE": "1536",
+        "CONFIG_ESP_SPIRAM": "y",
+        "CONFIG_SHARED_MULTI_HEAP": "y",
+        "CONFIG_ESP_SPIRAM_HEAP_SIZE": "16777216",
+        "CONFIG_ESP_SPIRAM_MEMTEST": "y",
+        "CONFIG_SPIRAM_MODE_HEX": "y",
+        "CONFIG_ESP_SPIRAM_SIZE": "33554432",
+        "CONFIG_SPIRAM_SPEED_200M": "y",
+        "CONFIG_SPIRAM_SPEED": "200",
+        "CONFIG_ESP_SPIRAM_BSS_RELOC_LIBS_AND_OBJS": "\"\"",
+        "CONFIG_ESP32_CACHE_L2_128KB": "y",
+        "CONFIG_ESP32_CACHE_L2_SIZE": "0x20000",
+        "CONFIG_ESP32_CACHE_L2_LINE_64B": "y",
+        "CONFIG_ESP32_CACHE_L2_LINE_SIZE": "64",
+        "CONFIG_ARCH_HAS_STACKWALK": "y",
+        "CONFIG_NET_TX_STACK_SIZE": "1200",
+        "CONFIG_NET_RX_STACK_SIZE": "2560",
+        "CONFIG_ARCH_STACKWALK": "y",
+        "CONFIG_ARCH_STACKWALK_MAX_FRAMES": "8",
+        "CONFIG_ARCH_HAS_NOCACHE_MEMORY_SUPPORT": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_PRIV_STACKS": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_STACK_PTR": "y",
+        "CONFIG_ARCH_HAS_STACK_CANARIES_TLS": "y",
+        "CONFIG_CPU_HAS_DCACHE": "y",
+        "CONFIG_EXTERNAL_CACHE": "y",
+        "CONFIG_MAIN_THREAD_PRIORITY": "0",
+        "CONFIG_THREAD_STACK_INFO": "y",
+        "CONFIG_HEAP_MEM_POOL_SIZE": "32768",
+        "CONFIG_STACK_POINTER_RANDOM": "0",
+        "CONFIG_CACHE_HAS_DRIVER": "y",
+        "CONFIG_CACHE_ESP32": "y",
+        "CONFIG_ESP_HOSTED_MCU_EVENT_TASK_STACK_SIZE": "4096",
+        "CONFIG_VIDEO_BUFFER_POOL_HEAP_SIZE": "0",
+        "CONFIG_VIDEO_BUFFER_USE_SHARED_MULTI_HEAP": "y",
+        "CONFIG_NET_TCP_WORKQ_STACK_SIZE": "1024",
+        "CONFIG_COMMON_LIBC_MALLOC": "y",
+        "CONFIG_SYS_HEAP_ALLOC_LOOPS": "3",
+        "CONFIG_SYS_HEAP_ARRAY_SIZE": "0",
+        "CONFIG_SYS_HEAP_HARDENING_MODERATE": "y",
+        "CONFIG_SYS_HEAP_HARDENING_LEVEL": "2",
+        "CONFIG_SYS_HEAP_AUTO": "y",
+        "CONFIG_MULTI_HEAP": "y",
+        "CONFIG_STACK_SENTINEL": "y",
+        "CONFIG_EXCEPTION_STACK_TRACE": "y",
+        "CONFIG_NET_IPV4_NBR_CACHE": "y",
+        "CONFIG_HTTP_SERVER_STACK_SIZE": "6144",
+        "CONFIG_HEAP_MEM_POOL_ADD_SIZE_GETADDRINFO": "280",
+        "CONFIG_SDIO_STACK": "y",
+        "CONFIG_SD_STACK": "y",
+        "CONFIG_P4_HOSTED": "y"
+      },
+      "runtime_measured": false
+    },
+    "station_minus_usb_static_bytes": 139872
+  },
+  "after": {
+    "usb": {
+      "elf_sha256": "09325741f7ff29bbec7e5b7aab80e61708793dadb18cb3e02282a284055888e6",
+      "config_sha256": "12332fa338ceec67a152c5c221819e5d3e89e9a0e304b57cda5da3494ccd3abb",
+      "map_sha256": "7c996896d091707b8e5f363be3a6bc7bf85febe802b4798663b0ca2f94e0bb0e",
+      "static_internal_bytes": 243856,
+      "internal_capacity": 393216,
+      "remaining_internal_bytes": 149360,
+      "libc_malloc_arena_bytes": 149360,
+      "libc_malloc_arena_policy": "-1",
+      "system_heap_requested_bytes": 16384,
+      "internal_sections": [
+        {
+          "name": ".iram0.text",
+          "address": 1341390848,
+          "bytes": 60740
+        },
+        {
+          "name": ".loader.text",
+          "address": 1341451588,
+          "bytes": 1268
+        },
+        {
+          "name": ".iram0.text_end",
+          "address": 1341452856,
+          "bytes": 8
+        },
+        {
+          "name": ".iram0.bss",
+          "address": 1341452864,
+          "bytes": 16
+        },
+        {
+          "name": ".dram0.data",
+          "address": 1341452928,
+          "bytes": 17488
+        },
+        {
+          "name": ".loader.data",
+          "address": 1341470416,
+          "bytes": 688
+        },
+        {
+          "name": "sw_isr_table",
+          "address": 1341471104,
+          "bytes": 384
+        },
+        {
+          "name": "device_states",
+          "address": 1341471488,
+          "bytes": 28
+        },
+        {
+          "name": "k_mem_slab_area",
+          "address": 1341471516,
+          "bytes": 32
+        },
+        {
+          "name": "k_heap_area",
+          "address": 1341471548,
+          "bytes": 24
+        },
+        {
+          "name": "k_mutex_area",
+          "address": 1341471572,
+          "bytes": 140
+        },
+        {
+          "name": "k_sem_area",
+          "address": 1341471712,
+          "bytes": 112
+        },
+        {
+          "name": "video_device_area",
+          "address": 1341471824,
+          "bytes": 32
+        },
+        {
+          "name": ".dram0.noinit",
+          "address": 1341471872,
+          "bytes": 135756
+        },
+        {
+          "name": ".dram0.bss",
+          "address": 1341607632,
+          "bytes": 27072
+        }
+      ],
+      "internal_objects_largest": [
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341494400,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "kheap__system_heap",
+          "source": null,
+          "address": 1341582976,
+          "bytes": 16460,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341566592,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ring_buffer_data_input",
+          "source": "platform.c",
+          "address": 1341599436,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341478016,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341486208,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "dma_config_0",
+          "source": "dma_esp32_gdma.c",
+          "address": 1341453800,
+          "bytes": 6360,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "_k_mem_slab_buf_dma_slab",
+          "source": "audio_backend.c",
+          "address": 1341471872,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "tasks",
+          "source": null,
+          "address": 1341615216,
+          "bytes": 5240,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341559936,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L8suppliedE",
+          "source": "neural_backend.cpp",
+          "address": 1341626832,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm1",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341630928,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm2",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341628880,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341564032,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "chunks",
+          "source": null,
+          "address": 1341620456,
+          "bytes": 2040,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "outBuf",
+          "source": "runtime.c",
+          "address": 1341623520,
+          "bytes": 1024,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "rcvBuf",
+          "source": "runtime.c",
+          "address": 1341622496,
+          "bytes": 1024,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "printBuffer",
+          "source": "interp.c",
+          "address": 1341613704,
+          "bytes": 1000,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "global_data",
+          "source": "psa_crypto_slot_management.c",
+          "address": 1341634052,
+          "bytes": 644,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "ppa_state",
+          "source": "esp_ppa.c",
+          "address": 1341452928,
+          "bytes": 640,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "primSets",
+          "source": null,
+          "address": 1341624544,
+          "bytes": 520,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "z_idle_stacks",
+          "source": "init.c",
+          "address": 1341566080,
+          "bytes": 512,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "s_test_data",
+          "source": "mspi_timing_by_dqs.c",
+          "address": 1341469116,
+          "bytes": 512,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "text",
+          "source": "whistle_backend.c",
+          "address": 1341612700,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "vars",
+          "source": null,
+          "address": 1341614704,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L8resolverE",
+          "source": "kws_backend.cpp",
+          "address": 1341625540,
+          "bytes": 480,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "_sw_isr_table",
+          "source": null,
+          "address": 1341471104,
+          "bytes": 384,
+          "section": "sw_isr_table",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L7metricsE",
+          "source": "kws_backend.cpp",
+          "address": 1341610112,
+          "bytes": 344,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "unwind",
+          "source": "whistle_backend.c",
+          "address": 1341609184,
+          "bytes": 304,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "smh_data",
+          "source": "shared_multi_heap.c",
+          "address": 1341632976,
+          "bytes": 300,
+          "section": ".dram0.bss",
+          "region": "internal"
+        }
+      ],
+      "stacks": [
+        {
+          "name": "z_idle_stacks",
+          "source": "init.c",
+          "address": 1341566080,
+          "bytes": 512,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341564032,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341559936,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341478016,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341566592,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341486208,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341494400,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        }
+      ],
+      "stack_reservations_total": 104960,
+      "storage_objects": [
+        {
+          "name": "text.1",
+          "source": "storage.c",
+          "address": 1089067324,
+          "bytes": 56,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "text.0",
+          "source": "storage.c",
+          "address": 1089067300,
+          "bytes": 24,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "last_error",
+          "source": "storage_primitives.c",
+          "address": 1341607984,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_primitives.c",
+          "address": 1341608275,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "entries",
+          "source": "storage_primitives.c",
+          "address": 1089067380,
+          "bytes": 112,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "CSWTCH.10",
+          "source": "dispatcher.c",
+          "address": 1089067556,
+          "bytes": 14,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_protocol.c",
+          "address": 1341608276,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "storage_internal_object_bytes": 6,
+      "hosted_objects": [],
+      "rpc_objects": [],
+      "psram_sections": [
+        {
+          "name": ".ext_ram.data",
+          "address": 1207959552,
+          "bytes": 17149888
+        }
+      ],
+      "psram_objects": [
+        {
+          "name": "flash",
+          "source": "persist.c",
+          "address": 1207959552,
+          "bytes": 65536,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "memory",
+          "source": "discovery_backend.c",
+          "address": 1208025088,
+          "bytes": 4096,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "output",
+          "source": "json_primitives.c",
+          "address": 1208029184,
+          "bytes": 4097,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "arena",
+          "source": "json_primitives.c",
+          "address": 1208033296,
+          "bytes": 98304,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "step_state",
+          "source": "primitives.c",
+          "address": 1208131600,
+          "bytes": 448,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "clock_state",
+          "source": "primitives.c",
+          "address": 1208132048,
+          "bytes": 408,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208209264,
+          "bytes": 16384,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "neural_backend.cpp",
+          "address": 1208225648,
+          "bytes": 32768,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "objstore",
+          "source": "mem.c",
+          "address": 1208258416,
+          "bytes": 65552,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L11ring_memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208323968,
+          "bytes": 8256,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "psram_heap_start": 1208332224,
+      "psram_heap_end": 1225109440,
+      "configuration": {
+        "CONFIG_DT_HAS_ESPRESSIF_ESP32_PSRAM_ENABLED": "y",
+        "CONFIG_MAIN_STACK_SIZE": "16384",
+        "CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE": "1024",
+        "CONFIG_DCACHE_LINE_SIZE": "64",
+        "CONFIG_CACHE_MANAGEMENT": "y",
+        "CONFIG_IDLE_STACK_SIZE": "512",
+        "CONFIG_ISR_STACK_SIZE": "2048",
+        "CONFIG_TEST_EXTRA_STACK_SIZE": "1536",
+        "CONFIG_INIT_STACKS": "y",
+        "CONFIG_DCACHE": "y",
+        "CONFIG_CACHE": "y",
+        "CONFIG_COMMON_LIBC_MALLOC_ARENA_SIZE": "-1",
+        "CONFIG_SOC_SHARED_IDCACHE_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_SUPPORTED": "y",
+        "CONFIG_SOC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_CACHE_WRITEBACK_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_XIP_SUPPORTED": "y",
+        "CONFIG_SOC_CACHE_FREEZE_SUPPORTED": "y",
+        "CONFIG_SOC_SPI_MEM_SUPPORT_CACHE_32BIT_ADDR_MAP": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_SEPARATE_KEY": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_PAGE_CONFIGURABLE": "y",
+        "CONFIG_SOC_PM_PAU_REGDMA_UPDATE_CACHE_BEFORE_WAIT_COMPARE": "y",
+        "CONFIG_SOC_CACHE_INTERNAL_MEM_VIA_L1CACHE": "y",
+        "CONFIG_SOC_SDMMC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_PSRAM_MEMSPI_IS_INDEPENDENT": "y",
+        "CONFIG_SOC_PM_CACHE_RETENTION_BY_PAU": "y",
+        "CONFIG_PM_SLP_SPIRAM_HALFSLEEP_EXIT_WAIT_DELAY": "150",
+        "CONFIG_ESP_SLEEP_PSRAM_LEAKAGE_WORKAROUND": "y",
+        "CONFIG_HEAP_MEM_POOL_ADD_SIZE_BOARD": "4096",
+        "CONFIG_ESP32_TIMER_TASK_STACK_SIZE": "1536",
+        "CONFIG_ESP_SPIRAM": "y",
+        "CONFIG_SHARED_MULTI_HEAP": "y",
+        "CONFIG_ESP_SPIRAM_HEAP_SIZE": "16777216",
+        "CONFIG_ESP_SPIRAM_MEMTEST": "y",
+        "CONFIG_SPIRAM_MODE_HEX": "y",
+        "CONFIG_ESP_SPIRAM_SIZE": "33554432",
+        "CONFIG_SPIRAM_SPEED_200M": "y",
+        "CONFIG_SPIRAM_SPEED": "200",
+        "CONFIG_ESP_SPIRAM_BSS_RELOC_LIBS_AND_OBJS": "\"\"",
+        "CONFIG_ESP32_CACHE_L2_128KB": "y",
+        "CONFIG_ESP32_CACHE_L2_SIZE": "0x20000",
+        "CONFIG_ESP32_CACHE_L2_LINE_64B": "y",
+        "CONFIG_ESP32_CACHE_L2_LINE_SIZE": "64",
+        "CONFIG_ARCH_HAS_STACKWALK": "y",
+        "CONFIG_ARCH_STACKWALK": "y",
+        "CONFIG_ARCH_STACKWALK_MAX_FRAMES": "8",
+        "CONFIG_ARCH_HAS_NOCACHE_MEMORY_SUPPORT": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_PRIV_STACKS": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_STACK_PTR": "y",
+        "CONFIG_ARCH_HAS_STACK_CANARIES_TLS": "y",
+        "CONFIG_CPU_HAS_DCACHE": "y",
+        "CONFIG_EXTERNAL_CACHE": "y",
+        "CONFIG_MAIN_THREAD_PRIORITY": "0",
+        "CONFIG_THREAD_STACK_INFO": "y",
+        "CONFIG_HEAP_MEM_POOL_SIZE": "16384",
+        "CONFIG_STACK_POINTER_RANDOM": "0",
+        "CONFIG_CACHE_HAS_DRIVER": "y",
+        "CONFIG_CACHE_ESP32": "y",
+        "CONFIG_VIDEO_BUFFER_POOL_HEAP_SIZE": "0",
+        "CONFIG_VIDEO_BUFFER_USE_SHARED_MULTI_HEAP": "y",
+        "CONFIG_COMMON_LIBC_MALLOC": "y",
+        "CONFIG_SYS_HEAP_ALLOC_LOOPS": "3",
+        "CONFIG_SYS_HEAP_ARRAY_SIZE": "0",
+        "CONFIG_SYS_HEAP_HARDENING_MODERATE": "y",
+        "CONFIG_SYS_HEAP_HARDENING_LEVEL": "2",
+        "CONFIG_SYS_HEAP_AUTO": "y",
+        "CONFIG_MULTI_HEAP": "y",
+        "CONFIG_STACK_SENTINEL": "y",
+        "CONFIG_EXCEPTION_STACK_TRACE": "y"
+      },
+      "runtime_measured": false
+    },
+    "station": {
+      "elf_sha256": "021ed69249ca8546b316385e51c5511252cc430de5534437c3366eeba0f41ad1",
+      "config_sha256": "c14748201fcb4aa8b683cc6926ee1f24228a7b0b2e3c4843bbb3aba566306ed6",
+      "map_sha256": "a90c250779e8ad323f921c44340f3800bd1df63e14e5dc88b9de96b89d0def44",
+      "static_internal_bytes": 383792,
+      "internal_capacity": 393216,
+      "remaining_internal_bytes": 9424,
+      "libc_malloc_arena_bytes": 9424,
+      "libc_malloc_arena_policy": "-1",
+      "system_heap_requested_bytes": 32768,
+      "internal_sections": [
+        {
+          "name": ".iram0.text",
+          "address": 1341390848,
+          "bytes": 69808
+        },
+        {
+          "name": ".loader.text",
+          "address": 1341460656,
+          "bytes": 1308
+        },
+        {
+          "name": ".iram0.text_end",
+          "address": 1341461964,
+          "bytes": 4
+        },
+        {
+          "name": ".iram0.bss",
+          "address": 1341461968,
+          "bytes": 16
+        },
+        {
+          "name": ".dram0.data",
+          "address": 1341462016,
+          "bytes": 23468
+        },
+        {
+          "name": ".loader.data",
+          "address": 1341485484,
+          "bytes": 692
+        },
+        {
+          "name": "sw_isr_table",
+          "address": 1341486176,
+          "bytes": 384
+        },
+        {
+          "name": "device_states",
+          "address": 1341486560,
+          "bytes": 36
+        },
+        {
+          "name": "k_mem_slab_area",
+          "address": 1341486596,
+          "bytes": 128
+        },
+        {
+          "name": "k_heap_area",
+          "address": 1341486724,
+          "bytes": 24
+        },
+        {
+          "name": "k_mutex_area",
+          "address": 1341486748,
+          "bytes": 460
+        },
+        {
+          "name": "k_msgq_area",
+          "address": 1341487208,
+          "bytes": 104
+        },
+        {
+          "name": "k_sem_area",
+          "address": 1341487312,
+          "bytes": 336
+        },
+        {
+          "name": "net_buf_pool_area",
+          "address": 1341487648,
+          "bytes": 96
+        },
+        {
+          "name": "net_if_area",
+          "address": 1341487744,
+          "bytes": 152
+        },
+        {
+          "name": "net_if_dev_area",
+          "address": 1341487896,
+          "bytes": 40
+        },
+        {
+          "name": "net_l2_area",
+          "address": 1341487936,
+          "bytes": 20
+        },
+        {
+          "name": "video_device_area",
+          "address": 1341487956,
+          "bytes": 32
+        },
+        {
+          "name": "wifi_nm_instance_area",
+          "address": 1341487988,
+          "bytes": 16
+        },
+        {
+          "name": ".dram0.noinit",
+          "address": 1341488064,
+          "bytes": 227228
+        },
+        {
+          "name": ".dram0.bss",
+          "address": 1341715328,
+          "bytes": 59312
+        }
+      ],
+      "internal_objects_largest": [
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341510592,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "kheap__system_heap",
+          "source": null,
+          "address": 1341641896,
+          "bytes": 32852,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "net_buf_data_rx_bufs",
+          "source": "net_pkt.c",
+          "address": 1341695900,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341617088,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "server_ctx",
+          "source": "http_server_core.c",
+          "address": 1341729080,
+          "bytes": 13944,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "net_buf_data_tx_bufs",
+          "source": "net_pkt.c",
+          "address": 1341682940,
+          "bytes": 12288,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_station_worker",
+          "source": null,
+          "address": 1341586368,
+          "bytes": 12288,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ring_buffer_data_uart_rx",
+          "source": "hosted_transport.c",
+          "address": 1341674748,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341494208,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341502400,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_mem_slab_buf_tcp_conns_slab",
+          "source": "tcp.c",
+          "address": 1341635096,
+          "bytes": 6800,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "dma_config_0",
+          "source": "dma_esp32_gdma.c",
+          "address": 1341463368,
+          "bytes": 6360,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "_k_mem_slab_buf_dma_slab",
+          "source": "audio_backend.c",
+          "address": 1341488064,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_ws_worker",
+          "source": null,
+          "address": 1341580224,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_http_server_tid",
+          "source": null,
+          "address": 1341604288,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "tasks",
+          "source": null,
+          "address": 1341748472,
+          "bytes": 5240,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "event_stack.4",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341610432,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341576128,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "rx.0",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341716224,
+          "bytes": 3200,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "rx_stack",
+          "source": null,
+          "address": 1341600704,
+          "bytes": 2560,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L8suppliedE",
+          "source": "neural_backend.cpp",
+          "address": 1341760096,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm1",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341765416,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "s_perm2",
+          "source": "nd_whistle_zephyr.c",
+          "address": 1341763368,
+          "bytes": 2048,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341614528,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "mgmt_stack",
+          "source": null,
+          "address": 1341598656,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "chunks",
+          "source": null,
+          "address": 1341753712,
+          "bytes": 2040,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "tx.3",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341721024,
+          "bytes": 1600,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "tx.2",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341719424,
+          "bytes": 1600,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "buf.0",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341772240,
+          "bytes": 1588,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "contexts",
+          "source": "net_context.c",
+          "address": 1341769204,
+          "bytes": 1560,
+          "section": ".dram0.bss",
+          "region": "internal"
+        }
+      ],
+      "stacks": [
+        {
+          "name": "z_idle_stacks",
+          "source": "init.c",
+          "address": 1341616576,
+          "bytes": 512,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "sys_work_q_stack",
+          "source": "system_work_q.c",
+          "address": 1341633472,
+          "bytes": 1024,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "event_stack.4",
+          "source": "esp_hosted_mcu.c",
+          "address": 1341610432,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "work_q_stack",
+          "source": "tcp.c",
+          "address": 1341603264,
+          "bytes": 1024,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_ws_worker",
+          "source": null,
+          "address": 1341580224,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_p4_station_worker",
+          "source": null,
+          "address": 1341586368,
+          "bytes": 12288,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_interrupt_stacks",
+          "source": null,
+          "address": 1341614528,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_ppa_thread",
+          "source": null,
+          "address": 1341576128,
+          "bytes": 4096,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_camera_thread",
+          "source": null,
+          "address": 1341494208,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "z_main_stack",
+          "source": null,
+          "address": 1341617088,
+          "bytes": 16384,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_audio_thread",
+          "source": null,
+          "address": 1341502400,
+          "bytes": 8192,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "mgmt_stack",
+          "source": null,
+          "address": 1341598656,
+          "bytes": 2048,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "rx_stack",
+          "source": null,
+          "address": 1341600704,
+          "bytes": 2560,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_whistle_thread",
+          "source": null,
+          "address": 1341510592,
+          "bytes": 65536,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        },
+        {
+          "name": "_k_thread_stack_http_server_tid",
+          "source": null,
+          "address": 1341604288,
+          "bytes": 6144,
+          "section": ".dram0.noinit",
+          "region": "internal"
+        }
+      ],
+      "stack_reservations_total": 140288,
+      "storage_objects": [
+        {
+          "name": "text.1",
+          "source": "storage.c",
+          "address": 1088972388,
+          "bytes": 56,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "text.0",
+          "source": "storage.c",
+          "address": 1088972364,
+          "bytes": 24,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "last_error",
+          "source": "storage_primitives.c",
+          "address": 1341715688,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_primitives.c",
+          "address": 1341716160,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "entries",
+          "source": "storage_primitives.c",
+          "address": 1088972444,
+          "bytes": 112,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "CSWTCH.10",
+          "source": "dispatcher.c",
+          "address": 1088972620,
+          "bytes": 14,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "initialized",
+          "source": "storage_protocol.c",
+          "address": 1341716161,
+          "bytes": 1,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "storage_internal_object_bytes": 6,
+      "hosted_objects": [
+        {
+          "name": "body.0",
+          "source": "hosted_server.c",
+          "address": 1341762176,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "headers",
+          "source": "hosted_server.c",
+          "address": 1088973688,
+          "bytes": 56,
+          "section": ".flash.rodata",
+          "region": "other"
+        },
+        {
+          "name": "assets",
+          "source": "hosted_server.c",
+          "address": 1341715840,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "transfers",
+          "source": "hosted_server.c",
+          "address": 1208323984,
+          "bytes": 8240,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "flash_scratch",
+          "source": "hosted_server.c",
+          "address": 1341723456,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "status_api",
+          "source": "hosted_server.c",
+          "address": 1341470656,
+          "bytes": 32,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "websocket",
+          "source": "hosted_server.c",
+          "address": 1341470688,
+          "bytes": 40,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "ws_buffer",
+          "source": "hosted_server.c",
+          "address": 1341762688,
+          "bytes": 512,
+          "section": ".dram0.bss",
+          "region": "internal"
+        },
+        {
+          "name": "p4_host",
+          "source": "hosted_server.c",
+          "address": 1089001216,
+          "bytes": 4,
+          "section": "http_header_name_area",
+          "region": "other"
+        },
+        {
+          "name": "p4_origin",
+          "source": "hosted_server.c",
+          "address": 1089001220,
+          "bytes": 4,
+          "section": "http_header_name_area",
+          "region": "other"
+        },
+        {
+          "name": "port",
+          "source": "hosted_server.c",
+          "address": 1341476744,
+          "bytes": 2,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "p4_http_fd",
+          "source": "hosted_server.c",
+          "address": 1341476676,
+          "bytes": 4,
+          "section": ".dram0.data",
+          "region": "internal"
+        },
+        {
+          "name": "p4_http_data",
+          "source": "hosted_server.c",
+          "address": 1341715844,
+          "bytes": 4,
+          "section": ".dram0.bss",
+          "region": "internal"
+        }
+      ],
+      "rpc_objects": [
+        {
+          "name": "rpc_state",
+          "source": "rpc_allocator.c",
+          "address": 1208258416,
+          "bytes": 28,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "rpc_pool",
+          "source": "rpc_allocator.c",
+          "address": 1208258448,
+          "bytes": 65536,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "rpc_allocator_lock",
+          "source": null,
+          "address": 1341487068,
+          "bytes": 20,
+          "section": "k_mutex_area",
+          "region": "internal"
+        }
+      ],
+      "psram_sections": [
+        {
+          "name": ".ext_ram.data",
+          "address": 1207959552,
+          "bytes": 17223696
+        }
+      ],
+      "psram_objects": [
+        {
+          "name": "flash",
+          "source": "persist.c",
+          "address": 1207959552,
+          "bytes": 65536,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "memory",
+          "source": "discovery_backend.c",
+          "address": 1208025088,
+          "bytes": 4096,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "output",
+          "source": "json_primitives.c",
+          "address": 1208029184,
+          "bytes": 4097,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "arena",
+          "source": "json_primitives.c",
+          "address": 1208033296,
+          "bytes": 98304,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "step_state",
+          "source": "primitives.c",
+          "address": 1208131600,
+          "bytes": 448,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "clock_state",
+          "source": "primitives.c",
+          "address": 1208132048,
+          "bytes": 408,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "files",
+          "source": "storage_primitives.c",
+          "address": 1208132464,
+          "bytes": 74396,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "response",
+          "source": "storage_protocol.c",
+          "address": 1208206864,
+          "bytes": 640,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "workspace",
+          "source": "storage_protocol.c",
+          "address": 1208207504,
+          "bytes": 1712,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "controller",
+          "source": "storage_protocol.c",
+          "address": 1208209216,
+          "bytes": 40,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208209264,
+          "bytes": 16384,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L6memoryE",
+          "source": "neural_backend.cpp",
+          "address": 1208225648,
+          "bytes": 32768,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "rpc_state",
+          "source": "rpc_allocator.c",
+          "address": 1208258416,
+          "bytes": 28,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "rpc_pool",
+          "source": "rpc_allocator.c",
+          "address": 1208258448,
+          "bytes": 65536,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "transfers",
+          "source": "hosted_server.c",
+          "address": 1208323984,
+          "bytes": 8240,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "objstore",
+          "source": "mem.c",
+          "address": 1208332224,
+          "bytes": 65552,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        },
+        {
+          "name": "_ZN12_GLOBAL__N_1L11ring_memoryE",
+          "source": "kws_backend.cpp",
+          "address": 1208397776,
+          "bytes": 8256,
+          "section": ".ext_ram.data",
+          "region": "psram"
+        }
+      ],
+      "psram_heap_start": 1208406032,
+      "psram_heap_end": 1225183248,
+      "configuration": {
+        "CONFIG_DT_HAS_ESPRESSIF_ESP32_PSRAM_ENABLED": "y",
+        "CONFIG_MAIN_STACK_SIZE": "16384",
+        "CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE": "1024",
+        "CONFIG_DCACHE_LINE_SIZE": "64",
+        "CONFIG_CACHE_MANAGEMENT": "y",
+        "CONFIG_IDLE_STACK_SIZE": "512",
+        "CONFIG_ISR_STACK_SIZE": "2048",
+        "CONFIG_TEST_EXTRA_STACK_SIZE": "1536",
+        "CONFIG_INIT_STACKS": "y",
+        "CONFIG_DCACHE": "y",
+        "CONFIG_CACHE": "y",
+        "CONFIG_COMMON_LIBC_MALLOC_ARENA_SIZE": "-1",
+        "CONFIG_NET_MGMT_EVENT_STACK_SIZE": "2048",
+        "CONFIG_SOC_SHARED_IDCACHE_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_SUPPORTED": "y",
+        "CONFIG_SOC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_CACHE_WRITEBACK_SUPPORTED": "y",
+        "CONFIG_SOC_SPIRAM_XIP_SUPPORTED": "y",
+        "CONFIG_SOC_CACHE_FREEZE_SUPPORTED": "y",
+        "CONFIG_SOC_SPI_MEM_SUPPORT_CACHE_32BIT_ADDR_MAP": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_SEPARATE_KEY": "y",
+        "CONFIG_SOC_PSRAM_ENCRYPTION_PAGE_CONFIGURABLE": "y",
+        "CONFIG_SOC_PM_PAU_REGDMA_UPDATE_CACHE_BEFORE_WAIT_COMPARE": "y",
+        "CONFIG_SOC_CACHE_INTERNAL_MEM_VIA_L1CACHE": "y",
+        "CONFIG_SOC_SDMMC_PSRAM_DMA_CAPABLE": "y",
+        "CONFIG_SOC_PSRAM_MEMSPI_IS_INDEPENDENT": "y",
+        "CONFIG_SOC_PM_CACHE_RETENTION_BY_PAU": "y",
+        "CONFIG_PM_SLP_SPIRAM_HALFSLEEP_EXIT_WAIT_DELAY": "150",
+        "CONFIG_ESP_SLEEP_PSRAM_LEAKAGE_WORKAROUND": "y",
+        "CONFIG_NANOPB_ENABLE_MALLOC": "y",
+        "CONFIG_HEAP_MEM_POOL_ADD_SIZE_BOARD": "4096",
+        "CONFIG_ESP32_TIMER_TASK_STACK_SIZE": "1536",
+        "CONFIG_ESP_SPIRAM": "y",
+        "CONFIG_SHARED_MULTI_HEAP": "y",
+        "CONFIG_ESP_SPIRAM_HEAP_SIZE": "16777216",
+        "CONFIG_ESP_SPIRAM_MEMTEST": "y",
+        "CONFIG_SPIRAM_MODE_HEX": "y",
+        "CONFIG_ESP_SPIRAM_SIZE": "33554432",
+        "CONFIG_SPIRAM_SPEED_200M": "y",
+        "CONFIG_SPIRAM_SPEED": "200",
+        "CONFIG_ESP_SPIRAM_BSS_RELOC_LIBS_AND_OBJS": "\"\"",
+        "CONFIG_ESP32_CACHE_L2_128KB": "y",
+        "CONFIG_ESP32_CACHE_L2_SIZE": "0x20000",
+        "CONFIG_ESP32_CACHE_L2_LINE_64B": "y",
+        "CONFIG_ESP32_CACHE_L2_LINE_SIZE": "64",
+        "CONFIG_ARCH_HAS_STACKWALK": "y",
+        "CONFIG_NET_TX_STACK_SIZE": "1200",
+        "CONFIG_NET_RX_STACK_SIZE": "2560",
+        "CONFIG_ARCH_STACKWALK": "y",
+        "CONFIG_ARCH_STACKWALK_MAX_FRAMES": "8",
+        "CONFIG_ARCH_HAS_NOCACHE_MEMORY_SUPPORT": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_PRIV_STACKS": "y",
+        "CONFIG_ARCH_SUPPORTS_COREDUMP_STACK_PTR": "y",
+        "CONFIG_ARCH_HAS_STACK_CANARIES_TLS": "y",
+        "CONFIG_CPU_HAS_DCACHE": "y",
+        "CONFIG_EXTERNAL_CACHE": "y",
+        "CONFIG_MAIN_THREAD_PRIORITY": "0",
+        "CONFIG_THREAD_STACK_INFO": "y",
+        "CONFIG_HEAP_MEM_POOL_SIZE": "32768",
+        "CONFIG_STACK_POINTER_RANDOM": "0",
+        "CONFIG_CACHE_HAS_DRIVER": "y",
+        "CONFIG_CACHE_ESP32": "y",
+        "CONFIG_ESP_HOSTED_MCU_EVENT_TASK_STACK_SIZE": "4096",
+        "CONFIG_VIDEO_BUFFER_POOL_HEAP_SIZE": "0",
+        "CONFIG_VIDEO_BUFFER_USE_SHARED_MULTI_HEAP": "y",
+        "CONFIG_NET_TCP_WORKQ_STACK_SIZE": "1024",
+        "CONFIG_COMMON_LIBC_MALLOC": "y",
+        "CONFIG_SYS_HEAP_ALLOC_LOOPS": "3",
+        "CONFIG_SYS_HEAP_ARRAY_SIZE": "0",
+        "CONFIG_SYS_HEAP_HARDENING_MODERATE": "y",
+        "CONFIG_SYS_HEAP_HARDENING_LEVEL": "2",
+        "CONFIG_SYS_HEAP_AUTO": "y",
+        "CONFIG_MULTI_HEAP": "y",
+        "CONFIG_STACK_SENTINEL": "y",
+        "CONFIG_EXCEPTION_STACK_TRACE": "y",
+        "CONFIG_NET_IPV4_NBR_CACHE": "y",
+        "CONFIG_HTTP_SERVER_STACK_SIZE": "6144",
+        "CONFIG_HEAP_MEM_POOL_ADD_SIZE_GETADDRINFO": "280",
+        "CONFIG_SDIO_STACK": "y",
+        "CONFIG_SD_STACK": "y",
+        "CONFIG_P4_HOSTED": "y"
+      },
+      "runtime_measured": false
+    },
+    "station_minus_usb_static_bytes": 139936
+  },
+  "builds": {
+    "usb": {
+      "postlink": [
+        {
+          "model_sha256": "0689abe1912a95a3318a0d8cb2e67bad0cbcfe3e24dd6e050c75debddfb6f891",
+          "model_bytes": 60264,
+          "fixtures": [
+            {
+              "name": "positive",
+              "frames": 58560,
+              "sha256": "d7c0d45f5d335b6ac325e84295493a1d155dbe3a506533b7ac4c01aa659f93ab"
+            },
+            {
+              "name": "negative",
+              "frames": 63920,
+              "sha256": "afa83abc4b4e0ac319af1a41f69e720aaf762618acadc0a95d62a50e6cb0d343"
+            }
+          ],
+          "frontend_fix": {
+            "upstream_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+            "upstream_source": "tensorflow/lite/experimental/microfrontend/lib/filterbank_util.c",
+            "source_sha256": "b06f95eac9f5d53147896afe0e8deafc9984d68a68cf2f3118efd4da50fde8c8",
+            "prepared_sha256": "e87307296b004f263add1ff14b515eeb3cea4534ab798bb32effe9f4ecd43a23",
+            "fix": "Reject NULL filterbank work allocation before resetting state",
+            "external_source_modified": false,
+            "upstream_notice_preserved": true
+          }
+        },
+        {
+          "builtin": "sine-int8-v1",
+          "bytes": 2488,
+          "sha256": "097160f7f3ec5efacdddc24bea52bc34a0483161894e735995c4d7882c1c2fad",
+          "source_sha256": "b8ba5f16b2427f043058c4ee9d22558dc31a7f162a0e2f053712118088d524dc",
+          "static_batch_one_tensors": [
+            0,
+            7,
+            8,
+            9
+          ],
+          "runtime": "43b2a106a391dd8a099ac47f2ae858630a397264"
+        },
+        {
+          "source_commit": "9e9e996e55b0f945438da1082eac4a087ed3ca39",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "fixture_frames": 31920,
+          "backend": "native Zephyr portable C99 int8; model mapped flash; 12MiB bounded PSRAM arena"
+        },
+        {
+          "native_elf": "RV32 Zephyr",
+          "image_bytes": 15411312,
+          "flash_offset": "0x2000",
+          "reserved_boundary": "0xfe0000",
+          "model_start": "0x400605c0",
+          "model_end": "0x40e3846f",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "image_sha256": "3b334cf5b7fb45c75b38fa3e89a10af00679ce1e0120543605bdd267591b990b",
+          "weights_copied_to_psram": false
+        }
+      ],
+      "log_sha256": "4058dd517ce025ba33ec0cd91f8d77abfb20df53347090a1e8e97d2ffe90c5f4"
+    },
+    "station": {
+      "postlink": [
+        {
+          "model_sha256": "0689abe1912a95a3318a0d8cb2e67bad0cbcfe3e24dd6e050c75debddfb6f891",
+          "model_bytes": 60264,
+          "fixtures": [],
+          "frontend_fix": {
+            "upstream_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+            "upstream_source": "tensorflow/lite/experimental/microfrontend/lib/filterbank_util.c",
+            "source_sha256": "b06f95eac9f5d53147896afe0e8deafc9984d68a68cf2f3118efd4da50fde8c8",
+            "prepared_sha256": "e87307296b004f263add1ff14b515eeb3cea4534ab798bb32effe9f4ecd43a23",
+            "fix": "Reject NULL filterbank work allocation before resetting state",
+            "external_source_modified": false,
+            "upstream_notice_preserved": true
+          }
+        },
+        {
+          "builtin": "sine-int8-v1",
+          "bytes": 2488,
+          "sha256": "097160f7f3ec5efacdddc24bea52bc34a0483161894e735995c4d7882c1c2fad",
+          "source_sha256": "b8ba5f16b2427f043058c4ee9d22558dc31a7f162a0e2f053712118088d524dc",
+          "static_batch_one_tensors": [
+            0,
+            7,
+            8,
+            9
+          ],
+          "runtime": "43b2a106a391dd8a099ac47f2ae858630a397264"
+        },
+        {
+          "source_commit": "9e9e996e55b0f945438da1082eac4a087ed3ca39",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "fixture_frames": 31920,
+          "backend": "native Zephyr portable C99 int8; model mapped flash; 12MiB bounded PSRAM arena"
+        },
+        {
+          "rpc_pool": {
+            "address": "0x48048f90",
+            "bytes": 65536
+          },
+          "rpc_state": {
+            "address": "0x48048f70",
+            "bytes": 28
+          },
+          "rpc_allocator_lock": {
+            "address": "0x4ff577dc",
+            "bytes": 20
+          },
+          "libc_arena_bytes": 9424,
+          "result": "PASS",
+          "nanopb_uses_isolated_pool": true,
+          "decode_hook": "strong",
+          "physical_tested": false
+        },
+        {
+          "native_elf": "RV32 Zephyr",
+          "image_bytes": 15350976,
+          "flash_offset": "0x2000",
+          "reserved_boundary": "0xfe0000",
+          "model_start": "0x40080e80",
+          "model_end": "0x40e58d2f",
+          "model_bytes": 14515887,
+          "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+          "image_sha256": "4c8afde29e947eeff720d1cec3cad21c6fcd5f8d8d847b02537aecfcc741ed05",
+          "weights_copied_to_psram": false
+        },
+        {
+          "flash_bytes": 33554432,
+          "regions": {
+            "p4_whistle_app": {
+              "offset": "0x2000",
+              "bytes": 16637952,
+              "end_exclusive": "0xfe0000"
+            },
+            "p4_assets": {
+              "offset": "0xfe0000",
+              "bytes": 16777216,
+              "end_exclusive": "0x1fe0000"
+            },
+            "p4_settings": {
+              "offset": "0x1fe0000",
+              "bytes": 131072,
+              "end_exclusive": "0x2000000"
+            }
+          },
+          "application_bytes": 15350976,
+          "application_sha256": "4c8afde29e947eeff720d1cec3cad21c6fcd5f8d8d847b02537aecfcc741ed05",
+          "application_end_exclusive": "0xea5cc0",
+          "assets_bytes": 3563357,
+          "assets_sha256": "5db3dcb74201cb2617f47887da886c4810fe3edbb7421c2cbd63ba172cc28643",
+          "assets_end_exclusive": "0x1345f5d",
+          "model": {
+            "present": true,
+            "bytes": 14515887,
+            "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+            "mapped_begin": "0x40080e80",
+            "mapped_end": "0x40e58d2f",
+            "physical_begin": "0x20e80",
+            "physical_end": "0xdf8d2f",
+            "copied_to_psram": false
+          },
+          "overlap": false,
+          "result": "PASS"
+        }
+      ],
+      "log_sha256": "0ca3eec55268f6103789ed68ca331a388d5d24ab5354a3303b1049050c8ff3c2"
+    }
+  },
+  "native_tests": {
+    "board": "native_sim/native/64",
+    "groups_passed": 12,
+    "groups_failed": 0,
+    "malformed_protobuf_cases": 10000,
+    "mutated_driver_frames": 2000,
+    "repeated_decodes": 300,
+    "overlapping_decodes": 400,
+    "concurrent_ram_writes_readbacks": 200,
+    "allocation_failure_positions": 32,
+    "heap_consistency_after_each_test": true,
+    "source": {
+      "reviewed_sources_sha256": {
+        "zephyr/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c": "13dee76341becc8d19adca1615dca22630953c5fd0963ea4a284cb0780623021",
+        "zephyr/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.h": "f38ffa3fc905e3f2005b51c245a1489ee5169342dafa5de20bc4287c7f7faa22",
+        "zephyr/modules/nanopb/CMakeLists.txt": "e6dbc30f69e5ce93ccadb49a4972b86fbc90453193907d7af6da2d6a60c9a86a",
+        "modules/lib/nanopb/pb_decode.c": "238022ab8975aeda2f2a512ce1b9cf3aa8d8742b1e30971e37b35287f633233e",
+        "modules/lib/nanopb/pb_common.c": "8d2ec28baaaf2b7a5e90e4cb2fa9700d21cef7f826f051a637c30b7a1e6a0516",
+        "zephyr/include/zephyr/sys/sys_heap.h": "61b24213cd452adaa895253dd6eb2ba60b792bb28c3dae904c73edc70ad23e53",
+        "zephyr/lib/heap/heap.c": "38bf3e09ba1b61934712c3f55c2aaa209acf644ae8fd9005c8f702bfa481c48c",
+        "build-p4-station/zephyr/drivers/misc/esp_hosted_mcu/esp_hosted_mcu_rpc.pb.h": "ebbe559eec07a27dd2836adf4dbacc73b199a7e36d8372aa9802aba98559f08d"
+      },
+      "native_test_configuration": {
+        "CONFIG_NANOPB_ENABLE_MALLOC": "y",
+        "CONFIG_HEAP_MEM_POOL_SIZE": "0",
+        "CONFIG_SYS_HEAP_VALIDATE": "y",
+        "CONFIG_ASAN": "y"
+      },
+      "native_elf_sha256": "c476720211bd18ab95928cafb76836ce174a1dd775f90d8810f935d809be9356",
+      "native_executable_sha256": "bb4875b1f38ea3ed47e1d17e248b88a0e246dbe02371bad7082878b4c91e027b"
+    },
+    "log_sha256": "6dcf93a485efc801e55a354c23169a3cf40cc3f16553ce219b034f3e1a99af42",
+    "build_log_sha256": "6d22b30461a3e16a33518d8b8811a4a3258d5e5c5c80f809bd980b8869f997d2",
+    "wrapper_sha256": "9711e74a14070adacada9cd599d7a9c9978e1373c0c48851e695ecc631a6ea44",
+    "physical_tested": false
+  },
+  "reproduced_bug": {
+    "type": "AddressSanitizer heap-buffer-overflow",
+    "function": "esp_hosted_mcu_process_frame",
+    "trigger": "complete aggregate frame with missing alignment padding",
+    "before_log_sha256": "9dd08c1dcf129dfd2ed90722aeb38f2d51737c3d00c6d64aac75e3de95531267",
+    "fixed_reproducer_passed": true
+  },
+  "http_tests": {
+    "internal": {
+      "checks": 99,
+      "concurrent_clients": 4,
+      "concurrent_transfers": 400,
+      "max_flash_read": 512,
+      "physical_tested": false
+    },
+    "psram": {
+      "checks": 99,
+      "concurrent_clients": 4,
+      "concurrent_transfers": 400,
+      "max_flash_read": 512,
+      "physical_tested": false
+    },
+    "linker_guard": {
+      "0": "rejected",
+      "1760": "rejected",
+      "8191": "rejected",
+      "8192": "accepted",
+      "9488": "accepted",
+      "149360": "accepted"
+    },
+    "sanitizers": [
+      "address",
+      "undefined"
+    ],
+    "hardware_access": false
+  },
+  "storage_tests": {
+    "storage": {
+      "result": "PASS",
+      "named_checks": 49,
+      "malformed_inputs": 10000,
+      "file_slots": 8,
+      "max_file_bytes": 8192,
+      "host_state_bytes": 74396,
+      "hardware_access": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "physical_tested": false,
+      "command": [
+        "python3",
+        "tools/test_storage.py"
+      ]
+    },
+    "storage-dispatch": {
+      "result": "PASS",
+      "scenario_groups": 23,
+      "malformed_packets": 10000,
+      "store_bytes": 74396,
+      "dispatcher_bytes": 40,
+      "wire_workspace_bytes": 1712,
+      "hardware_access": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "physical_tested": false
+    },
+    "storage-controller": {
+      "result": "PASS",
+      "application_bridge_scenarios": 12,
+      "native_sender": "pinned SmallVM sendMessage and waitAndSendMessage",
+      "physical_tested": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "runtime_sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b",
+      "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+      "sender_sha256": "21c3c71bce5b86e4561b21daab17866a23fa1ff2d0108c50ca34524b3d57d211"
+    }
+  },
+  "node_tests": {
+    "passed": 47,
+    "failed": 0,
+    "log_sha256": "3f673dcf303ffca5b5075ea30608d15420e046715f22a8ce0b420bcad941e79f"
+  },
+  "canonical": {
+    "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
+    "head": "00545be3efbb2e34405984834b344d9f29d9a91e",
+    "exit_code": 0,
+    "result": "PASS",
+    "tests": 61,
+    "checkout_issue": "Windows CRLF materialization changes raw hash; LF-normalized content equals HEAD; direct checkout root run retains this existing failure"
+  },
+  "canonical_log_sha256": "4eabf7c5c7151dc0d9b47562e7eb0c06b3d55769ed3566e5999b34aed668ae0a",
+  "changed_source_sha256": {
+    "boards/waveshare_esp32p4_wifi6/zephyr/CMakeLists.txt": "d7b2fb9bb523aabffebd3cd91c5ae2852518c23faf3614dcb482c0ba27e7fe22",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/rpc_allocator.c": "c179d5fdd998392283f79c5d69b63df958a84d56a27751896c63a8b2eff3f1a2",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/rpc_allocator.h": "a13854a111f2367d72a1ae8a3379269af0f3aba09b28460f59032bde5a6b986f",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/rpc_decode.c": "0b03ab1d7e762fc7866641400cfe39269d60e36800d56c35ecb900265c4e5d71",
+    "boards/waveshare_esp32p4_wifi6/zephyr/patches/0006-esp-hosted-decode-ownership-hook.patch": "141d877da1f01681c10e071a03c70b5ccebd5510b51479d5c84acd8e2a3f82a6",
+    "boards/waveshare_esp32p4_wifi6/zephyr/patches/0007-esp-hosted-partial-padding-bound.patch": "a56acd9de2715533cdd07a71305df7710c5b80c2274b20492fd0359d7b64d810",
+    "tests/p4_rpc_native/CMakeLists.txt": "0836c83b18f4d0554258347c1a23d6bc0b96459098c4b9b4cbca11d9556ab196",
+    "tests/p4_rpc_native/prj.conf": "f6e3d36ac32aa2f0a22e576f64d7c811192f844e373ff1248633b694f2a29ad4",
+    "tests/p4_rpc_native/main.c": "45c36c87a513eb4da13ce505db66d65c43d4f16ccabb8fdb8e75909fd4df7f5f",
+    "tests/p4_rpc_native/driver.c": "9d691547648db0ba4c8d2210b66c5cede7f9b4cee004611404858ead4377048e",
+    "tools/check_p4_rpc_memory.py": "2646cf4462acd29cf0a91a8fda4b6e7a26b58223cb5376dcd105ed294de2130b",
+    "tools/audit_p4_memory.py": "f63164350cb87b4b5492d591c641e9646e372917f03c5abc06d46421072609c7",
+    "docs/HOSTED_RPC_MEMORY.md": "75f25929da1ae130214b0db4a5619b07952fa3a8f64c6864e030c7f99e99a240"
+  },
+  "limits": {
+    "protobuf_wire_bytes": 1576,
+    "frame_bytes": 1600,
+    "aggregate_pool_bytes_including_heap_metadata": 65536,
+    "rv32_record_bytes": 128,
+    "heap_wait_for_capacity": false,
+    "exhaustion": "whole message rejected; partial allocations freed; pending RPC retains bounded timeout",
+    "runtime_tested": false,
+    "station_request_284": "unchanged; hardware validation held"
+  },
+  "hardware_access": false,
+  "flashed": false,
+  "committed": false,
+  "pushed": false,
+  "published": false,
+  "credentials_accessed": false,
+  "remaining": "Native P4 cache/PSRAM timing, stack watermarks and actual companion interoperability require the existing hardware hold to be resolved."
+}

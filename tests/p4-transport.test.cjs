@@ -68,3 +68,13 @@ test('public portal retains its secure remote endpoint guard',async()=>{
  app.fields.get('Secure WebSocket address').value='wss://board.local/ws/vm';
  await app.window.webSerialConnect();assert.equal(app.sockets[0].url,'wss://board.local/ws/vm');
 });
+
+test('old socket callbacks cannot disconnect or feed a replacement controller',async()=>{
+ const app=await editor('http://10.0.0.7',{hosted:true});
+ await app.window.webSerialConnect();const old=app.sockets[0];old.onmessage({data:'ready'});
+ app.window.webSerialDisconnect();await new Promise(resolve=>setImmediate(resolve));
+ await app.window.webSerialConnect();const current=app.sockets[1];current.onmessage({data:'ready'});
+ old.onclose();old.onmessage({data:'not binary'});old.onerror();
+ assert.equal(app.window.webSerialIsConnected(),true);assert.equal(app.window.GP_readSerialPort(100).length,0);
+ current.onclose();assert.equal(app.window.webSerialIsConnected(),false);
+});

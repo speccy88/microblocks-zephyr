@@ -148,3 +148,17 @@ test('a new chooser cannot race a USB disconnect that is draining a write',async
  const closing=transport.disconnect();await assert.rejects(transport.connect(),/still disconnecting/);
  release();await closing;assert.equal(transport.port,null);
 });
+test('late reads and errors from an old serial reader cannot affect a replacement port',async()=>{
+ const {SerialTransport}=require('../web/portal/portal-core.js');const events=[],received=[],reads=[];
+ const provider={async requestPort(){return {
+  async open(){},async setSignals(){},async close(){},
+  readable:{getReader(){return {read(){return new Promise((resolve,reject)=>reads.push({resolve,reject}));},async cancel(){},releaseLock(){}};}},
+  writable:{getWriter(){return {async write(){},releaseLock(){}};}}
+ };}};
+ const serial=new SerialTransport(provider,[],b=>received.push(b),connected=>events.push(connected));
+ await serial.connect();const old=reads[0];await serial.disconnect();await serial.connect();
+ old.resolve({value:new Uint8Array([1,2,3]),done:false});await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(events.at(-1),true);assert.equal(received.length,0);assert.ok(serial.reader);
+ await serial.disconnect();await serial.connect();const previous=reads[1];previous.reject(Error('stale synthetic read error'));
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(events.at(-1),true);assert.ok(serial.reader);await serial.disconnect();
+});

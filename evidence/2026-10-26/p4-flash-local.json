@@ -1,0 +1,182 @@
+{
+  "utc": "2026-10-26T21:44:24.765052+00:00",
+  "scope": "isolated Flash record service + actual Zephyr VFS/LittleFS on native_sim",
+  "result": "PASS_LOCAL_ONLY",
+  "physical_tested": false,
+  "board_flash_available": false,
+  "head_unchanged": "00545be3efbb2e34405984834b344d9f29d9a91e",
+  "production_linked": false,
+  "layout": {
+    "flash_bytes": 33554432,
+    "dedicated_user_partition": false,
+    "app_model": [
+      "0x2000",
+      "0xfe0000"
+    ],
+    "assets": [
+      "0xfe0000",
+      "0x1fe0000"
+    ],
+    "settings": [
+      "0x1fe0000",
+      "0x2000000"
+    ],
+    "blocker": "Every region is already reserved; unused asset/app bytes are not an allocated user filesystem"
+  },
+  "native_tests": {
+    "scenario_groups": 10,
+    "separate_process_persistence_runs": 2,
+    "malformed_paths": 10000,
+    "mutation_fault_cases": 12,
+    "full_quota_replace_cycles": 16,
+    "asan": true,
+    "blank_corrupt_media_unchanged_after_failed_mount": true,
+    "logical_and_physical_capacity_errors": true,
+    "crc_unknown_duplicate_records_fail_closed": true,
+    "revision_conflicts_restart_delete_recreate": true,
+    "old_or_new_outcome_on_rename_fault": true,
+    "autoformat_in_backend": false,
+    "actual_electrical_power_cut": false,
+    "real_time_latency_measured": false,
+    "serialized_single_owner_only": true
+  },
+  "memory": {
+    "utc": "2026-10-26T21:39:48.472534+00:00",
+    "scope": "local Flash experiment; production artifacts unchanged",
+    "physical_tested": false,
+    "profiles": {
+      "usb": {
+        "elf_sha256": "09325741f7ff29bbec7e5b7aab80e61708793dadb18cb3e02282a284055888e6",
+        "config_sha256": "12332fa338ceec67a152c5c221819e5d3e89e9a0e304b57cda5da3494ccd3abb",
+        "map_sha256": "7c996896d091707b8e5f363be3a6bc7bf85febe802b4798663b0ca2f94e0bb0e",
+        "static_internal_bytes": 243856,
+        "libc_malloc_arena_bytes": 149360,
+        "binary_sha256": "3b334cf5b7fb45c75b38fa3e89a10af00679ce1e0120543605bdd267591b990b",
+        "before_after_static_delta": 0
+      },
+      "station": {
+        "elf_sha256": "021ed69249ca8546b316385e51c5511252cc430de5534437c3366eeba0f41ad1",
+        "config_sha256": "c14748201fcb4aa8b683cc6926ee1f24228a7b0b2e3c4843bbb3aba566306ed6",
+        "map_sha256": "a90c250779e8ad323f921c44340f3800bd1df63e14e5dc88b9de96b89d0def44",
+        "static_internal_bytes": 383792,
+        "libc_malloc_arena_bytes": 9424,
+        "binary_sha256": "4c8afde29e947eeff720d1cec3cad21c6fcd5f8d8d847b02537aecfcc741ed05",
+        "before_after_static_delta": 0
+      }
+    },
+    "prototype_rv32": {
+      "mb_flash_context_size": 8868,
+      "mb_flash_metadata_size": 72,
+      "core_object_size_output": "text\t   data\t    bss\t    dec\t    hex\tfilename\n   3013\t      0\t      0\t   3013\t    bc5\t<repository>/build-artifacts/flash-native-probe/core.o",
+      "abi": "rv32imafc ilp32f; compile only, no firmware link"
+    },
+    "prototype_native64": {
+      "FS_LITTLEFS_NUM_FILES": 1,
+      "FS_LITTLEFS_NUM_DIRS": 1,
+      "FS_LITTLEFS_CACHE_SIZE": 256,
+      "FS_LITTLEFS_LOOKAHEAD_SIZE": 32,
+      "FS_LITTLEFS_FC_HEAP_SIZE": 512,
+      "asan": true
+    },
+    "littlefs_commit": "e9a8638fc228e43a3156ed3ac602229af3e3c1d5",
+    "not_a_deployable_profile": true,
+    "memory_limit": "Core workspace alone nearly consumes station libc headroom if placed internally; separate worker, bounded FS cache/stack and flash/cache placement need a new P4 budget. No such allocation was added."
+  },
+  "regressions": {
+    "storage": {
+      "result": "PASS",
+      "named_checks": 49,
+      "malformed_inputs": 10000,
+      "file_slots": 8,
+      "max_file_bytes": 8192,
+      "host_state_bytes": 74396,
+      "hardware_access": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "physical_tested": false,
+      "command": [
+        "python3",
+        "tools/test_storage.py"
+      ]
+    },
+    "storage-dispatch": {
+      "result": "PASS",
+      "scenario_groups": 23,
+      "malformed_packets": 10000,
+      "store_bytes": 74396,
+      "dispatcher_bytes": 40,
+      "wire_workspace_bytes": 1712,
+      "hardware_access": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "physical_tested": false
+    },
+    "storage-controller": {
+      "result": "PASS",
+      "application_bridge_scenarios": 12,
+      "native_sender": "pinned SmallVM sendMessage and waitAndSendMessage",
+      "physical_tested": false,
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "runtime_sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b",
+      "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+      "sender_sha256": "21c3c71bce5b86e4561b21daab17866a23fa1ff2d0108c50ca34524b3d57d211"
+    }
+  },
+  "canonical": {
+    "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
+    "head": "00545be3efbb2e34405984834b344d9f29d9a91e",
+    "exit_code": 0,
+    "result": "PASS",
+    "tests": 65,
+    "checkout_issue": "Windows CRLF materialization changes raw hash; LF-normalized content equals HEAD; direct checkout root run retains this existing failure"
+  },
+  "logs_sha256": {
+    "flash-native-build.log": "73e31e5cba116b863ef1f5f911cbc84c4c1f1559e2aad94c3517d5b3b9ba5b3e",
+    "flash-native-tests.log": "000ea04e61a671e44eda81420cb84f6db5c42b92f93b971e25599e02798e2932",
+    "flash-native-seed.log": "929646ed19da9ed89053ddecb1dd7b81c66e07116a551c6250f7884c14ef6974",
+    "flash-native-restart.log": "02d9cc4b4ebef2c78faf397f4b2d239f00492fb8f616cd7e583b8efbae38d89a",
+    "flash-ram-regressions.log": "8e6768aecf51e4d04887fa4f8f42210329241e170c58a378f25d62815119090d",
+    "flash-final-canonical.log": "54dfe9383bee398f02b5b5ab07d8ba544bf8c3ca99b110e92ba70ef798a21c8b"
+  },
+  "sources_sha256": {
+    "common/storage/flash/flash_store.c": "9ecca3e95d087d801538aa5f37ebe88df6d84669691b02b088b59084b069eb25",
+    "common/storage/flash/flash_store.h": "799ac9c6e6d3ff1deb4a0e53242fcb4434d2d72ff634f7a6bcfb82c0f9004c94",
+    "common/storage/flash/zephyr_flash.c": "661d5071aa79a063d39e4353a35d2c87bcda540ac9d98827d588826922fef9b1",
+    "common/storage/flash/zephyr_flash.h": "1d0e80575c5899a838d71d2bba1062144cf4e84d77f3528757033543aa63a99e",
+    "tests/flash_native/app.overlay": "47c090080793f0d19bb12033c2cf13ba6f52bd6a9506548f6829f491e4b5351e",
+    "tests/flash_native/CMakeLists.txt": "850f1b96205bc1890c9b424d02c3a0affdeb8e2d6133f95903f5725bba99a611",
+    "tests/flash_native/layout_probe.c": "9b20e54d8d72f4bbe7096b1ac258ed4f23954400be8e754c75139c163666147d",
+    "tests/flash_native/main.c": "f27731fcc89b9d01bac31b063eac410f1c23ee9c280bfd43ff1e71e5b3798e60",
+    "tests/flash_native/prj.conf": "7c049dcaacb8f675379a16d7209df75154263f1295107d389e3859d5caccadba"
+  },
+  "physical_ram_artifact_preserved_sha256": "b46a58136e264d54ab7944471f8cfc5ae918d29f9e5ca3dca620ca34c8beb065",
+  "guards": {
+    "hardware_access": false,
+    "flash_or_erase_live_media": false,
+    "C6_accessed": false,
+    "COM12_accessed": false,
+    "credentials_accessed": false,
+    "network_security_changed": false,
+    "commit_push_publish_deploy": false
+  },
+  "prerequisites": [
+    "Reviewed dedicated file partition and migration for both profiles",
+    "Explicit authorization before live partition initialization or another flash",
+    "P4 PSRAM/cache-safe IO and bounded worker/cache/stack resource plan",
+    "VM/controller routing and block/UI acceptance",
+    "Physical NOR restart/power-loss/cache-concurrency and wear evidence"
+  ],
+  "limits": [
+    "Synchronous private backend API, not yet a VM worker or cancellable job",
+    "No Flash block availability; RAM and SD contracts unchanged",
+    "Two durable writes per replacement; high-rate logs need batching/wear analysis",
+    "Station request-284 and station memory runtime boundaries unchanged"
+  ]
+}

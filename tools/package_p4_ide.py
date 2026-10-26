@@ -5,6 +5,7 @@ import argparse,hashlib,json,re
 from pathlib import Path
 from patch_ide import patch_ide
 from patch_p4_media import patch_source
+from patch_p4_kws import patch as patch_kws
 from fruit_jam_ide_assets import prepare_assets
 
 def patch_p4(js,data,repo):
@@ -36,23 +37,43 @@ def patch_p4(js,data,repo):
   primitive_anchor=b"atPut primsets 'p4' (at primsets 'io')"
   if name.endswith('/MicroBlocksCompiler.gp'):
    if payload.count(primitive_anchor)!=1:raise ValueError('Changed P4 primitive mapping')
-   payload=payload.replace(primitive_anchor,primitive_anchor+b"\n\tatPut primsets 'i2cDetect' 4")
+   payload=payload.replace(primitive_anchor,primitive_anchor+b"\n\tatPut primsets 'i2cDetect' 4\n\tatPut primsets 'json' 22\n\tatPut primsets 'clock' 23\n\tatPut primsets 'steps' 24\n\tatPut primsets 'storage' 25")
   payload=payload.replace(b"'arithmetic' 'output'",b"'arithmetic' 'output' 'camera-pipeline'")
   audio_anchor=b"if (notNil data) { importLibraryFromString scripter data 'P4 Camera' '' }"
   if audio_anchor in payload:
    payload=payload.replace(audio_anchor,audio_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Audio.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Audio' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Speech.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Local Speech' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Neural.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Neural Networks' '' }")
   library_anchor=b"importLibraryFromString scripter data 'P4 Neural Networks' '' }"
   if library_anchor in payload:payload=payload.replace(library_anchor,library_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/I2C_Devices.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'I2C Devices' '' }")
+  kws_anchor=b"importLibraryFromString scripter data 'I2C Devices' '' }"
+  if kws_anchor in payload:payload=payload.replace(kws_anchor,kws_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Wake_Word.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Wake Word' '' }")
+  json_anchor=b"importLibraryFromString scripter data 'Wake Word' '' }"
+  if json_anchor in payload:payload=payload.replace(json_anchor,json_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/JSON.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'JSON' '' }")
+  automation_anchor=b"importLibraryFromString scripter data 'JSON' '' }"
+  if automation_anchor in payload:payload=payload.replace(automation_anchor,automation_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/Clock_Timers.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Clock & Timers' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/Steps_Transitions.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Steps & Transitions' '' }")
+  storage_anchor=b"importLibraryFromString scripter data 'Steps & Transitions' '' }"
+  if storage_anchor in payload:payload=payload.replace(storage_anchor,storage_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/Storage.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Storage' '' }")
   payload=payload.replace(b"'output' 'camera-pipeline'",b"'output' 'camera-pipeline' 'audio-levels' 'local-speech' 'neural-sine' 'neural-custom' 'i2c-devices' 'image-transforms'")
-  if name.endswith('.gp'):payload=patch_source(name,payload,repo)
+  payload=payload.replace(b"'i2c-devices' 'image-transforms'",b"'i2c-devices' 'image-transforms' 'wake-word-fixture'")
+  payload=payload.replace(b"'image-transforms' 'wake-word-fixture'",b"'image-transforms' 'wake-word-fixture' 'json-edit'")
+  payload=payload.replace(b"'wake-word-fixture' 'json-edit'",b"'wake-word-fixture' 'json-edit' 'steps-timer'")
+  payload=payload.replace(b"'json-edit' 'steps-timer'",b"'json-edit' 'steps-timer' 'ram-file'")
+  if name.endswith('.gp'):payload=patch_kws(name,patch_source(name,payload,repo))
   name=name.replace('Waveshare_RLCD_4_2.ubl','P4_Camera.ubl').replace('Examples/Waveshare/','Examples/P4/')
   start=len(out);out.extend(payload);files.append(dict(filename=name,start=start,end=len(out)))
  payload=(board/'P4_Audio.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Audio.ubl',start=start,end=len(out)))
  payload=(board/'P4_Speech.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Speech.ubl',start=start,end=len(out)))
  payload=(board/'P4_Neural.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Neural.ubl',start=start,end=len(out)))
  payload=(board/'I2C_Devices.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/I2C_Devices.ubl',start=start,end=len(out)))
- for example in ['camera-pipeline','audio-levels','local-speech','neural-sine','neural-custom','i2c-devices','image-transforms']:
-  payload=(board/(example+'.ubp')).read_bytes()+b'\n'+(board/'P4_Camera.ubl').read_bytes()+b'\n'+(board/'P4_Audio.ubl').read_bytes()+b'\n'+(board/'P4_Speech.ubl').read_bytes()+b'\n'+(board/'P4_Neural.ubl').read_bytes()+b'\n'+(board/'I2C_Devices.ubl').read_bytes()
+ payload=(board/'P4_Wake_Word.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Wake_Word.ubl',start=start,end=len(out)))
+ payload=(repo/'integration/JSON.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/JSON.ubl',start=start,end=len(out)))
+ for library in ['Clock_Timers','Steps_Transitions','Storage']:
+  payload=(repo/('integration/'+library+'.ubl')).read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/'+library+'.ubl',start=start,end=len(out)))
+ for example in ['camera-pipeline','audio-levels','local-speech','neural-sine','neural-custom','i2c-devices','image-transforms','wake-word-fixture','json-edit','steps-timer','ram-file']:
+  example_path=repo/('integration/'+example+'.ubp') if example in ['json-edit','steps-timer','ram-file'] else board/(example+'.ubp')
+  payload=example_path.read_bytes()+b'\n'+(board/'P4_Camera.ubl').read_bytes()+b'\n'+(board/'P4_Audio.ubl').read_bytes()+b'\n'+(board/'P4_Speech.ubl').read_bytes()+b'\n'+(board/'P4_Neural.ubl').read_bytes()+b'\n'+(board/'I2C_Devices.ubl').read_bytes()
+  payload+=b'\n'+(board/'P4_Wake_Word.ubl').read_bytes()
+  payload+=b'\n'+(repo/'integration/JSON.ubl').read_bytes()
+  for library in ['Clock_Timers','Steps_Transitions','Storage']:payload+=b'\n'+(repo/('integration/'+library+'.ubl')).read_bytes()
   start=len(out);out.extend(payload);files.append(dict(filename='/Examples/P4/'+example+'.ubp',start=start,end=len(out)))
  source=source[:m.start(1)]+json.dumps(dict(files=files,remote_package_size=len(out)),separators=(',',':'))+source[m.end(1):]
  source=source.replace('"/Examples","Waveshare"','"/Examples","P4"')
@@ -60,6 +81,9 @@ def patch_p4(js,data,repo):
 
 def adapter(repo):
  text=(repo/'web/portal/portal-adapter.js').read_text()
+ panel_anchor="panel.className='portal-panel';toolbar.append(panel);"
+ if text.count(panel_anchor)!=1:raise ValueError('Changed Projects menu anchor')
+ text=text.replace(panel_anchor,"panel.className='portal-panel';panel.dataset.deviceProjectPanel='true';toolbar.append(panel);")
  text=text.replace("const isP2=profile.board==='propeller2';","const isP4=profile.board==='esp32p4',isP2=profile.board==='propeller2';")
  text=text.replace('const filters=profile.board',"const filters=isP4?[{usbVendorId:0x1a86},{usbVendorId:0x303a}]:profile.board")
  text=text.replace('isP2?', '(isP2||isP4)?').replace('||isP2;', '||isP2||isP4;').replace('if(!isP2)panel.append(local);ip.hidden=isP2;', 'if(!isP2&&!isP4)panel.append(local);ip.hidden=isP2||isP4;')
@@ -70,7 +94,24 @@ def adapter(repo):
     if(profile.bridge&&!profile.hosted&&(location.protocol!=='http:'||location.hostname!=='127.0.0.1'))throw Error('The USB bridge requires its own loopback editor.');
     const url=localTransport?MicroBlocksPortal.sameOriginVMWebSocket(location.origin):new URL(endpoint.value);
     if((!localTransport&&url.protocol!=='wss:')||url.username||url.password||url.hash)""")
- text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&frame[1]===216){window.P4NeuralAccept?.(frame);}else if(frame[0]===251&&(frame[1]===208||frame[1]===209)){}else if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
+ text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&frame[1]===217){window.MicroBlocksFilesConnection?.receive(frame);}else if(frame[0]===251&&frame[1]===216){window.P4NeuralAccept?.(frame);}else if(frame[0]===251&&(frame[1]===208||frame[1]===209)){}else if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
+ # P4 controller lifecycle: files share the existing transport, never a second
+ # port. Old socket callbacks cannot invalidate or feed a replacement link.
+ changes={
+  "if(!connected){input.clear();":"window.MicroBlocksFilesConnection?.link(connected?write:null);if(!connected){input.clear();",
+  "const disconnect=()=>{if(socket){socket.close(1000,'Client disconnect');socket=null;}ready=false;void serial.disconnect();input.clear();rejectControls();update();};":
+   "const disconnect=()=>{window.MicroBlocksFilesConnection?.link(null);const old=socket;socket=null;if(old)old.close(1000,'Client disconnect');ready=false;void serial.disconnect();input.clear();assembly.fill(0);assembly=new Uint8Array();rejectControls();update();};",
+  "const connect=async()=>{\n  try{":"const connect=async()=>{\n  try{\n   if(socket||active())return;",
+  "socket=new WebSocket(url.href);socket.binaryType='arraybuffer';ready=false;":
+   "const opened=new WebSocket(url.href);socket=opened;socket.binaryType='arraybuffer';ready=false;const current=()=>socket===opened;",
+  "socket.onmessage=e=>{try{":"socket.onmessage=e=>{if(!current())return;try{",
+  "ready=true;notify('Secure WebSocket connected');":"ready=true;window.MicroBlocksFilesConnection?.link(write);notify(PORTAL_BOARD.bridge?'USB bridge connected':url.protocol==='wss:'?'Secure WebSocket connected':'Board WebSocket connected');",
+  "socket.onclose=()=>{socket=null;ready=false;input.clear();rejectControls();":"socket.onclose=()=>{if(!current())return;window.MicroBlocksFilesConnection?.link(null);socket=null;ready=false;input.clear();assembly.fill(0);assembly=new Uint8Array();rejectControls();",
+  "socket.onerror=()=>notify(":"socket.onerror=()=>current()&&notify("
+ }
+ for before,after in changes.items():
+  if text.count(before)!=1:raise ValueError('Changed file-controller transport anchor: '+before[:60])
+  text=text.replace(before,after)
  frame_anchor='const frame=assembly.slice(0,size);assembly=assembly.slice(size);'
  if text.count(frame_anchor)!=1:raise ValueError('Changed bounded frame transport anchor')
  # Local read-only observers support result views and acceptance checks.
@@ -86,17 +127,25 @@ def adapter(repo):
  text=text.replace("['camera-pipeline','Camera grayscale preview']", "['camera-pipeline','Camera grayscale preview'],['audio-levels','Bounded PCM levels'],['local-speech','Local speech (model profile required)'],['neural-sine','Neural network: sine demo'],['neural-custom','Imported sensor-affine model (import fixture first)']")
  text=text.replace("['neural-custom','Imported sensor-affine model (import fixture first)']", "['neural-custom','Imported sensor-affine model (import fixture first)'],['i2c-devices','Find I2C devices and read IDs']")
  text=text.replace("['i2c-devices','Find I2C devices and read IDs']", "['i2c-devices','Find I2C devices and read IDs'],['image-transforms','Image transforms (test pattern)']")
+ text=text.replace("['image-transforms','Image transforms (test pattern)']", "['image-transforms','Image transforms (test pattern)'],['wake-word-fixture','Wake word: synthetic phrase (mic off)']")
+ text=text.replace("['wake-word-fixture','Wake word: synthetic phrase (mic off)']", "['wake-word-fixture','Wake word: synthetic phrase (mic off)'],['json-edit','JSON: edit sensor data (new firmware required)']")
+ text=text.replace("['json-edit','JSON: edit sensor data (new firmware required)']", "['json-edit','JSON: edit sensor data (new firmware required)'],['steps-timer','Steps + timer: logical state only (new firmware required)']")
+ text=text.replace("['steps-timer','Steps + timer: logical state only (new firmware required)']", "['steps-timer','Steps + timer: logical state only (new firmware required)'],['ram-file','RAM text file (temporary, new firmware required)']")
  text=text.replace("const lanNote=element('p',(isP2||isP4)?", "const lanNote=element('p',profile.hosted?'This editor is served by your board on your approved Wi-Fi network. Connect using its same-origin WebSocket, or select USB on a supported desktop browser.':isP4?'P4 runs native Zephyr. USB programming and local media preview are available. The station-hosted target uses the board address assigned by your network.':isP2?")
  text=text.replace("(isP2||isP4)?[['usb','USB Web Serial']]", "profile.hosted?[['wifi','Board Wi-Fi WebSocket'],['usb','USB Web Serial']]:(isP2||isP4)?[['usb','USB Web Serial']]")
  text=text.replace("endpoint.hidden=mode.value!=='wifi';", "endpoint.hidden=profile.hosted||mode.value!=='wifi';")
  text=text.replace("Choose Connect to select your USB board.", "Choose Connect to program your board.")
  return text.encode()
 
-def media_assets(assets,html,repo):
- for name in ['p4-media-core.js','p4-media.js','p4-media.css','p4-neural-core.js','p4-neural.js','p4-neural.css','p4-neural-catalog.json']:
+def media_assets(assets,html,repo,file_fixture=False):
+ for name in ['p4-media-core.js','p4-media.js','p4-media.css','p4-neural-core.js','p4-neural.js','p4-neural.css','p4-neural-catalog.json','device-files-core.js','device-files-wire.js','device-files-controller.js','device-files.js','device-files.css']:
   assets[name]=(repo/'web'/name).read_bytes()
+ if file_fixture:assets['device-files-fixture.js']=(repo/'web/device-files-fixture.js').read_bytes()
  tags=[]
- for name in ['p4-media.css','p4-media-core.js','p4-media.js','p4-neural.css','p4-neural-core.js','p4-neural.js']:
+ names=['p4-media.css','p4-media-core.js','p4-media.js','p4-neural.css','p4-neural-core.js','p4-neural.js','device-files.css','device-files-core.js','device-files-wire.js','device-files-controller.js']
+ if file_fixture:names.append('device-files-fixture.js')
+ names.append('device-files.js')
+ for name in names:
   url=name+'?v='+hashlib.sha256(assets[name]).hexdigest()[:16]
   tags.append('<link rel="stylesheet" href="'+url+'">' if name.endswith('.css') else '<script src="'+url+'"></script>')
  html=html.replace('</head>','\n'.join(tags)+'\n</head>')
@@ -104,7 +153,10 @@ def media_assets(assets,html,repo):
  html=re.sub(r'src="unoq-network.js(?:\?v=[^"]*)?"','src="unoq-network.js?v='+hashlib.sha256(assets['unoq-network.js']).hexdigest()[:16]+'"',html)
  return html
 
-def build(source,output,repo,hosted=False):
+def build(source,output,repo,hosted=False,file_fixture=False):
+ if file_fixture and hosted:raise ValueError('Development file fixtures cannot be included in a hosted image')
+ if output.exists() and (output/'device-files-fixture.js').exists() and not file_fixture:
+  raise ValueError('Choose a clean output directory; this directory contains a development fixture')
  manifest=json.loads((repo/'dependencies/ide-assets.json').read_text());assets={}
  for item in manifest['files']:
   raw=(source/item['path']).read_bytes()
@@ -121,13 +173,13 @@ def build(source,output,repo,hosted=False):
  # Match the physically accepted editor startup: wait for local English assets.
  gate=b"Module.preRun.push(function(){addRunDependency('board-english');Promise.resolve(GetText.ready).then(function(){removeRunDependency('board-english');});});\n"
  assets['gp_wasm.js']=gate+js
- html=media_assets(assets,html,repo)
+ html=media_assets(assets,html,repo,file_fixture=file_fixture)
  html=html.replace('26eb855451371f4c',hashlib.sha256(assets['gp_wasm.js']+data).hexdigest()[:16])
  assets['microblocks.html']=html.encode()
  output.mkdir(parents=True,exist_ok=True)
  for name,raw in assets.items():target=output/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
- report=dict(real_editor='MicroBlocks GP 2.5.8',files=len(assets),p4_library_sha256=hashlib.sha256((repo/'boards/waveshare_esp32p4_wifi6/integration/P4_Camera.ubl').read_bytes()).hexdigest(),gp_data_sha256=hashlib.sha256(data).hexdigest(),runtime_external_network=False)
+ report=dict(real_editor='MicroBlocks GP 2.5.8',files=len(assets),p4_library_sha256=hashlib.sha256((repo/'boards/waveshare_esp32p4_wifi6/integration/P4_Camera.ubl').read_bytes()).hexdigest(),gp_data_sha256=hashlib.sha256(data).hexdigest(),runtime_external_network=False,development_file_fixture=file_fixture,device_file_transport='explicit session over existing controller; new firmware required; physical validation pending')
  (output/'p4-editor-manifest.json').write_text(json.dumps(report,indent=2)+'\n');return report
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--ide-source',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
- print(json.dumps(build(a.ide_source,a.output,Path(__file__).resolve().parents[1]),indent=2))
+ p=argparse.ArgumentParser();p.add_argument('--ide-source',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--file-fixture',action='store_true',help='Development only: browser-memory samples on HTTP loopback; use a separate output directory');a=p.parse_args()
+ print(json.dumps(build(a.ide_source,a.output,Path(__file__).resolve().parents[1],file_fixture=a.file_fixture),indent=2))

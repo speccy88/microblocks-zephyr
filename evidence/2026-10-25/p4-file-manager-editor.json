@@ -1,0 +1,37 @@
+{
+  "tested_at": "2026-10-26T17:46:32.078635+00:00",
+  "editor": "Actual GP MicroBlocks 2.5.8",
+  "connected_to_board": false,
+  "data_source": "explicit opt-in browser-memory fixture; synthetic text and bytes only",
+  "viewport": [
+    1280,
+    720
+  ],
+  "passed": [
+    "disconnected empty state",
+    "Flash/SD disabled",
+    "list and capacity",
+    "literal script markup",
+    "conditional save and reopen",
+    "Unicode file creation",
+    "unsafe path disables save",
+    "binary download-only view",
+    "dirty-switch keep editing",
+    "Escape dirty guard and explicit discard",
+    "focus returns to menu",
+    "new page starts disconnected",
+    "560x720 dialog scrolls vertically without horizontal overflow"
+  ],
+  "download_bytes_verified_in_browser": false,
+  "browser_download_operation": "interrupted, outcome not verified",
+  "network_or_security_settings_changed": false,
+  "physical_storage_access": false,
+  "published": false,
+  "publication_redactions": {
+    "private_screenshot_fields_omitted": [
+      "screenshot",
+      "screenshot_note"
+    ],
+    "test_results_unchanged": true
+  }
+}

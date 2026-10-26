@@ -1,0 +1,40 @@
+module 'Clock & Timers' Control
+author 'MicroBlocks Zephyr contributors'
+version 0 1
+description 'Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.'
+spec 'r' '[clock:interval]' 'timer every _ ms' 'num' 1000
+spec 'b' '[clock:ready]' 'timer _ ready?' 'num' 0
+spec 'b' '[clock:take]' 'take timer _ event' 'num' 0
+spec ' ' 'clockWaitTimer' 'wait for timer _' 'num' 0
+spec ' ' 'clockStopTimer' 'stop timer _' 'num' 0
+spec ' ' 'clockRestartTimer' 'restart timer _' 'num' 0
+spec ' ' 'clockDeleteTimer' 'delete timer _' 'num' 0
+spec 'r' '[clock:missed]' 'timer _ missed events' 'num' 0
+spec 'b' '[clock:valid]' 'clock is set?'
+spec 'r' '[clock:utc]' 'clock UTC time'
+spec 'r' '[clock:local]' 'clock local time'
+spec ' ' 'clockSetUTC' 'set clock UTC _' 'str' ''
+spec ' ' 'clockOffset' 'clock offset _ minutes' 'num' 0
+spec 'r' '[clock:daily]' 'daily timer _ : _ catch up _' 'num num bool' 9 0 false
+spec 'r' '[clock:at]' 'timer at UTC _ catch up _' 'str bool' '' false
+spec 'r' '[clock:status]' 'last clock status'
+advanced
+spec 'r' '[clock:source]' 'clock source'
+spec 'r' '[clock:uptime]' 'uptime milliseconds as text'
+spec ' ' '[clock:invalidate]' 'mark clock unset'
+spec 'b' '[clock:rtcAvailable]' 'RTC backend available?'
+spec 'b' '[clock:ntpAvailable]' 'NTP backend available?'
+
+to clockCheck success { if (not success) { sayIt ('[data:join]' 'Clock: ' ('[clock:status]')) } }
+to clockWaitTimer timer {
+    while (not ('[clock:ready]' timer)) {
+        if (('[clock:status]') != 'OK') { sayIt ('[clock:status]') return }
+        waitMillis 1
+    }
+    '[clock:take]' timer
+}
+to clockStopTimer timer { clockCheck ('[clock:stop]' timer) }
+to clockRestartTimer timer { clockCheck ('[clock:restart]' timer) }
+to clockDeleteTimer timer { clockCheck ('[clock:delete]' timer) }
+to clockSetUTC text { clockCheck ('[clock:setUTC]' text) }
+to clockOffset minutes { clockCheck ('[clock:offset]' minutes) }

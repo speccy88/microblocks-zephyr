@@ -4,6 +4,7 @@
 #include "camera_backend.h"
 #include "ppa_backend.h"
 #include "audio_backend.h"
+#include "kws_primitives.h"
 #include "audio_store.h"
 #include "whistle_backend.h"
 #include "result_store.h"
@@ -183,6 +184,7 @@ static OBJ media_snapshot(int n,OBJ *a){
 static PrimEntry entries[]={
  {"ppaStart",ppa_start},{"ppaBusy",ppa_busy},{"ppaResult",ppa_result},{"ppaStatus",ppa_status},{"ppaCancel",ppa_cancel},{"imageTestPattern",pattern},
  NN_PRIMITIVE_ENTRIES
+ KWS_PRIMITIVE_ENTRIES
  {"mediaSnapshot",media_snapshot},
  {"sttAvailable",stt_available},{"sttRequest",stt_request},{"sttFixture",stt_fixture},{"sttBusy",stt_busy},{"sttStatus",stt_status},{"sttResult",stt_result},{"sttCancel",stt_cancel},
  {"c6Status",c6_status},{"c6Trace",c6_trace},{"c6ReadOnlyProbe",c6_read_only},{"networkStatus",network_status},

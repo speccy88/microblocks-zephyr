@@ -139,3 +139,41 @@ under Apache-2.0 (Zephyr a915b2f12675b48b16d56653ea145dcd8f20cbbf).
 No IDF RTOS driver or new third-party binary is vendored. The independently
 authored bounded worker/generated-pixel hardware test are MIT; GP library,
 preview integration and packaging retain MPL-2.0.
+
+The optional Okay Nabu wake-word model is pinned in
+`dependencies/p4-wake-word.json`. ESPHome's model collection explicitly licenses
+the weights and manifests under Apache-2.0; its complete attribution notice is
+retained in `licenses/ESPHome-Wake-Word-NOTICE.txt` alongside Apache-2.0.txt.
+Weights and synthetic/private audio remain external build inputs. The trained
+frontend uses the pinned external TensorFlow Lite Micro Apache-2.0 sources
+and KissFFT (Mark Borgerding, BSD-3-Clause; `licenses/KissFFT-BSD.txt`). A generated
+copy of filterbank_util.c adds its missing NULL-allocation check; the original
+notice is retained and the external checkout is unchanged. Native worker,
+allocation and test helpers are independently authored MIT; SmallVM/GP adapters
+retain MPL-2.0. No ESPHome GPL implementation or FreeRTOS integration is copied.
+
+The portable JSON service vendors unmodified yyjson 0.13.0, commit
+`6447536015f3d600f3d65323b10976103b337ca7`, under MIT. The complete license is
+`third_party/yyjson/LICENSE`; source hashes are pinned in `dependencies/json.json`.
+The bounded service/tests use MIT; its separate SmallVM/GP adapter uses MPL-2.0.
+Existing tinyJSON and other SmallVM sources are not replaced or relicensed.
+
+The clock/timer and logical step/transition cores and host tests are newly
+authored MIT code in `common/automation`. The Zephyr SmallVM adapter and GP
+libraries retain MPL-2.0. No GRAFCET runtime, timezone database, RTC driver or
+NTP implementation is copied or bundled by this increment.
+
+The bounded RAM-storage service, path/UTF-8 validation and host tests are newly
+authored MIT code in `common/storage`. The SmallVM/GP adapter and library use
+MPL-2.0. This increment vendors no Flash/SD filesystem or database implementation.
+
+The shared device-file frontend, bounded transport contract, local browser-memory
+fixture and tests are newly authored MIT code. Production packages exclude the
+fixture. Existing editor packaging retains MPL-2.0; no Tasmota UI code is copied.
+
+The isolated Flash record service and Zephyr VFS adapter/tests under
+`common/storage/flash` and `tests/flash_native` are newly authored MIT code.
+The simulator links the external Zephyr Apache-2.0 filesystem layer and its
+pinned LittleFS module `e9a8638fc228e43a3156ed3ac602229af3e3c1d5` (BSD-3-Clause).
+No LittleFS implementation is vendored or linked into the P4 application by
+this local increment; the external module retains its original LICENSE.md.

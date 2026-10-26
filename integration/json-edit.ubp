@@ -1,0 +1,15 @@
+module main
+variables document fieldValue fields
+
+script 30 30 {
+    whenStarted
+    document = (jsonObject)
+    document = (jsonSet document '/name' (jsonQuote 'sensor'))
+    document = (jsonSet document '/temperature' '21')
+    document = (jsonSet document '/readings' '[]')
+    document = (jsonAppend document '21' '/readings')
+    document = (jsonAppend document '22' '/readings')
+    fieldValue = (jsonGet document '/readings/1')
+    fields = (jsonKeys document '')
+    sayIt document
+}

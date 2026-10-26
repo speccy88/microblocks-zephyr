@@ -1,0 +1,113 @@
+{
+  "utc": "2026-10-26T22:02:26.328172+00:00",
+  "scope": "Final local publication verification; no new hardware access",
+  "base_commit": "00545be3efbb2e34405984834b344d9f29d9a91e",
+  "canonical": {
+    "tests": 65,
+    "result": "PASS",
+    "unchanged_sources": "canonical Git bytes; existing Windows CRLF provenance difference not rewritten"
+  },
+  "node": {
+    "tests": 55,
+    "passed": 55,
+    "failed": 0,
+    "includes": "actual generated adapter and production SerialTransport with synthetic native bridge; not a new physical test"
+  },
+  "sanitizers": {
+    "json_cases": 62,
+    "json_malformed_inputs": 10000,
+    "json_small_workspaces_rejected": 8,
+    "json_workspaces_succeeded": 375,
+    "automation": "fake-clock/logical-state PASS",
+    "ram_checks": 49,
+    "ram_malformed_inputs": 10000,
+    "dispatch_groups": 23,
+    "dispatch_malformed_packets": 10000,
+    "controller_groups": 12,
+    "http_checks_per_placement": 99,
+    "http_concurrent_transfers_per_placement": 400,
+    "http_placements": [
+      "internal",
+      "psram"
+    ],
+    "result": "PASS"
+  },
+  "generated_report_hashes": {
+    "json": {
+      "report_sha256": "4a8b14712a34ddf31d9d6dbf408931e645509a9011e9702c77499230d0358285",
+      "result": "PASS"
+    },
+    "storage": {
+      "report_sha256": "3d95b62c9ddbec813c0a3f73d032a6ac19194e4a23230677200a7ecd337a786f",
+      "result": "PASS"
+    },
+    "dispatcher": {
+      "report_sha256": "2c8cbe304911f053cb42ff5b1b3278e240f9150248b5dd326f520b35a7191112",
+      "result": "PASS"
+    },
+    "controller": {
+      "report_sha256": "bee770d81055586cfac394ede6036989c69b2eff2c5cc306f0875cd2aab74e36",
+      "result": "PASS"
+    },
+    "http": {
+      "report_sha256": "c0d86d88d47c81e9507766ebbe563f05078dec98a590aec01a878ccabcc78ee9",
+      "result": "see explicit measured checks below"
+    }
+  },
+  "pages": {
+    "result": "built locally",
+    "manifest": {
+      "real_editor": "MicroBlocks GP 2.5.8",
+      "upstream_commit": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+      "source_manifest_sha256": "e9ba8a0a12d57cb1e17f6ac2d4d3531a23910ea1fe04cf16d4982799b772fe0e",
+      "runtime_third_party_network": false,
+      "boards": {
+        "fruit-jam": {
+          "files": 147,
+          "hardware_connection_enabled": true,
+          "gp_data_sha256": "35ab39448d8d8f56dec858abba0d930c1f0cf722be9486049fd46b1949abb6fd",
+          "gp_js_sha256": "3044d473ddfc323187deb845354715b729e5d18e16ed9f1adab898640799ca24",
+          "html_sha256": "fc4466681e1b420659b162e39c74f00c9b839c8837d6ed36045ad0ab4a55db12"
+        },
+        "waveshare": {
+          "files": 147,
+          "hardware_connection_enabled": true,
+          "gp_data_sha256": "3205d47c84dd035f3a7af6442367a915c0b5c9ac17fe74abcaf510034316793b",
+          "gp_js_sha256": "3877cf395cee9d99a4d6ccaaedbec5e03d6570a3519138741a2642bf65e17631",
+          "html_sha256": "1f07a5c428d80aaf60f562acf7c6d1cbe29dbf7f72bac141ace34ae3f7287f36"
+        },
+        "xrp-rp2350": {
+          "files": 147,
+          "hardware_connection_enabled": false,
+          "gp_data_sha256": "6716a481c4a7e7d771ad32b0ff9c29e6dcffee10a64a458793811e090ab7739f",
+          "gp_js_sha256": "4038e67f644826e138f0b4d98969af56c3e552a352baf5956b4d65fd02b7159c",
+          "html_sha256": "3870a59d09175d8c182c24938e64b6e0701114655608fdd565935645a68580a4"
+        },
+        "propeller2": {
+          "files": 147,
+          "hardware_connection_enabled": true,
+          "gp_data_sha256": "2cf74e1a8a230b2f51ff7f207d2d7a55f83453948e050f585a0ebafadf845d79",
+          "gp_js_sha256": "0b5b529dceb519adf3bf118fea6b84389e229fe2d6f115cfe09a31d6f12140f0",
+          "html_sha256": "3dc5ffd61c2f2b1300125fd13bb1052dce6fc4ee739ff2883486daba77cd15a8"
+        },
+        "esp32p4": {
+          "files": 160,
+          "hardware_connection_enabled": true,
+          "gp_data_sha256": "fbd41999ff62e6e131452de813430d11e8cde9e76d43b65e4e8857e77eac6314",
+          "gp_js_sha256": "43bfad37e0b9a7b9c2e8633a290b3990524f6f156b7a39fec39edace237dc89b",
+          "html_sha256": "75a0f449ca7504cd61576d860cdfc7ba557de41d559c9241b82053b389422286"
+        }
+      }
+    },
+    "fixture_included": false
+  },
+  "physical_evidence": "p4-storage-physical-summary.json; prior authorized acceptance, not rerun",
+  "experimental_flash": {
+    "linked_in_production": false,
+    "partition_changed": false,
+    "optional_profile": "proposal only; station memory budget unresolved"
+  },
+  "hardware_accessed": false,
+  "credentials_accessed": false,
+  "remote_deployment": "pending at time of local review"
+}

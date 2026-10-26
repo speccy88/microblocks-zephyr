@@ -1,0 +1,11 @@
+module main
+variables file write contents
+
+script 30 30 {
+    whenStarted
+    file = '/RAM/note.txt'
+    write = (storageReplace file 'Hello from MicroBlocks')
+    storageWait write
+    contents = ('[storage:text]' file)
+    sayIt contents
+}

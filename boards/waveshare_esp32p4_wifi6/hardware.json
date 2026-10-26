@@ -129,10 +129,11 @@
     },
     {
       "id": "wake_word",
-      "hardware": "Local TFLM keyword-spotter candidate",
+      "hardware": "Native Zephyr TFLM reference Okay Nabu model, trained frontend and ES8311 PCM ring",
       "pins": {},
-      "smallvm": "unimplemented-default-listener-off",
-      "physical_tested": false
+      "smallvm": "physical exact fixture scores and genuine GP event handlers PASS; bounded microphone lifecycle PASS; acoustic recognition unverified (Windows output muted)",
+      "physical_tested": true,
+      "limits": "Optional pinned model; English Okay Nabu only; no cloud/Whistle polling/PIE acceleration; explicit listener off by default; injected queue/DMA faults and sustained false-trigger rates untested"
     },
     {
       "id": "wifi",
@@ -178,8 +179,35 @@
       "physical_tested": true
     }
   ],
+  "local_services": {
+    "json": {
+      "installed_in_local_usb_profile": true,
+      "status": "host-sanitizers-builds-disconnected-editor-pass",
+      "physical_tested": false,
+      "limits": "96 KiB bounded workspace; strict JSON/RFC6901 CRUD; no JSONata runtime"
+    },
+    "clock_scheduling": {
+      "installed_in_local_usb_profile": true,
+      "status": "host-fake-clock-builds-disconnected-editor-pass",
+      "physical_tested": false,
+      "limits": "Eight timers; monotonic uptime and manual volatile UTC/fixed offset; RTC/NTP unavailable"
+    },
+    "steps_transitions": {
+      "installed_in_local_usb_profile": true,
+      "status": "host-logical-tests-builds-disconnected-editor-pass",
+      "physical_tested": false,
+      "limits": "16 steps, 24 transitions, explicit scan; no physical outputs or safety certification"
+    },
+    "ram_storage": {
+      "installed_in_local_usb_profile": true,
+      "status": "physical-USB-blocks-file-manager-readback-lifecycle-resource-regressions-reset-pass",
+      "physical_tested": true,
+      "evidence": "evidence/2026-10-26/p4-storage-physical-summary.json",
+      "limits": "Eight volatile files of 8192 bytes; one staged write; Flash/SD unavailable; completed browser download and board-hosted network transfer unverified"
+    }
+  },
   "coverage_audit": {
-    "version": 1,
+    "version": 3,
     "date": "2026-10-26",
     "document": "docs/HARDWARE_SUPPORT.md",
     "pcb_revision": "unverified; silicon revision is separate",

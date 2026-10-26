@@ -1,0 +1,42 @@
+{
+  "utc": "2026-10-26T21:39:48.472534+00:00",
+  "scope": "local Flash experiment; production artifacts unchanged",
+  "physical_tested": false,
+  "profiles": {
+    "usb": {
+      "elf_sha256": "09325741f7ff29bbec7e5b7aab80e61708793dadb18cb3e02282a284055888e6",
+      "config_sha256": "12332fa338ceec67a152c5c221819e5d3e89e9a0e304b57cda5da3494ccd3abb",
+      "map_sha256": "7c996896d091707b8e5f363be3a6bc7bf85febe802b4798663b0ca2f94e0bb0e",
+      "static_internal_bytes": 243856,
+      "libc_malloc_arena_bytes": 149360,
+      "binary_sha256": "3b334cf5b7fb45c75b38fa3e89a10af00679ce1e0120543605bdd267591b990b",
+      "before_after_static_delta": 0
+    },
+    "station": {
+      "elf_sha256": "021ed69249ca8546b316385e51c5511252cc430de5534437c3366eeba0f41ad1",
+      "config_sha256": "c14748201fcb4aa8b683cc6926ee1f24228a7b0b2e3c4843bbb3aba566306ed6",
+      "map_sha256": "a90c250779e8ad323f921c44340f3800bd1df63e14e5dc88b9de96b89d0def44",
+      "static_internal_bytes": 383792,
+      "libc_malloc_arena_bytes": 9424,
+      "binary_sha256": "4c8afde29e947eeff720d1cec3cad21c6fcd5f8d8d847b02537aecfcc741ed05",
+      "before_after_static_delta": 0
+    }
+  },
+  "prototype_rv32": {
+    "mb_flash_context_size": 8868,
+    "mb_flash_metadata_size": 72,
+    "core_object_size_output": "text\t   data\t    bss\t    dec\t    hex\tfilename\n   3013\t      0\t      0\t   3013\t    bc5\t<repository>/build-artifacts/flash-native-probe/core.o",
+    "abi": "rv32imafc ilp32f; compile only, no firmware link"
+  },
+  "prototype_native64": {
+    "FS_LITTLEFS_NUM_FILES": 1,
+    "FS_LITTLEFS_NUM_DIRS": 1,
+    "FS_LITTLEFS_CACHE_SIZE": 256,
+    "FS_LITTLEFS_LOOKAHEAD_SIZE": 32,
+    "FS_LITTLEFS_FC_HEAP_SIZE": 512,
+    "asan": true
+  },
+  "littlefs_commit": "e9a8638fc228e43a3156ed3ac602229af3e3c1d5",
+  "not_a_deployable_profile": true,
+  "memory_limit": "Core workspace alone nearly consumes station libc headroom if placed internally; separate worker, bounded FS cache/stack and flash/cache placement need a new P4 budget. No such allocation was added."
+}

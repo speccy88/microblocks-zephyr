@@ -30,3 +30,13 @@ jobs:
         run: python3 tools/test_p4_results.py
       - name: Check portable neural tensor bounds under sanitizers
         run: python3 tools/test_p4_nn_contract.py
+      - name: Check bounded JSON, clock, steps and RAM storage under sanitizers
+        run: |
+          python3 tools/test_json_service.py
+          python3 tools/test_automation.py
+          python3 tools/test_storage.py
+          python3 tools/test_storage_dispatch.py
+      - name: Check file manager and native RAM wire contracts
+        env:
+          MB_FILES_HOST: ${{ github.workspace }}/build-artifacts/storage-dispatch/wire-host
+        run: node --test tests/device_files.test.js tests/device_files_wire.test.js

@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "clock": "fake monotonic/UTC/offset",
+  "steps": "deterministic logical state only",
+  "hardware_access": false,
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "physical_tested": false,
+  "command": [
+    "python3",
+    "tools/test_automation.py"
+  ],
+  "tested_at": "2026-10-26T09:13:50.307258+00:00",
+  "coverage": [
+    "unset calendar clock",
+    "monotonic phase and rewind rejection",
+    "forward/backward calendar jumps",
+    "manual offset gap and repeat",
+    "one pending event and missed-event saturation",
+    "stale references and slot exhaustion",
+    "stop/restart/delete/Stop All",
+    "calendar parsing boundaries",
+    "no same-scan transition cascade",
+    "deterministic conflicts",
+    "parallel/fork/timed join/self-loop",
+    "fresh guards and stop/reset"
+  ]
+}

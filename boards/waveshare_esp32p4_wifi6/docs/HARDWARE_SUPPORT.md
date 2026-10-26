@@ -1,4 +1,4 @@
-# ESP32-P4-WIFI6 support audit, version 1
+# ESP32-P4-WIFI6 support audit, version 3
 
 Audited 2026-10-26 against the linked Waveshare schematic (all three pages),
 the pinned Zephyr source and this port's physical evidence. This is the
@@ -65,19 +65,23 @@ pin-output support is claimed or enabled by this audit.
 | H.264 | Hardware encoder; software decoding is separate | Both block paths **missing**; hardware decoding claim **incompatible** |
 | Audio RMS/peak and Whistle STT | Native PCM pool, independent C99 scalar engine, mapped depth4 model, bounded worker/cancel | **tested** known WAV and microphone PCM plus GP; variable recognition quality and ~22s scalar fixture latency |
 | NN | Native TFLM reference kernels, bounded static dense float32/int8 models; catalog/custom import | **tested** physical golden/rejections/lifecycle and GP. Direct ONNX Runtime/RV64 Linux artifacts **incompatible** with RV32 Zephyr. Restricted offline conversion is separate |
-| Wake word | Lightweight local model/frontend not yet integrated | **missing**; default listener off; not Whistle polling |
+| Wake word | Native trusted Okay Nabu TFLM reference backend, trained frontend, bounded PCM ring and GP event hat | **tested** fixture score parity, event handlers and microphone lifecycle; acoustic recognition **unverified** (Windows output muted); default listener off. See WAKE_WORD.md |
 | P4 PIE/QACC NN/DSP kernels | Espressif target kernels need selective native build/context/memory validation | **missing** acceleration; no benchmark borrowed from IDF/S3 |
 | ESP-NOW | P4 needs C6 RPC support and an authorized second radio peer | **missing**; current Hosted support unverified; official issue19 open. Direct ESP32 radio sample is not this topology |
 | HP second core / LP core / sleep | Zephyr has SoC facilities; application does not distribute VM/inference to LP | Application support **missing/unverified**; LP is not an NN accelerator |
 | RNG / crypto / security | Zephyr/SoC facilities distinct from user-facing blocks | Blocks/physical acceptance **missing**. No eFuse, secure-boot or flash-security modification authorized or performed |
 | Timers / watchdog / cache / DMA | Used as native infrastructure by current camera/audio/VM | Current paths **tested**; does not establish every controller/mode or standalone block |
+| Clock / scheduling blocks | Zephyr monotonic uptime, bounded eight-timer core and manual UTC/fixed-offset clock | **implemented-unverified on board**; host fake-clock sanitizer tests, both native builds and disconnected GP layout pass. RTC/NTP providers, automatic timezone rules and retained calendar clock **missing** |
+| Logical steps / transitions | Separate portable core, 16 steps / 24 transitions, explicit deterministic scans | **implemented-unverified on board**; host fork/join/conflict/timer/reset tests pass. No automatic physical outputs; no IEC 60848 or safety certification claim |
+| User file storage | Separate bounded RAM service, eight files up to 8192 bytes; staged replacement and cancellation | **tested over USB**: 918 requests, actual GP file manager edit/reopen, independent byte readback, resource-pressure regressions and reset volatility. See [physical acceptance](../../../docs/STORAGE_PHYSICAL.md). Flash/SD, full media archive and database **missing**; completed browser download and network transfer unverified; no formatting or partition changes |
 | Board-hosted editor | Flash asset/whole-layout validation; strict same-origin HTTP/WS and single programming controller | **implemented-unverified**, C6 station blocker prevents DHCP/HTTP/real GP network acceptance; USB remains usable |
 | ArduinoCore-Zephyr | Future board variant/compatibility work | **missing**, no arbitrary Arduino library/board portability promise |
 
-Evidence filenames above are under `evidence/2026-10-25/`; full constraints and
+Evidence filenames above are under `evidence/2026-10-25/`, with physical RAM
+acceptance in `evidence/2026-10-26/`; full constraints and
 reproduction are in START_HERE, NETWORK_STATION, DSP, NEURAL_NETWORKS and
 I2C_DISCOVERY. This audit does not claim all hardware is already supported.
-Priority after tested PPA SRM: independent KWS frontend/model; safe
+Priority after tested PPA SRM and KWS fixture/event/lifecycle: acoustic KWS when playback is available; safe
 GPIO/button/storage support after explicit resource mapping. Display,
 speaker, SD and radio-peer acceptance need the corresponding actual attachment.
 
