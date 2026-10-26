@@ -1,111 +1,127 @@
 /* SPDX-License-Identifier: MPL-2.0 */
+/* Station-only target; AP authorization was revoked on 2026-10-26. */
 #include "network_backend.h"
 #include "hosted_server.h"
 #include "vm/interp.h"
 #include <zephyr/kernel.h>
 #include <zephyr/net/net_if.h>
 #include <zephyr/net/wifi_mgmt.h>
-#include <zephyr/net/dhcpv4_server.h>
-#include <zephyr/net/socket.h>
+#include <zephyr/net/dhcpv4.h>
 #include <zephyr/storage/flash_map.h>
 #include <zephyr/kvss/nvs.h>
 #include <zephyr/drivers/flash.h>
 #include <zephyr/sys/byteorder.h>
 #include <string.h>
 #include <stdio.h>
-static const char ssid[]="MicroBlocks-P4";
-struct credentials {uint32_t magic;uint8_t version;char password[17];};
+struct credentials {uint32_t magic;uint8_t version,sn,pn,security;uint8_t ssid[32],password[64];};
 static struct credentials credential;
 static struct nvs_fs storage;
-static bool storage_ready,key_present,assets_ready,ap_running;
+static bool storage_ready,key_present,assets_ready,connected,server_started,working;
+static char address[NET_IPV4_ADDR_LEN];
 static const char *phase="initializing";
-static int last_error;
+static int last_error,connect_result;
+static struct net_mgmt_event_callback events;
 K_MUTEX_DEFINE(state_lock);
 K_SEM_DEFINE(network_work,0,1);
+K_SEM_DEFINE(association,0,1);
+K_SEM_DEFINE(dhcp,0,1);
 static void wipe(void *p,size_t n){volatile unsigned char *b=p;while(n--)*b++=0;}
-static void state(const char *text,int error){k_mutex_lock(&state_lock,K_FOREVER);phase=text;last_error=error;k_mutex_unlock(&state_lock);}
-static bool password_valid(const char *s)
+static void state(const char *s,int e){k_mutex_lock(&state_lock,K_FOREVER);phase=s;last_error=e;k_mutex_unlock(&state_lock);}
+static bool valid(const struct credentials *c)
 {
- for(unsigned i=0;i<16;i++){char c=s[i];if(!((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9')||c=='-'||c=='_'))return false;}
- return s[16]==0;
+ if(c->magic!=0x5354424d||c->version!=1||c->security!=1||!c->sn||c->sn>32||c->pn<8||c->pn>64)return false;
+ if(memchr(c->ssid,0,c->sn)||memchr(c->password,0,c->pn))return false;
+ if(c->pn==64)for(unsigned i=0;i<64;i++){unsigned char v=c->password[i];if(!((v>='0'&&v<='9')||(v>='a'&&v<='f')||(v>='A'&&v<='F')))return false;}
+ return true;
 }
 static int storage_init(void)
 {
- const struct flash_area *area;int err=flash_area_open(FIXED_PARTITION_ID(p4_settings),&area);if(err)return err;
- struct flash_pages_info page;err=flash_get_page_info_by_offs(area->fa_dev,area->fa_off,&page);if(err)return err;
- storage.flash_device=area->fa_dev;storage.offset=area->fa_off;storage.sector_size=page.size;
- storage.sector_count=MIN(area->fa_size/page.size,8);if(storage.sector_count<2)return -ENOSPC;
- err=nvs_mount(&storage);if(err)return err;
- storage_ready=true;struct credentials saved={0};
- err=nvs_read(&storage,0x41,&saved,sizeof(saved));
- if(err==(int)sizeof(saved)&&saved.magic==0x5034424d && saved.version==1 && password_valid(saved.password)){credential=saved;key_present=true;}
+ const struct flash_area *area;int e=flash_area_open(FIXED_PARTITION_ID(p4_settings),&area);if(e)return e;
+ struct flash_pages_info page;e=flash_get_page_info_by_offs(area->fa_dev,area->fa_off,&page);if(e)return e;
+ storage.flash_device=area->fa_dev;storage.offset=area->fa_off;storage.sector_size=page.size;storage.sector_count=MIN(area->fa_size/page.size,8);
+ if(storage.sector_count<2)return -ENOSPC;e=nvs_mount(&storage);if(e)return e;storage_ready=true;
+ struct credentials saved={0};e=nvs_read(&storage,0x42,&saved,sizeof(saved));
+ if(e==(int)sizeof(saved)&&valid(&saved)){credential=saved;key_present=true;}
  wipe(&saved,sizeof(saved));return 0;
+}
+static void network_event(struct net_mgmt_event_callback *cb,uint64_t event,struct net_if *iface)
+{
+ (void)iface;
+ if(event==NET_EVENT_WIFI_CONNECT_RESULT){connect_result=cb->info?((const struct wifi_status *)cb->info)->status:-EIO;k_sem_give(&association);}
+ if(event==NET_EVENT_IPV4_DHCP_BOUND)k_sem_give(&dhcp);
+ if(event==NET_EVENT_WIFI_DISCONNECT_RESULT){k_mutex_lock(&state_lock,K_FOREVER);connected=false;address[0]=0;phase="station disconnected; explicit retry available";k_mutex_unlock(&state_lock);}
 }
 static void network_worker(void *a,void *b,void *c)
 {
  (void)a;(void)b;(void)c;
  for(;;){
-  k_sem_take(&network_work,K_FOREVER);if(ap_running)continue;
-  state("checking editor assets",0);int err=p4_assets_check();
-  k_mutex_lock(&state_lock,K_FOREVER);assets_ready=err==0;k_mutex_unlock(&state_lock);
-  if(err){state("editor assets missing or invalid",err);continue;}
-  if(!p4_transport_ready()){state("WebSocket queue allocation failed",-ENOMEM);continue;}
-  if(!device_is_ready(DEVICE_DT_GET(DT_NODELABEL(p4_wifi)))){state("Wi-Fi driver unavailable",-(int)DEVICE_DT_GET(DT_NODELABEL(p4_wifi))->state->init_res);continue;}
-  char password[17]={0};k_mutex_lock(&state_lock,K_FOREVER);bool have=key_present;if(have)memcpy(password,credential.password,sizeof(password));k_mutex_unlock(&state_lock);
-  if(!have){state("awaiting approved USB credential provisioning",0);continue;}
-  struct net_if *iface=net_if_get_wifi_sap();if(!iface){wipe(password,sizeof(password));state("AP interface unavailable",-ENODEV);continue;}
-  struct in_addr address,mask,pool;
-  net_addr_pton(AF_INET,"192.168.4.1",&address);net_addr_pton(AF_INET,"255.255.255.0",&mask);net_addr_pton(AF_INET,"192.168.4.10",&pool);
-  if(!net_if_ipv4_addr_add(iface,&address,NET_ADDR_MANUAL,0)){wipe(password,sizeof(password));state("AP address allocation failed",-ENOMEM);continue;}
-  if(!net_if_ipv4_set_netmask_by_addr(iface,&address,&mask)){wipe(password,sizeof(password));state("AP netmask allocation failed",-ENOMEM);continue;}
-  err=net_if_up(iface);
-  if(err && err!=-EALREADY){wipe(password,sizeof(password));state("AP interface start failed",err);continue;}
-  struct wifi_connect_req_params params={0};params.ssid=(const uint8_t *)ssid;params.ssid_length=sizeof(ssid)-1;
-  params.psk=(const uint8_t *)password;params.psk_length=16;params.channel=6;params.band=WIFI_FREQ_BAND_2_4_GHZ;params.security=WIFI_SECURITY_TYPE_PSK;
-  state("starting approved WPA2 AP",0);err=net_mgmt(NET_REQUEST_WIFI_AP_ENABLE,iface,&params,sizeof(params));wipe(password,sizeof(password));
-  if(err){state("AP configuration failed",err);continue;}
-  err=net_dhcpv4_server_start(iface,&pool);
-  if(!err)err=p4_server_start();
-  if(err){net_dhcpv4_server_stop(iface);net_mgmt(NET_REQUEST_WIFI_AP_DISABLE,iface,NULL,0);state("local service start failed",err);continue;}
-  k_mutex_lock(&state_lock,K_FOREVER);ap_running=true;phase="ready";last_error=0;k_mutex_unlock(&state_lock);
+  k_sem_take(&network_work,K_FOREVER);k_mutex_lock(&state_lock,K_FOREVER);bool ready=key_present&&!connected;working=ready;k_mutex_unlock(&state_lock);if(!ready)continue;
+  state("checking editor assets",0);int e=p4_assets_check();k_mutex_lock(&state_lock,K_FOREVER);assets_ready=e==0;k_mutex_unlock(&state_lock);
+  if(e){state("editor assets missing or invalid",e);goto done;}
+  if(!p4_transport_ready()){state("WebSocket queue allocation failed",-ENOMEM);goto done;}
+  if(!device_is_ready(DEVICE_DT_GET(DT_NODELABEL(p4_wifi)))){state("Wi-Fi driver unavailable",-ENODEV);goto done;}
+  struct net_if *iface=net_if_get_wifi_sta();if(!iface){state("station interface unavailable",-ENODEV);goto done;}
+  k_sem_reset(&association);k_sem_reset(&dhcp);connect_result=-EINPROGRESS;
+  e=net_if_up(iface);if(e&&e!=-EALREADY){state("station interface start failed",e);goto done;}
+  net_dhcpv4_start(iface);
+  struct wifi_connect_req_params params={0};
+  /* Native owned buffers remain valid through asynchronous association. */
+  params.ssid=credential.ssid;params.ssid_length=credential.sn;params.psk=credential.password;params.psk_length=credential.pn;
+  params.channel=WIFI_CHANNEL_ANY;params.band=WIFI_FREQ_BAND_2_4_GHZ;params.security=WIFI_SECURITY_TYPE_PSK;
+  state("connecting approved station network",0);e=net_mgmt(NET_REQUEST_WIFI_CONNECT,iface,&params,sizeof(params));
+  if(e){state("station configuration/start failed",e);goto done;}
+  if(k_sem_take(&association,K_SECONDS(30))){state("station association timed out",-ETIMEDOUT);goto done;}
+  if(connect_result){state("station association rejected",connect_result);goto done;}
+  state("awaiting station DHCP",0);
+  if(k_sem_take(&dhcp,K_SECONDS(30))){state("station DHCP timed out",-ETIMEDOUT);goto done;}
+  const struct in_addr *ip=net_if_ipv4_get_global_addr(iface,NET_ADDR_PREFERRED);
+  if(!ip){state("station address unavailable",-EADDRNOTAVAIL);goto done;}
+  k_mutex_lock(&state_lock,K_FOREVER);net_addr_ntop(AF_INET,ip,address,sizeof(address));k_mutex_unlock(&state_lock);
+  if(!server_started){e=p4_server_start();if(e){state("local editor service failed",e);goto done;}server_started=true;}
+  k_mutex_lock(&state_lock,K_FOREVER);connected=true;phase="ready";last_error=0;k_mutex_unlock(&state_lock);
+ done:
+  k_mutex_lock(&state_lock,K_FOREVER);working=false;k_mutex_unlock(&state_lock);
  }
 }
-K_THREAD_DEFINE(p4_ap_worker,12288,network_worker,NULL,NULL,NULL,8,0,0);
+K_THREAD_DEFINE(p4_station_worker,12288,network_worker,NULL,NULL,NULL,8,0,0);
 void p4_network_init(void)
 {
- int err=storage_init();if(err){state("AP settings storage unavailable",err);return;}
- k_sem_give(&network_work);
+ net_mgmt_init_event_callback(&events,network_event,NET_EVENT_WIFI_CONNECT_RESULT|NET_EVENT_WIFI_DISCONNECT_RESULT|NET_EVENT_IPV4_DHCP_BOUND);net_mgmt_add_event_callback(&events);
+ int e=storage_init();if(e){state("station settings storage unavailable",e);return;}
+ state(key_present?"saved station credentials available":"awaiting approved USB station provisioning",0);
+ if(key_present)k_sem_give(&network_work);
 }
+void p4_network_address(char *out,size_t n){k_mutex_lock(&state_lock,K_FOREVER);snprintf(out,n,"%s",address);k_mutex_unlock(&state_lock);}
 void p4_network_status(char *out,size_t n)
 {
  k_mutex_lock(&state_lock,K_FOREVER);
- snprintf(out,n,"{\"target\":\"native Zephyr board-hosted\",\"phase\":\"%s\",\"error\":%d,\"wifi_driver_ready\":%s,\"assets_valid\":%s,\"credentials_saved\":%s,\"ap_running\":%s,\"ssid\":\"MicroBlocks-P4\",\"address\":\"192.168.4.1\",\"channel\":6,\"security\":\"WPA2-PSK\",\"max_clients\":2,\"controller\":\"%s\",\"station_association\":false,\"internet_sharing\":false}",
-  phase,last_error,device_is_ready(DEVICE_DT_GET(DT_NODELABEL(p4_wifi)))?"true":"false",assets_ready?"true":"false",key_present?"true":"false",ap_running?"true":"false",p4_transport_owner());
+ snprintf(out,n,"{\"target\":\"native Zephyr station-hosted\",\"station_protocol\":1,\"phase\":\"%s\",\"error\":%d,\"wifi_driver_ready\":%s,\"assets_valid\":%s,\"credentials_saved\":%s,\"station_connected\":%s,\"address\":\"%s\",\"ap_running\":false,\"internet_sharing\":false,\"controller\":\"%s\"}",phase,last_error,device_is_ready(DEVICE_DT_GET(DT_NODELABEL(p4_wifi)))?"true":"false",assets_ready?"true":"false",key_present?"true":"false",connected?"true":"false",address,p4_transport_owner());
  k_mutex_unlock(&state_lock);
 }
 void p4_network_message(int type,int bytes,char *body)
 {
- if(type!=214 || bytes<10 || memcmp(body,"P4AP",4))return;
- uint8_t *p=(uint8_t *)body;uint32_t request=sys_get_le32(p+6);uint8_t operation=p[4],reply[6];sys_put_le32(request,reply);reply[4]=1;reply[5]=operation;
- char password[17]={0};
- if(operation==1 && bytes==27 && p[5]==0 && p[10]==16 && p4_transport_is_usb()){
-  memcpy(password,p+11,16);
-  if(password_valid(password)){
-   k_mutex_lock(&state_lock,K_FOREVER);
-   if(!storage_ready)reply[4]=2;
-   else if(!assets_ready)reply[4]=4;
-   else if(key_present && memcmp(password,credential.password,17))reply[4]=3;
-   else {
-    if(!key_present){
-     struct credentials saved={0};saved.magic=0x5034424d;saved.version=1;memcpy(saved.password,password,17);
-     int err=nvs_write(&storage,0x41,&saved,sizeof(saved));
-     if(err==(int)sizeof(saved)){credential=saved;key_present=true;reply[4]=0;}else reply[4]=2;
-     wipe(&saved,sizeof(saved));
-    }else reply[4]=0;
+ if(type!=214||bytes<10||memcmp(body,"P4ST",4))return;
+ uint8_t *p=(uint8_t *)body;unsigned op=p[4];uint8_t reply[518]={0};sys_put_le32(sys_get_le32(p+6),reply);reply[4]=1;reply[5]=op;unsigned n=6;
+ if(op==0&&bytes==10&&p[5]==1){p4_network_status((char *)reply+6,sizeof(reply)-6);n+=strlen((char *)reply+6);reply[4]=0;}
+ else if(op==1&&bytes>=14&&p[5]==1&&p4_transport_is_usb()){
+  struct credentials next={0},check={0};unsigned sn=p[10],pn=p[11];next.magic=0x5354424d;next.version=1;next.security=1;next.sn=sn;next.pn=pn;
+  if(sn<=32&&pn<=64&&bytes==(int)(14+sn+pn)&&p[12]==1&&p[13]==1){
+   memcpy(next.ssid,p+14,sn);memcpy(next.password,p+14+sn,pn);
+   if(valid(&next)){
+    k_mutex_lock(&state_lock,K_FOREVER);
+    if(working||connected)reply[4]=5;
+    else if(!storage_ready)reply[4]=2;
+    else if(key_present&&memcmp(&next,&credential,sizeof(next)))reply[4]=3;
+    else {
+     int e=nvs_write(&storage,0x42,&next,sizeof(next));
+     if(e==(int)sizeof(next)&&nvs_read(&storage,0x42,&check,sizeof(check))==(int)sizeof(check)&&!memcmp(&next,&check,sizeof(next))){credential=next;key_present=true;reply[4]=0;}else reply[4]=2;
+    }
+    k_mutex_unlock(&state_lock);
    }
-   bool start=reply[4]==0&&!ap_running;k_mutex_unlock(&state_lock);if(start)k_sem_give(&network_work);
   }
+  wipe(&next,sizeof(next));wipe(&check,sizeof(check));if(!reply[4])k_sem_give(&network_work);
+ }else if(op==2&&bytes==10&&p[5]==1&&p4_transport_is_usb()){
+  k_mutex_lock(&state_lock,K_FOREVER);bool retry=key_present&&!working&&!connected;k_mutex_unlock(&state_lock);if(retry){k_sem_give(&network_work);reply[4]=0;}else reply[4]=5;
  }
- wipe(password,sizeof(password));wipe(body,bytes);
- waitAndSendMessage(214,0,sizeof(reply),(char *)reply);
+ wipe(body,bytes);waitAndSendMessage(214,0,n,(char *)reply);wipe(reply,sizeof(reply));
 }

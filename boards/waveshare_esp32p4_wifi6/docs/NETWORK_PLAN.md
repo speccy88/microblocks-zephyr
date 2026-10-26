@@ -1,5 +1,9 @@
 # Two native Zephyr targets and network approval proposal
 
+**Superseded:** Fred revoked AP work on 2026-10-26 and requested station mode
+on his Wi-Fi. See [current station requirement](NETWORK_STATION.md). This file
+preserves historical AP diagnostics; it is not current permission to start AP.
+
 Fred explicitly requested both USB and board-self-hosted MicroBlocks targets
 on 2026-10-25. GitHub Pages is a third distribution surface, not board hosting.
 The default USB image remains available without the network stack or C6.

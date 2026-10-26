@@ -9,6 +9,7 @@
 #include <zephyr/sys/byteorder.h>
 #include <string.h>
 #include <strings.h>
+#include <stdio.h>
 static uint16_t port=80;
 HTTP_SERVICE_DEFINE(p4_http,NULL,&port,4,4,NULL,NULL,NULL);
 HTTP_SERVER_REGISTER_HEADER_CAPTURE(p4_origin,"Origin");
@@ -17,7 +18,7 @@ static const struct flash_area *assets;
 static const struct http_header headers[]={
  {"Cross-Origin-Opener-Policy","same-origin"},{"Cross-Origin-Embedder-Policy","require-corp"},
  {"X-Content-Type-Options","nosniff"},{"Cache-Control","no-cache"},{"Referrer-Policy","no-referrer"},
- {"Content-Security-Policy","default-src 'self' data: blob:; connect-src 'self' ws://192.168.4.1; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"},
+ {"Content-Security-Policy","default-src 'self' data: blob:; connect-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"},
  /* Dynamic responses in the pinned Zephyr do not copy common.content_encoding. */
  {"Content-Encoding","gzip"}
 };
@@ -57,10 +58,12 @@ int p4_asset_handler(struct http_client_ctx *client,enum http_transaction_status
 bool p4_same_origin(const struct http_request_ctx *request)
 {
  bool host=false,origin=false;
+ char ip[32],host_port[40],url[48],url_port[52];p4_network_address(ip,sizeof(ip));if(!ip[0])return false;
+ snprintf(host_port,sizeof(host_port),"%s:80",ip);snprintf(url,sizeof(url),"http://%s",ip);snprintf(url_port,sizeof(url_port),"http://%s:80",ip);
  for(size_t i=0;i<request->header_count;i++){
   const char *name=request->headers[i].name,*value=request->headers[i].value;
-  if(!strcasecmp(name,"Host") && (!strcmp(value,"192.168.4.1")||!strcmp(value,"192.168.4.1:80")))host=true;
-  if(!strcasecmp(name,"Origin") && (!strcmp(value,"http://192.168.4.1")||!strcmp(value,"http://192.168.4.1:80")))origin=true;
+  if(!strcasecmp(name,"Host") && (!strcmp(value,ip)||!strcmp(value,host_port)))host=true;
+  if(!strcasecmp(name,"Origin") && (!strcmp(value,url)||!strcmp(value,url_port)))origin=true;
  }
  return host&&origin;
 }

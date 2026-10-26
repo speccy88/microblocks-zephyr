@@ -18,9 +18,10 @@
 10. Add per-block copied image/audio results with bounded native/browser
     lifetimes, explicit collapse/expand and click-only playback. Implement
     actual GP layout/compiler mapping and test both transport profiles.
-11. Diagnose C6 frame/version protocol without radio changes; the exact
-    MicroBlocks-P4 WPA2 AP is approved. Preserve USB and implement actual
-    onboard assets/HTTP/WebSocket. Companion firmware replacement still
+11. Use the approved existing Wi-Fi in station mode; AP was canceled on
+    2026-10-26. Preserve USB and implement actual onboard assets/HTTP/WebSocket,
+    with the locally supplied credentials and explicitly approved persistence.
+    Companion firmware replacement still
     needs separate authority if the protocol diagnosis establishes a need.
 12. Add independent local keyword spotting and event hats, listener off by
     default, then measured compatible P4 NN/DSP/PPA acceleration and staged

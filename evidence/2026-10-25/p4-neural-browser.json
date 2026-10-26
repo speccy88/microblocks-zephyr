@@ -1,0 +1,26 @@
+{
+  "runtime": "genuine MicroBlocks GP 2.5.8, physical COM5 P4 native Zephyr",
+  "transport": "loopback USB bridge",
+  "checks": {
+    "actual_board_handshake": true,
+    "catalog_control_loaded_builtin_on_board": true,
+    "metadata_read_from_board": true,
+    "real_GP_load_set_run_output_blocks_executed": true,
+    "input_milli": 1000,
+    "output_milli": 890,
+    "explicit_output_scale": 1000,
+    "panel_unload_requested": true,
+    "custom_GP_outputs_milli": [
+      9000,
+      -2000
+    ],
+    "custom_GP_displayed_output_milli": 9000
+  },
+  "custom_import_native_protocol": "PASS; see p4-neural-native.json",
+  "custom_import_browser_file_chooser": "PASS: real selected manifest and artifact submitted, device hash/graph validation and typed metadata returned",
+  "direct_onnx_runtime": false,
+  "hardware_acceleration": false,
+  "camera_captured": false,
+  "audio_recorded": false,
+  "result": "PASS builtin and custom browser import/GP execution over USB on native P4"
+}

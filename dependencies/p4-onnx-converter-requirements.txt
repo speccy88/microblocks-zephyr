@@ -1,0 +1,5 @@
+# Local offline conversion/test tools, never linked into P4 firmware.
+flatbuffers==24.3.25
+onnx==1.17.0
+numpy==2.5.4
+protobuf==7.36.2

@@ -1,0 +1,14 @@
+{
+  "bytes": 3540261,
+  "sha256": "47347c94633ad17ec07b864d9924503006bb2c44a86bce0dde955fc28e3189c7",
+  "offset": "0xfe0000",
+  "end_exclusive": "0x1340525",
+  "tested_at": "2026-10-26T02:48:35.345641+00:00",
+  "target": "COM5 P4 editor partition only",
+  "exit_code": 0,
+  "hash_verified": true,
+  "application_or_settings_written": false,
+  "C6_flashed": false,
+  "backup_performed": false,
+  "COM12_accessed": false
+}

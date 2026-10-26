@@ -1,0 +1,39 @@
+module 'P4 Neural Networks' Input
+author 'Native Zephyr integration; TFLM authors retain Apache-2.0'
+version 0 1
+description 'Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.'
+spec 'b' '[p4:nnAvailable]' 'neural backend available?'
+spec 'r' 'p4NNLoad' 'load neural model _' 'str' 'sine-int8-v1'
+spec 'r' '[p4:nnCurrentModel]' 'current neural model'
+spec ' ' '[p4:nnSetValue]' 'set model _ input _ to _ / 1000' 'str num num' 'NN:00000001' 1 1000
+spec ' ' 'p4NNRun' 'run neural model _' 'str' 'NN:00000001'
+spec 'r' '[p4:nnOutputValue]' 'model _ output _ times 1000' 'str num' 'NN:00000001' 1
+spec 'r' '[p4:nnModelInfo]' 'model _ tensor information' 'str' 'NN:00000001'
+spec 'r' '[p4:nnStatus]' 'neural job status'
+spec ' ' 'p4NNUnload' 'unload neural model _' 'str' 'NN:00000001'
+spec ' ' '[p4:nnCancel]' 'cancel neural job'
+advanced
+spec 'r' '[p4:nnCapabilities]' 'neural backend limits'
+spec 'b' '[p4:nnBusy]' 'neural job busy?'
+spec 'b' '[p4:nnReady]' 'neural model _ ready?' 'str' 'NN:00000001'
+spec 'b' '[p4:nnRun]' 'start neural model _ repetitions _' 'str num' 'NN:00000001' 1
+spec ' ' '[p4:nnInputBytes]' 'model _ input bytes at offset _ data _' 'str num auto' 'NN:00000001' 0 0
+spec 'r' '[p4:nnOutputBytes]' 'model _ output bytes offset _ count _' 'str num num' 'NN:00000001' 0 4
+
+to p4NNLoad name {
+    local model ('[p4:nnLoadBuiltin]' name)
+    if (model == '') { return '' }
+    waitUntil (not ('[p4:nnBusy]'))
+    if (not ('[p4:nnReady]' model)) { return '' }
+    return model
+}
+
+to p4NNRun model {
+    if (not ('[p4:nnRun]' model 1)) { return }
+    waitUntil (not ('[p4:nnBusy]'))
+}
+
+to p4NNUnload model {
+    '[p4:nnUnload]' model
+    waitUntil (not ('[p4:nnBusy]'))
+}

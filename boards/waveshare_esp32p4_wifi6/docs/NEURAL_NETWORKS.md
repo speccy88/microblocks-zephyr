@@ -103,3 +103,75 @@ responsiveness; board/host comparison and latency/memory measurements. Model
 catalog examples and block execution must pass in the genuine GP editor.
 USB and board-hosted targets share the same model/tensor API and protocol;
 successful Pages editing alone does not establish board execution or hosting.
+
+## Verified native block milestone (2026-10-26)
+
+Physical COM5 tests passed for the builtin INT8 sine model and an authored
+584-byte float32 sensor model converted offline from ONNX Gemm. Four exact
+golden vectors matched ONNX ReferenceEvaluator, over three load/run/unload
+rounds. The builtin used 804 bytes of its reserved 8,192-byte arena; the custom
+model used 480 of 16,384 arena bytes plus 584 retained model bytes. These are
+arena measurements, not total runtime RAM: the NN worker reserves 32 KiB of
+PSRAM stack (at least 28,964 bytes measured unused), alongside the VM, TFLM,
+other workers and shared media heap. Runs measured 2 ms including an intentional
+1 ms yield and millisecond clock granularity; this is not isolated kernel timing.
+Cancellation measured 46 ms through the USB test, with a 15 ms status round trip.
+
+Malformed FlatBuffers, unsupported operators, oversized/static-invalid and
+dynamic shapes, SHA mismatch and insufficient arena are rejected with buffers
+released. Incomplete/out-of-order uploads, nonfinite/misaligned/out-of-range
+inputs, stale references, cancellation/reuse and deferred unload also passed.
+Evidence: `p4-neural-native.json`; portable C bounds ASan/UBSan and three browser
+protocol tests passed separately. Actual GP catalog controls read metadata and
+loaded the builtin; load/set/run/output blocks displayed 890 for an input of
+1.000 radians, meaning 0.890 in the explicit x1000 convention. Browser custom
+file selection/submit also passed, followed by actual GP execution and displayed
+output 9000 for inputs [1,2], meaning 9.0 in the explicit x1000 convention.
+
+The upstream builtin has allocated batch 1 but four symbolic -1 batch
+signatures. Preparation requires its exact upstream hash, changes only those
+four signatures to 1 and records both source and derived artifact hashes.
+Weights/operators are unchanged; arbitrary imported dynamic models remain
+rejected. `prepare_p4_neural.py` makes this derivative reproducibly.
+
+Install `dependencies/p4-onnx-converter-requirements.txt` in an isolated host
+environment for `tools/convert_p4_onnx_dense.py`. It accepts only sequential
+static float32 Gemm and optional fused Relu with bounded embedded constants,
+opsets 7..21, batch 1 and one input/output. It rejects external tensor files,
+custom functions/domains, unsupported attributes/graphs and over-budget shapes.
+It writes a TFLite artifact and manifest retaining source/artifact hashes and
+license. This is a restricted offline converter, never direct ONNX Runtime.
+KWS/CNN operators and P4 acceleration are still unavailable.
+
+## First SmallVM implementation boundary
+
+The first loadable backend supports one static dense TFLite graph at a time,
+with a builtin INT8 sine catalog model and compatible custom float32/INT8
+FullyConnected graphs. Limits: 256 KiB artifact, one input/output, 16 operators,
+64 tensors, rank 1..4, at most 16,384 elements per tensor, one million total
+MACs, and a caller-bounded 4..512 KiB arena. Custom/control-flow/sparse/dynamic
+graphs and unsupported operators/types are rejected before interpreter setup.
+No model code or conversion script executes on the board.
+
+Model references are typed strings (`NN:...`), separate from integer image/audio
+handles. Uploads are sequential, bounded 512-byte chunks, with a 30-second
+inactivity deadline and device SHA-256 verification. Model/arena ownership is
+native; VM ByteArrays are copied before asynchronous work. Stop cancels jobs;
+unload releases model/arena after the worker quiesces. CPU-only worker stack
+and arenas use PSRAM, with stack measurement and explicit allocation failures.
+The reference backend performs no P4-specific kernel acceleration yet.
+
+Tensor metadata includes dtype, shape, scale and zero point. Raw input bytes
+must match that contract; convenience numeric blocks use explicit values
+scaled by 1000. Float input must be finite, quantized values must be in range,
+and every input element must be supplied before a run. Outputs expose raw
+typed bytes and numeric values scaled by 1000. No hidden image normalization,
+audio frontend, output scaling or robot actuator binding is implied.
+
+Runs are asynchronous on a lower-priority Zephyr worker. Cancellation is
+observed before/after a bounded invocation and between benchmark repetitions;
+it does not forcibly terminate a kernel. The operation/MAC budget excludes
+unbounded control flow. Record actual invoke/cancellation latency and VM
+round trips before claiming responsiveness. An offline restricted ONNX dense
+conversion path, if implemented, remains conversion into TFLite, not direct
+ONNX Runtime. KWS/CNN kernels are a subsequent independently tested extension.

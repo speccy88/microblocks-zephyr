@@ -1,0 +1,62 @@
+--- a/drivers/wifi/esp_hosted_mcu/Kconfig.esp_hosted_mcu
++++ b/drivers/wifi/esp_hosted_mcu/Kconfig.esp_hosted_mcu
+@@ -18,6 +18,14 @@
+ 	  over SPI or SDIO using the esp-hosted-mcu transport core.
+ 
+ if WIFI_ESP_HOSTED_MCU
++
++config WIFI_ESP_HOSTED_MCU_DEFER_STATION
++ bool "Compatible init; defer station start until explicit connect"
++ depends on !WIFI_ESP_HOSTED_MCU_AP_STA_MODE
++ help
++   Initialize before legacy MAC reads, disable coprocessor NVS, and start
++   only station mode when the application submits an approved connection.
++
+ 
+ config WIFI_ESP_HOSTED_MCU_AP_ONLY
+  bool "Defer radio start until explicit AP configuration"
+--- a/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -329,6 +329,8 @@
+ 	return 0;
+ }
+ 
++static bool p4_station_started;
++
+ static int esp_hosted_mcu_connect(const struct device *dev, struct net_if *iface,
+ 				  struct wifi_connect_req_params *params)
+ {
+@@ -340,6 +342,23 @@
+ 
+ 	ARG_UNUSED(iface);
+ 
++ /* Only an explicit connect starts STA. No AP or foreign C6 NVS config. */
++ if (IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_DEFER_STATION) && !p4_station_started) {
++  req.msg_id = RpcId_Req_SetWifiMode;
++  req.which_payload = Rpc_req_set_wifi_mode_tag;
++  req.payload.req_set_wifi_mode.mode = ESP_HOSTED_MCU_WIFI_MODE_STA;
++  ret = esp_hosted_mcu_rpc_call(&req, &resp, ESP_HOSTED_MCU_RPC_TIMEOUT);
++  pb_release(Rpc_fields, &resp);
++  if (ret) return -EIO;
++  req = (Rpc)Rpc_init_zero; resp = (Rpc)Rpc_init_zero;
++  req.msg_id = RpcId_Req_WifiStart;
++  req.which_payload = Rpc_req_wifi_start_tag;
++  ret = esp_hosted_mcu_rpc_call(&req, &resp, ESP_HOSTED_MCU_RPC_TIMEOUT);
++  pb_release(Rpc_fields, &resp);
++  if (ret) return -EIO;
++  p4_station_started = true;
++  req = (Rpc)Rpc_init_zero; resp = (Rpc)Rpc_init_zero;
++ }
+ 	/* Push the STA credentials, then issue connect. */
+ 	req.msg_id = RpcId_Req_WifiSetConfig;
+ 	req.which_payload = Rpc_req_wifi_set_config_tag;
+@@ -1001,7 +1020,8 @@
+ 	/* Route asynchronous coprocessor events (connect/disconnect/scan) here. */
+ 	esp_hosted_mcu_register_rpc_event(esp_hosted_mcu_handle_event, data);
+ 
+-	if (IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_AP_ONLY)) {
++	if (IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_AP_ONLY) ||
++            IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_DEFER_STATION)) {
+ 		return esp_hosted_mcu_ap_only_init(data);
+ 	}
+ 

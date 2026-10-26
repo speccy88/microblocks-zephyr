@@ -1,105 +1,63 @@
-# Native Zephyr board-hosted target
+# Native Zephyr station-hosted target
 
-This profile shares the USB target's SmallVM, camera/image/audio handles,
-Whistle worker and inline media protocol. It adds the native Zephyr C6 SDIO
-driver, an AP-only radio configuration, HTTP assets in P4 flash and one
-binary VM WebSocket. The default USB image does not enable the network stack.
+AP was canceled by Fred on 2026-10-26. Both USB-only and station-hosted
+targets remain. They share SmallVM, camera/image/audio/Whistle, bounded NN
+and inline media APIs. The hosted target uses C6 SDIO, DHCP on the approved
+existing Wi-Fi, P4-flash editor assets and one VM WebSocket. It has no AP
+interface, routing, Internet sharing, Bluetooth or cloud inference.
 
-Current implementation is compiled, partition-checked and flashed. Safe
-initialization and USB/Whistle regression pass. AP configuration currently
-fails with C6 SDHC timeouts after its mode response; HTTP/browser acceptance
-is blocked, not passed. See `NETWORK_PLAN.md` for evidence and limits.
+The station image and assets cross-built, passed complete flash-map/model
+checks, and were flashed/hash-verified on COM5. Credentials from the one
+local masked dialog were saved and verified by NVS readback. Station mode
+and start completed, but WifiSetConfig request 284 received no reply and
+SDIO returned -116. No DHCP address or HTTP/browser pass is claimed.
+USB remains available. The encrypted handoff is retained for verification;
+there is no new prompt, Windows network change or C6 firmware replacement.
 
-## Reproducible build
+## Build
 
-Use the exact Zephyr/HAL pins and SDK listed in `START_HERE.md`. Apply the
-repository's pinned SDK patches using `tools/apply_p4_zephyr_patches.py`.
-The AP-only patch is opt-in: other board ports retain their existing behavior.
-It initializes C6 Wi-Fi without starting or associating a station. Compatible
-MAC queries occur after Wi-Fi initialization; addresses are never diagnostics.
+Use the exact pins/SDK in START_HERE and apply the complete native patch
+series with tools/apply_p4_zephyr_patches.py. Patch 0005 opts into compatible
+post-init MAC reads and station-only start on explicit connection. Other
+boards keep their original behavior. No foreign companion NVS is loaded.
 
-Package the verified editor source:
+Package with tools/package_p4_hosted.py --ide-source
+build-artifacts/p4-sources/ide --output build-artifacts/p4-station-assets.
 
-```sh
-python tools/package_p4_hosted.py \
-  --ide-source build-artifacts/p4-sources/ide \
-  --output build-artifacts/p4-hosted-assets
-```
+From west, build the P4 Zephyr app with:
+- EXTRA_CONF_FILE=profiles/station.conf;profiles/neural.conf;profiles/whistle.conf
+- EXTRA_DTC_OVERLAY_FILE=profiles/c6-sdio.overlay;profiles/hosted.overlay
+- P4_TFLM_SOURCE and ZEPHYR_EXTRA_MODULES pointing to pinned TFLM
+- P4_HOSTED_ASSETS_DIR pointing to the generated station assets
+- P4_WHISTLE_MODEL and P4_WHISTLE_FIXTURE to the verified local inputs.
 
-From the configured west workspace, with `REPO`, `MODEL` and `FIXTURE` set to
-local paths (the model and fixture are not repository artifacts):
-
-```sh
-west build -b esp32p4_wifi6/esp32p4/hpcore -d build-p4-hosted \
-  -s "$REPO/boards/waveshare_esp32p4_wifi6/zephyr" -- \
-  '-DEXTRA_CONF_FILE=profiles/hosted.conf;profiles/whistle.conf' \
-  '-DEXTRA_DTC_OVERLAY_FILE=profiles/c6-sdio.overlay;profiles/hosted.overlay' \
-  -DP4_WHISTLE_MODEL="$MODEL" -DP4_WHISTLE_FIXTURE="$FIXTURE"
-```
-
-Both model and total-layout checks run after linking. Revision-guard the
-actual `zephyr.bin` with `tools/p4_image_guard.py` before authorized flashing.
-Run `tools/check_p4_hosted_layout.py` on the guarded image, actual ELF,
-generated DTS and assets, saving its JSON with `--evidence`.
-
-## Fixed flash layout and safe provisioning
+The old hosted.conf filename is a station-only compatibility alias.
+Revision-guard zephyr.bin, then use the COM5-only application/assets flash
+helpers under current authorization. The asset helper requires whole-layout
+evidence. Neither helper touches COM12, C6 firmware or the settings region.
 
 | Region | Begin | End, exclusive |
 |---|---|---|
-| Application and mapped Whistle model | `0x2000` | `0xfe0000` |
-| Editor assets | `0xfe0000` | `0x1fe0000` |
-| AP settings | `0x1fe0000` | `0x2000000` |
+| Application and mapped model | 0x2000 | 0xfe0000 |
+| Editor assets | 0xfe0000 | 0x1fe0000 |
+| Approved station settings | 0x1fe0000 | 0x2000000 |
 
-The checker verifies all three intervals, actual binary sizes, model section
-permissions, physical model location, SHA-256 and a single model copy.
-The model is read-only mapped flash; it is not copied into PSRAM.
-Asset blobs include lengths, CRC32 and SHA-256. Each deterministic gzip stream
-has its own original-file hash in `assets-manifest.json`. The native server
-streams 2 KB chunks and sends an explicit gzip header when applicable.
+## Provisioning and transport
 
-Use the COM5-only helpers `flash_p4_zephyr.py` and `flash_p4_assets.py`, with
-current explicit P4 flashing authorization. The latter requires the complete
-layout evidence and writes only the asset interval. Neither backs up firmware,
-touches COM12, flashes C6 or writes AP settings.
+See NETWORK_STATION.md for the already-approved single DPAPI handoff.
+tools/provision_p4_station.py --execute refuses non-station firmware before
+decrypting. It sends credentials only to COM5, verifies NVS persistence under
+key 0x42 and prints status only. There is no HTTP credential endpoint or
+credential-read operation. Onboard NVS is not described as encrypted flash.
 
-After assets and driver pass safe initialization, the approved AP provisioning
-helper creates a unique 16-character key in an ignored local `secrets/` file.
-It transmits the key only through USB message 214, then stores it in the P4
-settings partition for reuse. The same key can be reprovisioned idempotently;
-an accidental different key is rejected. There is no HTTP credential endpoint
-or key-read operation. Do not print or publish the private file. Provisioning
-requires the separate AP authorization described in `NETWORK_PLAN.md`.
+After DHCP succeeds, open the actual board address on the existing LAN.
+Host/Origin must match its address. One controller owns programming; USB has
+a refreshed activity lease and WebSocket is accepted only when that lease
+expires. VM-thread parser resets retain RAM code. Programs do not currently
+survive power loss. Plain LAN HTTP may lack browser WebSerial; keep the
+separate HTTPS/localhost USB editor available.
 
-```powershell
-python tools/test_p4_hosted_usb.py --execute --evidence <safe-init.json>
-python tools/provision_p4_ap.py --execute --private-file secrets/p4-ap-password.txt --evidence <ap-start.json>
-python tools/test_p4_hosted_usb.py --execute --require-ap --whistle --evidence <regression.json>
-```
-
-## Transport and acceptance
-
-The approved AP is `MicroBlocks-P4`, WPA2-PSK, channel 6, `192.168.4.1/24`,
-with two DHCP clients from `.10`. There is no station association, routing,
-Internet sharing, DNS interception, captive portal or Windows firewall change.
-Saved valid credentials start the same AP after reboot.
-
-Open `http://192.168.4.1/` only after explicitly joining that network. Windows
-network association is a separate action; the helpers do not perform it.
-The board serves all GP assets locally and accepts `/ws/vm` only with a
-matching Host and Origin. One controller owns programming at a time. USB uses
-an activity lease, refreshed by normal IDE pings; WebSocket takes ownership
-only after the USB lease expires. Parser/session resets occur on the VM
-thread and preserve the RAM program. CPU-only WS queues use 16 KB of PSRAM;
-UART ISR and DMA buffers remain internal.
-
-Keep the separate HTTPS/localhost USB editor available. HTTP pages on a LAN
-address may lack browser WebSerial access; that does not remove physical USB
-support in the hosted firmware. Programs currently remain in RAM across
-connection changes, not across power loss.
-
-Physical acceptance requires verified AP radio state, DHCP lease, board-served
-asset hashes, actual GP startup, binary WebSocket programming, generated image
-transform/preview, bounded audio or fixture playback, Whistle regression,
-controller exclusion and reconnect cleanup. Camera scene-content retesting
-remains on hold pending Fred's lighting confirmation. AP startup alone does
-not satisfy the complete browser gate.
+Acceptance still needs station association/DHCP, reboot reconnection, actual
+board-served asset hashes, genuine GP/WebSocket execution, controller
+exclusion and cleanup. USB generated-image/NN/media/Whistle regressions are
+separate evidence. No camera capture is repeated pending lighting confirmation.

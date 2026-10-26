@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MPL-2.0
 // Real GP block-owned result view. Media never enters the project expression.
-defineClass P4MediaView morph block uid kind bitmap expanded userCollapsed state sourceWidth sourceHeight frames rate
+defineClass P4MediaView morph block uid kind bitmap texture expanded userCollapsed state sourceWidth sourceHeight frames rate
 
 to p4MediaKind op {
     if (isOneOf op 'p4TakePicture' '[p4:cameraResult]' '[p4:imageCreate]' '[p4:imageResize]' '[p4:imageGrayscale]' '[p4:imageRGBTensor]') { return 1 }
@@ -33,6 +33,7 @@ method initialize P4MediaView aBlock anID aKind {
     uid = anID
     kind = aKind
     bitmap = nil
+    texture = nil
     expanded = false
     userCollapsed = false
     state = 'empty'
@@ -60,10 +61,12 @@ method p4Size P4MediaView {
 
 method drawOn P4MediaView ctx {
     fillRect ctx (gray 244) (left morph) (top morph) (width morph) (height morph)
-    if (and expanded (notNil bitmap)) {
+    if (and expanded (notNil texture)) {
         scale = (blockScale)
         x = ((left morph) + (((width morph) - ((width bitmap) * scale)) / 2))
-        warpBitmap ctx bitmap x ((top morph) + (22 * scale)) scale scale
+        // The drag cache draws into a Texture. warpBitmap only accepts a
+        // Bitmap/nil destination; showTexture supports both cache and screen.
+        showTexture (getField ctx 'surface') texture (x + (getField ctx 'offsetX')) (+ (top morph) (22 * scale) (getField ctx 'offsetY')) 255 scale scale 0 0 1 (getField ctx 'clipRect')
     }
 }
 // Preview pixels and controls are not a request to execute their parent script.
@@ -180,6 +183,9 @@ to p4MediaExpire uid {
 }
 
 to p4MediaClearView view {
+    oldTexture = (getField view 'texture')
+    if (notNil oldTexture) { destroyTexture oldTexture }
+    setField view 'texture' nil
     setField view 'bitmap' nil
     setField view 'state' 'expired'
     setField view 'expanded' false
@@ -220,7 +226,12 @@ to p4MediaResult uid session kind png info {
         w = (+ ((byteAt data 17) << 24) ((byteAt data 18) << 16) ((byteAt data 19) << 8) (byteAt data 20))
         h = (+ ((byteAt data 21) << 24) ((byteAt data 22) << 16) ((byteAt data 23) << 8) (byteAt data 24))
         if (or (w < 1) (w > 160) (h < 1) (h > 90)) { return false }
-        setField view 'bitmap' (readFrom (new 'PNGReader') data)
+        newBitmap = (readFrom (new 'PNGReader') data)
+        if (not (isClass newBitmap 'Bitmap')) { return false }
+        oldTexture = (getField view 'texture')
+        if (notNil oldTexture) { destroyTexture oldTexture }
+        setField view 'bitmap' newBitmap
+        setField view 'texture' (toTexture newBitmap)
         setField view 'sourceWidth' (at info 'source_width')
         setField view 'sourceHeight' (at info 'source_height')
     } else {

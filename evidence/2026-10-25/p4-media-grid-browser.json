@@ -1,0 +1,21 @@
+{
+  "runtime": "genuine MicroBlocks GP 2.5.8",
+  "viewport_css_pixels": [1280, 720],
+  "block_zoom_percent": 100,
+  "fixture": "Explicitly labeled stored RGB/grayscale grid with TL1/TR2/BL3/BR4, outer border and center circle",
+  "preview_count": 3,
+  "preview_pixels": [160, 80],
+  "checks": {
+    "all_four_corner_labels_visible_in_all_previews": true,
+    "complete_outer_border_visible": true,
+    "aspect_ratio_preserved": true,
+    "expanded_script_drag_without_debugger_error": true,
+    "fresh_editor_reload": true,
+    "palette_masks_script_outside_editor_bounds": true
+  },
+  "fix": "Use bounded GP textures for screen and cached drag drawing; release textures on replacement/expiry.",
+  "camera_captured": false,
+  "audio_recorded": false,
+  "board_hosted_browser_test": false,
+  "result": "PASS"
+}

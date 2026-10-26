@@ -2,6 +2,10 @@
 mainmenu "Native P4 MicroBlocks"
 source "Kconfig.zephyr"
 config P4_HOSTED
- bool "P4-hosted editor on the approved standalone AP"
- depends on WIFI_ESP_HOSTED_MCU_AP_ONLY
+ bool "P4-hosted editor on the approved station network"
+ depends on WIFI_ESP_HOSTED_MCU_DEFER_STATION
+ default n
+config P4_NEURAL
+ bool "Bounded native TFLM dense model backend"
+ depends on TENSORFLOW_LITE_MICRO && CPP
  default n

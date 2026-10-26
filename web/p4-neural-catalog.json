@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "backend": "tflm-reference-dense-v1",
+  "direct_onnx_runtime": false,
+  "models": [{
+    "id": "sine-int8-v1",
+    "name": "Sine approximation (INT8)",
+    "builtin": true,
+    "artifact_format": "tflite",
+    "bytes": 2488,
+    "sha256": "097160f7f3ec5efacdddc24bea52bc34a0483161894e735995c4d7882c1c2fad",
+    "source_sha256": "b8ba5f16b2427f043058c4ee9d22558dc31a7f162a0e2f053712118088d524dc",
+    "preparation": "Constrain four batch signatures to their allocated value 1; weights and graph unchanged.",
+    "license": "Apache-2.0",
+    "source": "https://github.com/zephyrproject-rtos/zephyr/blob/a915b2f12675b48b16d56653ea145dcd8f20cbbf/samples/modules/tflite-micro/hello_world/src/model.cpp",
+    "description": "One input angle in radians, one approximate sine output. Demo only; no actuator binding."
+  }]
+}

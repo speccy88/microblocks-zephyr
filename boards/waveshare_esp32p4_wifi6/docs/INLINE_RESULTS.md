@@ -73,3 +73,12 @@ ASan/UBSan. `node --test tests/p4_media_core.test.js` checks wire fields, exact
 known pixels, WAV sample rate/length and bounded cache disposal.
 `tools/test_p4_media_usb.py --execute --evidence PATH` tests physical COM5
 snapshots using generated images without taking a camera picture.
+
+The 2026-10-26 grid acceptance uses explicitly marked stored RGB/grayscale
+fixtures with four labeled corners, full border and center circle. At 100%
+block zoom all three complete images/aspect ratios are visible. Whole scripts
+outside the script viewport are masked by the palette normally. Expanded
+preview dragging now uses GP textures rather than warpBitmap into a texture,
+which previously opened the debugger. Textures are bounded and destroyed on
+replacement/expiry. See p4-media-grid-browser.json; no new camera capture was
+used to establish this renderer result.

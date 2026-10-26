@@ -16,6 +16,13 @@ Zephyr with the current IMX219 attached. See [tasks](docs/TASKS.md).
 
 ## Build
 
+Two targets are retained: USB-only and station-hosted with the same native VM
+and blocks. AP was canceled. See [station setup](docs/NETWORK_STATION.md).
+For the tested bounded neural backend, add `profiles/neural.conf` and the
+pinned TFLM module with `P4_TFLM_SOURCE`/`ZEPHYR_EXTRA_MODULES`; see
+[NN contract and measured tests](docs/NEURAL_NETWORKS.md). Direct ONNX Runtime,
+CNN/KWS operators and P4 kernel acceleration remain unavailable.
+
 Use the pinned Zephyr workspace, not an ESP-IDF application build:
 
 ```bash

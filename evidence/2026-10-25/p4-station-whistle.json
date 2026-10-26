@@ -1,0 +1,57 @@
+{
+  "tested_at": "2026-10-26T02:59:22.906976+00:00",
+  "runtime": "native Zephyr P4",
+  "model_profile": "verified four-layer Whistle C99 int8 scalar",
+  "COM12_accessed": false,
+  "raw_audio_exported": false,
+  "firmware": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "fixture": {
+    "transcript": "The Camera is ready.",
+    "status": {
+      "phase": "ready",
+      "message": "local text ready; 6 tokens; input PCM released",
+      "frames": 31920,
+      "elapsed_ms": 22307,
+      "encode_ms": 14672,
+      "decode_ms": 7584,
+      "peak_requested_bytes": 2266424,
+      "reserved_arena_bytes": 12582912,
+      "stack_unused_bytes": 21572,
+      "buffers_released": true
+    },
+    "vm_roundtrips": 125,
+    "max_vm_rtt_s": 0.031,
+    "wall_s": 22.422
+  },
+  "cancel": {
+    "phase": "error",
+    "message": "cancelled; all inference buffers released",
+    "frames": 31920,
+    "elapsed_ms": 280,
+    "encode_ms": 0,
+    "decode_ms": 0,
+    "peak_requested_bytes": 2148080,
+    "reserved_arena_bytes": 12582912,
+    "stack_unused_bytes": 21572,
+    "buffers_released": true
+  },
+  "repeat": {
+    "transcript": "The Camera is ready.",
+    "status": {
+      "phase": "ready",
+      "message": "local text ready; 6 tokens; input PCM released",
+      "frames": 31920,
+      "elapsed_ms": 22295,
+      "encode_ms": 14677,
+      "decode_ms": 7567,
+      "peak_requested_bytes": 2266424,
+      "reserved_arena_bytes": 12582912,
+      "stack_unused_bytes": 21572,
+      "buffers_released": true
+    },
+    "vm_roundtrips": 125,
+    "max_vm_rtt_s": 0.032,
+    "wall_s": 22.422
+  },
+  "result": "PASS"
+}

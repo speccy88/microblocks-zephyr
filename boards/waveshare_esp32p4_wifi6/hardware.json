@@ -4,7 +4,7 @@
   "silicon_revision": "1.3/pre-v3",
   "flash_mib": 32,
   "psram_mib": 32,
-  "phase": "native-camera-audio-and-experimental-local-whistle-verified",
+  "phase": "native-camera-audio-whistle-and-bounded-neural-inference-verified",
   "target_firmware_cross_built": true,
   "physical_hardware_available": true,
   "zephyr_target": "esp32p4_wifi6/esp32p4/hpcore",
@@ -112,7 +112,7 @@
       "id": "inline_media",
       "hardware": "Native bounded PSRAM snapshots and genuine GP block views",
       "pins": {},
-      "smallvm": "physical generated image pipeline and 500ms audio results, rerun, collapse, playback and cleanup PASS via USB loopback; board hosting pending",
+      "smallvm": "physical generated image pipeline and 500ms audio results, rerun, collapse, playback and cleanup PASS via USB loopback; board hosting pending; labeled grid edges and texture-safe drag verified at 100% zoom",
       "physical_tested": true
     },
     {
@@ -134,14 +134,14 @@
         "cmd": 19,
         "reset": 54
       },
-      "smallvm": "SDIO-and-WiFi-initialization-pass; AP-config-request-284-times-out; credentials-privately-saved; version-unknown",
+      "smallvm": "station mode/start event PASS; user-supplied credentials saved and readback-verified; request-284/SDHC-timeout blocks association; AP disabled; version unknown",
       "physical_tested": false
     },
     {
       "id": "board_hosting",
       "hardware": "C6 Wi-Fi plus P4 HTTP/WebSocket",
       "pins": {},
-      "smallvm": "native-target-compiled-and-assets-flashed; USB-Whistle-regression-pass; AP-failure-blocks-HTTP-browser-test",
+      "smallvm": "station target/app/model/assets/NVS built, mapped and hash-flashed; USB NN/media/Whistle regressions PASS; C6 request-284 failure blocks DHCP/HTTP",
       "physical_tested": false
     },
     {
@@ -157,6 +157,13 @@
       "pins": {},
       "smallvm": "not-implemented-code-currently-RAM-only",
       "physical_tested": false
+    },
+    {
+      "id": "neural_network",
+      "hardware": "Native Zephyr TFLM reference CPU, float32/int8 dense subset",
+      "pins": {},
+      "smallvm": "physical builtin/custom golden, strict rejection, async lifecycle/cancel and real GP catalog/custom file import/execution PASS; direct ORT and acceleration unavailable",
+      "physical_tested": true
     }
   ]
 }

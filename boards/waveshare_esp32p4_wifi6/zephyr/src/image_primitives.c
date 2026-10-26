@@ -7,6 +7,7 @@
 #include "whistle_backend.h"
 #include "result_store.h"
 #include "c6_trace.h"
+#include "neural_primitives.h"
 #if defined(CONFIG_P4_HOSTED)
 #include "network_backend.h"
 #endif
@@ -152,6 +153,7 @@ static OBJ media_snapshot(int n,OBJ *a){
     return int2obj(h); /* Result tracing never changes expression semantics. */
 }
 static PrimEntry entries[]={
+ NN_PRIMITIVE_ENTRIES
  {"mediaSnapshot",media_snapshot},
  {"sttAvailable",stt_available},{"sttRequest",stt_request},{"sttFixture",stt_fixture},{"sttBusy",stt_busy},{"sttStatus",stt_status},{"sttResult",stt_result},{"sttCancel",stt_cancel},
  {"c6Status",c6_status},{"c6Trace",c6_trace},{"c6ReadOnlyProbe",c6_read_only},{"networkStatus",network_status},

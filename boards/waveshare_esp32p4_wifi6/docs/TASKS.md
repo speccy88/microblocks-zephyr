@@ -31,17 +31,23 @@
   See INLINE_RESULTS.md and p4-media-browser.json. Board hosting is separate.
 - [ ] Separate lightweight wake-word listener and MicroBlocks event contract.
 - [ ] Measure compatible NN/DSP kernel optimizations against reference paths.
-- [ ] Portable neural-network model catalog/import, verified backend and typed
-  async tensor API; see NEURAL_NETWORKS.md. Direct ONNX versus conversion
-  feasibility and actual board resource/operator limits remain to be measured.
+- [x] Native bounded NN model/tensor lifecycle, builtin INT8 catalog, custom
+  static float32/int8 dense import, restricted ONNX conversion, physical golden
+  and rejection/cancellation/reuse tests, and actual GP builtin execution.
+- [x] Browser custom file-import submit and actual GP custom-model output, plus
+  combined station-image USB NN/media/Whistle regression. Direct ONNX Runtime,
+  CNN/KWS operators and P4 acceleration remain unavailable.
 - [x] Native Zephyr TFLM INT8 fixture cross-build and physical inference on P4;
   ten bounded outputs, no sensor sampling/actuation. Catalog/blocks not yet done.
 - [x] Both native hosted and USB-only profiles cross-build with mapped Whistle;
   full app/model/assets/NVS overlap checks and bounded COM5 asset flashing.
 - [x] Native C6 initialization and safe USB credential provisioning using the
   approved AP settings; secret is private and excluded from source/evidence.
-- [ ] AP radio/DHCP and actual board-served GP/WebSocket acceptance. Blocked by
-  request-284/SDHC timeout after mode response; PM/timing trials did not fix it.
+- [x] Retire AP after Fred's explicit cancellation; keep historical failure evidence.
+- [x] Station-only profile with DHCP, same-origin service checks and existing
+  encrypted handoff/persistence approval; cross-build and whole flash map PASS.
+- [ ] Actual station provisioning/association, reboot reconnection and board-served
+  GP/WebSocket acceptance. No AP fallback or new credential prompt.
 
 Native VM evidence: `evidence/2026-10-25/p4-zephyr-vm.json`. This establishes
 actual UART programming, full-frame-sized PSRAM allocation, blank-image

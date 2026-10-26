@@ -116,6 +116,13 @@ into this native application.
 The optional native P4 TensorFlow Lite Micro probe uses the pinned external
 Zephyr TFLM module under Apache-2.0. Its sine fixture and model remain external
 build inputs with source/hash attribution in `dependencies/p4-tflm.json`.
-It is a tested reference-kernel probe, not a generic model loader. P4 C6/AP
+The bounded NN backend now loads tested static dense TFLite artifacts; its
+fixed-batch builtin derivative retains both original/derived hashes and Apache-2.0
+attribution. No model binaries or ONNX Runtime binaries are vendored. Optional
+host conversion uses pinned ONNX (Apache-2.0), FlatBuffers (Apache-2.0), NumPy
+(BSD-3-Clause) and protobuf (BSD-3-Clause); their installed packages retain their
+own notices. New converter/contract code is MIT, GP/library integration MPL-2.0.
+Microduck/Arduino/Tasmota remain design references, not copied implementations.
+P4 C6
 driver patches retain the pinned Zephyr/Espressif Apache-2.0 attribution;
 new application transport/server code carries its own MPL-2.0 headers.

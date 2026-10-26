@@ -3,6 +3,7 @@
 #include "vm/interp.h"
 #include "vm/persist.h"
 #include "media_protocol.h"
+#include "neural_backend.h"
 #if defined(CONFIG_P4_HOSTED)
 #include "hosted_server.h"
 #endif
@@ -12,5 +13,5 @@ int main(void) {
 #if defined(CONFIG_P4_HOSTED)
         p4_transport_poll();
 #endif
-        vmSlice(32);p4_media_poll();k_sleep(K_MSEC(1));}
+        vmSlice(32);p4_media_poll();p4_nn_poll();k_sleep(K_MSEC(1));}
 }

@@ -1,0 +1,15 @@
+module main
+variables model sineMilli
+script 80 80 {
+    whenStarted
+    model = (p4NNLoad 'sine-int8-v1')
+    if (model != '') {
+        '[p4:nnSetValue]' model 1 1000
+        p4NNRun model
+        sineMilli = ('[p4:nnOutputValue]' model 1)
+        p4NNUnload model
+        sayIt sineMilli
+    } else {
+        sayIt 'Native neural profile is unavailable or another model is loaded.'
+    }
+}

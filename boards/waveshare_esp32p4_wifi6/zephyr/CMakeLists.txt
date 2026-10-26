@@ -1,7 +1,11 @@
 # SPDX-License-Identifier: MPL-2.0
 cmake_minimum_required(VERSION 3.28)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-project(p4_microblocks LANGUAGES C)
+if(CONFIG_P4_NEURAL)
+  project(p4_microblocks LANGUAGES C CXX)
+else()
+  project(p4_microblocks LANGUAGES C)
+endif()
 get_filename_component(repo "${CMAKE_CURRENT_SOURCE_DIR}/../../.." ABSOLUTE)
 execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/apply_p4_zephyr_patches.py"
   --zephyr "${ZEPHYR_BASE}" --require-applied COMMAND_ERROR_IS_FATAL ANY)
@@ -12,6 +16,7 @@ set(vm_root "${CMAKE_CURRENT_BINARY_DIR}/smallvm")
 execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/prepare_p4_zephyr_runtime.py"
   "${SMALLVM_SOURCE_DIR}" "${vm_root}" COMMAND_ERROR_IS_FATAL ANY)
 target_include_directories(app PRIVATE "${vm_root}" "${vm_root}/vm" "${repo}/common/image" "${repo}/common/audio" "${repo}/common/media" src "${ZEPHYR_BASE}/drivers/video")
+target_include_directories(app PRIVATE "${repo}/common/nn")
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1 HAS_BOARD_HOOKS=1 IMAGE_ALLOC_EXTERNAL=1 AUDIO_ALLOC_EXTERNAL=1 MEDIA_ALLOC_EXTERNAL=1)
 if(CONFIG_ESP_HOSTED_MCU)
   target_include_directories(app PRIVATE "${ZEPHYR_BASE}/drivers/misc/esp_hosted_mcu")
@@ -24,6 +29,23 @@ target_sources(app PRIVATE src/main.c src/platform.c src/image_primitives.c src/
   ${vm_root}/vm/interp.c ${vm_root}/vm/runtime.c ${vm_root}/vm/mem.c
   ${vm_root}/vm/persist.c ${vm_root}/vm/dataPrims.c ${vm_root}/vm/varPrims.c
   ${vm_root}/vm/tinyJSON.c ${vm_root}/vm/mbFont.c ${vm_root}/vm/boardHooks.c)
+target_sources(app PRIVATE src/neural_primitives.c "${repo}/common/nn/nn_contract.c")
+if(CONFIG_P4_NEURAL)
+  if(NOT P4_TFLM_SOURCE)
+    message(FATAL_ERROR "Pass P4_TFLM_SOURCE for the pinned TFLM module and ZEPHYR_EXTRA_MODULES")
+  endif()
+  set(nn_generated "${CMAKE_CURRENT_BINARY_DIR}/neural")
+  set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${repo}/tools/prepare_p4_neural.py")
+  execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/prepare_p4_neural.py"
+    --source "${ZEPHYR_BASE}/samples/modules/tflite-micro/hello_world/src/model.cpp"
+    --tflm "${P4_TFLM_SOURCE}" --output "${nn_generated}" COMMAND_ERROR_IS_FATAL ANY)
+  # Error strings must never corrupt the binary SmallVM transport on UART0.
+  zephyr_compile_definitions(TF_LITE_STRIP_ERROR_STRINGS)
+  target_include_directories(app PRIVATE "${nn_generated}")
+  target_sources(app PRIVATE src/neural_backend.cpp "${nn_generated}/neural_builtin.S")
+else()
+  target_sources(app PRIVATE src/neural_stub.c)
+endif()
 # Native HAL only: no esp_driver_cam/ISP FreeRTOS drivers are linked.
 if(CONFIG_P4_HOSTED)
   zephyr_linker_section(NAME http_resource_desc_p4_http KVMA RAM_REGION GROUP RODATA_REGION)

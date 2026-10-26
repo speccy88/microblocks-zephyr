@@ -7,11 +7,15 @@ resize/grayscale/RGB888 preprocessing and export passed on native Zephyr.
 Bounded ES8311 PCM capture and experimental local Whistle speech-to-text are
 implemented. A private controlled microphone clip matched the host/P4 text;
 the actual graphical speech block also executes, with variable recognition
-accuracy and scalar latency of tens of seconds. Wake word, acceleration and
-true board hosting remain separate unfinished stages. The native hosted build
-and assets are flashed, but the approved C6 AP fails during configuration.
-Its password is privately saved; no C6 firmware or Windows network change was
-made. See [hosted target](docs/HOSTED.md) and [failure evidence](docs/NETWORK_PLAN.md).
+accuracy and scalar latency of tens of seconds. Native TFLM neural blocks now
+run tested INT8 and float32 dense models, including a restricted offline ONNX
+Gemm/Relu conversion. Direct ONNX Runtime, KWS and acceleration are unavailable.
+Native model transfer/rejection and actual GP catalog/custom file import and
+inference passed. AP was canceled; station-only firmware and flash-hosted assets
+are built and hash-flashed. User-entered station credentials were saved and
+readback-verified. C6 request 284 times out after station start, blocking
+association/DHCP and HTTP acceptance. The encrypted handoff is retained.
+See [station target](docs/NETWORK_STATION.md) and [NN contract](docs/NEURAL_NETWORKS.md).
 Current dark camera frames need a lit-scene retest;
 the strict content check remains failed in the latest evidence.
 See [START_HERE](START_HERE.md) for reproduction and current limitations.

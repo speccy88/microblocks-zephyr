@@ -1,0 +1,14 @@
+module main
+variables model
+script 100 30 {
+    whenStarted
+    model = ('[p4:nnCurrentModel]')
+    if ('[p4:nnReady]' model) {
+        '[p4:nnSetValue]' model 1 1000
+        '[p4:nnSetValue]' model 2 2000
+        p4NNRun model
+        sayIt ('[p4:nnOutputValue]' model 1)
+    } else {
+        sayIt 'Import the authored sensor-affine-v1 fixture first. Expected output: 9000 (9.0).'
+    }
+}

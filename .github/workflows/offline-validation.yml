@@ -28,3 +28,5 @@ jobs:
         run: echo 'This workflow does NOT build Zephyr or test physical hardware.'
       - name: Check portable result ownership, bounds and reuse under sanitizers
         run: python3 tools/test_p4_results.py
+      - name: Check portable neural tensor bounds under sanitizers
+        run: python3 tools/test_p4_nn_contract.py
