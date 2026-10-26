@@ -13,6 +13,14 @@
   "camera_reference_commit": "fc60acbb0c1eb080ee57b3aca5942e81539e6049",
   "capabilities": [
     {
+      "id": "i2c_discovery_readings",
+      "hardware": "I2C0 SDA7/SCL8; IMX219 and ES8311 confirmed; 0x64 address only",
+      "pins": {"sda": 7, "scl": 8},
+      "smallvm": "physical-address-ID-camera-register-reads-stale-reference-reuse-and-GP-pass",
+      "physical_tested": true,
+      "limits": "32 results; explicit ID probes; TMP117 temperature fixtures only; no universal sensor catalog"
+    },
+    {
       "id": "smallvm_uart",
       "hardware": "UART0 CH343",
       "pins": {

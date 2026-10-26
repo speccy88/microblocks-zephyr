@@ -3,6 +3,13 @@
 New requests and usability/hardware-audit acceptance are ordered in BACKLOG.md.
 Ideas do not interrupt the current task or create concurrent serial owners.
 
+- [x] Portable bounded I2C discovery/identity/measurement registry, native
+  Zephyr worker and clear GP blocks/example. Bus 0 physical IMX219/ES8311 ID
+  and camera register reads; unknown 0x64 kept address-only. ASan/UBSan fixture,
+  stale-reference/reuse/error/Stop All and actual GP execution pass.
+- [ ] Attached TMP117 physical temperature test (conversion/error fixtures pass).
+- [ ] Full hardware support audit and cross-library UI polish acceptance.
+
 - [x] Confirm exact Zephyr board target in pinned a915b2f tree.
 - [x] Confirm IMX219 and ESP-Hosted-MCU SDIO drivers exist.
 - [x] Identify upstream P4 CSI/ISP video integration gap.

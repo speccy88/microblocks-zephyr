@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "scope": "portable C fixtures; no physical sensor claim",
+  "checks": [
+    "address-only has zero register reads",
+    "confirmed and candidate IDs",
+    "unknown devices never decoded",
+    "temperature signed and scaled",
+    "ready/shutdown/reset sentinel",
+    "unsupported reads have no bus traffic",
+    "camera configuration reads",
+    "hot swap",
+    "I2C errors",
+    "bounded results",
+    "cancellation",
+    "reserved address exclusion"
+  ]
+}

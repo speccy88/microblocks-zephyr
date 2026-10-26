@@ -1,0 +1,279 @@
+{
+  "tested_at": "2026-10-26T04:14:06.474020+00:00",
+  "scope": "physical COM5 native Zephyr TFLM",
+  "camera_captured": false,
+  "audio_recorded": false,
+  "COM12_accessed": false,
+  "checks": {
+    "capabilities": {
+      "available": true,
+      "backend": "native Zephyr TFLM reference CPU",
+      "artifact": "TFLite",
+      "direct_onnx_runtime": false,
+      "operators": [
+        "FULLY_CONNECTED"
+      ],
+      "types": [
+        "float32",
+        "int8"
+      ],
+      "max_model_bytes": 262144,
+      "max_arena_bytes": 524288,
+      "max_macs": 1000000,
+      "models": [
+        {
+          "id": "sine-int8-v1",
+          "license": "Apache-2.0",
+          "bytes": 2488
+        }
+      ],
+      "hardware_acceleration": false,
+      "cloud_fallback": false
+    },
+    "builtin_metadata": {
+      "id": "sine-int8-v1",
+      "license": "Apache-2.0",
+      "source": "zephyr:a915b2f12675b48b16d56653ea145dcd8f20cbbf:hello_world/src/model.cpp",
+      "source_format": "TFLite",
+      "source_sha256": "b8ba5f16b2427f043058c4ee9d22558dc31a7f162a0e2f053712118088d524dc",
+      "artifact_sha256": "097160f7f3ec5efacdddc24bea52bc34a0483161894e735995c4d7882c1c2fad",
+      "artifact_bytes": 2488,
+      "backend": "TFLM reference CPU",
+      "input": {
+        "dtype": "int8",
+        "shape": [
+          1,
+          1
+        ],
+        "elements": 1,
+        "bytes": 1,
+        "scale": 0.0245739762,
+        "zero_point": -128
+      },
+      "output": {
+        "dtype": "int8",
+        "shape": [
+          1,
+          1
+        ],
+        "elements": 1,
+        "bytes": 1,
+        "scale": 0.00847203471,
+        "zero_point": 4
+      },
+      "macs": 288,
+      "arena_used_bytes": 804
+    },
+    "builtin_golden": [
+      {
+        "input": 0.0,
+        "output": 0.0,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 0.25,
+        "output": 0.297,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 0.5,
+        "output": 0.457,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 1.0,
+        "output": 0.89,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 1.5,
+        "output": 1.025,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 2.0,
+        "output": 0.957,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 3.0,
+        "output": 0.119,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 4.0,
+        "output": -0.762,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 5.0,
+        "output": -0.991,
+        "elapsed_us": 2000
+      },
+      {
+        "input": 6.0,
+        "output": -0.28,
+        "elapsed_us": 2000
+      }
+    ],
+    "builtin_resources": {
+      "phase": "ready",
+      "message": "typed output ready",
+      "busy": false,
+      "loaded": true,
+      "upload_received": 0,
+      "model_ram_bytes": 0,
+      "arena_reserved_bytes": 8192,
+      "arena_used_bytes": 804,
+      "worker_stack_bytes": 32768,
+      "stack_unused_bytes": 29092,
+      "elapsed_us": 2000,
+      "completed_invocations": 1,
+      "inputs_supplied": 1
+    },
+    "cancellation": {
+      "milliseconds": 47.0,
+      "polls": 1,
+      "max_status_rtt_ms": 31.0,
+      "completed_invocations": 9
+    },
+    "custom_metadata": {
+      "id": "sensor-affine-v1",
+      "license": "MIT",
+      "source": "authored local fixture",
+      "source_format": "ONNX converted offline",
+      "source_sha256": "56a78d56eea34f3abcc475aaac0693bf176b298d0f945675420de5a4a95445bf",
+      "artifact_sha256": "8df5d23a14b30e45c6f5f88898c1ee1c53b6b57372dc8459af3e415d4261b9cd",
+      "artifact_bytes": 584,
+      "backend": "TFLM reference CPU",
+      "input": {
+        "dtype": "float32",
+        "shape": [
+          1,
+          2
+        ],
+        "elements": 2,
+        "bytes": 8,
+        "scale": 0,
+        "zero_point": 0
+      },
+      "output": {
+        "dtype": "float32",
+        "shape": [
+          1,
+          2
+        ],
+        "elements": 2,
+        "bytes": 8,
+        "scale": 0,
+        "zero_point": 0
+      },
+      "macs": 4,
+      "arena_used_bytes": 480
+    },
+    "custom_resources": {
+      "phase": "ready",
+      "message": "typed output ready",
+      "busy": false,
+      "loaded": true,
+      "upload_received": 584,
+      "model_ram_bytes": 584,
+      "arena_reserved_bytes": 16384,
+      "arena_used_bytes": 480,
+      "worker_stack_bytes": 32768,
+      "stack_unused_bytes": 29092,
+      "elapsed_us": 2000,
+      "completed_invocations": 1,
+      "inputs_supplied": 2
+    },
+    "custom_golden": [
+      {
+        "input": [
+          0,
+          0
+        ],
+        "actual": [
+          1.0,
+          -2.0
+        ],
+        "expected": [
+          1.0,
+          -2.0
+        ],
+        "elapsed_us": 2000
+      },
+      {
+        "input": [
+          1,
+          2
+        ],
+        "actual": [
+          9.0,
+          -2.0
+        ],
+        "expected": [
+          9.0,
+          -2.0
+        ],
+        "elapsed_us": 2000
+      },
+      {
+        "input": [
+          -2,
+          4
+        ],
+        "actual": [
+          9.0,
+          2.0
+        ],
+        "expected": [
+          9.0,
+          2.0
+        ],
+        "elapsed_us": 2000
+      },
+      {
+        "input": [
+          0.125,
+          -0.5
+        ],
+        "actual": [
+          -0.25,
+          -2.375
+        ],
+        "expected": [
+          -0.25,
+          -2.375
+        ],
+        "elapsed_us": 2000
+      }
+    ],
+    "load_run_unload_rounds": 3,
+    "rejections": {
+      "malformed": "invalid TFLite FlatBuffer",
+      "unsupported-op": "unsupported operator; expected FULLY_CONNECTED v1..4",
+      "oversized-shape": "unsupported tensor shape/type/quantization",
+      "dynamic-batch": "unsupported tensor shape/type/quantization",
+      "arena-exhaustion": "tensor allocation/kernel preparation failed",
+      "hash_mismatch": "artifact SHA-256 mismatch"
+    },
+    "deferred_unload_during_run": true,
+    "media_heap_reuse_and_idle": true,
+    "final_status": {
+      "phase": "error",
+      "message": "cancelled",
+      "busy": false,
+      "loaded": false,
+      "upload_received": 0,
+      "model_ram_bytes": 0,
+      "arena_reserved_bytes": 0,
+      "arena_used_bytes": 0,
+      "worker_stack_bytes": 32768,
+      "stack_unused_bytes": 28980,
+      "elapsed_us": 12000,
+      "completed_invocations": 6,
+      "inputs_supplied": 1
+    }
+  },
+  "result": "PASS"
+}

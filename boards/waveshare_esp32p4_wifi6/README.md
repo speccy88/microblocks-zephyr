@@ -20,6 +20,13 @@ Current dark camera frames need a lit-scene retest;
 the strict content check remains failed in the latest evidence.
 See [START_HERE](START_HERE.md) for reproduction and current limitations.
 
+I2C Devices blocks scan an explicit bus, distinguish address-only/candidate/
+confirmed identities, list supported readings and read typed numeric values
+with units or formatted text. Actual bus 0 tests and GP execution confirm
+IMX219/ES8311 IDs and camera register readings; address 0x64 remains unknown.
+TMP117 temperature conversion is fixture-tested only, without attached hardware.
+See [discovery contract and limits](docs/I2C_DISCOVERY.md).
+
 The working ESP-IDF camera proof is preserved on the separate **local-only**
 branch `codex/p4-idf-reference` at `86c116b`. It is not the requested final port.
 See [architecture review](docs/ARCHITECTURE_REVIEW.md) and [spec](docs/SPEC.md).

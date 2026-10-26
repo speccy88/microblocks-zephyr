@@ -61,7 +61,7 @@ void primSetUserLED(OBJ *a) { if (a && a[0] != falseObj) fail(primitiveNotImplem
 OMIT(addDisplayPrims) OMIT(addFilePrims) OMIT(addMiscPrims)
 OMIT(addNetPrims) OMIT(addBLEPrims) OMIT(addRadioPrims)
 OMIT(addSerialPrims) OMIT(addTFTPrims) OMIT(addHIDPrims) OMIT(addOneWirePrims)
-OMIT(addSensorPrims) OMIT(addCameraPrims) OMIT(addEncoderPrims) OMIT(addSDCardPrims) OMIT(addElecfreaksPrims)
+OMIT(addCameraPrims) OMIT(addEncoderPrims) OMIT(addSDCardPrims) OMIT(addElecfreaksPrims)
 OMIT(addElecfreaksSensorPrims) OMIT(addSoundPrims)
 
 
@@ -72,6 +72,7 @@ OMIT(addElecfreaksSensorPrims) OMIT(addSoundPrims)
 #include "camera_backend.h"
 #include "audio_backend.h"
 #include "audio_store.h"
+#include "discovery_backend.h"
 #include "whistle_backend.h"
 #include "result_store.h"
 #if !defined(CONFIG_P4_HOSTED)
@@ -91,6 +92,7 @@ void hardwareInit(void){
     initTasks();
     p4_audio_init();
     p4_nn_init();
+    p4_discovery_init();
 #if defined(CONFIG_P4_HOSTED)
     p4_transport_init();p4_network_init();
 #else
@@ -128,6 +130,6 @@ void primAnalogWrite(OBJ *a){(void)a;fail(primitiveNotImplemented);}
 void boardInit(void){}
 void boardAddPrims(void){}
 void boardPoll(void){}
-void boardStopAll(void){p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
+void boardStopAll(void){p4_discovery_cancel();p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
 void boardIDEConnectionChanged(int connected){(void)connected;}
 int boardStartAtBoot(void){return true;}

@@ -15,6 +15,7 @@
 #include <string.h>
 #include "audio_backend.h"
 #include "audio_store.h"
+#include "discovery_backend.h"
 #ifdef P4_AUDIO_DIAGNOSTIC
 #include <zephyr/drivers/uart.h>
 #include <zephyr/fatal.h>
@@ -157,6 +158,7 @@ static void worker(void *a,void *b,void *c)
 K_THREAD_DEFINE(audio_thread,8192,worker,NULL,NULL,NULL,7,0,0);
 int p4_audio_request(unsigned ms)
 {
+    if(p4_discovery_busy())return 0;
     k_mutex_lock(&audio_mutex,K_FOREVER);
     if(state==RECORDING || state==READY || state==FAULT || ms<20 || ms>8000 ||
        audio_count()>=AUDIO_SLOTS || !device_is_ready(rx)){

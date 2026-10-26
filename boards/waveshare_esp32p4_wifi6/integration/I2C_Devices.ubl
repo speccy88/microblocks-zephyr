@@ -1,0 +1,39 @@
+module 'I2C Devices' Input
+author 'MicroBlocks Zephyr contributors; discovery inspired by SparkFun'
+version 0 1
+description 'Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.'
+spec 'r' 'i2cFindAddresses' 'scan I2C bus _' 'num' 0
+spec 'r' 'i2cIdentifyDevices' 'identify devices on bus _' 'num' 0
+spec 'r' '[i2cDetect:count]' 'devices found'
+spec 'r' 'i2cDeviceName' 'device _ name' 'num' 1
+spec 'r' 'i2cDeviceAddress' 'device _ address' 'num' 1
+spec 'r' 'i2cDeviceConfidence' 'device _ identification' 'num' 1
+spec 'r' 'i2cMeasurementName' 'device _ measurement _' 'num num' 1 1
+spec 'r' 'i2cReadMeasurement' 'read _ from device _' 'str num' 'device ID' 1
+spec 'r' '[i2cDetect:status]' 'I2C status'
+spec ' ' '[i2cDetect:cancel]' 'cancel I2C scan/read'
+advanced
+spec 'r' 'i2cMeasurementCount' 'I2C device _ measurement count' 'num' 1
+spec 'r' '[i2cDetect:value]' 'last I2C numeric value'
+spec 'r' '[i2cDetect:unit]' 'last I2C value unit'
+spec 'r' '[i2cDetect:scale]' 'last I2C value scale'
+spec 'r' '[i2cDetect:sensorAt]' 'I2C device _ reference' 'num' 1
+spec 'b' '[i2cDetect:busy]' 'I2C job busy?'
+
+to i2cFindDevices bus identify {
+    if (not ('[i2cDetect:scan]' bus identify)) { return (join 'Error: ' ('[i2cDetect:status]')) }
+    waitUntil (not ('[i2cDetect:busy]'))
+    return ('[i2cDetect:status]')
+}
+to i2cFindAddresses bus { return (i2cFindDevices bus false) }
+to i2cIdentifyDevices bus { return (i2cFindDevices bus true) }
+to i2cDeviceName index { return ('[i2cDetect:name]' ('[i2cDetect:sensorAt]' index)) }
+to i2cDeviceAddress index { return ('[i2cDetect:address]' ('[i2cDetect:sensorAt]' index)) }
+to i2cDeviceConfidence index { return ('[i2cDetect:confidence]' ('[i2cDetect:sensorAt]' index)) }
+to i2cMeasurementCount index { return ('[i2cDetect:measurementCount]' ('[i2cDetect:sensorAt]' index)) }
+to i2cMeasurementName index measurement { return ('[i2cDetect:measurement]' ('[i2cDetect:sensorAt]' index) measurement) }
+to i2cReadMeasurement measurement index {
+    if (not ('[i2cDetect:read]' ('[i2cDetect:sensorAt]' index) measurement)) { return (join 'Error: ' ('[i2cDetect:status]')) }
+    waitUntil (not ('[i2cDetect:busy]'))
+    return ('[i2cDetect:readingText]')
+}

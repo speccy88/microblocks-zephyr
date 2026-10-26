@@ -1,0 +1,84 @@
+{
+  "native_zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "hal_espressif_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "sdk": "1.0.1",
+  "usb_profile": {
+    "result": "PASS",
+    "model_and_image": {
+      "native_elf": "RV32 Zephyr",
+      "image_bytes": 14913120,
+      "flash_offset": "0x2000",
+      "reserved_boundary": "0xfe0000",
+      "model_start": "0x400304c0",
+      "model_end": "0x40e0836f",
+      "model_bytes": 14515887,
+      "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "image_sha256": "7e37472fd56ad7f88c07941635f88e45a62b38ad8e87487137da71913e23bc52",
+      "weights_copied_to_psram": false
+    },
+    "flashed": true
+  },
+  "station_profile": {
+    "result": "BUILD PASS; not flashed or network-verified",
+    "model_check": {
+      "native_elf": "RV32 Zephyr",
+      "image_bytes": 15115296,
+      "flash_offset": "0x2000",
+      "reserved_boundary": "0xfe0000",
+      "model_start": "0x40050dc0",
+      "model_end": "0x40e28c6f",
+      "model_bytes": 14515887,
+      "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "image_sha256": "7fa312ca96e354802dd0a9c896a9f38e0b76a3c4a93f8b04bb16117a443fa1d0",
+      "weights_copied_to_psram": false
+    },
+    "full_layout": {
+      "flash_bytes": 33554432,
+      "regions": {
+        "p4_whistle_app": {
+          "offset": "0x2000",
+          "bytes": 16637952,
+          "end_exclusive": "0xfe0000"
+        },
+        "p4_assets": {
+          "offset": "0xfe0000",
+          "bytes": 16777216,
+          "end_exclusive": "0x1fe0000"
+        },
+        "p4_settings": {
+          "offset": "0x1fe0000",
+          "bytes": 131072,
+          "end_exclusive": "0x2000000"
+        }
+      },
+      "application_bytes": 15115296,
+      "application_sha256": "7fa312ca96e354802dd0a9c896a9f38e0b76a3c4a93f8b04bb16117a443fa1d0",
+      "application_end_exclusive": "0xe6c420",
+      "assets_bytes": 3541757,
+      "assets_sha256": "53f8931ccf2dfc0e460562b5e48829166acb7b03826767d9e2eac3cf7118c6dd",
+      "assets_end_exclusive": "0x1340afd",
+      "model": {
+        "present": true,
+        "bytes": 14515887,
+        "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+        "mapped_begin": "0x40050dc0",
+        "mapped_end": "0x40e28c6f",
+        "physical_begin": "0x20dc0",
+        "physical_end": "0xdf8c6f",
+        "copied_to_psram": false
+      },
+      "overlap": false,
+      "result": "PASS"
+    }
+  },
+  "editor_packages": {
+    "local_gp_data_sha256": "eea31ae226881e5b71f79c25f47b9f1dc3fa13aad8727a41ca34738c005df21d",
+    "library_and_example_exact": true,
+    "sensor_primitive_set": 4,
+    "pages_packaging": "PASS",
+    "hosted_assets_packaging": "PASS"
+  },
+  "credentials_changed": false,
+  "C6_flashed": false,
+  "AP_enabled": false
+}

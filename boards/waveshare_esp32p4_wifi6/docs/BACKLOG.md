@@ -14,7 +14,9 @@ AP disabled and preservation of saved credentials apply throughout.
    versus SoC facilities, pins and conflicts, native drivers, block exposure,
    and linked end-to-end evidence. States: tested, implemented-unverified,
    missing, incompatible. A capability list alone is insufficient.
-3. Portable I2C discovery and readings, inspired by SparkFun's MIT-licensed
+3. Initial portable I2C discovery/readings implementation verified; see
+   I2C_DISCOVERY.md and p4-i2c-native.json. Extend the genuinely supported set
+   only with tested adapters and hardware. Inspired by SparkFun's MIT-licensed
    Universal Auto-Detect source at 39b20cc3a9a1b1163f14fdfb8812c754926734c8.
    Explicit bus, bounded/cancellable operations and stable result lifecycle;
    address ACK, candidate and confirmed identity are distinct. Unknown devices

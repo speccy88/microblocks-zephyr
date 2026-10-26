@@ -123,6 +123,13 @@ host conversion uses pinned ONNX (Apache-2.0), FlatBuffers (Apache-2.0), NumPy
 (BSD-3-Clause) and protobuf (BSD-3-Clause); their installed packages retain their
 own notices. New converter/contract code is MIT, GP/library integration MPL-2.0.
 Microduck/Arduino/Tasmota remain design references, not copied implementations.
+The portable I2C discovery registry/adapters are independently authored MIT
+code. Their discovery/measurement organization is inspired by SparkFun's
+MIT-licensed Universal Auto-Detect at commit
+39b20cc3a9a1b1163f14fdfb8812c754926734c8. No bundled sensor library, Arduino
+initialization or mux implementation is copied; factual TMP117 register
+semantics come from the TI datasheet. Existing camera/codec source notices
+remain intact. See the board's I2C_DISCOVERY.md for source links and limits.
 P4 C6
 driver patches retain the pinned Zephyr/Espressif Apache-2.0 attribution;
 new application transport/server code carries its own MPL-2.0 headers.

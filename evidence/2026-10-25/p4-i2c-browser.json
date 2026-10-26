@@ -1,0 +1,13 @@
+{
+  "real_editor": "MicroBlocks GP 2.5.8",
+  "transport": "localhost editor bridge to COM5; not board-hosted",
+  "actual_VM_identity": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "public_editor_API_source_load": "PASS",
+  "normal_example_picker_available": "PASS",
+  "actual_native_block_execution": "537 ID (decimal 0x0219)",
+  "palette_labels_fit_at_normal_1280x720_viewport": true,
+  "example_blocks_nonoverlapping": true,
+  "screenshot_delivered_separately": true,
+  "no_scene_capture_or_audio_recording": true,
+  "pending": "Live Pages deploy after publication; station network blocked separately"
+}

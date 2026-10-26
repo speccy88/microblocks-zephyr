@@ -8,6 +8,7 @@
 #include <string.h>
 #include "camera_backend.h"
 #include "p4_video.h"
+#include "discovery_backend.h"
 void *image_alloc(size_t n){return shared_multi_heap_aligned_alloc(SMH_REG_ATTR_EXTERNAL,64,n);}
 void image_free(void *p){if(p)shared_multi_heap_free(p);}
 K_SEM_DEFINE(requested,0,1);
@@ -90,6 +91,7 @@ static void worker(void *a,void *b,void *c)
 K_THREAD_DEFINE(camera_thread,8192,worker,NULL,NULL,NULL,6,0,0);
 int camera_request(void)
 {
+    if(p4_discovery_busy())return 0;
     k_mutex_lock(&state_mutex,K_FOREVER);
     if(state==CAPTURING || state==READY || state==QUARANTINED){k_mutex_unlock(&state_mutex);return 0;}
     if(!device_is_ready(p4_csi_device()) || image_count()==IMAGE_SLOTS ||

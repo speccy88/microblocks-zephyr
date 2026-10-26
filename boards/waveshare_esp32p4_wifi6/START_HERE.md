@@ -238,8 +238,19 @@ not power loss/reset. ArduinoCore-Zephyr is not linked or validated for P4.
 Native bounded microphone PCM and experimental local Whistle are physically
 validated. DSP acceleration, codecs and wake word remain staged in
 [DSP](docs/DSP.md) and [speech](docs/SPEECH.md). The native TFLM INT8 fixture
-also passed on P4; a generic model loader/NN block is still pending as described
-in [neural networks](docs/NEURAL_NETWORKS.md). No generic ONNX/YOLO runtime is installed.
+also passed on P4. Bounded native neural blocks load the tested INT8 catalog
+model or compatible static float32/INT8 dense TFLite artifacts; restricted
+offline ONNX conversion is described in [neural networks](docs/NEURAL_NETWORKS.md).
+No direct ONNX Runtime or generic YOLO runtime is installed.
+
+Choose **Find I2C devices and read IDs** in Projects & board, or open
+`integration/i2c-devices.ubp`. The I2C Devices library has separate **scan I2C
+bus** (addresses only) and **identify devices on bus** (documented ID reads).
+Bus 0 is SDA7/SCL8; other buses return an explicit unsupported error. Use
+device name/address/identification/measurement reporters before reading.
+The read reporter formats the value and unit; advanced numeric value/unit/scale
+reporters support later processing. Device indices are one-based. References
+expire on rescan. See [I2C acceptance and limits](docs/I2C_DISCOVERY.md).
 
 Offline shared image tests: `python3 tools/test_p4_images.py` under WSL with
 a host C compiler. They include ASan/UBSan, 10,000 reuse cycles, three formats,

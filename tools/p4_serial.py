@@ -5,7 +5,7 @@ import struct,time,zlib
 import serial
 from serial.tools import list_ports
 from test_wireless_vm import VM,op,words
-def primitive(name,arguments=()):
+def primitive(name,arguments=(),primitive_set=3):
  """Real IOPrims bytecode, including full SmallVM integers for typed handles.
 
  Follows the repository's P2 encoder; P4 adds pushHugeInteger (opcode 4).
@@ -28,7 +28,7 @@ def primitive(name,arguments=()):
  if len(ops)%2:ops.append(0)
  out=bytearray(words(ops))
  for reference,literal,prim in literals:
-  offset=len(out)//2-reference+(3<<10 if prim else 0)
+  offset=len(out)//2-reference+(primitive_set<<10 if prim else 0)
   struct.pack_into('<H',out,reference*2,offset);out.extend(literal)
  return bytes(out)
 
