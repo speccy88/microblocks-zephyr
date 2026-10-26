@@ -1,5 +1,8 @@
 # Native work ledger
 
+New requests and usability/hardware-audit acceptance are ordered in BACKLOG.md.
+Ideas do not interrupt the current task or create concurrent serial owners.
+
 - [x] Confirm exact Zephyr board target in pinned a915b2f tree.
 - [x] Confirm IMX219 and ESP-Hosted-MCU SDIO drivers exist.
 - [x] Identify upstream P4 CSI/ISP video integration gap.
@@ -46,7 +49,9 @@
 - [x] Retire AP after Fred's explicit cancellation; keep historical failure evidence.
 - [x] Station-only profile with DHCP, same-origin service checks and existing
   encrypted handoff/persistence approval; cross-build and whole flash map PASS.
-- [ ] Actual station provisioning/association, reboot reconnection and board-served
+- [x] Station credentials saved and readback-verified using the single encrypted
+  handoff; no second prompt and no secret in source/evidence.
+- [ ] Actual station association, reboot reconnection and board-served
   GP/WebSocket acceptance. No AP fallback or new credential prompt.
 
 Native VM evidence: `evidence/2026-10-25/p4-zephyr-vm.json`. This establishes

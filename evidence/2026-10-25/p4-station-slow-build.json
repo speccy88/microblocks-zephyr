@@ -1,0 +1,62 @@
+{
+  "native_zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "hal_espressif_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "sdk": "1.0.1",
+  "board": "esp32p4_wifi6/esp32p4/hpcore",
+  "profile": "station.conf;neural.conf;whistle.conf",
+  "overlays": "c6-sdio.overlay;hosted.overlay;station-sdio-slow.overlay",
+  "reviewed_sdk_patch_count": 5,
+  "experiment_wire_patch_applied": false,
+  "model_check": {
+    "native_elf": "RV32 Zephyr",
+    "image_bytes": 15107024,
+    "flash_offset": "0x2000",
+    "reserved_boundary": "0xfe0000",
+    "model_start": "0x40050d80",
+    "model_end": "0x40e28c2f",
+    "model_bytes": 14515887,
+    "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+    "image_sha256": "725c38ce2feeda4147ba510a9ca677d553ec65894a5aa39a1bee762f8792ec92",
+    "weights_copied_to_psram": false
+  },
+  "whole_flash_layout": {
+    "flash_bytes": 33554432,
+    "regions": {
+      "p4_whistle_app": {
+        "offset": "0x2000",
+        "bytes": 16637952,
+        "end_exclusive": "0xfe0000"
+      },
+      "p4_assets": {
+        "offset": "0xfe0000",
+        "bytes": 16777216,
+        "end_exclusive": "0x1fe0000"
+      },
+      "p4_settings": {
+        "offset": "0x1fe0000",
+        "bytes": 131072,
+        "end_exclusive": "0x2000000"
+      }
+    },
+    "application_bytes": 15107024,
+    "application_sha256": "725c38ce2feeda4147ba510a9ca677d553ec65894a5aa39a1bee762f8792ec92",
+    "application_end_exclusive": "0xe6a3d0",
+    "assets_bytes": 3540261,
+    "assets_sha256": "47347c94633ad17ec07b864d9924503006bb2c44a86bce0dde955fc28e3189c7",
+    "assets_end_exclusive": "0x1340525",
+    "model": {
+      "present": true,
+      "bytes": 14515887,
+      "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "mapped_begin": "0x40050d80",
+      "mapped_end": "0x40e28c2f",
+      "physical_begin": "0x20d80",
+      "physical_end": "0xdf8c2f",
+      "copied_to_psram": false
+    },
+    "overlap": false,
+    "result": "PASS"
+  },
+  "build_result": "PASS",
+  "runtime_network_result": "FAIL; see p4-station-slow-status.json"
+}

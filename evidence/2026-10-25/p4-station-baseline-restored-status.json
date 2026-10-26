@@ -1,0 +1,73 @@
+{
+  "tested_at": "2026-10-26T03:45:38.622145+00:00",
+  "baseline_restored": true,
+  "C6_flashed": false,
+  "AP_enabled": false,
+  "networkStatus": {
+    "target": "native Zephyr station-hosted",
+    "station_protocol": 1,
+    "phase": "connecting approved station network",
+    "error": 0,
+    "wifi_driver_ready": true,
+    "assets_valid": true,
+    "credentials_saved": true,
+    "station_connected": false,
+    "address": "",
+    "ap_running": false,
+    "internet_sharing": false,
+    "controller": "USB"
+  },
+  "c6Status": {
+    "transport": "SDIO",
+    "ready": true,
+    "version_raw": 0,
+    "core_error": 0,
+    "slot_ready": true,
+    "slot_error": 0,
+    "control_profile": "approved AP only; see networkStatus"
+  },
+  "traces": [
+    {
+      "enabled": true,
+      "rx_polls": 647,
+      "rx_counter": 0,
+      "rx_consumed": 312,
+      "tx_credit_polls": 19,
+      "tx_credits": 0,
+      "tx_spent": 7,
+      "rx_transfers": 9,
+      "rx_bytes": 328,
+      "tx_transfers": 7,
+      "tx_bytes": 316,
+      "valid_headers": 9,
+      "invalid_headers": 0,
+      "bus_errors": 442,
+      "last_bus_error": -116,
+      "floating_reads": 0,
+      "interrupt_status": 0,
+      "version_rpc_error": -116
+    },
+    {
+      "tlv_length": 22,
+      "endpoint_length": 6,
+      "endpoint_kind": 2,
+      "rpc_type": 3,
+      "rpc_id": 773,
+      "rpc_uid": 0,
+      "rpc_payload": 773,
+      "rpc_decode_errors": 0,
+      "tag_count": 4
+    },
+    {
+      "request_id": 284,
+      "request_payload": 284,
+      "request_uid": 7
+    }
+  ],
+  "idle": {
+    "cameraBusy": false,
+    "audioBusy": false,
+    "imageCount": 0,
+    "audioCount": 0
+  }
+}

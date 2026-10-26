@@ -1,0 +1,36 @@
+--- a/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -329,6 +329,17 @@
+ 	return 0;
+ }
+ 
++/* Official host always serializes the fixed SAE-H2E identifier array.
++ * Empty identifier, no authentication value or credential in this callback. */
++static bool p4_encode_empty_sae_identifier(pb_ostream_t *stream,
++ const pb_field_t *field, void * const *arg)
++{
++ static const uint8_t empty[32];
++ ARG_UNUSED(arg);
++ return pb_encode_tag_for_field(stream, field) &&
++        pb_encode_string(stream, empty, sizeof(empty));
++}
++
+ static bool p4_station_started;
+ 
+ static int esp_hosted_mcu_connect(const struct device *dev, struct net_if *iface,
+@@ -366,6 +377,15 @@
+ 	req.payload.req_wifi_set_config.has_cfg = true;
+ 	req.payload.req_wifi_set_config.cfg.which_u = wifi_config_sta_tag;
+ 	sta = &req.payload.req_wifi_set_config.cfg.u.sta;
++ if (IS_ENABLED(CONFIG_WIFI_ESP_HOSTED_MCU_DEFER_STATION)) {
++  /* Match official host submessage presence. Current WPA2 policy stays WPA2. */
++  sta->has_threshold = true;
++  sta->threshold.rssi = -127;
++  sta->threshold.authmode = 3; /* IDF WIFI_AUTH_WPA2_PSK */
++  sta->has_pmf_cfg = true; /* zero: neither required nor advertised */
++  sta->sae_h2e_identifier.funcs.encode = p4_encode_empty_sae_identifier;
++ }
++
+ 
+ 	sta->ssid.size = MIN(params->ssid_length, ESP_HOSTED_MCU_MAX_SSID_LEN);
+ 	memcpy(sta->ssid.bytes, params->ssid, sta->ssid.size);

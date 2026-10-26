@@ -1,0 +1,4 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* Diagnostic only: official ESP-Hosted bring-up guidance recommends starting
+ * near 5 MHz. No pin, channel, credential or companion firmware change. */
+&sdhc1 { max-bus-freq = <5000000>; };

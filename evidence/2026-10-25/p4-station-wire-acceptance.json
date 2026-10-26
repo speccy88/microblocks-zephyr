@@ -1,0 +1,15 @@
+{
+  "diagnostic": "complete official host station submessages",
+  "build": "PASS",
+  "model_and_flash_layout": "PASS",
+  "COM5_flash_digest": "PASS",
+  "vm_boot_acceptance": "FAIL; version response not received",
+  "passive_wait_seconds": 33.25,
+  "protocol_request_284_result": "UNVERIFIED",
+  "ROM_digest_warning_cause_proven": false,
+  "quarantined_from_normal_patch_series": true,
+  "baseline_restored_and_VM_verified": true,
+  "C6_flashed": false,
+  "credentials_reprovisioned": false,
+  "AP_enabled": false
+}

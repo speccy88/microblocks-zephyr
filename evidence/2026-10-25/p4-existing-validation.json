@@ -1,6 +1,6 @@
 {
   "scope": "root validation of current new/modified files plus canonical unchanged HEAD bytes; Windows checkout/provenance not rewritten",
-  "head": "c084ce423b0b568bccd7acf7a360b889acb123af",
+  "head": "9d34a516312ef850cf4aa4031a80a2ecdbbbb58a",
   "exit_code": 0,
   "result": "PASS",
   "tests": 39,

@@ -1,0 +1,12 @@
+{
+  "tested_at": "2026-10-26T03:47:47.787593+00:00",
+  "camera_captured": false,
+  "COM12_accessed": false,
+  "checks": {
+    "released_source_retains_exact_snapshot": true,
+    "reuse_rounds": 12,
+    "end_session_invalidates_snapshots": true,
+    "error_bounds_and_stale_ids": true
+  },
+  "result": "PASS"
+}

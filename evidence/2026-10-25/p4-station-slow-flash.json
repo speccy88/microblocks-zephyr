@@ -1,0 +1,30 @@
+{
+  "tested_at": "2026-10-26T03:49:37.225508+00:00",
+  "target": "COM5 native P4 application only",
+  "baseline_sha256": "174cca4e99a1e46cf76145784cf3901d9aee7684e0effcfc70819ebd2555bedc",
+  "image_sha256": "ce1ddca9b027538a0da761e2d3d5a1c8e3a9409126eee346d6b3e518a074643d",
+  "image_bytes": 15107024,
+  "changed_sectors": [
+    {
+      "offset": "0x17000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0x19000",
+      "bytes": 4096
+    },
+    {
+      "offset": "0xe16000",
+      "bytes": 4096
+    }
+  ],
+  "changed_bytes": 12288,
+  "backup_performed": false,
+  "firmware_readback_performed": false,
+  "assets_or_NVS_written": false,
+  "C6_flashed": false,
+  "COM12_accessed": false,
+  "baseline_verified": true,
+  "hash_verified": true,
+  "result": "PASS"
+}
