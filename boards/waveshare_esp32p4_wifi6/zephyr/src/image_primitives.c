@@ -2,6 +2,7 @@
 #include "vm/interp.h"
 #include "image_store.h"
 #include "camera_backend.h"
+#include "ppa_backend.h"
 #include "audio_backend.h"
 #include "audio_store.h"
 #include "whistle_backend.h"
@@ -38,7 +39,28 @@ static OBJ gray(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;return int
 /* Explicit tensor contract: uint8 HWC RGB888, no hidden normalization/letterbox. */
 static OBJ rgb_tensor(int n,OBJ *a){if(!integer_args(n,a,3))return falseObj;return int2obj(image_resize(obj2int(a[0]),obj2int(a[1]),obj2int(a[2]),IMAGE_RGB888));}
 static OBJ release(int n,OBJ *a){if(!integer_args(n,a,1))return falseObj;return image_release(obj2int(a[0]))?trueObj:falseObj;}
-static OBJ release_all(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);camera_discard();image_release_all();return falseObj;}
+static OBJ release_all(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);p4_ppa_cancel();camera_discard();image_release_all();return falseObj;}
+static OBJ ppa_start(int n,OBJ *a){if(!integer_args(n,a,5))return falseObj;return p4_ppa_request(obj2int(a[0]),obj2int(a[1]),obj2int(a[2]),obj2int(a[3]),obj2int(a[4]))?trueObj:falseObj;}
+static OBJ ppa_busy(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return p4_ppa_busy()?trueObj:falseObj;}
+static OBJ ppa_result(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return int2obj(p4_ppa_result());}
+static OBJ ppa_status(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);const char *s=p4_ppa_status();return newStringFromBytes(s,strlen(s));}
+static OBJ ppa_cancel(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);p4_ppa_cancel();return falseObj;}
+static OBJ pattern(int n,OBJ *a){
+ if(n!=2&&n!=3)return fail(notEnoughArguments);
+ if(!integer_args(n,a,n))return falseObj;
+ int f=n==3?obj2int(a[2]):IMAGE_RGB888;if(f!=IMAGE_RGB565&&f!=IMAGE_RGB888)return zeroObj;
+ int h=image_create(obj2int(a[0]),obj2int(a[1]),f);if(!h)return zeroObj;
+ const image_view *v=image_get(h);
+ for(unsigned y=0;y<v->height;y++)for(unsigned x=0;x<v->width;x++){
+  uint8_t *p=v->pixels+y*v->stride+x*f;
+  unsigned r=((x<v->width/2)==(y<v->height/2))?255:0;
+  unsigned g=x>=v->width/2?255:0,b=(x<v->width/2&&y>=v->height/2)?255:0;
+  if(x==0||y==0||x==v->width-1||y==v->height-1)r=g=b=255;
+  if(f==IMAGE_RGB888){p[0]=r;p[1]=g;p[2]=b;}
+  else{unsigned rgb=(r>>3)<<11|(g>>2)<<5|(b>>3);p[0]=rgb;p[1]=rgb>>8;}
+ }
+ return int2obj(h);
+}
 static OBJ read_bytes(int n,OBJ *a){
     if(!integer_args(n,a,3))return falseObj;
     int handle=obj2int(a[0]),offset=obj2int(a[1]),count=obj2int(a[2]);
@@ -84,7 +106,13 @@ static OBJ capabilities(int n,OBJ *a){
 }
 static OBJ dsp_capabilities(int n,OBJ *a){
     (void)a;if(n)return fail(notEnoughArguments);
-    const char *s="{\"resize_nearest\":\"software\",\"grayscale\":\"software\",\"rgb888_hwc_u8\":\"software\",\"isp_demosaic\":\"hardware\",\"ppa_srm\":\"unsupported\",\"jpeg_encode\":\"unsupported\",\"jpeg_decode\":\"unsupported\",\"h264_encode\":\"unsupported\",\"h264_decode\":\"unsupported\",\"audio_input\":\"native_I2S_PCM_acoustics_unverified\",\"audio_output\":\"unconfigured\",\"inference\":\"unsupported\"}";
+    const char *s="{\"resize_nearest\":\"software\",\"grayscale\":\"software\",\"rgb888_hwc_u8\":\"software\",\"isp_demosaic\":\"hardware\",\"ppa_srm\":\"hardware\",\"jpeg_encode\":\"unsupported\",\"jpeg_decode\":\"unsupported\",\"h264_encode\":\"unsupported\",\"h264_decode\":\"unsupported\",\"audio_input\":\"native_I2S_PCM\",\"audio_output\":\"unconfigured\",\"inference\":\""
+#if defined(CONFIG_P4_NEURAL)
+    "TFLM_reference_dense"
+#else
+    "unsupported"
+#endif
+    "\"}";
     return newStringFromBytes(s,strlen(s));
 }
 static OBJ ids(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);unsigned imx,ov;p4_sensor_ids(&imx,&ov);char s[64];snprintf(s,sizeof(s),"IMX219=%04x OV5647=%04x",imx,ov);return newStringFromBytes(s,strlen(s));}
@@ -98,7 +126,7 @@ static OBJ c6_status(int n,OBJ *a){
     const struct device *dev=DEVICE_DT_GET(DT_NODELABEL(p4_c6));
     const struct device *slot=DEVICE_DT_GET(DT_PARENT(DT_NODELABEL(p4_c6)));
 #if defined(CONFIG_P4_HOSTED)
-    int size=snprintf(s,sizeof(s),"{\"transport\":\"SDIO\",\"ready\":%s,\"version_raw\":%u,\"core_error\":%d,\"slot_ready\":%s,\"slot_error\":%d,\"control_profile\":\"approved AP only; see networkStatus\"}",
+    int size=snprintf(s,sizeof(s),"{\"transport\":\"SDIO\",\"ready\":%s,\"version_raw\":%u,\"core_error\":%d,\"slot_ready\":%s,\"slot_error\":%d,\"control_profile\":\"station only; see networkStatus\"}",
         device_is_ready(dev)?"true":"false",v,-dev->state->init_res,device_is_ready(slot)?"true":"false",-slot->state->init_res);
 #else
     int size=snprintf(s,sizeof(s),"{\"transport\":\"SDIO\",\"ready\":%s,\"version_raw\":%u,\"core_error\":%d,\"slot_ready\":%s,\"slot_error\":%d,\"host_wifi_requests\":%s,\"rf_configuration_requests\":false}",
@@ -153,6 +181,7 @@ static OBJ media_snapshot(int n,OBJ *a){
     return int2obj(h); /* Result tracing never changes expression semantics. */
 }
 static PrimEntry entries[]={
+ {"ppaStart",ppa_start},{"ppaBusy",ppa_busy},{"ppaResult",ppa_result},{"ppaStatus",ppa_status},{"ppaCancel",ppa_cancel},{"imageTestPattern",pattern},
  NN_PRIMITIVE_ENTRIES
  {"mediaSnapshot",media_snapshot},
  {"sttAvailable",stt_available},{"sttRequest",stt_request},{"sttFixture",stt_fixture},{"sttBusy",stt_busy},{"sttStatus",stt_status},{"sttResult",stt_result},{"sttCancel",stt_cancel},

@@ -43,7 +43,7 @@ def patch_p4(js,data,repo):
    payload=payload.replace(audio_anchor,audio_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Audio.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Audio' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Speech.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Local Speech' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Neural.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'P4 Neural Networks' '' }")
   library_anchor=b"importLibraryFromString scripter data 'P4 Neural Networks' '' }"
   if library_anchor in payload:payload=payload.replace(library_anchor,library_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/I2C_Devices.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'I2C Devices' '' }")
-  payload=payload.replace(b"'output' 'camera-pipeline'",b"'output' 'camera-pipeline' 'audio-levels' 'local-speech' 'neural-sine' 'neural-custom' 'i2c-devices'")
+  payload=payload.replace(b"'output' 'camera-pipeline'",b"'output' 'camera-pipeline' 'audio-levels' 'local-speech' 'neural-sine' 'neural-custom' 'i2c-devices' 'image-transforms'")
   if name.endswith('.gp'):payload=patch_source(name,payload,repo)
   name=name.replace('Waveshare_RLCD_4_2.ubl','P4_Camera.ubl').replace('Examples/Waveshare/','Examples/P4/')
   start=len(out);out.extend(payload);files.append(dict(filename=name,start=start,end=len(out)))
@@ -51,7 +51,7 @@ def patch_p4(js,data,repo):
  payload=(board/'P4_Speech.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Speech.ubl',start=start,end=len(out)))
  payload=(board/'P4_Neural.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Neural.ubl',start=start,end=len(out)))
  payload=(board/'I2C_Devices.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/I2C_Devices.ubl',start=start,end=len(out)))
- for example in ['camera-pipeline','audio-levels','local-speech','neural-sine','neural-custom','i2c-devices']:
+ for example in ['camera-pipeline','audio-levels','local-speech','neural-sine','neural-custom','i2c-devices','image-transforms']:
   payload=(board/(example+'.ubp')).read_bytes()+b'\n'+(board/'P4_Camera.ubl').read_bytes()+b'\n'+(board/'P4_Audio.ubl').read_bytes()+b'\n'+(board/'P4_Speech.ubl').read_bytes()+b'\n'+(board/'P4_Neural.ubl').read_bytes()+b'\n'+(board/'I2C_Devices.ubl').read_bytes()
   start=len(out);out.extend(payload);files.append(dict(filename='/Examples/P4/'+example+'.ubp',start=start,end=len(out)))
  source=source[:m.start(1)]+json.dumps(dict(files=files,remote_package_size=len(out)),separators=(',',':'))+source[m.end(1):]
@@ -85,6 +85,7 @@ def adapter(repo):
  text=text.replace("['output','50 outputs']", "['output','50 outputs'],['camera-pipeline','Camera grayscale preview']")
  text=text.replace("['camera-pipeline','Camera grayscale preview']", "['camera-pipeline','Camera grayscale preview'],['audio-levels','Bounded PCM levels'],['local-speech','Local speech (model profile required)'],['neural-sine','Neural network: sine demo'],['neural-custom','Imported sensor-affine model (import fixture first)']")
  text=text.replace("['neural-custom','Imported sensor-affine model (import fixture first)']", "['neural-custom','Imported sensor-affine model (import fixture first)'],['i2c-devices','Find I2C devices and read IDs']")
+ text=text.replace("['i2c-devices','Find I2C devices and read IDs']", "['i2c-devices','Find I2C devices and read IDs'],['image-transforms','Image transforms (test pattern)']")
  text=text.replace("const lanNote=element('p',(isP2||isP4)?", "const lanNote=element('p',profile.hosted?'This editor is served by your board on your approved Wi-Fi network. Connect using its same-origin WebSocket, or select USB on a supported desktop browser.':isP4?'P4 runs native Zephyr. USB programming and local media preview are available. The station-hosted target uses the board address assigned by your network.':isP2?")
  text=text.replace("(isP2||isP4)?[['usb','USB Web Serial']]", "profile.hosted?[['wifi','Board Wi-Fi WebSocket'],['usb','USB Web Serial']]:(isP2||isP4)?[['usb','USB Web Serial']]")
  text=text.replace("endpoint.hidden=mode.value!=='wifi';", "endpoint.hidden=profile.hosted||mode.value!=='wifi';")

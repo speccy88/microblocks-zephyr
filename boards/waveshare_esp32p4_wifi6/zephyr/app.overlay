@@ -22,6 +22,7 @@
     pinctrl-names = "default";
 };
 &i2c0 { clock-frequency = <100000>; };
+&ppa { status = "okay"; };
 /* Dedicated MIPI D-PHY supply, matching the board and tested camera source.
  * Other LDOs (including PSRAM) retain their board settings. */
 &ldo { status = "okay"; };

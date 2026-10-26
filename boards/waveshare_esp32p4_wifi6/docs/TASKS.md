@@ -8,7 +8,9 @@ Ideas do not interrupt the current task or create concurrent serial owners.
   and camera register reads; unknown 0x64 kept address-only. ASan/UBSan fixture,
   stale-reference/reuse/error/Stop All and actual GP execution pass.
 - [ ] Attached TMP117 physical temperature test (conversion/error fixtures pass).
-- [ ] Full hardware support audit and cross-library UI polish acceptance.
+- [x] Version 1 exact-board hardware support audit, source/physical evidence
+  and attachment/conflict limits in HARDWARE_SUPPORT.md.
+- [ ] Cross-library UI polish acceptance (I2C labels/zoom verified separately).
 
 - [x] Confirm exact Zephyr board target in pinned a915b2f tree.
 - [x] Confirm IMX219 and ESP-Hosted-MCU SDIO drivers exist.
@@ -26,7 +28,9 @@ Ideas do not interrupt the current task or create concurrent serial owners.
 - [x] Accurate source/evidence publication: native camera 0fb2aa74 on main;
   all three GitHub workflows passed.
 - [x] Truthful image/DSP backend query.
-- [ ] Native PPA transform measurement.
+- [x] Native PPA generated-pixel rotation/mirror/smooth resize, bounded
+  lifecycle/errors and actual GP previews; timings/limits in DSP.md.
+- [ ] PPA blend/fill blocks and measured reference-CPU performance comparison.
 - [x] ES8311/I2S bounded PCM transport, DMA rate and lifecycle tests.
 - [x] Controlled Windows speaker/P4 microphone acoustic-response test;
   correlation 0.7442, RMS rise 0.57 to 103.49, stopped and private PCM excluded.

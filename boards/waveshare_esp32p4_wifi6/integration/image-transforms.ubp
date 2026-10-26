@@ -1,0 +1,23 @@
+module main
+variables original rotated small flipped
+
+script 10 30 {
+    whenStarted
+    '[p4:imageReleaseAll]'
+    original = ('[p4:imageTestPattern]' 160 96)
+    sendBroadcast 'rotate pattern'
+}
+script 440 30 {
+    whenBroadcastReceived 'rotate pattern'
+    rotated = (p4RotateImage original 90)
+    sendBroadcast 'resize pattern'
+}
+script 10 340 {
+    whenBroadcastReceived 'resize pattern'
+    small = (p4SmoothResize original 80 48)
+    sendBroadcast 'flip pattern'
+}
+script 440 340 {
+    whenBroadcastReceived 'flip pattern'
+    flipped = (p4FlipHorizontal original)
+}

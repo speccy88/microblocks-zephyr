@@ -1,0 +1,73 @@
+{
+  "result": "PASS",
+  "runtime": "native Zephyr RV32",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "hal_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "sdk": "1.0.1 GCC14.3",
+  "target": "esp32p4_wifi6/esp32p4/hpcore",
+  "PPA_driver": "pinned native Zephyr esp_ppa.c; no IDF RTOS driver",
+  "USB_profile": {
+    "native_elf": "RV32 Zephyr",
+    "image_bytes": 14921280,
+    "flash_offset": "0x2000",
+    "reserved_boundary": "0xfe0000",
+    "model_start": "0x400304c0",
+    "model_end": "0x40e0836f",
+    "model_bytes": 14515887,
+    "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+    "image_sha256": "63d5f8f3480da5ad01bffd55f1e5db0f49d8304004a7e84fd5ce2c0724f7f238",
+    "weights_copied_to_psram": false
+  },
+  "station_profile": {
+    "native_elf": "RV32 Zephyr",
+    "image_bytes": 15123168,
+    "flash_offset": "0x2000",
+    "reserved_boundary": "0xfe0000",
+    "model_start": "0x40050dc0",
+    "model_end": "0x40e28c6f",
+    "model_bytes": 14515887,
+    "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+    "image_sha256": "21c28a1ed6f592ca10a3cefe82ddb9c6d97b6ddfa04503a6b0d624072a856a2a",
+    "weights_copied_to_psram": false
+  },
+  "station_layout": {
+    "flash_bytes": 33554432,
+    "regions": {
+      "p4_whistle_app": {
+        "offset": "0x2000",
+        "bytes": 16637952,
+        "end_exclusive": "0xfe0000"
+      },
+      "p4_assets": {
+        "offset": "0xfe0000",
+        "bytes": 16777216,
+        "end_exclusive": "0x1fe0000"
+      },
+      "p4_settings": {
+        "offset": "0x1fe0000",
+        "bytes": 131072,
+        "end_exclusive": "0x2000000"
+      }
+    },
+    "application_bytes": 15123168,
+    "application_sha256": "21c28a1ed6f592ca10a3cefe82ddb9c6d97b6ddfa04503a6b0d624072a856a2a",
+    "application_end_exclusive": "0xe6e2e0",
+    "assets_bytes": 3543565,
+    "assets_sha256": "5092d3890f09ee6545b180dd03814ab7c1f83336e8eb513042dd231ee2172189",
+    "assets_end_exclusive": "0x134120d",
+    "model": {
+      "present": true,
+      "bytes": 14515887,
+      "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "mapped_begin": "0x40050dc0",
+      "mapped_end": "0x40e28c6f",
+      "physical_begin": "0x20dc0",
+      "physical_end": "0xdf8c6f",
+      "copied_to_psram": false
+    },
+    "overlap": false,
+    "result": "PASS"
+  },
+  "station_flashed_for_this_increment": false,
+  "station_RF_retried": false
+}

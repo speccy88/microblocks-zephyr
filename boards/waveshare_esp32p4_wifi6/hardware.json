@@ -15,7 +15,10 @@
     {
       "id": "i2c_discovery_readings",
       "hardware": "I2C0 SDA7/SCL8; IMX219 and ES8311 confirmed; 0x64 address only",
-      "pins": {"sda": 7, "scl": 8},
+      "pins": {
+        "sda": 7,
+        "scl": 8
+      },
       "smallvm": "physical-address-ID-camera-register-reads-stale-reference-reuse-and-GP-pass",
       "physical_tested": true,
       "limits": "32 results; explicit ID probes; TMP117 temperature fixtures only; no universal sensor catalog"
@@ -76,8 +79,9 @@
       "id": "ppa",
       "hardware": "P4 PPA and 2D DMA",
       "pins": {},
-      "smallvm": "native-upstream-backend-available-integration-next-stage",
-      "physical_tested": false
+      "smallvm": "physical-generated-RGB888-rotations-mirrors-smooth-scale-RGB565-identity-lifecycle-and-real-GP-preview-pass",
+      "physical_tested": true,
+      "limits": "RGB565/RGB888; exact 1/16 scale ratios; one copied-input worker; no blend/fill or CPU speedup claim; timeout buffers quarantined"
     },
     {
       "id": "jpeg",
@@ -173,5 +177,12 @@
       "smallvm": "physical builtin/custom golden, strict rejection, async lifecycle/cancel and real GP catalog/custom file import/execution PASS; direct ORT and acceleration unavailable",
       "physical_tested": true
     }
-  ]
+  ],
+  "coverage_audit": {
+    "version": 1,
+    "date": "2026-10-26",
+    "document": "docs/HARDWARE_SUPPORT.md",
+    "pcb_revision": "unverified; silicon revision is separate",
+    "all_hardware_supported": false
+  }
 }

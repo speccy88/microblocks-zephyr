@@ -73,6 +73,7 @@ OMIT(addElecfreaksSensorPrims) OMIT(addSoundPrims)
 #include "audio_backend.h"
 #include "audio_store.h"
 #include "discovery_backend.h"
+#include "ppa_backend.h"
 #include "whistle_backend.h"
 #include "result_store.h"
 #if !defined(CONFIG_P4_HOSTED)
@@ -130,6 +131,6 @@ void primAnalogWrite(OBJ *a){(void)a;fail(primitiveNotImplemented);}
 void boardInit(void){}
 void boardAddPrims(void){}
 void boardPoll(void){}
-void boardStopAll(void){p4_discovery_cancel();p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
+void boardStopAll(void){p4_ppa_cancel();p4_discovery_cancel();p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
 void boardIDEConnectionChanged(int connected){(void)connected;}
 int boardStartAtBoot(void){return true;}

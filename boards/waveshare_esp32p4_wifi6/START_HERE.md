@@ -22,6 +22,8 @@ For the tested bounded neural backend, add `profiles/neural.conf` and the
 pinned TFLM module with `P4_TFLM_SOURCE`/`ZEPHYR_EXTRA_MODULES`; see
 [NN contract and measured tests](docs/NEURAL_NETWORKS.md). Direct ONNX Runtime,
 CNN/KWS operators and P4 kernel acceleration remain unavailable.
+PPA image scale/rotate/mirror is separate: it now runs through the native
+Zephyr accelerator and has physical generated-pixel and GP preview evidence.
 
 Use the pinned Zephyr workspace, not an ESP-IDF application build:
 
@@ -53,7 +55,24 @@ The SDHC patch preserves native interrupt-allocation errors. Unused AXI DMA
 is disabled to leave CPU interrupt vectors for SDIO; camera DW-DMA and audio
 AHB-DMA are separate. These are native Zephyr fixes, without an IDF RTOS shim.
 
-## Bounded PCM blocks
+## Image transforms and inline results
+
+Choose **Projects & board > Image transforms (test pattern)** and press Start
+after connecting the USB target. It generates a non-camera color pattern,
+rotates it left 90 degrees, smooth-resizes it and flips it horizontally, showing
+each output in its own block. The PPA reporters accept RGB565/RGB888 and exact
+1/16 scale ratios; use **image processing status** for errors. Nearest resize
+is unchanged. The four image slots are released by Stop All or release all
+images. See [DSP contract and measured limits](docs/DSP.md).
+
+```powershell
+python tools/test_p4_ppa_usb.py --evidence evidence/2026-10-25/p4-ppa-native.json
+```
+
+This test opens COM5 only and uses generated pixels, never the camera/mic.
+It checks exact identity/rotation/mirror mappings, colored RGB565 identity,
+smooth scale geometry/channels, stale/invalid input, cancellation/reuse and
+capacity cleanup. A real hardware timeout is not injected.
 
 Image-producing blocks now show their own inline thumbnail. Results expand
 on first execution; use +/minus to show or hide them without executing the

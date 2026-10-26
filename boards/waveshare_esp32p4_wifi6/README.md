@@ -9,7 +9,8 @@ implemented. A private controlled microphone clip matched the host/P4 text;
 the actual graphical speech block also executes, with variable recognition
 accuracy and scalar latency of tens of seconds. Native TFLM neural blocks now
 run tested INT8 and float32 dense models, including a restricted offline ONNX
-Gemm/Relu conversion. Direct ONNX Runtime, KWS and acceleration are unavailable.
+Gemm/Relu conversion. PPA smooth resize/rotate/flip now run in native hardware;
+direct ONNX Runtime, KWS and NN kernel acceleration remain unavailable.
 Native model transfer/rejection and actual GP catalog/custom file import and
 inference passed. AP was canceled; station-only firmware and flash-hosted assets
 are built and hash-flashed. User-entered station credentials were saved and
@@ -19,6 +20,8 @@ See [station target](docs/NETWORK_STATION.md) and [NN contract](docs/NEURAL_NETW
 Current dark camera frames need a lit-scene retest;
 the strict content check remains failed in the latest evidence.
 See [START_HERE](START_HERE.md) for reproduction and current limitations.
+See the [versioned hardware audit](docs/HARDWARE_SUPPORT.md) for populated
+circuitry, connector/SoC-only features, shared pins and remaining driver/block gaps.
 
 I2C Devices blocks scan an explicit bus, distinguish address-only/candidate/
 confirmed identities, list supported readings and read typed numeric values

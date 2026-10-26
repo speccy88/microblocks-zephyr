@@ -1,18 +1,28 @@
 module 'P4 Camera' Output
 author 'ESP32-P4 SmallVM integration; MicroBlocks contributors'
-version 0 1
-description 'Native Zephyr P4 camera and portable image processing. IMX219 manual exposure is untuned. Four immutable native images, 8 MiB total. Release images when finished. A handle is not pixel data. Resize is nearest neighbor. Preview/export stays in this browser. No model runtime is installed. Check camera status for hardware errors.'
+version 0 2
+description 'Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Camera exposure/color remains untuned.'
 spec 'r' 'p4TakePicture' 'take picture'
 spec 'r' '[p4:imageWidth]' 'image _ width' 'num' 1
 spec 'r' '[p4:imageHeight]' 'image _ height' 'num' 1
-spec 'r' '[p4:imageResize]' 'resize image _ width _ height _' 'num num num' 1 160 90
+spec 'r' '[p4:imageResize]' 'resize image _ to _ x _' 'num num num' 1 160 90
 spec 'r' '[p4:imageGrayscale]' 'grayscale image _' 'num' 1
+spec 'r' 'p4SmoothResize' 'smooth resize _ to _ x _' 'num num num' 1 160 90
+spec 'r' 'p4RotateImage' 'rotate _ left _ deg' 'num num' 1 90
+spec 'r' 'p4FlipHorizontal' 'flip image _ left to right' 'num' 1
+spec 'r' 'p4FlipVertical' 'flip image _ top to bottom' 'num' 1
+spec 'r' '[p4:ppaStatus]' 'image processing status'
 spec 'b' '[p4:imagePreview]' 'preview / export image _' 'num' 1
 spec 'b' '[p4:imageRelease]' 'release image _' 'num' 1
 spec ' ' '[p4:imageReleaseAll]' 'release all images'
 spec 'b' '[p4:imageValid]' 'image _ valid?' 'num' 1
 spec 'r' '[p4:cameraStatus]' 'camera status'
 advanced
+spec 'r' '[p4:imageTestPattern]' 'color pattern width _ height _' 'num num' 160 96
+spec 'b' '[p4:ppaStart]' 'start PPA image _ width _ height _ angle _ mirror _' 'num num num num num' 1 160 96 0 0
+spec 'b' '[p4:ppaBusy]' 'image processing busy?'
+spec 'r' '[p4:ppaResult]' 'processed image result'
+spec ' ' '[p4:ppaCancel]' 'cancel image processing'
 spec 'r' '[p4:imageCreate]' 'blank image width _ height _ format _' 'num num num' 160 90 1
 spec 'r' '[p4:dspCapabilities]' 'DSP backends'
 spec 'r' '[p4:imageRGBTensor]' 'image _ to RGB888 tensor width _ height _' 'num num num' 1 96 96
@@ -29,4 +39,31 @@ to p4TakePicture {
     if (not ('[p4:cameraRequest]')) { return 0 }
     waitUntil (not ('[p4:cameraBusy]'))
     return ('[p4:cameraResult]')
+}
+
+to p4SmoothResize image w h {
+    if (not ('[p4:ppaStart]' image w h 0 0)) { return 0 }
+    waitUntil (not ('[p4:ppaBusy]'))
+    return ('[p4:ppaResult]')
+}
+
+to p4RotateImage image degrees {
+    if (not ('[p4:imageValid]' image)) { return 0 }
+    if (not ('[p4:ppaStart]' image ('[p4:imageWidth]' image) ('[p4:imageHeight]' image) degrees 0)) { return 0 }
+    waitUntil (not ('[p4:ppaBusy]'))
+    return ('[p4:ppaResult]')
+}
+
+to p4FlipHorizontal image {
+    if (not ('[p4:imageValid]' image)) { return 0 }
+    if (not ('[p4:ppaStart]' image ('[p4:imageWidth]' image) ('[p4:imageHeight]' image) 0 1)) { return 0 }
+    waitUntil (not ('[p4:ppaBusy]'))
+    return ('[p4:ppaResult]')
+}
+
+to p4FlipVertical image {
+    if (not ('[p4:imageValid]' image)) { return 0 }
+    if (not ('[p4:ppaStart]' image ('[p4:imageWidth]' image) ('[p4:imageHeight]' image) 0 2)) { return 0 }
+    waitUntil (not ('[p4:ppaBusy]'))
+    return ('[p4:ppaResult]')
 }

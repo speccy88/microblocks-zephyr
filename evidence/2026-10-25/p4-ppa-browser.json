@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "scope": "Actual GP 2.5.8 compiled scripts and native P4 through loopback COM5 bridge",
+  "board_hosted_network_test": false,
+  "camera_captured": false,
+  "microphone_started": false,
+  "viewport": [1280,720],
+  "checks": {
+    "normal_example_picker_load": true,
+    "actual_download": "3 functions and 4 scripts; native VM identity verified",
+    "generated_pattern": [160,96],
+    "rotate_left_90": [96,160],
+    "smooth_resize": [80,48],
+    "horizontal_flip": [160,96],
+    "no_result_initially_collapsed": true,
+    "first_results_independently_expanded": true,
+    "manual_collapse_survives_rerun": true,
+    "reexpand_does_not_execute_capture": true,
+    "settled_drag_texture_and_layout": true,
+    "labels_and_angle_input_fit_viewport": true,
+    "disconnect_expires_results": true,
+    "board_released_for_native_regression": true
+  },
+  "limits": "Generated pixels demonstrate transforms and result widgets, not new camera quality or Wi-Fi hosting. No synthetic/mock DOM output was substituted."
+}

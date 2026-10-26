@@ -31,6 +31,7 @@ target_sources(app PRIVATE src/main.c src/platform.c src/image_primitives.c src/
   ${vm_root}/vm/tinyJSON.c ${vm_root}/vm/mbFont.c ${vm_root}/vm/boardHooks.c)
 target_sources(app PRIVATE src/neural_primitives.c "${repo}/common/nn/nn_contract.c")
 target_sources(app PRIVATE src/discovery_backend.c src/discovery_primitives.c "${repo}/common/i2c/discovery.c")
+target_sources(app PRIVATE src/ppa_backend.c)
 if(CONFIG_P4_NEURAL)
   if(NOT P4_TFLM_SOURCE)
     message(FATAL_ERROR "Pass P4_TFLM_SOURCE for the pinned TFLM module and ZEPHYR_EXTRA_MODULES")

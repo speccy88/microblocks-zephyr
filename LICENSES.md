@@ -133,3 +133,9 @@ remain intact. See the board's I2C_DISCOVERY.md for source links and limits.
 P4 C6
 driver patches retain the pinned Zephyr/Espressif Apache-2.0 attribution;
 new application transport/server code carries its own MPL-2.0 headers.
+
+P4 image transforms call the pinned external native Zephyr PPA API/driver
+under Apache-2.0 (Zephyr a915b2f12675b48b16d56653ea145dcd8f20cbbf).
+No IDF RTOS driver or new third-party binary is vendored. The independently
+authored bounded worker/generated-pixel hardware test are MIT; GP library,
+preview integration and packaging retain MPL-2.0.

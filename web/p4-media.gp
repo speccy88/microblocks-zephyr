@@ -3,7 +3,7 @@
 defineClass P4MediaView morph block uid kind bitmap texture expanded userCollapsed state sourceWidth sourceHeight frames rate
 
 to p4MediaKind op {
-    if (isOneOf op 'p4TakePicture' '[p4:cameraResult]' '[p4:imageCreate]' '[p4:imageResize]' '[p4:imageGrayscale]' '[p4:imageRGBTensor]') { return 1 }
+    if (isOneOf op 'p4TakePicture' 'p4SmoothResize' 'p4RotateImage' 'p4FlipHorizontal' 'p4FlipVertical' '[p4:ppaResult]' '[p4:imageTestPattern]' '[p4:cameraResult]' '[p4:imageCreate]' '[p4:imageResize]' '[p4:imageGrayscale]' '[p4:imageRGBTensor]') { return 1 }
     if (isOneOf op 'p4RecordPCM' '[p4:audioResult]') { return 2 }
     return 0
 }
