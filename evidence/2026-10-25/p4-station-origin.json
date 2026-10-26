@@ -1,0 +1,19 @@
+{
+  "scope": "Hosted editor WebSocket policy; offline providers only",
+  "result": "PASS",
+  "browser_tests": 27,
+  "repository_tests": 39,
+  "checks": [
+    "Generated actual P4 adapter: station HTTP address/port and HTTPS-to-WSS",
+    "Hosted endpoint field cannot redirect transport",
+    "USB selection retained; bridge restricted to its loopback origin",
+    "Public portal still rejects plaintext WS, credentials and fragments",
+    "Same-origin helper rejects changed host/port/path/scheme/query/fragment",
+    "USB and hosted genuine GP editor packages build from pinned assets"
+  ],
+  "hosted_asset_bytes": 3542365,
+  "hosted_asset_sha256": "d2c60308de996cab0000743714a9f1f4f90bd9c4433ed973dc87adfee4e93933",
+  "not_tested": "Physical station association, DHCP and board-served programming remain blocked by C6 request 284/SDHC -116. No firmware or assets flashed for this browser-only change.",
+  "credentials_accessed": false,
+  "network_configuration_changed": false
+}

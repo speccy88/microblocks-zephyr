@@ -64,8 +64,12 @@ def adapter(repo):
  text=text.replace('const filters=profile.board',"const filters=isP4?[{usbVendorId:0x1a86},{usbVendorId:0x303a}]:profile.board")
  text=text.replace('isP2?', '(isP2||isP4)?').replace('||isP2;', '||isP2||isP4;').replace('if(!isP2)panel.append(local);ip.hidden=isP2;', 'if(!isP2&&!isP4)panel.append(local);ip.hidden=isP2||isP4;')
  text=text.replace("if(mode&&mode.value==='wifi'){", "if(profile.bridge||mode&&mode.value==='wifi'){")
- text=text.replace('const url=new URL(endpoint.value);',"const url=new URL(profile.bridge||profile.hosted?location.origin.replace('http:','ws:')+'/ws/vm':endpoint.value);")
- text=text.replace("if(url.protocol!=='wss:'||url.username", "if((url.protocol!=='wss:'&&!(profile.bridge&&url.protocol==='ws:'&&url.hostname==='127.0.0.1')&&!(profile.hosted&&location.protocol==='http:'&&location.hostname==='192.168.4.1'&&url.href===location.origin.replace('http:','ws:')+'/ws/vm'))||url.username")
+ socket_anchor="const url=new URL(endpoint.value);\n    if(url.protocol!=='wss:'||url.username||url.password||url.hash)"
+ if text.count(socket_anchor)!=1:raise ValueError('Changed WebSocket origin guard anchor')
+ text=text.replace(socket_anchor,"""const localTransport=profile.bridge||profile.hosted;
+    if(profile.bridge&&!profile.hosted&&(location.protocol!=='http:'||location.hostname!=='127.0.0.1'))throw Error('The USB bridge requires its own loopback editor.');
+    const url=localTransport?MicroBlocksPortal.sameOriginVMWebSocket(location.origin):new URL(endpoint.value);
+    if((!localTransport&&url.protocol!=='wss:')||url.username||url.password||url.hash)""")
  text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&frame[1]===216){window.P4NeuralAccept?.(frame);}else if(frame[0]===251&&(frame[1]===208||frame[1]===209)){}else if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
  frame_anchor='const frame=assembly.slice(0,size);assembly=assembly.slice(size);'
  if text.count(frame_anchor)!=1:raise ValueError('Changed bounded frame transport anchor')

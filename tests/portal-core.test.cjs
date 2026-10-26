@@ -3,7 +3,33 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
-const {ByteQueue,EditorAPI,SerialTransport,ProjectStore,MAX_QUEUE,MAX_PROJECT}=require('../web/portal/portal-core.js');
+const {ByteQueue,EditorAPI,SerialTransport,ProjectStore,sameOriginVMWebSocket,MAX_QUEUE,MAX_PROJECT}=require('../web/portal/portal-core.js');
+
+test('board sockets preserve the editor origin, scheme and effective port',()=>{
+ for(const [origin,expected] of [
+  ['http://192.168.10.72','ws://192.168.10.72/ws/vm'],
+  ['http://10.0.0.23:8080','ws://10.0.0.23:8080/ws/vm'],
+  ['http://microblocks.local','ws://microblocks.local/ws/vm'],
+  ['https://microblocks.local:8443','wss://microblocks.local:8443/ws/vm'],
+  ['http://[fd00::123]:8080','ws://[fd00::123]:8080/ws/vm'],
+  ['http://127.0.0.1:8875','ws://127.0.0.1:8875/ws/vm']]){
+  assert.equal(sameOriginVMWebSocket(origin).href,expected);
+  assert.equal(sameOriginVMWebSocket(origin,expected).href,expected);
+ }
+});
+
+test('board sockets reject changed authority, path, scheme and URL extras',()=>{
+ const origin='http://10.0.0.23:8080';
+ for(const candidate of ['ws://10.0.0.24:8080/ws/vm','ws://10.0.0.23/ws/vm',
+  'wss://10.0.0.23:8080/ws/vm','ws://10.0.0.23:8080/other',
+  'ws://10.0.0.23:8080/ws/vm?x=1','ws://10.0.0.23:8080/ws/vm?',
+  'ws://10.0.0.23:8080/ws/vm#fragment','ws://user:secret@10.0.0.23:8080/ws/vm',
+  'https://10.0.0.23:8080/ws/vm','/ws/vm'])
+  assert.throws(()=>sameOriginVMWebSocket(origin,candidate));
+ for(const origin of ['null','file:///tmp/editor.html','ftp://board.local',
+  'http://user:secret@board.local','http://board.local/path'])
+  assert.throws(()=>sameOriginVMWebSocket(origin));
+});
 
 function editorHarness(hidden=false){
  let clock=0,nextId=0;const timers=new Map(),listeners=new Set();

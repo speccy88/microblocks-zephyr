@@ -53,8 +53,15 @@ regressions. The installed diagnostic label mentioning AP is stale descriptive
 text; the canonical network status and station-only Kconfig show AP disabled.
 Board association is requested; Windows association/firewall/security changes
 remain outside scope. DHCP determines the board address; `192.168.4.1` is no
-longer the target. Update the hosted adapter and native Host/Origin checks to
-the actual station address. No routing, captive portal, Internet sharing,
+longer the target. The hosted adapter now derives `/ws/vm` from the editor's
+own HTTP/HTTPS origin, preserving its host and port and selecting ws/wss.
+It ignores an arbitrary endpoint field for this profile; remote public-portal
+connections still require wss. Native Host/Origin checks use the actual DHCP
+address and reject other origins. Offline tests execute the generated adapter
+with fake providers for station addresses, HTTPS, USB selection, loopback and
+rejected cross-origin/credential/path variants. This is a browser policy pass,
+not physical association or a board-served programming pass.
+No routing, captive portal, Internet sharing,
 cloud inference or microphone listener is implied. The editor/programming
 service is available to peers on that LAN; anyone able to use it can invoke
 the board's camera/audio primitives. Do not claim a board-hosted pass until

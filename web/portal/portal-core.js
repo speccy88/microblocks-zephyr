@@ -3,6 +3,19 @@
 (function(root){
  'use strict';
  const MAX_PROJECT=4*1024*1024,MAX_QUEUE=65536;
+ // A board-served editor uses exactly its own VM endpoint. Mapping the
+ // scheme preserves the effective host/port; no LAN address is privileged.
+ function sameOriginVMWebSocket(origin,candidate){
+  const page=new URL(origin);
+  if(!['http:','https:'].includes(page.protocol)||page.origin!==origin)
+   throw Error('The board editor requires an HTTP or HTTPS origin.');
+  const expected=new URL('/ws/vm',page);
+  expected.protocol=page.protocol==='https:'?'wss:':'ws:';
+  const url=candidate===undefined?expected:new URL(candidate);
+  if(url.href!==expected.href||url.username||url.password||url.search||url.hash)
+   throw Error('The board VM connection must use this editor\'s own /ws/vm endpoint.');
+  return url;
+ }
  class ProjectStore{
   constructor(indexedDB=root.indexedDB){this.provider=indexedDB;this.opened=null;}
   open(){
@@ -110,6 +123,6 @@
    this.onState(false);this.closing=false;
   }
  }
- const api={ProjectStore,ByteQueue,EditorAPI,SerialTransport,MAX_PROJECT,MAX_QUEUE};
+ const api={ProjectStore,ByteQueue,EditorAPI,SerialTransport,sameOriginVMWebSocket,MAX_PROJECT,MAX_QUEUE};
  root.MicroBlocksPortal=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

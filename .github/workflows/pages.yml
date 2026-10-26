@@ -30,7 +30,7 @@ jobs:
       - name: Build pinned real GP editor and static portal
         run: python tools/package_pages.py --fetch --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages
       - name: Test browser transport contracts
-        run: node --test tests/portal-core.test.cjs tests/portal-adapter-guard.test.cjs tests/p4_media_core.test.js tests/p4_nn_core.test.js
+        run: node --test tests/portal-core.test.cjs tests/portal-adapter-guard.test.cjs tests/p4-transport.test.cjs tests/p4_media_core.test.js tests/p4_nn_core.test.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build-artifacts/pages
