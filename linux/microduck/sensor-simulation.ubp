@@ -1,9 +1,22 @@
 module main
-description 'SIMULATION ONLY. Read a fictional depth zone and raw gamepad events from the dedicated private sensor simulator. No robot control or real device connection.'
+description 'SIMULATION ONLY. Read coherent depth rows and bounded gamepad state using private fictional services. Check capture status before extraction. Both depth rows share one frame; snapshot release is explicit. No real device or robot command.'
+variables depthCapture padCapture
 
 script 20 20 {
     whenStarted
-    sayIt (microduckSimDepthZone 1 1)
-    sayIt (microduckSimPadAxis 0)
-    sayIt (microduckSimPadButton 304)
+    depthCapture = (microduckSimDepthCapture)
+    sayIt depthCapture
+    if (microduckReadingKnown depthCapture) {
+        sayIt (microduckSimDepthRow depthCapture 1)
+        sayIt (microduckSimDepthRow depthCapture 8)
+        sayIt (microduckSimSnapshotRelease depthCapture)
+    }
+    padCapture = (microduckSimPadCapture)
+    sayIt padCapture
+    if (microduckReadingKnown padCapture) {
+        sayIt (microduckSimPadAxisState padCapture 0)
+        sayIt (microduckSimPadPosition padCapture 0)
+        sayIt (microduckSimPadButtonState padCapture 304)
+        sayIt (microduckSimSnapshotRelease padCapture)
+    }
 }

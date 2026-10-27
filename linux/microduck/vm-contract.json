@@ -1,5 +1,5 @@
 {
-  "contract_version": 3,
+  "contract_version": 4,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -86,6 +86,21 @@
         "reading list"
       ],
       "returns": "signed31 integer,Boolean or state string only if statusok; otherwise explicitVMerror32"
+    },
+    {
+      "name": "[microduck:sensorSample]",
+      "arguments": [
+        "JSON reply string",
+        "raw/position/capture selector"
+      ],
+      "returns": "four-field simulation reading; only ok has a value; signed31 raw bounds"
+    },
+    {
+      "name": "[microduck:sensorRow]",
+      "arguments": [
+        "depth row JSON reply string"
+      ],
+      "returns": "eight GC-safe four-field readings from one coherent simulated frame row"
     }
   ],
   "implemented_hooks": [
@@ -144,7 +159,6 @@
     "io": false
   },
   "local_simulation_extensions": {
-    "abi_changed": false,
     "methods": {
       "motion": [
         "microduck.motionSim.status",
@@ -155,6 +169,14 @@
         "microduck.sensorSim.tof",
         "microduck.sensorSim.axis",
         "microduck.sensorSim.button"
+      ],
+      "snapshots": [
+        "microduck.sensorSim.captureTof",
+        "microduck.sensorSim.capturePad",
+        "microduck.sensorSim.depthRow",
+        "microduck.sensorSim.padAxis",
+        "microduck.sensorSim.padButton",
+        "microduck.sensorSim.release"
       ]
     },
     "libraries": [
@@ -163,7 +185,16 @@
     ],
     "scope": "dedicated private simulation backends only; ordinary gateway rejects these local names",
     "physical_movement_enabled": false,
-    "current_revision_tested": "local x86_64 ASan/UBSan VM and Unix fixtures; not Pi/ARM64 or graphical UBL",
-    "reply_summary_bytes": 760
+    "current_revision_tested": "actual x86_64 and real Pi AArch64 ordinary/ASan+UBSan VM/bytecode/GC/private Unix fixtures; robot data simulated; graphical UBL unverified",
+    "reply_summary_bytes": 760,
+    "existing_primitive_indices_preserved": true,
+    "snapshot_limits": {
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "token": "32 lowercase hex; process-local resource, not authentication",
+      "pad_window_ms": 350,
+      "notifications": 16,
+      "continuous_reader": false
+    }
   }
 }

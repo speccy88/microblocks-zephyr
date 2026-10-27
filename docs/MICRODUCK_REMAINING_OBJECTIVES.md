@@ -10,8 +10,11 @@ The physical robot has not arrived.
 The [four-service matrix](MICRODUCK_SERVICE_CAPABILITIES.md) makes the requested
 robotd/mediad/tofd/padd block coverage explicit. Separate simulated depth-zone,
 raw-axis and button JSON blocks now consume bounded source-shaped Unix streams;
-live commissioning, coherent whole-frame access and native numeric convenience
-remain gaps. These differ from the existing health/configuration reporters.
+coherent snapshots and native numeric/state helpers are now implemented and
+tested on the real Pi with fake services. Live commissioning, continuous freshness
+and physical input remain gaps. These differ from health/configuration reporters.
+The explicit robot methods, requested telemetry and robotctl diagnostics are
+tracked in [the source-backed API mapping](MICRODUCK_ROBOT_API.md).
 
 | Brief objective | Remaining work | Kind and next acceptance |
 |---|---|---|

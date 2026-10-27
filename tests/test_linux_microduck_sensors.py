@@ -50,7 +50,7 @@ class SensorProtocol(unittest.TestCase):
         library=(ROOT/'linux/microduck/Sensor_Simulation.ubl').read_text()
         self.assertIn('SIMULATION ONLY',library)
         for kind in ('tof','axis','button'): self.assertIn(sensor.PREFIX+kind,library)
-        self.assertEqual(library.count('microduckRequest '),3)
+        self.assertEqual(library.count('microduckRequest '),9)
         self.assertNotIn('robot.move',library)
         self.assertNotIn('true)',library)
 

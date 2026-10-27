@@ -213,7 +213,8 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertIn(b'MicroDuck Sensor Simulation', files['/runtime/lib/MicroBlocksAPI.gp'])
         example = files['/Examples/Linux/microduck-sensor-simulation.ubp']
         self.assertTrue(example.startswith((REPO / 'linux/microduck/sensor-simulation.ubp').read_bytes()))
-        self.assertIn(b'(microduckSimDepthZone 1 1)', example)
+        self.assertIn(b'(microduckSimDepthRow depthCapture 1)', example)
+        self.assertIn(b'(microduckSimPadButtonState padCapture 304)', example)
         self.assertNotIn(b'microduckSimMotionRun', example)
         core_output = self.output.parent / 'sensor-core-editor'
         build(self.source, core_output, REPO, 'raspberry-pi5')

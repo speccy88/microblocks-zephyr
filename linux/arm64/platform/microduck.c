@@ -186,7 +186,7 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
@@ -205,8 +205,20 @@ static const Method methods[] = {
     /* Read-only local sensor simulation wrappers, not real daemon streams. */
     {"microduck.sensorSim.tof",PARAM_SENSOR_ZONE,0},
     {"microduck.sensorSim.axis",PARAM_SENSOR_CODE,0},
-    {"microduck.sensorSim.button",PARAM_SENSOR_CODE,0}
+    {"microduck.sensorSim.button",PARAM_SENSOR_CODE,0},
+    {"microduck.sensorSim.captureTof",PARAM_EMPTY,0},
+    {"microduck.sensorSim.capturePad",PARAM_EMPTY,0},
+    {"microduck.sensorSim.depthRow",PARAM_SNAPSHOT_ROW,0},
+    {"microduck.sensorSim.padAxis",PARAM_SNAPSHOT_CODE,0},
+    {"microduck.sensorSim.padButton",PARAM_SNAPSHOT_CODE,0},
+    {"microduck.sensorSim.release",PARAM_SNAPSHOT_HANDLE,0}
 };
+static int snapshotHandle(yyjson_val *value) {
+    if (!boundedText(value,32) || yyjson_get_len(value)!=32) return 0;
+    const char *text=yyjson_get_str(value);
+    for (int i=0;i<32;++i) if (!((text[i]>='0' && text[i]<='9') || (text[i]>='a' && text[i]<='f'))) return 0;
+    return 1;
+}
 static const Method *findMethod(const char *name) {
     for (size_t i = 0; i < sizeof(methods) / sizeof(methods[0]); ++i) if (!strcmp(name, methods[i].name)) return &methods[i];
     return NULL;
@@ -227,6 +239,9 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_MOTION_SIM: keys[count++]="vx_mm_s"; keys[count++]="vy_mm_s"; keys[count++]="vyaw_mrad_s"; keys[count++]="duration_ms"; break;
         case PARAM_SENSOR_ZONE: keys[count++]="row"; keys[count++]="col"; break;
         case PARAM_SENSOR_CODE: keys[count++]="code"; break;
+        case PARAM_SNAPSHOT_HANDLE: keys[count++]="handle"; break;
+        case PARAM_SNAPSHOT_ROW: keys[count++]="handle"; keys[count++]="row"; break;
+        case PARAM_SNAPSHOT_CODE: keys[count++]="handle"; keys[count++]="code"; break;
     }
     if (!objectKeys(params, keys, count)) return 0;
     yyjson_val *value;
@@ -268,6 +283,9 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_SENSOR_ZONE:
             return integerBetween(yyjson_obj_get(params,"row"),1,8) && integerBetween(yyjson_obj_get(params,"col"),1,8);
         case PARAM_SENSOR_CODE: return integerBetween(yyjson_obj_get(params,"code"),0,65535);
+        case PARAM_SNAPSHOT_HANDLE: return snapshotHandle(yyjson_obj_get(params,"handle"));
+        case PARAM_SNAPSHOT_ROW: return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"row"),1,8);
+        case PARAM_SNAPSHOT_CODE: return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"code"),0,65535);
     }
     return 0;
 }
@@ -606,9 +624,101 @@ static OBJ readingValuePrimitive(int argc,OBJ *args) {
     if (!isInt(value) && !isBoolean(value) && !IS_TYPE(value,StringType)) return fail(argIndexOutOfRange);
     return value;
 }
+/* Local simulated sensor records use the same GC-safe four-field representation
+ * as health readings. No JSON scalar is coerced from null/missing/Boolean. */
+static yyjson_val *sensorResult(yyjson_val *root,HealthReading *reading) {
+    yyjson_val *value=yyjson_obj_get(root,"result"),*error=yyjson_obj_get(root,"error"),*id=yyjson_obj_get(root,"id");
+    if (!yyjson_is_obj(root) || !equalText(yyjson_obj_get(root,"jsonrpc"),"2.0") || (!value==!error)
+        || !(integerBetween(id,1,INT32_MAX) || (error && yyjson_is_null(id)))) return NULL;
+    if (error) {
+        if (yyjson_is_obj(error) && integerBetween(yyjson_obj_get(error,"code"),INT32_MIN,INT32_MAX) && yyjson_is_str(yyjson_obj_get(error,"message"))) reading->status="error";
+        return NULL;
+    }
+    if (!yyjson_is_obj(value) || !yyjson_is_true(yyjson_obj_get(value,"simulation")) || !yyjson_is_false(yyjson_obj_get(value,"physical_movement_enabled"))) return NULL;
+    reading->origin="simulation";
+    yyjson_val *status=yyjson_obj_get(value,"status");
+    if (equalText(status,"ok")) return value;
+    const char *states[]={"waiting","timeout","absent","refused","detached","dropped","unobserved","unsupported","no_event","event_limit","no_target","unusable","busy","expired_or_unknown","wrong_kind"};
+    for (size_t i=0;i<sizeof(states)/sizeof(states[0]);++i) if (equalText(status,states[i])) { reading->status=states[i]; return value; }
+    return NULL;
+}
+static OBJ sensorSamplePrimitive(int argc,OBJ *args) {
+    if (argc!=2) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType) || !IS_TYPE(args[1],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u],selector[17],handle[33];size_t length,selectorLength;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length) || !copyVMString(args[1],selector,16,&selectorLength)) return fail(argIndexOutOfRange);
+    (void)selectorLength;
+    int capture=!strcmp(selector,"capture"),position=!strcmp(selector,"position");
+    if (!capture && !position && strcmp(selector,"raw")) return fail(argIndexOutOfRange);
+    yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
+    HealthReading reading={.status="invalid",.text="",.unit=capture?"snapshot":position?"permille":"raw",.origin="unmarked"};
+    yyjson_val *result=sensorResult(yyjson_doc_get_root(doc),&reading);
+    yyjson_val *unit=yyjson_obj_get(result,"unit"),*value=yyjson_obj_get(result,"value"),*kind=yyjson_obj_get(result,"kind");
+    if (!capture && !position) {
+        if (equalText(unit,"mm")) reading.unit="mm";
+        else if (equalText(unit,"pressed")) reading.unit="boolean";
+    }
+    if (result && equalText(yyjson_obj_get(result,"status"),"ok")) {
+        if (capture) {
+            yyjson_val *token=yyjson_obj_get(result,"handle");
+            if ((equalText(kind,"tof_capture") || equalText(kind,"pad_capture")) && snapshotHandle(token)) {
+                memcpy(handle,yyjson_get_str(token),32);handle[32]='\0';reading.text=handle;reading.isText=1;reading.status="ok";
+            }
+        } else if (position) {
+            yyjson_val *min=yyjson_obj_get(result,"min"),*max=yyjson_obj_get(result,"max");
+            if (equalText(unit,"raw") && (equalText(kind,"axis_state") || equalText(yyjson_obj_get(result,"source"),"padd"))
+                && integerBetween(value,INT32_MIN,INT32_MAX) && integerBetween(min,INT32_MIN,INT32_MAX) && integerBetween(max,INT32_MIN,INT32_MAX)) {
+                int64_t low=yyjson_get_sint(min),high=yyjson_get_sint(max),raw=yyjson_get_sint(value);
+                if (high>low && raw>=low && raw<=high) { reading.number=(int)(((raw-low)*1000+(high-low)/2)/(high-low));reading.status="ok"; }
+            }
+        } else if (equalText(unit,"pressed") && (equalText(kind,"button_state") || equalText(yyjson_obj_get(result,"source"),"padd")) && yyjson_is_bool(value)) {
+            reading.isBoolean=1;reading.boolean=yyjson_get_bool(value);reading.status="ok";
+        } else if (equalText(unit,"mm") && equalText(yyjson_obj_get(result,"source"),"tofd")) {
+            yyjson_val *raw=yyjson_obj_get(result,"raw_distance_mm"),*status=yyjson_obj_get(result,"raw_status");
+            if (integerBetween(value,1,32767) && integerBetween(raw,1,32767) && yyjson_get_sint(value)==yyjson_get_sint(raw)
+                && (integerBetween(status,5,5) || integerBetween(status,9,9))) { reading.number=(int)yyjson_get_sint(value);reading.status="ok"; }
+        } else if (equalText(unit,"raw") && (equalText(kind,"axis_state") || equalText(yyjson_obj_get(result,"source"),"padd"))) {
+            yyjson_val *min=yyjson_obj_get(result,"min"),*max=yyjson_obj_get(result,"max");
+            if (integerBetween(value,INT32_MIN,INT32_MAX) && integerBetween(min,INT32_MIN,INT32_MAX) && integerBetween(max,INT32_MIN,INT32_MAX)
+                && yyjson_get_sint(max)>yyjson_get_sint(min) && yyjson_get_sint(value)>=yyjson_get_sint(min) && yyjson_get_sint(value)<=yyjson_get_sint(max)) {
+                if (integerBetween(value,-1073741824,1073741823)) { reading.number=(int)yyjson_get_sint(value);reading.status="ok"; }
+                else reading.status="out_of_range";
+            }
+        }
+    }
+    yyjson_doc_free(doc);return readingRecord(&reading);
+}
+static OBJ sensorRowPrimitive(int argc,OBJ *args) {
+    if (argc!=1) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u];size_t length;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
+    yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
+    HealthReading base={.status="invalid",.text="",.unit="mm",.origin="unmarked"};
+    yyjson_val *result=sensorResult(yyjson_doc_get_root(doc),&base),*distances=yyjson_obj_get(result,"distance_mm"),*statuses=yyjson_obj_get(result,"raw_status");
+    int valid=result && equalText(yyjson_obj_get(result,"status"),"ok") && equalText(yyjson_obj_get(result,"kind"),"depth_row")
+        && snapshotHandle(yyjson_obj_get(result,"handle")) && integerBetween(yyjson_obj_get(result,"row"),1,8)
+        && yyjson_is_arr(distances) && yyjson_arr_size(distances)==8 && yyjson_is_arr(statuses) && yyjson_arr_size(statuses)==8;
+    if (valid) for (size_t i=0;i<8;++i) if (!integerBetween(yyjson_arr_get(distances,i),-32768,32767) || !integerBetween(yyjson_arr_get(statuses,i),0,255)) valid=0;
+    OBJ list=newObj(ListType,10,tempGCRoot);
+    if (list==falseObj) { yyjson_doc_free(doc);return falseObj; }
+    tempGCRoot=list;FIELD(list,0)=int2obj(8);
+    for (int i=0;i<8;++i) {
+        HealthReading reading=base;
+        if (valid) {
+            int raw=(int)yyjson_get_sint(yyjson_arr_get(distances,(size_t)i)),status=(int)yyjson_get_sint(yyjson_arr_get(statuses,(size_t)i));
+            reading.status=(status==5 || status==9) && raw>0?"ok":status==255?"no_target":"unusable";reading.number=raw;
+        }
+        OBJ record=readingRecord(&reading);
+        if (record==falseObj) { tempGCRoot=FIELD(tempGCRoot,9);yyjson_doc_free(doc);return falseObj; }
+        FIELD(tempGCRoot,i+1)=record;
+    }
+    yyjson_doc_free(doc);list=tempGCRoot;OBJ previous=FIELD(list,9);FIELD(list,9)=zeroObj;tempGCRoot=previous;return list;
+}
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
     {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
-    {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive}
+    {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive},
+    {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

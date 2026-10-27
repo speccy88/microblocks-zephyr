@@ -1,11 +1,22 @@
 module 'MicroDuck Sensor Simulation' Input
 
 author 'MicroBlocks Linux ARM64 contributors'
-version 1 0
-description 'SIMULATION ONLY. Depends on MicroDuck library and sensor_simulator.py private fake services. Reads a bounded first frame on a new documented tof.stream or pad.input subscription. Results are JSON with explicit status and simulation flag; only ok has a value. Missing, absent, no_target, unusable, dropped and no_event are never zero. Depth uses 1..8 row/column and millimetres; gamepad selects raw evdev codes and declared ranges without normalization. Button autorepeat is held. Timestamps/sequence/drop counters are decimal strings, not VM numbers. These local sensorSim names are project wrappers, not Pollen methods. No continuous cache, pad IMU, robot commands, automatic driving, real endpoint or hardware validation. Historical Pi binaries lack these new names; rebuild with paired library. Graphical execution unverified.'
+version 1 1
+description 'SIMULATION ONLY. Depends on MicroDuck and the dedicated private sensor_simulator.py fake services. Version1.1 adds coherent depth snapshots and bounded gamepad-window state. Typed readings are [status,value,unit,origin]; only ok can be extracted with known reading value. Four shared snapshot slots expire five seconds after capture and can be released explicitly. Depth rows1..8 from one retained snapshot share a single frame. Pad state retains observed events across empty frames; unobserved controls, detach and loss remain unknown. Attachment metadata is not a fresh held-state sample. Axis position is0..1000 of the declared span, without assumptions about centre/deadzone/calibration. Raw values outside signed31 report out_of_range. Snapshots are historical simulation data, not current radio freshness or robot safety. Existing first-frame JSON blocks remain available. Local sensorSim names are project wrappers, not Pollen methods. No continuous reader, pad IMU, live endpoint, robot command or automatic driving. Current paired native binary required; graphical execution and physical input remain unverified.'
 spec 'r' 'microduckSimDepthZone' 'SIMULATION depth row _ col _ JSON' 'num num' 1 1
 spec 'r' 'microduckSimPadAxis' 'SIMULATION gamepad axis code _ JSON' 'num' 0
 spec 'r' 'microduckSimPadButton' 'SIMULATION gamepad button code _ JSON' 'num' 304
+spec 'r' 'microduckSimDepthCapture' 'SIMULATION capture coherent depth frame reading'
+spec 'r' 'microduckSimDepthRow' 'SIMULATION depth snapshot _ row _ readings' 'auto num' '' 1
+spec 'r' 'microduckSimPadCapture' 'SIMULATION observe gamepad window reading'
+spec 'r' 'microduckSimPadAxisState' 'SIMULATION pad snapshot _ raw axis _ reading' 'auto num' '' 0
+spec 'r' 'microduckSimPadPosition' 'SIMULATION pad snapshot _ axis _ span position (permille)' 'auto num' '' 0
+spec 'r' 'microduckSimPadButtonState' 'SIMULATION pad snapshot _ button _ reading' 'auto num' '' 304
+spec 'r' 'microduckSimSnapshotRelease' 'SIMULATION release snapshot _ JSON' 'auto' ''
+spec 'r' 'microduckSimDepthReading' 'SIMULATION depth row _ col _ reading' 'num num' 1 1
+advanced
+spec 'r' '[microduck:sensorSample]' 'SIMULATION sample _ selector _ reading' 'str str' '{}' 'raw'
+spec 'r' '[microduck:sensorRow]' 'SIMULATION depth row JSON _ readings' 'str' '{}'
 
 to microduckSimDepthZone row col {
     return (microduckRequest 'microduck.sensorSim.tof' ('[data:join]' '{"row":' row ',"col":' col '}') false)
@@ -15,4 +26,28 @@ to microduckSimPadAxis code {
 }
 to microduckSimPadButton code {
     return (microduckRequest 'microduck.sensorSim.button' ('[data:join]' '{"code":' code '}') false)
+}
+
+to microduckSimDepthCapture { return ('[microduck:sensorSample]' (microduckRequest 'microduck.sensorSim.captureTof' '{}' false) 'capture') }
+to microduckSimPadCapture { return ('[microduck:sensorSample]' (microduckRequest 'microduck.sensorSim.capturePad' '{}' false) 'capture') }
+to microduckSimDepthReading row col { return ('[microduck:sensorSample]' (microduckSimDepthZone row col) 'raw') }
+
+to microduckSimSnapshotParams capture {
+    return ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)))
+}
+to microduckSimDepthRow capture row {
+    local 'reply' (microduckRequest 'microduck.sensorSim.depthRow' ('[data:join]' (microduckSimSnapshotParams capture) ',"row":' row '}') false)
+    return ('[microduck:sensorRow]' reply)
+}
+to microduckSimPadAxisJSON capture code {
+    return (microduckRequest 'microduck.sensorSim.padAxis' ('[data:join]' (microduckSimSnapshotParams capture) ',"code":' code '}') false)
+}
+to microduckSimPadAxisState capture code { return ('[microduck:sensorSample]' (microduckSimPadAxisJSON capture code) 'raw') }
+to microduckSimPadPosition capture code { return ('[microduck:sensorSample]' (microduckSimPadAxisJSON capture code) 'position') }
+to microduckSimPadButtonState capture code {
+    local 'reply' (microduckRequest 'microduck.sensorSim.padButton' ('[data:join]' (microduckSimSnapshotParams capture) ',"code":' code '}') false)
+    return ('[microduck:sensorSample]' reply 'raw')
+}
+to microduckSimSnapshotRelease capture {
+    return (microduckRequest 'microduck.sensorSim.release' ('[data:join]' (microduckSimSnapshotParams capture) '}') false)
 }

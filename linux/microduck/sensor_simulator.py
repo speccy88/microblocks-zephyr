@@ -201,15 +201,33 @@ def fixture(service, profile):
         'buttons':[{'code':304,'name':'BTN_SOUTH','pressed':False}]}
     frame = {'report':'frame','seq':2**63+3,'at_us':1793050000000000,'since_us':-25,
         'events':[{'kind':3,'code':0,'value':1583,'name':'ABS_X'}, {'kind':1,'code':304,'value':2,'name':'BTN_SOUTH'}]}
-    return description, [{'jsonrpc':'2.0','method':'pad.report','params':{'report':'attached','device':device}}, {'jsonrpc':'2.0','method':'pad.report','params':frame}]
+    empty_frame = {**frame,'seq':frame['seq']+1,'at_us':frame['at_us']+8000,'since_us':8000,'events':[]}
+    return description, [{'jsonrpc':'2.0','method':'pad.report','params':{'report':'attached','device':device}}, {'jsonrpc':'2.0','method':'pad.report','params':frame}, {'jsonrpc':'2.0','method':'pad.report','params':empty_frame}]
 
 
 class SensorGateway(Gateway):
     def __init__(self, upstreams, directory):
         super().__init__(upstreams, allowed_mutations=())
         self.directory = directory
+        try:
+            from . import sensor_snapshots
+        except ImportError:
+            import sensor_snapshots
+        self.snapshot_api = sensor_snapshots
+        self.snapshots = sensor_snapshots.SnapshotStore(directory)
 
     async def dispatch(self, request):
+        if isinstance(request, dict) and isinstance(request.get('method'), str) and request['method'] in self.snapshot_api.METHODS:
+            name, params = self.snapshot_api.validate(request)
+            if name in ('captureTof','capturePad'):
+                result = await self.snapshots.acquire('tof' if name=='captureTof' else 'pad')
+            elif name=='release':
+                result = self.snapshots.release(params['handle'])
+            else:
+                kind = 'tof' if name=='depthRow' else 'axis' if name=='padAxis' else 'button'
+                result = self.snapshots.read(kind, params['handle'], params.get('row',params.get('code')))
+            encode({'jsonrpc':'2.0','id':0x7fffffff,'result':result}, 760)
+            return result, None
         if isinstance(request, dict) and isinstance(request.get('method'), str) and request['method'] in METHODS:
             kind, params = validate_sensor(request)
             result = await read_sample(self.directory, kind, params)
@@ -243,7 +261,7 @@ class SensorSimulator(Simulator):
                 except BaseException:
                     sock.close()
                     raise
-            self.ready.update(sensor_simulation=True, physical_movement_enabled=False, sensor_profile=self.profile, sensor_methods=sorted(METHODS))
+            self.ready.update(sensor_simulation=True, physical_movement_enabled=False, sensor_profile=self.profile, sensor_methods=sorted(METHODS | self.gateway.snapshot_api.METHODS))
             _fresh_file(self.directory/'sensor-simulation.json',self.ready)
             return self
         except BaseException:
@@ -277,10 +295,12 @@ class SensorSimulator(Simulator):
             self.tasks.discard(task); self.clients.discard(writer)
 
     async def stop(self):
+        store = self.gateway.snapshots if self.gateway else None
         for server in self.streams:
             server.close(); await server.wait_closed()
         self.streams.clear()
         await super().stop()
+        if store: store.close()
         for path, identity in self.identities.items():
             try:
                 meta = path.lstat()

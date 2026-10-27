@@ -198,3 +198,7 @@ The read-only sensor-simulation backend, fixed fictional ToF/pad fixtures and
 Python tests are newly authored MIT code. Native validator, UBL/example and GP
 packaging additions retain MPL-2.0. Pinned protocol facts and zone interpretation
 are referenced; no Pollen/ST driver, firmware or device capture is redistributed.
+
+The bounded snapshot store and observed gamepad state model/tests are also
+newly authored MIT code. Native typed sensor decoders, library/version1.1 and
+example changes retain MPL-2.0. No Pollen controller or continuous driver is copied.

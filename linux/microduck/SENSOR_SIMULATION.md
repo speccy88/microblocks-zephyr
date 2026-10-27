@@ -1,5 +1,10 @@
 # Read-only ToF and gamepad simulation blocks
 
+Version1.1 adds [coherent snapshots and typed helpers](SENSOR_SNAPSHOTS.md).
+The three first-frame JSON calls described below remain compatible. Prefer a
+depth capture plus row readings for a coherent8x8 frame, and a bounded pad
+capture plus typed state readings for observed held-state across empty frames.
+
 This increment implements Fred's requested tofd/padd read blocks against fixed,
 source-shaped simulated Unix services. There is no live endpoint argument,
 robot movement, automatic driving, BLE forwarding or hardware acceptance.
@@ -28,8 +33,9 @@ zero reading. A pad detach clears the read; a frame without the selected event
 returns no_event. Unadvertised codes return unsupported. after_drop or a positive
 socket_dropped counter makes the value unknown. A fresh subscription deliberately
 does not synthesize held-state updates from cached events. Numeric convenience
-reporters, continuous state cache, pad IMU and live commissioning remain future
-work. Do not use a first-frame sample as a dead-man switch or robot authorization.
+reporters and bounded held-state are supplied by version1.1; a continuous state
+reader, pad IMU and live commissioning remain future work. Do not use a
+first-frame sample or retained snapshot as a dead-man switch or robot authority.
 
 Device code/ranges come from attached metadata. Signed32 raw axis values remain
 in JSON; no forced signed31 conversion or guessed stick/trigger scaling. u64
@@ -70,7 +76,8 @@ The focused suite is tests/test_linux_microduck_sensors.py:21 tests, including
 four actual native VM cases, all passing with zero skips. The source audit is
 tests/sensor-source.json; native provenance, sample scenario and package evidence
 are retained under tests/sensor-*. A raw JSON value remains distinct from a
-native numeric convenience reporter. The latter is not implemented here.
+native numeric convenience reporter. Version1.1 supplies the latter through
+explicit typed reading records; it does not parse or coerce unknown into zero.
 
 Each depth-zone call starts a new subscription. Reading64 zones separately does
 not guarantee a coherent single frame; compare sequence identifiers and do not

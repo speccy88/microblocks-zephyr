@@ -1,0 +1,16 @@
+{
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/snapshot-native-persisted-20261027",
+  "original_temporary_directory": "/tmp/microduck-snapshot-native-l10v2fv_",
+  "returncode": 0,
+  "seconds": 60.85458745,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py",
+    "--upstream",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/smallvm-linux-upstream",
+    "--output",
+    "/tmp/microduck-snapshot-native-l10v2fv_",
+    "--sanitize",
+    "--test"
+  ]
+}

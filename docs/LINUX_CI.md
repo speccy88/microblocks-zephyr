@@ -112,3 +112,11 @@ Unix stream fixtures and CLI cleanup. These establish simulated depth-zone,
 raw-axis and button read paths, not physical sensor input or graphical execution.
 Packaging uses independent outputs so a previous MicroDuck rebuild cannot be
 mistaken for the default Pi profile. All existing assertions remain in place.
+
+The coherent snapshot follow-up adds SnapshotProtocol, PadObservedState,
+SnapshotUnixBackend and SnapshotNativeAdapter. The18 new cases cover immutable
+depth rows, four-slot capacity/expiry, observed gamepad held-state, loss/order
+handling and typed raw/Boolean/span readings. Five native cases include actual
+moving GC while constructing nested depth-row records. Pi execution, when
+recorded, still uses only simulated MicroDuck daemons and no numeric acceptance
+suite, robot devices or service installation.
