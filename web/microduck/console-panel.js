@@ -28,8 +28,9 @@
   if(!container?.ownerDocument||!core?.Controller||!Array.isArray(core.METHODS)||!fixtures?.createFixture)throw Error('Load the reviewed console core and fixture before mounting.');
   const controller=new core.Controller(),document=container.ownerDocument;
   const provider=Object.hasOwn(options,'bluetooth')?options.bluetooth:root.navigator?.bluetooth;
-  const lifecycle=options.lifecycleTarget||root,timeoutMs=options.timeoutMs??10000;
+  const lifecycle=options.lifecycleTarget||root,timeoutMs=options.timeoutMs??10000,watchDurationMs=options.watchDurationMs??60000;
   if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>120000)throw Error('Invalid console timeout.');
+  if(!Number.isInteger(watchDurationMs)||watchDurationMs<1||watchDurationMs>300000)throw Error('Invalid watch duration.');
   const supported=root.isSecureContext!==false&&typeof provider?.requestDevice==='function';
   const make=(tag,className,text)=>{const element=document.createElement(tag);if(className)element.className=className;if(text!==undefined)element.textContent=text;return element;};
   const button=(className,text)=>{const element=make('button',className,text);element.type='button';return element;};
@@ -64,10 +65,15 @@
   const cancelScope=make('p','console-cancel-scope','Cancel closes the local RPC session. An accepted remote operation may already have happened. This is not an emergency stop, rollback or retry.');
   const result=make('pre','console-result','No transient result.');result.setAttribute('aria-label','Transient bounded result');
   const resultScope=make('p','console-result-scope','Results are temporary text and are never saved or exported automatically. Daemon log text may contain sensitive data; clear it when finished.');
+  const watch=button('console-watch','Watch update progress'),watchStop=button('console-watch-stop','Stop watching and disconnect'),watchAdvance=button('console-watch-advance','Advance fictional progress sample');
+  const watchActions=make('div','board-picker console-watch-actions');watchActions.append(watch,watchStop,watchAdvance);
+  const watchStatus=make('p','console-watch-status','No read-only watch. Starting consumes any prepared confirmation; other requests require a new session after watching.');watchStatus.setAttribute('role','status');
+  const watchResult=make('pre','console-watch-result','No progress samples.');watchResult.setAttribute('aria-label','Latest eight update progress samples');
+  const watchScope=make('p','console-watch-scope','Watch sends only update.subscribe. It observes for at most '+watchDurationMs+' ms or 128 notifications, then closes the session. Only the latest eight typed samples appear; arbitrary detail text is omitted. Idle and 100 percent do not prove success. Stopping observation cannot cancel or roll back an update. Physical robot validation remains pending.');
   const audit=make('pre','console-audit','No request metadata.');audit.setAttribute('aria-label','Bounded audit metadata');
   const docs=make('a','console-docs','Read the console contract and hardware boundaries');docs.href='https://github.com/speccy88/microblocks-zephyr/blob/main/linux/microduck/CONSOLE.md';docs.target='_blank';docs.rel='noopener noreferrer';
-  panel.append(heading,scope,status,toolbar,identity,confidentiality,credentials,label('Reviewed method',method),jsonField,skillField,reviewActions,previewBox,confirmLabel,executeActions,cancelScope,make('h3','','Transient result'),result,resultScope,make('h3','','Audit metadata only'),audit,docs);container.append(panel);
-  let disposed=false,generation=0,revision=0,busy=false,operation=null,choosing=false,pendingDevice=null,unknownOutcome=false;
+  panel.append(heading,scope,status,toolbar,identity,confidentiality,credentials,label('Reviewed method',method),jsonField,skillField,reviewActions,previewBox,confirmLabel,executeActions,cancelScope,make('h3','','Transient result'),result,resultScope,make('h3','','Read-only update observation'),watchActions,watchStatus,watchResult,watchScope,make('h3','','Audit metadata only'),audit,docs);container.append(panel);
+  let disposed=false,generation=0,revision=0,busy=false,operation=null,choosing=false,pendingDevice=null,unknownOutcome=false,watching=false,watchHandle=null,watchRows=[];
   const unknownNotice='A sent operation has an unknown outcome; inspect remote state before another action.';
   let client=null,connection=null,fixture=null,prepared=null,credentialMode=null,skillChoices=null,secretInputs=[],authButton=null,networkButton=null;
   const snapshot=()=>controller.snapshot();
@@ -104,8 +110,9 @@
   }
   function detach(message='Disconnected. Reconnect explicitly; nothing is replayed.'){
    const previousState=snapshot(),simulationPrefix=previousState.simulation?'SIMULATION / FICTIONAL: ':'';
-   if(busy||previousState.busy)unknownOutcome=true;
+   if((busy||previousState.busy)&&!watching)unknownOutcome=true;
    ++generation;++revision;operation=null;busy=false;clearSecrets();closeOwned();controller.detach();client=null;
+   watching=false;watchHandle=null;watchRows=[];watchResult.textContent='No progress samples.';watchStatus.textContent='No read-only watch. Observation does not start, cancel or roll back an updater operation.';
    try{pendingDevice?.gatt?.disconnect();}catch{}
    prepared=null;confirm.checked=false;params.value='{}';previewBox.textContent='No request prepared.';result.textContent='No transient result.';confirmText.textContent='Prepare a specific request before confirming.';
    status.textContent=simulationPrefix+message;update();
@@ -183,9 +190,11 @@
    skillField.hidden=method.value!=='robot.do';jsonField.hidden=method.value==='robot.do';
    simulation.disabled=disposed||busy||choosing;choose.disabled=disposed||busy||choosing||!supported;disconnect.disabled=!client&&!choosing;
    method.disabled=params.disabled=busy||!attached;skill.disabled=busy||!attached||!advertised.length;
-   prepare.disabled=busy||!attached||(method.value==='robot.do'&&!skill.value);refresh.disabled=!attached||busy;
+   prepare.disabled=busy||!attached||(method.value==='robot.do'&&!skill.value);refresh.disabled=busy||!attached&&!watchRows.length;
    confirm.disabled=busy||!prepared||!prepared.mutation;execute.disabled=busy||!attached||!prepared||(prepared.mutation&&!confirm.checked);
    cancel.disabled=!attached&&!choosing;
+   watch.disabled=busy||!attached||state.authenticated!==true;watchStop.disabled=!watching;
+   watchAdvance.hidden=!state.simulation;watchAdvance.disabled=!watching||!attached||!fixture;
    if(authButton)authButton.disabled=busy||!attached;
    if(networkButton)networkButton.disabled=busy||!attached||state.authenticated!==true;
    for(const field of secretInputs)field.disabled=busy||!attached;
@@ -196,7 +205,7 @@
   const edited=()=>{if(disposed)return;clearReview('Inputs changed. Prepare and confirm a fresh request.');update();};
   method.addEventListener('change',()=>{params.value=core.EXAMPLES?.[method.value]||'{}';clearSecrets();edited();});params.addEventListener('input',edited);params.addEventListener('change',edited);skill.addEventListener('change',edited);
   confirm.addEventListener('change',()=>{if(!disposed)update();});
-  refresh.addEventListener('click',()=>{if(disposed||busy)return;clearSecrets();clearReview('Review and transient result cleared locally. No refresh request was sent.');update();});
+  refresh.addEventListener('click',()=>{if(disposed||busy)return;clearSecrets();clearReview('Review and transient result cleared locally. No refresh request was sent.');watchRows=[];watchResult.textContent='No progress samples.';watchStatus.textContent='No read-only watch. Previous observation cleared locally.';update();});
   prepare.addEventListener('click',()=>{
    if(disposed||busy||!client)return;clearReview();
    try{
@@ -215,6 +224,21 @@
    const value=prepared,confirmed=confirm.checked;prepared=null;confirm.checked=false;previewBox.textContent='Prepared request consumed; no replay is available.';confirmText.textContent='Prepare a new request for another execution.';
    await run(()=>controller.execute(value,{confirmed}),response=>{result.textContent=prefix()+resultText(response.result);status.textContent=prefix()+cleanText(response.method,64)+' completed. This result is transient; no automatic retry occurred.';});
   });
+  watch.addEventListener('click',async()=>{
+   if(disposed||busy||!client||snapshot().authenticated!==true)return;
+   clearSecrets();clearReview();watchRows=[];watchResult.textContent=prefix()+'No progress samples.';
+   const ticket=generation,active=client;busy=true;watching=true;watchHandle=null;watchStatus.textContent=prefix()+'Starting read-only observation; awaiting write acknowledgements.';update();
+   const current=()=>!disposed&&ticket===generation&&client===active;
+   try{
+    const handle=await active.watchUpdates({durationMs:watchDurationMs,maxEvents:128,
+     onProgress:sample=>{if(!current())return;watchRows.push(sample);if(watchRows.length>8)watchRows.shift();watchResult.textContent=prefix()+JSON.stringify(watchRows,null,2);},
+     onEnd:end=>{if(!current())return;busy=false;watching=false;watchHandle=null;watchStatus.textContent=prefix()+'Read-only observation ended: '+fixedCode({code:end.code})+'. This is not an update outcome; no retry occurred.';update();}
+    });
+    if(current()&&!active.closed){watchHandle=handle;watchStatus.textContent=prefix()+'Read-only watch active. Write ACKs do not prove daemon acceptance or update completion.';update();}
+   }catch(error){if(current()){busy=false;watching=false;watchHandle=null;watchStatus.textContent=prefix()+'Read-only watch stopped: '+fixedCode(error)+'. No automatic retry or updater action occurred.';update();}}
+  });
+  watchStop.addEventListener('click',()=>{if(disposed||!watching)return;if(watchHandle)watchHandle.stop();else client?.close('WATCH_STOPPED');});
+  watchAdvance.addEventListener('click',()=>{if(disposed||!watching||!fixture||!snapshot().simulation)return;try{fixture.advanceUpdate();}catch(error){watchStatus.textContent=prefix()+'Fictional sample refused: '+fixedCode(error)+'.';}update();});
   cancel.addEventListener('click',()=>{if(disposed)return;controller.cancel();detach('Local session cancelled and closed. A sent operation may already have happened; this is not an emergency stop.');});
   disconnect.addEventListener('click',()=>{if(!disposed)detach();});
   simulation.addEventListener('click',()=>{

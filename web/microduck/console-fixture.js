@@ -10,6 +10,7 @@
  const rpc=commonJS?require('./rpc.js'):root.MicroDuckRpc;
  const FIXTURE_PIN='000000',FIXTURE_SSID='SIMULATION-NET-OPEN',IP='192.0.2.44';
  const SKILLS=Object.freeze(['simulation_bow','simulation_nod']);
+ const PROGRESS=Object.freeze([['idle',null],['preflight',null],['downloading',0],['downloading',50],['downloading',100],['verifying',null],['health_gate',null],['committing',null],['idle',null]].map(Object.freeze));
  const LIMITS=Object.freeze({requests:256,actions:32,audit:32});
  const NOTICE='SIMULATION ONLY: fictional data and recorded intentions; no robot, network, download, update or physical action.';
  const FAULTS=new Set(['timeout','disconnect','remote_error','malformed','wrong_id']);
@@ -25,12 +26,11 @@
   if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>120000||fault!==null&&!FAULTS.has(fault))fail('PARAMS');
   if(typeof faultMethod!=='string'||!commands.methods.includes(faultMethod)||faultMethod==='update.subscribe')fail('PARAMS');
   let receive=null,drop=null,closed=false,authenticated=false,joined=false,enabled=false,homed=false,name='SIMULATION Duck',installed='0.0.0';
-  let skills=[...SKILLS],sequence=0,inFlight=0;
+  let skills=[...SKILLS],sequence=0,inFlight=0,watching=false,progressAt=0;
   const requests=[],actions=[],audit=[],updateLog=[];
-  const stats={requests:0,writeChunks:0,replyChunks:0,maxWriteBytes:0,maxAckInFlight:0};
+  const stats={requests:0,writeChunks:0,replyChunks:0,maxWriteBytes:0,maxAckInFlight:0,progressSamples:0};
   const lines=new rpc.Lines(rpc.MAX_REQUEST);
   function constraints(method,params,normalized){
-   if(method==='update.subscribe')fail('METHOD_DENIED');
    if(method==='hello'&&normalized.api_version!==44)fail('API_VERSION');
    if(method==='system.authenticate'&&normalized.pin!==FIXTURE_PIN)fail('SIMULATION_INPUT');
    if(method==='net.connect'||method==='net.forget'){
@@ -88,6 +88,12 @@
    try{for(let at=0;at<bytes.length&&!closed;at+=7){stats.replyChunks++;receive?.(bytes.subarray(at,at+7));}}
    finally{bytes.fill(0);}
   }
+  function advanceUpdate(){
+   if(!watching||closed||client.closed)fail('NO_WATCH');if(stats.progressSamples>=128)fail('FIXTURE_LIMIT');
+   const [phase,percent]=PROGRESS[progressAt];progressAt=Math.min(progressAt+1,PROGRESS.length-1);stats.progressSamples++;
+   const sample=Object.freeze({component:'robotd',phase,percent,detail:null,simulation:true});
+   emit({jsonrpc:'2.0',method:'update.progress',params:sample});return sample;
+  }
   const transport=Object.freeze({confidential:true,
    subscribe(onBytes,onDrop){receive=onBytes;drop=onDrop;return ()=>{receive=null;drop=null;};},
    async write(chunk){
@@ -110,6 +116,7 @@
       if(!checked.policy.public&&!authenticated)fail('AUTH_REQUIRED');
       stats.requests++;requests.push({id:q.id,method:q.method});if(requests.length>LIMITS.audit)requests.shift();
       const auditEntry=record(q.method,'received');
+      if(q.method==='update.subscribe'){watching=true;auditEntry.outcome='observing';advanceUpdate();continue;}
       if(fault==='remote_error'&&q.method===faultMethod){auditEntry.outcome='rejected';auditEntry.code='REMOTE_-32003';emit({jsonrpc:'2.0',id:q.id,error:{code:-32003,message:'SIMULATION refusal',data:{simulation:true}}});continue;}
       const result=answer(q,checked.policy);
       if(q.method===faultMethod&&fault){
@@ -124,7 +131,7 @@
      await Promise.resolve();
     }finally{--inFlight;}
    },
-   close(){closed=true;authenticated=false;lines.clear();receive=null;drop=null;}
+   close(){closed=true;watching=false;authenticated=false;lines.clear();receive=null;drop=null;}
   });
   const client=new rpc.RpcClient(transport,{timeoutMs}),request=client.request.bind(client);
   Object.defineProperty(client,'transport',{value:transport,writable:false,configurable:false});
@@ -137,8 +144,8 @@
     return request(method,params,requestOptions);
    }catch(error){return Promise.reject(error);}
   },writable:false,configurable:false});
-  const snapshot=()=>clone({simulation:true,notice:NOTICE,apiVersion:44,closed,authenticated:client.authenticated,skills,requests,actions,audit,stats,limits:LIMITS});
-  return Object.freeze({client,apiVersion:44,simulation:true,snapshot,close(){client.close();},setSkills(names){
+  const snapshot=()=>clone({simulation:true,notice:NOTICE,apiVersion:44,closed,watching,authenticated:client.authenticated,skills,requests,actions,audit,stats,limits:LIMITS});
+  return Object.freeze({client,apiVersion:44,simulation:true,snapshot,advanceUpdate,close(){client.close();},setSkills(names){
    if(!Array.isArray(names)||names.length>SKILLS.length||names.some(n=>!SKILLS.includes(n))||new Set(names).size!==names.length)fail('PARAMS');
    skills=[...names];
   }});

@@ -20,6 +20,7 @@ portal/editor changes or push an older local main over newer remote work.
 | `87f0bbc` | Requirements/status/checklist and release receipts | Six requested guides, physical/simulated/blocked matrix, publication/conflict gates and final validation index. |
 | Typed-readings checkpoint following `87f0bbc` | Two pure converters, source-backed sensor/readiness records, library0.2 and eighteen feature tests | Preserve signed31 scaling, optional/default/invalid semantics, simulation origin and GC roots. New VM and library must travel together. Graphical typed-example execution remains unverified. |
 | Protected-console checkpoint following `1876772` | Production controller/panel, explicit in-memory fixture, portal link and CI | Strict JSON, confidential-only structured secrets, one-use confirmation, fresh skills, unknown outcomes/no replay. No actual robot or Edge-control request used in acceptance. |
+| Update-watch checkpoint following `961b440` | Authenticated notification-only progress, bounded watch ownership and fictional preview | Preserve the no-reply upstream protocol, final write-ACK races, time/event/visible-sample bounds, omitted arbitrary detail, no update outcome inference and no replay. |
 
 Use `git log --reverse --format=fuller 9db5c3f..HEAD` and `git diff --stat
 9db5c3f..HEAD` in this checkout for exact final identities. The candidate's
@@ -146,8 +147,11 @@ physical robot acceptance remain explicit separate gates.
 
 The typed example additionally has an isolated graphical-test blocker: requesting
 native control of Edge window18679338 via `cua.getApp` timed out awaiting app
-approval. It was not retried or bypassed. The new editor loads the example and
-connects to its fresh Pi VM, but graphical compilation/execution was not verified.
+approval. After Fred explicitly requested a fresh attempt, one new request for
+that same window was made. The platform stopped Computer Use because it could
+not determine the current browser URL confidently enough to enforce policy.
+There was no input, retry or bypass after that stop. The editor loads the example
+and connects to its Pi VM, but graphical compilation/execution was not verified.
 This does not block the completed native bytecode, fixture or repository tests.
 
 The protected console is tested independently through actual RPC/core/UI modules
@@ -155,3 +159,10 @@ with mock DOM/GATT. It does not retry that native Edge-control request. Its
 graphical browser and deployed Pages acceptance remain unverified. A separate
 `build-artifacts/pi5-microduck-console.bundle` retains this checkpoint. The
 native C/header and the typed VM binaries are unchanged in this UI-only phase.
+
+The separate local integration branch codex/pi5-upstream-integration-20261027
+remains at e5fd3d0a1d77f7024cade03136e9d6e859947cc5. Its verified rehearsal
+and bundle cover preparation 961b440 only and are retained unchanged. The later
+update-watch commit is on the isolated preparation branch and still needs to be
+merged/revalidated in a separate integration checkout after P4 coordination.
+No shared-main push, release or Pages deployment is performed by this follow-up.

@@ -110,7 +110,10 @@ The [standalone protected console](../linux/microduck/CONSOLE.md) wraps this
 existing client with strict bounded JSON preparation, one-use confirmations,
 current skill discovery, explicit unknown outcomes and ephemeral redacted text.
 It excludes `update.subscribe` and all secret methods from the raw editor;
-credentials have a separate confidential-only path. Its Web Bluetooth client
+the streaming method has a separate [read-only watch](../linux/microduck/UPDATES.md)
+because upstream sends notifications without an ordinary response. Authentication,
+bounded time/event ownership and no-retry semantics remain intact. Credentials
+have a separate confidential-only path. Its Web Bluetooth client
 remains confidential:false, so real protected operations stay blocked. The
 in-memory fixture and mock-DOM tests are separate from real robot acceptance.
 

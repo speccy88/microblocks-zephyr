@@ -12,6 +12,13 @@ function setup(options={}){const fixture=createFixture(options),c=new core.Contr
 async function rejects(work,code,outcome){await assert.rejects(work,error=>{assert.equal(error.code,code);if(outcome)assert.equal(error.outcome,outcome);return true;});}
 async function call(c,method,params={},confirmed=false){return c.execute(c.preview(method,JSON.stringify(params)),{confirmed});}
 
+test('the controller reports shared-client watch ownership and refuses competing review or authentication',async()=>{
+ const {c,fixture}=setup();await c.authenticate(core.FIXTURE_PIN);const handle=await fixture.client.watchUpdates();
+ assert.equal(c.snapshot().busy,true);assert.equal(c.snapshot().phase,'busy');const before=fixture.snapshot().stats.requests;
+ assert.throws(()=>c.preview('hello'),{code:'BUSY'});await rejects(c.authenticate(core.FIXTURE_PIN),'BUSY');assert.equal(fixture.snapshot().stats.requests,before);
+ handle.stop();assert.equal(c.snapshot().phase,'closed');assert.equal(c.snapshot().busy,false);assert.equal(c.snapshot().authenticated,false);c.detach();
+});
+
 test('strict parser bounds complete JSON, decoded duplicate names, prototypes and UTF-16',()=>{
  assert.deepEqual(core.parseParams(' {"a":[0,false,null,"café 🦆"]} '),{a:[0,false,null,'café 🦆']});
  for(const text of ['{}{}','[]','null','{"x":01}','{"x":1e999}','{"x":true,}','{"x":"\\ud800"}','{"__proto__":{}}','{"constructor":1}'])assert.throws(()=>core.parseParams(text),{code:'JSON_PARAMS'});

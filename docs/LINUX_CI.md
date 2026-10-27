@@ -51,5 +51,11 @@ they do not claim a hosted run or hosted ARM64 acceptance.
 The protected-console checkpoint adds three explicit Node suites: core policy,
 in-memory fixture and mock-DOM panel. The selected Node command now passes139
 tests, including48 new console tests, with no physical Bluetooth or Edge access.
+
+The later update-watch follow-up adds a dedicated protocol suite and controller,
+fixture and mock-panel checks, bringing the selected Node command to 169 tests.
+These include 30 new checks for the notification-only upstream protocol, ACK
+races, bounded observation, authentication, exclusive ownership, redaction and
+lifecycle cleanup. They do not perform a robot update or invoke Edge control.
 The required Linux repository validator passes181 tests with zero skips. The
 workflow includes those suites; a hosted execution is still not claimed.

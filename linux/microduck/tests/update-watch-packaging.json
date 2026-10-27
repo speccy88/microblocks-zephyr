@@ -1,0 +1,55 @@
+{
+  "result": "PASS",
+  "scope": "local generated portal/source regression; no graphical browser, live Pages, robot, device or radio",
+  "boards": 7,
+  "gp_code_and_connection_flags_unchanged": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    }
+  },
+  "console_and_all_microduck_js_match_source": true,
+  "console_local_references_resolve": [
+    "../portal.css",
+    "commands.js",
+    "rpc.js",
+    "bluetooth.js",
+    "console-core.js",
+    "console-fixture.js",
+    "console-panel.js"
+  ],
+  "network_connections_forbidden_by_console_csp": true,
+  "release_available": false,
+  "console_source_sha256": "ed8cc6f4baaec7d516193c4728ef916bd08486292710c44bc2646d7022e24602"
+}

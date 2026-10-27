@@ -16,7 +16,8 @@
  const ssid=x=>str(x,32)&&new TextEncoder().encode(x).length<=32;
  define('hello',p=>{keys(p,['api_version']);const v=p.api_version??API_VERSION;if(!integer(v,1,255))fail('PARAMS');return {api_version:v};},{public:true});
  define('system.authenticate',p=>{keys(p,['pin']);if(typeof p.pin!=='string'||!/^\d{6}$/.test(p.pin))fail('PARAMS');return {pin:p.pin};},{public:true,secret:true});
- define('system.info system.services net.status net.scan robot.health robot.policies robot.skills robot.model robot.vetbook pad.status pad.bindings update.status update.subscribe');
+ define('system.info system.services net.status net.scan robot.health robot.policies robot.skills robot.model robot.vetbook pad.status pad.bindings update.status');
+ define('update.subscribe',empty,{stream:true});
  define('update.check update.listInstalled',component);
  define('update.log',p=>{keys(p,['limit']);const n=p.limit??20;if(!integer(n,1,100))fail('PARAMS');return {limit:n};});
  define('update.show',p=>{keys(p,['run']);const n=p.run??null;if(n!==null&&!integer(n,0,Number.MAX_SAFE_INTEGER))fail('PARAMS');return {run:n};});

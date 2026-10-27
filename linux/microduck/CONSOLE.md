@@ -9,9 +9,10 @@ authentication/provisioning stays blocked. No actual robot is used in tests.
 
 API source is Pollen commit96b89d8613f06722c1d64ce75ab0d7124fed9d8f:
 `duck-ipc-proto/src/lib.rs`, `btd/src/route.rs` and `btd/src/session.rs`.
-No newly invented method is allowed. Streaming update.subscribe, arbitrary
+No newly invented method is allowed. Streaming update.subscribe uses a separate
+[bounded read-only watch](UPDATES.md), outside the raw request editor. Arbitrary
 methods, direct motors/teleop, reboot/reset, PIN management and transport/security
-changes are outside this console. Updates are requests to the existing daemon;
+changes are outside this console. Update mutations are requests to the existing daemon;
 no download, install or rollback is actually performed in simulation.
 
 ## Core interface (console-core.js)
@@ -19,7 +20,7 @@ no download, install or rollback is actually performed in simulation.
 Export `Controller`, `parseParams`, `METHODS`, `FIXTURE_PIN`='000000',
 `FIXTURE_SSID`='SIMULATION-NET-OPEN', `EXAMPLES`, `describe` and `safeCode`.
 `METHODS` is the frozen list of27 raw-console methods. The two credential
-methods have separate structured paths; streaming is excluded. Methods:
+methods have separate structured paths; streaming has a dedicated watch. Methods:
 
 - `attach(client,{apiVersion,simulation=false})`: exact RpcClient, API44 only,
   no I/O; replaces/closes the old session and invalidates all state. The core
@@ -92,12 +93,15 @@ It does not implement a confidential replacement for current Web Bluetooth.
 ## Fixture and acceptance
 
 `console-fixture.js` exports `createFixture({timeoutMs=10000}={})` returning
-`{client,apiVersion:44,simulation:true,snapshot(),close()}`. It allocates the only
+`{client,apiVersion:44,simulation:true,snapshot(),advanceUpdate(),close()}`. It allocates the only
 transport internally (no caller transport/URL), uses actual NDJSON framing/IDs
 and acknowledged writes, and accepts only fixture credentials/network names.
 All identity/health/services/logs/policies/update states and actions are explicitly
 fictional. Enforce bounded requests/actions/history. No actual daemon, network,
 BLE, download, update or movement is contacted/performed.
+advanceUpdate accepts no progress payload: it advances only the fixed fictional
+sequence during an active watch, capped at 128 samples. It cannot inject a
+transport or arbitrary daemon data. The snapshot labels observation explicitly.
 
 Tests must exercise actual core/RPC/panel logic with mocks: strict JSON, denied
 methods/secrets, immutable false-confidential BLE, unauthenticated calls, API skew,
@@ -123,6 +127,16 @@ Renaming, forgetting the fake network, sounds, init/enable and update changes
 all use the same one-use confirmation path. They only update fictional fixture
 state. The network form offers the fixed open demo SSID and no password field.
 
+For read-only progress, choose **Watch update progress** after authenticating.
+It clears the staged mutation confirmation, sends only update.subscribe and
+occupies this session until stopped or bounded. The first write acknowledgements
+do not attest server acceptance. The console retains eight typed samples without
+arbitrary daemon detail strings, for at most 60 seconds or 128 notifications.
+**Advance fictional progress sample** exists only in the fixture and performs
+no update. Idle and 100 percent are not success or health signals.
+**Stop watching and disconnect** closes observation; accepted updater operations
+continue independently. Reconnect and authenticate explicitly for another request.
+
 Clear review/results locally when finished, or Disconnect. Timeout, cancel or
 transport loss may leave an unknown outcome; the interface retains inspection
 guidance across edits/replacement. There is no automatic retry. Neither Cancel
@@ -140,4 +154,6 @@ records scope, hashes and a reproducible fictional scenario; no actual robot,
 software update, Bluetooth chooser, Edge control or network connection was used.
 Real confidentiality, hardware behavior, graphical browser acceptance and
 published Pages behavior remain unverified. The earlier Edge-control approval
-timeout was not retried.
+expired. Fred later requested one fresh attempt, which the platform stopped
+because it could not determine the current browser URL confidently enough to
+enforce policy. No input or bypass followed that stop.

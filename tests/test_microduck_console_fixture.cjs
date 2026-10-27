@@ -41,7 +41,7 @@ test('real SSIDs, every PSK field, unknown methods and streaming are rejected be
   ['net.connect',{ssid:'real-network'},'SIMULATION_INPUT'],['net.forget',{ssid:'real-network'},'SIMULATION_INPUT'],
   ['net.connect',{ssid:FIXTURE_SSID,psk:'do-not-retain-this'},'SIMULATION_INPUT'],
   ['net.connect',{ssid:FIXTURE_SSID,psk:null},'SIMULATION_INPUT'],
-  ['update.subscribe',{},'METHOD_DENIED'],['exec',{},'METHOD_DENIED'],['robot.move',{},'METHOD_DENIED'],
+  ['update.subscribe',{},'STREAM_REQUIRED'],['exec',{},'METHOD_DENIED'],['robot.move',{},'METHOD_DENIED'],
   ['hello',{api_version:43},'API_VERSION'],['update.check',{component:'actual-service'},'SIMULATION_INPUT'],
   ['system.logs',{unit:'arbitrary-unit'},'SIMULATION_INPUT'],['robot.health',{psk:'do-not-retain-this'},'PARAMS'],
  ])await assert.rejects(f.client.request(method,params,{confirmed:true}),code(error));
@@ -178,4 +178,28 @@ test('browser global module works with every external I/O surface unavailable',a
  const pending=vm.runInContext('globalThis.fixture=MicroDuckConsoleFixture.createFixture(); fixture.client.authenticate("000000").then(()=>fixture.client.request("robot.health"))',context);
  const health=await pending;assert.equal(health.simulation,true);assert.equal(health.healthy,false);
  assert.equal(vm.runInContext('fixture.snapshot().stats.requests',context),2);vm.runInContext('fixture.close()',context);
+});
+
+test('explicit progress watch uses actual notifications with no reply, action or software change',async()=>{
+ const f=createFixture(),samples=[],ends=[];assert.throws(()=>f.advanceUpdate(),code('NO_WATCH'));
+ await assert.rejects(f.client.watchUpdates(),code('AUTH_REQUIRED'));await f.client.authenticate(FIXTURE_PIN);
+ const handle=await f.client.watchUpdates({onProgress:sample=>samples.push(sample),onEnd:end=>ends.push(end)});
+ assert.equal(samples.length,1);assert.equal(samples[0].phase,'idle');assert.equal(samples[0].origin,'simulation');assert.equal(f.snapshot().watching,true);
+ for(let at=0;at<8;at++)f.advanceUpdate();assert.deepEqual(samples.map(sample=>sample.phase),['idle','preflight','downloading','downloading','downloading','verifying','health_gate','committing','idle']);
+ assert.equal(handle.snapshot().phase,'observing');assert.deepEqual(f.snapshot().actions,[]);assert.deepEqual(f.snapshot().requests.map(row=>row.method),['system.authenticate','update.subscribe']);
+ handle.stop();assert.equal(ends.length,1);assert.equal(ends[0].code,'WATCH_STOPPED');assert.equal(f.snapshot().watching,false);assert.throws(()=>f.advanceUpdate(),code('NO_WATCH'));assert.equal(f.snapshot().stats.maxAckInFlight,1);
+ const next=createFixture();await next.client.authenticate(FIXTURE_PIN);const installed=await next.client.request('update.listInstalled',{component:'robotd'});assert.equal(installed[0].version,'0.0.0');next.close();
+});
+
+test('fixture progress is bounded and event exhaustion closes without replay',async()=>{
+ const f=createFixture();await f.client.authenticate(FIXTURE_PIN);const events=[],ends=[];
+ const handle=await f.client.watchUpdates({maxEvents:3,onProgress:value=>events.push(value),onEnd:value=>ends.push(value)});
+ f.advanceUpdate();f.advanceUpdate();assert.equal(events.length,3);assert.equal(ends[0].code,'WATCH_EVENT_LIMIT');assert.equal(handle.snapshot().phase,'closed');assert.equal(f.snapshot().stats.requests,2);assert.equal(f.snapshot().closed,true);assert.equal(f.snapshot().actions.length,0);f.close();
+});
+
+test('browser-global watch is also fictional with every external I/O surface unavailable',async()=>{
+ const forbidden=()=>{throw Error('No external I/O');};const context=vm.createContext({TextEncoder,TextDecoder,Uint8Array,AbortSignal,setTimeout,clearTimeout,fetch:forbidden,WebSocket:forbidden,navigator:new Proxy({},{get:forbidden})});
+ for(const name of ['commands.js','rpc.js','console-fixture.js'])vm.runInContext(fs.readFileSync(require.resolve('../web/microduck/'+name),'utf8'),context);
+ await vm.runInContext('globalThis.fixture=MicroDuckConsoleFixture.createFixture(); globalThis.samples=[]; fixture.client.authenticate("000000").then(()=>fixture.client.watchUpdates({onProgress:value=>samples.push(value)})).then(value=>globalThis.watch=value)',context);
+ vm.runInContext('fixture.advanceUpdate(); watch.stop()',context);assert.equal(vm.runInContext('samples.length',context),2);assert.equal(vm.runInContext('samples.every(value=>value.origin==="simulation")',context),true);assert.equal(vm.runInContext('fixture.snapshot().actions.length',context),0);
 });
