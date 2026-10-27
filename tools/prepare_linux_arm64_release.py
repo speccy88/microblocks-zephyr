@@ -87,7 +87,7 @@ def committed_inputs(commit):
              'scripts/install-smallvm-linux-arm64.sh', 'scripts/uninstall-smallvm-linux-arm64.sh',
              'tools/prepare_linux_arm64_release.py']
     paths = git('ls-tree', '-rz', '--name-only', commit, '--', *roots).split(b'\0')
-    selected = {}
+    selected, checkout = {}, {}
     for raw in paths:
         if not raw:
             continue
@@ -97,15 +97,23 @@ def committed_inputs(commit):
             continue
         expected = git('show', commit + ':' + name)
         actual = ROOT / name
-        if actual.is_symlink() or not actual.is_file() or actual.read_bytes() != expected:
+        if actual.is_symlink() or not actual.is_file():
             raise ValueError('Native input differs from port commit: ' + name)
-        selected[name] = expected
+        content = actual.read_bytes()
+        if content != expected:
+            # Windows checkout conversion is reproducible and must be explicit.
+            # Preserve the tested raw bytes; never normalize a tested source.
+            if b'\0' in expected or b'\r' in expected or content != expected.replace(b'\n', b'\r\n'):
+                raise ValueError('Native input differs from port commit: ' + name)
+            checkout[name] = {'conversion': 'LF to CRLF', 'git_sha256': digest(expected),
+                              'checkout_sha256': digest(content)}
+        selected[name] = content
     # New, untracked native input files would otherwise escape the Git listing.
     for directory in ('linux/arm64/platform', 'linux/arm64/runtime'):
         actual = {p.relative_to(ROOT).as_posix() for p in (ROOT / directory).iterdir() if p.suffix in {'.c', '.h'}}
         if actual != {name for name in selected if name.startswith(directory + '/') and Path(name).suffix in {'.c', '.h'}}:
             raise ValueError('Native input file set differs from port commit')
-    return selected
+    return selected, checkout
 
 
 def prepare_candidate(*, binary_path, manifest_path, report_path, upstream, output, version):
@@ -121,7 +129,7 @@ def prepare_candidate(*, binary_path, manifest_path, report_path, upstream, outp
     commit = git('rev-parse', 'HEAD').decode().strip()
     if not re.fullmatch(r'[a-f0-9]{40}', commit):
         raise ValueError('Immutable port commit is required')
-    recipe = committed_inputs(commit)
+    recipe, checkout = committed_inputs(commit)
     epoch = int(git('show', '-s', '--format=%ct', commit).decode().strip())
     scratch = ROOT / 'build-artifacts/linux-arm64-release-work'
     scratch.mkdir(parents=True, exist_ok=True)
@@ -136,6 +144,8 @@ def prepare_candidate(*, binary_path, manifest_path, report_path, upstream, outp
                   'native_report_sha256': digest(report_raw), 'upstream_commit': COMMIT,
                   'binary_sha256': digest(binary), 'scope': 'candidate; unpublished; Pi evidence only; no physical MicroDuck'}
     entries.update({'port/' + name: raw for name, raw in recipe.items()})
+    entries['SOURCE-CHECKOUT.json'] = encoded(checkout)
+    provenance['checkout_conversions'] = checkout
     entries['PROVENANCE.json'] = encoded(provenance)
     entries['README.txt'] = (b'Corresponding prepared SmallVM Linux ARM64 source.\n'
                            b'On native Linux AArch64: cd prepared; sh build.sh; ./smallvm --self-test\n'

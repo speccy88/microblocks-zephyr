@@ -80,7 +80,7 @@ class ReleaseContracts(unittest.TestCase):
             recipe = {'scripts/install-smallvm-linux-arm64.sh': b'installer fixture',
                       'scripts/uninstall-smallvm-linux-arm64.sh': b'uninstaller fixture'}
             with patch.object(release, 'git', side_effect=lambda *args: b'1' * 40 if args[0] == 'rev-parse' else b'42'), \
-                    patch.object(release, 'committed_inputs', return_value=recipe), patch.object(release, 'prepare', side_effect=prepared):
+                    patch.object(release, 'committed_inputs', return_value=(recipe, {})), patch.object(release, 'prepare', side_effect=prepared):
                 kwargs = dict(binary_path=binary, manifest_path=manifest, report_path=report,
                               upstream=work, version='v417-fixture')
                 first = release.prepare_candidate(output=work / 'a', **kwargs)

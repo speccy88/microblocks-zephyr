@@ -7,8 +7,11 @@ The candidate must bind the executable to the tested native AArch64 report,
 the exact prepared source manifest, an immutable port commit, the pinned
 upstream commit, dependency notices, and a self-contained corresponding-source
 archive. Preparing a source archive from current files is insufficient unless
-those native inputs match that port commit byte for byte and regenerate the
-tested sources. A PASS report must describe a real AArch64 execution; mocks and
+those native inputs match that port commit and regenerate the tested sources.
+The only permitted checkout transformation is exact LF-to-CRLF conversion,
+declared per file in `SOURCE-CHECKOUT.json` with both hashes. Tested raw bytes
+are preserved in the archive; no native source is silently normalized.
+A PASS report must describe a real AArch64 execution; mocks and
 ELF-header fixtures cannot be substituted for it.
 
 `tools/prepare_linux_arm64_release.py` must fail closed on a changed binary,
