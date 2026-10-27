@@ -1,0 +1,69 @@
+{
+  "scope": "local motion simulation and actual x86_64 VM only; not physical hardware",
+  "files": {
+    "linux/microduck/tests/motion-focused.txt": {
+      "sha256": "a1a098f68e996a960a53fb6009725fc9d12fc0a344a2e85e3efeeb83af50de1d",
+      "bytes": 4218
+    },
+    "linux/microduck/tests/motion-full-run.json": {
+      "sha256": "bb2c143a7c49593fbafa8a2a8768f6f1022a00757882d4e28e828438cfb3f908",
+      "bytes": 606
+    },
+    "linux/microduck/tests/motion-linux.txt": {
+      "sha256": "604b5808b6ce87d4c3176a2ced983ddc944e4a714538605fce5de052133cce86",
+      "bytes": 40747
+    },
+    "linux/microduck/tests/motion-native-build-manifest.json": {
+      "sha256": "b1b64acf21185d80b164ffc711c180710b3953f8bfa35e1de594da6208338800",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/motion-native-build-run.json": {
+      "sha256": "443c0810b57ea7e85ed18ac274ece9ad8fb6102f9c193dee425b68cf0321456b",
+      "bytes": 659
+    },
+    "linux/microduck/tests/motion-native-build.txt": {
+      "sha256": "d4c069743bd740ebccf7439572333c3eb4138ed5207871ca1c61200ba3e6aa98",
+      "bytes": 8749
+    },
+    "linux/microduck/tests/motion-native-ephemeral-run.json": {
+      "sha256": "279f65051e91567f1fbdf849a1c1d04b6d41ed552eefa95f45cea1fb2bad9eaf",
+      "bytes": 488
+    },
+    "linux/microduck/tests/motion-native-provenance.json": {
+      "sha256": "d50f9789277d5b3099e687c29141871feec8a7c7a3ce47fd42eb680351094e5c",
+      "bytes": 2291
+    },
+    "linux/microduck/tests/motion-native-source-manifest.json": {
+      "sha256": "b0b3ac8b13ec8e0badf707bb17942e32013b9f414808635c89fd8f3068be1c21",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/motion-node.txt": {
+      "sha256": "fccc0bf829f2577f242f852232094a68ae4a0d276b7637afd16859be9a236e01",
+      "bytes": 55957
+    },
+    "linux/microduck/tests/motion-packaging.json": {
+      "sha256": "854b60a94b96f89476f7b57630e28e3542f15d742248a4da2931bd5e37c021ea",
+      "bytes": 1667
+    },
+    "linux/microduck/tests/motion-scenario-vm.txt": {
+      "sha256": "48e934fde2363b7416181aa016c53c43cc141c1fde4502d6fc5f079880f14c10",
+      "bytes": 48
+    },
+    "linux/microduck/tests/motion-scenario.json": {
+      "sha256": "16f719a6c10fa07eaa4d642f35ada1a3182cb8ad78607208bb4b5f22686cb922",
+      "bytes": 5138
+    },
+    "linux/microduck/tests/motion-source.json": {
+      "sha256": "1fb8a80b5b07d0811e271e1cf72ba1466b13fb237813ee543d9bfc7c134b754a",
+      "bytes": 2556
+    },
+    "linux/microduck/tests/motion-validation.json": {
+      "sha256": "c5cd1e775d1bffab31e8327937b1654eb2ab5dc61c3f80c3180f3abeaa46e4ff",
+      "bytes": 4246
+    },
+    "evidence/2026-10-27/microduck-motion/README.md": {
+      "sha256": "cbaaf9e7694d08ba32ad7db72748a866b023db0af99f920229b5b5161c862461",
+      "bytes": 3769
+    }
+  }
+}

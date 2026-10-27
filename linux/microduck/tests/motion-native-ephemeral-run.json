@@ -1,0 +1,15 @@
+{
+  "directory": "/tmp/microduck-motion-native-verified-dlkda_th",
+  "returncode": 0,
+  "seconds": 59.496776673999996,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "linux/arm64/build.py",
+    "--upstream",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/smallvm-linux-upstream",
+    "--output",
+    "/tmp/microduck-motion-native-verified-dlkda_th",
+    "--sanitize",
+    "--test"
+  ]
+}

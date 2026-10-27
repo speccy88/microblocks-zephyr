@@ -3,6 +3,10 @@
 Evidence date: 2026-10-27. This work is isolated from the active P4 checkout.
 No ARM64 release or updated GitHub Pages deployment has been published.
 
+The [four-service capability matrix](MICRODUCK_SERVICE_CAPABILITIES.md) tracks
+Fred's explicit objective: blocks for robotd, mediad, tofd and padd, including
+raw depth/gamepad inputs, camera/media and supported robot control.
+
 | Requirement | Status | Evidence or remaining gate |
 |---|---|---|
 | Native SmallVM v417 on Pi 5 | Implemented and physically tested | AArch64 GCC builds, ASan/UBSan, real bytecode and PTY, [core evidence](../linux/arm64/tests/README.md). |
@@ -25,7 +29,8 @@ No ARM64 release or updated GitHub Pages deployment has been published.
 | Sensor, battery, sound and skills on actual MicroDuck | Implemented but untested | API envelopes and simulated replies implemented; no physical device available. |
 | Receive-only camera signaling and browser peer core | Implemented and simulated | [Camera transport](../linux/microduck/CAMERA.md): pinned GStreamer consumer protocol, video recvonly/audio inactive, bounded lifecycle and sole media.video query. Actual modules execute against fake RTC/media and in-memory signaling. No live dialer or commissioned live viewer, native decoded-frame proof, native camera primitive or physical camera test. |
 | Camera viewer and decoded-frame observation path | Implemented and simulated | [Viewer lab](../linux/microduck/CAMERA_VIEWER.md): explicit simulated source selection, actual video-element observer with bounded callbacks/deadlines, reported rotation and cleanup. Fake media callbacks and a fictional canvas card do not establish native decoding, real footage, trusted identity or calibration. No live transport is commissioned. |
-| Continuous locomotion/direct motor control | Not implemented | Outside the selected BLE/local gateway surface; preserve robotd controller and use supported future transport. Camera observer exposes no motion RPC. |
+| Bounded motion-simulation transport and blocks | Implemented with simulated services | [Motion Simulation](../linux/microduck/MOTION_SIMULATION.md): local native wrappers, separate library, opt-in/confirmation, client bounds and finite leases. Source-shaped notifications remain in an internal recorder; no applied physics, real transport or physical movement. New revision on Pi/ARM64 and graphical UBL execution remain unverified. |
+| Real continuous locomotion/direct motor control | Not implemented | BLE/ordinary gateway and camera observer do not grant it. Preserve robotd/controller permissions and commission the documented live transport independently. |
 | Typed battery/temperature/loop/bus/IMU readings | Implemented on physical Pi with simulated robot | Eighteen source-backed fields, explicit status/value/unit/origin records, fixed-point signed31 values and refusal of missing/invalid values. [Contract and use](../linux/microduck/TYPED_READINGS.md). |
 | Reported health verdict and IMU convergence state | Implemented on physical Pi with simulated robot | Documented health/default/stale-run semantics; no global safe-to-move claim. |
 | Universal robot-ready / motion authorization block | Not supplied by the reviewed API | No such signal is invented. Use reported diagnostics and supported robot authorization/safety interfaces. |

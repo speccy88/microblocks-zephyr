@@ -187,3 +187,9 @@ The additive video-element observer, simulation viewer UI/test card and fake
 media callback fixture are also newly authored MIT code. Browser interface
 specifications are referenced in `linux/microduck/CAMERA_VIEWER.md`; no browser
 decoder implementation or third-party video file is copied.
+
+The motion-simulation backend, internal notification recorder and Python tests
+are newly authored MIT code. The native simulation-wrapper validator additions,
+UBL library/example and GP packaging changes retain MPL-2.0. Only protocol facts
+from pinned Pollen sources are used; no robot controller, gait, safety engine,
+motor driver or physics implementation is copied or redistributed.

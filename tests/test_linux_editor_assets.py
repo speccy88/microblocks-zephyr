@@ -190,6 +190,21 @@ class RealPinnedEditor(unittest.TestCase):
             build(self.source, other, REPO)
         self.assertEqual((other / 'keep').read_bytes(), b'keep')
 
+    def test_motion_simulation_library_is_separate_and_example_is_status_only(self):
+        output = self.output.parent / 'motion-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output / 'gp_wasm.js').read_bytes(), (output / 'gp_wasm.data').read_bytes())
+        library = (REPO / 'linux/microduck/Motion_Simulation.ubl').read_bytes()
+        self.assertEqual(files['/Libraries/MicroDuck_Motion_Simulation.ubl'], library)
+        self.assertIn(b"MicroDuck Motion Simulation", files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertIn(b"microduck-motion-simulation", files['/runtime/lib/MicroBlocksAPI.gp'])
+        example = files['/Examples/Linux/microduck-motion-simulation.ubp']
+        self.assertTrue(example.startswith((REPO / 'linux/microduck/motion-simulation.ubp').read_bytes()))
+        self.assertIn(b'(microduckSimMotionStatus)', example)
+        self.assertNotIn(b'(microduckSimMotionRun', example)
+        core = unpack_package((self.output / 'gp_wasm.js').read_bytes(), (self.output / 'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Motion_Simulation.ubl', core)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -186,7 +186,7 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
@@ -197,14 +197,18 @@ static const Method methods[] = {
     {"update.status",PARAM_EMPTY,0},{"update.check",PARAM_COMPONENT,0},{"update.listInstalled",PARAM_COMPONENT,0},
     {"update.log",PARAM_LOG,0},{"update.show",PARAM_SHOW,0},
     {"robot.sound",PARAM_SOUND,1},{"robot.do",PARAM_SKILL,1},{"robot.init",PARAM_EMPTY,1},
-    {"robot.enable",PARAM_ENABLE,1},{"robot.loadPolicy",PARAM_POLICY,1}
+    {"robot.enable",PARAM_ENABLE,1},{"robot.loadPolicy",PARAM_POLICY,1},
+    /* Local simulation wrappers only. robot.move itself remains unavailable. */
+    {"microduck.motionSim.status",PARAM_EMPTY,0},
+    {"microduck.motionSim.run",PARAM_MOTION_SIM,1},
+    {"microduck.motionSim.cancel",PARAM_EMPTY,0}
 };
 static const Method *findMethod(const char *name) {
     for (size_t i = 0; i < sizeof(methods) / sizeof(methods[0]); ++i) if (!strcmp(name, methods[i].name)) return &methods[i];
     return NULL;
 }
 static int validParams(const Method *method, yyjson_val *params) {
-    const char *keys[3]; size_t count = 0;
+    const char *keys[4]; size_t count = 0;
     switch (method->params) {
         case PARAM_EMPTY: break;
         case PARAM_HELLO: keys[count++]="api_version"; break;
@@ -216,6 +220,7 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_SKILL: keys[count++]="skill"; break;
         case PARAM_ENABLE: keys[count++]="on"; keys[count++]="toggle"; break;
         case PARAM_POLICY: keys[count++]="slot"; keys[count++]="path"; break;
+        case PARAM_MOTION_SIM: keys[count++]="vx_mm_s"; keys[count++]="vy_mm_s"; keys[count++]="vyaw_mrad_s"; keys[count++]="duration_ms"; break;
     }
     if (!objectKeys(params, keys, count)) return 0;
     yyjson_val *value;
@@ -249,6 +254,11 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_SKILL: return boundedText(yyjson_obj_get(params,"skill"),128);
         case PARAM_ENABLE: value=yyjson_obj_get(params,"toggle"); return yyjson_is_bool(yyjson_obj_get(params,"on")) && (!value || yyjson_is_bool(value));
         case PARAM_POLICY: value=yyjson_obj_get(params,"path"); return boundedText(yyjson_obj_get(params,"slot"),64) && (!value || yyjson_is_null(value) || (boundedText(value,512) && yyjson_get_str(value)[0]=='/'));
+        case PARAM_MOTION_SIM:
+            return integerBetween(yyjson_obj_get(params,"vx_mm_s"),-300,300)
+                && integerBetween(yyjson_obj_get(params,"vy_mm_s"),-300,300)
+                && integerBetween(yyjson_obj_get(params,"vyaw_mrad_s"),-1500,1500)
+                && integerBetween(yyjson_obj_get(params,"duration_ms"),100,2000);
     }
     return 0;
 }

@@ -97,3 +97,10 @@ assertion, source, compiler flag or deadline is edited to obtain that input mode
 All 203 required repository tests pass in 124.481 seconds with that verified
 binary input and zero skips. This is a local WSL result, not hosted CI or native
 camera decoding acceptance.
+
+The motion follow-up adds explicit MotionProtocol, MotionModel, MotionUnixBackend
+and MotionNativeAdapter classes to the checked Linux selection. Native tests use
+the current sanitizer build, real VM bytecode/PTY and private Unix gateway, but
+all motion frames remain internal simulation records. The separate packaging
+test verifies the new library/status-only example in the actual pinned GP data.
+These tests neither exercise physical motion nor graphical UBL compilation.

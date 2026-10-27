@@ -227,3 +227,21 @@ Native decoded-frame, graphical, trusted signaling and physical camera acceptanc
 remain unverified. Shared main, active P4 checkout, native VM, UBL and gateway are
 unchanged. No existing stopped/denied operation is retried for these independent
 viewer and packaging tests.
+
+## Motion-simulation follow-up
+
+The [bounded motion lab](../linux/microduck/MOTION_SIMULATION.md) adds three
+local-only simulation wrapper names to the existing native job validator, a
+dedicated simulator subclass and a separate UBL library/status-only example.
+The real gateway allowlist and camera/BLE transports are unchanged; robot.move
+itself remains unavailable to the native begin primitive. Only the internal
+recording service receives source-shaped notifications. No real motor/controller
+or live WebRTC transport is opened, and no applied movement is modelled.
+
+The C source changed, so the earlier binary/source reports and local ARM64
+candidate remain historical. This phase needs a fresh verified native build
+for tests and new ARM64/Pi acceptance before release. The MicroDuck GP profile
+intentionally gains the simulation library/example; the six other profiles and
+every hardware-connection flag must remain unchanged. Do not attach the local
+simulation wrapper methods to the real gateway or production BLE console.
+Publication and final binary/library pairing remain held for P4 coordination.

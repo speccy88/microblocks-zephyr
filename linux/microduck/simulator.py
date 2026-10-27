@@ -51,6 +51,10 @@ class Simulator:
         self.action_log = None
         self.ready = None
 
+    def _make_gateway(self, allowed):
+        """Fixed private mock service; subclasses may add local-only lab methods."""
+        return Gateway({'robot': {'path': str(self.directory / 'robot.sock'), 'uid': os.geteuid()}}, allowed_mutations=allowed)
+
     async def start(self):
         path = self.directory
         if not path.is_absolute() or path.parent.resolve(strict=True) != path.parent or path.name in ('', '.', '..'):
@@ -76,7 +80,7 @@ class Simulator:
                 sock.close()
                 raise
             allowed = MOCK_ACTIONS if self.allow_mock_actions else ()
-            self.gateway = Gateway({'robot': {'path': str(path / 'robot.sock'), 'uid': os.geteuid()}}, allowed_mutations=allowed)
+            self.gateway = self._make_gateway(allowed)
             await self.gateway.start(path / 'gateway.sock')
             self.ready = {'simulation': True, 'notice': NOTICE, 'api_version': API_VERSION,
                 'upstream_commit': SOURCE_COMMIT, 'directory': str(path), 'pid': os.getpid(), 'uid': os.geteuid(),

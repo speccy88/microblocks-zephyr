@@ -36,6 +36,12 @@ The [viewer follow-up](CAMERA_VIEWER.md) adds frame-callback observation,
 reported-rotation layout and an explicitly fictional standalone lab. Its fake
 callbacks and drawn test card do not execute a native video decoder.
 
+The separate [motion simulation lab](MOTION_SIMULATION.md) adds bounded native
+block wrappers and an opt-in private backend. Only an internal recording service
+receives API44-shaped robot.move notifications; no real movement path is added.
+The ordinary gateway and BLE still deny these motion calls. The new library is
+clearly named Motion Simulation and its example issues only a status read.
+
 ## Filesystem-only commissioning inspection
 
 The optional [preflight](PREFLIGHT.md) inspects host and explicitly supplied
