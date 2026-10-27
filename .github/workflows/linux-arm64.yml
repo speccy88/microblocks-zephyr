@@ -1,0 +1,184 @@
+name: Linux ARM64 native contracts
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-arm64-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  native:
+    # Both are native hosted CPUs; ARM64 is not an emulated cross-build.
+    # https://github.com/actions/runner-images#available-images
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            architecture: x86_64
+            elf_machine: 62
+          - runner: ubuntu-24.04-arm
+            architecture: aarch64
+            elf_machine: 183
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    env:
+      SMALLVM_COMMIT: 2071df569623ba9cdcd6f8106b61796e047df38b
+      IDE_COMMIT: 70690291ac44a5c3a50dce572ee0c29ba99dc57f
+      SMALLVM_UPSTREAM: ${{ runner.temp }}/smallvm-upstream
+      SMALLVM_MICRODUCK_BINARY: ${{ github.workspace }}/build-artifacts/linux-ci-native/smallvm
+      EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+      EXPECTED_ELF_MACHINE: ${{ matrix.elf_machine }}
+      ASAN_OPTIONS: detect_leaks=1:abort_on_error=1
+      UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require native unprivileged Linux and the reviewed source pins
+        run: |
+          python3 - <<'PY'
+          import json, os, platform, shutil, socket, struct
+          from pathlib import Path
+          assert platform.system() == 'Linux'
+          assert platform.machine() == os.environ['EXPECTED_ARCHITECTURE']
+          assert struct.calcsize('P') == 8 and os.geteuid() != 0
+          assert hasattr(socket, 'SO_PEERCRED')
+          for command in ('cc', 'gcc', 'git', 'bash', 'node'):
+              assert shutil.which(command), command + ' is required'
+          vm = json.loads(Path('dependencies/smallvm-v417.json').read_text())
+          ide = json.loads(Path('dependencies/ide-assets.json').read_text())
+          assert vm['canonical_commit'] == os.environ['SMALLVM_COMMIT']
+          assert vm['canonical_repository'] == 'https://codeberg.org/MicroBlocks/smallvm'
+          assert ide['source_commit'] == os.environ['IDE_COMMIT']
+          assert ide['source_repository'] == 'https://github.com/speccy88/uno-q-microblocks'
+          Path('build-artifacts/linux-ci-evidence').mkdir(parents=True)
+          PY
+      - name: Fetch the exact official SmallVM revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init "$SMALLVM_UPSTREAM"
+          git -C "$SMALLVM_UPSTREAM" remote add origin https://codeberg.org/MicroBlocks/smallvm
+          git -C "$SMALLVM_UPSTREAM" fetch --no-tags --depth=1 origin "$SMALLVM_COMMIT"
+          test "$(git -C "$SMALLVM_UPSTREAM" rev-parse FETCH_HEAD)" = "$SMALLVM_COMMIT"
+          git -C "$SMALLVM_UPSTREAM" checkout --detach "$SMALLVM_COMMIT"
+      - name: Install the pinned loopback bridge dependency
+        run: python3 -m pip install --requirement linux/arm64/bridge-requirements.txt
+      - name: Compile and execute the real VM with ASan and UBSan
+        run: python3 linux/arm64/build.py --upstream "$SMALLVM_UPSTREAM" --output build-artifacts/linux-ci-native --sanitize --test
+      - name: Verify native binary provenance before external-binary tests
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, platform, struct
+          from pathlib import Path
+          binary = Path(os.environ['SMALLVM_MICRODUCK_BINARY'])
+          report = json.loads((binary.parent / 'build-manifest.json').read_text())
+          data = binary.read_bytes()
+          assert data[:6] == b'\x7fELF\x02\x01', 'Expected native 64-bit little-endian ELF'
+          assert struct.unpack_from('<H', data, 18)[0] == int(os.environ['EXPECTED_ELF_MACHINE'])
+          assert report['source_commit'] == os.environ['SMALLVM_COMMIT']
+          assert report['build_host'] == platform.machine() == os.environ['EXPECTED_ARCHITECTURE']
+          assert report['sanitize'] is True and report['self_test'] == 'PASS'
+          assert report['binary_sha256'] == hashlib.sha256(data).hexdigest()
+          PY
+      - name: Fetch and hash-check all pinned GP editor assets
+        run: |
+          python3 - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, 'tools')
+          from package_pages import fetch
+          fetch(Path('build-artifacts/ide-source'), Path.cwd())
+          PY
+      - name: Build both dedicated local GP editor profiles
+        run: |
+          python3 tools/package_linux_editor.py --ide-source build-artifacts/ide-source --output build-artifacts/linux-ci-editor --profile raspberry-pi5
+          python3 tools/package_linux_editor.py --ide-source build-artifacts/ide-source --output build-artifacts/linux-ci-microduck-editor --profile microduck
+      - name: Execute real VM bytecode, persistence and PTY checks
+        run: python3 tests/linux_arm64_protocol.py --binary "$SMALLVM_MICRODUCK_BINARY" --repeat 50 --evidence build-artifacts/linux-ci-evidence/vm-protocol.json
+      - name: Execute the native offset arena and moving GC harness
+        run: python3 tools/test_linux_arm64_memory.py --source "$SMALLVM_UPSTREAM" --evidence build-artifacts/linux-ci-evidence/memory.json
+      - name: Execute the real native MicroDuck client with private Unix fixtures
+        run: python3 tools/test_linux_microduck_native.py --upstream "$SMALLVM_UPSTREAM" --output build-artifacts/linux-ci-microduck-native --evidence build-artifacts/linux-ci-evidence/microduck-native.json
+      - name: Require every selected Linux suite to execute without skips
+        run: |
+          python3 - <<'PY'
+          # BEGIN_CHECKED_LINUX_SUITES
+          import json
+          from pathlib import Path
+          import unittest
+
+          SUITES = [
+              ('test_linux_arm64_workflow.py', ['WorkflowContracts']),
+              ('test_linux_arm64_installer.py', ['InstallerVerification', 'InstallerLifecycle']),
+              ('test_linux_arm64_package.py', ['CandidatePackage']),
+              ('test_linux_arm64_release.py', ['ReleaseContracts']),
+              ('test_linux_arm64_bridge.py', ['Assets', 'LocalBridge']),
+              ('test_linux_editor_assets.py', ['LinuxPackage', 'LocalBootstrap', 'RealPinnedEditor']),
+              ('test_linux_microduck_gateway.py', ['Protocol', 'UnixGateway']),
+              ('test_linux_microduck_simulator.py', ['ExplicitSimulation']),
+              ('test_linux_microduck_vm.py', ['RealSmallVMMicroDuck']),
+          ]
+
+          def cases_in(suite):
+              for item in suite:
+                  if isinstance(item, unittest.TestSuite):
+                      yield from cases_in(item)
+                  else:
+                      yield item
+
+          def run_checked_suite(suite, required_classes, stream=None):
+              cases = list(cases_in(suite))
+              if not cases:
+                  raise RuntimeError('Required test suite is empty')
+              present = {case.__class__.__name__ for case in cases}
+              missing = set(required_classes) - present
+              if missing:
+                  raise RuntimeError('Required test classes are missing: ' + ', '.join(sorted(missing)))
+              result = unittest.TextTestRunner(verbosity=2, stream=stream).run(suite)
+              if result.skipped:
+                  raise RuntimeError('Required Linux tests were skipped: ' + repr(result.skipped))
+              if not result.wasSuccessful() or result.testsRun != len(cases):
+                  raise RuntimeError('Required Linux tests failed or did not all run')
+              return {'tests': result.testsRun, 'skipped': 0}
+
+          def main():
+              report = {}
+              for filename, required in SUITES:
+                  suite = unittest.TestLoader().discover('tests', pattern=filename)
+                  report[filename] = run_checked_suite(suite, required)
+              Path('build-artifacts/linux-ci-evidence/python-suites.json').write_text(
+                  json.dumps(report, indent=2) + '\n', encoding='utf-8')
+
+          if __name__ == '__main__':
+              main()
+          # END_CHECKED_LINUX_SUITES
+          PY
+      - name: Execute actual Linux and MicroDuck browser modules with synthetic providers
+        run: |
+          node --test tests/portal-core.test.cjs tests/linux-install-command.test.cjs tests/linux-adapter.test.cjs tests/linux-transport.test.cjs tests/test_microduck_protocol.cjs tests/test_microduck_panel.cjs tests/test_microduck_simulation.cjs tests/test_microduck_simulation_panel.cjs
+      - name: Retain test reports and build provenance (no release binaries)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-native-${{ matrix.architecture }}-contracts
+          if-no-files-found: warn
+          path: |
+            build-artifacts/linux-ci-evidence/*.json
+            build-artifacts/linux-ci-native/build-manifest.json
+            build-artifacts/linux-ci-native/source-manifest.json
+            build-artifacts/linux-ci-editor/build-manifest.json
+            build-artifacts/linux-ci-microduck-editor/build-manifest.json
