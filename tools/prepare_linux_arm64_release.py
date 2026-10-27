@@ -85,7 +85,7 @@ def committed_inputs(commit):
     roots = ['linux/arm64', 'dependencies/smallvm-v417.json', 'dependencies/json.json',
              'third_party/yyjson', 'common/json/json_config.h',
              'scripts/install-smallvm-linux-arm64.sh', 'scripts/uninstall-smallvm-linux-arm64.sh',
-             'tools/prepare_linux_arm64_release.py']
+             'tools/prepare_linux_arm64_release.py', 'tests/linux_arm64_protocol.py']
     paths = git('ls-tree', '-rz', '--name-only', commit, '--', *roots).split(b'\0')
     selected, checkout = {}, {}
     for raw in paths:
@@ -136,8 +136,14 @@ def prepare_candidate(*, binary_path, manifest_path, report_path, upstream, outp
     with tempfile.TemporaryDirectory(prefix='microblocks-corresponding-', dir=scratch) as temporary:
         staged = Path(temporary) / 'prepared'
         regenerated = prepare(upstream.resolve(), staged, sanitize=False)
+        if 'protocol_test_sha256' in manifest:
+            protocol = recipe['tests/linux_arm64_protocol.py']
+            regenerated['protocol_test_sha256'] = digest(protocol)
+            (staged / 'tests').mkdir()
+            (staged / 'tests/linux_arm64_protocol.py').write_bytes(protocol)
         if regenerated != manifest:
             raise ValueError('Current committed recipe does not regenerate the tested source manifest')
+        (staged / 'source-manifest.json').write_bytes(manifest_raw)
         entries = {'prepared/' + path.relative_to(staged).as_posix(): path.read_bytes()
                    for path in staged.rglob('*') if path.is_file() and path.name != '.linux-arm64-build'}
     provenance = {'port_commit': commit, 'prepared_source_sha256': digest(manifest_raw),
