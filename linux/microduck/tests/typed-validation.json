@@ -1,0 +1,58 @@
+{
+  "tested_at": "2026-10-27T09:30:30.572733+00:00",
+  "scope": "pureAPI44healthconversion;realnativePi/PTY/GC/Unixgatewaywithsimulatedrobot;nohardwareMicroDuck",
+  "source_api_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "library_version": "0.2",
+  "source_fields": 18,
+  "primitive_set": 22,
+  "new_primitives": [
+    "healthSample",
+    "readingValue"
+  ],
+  "schema": "[status,value,unit,origin]",
+  "required_linux_validator": {
+    "tests": 181,
+    "skipped": 0,
+    "result": "PASS",
+    "seconds": 243.513,
+    "log_sha256": "d03be3113c387ca95da16d548f59227dc484c4de36067b6b3d7aa086cf73033d"
+  },
+  "feature_tests": {
+    "original_adapter": 10,
+    "typed_readings": 8,
+    "total": 18,
+    "wsl_sanitizers": "18PASS86.130seconds;freshdefaultbuild",
+    "pi_ordinary": "typed-pi-ordinary.json",
+    "pi_sanitizers": "typed-pi-sanitizers.json"
+  },
+  "standalone_native_sanitizer_checks": 442,
+  "ordinary_binary_sha256": "0b5c2b269fb4e12b7ef8422c2961e2b1e09094de287796a297a93620ea43136f",
+  "sanitizer_binary_sha256": "49360b487b7d36267848622845b12f1835173b7aeaaee170ee137a5af6eb811e",
+  "ordinary_core_executions": 50,
+  "sanitizer_core_executions": 20,
+  "source_sha256": {
+    "linux/arm64/platform/microduck.c": "51b3eb9e01132607dd0a29b6ab7ed01aab02c86c6e5be4a0ebe178709bdd7318",
+    "linux/arm64/platform/microduck.h": "49f7ad14358c9d9bec1baa1f681b6e9cced046788c174548307897dc6684da9b",
+    "linux/microduck/MicroDuck.ubl": "ccd401cda345e0c4f7ee1e228807c03900ad840f86ffecd83c3d326b99b47707",
+    "linux/microduck/health.ubp": "8e1fd04f7bffa39302078cc8b93c8572c6f7363d297271c8f3a4d50dd16c1622",
+    "linux/microduck/simulator.py": "e54d60698ca3a014e6cf07d5e8308232dd5877a3076035e548ed2373ee48a23f",
+    "tests/test_linux_microduck_vm.py": "1d5173c8a723c64c3c9aadaef79132d65176d97006c5e6ac3b930d4999a4767a",
+    "tests/linux_microduck_native.c": "1913de5ad77075a09988254d11807758e6820ed5b947e909bbc41dc3b1f6f1c5"
+  },
+  "gui": {
+    "url": "http://127.0.0.1:8880/",
+    "tab": "899188304",
+    "loaded_updated_example": true,
+    "connected_to_new_pi_vm": true,
+    "typed_graphical_compilation_or_execution_verified": false,
+    "native_control_action": "cua.getApp({windowId:18679338}) for the Edge window",
+    "approval_status": "timed_out",
+    "retried_or_bypassed": false,
+    "scope_of_blocker": "optionalgraphicalacceptanceonly;noneofthecompletednativetestsdependonit"
+  },
+  "physical_microduck": false,
+  "universal_safe_to_move_flag": "notdefinedbyreviewedupstream;notinvented",
+  "service_reboot_or_security_changes": false,
+  "published": false,
+  "previous_denied_actions_retried": false
+}

@@ -1,0 +1,8 @@
+dd9411fa2555bd76ada18b9a5cde9e11676a46f654755ffa97806cf8fab4dd7b  smallvm
+
+Version needs section '.gnu.version_r' contains 1 entry:
+ Addr: 0x0000000000000c48  Offset: 0x00000c48  Link: 5 (.dynstr)
+  000000: Version: 1  File: libc.so.6  Cnt: 3
+  0x0010:   Name: GLIBC_2.33  Flags: none  Version: 4
+  0x0020:   Name: GLIBC_2.34  Flags: none  Version: 3
+  0x0030:   Name: GLIBC_2.17  Flags: none  Version: 2

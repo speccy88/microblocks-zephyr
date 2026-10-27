@@ -115,23 +115,35 @@ def build(source, output, repo):
         if path.is_file():
             target=output/path.relative_to(repo/'web/portal');target.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(path,target)
+    for path in (repo/'web/microduck').glob('*.js'):
+        target=output/'microduck'/path.name;target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(path,target)
+    # Standalone lab and protected console; both forbid URL network connections.
+    for name in ('simulation.html','console.html'):
+        shutil.copyfile(repo/'web/microduck'/name,output/'microduck'/name)
     common=prepare_assets(repo,source)
-    portal_version=hashlib.sha256(b''.join(p.read_bytes() for p in sorted((repo/'web/portal').rglob('*')) if p.is_file())).hexdigest()[:16]
+    versioned_files=sorted(p for folder in ('web/portal','web/microduck') for p in (repo/folder).rglob('*') if p.is_file())
+    portal_version=hashlib.sha256(b''.join(p.read_bytes() for p in versioned_files)).hexdigest()[:16]
     root_html=(output/'index.html').read_text(encoding='utf-8')
     root_html=root_html.replace('href="portal.css"','href="portal.css?v='+portal_version+'"').replace('src="portal.js"','src="portal.js?v='+portal_version+'"')
+    for name in ('linux-core.js','linux-panel.js','microduck/commands.js','microduck/rpc.js','microduck/bluetooth.js','microduck/panel.js'):
+        root_html=root_html.replace('src="'+name+'"','src="'+name+'?v='+portal_version+'"')
     (output/'index.html').write_text(root_html,encoding='utf-8',newline='\n')
     report={'real_editor':'MicroBlocks GP 2.5.8','upstream_commit':manifest['source_commit'],
             'source_manifest_sha256':hashlib.sha256((repo/'dependencies/ide-assets.json').read_bytes()).hexdigest(),
             'runtime_third_party_network':False,'boards':{}}
-    for board in ('fruit-jam','waveshare','xrp-rp2350','propeller2','esp32p4'):
+    for board in ('fruit-jam','waveshare','xrp-rp2350','propeller2','esp32p4','raspberry-pi5','microduck'):
         assets=dict(originals);assets.update(common)
-        if board in ('waveshare','xrp-rp2350','propeller2','esp32p4'):
+        if board in ('waveshare','xrp-rp2350','propeller2','esp32p4','raspberry-pi5','microduck'):
             if board=='waveshare':
                 js,data=patch_ide(originals['gp_wasm.js'],originals['gp_wasm.data'],
                     (repo/'boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl').read_bytes())
             elif board=='propeller2':
                 js,data=p2_package(originals['gp_wasm.js'],originals['gp_wasm.data'],
                     (repo/'boards/propeller2/integration/P2_Hardware.ubl').read_bytes())
+            elif board in ('raspberry-pi5','microduck'):
+                from linux_editor_assets import linux_package
+                js,data=linux_package(originals['gp_wasm.js'],originals['gp_wasm.data'],microduck=board=='microduck',repo=repo)
             elif board=='esp32p4':
                 from package_p4_ide import patch_p4
                 js,data=patch_p4(originals['gp_wasm.js'],originals['gp_wasm.data'],repo)
@@ -144,7 +156,7 @@ def build(source, output, repo):
 });
 """
             assets['gp_wasm.js']=gate+js;assets['gp_wasm.data']=data
-        if board!='esp32p4':
+        if board not in ('esp32p4','raspberry-pi5','microduck'):
             assets['gp_wasm.js'],assets['gp_wasm.data']=project_api(assets['gp_wasm.js'],assets['gp_wasm.data'])
         assets['unoq-network.js']=(repo/'web/portal/portal-adapter.js').read_bytes()
         if board=='esp32p4':
@@ -156,7 +168,10 @@ def build(source, output, repo):
         assert html.count(tag)==1
         profile={'board':board,'name':{'fruit-jam':'Fruit Jam','waveshare':'Waveshare RLCD 4.2',
                   'xrp-rp2350':'SparkFun XRP RP2350 (development)','propeller2':'Parallax Propeller 2',
-                  'esp32p4':'Waveshare ESP32-P4 WIFI6 camera (native Zephyr)'}[board]}
+                  'esp32p4':'Waveshare ESP32-P4 WIFI6 camera (native Zephyr)',
+                  'raspberry-pi5':'Raspberry Pi 5 - Linux ARM64',
+                  'microduck':'MicroDuck - Linux preparation'}[board]}
+        if board in ('raspberry-pi5','microduck'):profile['runtime']='linux'
         if board=='xrp-rp2350':profile['connection_enabled']=False
         config=json.dumps(profile,separators=(',',':'))
         html=html.replace(tag,'<link rel="stylesheet" href="../../portal.css?v='+portal_version+'">\n'

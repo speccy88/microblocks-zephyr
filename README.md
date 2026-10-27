@@ -62,6 +62,18 @@ Wi-Fi or board-hosted HTTP. Select the exact Eval/original Edge/EC32MB image
 when installing firmware. Physical acceptance and limits are recorded in its
 [capability manifest](boards/propeller2/hardware.json).
 
+## Linux ARM64 and MicroDuck development checkpoint
+
+The [Linux ARM64 installer and candidate packaging](linux/arm64/README.md) have
+simulated lifecycle tests. A native ARM64 SmallVM is not implemented or compiled
+yet; the [LP64 audit](docs/SMALLVM_LP64_AUDIT.md) reproduces the pinned VM's
+32-bit memory-layout guard and evaluates an upstream offset-reference design.
+The [MicroDuck BLE/JSON-RPC client](docs/MICRODUCK_PROTOCOL.md) has mock-device
+tests, with real BLE PIN/Wi-Fi secret transmission blocked until confidentiality
+can be established. Neither platform is advertised as physically validated.
+No ARM64 binary or release is published by this checkpoint. See
+[recorded validation](evidence/2026-10-27/linux-arm64/checkpoint.json).
+
 ## Start here: Waveshare ESP32-S3-RLCD-4.2
 
 Read **[hardware inventory, Zephyr installation, flashing precautions, and
@@ -159,6 +171,17 @@ The repository's visibility is an explicit choice; this script never publishes
 without `public` or `private` being supplied.
 
 ## References and licenses
+
+The [native Linux ARM64 port](linux/arm64/README.md) now executes official
+SmallVM v417 bytecode on Raspberry Pi 5, including real graphical IDE uploads
+through a loopback SSH tunnel. ARMv8-A builds, persistence, installation lifecycle
+and browser save/restore/reconnect have recorded evidence. Full OS reboot and
+release publication remain pending. The portal adds Pi 5 and MicroDuck profiles;
+installation copying stays disabled until an actual reviewed release exists.
+[MicroDuck BLE](docs/MICRODUCK_PROTOCOL.md) and the
+[optional Unix gateway](linux/microduck/README.md) have mock coverage; physical
+robot validation remains pending. The native adapter and block library pass
+real Pi execution against an explicitly simulated robot backend.
 
 The production [XRP integration](boards/sparkfun_xrp_rp2350/README.md) is a
 separate non-actuating SmallVM/Arduino/RM2 application. Its physical release

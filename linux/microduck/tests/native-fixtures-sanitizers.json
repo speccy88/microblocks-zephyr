@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "checks": 380,
+  "scope": "native Unix fixture sockets and real VM memory; peer/write fault providers; no robot hardware",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "sanitizer_diagnostics": "",
+  "production_timeout_ms": 10000,
+  "test_timeout_ms": 40,
+  "physical_microduck": false
+}

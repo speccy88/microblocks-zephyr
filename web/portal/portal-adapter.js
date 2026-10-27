@@ -6,6 +6,13 @@
  const {ProjectStore,ByteQueue,EditorAPI,SerialTransport,MAX_PROJECT}=MicroBlocksPortal;
  const profile=PORTAL_BOARD,store=new ProjectStore(),input=new ByteQueue();
  const isP2=profile.board==='propeller2';
+ const isLinux=profile.runtime==='linux';
+ let pendingLinuxEndpoint='';
+ window.microblocksLinuxSetEndpoint=value=>{
+  if(!isLinux)throw Error('Select a Linux editor first.');
+  const url=MicroBlocksPortal.linuxVMWebSocket(profile,location.origin,value);
+  pendingLinuxEndpoint=url.href;if(endpoint)endpoint.value=url.href;
+ };
  const filters=profile.board==='fruit-jam'?[{usbVendorId:0x2fe3,usbProductId:4}]:profile.board==='waveshare'?[{usbVendorId:0x303a},{usbVendorId:0x10c4}]:isP2?[{usbVendorId:0x0403}]:[];
  let status,saveStatus,projectList,mode,endpoint,socket=null,ready=false,apiReady=false,lastSource=null,saving=false;
  let assembly=new Uint8Array(),caps=null,autosaveArmed=false;
@@ -32,20 +39,34 @@
   }
  };
  const serial=new SerialTransport(navigator.serial,filters,accept,(connected,message)=>{
+  if(isLinux)return;
   if(!connected){input.clear();assembly.fill(0);assembly=new Uint8Array();rejectControls();caps=null;}
   notify(message||(connected?'USB connected to '+profile.name:'Disconnected'));update();
  },isP2?{dataTerminalReady:false,requestToSend:false}:undefined);
  const disconnect=()=>{if(socket){socket.close(1000,'Client disconnect');socket=null;}ready=false;void serial.disconnect();input.clear();rejectControls();update();};
  const connect=async()=>{
   try{
-   if(profile.connection_enabled===false)throw Error('XRP development preview: edit and save projects here. Hardware connection awaits compatible XRP firmware and validation.');
+   if(isLinux&&(socket||active()))return;
+   if(isLinux&&!mode)throw Error('The Linux editor is still loading.');
+   if(profile.connection_enabled===false)throw Error(profile.connection_message||'XRP development preview: edit and save projects here. Hardware connection awaits compatible XRP firmware and validation.');
    if(mode&&mode.value==='wifi'){
     const url=new URL(endpoint.value);
-    if(url.protocol!=='wss:'||url.username||url.password||url.hash)throw Error('This HTTPS portal needs a secure wss:// endpoint. Use the board-hosted IDE for ws:// LAN boards.');
+    if(url.protocol!=='wss:'||url.username||url.password||url.hash){
+     if(!isLinux)throw Error('This HTTPS portal needs a secure wss:// endpoint. Use the board-hosted IDE for ws:// LAN boards.');
+     MicroBlocksPortal.linuxVMWebSocket(profile,location.origin,url.href);
+    }
+    if(isLinux)MicroBlocksPortal.linuxVMWebSocket(profile,location.origin,url.href);
     socket=new WebSocket(url.href);socket.binaryType='arraybuffer';ready=false;
-    socket.onmessage=e=>{try{if(!ready){if(e.data!=='ready')throw Error('Secure endpoint did not identify the VM transport.');ready=true;notify('Secure WebSocket connected');update();}else if(e.data instanceof ArrayBuffer)accept(new Uint8Array(e.data));else throw Error('Binary VM data required.');}catch(error){notify(error.message);disconnect();}};
+    socket.onmessage=e=>{try{if(!ready){if(e.data!=='ready')throw Error('Endpoint did not identify the VM transport.');ready=true;notify('Secure WebSocket connected');if(isLinux)notify('Linux SmallVM connected');update();}else if(e.data instanceof ArrayBuffer)accept(new Uint8Array(e.data));else throw Error('Binary VM data required.');}catch(error){notify(error.message);disconnect();}};
     socket.onclose=()=>{socket=null;ready=false;input.clear();rejectControls();notify('Disconnected');update();};
-    socket.onerror=()=>notify('Secure WebSocket unavailable. Open the board-hosted IDE for the current LAN firmware.');
+    socket.onerror=()=>notify(isLinux?'Linux VM endpoint unavailable. Check the VM, bridge and SSH tunnel.':'Secure WebSocket unavailable. Open the board-hosted IDE for the current LAN firmware.');
+    if(isLinux){
+     const opened=socket,onMessage=opened.onmessage,onClose=opened.onclose,onError=opened.onerror;
+     const deadline=setTimeout(()=>{if(socket===opened&&!ready){disconnect();notify('Linux VM handshake timed out.');}},10000);
+     opened.onmessage=event=>{if(socket!==opened)return;if(event.data==='ready')clearTimeout(deadline);onMessage(event);};
+     opened.onclose=event=>{clearTimeout(deadline);if(socket===opened)onClose(event);};
+     opened.onerror=event=>{if(socket===opened)onError(event);};
+    }
    }else await serial.connect();
   }catch(error){notify(error.name==='NotFoundError'?'No USB port selected.':error.message);}
  };
@@ -59,6 +80,14 @@
  window.hasWebSerial=()=>true;window.webSerialConnect=connect;window.webSerialDisconnect=disconnect;
  window.webSerialIsConnected=active;window.GP_openSerialPort=()=>{void connect();return 1;};
  window.GP_isOpenSerialPort=active;window.GP_closeSerialPort=disconnect;
+ if(isLinux){
+  // GP sends its first ping immediately after openSerialPort(). Keep the
+  // logical port open during the bounded WebSocket handshake. write() returns
+  // zero until ready, so GP retains and retries that ping after its normal wait.
+  // The board becomes connected only after an actual VM ping response.
+  const portOpen=()=>!!socket&&(socket.readyState===WebSocket.CONNECTING||socket.readyState===WebSocket.OPEN);
+  window.GP_isOpenSerialPort=portOpen;window.webSerialIsConnected=portOpen;
+ }
  window.GP_getSerialPorts=()=>{GP_serialPortNames=[toUTF8Array(profile.name)];};
  window.GP_readSerialPort=max=>input.read(max);window.GP_writeSerialPort=write;
  window.GP_setSerialPortDTR=()=>{};window.GP_setSerialPortRTS=()=>{};window.GP_setSerialPortDTRandRTS=()=>{};
@@ -106,13 +135,16 @@
   const toolbar=element('details');toolbar.className='portal-tools';toolbar.open=profile.connection_enabled===false;
   toolbar.append(element('summary','Projects & board'));const panel=element('section');panel.className='portal-panel';toolbar.append(panel);
   document.querySelector('[data-ide="controls"]').prepend(toolbar);
-  panel.append(element('h2',profile.name));status=element('p','Choose Connect to select your USB board.');status.setAttribute('role','status');panel.append(status);
-  panel.append(element('p',navigator.serial?'USB browser support is available. Connect opens the device chooser.':'USB is unavailable in this browser. Use desktop Chrome or Edge; project editing and browser saves still work.'));
+  panel.append(element('h2',profile.name));status=element('p',isLinux?'Choose Connect to use the Linux VM endpoint.':'Choose Connect to select your USB board.');status.setAttribute('role','status');panel.append(status);
+  if(!isLinux)panel.append(element('p',navigator.serial?'USB browser support is available. Connect opens the device chooser.':'USB is unavailable in this browser. Use desktop Chrome or Edge; project editing and browser saves still work.'));
   mode=element('select');mode.setAttribute('aria-label','Connection mode');
-  for(const [value,label] of (isP2?[['usb','USB Web Serial']]:[['usb','USB Web Serial'],['wifi','Wi-Fi secure WebSocket']])){const option=element('option',label);option.value=value;mode.append(option);}panel.append(mode);
+  for(const [value,label] of (isLinux?[['wifi','Linux VM WebSocket']]:isP2?[['usb','USB Web Serial']]:[['usb','USB Web Serial'],['wifi','Wi-Fi secure WebSocket']])){const option=element('option',label);option.value=value;mode.append(option);}panel.append(mode);
   endpoint=element('input');endpoint.placeholder='wss://your-secure-endpoint/ws/vm';endpoint.setAttribute('aria-label','Secure WebSocket address');endpoint.hidden=true;panel.append(endpoint);
+  if(isLinux){endpoint.hidden=false;if(profile.local_bridge===true&&location.protocol==='http:'&&['127.0.0.1','localhost'].includes(location.hostname))pendingLinuxEndpoint=MicroBlocksPortal.sameOriginVMWebSocket(location.origin).href;endpoint.value=pendingLinuxEndpoint;}
   mode.onchange=()=>{disconnect();endpoint.hidden=mode.value!=='wifi';};
-  const lanNote=element('p',isP2?'P2 runs a native FlexC VM over USB. Select the exact module variant when installing its firmware; P58–P63 are reserved, and EC32MB also reserves P40–P57.':'Current LAN firmware uses ws://. From this HTTPS portal, open its own IDE instead; browser security is not bypassed.');panel.append(lanNote);
+  const lanNote=element('p',isP2?'P2 runs a native FlexC VM over USB. Select the exact module variant when installing its firmware; P58-P63 are reserved, and EC32MB also reserves P40-P57.':'Current LAN firmware uses ws://. From this HTTPS portal, open its own IDE instead; browser security is not bypassed.');panel.append(lanNote);
+  if(isLinux)lanNote.textContent='Connect explicitly to a trusted WSS bridge, or open the Pi editor through the documented local SSH tunnel. Core Linux VM primitives are available; GPIO and robot hardware are not enabled.';
+  if(profile.board==='microduck')lanNote.textContent='The optional MicroDuck Unix gateway requires the matching native VM and explicit local configuration. Robot hardware validation is pending. Sound and skills also require confirmation and the gateway operator allowlist.';
   if(isP2){const setup=element('a','P2 setup and firmware instructions');setup.href='https://github.com/speccy88/microblocks-zephyr/blob/main/boards/propeller2/README.md';setup.target='_blank';setup.rel='noopener noreferrer';panel.append(setup);}
   const ip=element('input');ip.placeholder='Board address, e.g. 192.168.x.x';ip.setAttribute('aria-label','Self-hosted board address');panel.append(ip);
   const local=element('button','Open board-hosted IDE');local.onclick=()=>{
@@ -121,6 +153,7 @@
     window.open(url.origin+'/','_blank','noopener,noreferrer');
    }catch(error){notify(error.message);}
   };if(!isP2)panel.append(local);ip.hidden=isP2;
+  if(isLinux){local.remove();ip.hidden=true;}
   const read=element('button','Read project from board');read.onclick=()=>GP.apiCall('board.retrieveProject');panel.append(read);
   read.disabled=profile.connection_enabled===false;
   panel.append(element('p','Read from board before connecting to retrieve its existing program. Connecting otherwise synchronizes the current editor project.'));
@@ -146,6 +179,7 @@
   panel.append(element('p','Projects stay in this browser and on this site. Clearing site data, private mode or storage eviction may remove them. Export files for backups or another device. Wi-Fi passwords are never saved here.'));
   const wifi=element('details');wifi.append(element('summary','Wi-Fi setup over USB'));const form=element('form');wifi.append(form);panel.append(wifi);
   wifi.hidden=profile.connection_enabled===false||isP2;
+  if(isLinux)wifi.hidden=true;
   const ssid=element('input');ssid.placeholder='Network name (2.4 GHz)';ssid.required=true;ssid.autocomplete='off';ssid.maxLength=32;ssid.setAttribute('aria-label','Wi-Fi network name');
   const key=element('input');key.type='password';key.placeholder='Wi-Fi password';key.autocomplete='off';key.maxLength=64;key.setAttribute('aria-label','Wi-Fi password');
   const label=element('label'),remember=element('input');remember.type='checkbox';remember.disabled=true;label.append(remember,document.createTextNode(' Remember on the board (stored in flash)'));
@@ -164,12 +198,13 @@
   Menus.connection.items=[{label:'Connect '+profile.name,action:()=>GP.apiCall('board.connect',['USB']),hidden:()=>IDE.board.connected},
    {label:'Disconnect',action:()=>GP.apiCall('board.disconnect'),hidden:()=>!IDE.board.connected}];
   Menus.settings.items=Menus.settings.items.filter(x=>!/(firmware|ESP firmware|new versions)/i.test(x.label||''));
-  const boardEndpoint={'fruit-jam':'fruitJam','waveshare':'rlcd','xrp-rp2350':'xrp','propeller2':'p2'}[profile.board];GP.apiCall(boardEndpoint+'.loadLibrary');
+  const boardEndpoint=isLinux?'linux':{'fruit-jam':'fruitJam','waveshare':'rlcd','xrp-rp2350':'xrp','propeller2':'p2'}[profile.board];GP.apiCall(boardEndpoint+'.loadLibrary');
   const examples=element('select');examples.setAttribute('aria-label','Board examples');
   for(const [value,text] of [['','Examples'],['arithmetic','5 + 7'],['output','50 outputs']]){const option=element('option',text);option.value=value;examples.append(option);}
+  if(profile.board==='microduck'){const option=element('option','MicroDuck health (gateway)');option.value='microduck-health';examples.append(option);}
   examples.onchange=()=>{if(examples.value)GP.apiCall(boardEndpoint+'.openExample',[examples.value]);examples.value='';toolbar.open=false;};panel.insertBefore(examples,read);
   if(profile.connection_enabled===false)notify('XRP development preview: the production RP2350 library is available for editing. Hardware connection is not enabled yet.');
-  else if(!navigator.serial)notify('This browser cannot connect USB. Use desktop Chrome or Edge; you can still edit and save projects here.');
+  else if(!isLinux&&!navigator.serial)notify('This browser cannot connect USB. Use desktop Chrome or Edge; you can still edit and save projects here.');
   else if(profile.board==='waveshare')notify('Current Waveshare standalone firmware uses its board-hosted Wi-Fi editor. USB requires the separate binary-USB VM firmware.');
   const fresh=element('button','Use this workspace for autosave');fresh.onclick=()=>{autosaveArmed=true;lastSource=null;saveStatus.textContent='Autosave enabled for this workspace.';};panel.insertBefore(fresh,name);
   try{const items=await listProjects();autosaveArmed=!items.some(item=>item.id.endsWith(':workspace'));if(items.length)saveStatus.textContent='Saved projects found. Restore one, or choose Use this workspace. Your old autosave is preserved until then.';}catch(error){saveStatus.textContent=error.message;}
@@ -184,8 +219,8 @@
   setInterval(async()=>{if(!autosaveArmed||saving||document.hidden)return;saving=true;try{const source=await call('portal.serialize');if(source!==lastSource){await save('Workspace',source,true);lastSource=source;}}catch(error){saveStatus.textContent=error.message;}finally{saving=false;}},3000);
  });
  document.addEventListener('board.type',event=>{
-  const type=event.detail.value;if(!type)return;
-  const expected={'fruit-jam':'Fruit Jam','waveshare':'Waveshare','xrp-rp2350':'XRP','propeller2':'Parallax P2'}[profile.board];
+  const type=event.detail.value;if(!type||type==='Connect')return;
+  const expected=isLinux?'Linux ARM64':{'fruit-jam':'Fruit Jam','waveshare':'Waveshare','xrp-rp2350':'XRP','propeller2':'Parallax P2'}[profile.board];
   if(!expected||!type.includes(expected)){notify('The connected board differs from this editor selection.');disconnect();}
  });
  window.addEventListener('pagehide',disconnect);

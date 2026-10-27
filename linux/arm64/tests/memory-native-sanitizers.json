@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "compiler": "cc",
+  "scope": "real native LP64 offset arena and compacting GC; interpreter hooks simulated",
+  "stdout": "{\"result\":\"PASS\",\"scope\":\"real native LP64 offset arena and compacting GC; simulated interpreter hooks\"}\nchecks=82307",
+  "negative_tests": {
+    "bad-root": {
+      "exit_code": 1,
+      "stderr": "SmallVM panic: invalid object reference during collection"
+    },
+    "bad-stack": {
+      "exit_code": 1,
+      "stderr": "SmallVM panic: invalid task stack during collection"
+    }
+  },
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "sanitizer_diagnostics": "",
+  "arm64_physical_claim": false
+}

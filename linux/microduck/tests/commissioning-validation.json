@@ -1,0 +1,54 @@
+{
+  "tested_at": "2026-10-27T07:25:56.209534+00:00",
+  "scope": "MicroDuck browser/CI/provenance/documentation gap closure in isolated checkout",
+  "required_linux_validator": {
+    "result": "PASS",
+    "tests": 173,
+    "skipped": 0,
+    "seconds": 234.231
+  },
+  "selected_node": {
+    "result": "PASS",
+    "tests": 91,
+    "skipped": 0
+  },
+  "ci_local_path": {
+    "host": "WSL Linux x86_64",
+    "python_tests": 100,
+    "skipped": 0,
+    "vm_protocol_repetitions": 50,
+    "moving_gc_fixture_checks": 82307,
+    "native_microduck_fixture_checks": 380,
+    "hosted_ci_executed": false,
+    "hosted_arm64_executed": false
+  },
+  "browser_commissioning": "browser-commissioning.json",
+  "native_pi_corresponding_source": "../../arm64/tests/candidate-source-rebuild.json",
+  "artifact_manifest": "../../arm64/tests/release-candidate.json",
+  "candidate_directory": "build-artifacts/release-candidates/20261027-final",
+  "candidate_port_commit": "b9cf30cb3e51e03e5204629b073d55f37295b6e6",
+  "binary_sha256": "0365d817036b74819f27ea405f8036f2d892f503891a03d561eb9e1c12f51ef2",
+  "all_candidate_artifacts_reproduced_byte_for_byte": true,
+  "all_seven_editor_code_hashes_preserved": true,
+  "log_sha256": {
+    "build-artifacts/validate-linux-commissioning-final.txt": "3c8ea66f958fac3ef409659bb318a8ab7eddaf7001dd002915d5a778afbcd044",
+    "build-artifacts/validate-node-commissioning-final.txt": "5c2cb56b75464a4f812942a0e231c20d3cd9ac8a26077e2e955cf89b411e9d89"
+  },
+  "publication": false,
+  "service_or_reboot_changes": false,
+  "physical_microduck": false,
+  "approval_pending": false,
+  "denied_paths": [
+    "Additional Pi numeric-specific suite: not retried",
+    "Optional delegated native-design/library-contract review: did not complete; not retried"
+  ],
+  "remaining": [
+    "P4 shared integration coordination",
+    "Hosted CI actual run",
+    "Published release/installer/Pages acceptance",
+    "Actual user-service startup and OS reboot",
+    "Real BLE confidentiality/provisioning",
+    "Shipping MicroDuck OS/API/socket identities and physical robot functions",
+    "Advanced production browser console/protected-command UI and scalar sensor/readiness blocks"
+  ]
+}

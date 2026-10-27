@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "scope": "unpublished candidate corresponding-source rebuild and real native interpreter self-test; binary archive installer verify-only",
+  "binary_sha256": "0365d817036b74819f27ea405f8036f2d892f503891a03d561eb9e1c12f51ef2",
+  "source_archive_sha256": "977aa462a0ad04c6fd7c6b0815c8e1de05ee702e46a08855aff8e032067cecfa",
+  "binary_archive_sha256": "143b6ed710a99a5f6d38f93b9fa21c4b92452340679d0784aa1caa5987590f4b",
+  "self_test": {
+    "result": "PASS",
+    "scope": "real SmallVM v417; local PTY; no external peripherals",
+    "architecture": "aarch64",
+    "arithmetic": 12,
+    "variable": 42,
+    "network_listener": false
+  },
+  "installer_verify_only": true,
+  "installed_or_service_changed": false,
+  "numeric_specific_suite_executed": false,
+  "reboot": false,
+  "remote_directory": "microblocks-charlie/release-source-20261027T072024Z",
+  "port_commit": "b9cf30cb3e51e03e5204629b073d55f37295b6e6"
+}

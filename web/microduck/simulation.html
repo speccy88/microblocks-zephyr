@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+ <meta name="referrer" content="no-referrer">
+ <title>MicroDuck / Simulation commissioning</title>
+ <style>
+  :root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#101b25;color:#ecf3f3;line-height:1.55}
+  *{box-sizing:border-box}body{margin:0}main{max-width:1080px;margin:auto;padding:36px 24px 64px}header{display:flex;gap:24px;justify-content:space-between;align-items:center;border-bottom:1px solid #354855;padding-bottom:24px;margin-bottom:32px}
+  header p{margin:0;color:#a9bdc7;font-size:.9rem}h1{font-size:clamp(1.6rem,4vw,2.5rem);letter-spacing:-.035em;margin:0 0 6px}h2{font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-.02em;margin:8px 0 12px}h3{font-size:1rem;margin:0 0 12px}a{color:#99e2d3;text-underline-offset:4px}button,select{font:inherit;border-radius:8px;border:1px solid #566d7a;padding:10px 14px;background:#192b38;color:#eef5f8}button{cursor:pointer;font-weight:650}button.primary{background:#9ce5ce;border-color:#9ce5ce;color:#102b25}button:hover:enabled{filter:brightness(1.12)}button:disabled,select:disabled{opacity:.45;cursor:default}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #f5c975;outline-offset:4px}
+  .simulation-badge{display:inline-block;color:#f5d18c;border:1px solid #826d3e;border-radius:30px;padding:5px 13px;font-size:.8rem;font-weight:750;letter-spacing:.1em;margin:0}.simulation-notice{max-width:78ch;color:#b7cad3}.simulation-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}.simulation-status{border-left:3px solid #9ce5ce;padding:14px 18px;background:#182b36;min-height:56px;overflow-wrap:anywhere}
+  .simulation-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}.simulation-card{border:1px solid #344b59;border-radius:12px;padding:20px;background:#14232f}.simulation-card p{margin:0;color:#bed0d8;font-size:.95rem;overflow-wrap:anywhere}.simulation-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:32px 0}fieldset{min-width:0;border:1px solid #526474;border-radius:12px;padding:18px}legend{font-weight:700;color:#d3e9e3;padding:0 5px}label{display:block;font-size:.88rem;color:#bdd0d7}select{display:block;width:100%;margin:8px 0 16px;padding:9px}.simulation-confirm{display:flex;align-items:flex-start;gap:8px;min-height:72px;margin-bottom:16px}.simulation-confirm input{margin:5px 0 0;accent-color:#9ce5ce;flex-shrink:0}.simulation-action button{width:100%;font-size:.9rem}.simulation-log{border:1px solid #344b59;border-radius:8px;padding:18px;background:#0b151e;max-height:260px;overflow:auto;font-size:.85rem;white-space:pre-wrap;overflow-wrap:anywhere}
+  footer{margin-top:40px;padding-top:24px;border-top:1px solid #344b59;color:#a9bdc7;font-size:.9rem}table{width:100%;border-collapse:collapse;margin:18px 0}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #344b59;padding:10px 8px}th{color:#e9f1ee}code{color:#cbe8dd}noscript{display:block;padding:20px;border:1px solid #f5d18c}@media(max-width:760px){header{align-items:flex-start;flex-direction:column;gap:12px}.simulation-cards,.simulation-controls{grid-template-columns:1fr}.simulation-confirm{min-height:0}main{padding:24px 16px 40px}}
+ </style>
+</head>
+<body>
+ <main>
+  <header><div><h1>MicroDuck commissioning lab</h1><p>Browser fixtures / API 44 / hardware validation pending</p></div><a href="#boundaries">Read test boundaries</a></header>
+  <noscript>This simulation needs JavaScript. No robot connection will be attempted.</noscript>
+  <div id="microduck-simulation"></div>
+  <footer id="boundaries">
+   <h2>What this demonstrates</h2>
+   <p>This standalone page uses the reviewed JSON-RPC client with fragmented, in-memory replies. It does not connect to the Linux simulator, SmallVM, Bluetooth or any network endpoint. Starting or refreshing it never discovers a device.</p>
+   <table><thead><tr><th>Brief requirement</th><th>Current boundary</th></tr></thead><tbody>
+    <tr><td>Identity, Wi-Fi status, IP and battery</td><td>Fictional API-shaped responses only. The demo network is open and needs no password. 192.0.2.44 is a documentation address.</td></tr>
+    <tr><td>Sounds and discovered skills</td><td>Mock actions recorded in memory, limited to 32 per session. Each action needs a fresh confirmation.</td></tr>
+    <tr><td>Authentication and real Wi-Fi provisioning</td><td>No PIN or password inputs. Real Web Bluetooth secret transmission remains blocked because link confidentiality is unverified.</td></tr>
+    <tr><td>Installation, updates, rollback and continuous control</td><td>Unavailable in this demo. No commands, software changes, movement or emergency-stop behavior are provided.</td></tr>
+    <tr><td>MicroBlocks primitives and Linux integration</td><td>The native adapter, UBL and Unix simulator are separate components with separate tests. This page provides no hardware acceptance evidence.</td></tr>
+   </tbody></table>
+   <p>No values are saved. Sessions are limited to 256 requests and keep the last 64 method/ID records. End the session or reload to discard its fictional history. This local UI is not a robot safety control.</p>
+  </footer>
+ </main>
+ <script src="commands.js"></script>
+ <script src="rpc.js"></script>
+ <script src="simulation.js"></script>
+ <script src="simulation-panel.js" data-mount="microduck-simulation"></script>
+</body>
+</html>

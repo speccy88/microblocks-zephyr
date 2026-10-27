@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "platform": "linux-arm64",
+  "vm_version": 417,
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "cpu_baseline": "ARMv8-A",
+  "physically_tested_target": "Raspberry Pi 5 Model B Rev 1.0 / Debian 13.4 aarch64 / GCC 14.2",
+  "capabilities": {
+    "native_compilation": "physical-pass",
+    "official_bytecode_arithmetic": "physical-pass",
+    "variables": "physical-pass",
+    "lists_and_moving_gc": "local-sanitizer-pass",
+    "pty_upload_live_edit_start_stop": "physical-pass",
+    "program_process_restart_autostart": "physical-pass",
+    "acknowledged_write_process_kill_durability": "physical-pass",
+    "corrupt_program_refusal": "physical-pass",
+    "install_reinstall_upgrade_uninstall": "physical-pass",
+    "graphical_ide_upload": "physical-pass",
+    "graphical_arithmetic_loop_variables_save_restore_reconnect": "physical-pass",
+    "loopback_bridge": "physical-pass-over-ssh-tunnel",
+    "full_os_reboot": "pending",
+    "gpio_i2c_spi_audio_camera": "unsupported",
+    "microduck_unix_native_adapter": "physical-pi-vm-with-simulated-robot-services-pass",
+    "microduck_graphical_health_blocks": "physical-pi-vm-with-explicit-simulation-pass",
+    "microduck_hardware": "unavailable"
+  },
+  "compatibility_note": "Baseline ARMv8-A is selected, but Pi 3, Zero 2 W and MicroDuck have not run this binary. The ordinary binary's ELF symbols require glibc 2.34 or newer; it ran with 2.41. Other distributions are unverified.",
+  "network_default": "VM has no listener; separate bridge binds only 127.0.0.1",
+  "release_published": false
+}

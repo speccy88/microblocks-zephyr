@@ -1,0 +1,40 @@
+{
+  "scope": "repackaging comparison within isolated checkout; not hardware acceptance",
+  "boards": {
+    "fruit-jam": {
+      "gp_data_sha256": true,
+      "gp_js_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_data_sha256": true,
+      "gp_js_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_data_sha256": true,
+      "gp_js_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_data_sha256": true,
+      "gp_js_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_data_sha256": true,
+      "gp_js_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_data_sha256": true,
+      "gp_js_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_data_sha256": true,
+      "gp_js_sha256": true,
+      "hardware_connection_enabled": true
+    }
+  }
+}
