@@ -118,6 +118,8 @@ def build(source, output, repo):
     for path in (repo/'web/microduck').glob('*.js'):
         target=output/'microduck'/path.name;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(path,target)
+    # Standalone in-memory commissioning lab; its CSP forbids all connections.
+    shutil.copyfile(repo/'web/microduck/simulation.html',output/'microduck/simulation.html')
     common=prepare_assets(repo,source)
     versioned_files=sorted(p for folder in ('web/portal','web/microduck') for p in (repo/folder).rglob('*') if p.is_file())
     portal_version=hashlib.sha256(b''.join(p.read_bytes() for p in versioned_files)).hexdigest()[:16]

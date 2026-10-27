@@ -57,6 +57,9 @@ test('mount performs no chooser/request/write and has no secret or motion inputs
  assert.equal(h.discover().disabled,false);assert.equal(h.disconnect().disabled,true);
  assert.match(h.container.textContent,/mock devices/);assert.match(h.container.textContent,/No physical MicroDuck/);
  assert.match(h.container.textContent,/Authentication and Wi-Fi provisioning remain unavailable/);
+ const simulation=h.container.find(e=>e.className==='microduck-simulation-link');
+ assert.equal(simulation.href,'microduck/simulation.html');
+ assert.match(simulation.textContent,/fictional commissioning simulation/);
  const source=fs.readFileSync(require.resolve('../web/microduck/panel.js'),'utf8');
  assert.doesNotMatch(source,/\.(?:request|authenticate)\s*\(/);
  h.panel.destroy();assert.equal(h.lifecycle.count('pagehide'),0);assert.equal(f.calls.chooser,0);

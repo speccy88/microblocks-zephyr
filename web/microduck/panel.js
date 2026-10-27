@@ -27,7 +27,8 @@
   const scope=make('p','microduck-discovery-scope','Discovery reads the public GATT API-version byte and subscribes to notifications. This panel sends no JSON-RPC commands.');
   const confidentiality=make('p','microduck-confidentiality','Web Bluetooth does not establish link confidentiality for this client. Authentication and Wi-Fi provisioning remain unavailable here; use the robot’s trusted local console until secure transport and hardware validation are completed.');
   const docs=make('a','','Read MicroDuck protocol coverage and security limits');docs.href='https://github.com/speccy88/microblocks-zephyr/blob/main/docs/MICRODUCK_PROTOCOL.md';docs.target='_blank';docs.rel='noopener noreferrer';
-  panel.append(heading,validation,status,name,version,actions,scope,confidentiality,docs);container.append(panel);
+  const simulation=make('a','microduck-simulation-link','Open the fictional commissioning simulation');simulation.href='microduck/simulation.html';simulation.target='_blank';simulation.rel='noopener noreferrer';
+  panel.append(heading,validation,status,name,version,actions,scope,confidentiality,docs,simulation);container.append(panel);
   let disposed=false,generation=0,busy=false,cancelled=false,pendingDevice=null,session=null;
 
   function updateButtons(){discover.disabled=!supported||busy||disposed;discover.textContent=session?'Choose another MicroDuck':'Discover MicroDuck';disconnect.disabled=disposed||(!session&&!busy)||cancelled;}
