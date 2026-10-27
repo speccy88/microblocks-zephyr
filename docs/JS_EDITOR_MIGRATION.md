@@ -137,3 +137,9 @@ and 140 functions have headless/Pi evidence, including typed wrappers over
 fictional depth and gamepad streams. [Scoped graphical import and the first
 13x8 matrix slot port](JS_MATRIX_ADAPTER.md) now have actual browser/Pi evidence.
 Save/restore, full custom-slot parity and hardware acceptance remain gates.
+
+The [project round-trip checkpoint](JS_PROJECT_ROUNDTRIP.md) now preserves
+custom matrix defaults and verifies one actual saved file reopening. Full
+save/autosave behavior remains a separate gate. The
+[P4 integration plan](JS_P4_INTEGRATION_PLAN.md) identifies the preserved
+protocol/core pieces and the profile/compiler/view adapters still needed.

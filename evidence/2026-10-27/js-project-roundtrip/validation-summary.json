@@ -1,0 +1,26 @@
+{
+  "tests": 474,
+  "failures": 0,
+  "skips": 0,
+  "focused_python_in_full_suite": 9,
+  "project_roundtrip_node_checks": 7,
+  "compiled_project_functions_and_scripts": 144,
+  "verified_input_files": 2053,
+  "seconds_including_wrapper": 217.591903152,
+  "replica": "/tmp/js-editor-validation-ogmki018/repo",
+  "native_test_executables_built": true,
+  "production_pi_binary_rebuilt": false,
+  "zephyr_built": false,
+  "physical_hardware": false,
+  "existing_download_bytes_verified": 38130,
+  "manual_save_dialog_completed_by_user": true,
+  "graphical_reopen_of_actual_saved_bytes": true,
+  "loopback_server_stopped": true,
+  "no_security_settings_changed": true,
+  "initial_full_run": {
+    "tests": 474,
+    "failures": 4,
+    "signature": "Windows Node traversed beyond WSL UNC share looking for package.json; explicit CommonJS root metadata added before final run"
+  },
+  "temporary_replica_probe": "Prior temporary replica absent; git read failed before any write or test"
+}

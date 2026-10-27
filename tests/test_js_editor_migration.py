@@ -123,6 +123,19 @@ class JSVerifiedSourceTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertEqual(json.loads(result.stdout)['passed'], 7)
 
+    def test_fresh_context_project_roundtrip_preserves_matrix_and_library_defaults(self):
+        node = os.environ.get('NODE_BINARY') or shutil.which('node')
+        if not node:
+            self.skipTest('Node unavailable: set NODE_BINARY')
+        with tempfile.TemporaryDirectory() as temp:
+            assets = Path(temp) / 'editor'
+            package(self.source, assets)
+            result = subprocess.run([node, str(ROOT / 'tests/js-project-roundtrip.test.cjs'), str(assets)],
+                capture_output=True, text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            data = json.loads(result.stdout)
+            self.assertEqual((data['passed'], data['modules'], data['functions'], data['compiled']), (7, 7, 141, 144))
+
 
 if __name__ == '__main__':
     unittest.main()

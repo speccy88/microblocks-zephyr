@@ -24,6 +24,14 @@
     }
     function install(Specs, Syntax, Display, Arg, Color, Point, Menu) {
         if (installed.has(Specs)) return installed.get(Specs);
+        if (typeof root.specDefaultString !== 'function') throw new Error('Upstream spec-default serializer changed');
+        const specDefaultString = root.specDefaultString;
+        root.specDefaultString = function (slotType, value) {
+            // A custom matrix default is a String, including its leading zeros.
+            // The upstream unknown-type path writes nil and drops that default.
+            const family = String(slotType || '').split('.')[0];
+            return specDefaultString(family === 'unoqMatrix' ? 'str' : slotType, value);
+        };
         function UnoQMatrixSlotMorph(pattern) { this.init(pattern); }
         // Existing upstream default/print/copy dispatch recognizes Display.
         // Override its numeric 5x5 representation with the original String ABI.

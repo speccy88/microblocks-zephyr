@@ -78,3 +78,7 @@ The scope above must not be presented as complete editor or hardware parity.
 Run `node tests/js-matrix-slot.test.cjs /verified/js-editor-package` for focused
 checks, or the repository validator with the pinned JS cache and Node available.
 See [evidence](../evidence/2026-10-27/js-matrix-graphical/README.md).
+
+The subsequent [project round-trip slice](JS_PROJECT_ROUNDTRIP.md) fixes a
+lost library default and verifies one actual manually saved file reopening
+graphically. Broader save/autosave/undo and hardware gates above remain scoped.

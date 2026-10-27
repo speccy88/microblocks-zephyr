@@ -1,0 +1,29 @@
+{
+  "observed_utc": "2026-10-27T23:51:42.667653+00:00",
+  "source": "Existing ProjectRoundtrip.ubp saved manually by Fred through the browser Save dialog",
+  "located_using_windows_documents_known_folder": true,
+  "original_file_left_unchanged": true,
+  "download_repeated_after_handoff": false,
+  "bytes": 38130,
+  "sha256": "a413df58ad324f6e44901a8d7105aded21548a0a20025ddc6251f8f19ec6285e",
+  "matches_independent_canonical_project": true,
+  "reopened_via": "Actual editor Project -> Open from URL, byte-identical local fixture copy",
+  "visible_restored": [
+    "SavedProjectRoundtrip name",
+    "mixed 13x8 matrix",
+    "matching palette default",
+    "typed depth expression",
+    "20+22 expression",
+    "seven embedded library categories"
+  ],
+  "vm_connected": false,
+  "hardware_tested": false,
+  "network_security_settings_changed": false,
+  "screenshots": {
+    "downloaded-reopened.jpg": "471f1e7efddece04b4b8b1bf8d3e7007e8866ce758498c3f13152effb587c99a",
+    "generated-project-reopened.jpg": "43ed0ed8e987bd13be6fdd381a94492837c775354026ea0bdd086b2143927e94"
+  },
+  "automation_limit": "Automatic download-event and clipboard attempts timed out; Fred completed the native file dialog. No automatic dialog control success claimed.",
+  "resolved_server_interruption": "Prior PID18600 was absent. After a visible read failure, same loopback port resumed only after that check; exact saved file returned HTTP200 and opened successfully.",
+  "historical_fetch_errors_present_before_recovery": true
+}

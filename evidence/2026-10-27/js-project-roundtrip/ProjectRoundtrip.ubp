@@ -1,0 +1,788 @@
+module main
+author unknown
+version 1 0
+description ''
+
+script 40 60 (matrixRoundtrip '01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567')
+
+script 210 180 (microduckReadingStatus (microduckDepthCapture))
+
+script 300 280 (20 + 22)
+
+
+module 'Matrix Roundtrip Fixture'
+author unknown
+version 1 0
+description ''
+
+  spec 'r' 'matrixRoundtrip' 'matrix _' 'unoqMatrix' '01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567'
+
+to matrixRoundtrip pattern {
+  return pattern
+}
+
+
+module MicroDuck Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 0 2
+description 'Experimental Linux Unix-gateway integration, tested with simulated robot services; physical MicroDuck validation pending. Start SmallVM with an explicitly configured private gateway socket. Requests use four bounded asynchronous job slots, a ten-second deadline and no automatic retry. Convenience reporters return the full JSON-RPC reply. Typed readings from one health snapshot are [status, value, unit, origin]; only ok has a known typed value. Missing data is unknown, never zero. Fixed-point units avoid inventing VM floating point. Simulation readings say simulation; unmarked is not a physical measurement claim. Reported health and IMU convergence are diagnostics, never safe-to-move authorization. Sound and skill inputs default to unconfirmed and require gateway operator allowlist and discovery. Stop All cancels local waits but cannot undo accepted actions. Unknown outcomes must be inspected before another command. Ordinary IDE disconnect preserves autonomous scripts. No direct motors, continuous locomotion, camera, Wi-Fi credentials or BLE PIN.'
+
+  spec 'b' '[microduck:configured]' 'gateway configured?'
+  spec 'r' 'microduckHealth' 'health JSON'
+  spec 'r' 'microduckBatteryHealth' 'battery health JSON'
+  spec 'r' 'microduckSkills' 'skills JSON'
+  spec 'r' 'microduckPolicies' 'policies JSON'
+  spec 'r' 'microduckCapabilities' 'gateway capabilities JSON'
+  spec 'r' 'microduckBatteryPercent' 'battery percent reading (x100) from _' 'str' '{}'
+  spec 'r' 'microduckBatteryMillivolts' 'battery voltage reading (mV) from _' 'str' '{}'
+  spec 'r' 'microduckCpuTemperature' 'CPU temperature reading (mC) from _' 'str' '{}'
+  spec 'r' 'microduckMotorTemperature' 'hottest motor reading (mC) from _' 'str' '{}'
+  spec 'r' 'microduckLoopRate' 'achieved loop rate reading (mHz) from _' 'str' '{}'
+  spec 'r' 'microduckHealthVerdict' 'reported health verdict reading from _' 'str' '{}'
+  spec 'r' 'microduckImuState' 'IMU convergence state reading from _' 'str' '{}'
+  spec 'b' 'microduckReadingKnown' 'reading _ has a known value' 'auto' ''
+  spec 'r' '[microduck:readingValue]' 'known reading value _' 'auto' ''
+  spec 'r' 'microduckReadingStatus' 'reading _ status' 'auto' ''
+  spec 'r' 'microduckReadingUnit' 'reading _ unit' 'auto' ''
+  spec 'r' 'microduckReadingOrigin' 'reading _ origin' 'auto' ''
+  spec 'r' 'microduckSound' 'sound _ confirmed _' 'str bool' 'chirp' false
+  spec 'r' 'microduckSkill' 'skill _ confirmed _' 'str bool' '' false
+  advanced
+  spec 'r' '[microduck:healthSample]' 'health _ field _ reading' 'str str' '{}' 'battery.percent'
+  spec 'r' '[microduck:jobs]' 'MicroDuck retained job IDs'
+  spec 'r' '[microduck:begin]' 'begin MicroDuck _ params _ confirmed _' 'str str bool' 'robot.health' '{}' false
+  spec 'r' '[microduck:status]' 'MicroDuck job _ state' 'num' 0
+  spec 'r' '[microduck:result]' 'MicroDuck job _ reply JSON' 'num' 0
+  spec ' ' '[microduck:release]' 'release MicroDuck job _' 'num' 0
+  spec 'r' '[microduck:quote]' 'MicroDuck JSON quote _' 'str' ''
+  spec 'r' 'microduckWait' 'wait for MicroDuck job _ reply JSON' 'num' 0
+
+to microduckBatteryHealth {
+  return (microduckHealth)
+}
+
+to microduckBatteryMillivolts health {
+  return ('[microduck:healthSample]' health 'battery.volts')
+}
+
+to microduckBatteryPercent health {
+  return ('[microduck:healthSample]' health 'battery.percent')
+}
+
+to microduckCapabilities {
+  return (microduckRequest 'microduck.capabilities' '{}' false)
+}
+
+to microduckCpuTemperature health {
+  return ('[microduck:healthSample]' health 'cpu_temp_c')
+}
+
+to microduckHealth {
+  return (microduckRequest 'robot.health' '{}' false)
+}
+
+to microduckHealthVerdict health {
+  return ('[microduck:healthSample]' health 'health.state')
+}
+
+to microduckImuState health {
+  return ('[microduck:healthSample]' health 'imu.state')
+}
+
+to microduckLoopRate health {
+  return ('[microduck:healthSample]' health 'control_loop.achieved_hz')
+}
+
+to microduckMotorTemperature health {
+  return ('[microduck:healthSample]' health 'motors.max_c')
+}
+
+to microduckPolicies {
+  return (microduckRequest 'robot.policies' '{}' false)
+}
+
+to microduckReadingKnown reading {
+  return ((at 1 reading) == 'ok')
+}
+
+to microduckReadingOrigin reading {
+  return (at 4 reading)
+}
+
+to microduckReadingStatus reading {
+  return (at 1 reading)
+}
+
+to microduckReadingUnit reading {
+  return (at 3 reading)
+}
+
+to microduckRequest method params confirmed {
+  if (not ('[microduck:configured]')) {return '{"jsonrpc":"2.0","id":null,"error":{"code":-32004,"message":"MicroDuck gateway is not configured","data":{"outcome":"not_sent"}}}'}
+  return (microduckWait ('[microduck:begin]' method params confirmed))
+}
+
+to microduckSkill skill confirmed {
+  return (microduckRequest 'robot.do' ('[data:join]' '{"skill":' ('[microduck:quote]' skill) '}') confirmed)
+}
+
+to microduckSkills {
+  return (microduckRequest 'robot.skills' '{}' false)
+}
+
+to microduckSound tag confirmed {
+  return (microduckRequest 'robot.sound' ('[data:join]' '{"tag":' ('[microduck:quote]' tag) '}') confirmed)
+}
+
+to microduckWait job {
+  repeatUntil (not (('[microduck:status]' job) == 'pending')) {
+    waitMillis 10
+  }
+  local 'reply' ('[microduck:result]' job)
+  '[microduck:release]' job
+  return reply
+}
+
+
+module 'MicroDuck Depth' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only coherent tofd depth through the normal private Unix gateway with explicit depth-config path/UID. This checkpoint uses fictional sensor input on the real Pi; physical/shipping/graphical acceptance is unverified. Capture one immutable8x8 frame, read all rows/zones/metadata and release. Four five-second slots; reads do not subscribe or renew lifetime. Records are [status,value,unit,origin]; only ok can be extracted. local_ipc means transport only, not physical sensor identity, calibration, current freshness or readiness. Positive distance with raw status5/9 is a known mm range;255 is no_target; other/zero/negative ranges are unusable. Raw distance/status blocks are diagnostics and can be known when a range is not. Missing timestamps/rate stay unknown; t_ns0 is legacy/unavailable, seq0/at_us0 remain exact reported values. Sequence/clock values are decimal u64 strings; at_us is sender uptime, not Unix; t_ns is monotonic ns. Row/column1..8, row-major; no camera/robot transform. No endpoint input, fallback, bus, command, automatic drive, credentials or network setup. No target does not mean a safe path.'
+
+  spec 'r' 'microduckDepthCapture' 'capture coherent depth frame reading'
+  spec 'r' 'microduckDepthRow' 'depth frame _ row _ readings' 'auto num' '' 1
+  spec 'r' 'microduckDepthDistance' 'depth frame _ row _ col _ distance (mm) reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckDepthRawDistance' 'depth frame _ row _ col _ diagnostic raw distance reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckDepthRawStatus' 'depth frame _ row _ col _ diagnostic raw status reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckDepthSequence' 'depth frame _ sequence reading' 'auto' ''
+  spec 'r' 'microduckDepthUptime' 'depth frame _ sender uptime us reading' 'auto' ''
+  spec 'r' 'microduckDepthTimestamp' 'depth frame _ monotonic ns reading' 'auto' ''
+  spec 'r' 'microduckDepthRows' 'depth frame _ row count reading' 'auto' ''
+  spec 'r' 'microduckDepthCols' 'depth frame _ column count reading' 'auto' ''
+  spec 'r' 'microduckDepthRate' 'depth frame _ declared rate Hz reading' 'auto' ''
+  spec 'r' 'microduckDepthSensor' 'depth frame _ reported sensor reading' 'auto' ''
+  spec 'r' 'microduckDepthRelease' 'release depth frame _ JSON' 'auto' ''
+  advanced
+  spec 'r' 'microduckDepthZoneReading' 'depth frame _ row _ col _ field _ reading' 'auto num num str' '' 1 1 'distance'
+  spec 'r' 'microduckDepthMetadata' 'depth frame _ metadata field _ reading' 'auto str' '' 'seq'
+
+to microduckDepthCapture {
+  return ('[microduck:depthReading]' (microduckRequest 'microduck.depth.capture' '{}' false))
+}
+
+to microduckDepthCols capture {
+  return (microduckDepthMetadata capture 'cols')
+}
+
+to microduckDepthDistance capture row col {
+  return (microduckDepthZoneReading capture row col 'distance')
+}
+
+to microduckDepthMetadata capture field {
+  return ('[microduck:depthReading]' (microduckRequest 'microduck.depth.metadata' ('[data:join]' (microduckDepthParams capture) ',"field":' ('[microduck:quote]' field) '}') false))
+}
+
+to microduckDepthParams capture {
+  return ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)))
+}
+
+to microduckDepthRate capture {
+  return (microduckDepthMetadata capture 'rate')
+}
+
+to microduckDepthRawDistance capture row col {
+  return (microduckDepthZoneReading capture row col 'raw_distance')
+}
+
+to microduckDepthRawStatus capture row col {
+  return (microduckDepthZoneReading capture row col 'raw_status')
+}
+
+to microduckDepthRelease capture {
+  return (microduckRequest 'microduck.depth.release' ('[data:join]' (microduckDepthParams capture) '}') false)
+}
+
+to microduckDepthRow capture row {
+  return ('[microduck:depthRow]' (microduckRequest 'microduck.depth.row' ('[data:join]' (microduckDepthParams capture) ',"row":' row '}') false))
+}
+
+to microduckDepthRows capture {
+  return (microduckDepthMetadata capture 'rows')
+}
+
+to microduckDepthSensor capture {
+  return (microduckDepthMetadata capture 'sensor')
+}
+
+to microduckDepthSequence capture {
+  return (microduckDepthMetadata capture 'seq')
+}
+
+to microduckDepthTimestamp capture {
+  return (microduckDepthMetadata capture 't_ns')
+}
+
+to microduckDepthUptime capture {
+  return (microduckDepthMetadata capture 'at_us')
+}
+
+to microduckDepthZoneReading capture row col field {
+  local 'params' ('[data:join]' (microduckDepthParams capture) ',"row":' row ',"col":' col ',"field":' ('[microduck:quote]' field) '}')
+  return ('[microduck:depthReading]' (microduckRequest 'microduck.depth.zone' params false))
+}
+
+
+module 'MicroDuck Gamepad' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only bounded padd observations through the normal private Unix gateway with explicit gamepad-config. Current tests use fictional input on the real Pi; physical/radio/shipping/graphical acceptance is unverified. Capture retains descriptors even if a resting pad sends no frame; capture-ok is a handle, never known live controls. Attached value/pressed can be stale and are ignored. Discover declared codes/names/ranges, then read observed raw axes, span positions or buttons. Unobserved/lost/detached/unsupported/overflow has no extractable value; explicit event0 is known. Held events survive empty frames; loss invalidates until later clean events. Four five-second snapshots,0.35s/16-notification window, no continuous reader or renewal. Records are [status,value,unit,origin]; local_ipc means transport only, not identity/freshness/calibration/safety. Position0..1000 is declared span, no centre/deadzone mapping. Exact u64 kernel Unix timestamps and signed64 inter-report us are strings; negative intervals are preserved. Descriptor flat/fuzz are claims, not applied filters. Independent IMU reports do not make buttons known. No device-node access, pairing/bindings, credentials, robot command, network setup or automatic drive.'
+
+  spec 'r' 'microduckGamepadCapture' 'observe gamepad window reading'
+  spec 'r' 'microduckGamepadAxis' 'gamepad _ axis code _ raw reading' 'auto num' '' 0
+  spec 'r' 'microduckGamepadPosition' 'gamepad _ axis code _ declared span position reading' 'auto num' '' 0
+  spec 'r' 'microduckGamepadAxisEvent' 'gamepad _ axis code _ last observed event sequence' 'auto num' '' 0
+  spec 'r' 'microduckGamepadButton' 'gamepad _ button code _ pressed reading' 'auto num' '' 304
+  spec 'r' 'microduckGamepadButtonEvent' 'gamepad _ button code _ last observed event sequence' 'auto num' '' 304
+  spec 'r' 'microduckGamepadAxisCode' 'gamepad _ declared axis _ code reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadAxisName' 'gamepad _ declared axis _ name reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadAxisMin' 'gamepad _ declared axis _ minimum reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadAxisMax' 'gamepad _ declared axis _ maximum reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadAxisFlat' 'gamepad _ declared axis _ flat reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadAxisFuzz' 'gamepad _ declared axis _ fuzz reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadButtonCode' 'gamepad _ declared button _ code reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadButtonName' 'gamepad _ declared button _ name reading' 'auto num' '' 1
+  spec 'r' 'microduckGamepadSequence' 'gamepad _ latest report sequence reading' 'auto' ''
+  spec 'r' 'microduckGamepadTime' 'gamepad _ latest kernel Unix us reading' 'auto' ''
+  spec 'r' 'microduckGamepadInterval' 'gamepad _ latest signed inter-report us reading' 'auto' ''
+  spec 'r' 'microduckGamepadFrames' 'gamepad _ observed frame count reading' 'auto' ''
+  spec 'r' 'microduckGamepadAxisCount' 'gamepad _ declared axis count reading' 'auto' ''
+  spec 'r' 'microduckGamepadButtonCount' 'gamepad _ declared button count reading' 'auto' ''
+  spec 'r' 'microduckGamepadName' 'gamepad _ reported device name reading' 'auto' ''
+  spec 'r' 'microduckGamepadBus' 'gamepad _ reported bus id reading' 'auto' ''
+  spec 'r' 'microduckGamepadVendor' 'gamepad _ reported vendor id reading' 'auto' ''
+  spec 'r' 'microduckGamepadProduct' 'gamepad _ reported product id reading' 'auto' ''
+  spec 'r' 'microduckGamepadObservationState' 'gamepad _ window observation state reading' 'auto' ''
+  spec 'r' 'microduckGamepadRelease' 'release gamepad snapshot _ JSON' 'auto' ''
+  advanced
+  spec 'r' 'microduckGamepadAxisReading' 'gamepad _ axis code _ field _ reading' 'auto num str' '' 0 'raw'
+  spec 'r' 'microduckGamepadButtonReading' 'gamepad _ button code _ field _ reading' 'auto num str' '' 304 'pressed'
+  spec 'r' 'microduckGamepadControl' 'gamepad _ control type _ index _ field _ reading' 'auto str num str' '' 'axis' 1 'code'
+  spec 'r' 'microduckGamepadMetadata' 'gamepad _ metadata field _ reading' 'auto str' '' 'frames'
+
+to microduckGamepadAxis capture code {
+  return (microduckGamepadAxisReading capture code 'raw')
+}
+
+to microduckGamepadAxisCode capture index {
+  return (microduckGamepadControl capture 'axis' index 'code')
+}
+
+to microduckGamepadAxisCount capture {
+  return (microduckGamepadMetadata capture 'axis_count')
+}
+
+to microduckGamepadAxisEvent capture code {
+  return (microduckGamepadAxisReading capture code 'event_seq')
+}
+
+to microduckGamepadAxisFlat capture index {
+  return (microduckGamepadControl capture 'axis' index 'flat')
+}
+
+to microduckGamepadAxisFuzz capture index {
+  return (microduckGamepadControl capture 'axis' index 'fuzz')
+}
+
+to microduckGamepadAxisMax capture index {
+  return (microduckGamepadControl capture 'axis' index 'max')
+}
+
+to microduckGamepadAxisMin capture index {
+  return (microduckGamepadControl capture 'axis' index 'min')
+}
+
+to microduckGamepadAxisName capture index {
+  return (microduckGamepadControl capture 'axis' index 'name')
+}
+
+to microduckGamepadAxisReading capture code field {
+  return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.axis' ('[data:join]' (microduckGamepadParams capture) ',"code":' code ',"field":' ('[microduck:quote]' field) '}') false))
+}
+
+to microduckGamepadBus capture {
+  return (microduckGamepadMetadata capture 'bus')
+}
+
+to microduckGamepadButton capture code {
+  return (microduckGamepadButtonReading capture code 'pressed')
+}
+
+to microduckGamepadButtonCode capture index {
+  return (microduckGamepadControl capture 'button' index 'code')
+}
+
+to microduckGamepadButtonCount capture {
+  return (microduckGamepadMetadata capture 'button_count')
+}
+
+to microduckGamepadButtonEvent capture code {
+  return (microduckGamepadButtonReading capture code 'event_seq')
+}
+
+to microduckGamepadButtonName capture index {
+  return (microduckGamepadControl capture 'button' index 'name')
+}
+
+to microduckGamepadButtonReading capture code field {
+  return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.button' ('[data:join]' (microduckGamepadParams capture) ',"code":' code ',"field":' ('[microduck:quote]' field) '}') false))
+}
+
+to microduckGamepadCapture {
+  return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.capture' '{}' false))
+}
+
+to microduckGamepadControl capture controlType index field {
+  return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.control' ('[data:join]' (microduckGamepadParams capture) ',"kind":' ('[microduck:quote]' controlType) ',"index":' index ',"field":' ('[microduck:quote]' field) '}') false))
+}
+
+to microduckGamepadFrames capture {
+  return (microduckGamepadMetadata capture 'frames')
+}
+
+to microduckGamepadInterval capture {
+  return (microduckGamepadMetadata capture 'since_us')
+}
+
+to microduckGamepadMetadata capture field {
+  return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.metadata' ('[data:join]' (microduckGamepadParams capture) ',"field":' ('[microduck:quote]' field) '}') false))
+}
+
+to microduckGamepadName capture {
+  return (microduckGamepadMetadata capture 'device_name')
+}
+
+to microduckGamepadObservationState capture {
+  return (microduckGamepadMetadata capture 'observation_state')
+}
+
+to microduckGamepadParams capture {
+  return ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)))
+}
+
+to microduckGamepadPosition capture code {
+  return (microduckGamepadAxisReading capture code 'position')
+}
+
+to microduckGamepadProduct capture {
+  return (microduckGamepadMetadata capture 'product')
+}
+
+to microduckGamepadRelease capture {
+  return (microduckRequest 'microduck.gamepad.release' ('[data:join]' (microduckGamepadParams capture) '}') false)
+}
+
+to microduckGamepadSequence capture {
+  return (microduckGamepadMetadata capture 'seq')
+}
+
+to microduckGamepadTime capture {
+  return (microduckGamepadMetadata capture 'at_us')
+}
+
+to microduckGamepadVendor capture {
+  return (microduckGamepadMetadata capture 'vendor')
+}
+
+
+module 'MicroDuck Head IMU' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only tofd head IMU through an explicitly configured normal private Unix gateway. This checkpoint is tested only with simulated sensor data on the real Pi. Requires MicroDuck plus the gateway head-imu-config option, with inventoried path and expected UID. Origin local_ipc describes transport only; UID/path consistency is not physical identity or hardware validation. Capture one frame, read nine fields and release; four five-second snapshots. Tofd chip axes, accel includes gravity, quaternion wxyz sensor-to-own-world arbitrary yaw; no transform, normalization, freshness, calibration or movement authority. Missing data is not_reported, zero quaternion unusable, legacy t_ns0 unavailable; explicit vector zero remains known. Temperature is cached/source-reported, rate declared. Exact u64 clocks preserve precision; sender uptime is not Unix time. No endpoint input, daemon fallback, bus, credentials, command, network or continuous reader. Beta, physical, shipping and graphical acceptance remain pending.'
+
+  spec 'r' 'microduckHeadImuCapture' 'capture tofd head IMU reading'
+  spec 'r' 'microduckHeadImuGyro' 'head IMU _ gyro axis _ (mrad/s) reading' 'auto num' '' 1
+  spec 'r' 'microduckHeadImuAccel' 'head IMU _ accel axis _ (mm/s2) reading' 'auto num' '' 1
+  spec 'r' 'microduckHeadImuQuat' 'head IMU _ quaternion wxyz component _ (ppm) reading' 'auto num' '' 1
+  spec 'r' 'microduckHeadImuTemperature' 'head IMU _ reported temperature (mC) reading' 'auto' ''
+  spec 'r' 'microduckHeadImuSequence' 'head IMU _ sample sequence reading' 'auto' ''
+  spec 'r' 'microduckHeadImuUptime' 'head IMU _ sender uptime us reading' 'auto' ''
+  spec 'r' 'microduckHeadImuTimestamp' 'head IMU _ monotonic ns reading' 'auto' ''
+  spec 'r' 'microduckHeadImuSensor' 'head IMU _ reported sensor reading' 'auto' ''
+  spec 'r' 'microduckHeadImuRate' 'head IMU _ declared rate Hz reading' 'auto' ''
+  spec 'r' 'microduckHeadImuRelease' 'release head IMU _ JSON' 'auto' ''
+  advanced
+  spec 'r' 'microduckHeadImuReading' 'head IMU _ field _ component _ reading' 'auto str num' '' 'gyro' 1
+
+to microduckHeadImuAccel snapshot component {
+  return (microduckHeadImuReading snapshot 'accel' component)
+}
+
+to microduckHeadImuCapture {
+  return ('[microduck:headImuReading]' (microduckRequest 'microduck.headImu.capture' '{}' false))
+}
+
+to microduckHeadImuGyro snapshot component {
+  return (microduckHeadImuReading snapshot 'gyro' component)
+}
+
+to microduckHeadImuQuat snapshot component {
+  return (microduckHeadImuReading snapshot 'quat' component)
+}
+
+to microduckHeadImuRate snapshot {
+  return (microduckHeadImuReading snapshot 'rate' 1)
+}
+
+to microduckHeadImuReading snapshot field component {
+  local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' snapshot)) ',"field":' ('[microduck:quote]' field) ',"component":' component '}')
+  return ('[microduck:headImuReading]' (microduckRequest 'microduck.headImu.read' params false))
+}
+
+to microduckHeadImuRelease snapshot {
+  return (microduckRequest 'microduck.headImu.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' snapshot)) '}') false)
+}
+
+to microduckHeadImuSensor snapshot {
+  return (microduckHeadImuReading snapshot 'sensor' 1)
+}
+
+to microduckHeadImuSequence snapshot {
+  return (microduckHeadImuReading snapshot 'seq' 1)
+}
+
+to microduckHeadImuTemperature snapshot {
+  return (microduckHeadImuReading snapshot 'temperature' 1)
+}
+
+to microduckHeadImuTimestamp snapshot {
+  return (microduckHeadImuReading snapshot 't_ns' 1)
+}
+
+to microduckHeadImuUptime snapshot {
+  return (microduckHeadImuReading snapshot 'at_us' 1)
+}
+
+
+module 'MicroDuck Pad IMU' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only padd IMU batches via normal private Gateway and explicit pad-imu-config. Tests use fictional data on real Pi; physical/gamepad/radio/graphical/shipping unverified. Independent from stick/button lifecycle; requires IMU attachment then one whole1..32-sample batch, with no additional subscriptions per reading. Four five-second slots,0.35s/16-report/16KiB bounds; release, no continuous reader or renewal. Records [status,value,unit,origin]; only ok extractable. local_ipc is transport only. Raw zero known; zero/unknown driver resolution or full scale disables derived readings. mg milli-g includes gravity; mdps milli-degree/second; ties away from zero, signed31 overflow explicit. Sequence and kernel Unix us are exact strings, wall-clock regressions allowed. Dropped/malformed/oversized/detached/absent/waiting values never become zero. No orientation/fusion, robot frame, calibration, freshness, automatic movement, device access, endpoint/credentials or security/network setup.'
+
+  spec 'r' 'microduckPadImuCapture' 'capture gamepad IMU batch reading'
+  spec 'r' 'microduckPadImuCount' 'IMU batch _ sample count reading' 'auto' ''
+  spec 'r' 'microduckPadImuAccelRaw' 'IMU batch _ sample _ accel axis _ raw reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckPadImuGyroRaw' 'IMU batch _ sample _ gyro axis _ raw reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckPadImuAccel' 'IMU batch _ sample _ accel axis _ (mg) reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckPadImuGyro' 'IMU batch _ sample _ gyro axis _ (mdps) reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckPadImuSequence' 'IMU batch _ sample _ sequence reading' 'auto num' '' 1
+  spec 'r' 'microduckPadImuTime' 'IMU batch _ sample _ kernel Unix us reading' 'auto num' '' 1
+  spec 'r' 'microduckPadImuAccelLimit' 'IMU batch _ sample _ accel axis _ at reported limit reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckPadImuGyroLimit' 'IMU batch _ sample _ gyro axis _ at reported limit reading' 'auto num num' '' 1 1
+  spec 'r' 'microduckPadImuRelease' 'release IMU batch _ JSON' 'auto' ''
+  spec 'r' 'microduckPadImuAccelResolution' 'IMU batch _ reported accel raw units per g reading' 'auto' ''
+  spec 'r' 'microduckPadImuGyroResolution' 'IMU batch _ reported gyro raw units per degree/s reading' 'auto' ''
+  spec 'r' 'microduckPadImuAccelRange' 'IMU batch _ reported accel full scale raw reading' 'auto' ''
+  spec 'r' 'microduckPadImuGyroRange' 'IMU batch _ reported gyro full scale raw reading' 'auto' ''
+  advanced
+  spec 'r' 'microduckPadImuReading' 'IMU batch _ field _ sample _ component _ reading' 'auto str num num' '' 'accel_per_g' 1 1
+
+to microduckPadImuAccel batch sample component {
+  return (microduckPadImuReading batch 'accel_mg' sample component)
+}
+
+to microduckPadImuAccelLimit batch sample component {
+  return (microduckPadImuReading batch 'accel_at_limit' sample component)
+}
+
+to microduckPadImuAccelRange batch {
+  return (microduckPadImuReading batch 'accel_max' 1 1)
+}
+
+to microduckPadImuAccelRaw batch sample component {
+  return (microduckPadImuReading batch 'accel_raw' sample component)
+}
+
+to microduckPadImuAccelResolution batch {
+  return (microduckPadImuReading batch 'accel_per_g' 1 1)
+}
+
+to microduckPadImuCapture {
+  return ('[microduck:padImuReading]' (microduckRequest 'microduck.padImu.capture' '{}' false))
+}
+
+to microduckPadImuCount batch {
+  return (microduckPadImuReading batch 'sample_count' 1 1)
+}
+
+to microduckPadImuGyro batch sample component {
+  return (microduckPadImuReading batch 'gyro_mdps' sample component)
+}
+
+to microduckPadImuGyroLimit batch sample component {
+  return (microduckPadImuReading batch 'gyro_at_limit' sample component)
+}
+
+to microduckPadImuGyroRange batch {
+  return (microduckPadImuReading batch 'gyro_max' 1 1)
+}
+
+to microduckPadImuGyroRaw batch sample component {
+  return (microduckPadImuReading batch 'gyro_raw' sample component)
+}
+
+to microduckPadImuGyroResolution batch {
+  return (microduckPadImuReading batch 'gyro_per_dps' 1 1)
+}
+
+to microduckPadImuReading batch field sample component {
+  local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' batch)) ',"field":' ('[microduck:quote]' field) ',"sample":' sample ',"component":' component '}')
+  return ('[microduck:padImuReading]' (microduckRequest 'microduck.padImu.read' params false))
+}
+
+to microduckPadImuRelease batch {
+  return (microduckRequest 'microduck.padImu.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' batch)) '}') false)
+}
+
+to microduckPadImuSequence batch sample {
+  return (microduckPadImuReading batch 'seq' sample 1)
+}
+
+to microduckPadImuTime batch sample {
+  return (microduckPadImuReading batch 'at_us' sample 1)
+}
+
+
+module 'MicroDuck Robot' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only coherent robotd health/state via normal private Gateway and robot-read-config. Tests use fictional services on real Pi. Health and state are separate five-second immutable snapshots, no shared-tick claim. Four total retained/in-flight slots;0.5s bounded capture, no continuous reader/retry/renewal. Records [status,value,unit,origin]; only ok is extractable. local_ipc is transport only; ipc_default identifies a schema default, never physical observation. Exact counter/ns/ms64 strings; scaled signed31 measurements. Missing optional telemetry is unavailable, present false/zero known. No applied physics, FK/calibration, force direction, freshness or safe-to-move authority. No control commands, robotctl parsing, motion or device access. Physical, graphical and shipping identity/deployment unverified.'
+
+  spec 'r' 'microduckRobotStateCapture' 'capture robot state at _ Hz reading' 'num' 10
+  spec 'r' 'microduckRobotStateRelease' 'release robot state _ JSON' 'auto' ''
+  spec 'r' 'microduckRobotMoveRequested' 'state _ requested move component _ reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotMoveApplied' 'state _ applied move component _ reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotMoveLimitCount' 'state _ reported limit count reading' 'auto' ''
+  spec 'r' 'microduckRobotMoveLimitReason' 'state _ limit reason _ reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotLoopHz' 'state _ loop rate (mHz) reading' 'auto' ''
+  spec 'r' 'microduckRobotSafety' 'state _ safety field _ component _ reading' 'auto str num' '' 'fallen' 1
+  spec 'r' 'microduckRobotJoint' 'state _ measured joint _ (mrad) reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotTarget' 'state _ target joint _ (mrad) reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotVelocity' 'state _ joint _ velocity (mrad/s) reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotCurrent' 'state _ joint _ current magnitude (uA) reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotOdomPosition' 'state _ odom position component _ (mm) reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotOdomYaw' 'state _ boot-relative odom yaw (mrad) reading' 'auto' ''
+  spec 'r' 'microduckRobotImuGyro' 'state _ IMU gyro component _ (mrad/s) reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotImuQuat' 'state _ IMU quaternion wxyz component _ (ppm) reading' 'auto num' '' 1
+  spec 'r' 'microduckRobotFrame' 'state _ frame _ part _ component _ reading' 'auto str str num' '' 'camera' 'pos' 1
+  spec 'r' 'microduckRobotSkeleton' 'state _ skeleton link _ part _ component _ reading' 'auto num str num' '' 1 'pos' 1
+  spec 'r' 'microduckRobotTimestamp' 'state _ monotonic timestamp ns reading' 'auto' ''
+  spec 'r' 'microduckRobotHealthCapture' 'capture robot health reading'
+  spec 'r' 'microduckRobotHealthy' 'robot health _ healthy reading' 'auto' ''
+  spec 'r' 'microduckRobotDegraded' 'robot health _ degraded reading' 'auto' ''
+  spec 'r' 'microduckRobotHealthVerdict' 'robot health _ health.state reading' 'auto' ''
+  spec 'r' 'microduckRobotBatteryPercent' 'robot health _ battery.percent reading' 'auto' ''
+  spec 'r' 'microduckRobotBatteryVoltage' 'robot health _ battery.volts reading' 'auto' ''
+  spec 'r' 'microduckRobotCpuTemperature' 'robot health _ cpu_temp_c reading' 'auto' ''
+  spec 'r' 'microduckRobotMotorMaxTemperature' 'robot health _ motors.max_c reading' 'auto' ''
+  spec 'r' 'microduckRobotMotorMeanTemperature' 'robot health _ motors.mean_c reading' 'auto' ''
+  spec 'r' 'microduckRobotTargetLoopRate' 'robot health _ control_loop.target_hz reading' 'auto' ''
+  spec 'r' 'microduckRobotAchievedLoopRate' 'robot health _ control_loop.achieved_hz reading' 'auto' ''
+  spec 'r' 'microduckRobotLastTickAge' 'robot health _ control_loop.last_tick_age_ms reading' 'auto' ''
+  spec 'r' 'microduckRobotTicks' 'robot health _ control_loop.ticks reading' 'auto' ''
+  spec 'r' 'microduckRobotMissedTicks' 'robot health _ control_loop.missed reading' 'auto' ''
+  spec 'r' 'microduckRobotBusErrors' 'robot health _ bus.consecutive_errors reading' 'auto' ''
+  spec 'r' 'microduckRobotBusStartupFailures' 'robot health _ bus.startup_failures reading' 'auto' ''
+  spec 'r' 'microduckRobotImuReady' 'robot health _ imu.ready reading' 'auto' ''
+  spec 'r' 'microduckRobotImuMissing' 'robot health _ imu.missing reading' 'auto' ''
+  spec 'r' 'microduckRobotImuStaleBlocks' 'robot health _ imu.stale_blocks reading' 'auto' ''
+  spec 'r' 'microduckRobotImuStaleRun' 'robot health _ imu.consecutive_stale_blocks reading' 'auto' ''
+  spec 'r' 'microduckRobotHealthImuState' 'robot health _ imu.state reading' 'auto' ''
+  spec 'r' 'microduckRobotHealthReason' 'robot health _ reason reading' 'auto' ''
+  spec 'r' 'microduckRobotLoopMissed' 'robot state _ missed ticks reading' 'auto' ''
+  spec 'r' 'microduckRobotPolicy' 'robot state _ reported policy reading' 'auto' ''
+  advanced
+  spec 'r' 'microduckRobotHealthReading' 'robot health _ field _ reading' 'auto str' '' 'healthy'
+  spec 'r' 'microduckRobotStateReading' 'state _ field _ index _ component _ reading' 'auto str num num' '' 'loop.hz' 1 1
+  spec 'r' '[microduck:robotReading]' 'robot telemetry JSON _ reading' 'str' '{}'
+
+to microduckRobotAchievedLoopRate health {
+  return (microduckRobotHealthReading health 'control_loop.achieved_hz')
+}
+
+to microduckRobotBatteryPercent health {
+  return (microduckRobotHealthReading health 'battery.percent')
+}
+
+to microduckRobotBatteryVoltage health {
+  return (microduckRobotHealthReading health 'battery.volts')
+}
+
+to microduckRobotBusErrors health {
+  return (microduckRobotHealthReading health 'bus.consecutive_errors')
+}
+
+to microduckRobotBusStartupFailures health {
+  return (microduckRobotHealthReading health 'bus.startup_failures')
+}
+
+to microduckRobotCpuTemperature health {
+  return (microduckRobotHealthReading health 'cpu_temp_c')
+}
+
+to microduckRobotCurrent state index {
+  return (microduckRobotStateReading state 'currents_ma' index 1)
+}
+
+to microduckRobotDegraded health {
+  return (microduckRobotHealthReading health 'degraded')
+}
+
+to microduckRobotFrame state name part component {
+  return (microduckRobotStateReading state ('[data:join]' 'frames.' name '.' part) 1 component)
+}
+
+to microduckRobotHealthCapture {
+  return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.capture' '{"kind":"health"}' false))
+}
+
+to microduckRobotHealthImuState health {
+  return (microduckRobotHealthReading health 'imu.state')
+}
+
+to microduckRobotHealthReading capture field {
+  return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.read' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) ',"kind":"health","field":' ('[microduck:quote]' field) ',"index":1,"component":1}') false))
+}
+
+to microduckRobotHealthReason health {
+  return (microduckRobotHealthReading health 'reason')
+}
+
+to microduckRobotHealthVerdict health {
+  return (microduckRobotHealthReading health 'health.state')
+}
+
+to microduckRobotHealthy health {
+  return (microduckRobotHealthReading health 'healthy')
+}
+
+to microduckRobotImuGyro state component {
+  return (microduckRobotStateReading state 'imu.gyro' 1 component)
+}
+
+to microduckRobotImuMissing health {
+  return (microduckRobotHealthReading health 'imu.missing')
+}
+
+to microduckRobotImuQuat state component {
+  return (microduckRobotStateReading state 'imu.quat' 1 component)
+}
+
+to microduckRobotImuReady health {
+  return (microduckRobotHealthReading health 'imu.ready')
+}
+
+to microduckRobotImuStaleBlocks health {
+  return (microduckRobotHealthReading health 'imu.stale_blocks')
+}
+
+to microduckRobotImuStaleRun health {
+  return (microduckRobotHealthReading health 'imu.consecutive_stale_blocks')
+}
+
+to microduckRobotJoint state index {
+  return (microduckRobotStateReading state 'joints' index 1)
+}
+
+to microduckRobotLastTickAge health {
+  return (microduckRobotHealthReading health 'control_loop.last_tick_age_ms')
+}
+
+to microduckRobotLoopHz state {
+  return (microduckRobotStateReading state 'loop.hz' 1 1)
+}
+
+to microduckRobotLoopMissed state {
+  return (microduckRobotStateReading state 'loop.missed' 1 1)
+}
+
+to microduckRobotMissedTicks health {
+  return (microduckRobotHealthReading health 'control_loop.missed')
+}
+
+to microduckRobotMotorMaxTemperature health {
+  return (microduckRobotHealthReading health 'motors.max_c')
+}
+
+to microduckRobotMotorMeanTemperature health {
+  return (microduckRobotHealthReading health 'motors.mean_c')
+}
+
+to microduckRobotMoveApplied state component {
+  return (microduckRobotStateReading state 'move.applied' 1 component)
+}
+
+to microduckRobotMoveLimitCount state {
+  return (microduckRobotStateReading state 'move.limit_count' 1 1)
+}
+
+to microduckRobotMoveLimitReason state index {
+  return (microduckRobotStateReading state 'move.limited_by' index 1)
+}
+
+to microduckRobotMoveRequested state component {
+  return (microduckRobotStateReading state 'move.requested' 1 component)
+}
+
+to microduckRobotOdomPosition state component {
+  return (microduckRobotStateReading state 'odom.position' 1 component)
+}
+
+to microduckRobotOdomYaw state {
+  return (microduckRobotStateReading state 'odom.yaw' 1 1)
+}
+
+to microduckRobotPolicy state {
+  return (microduckRobotStateReading state 'policy' 1 1)
+}
+
+to microduckRobotSafety state field component {
+  return (microduckRobotStateReading state ('[data:join]' 'safety.' field) 1 component)
+}
+
+to microduckRobotSkeleton state index part component {
+  return (microduckRobotStateReading state ('[data:join]' 'skeleton.' part) index component)
+}
+
+to microduckRobotStateCapture hz {
+  return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.capture' ('[data:join]' '{"kind":"state","hz":' hz '}') false))
+}
+
+to microduckRobotStateReading capture field index component {
+  local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) ',"kind":"state","field":' ('[microduck:quote]' field) ',"index":' index ',"component":' component '}')
+  return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.read' params false))
+}
+
+to microduckRobotStateRelease capture {
+  return (microduckRequest 'microduck.robot.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) '}') false)
+}
+
+to microduckRobotTarget state index {
+  return (microduckRobotStateReading state 'targets' index 1)
+}
+
+to microduckRobotTargetLoopRate health {
+  return (microduckRobotHealthReading health 'control_loop.target_hz')
+}
+
+to microduckRobotTicks health {
+  return (microduckRobotHealthReading health 'control_loop.ticks')
+}
+
+to microduckRobotTimestamp state {
+  return (microduckRobotStateReading state 't_ns' 1 1)
+}
+
+to microduckRobotVelocity state index {
+  return (microduckRobotStateReading state 'velocities' index 1)
+}
+
