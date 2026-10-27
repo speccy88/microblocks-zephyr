@@ -187,3 +187,27 @@ authorized Pi stand-in host, returning INCOMPLETE without daemon requests.
 See the [remaining objectives](MICRODUCK_REMAINING_OBJECTIVES.md) for missing
 software versus physical, platform and publication gates. The earlier candidate
 and preparation branches remain unchanged; only the new isolated branch advances.
+
+## Receive-only camera follow-up
+
+The same isolated watch-integration branch adds the source-reviewed
+[camera observer core](../linux/microduck/CAMERA.md). There is no new merge from
+shared main and no change to the P4 checkout, native SmallVM, UBL, BLE transport,
+gateway or existing portal user flows. The package includes four additive JS
+modules; no existing page instantiates a live RTC/signaling connection.
+
+The observer consumes the producer's SDP offer, sends its recvonly video answer,
+disables audio, closes unexpected channels and can send only the fixed read-only
+media.video metadata request on the broad upstream control channel. It contains
+no robot control forwarding or live dialer. Internal tests use actual module
+logic with synthetic signaling/RTC/media, not a live camera, and claim neither
+decoded frames nor authenticated identity. A source audit records exact pinned
+Pollen and GStreamer protocol hashes. See the
+[camera evidence](../linux/microduck/tests/camera-validation.json).
+
+Review the eventual live signaling adapter, viewer and privacy/transport trust
+separately. The pinned LAN server has no authentication gate, so a discovered
+producer or successful session is not trusted identity or authority to move.
+Keep the real BLE confidentiality gate unchanged. Physical camera/codec/browser
+acceptance, native camera primitives and continuous motion remain incomplete.
+No blocked Edge operation or previously denied test is retried for this phase.

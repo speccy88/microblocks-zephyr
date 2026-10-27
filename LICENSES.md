@@ -177,3 +177,9 @@ The simulator links the external Zephyr Apache-2.0 filesystem layer and its
 pinned LittleFS module `e9a8638fc228e43a3156ed3ac602229af3e3c1d5` (BSD-3-Clause).
 No LittleFS implementation is vendored or linked into the P4 application by
 this local increment; the external module retains its original LICENSE.md.
+
+The receive-only camera JavaScript modules, internal fake-media fixture and
+tests are newly authored MIT code. Their wire contract is reviewed against
+pinned Pollen mediad and GStreamer0.15.3 signaling source, with source URLs and
+hashes in `linux/microduck/tests/camera-source.json`. No GStreamer/Pollen media
+implementation, codec, source text or captured footage is redistributed here.

@@ -40,6 +40,13 @@ fill in a physical robot result. All boxes below remain unchecked for hardware.
 - [ ] Test published installer/copy command and deployed Pages using supported
       browser transport. WSS certificates remain trusted; no mixed-content bypass.
 - [ ] Check Pi-independent board-selection/packaging regressions before release.
+- [ ] Before any live camera commissioning, review the shipping mediad/GStreamer
+      interfaces and trusted signaling identity/transport, privacy and operator
+      consent. The receive-only core's internal fake tracks do not fill this box.
+- [ ] Separately verify video-only recvonly/no local capture, one media.video
+      query, real codec/ICE/DTLS interoperability, decoded-frame playback,
+      reported mounting rotation and teardown. Local close is not camera power-off,
+      robot shutdown or emergency stop. No motion RPC is added to this observer.
 - [ ] Update the status matrix with evidence; retain failures and limitations.
 
 Physical sound/skill/policy semantics, BLE security, shipping daemon identities,

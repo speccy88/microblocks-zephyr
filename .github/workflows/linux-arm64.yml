@@ -170,7 +170,7 @@ jobs:
           PY
       - name: Execute actual Linux and MicroDuck browser modules with synthetic providers
         run: |
-          node --test tests/portal-core.test.cjs tests/linux-install-command.test.cjs tests/linux-adapter.test.cjs tests/linux-transport.test.cjs tests/test_microduck_protocol.cjs tests/test_microduck_panel.cjs tests/test_microduck_simulation.cjs tests/test_microduck_simulation_panel.cjs tests/test_microduck_console_core.cjs tests/test_microduck_console_fixture.cjs tests/test_microduck_console_panel.cjs tests/test_microduck_updates.cjs
+          node --test tests/portal-core.test.cjs tests/linux-install-command.test.cjs tests/linux-adapter.test.cjs tests/linux-transport.test.cjs tests/test_microduck_protocol.cjs tests/test_microduck_panel.cjs tests/test_microduck_simulation.cjs tests/test_microduck_simulation_panel.cjs tests/test_microduck_console_core.cjs tests/test_microduck_console_fixture.cjs tests/test_microduck_console_panel.cjs tests/test_microduck_updates.cjs tests/test_microduck_camera.cjs
       - name: Retain test reports and build provenance (no release binaries)
         if: always()
         uses: actions/upload-artifact@v4

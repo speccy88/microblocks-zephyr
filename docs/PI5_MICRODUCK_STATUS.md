@@ -23,7 +23,8 @@ No ARM64 release or updated GitHub Pages deployment has been published.
 | JSON-RPC local gateway | Implemented and simulated | Real Unix sockets and peer identities; robot daemon replies are mocks. |
 | Native MicroDuck primitive adapter | Implemented on physical Pi with simulated robot | Real VM bytecode, moving GC, jobs, gateway, errors, timeouts and graphical health block. [Adapter evidence](../linux/microduck/tests/README.md). |
 | Sensor, battery, sound and skills on actual MicroDuck | Implemented but untested | API envelopes and simulated replies implemented; no physical device available. |
-| Continuous locomotion/camera/direct motor control | Not implemented | Outside the selected BLE/local gateway surface; preserve robotd controller and use supported future transport. |
+| Receive-only camera signaling and browser peer core | Implemented and simulated | [Camera transport](../linux/microduck/CAMERA.md): pinned GStreamer consumer protocol, video recvonly/audio inactive, bounded lifecycle and sole media.video query. Actual modules execute against fake RTC/media and in-memory signaling. No live dialer/viewer, decoded-frame proof, native camera primitive or physical camera test. |
+| Continuous locomotion/direct motor control | Not implemented | Outside the selected BLE/local gateway surface; preserve robotd controller and use supported future transport. Camera observer exposes no motion RPC. |
 | Typed battery/temperature/loop/bus/IMU readings | Implemented on physical Pi with simulated robot | Eighteen source-backed fields, explicit status/value/unit/origin records, fixed-point signed31 values and refusal of missing/invalid values. [Contract and use](../linux/microduck/TYPED_READINGS.md). |
 | Reported health verdict and IMU convergence state | Implemented on physical Pi with simulated robot | Documented health/default/stale-run semantics; no global safe-to-move claim. |
 | Universal robot-ready / motion authorization block | Not supplied by the reviewed API | No such signal is invented. Use reported diagnostics and supported robot authorization/safety interfaces. |
@@ -65,6 +66,14 @@ The [integration plan](LINUX_MICRODUCK_INTEGRATION_PLAN.md) records ordering,
 shared-file conflicts and the publication gates.
 The [remaining-objectives ledger](MICRODUCK_REMAINING_OBJECTIVES.md) distinguishes
 missing software from physical, platform, deployment and coordination gates.
+The later camera checkpoint is additive browser transport preparation, exercised
+without Edge control, Bluetooth, a live signaling server or real video. Track
+receipt, reported geometry and producer advertisements never establish playback,
+identity, calibration, confidentiality or permission to move.
+Its [camera receipt](../evidence/2026-10-27/microduck-camera/README.md) records
+38 new focused checks, 207 selected Node checks and 203 full repository checks,
+all passing with zero skips, plus preserved GP profiles. Physical camera and
+live browser/media transport remain untested.
 
 | Brief section | Implementation/evidence map |
 |---|---|

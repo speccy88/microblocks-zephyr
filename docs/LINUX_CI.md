@@ -64,5 +64,17 @@ run without skips, and the full repository validator passes 203 tests. Filesyste
 fixtures are real private Unix paths; compatible host observations are injected
 where required. They do not claim a daemon API, peer identity or robot-ready.
 The separate real Pi host-only observation is evidence outside hosted CI.
-The required Linux repository validator passes181 tests with zero skips. The
-workflow includes those suites; a hosted execution is still not claimed.
+The required Linux repository validator after preflight passes203 tests with
+zero skips. A hosted execution is still not claimed.
+
+The receive-only camera follow-up adds tests/test_microduck_camera.cjs to the
+explicit Node selection. It executes the actual signaling/session/BrowserPeer
+modules with bounded internal in-memory and fake RTC/media providers, including
+answer/ICE/early-track ordering, data-channel restrictions, metadata and cleanup.
+It does not use an actual RTCPeerConnection, live WebSocket, camera, decoded
+frames, local media capture or native Edge control. Hosted codec/browser/network
+interoperability remains untested.
+The local camera follow-up passes 207 selected Node tests (38 camera checks) and
+203 required Linux repository tests with zero skips; the
+[receipt](../evidence/2026-10-27/microduck-camera/README.md) distinguishes these
+local results from still-unexecuted hosted runs.

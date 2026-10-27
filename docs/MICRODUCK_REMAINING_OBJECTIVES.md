@@ -1,13 +1,15 @@
 # MicroDuck remaining brief objectives
 
 This separates missing software from acceptance gates. The update-watch merge
-has passed 181 Linux tests and 169 selected Node tests with zero skips. Its
-product code matches preparation 62fb982; a documentation-only merge conflict
-preserved both integration receipts. The physical robot has not arrived.
+and read-only preflight are retained on the isolated integration branch. The
+next additive checkpoint implements a receive-only camera signaling/browser
+peer core with internal fakes. It opens no live camera, signaling endpoint or
+robot connection. The physical robot has not arrived.
 
 | Brief objective | Remaining work | Kind and next acceptance |
 |---|---|---|
-| Continuous locomotion, camera/video and direct motor surfaces | No browser or SmallVM implementation of these transports is supplied. BLE/local gateway does not silently grant them. | Missing software outside the reviewed discrete-method surface. Review the official Wi-Fi/WebRTC/control interfaces and their authorization before a separate implementation; require independent safety and hardware acceptance. |
+| Camera/video transport | [Receive-only camera core](../linux/microduck/CAMERA.md) implements the pinned GStreamer consumer signaling, video-only browser answer policy and sole read-only media.video query. Tests use in-memory signaling and fake RTC/media, with no decoded frames. | Remaining software: trusted live signaling adapter/identity, explicit viewer and playback/rotation UI, and any native camera primitive. Shipping camera, codec/ICE/DTLS/browser interoperability, privacy and physical geometry remain acceptance gates. No live URL or connection is enabled in the portal. |
+| Continuous locomotion and direct motor surfaces | No implementation of these control transports is supplied. BLE/local gateway and camera observer do not grant them. | Missing software outside the reviewed discrete-method surface. Review the official control interfaces and authorization before a separate implementation; require independent safety and hardware acceptance. No real motion command is sent. |
 | Secure real PIN/Wi-Fi commissioning | No verified confidential browser transport has been commissioned. Real Web Bluetooth remains immutable confidential:false. | Missing secure transport/attestation plus shipping-image validation. Keep all actual PIN/PSK transmission blocked; a checkbox, PIN or invented endpoint is not a solution. |
 | Complete duckctl command parity | The browser supplies 27 raw methods, two structured credential paths and one dedicated stream. Broader gamepad/reboot/policy-management surfaces are not exposed merely because a daemon names them. | Deliberate partial command coverage. Add only source-reviewed parameter, permission, confirmation and unknown-outcome contracts; use mocks before hardware. Dynamic skill discovery is already implemented; arbitrary dynamic RPC forwarding is not authorized. |
 | Prepare the shipping image for read-only native use | The checklist currently requires manual host/config/socket inspection. | Implemented preparation: a filesystem-only commissioning preflight, with no connections, requests, listeners, permission edits or services. See [preflight](../linux/microduck/PREFLIGHT.md); it does not complete shipping-image acceptance. |

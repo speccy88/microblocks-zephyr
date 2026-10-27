@@ -1,0 +1,50 @@
+{
+  "source_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "api_version": 44,
+  "pollen_source_files": {
+    "docs/design/remote-webrtc.md": {
+      "sha256": "e0ebff8a0687b74b29d7670c5c26db4cfcf7518de1b3617874388f896a8534c2",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/docs/design/remote-webrtc.md"
+    },
+    "mediad/webclient/index.html": {
+      "sha256": "1bbb214c83b492112626efbd44a4099104b418920a07453b005e198c0e259a8d",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/mediad/webclient/index.html"
+    },
+    "mediad/src/pipeline.rs": {
+      "sha256": "3ff9a26d70217f24e63ba7348f3d2b1e6b0e2a1d751fe727e77756398eb96221",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/mediad/src/pipeline.rs"
+    },
+    "mediad/src/session.rs": {
+      "sha256": "6d554947c4c35d3d68da0cb209c973aa3779978dc31173c70884fb2ae2d2196d",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/mediad/src/session.rs"
+    }
+  },
+  "signaling_protocol": {
+    "repository": "https://github.com/GStreamer/gst-plugins-rs",
+    "version": "0.15.3",
+    "url": "https://raw.githubusercontent.com/GStreamer/gst-plugins-rs/0.15.3/net/webrtc/protocol/src/lib.rs",
+    "sha256": "970a826cc907318b425f1f8d028aad32d8a752f679bbd8fdc1c392c85df7e9e2",
+    "verified_source_bytes": 5117
+  },
+  "consumer_requests": [
+    "list",
+    "startSession",
+    "peer",
+    "endSession"
+  ],
+  "producer_offers_consumer_answers": true,
+  "server_creates_reliable_ordered_control": true,
+  "sole_observer_application_method": "media.video",
+  "geometry_fields": [
+    "width",
+    "height",
+    "rotate"
+  ],
+  "clock_fields_ignored": [
+    "mono_ns",
+    "real_ns"
+  ],
+  "calibration_not_inferred": true,
+  "lan_signaling_authentication_gate": false,
+  "scope": "primary source audit only; no live GStreamer, browser peer, robot or camera executed"
+}

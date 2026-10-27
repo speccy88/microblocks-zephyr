@@ -28,6 +28,11 @@ has no Unix daemon destination. `mediad` owns media/WebRTC; it is not connected
 by this gateway. No Wi-Fi credentials, application PINs, account tokens,
 continuous motion or camera endpoints are accepted here.
 
+A separate [receive-only browser camera core](CAMERA.md) prepares the documented
+GStreamer/WebRTC transport independently of this gateway and BLE. Its tests use
+internal fake signaling, RTC and media tracks only. It exposes no motion RPC or
+live endpoint in the portal and does not establish physical video playback.
+
 ## Filesystem-only commissioning inspection
 
 The optional [preflight](PREFLIGHT.md) inspects host and explicitly supplied
