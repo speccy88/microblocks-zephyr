@@ -1,7 +1,7 @@
 {
   "source_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
   "raw_methods": 27,
-  "fixture_methods": 29,
+  "fixture_methods": 30,
   "rows": [
     {
       "method": "hello",
@@ -175,13 +175,14 @@
       "method": "update.subscribe",
       "raw_console": false,
       "structured_path": false,
-      "fixture": false,
+      "fixture": true,
       "public": false,
       "mutation": false,
       "motion": false,
       "confidentiality_required": false,
       "physical_validation": false,
-      "reason": "streaming excluded"
+      "reason": "authenticated bounded notification-only watch; excluded from ordinary/raw-console request path; real robot untested",
+      "dedicated_stream_path": true
     },
     {
       "method": "update.check",
@@ -363,5 +364,7 @@
       "physical_validation": false,
       "reason": "reviewed allowlist; protected methods need authentication"
     }
-  ]
+  ],
+  "fixture_nonstreaming_methods": 29,
+  "dedicated_stream_methods": 1
 }

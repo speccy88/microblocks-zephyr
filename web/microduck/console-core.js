@@ -21,9 +21,9 @@
  })));
  const PREFLIGHT=new Set(['PARAMS','AUTH_REQUIRED','CONFIDENTIALITY_REQUIRED','CONFIRMATION_REQUIRED','BUSY','ID_EXHAUSTED',
   'METHOD_DENIED','SECRET_FORM_REQUIRED','SECRET_INPUT_DENIED','API_VERSION','STALE_PREVIEW','SIMULATION_INPUT',
-  'UNDISCOVERED_SKILL','REQUEST_TOO_LONG']);
+  'UNDISCOVERED_SKILL','REQUEST_TOO_LONG','STREAM_REQUIRED']);
  const CODES=new Set([...PREFLIGHT,'CAPABILITIES_INVALID','DISCONNECTED','CANCELLED','TIMEOUT','WRITE_FAILED','PROTOCOL','UTF8','LINE_TOO_LONG',
-  'AUTH_FAILED','STALE_SESSION','JSON_PARAMS','JSON_LIMIT','JSON_DUPLICATE','INTERNAL']);
+  'AUTH_FAILED','STALE_SESSION','JSON_PARAMS','JSON_LIMIT','JSON_DUPLICATE','INTERNAL','WATCH_STOPPED','WATCH_TIME_LIMIT','WATCH_EVENT_LIMIT']);
  function safeCode(error){const code=error?.code;return typeof code==='string'&&(CODES.has(code)||/^REMOTE_-?\d{1,10}$/.test(code))?code:'INTERNAL';}
  class ConsoleError extends commands.DuckError{constructor(code,outcome='not_sent'){super(code);this.outcome=outcome;}}
  const fail=(code,outcome)=>{throw new ConsoleError(code,outcome);};
@@ -76,7 +76,7 @@
  }
  const states=new WeakMap();
  function stateFor(owner){const s=states.get(owner);if(!s)fail('INTERNAL');if(s.client?.closed){s.stage=null;s.skills.clear();}return s;}
- function ready(s){if(!s.client||s.client.closed)fail('DISCONNECTED');if(s.apiVersion!==44)fail('API_VERSION');if(s.busy)fail('BUSY');}
+ function ready(s){if(!s.client||s.client.closed)fail('DISCONNECTED');if(s.apiVersion!==44)fail('API_VERSION');if(s.busy||s.client.pending)fail('BUSY');}
  function authorized(s,policy){ready(s);if(policy.secret&&s.client.transport.confidential!==true)fail('CONFIDENTIALITY_REQUIRED');if(!policy.public&&!s.client.authenticated)fail('AUTH_REQUIRED');}
  function audit(s,method,outcome,code=''){s.history.push(Object.freeze({sequence:++s.sequence,method,outcome,code,simulation:s.simulation}));if(s.history.length>32)s.history.shift();}
  function skillNames(result){if(!result||!Array.isArray(result.skills)||result.skills.length>256)fail('CAPABILITIES_INVALID');const set=new Set();for(const name of result.skills){if(typeof name!=='string'||!name||name.length>128||/[\x00-\x1f\x7f]/.test(name))fail('CAPABILITIES_INVALID');set.add(name);}return set;}
@@ -91,7 +91,7 @@
   detach(){const s=stateFor(this);++s.generation;s.stage=null;s.skills.clear();s.abort?.abort();s.abort=null;s.client?.close('DISCONNECTED');s.client=null;s.apiVersion=null;s.simulation=false;s.busy=false;s.history=[];s.sequence=0;}
   invalidate(){stateFor(this).stage=null;}
   cancel(){const s=stateFor(this);s.stage=null;if(s.busy)s.abort?.abort();else s.client?.close('CANCELLED');}
-  snapshot(){const s=stateFor(this);return Object.freeze({phase:!s.client?'disconnected':s.client.closed?'closed':s.busy?'busy':'ready',busy:s.busy,
+  snapshot(){const s=stateFor(this),busy=s.busy||!!s.client?.pending;return Object.freeze({phase:!s.client?'disconnected':s.client.closed?'closed':busy?'busy':'ready',busy,
    apiVersion:s.apiVersion,confidential:s.client?.transport.confidential===true,authenticated:s.client?.authenticated===true&&!s.client.closed,
    simulation:s.simulation,skills:Object.freeze([...s.skills]),prepared:s.stage?.preview||null,history:Object.freeze([...s.history])});}
   preview(method,paramsText='{}'){

@@ -43,13 +43,13 @@ function harness(options={}){
   async request(method,params){await this.select(method,params);await this.prepare();if(panel.controller.snapshot().prepared?.mutation)await this.confirm();await this.execute();}
  };
 }
-function recordingClient({confidential=true,timeoutMs=500,delay=new Set(),response}={}){
+function recordingClient({confidential=true,timeoutMs=500,delay=new Set(),response,stream=false}={}){
  const requests=[],pending=[],transport={closed:false,writes:0,buffer:'',receive:null,
   subscribe(receive,dropped){this.receive=receive;this.dropped=dropped;return ()=>{this.receive=null;};},
   async write(bytes){
    this.writes++;this.buffer+=new TextDecoder().decode(bytes);
    if(!this.buffer.endsWith('\n'))return;
-   const request=JSON.parse(this.buffer);this.buffer='';requests.push(request);
+   const request=JSON.parse(this.buffer);this.buffer='';requests.push(request);if(stream&&request.method==='update.subscribe')return;
    const deliver=()=>{
     if(this.closed)return;
     const result=response?response(request):request.method==='system.authenticate'?{authenticated:true}:request.method==='robot.policies'?{skills:['mock_bow','mock_look'],enabled:false}:request.method==='hello'?{api_version:44}:{ok:true,method:request.method};
@@ -221,4 +221,50 @@ test('standalone page uses only local scripts, no inline JavaScript, and forbids
  const directory=path.resolve(__dirname,'../web/microduck'),html=fs.readFileSync(path.join(directory,'console.html'),'utf8');assert.match(html,/<link rel="stylesheet" href="\.\.\/portal\.css">/);assert.match(html,/connect-src 'none'/);assert.match(html,/default-src 'none'/);assert.match(html,/form-action 'none'/);assert.doesNotMatch(html,/<script\b(?![^>]*\bsrc=)[^>]*>/i);assert.doesNotMatch(html,/\son[a-z]+\s*=/i);
  for(const [,source]of html.matchAll(/<script src="([^"]+)"/g)){assert.ok(!source.includes('://'));assert.ok(fs.existsSync(path.join(directory,source)),source);}
  const source=fs.readFileSync(path.join(directory,'console-panel.js'),'utf8');assert.doesNotMatch(source,/\b(?:fetch|WebSocket|XMLHttpRequest|localStorage|sessionStorage)\b|\.innerHTML\s*=/);assert.match(html,/graphical browser acceptance remain pending/);
+});
+
+test('watch controls are passive and real unauthenticated BLE cannot start an observation',async()=>{
+ const f=gatt(),h=harness({bluetooth:f.provider});assert.equal(h.field('watch').disabled,true);assert.equal(h.field('watch-stop').disabled,true);
+ await h.field('bluetooth').fire('click');assert.equal(h.field('watch').disabled,true);await h.field('watch').fire('click');assert.equal(f.counts.writes,0);assert.equal(h.field('pin'),undefined);h.panel.destroy();assert.equal(f.device.gatt.connected,false);
+});
+
+test('fictional console watch consumes staged confirmations and advances only fictional samples',async()=>{
+ const h=harness();await h.field('simulation').fire('click');await h.field('authenticate').fire('click');
+ await h.select('robot.sound','{"tag":"chirp"}');await h.prepare();await h.confirm();assert.equal(h.field('confirm').checked,true);
+ await h.field('watch').fire('click');assert.equal(h.panel.controller.snapshot().prepared,null);assert.equal(h.panel.controller.snapshot().busy,true);assert.equal(h.field('confirm').checked,false);assert.equal(h.field('method').disabled,true);assert.equal(h.field('execute').disabled,true);assert.equal(h.field('watch-stop').disabled,false);assert.equal(h.field('watch-advance').disabled,false);
+ assert.match(h.field('watch-result').textContent,/SIMULATION \/ FICTIONAL/);assert.match(h.field('watch-result').textContent,/"phase": "idle"/);assert.match(h.field('watch-status').textContent,/do not prove/);
+ await h.field('watch-advance').fire('click');await h.field('watch-advance').fire('click');assert.match(h.field('watch-result').textContent,/downloading/);
+ assert.ok(!h.panel.controller.snapshot().history.some(entry=>entry.method==='robot.sound'));
+ await h.field('watch-stop').fire('click');assert.match(h.field('watch-status').textContent,/WATCH_STOPPED/);assert.match(h.field('watch-status').textContent,/not an update outcome/);assert.doesNotMatch(h.field('status').textContent,/unknown outcome/);assert.equal(h.panel.controller.snapshot().phase,'closed');
+ assert.equal(h.field('refresh').disabled,false);await h.field('refresh').fire('click');assert.equal(h.field('watch-result').textContent,'No progress samples.');h.panel.destroy();
+});
+
+test('watch keeps eight typed samples, omits daemon detail and cannot issue overlapping commands',async()=>{
+ const f=recordingClient({stream:true}),h=harness();await authenticated(h,f);await h.field('watch').fire('click');
+ for(let count=0;count<20;count++)f.transport.receive(new TextEncoder().encode(JSON.stringify({jsonrpc:'2.0',method:'update.progress',params:{component:'robotd',phase:'downloading',percent:count,detail:'<img src=x onerror=alert(1)> PRIVATE-DETAIL'}})+'\n'));
+ const rows=JSON.parse(h.field('watch-result').textContent);assert.equal(rows.length,8);assert.deepEqual(rows.map(row=>row.percent),[12,13,14,15,16,17,18,19]);assert.ok(rows.every(row=>row.detailOmitted));assert.doesNotMatch(h.field('watch-result').textContent,/PRIVATE|onerror/);assert.equal(h.container.all(node=>node.tagName==='IMG').length,0);
+ await h.field('watch').fire('click');await h.field('execute').fire('click');assert.deepEqual(f.requests.map(row=>row.method),['system.authenticate','update.subscribe']);await h.field('watch-stop').fire('click');assert.equal(f.client.closed,true);h.panel.destroy();
+});
+
+test('watch session replacement and late callbacks cannot change the new console or claim a mutation outcome',async()=>{
+ const first=recordingClient({stream:true}),second=recordingClient(),h=harness();await authenticated(h,first);await h.field('watch').fire('click');
+ const late=first.transport.receive;h.panel.attach(second.client,{apiVersion:44});assert.equal(first.client.closed,true);assert.equal(h.field('watch').disabled,true);assert.equal(h.field('watch-result').textContent,'No progress samples.');
+ late?.(new TextEncoder().encode(JSON.stringify({jsonrpc:'2.0',method:'update.progress',params:{component:'robotd',phase:'idle',percent:100}})+'\n'));
+ assert.equal(h.field('watch-result').textContent,'No progress samples.');assert.doesNotMatch(h.field('status').textContent,/unknown outcome/);assert.deepEqual(second.requests,[]);h.panel.destroy();
+});
+
+test('watch duration closes read-only observation without a fabricated updater success or retry',async()=>{
+ const f=recordingClient({stream:true}),h=harness({watchDurationMs:10});await authenticated(h,f);await h.field('watch').fire('click');
+ await new Promise(resolve=>setTimeout(resolve,25));assert.equal(f.client.closed,true);assert.match(h.field('watch-status').textContent,/WATCH_TIME_LIMIT/);assert.match(h.field('watch-status').textContent,/not an update outcome/);assert.doesNotMatch(h.field('status').textContent,/unknown outcome/);assert.equal(f.requests.length,2);h.panel.destroy();
+});
+
+test('matching watch refusal is bounded text and does not become a pending mutation warning',async()=>{
+ const f=recordingClient({stream:true}),h=harness();await authenticated(h,f);await h.field('watch').fire('click');
+ f.transport.receive(new TextEncoder().encode(JSON.stringify({jsonrpc:'2.0',id:2,error:{code:-32003,message:'PRIVATE-ERROR',data:'PRIVATE-DATA'}})+'\n'));
+ assert.match(h.field('watch-status').textContent,/REMOTE_-32003/);assert.doesNotMatch(h.container.textContent,/PRIVATE-ERROR|PRIVATE-DATA|unknown outcome/);assert.equal(f.requests.length,2);assert.equal(f.client.closed,true);h.panel.destroy();
+});
+
+test('page exit closes a watch and drops its visible metadata without retry or updater action',async()=>{
+ const f=recordingClient({stream:true}),h=harness();await authenticated(h,f);await h.field('watch').fire('click');h.lifecycle.dispatchEvent(new Event('pagehide'));
+ assert.equal(f.client.closed,true);assert.equal(h.field('watch-result').textContent,'No progress samples.');assert.equal(h.panel.controller.snapshot().phase,'disconnected');assert.equal(f.requests.length,2);assert.doesNotMatch(h.field('status').textContent,/unknown outcome/);h.panel.destroy();assert.equal(h.lifecycle.handlers.size,0);
 });

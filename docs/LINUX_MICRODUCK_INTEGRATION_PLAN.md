@@ -20,6 +20,7 @@ portal/editor changes or push an older local main over newer remote work.
 | `87f0bbc` | Requirements/status/checklist and release receipts | Six requested guides, physical/simulated/blocked matrix, publication/conflict gates and final validation index. |
 | Typed-readings checkpoint following `87f0bbc` | Two pure converters, source-backed sensor/readiness records, library0.2 and eighteen feature tests | Preserve signed31 scaling, optional/default/invalid semantics, simulation origin and GC roots. New VM and library must travel together. Graphical typed-example execution remains unverified. |
 | Protected-console checkpoint following `1876772` | Production controller/panel, explicit in-memory fixture, portal link and CI | Strict JSON, confidential-only structured secrets, one-use confirmation, fresh skills, unknown outcomes/no replay. No actual robot or Edge-control request used in acceptance. |
+| Update-watch checkpoint following `961b440` | Authenticated notification-only progress, bounded watch ownership and fictional preview | Preserve the no-reply upstream protocol, final write-ACK races, time/event/visible-sample bounds, omitted arbitrary detail, no update outcome inference and no replay. |
 
 Use `git log --reverse --format=fuller 9db5c3f..HEAD` and `git diff --stat
 9db5c3f..HEAD` in this checkout for exact final identities. The candidate's
@@ -146,8 +147,11 @@ physical robot acceptance remain explicit separate gates.
 
 The typed example additionally has an isolated graphical-test blocker: requesting
 native control of Edge window18679338 via `cua.getApp` timed out awaiting app
-approval. It was not retried or bypassed. The new editor loads the example and
-connects to its fresh Pi VM, but graphical compilation/execution was not verified.
+approval. After Fred explicitly requested a fresh attempt, one new request for
+that same window was made. The platform stopped Computer Use because it could
+not determine the current browser URL confidently enough to enforce policy.
+There was no input, retry or bypass after that stop. The editor loads the example
+and connects to its Pi VM, but graphical compilation/execution was not verified.
 This does not block the completed native bytecode, fixture or repository tests.
 
 The protected console is tested independently through actual RPC/core/UI modules
@@ -158,11 +162,19 @@ native C/header and the typed VM binaries are unchanged in this UI-only phase.
 
 ## Published upstream rehearsal
 
-The separate branch `codex/pi5-upstream-integration-20261027` contains local merge
-`acd315cd711b80e317d0651c4d43f836fba3dbdc` against fetched published main
-`9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226`. It has zero conflicts and exactly the
-preparation tree. Fresh repository, Node, package and native Pi checks are recorded
-in the [integration receipt](../evidence/2026-10-27/linux-integration/README.md).
-This branch is local review material; unpublished P4 work was not read. Shared
-main, the preparation branch and the active P4 checkout remain unchanged. Re-fetch
-and coordinate the eventual P4 commit before publication or release preparation.
+The separate branch `codex/pi5-upstream-integration-20261027` remains at
+`e5fd3d0a1d77f7024cade03136e9d6e859947cc5`. Its original local merge
+`acd315cd711b80e317d0651c4d43f836fba3dbdc` tested published main
+`9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226` and exactly preparation961b440.
+Its zero-conflict historical result, fresh native Pi checks and bundle remain
+unchanged. See the [original receipt](../evidence/2026-10-27/linux-integration/README.md).
+
+The new separate branch `codex/pi5-watch-integration-20261027` incorporates
+update-watch commit `62fb982268a9db7f749057842696ad3b74c6b85b` into that candidate.
+One append-only integration-plan conflict was resolved by retaining the original
+receipt and this follow-up scope. Product code merged automatically; its exact
+staged bytes are compared with the preparation commit before testing.
+The current fetched main still has zero upstream-only commits. Unpublished P4
+work was not read, and its eventual committed integration point still needs
+coordination and affected regression checks. No shared-main push, release,
+Pages deployment or P4 checkout modification is performed by this rehearsal.

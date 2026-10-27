@@ -17,6 +17,7 @@ No ARM64 release or updated GitHub Pages deployment has been published.
 | Web Bluetooth discovery panel | Implemented and simulated | Mock chooser/version/cleanup tests; physical radio and browser/device compatibility untested. |
 | API-44 BLE JSON-RPC client | Implemented and simulated | Mock framing, IDs, ACK writes, auth/permission/timeouts; [coverage](MICRODUCK_PROTOCOL.md). |
 | Advanced browser JSON-RPC console and protected-command UI | Implemented and simulated | [Protected console](../linux/microduck/CONSOLE.md):27 reviewed raw methods, structured auth/provisioning, exact one-use confirmations, fresh skill discovery, redacted transient results and no replay. Real BLE secret/protected operations remain blocked by unverified confidentiality. |
+| Read-only updater progress stream | Implemented and simulated | [Bounded watch](../linux/microduck/UPDATES.md): notification-only API44 semantics, acknowledged writes, authentication, exclusive ownership, time/event limits and eight typed samples. No update operation or success inference; actual robot/browser behavior remains unverified. |
 | Real BLE PIN authentication/Wi-Fi provisioning | Blocked | Shipping BLE confidentiality cannot be attested. PIN is not encryption; no real secrets are sent. |
 | Browser commissioning controls | Implemented and simulated | Standalone, explicitly fictional simulation; no physical transport or credential inputs. See browser commissioning guide when merged. |
 | JSON-RPC local gateway | Implemented and simulated | Real Unix sockets and peer identities; robot daemon replies are mocks. |
@@ -38,12 +39,22 @@ The typed-readings checkpoint passes 181 required Linux tests, 18 feature tests
 on each of ordinary and sanitizer native Pi binaries, and 442 native sanitizer
 fixture checks. The updated graphical example loads and connects, but execution
 of that example remains unverified: native Edge-window control timed out awaiting
-app approval and was not retried. [Typed evidence](../linux/microduck/tests/typed-validation.json)
+app approval. A later user-requested fresh attempt was stopped by platform policy
+because the current browser URL could not be determined confidently; no input or
+bypass followed. [Typed evidence](../linux/microduck/tests/typed-validation.json)
 keeps this separate from bytecode/primitive acceptance. The later protected
 console checkpoint passes48 new Node tests (139 selected tests total) and181
 required Linux tests with zero skips. Its real modules are exercised through
 mock DOM/GATT and in-memory RPC independently of unavailable Edge control.
 Actual graphical console acceptance and real robot behavior remain untested.
+
+The later bounded updater-watch checkpoint adds 30 tests and passes 169 selected
+Node tests plus 181 required Linux tests, with no skips. It implements the
+notification-only progress method through the existing authenticated client,
+an explicit fictional preview, finite observation limits and typed samples.
+No arbitrary detail text, update outcome, automatic retry, security override or
+physical-robot claim is introduced. Its [evidence](../linux/microduck/UPDATES.md)
+and package checks are separate from the immutable earlier integration rehearsal.
 
 Start with [Pi installation and tests](RASPBERRY_PI_5_INSTALLATION_TESTING.md),
 [port design](LINUX_ARM64_SMALLVM_PORT.md), [Web Bluetooth](MICRODUCK_WEB_BLUETOOTH.md),

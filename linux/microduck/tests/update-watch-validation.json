@@ -1,0 +1,110 @@
+{
+  "tested_at": "2026-10-27T11:25:32.000759+00:00",
+  "result": "PASS",
+  "source_branch": "codex/pi5-microduck-preparation",
+  "source_parent_commit": "961b4401a4cd81add9d56d929ebcc4a2afb1d446",
+  "source_file_sha256": {
+    ".github/workflows/linux-arm64.yml": "33f8d6905d422ac1c8e413f792ed2d829a523b3152f0d17ed2ad2b03965d580a",
+    "web/microduck/commands.js": "24a9e636c4df6da8cd399adbe709331b94bb957afb16313c45599e09b347eb76",
+    "web/microduck/rpc.js": "6848c28b5e6e6f83e6dd8bc83b6a6b3aeddb0d4761966ce2273a43f144587f15",
+    "web/microduck/bluetooth.js": "2d8f4bd0d7ad1a35676aee547d7d8e8ccad9945d0cc8133b1e2b90f769c1cfbd",
+    "web/microduck/console-core.js": "5de9a1a41f4cafac6ccb16f5f0944875872e84703e993c4637a43624c85c290c",
+    "web/microduck/console-fixture.js": "955f30e99aade73bf07da706e47f007c945e6410492bc2dace47b1665924a52a",
+    "web/microduck/console-panel.js": "17a5ee7bcbbf31b909ea14a60603620c5b390e0081c71e71730860330e0b740a",
+    "web/microduck/console.html": "ed8cc6f4baaec7d516193c4728ef916bd08486292710c44bc2646d7022e24602",
+    "tests/test_microduck_updates.cjs": "308708fe2f679f9577a505f863f0651e3995b854b8c168144800d3ae18f63765",
+    "tests/test_microduck_console_core.cjs": "3387308a08755a4f1a946a2ac20b3220feeee3ffddb8a5dc505ac216c4ac4699",
+    "tests/test_microduck_console_fixture.cjs": "6ae908836c556f53f5f7fa34413f3632624c849de7840c994e9360c0d30978de",
+    "tests/test_microduck_console_panel.cjs": "803a05c667e9f6208082822e691725fa30ecd465a02199abe54a1f85c4e6484f",
+    "linux/microduck/UPDATES.md": "046d3d06b54395f7cd35700303f0b5f8b1ba8ae9afff5e32c84c953cfefb5180"
+  },
+  "upstream_audit": "update-watch-source.json",
+  "api_version": 44,
+  "scope": "actual JavaScript RPC/controller/panel modules, in-memory fixture and mock DOM/GATT only; pinned upstream source audited, no live daemon or physical robot",
+  "node": {
+    "result": "PASS",
+    "tests": 169,
+    "skipped": 0,
+    "new_tests": 30,
+    "new_test_groups": {
+      "protocol_and_source_audit": 19,
+      "controller_ownership": 1,
+      "fictional_fixture": 3,
+      "mock_panel": 7
+    },
+    "log": "update-watch-node.txt"
+  },
+  "required_linux": {
+    "result": "PASS",
+    "tests": 181,
+    "skipped": 0,
+    "seconds": 331.736,
+    "log": "update-watch-linux.txt"
+  },
+  "captures": {
+    "update-watch-node.txt": {
+      "source": "build-artifacts/validate-node-update-watch-final.txt",
+      "captured_sha256": "b6e7050cde7dc3da8fa2a57eadd57e9ae9eca4560c7bf2a33f469c07013aac27",
+      "retained_sha256": "94c56ec95c3105f558b1904deb908dc08469333d8ef10cd5078bd7cb4d7ead87",
+      "conversion": "CRLF to LF only"
+    },
+    "update-watch-linux.txt": {
+      "source": "build-artifacts/validate-linux-update-watch.txt",
+      "captured_sha256": "32bdfe6a155e56d704dd81d5348cafb3c1c047d4a94b212ed628cba52744cca5",
+      "retained_sha256": "940889898b5338e4e219a7e912e0b2e9b29f25cead90cdb5b2abf7f4d3eafd43",
+      "conversion": "CRLF to LF only"
+    }
+  },
+  "protocol": {
+    "notification_only_subscription": true,
+    "ordinary_subscribe_request_refused_before_write": true,
+    "final_write_ack_required_before_progress_delivery": true,
+    "authentication_required": true,
+    "exclusive_client_ownership": true,
+    "server_acceptance_or_update_success_inferred": false,
+    "unknown_phase_rejected": true,
+    "percent_not_clamped": true,
+    "raw_detail_retained": false,
+    "automatic_retry_or_replay": false
+  },
+  "bounds": {
+    "write_bytes": 20,
+    "request_bytes": 8192,
+    "reply_line_bytes": 65536,
+    "default_observation_ms": 60000,
+    "maximum_configurable_observation_ms": 300000,
+    "default_notifications": 128,
+    "maximum_configurable_notifications": 256,
+    "visible_samples": 8
+  },
+  "packaging": "update-watch-packaging.json",
+  "fictional_scenario": "update-watch-scenario.json",
+  "unchanged": {
+    "native_vm_sources": true,
+    "native_gateway": true,
+    "ubl": true,
+    "portal_transport_and_packager": true,
+    "real_ble_confidentiality_immutable_false": true,
+    "integration_candidate_commit": "e5fd3d0a1d77f7024cade03136e9d6e859947cc5"
+  },
+  "not_performed": {
+    "new_pi_execution": true,
+    "physical_microduck": true,
+    "radio_or_browser_chooser": true,
+    "edge_control": true,
+    "robot_update_or_rollback": true,
+    "real_pin_or_wifi_secret_transmission": true,
+    "services_or_security_changes": true,
+    "publication_or_shared_main_merge": true,
+    "previously_denied_action_retry": true
+  },
+  "remaining": [
+    "Physical MicroDuck and shipping API/daemon/socket validation.",
+    "Verified real BLE confidentiality and commissioning; protected real BLE operations remain blocked.",
+    "Graphical browser acceptance remains blocked by the stopped Edge URL-policy check; no retry was attempted.",
+    "Watch is exclusive and read-only; no parallel apply/rollback is queued on this client.",
+    "Reintegrate this follow-up after P4 coordination; the earlier e5fd3d0 candidate remains immutable.",
+    "Hosted CI, production Pages, final release bindings and reboot/startup acceptance remain unverified."
+  ],
+  "approval_pending": false
+}
