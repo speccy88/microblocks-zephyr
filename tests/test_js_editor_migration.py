@@ -81,6 +81,36 @@ class JSVerifiedSourceTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn('"passed":10', result.stdout)
 
+    def test_typed_bundle_preserves_exact_sources_and_indexes_only_coherent_import(self):
+        with tempfile.TemporaryDirectory() as temp:
+            assets = Path(temp) / 'editor'
+            package(self.source, assets)
+            manifest = load_manifest(assets / 'microduck-libraries.json')
+            bundle = (assets / manifest['bundle']).read_bytes()
+            self.assertFalse(manifest['automatic_import'])
+            self.assertEqual(len(manifest['sources']), 6)
+            for entry in manifest['sources']:
+                raw = (ROOT / entry['source_path']).read_bytes()
+                self.assertEqual(raw, (assets / entry['packaged_source']).read_bytes())
+                self.assertEqual(raw, bundle[entry['bundle_offset']:entry['bundle_offset'] + entry['bytes']])
+            index = (assets / 'files.txt').read_text(encoding='utf-8').splitlines()
+            self.assertEqual(index, sorted(set(index)))
+            self.assertIn(manifest['bundle'], index)
+            self.assertFalse(any(name.startswith('Libraries/') and '_Simulation' in name for name in index))
+
+    def test_real_editor_typed_library_import_and_full_compilation(self):
+        node = os.environ.get('NODE_BINARY') or shutil.which('node')
+        if not node:
+            self.skipTest('Node unavailable: set NODE_BINARY')
+        with tempfile.TemporaryDirectory() as temp:
+            assets = Path(temp) / 'editor'
+            package(self.source, assets)
+            result = subprocess.run([node, str(ROOT / 'tests/js-typed-libraries.test.cjs'), str(assets)],
+                capture_output=True, text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            data = json.loads(result.stdout)
+            self.assertEqual((data['passed'], data['modules'], data['functions']), (7, 6, 140))
+
 
 if __name__ == '__main__':
     unittest.main()

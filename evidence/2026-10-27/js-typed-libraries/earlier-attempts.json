@@ -1,0 +1,59 @@
+[
+  {
+    "diagnosis": "Probe initially supplied a raw health object; native validation correctly returned invalid. Corrected to the required JSON-RPC envelope and kept the malformed input as a negative test.",
+    "receipt": {
+      "architecture": "aarch64",
+      "hostname": "RPI5",
+      "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+      "port": 58059,
+      "graphical": false,
+      "robot_hardware": false,
+      "network_settings_changed": false,
+      "typed_libraries": true,
+      "simulated_sensor_services": false,
+      "returncode": 1,
+      "output": "serial disconnected\n",
+      "stderr": "AssertionError [ERR_ASSERTION]: microduckReadingStatus (microduckBatteryPercent '{\"healthy\":false,\"simulation\":true,\"battery\":{\"percent\":0}}')\n\n'invalid' !== 'ok'\n\n    at main (/home/fred/microblocks-js-typed-t4390slk/tests/js-typed-libraries.test.cjs:105:24) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 'invalid',\n  expected: 'ok',\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n",
+      "node_version": "v22.22.2",
+      "children_stopped": true
+    }
+  },
+  {
+    "diagnosis": "Probe extracted gamepad axis code 1, which the fixture does not report; the VM correctly rejected an unknown reading.",
+    "receipt": {
+      "architecture": "aarch64",
+      "hostname": "RPI5",
+      "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+      "port": 47329,
+      "graphical": false,
+      "robot_hardware": false,
+      "network_settings_changed": false,
+      "typed_libraries": true,
+      "simulated_sensor_services": true,
+      "returncode": 1,
+      "output": "serial disconnected\n",
+      "stderr": "Error: [{\"id\":250,\"message\":\"Error: Argument index out of range\"}]\n    at until (/home/fred/microblocks-js-typed-t4390slk/tests/js-typed-libraries.test.cjs:59:42)\n    at async main (/home/fred/microblocks-js-typed-t4390slk/tests/js-typed-libraries.test.cjs:105:17)\n",
+      "node_version": "v22.22.2",
+      "children_stopped": true
+    }
+  },
+  {
+    "diagnosis": "Diagnostic pinpointed the main script extraction. Changed the positive probe to documented axis code 0 and kept code 1 as an explicit unknown-value check.",
+    "receipt": {
+      "architecture": "aarch64",
+      "hostname": "RPI5",
+      "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+      "port": 36937,
+      "graphical": false,
+      "robot_hardware": false,
+      "network_settings_changed": false,
+      "typed_libraries": true,
+      "simulated_sensor_services": true,
+      "returncode": 1,
+      "output": "serial disconnected\n",
+      "stderr": "Error: {\"errors\":[{\"id\":250,\"message\":\"Error: Argument index out of range\",\"location\":[250,20,0,0]}],\"source\":\"local 'sample' (microduckGamepadCapture)\\nlocal 'reading' (microduckGamepadAxis sample 1)\\nmicroduckGamepadRelease sample\\nreturn ('[microduck:readingValue]' reading)\"}\n    at until (/home/fred/microblocks-js-typed-t4390slk/tests/js-typed-libraries.test.cjs:60:42)\n    at async main (/home/fred/microblocks-js-typed-t4390slk/tests/js-typed-libraries.test.cjs:107:17)\n",
+      "node_version": "v22.22.2",
+      "children_stopped": true
+    }
+  }
+]

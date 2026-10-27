@@ -85,6 +85,14 @@
         if (installed.has(Compiler)) return;
         const init = Compiler.prototype.initPrimsets;
         const literals = Compiler.prototype.appendLiterals;
+        const primitive = Compiler.prototype.primitive;
+        Compiler.prototype.primitive = function (op, inputs, isCommand) {
+            if (typeof op === 'string' && /^microduck[A-Z]/.test(op) &&
+                !this.codeManager.functionChunkIDs.has(op)) {
+                throw new Error('Missing MicroDuck function dependency: ' + op);
+            }
+            return primitive.call(this, op, inputs, isCommand);
+        };
         Compiler.prototype.initPrimsets = function () {
             init.call(this);
             this.primsets = new Map(this.primsets);

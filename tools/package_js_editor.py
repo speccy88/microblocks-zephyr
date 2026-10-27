@@ -11,6 +11,28 @@ ROOT = Path(__file__).resolve().parents[1]
 REDIRECT = "if (location.protocol === 'http:') { location.protocol = 'https:'; }"
 LOCAL_REDIRECT = "if (location.protocol === 'http:' && location.hostname !== '127.0.0.1') { location.protocol = 'https:'; }"
 ANCHOR = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
+MICRODUCK_LIBRARIES = ('MicroDuck', 'Head_IMU', 'Depth', 'Gamepad', 'Robot', 'Pad_IMU')
+MICRODUCK_BUNDLE = 'Libraries/MicroDuck Linux.ubl'
+
+
+def microduck_files():
+    """One coherent import, with exact separate sources and dependency manifest."""
+    result, records = {}, []
+    bundle = b'// MicroDuck Linux: six normal gateway libraries. Hardware unvalidated.\n'
+    for name in MICRODUCK_LIBRARIES:
+        source = 'linux/microduck/' + name + '.ubl'
+        data = (ROOT / source).read_bytes()
+        destination = 'sources/microduck/' + name + '.ubl'
+        result[destination] = data
+        records.append({'source_path': source, 'packaged_source': destination,
+            'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest(),
+            'bundle_offset': len(bundle)})
+        bundle += data + b'\n\n'
+    result[MICRODUCK_BUNDLE] = bundle
+    result['microduck-libraries.json'] = (json.dumps({'schema': 1, 'bundle': MICRODUCK_BUNDLE,
+        'automatic_import': False, 'physical_hardware_validated': False,
+        'sources': records}, indent=2) + '\n').encode()
+    return result
 
 
 def package(source, output, manifest_path=None):
@@ -33,6 +55,15 @@ def package(source, output, manifest_path=None):
     files['licenses/LOCAL-MIT.txt'] = (ROOT / 'LICENSE').read_bytes()
     files['THIRD_PARTY_NOTICES.md'] = (ROOT / 'web/js-editor/THIRD_PARTY_NOTICES.md').read_bytes()
     files['source-manifest.json'] = manifest_path.read_bytes()
+    local = microduck_files()
+    if files.keys() & local.keys():
+        raise ValueError('Local library path collides with upstream')
+    files.update(local)
+    # Official MB_Files and its picker require the build-generated file index.
+    # Generate it from actual packaged paths; no upstream engine patch needed.
+    if 'files.txt' in files:
+        raise ValueError('Upstream now provides files.txt; review index generation')
+    files['files.txt'] = ('\n'.join(sorted(files)) + '\n').encode()
     receipt = {'schema': 1, 'profile': 'experimental-linux-microduck',
                'source_commit': manifest['source_commit'], 'runtime_upgraded': False,
                'upstream_engine_modified': False, 'graphical_acceptance': False,

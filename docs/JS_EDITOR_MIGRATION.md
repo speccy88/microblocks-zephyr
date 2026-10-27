@@ -131,8 +131,8 @@ self-hosted/WSS deployment remain unverified; no physical motion is enabled
 by this headless test. See the earlier
 [3.0 assessment](MICROBLOCKS_3_MIGRATION_ASSESSMENT.md) for those boundaries.
 
-The staged file browser currently contains upstream libraries. Importing our
-existing MicroDuck `.ubl` libraries through the actual JS parser, exposing them
-in that browser and testing the resulting typed blocks is the next integration
-slice. The native `configured` probe proves set-22 dispatch, not that library
-import or custom slot rendering has already passed.
+The [typed-library slice](JS_TYPED_LIBRARIES.md) now adds a generated file-browser
+index and a coherent six-module MicroDuck import. The actual editor import path
+and 140 functions have headless/Pi evidence, including typed wrappers over
+fictional depth and gamepad streams. Graphical import, save/restore and custom
+slot rendering remain separate gates.

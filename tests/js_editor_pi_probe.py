@@ -15,12 +15,13 @@ import platform
 import signal
 import socket
 import subprocess
+import sys
 import tempfile
 import time
 import urllib.request
 
 
-def run(root, binary, expected_sha, bridge_python, node):
+def run(root, binary, expected_sha, bridge_python, node, typed=False, simulated=False):
     actual_sha = hashlib.sha256(binary.read_bytes()).hexdigest()
     if actual_sha != expected_sha:
         raise ValueError('VM digest mismatch')
@@ -32,23 +33,56 @@ def run(root, binary, expected_sha, bridge_python, node):
     processes, logs = [], []
     result = {'architecture': platform.machine(), 'hostname': platform.node(),
         'vm_sha256': actual_sha, 'port': port, 'graphical': False,
-        'robot_hardware': False, 'network_settings_changed': False}
+        'robot_hardware': False, 'network_settings_changed': False,
+        'typed_libraries': typed, 'simulated_sensor_services': simulated}
     try:
+        def start(name, command):
+            log = (data / (name + '.log')).open('w', encoding='utf-8')
+            logs.append(log)
+            processes.append(subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT))
+
+        def wait_file(path):
+            deadline = time.monotonic() + 5
+            while not path.exists():
+                if any(p.poll() is not None for p in processes) or time.monotonic() > deadline:
+                    raise RuntimeError('Private fixture startup failed: ' + path.name)
+                time.sleep(.02)
+
+        gateway_args = []
+        if simulated:
+            if not typed:
+                raise ValueError('Simulated services require the typed-library probe')
+            sensors = data / 'sensors'
+            start('simulated-sensors', [sys.executable, str(root / 'linux/microduck/sensor_simulator.py'), '--directory', str(sensors)])
+            wait_file(sensors / 'tof.sock')
+            wait_file(sensors / 'pad.sock')
+            def config(name, value):
+                p = data / name
+                with p.open('x', encoding='utf-8') as stream:
+                    os.chmod(p, 0o600)
+                    json.dump(value, stream)
+                return p
+            empty = config('gateway.json', {'version': 1, 'upstreams': {}})
+            depth = config('depth.json', {'version': 1, 'daemon': 'tofd', 'path': str(sensors / 'tof.sock'), 'uid': os.geteuid()})
+            gamepad = config('gamepad.json', {'version': 1, 'daemon': 'padd', 'path': str(sensors / 'pad.sock'), 'uid': os.geteuid()})
+            gateway_socket = data / 'gateway.sock'
+            start('readonly-gateway', [sys.executable, str(root / 'linux/microduck/gateway.py'),
+                '--socket', str(gateway_socket), '--config', str(empty), '--depth-config', str(depth), '--gamepad-config', str(gamepad)])
+            wait_file(gateway_socket)
+            gateway_args = ['--microduck-socket', str(gateway_socket)]
         info = data / 'pty.json'
         for name, command in [
-            ('vm', [str(binary), '--data-dir', str(data), '--pty-info', str(info)]),
+            ('vm', [str(binary), '--data-dir', str(data), '--pty-info', str(info), *gateway_args]),
             ('bridge', [str(bridge_python), str(root / 'linux/arm64/bridge.py'),
                 '--editor', str(root / 'editor'), '--pty-info', str(info),
                 '--vm-executable', str(binary), '--http-port', str(port)])]:
             if name == 'bridge':
                 deadline = time.monotonic() + 5
                 while not info.exists():
-                    if processes[0].poll() is not None or time.monotonic() > deadline:
+                    if any(p.poll() is not None for p in processes) or time.monotonic() > deadline:
                         raise RuntimeError('Private VM startup failed')
                     time.sleep(.02)
-            log = (data / (name + '.log')).open('w', encoding='utf-8')
-            logs.append(log)
-            processes.append(subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT))
+            start(name, command)
         url = f'http://127.0.0.1:{port}/'
         deadline = time.monotonic() + 5
         while True:
@@ -62,8 +96,9 @@ def run(root, binary, expected_sha, bridge_python, node):
                 if processes[-1].poll() is not None or time.monotonic() > deadline:
                     raise RuntimeError('Private bridge startup failed')
                 time.sleep(.02)
-        probe = subprocess.run([node, str(root / 'tests/js-editor-compat.test.cjs'),
-            str(root / 'editor'), url], capture_output=True, text=True, timeout=45)
+        script = 'js-typed-libraries.test.cjs' if typed else 'js-editor-compat.test.cjs'
+        probe = subprocess.run([node, str(root / 'tests' / script), str(root / 'editor'), url,
+            'simulated-sensors' if simulated else 'no-gateway'], capture_output=True, text=True, timeout=60)
         (data / 'node.stdout').write_text(probe.stdout, encoding='utf-8')
         (data / 'node.stderr').write_text(probe.stderr, encoding='utf-8')
         result.update(returncode=probe.returncode, output=probe.stdout, stderr=probe.stderr,
@@ -94,6 +129,9 @@ if __name__ == '__main__':
     parser.add_argument('--sha256', required=True)
     parser.add_argument('--bridge-python', required=True, type=Path)
     parser.add_argument('--node', default='node')
+    parser.add_argument('--typed-libraries', action='store_true')
+    parser.add_argument('--simulated-sensors', action='store_true')
     args = parser.parse_args()
     print(json.dumps(run(args.root.resolve(), args.binary.resolve(), args.sha256,
-                         args.bridge_python.absolute(), args.node), indent=2))
+                         args.bridge_python.absolute(), args.node, args.typed_libraries,
+                         args.simulated_sensors), indent=2))

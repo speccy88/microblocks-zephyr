@@ -7,6 +7,11 @@ core, video-element frame observer and fictional viewer lab with internal
 fakes. They open no live camera, signaling endpoint or robot connection.
 The physical robot has not arrived.
 
+The isolated [JS typed-library migration](JS_TYPED_LIBRARIES.md) now imports
+the six normal gateway modules through the actual pinned editor implementation
+and executes representative compiled wrappers on the real Pi. Depth/gamepad
+sources remain fictional; graphical and physical acceptance are still pending.
+
 The [four-service matrix](MICRODUCK_SERVICE_CAPABILITIES.md) makes the requested
 robotd/mediad/tofd/padd block coverage explicit. Separate simulated depth-zone,
 raw-axis and button JSON blocks now consume bounded source-shaped Unix streams;
