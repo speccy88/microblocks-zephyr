@@ -20,7 +20,7 @@ SOURCE_COMMIT = '2071df569623ba9cdcd6f8106b61796e047df38b'
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def package(binary, license_bytes, output, version, *, epoch=0):
+def package(binary, license_bytes, output, version, *, epoch=0, provenance=None):
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,63}', version) or version == 'latest':
         raise ValueError('A pinned release version is required')
     if len(binary) < 64 or len(binary) > 32 * 1024 * 1024 or binary[:6] != b'\x7fELF\x02\x01' or struct.unpack_from('<H', binary, 18)[0] != 183:
@@ -33,6 +33,13 @@ def package(binary, license_bytes, output, version, *, epoch=0):
         'acceptance': 'candidate; requires real Raspberry Pi execution evidence before release',
         'dependencies': {'yyjson': '6447536015f3d600f3d65323b10976103b337ca7'},
     }
+    if provenance is not None:
+        required = {'port_commit', 'prepared_source_sha256', 'source_archive_sha256', 'native_report_sha256'}
+        if set(provenance) != required or not re.fullmatch(r'[a-f0-9]{40}', provenance['port_commit']):
+            raise ValueError('Invalid candidate provenance')
+        if any(not re.fullmatch(r'[a-f0-9]{64}', provenance[k]) for k in required - {'port_commit'}):
+            raise ValueError('Invalid candidate provenance digest')
+        manifest['provenance'] = dict(provenance)
     json_license = (ROOT / 'third_party/yyjson/LICENSE').read_bytes()
     if hashlib.sha256(json_license).hexdigest() != '45e384d3d52c73cba3a64d6e6c25d47cd738cd8a55c30629e3201046eda62947':
         raise ValueError('Pinned yyjson license changed')
@@ -42,6 +49,11 @@ def package(binary, license_bytes, output, version, *, epoch=0):
         'LICENSE': license_bytes,
         'NOTICE': b'SmallVM is MPL-2.0. Corresponding source: https://codeberg.org/MicroBlocks/smallvm at ' + SOURCE_COMMIT.encode() + b'.\nPort changes and build recipe must accompany a published release.\n\nyyjson 0.13.0, MIT, https://github.com/ibireme/yyjson at 6447536015f3d600f3d65323b10976103b337ca7\n' + json_license,
     }
+    if provenance:
+        entries['NOTICE'] += (b'\nCorresponding prepared source is distributed alongside this binary.\n'
+                              b'Port repository: https://github.com/speccy88/microblocks-zephyr\n'
+                              b'Port commit: ' + provenance['port_commit'].encode() + b'\n'
+                              b'Source archive SHA-256: ' + provenance['source_archive_sha256'].encode() + b'\n')
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     checksum = output.with_name(output.name + '.sha256')
