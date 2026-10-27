@@ -4,6 +4,7 @@
 import asyncio
 import importlib
 import json
+import math
 import os
 from pathlib import Path
 import signal
@@ -68,10 +69,20 @@ class ExplicitSimulation(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(saved['api_version'], 44)
         health = (await self.call('robot.health'))['result']
         self.assertFalse(health['healthy'])
+        self.assertTrue(health['degraded'])
+        self.assertIs(health['simulation'], True)
         self.assertIn('SIMULATION', health['reason'])
         self.assertIn('fictional', health['reason'])
         self.assertEqual(set(health['battery']), {'volts', 'percent'})
         self.assertEqual(health['battery'], {'volts': 7.8, 'percent': 73.25})
+        self.assertEqual(health['cpu_temp_c'], 41.25)
+        self.assertEqual(health['motors']['hottest'], 'SIMULATION-joint')
+        self.assertEqual(health['control_loop']['achieved_hz'], 49.95)
+        self.assertEqual(health['imu'], {'ready': False, 'missing': False, 'stale_blocks': 0, 'consecutive_stale_blocks': 0})
+        self.assertTrue(all(math.isfinite(value) for value in (health['cpu_temp_c'], health['motors']['max_c'],
+            health['motors']['mean_c'], health['control_loop']['target_hz'], health['control_loop']['achieved_hz'])))
+        for word in ('temperatures', 'loop', 'IMU'):
+            self.assertIn(word, health['reason'])
         policies = (await self.call('robot.policies'))['result']
         skills = (await self.call('robot.skills'))['result']
         self.assertFalse(policies['enabled'])

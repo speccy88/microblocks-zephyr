@@ -41,6 +41,39 @@ sys.modules[package.__name__] = package
 gateway_module = importlib.import_module(package.__name__ + '.gateway')
 rpc = importlib.import_module(package.__name__ + '.protocol')
 
+# Auditable feature-suite manifest. The Pi runner requires these exact methods;
+# adding a test requires updating its group instead of weakening a count gate.
+TEST_GROUPS = {
+    'adapter': (
+        'test_disabled_default_is_queryable_and_never_connects',
+        'test_real_dispatch_health_optional_battery_and_policy_skill_discovery',
+        'test_native_json_quote_roundtrips_unicode_control_and_quotes',
+        'test_native_and_gateway_mutation_gates_then_known_sound',
+        'test_delayed_job_keeps_another_real_vm_task_and_ping_running',
+        'test_moving_gc_during_pending_job_does_not_retain_vm_object_addresses',
+        'test_stop_all_cancels_sent_job_as_unknown_without_replay',
+        'test_four_job_slots_are_retained_until_release_and_ids_are_not_reused',
+        'test_malformed_wrong_id_eof_and_oversized_replies_are_unknown',
+        'test_actual_ten_second_deadline_does_not_block_or_retry',
+    ),
+    'typed_readings': (
+        'test_typed_snapshot_fields_and_simulation_origin_are_read_only',
+        'test_typed_optional_required_and_upstream_defaults_preserve_zero_false',
+        'test_typed_scaled_numbers_round_and_respect_signed31_bounds',
+        'test_typed_health_state_does_not_claim_motion_readiness',
+        'test_typed_imu_state_defaults_and_frozen_missing_precedence',
+        'test_typed_schema_parse_and_error_envelope_validation',
+        'test_typed_reading_value_checks_record_shape_and_status',
+        'test_typed_record_allocation_survives_moving_gc',
+    ),
+}
+
+
+class RawString:
+    """Deliberately invalid UTF-8 code literal for VM validation, never user input."""
+    def __init__(self, raw):
+        self.raw = raw
+
 
 class Var:
     def __init__(self, index):
@@ -65,9 +98,9 @@ class Program:
         elif isinstance(value, int):
             self.op(4)
             self.code += struct.pack('<I', ((value << 1) | 1) & 0xffffffff)
-        elif isinstance(value, str):
+        elif isinstance(value, (str, RawString)):
             self.op(5)
-            self.fixups.append((len(self.code), value, 0))
+            self.fixups.append((len(self.code), value.raw if isinstance(value, RawString) else value, 0))
             self.code += b'\0\0'
         else:
             raise ValueError('Unsupported test literal')
@@ -91,7 +124,7 @@ class Program:
             if not 0 < offset < 1024:
                 raise ValueError('Literal exceeds pinned 10-bit primitive offset')
             struct.pack_into('<H', self.code, operand, prefix | offset)
-            raw = text.encode('utf-8') + b'\0'
+            raw = (text if isinstance(text, bytes) else text.encode('utf-8')) + b'\0'
             raw += b'\0' * (-len(raw) % 4)
             self.code += struct.pack('<I', ((len(raw) // 4) << 4) | 4) + raw
         return bytes(self.code)
@@ -348,6 +381,35 @@ class RealSmallVMMicroDuck(unittest.IsolatedAsyncioTestCase):
     async def release(self, job):
         self.assertEqual(await self.primitive('release', (job,), command=True), 0)
 
+    async def reading(self, reply, field):
+        """Inspect an actual VM List using pinned at(index,list)=opcode81.
+
+        interp.c at_op dispatches primAt(arg,sp-arg); dataPrims.c primAt uses
+        args[0]=one-based index,args[1]=List. Opcode83 dispatches primLength.
+        No host-side emulation of the new primitive or its record is involved.
+        """
+        text = reply if isinstance(reply, (str, RawString)) else json.dumps(reply, separators=(',', ':'), allow_nan=False)
+        program = Program().call('healthSample', (text, field)).op(7, 3).push(0)
+        await asyncio.to_thread(self.runtime.execute, program.finish())
+        count = Program().push(Var(3)).op(83, 1).finish()
+        self.assertEqual(await asyncio.to_thread(self.runtime.execute, count), 4)
+        values = []
+        for index in range(1, 5):
+            code = Program().push(index).push(Var(3)).op(81, 2).finish()
+            values.append(await asyncio.to_thread(self.runtime.execute, code))
+        return values
+
+    async def assert_reading(self, result, field, status, value, unit, origin='unmarked'):
+        reply = {'jsonrpc': '2.0', 'id': 1, 'result': result}
+        actual = await self.reading(reply, field)
+        self.assertEqual(actual, [status, value, unit, origin])
+        if status == 'ok':
+            extracted = await self.primitive('readingValue', (Var(3),))
+            self.assertIs(type(extracted), type(value), 'false/zero and integer/string must remain distinct')
+            self.assertEqual(extracted, value)
+        else:
+            await self.primitive('readingValue', (Var(3),), error=32)
+
     async def test_disabled_default_is_queryable_and_never_connects(self):
         await self.start_vm(None)
         self.assertIs(await self.primitive('configured'), False)
@@ -496,6 +558,169 @@ class RealSmallVMMicroDuck(unittest.IsolatedAsyncioTestCase):
         self.assertLess(elapsed, 12)
         self.assertEqual(len(self.adverse.calls), 1)
         await asyncio.to_thread(self.runtime.wire.ping, 95)
+
+    async def test_typed_snapshot_fields_and_simulation_origin_are_read_only(self):
+        await self.start_vm()
+        self.robot.health = {'healthy': False, 'degraded': True, 'simulation': True,
+            'battery': {'percent': 43.21, 'volts': 7.654}, 'cpu_temp_c': 41.25,
+            'motors': {'hottest': 'SIMULATION-joint', 'max_c': 45.5, 'mean_c': 40.25},
+            'control_loop': {'target_hz': 50, 'achieved_hz': 49.95, 'last_tick_age_ms': 4},
+            'bus': {'consecutive_errors': 2, 'startup_failures': 1},
+            'imu': {'ready': False, 'missing': False, 'stale_blocks': 7, 'consecutive_stale_blocks': 3}}
+        job = await self.begin()
+        _, reply = await self.terminal(job)
+        await self.release(job)
+        for field, value, unit in (
+            ('healthy', False, 'boolean'), ('degraded', True, 'boolean'), ('health.state', 'degraded', 'state'),
+            ('battery.percent', 4321, '0.01%'), ('battery.volts', 7654, 'mV'), ('cpu_temp_c', 41250, 'mC'),
+            ('motors.max_c', 45500, 'mC'), ('motors.mean_c', 40250, 'mC'),
+            ('control_loop.target_hz', 50000, 'mHz'), ('control_loop.achieved_hz', 49950, 'mHz'),
+            ('control_loop.last_tick_age_ms', 4, 'ms'), ('bus.consecutive_errors', 2, 'count'),
+            ('bus.startup_failures', 1, 'count'), ('imu.ready', False, 'boolean'), ('imu.missing', False, 'boolean'),
+            ('imu.stale_blocks', 7, 'count'), ('imu.consecutive_stale_blocks', 3, 'count'), ('imu.state', 'not_converged', 'state'),
+        ):
+            with self.subTest(field=field):
+                await self.assert_reading(reply['result'], field, 'ok', value, unit, 'simulation')
+        for markers, origin in (({}, 'unmarked'), ({'simulation': False}, 'unmarked'),
+            ({'simulation': 'true'}, 'unmarked'), ({'simulated': True}, 'simulation'),
+            ({'simulation': False, 'simulated': True}, 'simulation')):
+            await self.assert_reading({'healthy': False, **markers}, 'healthy', 'ok', False, 'boolean', origin)
+        self.assertEqual([q['method'] for q in self.robot.calls], ['robot.health'], 'conversion must open no new socket')
+
+    async def test_typed_optional_required_and_upstream_defaults_preserve_zero_false(self):
+        await self.start_vm(None)
+        for field, unit in (('battery.percent', '0.01%'), ('motors.max_c', 'mC'), ('cpu_temp_c', 'mC'),
+            ('control_loop.target_hz', 'mHz'), ('imu.ready', 'boolean'), ('imu.state', 'state')):
+            await self.assert_reading({'healthy': False}, field, 'unknown', '', unit)
+        for result, field, unit in (
+            ({'battery': {}}, 'battery.percent', '0.01%'), ({'battery': {'volts': None}}, 'battery.volts', 'mV'),
+            ({'motors': {}}, 'motors.max_c', 'mC'), ({'motors': {'mean_c': None}}, 'motors.mean_c', 'mC'),
+            ({'control_loop': {}}, 'control_loop.target_hz', 'mHz'),
+            ({'control_loop': {'last_tick_age_ms': None}}, 'control_loop.last_tick_age_ms', 'ms'),
+            ({'degraded': None}, 'degraded', 'boolean'), ({'bus': None}, 'bus.startup_failures', 'count'),
+            ({'imu': {'ready': None}}, 'imu.ready', 'boolean'), ({'imu': {'missing': None}}, 'imu.missing', 'boolean'),
+            ({'imu': {'stale_blocks': None}}, 'imu.stale_blocks', 'count'),
+        ):
+            with self.subTest(field=field, result=result):
+                await self.assert_reading({'healthy': False, **result}, field, 'invalid', '', unit)
+        for result, field, value, unit in (
+            ({}, 'degraded', False, 'boolean'), ({}, 'bus.consecutive_errors', 0, 'count'),
+            ({'bus': {}}, 'bus.startup_failures', 0, 'count'), ({'imu': {}}, 'imu.ready', False, 'boolean'),
+            ({'imu': {}}, 'imu.missing', False, 'boolean'), ({'imu': {}}, 'imu.stale_blocks', 0, 'count'),
+            ({'imu': {}}, 'imu.consecutive_stale_blocks', 0, 'count'),
+            ({'battery': {'percent': 0, 'volts': 0}}, 'battery.percent', 0, '0.01%'),
+            ({'control_loop': {'last_tick_age_ms': 0}}, 'control_loop.last_tick_age_ms', 0, 'ms'),
+        ):
+            await self.assert_reading({'healthy': False, **result}, field, 'ok', value, unit)
+        for result in ({'control_loop': {}}, {'control_loop': {'achieved_hz': None}}):
+            await self.assert_reading({'healthy': False, **result}, 'control_loop.achieved_hz', 'unknown', '', 'mHz')
+        await self.assert_reading({'healthy': False, 'imu': None}, 'imu.ready', 'unknown', '', 'boolean')
+        self.assertEqual(self.robot.calls, [])
+
+    async def test_typed_scaled_numbers_round_and_respect_signed31_bounds(self):
+        await self.start_vm(None)
+        for result, field, status, value, unit in (
+            ({'battery': {'percent': 1.125}}, 'battery.percent', 'ok', 113, '0.01%'),
+            ({'battery': {'volts': 1.0625}}, 'battery.volts', 'ok', 1063, 'mV'),
+            ({'cpu_temp_c': -1.0625}, 'cpu_temp_c', 'ok', -1063, 'mC'),
+            ({'cpu_temp_c': 1073741.823}, 'cpu_temp_c', 'ok', 1073741823, 'mC'),
+            ({'cpu_temp_c': -1073741.824}, 'cpu_temp_c', 'ok', -1073741824, 'mC'),
+            ({'cpu_temp_c': 1073741.824}, 'cpu_temp_c', 'out_of_range', '', 'mC'),
+            ({'cpu_temp_c': -1073741.825}, 'cpu_temp_c', 'out_of_range', '', 'mC'),
+            ({'cpu_temp_c': 1e308}, 'cpu_temp_c', 'out_of_range', '', 'mC'),
+            ({'battery': {'percent': False}}, 'battery.percent', 'invalid', '', '0.01%'),
+            ({'battery': {'volts': '7.8'}}, 'battery.volts', 'invalid', '', 'mV'),
+            ({'bus': {'consecutive_errors': 1073741823}}, 'bus.consecutive_errors', 'ok', 1073741823, 'count'),
+            ({'bus': {'consecutive_errors': 1073741824}}, 'bus.consecutive_errors', 'out_of_range', '', 'count'),
+            ({'bus': {'consecutive_errors': -1}}, 'bus.consecutive_errors', 'invalid', '', 'count'),
+            ({'bus': {'consecutive_errors': 0.0}}, 'bus.consecutive_errors', 'invalid', '', 'count'),
+        ):
+            with self.subTest(field=field, result=result):
+                await self.assert_reading({'healthy': False, **result}, field, status, value, unit)
+
+    async def test_typed_health_state_does_not_claim_motion_readiness(self):
+        await self.start_vm(None)
+        for result, status, state in (({'healthy': True}, 'ok', 'healthy'),
+            ({'healthy': True, 'degraded': True}, 'ok', 'healthy'),
+            ({'healthy': False, 'degraded': True}, 'ok', 'degraded'),
+            ({'healthy': False}, 'ok', 'unhealthy'), ({}, 'invalid', ''),
+            ({'healthy': 1}, 'invalid', ''), ({'healthy': False, 'degraded': 0}, 'invalid', '')):
+            await self.assert_reading(result, 'health.state', status, state, 'state')
+        await self.assert_reading({'battery': {'volts': 7.8}}, 'battery.volts', 'invalid', '', 'mV')
+        self.assertEqual(self.robot.calls, [])
+
+    async def test_typed_imu_state_defaults_and_frozen_missing_precedence(self):
+        await self.start_vm(None)
+        for imu, status, value in (({}, 'ok', 'not_converged'), ({'ready': True}, 'ok', 'converged'),
+            ({'ready': True, 'consecutive_stale_blocks': 24}, 'ok', 'converged'),
+            ({'ready': True, 'consecutive_stale_blocks': 25}, 'ok', 'frozen'),
+            ({'ready': False, 'consecutive_stale_blocks': 25}, 'ok', 'frozen'),
+            ({'missing': True, 'ready': True, 'consecutive_stale_blocks': 100}, 'ok', 'missing'),
+            ({'ready': 1}, 'invalid', ''), ({'missing': None}, 'invalid', ''),
+            ({'consecutive_stale_blocks': -1}, 'invalid', ''), ({'consecutive_stale_blocks': 1.5}, 'invalid', '')):
+            await self.assert_reading({'healthy': False, 'imu': imu}, 'imu.state', status, value, 'state')
+        await self.assert_reading({'healthy': False, 'imu': {'ready': True, 'consecutive_stale_blocks': 25}}, 'imu.ready', 'ok', True, 'boolean')
+
+    async def test_typed_schema_parse_and_error_envelope_validation(self):
+        await self.start_vm(None)
+        for reply in ({}, [], {'jsonrpc': '1.0', 'id': 1, 'result': {'healthy': True}},
+            {'jsonrpc': '2.0', 'id': True, 'result': {'healthy': True}},
+            {'jsonrpc': '2.0', 'id': 0, 'result': {'healthy': True}},
+            {'jsonrpc': '2.0', 'id': 1, 'result': []},
+            {'jsonrpc': '2.0', 'id': 1, 'error': {'code': -1}},
+            {'jsonrpc': '2.0', 'id': 1, 'result': {'healthy': True}, 'error': {'code': -1, 'message': 'mock'}}):
+            self.assertEqual(await self.reading(reply, 'healthy'), ['invalid', '', 'boolean', 'unmarked'])
+        for index in (None, 1):
+            reply = {'jsonrpc': '2.0', 'id': index, 'error': {'code': -32008, 'message': 'fixture service offline'}}
+            self.assertEqual(await self.reading(reply, 'healthy'), ['error', '', 'boolean', 'unmarked'])
+            await self.primitive('readingValue', (Var(3),), error=32)
+        for text in ('{', '{"jsonrpc":"2.0","id":1,"result":{"healthy":true,"healthy":false}}',
+            '{"jsonrpc":"2.0","id":1,"result":{"healthy":true,"cpu_temp_c":NaN}}', RawString(b'\xff')):
+            await self.primitive('healthSample', (text, 'healthy'), error=32)
+        await self.primitive('healthSample', ('{}', RawString(b'\xff')), error=32)
+        await self.primitive('healthSample', ('{}', 'unsupported.field'), error=32)
+        await self.primitive('healthSample', (1, 'healthy'), error=14)
+        await self.primitive('healthSample', ('{}', False), error=14)
+        await self.primitive('healthSample', ('{}',), error=28)
+        # Keep uploaded bytecode below the official 1019-byte code-message
+        # payload; grow the oversized input inside the actual VM heap instead.
+        oversized = Program().push('x' * 512).op(7, 0)
+        for _ in range(8):
+            oversized.call('join', (Var(0), Var(0)), prim_set=1).op(7, 0)
+        oversized.call('healthSample', (Var(0), 'healthy'))
+        code = oversized.finish()
+        self.assertLess(len(code), 1019)
+        await asyncio.to_thread(self.runtime.execute, code, 32)
+
+    async def test_typed_reading_value_checks_record_shape_and_status(self):
+        await self.start_vm(None)
+        await self.primitive('readingValue', (False,), error=11)
+        await self.primitive('readingValue', (), error=28)
+        for parts in (('unknown', '', 'mV', 'unmarked'), ('ok', 1, 'mV'), ('ok', 1, 'mV', 'unmarked', 'extra'),
+            ('ok', 1, False, 'unmarked'), ('ok', 1, 'mV', False), ('ready', 1, 'mV', 'unmarked')):
+            code = Program().call('makeList', parts, prim_set=1).op(7, 3).call('readingValue', (Var(3),)).finish()
+            await asyncio.to_thread(self.runtime.execute, code, 32)
+        nested = Program().call('makeList', (), prim_set=1).op(7, 5)
+        nested.call('makeList', ('ok', Var(5), 'mV', 'unmarked'), prim_set=1).op(7, 3).call('readingValue', (Var(3),))
+        await asyncio.to_thread(self.runtime.execute, nested.finish(), 32)
+        for value in (0, False, ''):
+            code = Program().call('makeList', ('ok', value, 'state', 'unmarked'), prim_set=1).op(7, 3).call('readingValue', (Var(3),)).finish()
+            actual = await asyncio.to_thread(self.runtime.execute, code)
+            self.assertIs(type(actual), type(value))
+            self.assertEqual(actual, value)
+
+    async def test_typed_record_allocation_survives_moving_gc(self):
+        await self.start_vm(None)
+        vm = self.runtime.wire
+        start = len(vm.events)
+        fill = Program().call('newByteArray', (262080,), prim_set=1).op(19, 1).push(0).finish()
+        await asyncio.to_thread(self.runtime.execute, fill)
+        self.assertFalse(any(kind == 20 and index == 255 and b'GC took' in body for kind, index, body in vm.events[start:]), 'heap setup must fit without collecting')
+        start = len(vm.events)
+        # Only healthSample allocates VM objects between setup and this record.
+        await self.assert_reading({'healthy': False, 'simulation': True}, 'health.state', 'ok', 'unhealthy', 'state', 'simulation')
+        self.assertTrue(any(kind == 20 and index == 255 and b'GC took' in body for kind, index, body in vm.events[start:]), 'record construction must actually compact the heap')
+        self.assertEqual(self.robot.calls, [])
 
 
 if __name__ == '__main__':

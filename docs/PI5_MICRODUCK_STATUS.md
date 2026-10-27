@@ -23,7 +23,9 @@ No ARM64 release or updated GitHub Pages deployment has been published.
 | Native MicroDuck primitive adapter | Implemented on physical Pi with simulated robot | Real VM bytecode, moving GC, jobs, gateway, errors, timeouts and graphical health block. [Adapter evidence](../linux/microduck/tests/README.md). |
 | Sensor, battery, sound and skills on actual MicroDuck | Implemented but untested | API envelopes and simulated replies implemented; no physical device available. |
 | Continuous locomotion/camera/direct motor control | Not implemented | Outside the selected BLE/local gateway surface; preserve robotd controller and use supported future transport. |
-| Scalar battery/sensor and universal robot-ready blocks | Not yet implemented | Full optional health/battery JSON is available; exact units/readiness semantics require shipping API/hardware validation. Do not invent readings. |
+| Typed battery/temperature/loop/bus/IMU readings | Implemented on physical Pi with simulated robot | Eighteen source-backed fields, explicit status/value/unit/origin records, fixed-point signed31 values and refusal of missing/invalid values. [Contract and use](../linux/microduck/TYPED_READINGS.md). |
+| Reported health verdict and IMU convergence state | Implemented on physical Pi with simulated robot | Documented health/default/stale-run semantics; no global safe-to-move claim. |
+| Universal robot-ready / motion authorization block | Not supplied by the reviewed API | No such signal is invented. Use reported diagnostics and supported robot authorization/safety interfaces. |
 | Shipping MicroDuck OS/API/socket ownership | Blocked | Inventory and authoritative permission checks on arrival; never guess daemon UIDs or change permissions to force access. |
 
 Milestone A is partially complete: native Pi execution is verified, while the
@@ -31,6 +33,14 @@ published installer/reboot gates remain. B awaits coordinated Pages/release
 publication. C has a tested mock protocol core and an explicit real BLE security
 gate. D has native Pi end-to-end tests against simulated daemons. E has a
 commissioning checklist; it is not a physical compatibility claim.
+
+The typed-readings checkpoint passes 181 required Linux tests, 18 feature tests
+on each of ordinary and sanitizer native Pi binaries, and 442 native sanitizer
+fixture checks. The updated graphical example loads and connects, but execution
+of that example remains unverified: native Edge-window control timed out awaiting
+app approval and was not retried. [Typed evidence](../linux/microduck/tests/typed-validation.json)
+keeps this separate from bytecode/primitive acceptance. Production browser console
+and protected-command UI remain incomplete; real robot behavior remains untested.
 
 Start with [Pi installation and tests](RASPBERRY_PI_5_INSTALLATION_TESTING.md),
 [port design](LINUX_ARM64_SMALLVM_PORT.md), [Web Bluetooth](MICRODUCK_WEB_BLUETOOTH.md),

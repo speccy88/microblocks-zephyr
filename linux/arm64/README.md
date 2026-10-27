@@ -1,5 +1,14 @@
 # Linux ARM64 SmallVM: current status
 
+The later [typed health checkpoint](../microduck/TYPED_READINGS.md) adds two pure
+snapshot-conversion primitives and library0.2. Ordinary and sanitizer Pi binaries
+each pass all eighteen MicroDuck feature tests (simulated robot services), with
+181 required Linux tests passing. See [typed evidence](../microduck/tests/typed-validation.json).
+The new ordinary binary is `0b5c2b269fb4e12b7ef8422c2961e2b1e09094de287796a297a93620ea43136f`.
+Graphical execution of the updated typed example remains unverified because the
+native Edge-control approval timed out. Earlier graphical evidence below covers
+the earlier prototype. No physical MicroDuck or published release is claimed.
+
 The native headless SmallVM v417 now builds and executes on Fred's Raspberry Pi
 5, Debian 13.4, AArch64, GCC 14.2. Both ASan/UBSan and ordinary ARMv8-A builds
 pass real interpreter/PTY tests: arithmetic, variables, start/stop, live edits,

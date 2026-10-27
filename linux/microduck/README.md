@@ -159,7 +159,7 @@ sanitized. Poll failures never set another VM task's global error flag.
 Convenience blocks wait cooperatively, return the full reply JSON, and release
 the finished job. Health, optional battery health, skills, policies and gateway
 capabilities are available. Battery absence is unknown; these blocks do not
-invent a scalar reading or a universal robot-ready sensor. Sound and skill
+invent a universal robot-ready sensor. Sound and skill
 blocks default to unconfirmed and also require the gateway operator allowlist;
 skill discovery remains authoritative. Native JSON quoting protects string
 parameters. Other allowed methods remain in advanced `begin` calls.
@@ -175,6 +175,25 @@ jobs. Jobs/results do not survive VM process restart.
 Standard VM errors are: arity 28, string 14, integer 13, Boolean 12,
 invalid/blocked/unconfirmed/pending 32, absent/released job 18, disabled 27, and
 exhausted slots 10. See the [machine-readable contract](vm-contract.json).
+
+Library0.2 and the new native `healthSample`/`readingValue` names add
+[typed readings from a single health snapshot](TYPED_READINGS.md). The primary
+blocks return `[status, value, unit, origin]`, exposing known zero/false while
+keeping missing, invalid, overflow and JSON-RPC errors distinct. Fixed-point
+integers carry explicit `0.01%`, `mV`, `mC` and `mHz` units. Counter and Boolean
+defaults follow the pinned serde contract; no physical threshold is guessed.
+Simulation replies have an explicit true marker propagated to every reading.
+Unmarked data never proves a physical measurement. Extract a value only after
+checking the reading; extraction refuses any non-ok status.
+
+Health verdict and IMU convergence/missing/frozen state expose documented
+diagnostics, not authorization to move. Optional sensor streams/pose and a
+universal ready flag are not invented. Conversion has no I/O, freshness or
+authentication claim; it only interprets the supplied snapshot. The updated
+health example prints raw JSON and labelled battery/IMU readings. It requires
+the new VM and library together; the earlier unpublished source candidate does
+not contain these primitive names. [Typed test evidence](tests/typed-validation.json)
+distinguishes native bytecode acceptance from incomplete graphical execution.
 
 ## Reproducing tests and hardware gates
 

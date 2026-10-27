@@ -1,5 +1,15 @@
 # Native adapter evidence
 
+The later [typed-reading checkpoint](../TYPED_READINGS.md) adds eight new feature
+tests to the original ten. All eighteen pass on each of ordinary and ASan/UBSan
+native Pi builds, with simulated robot daemons. Required Linux validation now
+passes 181 tests without skips; standalone native fixture checks now total442.
+See [typed validation](typed-validation.json), [ordinary Pi](typed-pi-ordinary.json),
+[sanitizer Pi](typed-pi-sanitizers.json), and [exact sources](typed-source-manifest.json).
+The updated example is loaded and connected in a new graphical editor, but its
+execution remains unverified because native Edge-control approval timed out.
+No physical robot measurement/readiness/movement claim follows from these tests.
+
 These results validate software preparation, not a physical MicroDuck robot.
 The Pi is Raspberry Pi 5 / Debian 13.4 AArch64 / GCC 14.2. All robot responses
 and actions in these tests are simulated. No motor, camera, BLE credential,

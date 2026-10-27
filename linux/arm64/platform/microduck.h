@@ -23,6 +23,10 @@ void linuxMicroduckClose(void);
  * begin(method:String, paramsJSON:String, confirmed:Boolean)->positive ID;
  * status(ID)->pending/ready/error/unknown; result(ID)->terminal JSON-RPC;
  * release(ID)->command (explicitly discards even a pending/unknown outcome).
+ * healthSample(replyJSON:String,field:String)->[status,value,unit,origin],
+ * pure conversion of supported API44 health fields; no I/O/readiness authority.
+ * readingValue(List)->typed value only for an ok reading, else error32.
+ * Readings carry unknown/invalid/out_of_range/error without inventing values.
  * Standard VM errors: arity28, string14, integer13, boolean12, invalid/blocked/
  * unconfirmed/pending32, absent/released ID18, disabled27, exhausted slots10.
  * Poll/cancellation failures update terminal JSON/status only, never a task's

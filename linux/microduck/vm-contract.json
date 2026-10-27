@@ -1,5 +1,5 @@
 {
-  "contract_version": 2,
+  "contract_version": 3,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -71,6 +71,21 @@
         "job ID"
       ],
       "returns": "command; release bounded job buffers"
+    },
+    {
+      "name": "[microduck:healthSample]",
+      "arguments": [
+        "health JSON-RPC reply string",
+        "supported field string"
+      ],
+      "returns": "List[status,value,unit,origin]; pure API44 health snapshot conversion; no I/O"
+    },
+    {
+      "name": "[microduck:readingValue]",
+      "arguments": [
+        "reading list"
+      ],
+      "returns": "signed31 integer,Boolean or state string only if statusok; otherwise explicitVMerror32"
     }
   ],
   "implemented_hooks": [
@@ -90,13 +105,42 @@
     "invalid_blocked_unconfirmed_or_pending": 32,
     "absent_or_released_job": 18,
     "disabled": 27,
-    "no_slots": 10
+    "no_slots": 10,
+    "list": 11
   },
   "validation": {
     "real_vm_and_unix_gateway": true,
-    "native_aarch64_pi_with_simulated_robot": "10 tests pass under ASan/UBSan",
+    "native_aarch64_pi_with_simulated_robot": "18 feature tests on each ordinary andASan/UBSan build;original10+typed8",
     "physical_microduck": false,
-    "standalone_native_fixture_checks": 380,
+    "standalone_native_fixture_checks": 442,
     "standalone_test_timeout_ms": 40
+  },
+  "typed_readings": {
+    "statuses": [
+      "ok",
+      "unknown",
+      "invalid",
+      "out_of_range",
+      "error"
+    ],
+    "non_ok_value": "empty string; explicit extraction refuses",
+    "origin": [
+      "simulation for explicit result markertrue",
+      "unmarked; never proves physicalmeasurement"
+    ],
+    "units": [
+      "0.01%",
+      "mV",
+      "mC",
+      "mHz",
+      "ms",
+      "count",
+      "boolean",
+      "state"
+    ],
+    "scaling": "nearest, tiesawayfromzero; signed31bounds;no silentwrap/clamp",
+    "readiness": "reported health verdict and upstream IMU convergence/missing/frozen diagnostics;no universalready/motionauthorization",
+    "schema": "See TYPED_READINGS.md; required,optional andserde(default) have distinct semantics",
+    "io": false
   }
 }

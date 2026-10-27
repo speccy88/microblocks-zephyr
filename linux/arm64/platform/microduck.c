@@ -10,6 +10,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
+#include <math.h>
 #include <poll.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -442,8 +443,153 @@ static OBJ jobsPrimitive(int argc, OBJ *args) {
     for (unsigned i=0;i<LINUX_MICRODUCK_MAX_JOBS;++i) if (jobs[i].state!=JOB_UNUSED) FIELD(list,at++)=int2obj(jobs[i].id);
     return list;
 }
+
+/* Pure conversion of one health snapshot. No I/O, readiness authorization or
+ * invented measurement. Unknown/invalid/error values remain explicit records. */
+typedef struct { const char *name,*section,*key,*unit; int kind,scale,defaults; } HealthField;
+enum { HEALTH_NUMBER, HEALTH_COUNTER, HEALTH_BOOLEAN, HEALTH_VERDICT, HEALTH_IMU_STATE };
+static const HealthField healthFields[]={
+    {"healthy",NULL,"healthy","boolean",HEALTH_BOOLEAN,1,0},
+    {"degraded",NULL,"degraded","boolean",HEALTH_BOOLEAN,1,1},
+    {"health.state",NULL,NULL,"state",HEALTH_VERDICT,1,0},
+    {"battery.percent","battery","percent","0.01%",HEALTH_NUMBER,100,0},
+    {"battery.volts","battery","volts","mV",HEALTH_NUMBER,1000,0},
+    {"cpu_temp_c",NULL,"cpu_temp_c","mC",HEALTH_NUMBER,1000,0},
+    {"motors.max_c","motors","max_c","mC",HEALTH_NUMBER,1000,0},
+    {"motors.mean_c","motors","mean_c","mC",HEALTH_NUMBER,1000,0},
+    {"control_loop.target_hz","control_loop","target_hz","mHz",HEALTH_NUMBER,1000,0},
+    {"control_loop.achieved_hz","control_loop","achieved_hz","mHz",HEALTH_NUMBER,1000,0},
+    {"control_loop.last_tick_age_ms","control_loop","last_tick_age_ms","ms",HEALTH_COUNTER,1,0},
+    {"bus.consecutive_errors","bus","consecutive_errors","count",HEALTH_COUNTER,1,1},
+    {"bus.startup_failures","bus","startup_failures","count",HEALTH_COUNTER,1,1},
+    {"imu.ready","imu","ready","boolean",HEALTH_BOOLEAN,1,1},
+    {"imu.missing","imu","missing","boolean",HEALTH_BOOLEAN,1,1},
+    {"imu.stale_blocks","imu","stale_blocks","count",HEALTH_COUNTER,1,1},
+    {"imu.consecutive_stale_blocks","imu","consecutive_stale_blocks","count",HEALTH_COUNTER,1,1},
+    {"imu.state","imu",NULL,"state",HEALTH_IMU_STATE,1,1}
+};
+typedef struct { const char *status,*text,*unit,*origin; int number,boolean,isText,isBoolean; } HealthReading;
+
+static int optionalBoolean(yyjson_val *object,const char *key,int *number) {
+    yyjson_val *v=yyjson_obj_get(object,key);
+    if (!v) { *number=0; return 1; }
+    if (!yyjson_is_bool(v)) return 0;
+    *number=yyjson_get_bool(v); return 1;
+}
+static void decodeHealth(yyjson_val *root,const HealthField *field,HealthReading *reading) {
+    yyjson_val *result=yyjson_obj_get(root,"result"),*error=yyjson_obj_get(root,"error"),*id=yyjson_obj_get(root,"id");
+    if (!yyjson_is_obj(root) || !equalText(yyjson_obj_get(root,"jsonrpc"),"2.0") || (!result==!error)
+        || !(integerBetween(id,1,INT32_MAX) || (error && yyjson_is_null(id)))) return;
+    if (error) {
+        if (yyjson_is_obj(error) && integerBetween(yyjson_obj_get(error,"code"),INT32_MIN,INT32_MAX)
+            && yyjson_is_str(yyjson_obj_get(error,"message"))) reading->status="error";
+        return;
+    }
+    if (!yyjson_is_obj(result)) return;
+    if (yyjson_is_true(yyjson_obj_get(result,"simulation")) || yyjson_is_true(yyjson_obj_get(result,"simulated"))) reading->origin="simulation";
+    yyjson_val *healthy=yyjson_obj_get(result,"healthy");
+    if (!yyjson_is_bool(healthy)) return;
+    if (field->kind==HEALTH_VERDICT) {
+        int degraded;
+        if (!optionalBoolean(result,"degraded",&degraded)) return;
+        reading->text=yyjson_get_bool(healthy)?"healthy":degraded?"degraded":"unhealthy";
+        reading->isText=1; reading->status="ok"; return;
+    }
+    yyjson_val *section=field->section?yyjson_obj_get(result,field->section):result;
+    if (field->section && !section && !strcmp(field->section,"bus")) {
+        reading->number=0; reading->status="ok"; return; /* documented serde(default) */
+    }
+    if (!section || yyjson_is_null(section)) {
+        if (!field->section || strcmp(field->section,"bus")) reading->status="unknown";
+        return;
+    }
+    if (!yyjson_is_obj(section)) return;
+    if (field->kind==HEALTH_IMU_STATE) {
+        int ready,missing;
+        yyjson_val *stale=yyjson_obj_get(section,"consecutive_stale_blocks");
+        if (!optionalBoolean(section,"ready",&ready) || !optionalBoolean(section,"missing",&missing)
+            || (stale && !yyjson_is_uint(stale))) return;
+        /* API44 ImuHealth::FROZEN_RUN=25; convergence alone is not fresh data. */
+        reading->text=missing?"missing":stale && yyjson_get_uint(stale)>=25?"frozen":ready?"converged":"not_converged";
+        reading->isText=1; reading->status="ok"; return;
+    }
+    yyjson_val *value=yyjson_obj_get(section,field->key);
+    if (!value && field->defaults) {
+        reading->isBoolean=field->kind==HEALTH_BOOLEAN;
+        reading->status="ok"; return;
+    }
+    if (!value || yyjson_is_null(value)) {
+        /* Only these scalar members are Option<T> in a present section.
+         * Missing required nested members are a malformed measurement. */
+        if (!strcmp(field->name,"cpu_temp_c") || !strcmp(field->name,"control_loop.achieved_hz")) reading->status="unknown";
+        return;
+    }
+    if (field->kind==HEALTH_BOOLEAN) {
+        if (!yyjson_is_bool(value)) return;
+        reading->isBoolean=1; reading->boolean=yyjson_get_bool(value); reading->status="ok"; return;
+    }
+    if (field->kind==HEALTH_COUNTER) {
+        if (!yyjson_is_uint(value)) return;
+        if (yyjson_get_uint(value)>1073741823u) { reading->status="out_of_range"; return; }
+        reading->number=(int)yyjson_get_uint(value); reading->status="ok"; return;
+    }
+    if (!yyjson_is_num(value)) return;
+    double scaled=yyjson_get_num(value)*field->scale;
+    if (!isfinite(scaled) || scaled<=-1073741824.5 || scaled>=1073741823.5) { reading->status="out_of_range"; return; }
+    reading->number=(int)(scaled>=0?scaled+0.5:scaled-0.5); reading->status="ok";
+}
+static OBJ readingRecord(const HealthReading *reading) {
+    /* Keep the caller's temporary root in the spare capacity slot while each
+     * String allocation may compact the heap. Never retain a stale field ptr. */
+    OBJ list=newObj(ListType,6,tempGCRoot);
+    if (list==falseObj) return falseObj;
+    tempGCRoot=list; FIELD(list,0)=int2obj(4);
+    const char *text[4]={reading->status,reading->text,reading->unit,reading->origin};
+    for (int part=0;part<4;++part) {
+        OBJ value;
+        if (part==1 && !strcmp(reading->status,"ok") && !reading->isText) value=reading->isBoolean?(reading->boolean?trueObj:falseObj):int2obj(reading->number);
+        else {
+            const char *s=part==1 && strcmp(reading->status,"ok")?"":text[part];
+            value=newStringFromBytes(s,(int)strlen(s));
+            if (value==falseObj) { tempGCRoot=FIELD(tempGCRoot,5); return falseObj; }
+        }
+        FIELD(tempGCRoot,part+1)=value;
+    }
+    list=tempGCRoot; OBJ previous=FIELD(list,5); FIELD(list,5)=zeroObj; tempGCRoot=previous;
+    return list;
+}
+static OBJ healthSamplePrimitive(int argc,OBJ *args) {
+    if (argc!=2) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType) || !IS_TYPE(args[1],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u],name[65]; size_t replyLength,nameLength;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&replyLength)
+        || !copyVMString(args[1],name,64,&nameLength)) return fail(argIndexOutOfRange);
+    (void)nameLength;
+    const HealthField *field=NULL;
+    for (size_t i=0;i<sizeof(healthFields)/sizeof(healthFields[0]);++i) if (!strcmp(name,healthFields[i].name)) { field=&healthFields[i]; break; }
+    if (!field) return fail(argIndexOutOfRange);
+    yyjson_doc *document=parseJSON(reply,replyLength);
+    if (!document) return fail(argIndexOutOfRange);
+    HealthReading reading={.status="invalid",.text="",.unit=field->unit,.origin="unmarked"};
+    decodeHealth(yyjson_doc_get_root(document),field,&reading);
+    yyjson_doc_free(document);
+    return readingRecord(&reading);
+}
+static OBJ readingValuePrimitive(int argc,OBJ *args) {
+    if (argc!=1) return fail(notEnoughArguments);
+    OBJ list=args[0];
+    if (!IS_TYPE(list,ListType)) return fail(needsListError);
+    if (WORDS(list)<5 || !isInt(FIELD(list,0)) || obj2int(FIELD(list,0))!=4) return fail(argIndexOutOfRange);
+    char status[17],unit[17],origin[17]; size_t length;
+    if (!copyVMString(FIELD(list,1),status,16,&length) || strcmp(status,"ok")
+        || !copyVMString(FIELD(list,3),unit,16,&length) || !copyVMString(FIELD(list,4),origin,16,&length)) return fail(argIndexOutOfRange);
+    OBJ value=FIELD(list,2);
+    if (!isInt(value) && !isBoolean(value) && !IS_TYPE(value,StringType)) return fail(argIndexOutOfRange);
+    return value;
+}
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
-    {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive}
+    {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
+    {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

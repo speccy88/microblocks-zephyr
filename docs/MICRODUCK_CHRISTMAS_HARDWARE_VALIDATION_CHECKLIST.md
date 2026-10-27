@@ -21,6 +21,10 @@ fill in a physical robot result. All boxes below remain unchecked for hardware.
       sensors, services, logs, skill/policy discovery and updater read methods.
 - [ ] Compare units/absence semantics to real readings; keep unknown distinct
       from zero and retain actual health/error fields.
+- [ ] Validate typed record units/scaling/origin against raw shipping health
+      replies. Check documented defaults and optional data; unmarked is not an
+      attested physical source. Confirm IMU convergence/frozen diagnostics never
+      substitute for motor readiness or movement authorization.
 - [ ] With an operator present, validate one permitted sound and one discovered
       skill according to the robot's safety procedure; no continuous locomotion.
 - [ ] Exercise transport loss/timeout during a simulated or safely bounded

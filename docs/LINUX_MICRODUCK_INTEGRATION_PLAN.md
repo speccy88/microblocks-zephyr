@@ -17,7 +17,8 @@ portal/editor changes or push an older local main over newer remote work.
 | `84e060e` then `91a6b51` then `957e42f` then `b9cf30c` | Candidate provenance and corresponding source | Preserve order: initial tool, declared LF/CRLF conversions, protocol-runner binding, installer-compatible artifact name/release notes. No history rewrite needed. |
 | `5e37b60` | In-memory browser lab, portal copy/link, graphical evidence | Fictional-only controls, no network/GATT/secrets, confirmation consumption and clean reset. All seven editor code hashes preserved. |
 | `af742e8` | Additive native CI and local execution reports | Explicit architecture/pins, skip/empty-suite guards, no publication; hosted runs remain untested. |
-| Documentation commit containing this plan | Requirements/status/checklist and release receipts | Six requested guides, physical/simulated/blocked matrix, publication/conflict gates and final validation index. |
+| `87f0bbc` | Requirements/status/checklist and release receipts | Six requested guides, physical/simulated/blocked matrix, publication/conflict gates and final validation index. |
+| Typed-readings checkpoint following `87f0bbc` | Two pure converters, source-backed sensor/readiness records, library0.2 and eighteen feature tests | Preserve signed31 scaling, optional/default/invalid semantics, simulation origin and GC roots. New VM and library must travel together. Graphical typed-example execution remains unverified. |
 
 Use `git log --reverse --format=fuller 9db5c3f..HEAD` and `git diff --stat
 9db5c3f..HEAD` in this checkout for exact final identities. The candidate's
@@ -99,6 +100,13 @@ are committed. Its actual archives remain local build artifacts. Regenerate
 provenance after final integration; do not substitute an integrated commit
 into an existing manifest by hand.
 
+That candidate predates the typed-reading primitive names and library0.2.
+The newer [typed native evidence](../linux/microduck/tests/typed-validation.json)
+has different ordinary/sanitizer binary hashes. Regenerate a candidate from
+those exact reports after integration; do not publish the earlier binary with
+the newer library. The original bundle above is retained unchanged; the typed
+checkpoint has a separate `build-artifacts/pi5-microduck-typed-readings.bundle`.
+
 ## Publication gates
 
 - Obtain the coordinated integrated commit and run all required regression
@@ -134,3 +142,9 @@ implementation tests are reported separately; they do not imply that review
 passed. Neither action is pending in a loop. There is no current approval
 request. Publication coordination, actual OS reboot/startup, hosted CI and
 physical robot acceptance remain explicit separate gates.
+
+The typed example additionally has an isolated graphical-test blocker: requesting
+native control of Edge window18679338 via `cua.getApp` timed out awaiting app
+approval. It was not retried or bypassed. The new editor loads the example and
+connects to its fresh Pi VM, but graphical compilation/execution was not verified.
+This does not block the completed native bytecode, fixture or repository tests.

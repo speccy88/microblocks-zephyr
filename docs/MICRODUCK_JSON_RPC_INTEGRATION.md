@@ -27,8 +27,13 @@ The MicroDuck editor appends primitive set 22 and includes `MicroDuck.ubl`.
 Cooperative convenience blocks expose health/battery-health JSON, skills,
 policies, capabilities, and confirmed sounds/skills. Advanced bounded jobs cover
 the remaining allowlist. Battery absence remains unknown, not zero; health is
-reported rather than inventing a universal ready/sensor API. JSON replies retain
-upstream fields for future typed blocks once actual semantics are validated.
+reported rather than inventing a universal ready/sensor API. Library0.2 adds
+[typed readings](../linux/microduck/TYPED_READINGS.md) for eighteen documented
+health fields. Every reading carries status, typed value, unit and origin;
+missing data is never silently zero. The health verdict and IMU convergence
+state are diagnostics, not universal movement readiness. Raw JSON retains the
+remaining upstream fields. These conversions are tested with simulated readings
+through real native Pi bytecode, not physical sensors.
 
 Stop All cancels local waits; it cannot undo an accepted robot action. A timeout
 or disconnect after sending can leave an `unknown` outcome. Inspect retained

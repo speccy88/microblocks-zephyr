@@ -29,7 +29,7 @@ except ImportError:
 MAX_ACTIONS = 128
 MOCK_ACTIONS = ('robot.do', 'robot.sound')
 SKILLS = ('simulation_bow', 'simulation_nod')
-NOTICE = 'SIMULATION ONLY: no robot connected; battery readings and skills are fictional.'
+NOTICE = 'SIMULATION ONLY: no robot connected; battery, temperatures, loop, IMU and skills are fictional.'
 
 
 def _fresh_file(path, value):
@@ -90,9 +90,13 @@ class Simulator:
 
     def result(self, method, params):
         if method == 'robot.health':
-            return {'healthy': False, 'degraded': True, 'reason': NOTICE,
+            return {'healthy': False, 'degraded': True, 'simulation': True, 'reason': NOTICE,
                 'battery': {'volts': 7.8, 'percent': 73.25},
-                'bus': {'consecutive_errors': 0, 'startup_failures': 0}}
+                'cpu_temp_c': 41.25,
+                'motors': {'hottest': 'SIMULATION-joint', 'max_c': 45.5, 'mean_c': 40.25},
+                'control_loop': {'target_hz': 50.0, 'achieved_hz': 49.95, 'ticks': 0, 'missed': 0, 'last_tick_age_ms': 4},
+                'bus': {'consecutive_errors': 0, 'startup_failures': 0},
+                'imu': {'ready': False, 'missing': False, 'stale_blocks': 0, 'consecutive_stale_blocks': 0}}
         if method == 'robot.policies':
             return {'mode': 'walk', 'enabled': False, 'slots': [], 'skills': list(SKILLS),
                 'homed': False, 'sitting': False, 'change_error': NOTICE}

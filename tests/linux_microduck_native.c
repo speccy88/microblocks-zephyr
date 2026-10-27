@@ -48,7 +48,7 @@ uint32 microsecs(void) { static uint32 ticks;return ++ticks; }
 void outputString(const char *text) { (void)text; }
 void addPrimitiveSet(PrimitiveSetIndex index,const char *name,int count,PrimEntry *table) {
     CHECK(index==MicroDuckPrims && index==22);
-    CHECK(!strcmp(name,"microduck") && count==7);
+    CHECK(!strcmp(name,"microduck") && count==9);
     CHECK(!strcmp(table[0].primName,"configured"));
 }
 
@@ -179,8 +179,42 @@ static void quoteAndIdentifierBoundary(void) {
     Fixture f=fixture();nextJobID=LINUX_MICRODUCK_MAX_ID;uint32_t id=begin("robot.health","{}",0);CHECK(id==1073741823u);release(id);
     CHECK(begin("robot.health","{}",0)==0 && vmError==argIndexOutOfRange);cleanup(&f);
 }
+static OBJ sample(const char *reply,const char *field) {
+    vmError=0;vars[0]=text(reply);vars[1]=text(field);OBJ args[]={vars[0],vars[1]};
+    OBJ reading=healthSamplePrimitive(2,args);CHECK(reading && !vmError);vars[2]=reading;
+    CHECK(IS_TYPE(reading,ListType) && obj2int(FIELD(reading,0))==4);return reading;
+}
+static void typedReadingsAndMovingRoots(void) {
+    const char *reply="{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false,\"degraded\":true,\"simulation\":true,\"battery\":{\"percent\":73.25,\"volts\":7.8},\"cpu_temp_c\":-0.0005,\"imu\":{\"ready\":true,\"consecutive_stale_blocks\":25}}}";
+    unsigned before=sentBytes;
+    OBJ reading=sample(reply,"battery.percent");
+    CHECK(!strcmp(obj2str(FIELD(reading,1)),"ok"));CHECK(obj2int(FIELD(reading,2))==7325);
+    CHECK(!strcmp(obj2str(FIELD(reading,3)),"0.01%"));CHECK(!strcmp(obj2str(FIELD(reading,4)),"simulation"));
+    OBJ arg=reading;CHECK(obj2int(readingValuePrimitive(1,&arg))==7325);
+    reading=sample(reply,"health.state");CHECK(!strcmp(obj2str(FIELD(reading,2)),"degraded"));
+    reading=sample(reply,"imu.state");CHECK(!strcmp(obj2str(FIELD(reading,2)),"frozen"));
+    reading=sample(reply,"cpu_temp_c");CHECK(obj2int(FIELD(reading,2))==-1);
+    reading=sample("{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false}}","battery.volts");
+    CHECK(!strcmp(obj2str(FIELD(reading,1)),"unknown"));arg=reading;vmError=0;
+    CHECK(readingValuePrimitive(1,&arg)==falseObj && vmError==argIndexOutOfRange);
+    reading=sample("{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false}}","bus.consecutive_errors");CHECK(FIELD(reading,2)==zeroObj);
+    reading=sample("{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false,\"battery\":{}}}","battery.volts");CHECK(!strcmp(obj2str(FIELD(reading,1)),"invalid"));
+    reading=sample("{\"jsonrpc\":\"2.0\",\"id\":null,\"error\":{\"code\":-32004,\"message\":\"unavailable\"}}","healthy");CHECK(!strcmp(obj2str(FIELD(reading,1)),"error"));
+    reading=sample("{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false,\"cpu_temp_c\":1073741.824}}","cpu_temp_c");CHECK(!strcmp(obj2str(FIELD(reading,1)),"out_of_range"));
+    /* Force String allocation GC within record construction, retaining the
+     * prior temporary root and both original VM argument globals correctly. */
+    vars[0]=text(reply);vars[1]=text("battery.percent");vars[2]=zeroObj;
+    tempGCRoot=text("previous temporary root");
+    int free=wordsFree();CHECK(free>30);CHECK(newObj(ByteArrayType,free-14,zeroObj)!=falseObj);
+    OBJ args[]={vars[0],vars[1]};vmError=0;reading=healthSamplePrimitive(2,args);CHECK(reading && !vmError);vars[2]=reading;
+    CHECK(!strcmp(obj2str(tempGCRoot),"previous temporary root"));
+    CHECK(obj2int(FIELD(reading,0))==4 && obj2int(FIELD(reading,2))==7325);
+    CHECK(!strcmp(obj2str(FIELD(reading,1)),"ok") && !strcmp(obj2str(FIELD(reading,4)),"simulation"));
+    CHECK(FIELD(reading,5)==zeroObj);CHECK(wordsFree()>30);CHECK(sentBytes==before);
+    tempGCRoot=falseObj;
+}
 int main(void) {
-    memInit();addMicroduckPrims();primitiveValidation();repliesAndFraming();securityBeforeFirstByte();cancellationSlotsAndRecovery();quoteAndIdentifierBoundary();
+    memInit();addMicroduckPrims();primitiveValidation();repliesAndFraming();securityBeforeFirstByte();cancellationSlotsAndRecovery();quoteAndIdentifierBoundary();typedReadingsAndMovingRoots();
     linuxMicroduckClose();smallvmArenaDestroy();
     printf("{\"result\":\"PASS\",\"checks\":%u,\"scope\":\"native Unix fixture sockets and real VM memory; peer/write fault providers; no robot hardware\"}\n",checks);return 0;
 }

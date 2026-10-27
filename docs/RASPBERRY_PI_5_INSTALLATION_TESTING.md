@@ -1,12 +1,20 @@
 # Raspberry Pi 5 - Installation and Testing
 
 SmallVM executes real MicroBlocks programs on Fred's Pi 5 Model B Rev 1.0,
-Debian 13.4 AArch64, GCC 14.2 and glibc 2.41. The exact ordinary binary hash is
+Debian 13.4 AArch64, GCC 14.2 and glibc 2.41. The earlier GUI-tested binary hash is
 `0365d817036b74819f27ea405f8036f2d892f503891a03d561eb9e1c12f51ef2`.
 Both ordinary and sanitizer builds passed interpreter/PTY tests; the graphical
 editor produced 12 from 5+7, ran a 50-iteration program, restored a browser project
 and reconnected. See [evidence](../linux/arm64/tests/README.md) and the newer
 [MicroDuck adapter evidence](../linux/microduck/tests/README.md).
+
+The typed-health update uses new ordinary binary
+`0b5c2b269fb4e12b7ef8422c2961e2b1e09094de287796a297a93620ea43136f`.
+It passes 50 ordinary core executions and eighteen adapter/typed-reading feature
+tests; a sanitizer build passes 20 core executions and the same eighteen tests.
+Robot services and sensor values in these checks are simulated.
+[Typed evidence](../linux/microduck/tests/typed-validation.json) records the new
+source/binary bindings and the separate, still unverified graphical execution.
 
 No release is published. The following is a **local candidate** procedure,
 using a reviewed archive and the independent SHA256SUMS file, not a copy/paste
