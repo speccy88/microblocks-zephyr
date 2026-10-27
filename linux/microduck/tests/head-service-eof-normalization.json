@@ -1,0 +1,10 @@
+{
+  "scope": "One terminal blank line removed after tests to satisfy git diff --check; no statement, assertion or test signature changed",
+  "file": "tests/test_linux_microduck_head_service.py",
+  "tested_sha256": "6ed6b0b2fa1c7010a561d260d5f6e93d7dcbc21fdc410f7f64bfd002a4e27050",
+  "committed_sha256": "888d337b38b7dea5f2200c203b25e78f6526bd02454124d350e8838c07baa8e0",
+  "removed_bytes": 1,
+  "AST_identical_excluding_source_locations": true,
+  "AST_sha256": "66a8b63072e0e30511ff9c9ff2813d45a75db06f11b7ec2a4bf15c740a35c284",
+  "Pi_kit_test_source_preserved": true
+}

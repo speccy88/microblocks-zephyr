@@ -137,6 +137,7 @@ jobs:
                 ('test_linux_microduck_media.py', ['MediaProtocol', 'MediaUnixBackend', 'MediaNativeAdapter']),
                 ('test_linux_microduck_pad_imu.py', ['PadImuProtocol', 'PadImuUnixBackend', 'PadImuNativeAdapter']),
                 ('test_linux_microduck_head_imu.py', ['HeadImuProtocol', 'HeadImuUnixBackend', 'HeadImuNativeAdapter']),
+                ('test_linux_microduck_head_service.py', ['HeadServiceConfig', 'HeadServiceUnix', 'HeadServiceNativeAdapter']),
               ('test_linux_microduck_simulator.py', ['ExplicitSimulation']),
               ('test_linux_microduck_vm.py', ['RealSmallVMMicroDuck']),
           ]

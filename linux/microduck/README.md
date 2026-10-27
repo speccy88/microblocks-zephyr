@@ -48,6 +48,12 @@ explicitly simulated block gateway. This uses the existing VM connection; live
 shipping socket/UID commissioning and beta frame semantics remain open. No
 automatic daemon fallback, transform or movement authority is introduced.
 
+The [normal read-only head IMU adapter](HEAD_IMU_SERVICE.md) connects the same
+finite reader to explicitly configured tofd through the standard gateway and a
+separate Head_IMU library. local_ipc describes transport only; shipping config
+and physical/beta/graphical acceptance remain open. A labelled fixture command
+exercises this normal path with fictional input and no system/network changes.
+
 ## Filesystem-only commissioning inspection
 
 The optional [preflight](PREFLIGHT.md) inspects host and explicitly supplied

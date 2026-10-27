@@ -1,0 +1,143 @@
+{
+  "result": "PASS",
+  "scope": "Actual x86_64 sanitizer VM bytecode/PTY -> normal Gateway -> explicit checked tofd reader -> fixed fictional Unix source",
+  "binary_sha256": "7d79199e0c376d51b046058d630b040c59dfda1da9d76c74c4484bc5bd95620b",
+  "input_is_simulated": true,
+  "typed_origin": "local_ipc is transport only; not evidence of physical sensor data",
+  "physical_hardware_verified": false,
+  "physical_movement_enabled": false,
+  "capture": [
+    "ok",
+    "9c02aa8fbeec7969b88de049a985b12c",
+    "snapshot",
+    "local_ipc"
+  ],
+  "raw_capture": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "origin": "local_ipc",
+      "source": "tofd",
+      "physical_hardware_verified": false,
+      "physical_movement_enabled": false,
+      "kind": "head_imu_capture",
+      "status": "ok",
+      "handle": "9c02aa8fbeec7969b88de049a985b12c",
+      "expires_in_ms": 5000
+    }
+  },
+  "fields": {
+    "gyro": [
+      "ok",
+      125,
+      "mrad/s",
+      "local_ipc"
+    ],
+    "accel": [
+      "ok",
+      0,
+      "mm/s2",
+      "local_ipc"
+    ],
+    "quat": [
+      "ok",
+      1000000,
+      "ppm",
+      "local_ipc"
+    ],
+    "temperature": [
+      "ok",
+      23125,
+      "mC",
+      "local_ipc"
+    ],
+    "seq": [
+      "ok",
+      "9223372036854775813",
+      "count64",
+      "local_ipc"
+    ],
+    "at_us": [
+      "ok",
+      "1234567",
+      "us_sender",
+      "local_ipc"
+    ],
+    "t_ns": [
+      "ok",
+      "9223372036854775885",
+      "ns",
+      "local_ipc"
+    ],
+    "sensor": [
+      "ok",
+      "BMI088",
+      "sensor",
+      "local_ipc"
+    ],
+    "rate": [
+      "ok",
+      100,
+      "Hz",
+      "local_ipc"
+    ]
+  },
+  "accel_axis3": [
+    "ok",
+    9810,
+    "mm/s2",
+    "local_ipc"
+  ],
+  "after_release": [
+    "expired_or_unknown",
+    "",
+    "count64",
+    "local_ipc"
+  ],
+  "unknown": [
+    "not_reported",
+    "",
+    "mm/s2",
+    "local_ipc"
+  ],
+  "unknown_extraction_denied": true,
+  "wrong_owner_no_fallback": [
+    "absent",
+    "",
+    "snapshot",
+    "local_ipc"
+  ],
+  "tofd_subscriptions": 3,
+  "robot_upstream_calls": 0,
+  "capabilities": {
+    "gateway_version": 1,
+    "api_version": 44,
+    "upstream_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+    "transport": "unix-peercred",
+    "methods": [
+      "microduck.headImu.capture",
+      "microduck.headImu.read",
+      "microduck.headImu.release"
+    ],
+    "read_only_adapters": {
+      "head_imu": {
+        "configured": true,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "tofd",
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 350
+      }
+    },
+    "allowed_mutations": [],
+    "last_upstream_api_versions": {},
+    "limits": {
+      "request_bytes": 8192,
+      "reply_bytes": 65536,
+      "clients": 4
+    },
+    "hardware_validation": "not performed"
+  },
+  "store_clock": "Fixed for scenario; real expiry and cancellation covered by Unix tests"
+}

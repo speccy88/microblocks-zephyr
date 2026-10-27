@@ -76,7 +76,7 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
     source, match, metadata = package_metadata(javascript, data, pinned=True)
     if type(microduck) is not bool:
         raise ValueError('MicroDuck library selection must be explicit')
-    library = example = motion_library = motion_example = sensor_library = sensor_example = robot_library = telemetry_library = robot_example = media_library = media_example = imu_library = imu_example = head_library = head_example = None
+    library = example = motion_library = motion_example = sensor_library = sensor_example = robot_library = telemetry_library = robot_example = media_library = media_example = imu_library = imu_example = head_library = head_example = head_service_library = head_service_example = None
     if microduck:
         root = Path(repo) if repo is not None else Path(__file__).resolve().parents[1]
         library = (root / 'linux/microduck/MicroDuck.ubl').read_bytes()
@@ -94,6 +94,8 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
         imu_example = (root / 'linux/microduck/pad-imu-simulation.ubp').read_bytes() + b'\n' + library + b'\n' + imu_library
         head_library = (root / 'linux/microduck/Head_IMU_Simulation.ubl').read_bytes()
         head_example = (root / 'linux/microduck/head-imu-simulation.ubp').read_bytes() + b'\n' + library + b'\n' + head_library
+        head_service_library = (root / 'linux/microduck/Head_IMU.ubl').read_bytes()
+        head_service_example = (root / 'linux/microduck/head-imu.ubp').read_bytes() + b'\n' + library + b'\n' + head_service_library
     packed = bytearray()
     entries = []
     counts = {'api': 0, 'compiler': 0, 'library': 0, 'arithmetic': 0, 'output': 0}
@@ -137,8 +139,10 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Pad_IMU_Simulation.ubl')\n"
                     b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Pad IMU Simulation' '' }\n"
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Head_IMU_Simulation.ubl')\n"
-                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Head IMU Simulation' '' }")
-                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation' 'microduck-sensor-simulation' 'microduck-robot-simulation' 'microduck-media-simulation' 'microduck-pad-imu-simulation' 'microduck-head-imu-simulation'")
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Head IMU Simulation' '' }\n"
+                    b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Head_IMU.ubl')\n"
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Head IMU' '' }")
+                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation' 'microduck-sensor-simulation' 'microduck-robot-simulation' 'microduck-media-simulation' 'microduck-pad-imu-simulation' 'microduck-head-imu-simulation' 'microduck-head-imu'")
             payload = replace_once(payload, b"} (endPoint == 'project.save') {", PROJECT_API + b"} (endPoint == 'project.save') {")
             counts['api'] += 1
         if name == '/Libraries/UNO_Q_Hardware.ubl':
@@ -179,7 +183,9 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
                               ('/Libraries/MicroDuck_Pad_IMU_Simulation.ubl', imu_library),
                               ('/Examples/Linux/microduck-pad-imu-simulation.ubp', imu_example),
                               ('/Libraries/MicroDuck_Head_IMU_Simulation.ubl', head_library),
-                              ('/Examples/Linux/microduck-head-imu-simulation.ubp', head_example)):
+                              ('/Examples/Linux/microduck-head-imu-simulation.ubp', head_example),
+                              ('/Libraries/MicroDuck_Head_IMU.ubl', head_service_library),
+                              ('/Examples/Linux/microduck-head-imu.ubp', head_service_example)):
             if name in {item['filename'] for item in entries}:
                 raise ValueError('MicroDuck virtual file already exists: ' + name)
             start = len(packed); packed.extend(payload)

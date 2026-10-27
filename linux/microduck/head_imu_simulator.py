@@ -122,9 +122,9 @@ async def read_tofd_head(path, uid, private_parent=False):
             await writer.wait_closed()
 
 
-def sample_reading(state, field, component):
+def sample_reading(state, field, component, envelope=result):
     require(isinstance(field, str) and field in FIELDS and wire.integer(component, 1, FIELDS[field][1]))
-    base = result('head_imu_reading', 'not_reported', field=field, component=component, unit=FIELDS[field][0], value=None)
+    base = envelope('head_imu_reading', 'not_reported', field=field, component=component, unit=FIELDS[field][0], value=None)
     frame, description = state['frame'], state['description']
     if field == 'sensor':
         return {**base, 'status': 'ok', 'value': description['sensor']}
@@ -155,32 +155,42 @@ def sample_reading(state, field, component):
 
 
 class HeadStore(ImuStore):
+    def envelope(self, kind, status, **parts):
+        return result(kind, status, **parts)
+
+    async def read_source(self):
+        return await read_tofd_head(self.directory / 'tofd.sock', os.geteuid(), True)
+
     async def acquire(self):
         self.purge()
         if len(self.entries) + self.pending >= 4:
-            return result('head_imu_capture', 'busy')
+            return self.envelope('head_imu_capture', 'busy')
         self.pending += 1
         try:
-            status, state = await read_tofd_head(self.directory / 'tofd.sock', os.geteuid(), True)
+            status, state = await self.read_source()
             if state is None:
-                return result('head_imu_capture', status)
+                return self.envelope('head_imu_capture', status)
             now, handle = self.purge(), secrets.token_hex(16)
             require(handle not in self.entries)
             self.entries[handle] = {'state': state, 'expires': now + 5}
-            return result('head_imu_capture', 'ok', handle=handle, expires_in_ms=5000)
+            return self.envelope('head_imu_capture', 'ok', handle=handle, expires_in_ms=5000)
         finally:
             self.pending -= 1
 
     def read(self, handle, field, component):
         self.purge()
         if handle not in self.entries:
-            return result('head_imu_reading', 'expired_or_unknown', field=field, component=component,
+            return self.envelope('head_imu_reading', 'expired_or_unknown', field=field, component=component,
                           unit=FIELDS[field][0], value=None)
-        return sample_reading(self.entries[handle]['state'], field, component)
+        return sample_reading(self.entries[handle]['state'], field, component, self.envelope)
 
     def release(self, handle):
-        value = super().release(handle)
-        return {**value, 'kind': 'head_imu_release'}
+        self.purge()
+        removed = self.entries.pop(handle, None)
+        return self.envelope('head_imu_release', 'released' if removed is not None else 'not_retained')
+
+    def close(self):
+        self.entries.clear()
 
 
 def fixture(profile):

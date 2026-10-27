@@ -1,0 +1,13 @@
+{
+  "returncode": 0,
+  "seconds": 249.34248391700004,
+  "mode": "full unchanged discovery with verified external sanitizer VM inputs and byte-identical pinned local-filesystem source held alive throughout the run",
+  "binary_sha256": "7d79199e0c376d51b046058d630b040c59dfda1da9d76c74c4484bc5bd95620b",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "source_tree": "5699b1a910c64cf5e6ade8c89e510627383013ad",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/head-service-native-persisted-20261027/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/head-service-native-persisted-20261027/smallvm",
+    "SMALLVM_UPSTREAM": "/tmp/head-service-upstream-live-yz6f8fho/smallvm"
+  }
+}

@@ -77,9 +77,17 @@ def validate(request):
 
 
 class Gateway:
-    def __init__(self, upstreams, allowed_mutations=(), timeout=3, max_clients=4):
-        if set(upstreams) - {'robot', 'config', 'updater'} or not upstreams or set(allowed_mutations) - MUTATIONS or not 1 <= max_clients <= 16:
+    def __init__(self, upstreams, allowed_mutations=(), timeout=3, max_clients=4, head_imu=None):
+        if set(upstreams) - {'robot', 'config', 'updater'} or not upstreams and head_imu is None or set(allowed_mutations) - MUTATIONS or not 1 <= max_clients <= 16:
             raise ValueError('Invalid gateway configuration')
+        self.head_imu = None
+        if head_imu is not None:
+            # Lazy import avoids the simulator/core -> Gateway dependency cycle.
+            try:
+                from .head_imu_service import ServiceStore
+            except ImportError:
+                from head_imu_service import ServiceStore
+            self.head_imu = ServiceStore(head_imu)
         self.upstreams = {name: Upstream(value['path'], value['uid'], timeout) for name, value in upstreams.items()}
         self.allowed_mutations = frozenset(allowed_mutations)
         self.timeout, self.max_clients = timeout, max_clients
@@ -90,10 +98,17 @@ class Gateway:
         self.tasks = set()
 
     async def dispatch(self, request):
+        head_methods = ('microduck.headImu.capture', 'microduck.headImu.read', 'microduck.headImu.release')
+        if isinstance(request, dict) and isinstance(request.get('method'), str) and request['method'] in head_methods:
+            if self.head_imu is None:
+                raise RpcError(-32004, 'Read-only tofd head IMU adapter is not configured')
+            return await self.head_imu.dispatch(request), None
         method, params = validate(request)
         if method == 'microduck.capabilities':
             return {'gateway_version': 1, 'api_version': API_VERSION, 'upstream_commit': SOURCE_COMMIT,
-                'transport': 'unix-peercred', 'methods': sorted(name for name, service in ROUTES.items() if service in self.upstreams),
+                'transport': 'unix-peercred', 'methods': sorted([name for name, service in ROUTES.items() if service in self.upstreams] + (list(head_methods) if self.head_imu else [])),
+                'read_only_adapters': {'head_imu': {'configured': self.head_imu is not None, 'physical_hardware_verified': False,
+                    'origin': 'local_ipc', 'daemon': 'tofd', 'retained_and_inflight': 4, 'expiry_ms': 5000, 'deadline_ms': 350}},
                 'allowed_mutations': sorted(self.allowed_mutations), 'last_upstream_api_versions': dict(self.last_versions),
                 'limits': {'request_bytes': MAX_REQUEST, 'reply_bytes': MAX_REPLY, 'clients': self.max_clients},
                 'hardware_validation': 'not performed'}, None
@@ -207,6 +222,8 @@ class Gateway:
             await asyncio.gather(*list(self.tasks), return_exceptions=True)
         if self.clients:
             await asyncio.gather(*(writer.wait_closed() for writer in list(self.clients)), return_exceptions=True)
+        if self.head_imu:
+            self.head_imu.close()
         if self.path:
             try:
                 meta = self.path.lstat()
@@ -236,7 +253,14 @@ def load_config(path):
 
 
 async def main(args):
-    service = Gateway(load_config(args.config), args.allow_mutation)
+    head = None
+    if args.head_imu_config:
+        try:
+            from .head_imu_service import load_source
+        except ImportError:
+            from head_imu_service import load_source
+        head = load_source(args.head_imu_config)
+    service = Gateway(load_config(args.config), args.allow_mutation, head_imu=head)
     await service.start(args.socket)
     print('MicroDuck Unix gateway ready; hardware validation pending; mutations: ' + (','.join(sorted(service.allowed_mutations)) or 'disabled'), flush=True)
     stopped = asyncio.Event()
@@ -253,6 +277,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--socket', type=Path, required=True)
     parser.add_argument('--config', type=Path, required=True)
+    parser.add_argument('--head-imu-config', type=Path, help='Optional private explicit tofd path/UID config; read-only, no discovery')
     parser.add_argument('--allow-mutation', choices=sorted(MUTATIONS), action='append', default=[])
     args = parser.parse_args()
     if sys.platform != 'linux':

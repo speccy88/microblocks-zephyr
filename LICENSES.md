@@ -224,3 +224,8 @@ are newly authored MIT code. Shared native typed decoder, separate head-IMU
 UBL/example and editor packaging retain MPL-2.0. Pollen/BMI088 protocol facts
 are referenced; no driver, filter, sensor fusion, coordinate transformation or
 physical capture is copied or redistributed.
+
+The explicit read-only head-IMU service adapter/config loader and its Python
+tests are newly authored MIT code. Native origin/decoder additions and the
+separate Head_IMU library/example/editor integration retain MPL-2.0. No Pollen
+daemon or driver implementation is copied; only protocol facts are used.

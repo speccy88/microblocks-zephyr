@@ -1,5 +1,5 @@
 {
-  "contract_version": 8,
+  "contract_version": 9,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -129,6 +129,13 @@
         "head IMU capture/scalar JSON reply string"
       ],
       "returns": "GC-safe tofd-only four-field simulation reading; immutable handle or nine typed fields; explicit unknown/unusable/overflow, exact u64 clocks; appended index14"
+    },
+    {
+      "name": "[microduck:headImuReading]",
+      "arguments": [
+        "normal tofd adapter JSON reply"
+      ],
+      "returns": "Nine GC-safe typed head fields or bounded snapshot; local_ipc transport-only origin; rejects simulation or claimed physical verification; appended index15"
     }
   ],
   "implemented_hooks": [
@@ -194,6 +201,16 @@
       "physical_head_IMU": false,
       "beta_and_graphical": false,
       "evidence": "../../evidence/2026-10-27/microduck-head-imu/README.md"
+    },
+    "head_service": {
+      "local_full": 373,
+      "focused": 19,
+      "Pi_selected_each_variant": 163,
+      "Pi_native_cases_each": 43,
+      "skipped": 0,
+      "input_is_simulated": true,
+      "physical_and_graphical": false,
+      "evidence": "../../evidence/2026-10-27/microduck-head-service/README.md"
     }
   },
   "typed_readings": {
@@ -476,6 +493,30 @@
         }
       },
       "validation": "Actual local x86_64 sanitizer and real Pi AArch64 ordinary/ASan+UBSan;353 local and144 selected tests per Pi variant, all data fake; physical/beta/graphical/live unverified"
+    }
+  },
+  "read_only_service_adapters": {
+    "head_imu": {
+      "methods": [
+        "microduck.headImu.capture",
+        "microduck.headImu.read",
+        "microduck.headImu.release"
+      ],
+      "gateway_option": "--head-imu-config",
+      "config": "private current-user version1/daemon:tofd/path/expected numeric uid; no auto-inference",
+      "library": "Head_IMU.ubl",
+      "example": "head-imu.ubp",
+      "origin": "local_ipc; transport consistency, not hardware/daemon attestation",
+      "physical_hardware_verified": false,
+      "no_simulation_member": "Unknown input origin; fake and physical daemons indistinguishable from transport alone",
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "no_mutations": true,
+      "no_fallback": true,
+      "source_audit": "head-imu-source.json",
+      "validation": "Actual native VM -> normal gateway -> checked tofd reader on local sanitizer and real Pi ordinary/ASan+UBSan;373 local and163 selected tests per Pi build;all input fictional;physical/beta/graphical/shipping unverified"
     }
   }
 }

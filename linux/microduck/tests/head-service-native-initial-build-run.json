@@ -1,0 +1,16 @@
+{
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/head-service-native-persisted-20261027",
+  "original_temporary_directory": "/tmp/microduck-head-service-native-2fb25aue",
+  "returncode": 1,
+  "seconds": 53.767566502,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py",
+    "--upstream",
+    "/tmp/head-service-source-ntiu8t3y/smallvm",
+    "--output",
+    "/tmp/microduck-head-service-native-2fb25aue",
+    "--sanitize",
+    "--test"
+  ]
+}

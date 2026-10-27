@@ -278,5 +278,19 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn('/Libraries/MicroDuck_Head_IMU_Simulation.ubl', list(core))
 
 
+    def test_normal_head_imu_adapter_library_is_separate_and_microduck_only(self):
+        output = self.output.parent / 'head-service-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output/'gp_wasm.js').read_bytes(), (output/'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Head_IMU.ubl'], (REPO/'linux/microduck/Head_IMU.ubl').read_bytes())
+        self.assertIn(b"'MicroDuck Head IMU'", files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-head-imu.ubp'], b'\n'.join(
+            (REPO/'linux/microduck'/name).read_bytes() for name in ('head-imu.ubp','MicroDuck.ubl','Head_IMU.ubl')))
+        core_output = self.output.parent / 'head-service-core-editor'
+        build(self.source, core_output, REPO, 'raspberry-pi5')
+        core = unpack_package((core_output/'gp_wasm.js').read_bytes(),(core_output/'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Head_IMU.ubl',list(core))
+
+
 if __name__ == '__main__':
     unittest.main()

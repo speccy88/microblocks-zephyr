@@ -224,7 +224,10 @@ static const Method methods[] = {
     {"microduck.imuSim.release",PARAM_SNAPSHOT_HANDLE,0},
     {"microduck.headImuSim.capture",PARAM_EMPTY,0},
     {"microduck.headImuSim.read",PARAM_HEAD_IMU_READ,0},
-    {"microduck.headImuSim.release",PARAM_SNAPSHOT_HANDLE,0}
+    {"microduck.headImuSim.release",PARAM_SNAPSHOT_HANDLE,0},
+    {"microduck.headImu.capture",PARAM_EMPTY,0},
+    {"microduck.headImu.read",PARAM_HEAD_IMU_READ,0},
+    {"microduck.headImu.release",PARAM_SNAPSHOT_HANDLE,0}
 };
 static int snapshotHandle(yyjson_val *value) {
     if (!boundedText(value,32) || yyjson_get_len(value)!=32) return 0;
@@ -764,7 +767,7 @@ static OBJ readingValuePrimitive(int argc,OBJ *args) {
 }
 /* Local simulated sensor records use the same GC-safe four-field representation
  * as health readings. No JSON scalar is coerced from null/missing/Boolean. */
-static yyjson_val *sensorResult(yyjson_val *root,HealthReading *reading) {
+static yyjson_val *boundedReadingResult(yyjson_val *root,HealthReading *reading,int localIPC) {
     yyjson_val *value=yyjson_obj_get(root,"result"),*error=yyjson_obj_get(root,"error"),*id=yyjson_obj_get(root,"id");
     if (!yyjson_is_obj(root) || !equalText(yyjson_obj_get(root,"jsonrpc"),"2.0") || (!value==!error)
         || !(integerBetween(id,1,INT32_MAX) || (error && yyjson_is_null(id)))) return NULL;
@@ -772,14 +775,22 @@ static yyjson_val *sensorResult(yyjson_val *root,HealthReading *reading) {
         if (yyjson_is_obj(error) && integerBetween(yyjson_obj_get(error,"code"),INT32_MIN,INT32_MAX) && yyjson_is_str(yyjson_obj_get(error,"message"))) reading->status="error";
         return NULL;
     }
-    if (!yyjson_is_obj(value) || !yyjson_is_true(yyjson_obj_get(value,"simulation")) || !yyjson_is_false(yyjson_obj_get(value,"physical_movement_enabled"))) return NULL;
-    reading->origin="simulation";
+    if (!yyjson_is_obj(value) || !yyjson_is_false(yyjson_obj_get(value,"physical_movement_enabled"))) return NULL;
+    if (localIPC) {
+        if (yyjson_obj_get(value,"simulation") || !equalText(yyjson_obj_get(value,"origin"),"local_ipc")
+            || !equalText(yyjson_obj_get(value,"source"),"tofd") || !yyjson_is_false(yyjson_obj_get(value,"physical_hardware_verified"))) return NULL;
+        reading->origin="local_ipc";
+    } else {
+        if (!yyjson_is_true(yyjson_obj_get(value,"simulation"))) return NULL;
+        reading->origin="simulation";
+    }
     yyjson_val *status=yyjson_obj_get(value,"status");
     if (equalText(status,"ok")) return value;
     const char *states[]={"waiting","timeout","absent","refused","detached","dropped","unobserved","unsupported","no_event","event_limit","no_target","unusable","busy","expired_or_unknown","wrong_kind","not_reported","out_of_range","rate_limited","error"};
     for (size_t i=0;i<sizeof(states)/sizeof(states[0]);++i) if (equalText(status,states[i])) { reading->status=states[i]; return value; }
     return NULL;
 }
+static yyjson_val *sensorResult(yyjson_val *root,HealthReading *reading) { return boundedReadingResult(root,reading,0); }
 static OBJ sensorSamplePrimitive(int argc,OBJ *args) {
     if (argc!=2) return fail(notEnoughArguments);
     if (!IS_TYPE(args[0],StringType) || !IS_TYPE(args[1],StringType)) return fail(needsStringError);
@@ -960,7 +971,7 @@ static OBJ imuReadingPrimitive(int argc,OBJ *args,int head) {
     if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
     yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
     HealthReading reading={.status="invalid",.text="",.unit="",.origin="unmarked"};
-    yyjson_val *result=sensorResult(yyjson_doc_get_root(doc),&reading),*value=yyjson_obj_get(result,"value");
+    yyjson_val *result=boundedReadingResult(yyjson_doc_get_root(doc),&reading,head==2),*value=yyjson_obj_get(result,"value");
     if (result && equalText(yyjson_obj_get(result,"kind"),head?"head_imu_capture":"pad_imu_capture")) {
         reading.unit="snapshot";
         if (equalText(yyjson_obj_get(result,"status"),"ok")) {
@@ -997,11 +1008,13 @@ static OBJ imuReadingPrimitive(int argc,OBJ *args,int head) {
 }
 static OBJ imuSamplePrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,0); }
 static OBJ headImuSamplePrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,1); }
+static OBJ headImuReadingPrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,2); }
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
     {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
     {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive},
     {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive},
-    {"mediaSample",mediaSamplePrimitive},{"imuSample",imuSamplePrimitive},{"headImuSample",headImuSamplePrimitive}
+    {"mediaSample",mediaSamplePrimitive},{"imuSample",imuSamplePrimitive},{"headImuSample",headImuSamplePrimitive},
+    {"headImuReading",headImuReadingPrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

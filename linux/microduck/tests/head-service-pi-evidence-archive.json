@@ -1,0 +1,19 @@
+{
+  "sha256": "005b664be2e6f9828d8836956aa6a3e643ee14d867c77c649edc8375b3d47fca",
+  "bytes": 27666,
+  "files": [
+    "pi-head-service-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ],
+  "remote_directory": "/home/fred/microblocks-head-service-4knyxr5t"
+}
