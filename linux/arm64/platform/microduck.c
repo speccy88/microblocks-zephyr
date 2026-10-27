@@ -234,7 +234,8 @@ static const Method methods[] = {
     {"microduck.gamepad.capture",PARAM_EMPTY,0},{"microduck.gamepad.axis",PARAM_GAMEPAD_AXIS,0},
     {"microduck.gamepad.button",PARAM_GAMEPAD_BUTTON,0},{"microduck.gamepad.control",PARAM_GAMEPAD_CONTROL,0},
     {"microduck.gamepad.metadata",PARAM_GAMEPAD_META,0},{"microduck.gamepad.release",PARAM_SNAPSHOT_HANDLE,0},
-    {"microduck.robot.capture",PARAM_ROBOT_CAPTURE,0},{"microduck.robot.read",PARAM_ROBOT_READ,0},{"microduck.robot.release",PARAM_SNAPSHOT_HANDLE,0}
+    {"microduck.robot.capture",PARAM_ROBOT_CAPTURE,0},{"microduck.robot.read",PARAM_ROBOT_READ,0},{"microduck.robot.release",PARAM_SNAPSHOT_HANDLE,0},
+    {"microduck.padImu.capture",PARAM_EMPTY,0},{"microduck.padImu.read",PARAM_PAD_IMU_READ,0},{"microduck.padImu.release",PARAM_SNAPSHOT_HANDLE,0}
 };
 static int snapshotHandle(yyjson_val *value) {
     if (!boundedText(value,32) || yyjson_get_len(value)!=32) return 0;
@@ -1090,14 +1091,15 @@ static OBJ mediaSamplePrimitive(int argc,OBJ *args) {
     } else if (result) reading.status="invalid";
     yyjson_doc_free(doc);return readingRecord(&reading);
 }
-static OBJ imuReadingPrimitive(int argc,OBJ *args,int head) {
+static OBJ imuReadingPrimitive(int argc,OBJ *args,int mode) {
+    int head=mode==1 || mode==2,localIPC=mode==2?1:mode==3?2:0;
     if (argc!=1) return fail(notEnoughArguments);
     if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
     char reply[LINUX_MICRODUCK_MAX_REPLY+1u],text[65];size_t length;
     if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
     yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
     HealthReading reading={.status="invalid",.text="",.unit="",.origin="unmarked"};
-    yyjson_val *result=boundedReadingResult(yyjson_doc_get_root(doc),&reading,head==2),*value=yyjson_obj_get(result,"value");
+    yyjson_val *result=boundedReadingResult(yyjson_doc_get_root(doc),&reading,localIPC),*value=yyjson_obj_get(result,"value");
     if (result && equalText(yyjson_obj_get(result,"kind"),head?"head_imu_capture":"pad_imu_capture")) {
         reading.unit="snapshot";
         if (equalText(yyjson_obj_get(result,"status"),"ok")) {
@@ -1135,6 +1137,7 @@ static OBJ imuReadingPrimitive(int argc,OBJ *args,int head) {
 static OBJ imuSamplePrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,0); }
 static OBJ headImuSamplePrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,1); }
 static OBJ headImuReadingPrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,2); }
+static OBJ padImuReadingPrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,3); }
 static OBJ gamepadReadingPrimitive(int argc,OBJ *args) {
     if (argc!=1) return fail(notEnoughArguments);
     if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
@@ -1230,6 +1233,6 @@ static PrimEntry entries[]={
     {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive},
     {"mediaSample",mediaSamplePrimitive},{"imuSample",imuSamplePrimitive},{"headImuSample",headImuSamplePrimitive},
     {"headImuReading",headImuReadingPrimitive},{"depthReading",depthReadingPrimitive},{"depthRow",depthRowPrimitive},
-    {"gamepadReading",gamepadReadingPrimitive},{"robotReading",robotReadingPrimitive}
+    {"gamepadReading",gamepadReadingPrimitive},{"robotReading",robotReadingPrimitive},{"padImuReading",padImuReadingPrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

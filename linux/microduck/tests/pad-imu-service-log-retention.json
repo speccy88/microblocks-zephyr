@@ -1,0 +1,149 @@
+{
+  "linux/microduck/tests/pi5-pad-imu-service-pi-pad-imu-service-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\pi-pad-imu-service-validation.json",
+    "raw_sha256": "91888a5475131a06973e5576f45b0dce476d27d633e992d01eb2d86d897d6b8a",
+    "retained_sha256": "91888a5475131a06973e5576f45b0dce476d27d633e992d01eb2d86d897d6b8a",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\kit-manifest.json",
+    "raw_sha256": "cd13098d54def47d17a5b63bf995c75d49a1d104cbbb94339761f46ec354f92f",
+    "retained_sha256": "cd13098d54def47d17a5b63bf995c75d49a1d104cbbb94339761f46ec354f92f",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-tests.txt",
+    "raw_sha256": "b49eaa232756db6fb073db2f6396ab011a1168829e690d3ec2e941eabbffa3a5",
+    "retained_sha256": "b49eaa232756db6fb073db2f6396ab011a1168829e690d3ec2e941eabbffa3a5",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native\\build-manifest.json",
+    "raw_sha256": "07c0ed95f2be0c7e888d9907b2bd6c8a9cceebb8755e23bbda304da7ccb85d9c",
+    "retained_sha256": "07c0ed95f2be0c7e888d9907b2bd6c8a9cceebb8755e23bbda304da7ccb85d9c",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native\\source-manifest.json",
+    "raw_sha256": "77633c802fee123e3e378ffa40bcf241c3a0ea22683c92e336c60444cc87bacf",
+    "retained_sha256": "77633c802fee123e3e378ffa40bcf241c3a0ea22683c92e336c60444cc87bacf",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-plain-build.txt",
+    "raw_sha256": "b2f35f0ea40938b46bdda95b0bd85928af4a53070c8887717007e9d356bef9e1",
+    "retained_sha256": "b2f35f0ea40938b46bdda95b0bd85928af4a53070c8887717007e9d356bef9e1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-plain-tests.txt",
+    "raw_sha256": "d9351a7c1bec0e6b63e25586d589535190dad7aea80079279d8c651947309299",
+    "retained_sha256": "d9351a7c1bec0e6b63e25586d589535190dad7aea80079279d8c651947309299",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "bf31380d85cd5889eba5e9d246f4edd56aa33461d19c80d688e6e30b7a81a8ce",
+    "retained_sha256": "bf31380d85cd5889eba5e9d246f4edd56aa33461d19c80d688e6e30b7a81a8ce",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "f879044f177c5db23a742a27b15a889c78555159705dc1aef9240289ca9c256b",
+    "retained_sha256": "f879044f177c5db23a742a27b15a889c78555159705dc1aef9240289ca9c256b",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-service-focused-initial.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-focused-initial.txt",
+    "raw_sha256": "58898f4a549c10f6d8e614d80a3f5b8f6ae9b1faf959338a868fe70371d60ff2",
+    "retained_sha256": "58898f4a549c10f6d8e614d80a3f5b8f6ae9b1faf959338a868fe70371d60ff2",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-service-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-focused.txt",
+    "raw_sha256": "0a44348bc9666bea7bdbc913af4ae84d451b88d11a37098e0a8fe9d31db34e94",
+    "retained_sha256": "0a44348bc9666bea7bdbc913af4ae84d451b88d11a37098e0a8fe9d31db34e94",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-service-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-native-build.txt",
+    "raw_sha256": "0809b5e5736add1f82b37dfe5e340d721facf7bc3e4e7c1577cb4d64db241cb7",
+    "retained_sha256": "39e08f759b7dcb96b6bac8cc199fc28b42abe3e9e2beaaf44f09fd7ae6bc90b5",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-service-final-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-full-linux.txt",
+    "raw_sha256": "bc9fb86f860af59c4e214cc0c5dfc739c2450b32ba45ceb1713b1aabeeab3a2e",
+    "retained_sha256": "bc9fb86f860af59c4e214cc0c5dfc739c2450b32ba45ceb1713b1aabeeab3a2e",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-service-final-stderr.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-full-stderr.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-service-scenario-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-scenario-execution.txt",
+    "raw_sha256": "40d654046c10724195d59f8ea663b61a645a4f3bd4b02e8d2cc1215b5697cba0",
+    "retained_sha256": "1b1c4dc33dcd67bf3306c2bd406c3f7359b8e5e24248e6d33b5a54df8e6aa66c",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-service-pi-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-service-pi-execution.txt",
+    "raw_sha256": "adb40a7b02a6cf0e3b9d5511bd5388d88f9c00315f75b9dc43881d7b6c066c13",
+    "retained_sha256": "adb40a7b02a6cf0e3b9d5511bd5388d88f9c00315f75b9dc43881d7b6c066c13",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-service-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-pi-pad-imu-service.py",
+    "raw_sha256": "5911865cac6dddec08c24ce1cba4a68b453ee3ba01d818ad623cf8d8657078f5",
+    "retained_sha256": "5911865cac6dddec08c24ce1cba4a68b453ee3ba01d818ad623cf8d8657078f5",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-service-full-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-robot-ext4-full.py",
+    "raw_sha256": "7b56ad823c09bf03a2d4d0cb9c5feeab7067239de4f943308e87eb68a226d152",
+    "retained_sha256": "7b56ad823c09bf03a2d4d0cb9c5feeab7067239de4f943308e87eb68a226d152",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  }
+}

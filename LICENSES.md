@@ -244,3 +244,7 @@ Normal robotd observer: linux/microduck/robot_health.py, robot_service.py and
 robot_gateway_fixture.py retain MIT notices; Robot.ubl and robot-read.ubp follow
 the repository MPL-2.0 library policy. Pollen protocol is reviewed at its pinned
 source; no Rust source is copied into these adapters.
+
+Normal padd IMU observer: pad_imu_service.py and pad_imu_gateway_fixture.py
+retain MIT notices. Pad_IMU.ubl and pad-imu.ubp follow the repository MPL-2.0
+library policy; shared reviewed batch parser retains its MIT notice.

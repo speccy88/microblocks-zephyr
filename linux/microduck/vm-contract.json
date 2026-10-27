@@ -1,5 +1,5 @@
 {
-  "contract_version": 12,
+  "contract_version": 13,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -164,6 +164,13 @@
         "normal robot health/state capture/scalar JSON reply"
       ],
       "returns": "GC-safe typed reading; exact counters, schema defaults and bounded UTF8; robotd/local_ipc only; appended index19"
+    },
+    {
+      "name": "[microduck:padImuReading]",
+      "arguments": [
+        "normal padd IMU capture/scalar JSON reply"
+      ],
+      "returns": "GC-safe typed thirteen-field batch reading; exact u64 clocks; local_ipc padd only; appended index20"
     }
   ],
   "implemented_hooks": [
@@ -687,6 +694,29 @@
       "continuous_reader": false,
       "source_audit": "robot-service-source.json",
       "validation": "Actual VM -> normal Gateway -> checked fictional robotd.446 full local/24 focused,233 selected each fresh ordinary and ASan+UBSan Pi binary,61 native each, zero skips. Physical/graphical/shipping unverified."
+    },
+    "pad_imu": {
+      "methods": [
+        "microduck.padImu.capture",
+        "microduck.padImu.read",
+        "microduck.padImu.release"
+      ],
+      "gateway_option": "--pad-imu-config",
+      "config": "private explicit version1/daemon:padd/path/uid",
+      "library": "Pad_IMU.ubl",
+      "example": "pad-imu.ubp",
+      "selectors": 13,
+      "origin": "local_ipc transport only; physical false",
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "notifications": 16,
+      "samples_max": 32,
+      "no_mutations": true,
+      "continuous_reader": false,
+      "source_audit": "pad-imu-service-source.json",
+      "validation": "Actual VM -> normal Gateway -> checked fictional padd.465 full local/18 focused,251 selected each fresh ordinary/ASan+UBSan Pi binary,66 native each, zero skips. Physical/radio/graphical/shipping unverified."
     }
   }
 }

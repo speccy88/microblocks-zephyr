@@ -1,0 +1,30 @@
+{
+  "reviewed_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+  "api_version": 45,
+  "production_API44_pin_changed": false,
+  "files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "9461021bde3a029646095fac1f3a9aa241ad772a326446b2dcde3153e9458d57",
+      "bytes": 338701,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/duck-ipc-proto/src/lib.rs"
+    },
+    "padd/src/tap.rs": {
+      "sha256": "9e97c76f34ea124d442a2c8f41b8e97532decde4340c55b61fa26cdd64734c53",
+      "bytes": 54883,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/padd/src/tap.rs"
+    },
+    "padd/src/main.rs": {
+      "sha256": "62a724255945b45e52f832981ad6292f3f40df985fea81be644084387f9123ad",
+      "bytes": 28845,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/padd/src/main.rs"
+    }
+  },
+  "facts": [
+    "pad.input first request without hello; independent imu_attached/imu/imu_detached notifications on pad.report",
+    "Samples are oldest-first raw i32 accel/gyro, own u64 sequence since IMU attachment and exact kernel Unix us; wall clock may step",
+    "IMU socket_dropped counts missed batches independently of stick/button reports; retained first batch is historical, never radio freshness",
+    "Driver resolutions are raw/g and raw/degree/s;0 means unknown. Positive declared range only supplies a diagnostic, never calibration",
+    "Reader adds bounded1..32 samples,16 reports,350ms and explicit negative metadata rejection; does not open device nodes or infer orientation"
+  ],
+  "physical_gamepad_or_robot_tested": false
+}

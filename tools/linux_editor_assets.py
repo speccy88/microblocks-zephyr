@@ -76,7 +76,7 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
     source, match, metadata = package_metadata(javascript, data, pinned=True)
     if type(microduck) is not bool:
         raise ValueError('MicroDuck library selection must be explicit')
-    library = example = motion_library = motion_example = sensor_library = sensor_example = robot_library = telemetry_library = robot_example = media_library = media_example = imu_library = imu_example = head_library = head_example = head_service_library = head_service_example = depth_library = depth_example = gamepad_library = gamepad_example = robot_service_library = robot_service_example = None
+    library = example = motion_library = motion_example = sensor_library = sensor_example = robot_library = telemetry_library = robot_example = media_library = media_example = imu_library = imu_example = head_library = head_example = head_service_library = head_service_example = depth_library = depth_example = gamepad_library = gamepad_example = robot_service_library = robot_service_example = pad_imu_service_library = pad_imu_service_example = None
     if microduck:
         root = Path(repo) if repo is not None else Path(__file__).resolve().parents[1]
         library = (root / 'linux/microduck/MicroDuck.ubl').read_bytes()
@@ -102,6 +102,8 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
         gamepad_example = (root / 'linux/microduck/gamepad.ubp').read_bytes() + b'\n' + library + b'\n' + gamepad_library
         robot_service_library = (root / 'linux/microduck/Robot.ubl').read_bytes()
         robot_service_example = (root / 'linux/microduck/robot-read.ubp').read_bytes() + b'\n' + library + b'\n' + robot_service_library
+        pad_imu_service_library = (root / 'linux/microduck/Pad_IMU.ubl').read_bytes()
+        pad_imu_service_example = (root / 'linux/microduck/pad-imu.ubp').read_bytes() + b'\n' + library + b'\n' + pad_imu_service_library
     packed = bytearray()
     entries = []
     counts = {'api': 0, 'compiler': 0, 'library': 0, 'arithmetic': 0, 'output': 0}
@@ -153,8 +155,10 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Gamepad.ubl')\n"
                     b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Gamepad' '' }\n"
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Robot.ubl')\n"
-                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Robot' '' }")
-                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation' 'microduck-sensor-simulation' 'microduck-robot-simulation' 'microduck-media-simulation' 'microduck-pad-imu-simulation' 'microduck-head-imu-simulation' 'microduck-head-imu' 'microduck-depth' 'microduck-gamepad' 'microduck-robot'")
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Robot' '' }\n"
+                    b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Pad_IMU.ubl')\n"
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Pad IMU' '' }")
+                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation' 'microduck-sensor-simulation' 'microduck-robot-simulation' 'microduck-media-simulation' 'microduck-pad-imu-simulation' 'microduck-head-imu-simulation' 'microduck-head-imu' 'microduck-depth' 'microduck-gamepad' 'microduck-robot' 'microduck-pad-imu'")
             payload = replace_once(payload, b"} (endPoint == 'project.save') {", PROJECT_API + b"} (endPoint == 'project.save') {")
             counts['api'] += 1
         if name == '/Libraries/UNO_Q_Hardware.ubl':
@@ -203,7 +207,9 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
                               ('/Libraries/MicroDuck_Gamepad.ubl', gamepad_library),
                               ('/Examples/Linux/microduck-gamepad.ubp', gamepad_example),
                               ('/Libraries/MicroDuck_Robot.ubl', robot_service_library),
-                              ('/Examples/Linux/microduck-robot.ubp', robot_service_example)):
+                              ('/Examples/Linux/microduck-robot.ubp', robot_service_example),
+                              ('/Libraries/MicroDuck_Pad_IMU.ubl', pad_imu_service_library),
+                              ('/Examples/Linux/microduck-pad-imu.ubp', pad_imu_service_example)):
             if name in {item['filename'] for item in entries}:
                 raise ValueError('MicroDuck virtual file already exists: ' + name)
             start = len(packed); packed.extend(payload)

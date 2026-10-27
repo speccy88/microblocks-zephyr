@@ -89,18 +89,18 @@ def validate_batch(batch):
     return None if dropped else copy.deepcopy(samples)
 
 
-async def capture(directory):
+async def capture_source(path, uid, private_parent=False, envelope=result):
     writer, device = None, None
     status = 'timeout'
     try:
         async with asyncio.timeout(wire.DEADLINE):
-            reader, writer = await connect_checked(directory / 'pad.sock', os.geteuid(), wire.LINE_LIMIT, True)
+            reader, writer = await connect_checked(path, uid, wire.LINE_LIMIT, private_parent)
             writer.write(encode({'jsonrpc': '2.0', 'id': 1, 'method': 'pad.input', 'params': {}}, wire.LINE_LIMIT))
             await writer.drain()
             description = response_result(await read_message(reader, wire.LINE_LIMIT), 1)
             require(isinstance(description, dict) and type(description.get('accepted')) is bool)
             if not description['accepted']:
-                return result('pad_imu_capture', 'refused'), None
+                return envelope('pad_imu_capture', 'refused'), None
             status = 'not_reported'
             for _ in range(wire.EVENTS):
                 report = wire.notification(await read_message(reader, wire.LINE_LIMIT), 'pad.report')
@@ -111,13 +111,13 @@ async def capture(directory):
                     status = 'waiting'
                 elif tag == 'imu_detached':
                     require(wire.text(report.get('why')))
-                    return result('pad_imu_capture', 'detached'), None
+                    return envelope('pad_imu_capture', 'detached'), None
                 elif tag == 'imu':
                     require(device is not None)
                     samples = validate_batch(report)
                     if samples is None:
-                        return result('pad_imu_capture', 'dropped'), None
-                    return result('pad_imu_capture', 'ok', sample_count=len(samples)), {'device': device, 'samples': samples}
+                        return envelope('pad_imu_capture', 'dropped'), None
+                    return envelope('pad_imu_capture', 'ok', sample_count=len(samples)), {'device': device, 'samples': samples}
             status = 'event_limit'
     except TimeoutError:
         pass
@@ -125,12 +125,16 @@ async def capture(directory):
         if writer:
             writer.close()
             await writer.wait_closed()
-    return result('pad_imu_capture', status), None
+    return envelope('pad_imu_capture', status), None
 
 
-def sample_reading(state, field, sample, component):
+async def capture(directory):
+    return await capture_source(directory / 'pad.sock', os.geteuid(), True)
+
+
+def sample_reading(state, field, sample, component, envelope=result):
     unit = FIELDS[field][0]
-    base = result('pad_imu_reading', 'not_reported', field=field, sample=sample, component=component, unit=unit, value=None)
+    base = envelope('pad_imu_reading', 'not_reported', field=field, sample=sample, component=component, unit=unit, value=None)
     require(wire.integer(sample, 1, MAX_SAMPLES) and wire.integer(component, 1, FIELDS[field][1]))
     device, samples = state['device'], state['samples']
     if field == 'sample_count':
@@ -162,6 +166,14 @@ def sample_reading(state, field, sample, component):
 
 
 class ImuStore:
+    envelope = staticmethod(result)
+
+    async def read_source(self):
+        return await capture(self.directory)
+
+    def close(self):
+        self.entries.clear()
+
     def __init__(self, directory, clock=time.monotonic):
         self.directory, self.clock = directory, clock
         self.entries, self.pending, self.last = {}, 0, None
@@ -178,10 +190,10 @@ class ImuStore:
     async def acquire(self):
         self.purge()
         if len(self.entries) + self.pending >= CAPACITY:
-            return result('pad_imu_capture', 'busy')
+            return self.envelope('pad_imu_capture', 'busy')
         self.pending += 1
         try:
-            meta, state = await capture(self.directory)
+            meta, state = await self.read_source()
             if state is None:
                 return meta
             now, handle = self.purge(), secrets.token_hex(16)
@@ -194,14 +206,14 @@ class ImuStore:
     def read(self, handle, field, sample, component):
         self.purge()
         if handle not in self.entries:
-            return result('pad_imu_reading', 'expired_or_unknown', field=field, sample=sample,
+            return self.envelope('pad_imu_reading', 'expired_or_unknown', field=field, sample=sample,
                           component=component, unit=FIELDS[field][0], value=None)
-        return sample_reading(self.entries[handle]['state'], field, sample, component)
+        return sample_reading(self.entries[handle]['state'], field, sample, component, self.envelope)
 
     def release(self, handle):
         self.purge()
         removed = self.entries.pop(handle, None)
-        return result('pad_imu_release', 'released' if removed is not None else 'not_retained')
+        return self.envelope('pad_imu_release', 'released' if removed is not None else 'not_retained')
 
 
 def fixture(profile):

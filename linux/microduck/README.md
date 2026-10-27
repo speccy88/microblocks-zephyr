@@ -307,3 +307,9 @@ and Robot.ubl/robot-read.ubp. It supplies21 coherent health fields and29 state
 selectors without control RPCs or a continuous reader. Exact counters and schema
 defaults remain distinct; fixture input is fictional and physical/graphical/
 shipping acceptance remains open. Existing raw health and simulation paths remain.
+
+[Normal padd IMU batches](PAD_IMU_SERVICE.md) use --pad-imu-config, Pad_IMU.ubl
+and pad-imu.ubp. Thirteen typed selectors retain one bounded coherent batch.
+Raw/scaled values, exact kernel timestamps, loss and unknown scale remain
+distinct; local_ipc is transport only. Current input is fictional, physical/
+graphical/shipping acceptance pending. No device or automatic drive is enabled.

@@ -332,5 +332,18 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn('/Libraries/MicroDuck_Robot.ubl',list(core))
 
 
+    def test_normal_pad_imu_library_is_microduck_only(self):
+        output=self.output.parent/'pad-imu-service-editor'
+        build(self.source,output,REPO,'microduck')
+        files=unpack_package((output/'gp_wasm.js').read_bytes(),(output/'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Pad_IMU.ubl'],(REPO/'linux/microduck/Pad_IMU.ubl').read_bytes())
+        self.assertIn(b"'MicroDuck Pad IMU'",files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-pad-imu.ubp'],b'\n'.join((REPO/'linux/microduck'/n).read_bytes() for n in ('pad-imu.ubp','MicroDuck.ubl','Pad_IMU.ubl')))
+        core_output=self.output.parent/'pad-imu-service-core-editor'
+        build(self.source,core_output,REPO,'raspberry-pi5')
+        core=unpack_package((core_output/'gp_wasm.js').read_bytes(),(core_output/'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Pad_IMU.ubl',list(core))
+
+
 if __name__ == '__main__':
     unittest.main()

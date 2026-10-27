@@ -1,0 +1,15 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 319.875,
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "rpi5",
+    "cd /home/fred/microblocks-pad-imu-service-nh70tski && python3 run-pi-pad-imu-service.py"
+  ],
+  "source": "real Pi compilation/VM; all sensor data fake",
+  "security_or_service_changes": false
+}

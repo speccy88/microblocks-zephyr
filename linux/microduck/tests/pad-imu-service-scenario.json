@@ -1,0 +1,451 @@
+{
+  "result": "PASS",
+  "scope": "Actual sanitizer SmallVM bytecode/PTY -> normal Gateway -> checked fictional padd IMU",
+  "binary_sha256": "695fc61a5d4ed119704eb84e4828b738816667d53bb9b4b83d06e350222c02a1",
+  "input_is_simulated": true,
+  "physical_hardware_verified": false,
+  "physical_movement_enabled": false,
+  "readings": {
+    "accel_raw:1:1": [
+      "ok",
+      0,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:1:2": [
+      "ok",
+      -4096,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:1:3": [
+      "ok",
+      2048,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:2:1": [
+      "ok",
+      0,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:2:2": [
+      "ok",
+      -4096,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:2:3": [
+      "ok",
+      2049,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:3:1": [
+      "ok",
+      0,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:3:2": [
+      "ok",
+      -4096,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_raw:3:3": [
+      "ok",
+      2050,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:1:1": [
+      "ok",
+      14247,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:1:2": [
+      "ok",
+      0,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:1:3": [
+      "ok",
+      -7123,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:2:1": [
+      "ok",
+      14247,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:2:2": [
+      "ok",
+      0,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:2:3": [
+      "ok",
+      -7123,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:3:1": [
+      "ok",
+      14247,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:3:2": [
+      "ok",
+      0,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_raw:3:3": [
+      "ok",
+      -7123,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_mg:1:1": [
+      "ok",
+      0,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:1:2": [
+      "ok",
+      -1000,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:1:3": [
+      "ok",
+      500,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:2:1": [
+      "ok",
+      0,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:2:2": [
+      "ok",
+      -1000,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:2:3": [
+      "ok",
+      500,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:3:1": [
+      "ok",
+      0,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:3:2": [
+      "ok",
+      -1000,
+      "mg",
+      "local_ipc"
+    ],
+    "accel_mg:3:3": [
+      "ok",
+      500,
+      "mg",
+      "local_ipc"
+    ],
+    "gyro_mdps:1:1": [
+      "ok",
+      1000,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:1:2": [
+      "ok",
+      0,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:1:3": [
+      "ok",
+      -500,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:2:1": [
+      "ok",
+      1000,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:2:2": [
+      "ok",
+      0,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:2:3": [
+      "ok",
+      -500,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:3:1": [
+      "ok",
+      1000,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:3:2": [
+      "ok",
+      0,
+      "mdps",
+      "local_ipc"
+    ],
+    "gyro_mdps:3:3": [
+      "ok",
+      -500,
+      "mdps",
+      "local_ipc"
+    ],
+    "seq:1:1": [
+      "ok",
+      "9223372036854775808",
+      "count64",
+      "local_ipc"
+    ],
+    "seq:2:1": [
+      "ok",
+      "9223372036854775809",
+      "count64",
+      "local_ipc"
+    ],
+    "seq:3:1": [
+      "ok",
+      "9223372036854775810",
+      "count64",
+      "local_ipc"
+    ],
+    "at_us:1:1": [
+      "ok",
+      "1793120000000000",
+      "us_unix",
+      "local_ipc"
+    ],
+    "at_us:2:1": [
+      "ok",
+      "1793120000001666",
+      "us_unix",
+      "local_ipc"
+    ],
+    "at_us:3:1": [
+      "ok",
+      "1793120000003332",
+      "us_unix",
+      "local_ipc"
+    ],
+    "sample_count:1:1": [
+      "ok",
+      3,
+      "count",
+      "local_ipc"
+    ],
+    "accel_per_g:1:1": [
+      "ok",
+      4096,
+      "raw/g",
+      "local_ipc"
+    ],
+    "gyro_per_dps:1:1": [
+      "ok",
+      14247,
+      "raw/dps",
+      "local_ipc"
+    ],
+    "accel_max:1:1": [
+      "ok",
+      32767,
+      "raw",
+      "local_ipc"
+    ],
+    "gyro_max:1:1": [
+      "ok",
+      32767,
+      "raw",
+      "local_ipc"
+    ],
+    "accel_at_limit:1:1": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:1:2": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:1:3": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:2:1": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:2:2": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:2:3": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:3:1": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:3:2": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "accel_at_limit:3:3": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:1:1": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:1:2": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:1:3": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:2:1": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:2:2": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:2:3": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:3:1": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:3:2": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "gyro_at_limit:3:3": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ]
+  },
+  "capture": [
+    "ok",
+    "8caa1453069cdd3e8f5158d55f86a6e8",
+    "snapshot",
+    "local_ipc"
+  ],
+  "released": [
+    "expired_or_unknown",
+    "",
+    "mg",
+    "local_ipc"
+  ],
+  "raw_zero": [
+    "ok",
+    0,
+    "raw",
+    "local_ipc"
+  ],
+  "unknown_scale": [
+    "not_reported",
+    "",
+    "mg",
+    "local_ipc"
+  ],
+  "dropped": [
+    "dropped",
+    "",
+    "snapshot",
+    "local_ipc"
+  ],
+  "waiting": [
+    "waiting",
+    "",
+    "snapshot",
+    "local_ipc"
+  ],
+  "no_imu": [
+    "not_reported",
+    "",
+    "snapshot",
+    "local_ipc"
+  ],
+  "oversized": [
+    "error",
+    "",
+    "",
+    "unmarked"
+  ],
+  "source_subscriptions": 6,
+  "mutation_RPC": 0,
+  "selectors": 13
+}

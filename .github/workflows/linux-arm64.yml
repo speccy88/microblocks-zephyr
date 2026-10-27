@@ -141,6 +141,7 @@ jobs:
                 ('test_linux_microduck_depth_service.py', ['DepthProtocol', 'DepthUnix', 'DepthNativeAdapter']),
                 ('test_linux_microduck_gamepad_service.py', ['GamepadProtocol', 'GamepadUnix', 'GamepadNativeAdapter']),
                 ('test_linux_microduck_robot_service.py', ['RobotServiceProtocol', 'RobotServiceUnix', 'RobotServiceNativeAdapter']),
+                ('test_linux_microduck_pad_imu_service.py', ['PadImuServiceProtocol', 'PadImuServiceUnix', 'PadImuServiceNativeAdapter']),
               ('test_linux_microduck_simulator.py', ['ExplicitSimulation']),
               ('test_linux_microduck_vm.py', ['RealSmallVMMicroDuck']),
           ]
