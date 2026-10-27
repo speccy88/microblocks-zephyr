@@ -1,0 +1,3859 @@
+{
+  "schema": 1,
+  "source_repository": "https://codeberg.org/MicroBlocks/smallvm.git",
+  "source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "source_ref_hint": "dev",
+  "status": "experimental migration staging",
+  "files": [
+    {
+      "path": "Examples/ by board/CPX/Bach Bouree.ubp",
+      "source_path": "Examples/ by board/CPX/Bach Bouree.ubp",
+      "git_blob": "a48a23c623dc282c8f58ff817c221fe3c0b70070",
+      "bytes": 8077,
+      "sha256": "e240498a6812d6ea330fc442a241c8e1711c16ac579e0addde7cdaba575734bd"
+    },
+    {
+      "path": "Examples/ by board/CPX/Frere Jacques.ubp",
+      "source_path": "Examples/ by board/CPX/Frere Jacques.ubp",
+      "git_blob": "14ec01096a070d08dd819b73a8a40a2895caa4b8",
+      "bytes": 7306,
+      "sha256": "bf8c3132733662038871dd18322e4249fa9bf288a59dd50967289679b33c9877"
+    },
+    {
+      "path": "Examples/ by board/CPX/HappyBirthday.ubp",
+      "source_path": "Examples/ by board/CPX/HappyBirthday.ubp",
+      "git_blob": "f11a95b9f44d26a75ac2d1d5b0683fd8f66dceca",
+      "bytes": 19549,
+      "sha256": "fcf3ccef7ff1031ebeffe38c6529efd96c5813e64fa05a6ab1187318de2b55db"
+    },
+    {
+      "path": "Examples/ by board/CPX/HarryPotter.ubp",
+      "source_path": "Examples/ by board/CPX/HarryPotter.ubp",
+      "git_blob": "2035ef5d0779d888b006abf744b48d3a876f33fc",
+      "bytes": 8609,
+      "sha256": "8c12bd8fde485186e36cf8106cd47699ff0b25d9863477a8b6b4a8f51767112d"
+    },
+    {
+      "path": "Examples/ by board/CPX/L'Apprenti Sorcier.ubp",
+      "source_path": "Examples/ by board/CPX/L'Apprenti Sorcier.ubp",
+      "git_blob": "ff060f87a4d5c8618e38ab514c38d0b35eb0d3c6",
+      "bytes": 8005,
+      "sha256": "59374db0bf199e8ef3145315034cc226705fddc1f9686d605083bf0629661405"
+    },
+    {
+      "path": "Examples/ by board/CPX/Magic Glitter.ubp",
+      "source_path": "Examples/ by board/CPX/Magic Glitter.ubp",
+      "git_blob": "ccff2190cc67e39e67c85e4187145518bc9e9fc9",
+      "bytes": 12322,
+      "sha256": "9fab6849bc41bd213ccea4057b355d893dd22d439817ac9e8f38110aa87282ae"
+    },
+    {
+      "path": "Examples/ by board/CPX/Simon (Circuit Playground Express).ubp",
+      "source_path": "Examples/ by board/CPX/Simon (Circuit Playground Express).ubp",
+      "git_blob": "60a617116848aa28312fb6bc3b5e4bcf89edaaec",
+      "bytes": 15358,
+      "sha256": "9bde0529afe4d0eb57341720a5e66f22574f0a3c5fd78987ea974386f5858b24"
+    },
+    {
+      "path": "Examples/ by board/CPX/The Final Countdown.ubp",
+      "source_path": "Examples/ by board/CPX/The Final Countdown.ubp",
+      "git_blob": "3a5f6e96ecb5ccef37a37664484c823e2b121af5",
+      "bytes": 7945,
+      "sha256": "6716034f1c6a270f8ff2f5edcacd2f93a3e43f5c666ff32e4fbbaca610b4f637"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Bach Bouree.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Bach Bouree.ubp",
+      "git_blob": "a48a23c623dc282c8f58ff817c221fe3c0b70070",
+      "bytes": 8077,
+      "sha256": "e240498a6812d6ea330fc442a241c8e1711c16ac579e0addde7cdaba575734bd"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Balance.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Balance.ubp",
+      "git_blob": "a8ef4a393b5d243692a22e3ba0405aca46c42ecc",
+      "bytes": 6118,
+      "sha256": "7fa2587aa77c511fa5b3679ee01dda4dd4b5fcb87f0bf9766009128552996783"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Blink.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Blink.ubp",
+      "git_blob": "f2e2638a26a55c924d546237bad66c1fa6be9e47",
+      "bytes": 5010,
+      "sha256": "40722f297821e335530949dfecc333b564698896c1da478999faa9f3024e4706"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/BubbleLevel.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/BubbleLevel.ubp",
+      "git_blob": "dece59dd48eeb945d04c92e90c91d5a28db51cd9",
+      "bytes": 6307,
+      "sha256": "9288cce5088a92023e05e6e51db8f1fae89dfa83b44344e448860e09366f3d49"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Dice.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Dice.ubp",
+      "git_blob": "7f5b78b09ac29d3cfda6b27207b12e2b20f01873",
+      "bytes": 15510,
+      "sha256": "0536ab71b9d99f64fe2faa5d94028e649620b5de066635747de4eb77ca0a1b1f"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Dynamic Polygons.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Dynamic Polygons.ubp",
+      "git_blob": "bb6ca7d150f11e5b747ab4d71b9842a9ba9dc779",
+      "bytes": 17673,
+      "sha256": "5b12d6258d6f4505f0e9bfad2ac03c4a4e89c82ec17e8fe31e4e5ba06031aa49"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Falling Stones.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Falling Stones.ubp",
+      "git_blob": "e411d7957961dd12716825de6aa68dfcfed90ed0",
+      "bytes": 5989,
+      "sha256": "c85b62df62de0b822d6aebe6252a0f3bb29e7605c4de8b153cd1f878fb35327a"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Frere Jacques.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Frere Jacques.ubp",
+      "git_blob": "14ec01096a070d08dd819b73a8a40a2895caa4b8",
+      "bytes": 7306,
+      "sha256": "bf8c3132733662038871dd18322e4249fa9bf288a59dd50967289679b33c9877"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/HTTP server.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/HTTP server.ubp",
+      "git_blob": "fb05535ea6cdb5932a311f396cbea3cf48ec2f4b",
+      "bytes": 6292,
+      "sha256": "cdee20f2899a981a829715fd25d5543af523851de56c1dec31971b5d73c53a8e"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Happiness meter.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Happiness meter.ubp",
+      "git_blob": "29e8d004127a597d73cb6504f701ebd112d045ae",
+      "bytes": 5097,
+      "sha256": "26d1221e1347200f8658fcafa9ed2a188c38e562264f153904db0ff89551cbeb"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/HappyBirthday.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/HappyBirthday.ubp",
+      "git_blob": "f11a95b9f44d26a75ac2d1d5b0683fd8f66dceca",
+      "bytes": 19549,
+      "sha256": "fcf3ccef7ff1031ebeffe38c6529efd96c5813e64fa05a6ab1187318de2b55db"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/HarryPotter.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/HarryPotter.ubp",
+      "git_blob": "2035ef5d0779d888b006abf744b48d3a876f33fc",
+      "bytes": 8609,
+      "sha256": "8c12bd8fde485186e36cf8106cd47699ff0b25d9863477a8b6b4a8f51767112d"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Heartbeat.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Heartbeat.ubp",
+      "git_blob": "04033652f33786ae36fa2297828da78e27c7dfb1",
+      "bytes": 5085,
+      "sha256": "78ffcb3fbc42a77adaa90dd36171f02222734a4626df8db45d337c6664a3fbf7"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Jumpy Ball.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Jumpy Ball.ubp",
+      "git_blob": "b3d5d5893a2260785acda7cb641dc96e0b1affd1",
+      "bytes": 10892,
+      "sha256": "b598d64ab17fcfe6a66c4692955c8c5747058fb7741bc0cc9f50a81875c024c8"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/L'Apprenti Sorcier.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/L'Apprenti Sorcier.ubp",
+      "git_blob": "ff060f87a4d5c8618e38ab514c38d0b35eb0d3c6",
+      "bytes": 8005,
+      "sha256": "59374db0bf199e8ef3145315034cc226705fddc1f9686d605083bf0629661405"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Magic Glitter.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Magic Glitter.ubp",
+      "git_blob": "ccff2190cc67e39e67c85e4187145518bc9e9fc9",
+      "bytes": 12322,
+      "sha256": "9fab6849bc41bd213ccea4057b355d893dd22d439817ac9e8f38110aa87282ae"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/MicroHeli.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/MicroHeli.ubp",
+      "git_blob": "84d8cc8c6851bf50c488ef5ac33f54f052cd96fc",
+      "bytes": 9044,
+      "sha256": "99858b42fa1e1f08ca30819896a227a4d3bd47c75661fad42433ca1ceaf4e37c"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Online clock example.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Online clock example.ubp",
+      "git_blob": "0313436571f1521c2435bf155aa0165efcd6c899",
+      "bytes": 21118,
+      "sha256": "7e62873a3f805a81fa9450947d02ee082d46033d94c9ef6551d38beb0171571c"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/PluckedStringSynth.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/PluckedStringSynth.ubp",
+      "git_blob": "9dd9952a9c6772ac78e88924bdd591fe89014934",
+      "bytes": 5688,
+      "sha256": "f4b5ad1e596e7d68469166585d36870c247c0462e9002c36d8714420170c1ae0"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Pong (ED1).ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Pong (ED1).ubp",
+      "git_blob": "1b4a593b7342b751d5df6bd6caf2ca0933f708bb",
+      "bytes": 12382,
+      "sha256": "4412d6eab0f484820ee37daedc5dc2f0ca0901dec7707f16472314f4c62aa80c"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Rock-paper-scissors - button.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Rock-paper-scissors - button.ubp",
+      "git_blob": "7ec793a4f1f1cc90f8259826ce83ef7472ffa5af",
+      "bytes": 5202,
+      "sha256": "ae84155d75f3b8ed229307004fd54b66d50e79123640162d6c683735c2c00449"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Rock-paper-scissors - shake.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Rock-paper-scissors - shake.ubp",
+      "git_blob": "45989ba24bcced9cda0bd6ae758424b30aeca453",
+      "bytes": 6129,
+      "sha256": "1b810320f131a8f5ef09bb06c9fdf81398bab61c859fc8c2c6109cef4a4f91fd"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Simon (ED1).ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Simon (ED1).ubp",
+      "git_blob": "ab9dc2264406fd2dbaa11eac050a61f6d26c76f3",
+      "bytes": 16282,
+      "sha256": "5a9ea011364e958663d559a7b2fd595e488385cdc4df91c5990786982e86896b"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/SoundGeneration.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/SoundGeneration.ubp",
+      "git_blob": "d4492b2fe4c6152cc6b6a8751d28d52bd1ca74bb",
+      "bytes": 7987,
+      "sha256": "52aade5dfd67015ec3b60caeaeeafccb2cbdbe5848bb5fc19c784c28d6e41852"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Symmetry.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Symmetry.ubp",
+      "git_blob": "538cb3296b2ad3ce413b4051ab42cc4ecf63182c",
+      "bytes": 6060,
+      "sha256": "1dfb31e5c56c21e43a92ba261a135a73fd493e9a67cf98d33b634ec65749e9f9"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/TCS34725 demo.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/TCS34725 demo.ubp",
+      "git_blob": "898b5b41efa2ea54d03316b05656a13d99c97de4",
+      "bytes": 8876,
+      "sha256": "240905255646e2725bfede4680a19b2c54f3a721a447892346b212d1be4d4435"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/The Final Countdown.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/The Final Countdown.ubp",
+      "git_blob": "3a5f6e96ecb5ccef37a37664484c823e2b121af5",
+      "bytes": 7945,
+      "sha256": "6716034f1c6a270f8ff2f5edcacd2f93a3e43f5c666ff32e4fbbaca610b4f637"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/TurtleDemo(needs TFT).ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/TurtleDemo(needs TFT).ubp",
+      "git_blob": "a85b117aad58d8b90c817aa082489e1e68a05880",
+      "bytes": 8833,
+      "sha256": "c3d8fcd9fff81e4dc6a90c6732a720c609eb634aa36812b63a88e406534ccda3"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Two-button blink.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Two-button blink.ubp",
+      "git_blob": "3db85cba211aa801a238562effe043ce495a0e24",
+      "bytes": 5189,
+      "sha256": "f473e62dd3743b721f3296cc1100c3e494f6e46831a8fc5094a17a10df074231"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/What's your reaction time.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/What's your reaction time.ubp",
+      "git_blob": "3da8f07c7be8ecdd3a46f767d7c97d5825f6c465",
+      "bytes": 608,
+      "sha256": "e32f328eee486852b84268d12b57082eb3e7f86b5f1b3ca0a36451a603e160e4"
+    },
+    {
+      "path": "Examples/ by board/Citilab ED1 and M5Stack/Worm.ubp",
+      "source_path": "Examples/ by board/Citilab ED1 and M5Stack/Worm.ubp",
+      "git_blob": "060a84686d0cc697eca418856bd70241955bd51b",
+      "bytes": 8296,
+      "sha256": "df3a83df48fa9977964749d87248e200352f644822307aed46da5d49dbb3d3b6"
+    },
+    {
+      "path": "Examples/ by board/CoCube/CoCube BLE Client.ubp",
+      "source_path": "Examples/ by board/CoCube/CoCube BLE Client.ubp",
+      "git_blob": "d49f35f8cabf8d01d8bafe14a6c72acd49dc3229",
+      "bytes": 75991,
+      "sha256": "1f1069b54e9155cdf2b6d86f0c2eb3cb40b5db039e865f36c7da228771c511bb"
+    },
+    {
+      "path": "Examples/ by board/CoCube/CoCube Football.ubp",
+      "source_path": "Examples/ by board/CoCube/CoCube Football.ubp",
+      "git_blob": "5bfa9b71c9b46fa9d4c9886de8870e31311c4bec",
+      "bytes": 71827,
+      "sha256": "506acecd73adedea61bae554ee3b4aef15ff6cc0c6a991b5e4d8b50e62d10dbc"
+    },
+    {
+      "path": "Examples/ by board/CoCube/CoCube Keyboard Control.ubp",
+      "source_path": "Examples/ by board/CoCube/CoCube Keyboard Control.ubp",
+      "git_blob": "0e96ef6f3b9f5e1590856565932d0ee8f1a9547d",
+      "bytes": 80138,
+      "sha256": "62ef7304df1e3786aa472ebb1432aba02bbd0705ae5514a4693e3e7f51ba9121"
+    },
+    {
+      "path": "Examples/ by board/CoCube/CoCube Maze.ubp",
+      "source_path": "Examples/ by board/CoCube/CoCube Maze.ubp",
+      "git_blob": "e09a93fb2ea3eea98d0403ec5e9ca00a4e9e8c79",
+      "bytes": 71634,
+      "sha256": "f9f01ba11ce9790d015c29283870a8e9ee10496ea5bef572f2cb3f50160a445c"
+    },
+    {
+      "path": "Examples/ by board/CoCube/CoCube Music Buzzer.ubp",
+      "source_path": "Examples/ by board/CoCube/CoCube Music Buzzer.ubp",
+      "git_blob": "c3ebff93c94352de55288f4ed17cf887464df143",
+      "bytes": 89588,
+      "sha256": "7865306eaf3c294901406ddcde6ac2e235383cdb51d6e24b01f9193317657027"
+    },
+    {
+      "path": "Examples/ by board/CoCube/CoCube Music MIDI.ubp",
+      "source_path": "Examples/ by board/CoCube/CoCube Music MIDI.ubp",
+      "git_blob": "e3d02c7c27fd3f75f66922773d5dc6ba100a1f75",
+      "bytes": 91095,
+      "sha256": "33e6b933b6bf3b9899093e1a9d57849a3357e1b43decde61a5d96eed207b11d0"
+    },
+    {
+      "path": "Examples/ by board/MakerPort/Graphing Photoresistor Example.ubp",
+      "source_path": "Examples/ by board/MakerPort/Graphing Photoresistor Example.ubp",
+      "git_blob": "22bf3d48a192a7a738067cc0d27f249eecb84efc",
+      "bytes": 41282,
+      "sha256": "f34d37329f25818df3cff64d7a578a0f1b62d80f916a0833e7c6f9b1fe1770c1"
+    },
+    {
+      "path": "Examples/ by board/MakerPort/MakerPort Startup Program.ubp",
+      "source_path": "Examples/ by board/MakerPort/MakerPort Startup Program.ubp",
+      "git_blob": "1fd40a6e6b27cd5dd784c32bf9b5418a0af04409",
+      "bytes": 100225,
+      "sha256": "99f56424bd5fe5089c3258a47fdf240d2a8c1ca1a152896ef2af2b69c3d902de"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Balance.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Balance.ubp",
+      "git_blob": "a8ef4a393b5d243692a22e3ba0405aca46c42ecc",
+      "bytes": 6118,
+      "sha256": "7fa2587aa77c511fa5b3679ee01dda4dd4b5fcb87f0bf9766009128552996783"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Blink.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Blink.ubp",
+      "git_blob": "f2e2638a26a55c924d546237bad66c1fa6be9e47",
+      "bytes": 5010,
+      "sha256": "40722f297821e335530949dfecc333b564698896c1da478999faa9f3024e4706"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Falling Stones.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Falling Stones.ubp",
+      "git_blob": "e411d7957961dd12716825de6aa68dfcfed90ed0",
+      "bytes": 5989,
+      "sha256": "c85b62df62de0b822d6aebe6252a0f3bb29e7605c4de8b153cd1f878fb35327a"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Happiness meter.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Happiness meter.ubp",
+      "git_blob": "29e8d004127a597d73cb6504f701ebd112d045ae",
+      "bytes": 5097,
+      "sha256": "26d1221e1347200f8658fcafa9ed2a188c38e562264f153904db0ff89551cbeb"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Heartbeat.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Heartbeat.ubp",
+      "git_blob": "04033652f33786ae36fa2297828da78e27c7dfb1",
+      "bytes": 5085,
+      "sha256": "78ffcb3fbc42a77adaa90dd36171f02222734a4626df8db45d337c6664a3fbf7"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Magic Glitter.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Magic Glitter.ubp",
+      "git_blob": "ccff2190cc67e39e67c85e4187145518bc9e9fc9",
+      "bytes": 12322,
+      "sha256": "9fab6849bc41bd213ccea4057b355d893dd22d439817ac9e8f38110aa87282ae"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/MicroHeli.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/MicroHeli.ubp",
+      "git_blob": "84d8cc8c6851bf50c488ef5ac33f54f052cd96fc",
+      "bytes": 9044,
+      "sha256": "99858b42fa1e1f08ca30819896a227a4d3bd47c75661fad42433ca1ceaf4e37c"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Pong.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Pong.ubp",
+      "git_blob": "72546e45c88389e20cc04fc359ac8e9dc313ccef",
+      "bytes": 7033,
+      "sha256": "f51070babba14c06d4cb033c824b78cd364a1c3d4c5b99d59532b2d08a7f4cc8"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/RadioTexting.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/RadioTexting.ubp",
+      "git_blob": "81c8e7f41e7d78dc3191e7a030fe3b20b3394d51",
+      "bytes": 13337,
+      "sha256": "f672c6e9e3fbe3f8a91cc8d52baafe2d6b79f3e754f9b33d96eb0235b666f0aa"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Rock-paper-scissors - button.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Rock-paper-scissors - button.ubp",
+      "git_blob": "7ec793a4f1f1cc90f8259826ce83ef7472ffa5af",
+      "bytes": 5202,
+      "sha256": "ae84155d75f3b8ed229307004fd54b66d50e79123640162d6c683735c2c00449"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Rock-paper-scissors - shake.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Rock-paper-scissors - shake.ubp",
+      "git_blob": "45989ba24bcced9cda0bd6ae758424b30aeca453",
+      "bytes": 6129,
+      "sha256": "1b810320f131a8f5ef09bb06c9fdf81398bab61c859fc8c2c6109cef4a4f91fd"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Simon (microbit).ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Simon (microbit).ubp",
+      "git_blob": "3cbd1fd6bd82b2d07c161809e5340d2f39add547",
+      "bytes": 13450,
+      "sha256": "5c22884c1a97525bd3f7e3c07482bfe0fa0b4aba7fe44d0cbf201bc036458c63"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Snake (microbit).ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Snake (microbit).ubp",
+      "git_blob": "060a84686d0cc697eca418856bd70241955bd51b",
+      "bytes": 8296,
+      "sha256": "df3a83df48fa9977964749d87248e200352f644822307aed46da5d49dbb3d3b6"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Symmetry.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Symmetry.ubp",
+      "git_blob": "538cb3296b2ad3ce413b4051ab42cc4ecf63182c",
+      "bytes": 6060,
+      "sha256": "1dfb31e5c56c21e43a92ba261a135a73fd493e9a67cf98d33b634ec65749e9f9"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Two-button blink.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Two-button blink.ubp",
+      "git_blob": "3db85cba211aa801a238562effe043ce495a0e24",
+      "bytes": 5189,
+      "sha256": "f473e62dd3743b721f3296cc1100c3e494f6e46831a8fc5094a17a10df074231"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/What's your reaction time.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/What's your reaction time.ubp",
+      "git_blob": "3b91bfcead282cc155cb9decf7900912e2dad0c4",
+      "bytes": 607,
+      "sha256": "6f4ce820bca78d2fffe3d5457920289b381747c69f843856a00ec22aec2c0a4e"
+    },
+    {
+      "path": "Examples/ by board/microbit and Calliope/Worm.ubp",
+      "source_path": "Examples/ by board/microbit and Calliope/Worm.ubp",
+      "git_blob": "060a84686d0cc697eca418856bd70241955bd51b",
+      "bytes": 8296,
+      "sha256": "df3a83df48fa9977964749d87248e200352f644822307aed46da5d49dbb3d3b6"
+    },
+    {
+      "path": "Examples/Art/Magic Glitter.ubp",
+      "source_path": "Examples/Art/Magic Glitter.ubp",
+      "git_blob": "ccff2190cc67e39e67c85e4187145518bc9e9fc9",
+      "bytes": 12322,
+      "sha256": "9fab6849bc41bd213ccea4057b355d893dd22d439817ac9e8f38110aa87282ae"
+    },
+    {
+      "path": "Examples/Art/Symmetry.ubp",
+      "source_path": "Examples/Art/Symmetry.ubp",
+      "git_blob": "538cb3296b2ad3ce413b4051ab42cc4ecf63182c",
+      "bytes": 6060,
+      "sha256": "1dfb31e5c56c21e43a92ba261a135a73fd493e9a67cf98d33b634ec65749e9f9"
+    },
+    {
+      "path": "Examples/Art/TurtleDemo(needs TFT).ubp",
+      "source_path": "Examples/Art/TurtleDemo(needs TFT).ubp",
+      "git_blob": "a85b117aad58d8b90c817aa082489e1e68a05880",
+      "bytes": 8833,
+      "sha256": "c3d8fcd9fff81e4dc6a90c6732a720c609eb634aa36812b63a88e406534ccda3"
+    },
+    {
+      "path": "Examples/Balance.ubp",
+      "source_path": "Examples/Balance.ubp",
+      "git_blob": "a8ef4a393b5d243692a22e3ba0405aca46c42ecc",
+      "bytes": 6118,
+      "sha256": "7fa2587aa77c511fa5b3679ee01dda4dd4b5fcb87f0bf9766009128552996783"
+    },
+    {
+      "path": "Examples/Blink.ubp",
+      "source_path": "Examples/Blink.ubp",
+      "git_blob": "f2e2638a26a55c924d546237bad66c1fa6be9e47",
+      "bytes": 5010,
+      "sha256": "40722f297821e335530949dfecc333b564698896c1da478999faa9f3024e4706"
+    },
+    {
+      "path": "Examples/Games/Falling Stones.ubp",
+      "source_path": "Examples/Games/Falling Stones.ubp",
+      "git_blob": "e411d7957961dd12716825de6aa68dfcfed90ed0",
+      "bytes": 5989,
+      "sha256": "c85b62df62de0b822d6aebe6252a0f3bb29e7605c4de8b153cd1f878fb35327a"
+    },
+    {
+      "path": "Examples/Games/Jumpy Ball.ubp",
+      "source_path": "Examples/Games/Jumpy Ball.ubp",
+      "git_blob": "b3d5d5893a2260785acda7cb641dc96e0b1affd1",
+      "bytes": 10892,
+      "sha256": "b598d64ab17fcfe6a66c4692955c8c5747058fb7741bc0cc9f50a81875c024c8"
+    },
+    {
+      "path": "Examples/Games/MicroHeli.ubp",
+      "source_path": "Examples/Games/MicroHeli.ubp",
+      "git_blob": "84d8cc8c6851bf50c488ef5ac33f54f052cd96fc",
+      "bytes": 9044,
+      "sha256": "99858b42fa1e1f08ca30819896a227a4d3bd47c75661fad42433ca1ceaf4e37c"
+    },
+    {
+      "path": "Examples/Games/Pattern memory.ubp",
+      "source_path": "Examples/Games/Pattern memory.ubp",
+      "git_blob": "49e0da3c70c91c89bec075b6e84dcc09e97141f0",
+      "bytes": 7982,
+      "sha256": "e46bb6b80211fc55564653478d87c65c166955bc603d9aceacb1ef40151711e0"
+    },
+    {
+      "path": "Examples/Games/Pong (ED1).ubp",
+      "source_path": "Examples/Games/Pong (ED1).ubp",
+      "git_blob": "1b4a593b7342b751d5df6bd6caf2ca0933f708bb",
+      "bytes": 12382,
+      "sha256": "4412d6eab0f484820ee37daedc5dc2f0ca0901dec7707f16472314f4c62aa80c"
+    },
+    {
+      "path": "Examples/Games/Pong.ubp",
+      "source_path": "Examples/Games/Pong.ubp",
+      "git_blob": "72546e45c88389e20cc04fc359ac8e9dc313ccef",
+      "bytes": 7033,
+      "sha256": "f51070babba14c06d4cb033c824b78cd364a1c3d4c5b99d59532b2d08a7f4cc8"
+    },
+    {
+      "path": "Examples/Games/Rock-paper-scissors - button.ubp",
+      "source_path": "Examples/Games/Rock-paper-scissors - button.ubp",
+      "git_blob": "7ec793a4f1f1cc90f8259826ce83ef7472ffa5af",
+      "bytes": 5202,
+      "sha256": "ae84155d75f3b8ed229307004fd54b66d50e79123640162d6c683735c2c00449"
+    },
+    {
+      "path": "Examples/Games/Rock-paper-scissors - shake.ubp",
+      "source_path": "Examples/Games/Rock-paper-scissors - shake.ubp",
+      "git_blob": "45989ba24bcced9cda0bd6ae758424b30aeca453",
+      "bytes": 6129,
+      "sha256": "1b810320f131a8f5ef09bb06c9fdf81398bab61c859fc8c2c6109cef4a4f91fd"
+    },
+    {
+      "path": "Examples/Games/Simon (Circuit Playground Express).ubp",
+      "source_path": "Examples/Games/Simon (Circuit Playground Express).ubp",
+      "git_blob": "60a617116848aa28312fb6bc3b5e4bcf89edaaec",
+      "bytes": 15358,
+      "sha256": "9bde0529afe4d0eb57341720a5e66f22574f0a3c5fd78987ea974386f5858b24"
+    },
+    {
+      "path": "Examples/Games/Simon (ED1).ubp",
+      "source_path": "Examples/Games/Simon (ED1).ubp",
+      "git_blob": "ab9dc2264406fd2dbaa11eac050a61f6d26c76f3",
+      "bytes": 16282,
+      "sha256": "5a9ea011364e958663d559a7b2fd595e488385cdc4df91c5990786982e86896b"
+    },
+    {
+      "path": "Examples/Games/Simon (microbit).ubp",
+      "source_path": "Examples/Games/Simon (microbit).ubp",
+      "git_blob": "3cbd1fd6bd82b2d07c161809e5340d2f39add547",
+      "bytes": 13450,
+      "sha256": "5c22884c1a97525bd3f7e3c07482bfe0fa0b4aba7fe44d0cbf201bc036458c63"
+    },
+    {
+      "path": "Examples/Games/Snake (TFT).ubp",
+      "source_path": "Examples/Games/Snake (TFT).ubp",
+      "git_blob": "e2fdd79eda3a41a8636df0f9f11a804eaec9bf27",
+      "bytes": 22096,
+      "sha256": "6230506e12fe0309d597993a32d34952ce0db641cf0c13cf6ed3b6ffa7d6cbd2"
+    },
+    {
+      "path": "Examples/Games/Snake (microbit).ubp",
+      "source_path": "Examples/Games/Snake (microbit).ubp",
+      "git_blob": "060a84686d0cc697eca418856bd70241955bd51b",
+      "bytes": 8296,
+      "sha256": "df3a83df48fa9977964749d87248e200352f644822307aed46da5d49dbb3d3b6"
+    },
+    {
+      "path": "Examples/Games/What's your reaction time.ubp",
+      "source_path": "Examples/Games/What's your reaction time.ubp",
+      "git_blob": "3da8f07c7be8ecdd3a46f767d7c97d5825f6c465",
+      "bytes": 608,
+      "sha256": "e32f328eee486852b84268d12b57082eb3e7f86b5f1b3ca0a36451a603e160e4"
+    },
+    {
+      "path": "Examples/Games/Worm.ubp",
+      "source_path": "Examples/Games/Worm.ubp",
+      "git_blob": "060a84686d0cc697eca418856bd70241955bd51b",
+      "bytes": 8296,
+      "sha256": "df3a83df48fa9977964749d87248e200352f644822307aed46da5d49dbb3d3b6"
+    },
+    {
+      "path": "Examples/Happiness meter.ubp",
+      "source_path": "Examples/Happiness meter.ubp",
+      "git_blob": "29e8d004127a597d73cb6504f701ebd112d045ae",
+      "bytes": 5097,
+      "sha256": "26d1221e1347200f8658fcafa9ed2a188c38e562264f153904db0ff89551cbeb"
+    },
+    {
+      "path": "Examples/Heartbeat.ubp",
+      "source_path": "Examples/Heartbeat.ubp",
+      "git_blob": "04033652f33786ae36fa2297828da78e27c7dfb1",
+      "bytes": 5085,
+      "sha256": "78ffcb3fbc42a77adaa90dd36171f02222734a4626df8db45d337c6664a3fbf7"
+    },
+    {
+      "path": "Examples/Kits and Boards/BEST Robotics Default Program.ubp",
+      "source_path": "Examples/Kits and Boards/BEST Robotics Default Program.ubp",
+      "git_blob": "7b305e975863af0c657c061c8b9b55b3d32eb8ef",
+      "bytes": 9066,
+      "sha256": "ea829da3e02db1de0a35f1df0a5329e53ada21837bc5e3b0364d9df38cb91753"
+    },
+    {
+      "path": "Examples/Kits and Boards/Coding Box Web Panel.ubp",
+      "source_path": "Examples/Kits and Boards/Coding Box Web Panel.ubp",
+      "git_blob": "73b58013c636c0a18f86ec92069ea283cdc2bfce",
+      "bytes": 62166,
+      "sha256": "824a4f63d45e821f2b5e9d4453d8657d25c8fd51f266e9599832874876c3e1f9"
+    },
+    {
+      "path": "Examples/Kits and Boards/PicoBricks Demo.ubp",
+      "source_path": "Examples/Kits and Boards/PicoBricks Demo.ubp",
+      "git_blob": "8a4fed1000e2c25318008fb382da82ad38ace364",
+      "bytes": 66426,
+      "sha256": "0388fb74f1b912b7fb8899cd4c36e569a470b4cd6b155cb1c694c6f55bc24467"
+    },
+    {
+      "path": "Examples/Kits and Boards/PicoBricks Test.ubp",
+      "source_path": "Examples/Kits and Boards/PicoBricks Test.ubp",
+      "git_blob": "57785c8080eb2c578a4dac7506fcc3d3c089f7c1",
+      "bytes": 27422,
+      "sha256": "29b2b738ec465ea3c5c9919e11f5e57546171cc9f6999f831e75c651057eb79e"
+    },
+    {
+      "path": "Examples/Music/Bach Bouree.ubp",
+      "source_path": "Examples/Music/Bach Bouree.ubp",
+      "git_blob": "a48a23c623dc282c8f58ff817c221fe3c0b70070",
+      "bytes": 8077,
+      "sha256": "e240498a6812d6ea330fc442a241c8e1711c16ac579e0addde7cdaba575734bd"
+    },
+    {
+      "path": "Examples/Music/Frere Jacques.ubp",
+      "source_path": "Examples/Music/Frere Jacques.ubp",
+      "git_blob": "14ec01096a070d08dd819b73a8a40a2895caa4b8",
+      "bytes": 7306,
+      "sha256": "bf8c3132733662038871dd18322e4249fa9bf288a59dd50967289679b33c9877"
+    },
+    {
+      "path": "Examples/Music/HappyBirthday.ubp",
+      "source_path": "Examples/Music/HappyBirthday.ubp",
+      "git_blob": "f11a95b9f44d26a75ac2d1d5b0683fd8f66dceca",
+      "bytes": 19549,
+      "sha256": "fcf3ccef7ff1031ebeffe38c6529efd96c5813e64fa05a6ab1187318de2b55db"
+    },
+    {
+      "path": "Examples/Music/HarryPotter.ubp",
+      "source_path": "Examples/Music/HarryPotter.ubp",
+      "git_blob": "2035ef5d0779d888b006abf744b48d3a876f33fc",
+      "bytes": 8609,
+      "sha256": "8c12bd8fde485186e36cf8106cd47699ff0b25d9863477a8b6b4a8f51767112d"
+    },
+    {
+      "path": "Examples/Music/L'Apprenti Sorcier.ubp",
+      "source_path": "Examples/Music/L'Apprenti Sorcier.ubp",
+      "git_blob": "ff060f87a4d5c8618e38ab514c38d0b35eb0d3c6",
+      "bytes": 8005,
+      "sha256": "59374db0bf199e8ef3145315034cc226705fddc1f9686d605083bf0629661405"
+    },
+    {
+      "path": "Examples/Music/The Final Countdown.ubp",
+      "source_path": "Examples/Music/The Final Countdown.ubp",
+      "git_blob": "3a5f6e96ecb5ccef37a37664484c823e2b121af5",
+      "bytes": 7945,
+      "sha256": "6716034f1c6a270f8ff2f5edcacd2f93a3e43f5c666ff32e4fbbaca610b4f637"
+    },
+    {
+      "path": "Examples/Network/BLE Scanner Demo.ubp",
+      "source_path": "Examples/Network/BLE Scanner Demo.ubp",
+      "git_blob": "ccd5d43a1b56d142e2ae28b075ba7a64e0ed4198",
+      "bytes": 2728,
+      "sha256": "2fcc2716e1826b71a6ffd6bee5c9109942e644e8467831be7a882c121e8d8f95"
+    },
+    {
+      "path": "Examples/Network/BME680 Demo.ubp",
+      "source_path": "Examples/Network/BME680 Demo.ubp",
+      "git_blob": "800edc0e830ed3d8a78e2db4c1ae02994b72b5b2",
+      "bytes": 35532,
+      "sha256": "51fc236cfdaa155235379d7c8a97251c4f837ae5536dd9935d279402ab83f8b4"
+    },
+    {
+      "path": "Examples/Network/Browser Control Panel.ubp",
+      "source_path": "Examples/Network/Browser Control Panel.ubp",
+      "git_blob": "5a9f12e3c8d1f116b5b9bfbef354043f10d03578",
+      "bytes": 17669,
+      "sha256": "63a6f9034a99dbda0f542e63373c27b4260564acfa00040ac03cc91b4e8e4206"
+    },
+    {
+      "path": "Examples/Network/CameraServer.ubp",
+      "source_path": "Examples/Network/CameraServer.ubp",
+      "git_blob": "a47528a86dc90efe6b8f0df22e1093622bb92160",
+      "bytes": 6689,
+      "sha256": "70f3f81de8c129b555fbc75b90ca31130e15e33783740ac0821405d45d6f444c"
+    },
+    {
+      "path": "Examples/Network/Databot Data Logger.ubp",
+      "source_path": "Examples/Network/Databot Data Logger.ubp",
+      "git_blob": "c41cf2864b5b27b98d3b5e29e6d0ddda5951e120",
+      "bytes": 46961,
+      "sha256": "4017dcd2162922420b0fd32128bb710b0a7ec18bf681747963c6ff93b4489cb9"
+    },
+    {
+      "path": "Examples/Network/HTTP server.ubp",
+      "source_path": "Examples/Network/HTTP server.ubp",
+      "git_blob": "4516bc5f738eb5bc139cc64163f1ebe2655b0322",
+      "bytes": 6474,
+      "sha256": "2475f868f5854e0c9b3eae024c979fca5a5e351202ff3f63ba737368422193b8"
+    },
+    {
+      "path": "Examples/Network/MQTT demo.ubp",
+      "source_path": "Examples/Network/MQTT demo.ubp",
+      "git_blob": "51a789326c79abb39cd5c3d3b17d5c073223cdb3",
+      "bytes": 6556,
+      "sha256": "d8d279e425a1ed91d78553d353ada87040fd50fceb1c11f84984ed55478bee10"
+    },
+    {
+      "path": "Examples/Network/OctoStudio Demo.ubp",
+      "source_path": "Examples/Network/OctoStudio Demo.ubp",
+      "git_blob": "0b9fa641810f083898c93b8d48862f8c4a13bbbf",
+      "bytes": 5057,
+      "sha256": "b5dcce91d914bf452b36a33eca4daa10bd90115a908c28676946518c1df7f77d"
+    },
+    {
+      "path": "Examples/Network/Online clock example.ubp",
+      "source_path": "Examples/Network/Online clock example.ubp",
+      "git_blob": "0313436571f1521c2435bf155aa0165efcd6c899",
+      "bytes": 21118,
+      "sha256": "7e62873a3f805a81fa9450947d02ee082d46033d94c9ef6551d38beb0171571c"
+    },
+    {
+      "path": "Examples/Network/Signada (network remote control).ubp",
+      "source_path": "Examples/Network/Signada (network remote control).ubp",
+      "git_blob": "f2453acb53aa256cc4472ded059aa9de5ec7f8d8",
+      "bytes": 40124,
+      "sha256": "e66dca2c9eda9e97e0b3a3be4c1dea1e64f6814ee0dc38fa9cb30d8ba6e54c88"
+    },
+    {
+      "path": "Examples/Network/SmartIoT Demo.ubp",
+      "source_path": "Examples/Network/SmartIoT Demo.ubp",
+      "git_blob": "94cae02037aa718177db2da914e16d5758714ba7",
+      "bytes": 19169,
+      "sha256": "901eba484ac227f82656ea2c9f84c60c747e32ba62a475f7b7da5a8181c2c1dc"
+    },
+    {
+      "path": "Examples/Network/TiltServer.ubp",
+      "source_path": "Examples/Network/TiltServer.ubp",
+      "git_blob": "e6398fde09e585b751d30f35885ca3ef62b2465a",
+      "bytes": 6053,
+      "sha256": "7bc1f5e4b0af087dab64c94df3bdd76db3f38074497dcfc644e369c5f86949a7"
+    },
+    {
+      "path": "Examples/Other/Cutebot line-tracking.ubp",
+      "source_path": "Examples/Other/Cutebot line-tracking.ubp",
+      "git_blob": "cf591369d1df53629d1d9b8db50bfb710a09d30d",
+      "bytes": 12999,
+      "sha256": "c4f7786770274223af24bf3b7a848cc232e0c9cb43a34a8bf17ff65dd87ee31f"
+    },
+    {
+      "path": "Examples/Other/Free fall logger.ubp",
+      "source_path": "Examples/Other/Free fall logger.ubp",
+      "git_blob": "31af31af09d81e2f71797a102996a7b90848f199",
+      "bytes": 4253,
+      "sha256": "c316485bd50b79b0507a128401d5704c9a7a33b6f02c6a03ad2b8bf734c3b152"
+    },
+    {
+      "path": "Examples/Other/LED Matrix (MAX7219).ubp",
+      "source_path": "Examples/Other/LED Matrix (MAX7219).ubp",
+      "git_blob": "f5d6a1886532e10d78054641115bf563784c2004",
+      "bytes": 31168,
+      "sha256": "a6d05c4d53cde8060dc5c773c524b669b29e9350e6a7184c8ca64078e9600e7a"
+    },
+    {
+      "path": "Examples/Other/Snap!Bridge.ubp",
+      "source_path": "Examples/Other/Snap!Bridge.ubp",
+      "git_blob": "d865d13e5a34804b03dcc8c4cf1caada0f2d3aa2",
+      "bytes": 12316,
+      "sha256": "a27617078ab75cc14ad3b03a624ad31545a085abc9092d98674af230a083bb1c"
+    },
+    {
+      "path": "Examples/Other/Snapshot Chooser.ubp",
+      "source_path": "Examples/Other/Snapshot Chooser.ubp",
+      "git_blob": "c8da92bc7ea7a082d63583a82cf76e63e9b21489",
+      "bytes": 21391,
+      "sha256": "36119ba2d7e9caaedd4006b8a7450c54c989179d398ec0648831f3162a449e0d"
+    },
+    {
+      "path": "Examples/Other/Vibration Spectrum.ubp",
+      "source_path": "Examples/Other/Vibration Spectrum.ubp",
+      "git_blob": "c2fafcfffec4050f30ba2ff23b6d4f39bee30a54",
+      "bytes": 5433,
+      "sha256": "a6fb091a75d665669c03d44cb10b58b134ab87f24480f29b1803341dbc529364"
+    },
+    {
+      "path": "Examples/Sound/ClapCounter.ubp",
+      "source_path": "Examples/Sound/ClapCounter.ubp",
+      "git_blob": "1a8695b75dfeebfc0d4f50164b81c1733dd0814e",
+      "bytes": 8233,
+      "sha256": "b3f656cbc99468aa118ca033d7bc66c471c158488071e504580ecc420adbcca7"
+    },
+    {
+      "path": "Examples/Sound/PluckedString.ubp",
+      "source_path": "Examples/Sound/PluckedString.ubp",
+      "git_blob": "42540dd6674f2a856e7b826ff3eb6bbc03227a4a",
+      "bytes": 10367,
+      "sha256": "8529f61267710e91a2b1943e8d8aa23ff7f40cb4ebd26d6b2d9675cc130c71c1"
+    },
+    {
+      "path": "Examples/Sound/RadioJingleBells.ubp",
+      "source_path": "Examples/Sound/RadioJingleBells.ubp",
+      "git_blob": "c28d5f88f71626c40d96d0efc96ffbc1f0166648",
+      "bytes": 17787,
+      "sha256": "bbc80a61f02deee3594ecc2b9a260b3e403b344acb86b88d0af58c3216ec0d33"
+    },
+    {
+      "path": "Examples/Sound/SoundGraph.ubp",
+      "source_path": "Examples/Sound/SoundGraph.ubp",
+      "git_blob": "fc1b9aa60acaa01c14836fdcb8b3c87164c467b7",
+      "bytes": 12020,
+      "sha256": "1d37b478f020d53fe90f5f3725f78faaac434aa671d148889ebc7c4d7f9fe7a2"
+    },
+    {
+      "path": "Examples/Sound/SoundLevel.ubp",
+      "source_path": "Examples/Sound/SoundLevel.ubp",
+      "git_blob": "1ebaf69717ed379eb0919b77fc46f1a00d2a50c5",
+      "bytes": 15923,
+      "sha256": "5ac7f2d73c40cc14577db3620fbf91f802bfec199557c1b1c1b6f9560bad53df"
+    },
+    {
+      "path": "Examples/Sound/TempoMeter.ubp",
+      "source_path": "Examples/Sound/TempoMeter.ubp",
+      "git_blob": "3f96c3794cfd9d30065ae7e05138b20a5d108097",
+      "bytes": 3324,
+      "sha256": "de4492b7dc07e4ae75c265a21577750685529963f51c6f3ef93bbba291c15e33"
+    },
+    {
+      "path": "Examples/Sound/ThreePartHarmony.ubp",
+      "source_path": "Examples/Sound/ThreePartHarmony.ubp",
+      "git_blob": "7985f10550d471c3846308f1221437bffa674da1",
+      "bytes": 8177,
+      "sha256": "f27caf547c395d733753e6a31e1dbb28dee922ffb2dafdee2bda79f933ba9ddd"
+    },
+    {
+      "path": "Examples/Two-button blink.ubp",
+      "source_path": "Examples/Two-button blink.ubp",
+      "git_blob": "3db85cba211aa801a238562effe043ce495a0e24",
+      "bytes": 5189,
+      "sha256": "f473e62dd3743b721f3296cc1100c3e494f6e46831a8fc5094a17a10df074231"
+    },
+    {
+      "path": "Examples/Web of Things/Ambulance.ubp",
+      "source_path": "Examples/Web of Things/Ambulance.ubp",
+      "git_blob": "210d099568a0bf91ded6cdd8ca3b7e681cb3f971",
+      "bytes": 30443,
+      "sha256": "c30b6851c154bf72a5c081adb731a0d40ea35f2bddaf857b2aa7410decf8280e"
+    },
+    {
+      "path": "Examples/Web of Things/HeartRate.ubp",
+      "source_path": "Examples/Web of Things/HeartRate.ubp",
+      "git_blob": "ac58892bf504a2702007a33b8c202ca6ae2b4cf4",
+      "bytes": 22586,
+      "sha256": "6b1e37fb954123569a8e99d58050de6268b0ef6764b79b5864f3578a11079735"
+    },
+    {
+      "path": "Examples/Web of Things/HelloLED.ubp",
+      "source_path": "Examples/Web of Things/HelloLED.ubp",
+      "git_blob": "2e900a277b15557f0059e593d9be2255514b5dc5",
+      "bytes": 29056,
+      "sha256": "e374c5b00e4f61588738d37887a1bed920ba12966e97b481d86a16fe4715172e"
+    },
+    {
+      "path": "Examples/Web of Things/PushButton.ubp",
+      "source_path": "Examples/Web of Things/PushButton.ubp",
+      "git_blob": "77ba879daeae0ecbc5a87c799b751a2cc34086c1",
+      "bytes": 21509,
+      "sha256": "6edf59d78ecf8e9c790b4e2fc86a57f33f40ef98d116c4695621c3c33c0a8d0c"
+    },
+    {
+      "path": "Examples/Web of Things/TempAndLight.ubp",
+      "source_path": "Examples/Web of Things/TempAndLight.ubp",
+      "git_blob": "9ad34a35c3ddbdab4df08a5654ddbd7fcbc1dab8",
+      "bytes": 23105,
+      "sha256": "0e43066e65a0e1669c80645b7873fe1734b82e9d98c8297c2172772665de63ae"
+    },
+    {
+      "path": "Examples/Widgets/WidgetDemo-GraphTilt.ubp",
+      "source_path": "Examples/Widgets/WidgetDemo-GraphTilt.ubp",
+      "git_blob": "4813eb4fd29053b88f84737b479e4c31ec5716d2",
+      "bytes": 30797,
+      "sha256": "de02333282a9923359b320f93718bc82600d8d695edb7cdf5675cf002b132df3"
+    },
+    {
+      "path": "Examples/Widgets/WidgetDemo-StopLight.ubp",
+      "source_path": "Examples/Widgets/WidgetDemo-StopLight.ubp",
+      "git_blob": "848b502bb1f435389dfe5ef8605d5a3762d25235",
+      "bytes": 30640,
+      "sha256": "331e6913200b32fc6c05105b89800eec771090ea60986d1e16ee631b3c58a271"
+    },
+    {
+      "path": "Examples/Widgets/WidgetDemo-TempConverter.ubp",
+      "source_path": "Examples/Widgets/WidgetDemo-TempConverter.ubp",
+      "git_blob": "89f3c64f4c7bd83f3874684dd124b1792bb4970f",
+      "bytes": 30536,
+      "sha256": "7ee1983dd2b3ae61e24f2a90f2fe1b8bbc7716e07636e3a95b9b24f8aee519a4"
+    },
+    {
+      "path": "Libraries/AI/AILens.ubl",
+      "source_path": "Libraries/AI/AILens.ubl",
+      "git_blob": "54d9b82a41ca98f468a4a4129174bf55d383b3db",
+      "bytes": 4340,
+      "sha256": "88f673cb8ecefc7109a711a7205e712a634a0725170603d6902bf56713dd6b83"
+    },
+    {
+      "path": "Libraries/AI/HuskyLens.ubl",
+      "source_path": "Libraries/AI/HuskyLens.ubl",
+      "git_blob": "78e94a3531c82e069d9abf940f94f4c2b0c089f4",
+      "bytes": 12998,
+      "sha256": "fcebf7d42657522ac120be0328e3d50a91cdd118b94694486e27acdf92fc56c4"
+    },
+    {
+      "path": "Libraries/AI/Sentry2 AI camera.ubl",
+      "source_path": "Libraries/AI/Sentry2 AI camera.ubl",
+      "git_blob": "da289df23b8a88f833d822e4ffeea6421b266f0e",
+      "bytes": 8672,
+      "sha256": "0cc5c232a189ee0e2a36d6684a73e2bffad387dc7fb2f19c6607bda0bc449061"
+    },
+    {
+      "path": "Libraries/Basic Sensors.ubl",
+      "source_path": "Libraries/Basic Sensors.ubl",
+      "git_blob": "ce2594a7870edbb646a74331243bf93ed248b101",
+      "bytes": 1099,
+      "sha256": "e328c27fafc93729dc620cc116d951befd5adbbd922392ce7cb0173913f63eba"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/8 Bit Graphics.ubl",
+      "source_path": "Libraries/Graphics and Displays/8 Bit Graphics.ubl",
+      "git_blob": "bb482db549f1c4de95e43d7c0abb93017e4b9a2a",
+      "bytes": 17732,
+      "sha256": "fd73b958d31dcff9cae44d75a36c3399cb09909c25b5acad354069deaadcd233"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/BMP.ubl",
+      "source_path": "Libraries/Graphics and Displays/BMP.ubl",
+      "git_blob": "5b1a47b3f35296982db6b23f1438e55c2bf18096",
+      "bytes": 8515,
+      "sha256": "366fc29a452a6722eb00ed04b8f8106318254432cef01cda50c7a98da76b273b"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/Color.ubl",
+      "source_path": "Libraries/Graphics and Displays/Color.ubl",
+      "git_blob": "53d3181bb27afbb7be1fd4baf8d59e20edf2a915",
+      "bytes": 2206,
+      "sha256": "26a0d7527acb120aa87f2fd565c528c18cb3c189d7f6f9883b74745945a19f3c"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/External Displays.ubl",
+      "source_path": "Libraries/Graphics and Displays/External Displays.ubl",
+      "git_blob": "0b1eecc313246cd283d95a0bacb5b2c72ca41230",
+      "bytes": 3086,
+      "sha256": "477725e1ad77164e80f8f475a4773c542f4813e136637da0705c1ebcb3abdd8d"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/Four Digit Display (TM1637).ubl",
+      "source_path": "Libraries/Graphics and Displays/Four Digit Display (TM1637).ubl",
+      "git_blob": "98e7c24d1fdb4cc449f06cfd649c6fafd09918fd",
+      "bytes": 3674,
+      "sha256": "6dcd5ede31d608a5868f06e0e6a6733cd5542ba2879f1ea3dd82dec79913c9fc"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/Four Digit Display (TM1650).ubl",
+      "source_path": "Libraries/Graphics and Displays/Four Digit Display (TM1650).ubl",
+      "git_blob": "a57fdf45d127ae07fa9d6b3d303cba882e8cd243",
+      "bytes": 4007,
+      "sha256": "4b2d425879b52c3fd47484667118e419d9145193255d32aa46d98753151234cf"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/LCD 16x2 (Seeed).ubl",
+      "source_path": "Libraries/Graphics and Displays/LCD 16x2 (Seeed).ubl",
+      "git_blob": "f96a6f9430ee841561c3da38b82da864cafb147c",
+      "bytes": 8792,
+      "sha256": "86ce4bc70b9cdd06ed94d2ecd7e2c28ea4ed2224356b75b1b2cccea6ef14a276"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/LCD Display.ubl",
+      "source_path": "Libraries/Graphics and Displays/LCD Display.ubl",
+      "git_blob": "909f0d160546f00458da4a2bcb942fa6df981192",
+      "bytes": 5907,
+      "sha256": "5f44a62b7f5c3e55e22bf252a51c8162a73c7c3b8e99b208547105d7d34854e8"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/LED Dot Matrix (d1 mini).ubl",
+      "source_path": "Libraries/Graphics and Displays/LED Dot Matrix (d1 mini).ubl",
+      "git_blob": "032b0934c9a0337b8381b7287362f39fce4a1275",
+      "bytes": 2674,
+      "sha256": "2e079c925c3bdf2bcff882e31e8581ea67b4130fdcd24cf2775bb62b5a6164f0"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/LED Matrix (MAX7219).ubl",
+      "source_path": "Libraries/Graphics and Displays/LED Matrix (MAX7219).ubl",
+      "git_blob": "eda29073f54587d58a7f2f6ca0790dea089d8f30",
+      "bytes": 29444,
+      "sha256": "f4637fb5d052af04023f2f10191962fad8fdcb18357d6f3b51d4f11374426949"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/LED Matrix 8x8.ubl",
+      "source_path": "Libraries/Graphics and Displays/LED Matrix 8x8.ubl",
+      "git_blob": "ec6ef55a93341685a53ba6a5e01e835ef7da51b6",
+      "bytes": 6122,
+      "sha256": "de89a1d0dd9752c2b14307fc6502af9923f9b863e80dbf0bff1929b4c330aff9"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/NeoPanel.ubl",
+      "source_path": "Libraries/Graphics and Displays/NeoPanel.ubl",
+      "git_blob": "c7ca5ffa45c1c434fb38f0c7aa3de7a6cfab04d6",
+      "bytes": 7469,
+      "sha256": "1476b06d77294d29625be031a3b03470feec43dabdbbf1aa31cec32fb76fdde3"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/OLED Graphics.ubl",
+      "source_path": "Libraries/Graphics and Displays/OLED Graphics.ubl",
+      "git_blob": "d6b476236959d27f319e3981fe87b1a8d1f3f9e0",
+      "bytes": 30678,
+      "sha256": "2d2d927939369d5a483c307cd06e3601c4d6de4caec44ef304586c95d6fc8c2d"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/OLED Turtle.ubl",
+      "source_path": "Libraries/Graphics and Displays/OLED Turtle.ubl",
+      "git_blob": "d59c07811c5a41ed96b1f10c84c609b90c1105be",
+      "bytes": 9401,
+      "sha256": "76c976db887495ea4cbcbe375261c5f94aea15a9feddf979f0ff5f2cbb945872"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/TFT.ubl",
+      "source_path": "Libraries/Graphics and Displays/TFT.ubl",
+      "git_blob": "caa39c0ae4cc4e22615db2eeba945e827ea5ac56",
+      "bytes": 5056,
+      "sha256": "e632d6107e064fe9157a7f5454c9617648910dd47dbd82915e6d1aa7bd92c4f1"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/Tiny OLED.ubl",
+      "source_path": "Libraries/Graphics and Displays/Tiny OLED.ubl",
+      "git_blob": "8031ab628dd4297b3a42a18b7da390cfaf364ef0",
+      "bytes": 11102,
+      "sha256": "ac88de0a2f94d1d09c9296405b05bebd0d3be1af128b715325e4cbcaf78e92b2"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/Turtle.ubl",
+      "source_path": "Libraries/Graphics and Displays/Turtle.ubl",
+      "git_blob": "ec7a81be08afc26f46e8e78aafa8561ac5ab51f9",
+      "bytes": 3642,
+      "sha256": "5a1dd09627e2fe6cd324c11e5f5ccddf5a26cc0302fb678eee314061a347b11a"
+    },
+    {
+      "path": "Libraries/Graphics and Displays/Widgets.ubl",
+      "source_path": "Libraries/Graphics and Displays/Widgets.ubl",
+      "git_blob": "d84090c044a160d2130f19b5407dde81d211d06c",
+      "bytes": 24022,
+      "sha256": "673197b6e4025581149754f80f14c788f0fd24957c2fba9b41c57e1e33167bab"
+    },
+    {
+      "path": "Libraries/Kits and Boards/CallioGamer.ubl",
+      "source_path": "Libraries/Kits and Boards/CallioGamer.ubl",
+      "git_blob": "cb2e978725ce7eb7db47f394ee636d25987aed1d",
+      "bytes": 940,
+      "sha256": "1b59497236b4d9f2c75a478d6319759b10429a929caaf8ad8e6463ba87d3d964"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Calliope Callibot.ubl",
+      "source_path": "Libraries/Kits and Boards/Calliope Callibot.ubl",
+      "git_blob": "bdef12ecc5f96bf75fe1341f9232afd22755657f",
+      "bytes": 10752,
+      "sha256": "30dac3eddb52ffba008c60bed789e5b4dbcc51d241f852fc00eb768b4dd0c91f"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Calliope MotionKit.ubl",
+      "source_path": "Libraries/Kits and Boards/Calliope MotionKit.ubl",
+      "git_blob": "f20deff009702f52f77712b8ffd43c95faa8afff",
+      "bytes": 9181,
+      "sha256": "10468593a904c58d04f9e04f00d5a42208e3293a5c34fd86e107ca019424842e"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Calliope NeoPixel.ubl",
+      "source_path": "Libraries/Kits and Boards/Calliope NeoPixel.ubl",
+      "git_blob": "10bd119bd8e941318cce5f5e6ee5c1630203e610",
+      "bytes": 3443,
+      "sha256": "176db27303db6578cef79dcce2bf4456fcf2682969fb93dccf94138a10a3bd14"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Calliope Servoboard.ubl",
+      "source_path": "Libraries/Kits and Boards/Calliope Servoboard.ubl",
+      "git_blob": "ee976ddc350451951a69109fb1e0b0737c2399a1",
+      "bytes": 2678,
+      "sha256": "6845fe4cdf467b03d3d4ff3a32c63dd40cbd05828e2e2039e9f6bee0d808ef86"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Catalab 32.ubl",
+      "source_path": "Libraries/Kits and Boards/Catalab 32.ubl",
+      "git_blob": "0c2ec833b6a4347eee25c28a62339c41f3c330cd",
+      "bytes": 7290,
+      "sha256": "bb94ec815cab649a4934083806eac37c6a8acc86191d99f9bef56e97976c6850"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Coding Box.ubl",
+      "source_path": "Libraries/Kits and Boards/Coding Box.ubl",
+      "git_blob": "39f6f0407ea24e1ecd15c21c9ba71ab38731b4c8",
+      "bytes": 4769,
+      "sha256": "1617b58280450233074329f34bdc5329ee989a6dfa369c9604333afaec778c44"
+    },
+    {
+      "path": "Libraries/Kits and Boards/DUELink Daisylink.ubl",
+      "source_path": "Libraries/Kits and Boards/DUELink Daisylink.ubl",
+      "git_blob": "56af21be109467878857d27f1e40bc873da396f5",
+      "bytes": 14908,
+      "sha256": "6ac3f597864cee6ab16a75e1747552b8bbc22ce74b32fd4e5c8890e67ec26307"
+    },
+    {
+      "path": "Libraries/Kits and Boards/DUELink Edu.ubl",
+      "source_path": "Libraries/Kits and Boards/DUELink Edu.ubl",
+      "git_blob": "956ccb6bcc3c9b43f35c6c92aa6c9d4098402bac",
+      "bytes": 9457,
+      "sha256": "408a8d775ec02192a18ae5d46e775448fb1775ba4178dc2be3c6712531d0277c"
+    },
+    {
+      "path": "Libraries/Kits and Boards/DatabotV3 Motion.ubl",
+      "source_path": "Libraries/Kits and Boards/DatabotV3 Motion.ubl",
+      "git_blob": "c24b2930b0a379387437c1e605962cde9c89f961",
+      "bytes": 4797,
+      "sha256": "650bc3c9aa6b6943950fb99e72c4adfe4a96e6c801a8fea6e110a0c5aab39aa4"
+    },
+    {
+      "path": "Libraries/Kits and Boards/DatabotV3.ubl",
+      "source_path": "Libraries/Kits and Boards/DatabotV3.ubl",
+      "git_blob": "9a0dd0b4c1152fcd7d21547893b1e40f8d52e492",
+      "bytes": 5659,
+      "sha256": "6c7ce18e4da829cc1e47291b98130f448bfb59bbfe5ac13496f11064e8b00260"
+    },
+    {
+      "path": "Libraries/Kits and Boards/ED1 Buttons.ubl",
+      "source_path": "Libraries/Kits and Boards/ED1 Buttons.ubl",
+      "git_blob": "6587a56ffa79270ff4146c6094dc1a95b87167f7",
+      "bytes": 1573,
+      "sha256": "6b9f864fcbd71ba3404660413209fd126e1b1c7789df018badd9d07fdb46614c"
+    },
+    {
+      "path": "Libraries/Kits and Boards/ED1 Stepper Motor.ubl",
+      "source_path": "Libraries/Kits and Boards/ED1 Stepper Motor.ubl",
+      "git_blob": "3c22f42b3b12c4013fe6aabdeb5f5d6c6a541863",
+      "bytes": 4813,
+      "sha256": "b6f1268043c6985690d2337638ade728a4515b1ab3aa0a9c844af30ac57a7c54"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Foxbit.ubl",
+      "source_path": "Libraries/Kits and Boards/Foxbit.ubl",
+      "git_blob": "3a5808b1ecbfc16498918c9725ea06abc3c59b24",
+      "bytes": 3560,
+      "sha256": "c94dab02dab1bccb9190c226e41758eba25d2cd88d5727e7a6b6e770df14ea01"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Gizmo.ubl",
+      "source_path": "Libraries/Kits and Boards/Gizmo.ubl",
+      "git_blob": "65d5d7b16983a18da0f3b06fc899dc1edf2df881",
+      "bytes": 3599,
+      "sha256": "4b2cc71ae2d0fb6f0fc5601780df9eac4ff523aeb8792c4b251bee0df1da204a"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Hummingbird.ubl",
+      "source_path": "Libraries/Kits and Boards/Hummingbird.ubl",
+      "git_blob": "0cab8f0009f8a9adfba1b1edaebd4cb040a5329a",
+      "bytes": 4443,
+      "sha256": "dacf31bce3e2e2a0dc6cd1de234ebce8b336baae1e4ebab9398e5e3d60cb40cc"
+    },
+    {
+      "path": "Libraries/Kits and Boards/HyperDuino.ubl",
+      "source_path": "Libraries/Kits and Boards/HyperDuino.ubl",
+      "git_blob": "25fe141124008bad84e60688a41e601bc549b619",
+      "bytes": 2350,
+      "sha256": "89fd82206132603623d1a7450973d28e5b33a77f3c8b6d33733d0fb86dfbfb18"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Imagina.ubl",
+      "source_path": "Libraries/Kits and Boards/Imagina.ubl",
+      "git_blob": "dacb589820adcbaac4ee84efe0f4ebb635aeccd6",
+      "bytes": 5227,
+      "sha256": "8a5e165c0df0663897716354150101335db78f9af37c9998e32574589ecf7896"
+    },
+    {
+      "path": "Libraries/Kits and Boards/KidsIOT Engineering.ubl",
+      "source_path": "Libraries/Kits and Boards/KidsIOT Engineering.ubl",
+      "git_blob": "d80643f5d02b6ba4645b44a9fe18495b3b544235",
+      "bytes": 6488,
+      "sha256": "12081e1c96505a78f08438642bcb924bff9f23fc542ec8e118b378f9a985f893"
+    },
+    {
+      "path": "Libraries/Kits and Boards/KidsIOT.ubl",
+      "source_path": "Libraries/Kits and Boards/KidsIOT.ubl",
+      "git_blob": "05571d43f54a9b25a3256de5b4b7cda596e26f77",
+      "bytes": 14491,
+      "sha256": "d35333b548ce935d4fb7e94c8ee2422be8e58bc65df08704364b00aa3c3162bd"
+    },
+    {
+      "path": "Libraries/Kits and Boards/LogicLinks.ubl",
+      "source_path": "Libraries/Kits and Boards/LogicLinks.ubl",
+      "git_blob": "37805f138ee8b6df05f53de3d09ec15d28ec32d0",
+      "bytes": 3152,
+      "sha256": "1414cb63835b765475e37f7ab11b392d7ed5b2e169711938096d37fc0fa1746b"
+    },
+    {
+      "path": "Libraries/Kits and Boards/M5FireKits.ubl",
+      "source_path": "Libraries/Kits and Boards/M5FireKits.ubl",
+      "git_blob": "7865293733cee73300b3d8a9942b05424e6415d6",
+      "bytes": 2853,
+      "sha256": "cd644efcfb8be6f1effa40e286f7795edadc8f5c43458f416d2805f39186f3b7"
+    },
+    {
+      "path": "Libraries/Kits and Boards/MakerBit.ubl",
+      "source_path": "Libraries/Kits and Boards/MakerBit.ubl",
+      "git_blob": "0e9bf3a72a17c6c02b6b9595b44dc4a094e46ab1",
+      "bytes": 2527,
+      "sha256": "47da96e5ba8c2e1f8f8f7a2d279d1f27685faa17c8b8dad18a39df203d8b1d34"
+    },
+    {
+      "path": "Libraries/Kits and Boards/MakerPort Network.ubl",
+      "source_path": "Libraries/Kits and Boards/MakerPort Network.ubl",
+      "git_blob": "427528ba386c4b92d2c94ad267e584fae73cc464",
+      "bytes": 30240,
+      "sha256": "fbe9719723413929b21e512763c484007358dbfe7c84270efad7e8643b449431"
+    },
+    {
+      "path": "Libraries/Kits and Boards/MakerPort.ubl",
+      "source_path": "Libraries/Kits and Boards/MakerPort.ubl",
+      "git_blob": "a665c3bee585e43f73a96d6f2249e7e66f789b78",
+      "bytes": 10246,
+      "sha256": "40e915c2b283b4b55210fd28dbf4e06aad47537af75384a140ec50c34b196b8e"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Octopus.ubl",
+      "source_path": "Libraries/Kits and Boards/Octopus.ubl",
+      "git_blob": "d78fbd8bbcaa24cfe21112b9cedcfa9856fecd06",
+      "bytes": 4773,
+      "sha256": "bc6e55b7f0861df9779acff49c877156bc19a2b3958b7ea93b42a2252ce9a649"
+    },
+    {
+      "path": "Libraries/Kits and Boards/PCA9685 Servos.ubl",
+      "source_path": "Libraries/Kits and Boards/PCA9685 Servos.ubl",
+      "git_blob": "59e476a26ac40c2b0d9803ce093c21d35a6903b8",
+      "bytes": 1836,
+      "sha256": "e505baef6050f8a5eb36be1d9d0a0f8f80515ab7abca648d9a923a21a977a5d2"
+    },
+    {
+      "path": "Libraries/Kits and Boards/PiBody.ubl",
+      "source_path": "Libraries/Kits and Boards/PiBody.ubl",
+      "git_blob": "763c457bc9098b45944404d3e5151acb58711a38",
+      "bytes": 5995,
+      "sha256": "b1a652928a6e4cf5b9d32bb73e94e7ff14e321529d538170809652d019245f2c"
+    },
+    {
+      "path": "Libraries/Kits and Boards/PicoBricks-mb.ubl",
+      "source_path": "Libraries/Kits and Boards/PicoBricks-mb.ubl",
+      "git_blob": "31f7d3147ab138a05c27b4127aa48345cd7f83b1",
+      "bytes": 15647,
+      "sha256": "8fb4602b749006d22a036a780057cce41bba587e839d5c69087edd9bf6b11a98"
+    },
+    {
+      "path": "Libraries/Kits and Boards/PicoBricks.ubl",
+      "source_path": "Libraries/Kits and Boards/PicoBricks.ubl",
+      "git_blob": "1e7594dba76d6a8f93c01b3ab2e1287b396a361b",
+      "bytes": 7383,
+      "sha256": "cf9de976bba5c879fc1434369eebf8dee936edc7ce5167296bee912b9661edef"
+    },
+    {
+      "path": "Libraries/Kits and Boards/REX Kit.ubl",
+      "source_path": "Libraries/Kits and Boards/REX Kit.ubl",
+      "git_blob": "3c05969e144fa86a8fc31efc3a8cb39109f6fcf2",
+      "bytes": 11754,
+      "sha256": "4fd85ae05ba36b8654dfde6f8f63a2720b2a293775a946db8daef075d00ae211"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Robo ESP32.ubl",
+      "source_path": "Libraries/Kits and Boards/Robo ESP32.ubl",
+      "git_blob": "e6041dbcd636174c004aca12431faf9cf1535dc3",
+      "bytes": 4014,
+      "sha256": "9657fa331ebe11cffab2957860cb2fb7c7b30cf8458c2595b0fa7a19f49ca8e4"
+    },
+    {
+      "path": "Libraries/Kits and Boards/ShieldBit.ubl",
+      "source_path": "Libraries/Kits and Boards/ShieldBit.ubl",
+      "git_blob": "d64ba40536e2ee66f3ee0217d74fca384a8ce491",
+      "bytes": 6177,
+      "sha256": "4fd191349fcbbaebda172dea2a48f283b9a9346b8b04d7eee57067dd086d2687"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Smart Farm.ubl",
+      "source_path": "Libraries/Kits and Boards/Smart Farm.ubl",
+      "git_blob": "e51cd4c31c81241de586579fab410850b9a16f2b",
+      "bytes": 5131,
+      "sha256": "22373ab56852bd82216b9f58c9e663bcc9fba8dba7fd64733e6b42432afcc0fa"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Smart Home.ubl",
+      "source_path": "Libraries/Kits and Boards/Smart Home.ubl",
+      "git_blob": "f6673238170fe6970445152e8e085e4eeda67b9b",
+      "bytes": 5800,
+      "sha256": "a081f7b8bdad318bbfe894accff1d5580acb5cb65ad92a7d77b9c3a3eb0dca36"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Springbot Display.ubl",
+      "source_path": "Libraries/Kits and Boards/Springbot Display.ubl",
+      "git_blob": "d771d82973c34328f245af07b780bd8accc7853d",
+      "bytes": 3960,
+      "sha256": "445d5b92a63b2bc923795e262d53ac30715f0028ab8e94e2923cac6804aa4737"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Springbot.ubl",
+      "source_path": "Libraries/Kits and Boards/Springbot.ubl",
+      "git_blob": "5ae60c4f1f5cf757c624e10c7af50784bda5e605",
+      "bytes": 1902,
+      "sha256": "d051239dbcaff6c53aba6bc16f0996dd3a54f652311d884101e49df232911356"
+    },
+    {
+      "path": "Libraries/Kits and Boards/TdR STEAM.ubl",
+      "source_path": "Libraries/Kits and Boards/TdR STEAM.ubl",
+      "git_blob": "564078f4d4bf833f5dd5dd8a9b61b450c99c7862",
+      "bytes": 2581,
+      "sha256": "5dfb978955b7e41b5e70d3466559f42ffa1db8729033281b22895d0617d131b6"
+    },
+    {
+      "path": "Libraries/Kits and Boards/WuKong2040.ubl",
+      "source_path": "Libraries/Kits and Boards/WuKong2040.ubl",
+      "git_blob": "da1467844ea21b9f58b27296e03c11202da73618",
+      "bytes": 3921,
+      "sha256": "472d4bdd574dde4eeb593060908d86d309771e4e255600630f966256bcab9cea"
+    },
+    {
+      "path": "Libraries/Kits and Boards/Wukong.ubl",
+      "source_path": "Libraries/Kits and Boards/Wukong.ubl",
+      "git_blob": "e6e7d2fcbbc2dd8c7305ddd4c1e28e03197efe4a",
+      "bytes": 4284,
+      "sha256": "91fb743e9ac9a8b53c87affb43711142247df88ee0e78ef479b38808765ce29e"
+    },
+    {
+      "path": "Libraries/Kits and Boards/databot.ubl",
+      "source_path": "Libraries/Kits and Boards/databot.ubl",
+      "git_blob": "028bc1573221d353fee72beda584b54ad5b01a8f",
+      "bytes": 5029,
+      "sha256": "72b94cf59b5b51322aeb47a0ffedc8ebbff00fbd1abde165fe954aca63e3070f"
+    },
+    {
+      "path": "Libraries/Kits and Boards/microSTEAMakers.ubl",
+      "source_path": "Libraries/Kits and Boards/microSTEAMakers.ubl",
+      "git_blob": "943e138a25362a8a6aa12ff719441d234366e591",
+      "bytes": 10145,
+      "sha256": "e8c8eed6a38799205102689dda4734ea460f7321cdb08711d9a99f4624b2b8ae"
+    },
+    {
+      "path": "Libraries/LED Display.ubl",
+      "source_path": "Libraries/LED Display.ubl",
+      "git_blob": "2754bce55df827a90745617655bc4577e9c1bc1a",
+      "bytes": 4820,
+      "sha256": "38df5d2dd93aac0a0e5168d6a6bd1213bf671344d26e253816b6950109a83934"
+    },
+    {
+      "path": "Libraries/Motors/D1 Motor Shield.ubl",
+      "source_path": "Libraries/Motors/D1 Motor Shield.ubl",
+      "git_blob": "238639921f1fef4a33c74395e589756fb33d6b3f",
+      "bytes": 1793,
+      "sha256": "bd80b5e01f09da92025c8bc4c5d0389db3e26abe1ab5623df6e2532879de0aaa"
+    },
+    {
+      "path": "Libraries/Motors/Dual Motor (DRV8833).ubl",
+      "source_path": "Libraries/Motors/Dual Motor (DRV8833).ubl",
+      "git_blob": "840c1a34a20040b9cf58e16ef148d7834d6ce12d",
+      "bytes": 1131,
+      "sha256": "7982bd4fc17cd9140b8ac13281da93c18dfa6abfc26bc3a9a6f9a8c67d1c5718"
+    },
+    {
+      "path": "Libraries/Motors/Encoded DC Motors.ubl",
+      "source_path": "Libraries/Motors/Encoded DC Motors.ubl",
+      "git_blob": "39ccc3fe5d7a50249ce1e0287edd7131b1ea76a7",
+      "bytes": 19371,
+      "sha256": "9a32957787004b7b956754eda268ec56fc909fbc86d7255224aa970d5256cded"
+    },
+    {
+      "path": "Libraries/Motors/MotoBit.ubl",
+      "source_path": "Libraries/Motors/MotoBit.ubl",
+      "git_blob": "497298fd8f5adae348493eb02b82d6dfa61a0218",
+      "bytes": 694,
+      "sha256": "97ed7c6760ddbb6b83fa656175903fc1138182c175e5e9f78025b4e0f1ace00c"
+    },
+    {
+      "path": "Libraries/Motors/PID.ubl",
+      "source_path": "Libraries/Motors/PID.ubl",
+      "git_blob": "48a8907b63b8a818a7e9ca92179b41f217a489b4",
+      "bytes": 3838,
+      "sha256": "87de5a6bf9bf31abe1e83692c94b7511396410db2a210b8f421e7c45019e1366"
+    },
+    {
+      "path": "Libraries/Motors/Steppers.ubl",
+      "source_path": "Libraries/Motors/Steppers.ubl",
+      "git_blob": "37b68328d97487c85b5ce08d19f73e1c2752aea8",
+      "bytes": 4407,
+      "sha256": "b17023d22cc2bc729edca985f3a4d3c7a23201dad2c84536baf8b257f2bec2d7"
+    },
+    {
+      "path": "Libraries/Motors/Zio Four Motor Controller.ubl",
+      "source_path": "Libraries/Motors/Zio Four Motor Controller.ubl",
+      "git_blob": "b8e2cbd3a9ad81269385aad4adbc4ede543c7bda",
+      "bytes": 3195,
+      "sha256": "278e05401657c36cfc14f4dc1e50c379abb529746e4e700741e547050fd062f4"
+    },
+    {
+      "path": "Libraries/NeoPixel.ubl",
+      "source_path": "Libraries/NeoPixel.ubl",
+      "git_blob": "6fe994d508ed95662da2bf9194622fff6a029fde",
+      "bytes": 5989,
+      "sha256": "c7afb97fed6b5ad9477c54c77e4168eb25f9f8080688b6495bac4c6b3c10b61e"
+    },
+    {
+      "path": "Libraries/Network/BLE Radio.ubl",
+      "source_path": "Libraries/Network/BLE Radio.ubl",
+      "git_blob": "93074923dd9815a1fc8dfcf5af4ae77da2f3c8cf",
+      "bytes": 2276,
+      "sha256": "ac26532205eb819f9db60f33738adabbef4ca8c941245c229a6a44e27a39cf9c"
+    },
+    {
+      "path": "Libraries/Network/BLE Scanner.ubl",
+      "source_path": "Libraries/Network/BLE Scanner.ubl",
+      "git_blob": "3f1ab0a48584ef29d07639817a9db20237f86064",
+      "bytes": 2490,
+      "sha256": "a6f84a0bca1512543bdd4d3708620396bc4753b07b3f976bf8e158bddd61dbf7"
+    },
+    {
+      "path": "Libraries/Network/BLE Serial.ubl",
+      "source_path": "Libraries/Network/BLE Serial.ubl",
+      "git_blob": "4bc23b70dc9557f20b840bc7e8b4007ac7f67cd5",
+      "bytes": 1653,
+      "sha256": "07f85720834c86d5e9e72b636435ec8e872e49291401091f2829299b600f6a1a"
+    },
+    {
+      "path": "Libraries/Network/ESP Now.ubl",
+      "source_path": "Libraries/Network/ESP Now.ubl",
+      "git_blob": "d357406c05e854245e217b41dd122f0e9f7fa481",
+      "bytes": 2457,
+      "sha256": "a4fa55cd0ba7eb66e5eaf2a544494f5996b198eeeacb6a09eb79dbaa0ea43fcb"
+    },
+    {
+      "path": "Libraries/Network/HTTP client.ubl",
+      "source_path": "Libraries/Network/HTTP client.ubl",
+      "git_blob": "dc69b05eb15e0e2690fe5907e071f1471257ee69",
+      "bytes": 10036,
+      "sha256": "17e961b97139dff5832abf824e4df53f56fcb91ea2afeb507db39bfb6999d572"
+    },
+    {
+      "path": "Libraries/Network/HTTP server.ubl",
+      "source_path": "Libraries/Network/HTTP server.ubl",
+      "git_blob": "3e4512bd1eaf70a303364cdbf7566a931bd1db3a",
+      "bytes": 2376,
+      "sha256": "41bdda3286aafd00938d382d3b40dc092583595f98dbbfd3224bad783c6477c1"
+    },
+    {
+      "path": "Libraries/Network/MQTT.ubl",
+      "source_path": "Libraries/Network/MQTT.ubl",
+      "git_blob": "ffae3b6bfa312c077ff74c041210ada8480cee48",
+      "bytes": 3411,
+      "sha256": "87a853de3f3e1a1acd22c5c59c5cdccaa9d8633de6a1147d237ca5bca76b81cf"
+    },
+    {
+      "path": "Libraries/Network/OctoStudio.ubl",
+      "source_path": "Libraries/Network/OctoStudio.ubl",
+      "git_blob": "3267028f51a0107d13d6a9f1da54b7c6297bf82f",
+      "bytes": 4274,
+      "sha256": "6351a2fa8e358e5de5fcd0ea1de45ce27f51288911715685a9c773e479c84573"
+    },
+    {
+      "path": "Libraries/Network/Telegram.ubl",
+      "source_path": "Libraries/Network/Telegram.ubl",
+      "git_blob": "3dc93deb5032b909eb91c6c102cba8c35f18caf3",
+      "bytes": 2539,
+      "sha256": "3158700781f16b30ea41d13dbbf0601266f38ddf6bfe24beaad15ac58416fe5f"
+    },
+    {
+      "path": "Libraries/Network/ThingSpeak.ubl",
+      "source_path": "Libraries/Network/ThingSpeak.ubl",
+      "git_blob": "fd47c2a127b3ec27ac172124658d2a6556c6f831",
+      "bytes": 2033,
+      "sha256": "45091084ac219a1cfd5f83f879030b857117c5adacd156581b4d7c93aea2c443"
+    },
+    {
+      "path": "Libraries/Network/UDP.ubl",
+      "source_path": "Libraries/Network/UDP.ubl",
+      "git_blob": "05087066311e842ae52b5e7d49bc631473ddc489",
+      "bytes": 547,
+      "sha256": "f241b7832869a494d086d884091da0af003946834bee92ce0161f1a4ca0f9689"
+    },
+    {
+      "path": "Libraries/Network/WebPanel.ubl",
+      "source_path": "Libraries/Network/WebPanel.ubl",
+      "git_blob": "4318977c3a4293cfe5a62735172ab1ddd7ebb3d0",
+      "bytes": 12862,
+      "sha256": "5e0b129c9130d6ac7b8ca8b53fd4d0c96f0cd477fe93035301e3dbf48661964d"
+    },
+    {
+      "path": "Libraries/Network/WebSocket server.ubl",
+      "source_path": "Libraries/Network/WebSocket server.ubl",
+      "git_blob": "3cc04615025dbb1c25379f2678341aed864b3698",
+      "bytes": 1432,
+      "sha256": "1ef6e0038a33ae6841e73afefdb6b288b3766806288b4c1554ceb830f79f7ac6"
+    },
+    {
+      "path": "Libraries/Network/WebThings.ubl",
+      "source_path": "Libraries/Network/WebThings.ubl",
+      "git_blob": "28c17b92ce192f8ce2cdc5d3c2b6fb3bf8fffab4",
+      "bytes": 11960,
+      "sha256": "a569a37d710b4cfbd2c4f1bc38d5208fa8dfb136fb4d32a28eb504eea446ee32"
+    },
+    {
+      "path": "Libraries/Network/WiFi Radio.ubl",
+      "source_path": "Libraries/Network/WiFi Radio.ubl",
+      "git_blob": "4d45f3fc156abef9b473bef6ddf964930dad982b",
+      "bytes": 3712,
+      "sha256": "197513e4ea5444ca667e6f1e9e8e89871abca8884381cd9556e20833ce1e17f3"
+    },
+    {
+      "path": "Libraries/Network/WiFi.ubl",
+      "source_path": "Libraries/Network/WiFi.ubl",
+      "git_blob": "267845b8e3a2a0b5d13bcee9f141fe1b4e1b54ca",
+      "bytes": 3195,
+      "sha256": "bad899f547c77151285d450f5092c69e6e49ac3323b97c20cd72d561f9efa6a5"
+    },
+    {
+      "path": "Libraries/Other/BLE Keyboard.ubl",
+      "source_path": "Libraries/Other/BLE Keyboard.ubl",
+      "git_blob": "344987de2779b49643ed4383e3600766a230022a",
+      "bytes": 1274,
+      "sha256": "a54153ee9a853b833a3eebb492593797d48e67f60032f8bfaad36224c9981ed9"
+    },
+    {
+      "path": "Libraries/Other/Base64.ubl",
+      "source_path": "Libraries/Other/Base64.ubl",
+      "git_blob": "38f7150351edf69c52d27ed9efedb37747b666da",
+      "bytes": 3244,
+      "sha256": "bc5a507816d2197a4d3c691cff34fee7007370cdf36795c4607af4cf14bfe685"
+    },
+    {
+      "path": "Libraries/Other/Camera.ubl",
+      "source_path": "Libraries/Other/Camera.ubl",
+      "git_blob": "339fffe266919a5b0bdf32c8ceb619ccaf34111a",
+      "bytes": 581,
+      "sha256": "738c56c437188d2cde0ae7377544c2deeaaf46c4e845ef1c3a039ad629427a92"
+    },
+    {
+      "path": "Libraries/Other/CardKB.ubl",
+      "source_path": "Libraries/Other/CardKB.ubl",
+      "git_blob": "831ebe6e037211621d9a25d1bcfe7d45a389b3d9",
+      "bytes": 855,
+      "sha256": "fdad23afcda2a6e73e606418a5c2318671f8f03c8a9a8bf25d0497d735543825"
+    },
+    {
+      "path": "Libraries/Other/Circuit Playground.ubl",
+      "source_path": "Libraries/Other/Circuit Playground.ubl",
+      "git_blob": "69d17eb45acec32a6077beb9a5197f9fafbd19c4",
+      "bytes": 496,
+      "sha256": "d74f0fd820b19650799cef12fb95a96e291ae8382f1f25b678efd0a08c29c433"
+    },
+    {
+      "path": "Libraries/Other/DotStar.ubl",
+      "source_path": "Libraries/Other/DotStar.ubl",
+      "git_blob": "dba4e9413690bd3a2c302a5e752d288952acf9f7",
+      "bytes": 2110,
+      "sha256": "53ed7276c1669b64c226f24bae036c47f8e6034d4bba7d6d4858bab109aa6721"
+    },
+    {
+      "path": "Libraries/Other/DrawBot.ubl",
+      "source_path": "Libraries/Other/DrawBot.ubl",
+      "git_blob": "82d8f0d7b00abecf17a648c28e99b8e73b05aa8a",
+      "bytes": 8392,
+      "sha256": "3200e6b5f7e5eb6faee78f879980d5f9850e17e8f2c7101bad46d6a97cc293ee"
+    },
+    {
+      "path": "Libraries/Other/Files.ubl",
+      "source_path": "Libraries/Other/Files.ubl",
+      "git_blob": "1da7d75e2bdaa564229f305f2bd41a8860501979",
+      "bytes": 2478,
+      "sha256": "3636a1019d20181c78fadc6dbaffd79272ab6082c48795ca2d2c6b8a48698a95"
+    },
+    {
+      "path": "Libraries/Other/Fractions.ubl",
+      "source_path": "Libraries/Other/Fractions.ubl",
+      "git_blob": "bf9ee5bee8cb28a7fb1d9dabdeb1aab63d4d8a43",
+      "bytes": 3477,
+      "sha256": "deba05496d66074833af7db2d9ed5a12d9723c8af0350caa9bcb0f72ad68f53e"
+    },
+    {
+      "path": "Libraries/Other/Function Calls.ubl",
+      "source_path": "Libraries/Other/Function Calls.ubl",
+      "git_blob": "5583317b313e685129f1f2ac2c8a479f3da86b04",
+      "bytes": 376,
+      "sha256": "f55198c6466af976c69c65125d427344b471bd93b12a2800df8b6e3336a77abd"
+    },
+    {
+      "path": "Libraries/Other/I2CMux.ubl",
+      "source_path": "Libraries/Other/I2CMux.ubl",
+      "git_blob": "d8ead516e7ee87d57f6d1c410e11e4f1c6683660",
+      "bytes": 1234,
+      "sha256": "677f91690c5e971be1e03fc5f41a55a1ad5716bd147d1e59a321516e93908096"
+    },
+    {
+      "path": "Libraries/Other/IR Remote.ubl",
+      "source_path": "Libraries/Other/IR Remote.ubl",
+      "git_blob": "5b73dffa6ede664f4a5c9f80d0823bce9746963f",
+      "bytes": 7445,
+      "sha256": "495f6002dcab33d02ff2e2c66788c564e9e029de8bc4596e7ef2b3515607696a"
+    },
+    {
+      "path": "Libraries/Other/JSON Create.ubl",
+      "source_path": "Libraries/Other/JSON Create.ubl",
+      "git_blob": "ba6c233a0f9025789c73bfe289e410153ae06efe",
+      "bytes": 2103,
+      "sha256": "8741ec00bee54b065ec0c9ccf24034572ff2b08c1e7ec48a920a4a3495edce80"
+    },
+    {
+      "path": "Libraries/Other/Joystick_bit.ubl",
+      "source_path": "Libraries/Other/Joystick_bit.ubl",
+      "git_blob": "b50b85811cf998dd78d9b9ab51cb07e55fb695de",
+      "bytes": 1307,
+      "sha256": "700709000450b593a33297e73ee714ac064430d9b7bb9154dd19eea6ebde1c3c"
+    },
+    {
+      "path": "Libraries/Other/Keyboard and Mouse.ubl",
+      "source_path": "Libraries/Other/Keyboard and Mouse.ubl",
+      "git_blob": "64eff7d4e6399e03d904969da53760d6b25c0583",
+      "bytes": 2260,
+      "sha256": "85219a0cb7ea55c3111609719b2822d105bdf5d7960afebaa9bc835a0d5456c2"
+    },
+    {
+      "path": "Libraries/Other/Lists.ubl",
+      "source_path": "Libraries/Other/Lists.ubl",
+      "git_blob": "274d0fdc879f015bcb15d0287627ba51b51d3935",
+      "bytes": 5680,
+      "sha256": "8be109015ba6ca9214b63dcd0fd040e5f2b6aa108369d962b3a5503f2c923954"
+    },
+    {
+      "path": "Libraries/Other/Math.ubl",
+      "source_path": "Libraries/Other/Math.ubl",
+      "git_blob": "698078a302792852db9c39b374604bf80acca353",
+      "bytes": 881,
+      "sha256": "a7ebd093ad9b086eddce6409c810c731556b0844ae52cccee84c9e318a5d0083"
+    },
+    {
+      "path": "Libraries/Other/Pseudorandomness.ubl",
+      "source_path": "Libraries/Other/Pseudorandomness.ubl",
+      "git_blob": "e085d046f788e568e6d257acf7f2a05d9d4f9e96",
+      "bytes": 1020,
+      "sha256": "163d21b894257f3d7305fb1d8de48d7f451934a56ddbe440f6bdced9694ae5dc"
+    },
+    {
+      "path": "Libraries/Other/Real Time Clock.ubl",
+      "source_path": "Libraries/Other/Real Time Clock.ubl",
+      "git_blob": "306809412a08685d02d49db448d3692aee9de9c9",
+      "bytes": 10064,
+      "sha256": "8aa2e59a6b934e47029ab99a13df5feb2818a08a173f1d97bdb28bc014e06deb"
+    },
+    {
+      "path": "Libraries/Other/SDCard.ubl",
+      "source_path": "Libraries/Other/SDCard.ubl",
+      "git_blob": "906e50ce02699342dad58c36a999487144a91afd",
+      "bytes": 3497,
+      "sha256": "80be281a49b42e9759920354577d4fcbaf9c22cb0ba2b5efa98eefd9c978b500"
+    },
+    {
+      "path": "Libraries/Other/Serial.ubl",
+      "source_path": "Libraries/Other/Serial.ubl",
+      "git_blob": "44cdb1587a0709830eeebb599e55eeb8734e089f",
+      "bytes": 4002,
+      "sha256": "3833716dae498fdd02162bca9bb56ceeed2b380cc6a468bcd54a0f2ab90c6458"
+    },
+    {
+      "path": "Libraries/Other/SquareWave.ubl",
+      "source_path": "Libraries/Other/SquareWave.ubl",
+      "git_blob": "efa5a4612a8a8613310639e641251d88accc2a42",
+      "bytes": 622,
+      "sha256": "c9418daeffb0445bcd96ee44e4f7160caec9dc6d23501db3836b37d10abcbe1e"
+    },
+    {
+      "path": "Libraries/Other/Strings.ubl",
+      "source_path": "Libraries/Other/Strings.ubl",
+      "git_blob": "534972f0e1d05b4a16afe71791fe2d34ad9a2402",
+      "bytes": 5943,
+      "sha256": "41805c29afff655b8a5ab7b145035f827f3f5b1ec2e21b5f4318838a4e94e40f"
+    },
+    {
+      "path": "Libraries/Other/System/encoderPrims.ubl",
+      "source_path": "Libraries/Other/System/encoderPrims.ubl",
+      "git_blob": "a178bc2511f09aa77dab92176db610ca7d247909",
+      "bytes": 753,
+      "sha256": "f29414e4f700f1294780db9aa245aa9d9da1ebca4e444b0c72e3ccab4217176f"
+    },
+    {
+      "path": "Libraries/Other/System/filePrims.ubl",
+      "source_path": "Libraries/Other/System/filePrims.ubl",
+      "git_blob": "f8812148d8738a7576bc25eeea5d84ed478d4dcf",
+      "bytes": 895,
+      "sha256": "25c8050c0391c4449003cc8e5c8add8b930b6cf3b22104d146f0feded150b07a"
+    },
+    {
+      "path": "Libraries/Other/System/graphicsPrims.ubl",
+      "source_path": "Libraries/Other/System/graphicsPrims.ubl",
+      "git_blob": "5e7dc0ca95fb8dbf678b20416c48b1b405298afc",
+      "bytes": 1678,
+      "sha256": "5879db56cc8ca43a471852bbc44c93cedb4c683fbcd33388f288f28a2eaee999"
+    },
+    {
+      "path": "Libraries/Other/System/internalI2CPrims.ubl",
+      "source_path": "Libraries/Other/System/internalI2CPrims.ubl",
+      "git_blob": "2ec0843717aa6d2a01a9a066af2c5a95188d0c88",
+      "bytes": 352,
+      "sha256": "f5f31e508b08ea74a12b0e93ee8d51c8a7959476646ff22660701fc99fb4a7a0"
+    },
+    {
+      "path": "Libraries/Other/System/jsonPrims.ubl",
+      "source_path": "Libraries/Other/System/jsonPrims.ubl",
+      "git_blob": "872c606f58327367a2f480ac089ae03359b604d5",
+      "bytes": 522,
+      "sha256": "8dded19d16ff275d77928fe98cb3ac9e4a3afe82be6853b6e14153271ba27dcf"
+    },
+    {
+      "path": "Libraries/Other/System/miscPrims.ubl",
+      "source_path": "Libraries/Other/System/miscPrims.ubl",
+      "git_blob": "04504aec93532b14281fe416a3bce6d623c8d257",
+      "bytes": 1626,
+      "sha256": "4d5988978e2a15a0381b92063c05b1c0b910de1997217d8bd18da61496ae6bd6"
+    },
+    {
+      "path": "Libraries/Other/System/oneWirePrims.ubl",
+      "source_path": "Libraries/Other/System/oneWirePrims.ubl",
+      "git_blob": "f4fb9855b3be04510d45d9d33cabf6ed5992658f",
+      "bytes": 779,
+      "sha256": "8bf79adb92ca13939a91f1464d3a2bb97f26b2963271b208267a4a64c5ca46e7"
+    },
+    {
+      "path": "Libraries/Other/System/radioPrims.ubl",
+      "source_path": "Libraries/Other/System/radioPrims.ubl",
+      "git_blob": "06315cb71383e6bc45793291e9011ba43a395d4a",
+      "bytes": 1792,
+      "sha256": "df82f03b680ec5c6a00e32015f8b3738a59f6144e85cad492d0494bef4bafc38"
+    },
+    {
+      "path": "Libraries/Other/System/sensorPrims.ubl",
+      "source_path": "Libraries/Other/System/sensorPrims.ubl",
+      "git_blob": "144c02484322841b6c87127b0a7bb3b30bef9cd7",
+      "bytes": 1467,
+      "sha256": "6d006da628ac219387729af530a32c6ba4a52ad86000bb723bcdbdb38021e712"
+    },
+    {
+      "path": "Libraries/Other/System/servoPrims.ubl",
+      "source_path": "Libraries/Other/System/servoPrims.ubl",
+      "git_blob": "979632999d1030f2e10cfeac29fbe800ef132457",
+      "bytes": 347,
+      "sha256": "0c478a30100d0153085766b4c16c998137c08863b0b1abe8f0a493e8152ce7a7"
+    },
+    {
+      "path": "Libraries/Other/System/soundPrims.ubl",
+      "source_path": "Libraries/Other/System/soundPrims.ubl",
+      "git_blob": "ca677cc794fcf74b74e9760308bee29819ac19da",
+      "bytes": 690,
+      "sha256": "fd4299b980c351582661a474eec4ce97e459ddab433e7b4936d6cd7d7eee0af3"
+    },
+    {
+      "path": "Libraries/Other/System/varPrims.ubl",
+      "source_path": "Libraries/Other/System/varPrims.ubl",
+      "git_blob": "dbe0b7e172b5c4941236aa29888f2d9c879680c0",
+      "bytes": 844,
+      "sha256": "baed9307af73d9a83934edff002e21ae044eed312560e2ce5f9198ea165b2119"
+    },
+    {
+      "path": "Libraries/Other/System/wifiPrims.ubl",
+      "source_path": "Libraries/Other/System/wifiPrims.ubl",
+      "git_blob": "da548179089e978dfeb23afd51e9c34a4f600059",
+      "bytes": 2208,
+      "sha256": "ffb685bd127a1b39ead8931b1c446dbaf1fab4868a6476213266a9b2cf6e7ed7"
+    },
+    {
+      "path": "Libraries/Other/dec2anyBase.ubl",
+      "source_path": "Libraries/Other/dec2anyBase.ubl",
+      "git_blob": "0a3c9f4af4e80741c5ad81abce861785fd07e03b",
+      "bytes": 1188,
+      "sha256": "599b524a3761d0fb441291dde850bd62d98ac09c4d0e7272b13ea1f696905337"
+    },
+    {
+      "path": "Libraries/Radio.ubl",
+      "source_path": "Libraries/Radio.ubl",
+      "git_blob": "66459bed1d5d48d70f97dcbdb27bc98aaf3d02ca",
+      "bytes": 1007,
+      "sha256": "84a94bd23c30b5f67bd87acada9e5d02ff986d8e3b4424ad71cd888901b228f3"
+    },
+    {
+      "path": "Libraries/Ringtone.ubl",
+      "source_path": "Libraries/Ringtone.ubl",
+      "git_blob": "e4339d81252cccca7ed1c78c5a17018ddbf5ee54",
+      "bytes": 4191,
+      "sha256": "077f61bb82d553d17efa3069af54189f5c808f4f7e9cd2a48820fc2a1008f12b"
+    },
+    {
+      "path": "Libraries/Robots/3dBot.ubl",
+      "source_path": "Libraries/Robots/3dBot.ubl",
+      "git_blob": "68d8705b868b024ab07b0e65b1c8ed0c27720e44",
+      "bytes": 2969,
+      "sha256": "aa426ef704b27e24f127fe67ab916e8ee22bc1df4bf1965a3334f19e915e3239"
+    },
+    {
+      "path": "Libraries/Robots/CoCube Emoji.ubl",
+      "source_path": "Libraries/Robots/CoCube Emoji.ubl",
+      "git_blob": "20f8163f242eba69f605039a5242c9cafc8737a0",
+      "bytes": 912,
+      "sha256": "2e957e23a4e66b686b6e88e2defed5e13937cb5f4eb0164d69c441f73cb76c20"
+    },
+    {
+      "path": "Libraries/Robots/CoCube Module.ubl",
+      "source_path": "Libraries/Robots/CoCube Module.ubl",
+      "git_blob": "019cfcc274402ba568613471c28af0c6228adefa",
+      "bytes": 7089,
+      "sha256": "3193711fa8452220e97af18e42d6d3f29acc44683aecc8aead87e748ce79a787"
+    },
+    {
+      "path": "Libraries/Robots/CoCube Sengo1.ubl",
+      "source_path": "Libraries/Robots/CoCube Sengo1.ubl",
+      "git_blob": "05c0a6cd9dc15a43cdd9380d383e7450c8f87d8c",
+      "bytes": 10121,
+      "sha256": "1fe3e1120f1e69ec9393f7c355012249cc7f1b5ce5235938277a62166b7b47a0"
+    },
+    {
+      "path": "Libraries/Robots/CoCube Sengo2.ubl",
+      "source_path": "Libraries/Robots/CoCube Sengo2.ubl",
+      "git_blob": "ea0c0f19cb83cd509c5aa748ed4d2e3b5173a680",
+      "bytes": 14593,
+      "sha256": "c60d511ee8ddcda9331004d18d3053aeb3d9825ed8f2106af37594855e126699"
+    },
+    {
+      "path": "Libraries/Robots/CoCube Soccer.ubl",
+      "source_path": "Libraries/Robots/CoCube Soccer.ubl",
+      "git_blob": "dd13747406af4acab099bd8d1d7309fc59963144",
+      "bytes": 1921,
+      "sha256": "ee01c960a4678afd050bace464bb2ab5488cdc46089fc818bcc77d6708d41853"
+    },
+    {
+      "path": "Libraries/Robots/CoCube.ubl",
+      "source_path": "Libraries/Robots/CoCube.ubl",
+      "git_blob": "ae4a7658fea151aa6971d4efbf535c90b4a152db",
+      "bytes": 13946,
+      "sha256": "707d1b21f30f17203db654ee03190f3c88dd2a2d9ca70ad7e998aebf9d3701b4"
+    },
+    {
+      "path": "Libraries/Robots/Cutebot Pro.ubl",
+      "source_path": "Libraries/Robots/Cutebot Pro.ubl",
+      "git_blob": "de986ece3805720400d438713c23997a8c13b6ad",
+      "bytes": 12397,
+      "sha256": "93aad3010ed6ffab4d05d2d3ac7fa9af0112b12e2b805349875ed7487f43bffa"
+    },
+    {
+      "path": "Libraries/Robots/Cutebot.ubl",
+      "source_path": "Libraries/Robots/Cutebot.ubl",
+      "git_blob": "162a8216d923c79d419585320e245f3b362d994d",
+      "bytes": 4543,
+      "sha256": "c2019b921c44663e9801b7ec869686e417b39a14db31707ec2f66d10583577e2"
+    },
+    {
+      "path": "Libraries/Robots/ED1 Fant\u00e0stic.ubl",
+      "source_path": "Libraries/Robots/ED1 Fant\u00e0stic.ubl",
+      "git_blob": "15cdab7ccb06e7a4f90b662b6694c4d0cf709173",
+      "bytes": 776,
+      "sha256": "8880172f2ed266523ab0c2d00f3fa4844ca15bb003aeecbb696f8b2c231c4b18"
+    },
+    {
+      "path": "Libraries/Robots/Finch.ubl",
+      "source_path": "Libraries/Robots/Finch.ubl",
+      "git_blob": "4e648a6e4831991bbd9f18292c95565ac9c743a5",
+      "bytes": 10886,
+      "sha256": "7debac7da03247cd5e56d96e9b88a8117c3f4e6ab4ce174a27b87adcf58d2981"
+    },
+    {
+      "path": "Libraries/Robots/LEGO EV3.ubl",
+      "source_path": "Libraries/Robots/LEGO EV3.ubl",
+      "git_blob": "fa49dc160bdd441c54398fcea8d40932b54805a4",
+      "bytes": 3599,
+      "sha256": "02cb7eb3b027990c2200c72f1d5667dc9054549068db8780bc0a2182830d5b99"
+    },
+    {
+      "path": "Libraries/Robots/Maqueen.ubl",
+      "source_path": "Libraries/Robots/Maqueen.ubl",
+      "git_blob": "c5f28822332deebd4db6325133386f79e09098d3",
+      "bytes": 4633,
+      "sha256": "ae1b12c8fbfc89c6d23e42c4fdf76d4413c584d3438a193202784d3cee9a52c5"
+    },
+    {
+      "path": "Libraries/Robots/MiKe Robot.ubl",
+      "source_path": "Libraries/Robots/MiKe Robot.ubl",
+      "git_blob": "9a93b4e83b9f7dda9a10e945fbc64c90c64e0cd0",
+      "bytes": 8768,
+      "sha256": "ebeb36c49fafa17b078b4555c22425c25c62c6a417fbc39a3cd9285275b81e3b"
+    },
+    {
+      "path": "Libraries/Robots/RoboFut.ubl",
+      "source_path": "Libraries/Robots/RoboFut.ubl",
+      "git_blob": "e535b1f76d12635cf1fdaa15034758cfbfd4d036",
+      "bytes": 1705,
+      "sha256": "aa54513763531d1ab2f0f89633cb0d4553893c1578b8a22b81e36d53d331b2e2"
+    },
+    {
+      "path": "Libraries/Robots/RobotBit.ubl",
+      "source_path": "Libraries/Robots/RobotBit.ubl",
+      "git_blob": "b910d98866c8fe4b7347525eded1628df5503d0a",
+      "bytes": 4083,
+      "sha256": "a3f788d88b1fc09d4d86f67d6addd827d08eaaed7218582e32268dab790f4ea0"
+    },
+    {
+      "path": "Libraries/Robots/Sphero-RVR.ubl",
+      "source_path": "Libraries/Robots/Sphero-RVR.ubl",
+      "git_blob": "c813a93dcc29d7cc34093d62642c49b02048aa45",
+      "bytes": 6549,
+      "sha256": "2fd9aa5295b5f339d52358f8d65a4eb9093aeef13e4e82799626db9dd41b04f4"
+    },
+    {
+      "path": "Libraries/Robots/XGO Lite.ubl",
+      "source_path": "Libraries/Robots/XGO Lite.ubl",
+      "git_blob": "e88cc1e5e9897f422296c529d3d1d706b7f5ff10",
+      "bytes": 8030,
+      "sha256": "b3ad461689576219dff0dbfc34f77fdab4d51ed4cf1ab75cf918f42949a6ca00"
+    },
+    {
+      "path": "Libraries/Robots/XGO-nano.ubl",
+      "source_path": "Libraries/Robots/XGO-nano.ubl",
+      "git_blob": "35f20f20ae01f09ee91a4d96de7b84b0d3bd6306",
+      "bytes": 17580,
+      "sha256": "1079ee31799632ab33671ec30486bd4c57f348fb3837062d5cca882cd98ae1a8"
+    },
+    {
+      "path": "Libraries/Robots/XRP Beta.ubl",
+      "source_path": "Libraries/Robots/XRP Beta.ubl",
+      "git_blob": "ff6300ebdebd0f801021bc67d2da83547b4d278a",
+      "bytes": 6582,
+      "sha256": "7a833ff11ceb49c0125f2b52aada79f4c43650c84d0fc1e8038235015c7edbf0"
+    },
+    {
+      "path": "Libraries/Robots/XRP.ubl",
+      "source_path": "Libraries/Robots/XRP.ubl",
+      "git_blob": "f6bbea4257f695dc046d5941efa9aad5fba5263b",
+      "bytes": 6680,
+      "sha256": "c137323584dbe1401b24962eed68a6a5a168215c30094ecf9098430a4c48aa66"
+    },
+    {
+      "path": "Libraries/Sensing/Accelerometer (SC7A20).ubl",
+      "source_path": "Libraries/Sensing/Accelerometer (SC7A20).ubl",
+      "git_blob": "75e65c45286ec99f6f34b9e1d33b40b9113f7157",
+      "bytes": 2414,
+      "sha256": "0dd826e4faae24d836778dad65f89830ac4ab9cb502ec6ba8a906f74c1c34384"
+    },
+    {
+      "path": "Libraries/Sensing/Air Pressure (BMP388).ubl",
+      "source_path": "Libraries/Sensing/Air Pressure (BMP388).ubl",
+      "git_blob": "446f6566dd722ccfd0f750f433d873fc763991f5",
+      "bytes": 3141,
+      "sha256": "604bc0f137a77ab50c3ef9ba799395ffe624e20bd68a65e3dda1f99e15b56c39"
+    },
+    {
+      "path": "Libraries/Sensing/Air Pressure (BMP581).ubl",
+      "source_path": "Libraries/Sensing/Air Pressure (BMP581).ubl",
+      "git_blob": "aca2457247e151edc401ced4a2efa36ad8bee4b5",
+      "bytes": 4160,
+      "sha256": "bd428f7c1f188039211c5fb59bd38070c0c394f8244d194c8c5cd906e9fd8908"
+    },
+    {
+      "path": "Libraries/Sensing/Air Pressure (LPS22HB).ubl",
+      "source_path": "Libraries/Sensing/Air Pressure (LPS22HB).ubl",
+      "git_blob": "f0d271840d7f7f3f8084a9472d10b8e8593db6d6",
+      "bytes": 3303,
+      "sha256": "cd79020face5f5a112970631858a0af754d9cf1747783b9619717c881e408dda"
+    },
+    {
+      "path": "Libraries/Sensing/Air Pressure (SPL06).ubl",
+      "source_path": "Libraries/Sensing/Air Pressure (SPL06).ubl",
+      "git_blob": "d2521c76d992413843f0c7abe719f89d86d3da15",
+      "bytes": 4655,
+      "sha256": "a2f6aeaf17131c944cfd54c0dfc47e3017546a17d5b437e98c7691e71e626538"
+    },
+    {
+      "path": "Libraries/Sensing/Barometer (LPS331AP).ubl",
+      "source_path": "Libraries/Sensing/Barometer (LPS331AP).ubl",
+      "git_blob": "993a4ed425fac5e7da9625245c2d0ad835ce4b2a",
+      "bytes": 2571,
+      "sha256": "b6eceb4eb845e7d01a0469af812cacf1fffe740535d8f7dcc289b6a7d6144928"
+    },
+    {
+      "path": "Libraries/Sensing/Barometric Pressure (BMX280).ubl",
+      "source_path": "Libraries/Sensing/Barometric Pressure (BMX280).ubl",
+      "git_blob": "a83625eb8fe70ce53a7d514f00d19004529f8feb",
+      "bytes": 6285,
+      "sha256": "6c9dfebe9613daa1b773c19dce299ac3aace30413e29569bedce40500605f669"
+    },
+    {
+      "path": "Libraries/Sensing/Button Events.ubl",
+      "source_path": "Libraries/Sensing/Button Events.ubl",
+      "git_blob": "d44d7a2ce2b4640b21031e36b00680a590f62ef9",
+      "bytes": 3796,
+      "sha256": "dab9c5170b3e023f9b49f6088ae300d64c10e326648a70d85afd17c0d06c4803"
+    },
+    {
+      "path": "Libraries/Sensing/Color & Proximity (APDS9151).ubl",
+      "source_path": "Libraries/Sensing/Color & Proximity (APDS9151).ubl",
+      "git_blob": "f2f5f4903f6467cff2da59dab80a0122bf8d7210",
+      "bytes": 4559,
+      "sha256": "9c794878699b4c1d42f1b137340d0c926b5121f9b944f79547325ff5ca67c8af"
+    },
+    {
+      "path": "Libraries/Sensing/Color (TCS34725).ubl",
+      "source_path": "Libraries/Sensing/Color (TCS34725).ubl",
+      "git_blob": "14ccad3440582af28bbfeefa9eab27337a6d4d14",
+      "bytes": 3054,
+      "sha256": "e5fef7d482cdc92978602154cd9f150a5afe25ed1f547e5c7a4911553b468f48"
+    },
+    {
+      "path": "Libraries/Sensing/Color (VEML6040).ubl",
+      "source_path": "Libraries/Sensing/Color (VEML6040).ubl",
+      "git_blob": "424c840960a56397b628a25125321c0e510dd074",
+      "bytes": 3372,
+      "sha256": "0b72d483ae2650ce1f1b726725d22da2dc38c21db9a5ed83efcd1d6fed04a46d"
+    },
+    {
+      "path": "Libraries/Sensing/Distance (HC-SR04).ubl",
+      "source_path": "Libraries/Sensing/Distance (HC-SR04).ubl",
+      "git_blob": "4f1ab10c6700a0aa7ce93aa709a6a33e88aeb40e",
+      "bytes": 1913,
+      "sha256": "4fac90f9210ebd5e8a493e9490a1c9f7246d722e3306758dceac1b7484943fb0"
+    },
+    {
+      "path": "Libraries/Sensing/Distance (VL53L0X).ubl",
+      "source_path": "Libraries/Sensing/Distance (VL53L0X).ubl",
+      "git_blob": "4be82a87f367d5017c78d6505390ea3b961c0aae",
+      "bytes": 848,
+      "sha256": "86a2404bdec19b1eec5fff4a58ee3cd604c23f3f8a49d0e432b9d0f3a42173ea"
+    },
+    {
+      "path": "Libraries/Sensing/Distance (VL53L1x).ubl",
+      "source_path": "Libraries/Sensing/Distance (VL53L1x).ubl",
+      "git_blob": "a8bb2e213e92f0c5e95030c99d3e5da804c9f2ab",
+      "bytes": 3733,
+      "sha256": "129095d6fc552e943d833de5cce22e1bf7541b92833c0b5583af078d434b9cec"
+    },
+    {
+      "path": "Libraries/Sensing/Distance (VL6180x).ubl",
+      "source_path": "Libraries/Sensing/Distance (VL6180x).ubl",
+      "git_blob": "add92fc01c5deb5e682260b79978a30f86f7e650",
+      "bytes": 3223,
+      "sha256": "0ac7aae6a9b58948025514f9dc7e3a36b633dbface4357a07769ec210ea54d18"
+    },
+    {
+      "path": "Libraries/Sensing/Gas (BME680).ubl",
+      "source_path": "Libraries/Sensing/Gas (BME680).ubl",
+      "git_blob": "7a46fbe0b21755627b5f9e9ff6668c29a0d60599",
+      "bytes": 9807,
+      "sha256": "e7d9de9eef70ad360079948c935a6dfe20a761b3f078320b21c9bd68bc9c4b10"
+    },
+    {
+      "path": "Libraries/Sensing/Gas (CCS811).ubl",
+      "source_path": "Libraries/Sensing/Gas (CCS811).ubl",
+      "git_blob": "41146df9ea44583cb9c68a5b4e4f7a40faad2582",
+      "bytes": 4079,
+      "sha256": "e23387da8756462f6aefa6f91c1f5534148cbcacbd9aa64d2ffff09ca6157334"
+    },
+    {
+      "path": "Libraries/Sensing/Gas (ENS160).ubl",
+      "source_path": "Libraries/Sensing/Gas (ENS160).ubl",
+      "git_blob": "29e3f9ffedf071c78f9fcf6a44c2719239be0c8c",
+      "bytes": 1863,
+      "sha256": "2ae810f3dac621e2e40df16d4ef85cb372ea0ab7828b9f407bf7175f845bc8cf"
+    },
+    {
+      "path": "Libraries/Sensing/Gas (SCD30).ubl",
+      "source_path": "Libraries/Sensing/Gas (SCD30).ubl",
+      "git_blob": "a79f6836370168fabd2d7adb0b6f8ec2870c193c",
+      "bytes": 9248,
+      "sha256": "de44093a32e8210c22679a9674f2da146d392710bcf5078f46048a0b8a801e19"
+    },
+    {
+      "path": "Libraries/Sensing/Gas (SCD40).ubl",
+      "source_path": "Libraries/Sensing/Gas (SCD40).ubl",
+      "git_blob": "1c9cd7d0ed794739d998c1becfdd53a8c1765ec9",
+      "bytes": 6092,
+      "sha256": "a7cfeb8f6b52ae1c02a3648ad63bcd86508eb0afcb372c5a78efee40640fe1eb"
+    },
+    {
+      "path": "Libraries/Sensing/Gas (SGP30).ubl",
+      "source_path": "Libraries/Sensing/Gas (SGP30).ubl",
+      "git_blob": "1763cd9730fde3dc477c77aa57f8e726a56b8223",
+      "bytes": 3168,
+      "sha256": "561f68719ecfb02dd27304955881b2a88bc24b657ee3c8dfd0469c6e83cc8a32"
+    },
+    {
+      "path": "Libraries/Sensing/Gesture (PAJ7620).ubl",
+      "source_path": "Libraries/Sensing/Gesture (PAJ7620).ubl",
+      "git_blob": "83845ab3e19254ab36be6f5136ad38e2504df960",
+      "bytes": 3159,
+      "sha256": "e2196e87c14c5a4b2e96c76726fa182f118d586537ae7bd11e6ed92bc88642be"
+    },
+    {
+      "path": "Libraries/Sensing/IR Motion (PIR).ubl",
+      "source_path": "Libraries/Sensing/IR Motion (PIR).ubl",
+      "git_blob": "2541c2198404f608f84b5a8ae3bbe44ca7fefc49",
+      "bytes": 912,
+      "sha256": "97698c0f58782e5e09f1b703fecbd9dd223470ff64e92428b3a4b2a5133079b3"
+    },
+    {
+      "path": "Libraries/Sensing/Light & Gesture (APDS9960).ubl",
+      "source_path": "Libraries/Sensing/Light & Gesture (APDS9960).ubl",
+      "git_blob": "9d13109ae3c841da300862ea571707775214e30a",
+      "bytes": 7358,
+      "sha256": "becd8d154bab6ec63ade2688ad027629ae877433ba4e22930a6a2e4a9bc6d007"
+    },
+    {
+      "path": "Libraries/Sensing/Light (BH1750).ubl",
+      "source_path": "Libraries/Sensing/Light (BH1750).ubl",
+      "git_blob": "31b6d414c551ff776b0b7d175494c8c024dec2bc",
+      "bytes": 468,
+      "sha256": "6ad80b2e91785fc229410d000d7129b6d61cd4e632d74969acc943dc2dee255c"
+    },
+    {
+      "path": "Libraries/Sensing/Light (TSL2591).ubl",
+      "source_path": "Libraries/Sensing/Light (TSL2591).ubl",
+      "git_blob": "a5f5934e3871e8de473e199d51eabbf7569b2834",
+      "bytes": 2724,
+      "sha256": "02e95db1b7b8d9385975652549e8e2a1a338c81bbb9fbfdb3fbebc21f70c6c6d"
+    },
+    {
+      "path": "Libraries/Sensing/Magnetometer (AK8975).ubl",
+      "source_path": "Libraries/Sensing/Magnetometer (AK8975).ubl",
+      "git_blob": "d762578ebf4165eb9f110326a7dfd12de8d0adc7",
+      "bytes": 2265,
+      "sha256": "5e966a7c2411ed7eff443004c4a8c8d999f45abd3dc2d9df535d2c28cd17d2f7"
+    },
+    {
+      "path": "Libraries/Sensing/Magnetometer (MMC5983).ubl",
+      "source_path": "Libraries/Sensing/Magnetometer (MMC5983).ubl",
+      "git_blob": "3ef2d68590b1030962df48195b726660b26c90e5",
+      "bytes": 5038,
+      "sha256": "d0037326e41f933d2bb7957b8eedb7c85912eadc98d1671f84ea3f952118bff7"
+    },
+    {
+      "path": "Libraries/Sensing/Microphone.ubl",
+      "source_path": "Libraries/Sensing/Microphone.ubl",
+      "git_blob": "b08dbdadecb1ab7ff0728281b98adb09c8a7ded2",
+      "bytes": 2703,
+      "sha256": "415ff1af128509d8e887e21cf353bf25f0823fc437ce027d8662ca4bab4ad124"
+    },
+    {
+      "path": "Libraries/Sensing/Motion (MPU 6050).ubl",
+      "source_path": "Libraries/Sensing/Motion (MPU 6050).ubl",
+      "git_blob": "75aaa2622cce9854e8736d4460d39e667001337c",
+      "bytes": 4164,
+      "sha256": "50d269c1e7e8eb84462e09a2f2eb73219779d5196c4fec527c532f80de898858"
+    },
+    {
+      "path": "Libraries/Sensing/Motion.ubl",
+      "source_path": "Libraries/Sensing/Motion.ubl",
+      "git_blob": "33b1f2cd73a368ac89ed0aaea645be5479c8d03b",
+      "bytes": 2696,
+      "sha256": "b458994ea0444fae0820025d9e3fb6dff1b936e91ec4e0eeda51724aa8b58dd9"
+    },
+    {
+      "path": "Libraries/Sensing/PIR TMOS.ubl",
+      "source_path": "Libraries/Sensing/PIR TMOS.ubl",
+      "git_blob": "9626a2f0a8c76f01b7850c24f9a9424c66984fe8",
+      "bytes": 5624,
+      "sha256": "0a6a369a24a79063dd95a5c5a23391c7d005efbc53f0400c77f6b1bee16200dc"
+    },
+    {
+      "path": "Libraries/Sensing/Particle.ubl",
+      "source_path": "Libraries/Sensing/Particle.ubl",
+      "git_blob": "bbe2e8137d8cc63448bcc2d966b721b53d0311b1",
+      "bytes": 1721,
+      "sha256": "77d27e2efc0e9cdf547ec3411bf9b4194fe0bcbaa7ddf442c13d91704ebe944e"
+    },
+    {
+      "path": "Libraries/Sensing/Pulse (MAX30105).ubl",
+      "source_path": "Libraries/Sensing/Pulse (MAX30105).ubl",
+      "git_blob": "b997ca85f6670cfaf0f4d0acb38f1d155031870b",
+      "bytes": 4805,
+      "sha256": "dd7b96c105df53509e124a327a8eb603c71dc3537d81fabef0580956c22812b2"
+    },
+    {
+      "path": "Libraries/Sensing/RFID (PN532).ubl",
+      "source_path": "Libraries/Sensing/RFID (PN532).ubl",
+      "git_blob": "79b404be77278c40524f84148b37a28cfad0bd98",
+      "bytes": 2661,
+      "sha256": "d827fa376777fabfa57230f69d254b6805fe0816999e0f7072856b4eb18f4b5f"
+    },
+    {
+      "path": "Libraries/Sensing/RFID (RC522).ubl",
+      "source_path": "Libraries/Sensing/RFID (RC522).ubl",
+      "git_blob": "b7d3403a02befa10d79fb2d5a43c80cfe3660e92",
+      "bytes": 5701,
+      "sha256": "a38050e936738c081fa58ca564f861980ba186e18cb3c1a89ca3e72f21c37ad8"
+    },
+    {
+      "path": "Libraries/Sensing/Soil Moisture (Adafruit).ubl",
+      "source_path": "Libraries/Sensing/Soil Moisture (Adafruit).ubl",
+      "git_blob": "2e8de38179ae3d5e8b9f592b0d2ed69a23c537d6",
+      "bytes": 1016,
+      "sha256": "8b680d675eb01a4530e08bbf30fc4efbe9252addcb41a83d5322624b3229ed7f"
+    },
+    {
+      "path": "Libraries/Sensing/Soil Moisture (Qwiic).ubl",
+      "source_path": "Libraries/Sensing/Soil Moisture (Qwiic).ubl",
+      "git_blob": "c711fdd01363fb7fccb9964497ad483f8b6337c9",
+      "bytes": 806,
+      "sha256": "249948282730973abaf1a3cde5d718964b48724bc8511548f8b7be7360dba984"
+    },
+    {
+      "path": "Libraries/Sensing/Temperature Humidity (AHT20).ubl",
+      "source_path": "Libraries/Sensing/Temperature Humidity (AHT20).ubl",
+      "git_blob": "592f2dd119b794c5ee5a84db0c90ee83f45c357b",
+      "bytes": 1065,
+      "sha256": "cf9c08148651932198ab9cfa318ba6fe70ebf3addd17830ba132fe8434957a50"
+    },
+    {
+      "path": "Libraries/Sensing/Temperature Humidity (DHT11, DHT22).ubl",
+      "source_path": "Libraries/Sensing/Temperature Humidity (DHT11, DHT22).ubl",
+      "git_blob": "9f74d3ab410ff235aa734736a44bb47b9cb0f68e",
+      "bytes": 3796,
+      "sha256": "aaeb2b06b21b982037979d6d467870809f4b49676f6c0663c2beeebdf85ae429"
+    },
+    {
+      "path": "Libraries/Sensing/Temperature Humidity (DHT12).ubl",
+      "source_path": "Libraries/Sensing/Temperature Humidity (DHT12).ubl",
+      "git_blob": "1d1a713fb079d94743cdbe111484e70eb436927f",
+      "bytes": 1686,
+      "sha256": "d18d9767d0341399f4686a5908460ffff469591e5d5eb6011b3c5d6281c239cf"
+    },
+    {
+      "path": "Libraries/Sensing/Temperature Humidity (SH30).ubl",
+      "source_path": "Libraries/Sensing/Temperature Humidity (SH30).ubl",
+      "git_blob": "3e7e6f9f4915f4743d51e2c3dc9373f73225041e",
+      "bytes": 1161,
+      "sha256": "bd9691d5f53c084ae2b91df46068db16db59c4a6a631d3dcca703e02e3a2b514"
+    },
+    {
+      "path": "Libraries/Sensing/Temperature Humidity (SHT40).ubl",
+      "source_path": "Libraries/Sensing/Temperature Humidity (SHT40).ubl",
+      "git_blob": "eae41c9706316319913ccf63aa5ff6ac59c0b474",
+      "bytes": 1622,
+      "sha256": "1d901652c9a749b2a572e0d7198afbbb45fab2816f60d73b75ed9b30f2c44332"
+    },
+    {
+      "path": "Libraries/Sensing/Temperature Humidity (SHTC3).ubl",
+      "source_path": "Libraries/Sensing/Temperature Humidity (SHTC3).ubl",
+      "git_blob": "65534b7e64219c3d189501379977fdf95c0ab960",
+      "bytes": 2100,
+      "sha256": "b945a7240f84045b356892fa72cdf33c3aaa608f839cb07655bf81c365f8b7bd"
+    },
+    {
+      "path": "Libraries/Sensing/Touch Screen.ubl",
+      "source_path": "Libraries/Sensing/Touch Screen.ubl",
+      "git_blob": "fa32ab155476051c8b637b30a52e2be83ebfcab3",
+      "bytes": 589,
+      "sha256": "cb28c624e7f7dc58b6685b36f58c6fc959273edba71270e9b4a9ff0b13f18e18"
+    },
+    {
+      "path": "Libraries/Sensing/Touch.ubl",
+      "source_path": "Libraries/Sensing/Touch.ubl",
+      "git_blob": "0400a6955ac33246296752558c86c3588f6dea2e",
+      "bytes": 5321,
+      "sha256": "53cb766fec4fe7192c2c0e506893616c0caccd4df8df4fd628dfa9f508d1bf86"
+    },
+    {
+      "path": "Libraries/Sensing/TouchPin.ubl",
+      "source_path": "Libraries/Sensing/TouchPin.ubl",
+      "git_blob": "d2788abf46b96f56f68773ab2f8d620627b3d888",
+      "bytes": 1526,
+      "sha256": "30c20e11826e8491906a3b06f6523a9e76f6592c3d5c4b63b679b81e288ecd51"
+    },
+    {
+      "path": "Libraries/Sensing/UV (AS7331).ubl",
+      "source_path": "Libraries/Sensing/UV (AS7331).ubl",
+      "git_blob": "d4242d17332bfb5f3a17389c4d0f255a3a9cfef3",
+      "bytes": 2505,
+      "sha256": "8e5e6c38bdafa29685628fb2cf42aef61ebb1d5c31c588af932cafe741e8c9c0"
+    },
+    {
+      "path": "Libraries/Sensing/UV (VEML6075).ubl",
+      "source_path": "Libraries/Sensing/UV (VEML6075).ubl",
+      "git_blob": "9cbd585be41801823a1d6739fabb99201c53ec1a",
+      "bytes": 1910,
+      "sha256": "74464e82b5215e7a89c33e9b01e5d38627399405ddef82e1d878a222101f09db"
+    },
+    {
+      "path": "Libraries/Sensing/Voice Recognition.ubl",
+      "source_path": "Libraries/Sensing/Voice Recognition.ubl",
+      "git_blob": "81ab226789ac459107a3b23bf07d189ceddd973d",
+      "bytes": 5846,
+      "sha256": "e82adc3987ff447604d788113e1d097edabe50e14248f17367a463d99d4111f4"
+    },
+    {
+      "path": "Libraries/Servo.ubl",
+      "source_path": "Libraries/Servo.ubl",
+      "git_blob": "0fd6acc71369b70dc664d73f5de8b22cc2aae096",
+      "bytes": 2670,
+      "sha256": "f824fb42ffabb95dae1b82e93004761bd36d901aed68b87855f16ec553cfe83a"
+    },
+    {
+      "path": "Libraries/Sound/AMRadioTone.ubl",
+      "source_path": "Libraries/Sound/AMRadioTone.ubl",
+      "git_blob": "7e79984141c775faa73c05c13cd0b31917990968",
+      "bytes": 5088,
+      "sha256": "0ee5c08247ed27a05c13f237175a850443ee18a805c51e43029b3483a9d75ec1"
+    },
+    {
+      "path": "Libraries/Sound/Analog Synthesis.ubl",
+      "source_path": "Libraries/Sound/Analog Synthesis.ubl",
+      "git_blob": "4d66f39ec5c28cc1c12b1749433052fed998c937",
+      "bytes": 9996,
+      "sha256": "17267149089aa8e9fa192964c99cf1df2b918f2103b293900c0d1f0c48bb4089"
+    },
+    {
+      "path": "Libraries/Sound/Bytebeat.ubl",
+      "source_path": "Libraries/Sound/Bytebeat.ubl",
+      "git_blob": "191836929e28675fc45d1839ef3712ac59e42e8f",
+      "bytes": 2672,
+      "sha256": "7270e8f7b8313ace358527f88a19f7552b9446fef317a9a83ca117c386dbacfc"
+    },
+    {
+      "path": "Libraries/Sound/Chiptune.ubl",
+      "source_path": "Libraries/Sound/Chiptune.ubl",
+      "git_blob": "4ac76ddd7b62e6797a55395e5db59208acd5abb1",
+      "bytes": 2308,
+      "sha256": "2fe525c8f3b96e8cf3d844b9cc00da61d183eb76f99452f9bd91228285cb0718"
+    },
+    {
+      "path": "Libraries/Sound/DAC MCP4725.ubl",
+      "source_path": "Libraries/Sound/DAC MCP4725.ubl",
+      "git_blob": "0bbaa89ed6eecbce2668dfaf8a8db2a456b3a43c",
+      "bytes": 2072,
+      "sha256": "783f5b6b2e993fa4b7d8a1ced51dcb074912e914a4c98622129c5bcab5a86864"
+    },
+    {
+      "path": "Libraries/Sound/MIDI Player.ubl",
+      "source_path": "Libraries/Sound/MIDI Player.ubl",
+      "git_blob": "40681d98f829260137b25d4498257079b0d8adc6",
+      "bytes": 3567,
+      "sha256": "1700c5b77848bf0a84f907214dc1c89c62235a454c7660cc1f09a00f390e5260"
+    },
+    {
+      "path": "Libraries/Sound/MIDI.ubl",
+      "source_path": "Libraries/Sound/MIDI.ubl",
+      "git_blob": "5b0c587ab2c3b9617814272b4893aa0f73f05d61",
+      "bytes": 15654,
+      "sha256": "5f96ba0998c9b0df68833e75fd7dfd475bc8e9e05a975291fda5d4ba6e2d0b4f"
+    },
+    {
+      "path": "Libraries/Sound/MP3 Player (DF1201S).ubl",
+      "source_path": "Libraries/Sound/MP3 Player (DF1201S).ubl",
+      "git_blob": "b3de969c701b7681f46b2f54a4bc566bd9d69789",
+      "bytes": 3840,
+      "sha256": "87af6eba369142d399618aa37a3f32728562c485fd0a65f7d32f56b3191f2a85"
+    },
+    {
+      "path": "Libraries/Sound/MP3 Player (Open Smart).ubl",
+      "source_path": "Libraries/Sound/MP3 Player (Open Smart).ubl",
+      "git_blob": "9c3314952720de9de00c087300f42b5a7b0b4380",
+      "bytes": 3177,
+      "sha256": "781dbbae0c713113d8a060879e543462bb6cb493fbbec6d6bc94436dbb455cb1"
+    },
+    {
+      "path": "Libraries/Sound/MP3 Player.ubl",
+      "source_path": "Libraries/Sound/MP3 Player.ubl",
+      "git_blob": "99921261dae511083f28a5f646d095cd9f01bc67",
+      "bytes": 5314,
+      "sha256": "f2069b3862faa8e56955499e239f56fa3736817a7c0de22981e12c73dacd24ca"
+    },
+    {
+      "path": "Libraries/Sound/MultiTone.ubl",
+      "source_path": "Libraries/Sound/MultiTone.ubl",
+      "git_blob": "8aa0bf9605dcf4f84f3cfa167b73789516fed977",
+      "bytes": 6072,
+      "sha256": "91ab92399138cd1835092938ff08b502822937e93a9c0cb6db683371b6562ec8"
+    },
+    {
+      "path": "Libraries/Sound/Pluck.ubl",
+      "source_path": "Libraries/Sound/Pluck.ubl",
+      "git_blob": "8ee999ee25e56d32b0d2de6f7500f401678a29bf",
+      "bytes": 3378,
+      "sha256": "22321fc0df8318c83d28440469e9c933dea301f26bee81ac66b170764d9be0d4"
+    },
+    {
+      "path": "Libraries/Sound/Rhythm.ubl",
+      "source_path": "Libraries/Sound/Rhythm.ubl",
+      "git_blob": "d19d669b0f0d9f9e093eb40737526380e44395c0",
+      "bytes": 4141,
+      "sha256": "8fa2a4153d21f856529e24ed54682c29f41f8f29f08add0a54a6243dcebec11e"
+    },
+    {
+      "path": "Libraries/Sound/Scales & Chords.ubl",
+      "source_path": "Libraries/Sound/Scales & Chords.ubl",
+      "git_blob": "5ba42270d8b3e2beced610855911389c96f3468d",
+      "bytes": 12638,
+      "sha256": "c7b1d07d9f001f20f801d4671bb977c92c27bb7ac4b68c8b91cc10594710ac47"
+    },
+    {
+      "path": "Libraries/Sound/Signal Processing.ubl",
+      "source_path": "Libraries/Sound/Signal Processing.ubl",
+      "git_blob": "d70d8a3fa6c764a7a86c00b7eb3df79ed106540d",
+      "bytes": 3642,
+      "sha256": "86abbf5f09de129eb5380c12e6a348756fda6451f154f028e215ed357ab26b3b"
+    },
+    {
+      "path": "Libraries/Sound/Square Wave Chords.ubl",
+      "source_path": "Libraries/Sound/Square Wave Chords.ubl",
+      "git_blob": "f216af036f8a604770d80a3f0fc5b64926e1a36a",
+      "bytes": 2480,
+      "sha256": "c5f145f4974cf2a48b728f6a46f7783669f94444bd0537eeaaa69f4af344281c"
+    },
+    {
+      "path": "Libraries/Sound/WAV.ubl",
+      "source_path": "Libraries/Sound/WAV.ubl",
+      "git_blob": "52a5071cc3343b18358074d81128ff09263a17b8",
+      "bytes": 4062,
+      "sha256": "5925ee27a22dcc912662775a14b0e86df7b2cc7351c2f69964ac7bb5b5dbcddf"
+    },
+    {
+      "path": "Libraries/Sound/Wavetable Synthesis.ubl",
+      "source_path": "Libraries/Sound/Wavetable Synthesis.ubl",
+      "git_blob": "48036628049bd0d5a940477af0ba05d43c2de63f",
+      "bytes": 13766,
+      "sha256": "65b01f2b63bf942c2cd55b3fda0076f9d6d85db06fbce4b09a2e3f2217f9e6b6"
+    },
+    {
+      "path": "Libraries/Tone.ubl",
+      "source_path": "Libraries/Tone.ubl",
+      "git_blob": "ba69c5fde8db50e59e7c41c82e54e5ca3904b32c",
+      "bytes": 6646,
+      "sha256": "9cfc896d4daaa4943ba17b90ef77d4a72c34eb248a59e9e69fe268aa4f469403"
+    },
+    {
+      "path": "Libraries/WorkInProgress/External HTTP client.ubl",
+      "source_path": "Libraries/WorkInProgress/External HTTP client.ubl",
+      "git_blob": "af505ada7278362169cbba33979392e04b67ca50",
+      "bytes": 15367,
+      "sha256": "10e10601d10d772681930946e6c38f0a8375938c2af8fc2267b338a8a10d0bd0"
+    },
+    {
+      "path": "Libraries/WorkInProgress/External WiFi.ubl",
+      "source_path": "Libraries/WorkInProgress/External WiFi.ubl",
+      "git_blob": "d35c6d1e837eaf4ec2e28e8465cb77c5a3f8b18f",
+      "bytes": 12003,
+      "sha256": "7e1f57d6137e29604cb5c412364935b0a8dd80d1b7d81acdf4b7cddfc9bac8c4"
+    },
+    {
+      "path": "Libraries/WorkInProgress/GPS-NEO7M.ubl",
+      "source_path": "Libraries/WorkInProgress/GPS-NEO7M.ubl",
+      "git_blob": "8162f470723f1de8af39b4b0e3bff5c8310123b2",
+      "bytes": 16404,
+      "sha256": "56c7ad183027e19f8cfcd53e6413113637b4f7e5f7a9ceaf411507d742e0628a"
+    },
+    {
+      "path": "Libraries/WorkInProgress/I2S Sound.ubl",
+      "source_path": "Libraries/WorkInProgress/I2S Sound.ubl",
+      "git_blob": "42fb6c14e910e3ee01728c9d5c3b683a967b25dd",
+      "bytes": 3738,
+      "sha256": "f8f5b1f8311614b8428c7977ae4b121e2139a7aea152c82ca7acad764923d8d7"
+    },
+    {
+      "path": "Libraries/WorkInProgress/LoRa SX127x.ubl",
+      "source_path": "Libraries/WorkInProgress/LoRa SX127x.ubl",
+      "git_blob": "d9860522d337e47acfe8d48bfb306e92d47aa454",
+      "bytes": 23886,
+      "sha256": "41fecd18889af09889de9af646756d5b51fdc87a21bfeed8f85ed635a48508e5"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha V1/Nezha ESP32 Motor.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha V1/Nezha ESP32 Motor.ubl",
+      "git_blob": "48d3a9ae9b2bba5a1a75ded10c25ff758e4f2389",
+      "bytes": 10700,
+      "sha256": "699b090d4d7d966f3dc5a1850a92b21690a0b7712497eb6bc3b1c3a04c7bc6fc"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha V1/Nezha ESP32 Speech Recognition.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha V1/Nezha ESP32 Speech Recognition.ubl",
+      "git_blob": "5a5d3c37fd19ff828508b89b920d21349362d03a",
+      "bytes": 871,
+      "sha256": "be4b8837befb4714de2e867dbadf03ba2a5bf6455381ebc40b90f6f2bb2721f3"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha V1/Nezha ESP32.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha V1/Nezha ESP32.ubl",
+      "git_blob": "bcf8912aaa3bdde2da10cb51e526cade2e2d4b5d",
+      "bytes": 12895,
+      "sha256": "678e0b59166553c6d265dee5359d74b2c044852b1de4f617cbaca884900560d8"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/Nezha ESP32 Motor.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/Nezha ESP32 Motor.ubl",
+      "git_blob": "94ed8c6937a6a5cfd820b75c588462a32bc341d1",
+      "bytes": 10639,
+      "sha256": "2d4f3ed24a92134f1e3f47ce1dd0d13700b65ef7b9c1b35db0d8bb65ce350d39"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/Nezha ESP32 Speech Recognition.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/Nezha ESP32 Speech Recognition.ubl",
+      "git_blob": "30dd971964dadaca00c96ca656f6d630ffab4703",
+      "bytes": 776,
+      "sha256": "3d571ef10b33b0756d64427d715933a6bd20312413682b3665b0788ea97f7390"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/Nezha ESP32.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/Nezha ESP32.ubl",
+      "git_blob": "744265627091f2c772e959568889e841eaf9d61e",
+      "bytes": 15551,
+      "sha256": "8bdc735f5f88c8fa47cf25209cf745fe8b193fc2759051f6f34684c3827a641b"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/Nezha Pro.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/Nezha Pro.ubl",
+      "git_blob": "44c05ab50e3bad648a02da0af5c351f41dc00584",
+      "bytes": 7199,
+      "sha256": "2be3fb423c681ab4aa64b3c80087932136647aaada8300d55447ad38df87f907"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/Nezha.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/Nezha.ubl",
+      "git_blob": "9719094c7cf7a7de63600eb84415c5d2bf179876",
+      "bytes": 6257,
+      "sha256": "15ebfa637bbe886ea0db9df40494abbce924e99d4bdf5eaf580200c4d193ae1a"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X AI Lens Pro.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X AI Lens Pro.ubl",
+      "git_blob": "9a12df7fd2e02983b0a6a00011f17f3c68497ff4",
+      "bytes": 80786,
+      "sha256": "140a27dfc267c8243fa50f5137260189199556693ae22492a7954325db69f3ef"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X AI Lens.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X AI Lens.ubl",
+      "git_blob": "0be84764d09d9b6cac2e19f5b8d804231e69306a",
+      "bytes": 15439,
+      "sha256": "6931cf8222d6def4988bcc37f69ed9fedb602b7a649e1340fbc5398c9a48013f"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Color.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Color.ubl",
+      "git_blob": "d532ccc3e94ca365bdd2526c9b03cff6bce6eedc",
+      "bytes": 6727,
+      "sha256": "7c11ba2ccbdc71b6b1c56fdac55e692113c21589e6b87d614bf754b0033c6c3c"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Display.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Display.ubl",
+      "git_blob": "fb4801d8f12129c55c99bc1a8f751166fab66b77",
+      "bytes": 23405,
+      "sha256": "8b4e0740010abdee95b3a107cf540289d87bf366ae9b987054e4e73ec2af5b00"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Execute.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Execute.ubl",
+      "git_blob": "df1d2aa2f47ca0057eaa54529699b758b3832902",
+      "bytes": 5544,
+      "sha256": "6f28c5ae66ef56ef1dabcd1dda6963cef3779110881218e5578d4af5b6f6b1b1"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Gesture.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Gesture.ubl",
+      "git_blob": "31d3e73aef980e5045f6c2a22ac627a2a00623a2",
+      "bytes": 6195,
+      "sha256": "aad3fabeb109da9e1da50249a6ba897bb2fba36d3bb26821c4ae747b94bc0c13"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Input.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Input.ubl",
+      "git_blob": "fc091ebedf07ddf486364e5f404383d0bbc3360d",
+      "bytes": 59378,
+      "sha256": "cbb0b5f5d53ded5e97914a11bc6320f045aa89db416732c1768182102b74a272"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Speech.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Speech.ubl",
+      "git_blob": "6ecfea5fc335299ae286c75c72c3f17402d005c0",
+      "bytes": 6333,
+      "sha256": "bd1200d1a7f7d57fb4155470c941e393bf37eddbf525b3b5a4744886a23f71d8"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Support.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Support.ubl",
+      "git_blob": "7a34523a9d186471879a42f3301b21464ce8e504",
+      "bytes": 4886,
+      "sha256": "77ac111ed5d1013f7e0abab2bb3b26cf38ed33804a9529cce3b08ae9fb728c40"
+    },
+    {
+      "path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Wireless.ubl",
+      "source_path": "Libraries/WorkInProgress/Nezha/PlanetX/Planet X Wireless.ubl",
+      "git_blob": "b6d6bd1c7db57597b172283e1859f5e5fd5e5e04",
+      "bytes": 15437,
+      "sha256": "1874caddb4a147d4b157040f8f6b6f2a33a64ca54215f7f1cc4fbc80abd3c709"
+    },
+    {
+      "path": "Libraries/WorkInProgress/PM2.5 Air Quality Sensor.ubl",
+      "source_path": "Libraries/WorkInProgress/PM2.5 Air Quality Sensor.ubl",
+      "git_blob": "cb26058e1698ebb8c5166ccab688035ce9a0379a",
+      "bytes": 2703,
+      "sha256": "af98f1289ab179ab92608f59cee3bdac582de01182f0befa7f0335248a4ab008"
+    },
+    {
+      "path": "Libraries/WorkInProgress/PU Controller.ubl",
+      "source_path": "Libraries/WorkInProgress/PU Controller.ubl",
+      "git_blob": "728708fc5e2bbb8eb61e3a45ad34ff60b84e50bb",
+      "bytes": 12013,
+      "sha256": "a8b1a3380a5c3a2c7f519f7d05acbce9484795d14704fca9ec3f8857b10be86d"
+    },
+    {
+      "path": "Libraries/WorkInProgress/PU Robot.ubl",
+      "source_path": "Libraries/WorkInProgress/PU Robot.ubl",
+      "git_blob": "735b63e8011c3dc167c302e1522f5047c3df3a19",
+      "bytes": 37620,
+      "sha256": "b12d4782e9c6f06551e1a1cc37860beb2b0a1e807f83ae1309509dee943c14a9"
+    },
+    {
+      "path": "Libraries/WorkInProgress/SmartIoT Space.ubl",
+      "source_path": "Libraries/WorkInProgress/SmartIoT Space.ubl",
+      "git_blob": "91799bd592e4539a84dd15d2ccfd75fd4521dc34",
+      "bytes": 5823,
+      "sha256": "93557558c63d4056467ad2480747ae10a8f8efaa50cd38da0d26f1531cb9dfd8"
+    },
+    {
+      "path": "TODO.md",
+      "source_path": "chromeApp/webapp/TODO.md",
+      "git_blob": "4c7d4beb28b70b54381c5820555b6b30f63b21ec",
+      "bytes": 2256,
+      "sha256": "5dc87a31154b13eccedda6e8814db050edb5ef1e8cb4e500f88433df2b0fb142"
+    },
+    {
+      "path": "boardie/README",
+      "source_path": "chromeApp/webapp/boardie/README",
+      "git_blob": "c057e55ad7fb1af363fc27eb0513e2412927cc21",
+      "bytes": 80,
+      "sha256": "ca13e24be850acb1736d32f465956d42d15f539a1ceb21cb1b646be2d3682bdc"
+    },
+    {
+      "path": "boardie/boardie.js",
+      "source_path": "chromeApp/webapp/boardie/boardie.js",
+      "git_blob": "d963122d69b052da1537b46c73c4adfa2c820669",
+      "bytes": 2632,
+      "sha256": "916eb6d7b276349f44cf82fe8f76dc334d1c60326d8be2c6615dcfd4500617ea"
+    },
+    {
+      "path": "boardie/styles.css",
+      "source_path": "chromeApp/webapp/boardie/styles.css",
+      "git_blob": "c6543389ae19f4a5fd76cc37f81e3f6b45c05d3f",
+      "bytes": 5173,
+      "sha256": "26be27d4ac5970cf11126d5a0107c0341cdbd0eded600407cd9be799eb927bb2"
+    },
+    {
+      "path": "engine/flasher.js",
+      "source_path": "chromeApp/webapp/engine/flasher.js",
+      "git_blob": "2f9b251b51aa6151be03008e6eb2f9e6298e1944",
+      "bytes": 3265,
+      "sha256": "3cc3f59dbbbaf4e77148f156eceacdf6173d0b85f4ebf97f1d99426175a632de"
+    },
+    {
+      "path": "engine/jsconfig.json",
+      "source_path": "chromeApp/webapp/engine/jsconfig.json",
+      "git_blob": "8d2ce937ef51c2f4f27791e9200116ffa218958b",
+      "bytes": 120,
+      "sha256": "22d6b24ffde03c2117f3b954460774fd5fa4132946d5b1ae425c6c646b4276be"
+    },
+    {
+      "path": "engine/mb-autosave.js",
+      "source_path": "chromeApp/webapp/engine/mb-autosave.js",
+      "git_blob": "973d6b0b4fc9ee0ab2b2a392038130673a5b4b71",
+      "bytes": 6601,
+      "sha256": "f568cdd811813b52ec13205b3fec2dd6d1e0ac2f406e6203e3222ae6af666b44"
+    },
+    {
+      "path": "engine/mb-block-search.js",
+      "source_path": "chromeApp/webapp/engine/mb-block-search.js",
+      "git_blob": "e824c7346348317b180cb11fa795e1bb809d5442",
+      "bytes": 30536,
+      "sha256": "39202fdd461dd66aa2cdb3c0134b23dafedf99236ea5f3a8fa3dd00559395366"
+    },
+    {
+      "path": "engine/mb-blocks.js",
+      "source_path": "chromeApp/webapp/engine/mb-blocks.js",
+      "git_blob": "e27bfe8600de775a4b865ef218af5ccd82d5c004",
+      "bytes": 185842,
+      "sha256": "24a9499cb7cc28c8ccccd14bf30a8bd1a9b3b5fa2cd399eaa9e2096dcbcd269d"
+    },
+    {
+      "path": "engine/mb-boardie.js",
+      "source_path": "chromeApp/webapp/engine/mb-boardie.js",
+      "git_blob": "db9abd33716a8aad7b7dfa27e931356cc4cbddeb",
+      "bytes": 6059,
+      "sha256": "4dac281a8cbef0134ecaa186eaf2ee7cdb542d59766e3d8ada8d81720f687b04"
+    },
+    {
+      "path": "engine/mb-code-manager.js",
+      "source_path": "chromeApp/webapp/engine/mb-code-manager.js",
+      "git_blob": "5c4a0743cad1dd33ce0a0e56c0f28e8b044376e9",
+      "bytes": 35473,
+      "sha256": "94a45915d431742ff376f91578375bd0fb1fa201223be6213a235408bb9dced5"
+    },
+    {
+      "path": "engine/mb-comm-port.js",
+      "source_path": "chromeApp/webapp/engine/mb-comm-port.js",
+      "git_blob": "fa4da8cf871640213aa3b949845d20a2695b0b9e",
+      "bytes": 9711,
+      "sha256": "ac4e276bb42000204654349365bb1ca191df8172a40259e06f0bfb114b8eebe9"
+    },
+    {
+      "path": "engine/mb-compare.js",
+      "source_path": "chromeApp/webapp/engine/mb-compare.js",
+      "git_blob": "5971539a609dce3eab0f98246454e1387d354ecd",
+      "bytes": 6452,
+      "sha256": "d4b67285c23213c1d8218580f11ab630f4a06f8323bd239b0e0b480e4219b642"
+    },
+    {
+      "path": "engine/mb-compiler.js",
+      "source_path": "chromeApp/webapp/engine/mb-compiler.js",
+      "git_blob": "1c559b5dee8ff1da4364f10a8e3b478d7e62fc91",
+      "bytes": 41557,
+      "sha256": "9f09b454c5c5b56450392a59c211e1049740fcaf35db15a6da66320f0315d1f1"
+    },
+    {
+      "path": "engine/mb-connection.js",
+      "source_path": "chromeApp/webapp/engine/mb-connection.js",
+      "git_blob": "9caacf774d576d3b22791158a44592da4877abc0",
+      "bytes": 53632,
+      "sha256": "51450cd38f6bee23a426c50ff528f4ebe8cad97caa217d44dcbba3ad3bbc99a4"
+    },
+    {
+      "path": "engine/mb-decompiler.js",
+      "source_path": "chromeApp/webapp/engine/mb-decompiler.js",
+      "git_blob": "64f876bc6d298d29697133d00bbb1fa9ba34b9eb",
+      "bytes": 32768,
+      "sha256": "a3e1c22a038b70ee274b3b3da85e2ced92153311f4956e247a62c5e9f80f1ad4"
+    },
+    {
+      "path": "engine/mb-editor.js",
+      "source_path": "chromeApp/webapp/engine/mb-editor.js",
+      "git_blob": "c41ec717211c4e3eede54d1bc2251e06cb596205",
+      "bytes": 150662,
+      "sha256": "6de1023cc75b2cc3cb3be2d41d9825a9f047b5ca0b186bd00e4851f4b8e5b07f"
+    },
+    {
+      "path": "engine/mb-esptool-stubs.js",
+      "source_path": "chromeApp/webapp/engine/mb-esptool-stubs.js",
+      "git_blob": "e9a72e646bfcb73fe961e9bb710b0f54be6d5e9d",
+      "bytes": 39084,
+      "sha256": "d6df676eead7441490c01c9af3a2262b80bf7b1fdccd63a5c7db9cb79f576c4d"
+    },
+    {
+      "path": "engine/mb-esptool.js",
+      "source_path": "chromeApp/webapp/engine/mb-esptool.js",
+      "git_blob": "61f1f31e277c40dea92b615f40335a84624dc418",
+      "bytes": 17011,
+      "sha256": "767e9ee589062efef80e4d261585df510161197d74bbdd2104e7e1f0a089e718"
+    },
+    {
+      "path": "engine/mb-file-picker.js",
+      "source_path": "chromeApp/webapp/engine/mb-file-picker.js",
+      "git_blob": "5c46b1a0c3f80bcec2dfa75bcfd23a1f7e366acb",
+      "bytes": 30096,
+      "sha256": "89afca2f8c8c7c0e424010153488a57e7498b3bba73bc65b6fc6d76d3b323a5e"
+    },
+    {
+      "path": "engine/mb-files.js",
+      "source_path": "chromeApp/webapp/engine/mb-files.js",
+      "git_blob": "de3d903c93069c5ab542ea61c9964f996124af4b",
+      "bytes": 2655,
+      "sha256": "e445716827fa9c2e6af3de505ed4642f6fcefe64f44e9fc2193df0063caaf97c"
+    },
+    {
+      "path": "engine/mb-firmware.js",
+      "source_path": "chromeApp/webapp/engine/mb-firmware.js",
+      "git_blob": "7c3af30ab1de03645d9328f7b222b4a10991c0d8",
+      "bytes": 15271,
+      "sha256": "33dfac9df550808fd02e5764824eeb31d09aada8beefc8f9e55c96ad76b7cd68"
+    },
+    {
+      "path": "engine/mb-function.js",
+      "source_path": "chromeApp/webapp/engine/mb-function.js",
+      "git_blob": "b958d3c8457bf3eb9d407311114d62c0c9901883",
+      "bytes": 4900,
+      "sha256": "74721554afaeed72f60bfc60a4b71b4e7296c02ced21f01fb8990f9378fa8bbd"
+    },
+    {
+      "path": "engine/mb-git.js",
+      "source_path": "chromeApp/webapp/engine/mb-git.js",
+      "git_blob": "0cc9b2e9d8a023a8b365ebe77d7aad983d1048da",
+      "bytes": 2629,
+      "sha256": "7b151348237779a4b31ca45fc68d96d794e96b97009b6563732309b707c59f53"
+    },
+    {
+      "path": "engine/mb-help-strings.js",
+      "source_path": "chromeApp/webapp/engine/mb-help-strings.js",
+      "git_blob": "60655f7bfc372f2fda4078ba4dc6571d0d12cd37",
+      "bytes": 40797,
+      "sha256": "ac8d6ede0acd35ef326bb26b96fdfe4d24177791752935caae94ae3a589531d2"
+    },
+    {
+      "path": "engine/mb-help.js",
+      "source_path": "chromeApp/webapp/engine/mb-help.js",
+      "git_blob": "b2b85a27f75c21dad463f2956dce035120734ac0",
+      "bytes": 1471,
+      "sha256": "88f32d79a133bfbd4da53a9e23e0e3b036e3f6013a35524d74093ccc698d749b"
+    },
+    {
+      "path": "engine/mb-jsAPI.js",
+      "source_path": "chromeApp/webapp/engine/mb-jsAPI.js",
+      "git_blob": "4bdbde580dd528bdacbedf0b0f0505e2c8b72355",
+      "bytes": 12240,
+      "sha256": "aeeaa732ec32a1c9e092746c3b3b1714cce20528ebb7cf96788c276f427ef1b4"
+    },
+    {
+      "path": "engine/mb-library-widgets.js",
+      "source_path": "chromeApp/webapp/engine/mb-library-widgets.js",
+      "git_blob": "3a555b7b845a649446e8d7c6233d1d5c77b0367e",
+      "bytes": 17873,
+      "sha256": "30cfdf2214fe6ef9a4fd81636a0d657c8b0eebdff600eb3db668528819c47700"
+    },
+    {
+      "path": "engine/mb-parser.js",
+      "source_path": "chromeApp/webapp/engine/mb-parser.js",
+      "git_blob": "6ba2673445e351e850f78712f8e5347dc93c5f2c",
+      "bytes": 21200,
+      "sha256": "f15c9d421579d1bc8502643a65092f0083fe1d218ec979c7b4059d60c18f6e13"
+    },
+    {
+      "path": "engine/mb-project.js",
+      "source_path": "chromeApp/webapp/engine/mb-project.js",
+      "git_blob": "bbdc9756930fdefe87d16e742a3d3a99de14ad9d",
+      "bytes": 60576,
+      "sha256": "5874550eb2c4573c4968f843c9574325de42b36437eb9bdffd5224d79cda22ee"
+    },
+    {
+      "path": "engine/mb-slots.js",
+      "source_path": "chromeApp/webapp/engine/mb-slots.js",
+      "git_blob": "6ff31f91af5266be736906f35e82d7df6cc5766b",
+      "bytes": 59747,
+      "sha256": "2345deab560e9be1284027182131d0d5f2088830f7b6b1d56e2e42a519244583"
+    },
+    {
+      "path": "engine/mb-specs.js",
+      "source_path": "chromeApp/webapp/engine/mb-specs.js",
+      "git_blob": "83a9ae092ba9a378594c14ce7f93b646cd79997a",
+      "bytes": 34350,
+      "sha256": "c55a812dc2411d64a71ec8c3d14bcad75f48addc7e418ab3d301735095569809"
+    },
+    {
+      "path": "engine/mb-support.js",
+      "source_path": "chromeApp/webapp/engine/mb-support.js",
+      "git_blob": "01937f56acfeff4b8ca15a396fec7964218d0f43",
+      "bytes": 22654,
+      "sha256": "4ab8949612f2b28cfc96e5b74d619a644593bf6ea88992c22277d7ee7740af42"
+    },
+    {
+      "path": "engine/mb-tips.js",
+      "source_path": "chromeApp/webapp/engine/mb-tips.js",
+      "git_blob": "c6ee426e1e3f064d23ce545d689bdef4f1943a9f",
+      "bytes": 7806,
+      "sha256": "5392f0c8a3797780992e0211e40315f7f9c567bdebcab7c9de9bcad326b01938"
+    },
+    {
+      "path": "engine/morphic.js",
+      "source_path": "chromeApp/webapp/engine/morphic.js",
+      "git_blob": "9a1bab56591b56b752a6d61340a6cb8d2b753f70",
+      "bytes": 377139,
+      "sha256": "0a8258daa4b8c87862c88d198fbad05e22758bd226dfac67e69b3998827b5226"
+    },
+    {
+      "path": "favicon.ico",
+      "source_path": "chromeApp/webapp/favicon.ico",
+      "git_blob": "481558869cfa706a17aefb90f48f8df3e5179a2b",
+      "bytes": 1150,
+      "sha256": "378d78a2e63415eceaaee0c3e195c0e48839b7e15def9a8f393c90c8e391cfa3"
+    },
+    {
+      "path": "icons/Bunny192.png",
+      "source_path": "chromeApp/webapp/icons/Bunny192.png",
+      "git_blob": "6d83c937819ff52cdd547ba1128ddb8ecfb986e4",
+      "bytes": 19500,
+      "sha256": "b44abccdd7d844ff6c3278e4aa0ed71fe897b17517addc4c0427d258b512b971"
+    },
+    {
+      "path": "icons/Bunny512.png",
+      "source_path": "chromeApp/webapp/icons/Bunny512.png",
+      "git_blob": "8362a8afffbc32b2adc9962d599ae4caf2854cd8",
+      "bytes": 72366,
+      "sha256": "7b3581a994ad7f83e5fb02220dee7447378216099f5531f661c7e25d4a399df1"
+    },
+    {
+      "path": "img/SVGPrepNotes.txt",
+      "source_path": "img/SVGPrepNotes.txt",
+      "git_blob": "b041def24fa26bf95938858bdfdd964c372b0c7f",
+      "bytes": 1555,
+      "sha256": "f886287f3384ef3da1c5f95c8e8cd8656d8f2910a50b0420091b99cc20474f55"
+    },
+    {
+      "path": "img/big-logo.svg",
+      "source_path": "img/big-logo.svg",
+      "git_blob": "09f8c2f1eff2bfa89770025b62277cf3ea1e0905",
+      "bytes": 15505,
+      "sha256": "8e04e0d142318a53a761cdfbbd0375403dea337f474eb5a43cefdf7fce7f9877"
+    },
+    {
+      "path": "img/bool_false.svg",
+      "source_path": "img/bool_false.svg",
+      "git_blob": "0265caee8d3423ffe1179209e30287e88010e5b7",
+      "bytes": 518,
+      "sha256": "4a1bad66d89db16416ddbc0eb6d573209c3cfa55020799f6f314871d02d77ea2"
+    },
+    {
+      "path": "img/bool_true.svg",
+      "source_path": "img/bool_true.svg",
+      "git_blob": "1800ef3bcb8316fec1b91b63f55e413696e7d464",
+      "bytes": 523,
+      "sha256": "66bce61b5f6753c30abe4a79c55403f46ef9b346f1b2867b4651782ddd5d0369"
+    },
+    {
+      "path": "img/button-down.svg",
+      "source_path": "img/button-down.svg",
+      "git_blob": "e1c86857f36fcdac60bb83cb9d64d60c0da347f3",
+      "bytes": 1302,
+      "sha256": "05124d928b1633fbfd747d355a67d69da8068469e93dae1ed35d75e60943e1b1"
+    },
+    {
+      "path": "img/button-left.svg",
+      "source_path": "img/button-left.svg",
+      "git_blob": "689112f3b47ceed13ce1503e895c37f300237aec",
+      "bytes": 1300,
+      "sha256": "43c1490fbe3c3224a31c422a29bc3519702781ec34ab256e607cc282b98e7155"
+    },
+    {
+      "path": "img/button-ok.svg",
+      "source_path": "img/button-ok.svg",
+      "git_blob": "be27fc36de782f1be29258953e2a874a4fdce872",
+      "bytes": 1151,
+      "sha256": "cc6333c1150e3e7a79f4db93c762d14e87c5f8e34a32d8e0d89f10b5c703d6ed"
+    },
+    {
+      "path": "img/button-right.svg",
+      "source_path": "img/button-right.svg",
+      "git_blob": "a4c196e1aa994a5e3e5dc40daaf72deefd68c3d7",
+      "bytes": 1305,
+      "sha256": "975ae46aba3fc76ea1aa8adb3ad86057cb0c63155a5bf967eb8ddf322593fd08"
+    },
+    {
+      "path": "img/button-up.svg",
+      "source_path": "img/button-up.svg",
+      "git_blob": "786bfd3284d31bb43546ee006d9fdfdfebe2c81f",
+      "bytes": 1308,
+      "sha256": "95425227fa9b6897148123a437e4f41a3ed5d2c85cdb199bad3809a27e6bb69c"
+    },
+    {
+      "path": "img/button-x.svg",
+      "source_path": "img/button-x.svg",
+      "git_blob": "86e83d84995cc5e1247b81605a24b88bfff5c990",
+      "bytes": 893,
+      "sha256": "d657e38c1b7adb6feab2b8af8ea126f14a726120c6b0e3de3bda1c9a2d112519"
+    },
+    {
+      "path": "img/checkmark.svg",
+      "source_path": "img/checkmark.svg",
+      "git_blob": "74fb2409f4cb0e79f35c36d4bfeecaa7ee0ce5ba",
+      "bytes": 541,
+      "sha256": "411e2b5265668b04f5d0265ed23571626dcc7c457a179daeff13194d475ccf55"
+    },
+    {
+      "path": "img/colon-double-slash.svg",
+      "source_path": "img/colon-double-slash.svg",
+      "git_blob": "0060b9a6486f0c6005a6f7659c5f1d7c3e829d9c",
+      "bytes": 851,
+      "sha256": "1aec3c80f6f2dcc617a4e1aeb4d76e26daef2109f284771f145482a3c27bd423"
+    },
+    {
+      "path": "img/double-arrow-v.svg",
+      "source_path": "img/double-arrow-v.svg",
+      "git_blob": "e4ce6eb341784fb4a0d240edca1b160c25f37c99",
+      "bytes": 1040,
+      "sha256": "21198741e0ef3635785da01749a3272533f067c1aec4103057b3ae5f952545ff"
+    },
+    {
+      "path": "img/dropdown-arrow.svg",
+      "source_path": "img/dropdown-arrow.svg",
+      "git_blob": "2e4694370ae834dfc376c1b874e8b1926101182e",
+      "bytes": 348,
+      "sha256": "1c34412e691c1ad1a934b13fb1dba9d5e0dc2dc98e570a3c1c13c9a72d3b3056"
+    },
+    {
+      "path": "img/icon-arrow-right--16x16.svg",
+      "source_path": "img/icon-arrow-right--16x16.svg",
+      "git_blob": "29199cbdcb41552c4e1d8d3297706d219f45027c",
+      "bytes": 486,
+      "sha256": "27d09e97a28bbe71757da5b5a338ec089ae71e506b5b1be586eaa5c5c7e53a89"
+    },
+    {
+      "path": "img/icon-checkmark--16x16.svg",
+      "source_path": "img/icon-checkmark--16x16.svg",
+      "git_blob": "2220bd94b02a57c15ac2d2aa81867cd13014b00b",
+      "bytes": 483,
+      "sha256": "e9081d4bb25ec4926f9c363c5c540d12d7d7822ef96480bdd259fa8e10573881"
+    },
+    {
+      "path": "img/icon-close--16x16.svg",
+      "source_path": "img/icon-close--16x16.svg",
+      "git_blob": "6574d16ca68ede646063ce2c88156dc6be6589d7",
+      "bytes": 618,
+      "sha256": "5ea7e2fc3c75fe01c4b3dd6f095bea7601ec2afd07dbe5daae69c1faf3acb300"
+    },
+    {
+      "path": "img/icon-close.svg",
+      "source_path": "img/icon-close.svg",
+      "git_blob": "1ea6a9d5c303f40a625b72d77470c600391d45d1",
+      "bytes": 634,
+      "sha256": "e41d7d9cbf7e219811b4ffdde35209747a97a48e8289943ae64be75ce06a6525"
+    },
+    {
+      "path": "img/icon-dropdown--12x6.svg",
+      "source_path": "img/icon-dropdown--12x6.svg",
+      "git_blob": "863529b4bfcab6cc8893069c7f325df4eded6ede",
+      "bytes": 311,
+      "sha256": "5176cb55d2d3d37fc7991828043242239a71d208d4f6934e9026a38319fa3d9f"
+    },
+    {
+      "path": "img/icon-file--24x24.svg",
+      "source_path": "img/icon-file--24x24.svg",
+      "git_blob": "b438c7607dfdc7bc55d295056514a6a972c9bc0a",
+      "bytes": 387,
+      "sha256": "28bbb0282010ef4bf0ed06f45aa84c875ccf5d51b5963039dbc13a3040b26808"
+    },
+    {
+      "path": "img/icon-folder-open--16x16.svg",
+      "source_path": "img/icon-folder-open--16x16.svg",
+      "git_blob": "337a73586635f11d6d5ab7e3887273e6d9b3fc2b",
+      "bytes": 1048,
+      "sha256": "e29f0bff07151ecacb019b75cde5e19b19d5ffe8be52ac2baeb6e66064ab3c9c"
+    },
+    {
+      "path": "img/icon-gear--24x24.svg",
+      "source_path": "img/icon-gear--24x24.svg",
+      "git_blob": "44198aa0fe87ba4474739830ea8c5bc05da07c5b",
+      "bytes": 2611,
+      "sha256": "2a09df01e674250c503f632044d4e818b24283a540a39ddf5c82688f0cdccce3"
+    },
+    {
+      "path": "img/icon-globe--24x24.svg",
+      "source_path": "img/icon-globe--24x24.svg",
+      "git_blob": "d0f13ebe8108c5b042179223290b69c3e9470be9",
+      "bytes": 2856,
+      "sha256": "9d662d1ce675555ffb4600a8c413167fbed347a7c8859708227c02cac4e19dd2"
+    },
+    {
+      "path": "img/icon-graph--16x16.svg",
+      "source_path": "img/icon-graph--16x16.svg",
+      "git_blob": "0b74ef68589653369819f92cc0e1a5ea11d2c1c6",
+      "bytes": 597,
+      "sha256": "4c79ff528b0cd6f3a2cef747f4f1208f6ba50c038d37b999927909a0a865c884"
+    },
+    {
+      "path": "img/icon-graph.svg",
+      "source_path": "img/icon-graph.svg",
+      "git_blob": "7e98955da7f6ac98ccc906b11ce2454d0e5d4907",
+      "bytes": 808,
+      "sha256": "ccc0b3571ae2f808d852341bf25ffdcde3197cbec867cbfaf2088c6d9da790fe"
+    },
+    {
+      "path": "img/icon-graph2.svg",
+      "source_path": "img/icon-graph2.svg",
+      "git_blob": "d82d15bab7517cd3cd576271341a73d227fe6cd9",
+      "bytes": 769,
+      "sha256": "38b30b1b6a2c667a670393c70eda9754e1472960efdc7052975a78791a6d3429"
+    },
+    {
+      "path": "img/icon-plug--16x16.svg",
+      "source_path": "img/icon-plug--16x16.svg",
+      "git_blob": "1ff00df3d30f4bb02622e9f094ff14935f49a799",
+      "bytes": 886,
+      "sha256": "a648bbe6551512024deaab859bcc64bb5613321284762be72e29c1b9f92c31b1"
+    },
+    {
+      "path": "img/icon-plus--16x16.svg",
+      "source_path": "img/icon-plus--16x16.svg",
+      "git_blob": "cc25ce9c1f2901f2b54c86639d53286c5dedda2b",
+      "bytes": 384,
+      "sha256": "5d24adbf01f39a7d6277b366c0556217c855fb10a8caf40dc48ad14c55cc78f7"
+    },
+    {
+      "path": "img/icon-redo--16x16.svg",
+      "source_path": "img/icon-redo--16x16.svg",
+      "git_blob": "fed546f66e3a969ced6bde7874fa0ff858ede4bd",
+      "bytes": 750,
+      "sha256": "c2ab6efa2c443be80e49f6e923cdc371a5d68a5bae59f2e996a514dbf3e3a28f"
+    },
+    {
+      "path": "img/icon-start--24x24.svg",
+      "source_path": "img/icon-start--24x24.svg",
+      "git_blob": "83b359df1a5e73bc73fcab4542b2308f87543f75",
+      "bytes": 303,
+      "sha256": "b36ee74c801c7568d136af901e46b7bfce9cc507d7a2f2645b209d82231126eb"
+    },
+    {
+      "path": "img/icon-stop--24x24.svg",
+      "source_path": "img/icon-stop--24x24.svg",
+      "git_blob": "5ed78ea45e7a6bc8a389540333337880d8bf8cee",
+      "bytes": 150,
+      "sha256": "0d331a2e4bbc38f8a43ed3ac315a9450d3b0743930f596552ac308a3efb047cb"
+    },
+    {
+      "path": "img/icon-undo--16x16.svg",
+      "source_path": "img/icon-undo--16x16.svg",
+      "git_blob": "886f5d453810ac278ac17d9d38acfb52fcea8652",
+      "bytes": 750,
+      "sha256": "b3d23ae3138ea367fed6689613b13cba124ac4c88730bd9b72da0154c8a994fc"
+    },
+    {
+      "path": "img/icon-usb.svg",
+      "source_path": "img/icon-usb.svg",
+      "git_blob": "fc6af06ee20b244e3b0165e47bb787b603041cfa",
+      "bytes": 1127,
+      "sha256": "db8618893f1bc47d383c84ea0f07b5ca2fd4f025d59facc8f119414f3e3d795e"
+    },
+    {
+      "path": "img/icon-usb2.svg",
+      "source_path": "img/icon-usb2.svg",
+      "git_blob": "3c573a1cb4b96bbfe69adc893b52a7dff58f03d1",
+      "bytes": 1127,
+      "sha256": "666e06a111b95e7a87b44411a781a6ae2abb58097891475488357ebce442c782"
+    },
+    {
+      "path": "img/icon-usb3.svg",
+      "source_path": "img/icon-usb3.svg",
+      "git_blob": "28ec2e3b4dcba13c2dbe7a9bd4b8728166d8529d",
+      "bytes": 1127,
+      "sha256": "b8d19e2486692441cc88cd9ff410574609de61485f66ff73af03794835b633e2"
+    },
+    {
+      "path": "img/icon-zoom-in--16x16.svg",
+      "source_path": "img/icon-zoom-in--16x16.svg",
+      "git_blob": "48e08a8480c52b0d6ec322c0fdd128180a518bc9",
+      "bytes": 1027,
+      "sha256": "53cf07d4f42dc2f7c1cee3c366100592b15d44d1247af3e2e4a48b40961f71f8"
+    },
+    {
+      "path": "img/icon-zoom-out--16x16.svg",
+      "source_path": "img/icon-zoom-out--16x16.svg",
+      "git_blob": "875ebff62f70753563c80a8e9f93a9f2f02d528d",
+      "bytes": 904,
+      "sha256": "e1d4b4408fcdb514d33812c92fbafa6992675668d81cb14d5bdde917339b908f"
+    },
+    {
+      "path": "img/icon-zoom-restore--16x16.svg",
+      "source_path": "img/icon-zoom-restore--16x16.svg",
+      "git_blob": "989b389f0727e0b30fed02bb8a7e4a22f43f664c",
+      "bytes": 1099,
+      "sha256": "974a06b2a5a116ce170cb3726605e8ff5cade687a7209aa3c19ef9df5eb361f5"
+    },
+    {
+      "path": "img/keyboard-light.svg",
+      "source_path": "img/keyboard-light.svg",
+      "git_blob": "7dca77ea5e965257e16df9011acd95b60490db41",
+      "bytes": 4028,
+      "sha256": "0177d119362c483d83cd0ca9c9c49858ce41fd7b4aaec8367584e34dedf1337c"
+    },
+    {
+      "path": "img/legacy-restoreZoom.svg",
+      "source_path": "img/legacy-restoreZoom.svg",
+      "git_blob": "71be1c74bf16954daf3fcc7a75de97cbbad1bd99",
+      "bytes": 1548,
+      "sha256": "04ca2bee09ed7cef3bb13a743c8a84de42fd6287f82aaedb6da5dd5382ee2d2a"
+    },
+    {
+      "path": "img/legacy-zoomIn.svg",
+      "source_path": "img/legacy-zoomIn.svg",
+      "git_blob": "e60604c0b91fa15a367361a6abda30ece18a0090",
+      "bytes": 1513,
+      "sha256": "024293b0602f11801bd6e9bdce2e4a1598b783fe3fe5a2c0dbc6f0499e38caf4"
+    },
+    {
+      "path": "img/legacy-zoomOut.svg",
+      "source_path": "img/legacy-zoomOut.svg",
+      "git_blob": "5fbd8741ecb87d92a1fa24092ea4947fdf1ab35f",
+      "bytes": 1378,
+      "sha256": "9ac7a1de41b9c3df3caaefbe223b6f1010227660558bc005aa4978f8ddbcfd0e"
+    },
+    {
+      "path": "img/logo-preloader.svg",
+      "source_path": "img/logo-preloader.svg",
+      "git_blob": "ca688fd2d332bb14fd1d9e5c727a4625263496f3",
+      "bytes": 14398,
+      "sha256": "a025de516a6f439863f9dea30b958f790adadbfc001006a69cdc2f7a1b595110"
+    },
+    {
+      "path": "img/microblocks-ide-logo.svg",
+      "source_path": "img/microblocks-ide-logo.svg",
+      "git_blob": "54a386e65321574ab83014b4a8635d4c828cd295",
+      "bytes": 12406,
+      "sha256": "72ba076dc0a84dab1711147570c72d218abce66e5731bbe10e0458f28ee129ae"
+    },
+    {
+      "path": "img/mouse-left-button.svg",
+      "source_path": "img/mouse-left-button.svg",
+      "git_blob": "da6edd3f53bd3d5a04d87a50941643c522c76eea",
+      "bytes": 406,
+      "sha256": "75acc013ddf825348e6b2a0f1d57e1d8c7e68e9bfae7394b6de6999292fe5981"
+    },
+    {
+      "path": "img/mouse-right-button.svg",
+      "source_path": "img/mouse-right-button.svg",
+      "git_blob": "0d9428187dc0c26604225cef645bede152cd7309",
+      "bytes": 406,
+      "sha256": "8311967b5205d0f5aa6b276bb1fd6e4947010d38cc224aa98b81e969634b1ef8"
+    },
+    {
+      "path": "img/note-eighth.svg",
+      "source_path": "img/note-eighth.svg",
+      "git_blob": "306fb490a8cf066be274935dd36401704c3675e8",
+      "bytes": 666,
+      "sha256": "6bc3bdf4e540b4b803f75abeac89e3aed3851eb358100d959e986e83a7185a01"
+    },
+    {
+      "path": "img/note-half.svg",
+      "source_path": "img/note-half.svg",
+      "git_blob": "6d62b2f35bfa96ef68874d3a295df77cbfaf90df",
+      "bytes": 690,
+      "sha256": "70f73d101a48f9396151841a0760563a688964774d122c0e6fe80d5faaf19623"
+    },
+    {
+      "path": "img/note-quarter.svg",
+      "source_path": "img/note-quarter.svg",
+      "git_blob": "4f7fc837385de9eeb96e6a4e66e71ab162d04f8d",
+      "bytes": 472,
+      "sha256": "23610c0bde06d378cda28e33bb006f788447e6714b12d11acd2475cce8f4374b"
+    },
+    {
+      "path": "img/note-sixteenth.svg",
+      "source_path": "img/note-sixteenth.svg",
+      "git_blob": "0c30082d6ee4f7ab882e73e15d2422fd431b0bce",
+      "bytes": 865,
+      "sha256": "243e23009369e438af97bca5f827af21e1486a61cd943f92319e89e9e0d90cdb"
+    },
+    {
+      "path": "img/note-whole.svg",
+      "source_path": "img/note-whole.svg",
+      "git_blob": "69fc3878a4d2b2e4defd256927c1e19d3b0fd468",
+      "bytes": 615,
+      "sha256": "2c64d9ea929c3560512a54872692ccd8a2eb594b53ef6ab4da200a3433bb062a"
+    },
+    {
+      "path": "img/plus1.svg",
+      "source_path": "img/plus1.svg",
+      "git_blob": "2a7ab7c274c5510c2df44f1a496c99bdf799b99d",
+      "bytes": 975,
+      "sha256": "86e443135bd7552d25d6d6d0ebdabd51427c786c887cf6471ca765e357b89220"
+    },
+    {
+      "path": "img/plus2.svg",
+      "source_path": "img/plus2.svg",
+      "git_blob": "27b759f1f808691efa5b454f206fbdfb4a35a46a",
+      "bytes": 549,
+      "sha256": "3f708a31ca2b65346100e13173f6127f40e1008013fa01c34fd5a3aed85a0247"
+    },
+    {
+      "path": "img/resize.svg",
+      "source_path": "img/resize.svg",
+      "git_blob": "83fad853fe8c817f425b852bc5c2fc5bdbcc4bcd",
+      "bytes": 737,
+      "sha256": "98bdc2e96f9b10d533a11d151be1e03fbf01b8f509125a28b95f5fd746d0d15d"
+    },
+    {
+      "path": "img/rounded-corner.svg",
+      "source_path": "img/rounded-corner.svg",
+      "git_blob": "541430d10758d2f79fb8bd1196f0a2168bf16327",
+      "bytes": 159,
+      "sha256": "abf6109946bab8696b4a6502c062549e13bbcd7b54ea251d28832c47e8a46373"
+    },
+    {
+      "path": "img/square.svg",
+      "source_path": "img/square.svg",
+      "git_blob": "3647ebf8a7de570d025c902ac5ae40c736a0b8f9",
+      "bytes": 105,
+      "sha256": "65f32b9121f47aee6cc42972f5d3c591e3b78034075e0364a6ca4e25a68900cb"
+    },
+    {
+      "path": "img/square11.svg",
+      "source_path": "img/square11.svg",
+      "git_blob": "db5215aedb84ca9500df4656dfb6f279590d0d18",
+      "bytes": 105,
+      "sha256": "9215fcf1387df6fdd6e1fbe2f3b8ea9b6d6cd65d7cb17ef9528ecbff6b3be256"
+    },
+    {
+      "path": "img/trashcan-dark.svg",
+      "source_path": "img/trashcan-dark.svg",
+      "git_blob": "9297b17eda408d6932bc0c09571e5578ea9a458c",
+      "bytes": 1677,
+      "sha256": "ed2844e05677f0b1fb89096acdd1f01a8b7c1eb0a658d86f1a2224ce2628464c"
+    },
+    {
+      "path": "img/trashcan-light.svg",
+      "source_path": "img/trashcan-light.svg",
+      "git_blob": "af0f6068f86f3cd71c36cc884824ac5cba4a0622",
+      "bytes": 2561,
+      "sha256": "f05457dd19fa7ba97cbbea56676b7ef3308df6c007996f562d87c352fc088186"
+    },
+    {
+      "path": "img/wave-noise.svg",
+      "source_path": "img/wave-noise.svg",
+      "git_blob": "81c76d9f01b0f01f10f405d388aa9cd2ab0207c7",
+      "bytes": 2347,
+      "sha256": "6819b9c88db2c13461bcb58321a68ee24487dfccde8536c84fdce20b363593e5"
+    },
+    {
+      "path": "img/wave-sawtooth.svg",
+      "source_path": "img/wave-sawtooth.svg",
+      "git_blob": "a939a270b34e7d5eb36ab623a953476deeaf9ed4",
+      "bytes": 794,
+      "sha256": "83b338ad4189d7bb940fa1245d0ba2545283685c3385a5d8810d894dd3e2ad45"
+    },
+    {
+      "path": "img/wave-sine.svg",
+      "source_path": "img/wave-sine.svg",
+      "git_blob": "c8b059c4f1db78b0de468ee9342ed8e9fd64ad0e",
+      "bytes": 911,
+      "sha256": "f29e50ebe521ae9cf6f86a011689a4b2c230ae37ce7347adc9d722bc8583b16c"
+    },
+    {
+      "path": "img/wave-square.svg",
+      "source_path": "img/wave-square.svg",
+      "git_blob": "4756ca4b1b196543c33eee48965bd83a06d31d4f",
+      "bytes": 380,
+      "sha256": "d971c16d17131bf91ec5dd2f13177efa67718cf25e85a4ef1499b131455e5e4b"
+    },
+    {
+      "path": "img/wave-triangle.svg",
+      "source_path": "img/wave-triangle.svg",
+      "git_blob": "4b22a244722cb13417f6f160f0db52162a5268a2",
+      "bytes": 722,
+      "sha256": "c257eeb278f43131eabc02c3e545b1ee1a8a1c222ded4f549b872f91b87fe98c"
+    },
+    {
+      "path": "lib/FileSaver.js",
+      "source_path": "chromeApp/webapp/lib/FileSaver.js",
+      "git_blob": "55193a54e619c8788555fb944d84907992a7308c",
+      "bytes": 8584,
+      "sha256": "dcd3b6719c0d5a44719cf5831c46e02d4d51e528be9dda1233262e1f1a0a99b3"
+    },
+    {
+      "path": "lib/marked.umd.js",
+      "source_path": "chromeApp/webapp/lib/marked.umd.js",
+      "git_blob": "ec6fb91be7cda3c5fcc8471a9601a84c4f656f18",
+      "bytes": 49207,
+      "sha256": "9eb730d2362ae1a8c6201698f17009e16671be6946d3d06503ddc0575283db7c"
+    },
+    {
+      "path": "lib/marked.umd.js.map",
+      "source_path": "chromeApp/webapp/lib/marked.umd.js.map",
+      "git_blob": "a23c2a6089af9b67a38cc9542c100ff1c46381e5",
+      "bytes": 192982,
+      "sha256": "e6ba5bf62d8d1bc09e02afccd116f7376e9fbffb92ddad6ab83ca2a954e2d250"
+    },
+    {
+      "path": "lib/usbDfuDevice.js",
+      "source_path": "chromeApp/webapp/lib/usbDfuDevice.js",
+      "git_blob": "7fa790d639c4b8f70c86a45c364268751dbeda1f",
+      "bytes": 15479,
+      "sha256": "13b33b485fe9c526e99ca02f767f211b5fc81c424768aa80c22c97857fa861fb"
+    },
+    {
+      "path": "licenses/upstream/LICENSE",
+      "source_path": "LICENSE",
+      "git_blob": "41dc2327f1698b99dd397a84f47b9596d0a516b5",
+      "bytes": 193,
+      "sha256": "2bfdca60adf803108d4c7f009000bea76ad00e621e163197881b0eaae91b530e"
+    },
+    {
+      "path": "licenses/upstream/Mozilla Public License, version 2.0.html",
+      "source_path": "Mozilla Public License, version 2.0.html",
+      "git_blob": "5b9a2bd26b5e2aa7aa2adf9ab888139b1eb6018a",
+      "bytes": 17291,
+      "sha256": "f83684b2a231e48100dd8c79ad586ea9209c80fae307a7bb99372c65c9ffb344"
+    },
+    {
+      "path": "manifest.json",
+      "source_path": "chromeApp/webapp/manifest.json",
+      "git_blob": "5737dce60b265218abdcb7f3ae4d3fb86662ee6e",
+      "bytes": 404,
+      "sha256": "06d219448f463a3eada96fdcb3f23a980ae204cfcc5524866ba0bbcf8514dd04"
+    },
+    {
+      "path": "purejs.html",
+      "source_path": "chromeApp/webapp/purejs.html",
+      "git_blob": "f8609d988c4c44f37e0d098ec76cac809d949ddc",
+      "bytes": 10429,
+      "sha256": "ec0a93248c6a6337d22ea564456b59ad01393f6bb79517db7fde2cd17ce9bd6c"
+    },
+    {
+      "path": "styles/components/_app-preloader.css",
+      "source_path": "chromeApp/webapp/styles/components/_app-preloader.css",
+      "git_blob": "3409a8fa7e7d7129f242e38eb51bb8b5ab190105",
+      "bytes": 1708,
+      "sha256": "3f9a92bb5391e06f2e21c46f7e3babe2750e3be1fdd72d0eca28d087e13025ad"
+    },
+    {
+      "path": "styles/components/_buttons.css",
+      "source_path": "chromeApp/webapp/styles/components/_buttons.css",
+      "git_blob": "889b84dbe6b95b9f4ba61354a0ea2b720d99da93",
+      "bytes": 1466,
+      "sha256": "795faa24d5c1f10ee16ac37ff83680c8651268cccf07d01ec973bba69c1fbc7e"
+    },
+    {
+      "path": "styles/components/_categories-libraries.css",
+      "source_path": "chromeApp/webapp/styles/components/_categories-libraries.css",
+      "git_blob": "056cf14abd18116c106b99cded4c62dd2c09b0af",
+      "bytes": 2489,
+      "sha256": "e175ddb478dfeda944cac255dff8838a30588a2b8f91ca0e211a17baffbf0036"
+    },
+    {
+      "path": "styles/components/_ide.css",
+      "source_path": "chromeApp/webapp/styles/components/_ide.css",
+      "git_blob": "6352b2f360843b685746aa58a935afc4b18b42e9",
+      "bytes": 2493,
+      "sha256": "28f5aa1422863d767fdaa775245eb54dfcb6426ca8e524650f94a80eba898210"
+    },
+    {
+      "path": "styles/components/_menus.css",
+      "source_path": "chromeApp/webapp/styles/components/_menus.css",
+      "git_blob": "d7d5ece06670d32028c3f346dd2693d8da5f5235",
+      "bytes": 3028,
+      "sha256": "fc4d6a65faf5feb411c862bae56d9e7a9c7b5450ca564e2c3152f2be01c61b3e"
+    },
+    {
+      "path": "styles/components/_overlay.css",
+      "source_path": "chromeApp/webapp/styles/components/_overlay.css",
+      "git_blob": "632e0f82df3b7139c601694068f3bd381426be42",
+      "bytes": 1384,
+      "sha256": "493f1e8d9b1e186f1f1fdc9e2db7c03d3666a92a3c69660ee931b776bd2b2885"
+    },
+    {
+      "path": "styles/components/_scripts-pane-controls.css",
+      "source_path": "chromeApp/webapp/styles/components/_scripts-pane-controls.css",
+      "git_blob": "0ff6752e4d64dcb9b66cacd1fd08ca038461d8d8",
+      "bytes": 1288,
+      "sha256": "6971d71c49bd14b8f0c678221b41866c9fe7a3a69d45a96139ce93a7be74083a"
+    },
+    {
+      "path": "styles/components/_tips.css",
+      "source_path": "chromeApp/webapp/styles/components/_tips.css",
+      "git_blob": "aa070ffd0e312070a42c01bc7d80a4adb4f75aac",
+      "bytes": 875,
+      "sha256": "46fbed75ded65f6426167208d7ef3a66f98742d92cfffead3be9e03cb1fd5125"
+    },
+    {
+      "path": "styles/components/_top-bar.css",
+      "source_path": "chromeApp/webapp/styles/components/_top-bar.css",
+      "git_blob": "90546a425ddde7099096e08c235732ccc18502a0",
+      "bytes": 3346,
+      "sha256": "a7718679ea9ec78322b2b6be94c19cd68be0764c1a428281265b738931c974ba"
+    },
+    {
+      "path": "styles/components/_window.css",
+      "source_path": "chromeApp/webapp/styles/components/_window.css",
+      "git_blob": "cbb07ade96593c67c1239c6efc36b4d62f0deca1",
+      "bytes": 6026,
+      "sha256": "e263930f47ac90a23adefb9f7490eda778a89320b4a277f8453efc2db56b6da0"
+    },
+    {
+      "path": "styles/components/_wysiwyg.css",
+      "source_path": "chromeApp/webapp/styles/components/_wysiwyg.css",
+      "git_blob": "42460f3ceb2521e6f2a8fd2980dc77776fdcf405",
+      "bytes": 1016,
+      "sha256": "17022cda2b84338d017818fa8139eca2ed941072241972861f5f4b91f4702d4e"
+    },
+    {
+      "path": "styles/config/_config.css",
+      "source_path": "chromeApp/webapp/styles/config/_config.css",
+      "git_blob": "e1c6f553ca39c1a8aafcf358221715a8a9d7d95b",
+      "bytes": 4123,
+      "sha256": "6fccb19c454dd44cae28704030a89e7ea0284710c2894fd8c51e68b0487d2578"
+    },
+    {
+      "path": "styles/generic/_body.css",
+      "source_path": "chromeApp/webapp/styles/generic/_body.css",
+      "git_blob": "0ae4fc69e91be9e54e8e10a612d47702c4756be3",
+      "bytes": 188,
+      "sha256": "7bb547b5d69e2734e430233b47616077de46fe53a4f7f7240bb9a0adf310eb2f"
+    },
+    {
+      "path": "styles/generic/_button.css",
+      "source_path": "chromeApp/webapp/styles/generic/_button.css",
+      "git_blob": "0794d82355fd721243ee208360a052b5d21d9494",
+      "bytes": 58,
+      "sha256": "165475d53c0bea53d41836bcc9ab813700f8ccfe5fcca5702699d6842a4856ee"
+    },
+    {
+      "path": "styles/generic/minireset.css",
+      "source_path": "chromeApp/webapp/styles/generic/minireset.css",
+      "git_blob": "b3ed17fd6f120440327a85dd8003ef34f4879e93",
+      "bytes": 703,
+      "sha256": "6918843576759888e39ea83da65b035dcf89e695525aba717b4999309171d252"
+    },
+    {
+      "path": "styles/utilities/_drag.css",
+      "source_path": "chromeApp/webapp/styles/utilities/_drag.css",
+      "git_blob": "db357c3c98a93dad2705a610361101c1186b76f7",
+      "bytes": 142,
+      "sha256": "b49e1f15cb52aa7070f2f6b38f33be70a7d8a53bf64f5cbd8ec5f46c711232b3"
+    },
+    {
+      "path": "translations/apc.po",
+      "source_path": "translations/apc.po",
+      "git_blob": "cd84bb61bb1aa9d9945838737ac7d5cd153f57da",
+      "bytes": 136945,
+      "sha256": "3217c10fe8538873f33fd87af3c9064bb6537666657a794d62b2d3331d7422de"
+    },
+    {
+      "path": "translations/ar.po",
+      "source_path": "translations/ar.po",
+      "git_blob": "54a44ec0a86736da6b173ec4c066c5d6c4b607db",
+      "bytes": 238394,
+      "sha256": "c328dfbdcadd54c15bfac0e612accdd7ec147415b784547c2a624cffb105a42b"
+    },
+    {
+      "path": "translations/ca.po",
+      "source_path": "translations/ca.po",
+      "git_blob": "dc477df2cadeb0ca2671c0d2208a2d5b429dd16a",
+      "bytes": 236805,
+      "sha256": "f3f2e32fdc752f29106618c9cbc1a4448a8becc1fd22c14fd087caea6d5d52c4"
+    },
+    {
+      "path": "translations/cs.po",
+      "source_path": "translations/cs.po",
+      "git_blob": "ee56956916399bb8e030ec0f77fc806c5ba29050",
+      "bytes": 187242,
+      "sha256": "0f5504d6fb6bbaec36b74e9fd68129f9fb64ad49b7057e6b836e46070e74ed22"
+    },
+    {
+      "path": "translations/de.po",
+      "source_path": "translations/de.po",
+      "git_blob": "ee8afc497b18ff954619e64484142b13ba5ae55e",
+      "bytes": 234175,
+      "sha256": "de4fe21d548ca01d384905fd37ad6d08f8cfb24b279af3524885aa2a02be9c71"
+    },
+    {
+      "path": "translations/el.po",
+      "source_path": "translations/el.po",
+      "git_blob": "4c5340a4e4759425e3b0a780610014edc98b3864",
+      "bytes": 47402,
+      "sha256": "2dee35db6f3363d7662401d0b68f53ccd54853ed9bd467afbdc4b9b609cec439"
+    },
+    {
+      "path": "translations/en.po",
+      "source_path": "translations/en.po",
+      "git_blob": "a608aeb887875ce5298f29841520f6fa7b567834",
+      "bytes": 220334,
+      "sha256": "3fb4ee539e5372af5125af66151d3b09d815313cac021a241ae0903382b3cee8"
+    },
+    {
+      "path": "translations/es.po",
+      "source_path": "translations/es.po",
+      "git_blob": "17ae3b3b1b4d14e340e6709060b0385901085349",
+      "bytes": 237177,
+      "sha256": "f3a17d129eac982d9d8b47dc710ee573a3afb21b9a330186ce5d9805b7872635"
+    },
+    {
+      "path": "translations/eu.po",
+      "source_path": "translations/eu.po",
+      "git_blob": "0634da70338a0b35fd0d1f72f65aaa06aa525127",
+      "bytes": 130662,
+      "sha256": "fcdcb1b91a4d5767f33d174449eb2e1cc4ebe1844e96409a512091bc7ec24a08"
+    },
+    {
+      "path": "translations/fa.po",
+      "source_path": "translations/fa.po",
+      "git_blob": "6cb0f408fff6429a096ec2e27aa1dc9f20fd31e2",
+      "bytes": 133629,
+      "sha256": "b114e47403b3e417c5f7b1759b53581b26f611460a30355a3bdd5b5fd1cd06c8"
+    },
+    {
+      "path": "translations/fi.po",
+      "source_path": "translations/fi.po",
+      "git_blob": "f6519e4d3d95116c44f3901771ea1922e411fb5c",
+      "bytes": 155556,
+      "sha256": "3c47cf6f5e4d8dde7604f62bd3973870c4ce59af9496e213bd157d207cdb1ae9"
+    },
+    {
+      "path": "translations/fr.po",
+      "source_path": "translations/fr.po",
+      "git_blob": "5d962fd4313bf319afe3db41716c710a6c9fa339",
+      "bytes": 222185,
+      "sha256": "767a05c1151e2634aa4d9b6ea73495528f9a30e85d37d1c6554bbb8b111d9e3e"
+    },
+    {
+      "path": "translations/gl.po",
+      "source_path": "translations/gl.po",
+      "git_blob": "3b6c54340667b866cb4484bc76bb6156076fc45f",
+      "bytes": 92216,
+      "sha256": "e203b0c39aa3336adfd7cfc044b59cedfd90e7abba33f3fa546dc4d55419785e"
+    },
+    {
+      "path": "translations/he.po",
+      "source_path": "translations/he.po",
+      "git_blob": "1f837f37a03d4f25672d0e96d401bf524589a42c",
+      "bytes": 187461,
+      "sha256": "346a3063485cb9540bcb9e0fc41754dc453d50836f541a2a0cd81765b8f601a8"
+    },
+    {
+      "path": "translations/id.po",
+      "source_path": "translations/id.po",
+      "git_blob": "194fc57ff470e926965460a518b3af358bedfd5b",
+      "bytes": 200597,
+      "sha256": "4cc4a1d17fbae10bfff179255d29c491c5fabf101dcc89d83d0c0e13e9ce4dc1"
+    },
+    {
+      "path": "translations/it.po",
+      "source_path": "translations/it.po",
+      "git_blob": "6eed0e183ae6cb9ef4f462022612ad6697c5497e",
+      "bytes": 133307,
+      "sha256": "793b42e76f9c5933c232627749f1a01e92dd16ac7040568f8dc4ed96ed731790"
+    },
+    {
+      "path": "translations/ja.po",
+      "source_path": "translations/ja.po",
+      "git_blob": "756c46a671e4cd762dcb24ac9a629e68bb8e7317",
+      "bytes": 43775,
+      "sha256": "8fe21d6dd8e274a3bba32a2acfb71d627c2d7fd51898198ead01d3ee36404fc0"
+    },
+    {
+      "path": "translations/kk.po",
+      "source_path": "translations/kk.po",
+      "git_blob": "599b5aa34f500050323c1c710e1523ace087a8cc",
+      "bytes": 159651,
+      "sha256": "006d6ced3eaa465c18a6684381de38bf28094240bf65b487619d2a4712980173"
+    },
+    {
+      "path": "translations/ko.po",
+      "source_path": "translations/ko.po",
+      "git_blob": "b3ca9d001d20a78d15e45368b11de4052ddda093",
+      "bytes": 136052,
+      "sha256": "fbf3ed768c03aa79c02421cdf7b6311048a68d2db98c4ff57ef29cbd1c318af4"
+    },
+    {
+      "path": "translations/locales.json",
+      "source_path": "translations/locales.json",
+      "git_blob": "69dd2f5200fc58d455cb12a1a69fd8679ee106ee",
+      "bytes": 748,
+      "sha256": "1b4d4933b5e180a5e5c691abb9880f002ed7e47bfb9907415c0a407c12e58c3f"
+    },
+    {
+      "path": "translations/lt.po",
+      "source_path": "translations/lt.po",
+      "git_blob": "63f33891bf95b57015be43e6465e325922cf68d8",
+      "bytes": 166012,
+      "sha256": "336c991ea8fa63eb5a6ad52b894a1e6c4b0e91d11c354f16451be79f3229e3f6"
+    },
+    {
+      "path": "translations/nl.po",
+      "source_path": "translations/nl.po",
+      "git_blob": "ad1ce2b6e149e5814fc82e9796319215300a0f05",
+      "bytes": 162210,
+      "sha256": "b843f9af34845753aae1f6718310a97105b961d8bf0e199a0a3c2422e1913e76"
+    },
+    {
+      "path": "translations/pl.po",
+      "source_path": "translations/pl.po",
+      "git_blob": "aede4170db8796d54370e7bb53a648637fe78788",
+      "bytes": 134645,
+      "sha256": "cb76d6a6f8afc15b78f451dea876eda802571a9b83efe67bea54c900e2b24703"
+    },
+    {
+      "path": "translations/pt-br.po",
+      "source_path": "translations/pt-br.po",
+      "git_blob": "bf3dbda42f2adc33e40e4399710d43bf1fa05006",
+      "bytes": 229309,
+      "sha256": "ffbebdde87232139885a6b166d08d62b1f698edd554c2f7de5f98b63dadf782c"
+    },
+    {
+      "path": "translations/pt.po",
+      "source_path": "translations/pt.po",
+      "git_blob": "9fcf5af4ac703ea2cbaafc3c58c39b3209e0f9a3",
+      "bytes": 42658,
+      "sha256": "81c9b8178dbfcca20a2ba175e582da6b21add012a6a96c958487728f8382e855"
+    },
+    {
+      "path": "translations/ro.po",
+      "source_path": "translations/ro.po",
+      "git_blob": "277d9f649e8273819f81a58cb73e77b362dad46c",
+      "bytes": 146381,
+      "sha256": "e9f978be1690585351f07bc1feb2790c0e21f9bd881e61dba9f62ff095187c57"
+    },
+    {
+      "path": "translations/ru.po",
+      "source_path": "translations/ru.po",
+      "git_blob": "4da14a5952ab2b3339cc600430e858e42ce6d42c",
+      "bytes": 99998,
+      "sha256": "98968158e6dac7889712e42f1a701d33ae105b6e92bfb71b3ad618b7b0af5012"
+    },
+    {
+      "path": "translations/sr.po",
+      "source_path": "translations/sr.po",
+      "git_blob": "4386f94f05264adf0a0b42363c11a0f37decd912",
+      "bytes": 143336,
+      "sha256": "ba49cd80c6e9d511e8b584506e1b166334509bad562804a6e08f2d51e846e618"
+    },
+    {
+      "path": "translations/ta.po",
+      "source_path": "translations/ta.po",
+      "git_blob": "efe743912c0d9759a98aa4c4160a592163860ff4",
+      "bytes": 294677,
+      "sha256": "09f885f53e3bb511c823940557b1799196271ebb2fcfe5236717962b79949086"
+    },
+    {
+      "path": "translations/template.pot",
+      "source_path": "translations/template.pot",
+      "git_blob": "2c6deaed998829189f95b1b976e2700bb72e2837",
+      "bytes": 176210,
+      "sha256": "615b2aa44bfd20b2b536cae8a0b4575f92355c751a8c444c18a3047a10b0516b"
+    },
+    {
+      "path": "translations/tr.po",
+      "source_path": "translations/tr.po",
+      "git_blob": "1b1877f7895c0f5e8b431780bdc2b1fef15e90ec",
+      "bytes": 105781,
+      "sha256": "09af7488d5dde96c271f44157e24f65335eac0d4db8c2b00da0f24d895712a35"
+    },
+    {
+      "path": "translations/uk.po",
+      "source_path": "translations/uk.po",
+      "git_blob": "47851530f8b1b9ca97f994f11e552eb3b439bdc9",
+      "bytes": 148610,
+      "sha256": "7d85b78be406107e8e4b885565eabe5df108a9bba28da4b9ab9e4776ba90d56d"
+    },
+    {
+      "path": "translations/uz.po",
+      "source_path": "translations/uz.po",
+      "git_blob": "b4d2100c6ad36f51071e5c2b7a58f972bf6e10ab",
+      "bytes": 39559,
+      "sha256": "f699e7ee0e09a024d2b0c4a89a0de9f3d4f674724ec2382c6b5d7e0a07ae6a68"
+    },
+    {
+      "path": "translations/vi.po",
+      "source_path": "translations/vi.po",
+      "git_blob": "a26074fc339647e7f432f0bfe1394dc10e8695cf",
+      "bytes": 211384,
+      "sha256": "117e20f6b9aa6bcd5e53ed031ab878690a52c865f63699438a68281b610b88ed"
+    },
+    {
+      "path": "translations/zh-chs.po",
+      "source_path": "translations/zh-chs.po",
+      "git_blob": "272cb104bf630bf60f792b1be47c9666d0c2c82e",
+      "bytes": 170497,
+      "sha256": "d0d166a656ab81a2ccdc1c6008cd14119851e4d4d8b5fda4628e96104d053523"
+    },
+    {
+      "path": "translations/zh-cht.po",
+      "source_path": "translations/zh-cht.po",
+      "git_blob": "85cbb167c67b1f933eff325cd420908d0065cd15",
+      "bytes": 117592,
+      "sha256": "7815555bd7175f954ebbf8423560e42022d495e622ccf22353d67e91b3fbf7bb"
+    },
+    {
+      "path": "ui/buttons.js",
+      "source_path": "chromeApp/webapp/ui/buttons.js",
+      "git_blob": "be84413a370e3a7f662d8508a26a20f278c03bfc",
+      "bytes": 7343,
+      "sha256": "e6bf3fde924bd0aff2674772e9fcf1f18c3c433f56bbe97d1fb81c2b6c33e104"
+    },
+    {
+      "path": "ui/categories.js",
+      "source_path": "chromeApp/webapp/ui/categories.js",
+      "git_blob": "528110d800721bad77fcb9e03190f7d684496e98",
+      "bytes": 3414,
+      "sha256": "4c1ecdc1cee1fd031f291f51a3058e1946d7ae90c47922b57bf490866220f506"
+    },
+    {
+      "path": "ui/devtools.js",
+      "source_path": "chromeApp/webapp/ui/devtools.js",
+      "git_blob": "c3e38d3adc4d346a13188871a75fe882a2b68bfe",
+      "bytes": 3530,
+      "sha256": "b994aefa8286de97895443d5cda82e8071f6366722a342d44a82af68d11b1c72"
+    },
+    {
+      "path": "ui/elements.js",
+      "source_path": "chromeApp/webapp/ui/elements.js",
+      "git_blob": "508c476ee9b4a1750ee617be11cb898fb1c7fdbb",
+      "bytes": 910,
+      "sha256": "64ff31bd696c8faf0c202ef12a40a27200505089cc7a1adcfe22792840f58c5f"
+    },
+    {
+      "path": "ui/filebrowser.js",
+      "source_path": "chromeApp/webapp/ui/filebrowser.js",
+      "git_blob": "ade1c04352b4005498044f405727ef57c587665b",
+      "bytes": 11786,
+      "sha256": "f51e8b47f1ad83f8fdcc8b0b41de5405b859c8e81d12c7d2bc405483e8734e0a"
+    },
+    {
+      "path": "ui/gettext.js",
+      "source_path": "chromeApp/webapp/ui/gettext.js",
+      "git_blob": "9e15a57b6e6551165eb8114231025bb39e982220",
+      "bytes": 3829,
+      "sha256": "bea5280d64c24499a4c5ad9152b03e1cc4de2081e99802d83aae7d22568abdde"
+    },
+    {
+      "path": "ui/graph.js",
+      "source_path": "chromeApp/webapp/ui/graph.js",
+      "git_blob": "a39fc523897bcb954325e5dcd05dcc6b618c3b7e",
+      "bytes": 10093,
+      "sha256": "f5f66c54e3f42236bdc1b1a57ea34b165b499d63aa893eafbb8e69b83e0e3d89"
+    },
+    {
+      "path": "ui/ide.js",
+      "source_path": "chromeApp/webapp/ui/ide.js",
+      "git_blob": "3130cfc0a1457b08a28133be5190d70ce79ab470",
+      "bytes": 13613,
+      "sha256": "99b1feca4f73188b3e7e539c31e1bed200a7280066ba150f62668d3bd67f9a39"
+    },
+    {
+      "path": "ui/libraryinfo.js",
+      "source_path": "chromeApp/webapp/ui/libraryinfo.js",
+      "git_blob": "1ef0146855b9d5a08fb8448c9458c73f202dfecd",
+      "bytes": 7766,
+      "sha256": "cb91779a64d073effa28eea55d15bcf91990db1ff4dada530e6f3b7fe4273d3e"
+    },
+    {
+      "path": "ui/menus.js",
+      "source_path": "chromeApp/webapp/ui/menus.js",
+      "git_blob": "3a423a33c9f5cd8035f6f6868fdf6fc272e36448",
+      "bytes": 16956,
+      "sha256": "478b4cb276ef21ea606e8515f7309d7b06f9223b4995d955908a04a3a1772c3c"
+    },
+    {
+      "path": "ui/windows.js",
+      "source_path": "chromeApp/webapp/ui/windows.js",
+      "git_blob": "881f974246d618fa62c1f7748f99e75deee59ef4",
+      "bytes": 12311,
+      "sha256": "67e0fbf49a1369472ef266645b73505bc879215c0f8fd061f466d557bbdcdac3"
+    },
+    {
+      "path": "versions",
+      "source_path": "gp/runtime/versions",
+      "git_blob": "6dc18dec9d96bc79efe2e84cfcf02567d1653dc4",
+      "bytes": 18,
+      "sha256": "66c613bfc9cb4434ca764b6fa2cd191083f6dac6105f0359b32d2e1049482d53"
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 # MicroBlocks on Zephyr
 
+The [JavaScript editor migration](docs/JS_EDITOR_MIGRATION.md) is now staged
+separately, with a local `gp` preservation branch, an independently pinned
+upstream editor and a Linux compatibility layer. Existing GP/runtime pins
+remain available. This is experimental staging, not a published main migration.
+
 A multi-board development project to run **MicroBlocks SmallVM and the Arduino API
 alongside Zephyr RTOS**, with board-aware blocks for displays, sensors, buses, storage,
 wireless connectivity and other peripherals.

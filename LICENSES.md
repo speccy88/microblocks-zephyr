@@ -44,6 +44,16 @@ preserve its own licensing and attribution when integrated:
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
 
+The experimental JavaScript editor staging profile pins official Codeberg Git
+blobs independently in `dependencies/editor-js.json`. Its engine files remain
+unchanged. The generated package retains upstream source headers, the complete
+MPL text and `web/js-editor/THIRD_PARTY_NOTICES.md`. Snap-derived `mb-blocks.js`
+and `morphic.js` record explicit MIT licenses for use in MicroBlocks in their
+own headers; preserve those headers, including historical notices. Marked and
+FileSaver retain their MIT notices; usbDfuDevice retains its full ISC notice.
+Local compatibility scripts use MPL-2.0 and packaging tools use MIT. Packaging
+is local staging, not a claim of completed distribution/license acceptance.
+
 The P4 native camera port uses the pinned external Zephyr/Espressif HAL
 (Apache-2.0), without linking FreeRTOS or ESP-IDF camera/ISP RTOS drivers.
 `p4_csi.c` retains Espressif's Apache-2.0 notice for adapted CSI/ISP/DW-GDMA
