@@ -193,3 +193,8 @@ are newly authored MIT code. The native simulation-wrapper validator additions,
 UBL library/example and GP packaging changes retain MPL-2.0. Only protocol facts
 from pinned Pollen sources are used; no robot controller, gait, safety engine,
 motor driver or physics implementation is copied or redistributed.
+
+The read-only sensor-simulation backend, fixed fictional ToF/pad fixtures and
+Python tests are newly authored MIT code. Native validator, UBL/example and GP
+packaging additions retain MPL-2.0. Pinned protocol facts and zone interpretation
+are referenced; no Pollen/ST driver, firmware or device capture is redistributed.

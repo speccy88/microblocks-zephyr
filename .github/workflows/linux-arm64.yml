@@ -131,6 +131,7 @@ jobs:
               ('test_linux_microduck_gateway.py', ['Protocol', 'UnixGateway']),
               ('test_linux_microduck_preflight.py', ['PreflightHost', 'ReadOnlyPreflight']),
               ('test_linux_microduck_motion.py', ['MotionProtocol', 'MotionModel', 'MotionUnixBackend', 'MotionNativeAdapter']),
+                ('test_linux_microduck_sensors.py', ['SensorProtocol', 'SensorSamples', 'SensorUnixBackend', 'SensorNativeAdapter']),
               ('test_linux_microduck_simulator.py', ['ExplicitSimulation']),
               ('test_linux_microduck_vm.py', ['RealSmallVMMicroDuck']),
           ]

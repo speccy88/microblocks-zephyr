@@ -142,5 +142,28 @@
     "readiness": "reported health verdict and upstream IMU convergence/missing/frozen diagnostics;no universalready/motionauthorization",
     "schema": "See TYPED_READINGS.md; required,optional andserde(default) have distinct semantics",
     "io": false
+  },
+  "local_simulation_extensions": {
+    "abi_changed": false,
+    "methods": {
+      "motion": [
+        "microduck.motionSim.status",
+        "microduck.motionSim.run",
+        "microduck.motionSim.cancel"
+      ],
+      "sensors": [
+        "microduck.sensorSim.tof",
+        "microduck.sensorSim.axis",
+        "microduck.sensorSim.button"
+      ]
+    },
+    "libraries": [
+      "Motion_Simulation.ubl",
+      "Sensor_Simulation.ubl"
+    ],
+    "scope": "dedicated private simulation backends only; ordinary gateway rejects these local names",
+    "physical_movement_enabled": false,
+    "current_revision_tested": "local x86_64 ASan/UBSan VM and Unix fixtures; not Pi/ARM64 or graphical UBL",
+    "reply_summary_bytes": 760
   }
 }

@@ -205,6 +205,21 @@ class RealPinnedEditor(unittest.TestCase):
         core = unpack_package((self.output / 'gp_wasm.js').read_bytes(), (self.output / 'gp_wasm.data').read_bytes())
         self.assertNotIn('/Libraries/MicroDuck_Motion_Simulation.ubl', core)
 
+    def test_sensor_simulation_library_and_read_only_example_are_embedded(self):
+        output = self.output.parent / 'sensor-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output / 'gp_wasm.js').read_bytes(), (output / 'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Sensor_Simulation.ubl'], (REPO / 'linux/microduck/Sensor_Simulation.ubl').read_bytes())
+        self.assertIn(b'MicroDuck Sensor Simulation', files['/runtime/lib/MicroBlocksAPI.gp'])
+        example = files['/Examples/Linux/microduck-sensor-simulation.ubp']
+        self.assertTrue(example.startswith((REPO / 'linux/microduck/sensor-simulation.ubp').read_bytes()))
+        self.assertIn(b'(microduckSimDepthZone 1 1)', example)
+        self.assertNotIn(b'microduckSimMotionRun', example)
+        core_output = self.output.parent / 'sensor-core-editor'
+        build(self.source, core_output, REPO, 'raspberry-pi5')
+        core = unpack_package((core_output / 'gp_wasm.js').read_bytes(), (core_output / 'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Sensor_Simulation.ubl', list(core))
+
 
 if __name__ == '__main__':
     unittest.main()

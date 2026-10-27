@@ -104,3 +104,11 @@ the current sanitizer build, real VM bytecode/PTY and private Unix gateway, but
 all motion frames remain internal simulation records. The separate packaging
 test verifies the new library/status-only example in the actual pinned GP data.
 These tests neither exercise physical motion nor graphical UBL compilation.
+
+The sensor follow-up adds SensorProtocol, SensorSamples, SensorUnixBackend and
+SensorNativeAdapter to the checked selection. Twenty-one focused tests include
+four cases through actual native VM bytecode and PTY, plus bounded source-shaped
+Unix stream fixtures and CLI cleanup. These establish simulated depth-zone,
+raw-axis and button read paths, not physical sensor input or graphical execution.
+Packaging uses independent outputs so a previous MicroDuck rebuild cannot be
+mistaken for the default Pi profile. All existing assertions remain in place.

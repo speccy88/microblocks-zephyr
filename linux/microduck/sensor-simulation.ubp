@@ -1,0 +1,9 @@
+module main
+description 'SIMULATION ONLY. Read a fictional depth zone and raw gamepad events from the dedicated private sensor simulator. No robot control or real device connection.'
+
+script 20 20 {
+    whenStarted
+    sayIt (microduckSimDepthZone 1 1)
+    sayIt (microduckSimPadAxis 0)
+    sayIt (microduckSimPadButton 304)
+}

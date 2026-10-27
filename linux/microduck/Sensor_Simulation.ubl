@@ -1,0 +1,18 @@
+module 'MicroDuck Sensor Simulation' Input
+
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Depends on MicroDuck library and sensor_simulator.py private fake services. Reads a bounded first frame on a new documented tof.stream or pad.input subscription. Results are JSON with explicit status and simulation flag; only ok has a value. Missing, absent, no_target, unusable, dropped and no_event are never zero. Depth uses 1..8 row/column and millimetres; gamepad selects raw evdev codes and declared ranges without normalization. Button autorepeat is held. Timestamps/sequence/drop counters are decimal strings, not VM numbers. These local sensorSim names are project wrappers, not Pollen methods. No continuous cache, pad IMU, robot commands, automatic driving, real endpoint or hardware validation. Historical Pi binaries lack these new names; rebuild with paired library. Graphical execution unverified.'
+spec 'r' 'microduckSimDepthZone' 'SIMULATION depth row _ col _ JSON' 'num num' 1 1
+spec 'r' 'microduckSimPadAxis' 'SIMULATION gamepad axis code _ JSON' 'num' 0
+spec 'r' 'microduckSimPadButton' 'SIMULATION gamepad button code _ JSON' 'num' 304
+
+to microduckSimDepthZone row col {
+    return (microduckRequest 'microduck.sensorSim.tof' ('[data:join]' '{"row":' row ',"col":' col '}') false)
+}
+to microduckSimPadAxis code {
+    return (microduckRequest 'microduck.sensorSim.axis' ('[data:join]' '{"code":' code '}') false)
+}
+to microduckSimPadButton code {
+    return (microduckRequest 'microduck.sensorSim.button' ('[data:join]' '{"code":' code '}') false)
+}

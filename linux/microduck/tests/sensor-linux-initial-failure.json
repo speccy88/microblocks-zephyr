@@ -1,0 +1,12 @@
+{
+  "result": "FAIL",
+  "tests": 249,
+  "failures": 1,
+  "seconds": 140.433,
+  "raw_capture": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\sensor-linux.txt",
+  "raw_sha256": "ba64b5e71517d6c422cc578fd0c3789974bfdcc1dc0083a4f131fa9404095538",
+  "raw_bytes": 12656592,
+  "cause": "new packaging test reused shared output already rebuilt by earlier ownership test as MicroDuck",
+  "fix": "explicit fresh raspberry-pi5 core-profile output; production code unchanged",
+  "raw_capture_dictionary_truncated_in_git": true
+}

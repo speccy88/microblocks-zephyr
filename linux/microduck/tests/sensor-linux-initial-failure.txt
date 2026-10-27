@@ -1,0 +1,13 @@
+FAIL: test_sensor_simulation_library_and_read_only_example_are_embedded (test_linux_editor_assets.RealPinnedEditor.test_sensor_simulation_library_and_read_only_example_are_embedded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_editor_assets.py", line 219, in test_sensor_simulation_library_and_read_only_example_are_embedded
+    self.assertNotIn('/Libraries/MicroDuck_Sensor_Simulation.ubl', core)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: expected sensor library absent in shared core output; prior test had rebuilt it as microduck. Full dictionary omitted here; raw capture retained locally.
+\n'}
+
+----------------------------------------------------------------------
+Ran 249 tests in 140.433s
+
+FAILED (failures=1)

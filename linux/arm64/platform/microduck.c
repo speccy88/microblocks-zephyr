@@ -186,7 +186,7 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
@@ -201,7 +201,11 @@ static const Method methods[] = {
     /* Local simulation wrappers only. robot.move itself remains unavailable. */
     {"microduck.motionSim.status",PARAM_EMPTY,0},
     {"microduck.motionSim.run",PARAM_MOTION_SIM,1},
-    {"microduck.motionSim.cancel",PARAM_EMPTY,0}
+    {"microduck.motionSim.cancel",PARAM_EMPTY,0},
+    /* Read-only local sensor simulation wrappers, not real daemon streams. */
+    {"microduck.sensorSim.tof",PARAM_SENSOR_ZONE,0},
+    {"microduck.sensorSim.axis",PARAM_SENSOR_CODE,0},
+    {"microduck.sensorSim.button",PARAM_SENSOR_CODE,0}
 };
 static const Method *findMethod(const char *name) {
     for (size_t i = 0; i < sizeof(methods) / sizeof(methods[0]); ++i) if (!strcmp(name, methods[i].name)) return &methods[i];
@@ -221,6 +225,8 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_ENABLE: keys[count++]="on"; keys[count++]="toggle"; break;
         case PARAM_POLICY: keys[count++]="slot"; keys[count++]="path"; break;
         case PARAM_MOTION_SIM: keys[count++]="vx_mm_s"; keys[count++]="vy_mm_s"; keys[count++]="vyaw_mrad_s"; keys[count++]="duration_ms"; break;
+        case PARAM_SENSOR_ZONE: keys[count++]="row"; keys[count++]="col"; break;
+        case PARAM_SENSOR_CODE: keys[count++]="code"; break;
     }
     if (!objectKeys(params, keys, count)) return 0;
     yyjson_val *value;
@@ -259,6 +265,9 @@ static int validParams(const Method *method, yyjson_val *params) {
                 && integerBetween(yyjson_obj_get(params,"vy_mm_s"),-300,300)
                 && integerBetween(yyjson_obj_get(params,"vyaw_mrad_s"),-1500,1500)
                 && integerBetween(yyjson_obj_get(params,"duration_ms"),100,2000);
+        case PARAM_SENSOR_ZONE:
+            return integerBetween(yyjson_obj_get(params,"row"),1,8) && integerBetween(yyjson_obj_get(params,"col"),1,8);
+        case PARAM_SENSOR_CODE: return integerBetween(yyjson_obj_get(params,"code"),0,65535);
     }
     return 0;
 }

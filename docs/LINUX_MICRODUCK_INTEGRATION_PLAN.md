@@ -245,3 +245,21 @@ intentionally gains the simulation library/example; the six other profiles and
 every hardware-connection flag must remain unchanged. Do not attach the local
 simulation wrapper methods to the real gateway or production BLE console.
 Publication and final binary/library pairing remain held for P4 coordination.
+
+## ToF and gamepad follow-up
+
+The [sensor contract](../linux/microduck/SENSOR_SIMULATION.md) adds a separate
+simulation library and three read-only local wrapper names. Its private fake
+tofd/padd speak the documented subscription envelopes over real verified Unix
+sockets. The reader consumes one bounded first frame; raw axis ranges, key
+semantics, missing/dropped data and timestamp precision remain explicit. There
+is no live endpoint, cached driving input or production gateway expansion.
+
+The C validator changed again; current tests require the new sensor-native
+sanitizer binary and its exact source manifest. Motion/viewer and earlier Pi
+artifacts remain historical. Final ARM64 build/library pairing, authorized Pi
+acceptance and graphical UBL execution remain outstanding. The MicroDuck GP
+profile gains the separate library/read-only example; preserve all six other
+profiles, hardware flags and release/publication gates. The
+[four-service matrix](MICRODUCK_SERVICE_CAPABILITIES.md) identifies native
+camera binary frames, audio/relay, head/pad IMU and robot control gaps.

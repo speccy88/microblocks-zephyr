@@ -1,0 +1,92 @@
+{
+  "recorded_at": "2026-10-27T15:11:23.975925+00:00",
+  "result": "PASS within simulated ToF/pad and local x86_64 native scope",
+  "base_commit": "8904aa3f3bf03373af49fa869355c419d3ff86eb",
+  "branch": "codex/pi5-watch-integration-20261027",
+  "focused": {
+    "tests": 21,
+    "native_vm_cases": 4,
+    "skipped": 0,
+    "seconds": 3.136
+  },
+  "full_linux": {
+    "tests": 249,
+    "skipped": 0,
+    "seconds": 142.033,
+    "mode": "full unchanged tools/validate.py discovery; documented verified external sanitizer binary inputs for both VM suites",
+    "provenance": "sensor-native-provenance.json"
+  },
+  "selected_node": {
+    "tests": 243,
+    "skipped": 0,
+    "milliseconds": 981.5233,
+    "suites": 14
+  },
+  "initial_packaging_test_failure": "sensor-linux-initial-failure.json",
+  "packaging": "sensor-packaging.json",
+  "native_scenario": "sensor-scenario.json",
+  "source_audit": "sensor-source.json",
+  "log_captures": {
+    "sensor-focused.txt": {
+      "raw_sha256": "f24a4cfcf293d13abc235c13b13a430ac47f4782e82f2e20a4a0d77540b6850b",
+      "retained_sha256": "0d8a497093cd5d678a7512e665588eb32a0bea5913bca296c4c5ceece67496cf",
+      "raw_bytes": 3749,
+      "retained_bytes": 3722,
+      "normalization": "CRLF to LF until stable; no other content edit",
+      "passes": 1
+    },
+    "sensor-linux.txt": {
+      "raw_sha256": "b95ef361513d5b47f30c3f19c198561d7efc99afce5d370bfb2fd7093b6996d4",
+      "retained_sha256": "6d6849666c239157fd8478b195421c6c5eeea981245ed7603d8fa4208a89884c",
+      "raw_bytes": 44666,
+      "retained_bytes": 44403,
+      "normalization": "CRLF to LF until stable; no other content edit",
+      "passes": 1
+    },
+    "sensor-node.txt": {
+      "raw_sha256": "aba282bbb6a58c13dd1053b8224ab343912645dbbf66ac2cbc93a7590d41738b",
+      "retained_sha256": "aca593259b4fd1cfbc4900ad1781ebeeb385a239cc773d91df6c8f4e81ff6b44",
+      "raw_bytes": 57429,
+      "retained_bytes": 55961,
+      "normalization": "CRLF to LF until stable; no other content edit",
+      "passes": 1
+    },
+    "sensor-native-build.txt": {
+      "raw_sha256": "40a969bb78495ba88dd4d4ba82b266b83463d19e6aaf50403e43d3ded13a4259",
+      "retained_sha256": "1c650ac8dc74a2a4edb48cee3155ce02609a0fdfcea7fb5c0856a103038bde30",
+      "raw_bytes": 9601,
+      "retained_bytes": 9475,
+      "normalization": "CRLF to LF until stable; no other content edit",
+      "passes": 1
+    }
+  },
+  "source_sha256": {
+    ".github/workflows/linux-arm64.yml": "a82811cd65e3cda0d46305cc521de621af28cea34bcc48054edf6dfd2e3a2ba1",
+    "LICENSES.md": "92d8954460ac3a74c4e93a2f14ab7fa63c9557ba71fb3f0726594e43f4318668",
+    "docs/LINUX_CI.md": "1372a8151972d1e9938e328d497f09b62f9f5405cfa95c3e90d1fd2a7e9ce2b8",
+    "docs/LINUX_MICRODUCK_INTEGRATION_PLAN.md": "56a6bc259e563b32ba528df3e0be0d5254a8801ab6156d23911c0b3d1c29d670",
+    "docs/MICRODUCK_REMAINING_OBJECTIVES.md": "7b8190fa5bd94ba69443da779d98d5fe48ee2d489ca776b7b57a0c65d963e81e",
+    "docs/MICRODUCK_SERVICE_CAPABILITIES.md": "156c3e7a3d183b2c868a0c6db41078d754f58d253be98fbec3f9dfec665b315f",
+    "docs/PI5_MICRODUCK_STATUS.md": "70e5fa7fc2909967dc2982b5abc6d43bce49f434346969846472c413d40cfaa9",
+    "linux/arm64/platform/microduck.c": "c2ef2f264b5f00e7a927d1db403e44cc745ebf3ba7e2568c2829aa9c3acc2c8d",
+    "linux/microduck/README.md": "5fd0bb84e02bf6343b68a62ec24ef4d118c9fdf6e5f5ce8087a24fc3962a3275",
+    "linux/microduck/SENSOR_SIMULATION.md": "96c74db91b5725824da18757d4482e21f310fec470361a679cce520fe3cf8139",
+    "linux/microduck/Sensor_Simulation.ubl": "2a132c9cab93601b9ab34b108cf27884448ba7ecb1399821d2db736dd0b69ab1",
+    "linux/microduck/sensor-simulation.ubp": "877123b0c534961d26996944f0d96de3ed0368009c460d3568274101b04843e9",
+    "linux/microduck/sensor_simulator.py": "a1985cf83b96156be9c52abf3b8dabb36501c73c0e6684a69b3ec2a53f49e314",
+    "linux/microduck/vm-contract.json": "bbe273d3e3472d8d66a78978262d9fa5d06613431c74f8b2095b94bdfedf7959",
+    "tests/test_linux_editor_assets.py": "2b62e1026dcdc286f39b7c45d93fe6e50ab89e13d8b575a7570bf614a1e26350",
+    "tests/test_linux_microduck_sensors.py": "80a1df4624bcd528204529672b14aafb800dc17337638c2535987915f78e9fbe",
+    "tools/linux_editor_assets.py": "854f537724c1e86666a1e9d3686da4d5d59cbfe032ed293e8fd7e0b73256f67f"
+  },
+  "native_c_changed": true,
+  "current_pi_arm64_revision_tested": false,
+  "graphical_ubl_execution_tested": false,
+  "physical_sensor_or_gamepad_tested": false,
+  "live_endpoint_supplied": false,
+  "physical_movement_enabled": false,
+  "ble_confidentiality_gate_changed": false,
+  "denied_operations_retried": false,
+  "p4_checkout_accessed": false,
+  "published": false
+}

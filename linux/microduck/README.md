@@ -269,3 +269,11 @@ identity, policy/skill discovery and battery checks; then separately obtain
 action-time operator approval for sound and
 movement. Physical gait safety, real sensors, robot service recovery and actual
 motion remain untested. The existing 23 BLE mock tests are separate and unchanged.
+
+## Read-only sensor simulation
+
+The additive [Sensor Simulation](SENSOR_SIMULATION.md) library supplies separate
+depth-zone, raw-axis and button JSON read blocks against fixed private fake
+tofd/padd streams. All values are fictional. The
+[four-service matrix](../../docs/MICRODUCK_SERVICE_CAPABILITIES.md) tracks the
+remaining robotd/mediad/tofd/padd block families and physical acceptance gates.

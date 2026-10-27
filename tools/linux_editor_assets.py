@@ -76,13 +76,15 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
     source, match, metadata = package_metadata(javascript, data, pinned=True)
     if type(microduck) is not bool:
         raise ValueError('MicroDuck library selection must be explicit')
-    library = example = motion_library = motion_example = None
+    library = example = motion_library = motion_example = sensor_library = sensor_example = None
     if microduck:
         root = Path(repo) if repo is not None else Path(__file__).resolve().parents[1]
         library = (root / 'linux/microduck/MicroDuck.ubl').read_bytes()
         example = (root / 'linux/microduck/health.ubp').read_bytes() + b'\n' + library
         motion_library = (root / 'linux/microduck/Motion_Simulation.ubl').read_bytes()
         motion_example = (root / 'linux/microduck/motion-simulation.ubp').read_bytes() + b'\n' + library + b'\n' + motion_library
+        sensor_library = (root / 'linux/microduck/Sensor_Simulation.ubl').read_bytes()
+        sensor_example = (root / 'linux/microduck/sensor-simulation.ubp').read_bytes() + b'\n' + library + b'\n' + sensor_library
     packed = bytearray()
     entries = []
     counts = {'api': 0, 'compiler': 0, 'library': 0, 'arithmetic': 0, 'output': 0}
@@ -114,8 +116,10 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Linux.ubl')\n"
                     b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck' '' }\n"
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Motion_Simulation.ubl')\n"
-                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Motion Simulation' '' }")
-                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation'")
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Motion Simulation' '' }\n"
+                    b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Sensor_Simulation.ubl')\n"
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Sensor Simulation' '' }")
+                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation' 'microduck-sensor-simulation'")
             payload = replace_once(payload, b"} (endPoint == 'project.save') {", PROJECT_API + b"} (endPoint == 'project.save') {")
             counts['api'] += 1
         if name == '/Libraries/UNO_Q_Hardware.ubl':
@@ -145,7 +149,9 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
     if microduck:
         for name, payload in (('/Libraries/MicroDuck_Linux.ubl', library), ('/Examples/Linux/microduck-health.ubp', example),
                               ('/Libraries/MicroDuck_Motion_Simulation.ubl', motion_library),
-                              ('/Examples/Linux/microduck-motion-simulation.ubp', motion_example)):
+                              ('/Examples/Linux/microduck-motion-simulation.ubp', motion_example),
+                              ('/Libraries/MicroDuck_Sensor_Simulation.ubl', sensor_library),
+                              ('/Examples/Linux/microduck-sensor-simulation.ubp', sensor_example)):
             if name in {item['filename'] for item in entries}:
                 raise ValueError('MicroDuck virtual file already exists: ' + name)
             start = len(packed); packed.extend(payload)

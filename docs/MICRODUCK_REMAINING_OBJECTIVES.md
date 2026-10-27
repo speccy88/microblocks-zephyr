@@ -8,8 +8,10 @@ fakes. They open no live camera, signaling endpoint or robot connection.
 The physical robot has not arrived.
 
 The [four-service matrix](MICRODUCK_SERVICE_CAPABILITIES.md) makes the requested
-robotd/mediad/tofd/padd block coverage explicit and identifies missing depth and
-raw gamepad blocks separately from the existing health/configuration reporters.
+robotd/mediad/tofd/padd block coverage explicit. Separate simulated depth-zone,
+raw-axis and button JSON blocks now consume bounded source-shaped Unix streams;
+live commissioning, coherent whole-frame access and native numeric convenience
+remain gaps. These differ from the existing health/configuration reporters.
 
 | Brief objective | Remaining work | Kind and next acceptance |
 |---|---|---|

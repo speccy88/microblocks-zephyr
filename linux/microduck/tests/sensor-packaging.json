@@ -1,0 +1,58 @@
+{
+  "result": "PASS",
+  "scope": "actual local pinned GP bytes and package; no graphical execution or deployment",
+  "profiles": 7,
+  "six_profiles_unchanged": [
+    "fruit-jam",
+    "waveshare",
+    "xrp-rp2350",
+    "propeller2",
+    "esp32p4",
+    "raspberry-pi5"
+  ],
+  "comparison_with_motion_package": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": false,
+      "gp_data_sha256": false,
+      "hardware_connection_enabled": true
+    }
+  },
+  "all_connection_flags_preserved": true,
+  "microduck_change": "intentional separate sensor library import and read-only example; primitive set remains22",
+  "library_sha256": "2a132c9cab93601b9ab34b108cf27884448ba7ecb1399821d2db736dd0b69ab1",
+  "example_sha256": "066fb55090d5ee0fff7d9911831c58311334ecc93115b5342f9717971f332c78",
+  "existing_camera_console_commissioning_and_security_assets_unchanged": true,
+  "current_licenses_copied": true,
+  "release_available": false,
+  "published": false
+}
