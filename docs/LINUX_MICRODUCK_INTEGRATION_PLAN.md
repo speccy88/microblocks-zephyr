@@ -19,6 +19,7 @@ portal/editor changes or push an older local main over newer remote work.
 | `af742e8` | Additive native CI and local execution reports | Explicit architecture/pins, skip/empty-suite guards, no publication; hosted runs remain untested. |
 | `87f0bbc` | Requirements/status/checklist and release receipts | Six requested guides, physical/simulated/blocked matrix, publication/conflict gates and final validation index. |
 | Typed-readings checkpoint following `87f0bbc` | Two pure converters, source-backed sensor/readiness records, library0.2 and eighteen feature tests | Preserve signed31 scaling, optional/default/invalid semantics, simulation origin and GC roots. New VM and library must travel together. Graphical typed-example execution remains unverified. |
+| Protected-console checkpoint following `1876772` | Production controller/panel, explicit in-memory fixture, portal link and CI | Strict JSON, confidential-only structured secrets, one-use confirmation, fresh skills, unknown outcomes/no replay. No actual robot or Edge-control request used in acceptance. |
 
 Use `git log --reverse --format=fuller 9db5c3f..HEAD` and `git diff --stat
 9db5c3f..HEAD` in this checkout for exact final identities. The candidate's
@@ -148,3 +149,9 @@ native control of Edge window18679338 via `cua.getApp` timed out awaiting app
 approval. It was not retried or bypassed. The new editor loads the example and
 connects to its fresh Pi VM, but graphical compilation/execution was not verified.
 This does not block the completed native bytecode, fixture or repository tests.
+
+The protected console is tested independently through actual RPC/core/UI modules
+with mock DOM/GATT. It does not retry that native Edge-control request. Its
+graphical browser and deployed Pages acceptance remain unverified. A separate
+`build-artifacts/pi5-microduck-console.bundle` retains this checkpoint. The
+native C/header and the typed VM binaries are unchanged in this UI-only phase.

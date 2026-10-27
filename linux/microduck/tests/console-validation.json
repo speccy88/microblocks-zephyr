@@ -1,0 +1,49 @@
+{
+  "tested_at": "2026-10-27T10:09:30.220Z",
+  "scope": "protected console implementation and simulated acceptance independent of unavailable Edge control",
+  "selected_node": {
+    "result": "PASS",
+    "tests": 139,
+    "skipped": 0,
+    "new_console_tests": 48,
+    "core": 14,
+    "fixture": 15,
+    "panel": 19,
+    "log_sha256": "708db8beac3773aaeea2dad952af6c6de4679f2c048f5f8889bd7698f7d1735f"
+  },
+  "required_linux_validator": {
+    "result": "PASS",
+    "tests": 181,
+    "skipped": 0,
+    "seconds": 246.215,
+    "log_sha256": "0a7d1b4db7efe22b0a48eedb285f95258d2b305412f79eef4ff0ed2d4d663dcd"
+  },
+  "scenario": "console-scenario.json",
+  "coverage": "console-command-coverage.json",
+  "raw_methods": 27,
+  "structured_credential_methods": 2,
+  "physical_microduck": false,
+  "real_bluetooth_permission_requested": false,
+  "edge_control_retried": false,
+  "graphical_browser_acceptance": false,
+  "published": false,
+  "native_source_changed": false,
+  "native_c_sha256": "51b3eb9e01132607dd0a29b6ab7ed01aab02c86c6e5be4a0ebe178709bdd7318",
+  "native_header_sha256": "49f7ad14358c9d9bec1baa1f681b6e9cced046788c174548307897dc6684da9b",
+  "source_sha256": {
+    "web/microduck/console-core.js": "e8f57f32337486b7f8e84a904678344ba08ad0e2d65fbd636e20e1d184715dbd",
+    "web/microduck/console-fixture.js": "99f3f2a1bc3e7a559bccb7dacad46e67f43a6fd333b9ff75d86c0aa7972de583",
+    "web/microduck/console-panel.js": "9816631b094d90e1477444dd1eb40e8a4e7724eb1eb444967bde094092affc4b",
+    "web/microduck/console.html": "c5bf1163ab02f7118e730078ac7478f3f4a13c2f83bfd1bfe5a5f4c73aa2fe8b",
+    "web/microduck/commands.js": "f0b13ff353480a63e325d52d29055c2f41ce42065c7a6035a0dd536e0108f9dd",
+    "web/microduck/rpc.js": "3ebe363d96892c067ee89b26b81b9cbace33a142dd4ca1f75b3904976ae2b6c1",
+    "web/microduck/bluetooth.js": "2d8f4bd0d7ad1a35676aee547d7d8e8ccad9945d0cc8133b1e2b90f769c1cfbd"
+  },
+  "limitations": [
+    "Actual Web Bluetooth confidentiality unverified: authentication/provisioning/protected commands blocked",
+    "No secure bridge implemented",
+    "Graphical browser and physical robot behavior unverified",
+    "Hosted CI, publication, user service and reboot acceptance pending",
+    "Private future confidential-client attachment needs independent transport verification"
+  ]
+}

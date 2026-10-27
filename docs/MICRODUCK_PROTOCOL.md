@@ -106,6 +106,14 @@ account login and raw sensor streaming are not implemented here.
 
 ## Hardware validation still required
 
+The [standalone protected console](../linux/microduck/CONSOLE.md) wraps this
+existing client with strict bounded JSON preparation, one-use confirmations,
+current skill discovery, explicit unknown outcomes and ephemeral redacted text.
+It excludes `update.subscribe` and all secret methods from the raw editor;
+credentials have a separate confidential-only path. Its Web Bluetooth client
+remains confidential:false, so real protected operations stay blocked. The
+in-memory fixture and mock-DOM tests are separate from real robot acceptance.
+
 Verify shipping firmware identity/API version, secure provisioning design,
 desktop Chrome/Edge chooser and GATT behavior, notifications across MTUs,
 authentication and reconnect, actual command refusals, health/battery fields,

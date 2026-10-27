@@ -28,7 +28,8 @@
   const confidentiality=make('p','microduck-confidentiality','Web Bluetooth does not establish link confidentiality for this client. Authentication and Wi-Fi provisioning remain unavailable here; use the robot’s trusted local console until secure transport and hardware validation are completed.');
   const docs=make('a','','Read MicroDuck protocol coverage and security limits');docs.href='https://github.com/speccy88/microblocks-zephyr/blob/main/docs/MICRODUCK_PROTOCOL.md';docs.target='_blank';docs.rel='noopener noreferrer';
   const simulation=make('a','microduck-simulation-link','Open the fictional commissioning simulation');simulation.href='microduck/simulation.html';simulation.target='_blank';simulation.rel='noopener noreferrer';
-  panel.append(heading,validation,status,name,version,actions,scope,confidentiality,docs,simulation);container.append(panel);
+  const consoleLink=make('a','microduck-console-link','Open the protected API 44 console');consoleLink.href='microduck/console.html';consoleLink.target='_blank';consoleLink.rel='noopener noreferrer';
+  panel.append(heading,validation,status,name,version,actions,scope,confidentiality,docs,simulation,consoleLink);container.append(panel);
   let disposed=false,generation=0,busy=false,cancelled=false,pendingDevice=null,session=null;
 
   function updateButtons(){discover.disabled=!supported||busy||disposed;discover.textContent=session?'Choose another MicroDuck':'Discover MicroDuck';disconnect.disabled=disposed||(!session&&!busy)||cancelled;}

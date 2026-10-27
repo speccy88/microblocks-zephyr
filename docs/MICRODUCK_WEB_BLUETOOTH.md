@@ -27,6 +27,16 @@ confirmed mock actions are fictional; they must not be presented as robot tests.
 See the [simulation guide](../linux/microduck/docs/commissioning-browser.md)
 for startup and test details.
 
+The separate [protected console](../linux/microduck/CONSOLE.md), linked from the
+discovery card, now provides27 reviewed raw commands plus structured
+authentication/provisioning. It starts detached, prepares requests locally,
+requires one-use mutation confirmation and rechecks advertised skills. Its
+in-memory fixture exercises all29 nonstreaming methods, including simulated
+updates. Real Web Bluetooth still has no PIN/PSK form and cannot authenticate
+or send protected requests. There is no confidentiality override or new bridge.
+Node/mock DOM tests validate the implementation; graphical browser and physical
+device acceptance remain unperformed.
+
 Use a supported browser in a secure context for physical Web Bluetooth. iPhone
 Safari does not provide the normal Web Bluetooth workflow. The real chooser,
 pairing/encryption settings, shipping API version, radio fragmentation and
