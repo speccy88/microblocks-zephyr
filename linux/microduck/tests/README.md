@@ -45,3 +45,23 @@ The demo backend defaults to read-only. The retained graphical test issued no
 sound or skill request. Physical MicroDuck commissioning, shipping API/OS
 compatibility, sensors, motion safety, full OS reboot and release publication
 remain separate gates.
+
+## Commissioning and delivery preparation checkpoint
+
+The later local browser lab is a separate in-memory simulation. It passed
+14 new Node tests and actual Edge UI checks for fictional identity/battery,
+network/sound/skill confirmation, consumed checkboxes and reset. It never uses
+BLE, a robot socket or the native VM. See [guide](../docs/commissioning-browser.md),
+[scoped report](browser-commissioning.json) and
+[packaging regression comparison](commissioning-packaging-regression.json).
+All seven editor JavaScript/data hashes remained unchanged when the lab was added.
+
+Final required Linux validation passed **173 tests with zero skips**; the final
+selected Node run passed **91 tests with zero skips**. The additive CI workflow's
+embedded local WSL selection passed 100 tests without skips plus its real
+sanitizer VM and native fixtures. These are local results; no hosted CI run is
+claimed. [Validation summary](commissioning-validation.json) retains log hashes
+and links to the source-candidate/Pi rebuild receipts. The full
+[status matrix](../../../docs/PI5_MICRODUCK_STATUS.md) and
+[integration plan](../../../docs/LINUX_MICRODUCK_INTEGRATION_PLAN.md) include
+remaining work and the two untouched denied actions.
