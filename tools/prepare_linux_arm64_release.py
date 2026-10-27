@@ -160,7 +160,8 @@ def prepare_candidate(*, binary_path, manifest_path, report_path, upstream, outp
                            b'No hardware MicroDuck compatibility, OS reboot, service or publication is claimed.\n')
     source_raw = archive_bytes(entries, epoch)
     source_name = 'smallvm-' + version + '-source.tar.gz'
-    binary_name = 'smallvm-' + version + '-linux-aarch64.tar.gz'
+    # Must match the installer's and portal's immutable download convention.
+    binary_name = 'smallvm-linux-arm64-' + version + '.tar.gz'
     package_provenance = {key: provenance[key] for key in ('port_commit', 'prepared_source_sha256', 'native_report_sha256')}
     package_provenance['source_archive_sha256'] = digest(source_raw)
     # All validation happens before publication into a fresh local output folder.
@@ -174,6 +175,22 @@ def prepare_candidate(*, binary_path, manifest_path, report_path, upstream, outp
                       'uninstall-smallvm-linux-arm64.sh': recipe['scripts/uninstall-smallvm-linux-arm64.sh']}.items():
         (output / name).write_bytes(raw)
         artifacts[name] = digest(raw)
+    notes = (f'# SmallVM Linux ARM64 {version} - unpublished candidate\n\n'
+             f'Port commit: `{commit}`. Upstream v417: `{COMMIT}`.\n\n'
+             f'Executable SHA-256: `{digest(binary)}`. Binary archive SHA-256: `{binary_sha}`.\n\n'
+             'A native ordinary AArch64 build passed the retained interpreter/PTY report. '
+             'The accompanying source archive contains the exact prepared sources, licenses, '
+             'dependency notices and recipe. Check SHA256SUMS before use.\n\n'
+             'Install a locally reviewed archive with the accompanying installer:\n\n'
+             f'```sh\nbash install-smallvm-linux-arm64.sh --version {version} --sha256 {binary_sha} --archive /absolute/{binary_name}\n```\n\n'
+             'Reinstallation/upgrade preserves the program data directory. Uninstall retains '
+             'programs and old versions. The optional user service is a separate untested '
+             'runtime gate. OS reboot, other ARM64 boards, physical MicroDuck, shipping '
+             'daemon compatibility, BLE confidentiality and published installation remain '
+             'unverified. Inspect the ELF glibc requirements on each target; AArch64 alone '
+             'does not establish compatibility. This candidate is not published.\n')
+    (output / 'RELEASE-NOTES.md').write_bytes(notes.encode())
+    artifacts['RELEASE-NOTES.md'] = digest(notes.encode())
     candidate = dict(provenance, version=version, architecture='linux-aarch64', available=False,
                      published=False, source_archive_sha256=digest(source_raw), artifacts=artifacts,
                      limitations=['User-service and OS reboot acceptance pending', 'No physical MicroDuck',

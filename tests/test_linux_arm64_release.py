@@ -93,7 +93,7 @@ class ReleaseContracts(unittest.TestCase):
                 for line in (work / 'a/SHA256SUMS').read_text().splitlines():
                     checksum, name = line.split('  ')
                     self.assertEqual(checksum, release.digest((work / 'a' / name).read_bytes()))
-                package = work / 'a/smallvm-v417-fixture-linux-aarch64.tar.gz'
+                package = work / 'a/smallvm-linux-arm64-v417-fixture.tar.gz'
                 with tarfile.open(package) as archive:
                     metadata = json.load(archive.extractfile('manifest.json'))
                     self.assertEqual(metadata['provenance']['port_commit'], '1' * 40)
