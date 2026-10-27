@@ -1,0 +1,20 @@
+{
+  "assessment.json": "fa98462eeca033a01f1e3c8e724bc7ba057244f2c601a15b68c62caf7bab308d",
+  "capture-conversions.json": "ba7e46ed4eb0f864c07b1d08b418b838633813e199fab8e94aeb77bbf188978a",
+  "integration-package.json": "67f7e5aa90263c0e87bc925a8818ce28c879ddfe0f3619b6499841f4cd83b3f8",
+  "linux-validator.txt": "6c2bf2863795c4a86c2f35665fec06573fb530920fb0d51a8e75cc8f5325988e",
+  "node-selected.txt": "b19feff20641b16ab3aee0bdef7986fdab12dec7722b4623aa9d5262a36982b2",
+  "p4-transport-recovery.txt": "5d4f813d69a84a58b587aebbb1cd39f38c0fc1d84ac0894bc0ac43489f7f7391",
+  "packaging.json": "e7459485d47fdca4156a576264155508f1b58c29a827b7d6e09af08b2301a218",
+  "pages-initial-attempt.txt": "771d2bc055bcccd38857427f705811f1c4e252509abe2667ac9bed85d9295a31",
+  "pi-microduck-ordinary.json": "89b68b62f23a62dc3232d633c255f0070b2af21175e838c458f2464f5edc3fff",
+  "pi-microduck-ordinary.txt": "6d2b91d71a1c6b868fec4802991900c5dfa702b4c62d62c67b33f307f037f1c5",
+  "pi-microduck-sanitizers.json": "c360075ba20eb23584cf54626fc6ca89783748826d79af7df45d370e3545a141",
+  "pi-microduck-sanitizers.txt": "135c784df2996cc7910d3f830bcee743a21f88db496d0c0c0b5a06b654f2094d",
+  "pi-ordinary.json": "04e6fa5f6083fd3aa28168ada3cf7021ee1ec232a971932d5316df6fc4590c5f",
+  "pi-sanitizers.json": "de6ce6c536069ad06a2a2e54d9c538b9e1a49d892215137a96b7ad54f07e2143",
+  "prepared-source-ordinary.json": "da4e143a17b5b893fe53caec42c335a0236fd5f3011106c26a69aab311412360",
+  "prepared-source-sanitizers.json": "c8b5aaf7fe836d582eca8f11f234d571a746ca29c62a646cc61be0b2631d3d97",
+  "published-base-package.json": "dd2d472a39b12734d3ff26fb4062b3d7c07a5741c027787ecb40743ebcbe145e",
+  "README.md": "a6606e3c067ca0c8fc9449b843fba3b68c1217fd76ffd84ee440f27fc63fc9a3"
+}

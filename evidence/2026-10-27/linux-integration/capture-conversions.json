@@ -1,0 +1,44 @@
+{
+  "linux-validator.txt": {
+    "captured_sha256": "bdced3b4000affaa204becf864077e30baa5b2331d0d4201830f380b8c00791f",
+    "retained_lf_sha256": "6c2bf2863795c4a86c2f35665fec06573fb530920fb0d51a8e75cc8f5325988e",
+    "transformation": "CRLF to LF only",
+    "content_otherwise_unchanged": true
+  },
+  "node-selected.txt": {
+    "captured_sha256": "ca5b51b3f3254c73fc792c318a761bf4e796fa454c30b3982b23aa13fff7eb93",
+    "retained_lf_sha256": "b19feff20641b16ab3aee0bdef7986fdab12dec7722b4623aa9d5262a36982b2",
+    "transformation": "CRLF to LF only",
+    "content_otherwise_unchanged": true
+  },
+  "p4-transport-recovery.txt": {
+    "captured_sha256": "026dabc0480ce4eaa037975f0c0639b6dc1999ea6c4936df413957ec9e918947",
+    "retained_lf_sha256": "5d4f813d69a84a58b587aebbb1cd39f38c0fc1d84ac0894bc0ac43489f7f7391",
+    "transformation": "CRLF to LF only",
+    "content_otherwise_unchanged": true
+  },
+  "pages-initial-attempt.txt": {
+    "captured_sha256": "66df431f9dbf4dab05264db9ece4e4cabd0d6a9db8b75735d9ea8f0b3f71d266",
+    "retained_lf_sha256": "771d2bc055bcccd38857427f705811f1c4e252509abe2667ac9bed85d9295a31",
+    "transformation": "CRLF to LF only",
+    "content_otherwise_unchanged": true
+  },
+  "pi-microduck-ordinary.txt": {
+    "captured_sha256": "6d2b91d71a1c6b868fec4802991900c5dfa702b4c62d62c67b33f307f037f1c5",
+    "retained_lf_sha256": "6d2b91d71a1c6b868fec4802991900c5dfa702b4c62d62c67b33f307f037f1c5",
+    "transformation": "none",
+    "content_otherwise_unchanged": true
+  },
+  "pi-microduck-sanitizers.txt": {
+    "captured_sha256": "135c784df2996cc7910d3f830bcee743a21f88db496d0c0c0b5a06b654f2094d",
+    "retained_lf_sha256": "135c784df2996cc7910d3f830bcee743a21f88db496d0c0c0b5a06b654f2094d",
+    "transformation": "none",
+    "content_otherwise_unchanged": true
+  },
+  "packaging.json": {
+    "captured_sha256": "21b087968ca3a6d9772f0110cfec555ae90345f3da51af928a9ef82c25365b75",
+    "retained_lf_sha256": "e7459485d47fdca4156a576264155508f1b58c29a827b7d6e09af08b2301a218",
+    "transformation": "CRLF to LF only",
+    "content_otherwise_unchanged": true
+  }
+}

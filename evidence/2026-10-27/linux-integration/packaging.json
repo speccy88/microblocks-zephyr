@@ -1,0 +1,85 @@
+{
+  "result": "PASS",
+  "published_base": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+  "original_five_vs_published_base": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    }
+  },
+  "all_seven_vs_historical_crlf_checkout": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": false,
+      "gp_data_sha256": false,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": false,
+      "gp_data_sha256": false,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": false,
+      "gp_data_sha256": false,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    }
+  },
+  "historical_artifact_hash_note": "Waveshare, P2 and P4 hashes differ from the prior Windows checkout because their unchanged source payloads had CRLF checkout conversion. All original five canonical-LF packages match the freshly packaged published base exactly. Pi and MicroDuck code hashes match both packages.",
+  "checkout_differences": {
+    "files": 1087,
+    "all_exact_lf_to_crlf": true
+  },
+  "console_local_references_resolve": [
+    "../portal.css",
+    "commands.js",
+    "rpc.js",
+    "bluetooth.js",
+    "console-core.js",
+    "console-fixture.js",
+    "console-panel.js"
+  ],
+  "console_js_matches_source": true,
+  "release_available": false,
+  "scope": "local package/source regression only; no physical MCU, robot, graphical browser or deployment claim"
+}

@@ -155,3 +155,14 @@ with mock DOM/GATT. It does not retry that native Edge-control request. Its
 graphical browser and deployed Pages acceptance remain unverified. A separate
 `build-artifacts/pi5-microduck-console.bundle` retains this checkpoint. The
 native C/header and the typed VM binaries are unchanged in this UI-only phase.
+
+## Published upstream rehearsal
+
+The separate branch `codex/pi5-upstream-integration-20261027` contains local merge
+`acd315cd711b80e317d0651c4d43f836fba3dbdc` against fetched published main
+`9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226`. It has zero conflicts and exactly the
+preparation tree. Fresh repository, Node, package and native Pi checks are recorded
+in the [integration receipt](../evidence/2026-10-27/linux-integration/README.md).
+This branch is local review material; unpublished P4 work was not read. Shared
+main, the preparation branch and the active P4 checkout remain unchanged. Re-fetch
+and coordinate the eventual P4 commit before publication or release preparation.

@@ -1,0 +1,118 @@
+{
+  "recorded_at": "2026-10-27T10:30:42.901655+00:00",
+  "status": "PASS against fetched published main; held for unpublished P4 coordination",
+  "remote": "https://github.com/speccy88/microblocks-zephyr.git",
+  "fetched_main": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+  "remote_rechecked_before_merge": true,
+  "preparation_tip": "961b4401a4cd81add9d56d929ebcc4a2afb1d446",
+  "merge_commit": "acd315cd711b80e317d0651c4d43f836fba3dbdc",
+  "merge_parents": [
+    "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+    "961b4401a4cd81add9d56d929ebcc4a2afb1d446"
+  ],
+  "merge_tree": "5cb67edc7c0dcb5a5c0caf1da9309561668d9976",
+  "preparation_tree_identical": true,
+  "upstream_only_commits": 0,
+  "preparation_only_commits": 12,
+  "unmerged_index_entries": 0,
+  "modified_preexisting_paths": [
+    "README.md",
+    "tools/package_pages.py",
+    "web/portal/index.html",
+    "web/portal/portal-adapter.js",
+    "web/portal/portal-core.js",
+    "web/portal/portal.css",
+    "web/portal/portal.js"
+  ],
+  "new_paths": 149,
+  "deleted_paths": 0,
+  "validation": {
+    "linux_required": {
+      "tests": 181,
+      "skipped": 0,
+      "result": "PASS",
+      "seconds": 258.994
+    },
+    "selected_node": {
+      "tests": 139,
+      "skipped": 0,
+      "result": "PASS"
+    },
+    "pages_additional_node": {
+      "other_tests_passed": 26,
+      "p4_transport_tests_passed_after_runtime_selection": 4,
+      "final_tests_passed": 30,
+      "initial_error": "spawnSync python EACCES from the default Windows Python launcher",
+      "recovery": "Set PYTHON to the bundled Python executable and rerun only p4-transport.test.cjs; no source or security changes"
+    },
+    "native_pi": {
+      "ordinary": {
+        "result": "PASS",
+        "architecture": "aarch64",
+        "binary_sha256": "0b5c2b269fb4e12b7ef8422c2961e2b1e09094de287796a297a93620ea43136f",
+        "core_executions": 50,
+        "feature_tests": 18,
+        "feature_groups": {
+          "adapter": 10,
+          "typed_readings": 8
+        },
+        "sanitizers": false,
+        "native_report": "build-artifacts/pi5-integration/native-20261027T102244679466Z/report.json",
+        "feature_report": "build-artifacts/pi5-microduck/20261027T102419734801Z/microduck-evidence.json",
+        "remote_build_directory": "microblocks-charlie/builds/lp64-20261027T102244679466Z"
+      },
+      "sanitizers": {
+        "result": "PASS",
+        "architecture": "aarch64",
+        "binary_sha256": "49360b487b7d36267848622845b12f1835173b7aeaaee170ee137a5af6eb811e",
+        "core_executions": 20,
+        "feature_tests": 18,
+        "feature_groups": {
+          "adapter": 10,
+          "typed_readings": 8
+        },
+        "sanitizers": true,
+        "native_report": "build-artifacts/pi5-integration-sanitizers/native-20261027T102545444828Z/report.json",
+        "feature_report": "build-artifacts/pi5-microduck/20261027T102836548928Z/microduck-evidence.json",
+        "remote_build_directory": "microblocks-charlie/builds/lp64-20261027T102545444828Z"
+      }
+    },
+    "packaging": "packaging.json"
+  },
+  "canonical_checkout": {
+    "core_autocrlf": "false",
+    "historical_crlf_differences": 1087,
+    "all_exact_lf_to_crlf": true,
+    "changed_prepared_native_sources": [
+      {
+        "path": "common/json/json_config.h",
+        "canonical_lf_sha256": "a6f916d01cdb343828697d7eec2b1d94f51d4d4279bcebe4ae31125a6d1355d3",
+        "historical_crlf_sha256": "6ccd94f697f36e0f567ebd861a949999cebc1edb5e1fd75ca690442416eb7d69",
+        "exact_lf_to_crlf": true
+      }
+    ],
+    "fresh_binaries_identical_to_historical": true
+  },
+  "boundaries": {
+    "published": false,
+    "pushed": false,
+    "shared_main_modified": false,
+    "protected_p4_checkout_accessed": false,
+    "physical_microduck_tested": false,
+    "actual_robot_commands_sent": false,
+    "reboot_or_startup_changed": false,
+    "services_changed": false,
+    "previously_denied_actions_retried": false,
+    "edge_control_retried": false
+  },
+  "pending": [
+    "Coordinate with the P4 owner and re-fetch its eventual published integration point; unpublished P4 work was intentionally not read.",
+    "If the destination advances, repeat integration and affected tests on that exact history.",
+    "Regenerate the final release candidate and corresponding source from the final coordinated commit.",
+    "Hosted CI, production Pages, graphical protected-console acceptance, actual reboot/startup and physical MicroDuck remain unverified."
+  ],
+  "approval_requests_pending": false,
+  "preparation_checkout_clean_and_unchanged": true,
+  "local_main_ref_unchanged": "af742e8d34b194603182a303e07c130859f0cf8c",
+  "log_retention": "Captured Windows CRLF text is retained as LF only; capture-conversions.json binds raw and retained bytes. Other console glyphs remain as captured. Original logs remain in ignored build-artifacts."
+}
