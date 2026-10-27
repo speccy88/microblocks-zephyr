@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "status": "proposed interface; native VM adapter not implemented or registered",
+  "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
+  "upstream_api_version": 44,
+  "upstream_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "limits": {"request_bytes": 8192, "reply_bytes": 65536, "pending_jobs": 4, "id_max": 2147483647},
+  "primitives_to_implement": [
+    {"name": "[microduck:begin]", "arguments": ["method string", "params JSON string", "confirmed boolean"], "returns": "positive job ID or explicit VM error"},
+    {"name": "[microduck:status]", "arguments": ["job ID"], "returns": "pending, ready, error or unknown"},
+    {"name": "[microduck:result]", "arguments": ["job ID"], "returns": "bounded terminal JSON-RPC reply string; pending is an explicit error"},
+    {"name": "[microduck:release]", "arguments": ["job ID"], "returns": "command; release bounded job buffers"}
+  ],
+  "required_hooks": [
+    "append a new primitive set/compiler mapping without renumbering existing indices",
+    "poll nonblocking socket jobs between bounded VM slices",
+    "copy bytes outside GC-managed OBJ storage while pending",
+    "validate socket owner and SO_PEERCRED before any request write",
+    "retain one request ID through the terminal reply and enforce byte limits",
+    "stop/disconnect closes local pending jobs without retry or robot rollback claims"
+  ],
+  "not_available": ["continuous motion", "camera streaming", "raw motor access", "Wi-Fi credentials", "BLE PIN", "arbitrary JSON-RPC methods", "emergency stop guarantee"]
+}

@@ -20,7 +20,7 @@ if ((!verify_only)); then
   [[ $(uname -m) == aarch64 ]] || fail 'Requires native AArch64 Linux (64-bit OS)'
   [[ $EUID -ne 0 ]] || fail 'Run as the intended unprivileged user; root installation is not supported'
 fi
-for command in python3 sha256sum tar mktemp df install sed head awk stat cp cmp mv grep; do command -v "$command" >/dev/null || fail "Missing dependency: $command"; done
+for command in python3 sha256sum tar mktemp df install sed head awk stat cp cmp mv grep chmod; do command -v "$command" >/dev/null || fail "Missing dependency: $command"; done
 [[ $prefix == /* && $data_dir == /* && $prefix != / && $data_dir != / ]] || fail 'Install and data paths must be absolute non-root directories'
 [[ ! $prefix =~ [[:cntrl:]] && ! $data_dir =~ [[:cntrl:]] && $prefix != *'$'* && $data_dir != *'$'* && $prefix != *'"'* && $data_dir != *'"'* && $prefix != *'%'* && $data_dir != *'%'* && $prefix != *'\'* && $data_dir != *'\'* ]] || fail 'Unsupported characters in paths'
 [[ -r /etc/os-release ]] || fail 'Linux distribution metadata is unavailable'
@@ -64,6 +64,8 @@ with tarfile.open(archive, 'r:gz') as bundle:
 print('Archive checksum, layout, pinned source and AArch64 ELF identity verified')
 PY
 if ((verify_only)); then printf 'Verification only; executable not run and no installation changed.\n'; exit 0; fi
+[[ ! -L $data_dir ]] || fail 'Refusing a symlink program data directory'
+[[ ! -e $data_dir || ( -d $data_dir && -O $data_dir ) ]] || fail 'Program data directory must belong to the installing user'
 if ((service)); then
   command -v systemctl >/dev/null || fail 'systemd is required for --service'
   systemctl --user show-environment >/dev/null || fail 'No user systemd manager; retry without --service'
@@ -91,6 +93,7 @@ fi
 command -v timeout >/dev/null || fail 'Missing dependency: timeout'
 (cd "$work" && timeout 10 "$work/package/smallvm" --self-test) || fail 'Executable self-test failed; installed version preserved'
 mkdir -p "$prefix/lib/microblocks" "$prefix/bin" "$data_dir"
+chmod 700 "$data_dir"
 if [[ -e $release_dir ]]; then
   for identity_file in smallvm manifest.json LICENSE; do
     [[ -f $release_dir/$identity_file && ! -L $release_dir/$identity_file ]] && cmp -s "$work/package/$identity_file" "$release_dir/$identity_file" || fail 'Version already installed with different binary/manifest/license identity'
@@ -109,7 +112,10 @@ python3 - "$prefix" "$data_dir" "$release_dir" <<'PY'
 import os, pathlib, shlex, sys
 prefix, data, release = map(pathlib.Path, sys.argv[1:])
 target = prefix / 'bin/smallvm'
-text = '#!/bin/sh\n# microblocks-linux-arm64-v1\nset -eu\ncd ' + shlex.quote(str(data)) + '\nexec ' + shlex.quote(str(release / 'smallvm')) + ' "$@"\n'
+executable = shlex.quote(str(release / 'smallvm'))
+text = ('#!/bin/sh\n# microblocks-linux-arm64-v1\nset -eu\n'
+        'if [ "$#" -eq 1 ] && [ "$1" = --self-test ]; then\n  exec ' + executable + ' --self-test\nfi\n'
+        'exec ' + executable + ' --data-dir ' + shlex.quote(str(data)) + ' "$@"\n')
 if target.exists() and 'microblocks-linux-arm64-v1' not in target.read_text(errors='replace'):
     raise SystemExit('Refusing to replace an unrelated smallvm command')
 temporary = target.with_name('.smallvm-install-' + str(os.getpid()))

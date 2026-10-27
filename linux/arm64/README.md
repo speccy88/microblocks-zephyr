@@ -1,11 +1,26 @@
 # Linux ARM64 SmallVM: current status
 
-The native ARM64 VM is **not implemented or compiled yet**. No ARM64 release is
-published by this change. Raspberry Pi execution, IDE uploads, persistence,
-networking and MicroDuck hardware are not tested. See [SPEC.md](SPEC.md) for
-the acceptance contract and the pinned VM's 32-bit object-layout obstacle.
+The native headless SmallVM v417 now builds and executes on Fred's Raspberry Pi
+5, Debian 13.4, AArch64, GCC 14.2. Both ASan/UBSan and ordinary ARMv8-A builds
+pass real interpreter/PTY tests: arithmetic, variables, start/stop, live edits,
+fragmented uploads, compaction, process restart/autostart, acknowledged-write
+durability after process termination, and corrupt-file refusal. Actual install,
+repeat install, checksum-failure preservation, upgrade and uninstall also pass
+in a private test prefix. These are physical Pi results.
 
-The guarded installer is implemented for a future validated release:
+The real GP 2.5.8 graphical editor also uploads and executes arithmetic (12), a
+50-iteration variable/output script, browser project save/restore, and an explicit
+WebSocket disconnect/reconnect through the SSH tunnel. Screenshots and a scoped
+browser report are retained in `tests/`. The IDE's first-ping handshake and its
+BLE preference message are covered by regressions found during this real test.
+
+No ARM64 release is published yet. User-service and full OS reboot acceptance
+remain pending. No physical MicroDuck test has run.
+See [SPEC.md](SPEC.md), [hardware.json](hardware.json) and the evidence in
+[tests](tests/) for the acceptance boundary. CPU/RAM readings are short bounded
+idle samples, not performance benchmarks.
+
+The guarded installer accepts a separately built and tested candidate package:
 
 ```sh
 bash scripts/install-smallvm-linux-arm64.sh --version RELEASE_TAG --sha256 ARCHIVE_SHA256
@@ -30,7 +45,10 @@ requires the candidate executable to pass `--self-test` before replacing the
 active launcher. That release CLI is part of this port's acceptance contract;
 the existing upstream executable must not be assumed to implement it.
 
-Builds must target baseline ARMv8-A without Pi 5-only optimization. A reproducible
+Builds target baseline ARMv8-A without Pi 5-only optimization. The current
+ordinary Pi binary links only libc and requires glibc 2.34 or newer according to
+its ELF version metadata; it ran on glibc 2.41. Older distribution compatibility
+and other ARM64 boards have not been tested. A reproducible
 package must include corresponding MPL source/provenance and license notices.
 The official targets were inspected in the pinned `linux+pi/` directory. Its
 generic script uses `-m32` and 32-bit SDL archives; the Raspberry Pi script uses
@@ -43,6 +61,28 @@ executes or publishes the binary. Gzip/tar timestamps, ownership and order are
 fixed. Packaging tests use fake non-executable ELF headers and establish only
 the packaging contract. Corresponding port source/build recipe and physical Pi
 evidence remain required for a release.
+
+Build from the exact upstream Git revision (Linux):
+
+```sh
+python3 linux/arm64/build.py --upstream /path/to/smallvm-git --output build-artifacts/linux-native --test
+# Add --sanitize for ASan/UBSan, or --source-only to prepare on Windows.
+build-artifacts/linux-native/smallvm --data-dir /absolute/private/programs
+```
+
+The VM creates no network listener. It publishes a private PTY discovery JSON
+inside its owned mode-0700 data directory. One VM can own that directory at a
+time. The graphical transport uses the separate [loopback bridge](bridge.py),
+with exact Host/Origin checks and one controller. See the
+[portal connection guide](../../docs/LINUX_PORTAL.md).
+
+The LP64 implementation stores 32-bit arena offsets in VM objects while native
+addresses remain native pointers at explicit boundaries. It retains the v417
+four-byte field/header/code format, uses typed native primitive callbacks and
+adds bounded scheduling. The memory tests exercise moving GC with the heap
+above 4 GiB, deep/wide graphs, temporary roots and invalid references. There is
+no low-address mapping or weakening of ASLR. Original pinned sources are read
+from Git and verified before strict, hash-guarded transformations.
 
 Local test command (Linux, no board access):
 

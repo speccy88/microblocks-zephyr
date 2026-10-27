@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "tested_at": "2026-10-27T05:54:29.742980+00:00",
+  "target": "real Raspberry Pi 5 / Debian 13.4 aarch64",
+  "editor": "real pinned GP 2.5.8, source70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+  "transport": "Edge -> PC127.0.0.1:8876 -> verifiedSSH -> Pi127.0.0.1:8876 -> privatePTY -> actualSmallVM",
+  "binary_sha256": "dd9411fa2555bd76ada18b9a5cde9e11676a46f654755ffa97806cf8fab4dd7b",
+  "checks": {
+    "graphical_arithmetic": 12,
+    "graphical_bounded_loop_variable_and_output": 50,
+    "browser_named_save_and_restore": true,
+    "explicit_disconnect_reconnect": true,
+    "arithmetic_after_restore_and_reconnect": 12
+  },
+  "captures": {
+    "pi5-browser-arithmetic.png": "30c4ecc7e8517a76261b7c8d6e59c340773679a2f0f713905e40e7e8f965d016",
+    "pi5-browser-loop.png": "94f0d3d6e5e35955b5298a2d7f8515222dd7c1bac6b83acb910825661c5ba306",
+    "pi5-browser-reconnect.png": "8178577c785654099731ce618f184cab9c701583fcdcd46f0a3247bd5cd0df99"
+  },
+  "os_reboot_tested": false,
+  "user_service_tested": false,
+  "microduck_hardware_tested": false,
+  "remote_session": "microblocks-charlie/editor-sessions/20261027T054738960164Z",
+  "limitations": [
+    "Current session is a foreground development supervisor, not a service",
+    "No direct HTTPS Pages WSS deployment was tested",
+    "Other ARM64 boards and MicroDuck hardware were not tested"
+  ]
+}

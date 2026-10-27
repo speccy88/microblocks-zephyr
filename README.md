@@ -172,6 +172,16 @@ without `public` or `private` being supplied.
 
 ## References and licenses
 
+The [native Linux ARM64 port](linux/arm64/README.md) now executes official
+SmallVM v417 bytecode on Raspberry Pi 5, including real graphical IDE uploads
+through a loopback SSH tunnel. ARMv8-A builds, persistence, installation lifecycle
+and browser save/restore/reconnect have recorded evidence. Full OS reboot and
+release publication remain pending. The portal adds Pi 5 and MicroDuck profiles;
+installation copying stays disabled until an actual reviewed release exists.
+[MicroDuck BLE](docs/MICRODUCK_PROTOCOL.md) and the
+[optional Unix gateway](linux/microduck/README.md) have mock coverage; physical
+robot validation and the native VM primitive adapter remain pending.
+
 The production [XRP integration](boards/sparkfun_xrp_rp2350/README.md) is a
 separate non-actuating SmallVM/Arduino/RM2 application. Its physical release
 gates and current evidence are recorded with that board; existing Fruit Jam

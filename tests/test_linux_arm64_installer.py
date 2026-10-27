@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import stat
 import struct
 import subprocess
 import tarfile
@@ -25,9 +26,9 @@ COMMIT = '2071df569623ba9cdcd6f8106b61796e047df38b'
 
 class InstallerFixture(unittest.TestCase):
     def setUp(self):
-        parent = REPO / 'build-artifacts/linux-arm64-tests'
-        parent.mkdir(parents=True, exist_ok=True)
-        self.temporary = tempfile.TemporaryDirectory(dir=parent)
+        # Use the native Linux temporary filesystem. Windows-mounted DrvFS
+        # may report 0777 regardless of chmod, which cannot test privacy modes.
+        self.temporary = tempfile.TemporaryDirectory(prefix='smallvm-installer-test-')
         self.work = Path(self.temporary.name)
 
     def tearDown(self):
@@ -192,6 +193,31 @@ class InstallerLifecycle(InstallerFixture):
         self.assertIn(newer, (self.work / 'prefix/bin/smallvm').read_text())
         self.assertEqual(program.read_bytes(), b'keep')
         self.assertTrue((self.work / f'prefix/lib/microblocks/{VERSION}/smallvm').exists())
+
+    def test_launcher_supplies_private_data_path_and_keeps_selftest_isolated(self):
+        result = self.install(self.archive())
+        self.assertEqual(result.returncode, 0, result.stderr)
+        executable = self.work / f'prefix/lib/microblocks/{VERSION}/smallvm'
+        # Capture actual exec arguments without running the AArch64 ELF fixture.
+        executable.write_text('#!/bin/sh\nprintf "%s\\n" "$@"\n')
+        executable.chmod(0o700)
+        launcher = self.work / 'prefix/bin/smallvm'
+        normal = subprocess.run([str(launcher), '--help'], capture_output=True, text=True)
+        self.assertEqual(normal.returncode, 0, normal.stderr)
+        self.assertEqual(normal.stdout.splitlines(), ['--data-dir', str(self.work / 'programs'), '--help'])
+        isolated = subprocess.run([str(launcher), '--self-test'], capture_output=True, text=True)
+        self.assertEqual(isolated.returncode, 0, isolated.stderr)
+        self.assertEqual(isolated.stdout.splitlines(), ['--self-test'])
+        self.assertEqual(stat.S_IMODE((self.work / 'programs').stat().st_mode), 0o700)
+
+    def test_symlink_data_directory_refused_without_touching_target(self):
+        target = self.work / 'other-data'; target.mkdir()
+        keep = target / 'keep'; keep.write_bytes(b'preserve')
+        (self.work / 'programs').symlink_to(target, target_is_directory=True)
+        result = self.install(self.archive())
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('symlink', result.stderr)
+        self.assertEqual(keep.read_bytes(), b'preserve')
 
     def test_mock_target_selftest_failure_preserves_active_launcher(self):
         result = self.install(self.archive())

@@ -1,6 +1,9 @@
 # SmallVM Linux ARM64: object representation audit
 
-This checkpoint does **not** implement or compile an ARM64 VM. It reproduces the
+This document records the initial layout-probe checkpoint. The subsequent
+[native port](../linux/arm64/README.md) now builds and executes on the real Pi,
+with separate runtime and graphical evidence; those results are not inferred
+from this probe. The layout probe itself does **not** implement a VM. It reproduces the
 unmodified upstream memory guard on x86_64 Linux, measures the incompatible
 layout, and tests the separate GP engine's offset-reference macros as a design
 reference. No Pi, robot, bytecode, IDE upload or network connection is exercised.
