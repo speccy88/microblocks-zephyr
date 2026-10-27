@@ -1,0 +1,10 @@
+{
+  "returncode": 0,
+  "seconds": 178.451387984,
+  "mode": "full unchanged discovery with documented verified external sanitizer VM inputs",
+  "binary_sha256": "f166ab8618d7e0a9f92f4fff7457d1eb9875753ee0e438a38eb7b173d0db156c",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/robot-final-native-persisted-20261027/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/robot-final-native-persisted-20261027/smallvm"
+  }
+}

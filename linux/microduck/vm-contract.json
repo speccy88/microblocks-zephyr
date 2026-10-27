@@ -1,5 +1,5 @@
 {
-  "contract_version": 4,
+  "contract_version": 5,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -101,6 +101,13 @@
         "depth row JSON reply string"
       ],
       "returns": "eight GC-safe four-field readings from one coherent simulated frame row"
+    },
+    {
+      "name": "[microduck:telemetrySample]",
+      "arguments": [
+        "scalar telemetry JSON reply string"
+      ],
+      "returns": "GC-safe four-field simulation record; signed31 fixed units, Boolean and exact u64 decimal strings; no value for unavailable/error"
     }
   ],
   "implemented_hooks": [
@@ -128,7 +135,16 @@
     "native_aarch64_pi_with_simulated_robot": "18 feature tests on each ordinary andASan/UBSan build;original10+typed8",
     "physical_microduck": false,
     "standalone_native_fixture_checks": 442,
-    "standalone_test_timeout_ms": 40
+    "standalone_test_timeout_ms": 40,
+    "robot_api45_lab": {
+      "local_full_tests": 292,
+      "local_skipped": 0,
+      "Pi_selected_tests_each_ordinary_and_sanitizer": 86,
+      "Pi_native_cases_each": 19,
+      "physical_microduck": false,
+      "graphical_UBL": false,
+      "evidence": "../../evidence/2026-10-27/microduck-robot-api/README.md"
+    }
   },
   "typed_readings": {
     "statuses": [
@@ -177,15 +193,24 @@
         "microduck.sensorSim.padAxis",
         "microduck.sensorSim.padButton",
         "microduck.sensorSim.release"
+      ],
+      "robot": [
+        "microduck.robotSim.preview",
+        "microduck.robotSim.capture",
+        "microduck.robotSim.reading",
+        "microduck.robotSim.release",
+        "microduck.robotSim.model"
       ]
     },
     "libraries": [
       "Motion_Simulation.ubl",
-      "Sensor_Simulation.ubl"
+      "Sensor_Simulation.ubl",
+      "Robot_Simulation.ubl",
+      "Robot_Telemetry.ubl"
     ],
     "scope": "dedicated private simulation backends only; ordinary gateway rejects these local names",
     "physical_movement_enabled": false,
-    "current_revision_tested": "actual x86_64 and real Pi AArch64 ordinary/ASan+UBSan VM/bytecode/GC/private Unix fixtures; robot data simulated; graphical UBL unverified",
+    "current_revision_tested": "Actual local x86_64 and real Pi AArch64 ordinary/ASan+UBSan VM/bytecode/GC/private fixtures; all robot data simulated; graphical UBL unverified",
     "reply_summary_bytes": 760,
     "existing_primitive_indices_preserved": true,
     "snapshot_limits": {
@@ -195,6 +220,45 @@
       "pad_window_ms": 350,
       "notifications": 16,
       "continuous_reader": false
+    },
+    "robot_api_review": {
+      "version": 45,
+      "commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+      "production_protocol_pin_changed": false,
+      "preview_only": true,
+      "admission_and_applied": null,
+      "fields": [
+        "move.requested",
+        "move.applied",
+        "move.limit_count",
+        "move.limited_by",
+        "loop.hz",
+        "loop.missed",
+        "safety.fallen",
+        "safety.limp",
+        "safety.picked_up",
+        "safety.gain",
+        "safety.gravity",
+        "joints",
+        "targets",
+        "velocities",
+        "currents_ma",
+        "odom.position",
+        "odom.yaw",
+        "imu.gyro",
+        "imu.quat",
+        "frames.camera.pos",
+        "frames.camera.quat",
+        "frames.tof.pos",
+        "frames.tof.quat",
+        "frames.head_imu.pos",
+        "frames.head_imu.quat",
+        "skeleton.pos",
+        "skeleton.quat",
+        "t_ns",
+        "policy"
+      ],
+      "source_default_provenance": "Only omitted move.limited_by count is schema-default0 with origin sim_default; explicit empty has origin simulation; absent indexed reason is not_reported"
     }
   }
 }

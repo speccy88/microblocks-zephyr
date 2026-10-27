@@ -1,0 +1,240 @@
+{
+  "linux/microduck/tests/pi5-robot-initial-pi-robot-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\pi-robot-validation.json",
+    "raw_sha256": "c8140a00e8fe8787d4f2c6c7bc22233edcbdf96588c22ac8287c2c8c6c4c20dd",
+    "retained_sha256": "c8140a00e8fe8787d4f2c6c7bc22233edcbdf96588c22ac8287c2c8c6c4c20dd",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\kit-manifest.json",
+    "raw_sha256": "c4a95b304967c862f6e40df10f34abfd890f65830ccaa6f5797b6d0fd09408d1",
+    "retained_sha256": "c4a95b304967c862f6e40df10f34abfd890f65830ccaa6f5797b6d0fd09408d1",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-tests.txt",
+    "raw_sha256": "398bee492c3fef039c4822e1b43797643f63ce9f8a48f0183810b3c9efcd11d7",
+    "retained_sha256": "398bee492c3fef039c4822e1b43797643f63ce9f8a48f0183810b3c9efcd11d7",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native\\build-manifest.json",
+    "raw_sha256": "3a39219d6d4dd4afd68419c42032653451fb18d44ed2878cc6498c5698b7b508",
+    "retained_sha256": "3a39219d6d4dd4afd68419c42032653451fb18d44ed2878cc6498c5698b7b508",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native\\source-manifest.json",
+    "raw_sha256": "674a0309f7eded57cfb94928426cdd3ba6c5fe8e0bfc3b1684391f24255cd6ec",
+    "retained_sha256": "674a0309f7eded57cfb94928426cdd3ba6c5fe8e0bfc3b1684391f24255cd6ec",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-plain-build.txt",
+    "raw_sha256": "da300bfc4feabb36524c26fb33c62debb46734b909bb16aadcb9064a38711799",
+    "retained_sha256": "da300bfc4feabb36524c26fb33c62debb46734b909bb16aadcb9064a38711799",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-plain-tests.txt",
+    "raw_sha256": "1ac423f17fb549a5d67b3efbc28d1a6729b5432dcdd4ae666e7d321a1190ecec",
+    "retained_sha256": "1ac423f17fb549a5d67b3efbc28d1a6729b5432dcdd4ae666e7d321a1190ecec",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "5b51f913e93839be74bc387652c720359a44c98e1b3962b9a7e869f9f1f436fa",
+    "retained_sha256": "5b51f913e93839be74bc387652c720359a44c98e1b3962b9a7e869f9f1f436fa",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-initial-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "dc7a9bf9deaec628db808c5b734cd41ac18338d2086a67d63b0c4c10f5521df6",
+    "retained_sha256": "dc7a9bf9deaec628db808c5b734cd41ac18338d2086a67d63b0c4c10f5521df6",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-pi-robot-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\pi-robot-validation.json",
+    "raw_sha256": "ed6d127baee4f6c8c257ff2d18196b632dfc36a4c185d54cf720e293e329b221",
+    "retained_sha256": "ed6d127baee4f6c8c257ff2d18196b632dfc36a4c185d54cf720e293e329b221",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\kit-manifest.json",
+    "raw_sha256": "45ceeb8cb4e3ccea39a0d4cc79bcf26c0b62928d07048839968fee0cc4fcfbcd",
+    "retained_sha256": "45ceeb8cb4e3ccea39a0d4cc79bcf26c0b62928d07048839968fee0cc4fcfbcd",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-tests.txt",
+    "raw_sha256": "cd7367eafd5e32968a378b263cd461c3d516630993562c64675a59f52f75cfc1",
+    "retained_sha256": "cd7367eafd5e32968a378b263cd461c3d516630993562c64675a59f52f75cfc1",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native\\build-manifest.json",
+    "raw_sha256": "e08f9c2ef8b225a28af82203fcb0c654f8ec78a4007ccfd10a2d054e48bdedda",
+    "retained_sha256": "e08f9c2ef8b225a28af82203fcb0c654f8ec78a4007ccfd10a2d054e48bdedda",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native\\source-manifest.json",
+    "raw_sha256": "c2cf912f0a3b956a4a1ce90703686290e210d409d25f9f6c31c403d773270516",
+    "retained_sha256": "c2cf912f0a3b956a4a1ce90703686290e210d409d25f9f6c31c403d773270516",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-plain-build.txt",
+    "raw_sha256": "da300bfc4feabb36524c26fb33c62debb46734b909bb16aadcb9064a38711799",
+    "retained_sha256": "da300bfc4feabb36524c26fb33c62debb46734b909bb16aadcb9064a38711799",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-plain-tests.txt",
+    "raw_sha256": "2cc3402120f0f03d28771f43d892b6a75c0f3ddcbc78aeac4b25f09cbc6956bd",
+    "retained_sha256": "2cc3402120f0f03d28771f43d892b6a75c0f3ddcbc78aeac4b25f09cbc6956bd",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "c188207bce672137bfd7dae3c8f5e7536025fb6095de9c743c33b08f371095a6",
+    "retained_sha256": "c188207bce672137bfd7dae3c8f5e7536025fb6095de9c743c33b08f371095a6",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-robot-final-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "bd28eb41aaeb8dc942509ca09defefa5750b04c1d49ac77ca2f22d91433aa3ad",
+    "retained_sha256": "bd28eb41aaeb8dc942509ca09defefa5750b04c1d49ac77ca2f22d91433aa3ad",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  },
+  "linux/microduck/tests/robot-initial-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-linux.txt",
+    "raw_sha256": "bd2efe0816b3a84d8392c5227723449c2da0fc30e1fa431143ad6afad8010192",
+    "retained_sha256": "62b5c17f6ec131bcbff6e56eaa5edba78526ad71b5484a956092ca19958f1293",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-final-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-final-linux.txt",
+    "raw_sha256": "75486a5bbf66589e01eb288d0d12dd138736b4cff6027dd6e5502fa057d41b7c",
+    "retained_sha256": "2f212c9258f48f129a5a520ac5b9c4e05c932bd9535ccea9f8331c32c43f8ae2",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-node.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-node.txt",
+    "raw_sha256": "c2ca097549ce545459d6969c1d431f3fb8318b79325e1617c457b4f86fe1515c",
+    "retained_sha256": "bd2801d2e58509745d492c20434c133f3fb59901165c230882db15e8233761ff",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-default-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-default-focused.txt",
+    "raw_sha256": "7853170dedac1b49481bb13f3db1d185d8bb37975349b36123de126d7d3dea1e",
+    "retained_sha256": "e1ae5ea1c0ef99456a4b3d5246b1e02324b9daded7066f2f50182d1ed6b89c65",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-initial-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-final-focused.txt",
+    "raw_sha256": "1d6a235cb245e7e023aaceb39aceae122d6c3192723c30029b508b11f2b68d11",
+    "retained_sha256": "009885d477b4f839ee8ea3b8c5a136b39c4c60efbd55300ca7c0db099023af37",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-initial-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-native-build.txt",
+    "raw_sha256": "2e48d585607434e4aebcd8b382cb85643566c86482a6229fedcc414c4a0aeb57",
+    "retained_sha256": "75338628faa8d41e226fb0a0e2f437498a12b636e7e79ee07febc740074af44d",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-final-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-final-native-build.txt",
+    "raw_sha256": "10a7adb0f7615d12d3395d5aca91966d94382dcc20d1060743b25d2c6c2ecd04",
+    "retained_sha256": "d3f4153d5b30d991594c1f94d48d70655ea8cf6fa4b999149c72d04447077085",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-pi-initial-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-execution.txt",
+    "raw_sha256": "82123c4af42edaf364938b8e22dce1298bd9763d26bd657a0b1a2266d443d570",
+    "retained_sha256": "4a71e7001dfb97a63b12f7de4bdeaa98462209f59c76744b27b6e41ce2c2be4f",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/robot-pi-final-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\robot-pi-final-execution.txt",
+    "raw_sha256": "8d402bab3b116c89a46c907f2346f2c3e65331baa8f8c1ffd97b0981ef03f849",
+    "retained_sha256": "c3c3134c2824da4a16e3feab8826d16a410e37f32a7cbd2adfaeea9224f4cc5d",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pi5-robot-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-pi-robot.py",
+    "raw_sha256": "6bb47105fa5c8cc4f1f56f1c3b464681802848567d448806223b063cfc7174fe",
+    "retained_sha256": "6bb47105fa5c8cc4f1f56f1c3b464681802848567d448806223b063cfc7174fe",
+    "normalization": "repeated CRLF to LF only",
+    "passes": 0
+  }
+}

@@ -120,3 +120,15 @@ handling and typed raw/Boolean/span readings. Five native cases include actual
 moving GC while constructing nested depth-row records. Pi execution, when
 recorded, still uses only simulated MicroDuck daemons and no numeric acceptance
 suite, robot devices or service installation.
+
+The API45 robot lab adds RobotPreviews, RobotStateReadings, RobotUnixBackend and
+RobotNativeAdapter to the explicit selection. Its24 cases cover13 source-shaped
+mutation previews, confirmation/bounds, zero mutation forwarding, bounded state
+capture,29 selectors, exact u64 strings, source-default provenance and moving GC.
+The final local validator passes292 tests in176.281 seconds with zero skips using
+the verified current sanitizer VM input. Both real Pi ordinary and ASan/UBSan
+builds pass86 selected snapshot/sensor/motion/robot tests each, including19 actual
+native VM cases per variant. The separate243-test Node run predates the final
+telemetry-default correction; no browser source changed afterward. These local
+results are [recorded separately](../evidence/2026-10-27/microduck-robot-api/README.md)
+from hosted CI, graphical block compilation and physical MicroDuck acceptance.

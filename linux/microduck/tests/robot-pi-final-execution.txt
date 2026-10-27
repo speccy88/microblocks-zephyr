@@ -1,0 +1,5 @@
+Building native on RPI5 from verified staged sources
+{"native": {"result": "PASS", "tests": 86, "test_seconds": 11.563, "elapsed_seconds": 11.751479778002249, "binary_sha256": "11cd9376d159896d1f9014c80f8733fc1113542941aca84821098a89f7897b1f", "elf_machine": 183, "sanitize": true, "self_test": "PASS", "build_seconds": 139.71784231499623, "skipped": 0, "command": ["/usr/bin/python3", "-m", "unittest", "test_linux_microduck_snapshots", "test_linux_microduck_sensors", "test_linux_microduck_motion", "test_linux_microduck_robot", "-v"]}}
+Building native-plain on RPI5 from verified staged sources
+{"native-plain": {"result": "PASS", "tests": 86, "test_seconds": 11.39, "elapsed_seconds": 11.521675217001757, "binary_sha256": "9c9a1ebbebba49b66ec4dc10e29e97f4bc35ff9049fc572c260fddd99d982909", "elf_machine": 183, "sanitize": false, "self_test": "PASS", "build_seconds": 23.71027389899973, "skipped": 0, "command": ["/usr/bin/python3", "-m", "unittest", "test_linux_microduck_snapshots", "test_linux_microduck_sensors", "test_linux_microduck_motion", "test_linux_microduck_robot", "-v"]}}
+Both real Pi builds and all172 simulated-service tests passed

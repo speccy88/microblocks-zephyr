@@ -1,0 +1,17 @@
+module main
+description 'SIMULATION ONLY. Capture one fictional robot state and print typed diagnostics. No control preview, source mutation or real robot command is issued. Check capture status and release explicitly. Requested/applied stay distinct; no safe-to-move inference.'
+variables stateCapture
+
+script 30 30 {
+    whenStarted
+    stateCapture = (microduckSimStateCapture 10)
+    sayIt stateCapture
+    if (microduckReadingKnown stateCapture) {
+        sayIt (microduckSimMoveRequested stateCapture 1)
+        sayIt (microduckSimMoveApplied stateCapture 1)
+        sayIt (microduckSimLoopHz stateCapture)
+        sayIt (microduckSimSafety stateCapture 'fallen' 1)
+        sayIt (microduckSimTimestamp stateCapture)
+        sayIt (microduckSimStateRelease stateCapture)
+    }
+}

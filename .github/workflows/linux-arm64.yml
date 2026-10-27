@@ -133,6 +133,7 @@ jobs:
               ('test_linux_microduck_motion.py', ['MotionProtocol', 'MotionModel', 'MotionUnixBackend', 'MotionNativeAdapter']),
                 ('test_linux_microduck_sensors.py', ['SensorProtocol', 'SensorSamples', 'SensorUnixBackend', 'SensorNativeAdapter']),
                 ('test_linux_microduck_snapshots.py', ['SnapshotProtocol', 'PadObservedState', 'SnapshotUnixBackend', 'SnapshotNativeAdapter']),
+                ('test_linux_microduck_robot.py', ['RobotPreviews', 'RobotStateReadings', 'RobotUnixBackend', 'RobotNativeAdapter']),
               ('test_linux_microduck_simulator.py', ['ExplicitSimulation']),
               ('test_linux_microduck_vm.py', ['RealSmallVMMicroDuck']),
           ]

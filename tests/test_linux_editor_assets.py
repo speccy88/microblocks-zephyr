@@ -221,6 +221,20 @@ class RealPinnedEditor(unittest.TestCase):
         core = unpack_package((core_output / 'gp_wasm.js').read_bytes(), (core_output / 'gp_wasm.data').read_bytes())
         self.assertNotIn('/Libraries/MicroDuck_Sensor_Simulation.ubl', list(core))
 
+    def test_robot_preview_telemetry_libraries_and_read_only_example_are_embedded(self):
+        output = self.output.parent / 'robot-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output / 'gp_wasm.js').read_bytes(), (output / 'gp_wasm.data').read_bytes())
+        for source, embedded in [('Robot_Simulation.ubl', 'MicroDuck_Robot_Simulation.ubl'), ('Robot_Telemetry.ubl', 'MicroDuck_Robot_Telemetry.ubl')]:
+            self.assertEqual(files['/Libraries/' + embedded], (REPO / 'linux/microduck' / source).read_bytes())
+        self.assertIn(b'MicroDuck Robot Telemetry Simulation', files['/runtime/lib/MicroBlocksAPI.gp'])
+        example = files['/Examples/Linux/microduck-robot-simulation.ubp']
+        self.assertTrue(example.startswith((REPO / 'linux/microduck/robot-simulation.ubp').read_bytes()))
+        script = example.split(b'\nmodule ', 1)[0]
+        self.assertIn(b'(microduckSimStateCapture 10)', script)
+        self.assertNotIn(b'microduckSimRobotPreview', script)
+        self.assertNotIn(b'microduckSimMovePreview', script)
+
 
 if __name__ == '__main__':
     unittest.main()

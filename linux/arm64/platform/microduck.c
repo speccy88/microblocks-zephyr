@@ -186,7 +186,7 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
@@ -211,12 +211,72 @@ static const Method methods[] = {
     {"microduck.sensorSim.depthRow",PARAM_SNAPSHOT_ROW,0},
     {"microduck.sensorSim.padAxis",PARAM_SNAPSHOT_CODE,0},
     {"microduck.sensorSim.padButton",PARAM_SNAPSHOT_CODE,0},
-    {"microduck.sensorSim.release",PARAM_SNAPSHOT_HANDLE,0}
+    {"microduck.sensorSim.release",PARAM_SNAPSHOT_HANDLE,0},
+    {"microduck.robotSim.preview",PARAM_ROBOT_PREVIEW,1},
+    {"microduck.robotSim.capture",PARAM_TELEMETRY_CAPTURE,0},
+    {"microduck.robotSim.reading",PARAM_TELEMETRY_READ,0},
+    {"microduck.robotSim.release",PARAM_SNAPSHOT_HANDLE,0},
+    {"microduck.robotSim.model",PARAM_EMPTY,0}
 };
 static int snapshotHandle(yyjson_val *value) {
     if (!boundedText(value,32) || yyjson_get_len(value)!=32) return 0;
     const char *text=yyjson_get_str(value);
     for (int i=0;i<32;++i) if (!((text[i]>='0' && text[i]<='9') || (text[i]>='a' && text[i]<='f'))) return 0;
+    return 1;
+}
+typedef struct { const char *name; int indices,components; const char *unit; } TelemetryField;
+static const TelemetryField telemetryFields[]={
+    {"move.requested",1,3,"mm/s"},{"move.applied",1,3,"mm/s"},{"move.limit_count",1,1,"count"},{"move.limited_by",64,1,"text"},
+    {"loop.hz",1,1,"mHz"},{"loop.missed",1,1,"count64"},
+    {"safety.fallen",1,1,"boolean"},{"safety.limp",1,1,"boolean"},{"safety.picked_up",1,1,"boolean"},{"safety.gain",1,1,"gain"},{"safety.gravity",1,3,"ppm"},
+    {"joints",128,1,"mrad"},{"targets",128,1,"mrad"},{"velocities",128,1,"mrad/s"},{"currents_ma",128,1,"uA"},
+    {"odom.position",1,3,"mm"},{"odom.yaw",1,1,"mrad"},{"imu.gyro",1,3,"mrad/s"},{"imu.quat",1,4,"ppm"},
+    {"frames.camera.pos",1,3,"mm"},{"frames.camera.quat",1,4,"ppm"},{"frames.tof.pos",1,3,"mm"},{"frames.tof.quat",1,4,"ppm"},
+    {"frames.head_imu.pos",1,3,"mm"},{"frames.head_imu.quat",1,4,"ppm"},{"skeleton.pos",128,3,"mm"},{"skeleton.quat",128,4,"ppm"},
+    {"t_ns",1,1,"ns"},{"policy",1,1,"text"}
+};
+static const TelemetryField *findTelemetryField(yyjson_val *value) {
+    for (size_t i=0;i<sizeof(telemetryFields)/sizeof(telemetryFields[0]);++i) if (equalText(value,telemetryFields[i].name)) return &telemetryFields[i];
+    return NULL;
+}
+static int validRobotPreview(yyjson_val *params) {
+    yyjson_val *method=yyjson_obj_get(params,"method"),*args=yyjson_obj_get(params,"args");
+    const char *keys[4];size_t count=0;
+    if (equalText(method,"robot.move")) { keys[count++]="vx_mm_s";keys[count++]="vy_mm_s";keys[count++]="vyaw_mrad_s"; }
+    else if (equalText(method,"robot.head")) { keys[count++]="neck_pitch_mrad";keys[count++]="head_pitch_mrad";keys[count++]="head_yaw_mrad";keys[count++]="head_roll_mrad"; }
+    else if (equalText(method,"robot.look")) { keys[count++]="x_mm";keys[count++]="y_mm";keys[count++]="z_mm";keys[count++]="neck_pitch_mrad"; }
+    else if (equalText(method,"robot.pose")) { keys[count++]="z_mm";keys[count++]="roll_mrad";keys[count++]="pitch_mrad";keys[count++]="active"; }
+    else if (equalText(method,"robot.mouth")) keys[count++]="open_permille";
+    else if (equalText(method,"robot.enable")) { keys[count++]="on";keys[count++]="toggle"; }
+    else if (equalText(method,"robot.do")) keys[count++]="skill";
+    else if (equalText(method,"robot.sound")) { keys[count++]="tag";keys[count++]="hold"; }
+    else if (equalText(method,"robot.loadPolicy")) { keys[count++]="slot";keys[count++]="path"; }
+    else if (equalText(method,"robot.setMode")) keys[count++]="mode";
+    else if (!(equalText(method,"robot.stop") || equalText(method,"robot.init") || equalText(method,"robot.relax"))) return 0;
+    if (!objectKeys(args,keys,count) || yyjson_obj_size(args)!=count) return 0;
+    if (equalText(method,"robot.move")) return integerBetween(yyjson_obj_get(args,keys[0]),-300,300) && integerBetween(yyjson_obj_get(args,keys[1]),-300,300) && integerBetween(yyjson_obj_get(args,keys[2]),-1500,1500);
+    if (equalText(method,"robot.head")) {
+        for (size_t i=0;i<4;++i) if (!integerBetween(yyjson_obj_get(args,keys[i]),-3142,3142)) return 0;
+        return 1;
+    }
+    if (equalText(method,"robot.look")) return integerBetween(yyjson_obj_get(args,"x_mm"),-1000,1000) && integerBetween(yyjson_obj_get(args,"y_mm"),-1000,1000) && integerBetween(yyjson_obj_get(args,"z_mm"),-1000,1000) && integerBetween(yyjson_obj_get(args,"neck_pitch_mrad"),-3142,3142);
+    if (equalText(method,"robot.pose")) return integerBetween(yyjson_obj_get(args,"z_mm"),-25,10) && integerBetween(yyjson_obj_get(args,"roll_mrad"),-260,260) && integerBetween(yyjson_obj_get(args,"pitch_mrad"),-260,260) && yyjson_is_bool(yyjson_obj_get(args,"active"));
+    if (equalText(method,"robot.mouth")) return integerBetween(yyjson_obj_get(args,"open_permille"),0,1000);
+    if (equalText(method,"robot.enable")) return yyjson_is_bool(yyjson_obj_get(args,"on")) && yyjson_is_bool(yyjson_obj_get(args,"toggle"));
+    if (equalText(method,"robot.do")) return equalText(yyjson_obj_get(args,"skill"),"simulation_bow") || equalText(yyjson_obj_get(args,"skill"),"simulation_nod");
+    if (equalText(method,"robot.setMode")) return equalText(yyjson_obj_get(args,"mode"),"walk") || equalText(yyjson_obj_get(args,"mode"),"roller");
+    if (equalText(method,"robot.sound")) {
+        yyjson_val *tag=yyjson_obj_get(args,"tag"),*hold=yyjson_obj_get(args,"hold");
+        if (equalText(tag,"wheee")) return yyjson_is_bool(hold);
+        return yyjson_is_null(hold) && (equalText(tag,"alarm") || equalText(tag,"greet") || equalText(tag,"inquire") || equalText(tag,"peck") || equalText(tag,"chirp") || equalText(tag,"coo"));
+    }
+    if (equalText(method,"robot.loadPolicy")) {
+        yyjson_val *slot=yyjson_obj_get(args,"slot"),*path=yyjson_obj_get(args,"path");
+        if (yyjson_is_null(slot)) return yyjson_is_null(path);
+        if (equalText(slot,"walk")) return yyjson_is_null(path) || equalText(path,"/SIMULATION/walk.onnx");
+        if (equalText(slot,"stand")) return yyjson_is_null(path) || equalText(path,"/SIMULATION/stand.onnx");
+        return 0;
+    }
     return 1;
 }
 static const Method *findMethod(const char *name) {
@@ -242,6 +302,9 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_SNAPSHOT_HANDLE: keys[count++]="handle"; break;
         case PARAM_SNAPSHOT_ROW: keys[count++]="handle"; keys[count++]="row"; break;
         case PARAM_SNAPSHOT_CODE: keys[count++]="handle"; keys[count++]="code"; break;
+        case PARAM_ROBOT_PREVIEW: keys[count++]="method"; keys[count++]="args"; break;
+        case PARAM_TELEMETRY_CAPTURE: keys[count++]="hz"; break;
+        case PARAM_TELEMETRY_READ: keys[count++]="handle"; keys[count++]="field"; keys[count++]="index"; keys[count++]="component"; break;
     }
     if (!objectKeys(params, keys, count)) return 0;
     yyjson_val *value;
@@ -286,6 +349,12 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_SNAPSHOT_HANDLE: return snapshotHandle(yyjson_obj_get(params,"handle"));
         case PARAM_SNAPSHOT_ROW: return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"row"),1,8);
         case PARAM_SNAPSHOT_CODE: return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"code"),0,65535);
+        case PARAM_ROBOT_PREVIEW: return yyjson_obj_size(params)==2 && validRobotPreview(params);
+        case PARAM_TELEMETRY_CAPTURE: return integerBetween(yyjson_obj_get(params,"hz"),1,50);
+        case PARAM_TELEMETRY_READ: {
+            const TelemetryField *field=findTelemetryField(yyjson_obj_get(params,"field"));
+            return snapshotHandle(yyjson_obj_get(params,"handle")) && field && integerBetween(yyjson_obj_get(params,"index"),1,field->indices) && integerBetween(yyjson_obj_get(params,"component"),1,field->components);
+        }
     }
     return 0;
 }
@@ -638,7 +707,7 @@ static yyjson_val *sensorResult(yyjson_val *root,HealthReading *reading) {
     reading->origin="simulation";
     yyjson_val *status=yyjson_obj_get(value,"status");
     if (equalText(status,"ok")) return value;
-    const char *states[]={"waiting","timeout","absent","refused","detached","dropped","unobserved","unsupported","no_event","event_limit","no_target","unusable","busy","expired_or_unknown","wrong_kind"};
+    const char *states[]={"waiting","timeout","absent","refused","detached","dropped","unobserved","unsupported","no_event","event_limit","no_target","unusable","busy","expired_or_unknown","wrong_kind","not_reported","out_of_range"};
     for (size_t i=0;i<sizeof(states)/sizeof(states[0]);++i) if (equalText(status,states[i])) { reading->status=states[i]; return value; }
     return NULL;
 }
@@ -661,7 +730,7 @@ static OBJ sensorSamplePrimitive(int argc,OBJ *args) {
     if (result && equalText(yyjson_obj_get(result,"status"),"ok")) {
         if (capture) {
             yyjson_val *token=yyjson_obj_get(result,"handle");
-            if ((equalText(kind,"tof_capture") || equalText(kind,"pad_capture")) && snapshotHandle(token)) {
+            if ((equalText(kind,"tof_capture") || equalText(kind,"pad_capture") || equalText(kind,"telemetry_capture")) && snapshotHandle(token)) {
                 memcpy(handle,yyjson_get_str(token),32);handle[32]='\0';reading.text=handle;reading.isText=1;reading.status="ok";
             }
         } else if (position) {
@@ -715,10 +784,67 @@ static OBJ sensorRowPrimitive(int argc,OBJ *args) {
     }
     yyjson_doc_free(doc);list=tempGCRoot;OBJ previous=FIELD(list,9);FIELD(list,9)=zeroObj;tempGCRoot=previous;return list;
 }
+static int decimalCounter(yyjson_val *value,uint64_t *number) {
+    if (!yyjson_is_str(value)) return 0;
+    size_t length=yyjson_get_len(value);const char *text=yyjson_get_str(value);
+    if (!length || length>20 || (length>1 && text[0]=='0')) return 0;
+    uint64_t result=0;
+    for (size_t i=0;i<length;++i) {
+        if (text[i]<'0' || text[i]>'9') return 0;
+        unsigned digit=(unsigned)(text[i]-'0');
+        if (result>(UINT64_MAX-digit)/10u) return 0;
+        result=result*10u+digit;
+    }
+    *number=result;return 1;
+}
+static OBJ telemetrySamplePrimitive(int argc,OBJ *args) {
+    if (argc!=1) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u],text[129];size_t length;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
+    yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
+    HealthReading reading={.status="invalid",.text="",.unit="",.origin="unmarked"};
+    yyjson_val *result=sensorResult(yyjson_doc_get_root(doc),&reading),*value=yyjson_obj_get(result,"value");
+    const TelemetryField *field=findTelemetryField(yyjson_obj_get(result,"field"));
+    yyjson_val *index=yyjson_obj_get(result,"index"),*component=yyjson_obj_get(result,"component");
+    if (result && field && equalText(yyjson_obj_get(result,"kind"),"telemetry_reading") && integerBetween(index,1,field->indices) && integerBetween(component,1,field->components)) {
+        reading.unit=field->unit;
+        if ((!strcmp(field->name,"move.requested") || !strcmp(field->name,"move.applied")) && integerBetween(component,3,3)) reading.unit="mrad/s";
+        if (equalText(yyjson_obj_get(result,"status"),"ok") && equalText(yyjson_obj_get(result,"unit"),reading.unit)) {
+            if (!strcmp(reading.unit,"boolean")) {
+                if (yyjson_is_bool(value)) { reading.isBoolean=1;reading.boolean=yyjson_get_bool(value);reading.status="ok"; }
+            } else if (!strcmp(reading.unit,"ns") || !strcmp(reading.unit,"count64")) {
+                uint64_t number;
+                if (decimalCounter(value,&number)) {
+                    if (!strcmp(reading.unit,"ns") && !number) reading.status="not_reported";
+                    else { size_t n=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),n);text[n]='\0';reading.text=text;reading.isText=1;reading.status="ok"; }
+                }
+            } else if (!strcmp(reading.unit,"text")) {
+                if (yyjson_is_str(value) && yyjson_get_len(value)<=128) {
+                    size_t n=yyjson_get_len(value);const unsigned char *p=(const unsigned char *)yyjson_get_str(value);int valid=1;
+                    for (size_t i=0;i<n;++i) if (p[i]<32u || p[i]==127u) valid=0;
+                    if (valid) { memcpy(text,p,n);text[n]='\0';reading.text=text;reading.isText=1;reading.status="ok"; }
+                }
+            } else if (yyjson_is_int(value)) {
+                int nonnegative=!strcmp(reading.unit,"uA") || !strcmp(reading.unit,"mHz") || !strcmp(reading.unit,"count") || !strcmp(reading.unit,"gain");
+                int maximum=!strcmp(reading.unit,"gain")?65535:!strcmp(reading.unit,"count")?64:1073741823;
+                if (integerBetween(value,nonnegative?0:-1073741824,maximum)) { reading.number=(int)yyjson_get_sint(value);reading.status="ok"; }
+                else reading.status="out_of_range";
+            }
+        }
+    }
+    yyjson_val *defaulted=yyjson_obj_get(result,"source_default");
+    if (defaulted && !yyjson_is_bool(defaulted)) reading.status="invalid";
+    else if (yyjson_is_true(defaulted)) {
+        if (field && !strcmp(field->name,"move.limit_count") && !strcmp(reading.status,"ok") && !reading.number) reading.origin="sim_default";
+        else reading.status="invalid";
+    }
+    yyjson_doc_free(doc);return readingRecord(&reading);
+}
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
     {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
     {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive},
-    {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive}
+    {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

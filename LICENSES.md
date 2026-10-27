@@ -202,3 +202,9 @@ are referenced; no Pollen/ST driver, firmware or device capture is redistributed
 The bounded snapshot store and observed gamepad state model/tests are also
 newly authored MIT code. Native typed sensor decoders, library/version1.1 and
 example changes retain MPL-2.0. No Pollen controller or continuous driver is copied.
+
+The API45 control-packet preview recorder, bounded robot.state simulator/typed
+reader and tests are newly authored MIT code. Native validators/typed decoder,
+separate Robot Simulation/Telemetry libraries and example retain MPL-2.0.
+Only interface facts are used; no Pollen controller, policy/ONNX weights, IK,
+kinematics, safety implementation or actual robot capture is redistributed.
