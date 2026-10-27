@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-10-27T06:50:01.679585+00:00",
+  "linux_repository_validation": {
+    "command": "build-artifacts/bridge-venv/bin/python tools/validate.py",
+    "tests": 163,
+    "skipped": 0,
+    "result": "PASS",
+    "seconds": 249.369
+  },
+  "windows_repository_validation": {
+    "tests": 163,
+    "skipped": 79,
+    "result": "PASS",
+    "scope": "Linux-only tests skipped on Windows"
+  },
+  "node_selected_suites": {
+    "tests": 64,
+    "skipped": 0,
+    "result": "PASS"
+  },
+  "simulator_tests": 6,
+  "standalone_native_fixture_checks": 380,
+  "native_feature_tests_per_binary": 10,
+  "native_pi_instrumentation": [
+    "ASan+UBSan",
+    "ordinary O2"
+  ],
+  "physical_microduck": false,
+  "numeric_suite_executed_on_pi": false,
+  "graphical_demo_action_log_bytes": 0,
+  "publication": false,
+  "notes": [
+    "The larger pinned JSON parser required increasing only the local compiler timeout from60to120seconds. Runtime timeouts/assertions were not relaxed.",
+    "The independent 40ms native-fixture deadline is separate from the actual production10second deadline tested by real VM integration.",
+    "The graphical library uses the supported repeatUntil opcode after its first real compiler run exposed an unsupported GP while command."
+  ]
+}

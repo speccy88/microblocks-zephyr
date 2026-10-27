@@ -6,7 +6,7 @@ callers must not inject that API a second time. No hardware library is claimed.
 """
 # SPDX-License-Identifier: MPL-2.0
 import json
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 import re
 
 LINUX_LIBRARY = b"""module 'Linux Core' Output
@@ -65,7 +65,7 @@ def unpack_package(javascript, data):
     return {item['filename']: data[int(item['start']):int(item['end'])] for item in metadata['files']}
 
 
-def linux_package(javascript: bytes, data: bytes):
+def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None):
     """Repack only the known UNO Q customization, preserving the real GP engine.
 
     The compiler uses the existing IO primitive index under alias ``linux``.
@@ -74,6 +74,13 @@ def linux_package(javascript: bytes, data: bytes):
     previously accepted multi-board portal serialization/load implementation.
     """
     source, match, metadata = package_metadata(javascript, data, pinned=True)
+    if type(microduck) is not bool:
+        raise ValueError('MicroDuck library selection must be explicit')
+    library = example = None
+    if microduck:
+        root = Path(repo) if repo is not None else Path(__file__).resolve().parents[1]
+        library = (root / 'linux/microduck/MicroDuck.ubl').read_bytes()
+        example = (root / 'linux/microduck/health.ubp').read_bytes() + b'\n' + library
     packed = bytearray()
     entries = []
     counts = {'api': 0, 'compiler': 0, 'library': 0, 'arithmetic': 0, 'output': 0}
@@ -82,6 +89,9 @@ def linux_package(javascript: bytes, data: bytes):
         payload = data[int(item['start']):int(item['end'])]
         if name == '/runtime/lib/MicroBlocksCompiler.gp':
             payload = replace_once(payload, b"atPut primsets 'unoq' (at primsets 'io')", b"atPut primsets 'linux' (at primsets 'io')")
+            if microduck:
+                payload = replace_once(payload, b"atPut primsets 'linux' (at primsets 'io')",
+                                       b"atPut primsets 'linux' (at primsets 'io')\n\tatPut primsets 'microduck' 22")
             counts['compiler'] += 1
         if name == '/runtime/lib/MicroBlocksAPI.gp':
             for before, after in [
@@ -96,6 +106,12 @@ def linux_package(javascript: bytes, data: bytes):
                 payload = replace_once(payload, before, after)
             if b"endPoint == 'portal.serialize'" in payload or b"endPoint == 'portal.load'" in payload:
                 raise ValueError('Project API was already injected')
+            if microduck:
+                payload = replace_once(payload, b"if (notNil data) { importLibraryFromString scripter data 'Linux Core' '' }",
+                    b"if (notNil data) { importLibraryFromString scripter data 'Linux Core' '' }\n"
+                    b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Linux.ubl')\n"
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck' '' }")
+                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health'")
             payload = replace_once(payload, b"} (endPoint == 'project.save') {", PROJECT_API + b"} (endPoint == 'project.save') {")
             counts['api'] += 1
         if name == '/Libraries/UNO_Q_Hardware.ubl':
@@ -122,6 +138,12 @@ def linux_package(javascript: bytes, data: bytes):
         entries.append({'filename': name, 'start': start, 'end': len(packed)})
     if any(value != 1 for value in counts.values()):
         raise ValueError('Pinned Linux editor patch count differs: ' + repr(counts))
+    if microduck:
+        for name, payload in (('/Libraries/MicroDuck_Linux.ubl', library), ('/Examples/Linux/microduck-health.ubp', example)):
+            if name in {item['filename'] for item in entries}:
+                raise ValueError('MicroDuck virtual file already exists: ' + name)
+            start = len(packed); packed.extend(payload)
+            entries.append({'filename': name, 'start': start, 'end': len(packed)})
     replacement = json.dumps({'files': entries, 'remote_package_size': len(packed)}, separators=(',', ':'))
     source = source[:match.start(1)] + replacement + source[match.end(1):]
     source = replace_once(source, '"/Examples","UNO Q"', '"/Examples","Linux"')

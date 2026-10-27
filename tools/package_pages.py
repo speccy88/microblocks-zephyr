@@ -140,7 +140,7 @@ def build(source, output, repo):
                     (repo/'boards/propeller2/integration/P2_Hardware.ubl').read_bytes())
             elif board in ('raspberry-pi5','microduck'):
                 from linux_editor_assets import linux_package
-                js,data=linux_package(originals['gp_wasm.js'],originals['gp_wasm.data'])
+                js,data=linux_package(originals['gp_wasm.js'],originals['gp_wasm.data'],microduck=board=='microduck',repo=repo)
             elif board=='esp32p4':
                 from package_p4_ide import patch_p4
                 js,data=patch_p4(originals['gp_wasm.js'],originals['gp_wasm.data'],repo)

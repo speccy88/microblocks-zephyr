@@ -144,6 +144,7 @@
   mode.onchange=()=>{disconnect();endpoint.hidden=mode.value!=='wifi';};
   const lanNote=element('p',isP2?'P2 runs a native FlexC VM over USB. Select the exact module variant when installing its firmware; P58-P63 are reserved, and EC32MB also reserves P40-P57.':'Current LAN firmware uses ws://. From this HTTPS portal, open its own IDE instead; browser security is not bypassed.');panel.append(lanNote);
   if(isLinux)lanNote.textContent='Connect explicitly to a trusted WSS bridge, or open the Pi editor through the documented local SSH tunnel. Core Linux VM primitives are available; GPIO and robot hardware are not enabled.';
+  if(profile.board==='microduck')lanNote.textContent='The optional MicroDuck Unix gateway requires the matching native VM and explicit local configuration. Robot hardware validation is pending. Sound and skills also require confirmation and the gateway operator allowlist.';
   if(isP2){const setup=element('a','P2 setup and firmware instructions');setup.href='https://github.com/speccy88/microblocks-zephyr/blob/main/boards/propeller2/README.md';setup.target='_blank';setup.rel='noopener noreferrer';panel.append(setup);}
   const ip=element('input');ip.placeholder='Board address, e.g. 192.168.x.x';ip.setAttribute('aria-label','Self-hosted board address');panel.append(ip);
   const local=element('button','Open board-hosted IDE');local.onclick=()=>{
@@ -200,6 +201,7 @@
   const boardEndpoint=isLinux?'linux':{'fruit-jam':'fruitJam','waveshare':'rlcd','xrp-rp2350':'xrp','propeller2':'p2'}[profile.board];GP.apiCall(boardEndpoint+'.loadLibrary');
   const examples=element('select');examples.setAttribute('aria-label','Board examples');
   for(const [value,text] of [['','Examples'],['arithmetic','5 + 7'],['output','50 outputs']]){const option=element('option',text);option.value=value;examples.append(option);}
+  if(profile.board==='microduck'){const option=element('option','MicroDuck health (gateway)');option.value='microduck-health';examples.append(option);}
   examples.onchange=()=>{if(examples.value)GP.apiCall(boardEndpoint+'.openExample',[examples.value]);examples.value='';toolbar.open=false;};panel.insertBefore(examples,read);
   if(profile.connection_enabled===false)notify('XRP development preview: the production RP2350 library is available for editing. Hardware connection is not enabled yet.');
   else if(!isLinux&&!navigator.serial)notify('This browser cannot connect USB. Use desktop Chrome or Edge; you can still edit and save projects here.');

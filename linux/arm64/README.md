@@ -76,6 +76,15 @@ time. The graphical transport uses the separate [loopback bridge](bridge.py),
 with exact Host/Origin checks and one controller. See the
 [portal connection guide](../../docs/LINUX_PORTAL.md).
 
+The build also registers an optional [MicroDuck Unix adapter](../microduck/README.md).
+It is disabled unless `--microduck-socket /absolute/private/gateway.sock` is
+explicitly supplied. Four nonblocking jobs, a fixed method allowlist, verified
+same-user peer credentials, bounded strict JSON and confirmation/operator gates
+keep it separate from the VM scheduler. It passed real Pi bytecode and graphical
+health-block tests with simulated robot services. Those results do not validate
+physical MicroDuck hardware. The pinned yyjson dependency and its MIT notice
+are retained in source manifests and candidate packages.
+
 The LP64 implementation stores 32-bit arena offsets in VM objects while native
 addresses remain native pointers at explicit boundaries. It retains the v417
 four-byte field/header/code format, uses typed native primitive callbacks and

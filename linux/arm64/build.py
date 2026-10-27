@@ -66,13 +66,31 @@ def prepare(upstream, output, sanitize=False):
         sources['platform/' + path.name] = {'port_source': path.relative_to(ROOT).as_posix(), 'prepared_sha256': hashlib.sha256(target.read_bytes()).hexdigest()}
     license_bytes = subprocess.check_output(['git', '-c', 'safe.directory=' + str(upstream), '-C', str(upstream), 'show', COMMIT + ':LICENSE'])
     (output / 'LICENSE').write_bytes(license_bytes)
+    json_lock = json.loads((ROOT / 'dependencies/json.json').read_text(encoding='utf-8'))
+    if json_lock['commit'] != '6447536015f3d600f3d65323b10976103b337ca7':
+        raise ValueError('Unsupported yyjson source pin')
+    expected = {'third_party/yyjson/yyjson.c', 'third_party/yyjson/yyjson.h', 'third_party/yyjson/LICENSE'}
+    if set(json_lock['files']) != expected:
+        raise ValueError('Unexpected JSON dependency file set')
+    for name, digest in json_lock['files'].items():
+        raw = (ROOT / name).read_bytes()
+        if hashlib.sha256(raw).hexdigest() != digest:
+            raise ValueError('Pinned JSON dependency changed: ' + name)
+        target = output / name; target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(raw)
+        sources[name] = {'dependency_repository': json_lock['source'], 'dependency_commit': json_lock['commit'],
+                         'prepared_sha256': digest}
+    name = 'common/json/json_config.h'
+    target = output / name; target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / name, target)
+    sources[name] = {'port_source': name, 'prepared_sha256': hashlib.sha256(target.read_bytes()).hexdigest()}
     flags = ['-std=c11', '-O1' if sanitize else '-O2', '-g', '-Wall', '-Wextra',
              '-Werror=pointer-to-int-cast', '-Werror=int-to-pointer-cast',
              '-Werror=incompatible-pointer-types', '-Werror=int-conversion',
-             '-DSMALLVM_LINUX_ARM64=1', '-Ivm', '-I.']
+             '-DSMALLVM_LINUX_ARM64=1', '-Ivm', '-I.', '-include', 'common/json/json_config.h']
     if sanitize:
         flags += ['-fsanitize=address,undefined', '-fno-omit-frame-pointer']
-    files = ['vm/' + name for name in CORE] + ['vm/arena.c'] + ['platform/' + p.name for p in platform_paths]
+    files = ['vm/' + name for name in CORE] + ['vm/arena.c', 'third_party/yyjson/yyjson.c'] + ['platform/' + p.name for p in platform_paths]
     # The architecture is checked on the actual build host, not the staging PC.
     shell = '#!/bin/sh\nset -eu\ncd "$(dirname "$0")"\nextra=\ncase "$(uname -m)" in aarch64) extra=-march=armv8-a;; esac\n'
     shell += '"${CC:-gcc}" $extra "-ffile-prefix-map=$PWD=." "-fdebug-prefix-map=$PWD=." ' + ' '.join(shlex.quote(x) for x in flags + files + ['-lm', '-o', 'smallvm']) + '\n'

@@ -180,7 +180,8 @@ release publication remain pending. The portal adds Pi 5 and MicroDuck profiles;
 installation copying stays disabled until an actual reviewed release exists.
 [MicroDuck BLE](docs/MICRODUCK_PROTOCOL.md) and the
 [optional Unix gateway](linux/microduck/README.md) have mock coverage; physical
-robot validation and the native VM primitive adapter remain pending.
+robot validation remains pending. The native adapter and block library pass
+real Pi execution against an explicitly simulated robot backend.
 
 The production [XRP integration](boards/sparkfun_xrp_rp2350/README.md) is a
 separate non-actuating SmallVM/Arduino/RM2 application. Its physical release

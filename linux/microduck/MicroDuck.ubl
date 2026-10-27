@@ -1,0 +1,44 @@
+module 'MicroDuck' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 0 1
+description 'Experimental Linux Unix-gateway integration, tested with simulated robot services; physical MicroDuck validation pending. Start SmallVM with an explicitly configured private gateway socket. Requests use four bounded asynchronous job slots, a ten-second deadline and no automatic retry. Convenience reporters wait cooperatively and return the full JSON-RPC reply, including errors. Battery health JSON may omit battery data; absence is unknown, not zero. Sound and skill inputs default to unconfirmed; execution also requires the gateway operator allowlist and discovered robot capabilities. Stop All cancels local waits and cannot roll back a command already received by the robot. Unknown outcomes must be checked before manually issuing another command. Ordinary IDE disconnect does not stop autonomous scripts. No direct motor control, locomotion stream, camera, Wi-Fi credentials or BLE PIN.'
+spec 'b' '[microduck:configured]' 'gateway configured?'
+spec 'r' 'microduckHealth' 'health JSON'
+spec 'r' 'microduckBatteryHealth' 'battery health JSON'
+spec 'r' 'microduckSkills' 'skills JSON'
+spec 'r' 'microduckPolicies' 'policies JSON'
+spec 'r' 'microduckCapabilities' 'gateway capabilities JSON'
+spec 'r' 'microduckSound' 'sound _ confirmed _' 'str bool' 'chirp' false
+spec 'r' 'microduckSkill' 'skill _ confirmed _' 'str bool' '' false
+advanced
+spec 'r' '[microduck:jobs]' 'MicroDuck retained job IDs'
+spec 'r' '[microduck:begin]' 'begin MicroDuck _ params _ confirmed _' 'str str bool' 'robot.health' '{}' false
+spec 'r' '[microduck:status]' 'MicroDuck job _ state' 'num' 0
+spec 'r' '[microduck:result]' 'MicroDuck job _ reply JSON' 'num' 0
+spec ' ' '[microduck:release]' 'release MicroDuck job _' 'num' 0
+spec 'r' '[microduck:quote]' 'MicroDuck JSON quote _' 'str' ''
+spec 'r' 'microduckWait' 'wait for MicroDuck job _ reply JSON' 'num' 0
+
+to microduckWait job {
+    repeatUntil (not (('[microduck:status]' job) == 'pending')) { waitMillis 10 }
+    local 'reply' ('[microduck:result]' job)
+    '[microduck:release]' job
+    return reply
+}
+to microduckRequest method params confirmed {
+    if (not ('[microduck:configured]')) {
+        return '{"jsonrpc":"2.0","id":null,"error":{"code":-32004,"message":"MicroDuck gateway is not configured","data":{"outcome":"not_sent"}}}'
+    }
+    return (microduckWait ('[microduck:begin]' method params confirmed))
+}
+to microduckHealth { return (microduckRequest 'robot.health' '{}' false) }
+to microduckBatteryHealth { return (microduckHealth) }
+to microduckSkills { return (microduckRequest 'robot.skills' '{}' false) }
+to microduckPolicies { return (microduckRequest 'robot.policies' '{}' false) }
+to microduckCapabilities { return (microduckRequest 'microduck.capabilities' '{}' false) }
+to microduckSound tag confirmed {
+    return (microduckRequest 'robot.sound' ('[data:join]' '{"tag":' ('[microduck:quote]' tag) '}') confirmed)
+}
+to microduckSkill skill confirmed {
+    return (microduckRequest 'robot.do' ('[data:join]' '{"skill":' ('[microduck:quote]' skill) '}') confirmed)
+}

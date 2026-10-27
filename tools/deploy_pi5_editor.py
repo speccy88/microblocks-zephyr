@@ -21,12 +21,18 @@ def execute(binary, editor, target):
     local = ROOT / 'build-artifacts/pi5-editor' / stamp
     local.mkdir(parents=True)
     manifest = json.loads((editor / 'build-manifest.json').read_text())
+    port = manifest['loopback_bridge_port']
+    if type(port) is not int or not 1024 <= port <= 65535:
+        raise ValueError('Invalid editor loopback port')
     for name, meta in manifest['files'].items():
         path = editor / name
         if path.is_symlink() or not path.resolve().is_relative_to(editor) or hashlib.sha256(path.read_bytes()).hexdigest() != meta['sha256']:
             raise ValueError('Editor asset changed: ' + name)
     files = {'smallvm': binary, 'bridge.py': ROOT / 'linux/arm64/bridge.py',
              'session.py': ROOT / 'linux/arm64/session.py'}
+    if manifest['profile'] == 'microduck':
+        for name in ('gateway.py', 'protocol.py', 'simulator.py'):
+            files['microduck/' + name] = ROOT / 'linux/microduck' / name
     files.update({'editor/' + p.relative_to(editor).as_posix(): p for p in editor.rglob('*') if p.is_file()})
     hashes = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in files.items()}
     (local / 'input-hashes.json').write_text(json.dumps(hashes, indent=2) + '\n')
@@ -56,7 +62,10 @@ PY
     report = {'remote_directory': remote, 'target': target,
               'verified_input_files': len(hashes), 'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
               'binary_sha256': hashes['smallvm'], 'listener_started': False,
-              'remote_command': 'cd "$HOME/' + remote + '" && exec "$HOME/microblocks-charlie/bridge-venv/bin/python" -u session.py --binary "$PWD/smallvm" --editor "$PWD/editor" --data "$PWD/data" --port 8876'}
+              'remote_command': 'cd "$HOME/' + remote + '" && exec "$HOME/microblocks-charlie/bridge-venv/bin/python" -u session.py --binary "$PWD/smallvm" --editor "$PWD/editor" --data "$PWD/data" --port ' + str(port)}
+    if manifest['profile'] == 'microduck':
+        report['simulation_command'] = 'cd "$HOME/' + remote + '" && exec python3 -u microduck/simulator.py --directory "$PWD/simulation"'
+        report['simulated_gateway_argument'] = ' --microduck-socket "$HOME/' + remote + '/simulation/gateway.sock"'
     (local / 'deployment.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps({'evidence': str(local / 'deployment.json'), **report}, indent=2))
 

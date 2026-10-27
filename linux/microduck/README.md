@@ -1,9 +1,11 @@
 # MicroDuck local JSON-RPC integration
 
 Status: implemented gateway and Python client, tested with mock robot services
-over real Linux Unix-domain sockets. No physical MicroDuck, daemon deployment,
+over real Linux Unix-domain sockets. No physical MicroDuck, production daemon deployment,
 locomotion, sensor, battery or sound validation has occurred. This component is
-not installed or linked into the native SmallVM executable automatically.
+linked into the Linux ARM64 SmallVM build, but disabled unless an operator
+supplies `--microduck-socket`. Tests on the real Pi use simulated robot daemons;
+they do not establish physical MicroDuck compatibility.
 
 ## Source contract
 
@@ -116,28 +118,87 @@ health includes any supported motor, IMU, thermal and control-loop fields. It
 does not fabricate a universal robot-ready or sensor-value method. Its command
 line reads one bounded request from stdin, avoiding payloads in process arguments.
 
-## SmallVM integration boundary
+## Native SmallVM adapter and blocks
 
-No `.ubl` file is shipped yet: the current native port has no registered
-`microduck` primitive namespace, so such blocks would call nonexistent primitives.
-The machine-readable [VM adapter contract](vm-contract.json) describes the exact
-remaining C/GP integration. The native VM must implement a bounded nonblocking
-Unix socket job state machine, polled between VM slices, with copies of request
-and reply bytes outside GC-managed objects while pending. A synchronous socket
-read must never block the VM scheduler.
+The native [C adapter](../arm64/platform/microduck.c) implements four nonblocking
+Unix-socket jobs. SmallVM polls them between bounded VM slices. Pending input
+and reply bytes stay outside the moving VM heap. No synchronous socket wait,
+worker thread, shell or TCP client is used. Start the real gateway first, then:
 
-The root port must register the named primitive set and corresponding compiler
-mapping without changing existing primitive indices, wire its poll hook, and
-cancel local pending waits on stop/disconnect. Cancellation cannot undo an
-already accepted robot action. Only after those functions are linked and tested
-should the `.ubl` library expose begin/status/result/release blocks or higher-level
-quack/skill/battery blocks. The Unix service and Python client are executable
-now; direct SmallVM robot primitives remain **not implemented**.
+```sh
+smallvm --data-dir /absolute/private/programs --microduck-socket /absolute/private/gateway.sock
+```
+
+Both gateway parent and socket must be owned by the VM user, mode 0700 and 0600
+respectively. The client checks canonical paths, inode identity and Linux peer
+UID before writing the first request byte. Configuration copies a path only;
+`gateway configured?` does not claim a reachable or ready robot.
+
+The `microduck` primitive set is appended at index 22 for this Linux build.
+Other board indices are unchanged. The MicroDuck editor profile includes
+[MicroDuck.ubl](MicroDuck.ubl), matching compiler mapping and a read-only health
+example. Pi's ordinary editor retains its core-only library.
+
+| Primitive | Behavior |
+|---|---|
+| `configured` | Boolean; checks explicit CLI configuration without I/O. |
+| `quote` | Strict JSON quote for a VM string, before any request construction. |
+| `jobs` | List of retained IDs, for recovery after a stopped script. |
+| `begin` | Validated method, JSON object and confirmation Boolean to a positive job ID. |
+| `status` | `pending`, `ready`, `error` or `unknown` for an existing job. |
+| `result` | Terminal JSON-RPC reply string; pending is an explicit VM error. |
+| `release` | Close/free one job, including an unfinished job, without retry or rollback. |
+
+Limits: four retained jobs, 8192-byte request including newline, 65536-byte reply,
+ten-second deadline, signed31 IDs 1..1073741823 without reuse within the process,
+strict UTF-8/JSON, depth 16, at most 8192 values and 256 members per object. All
+requests are compact NDJSON. Wrong IDs, malformed messages, transport loss and
+timeouts after any sent byte produce an `unknown` outcome. Error bodies are
+sanitized. Poll failures never set another VM task's global error flag.
+
+Convenience blocks wait cooperatively, return the full reply JSON, and release
+the finished job. Health, optional battery health, skills, policies and gateway
+capabilities are available. Battery absence is unknown; these blocks do not
+invent a scalar reading or a universal robot-ready sensor. Sound and skill
+blocks default to unconfirmed and also require the gateway operator allowlist;
+skill discovery remains authoritative. Native JSON quoting protects string
+parameters. Other allowed methods remain in advanced `begin` calls.
+
+Stop All cancels pending local waits, retaining terminal error/unknown jobs for
+inspection with `jobs` and explicit release. A single stopped script may leave
+a retained job too. Do not blindly issue another command after an unknown
+outcome. Cancellation cannot undo an accepted robot action and is not an
+emergency stop. Ordinary IDE disconnect preserves autonomous VM execution;
+gateway connection loss terminates its job, and VM process shutdown frees all
+jobs. Jobs/results do not survive VM process restart.
+
+Standard VM errors are: arity 28, string 14, integer 13, Boolean 12,
+invalid/blocked/unconfirmed/pending 32, absent/released job 18, disabled 27, and
+exhausted slots 10. See the [machine-readable contract](vm-contract.json).
 
 ## Reproducing tests and hardware gates
 
+To try the blocks before the robot arrives, start the explicit read-only
+simulation backend in a fresh private directory, then configure the VM with
+the printed gateway path:
+
+```sh
+python3 linux/microduck/simulator.py --directory /tmp/microduck-sim-UNIQUE
+smallvm --data-dir /absolute/private/programs --microduck-socket /tmp/microduck-sim-UNIQUE/gateway.sock
+```
+
+It runs the real gateway and a mock API-44 robot daemon over private Unix
+sockets. Health replies clearly say SIMULATION, report `healthy: false`, and
+label battery/skill data as fictional. It cannot reach a real robot, open motor
+buses or listen on TCP. The optional `--allow-mock-actions` flag permits only
+confirmed, discovered sound/skill simulations, with a bounded private action
+log. It does not enable any real action. Shutdown removes owned sockets while
+retaining metadata/logs for inspection.
+
 ```text
 python tests/test_linux_microduck_gateway.py
+python -m unittest discover -s tests -p test_linux_microduck_vm.py -v
+python tools/test_linux_microduck_native.py --upstream /path/to/smallvm-git --evidence build-artifacts/microduck-native-tests/evidence.json
 ```
 
 Tests run mock official JSON-RPC daemons over real Unix sockets, with the real
@@ -153,9 +214,17 @@ client limits, both executable CLI entrypoints and preservation of existing file
 additionally fault-injected; normal peer checks use real Linux credentials. The
 unchanged Web Bluetooth suite separately passed 23/23 tests.
 
+The native adapter also passed ten real-interpreter/PTY tests under ASan/UBSan
+on LP64 Linux and on the actual AArch64 Pi. The gateway and sockets were real;
+robot daemons and adverse replies were simulated. The tests exercise moving GC
+while a job is pending, concurrent VM execution, confirmation/operator gates,
+slot retention, Stop All recovery and the production ten-second deadline. A
+separate native harness passed 380 checks; its 40-ms test timeout and synthetic
+peer/write fault providers are explicitly separate from the production deadline.
+
 Before MicroDuck acceptance: verify shipping firmware/API/daemon ownership;
 validate actual socket permissions without weakening them; run read-only health,
-identity, policy/skill discovery and battery checks; integrate and test the VM
-adapter; then separately obtain action-time operator approval for sound and
+identity, policy/skill discovery and battery checks; then separately obtain
+action-time operator approval for sound and
 movement. Physical gait safety, real sensors, robot service recovery and actual
 motion remain untested. The existing 23 BLE mock tests are separate and unchanged.

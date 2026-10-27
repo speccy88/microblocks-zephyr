@@ -207,6 +207,12 @@ static NativeCallee findCallee(char *functionOrPrimitiveName) {
 
 
 def _runtime(text):
+    # Cancel only the local bounded RPC waits. This cannot roll back a request
+    # already accepted by robotd, and does not replace the robot's own controls.
+    text = replace(text, 'static void stopAllTasks() {',
+                   'static void stopAllTasks() {\n\tlinuxMicroduckCancelPending();')
+    text = replace(text, 'void stopAllTasksButThis(Task *thisTask) {',
+                   'void stopAllTasksButThis(Task *thisTask) {\n\tlinuxMicroduckCancelPending();')
     text = replace(text, 'tempGCRoot = NULL;', 'tempGCRoot = 0;')
     text = replace(text, 'if (NULL == chunks[chunkIndex].code)', 'if (0 == chunks[chunkIndex].code)')
     text = replace(text, '(int16 *) (chunks[chunkIndex].code + PERSISTENT_HEADER_WORDS)',
@@ -355,6 +361,10 @@ def patch_core(name, source):
     if name == 'interp.h':
         source = replace(source, '#ifdef GNUBLOCKS', '#if defined(GNUBLOCKS) || defined(SMALLVM_LINUX_ARM64)')
         source = replace(source, 'void vmLoop(void);', 'void vmLoop(void);\nvoid vmSlice(unsigned cycles);\nvoid smallvmResetTransport(void);')
+        source = replace(source, '\tSoundPrims,\n\tPrimitiveSetCount',
+                         '\tSoundPrims,\n\tMicroDuckPrims,\n\tPrimitiveSetCount')
+        source = replace(source, 'void primsInit();',
+                         'void primsInit();\nvoid linuxMicroduckCancelPending(void);')
         before = '''static inline int evalInt(OBJ obj) {
 \tif (isInt(obj)) {
 \t\treturn obj2int(obj);

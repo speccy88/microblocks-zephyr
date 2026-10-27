@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "architecture": "aarch64",
+  "checks": {
+    "native_install_self_test": true,
+    "repeat_install_preserves_real_program": true,
+    "checksum_failure_preserves_active_install": true,
+    "upgrade_restores_real_bytecode_and_executes": true,
+    "prior_version_retained": true,
+    "uninstall_preserves_programs_and_binaries": true
+  },
+  "service_created": false,
+  "os_reboot_tested": false,
+  "test_directory": "/home/fred/microblocks-charlie/install-tests/20261027T064250569055Z"
+}

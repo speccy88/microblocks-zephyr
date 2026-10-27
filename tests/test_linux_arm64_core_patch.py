@@ -111,7 +111,7 @@ int main(void) {
             work = Path(directory)
             build = subprocess.run([sys.executable, str(ROOT / 'linux/arm64/build.py'),
                                     '--upstream', str(SOURCE), '--output', str(work / 'build'), '--sanitize'],
-                                   capture_output=True, text=True, timeout=60)
+                                   capture_output=True, text=True, timeout=120)
             self.assertEqual(build.returncode, 0, build.stdout + build.stderr)
             data = work / 'data'
             info = data / 'pty.json'

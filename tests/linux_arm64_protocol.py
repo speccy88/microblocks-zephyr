@@ -149,11 +149,11 @@ class Wire:
 
 
 class Runtime:
-    def __init__(self, binary, data, index):
+    def __init__(self, binary, data, index, *, extra_args=()):
         self.data = data
         self.info = data / f'test-pty-{index}.json'
         self.log = open(data / f'process-{index}.log', 'w+', encoding='utf-8')
-        self.process = subprocess.Popen([str(binary), '--data-dir', str(data), '--pty-info', str(self.info)], stdout=self.log, stderr=subprocess.STDOUT)
+        self.process = subprocess.Popen([str(binary), '--data-dir', str(data), '--pty-info', str(self.info), *extra_args], stdout=self.log, stderr=subprocess.STDOUT)
         self.wire = None
         try:
             until = time.monotonic() + 5

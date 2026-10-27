@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "architecture": "aarch64",
+  "tests_run": 10,
+  "skipped": 0,
+  "failures": 0,
+  "errors": 0,
+  "binary_sha256": "55ccc8ec24318a8f5f429582034c5b01c01266b6631b94542125d2a78efb6455",
+  "binary_sanitizers": true,
+  "scope": "actual native AArch64 SmallVM, official PTY bytecode, C socket adapter and Python gateway; robot services simulated",
+  "physical_microduck_tested": false,
+  "numeric_acceptance_suite_executed": false,
+  "service_changes": false
+}

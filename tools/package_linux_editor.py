@@ -95,7 +95,7 @@ def build(source, output, repo, profile='raspberry-pi5', port=8876):
     if source == output or source.is_relative_to(output) or output.is_relative_to(source):
         raise ValueError('IDE source and build output must be disjoint')
     manifest, originals = verified_assets(source, repo)
-    js, data = linux_package(originals['gp_wasm.js'], originals['gp_wasm.data'])
+    js, data = linux_package(originals['gp_wasm.js'], originals['gp_wasm.data'], microduck=profile=='microduck', repo=repo)
     common = prepare_assets(repo, source)
     assets = dict(originals)
     assets.update({name: common[name] for name in ('microblocks.html', 'gettext.js')})
@@ -133,7 +133,7 @@ def build(source, output, repo, profile='raspberry-pi5', port=8876):
     report = {'real_editor': 'MicroBlocks GP 2.5.8', 'profile': profile, 'runtime': 'linux',
               'source_commit': manifest['source_commit'], 'loopback_bridge_port': port,
               'source_manifest_sha256': hashlib.sha256((repo / 'dependencies/ide-assets.json').read_bytes()).hexdigest(),
-              'hardware_library': 'Linux Core; no added hardware primitives',
+              'hardware_library': 'MicroDuck Unix gateway library; physical hardware unvalidated' if profile=='microduck' else 'Linux Core; no added hardware primitives',
               'project_api': ['portal.serialize', 'portal.load'], 'boot_assets_local': True,
               'physical_browser_acceptance': False,
               'files': {name: {'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()} for name, raw in sorted(assets.items())}}

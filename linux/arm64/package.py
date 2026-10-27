@@ -17,6 +17,7 @@ import subprocess
 import tarfile
 
 SOURCE_COMMIT = '2071df569623ba9cdcd6f8106b61796e047df38b'
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def package(binary, license_bytes, output, version, *, epoch=0):
@@ -30,12 +31,16 @@ def package(binary, license_bytes, output, version, *, epoch=0):
         'source_commit': SOURCE_COMMIT,
         'binary_sha256': hashlib.sha256(binary).hexdigest(),
         'acceptance': 'candidate; requires real Raspberry Pi execution evidence before release',
+        'dependencies': {'yyjson': '6447536015f3d600f3d65323b10976103b337ca7'},
     }
+    json_license = (ROOT / 'third_party/yyjson/LICENSE').read_bytes()
+    if hashlib.sha256(json_license).hexdigest() != '45e384d3d52c73cba3a64d6e6c25d47cd738cd8a55c30629e3201046eda62947':
+        raise ValueError('Pinned yyjson license changed')
     entries = {
         'smallvm': binary,
         'manifest.json': (json.dumps(manifest, indent=2, sort_keys=True) + '\n').encode(),
         'LICENSE': license_bytes,
-        'NOTICE': b'SmallVM is MPL-2.0. Corresponding source: https://codeberg.org/MicroBlocks/smallvm at ' + SOURCE_COMMIT.encode() + b'.\nPort changes and build recipe must accompany a published release.\n',
+        'NOTICE': b'SmallVM is MPL-2.0. Corresponding source: https://codeberg.org/MicroBlocks/smallvm at ' + SOURCE_COMMIT.encode() + b'.\nPort changes and build recipe must accompany a published release.\n\nyyjson 0.13.0, MIT, https://github.com/ibireme/yyjson at 6447536015f3d600f3d65323b10976103b337ca7\n' + json_license,
     }
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)

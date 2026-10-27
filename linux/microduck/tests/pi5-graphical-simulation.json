@@ -1,0 +1,41 @@
+{
+  "result": "PASS",
+  "time_utc": "2026-10-27T06:46:03.225259+00:00",
+  "scope": "real GP2.5.8 compilation and real RaspberryPi5 nativeVM/Cadapter/UnixGateway; robot simulated",
+  "physical_microduck_tested": false,
+  "simulated_readings_are_fictional": true,
+  "simulated_actions_enabled": false,
+  "editor_origin": "http://127.0.0.1:8879",
+  "transport": "same-origin WebSocket through verified SSH loopback tunnel, private PTY, private Unix gateway",
+  "binary_sha256": "0365d817036b74819f27ea405f8036f2d892f503891a03d561eb9e1c12f51ef2",
+  "library_sha256": "54b84c89514e418a6adb33f746e7d6159d6256d7d41176fd20dd33b3e4d71bd6",
+  "editor_js_sha256": "8ecb8f95d1952571c43770e8d2e8210f012ba1b4744c99cb1fa30bcadafbdaf0",
+  "editor_data_sha256": "80d90455275d3154319ec88f0566980f4203b6d2bc98fb2ce297bc668760aa09",
+  "screenshot_sha256": "4d72bd5e058ab77f4de6c76534d9f321d42a27baf8d7aee4136d38e22174ccd4",
+  "observed_reply": {
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+      "healthy": false,
+      "degraded": true,
+      "reason": "SIMULATION ONLY: no robot connected; battery readings and skills are fictional.",
+      "battery": {
+        "volts": 7.8,
+        "percent": 73.25
+      },
+      "bus": {
+        "consecutive_errors": 0,
+        "startup_failures": 0
+      }
+    },
+    "gateway": {
+      "service": "robot",
+      "upstream_api_version": 44,
+      "expected_api_version": 44
+    }
+  },
+  "compiler_correction": "Use repeatUntil for cooperative polling; GP while is not a supported MicroBlocks block opcode",
+  "remote_directory": "microblocks-charlie/editor-sessions/20261027T062816121820Z",
+  "service_installed": false,
+  "os_reboot_tested": false
+}

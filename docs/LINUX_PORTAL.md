@@ -102,8 +102,11 @@ The MicroDuck discovery panel is separate from VM connection. Its tests use
 mock GATT. It sends no RPC command, PIN or Wi-Fi password; the currently exposed
 browser BLE connection cannot attest encryption. Authentication/provisioning
 and actual robot control remain gated on secure transport and hardware tests.
-The optional [Unix gateway](../linux/microduck/README.md) is also preparatory;
-the native VM primitive adapter is not yet registered.
+The [Unix gateway and native VM adapter](../linux/microduck/README.md) now have
+real Pi execution tests against simulated robot services. The MicroDuck editor
+profile includes the matching block library and a read-only health example.
+Physical robot validation is still pending; a CLI-configured gateway path is
+required and does not by itself attest robot readiness.
 
 ## Module integration
 

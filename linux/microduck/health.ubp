@@ -1,0 +1,11 @@
+module main
+description 'Read-only MicroDuck gateway health example. Robot services are simulated during preparation; physical robot validation pending. No sound, skill, enable, policy or motion command is issued.'
+variables reply
+
+script 50 50 {
+    whenStarted
+    reply = (microduckHealth)
+    sayIt reply
+}
+
+script 350 50 ('[microduck:configured]')

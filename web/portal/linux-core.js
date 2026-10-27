@@ -15,7 +15,7 @@
   microduck:Object.freeze({
    id:'microduck',name:'MicroDuck — Rockchip RK3566',
    hardware:'Pollen Robotics MicroDuck, Rockchip RK3566 / Cortex-A55, Linux ARM64.',
-   validation:'BLE and JSON-RPC protocol mocks pass. No physical MicroDuck validation; robot installation and motion remain unverified.',
+   validation:'BLE/JSON-RPC mocks and native Pi adapter tests with simulated robot services pass. No physical MicroDuck validation; robot installation and motion remain unverified.',
    validationKind:'simulated',hostPlaceholder:'IP address from robot provisioning',
    editorPath:'editor/microduck/microblocks.html',
    docs:Object.freeze([{label:'MicroDuck BLE and JSON-RPC coverage',path:'docs/MICRODUCK_PROTOCOL.md'},{label:'Linux ARM64 installation and test status',path:'linux/arm64/README.md'},{label:'Portal installation and connection guide',path:'docs/LINUX_PORTAL.md'}])

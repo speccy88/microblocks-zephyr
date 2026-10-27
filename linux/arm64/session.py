@@ -21,6 +21,7 @@ def main():
     parser.add_argument('--binary', type=Path, required=True)
     parser.add_argument('--editor', type=Path, required=True)
     parser.add_argument('--data', type=Path, required=True)
+    parser.add_argument('--microduck-socket', type=Path)
     parser.add_argument('--port', type=int, default=8876)
     args = parser.parse_args()
     binary, editor, data = args.binary.resolve(), args.editor.resolve(), args.data.resolve()
@@ -38,7 +39,10 @@ def main():
     logs = []
     try:
         log = (data / 'vm.log').open('w'); logs.append(log)
-        vm = subprocess.Popen([str(binary), '--data-dir', str(data), '--pty-info', str(data / 'pty.json')], stdout=log, stderr=subprocess.STDOUT)
+        vm_args = [str(binary), '--data-dir', str(data), '--pty-info', str(data / 'pty.json')]
+        if args.microduck_socket is not None:
+            vm_args += ['--microduck-socket', str(args.microduck_socket.absolute())]
+        vm = subprocess.Popen(vm_args, stdout=log, stderr=subprocess.STDOUT)
         children.append(vm)
         until = time.monotonic() + 10
         while not (data / 'pty.json').exists():

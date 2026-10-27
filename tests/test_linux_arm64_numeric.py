@@ -61,7 +61,7 @@ class RealInterpreterNumeric(unittest.TestCase):
             return
         build = subprocess.run([sys.executable, str(ROOT / 'linux/arm64/build.py'), '--upstream', str(SOURCE),
                                 '--output', str(cls.work / 'build'), '--sanitize'],
-                               capture_output=True, text=True, timeout=60)
+                               capture_output=True, text=True, timeout=120)
         if build.returncode:
             cls.temporary.cleanup()
             raise AssertionError(build.stdout + build.stderr)
