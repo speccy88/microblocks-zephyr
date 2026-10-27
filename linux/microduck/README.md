@@ -28,6 +28,14 @@ has no Unix daemon destination. `mediad` owns media/WebRTC; it is not connected
 by this gateway. No Wi-Fi credentials, application PINs, account tokens,
 continuous motion or camera endpoints are accepted here.
 
+## Filesystem-only commissioning inspection
+
+The optional [preflight](PREFLIGHT.md) inspects host and explicitly supplied
+config/socket/runtime metadata. It makes no daemon connection or request,
+creates no listener, changes no permission/service and never claims robot-ready.
+Expected API 44 and configured/file UIDs remain distinct from unobserved daemon
+API and peer identity. Its INCOMPLETE result is not authorization to act.
+
 ## Executable service
 
 Python 3.11+ standard library only. Run unprivileged as the same OS user as

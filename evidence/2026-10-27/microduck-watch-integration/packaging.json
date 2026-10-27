@@ -1,0 +1,42 @@
+{
+  "result": "PASS",
+  "seven_profiles_preserved": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    }
+  },
+  "watch_assets_match_source": true,
+  "scope": "local package only; graphical/browser/physical/deployment tests not performed"
+}

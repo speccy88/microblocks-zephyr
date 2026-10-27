@@ -178,3 +178,12 @@ The current fetched main still has zero upstream-only commits. Unpublished P4
 work was not read, and its eventual committed integration point still needs
 coordination and affected regression checks. No shared-main push, release,
 Pages deployment or P4 checkout modification is performed by this rehearsal.
+
+The [watch/preflight receipt](../evidence/2026-10-27/microduck-watch-integration/README.md)
+records merge 5272ce8, its resolved documentation conflict, 169 Node/181 Linux
+checks and preserved seven-profile package. A following additive preflight
+commit passes 22 focused tests and 203 repository tests and observes only the
+authorized Pi stand-in host, returning INCOMPLETE without daemon requests.
+See the [remaining objectives](MICRODUCK_REMAINING_OBJECTIVES.md) for missing
+software versus physical, platform and publication gates. The earlier candidate
+and preparation branches remain unchanged; only the new isolated branch advances.

@@ -1,0 +1,47 @@
+{
+  "recorded_at": "2026-10-27T12:02:37.251352+00:00",
+  "result": "PASS for isolated rehearsal; held for P4 coordination",
+  "branch": "codex/pi5-watch-integration-20261027",
+  "merge_commit": "5272ce8c67d490c2040e920cf8b7d8df10a9b321",
+  "merge_parents": [
+    "e5fd3d0a1d77f7024cade03136e9d6e859947cc5",
+    "62fb982268a9db7f749057842696ad3b74c6b85b"
+  ],
+  "merge_tree": "7c6ec8aad8ebdb500237b3ede5052d04d5660464",
+  "fetched_main_rechecked": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+  "product_code_equal_to_preparation_at_merge": true,
+  "resolved_conflicts": [
+    "docs/LINUX_MICRODUCK_INTEGRATION_PLAN.md: append-only historical receipt and follow-up scope retained"
+  ],
+  "product_code_conflicts": 0,
+  "tests": {
+    "required_linux": 181,
+    "selected_node": 169,
+    "skipped": 0
+  },
+  "captures": {
+    "linux-181.txt": {
+      "captured_sha256": "7149960fb6b4997b7f2d07f0cec3d6fc4d3dfea959f8886d4ceb4492fe9b4477",
+      "retained_sha256": "35504871676497d8084c8b7e605fce073f57265b1eca408084d7bffb80eb5227",
+      "conversion": "CRLF to LF only"
+    },
+    "node-169.txt": {
+      "captured_sha256": "d1f63e06d19e1214135c40060dd506d019b2f9467d2f21cce18da4649ea22df8",
+      "retained_sha256": "bd4631f350ef6fbff73996567cfe6240480c937598cd70ed56a2400acc3cf7c4",
+      "conversion": "CRLF to LF only"
+    }
+  },
+  "package": "packaging.json",
+  "native_vm_and_ubl_unchanged": true,
+  "new_pi_bytecode_execution": false,
+  "original_candidate_retained": "e5fd3d0a1d77f7024cade03136e9d6e859947cc5",
+  "preparation_branch_retained": "62fb982268a9db7f749057842696ad3b74c6b85b",
+  "p4_worktree_accessed": false,
+  "shared_main_modified": false,
+  "pushed": false,
+  "published": false,
+  "physical_microduck_tested": false,
+  "edge_control_retried": false,
+  "denied_action_retried": false,
+  "followup": "filesystem-only commissioning preflight, in a later commit; final full validator includes its22 tests"
+}

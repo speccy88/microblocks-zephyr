@@ -8,6 +8,8 @@ fill in a physical robot result. All boxes below remain unchecked for hardware.
 - [ ] Inventory AArch64/glibc, storage, existing services and recovery procedure.
 - [ ] Compare shipping API and BLE UUID/permissions with pinned API 44.
 - [ ] Record trusted daemon paths, file ownership and numeric peer UIDs.
+      The optional filesystem-only preflight can check metadata but does not
+      connect, verify SO_PEERCRED, observe API versions or satisfy this whole box.
 - [ ] Confirm robotd/configd/updaterd caller permissions without relaxing them.
 - [ ] Verify Web Bluetooth chooser, read/notify/write properties and API byte.
 - [ ] Establish actual BLE confidentiality/authentication guarantees; keep PIN

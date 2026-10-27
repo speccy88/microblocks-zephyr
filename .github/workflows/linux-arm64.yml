@@ -129,6 +129,7 @@ jobs:
               ('test_linux_arm64_bridge.py', ['Assets', 'LocalBridge']),
               ('test_linux_editor_assets.py', ['LinuxPackage', 'LocalBootstrap', 'RealPinnedEditor']),
               ('test_linux_microduck_gateway.py', ['Protocol', 'UnixGateway']),
+              ('test_linux_microduck_preflight.py', ['PreflightHost', 'ReadOnlyPreflight']),
               ('test_linux_microduck_simulator.py', ['ExplicitSimulation']),
               ('test_linux_microduck_vm.py', ['RealSmallVMMicroDuck']),
           ]

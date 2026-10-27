@@ -1,0 +1,74 @@
+{
+  "checks": [
+    {
+      "code": "LINUX_REQUIRED",
+      "name": "linux",
+      "status": "PASS"
+    },
+    {
+      "code": "ARM64_64BIT_REQUIRED",
+      "name": "arm64",
+      "status": "PASS"
+    },
+    {
+      "code": "PYTHON_3_11_REQUIRED",
+      "name": "python",
+      "status": "PASS"
+    },
+    {
+      "code": "UNPRIVILEGED_USER_REQUIRED",
+      "name": "unprivileged_user",
+      "status": "PASS"
+    },
+    {
+      "code": "UNIX_CREDENTIAL_APIS_REQUIRED",
+      "name": "unix_primitives",
+      "status": "PASS"
+    },
+    {
+      "code": "GLIBC_2_34_REQUIRED",
+      "name": "glibc",
+      "status": "PASS"
+    }
+  ],
+  "config": {
+    "code": "CONFIG_NOT_PROVIDED",
+    "status": "NOT_CHECKED"
+  },
+  "connected_peer_uids_verified": false,
+  "daemon_api_version_observed": null,
+  "daemon_requests_sent": 0,
+  "expected_api_version": 44,
+  "host": {
+    "effective_uid": 1000,
+    "glibc_version": "2.41",
+    "machine": "aarch64",
+    "pointer_bits": 64,
+    "python": [
+      3,
+      13,
+      5
+    ],
+    "system": "Linux"
+  },
+  "mutation_authorized": false,
+  "not_checked": [
+    "connected peer credentials",
+    "daemon API and authoritative caller permissions",
+    "runtime I/O, ACL and security-module permission",
+    "shipping hardware and physical behavior",
+    "motion authorization, service startup and reboot"
+  ],
+  "physical_microduck_tested": false,
+  "result": "INCOMPLETE",
+  "robot_ready": null,
+  "runtime_directory": {
+    "code": "RUNTIME_NOT_PROVIDED",
+    "status": "NOT_CHECKED"
+  },
+  "schema_version": 1,
+  "scope": "local host/filesystem observations only; no robot I/O or daemon request",
+  "source_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "system_changed": false,
+  "upstreams": {}
+}

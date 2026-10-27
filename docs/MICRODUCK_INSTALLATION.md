@@ -8,6 +8,10 @@ to record evidence and blockers before enabling physical actions.
 1. Inventory the shipping OS/architecture/glibc, API version, free storage,
    existing services, service sockets and trusted numeric UIDs. Compare the
    pinned API-44 schemas with the shipping revision. Preserve robot services.
+   The optional [filesystem-only preflight](../linux/microduck/PREFLIGHT.md)
+   helps inspect local metadata without contacting a daemon. Its expected API
+   and configured/file UIDs are not observed protocol or peer identity. It
+   returns INCOMPLETE or BLOCKED, never robot-ready or mutation authorization.
 2. Discover the robot in the portal from a supported secure-context browser.
    Current real BLE support is discovery/version only. Configure Wi-Fi from a
    trusted robot console until confidentiality is established; do not enter real

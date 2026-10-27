@@ -57,5 +57,12 @@ fixture and mock-panel checks, bringing the selected Node command to 169 tests.
 These include 30 new checks for the notification-only upstream protocol, ACK
 races, bounded observation, authentication, exclusive ownership, redaction and
 lifecycle cleanup. They do not perform a robot update or invoke Edge control.
+
+The commissioning-preflight follow-up adds the explicit PreflightHost and
+ReadOnlyPreflight classes to the checked Linux selections. All 22 focused tests
+run without skips, and the full repository validator passes 203 tests. Filesystem
+fixtures are real private Unix paths; compatible host observations are injected
+where required. They do not claim a daemon API, peer identity or robot-ready.
+The separate real Pi host-only observation is evidence outside hosted CI.
 The required Linux repository validator passes181 tests with zero skips. The
 workflow includes those suites; a hosted execution is still not claimed.

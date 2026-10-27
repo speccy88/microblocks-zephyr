@@ -28,6 +28,7 @@ No ARM64 release or updated GitHub Pages deployment has been published.
 | Reported health verdict and IMU convergence state | Implemented on physical Pi with simulated robot | Documented health/default/stale-run semantics; no global safe-to-move claim. |
 | Universal robot-ready / motion authorization block | Not supplied by the reviewed API | No such signal is invented. Use reported diagnostics and supported robot authorization/safety interfaces. |
 | Shipping MicroDuck OS/API/socket ownership | Blocked | Inventory and authoritative permission checks on arrival; never guess daemon UIDs or change permissions to force access. |
+| Local commissioning preflight | Implemented with Linux fixtures and a host-only Pi observation | [Filesystem-only preflight](../linux/microduck/PREFLIGHT.md) passes 22 focused tests and203 full repository tests. Actual Pi host-only observation returns INCOMPLETE; it never reports global PASS or robot-ready. Daemon APIs, peer identity and physical robot behavior remain unverified. |
 
 Milestone A is partially complete: native Pi execution is verified, while the
 published installer/reboot gates remain. B awaits coordinated Pages/release
@@ -62,6 +63,8 @@ Start with [Pi installation and tests](RASPBERRY_PI_5_INSTALLATION_TESTING.md),
 and [Christmas hardware checks](MICRODUCK_CHRISTMAS_HARDWARE_VALIDATION_CHECKLIST.md).
 The [integration plan](LINUX_MICRODUCK_INTEGRATION_PLAN.md) records ordering,
 shared-file conflicts and the publication gates.
+The [remaining-objectives ledger](MICRODUCK_REMAINING_OBJECTIVES.md) distinguishes
+missing software from physical, platform, deployment and coordination gates.
 
 | Brief section | Implementation/evidence map |
 |---|---|

@@ -1,0 +1,23 @@
+{
+  "observed_at": "2026-10-27T11:54:29.236416+00:00",
+  "verification_result": "PASS for actual Pi host-only observation",
+  "program_result": "INCOMPLETE",
+  "target": "rpi5",
+  "scope": "actual authorized Pi5 stand-in host prerequisites only; no MicroDuck, config or sockets supplied",
+  "remote_directory": "microblocks-charlie/preflight-observations/20261027T115426664184Z",
+  "source_hashes_verified_remotely": true,
+  "source_sha256": {
+    "preflight.py": "ea43000df8d599dfbc19fdafe7083217acdebe88ecbe31194d1c81a55b4984a8",
+    "gateway.py": "c7032e61bf5f3715c7a21a7f02072d6f8a339186a3e11cf30451e7d2a0da2c7c",
+    "protocol.py": "42967eaa2de37176bf8350ff0e0ec6f98db9c49f3460fb645d9610cc65c79b1b"
+  },
+  "project_source_and_report_files_created": true,
+  "inspection_system_changed": false,
+  "existing_service_or_security_changes": false,
+  "daemon_requests": 0,
+  "physical_microduck_tested": false,
+  "os_reboot_performed": false,
+  "numeric_specific_suite_executed": false,
+  "bytecode_cache_created": false,
+  "executed_script_sha256": "3ca98594b00947990d6d2951133ff7f658a02f0aa4781ed1b462465b99b4fa81"
+}

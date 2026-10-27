@@ -1,0 +1,1024 @@
+TAP version 13
+# Subtest: real Linux toolbar starts in WebSocket mode without USB chooser or network activity
+ok 1 - real Linux toolbar starts in WebSocket mode without USB chooser or network activity
+  ---
+  duration_ms: 86.972
+  type: 'test'
+  ...
+# Subtest: opening before IDE readiness cannot fall through to a USB chooser
+ok 2 - opening before IDE readiness cannot fall through to a USB chooser
+  ---
+  duration_ms: 12.751
+  type: 'test'
+  ...
+# Subtest: GP logical port stays open while one bounded WebSocket handshake owns it
+ok 3 - GP logical port stays open while one bounded WebSocket handshake owns it
+  ---
+  duration_ms: 4.0884
+  type: 'test'
+  ...
+# Subtest: ready stream retains fragmented VM frames and copies accepted outgoing bytes
+ok 4 - ready stream retains fragmented VM frames and copies accepted outgoing bytes
+  ---
+  duration_ms: 3.0069
+  type: 'test'
+  ...
+# Subtest: old WebSocket close, message and error callbacks cannot corrupt a replacement
+ok 5 - old WebSocket close, message and error callbacks cannot corrupt a replacement
+  ---
+  duration_ms: 3.5025
+  type: 'test'
+  ...
+# Subtest: handshake deadline closes a silent endpoint without fabricating VM connection
+ok 6 - handshake deadline closes a silent endpoint without fabricating VM connection
+  ---
+  duration_ms: 3.2139
+  type: 'test'
+  ...
+# Subtest: an abandoned connecting socket deadline cannot close its ready replacement
+ok 7 - an abandoned connecting socket deadline cannot close its ready replacement
+  ---
+  duration_ms: 4.3689
+  type: 'test'
+  ...
+# Subtest: binary data before the ready handshake is rejected without accepting the first ping
+ok 8 - binary data before the ready handshake is rejected without accepting the first ping
+  ---
+  duration_ms: 3.622
+  type: 'test'
+  ...
+# Subtest: HTTPS Linux editor waits for an explicit trusted WSS endpoint and never downgrades
+ok 9 - HTTPS Linux editor waits for an explicit trusted WSS endpoint and never downgrades
+  ---
+  duration_ms: 8.3365
+  type: 'test'
+  ...
+# Subtest: local bridge endpoint is exact same-origin and explicit endpoint handoff never opens it
+ok 10 - local bridge endpoint is exact same-origin and explicit endpoint handoff never opens it
+  ---
+  duration_ms: 3.7748
+  type: 'test'
+  ...
+# Subtest: pagehide closes Linux transport and board mismatch rejects only a real incompatible identity
+ok 11 - pagehide closes Linux transport and board mismatch rejects only a real incompatible identity
+  ---
+  duration_ms: 3.6368
+  type: 'test'
+  ...
+# Subtest: checked-in release manifest disables every installation command
+ok 12 - checked-in release manifest disables every installation command
+  ---
+  duration_ms: 2.2667
+  type: 'test'
+  ...
+# Subtest: profiles distinguish real native Pi tests from simulated MicroDuck coverage
+ok 13 - profiles distinguish real native Pi tests from simulated MicroDuck coverage
+  ---
+  duration_ms: 0.518
+  type: 'test'
+  ...
+# Subtest: SSH usernames and canonical IPv4/DNS targets are accepted without options
+ok 14 - SSH usernames and canonical IPv4/DNS targets are accepted without options
+  ---
+  duration_ms: 1.3309
+  type: 'test'
+  ...
+# Subtest: target validation rejects shell/control injection, SSH options and malformed addresses
+ok 15 - target validation rejects shell/control injection, SSH options and malformed addresses
+  ---
+  duration_ms: 2.9481
+  type: 'test'
+  ...
+# Subtest: release metadata must pin the binary digest and installer commit plus digest
+ok 16 - release metadata must pin the binary digest and installer commit plus digest
+  ---
+  duration_ms: 1.781
+  type: 'test'
+  ...
+# Subtest: PowerShell and POSIX commands preserve one reviewable encoded remote argument
+ok 17 - PowerShell and POSIX commands preserve one reviewable encoded remote argument
+  ---
+  duration_ms: 5.6708
+  type: 'test'
+  ...
+# Subtest: service flag is an explicit boolean choice and no secrets enter commands
+ok 18 - service flag is an explicit boolean choice and no secrets enter commands
+  ---
+  duration_ms: 0.6969
+  type: 'test'
+  ...
+# Subtest: browser encoding path produces the same command without Node globals
+ok 19 - browser encoding path produces the same command without Node globals
+  ---
+  duration_ms: 2.3175
+  type: 'test'
+  ...
+# Subtest: optional WSS endpoints reject insecure transports, URL secrets and alternate paths
+ok 20 - optional WSS endpoints reject insecure transports, URL secrets and alternate paths
+  ---
+  duration_ms: 1.2093
+  type: 'test'
+  ...
+# Subtest: unpublished-release panel disables copy, offers no command and makes no probe
+ok 21 - unpublished-release panel disables copy, offers no command and makes no probe
+  ---
+  duration_ms: 2.6178
+  type: 'test'
+  ...
+# Subtest: reviewed command is copied only by explicit click and is revoked after release removal
+ok 22 - reviewed command is copied only by explicit click and is revoked after release removal
+  ---
+  duration_ms: 0.8251
+  type: 'test'
+  ...
+# Subtest: invalid fields and profile switches clear stale install targets
+ok 23 - invalid fields and profile switches clear stale install targets
+  ---
+  duration_ms: 0.7621
+  type: 'test'
+  ...
+# Subtest: endpoint selection validates WSS and only passes configuration to a callback
+ok 24 - endpoint selection validates WSS and only passes configuration to a callback
+  ---
+  duration_ms: 1.2872
+  type: 'test'
+  ...
+# Subtest: clipboard denial is reported without claiming a successful copy
+ok 25 - clipboard denial is reported without claiming a successful copy
+  ---
+  duration_ms: 0.8741
+  type: 'test'
+  ...
+# Subtest: Linux local bridge permits exactly the loopback editor origin and VM path
+ok 26 - Linux local bridge permits exactly the loopback editor origin and VM path
+  ---
+  duration_ms: 2.4792
+  type: 'test'
+  ...
+# Subtest: Published Linux editors require explicit WSS, never insecure LAN or loopback fallback
+ok 27 - Published Linux editors require explicit WSS, never insecure LAN or loopback fallback
+  ---
+  duration_ms: 5.4616
+  type: 'test'
+  ...
+# Subtest: board sockets preserve the editor origin, scheme and effective port
+ok 28 - board sockets preserve the editor origin, scheme and effective port
+  ---
+  duration_ms: 3.2668
+  type: 'test'
+  ...
+# Subtest: board sockets reject changed authority, path, scheme and URL extras
+ok 29 - board sockets reject changed authority, path, scheme and URL extras
+  ---
+  duration_ms: 1.8807
+  type: 'test'
+  ...
+# Subtest: editor save waits through a hidden tab and cleans up after the real GP response order
+ok 30 - editor save waits through a hidden tab and cleans up after the real GP response order
+  ---
+  duration_ms: 0.8085
+  type: 'test'
+  ...
+# Subtest: editor timeout cancels only its own GP request and cannot build a stale save backlog
+ok 31 - editor timeout cancels only its own GP request and cannot build a stale save backlog
+  ---
+  duration_ms: 3.1672
+  type: 'test'
+  ...
+# Subtest: a timed-out project load cannot replace the workspace after GP resumes
+ok 32 - a timed-out project load cannot replace the workspace after GP resumes
+  ---
+  duration_ms: 0.8838
+  type: 'test'
+  ...
+# Subtest: editor request made while hidden gets its full active-time budget
+ok 33 - editor request made while hidden gets its full active-time budget
+  ---
+  duration_ms: 0.2691
+  type: 'test'
+  ...
+# Subtest: default editor timers retain the Window receiver required by browser Web IDL
+ok 34 - default editor timers retain the Window receiver required by browser Web IDL
+  ---
+  duration_ms: 2.5983
+  type: 'test'
+  ...
+# Subtest: input queue preserves stream order, copies input, and enforces its bound
+ok 35 - input queue preserves stream order, copies input, and enforces its bound
+  ---
+  duration_ms: 10.9934
+  type: 'test'
+  ...
+# Subtest: USB writes retain exact bytes after caller wipes the submitted packet
+ok 36 - USB writes retain exact bytes after caller wipes the submitted packet
+  ---
+  duration_ms: 67.6904
+  type: 'test'
+  ...
+# Subtest: disconnect drains queued writes before releasing the port
+ok 37 - disconnect drains queued writes before releasing the port
+  ---
+  duration_ms: 0.6051
+  type: 'test'
+  ...
+# Subtest: P2 Prop Plug never asserts reset DTR on connect or disconnect
+ok 38 - P2 Prop Plug never asserts reset DTR on connect or disconnect
+  ---
+  duration_ms: 0.3788
+  type: 'test'
+  ...
+# Subtest: no duplicate chooser while an explicit Connect request is pending
+ok 39 - no duplicate chooser while an explicit Connect request is pending
+  ---
+  duration_ms: 0.3638
+  type: 'test'
+  ...
+# Subtest: unsupported browsers and failed storage do not claim a connection or save
+ok 40 - unsupported browsers and failed storage do not claim a connection or save
+  ---
+  duration_ms: 5.5792
+  type: 'test'
+  ...
+# Subtest: a new chooser cannot race a USB disconnect that is draining a write
+ok 41 - a new chooser cannot race a USB disconnect that is draining a write
+  ---
+  duration_ms: 0.5271
+  type: 'test'
+  ...
+# Subtest: late reads and errors from an old serial reader cannot affect a replacement port
+ok 42 - late reads and errors from an old serial reader cannot affect a replacement port
+  ---
+  duration_ms: 3.3367
+  type: 'test'
+  ...
+# Subtest: the controller reports shared-client watch ownership and refuses competing review or authentication
+ok 43 - the controller reports shared-client watch ownership and refuses competing review or authentication
+  ---
+  duration_ms: 16.4793
+  type: 'test'
+  ...
+# Subtest: strict parser bounds complete JSON, decoded duplicate names, prototypes and UTF-16
+ok 44 - strict parser bounds complete JSON, decoded duplicate names, prototypes and UTF-16
+  ---
+  duration_ms: 4.8649
+  type: 'test'
+  ...
+# Subtest: attach and preview are passive; exact API and existing RpcClient required
+ok 45 - attach and preview are passive; exact API and existing RpcClient required
+  ---
+  duration_ms: 1.7034
+  type: 'test'
+  ...
+# Subtest: real BLE confidentiality is immutable and no secret/protected write can pass
+ok 46 - real BLE confidentiality is immutable and no secret/protected write can pass
+  ---
+  duration_ms: 2.6048
+  type: 'test'
+  ...
+# Subtest: raw console denies secret fields/methods, streaming and unsupported control before writes
+ok 47 - raw console denies secret fields/methods, streaming and unsupported control before writes
+  ---
+  duration_ms: 2.36
+  type: 'test'
+  ...
+# Subtest: each supported mutation requires a fresh exact preview and confirmation
+ok 48 - each supported mutation requires a fresh exact preview and confirmation
+  ---
+  duration_ms: 5.6629
+  type: 'test'
+  ...
+# Subtest: every raw-console method runs through policy, normalization, real RPC and fictional backend
+ok 49 - every raw-console method runs through policy, normalization, real RPC and fictional backend
+  ---
+  duration_ms: 11.3795
+  type: 'test'
+  ...
+# Subtest: copying/editing/replacing or invalidating a preview cannot reuse consent
+ok 50 - copying/editing/replacing or invalidating a preview cannot reuse consent
+  ---
+  duration_ms: 1.0819
+  type: 'test'
+  ...
+# Subtest: review renders directional controls as explicit JSON escapes without changing intended parameters
+ok 51 - review renders directional controls as explicit JSON escapes without changing intended parameters
+  ---
+  duration_ms: 1.2237
+  type: 'test'
+  ...
+# Subtest: skill names require discovery and are rechecked immediately before execution
+ok 52 - skill names require discovery and are rechecked immediately before execution
+  ---
+  duration_ms: 1.9406
+  type: 'test'
+  ...
+# Subtest: fixture provisioning accepts only a confirmed open fictional SSID and no credential input
+ok 53 - fixture provisioning accepts only a confirmed open fictional SSID and no credential input
+  ---
+  duration_ms: 3.353
+  type: 'test'
+  ...
+# Subtest: timeout, disconnect, protocol loss and remote rejection never replay a command
+ok 54 - timeout, disconnect, protocol loss and remote rejection never replay a command
+  ---
+  duration_ms: 79.6427
+  type: 'test'
+  ...
+# Subtest: cancel or session replacement consumes a pending action and drops stale completion
+ok 55 - cancel or session replacement consumes a pending action and drops stale completion
+  ---
+  duration_ms: 3.1094
+  type: 'test'
+  ...
+# Subtest: audit is bounded metadata; results are ephemeral and sanitized independently
+ok 56 - audit is bounded metadata; results are ephemeral and sanitized independently
+  ---
+  duration_ms: 21.0084
+  type: 'test'
+  ...
+# Subtest: future confidential structured path redacts previews/results and never records credentials
+ok 57 - future confidential structured path redacts previews/results and never records credentials
+  ---
+  duration_ms: 1.7688
+  type: 'test'
+  ...
+# Subtest: fixture is passive and returns the real RpcClient with immutable internal transport
+ok 58 - fixture is passive and returns the real RpcClient with immutable internal transport
+  ---
+  duration_ms: 5.5909
+  type: 'test'
+  ...
+# Subtest: manual fixed authentication is required and credentials are never recorded
+ok 59 - manual fixed authentication is required and credentials are never recorded
+  ---
+  duration_ms: 1.2222
+  type: 'test'
+  ...
+# Subtest: real SSIDs, every PSK field, unknown methods and streaming are rejected before recording
+ok 60 - real SSIDs, every PSK field, unknown methods and streaming are rejected before recording
+  ---
+  duration_ms: 1.9635
+  type: 'test'
+  ...
+# Subtest: every reviewed nonstreaming method has an API-shaped explicitly fictional reply
+ok 61 - every reviewed nonstreaming method has an API-shaped explicitly fictional reply
+  ---
+  duration_ms: 8.5305
+  type: 'test'
+  ...
+# Subtest: monitoring, network and discovery match pinned source field shapes
+ok 62 - monitoring, network and discovery match pinned source field shapes
+  ---
+  duration_ms: 2.8205
+  type: 'test'
+  ...
+# Subtest: update read shapes and simulated mutations preserve official normalized options
+ok 63 - update read shapes and simulated mutations preserve official normalized options
+  ---
+  duration_ms: 5.5282
+  type: 'test'
+  ...
+# Subtest: raw fixture wire rejects secret credentials and every nonempty or nonobject updater option before audit
+ok 64 - raw fixture wire rejects secret credentials and every nonempty or nonobject updater option before audit
+  ---
+  duration_ms: 2.0433
+  type: 'test'
+  ...
+# Subtest: fixed subset skill hook supports removed capability discovery without invented names
+ok 65 - fixed subset skill hook supports removed capability discovery without invented names
+  ---
+  duration_ms: 0.9901
+  type: 'test'
+  ...
+# Subtest: responses before final acknowledgement never overlap writes or chained requests
+ok 66 - responses before final acknowledgement never overlap writes or chained requests
+  ---
+  duration_ms: 0.625
+  type: 'test'
+  ...
+# Subtest: approved deterministic faults use actual RPC matching, deadlines and disconnect cleanup
+ok 67 - approved deterministic faults use actual RPC matching, deadlines and disconnect cleanup
+  ---
+  duration_ms: 57.2899
+  type: 'test'
+  ...
+# Subtest: accepted simulated mutation can have unknown timeout outcome and is never replayed
+ok 68 - accepted simulated mutation can have unknown timeout outcome and is never replayed
+  ---
+  duration_ms: 16.074
+  type: 'test'
+  ...
+# Subtest: action/request/audit bounds and snapshots cannot grow or mutate internal state
+ok 69 - action/request/audit bounds and snapshots cannot grow or mutate internal state
+  ---
+  duration_ms: 36.2706
+  type: 'test'
+  ...
+# Subtest: close during pending request is final and fresh fixture does not replay history
+ok 70 - close during pending request is final and fresh fixture does not replay history
+  ---
+  duration_ms: 3.022
+  type: 'test'
+  ...
+# Subtest: options deny external transports, callbacks, URLs and invalid fault configuration
+ok 71 - options deny external transports, callbacks, URLs and invalid fault configuration
+  ---
+  duration_ms: 2.1621
+  type: 'test'
+  ...
+# Subtest: browser global module works with every external I/O surface unavailable
+ok 72 - browser global module works with every external I/O surface unavailable
+  ---
+  duration_ms: 8.3058
+  type: 'test'
+  ...
+# Subtest: explicit progress watch uses actual notifications with no reply, action or software change
+ok 73 - explicit progress watch uses actual notifications with no reply, action or software change
+  ---
+  duration_ms: 2.4072
+  type: 'test'
+  ...
+# Subtest: fixture progress is bounded and event exhaustion closes without replay
+ok 74 - fixture progress is bounded and event exhaustion closes without replay
+  ---
+  duration_ms: 0.6722
+  type: 'test'
+  ...
+# Subtest: browser-global watch is also fictional with every external I/O surface unavailable
+ok 75 - browser-global watch is also fictional with every external I/O surface unavailable
+  ---
+  duration_ms: 5.3315
+  type: 'test'
+  ...
+# Subtest: mount and direct attach are passive; raw secrets, stream and unreviewed methods are absent
+ok 76 - mount and direct attach are passive; raw secrets, stream and unreviewed methods are absent
+  ---
+  duration_ms: 14.9318
+  type: 'test'
+  ...
+# Subtest: real Bluetooth chooser is explicit and attachment reads API44 without sending RPC or showing secrets
+ok 77 - real Bluetooth chooser is explicit and attachment reads API44 without sending RPC or showing secrets
+  ---
+  duration_ms: 21.8757
+  type: 'test'
+  ...
+# Subtest: API mismatch and cancelled chooser close safely without requests
+ok 78 - API mismatch and cancelled chooser close safely without requests
+  ---
+  duration_ms: 2.4563
+  type: 'test'
+  ...
+# Subtest: explicit in-memory fixture attaches without auth; fixed auth and fictional open SSID have no secret inputs
+ok 79 - explicit in-memory fixture attaches without auth; fixed auth and fictional open SSID have no secret inputs
+  ---
+  duration_ms: 8.2249
+  type: 'test'
+  ...
+# Subtest: prepare is local, mutation confirmation is specific and edits, refresh and execution consume it
+ok 80 - prepare is local, mutation confirmation is specific and edits, refresh and execution consume it
+  ---
+  duration_ms: 5.2268
+  type: 'test'
+  ...
+# Subtest: duplicate JSON, raw secret fields and forged method values cannot reach the RPC client
+ok 81 - duplicate JSON, raw secret fields and forged method values cannot reach the RPC client
+  ---
+  duration_ms: 2.1592
+  type: 'test'
+  ...
+# Subtest: skills use discovered select choices and actual core rechecks latest policies before dispatch
+ok 82 - skills use discovered select choices and actual core rechecks latest policies before dispatch
+  ---
+  duration_ms: 2.6853
+  type: 'test'
+  ...
+# Subtest: confidential PIN/PSK fields are transient and provisioning preview, result and audit are redacted
+ok 83 - confidential PIN/PSK fields are transient and provisioning preview, result and audit are redacted
+  ---
+  duration_ms: 1.4411
+  type: 'test'
+  ...
+# Subtest: credential errors clear fields and replacing confidential session with BLE-like client removes forms
+ok 84 - credential errors clear fields and replacing confidential session with BLE-like client removes forms
+  ---
+  duration_ms: 0.6821
+  type: 'test'
+  ...
+# Subtest: discarded credential form events cannot invalidate or authenticate a replacement session
+ok 85 - discarded credential form events cannot invalidate or authenticate a replacement session
+  ---
+  duration_ms: 1.2273
+  type: 'test'
+  ...
+# Subtest: updates share the specific review/confirm path and are never replayed
+ok 86 - updates share the specific review/confirm path and are never replayed
+  ---
+  duration_ms: 3.0188
+  type: 'test'
+  ...
+# Subtest: late completion after editing or replacing a session cannot replace current transient UI
+ok 87 - late completion after editing or replacing a session cannot replace current transient UI
+  ---
+  duration_ms: 13.1483
+  type: 'test'
+  ...
+# Subtest: cancel and timeout close pending real RPC without retry; timeout keeps unknown outcome visible
+ok 88 - cancel and timeout close pending real RPC without retry; timeout keeps unknown outcome visible
+  ---
+  duration_ms: 36.6655
+  type: 'test'
+  ...
+# Subtest: disconnect during a pending RPC retains unknown-outcome warning across session replacement and edits
+ok 89 - disconnect during a pending RPC retains unknown-outcome warning across session replacement and edits
+  ---
+  duration_ms: 2.0611
+  type: 'test'
+  ...
+# Subtest: a GATT drop during pending hello closes RPC and preserves explicit unknown-outcome guidance
+ok 90 - a GATT drop during pending hello closes RPC and preserves explicit unknown-outcome guidance
+  ---
+  duration_ms: 1.5728
+  type: 'test'
+  ...
+# Subtest: remote text renders only as bounded ephemeral text; audit contains metadata and stays bounded
+ok 91 - remote text renders only as bounded ephemeral text; audit contains metadata and stays bounded
+  ---
+  duration_ms: 41.144
+  type: 'test'
+  ...
+# Subtest: pagehide/destroy cancel pending chooser and discard late device before GATT; listeners are removed
+ok 92 - pagehide/destroy cancel pending chooser and discard late device before GATT; listeners are removed
+  ---
+  duration_ms: 0.4131
+  type: 'test'
+  ...
+# Subtest: GATT timeout closes late connection and allows a fresh explicit session without RPC writes
+ok 93 - GATT timeout closes late connection and allows a fresh explicit session without RPC writes
+  ---
+  duration_ms: 18.1588
+  type: 'test'
+  ...
+# Subtest: standalone page uses only local scripts, no inline JavaScript, and forbids network connections
+ok 94 - standalone page uses only local scripts, no inline JavaScript, and forbids network connections
+  ---
+  duration_ms: 4.1464
+  type: 'test'
+  ...
+# Subtest: watch controls are passive and real unauthenticated BLE cannot start an observation
+ok 95 - watch controls are passive and real unauthenticated BLE cannot start an observation
+  ---
+  duration_ms: 0.6602
+  type: 'test'
+  ...
+# Subtest: fictional console watch consumes staged confirmations and advances only fictional samples
+ok 96 - fictional console watch consumes staged confirmations and advances only fictional samples
+  ---
+  duration_ms: 1.9733
+  type: 'test'
+  ...
+# Subtest: watch keeps eight typed samples, omits daemon detail and cannot issue overlapping commands
+ok 97 - watch keeps eight typed samples, omits daemon detail and cannot issue overlapping commands
+  ---
+  duration_ms: 1.3675
+  type: 'test'
+  ...
+# Subtest: watch session replacement and late callbacks cannot change the new console or claim a mutation outcome
+ok 98 - watch session replacement and late callbacks cannot change the new console or claim a mutation outcome
+  ---
+  duration_ms: 0.6958
+  type: 'test'
+  ...
+# Subtest: watch duration closes read-only observation without a fabricated updater success or retry
+ok 99 - watch duration closes read-only observation without a fabricated updater success or retry
+  ---
+  duration_ms: 37.698
+  type: 'test'
+  ...
+# Subtest: matching watch refusal is bounded text and does not become a pending mutation warning
+ok 100 - matching watch refusal is bounded text and does not become a pending mutation warning
+  ---
+  duration_ms: 1.1791
+  type: 'test'
+  ...
+# Subtest: page exit closes a watch and drops its visible metadata without retry or updater action
+ok 101 - page exit closes a watch and drops its visible metadata without retry or updater action
+  ---
+  duration_ms: 0.7482
+  type: 'test'
+  ...
+# Subtest: mount performs no chooser/request/write and has no secret or motion inputs
+ok 102 - mount performs no chooser/request/write and has no secret or motion inputs
+  ---
+  duration_ms: 7.0284
+  type: 'test'
+  ...
+# Subtest: explicit discovery uses actual client, reads API 44 and never writes RPC
+ok 103 - explicit discovery uses actual client, reads API 44 and never writes RPC
+  ---
+  duration_ms: 8.2561
+  type: 'test'
+  ...
+# Subtest: chooser cancellation is handled without GATT or RPC side effects
+ok 104 - chooser cancellation is handled without GATT or RPC side effects
+  ---
+  duration_ms: 6.207
+  type: 'test'
+  ...
+# Subtest: unsupported provider has useful status and no automatic fallback
+ok 105 - unsupported provider has useful status and no automatic fallback
+  ---
+  duration_ms: 0.3804
+  type: 'test'
+  ...
+# Subtest: API mismatch disconnects, preserves observed metadata and never sends a command
+ok 106 - API mismatch disconnects, preserves observed metadata and never sends a command
+  ---
+  duration_ms: 1.1156
+  type: 'test'
+  ...
+# Subtest: GATT read timeout closes discovery connection and enables a fresh attempt
+ok 107 - GATT read timeout closes discovery connection and enables a fresh attempt
+  ---
+  duration_ms: 25.5147
+  type: 'test'
+  ...
+# Subtest: a GATT connect completing after timeout is disconnected, not shown as connected
+ok 108 - a GATT connect completing after timeout is disconnected, not shown as connected
+  ---
+  duration_ms: 15.3949
+  type: 'test'
+  ...
+# Subtest: new explicit session closes old one before opening chooser and ignores stale drop events
+ok 109 - new explicit session closes old one before opening chooser and ignores stale drop events
+  ---
+  duration_ms: 1.303
+  type: 'test'
+  ...
+# Subtest: cancelling an open chooser rejects its late result before any GATT connect
+ok 110 - cancelling an open chooser rejects its late result before any GATT connect
+  ---
+  duration_ms: 1.996
+  type: 'test'
+  ...
+# Subtest: pagehide and destroy close sessions and detach their listeners
+ok 111 - pagehide and destroy close sessions and detach their listeners
+  ---
+  duration_ms: 1.0782
+  type: 'test'
+  ...
+# Subtest: destroy during chooser discards the late selection without radio access
+ok 112 - destroy during chooser discards the late selection without radio access
+  ---
+  duration_ms: 0.9502
+  type: 'test'
+  ...
+# Subtest: unexpected disconnect cleans session and names are rendered only as bounded text
+ok 113 - unexpected disconnect cleans session and names are rendered only as bounded text
+  ---
+  duration_ms: 1.8942
+  type: 'test'
+  ...
+# Subtest: framing reassembles UTF-8 split at every byte and accepts CRLF/coalescing
+ok 114 - framing reassembles UTF-8 split at every byte and accepts CRLF/coalescing
+  ---
+  duration_ms: 8.1765
+  type: 'test'
+  ...
+# Subtest: framing bounds each line, rejects invalid UTF-8, and clears state
+ok 115 - framing bounds each line, rejects invalid UTF-8, and clears state
+  ---
+  duration_ms: 0.9435
+  type: 'test'
+  ...
+# Subtest: request encoding preserves official envelope and bounds request bytes
+ok 116 - request encoding preserves official envelope and bounds request bytes
+  ---
+  duration_ms: 0.4036
+  type: 'test'
+  ...
+# Subtest: writes are 20-byte acknowledged chunks in order and one request owns stream
+ok 117 - writes are 20-byte acknowledged chunks in order and one request owns stream
+  ---
+  duration_ms: 10.7677
+  type: 'test'
+  ...
+# Subtest: sequential writer never overlaps asynchronous acknowledgements
+ok 118 - sequential writer never overlaps asynchronous acknowledgements
+  ---
+  duration_ms: 1.0107
+  type: 'test'
+  ...
+# Subtest: early final response retains ownership until its ATT acknowledgement before chained request
+ok 119 - early final response retains ownership until its ATT acknowledgement before chained request
+  ---
+  duration_ms: 1.3844
+  type: 'test'
+  ...
+# Subtest: early authentication response cannot succeed if final acknowledgement fails
+ok 120 - early authentication response cannot succeed if final acknowledgement fails
+  ---
+  duration_ms: 1.1552
+  type: 'test'
+  ...
+# Subtest: timeout and abort still close after response while final acknowledgement remains pending
+ok 121 - timeout and abort still close after response while final acknowledgement remains pending
+  ---
+  duration_ms: 32.8321
+  type: 'test'
+  ...
+# Subtest: authentication gate, leading-zero PIN, failed PIN, and no automatic retries
+ok 122 - authentication gate, leading-zero PIN, failed PIN, and no automatic retries
+  ---
+  duration_ms: 1.9654
+  type: 'test'
+  ...
+# Subtest: PIN and Wi-Fi secrets cannot leave confidentiality-unproven transport
+ok 123 - PIN and Wi-Fi secrets cannot leave confidentiality-unproven transport
+  ---
+  duration_ms: 1.1626
+  type: 'test'
+  ...
+# Subtest: mutations require confirmation and preserve exact official parameter shapes
+ok 124 - mutations require confirmation and preserve exact official parameter shapes
+  ---
+  duration_ms: 1.2652
+  type: 'test'
+  ...
+# Subtest: advanced console cannot forward unknown or upstream BLE-refused methods
+ok 125 - advanced console cannot forward unknown or upstream BLE-refused methods
+  ---
+  duration_ms: 0.8011
+  type: 'test'
+  ...
+# Subtest: actual robot-discovered skills gate the convenience control helper
+ok 126 - actual robot-discovered skills gate the convenience control helper
+  ---
+  duration_ms: 1.2355
+  type: 'test'
+  ...
+# Subtest: timeout closes ambiguous session and does not retry a command
+ok 127 - timeout closes ambiguous session and does not retry a command
+  ---
+  duration_ms: 23.9364
+  type: 'test'
+  ...
+# Subtest: abort and dropped GATT close pending requests and remove subscriptions
+ok 128 - abort and dropped GATT close pending requests and remove subscriptions
+  ---
+  duration_ms: 0.9301
+  type: 'test'
+  ...
+# Subtest: malformed same-ID responses never become success; server error text is redacted
+ok 129 - malformed same-ID responses never become success; server error text is redacted
+  ---
+  duration_ms: 1.1084
+  type: 'test'
+  ...
+# Subtest: notifications are separate from replies and reply buffer accepts bounded log tails
+ok 130 - notifications are separate from replies and reply buffer accepts bounded log tails
+  ---
+  duration_ms: 4.4965
+  type: 'test'
+  ...
+# Subtest: send failure is sanitized, rejects once, and closes without replay
+ok 131 - send failure is sanitized, rejects once, and closes without replay
+  ---
+  duration_ms: 0.3648
+  type: 'test'
+  ...
+# Subtest: mock Web Bluetooth discovers by service, reads before subscribe/write, and cannot attest encryption
+ok 132 - mock Web Bluetooth discovers by service, reads before subscribe/write, and cannot attest encryption
+  ---
+  duration_ms: 1.6703
+  type: 'test'
+  ...
+# Subtest: mock GATT rejects missing acknowledged write and cleans failed discovery connection
+ok 133 - mock GATT rejects missing acknowledged write and cleans failed discovery connection
+  ---
+  duration_ms: 0.302
+  type: 'test'
+  ...
+# Subtest: mock GATT connect timeout also disconnects a connection that completes late
+ok 134 - mock GATT connect timeout also disconnects a connection that completes late
+  ---
+  duration_ms: 22.8079
+  type: 'test'
+  ...
+# Subtest: mock GATT read timeout disconnects without subscribing or sending a secret
+ok 135 - mock GATT read timeout disconnects without subscribing or sending a secret
+  ---
+  duration_ms: 14.8881
+  type: 'test'
+  ...
+# Subtest: reconnect requires a new authentication and never replays old requests
+ok 136 - reconnect requires a new authentication and never replays old requests
+  ---
+  duration_ms: 0.7586
+  type: 'test'
+  ...
+# Subtest: simulation is explicit and exercises real framed API44 handshake only on start
+ok 137 - simulation is explicit and exercises real framed API44 handshake only on start
+  ---
+  duration_ms: 7.0949
+  type: 'test'
+  ...
+# Subtest: identity, health and Wi-Fi fixtures are marked fictional with API-shaped values
+ok 138 - identity, health and Wi-Fi fixtures are marked fictional with API-shaped values
+  ---
+  duration_ms: 2.4998
+  type: 'test'
+  ...
+# Subtest: public fixture API rejects secret fields, real SSIDs and unsupported methods before writes
+ok 139 - public fixture API rejects secret fields, real SSIDs and unsupported methods before writes
+  ---
+  duration_ms: 1.1971
+  type: 'test'
+  ...
+# Subtest: mock actions require individual confirmation and skill discovery
+ok 140 - mock actions require individual confirmation and skill discovery
+  ---
+  duration_ms: 2.7553
+  type: 'test'
+  ...
+# Subtest: action history and metadata are bounded copies and action limit does not replay
+ok 141 - action history and metadata are bounded copies and action limit does not replay
+  ---
+  duration_ms: 37.8316
+  type: 'test'
+  ...
+# Subtest: closing a pending start cannot reopen or replay and replacement starts fresh
+ok 142 - closing a pending start cannot reopen or replay and replacement starts fresh
+  ---
+  duration_ms: 1.504
+  type: 'test'
+  ...
+# Subtest: standalone files have no network/GATT/storage entry point or caller transport
+ok 143 - standalone files have no network/GATT/storage entry point or caller transport
+  ---
+  duration_ms: 7.6217
+  type: 'test'
+  ...
+# Subtest: mount is passive, has explicit simulation labels and checkbox/select controls only
+ok 144 - mount is passive, has explicit simulation labels and checkbox/select controls only
+  ---
+  duration_ms: 3.6071
+  type: 'test'
+  ...
+# Subtest: explicit start uses actual mock RPC and presents fictional identity/battery/discovery
+ok 145 - explicit start uses actual mock RPC and presents fictional identity/battery/discovery
+  ---
+  duration_ms: 6.4147
+  type: 'test'
+  ...
+# Subtest: changing a sound invalidates confirmation and every action consumes its checkbox
+ok 146 - changing a sound invalidates confirmation and every action consumes its checkbox
+  ---
+  duration_ms: 4.0529
+  type: 'test'
+  ...
+# Subtest: fictional network join has no password and ending/restarting discards history and IP
+ok 147 - fictional network join has no password and ending/restarting discards history and IP
+  ---
+  duration_ms: 2.8172
+  type: 'test'
+  ...
+# Subtest: skill control uses advertised fixtures and refuses a forged selection without replay
+ok 148 - skill control uses advertised fixtures and refuses a forged selection without replay
+  ---
+  duration_ms: 2.7181
+  type: 'test'
+  ...
+# Subtest: refresh clears staged confirmations and duplicate start cannot create a second session
+ok 149 - refresh clears staged confirmations and duplicate start cannot create a second session
+  ---
+  duration_ms: 1.7831
+  type: 'test'
+  ...
+# Subtest: pagehide and destroy during pending start discard completion and remove listeners
+ok 150 - pagehide and destroy during pending start discard completion and remove listeners
+  ---
+  duration_ms: 1.1357
+  type: 'test'
+  ...
+# Subtest: accepted progress phases and no-reply semantics match the independent pinned upstream audit
+ok 151 - accepted progress phases and no-reply semantics match the independent pinned upstream audit
+  ---
+  duration_ms: 8.5111
+  type: 'test'
+  ...
+# Subtest: streaming method refuses ordinary requests and unauthenticated watches before writes
+ok 152 - streaming method refuses ordinary requests and unauthenticated watches before writes
+  ---
+  duration_ms: 1.7703
+  type: 'test'
+  ...
+# Subtest: explicit watch sends one official request without waiting for an invented response
+ok 153 - explicit watch sends one official request without waiting for an invented response
+  ---
+  duration_ms: 3.08
+  type: 'test'
+  ...
+# Subtest: early progress is delivered only after every ATT ACK, with no detail text retained
+ok 154 - early progress is delivered only after every ATT ACK, with no detail text retained
+  ---
+  duration_ms: 12.2204
+  type: 'test'
+  ...
+# Subtest: a failed final ACK never exposes early progress or claims an observing session
+ok 155 - a failed final ACK never exposes early progress or claims an observing session
+  ---
+  duration_ms: 1.0904
+  type: 'test'
+  ...
+# Subtest: write-ACK timeout and abort discard queued progress; late ACK cannot restart a watch
+ok 156 - write-ACK timeout and abort discard queued progress; late ACK cannot restart a watch
+  ---
+  duration_ms: 22.2506
+  type: 'test'
+  ...
+# Subtest: duration lease ends an idle watcher without inventing an update outcome or retry
+ok 157 - duration lease ends an idle watcher without inventing an update outcome or retry
+  ---
+  duration_ms: 29.8344
+  type: 'test'
+  ...
+# Subtest: event budget counts unrelated notifications and stops at the configured bound
+ok 158 - event budget counts unrelated notifications and stops at the configured bound
+  ---
+  duration_ms: 1.035
+  type: 'test'
+  ...
+# Subtest: early event budget is bounded while the final acknowledgement is pending
+ok 159 - early event budget is bounded while the final acknowledgement is pending
+  ---
+  duration_ms: 1.4396
+  type: 'test'
+  ...
+# Subtest: only upstream phases and bounded typed progress are exposed; idle and 100 are not terminal
+ok 160 - only upstream phases and bounded typed progress are exposed; idle and 100 are not terminal
+  ---
+  duration_ms: 0.9651
+  type: 'test'
+  ...
+# Subtest: invalid progress schemas close rather than fabricating values or accepting unknown success phases
+ok 161 - invalid progress schemas close rather than fabricating values or accepting unknown success phases
+  ---
+  duration_ms: 2.7053
+  type: 'test'
+  ...
+# Subtest: fragmented UTF-8 and coalesced progress preserve samples while omitting raw detail
+ok 162 - fragmented UTF-8 and coalesced progress preserve samples while omitting raw detail
+  ---
+  duration_ms: 0.6789
+  type: 'test'
+  ...
+# Subtest: malformed envelopes, UTF-8 and oversized progress stop exactly once
+ok 163 - malformed envelopes, UTF-8 and oversized progress stop exactly once
+  ---
+  duration_ms: 1.5865
+  type: 'test'
+  ...
+# Subtest: matching remote errors are redacted, and an ordinary stream success response is refused
+ok 164 - matching remote errors are redacted, and an ordinary stream success response is refused
+  ---
+  duration_ms: 1.5296
+  type: 'test'
+  ...
+# Subtest: mismatched response IDs do not end an observation and cannot become progress
+ok 165 - mismatched response IDs do not end an observation and cannot become progress
+  ---
+  duration_ms: 0.3671
+  type: 'test'
+  ...
+# Subtest: abort, dropped transport and explicit close remove ownership and never replay
+ok 166 - abort, dropped transport and explicit close remove ownership and never replay
+  ---
+  duration_ms: 0.6976
+  type: 'test'
+  ...
+# Subtest: callbacks cannot prevent cleanup, and coalesced notifications after stop are not delivered
+ok 167 - callbacks cannot prevent cleanup, and coalesced notifications after stop are not delivered
+  ---
+  duration_ms: 0.5042
+  type: 'test'
+  ...
+# Subtest: invalid watch options, pre-aborted signals and exhausted IDs send no subscription
+ok 168 - invalid watch options, pre-aborted signals and exhausted IDs send no subscription
+  ---
+  duration_ms: 0.6638
+  type: 'test'
+  ...
+# Subtest: a pending ordinary request prevents starting an overlapping watcher
+ok 169 - a pending ordinary request prevents starting an overlapping watcher
+  ---
+  duration_ms: 0.588
+  type: 'test'
+  ...
+1..169
+# tests 169
+# suites 0
+# pass 169
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1025.6603
