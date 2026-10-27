@@ -109,7 +109,19 @@ class JSVerifiedSourceTests(unittest.TestCase):
                 capture_output=True, text=True, timeout=30)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             data = json.loads(result.stdout)
-            self.assertEqual((data['passed'], data['modules'], data['functions']), (7, 6, 140))
+            self.assertEqual((data['passed'], data['modules'], data['functions']), (8, 6, 140))
+
+    def test_actual_upstream_matrix_slot_abi_and_legacy_palette(self):
+        node = os.environ.get('NODE_BINARY') or shutil.which('node')
+        if not node:
+            self.skipTest('Node unavailable: set NODE_BINARY')
+        with tempfile.TemporaryDirectory() as temp:
+            assets = Path(temp) / 'editor'
+            package(self.source, assets)
+            result = subprocess.run([node, str(ROOT / 'tests/js-matrix-slot.test.cjs'), str(assets)],
+                capture_output=True, text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertEqual(json.loads(result.stdout)['passed'], 7)
 
 
 if __name__ == '__main__':

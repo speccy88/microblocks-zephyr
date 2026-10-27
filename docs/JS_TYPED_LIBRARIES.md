@@ -14,10 +14,11 @@ hashes and byte offsets in the combined import. The upstream JS source pin and
 all engine files remain unchanged. A missing MicroDuck function dependency now
 raises a compiler error instead of silently compiling a dummy zero.
 
-The intended picker flow is **Add Library -> MicroDuck Linux**. The actual
-editor filesystem lists that entry and its actual `openLibraryFile` import path
-has been exercised headlessly. Graphical clicking, appearance and save/restore
-acceptance remain unverified. The import bundles dependencies together; do not
+The picker flow is **Add Library -> MicroDuck Linux**. The actual editor
+filesystem and `openLibraryFile` path have headless and now scoped graphical
+acceptance: six modules appear and representative reporters execute on the Pi.
+See [the graphical scope](JS_MATRIX_ADAPTER.md); save/restore and full graphical
+coverage remain unverified. The import bundles dependencies together; do not
 mistake an individual source copy for the complete library bundle.
 
 ## What was verified

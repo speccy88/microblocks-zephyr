@@ -1,0 +1,14 @@
+{
+  "source_gp_sha256": "136d38e226d44811d551ad9d780557492e3c7a6ef9ef4911fc5338ecf8966b0c",
+  "presets_compared": 6,
+  "presets": {
+    "Heart": "46d3a56552b7b5222f4b982f1da0a710cd11249ef349ec506c9668743f89da0a",
+    "Smile": "34c88299c72c63ac5d26a4eb6b3f5144d6b81c3c005986462bc365839f6409c6",
+    "Checkerboard": "ce9ed3f7dc63fd43bab20313fcd8a8a76befad7dae57fdc54a6d8b7c2533a699",
+    "Diagonal": "98b838f45ac65e30142b2c2b311130502ebaba64a41d1641a291c885fed84151",
+    "All on": "7af1303a2502ec4fa31a0af84f24e91096c9cb26bfeb1436ff285b8643c53d84",
+    "Clear": "4425187ba304c476f134d075bda3281a7b9347092f7fee17082cda7420ed403a"
+  },
+  "hardware": false,
+  "local_adapter_sha256": "8c84fc2baf0815ce092cb7188b044de4e85dd7f2bebbcec35f48a57737e18871"
+}

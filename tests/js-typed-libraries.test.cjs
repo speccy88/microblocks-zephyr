@@ -30,6 +30,8 @@ async function main() {
     assert.equal(h.evaluate('MB_editor.project.libraries.size'), 6);
     assert.equal(h.evaluate('MB_editor.project.allFunctions().length'), 140);
     assert.equal(h.evaluate('MB_connection.port'), null); passed++;
+    assert.equal(h.evaluate('MB_Specs.blockForSpec(MB_Specs.specArrayForSelector("[microduck:configured]",true,0),"Input") instanceof ReporterBlockMorph'),true);
+    assert.equal(h.evaluate('MB_Specs.blockForSpec(MB_Specs.specArrayForSelector("microduckReadingKnown",true,1),"Input") instanceof ReporterBlockMorph'),true); passed++;
     const compiled = h.evaluate(`(()=>{let p=MB_editor.project;MB_editor.codeManager.assignFunctionIDs();let c=new MB_Compiler(p,MB_editor.codeManager);
         return p.allFunctions().map(f=>({name:f.functionName,id:MB_editor.codeManager.functionChunkIDs.get(f.functionName),bytes:c.compiledBytesFor(f)}));})()`);
     assert.equal(new Set(compiled.map(f => f.id)).size, 140);

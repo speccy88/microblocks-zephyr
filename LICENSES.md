@@ -53,6 +53,10 @@ own headers; preserve those headers, including historical notices. Marked and
 FileSaver retain their MIT notices; usbDfuDevice retains its full ISC notice.
 Local compatibility scripts use MPL-2.0 and packaging tools use MIT. Packaging
 is local staging, not a claim of completed distribution/license acceptance.
+The local `legacy-slots.js` matrix port retains the pinned GP slot's MPL-2.0
+attribution to John Maloney, Bernat Romagosa and Jens Mönig. Exact containing
+asset/source identity is in `dependencies/unoq-matrix-gp.json`; upstream JS
+engine files remain unchanged.
 
 The P4 native camera port uses the pinned external Zephyr/Espressif HAL
 (Apache-2.0), without linking FreeRTOS or ESP-IDF camera/ISP RTOS drivers.

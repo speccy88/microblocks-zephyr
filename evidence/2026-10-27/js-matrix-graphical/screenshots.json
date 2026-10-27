@@ -1,0 +1,37 @@
+{
+  "js-gui-import.jpg": {
+    "sha256": "837c0bd2ce60e8709051e32195ac279979fb79bc2c6652b3572c3690dc560e7e",
+    "bytes": 96567,
+    "encoding": "original JPEG from browser capture; bytes unchanged"
+  },
+  "js-gui-head-result.jpg": {
+    "sha256": "de88067502636945b5b9b7f828c37656630238dd79f47925fe805ef2e434c335",
+    "bytes": 83881,
+    "encoding": "original JPEG from browser capture; bytes unchanged"
+  },
+  "js-gui-predicate.jpg": {
+    "sha256": "7a4b9915a2376a6a15dedfb5c5750d343740c25f42801da753a2dfee8ffd54c9",
+    "bytes": 85091,
+    "encoding": "original JPEG from browser capture; bytes unchanged"
+  },
+  "js-gui-matrix-painted.jpg": {
+    "sha256": "6f1d527ebfec4bdb541bbc71deccd5bb5ad8a10e47b1262baf7140a5e08b87ea",
+    "bytes": 58025,
+    "encoding": "original JPEG from browser capture; bytes unchanged"
+  },
+  "js-gui-matrix-value.jpg": {
+    "sha256": "8090f84519dea1c298a711a800ecfdaf7af6a1a2cf7ecde0c1b9c23c49165bfe",
+    "bytes": 78192,
+    "encoding": "original JPEG from browser capture; bytes unchanged"
+  },
+  "js-gui-matrix-clear.jpg": {
+    "sha256": "f2ccd648623c156d2a6f946d398f8f229748f8a30247d0ada1bd286bf1b8a890",
+    "bytes": 57987,
+    "encoding": "original JPEG from browser capture; bytes unchanged"
+  },
+  "js-gui-matrix-zero-value.jpg": {
+    "sha256": "4f7d3f29b9b4b756463346324b72c6b6dc84b83671243490d0d817d654a617eb",
+    "bytes": 76090,
+    "encoding": "original JPEG from browser capture; bytes unchanged"
+  }
+}

@@ -1,0 +1,5 @@
+module 'UNO Q Matrix Fixture' Output
+version 1 0
+description 'Acceptance fixture: ordinary 104-digit matrix String only; no hardware primitive or movement.'
+spec 'r' 'matrixStringFixture' 'matrix fixture _' 'unoqMatrix' '00077000770000077770777700077777777777007777777777700077777777700000777777700000007777700000000007000000'
+to matrixStringFixture pattern { return pattern }

@@ -46,15 +46,18 @@ def package(source, output, manifest_path=None):
     # the existing loopback bridge's HTTP origin; remote HTTP still redirects.
     html = html.replace(REDIRECT, LOCAL_REDIRECT).replace(ANCHOR,
         '\t\t<script src="linux-compat.js"></script>\n'
+        '\t\t<script src="legacy-slots.js"></script>\n'
         '\t\t<script src="linux-bootstrap.js"></script>\n' + ANCHOR)
     files['index.html'] = html.encode('utf-8')
     # The existing Linux bridge intentionally serves this fixed entry name.
     files['microblocks.html'] = files['index.html']
     files['linux-compat.js'] = (ROOT / 'web/js-editor/linux-compat.js').read_bytes()
+    files['legacy-slots.js'] = (ROOT / 'web/js-editor/legacy-slots.js').read_bytes()
     files['linux-bootstrap.js'] = (ROOT / 'web/js-editor/bootstrap.js').read_bytes()
     files['licenses/LOCAL-MIT.txt'] = (ROOT / 'LICENSE').read_bytes()
     files['THIRD_PARTY_NOTICES.md'] = (ROOT / 'web/js-editor/THIRD_PARTY_NOTICES.md').read_bytes()
     files['source-manifest.json'] = manifest_path.read_bytes()
+    files['matrix-source.json'] = (ROOT / 'dependencies/unoq-matrix-gp.json').read_bytes()
     local = microduck_files()
     if files.keys() & local.keys():
         raise ValueError('Local library path collides with upstream')

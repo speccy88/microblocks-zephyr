@@ -122,7 +122,7 @@ main, rename active owner branches, or delete the GP packaging as a shortcut.
 
 ## Remaining acceptance gates
 
-This first profile is Linux/MicroDuck only. Custom UNO Q matrix editing, P4
+This first profile is Linux/MicroDuck only. Complete custom-slot parity, P4
 media preview/message extensions, portal serialization/restore APIs, SFC editor
 integration, browser save/autosave/privacy behavior and graphical usability
 remain pending. Stock format compatibility alone proves none of those custom
@@ -134,5 +134,6 @@ by this headless test. See the earlier
 The [typed-library slice](JS_TYPED_LIBRARIES.md) now adds a generated file-browser
 index and a coherent six-module MicroDuck import. The actual editor import path
 and 140 functions have headless/Pi evidence, including typed wrappers over
-fictional depth and gamepad streams. Graphical import, save/restore and custom
-slot rendering remain separate gates.
+fictional depth and gamepad streams. [Scoped graphical import and the first
+13x8 matrix slot port](JS_MATRIX_ADAPTER.md) now have actual browser/Pi evidence.
+Save/restore, full custom-slot parity and hardware acceptance remain gates.

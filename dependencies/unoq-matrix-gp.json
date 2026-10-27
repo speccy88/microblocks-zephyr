@@ -1,0 +1,18 @@
+{
+  "source_repository": "https://github.com/speccy88/uno-q-microblocks",
+  "source_commit": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+  "asset_prefix": "app/bricks/microblocks_bridge/web/",
+  "virtual_source": "/runtime/lib/UnoQMatrixSlot.gp",
+  "source_sha256": "136d38e226d44811d551ad9d780557492e3c7a6ef9ef4911fc5338ecf8966b0c",
+  "source_bytes": 5609,
+  "license": "MPL-2.0",
+  "dimensions": [
+    13,
+    8
+  ],
+  "serialized_type": "String",
+  "serialized_length": 104,
+  "brightness_digits": "01234567",
+  "row_major": true,
+  "arbitrary_size_variant_verified": false
+}

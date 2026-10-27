@@ -1,0 +1,7 @@
+{
+  "file": "microblocks-js-editor-5564b1e-gp-slots-staging.tar.gz",
+  "sha256": "9b8ef511910e6fc8bbc02f64de385fe251eb22337aa5f98312c147bf7ac56299",
+  "bytes": 2435501,
+  "status": "local experimental candidate; no VM binary or fixture library; unpublished",
+  "source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2"
+}
