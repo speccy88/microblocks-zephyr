@@ -305,5 +305,19 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn('/Libraries/MicroDuck_Depth.ubl',list(core))
 
 
+    def test_normal_gamepad_discovery_library_and_readonly_example_are_microduck_only(self):
+        output = self.output.parent / 'gamepad-service-editor'
+        build(self.source,output,REPO,'microduck')
+        files = unpack_package((output/'gp_wasm.js').read_bytes(),(output/'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Gamepad.ubl'],(REPO/'linux/microduck/Gamepad.ubl').read_bytes())
+        self.assertIn(b"'MicroDuck Gamepad'",files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-gamepad.ubp'],b'\n'.join((REPO/'linux/microduck'/n).read_bytes() for n in ('gamepad.ubp','MicroDuck.ubl','Gamepad.ubl')))
+        self.assertIn(b'microduckGamepadAxisCode padWindow 1',files['/Examples/Linux/microduck-gamepad.ubp'])
+        core_output = self.output.parent / 'gamepad-service-core-editor'
+        build(self.source,core_output,REPO,'raspberry-pi5')
+        core = unpack_package((core_output/'gp_wasm.js').read_bytes(),(core_output/'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Gamepad.ubl',list(core))
+
+
 if __name__ == '__main__':
     unittest.main()

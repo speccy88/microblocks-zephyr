@@ -1,0 +1,7 @@
+{
+  "git_base": "eff609fe01384aa72aeda80d394ece93b5fba42e",
+  "bundle_sha256": "1cedf22240e287b1df968b7a09668bc7566664703ae3092a30a65dc577e4e0e5",
+  "runner": "gamepad-service-full-runner.py.txt",
+  "files": "gamepad-service-linux-replica.json",
+  "scope": "Verified local bundle supplies normal Linux Git metadata to a byte-identical execution replica. Original worktree Git settings and Windows gitdir unchanged."
+}

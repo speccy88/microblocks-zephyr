@@ -186,7 +186,7 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW, PARAM_PAD_IMU_READ, PARAM_HEAD_IMU_READ, PARAM_DEPTH_ZONE, PARAM_DEPTH_META } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW, PARAM_PAD_IMU_READ, PARAM_HEAD_IMU_READ, PARAM_DEPTH_ZONE, PARAM_DEPTH_META, PARAM_GAMEPAD_AXIS, PARAM_GAMEPAD_BUTTON, PARAM_GAMEPAD_CONTROL, PARAM_GAMEPAD_META } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
@@ -230,7 +230,10 @@ static const Method methods[] = {
     {"microduck.headImu.release",PARAM_SNAPSHOT_HANDLE,0},
     {"microduck.depth.capture",PARAM_EMPTY,0},{"microduck.depth.row",PARAM_SNAPSHOT_ROW,0},
     {"microduck.depth.zone",PARAM_DEPTH_ZONE,0},{"microduck.depth.metadata",PARAM_DEPTH_META,0},
-    {"microduck.depth.release",PARAM_SNAPSHOT_HANDLE,0}
+    {"microduck.depth.release",PARAM_SNAPSHOT_HANDLE,0},
+    {"microduck.gamepad.capture",PARAM_EMPTY,0},{"microduck.gamepad.axis",PARAM_GAMEPAD_AXIS,0},
+    {"microduck.gamepad.button",PARAM_GAMEPAD_BUTTON,0},{"microduck.gamepad.control",PARAM_GAMEPAD_CONTROL,0},
+    {"microduck.gamepad.metadata",PARAM_GAMEPAD_META,0},{"microduck.gamepad.release",PARAM_SNAPSHOT_HANDLE,0}
 };
 static int snapshotHandle(yyjson_val *value) {
     if (!boundedText(value,32) || yyjson_get_len(value)!=32) return 0;
@@ -355,6 +358,23 @@ static const ImuField *findDepthMetaField(yyjson_val *value) {
 static const char *depthZoneUnit(yyjson_val *field) {
     return equalText(field,"distance")?"mm":equalText(field,"raw_distance")?"mm_raw":equalText(field,"raw_status")?"raw_status":NULL;
 }
+enum { GP_NUMBER,GP_UNSIGNED,GP_SIGNED,GP_TEXT,GP_BOOLEAN,GP_STATE };
+typedef struct { const char *section,*name,*unit; int type,low,high; } GamepadField;
+static const GamepadField gamepadFields[]={
+    {"axis","raw","raw",GP_NUMBER,-1073741824,1073741823},{"axis","position","permille",GP_NUMBER,0,1000},{"axis","event_seq","count64",GP_UNSIGNED,0,0},
+    {"button","pressed","boolean",GP_BOOLEAN,0,0},{"button","event_seq","count64",GP_UNSIGNED,0,0},
+    {"control","code","code",GP_NUMBER,0,65535},{"control","name","text",GP_TEXT,0,0},
+    {"control","min","raw",GP_NUMBER,-1073741824,1073741823},{"control","max","raw",GP_NUMBER,-1073741824,1073741823},
+    {"control","flat","raw",GP_NUMBER,-1073741824,1073741823},{"control","fuzz","raw",GP_NUMBER,-1073741824,1073741823},
+    {"metadata","seq","count64",GP_UNSIGNED,0,0},{"metadata","at_us","us_unix",GP_UNSIGNED,0,0},{"metadata","since_us","us_delta",GP_SIGNED,0,0},
+    {"metadata","frames","count",GP_NUMBER,0,16},{"metadata","axis_count","count",GP_NUMBER,0,64},{"metadata","button_count","count",GP_NUMBER,0,256},
+    {"metadata","device_name","text",GP_TEXT,0,0},{"metadata","bus","id",GP_NUMBER,0,65535},{"metadata","vendor","id",GP_NUMBER,0,65535},{"metadata","product","id",GP_NUMBER,0,65535},
+    {"metadata","observation_state","state",GP_STATE,0,0}
+};
+static const GamepadField *findGamepadField(const char *section,yyjson_val *field) {
+    for (size_t i=0;i<sizeof(gamepadFields)/sizeof(gamepadFields[0]);++i) if (!strcmp(section,gamepadFields[i].section) && equalText(field,gamepadFields[i].name)) return &gamepadFields[i];
+    return NULL;
+}
 static int validParams(const Method *method, yyjson_val *params) {
     const char *keys[4]; size_t count = 0;
     switch (method->params) {
@@ -383,6 +403,9 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_HEAD_IMU_READ: keys[count++]="handle"; keys[count++]="field"; keys[count++]="component"; break;
         case PARAM_DEPTH_ZONE: keys[count++]="handle"; keys[count++]="row"; keys[count++]="col"; keys[count++]="field"; break;
         case PARAM_DEPTH_META: keys[count++]="handle"; keys[count++]="field"; break;
+        case PARAM_GAMEPAD_AXIS: case PARAM_GAMEPAD_BUTTON: keys[count++]="handle"; keys[count++]="code"; keys[count++]="field"; break;
+        case PARAM_GAMEPAD_CONTROL: keys[count++]="handle"; keys[count++]="kind"; keys[count++]="index"; keys[count++]="field"; break;
+        case PARAM_GAMEPAD_META: keys[count++]="handle"; keys[count++]="field"; break;
     }
     if (!objectKeys(params, keys, count)) return 0;
     yyjson_val *value;
@@ -447,6 +470,17 @@ static int validParams(const Method *method, yyjson_val *params) {
             return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"row"),1,8) && integerBetween(yyjson_obj_get(params,"col"),1,8) && depthZoneUnit(yyjson_obj_get(params,"field"));
         case PARAM_DEPTH_META:
             return snapshotHandle(yyjson_obj_get(params,"handle")) && findDepthMetaField(yyjson_obj_get(params,"field"));
+        case PARAM_GAMEPAD_AXIS: case PARAM_GAMEPAD_BUTTON:
+            return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"code"),0,65535)
+                && findGamepadField(method->params==PARAM_GAMEPAD_AXIS?"axis":"button",yyjson_obj_get(params,"field"));
+        case PARAM_GAMEPAD_CONTROL: {
+            yyjson_val *kind=yyjson_obj_get(params,"kind"),*field=yyjson_obj_get(params,"field");
+            int axis=equalText(kind,"axis"),button=equalText(kind,"button");
+            return snapshotHandle(yyjson_obj_get(params,"handle")) && (axis || button) && integerBetween(yyjson_obj_get(params,"index"),1,axis?64:256)
+                && findGamepadField("control",field) && (axis || equalText(field,"code") || equalText(field,"name"));
+        }
+        case PARAM_GAMEPAD_META:
+            return snapshotHandle(yyjson_obj_get(params,"handle")) && findGamepadField("metadata",yyjson_obj_get(params,"field"));
     }
     return 0;
 }
@@ -798,7 +832,7 @@ static yyjson_val *boundedReadingResult(yyjson_val *root,HealthReading *reading,
     if (!yyjson_is_obj(value) || !yyjson_is_false(yyjson_obj_get(value,"physical_movement_enabled"))) return NULL;
     if (localIPC) {
         if (yyjson_obj_get(value,"simulation") || !equalText(yyjson_obj_get(value,"origin"),"local_ipc")
-            || !equalText(yyjson_obj_get(value,"source"),"tofd") || !yyjson_is_false(yyjson_obj_get(value,"physical_hardware_verified"))) return NULL;
+            || !equalText(yyjson_obj_get(value,"source"),localIPC==2?"padd":"tofd") || !yyjson_is_false(yyjson_obj_get(value,"physical_hardware_verified"))) return NULL;
         reading->origin="local_ipc";
     } else {
         if (!yyjson_is_true(yyjson_obj_get(value,"simulation"))) return NULL;
@@ -1081,12 +1115,52 @@ static OBJ imuReadingPrimitive(int argc,OBJ *args,int head) {
 static OBJ imuSamplePrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,0); }
 static OBJ headImuSamplePrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,1); }
 static OBJ headImuReadingPrimitive(int argc,OBJ *args) { return imuReadingPrimitive(argc,args,2); }
+static OBJ gamepadReadingPrimitive(int argc,OBJ *args) {
+    if (argc!=1) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u],text[129];size_t length;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
+    yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
+    HealthReading reading={.status="invalid",.text="",.unit="",.origin="unmarked"};
+    yyjson_val *result=boundedReadingResult(yyjson_doc_get_root(doc),&reading,2),*value=yyjson_obj_get(result,"value");
+    if (result && equalText(yyjson_obj_get(result,"kind"),"gamepad_capture")) {
+        reading.unit="snapshot";
+        if (equalText(yyjson_obj_get(result,"status"),"ok") && snapshotHandle(yyjson_obj_get(result,"handle"))
+            && integerBetween(yyjson_obj_get(result,"frames"),0,16) && equalText(yyjson_obj_get(result,"sample_basis"),"bounded_observed_events")) {
+            memcpy(text,yyjson_get_str(yyjson_obj_get(result,"handle")),32);text[32]='\0';reading.text=text;reading.isText=1;reading.status="ok";
+        }
+    } else if (result && equalText(yyjson_obj_get(result,"kind"),"gamepad_reading")) {
+        const char *section=NULL;yyjson_val *part=yyjson_obj_get(result,"section"),*field=yyjson_obj_get(result,"field");
+        if (equalText(part,"axis")) section="axis";else if (equalText(part,"button")) section="button";
+        else if (equalText(part,"control")) section="control";else if (equalText(part,"metadata")) section="metadata";
+        const GamepadField *descriptor=section?findGamepadField(section,field):NULL;int valid=descriptor && equalText(yyjson_obj_get(result,"unit"),descriptor->unit);
+        if (valid && (!strcmp(section,"axis") || !strcmp(section,"button"))) valid=integerBetween(yyjson_obj_get(result,"code"),0,65535);
+        if (valid && !strcmp(section,"control")) {
+            yyjson_val *kind=yyjson_obj_get(result,"control_kind");int axis=equalText(kind,"axis"),button=equalText(kind,"button");
+            valid=(axis || button) && integerBetween(yyjson_obj_get(result,"index"),1,axis?64:256) && (axis || equalText(field,"code") || equalText(field,"name"));
+        }
+        if (valid) {
+            reading.unit=descriptor->unit;
+            if (equalText(yyjson_obj_get(result,"status"),"ok")) {
+                if (descriptor->type==GP_NUMBER && integerBetween(value,descriptor->low,descriptor->high)) { reading.number=(int)yyjson_get_sint(value);reading.status="ok"; }
+                else if (descriptor->type==GP_BOOLEAN && yyjson_is_bool(value)) { reading.isBoolean=1;reading.boolean=yyjson_get_bool(value);reading.status="ok"; }
+                else if (descriptor->type==GP_UNSIGNED || descriptor->type==GP_SIGNED || descriptor->type==GP_TEXT || descriptor->type==GP_STATE) {
+                    uint64_t n;int good=descriptor->type==GP_UNSIGNED?decimalCounter(value,&n):descriptor->type==GP_SIGNED?epochDecimal(value):
+                        descriptor->type==GP_STATE?(equalText(value,"waiting") || equalText(value,"ok")):boundedText(value,128);
+                    if (good) { size_t size=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),size);text[size]='\0';reading.text=text;reading.isText=1;reading.status="ok"; }
+                }
+            }
+        }
+    } else if (result) reading.status="invalid";
+    yyjson_doc_free(doc);return readingRecord(&reading);
+}
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
     {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
     {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive},
     {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive},
     {"mediaSample",mediaSamplePrimitive},{"imuSample",imuSamplePrimitive},{"headImuSample",headImuSamplePrimitive},
-    {"headImuReading",headImuReadingPrimitive},{"depthReading",depthReadingPrimitive},{"depthRow",depthRowPrimitive}
+    {"headImuReading",headImuReadingPrimitive},{"depthReading",depthReadingPrimitive},{"depthRow",depthRowPrimitive},
+    {"gamepadReading",gamepadReadingPrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

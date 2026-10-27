@@ -1,0 +1,67 @@
+module 'MicroDuck Gamepad' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only bounded padd observations through the normal private Unix gateway with explicit gamepad-config. Current tests use fictional input on the real Pi; physical/radio/shipping/graphical acceptance is unverified. Capture retains descriptors even if a resting pad sends no frame; capture-ok is a handle, never known live controls. Attached value/pressed can be stale and are ignored. Discover declared codes/names/ranges, then read observed raw axes, span positions or buttons. Unobserved/lost/detached/unsupported/overflow has no extractable value; explicit event0 is known. Held events survive empty frames; loss invalidates until later clean events. Four five-second snapshots,0.35s/16-notification window, no continuous reader or renewal. Records are [status,value,unit,origin]; local_ipc means transport only, not identity/freshness/calibration/safety. Position0..1000 is declared span, no centre/deadzone mapping. Exact u64 kernel Unix timestamps and signed64 inter-report us are strings; negative intervals are preserved. Descriptor flat/fuzz are claims, not applied filters. Independent IMU reports do not make buttons known. No device-node access, pairing/bindings, credentials, robot command, network setup or automatic drive.'
+spec 'r' 'microduckGamepadCapture' 'observe gamepad window reading'
+spec 'r' 'microduckGamepadAxis' 'gamepad _ axis code _ raw reading' 'auto num' '' 0
+spec 'r' 'microduckGamepadPosition' 'gamepad _ axis code _ declared span position reading' 'auto num' '' 0
+spec 'r' 'microduckGamepadAxisEvent' 'gamepad _ axis code _ last observed event sequence' 'auto num' '' 0
+spec 'r' 'microduckGamepadButton' 'gamepad _ button code _ pressed reading' 'auto num' '' 304
+spec 'r' 'microduckGamepadButtonEvent' 'gamepad _ button code _ last observed event sequence' 'auto num' '' 304
+spec 'r' 'microduckGamepadAxisCode' 'gamepad _ declared axis _ code reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadAxisName' 'gamepad _ declared axis _ name reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadAxisMin' 'gamepad _ declared axis _ minimum reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadAxisMax' 'gamepad _ declared axis _ maximum reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadAxisFlat' 'gamepad _ declared axis _ flat reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadAxisFuzz' 'gamepad _ declared axis _ fuzz reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadButtonCode' 'gamepad _ declared button _ code reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadButtonName' 'gamepad _ declared button _ name reading' 'auto num' '' 1
+spec 'r' 'microduckGamepadSequence' 'gamepad _ latest report sequence reading' 'auto' ''
+spec 'r' 'microduckGamepadTime' 'gamepad _ latest kernel Unix us reading' 'auto' ''
+spec 'r' 'microduckGamepadInterval' 'gamepad _ latest signed inter-report us reading' 'auto' ''
+spec 'r' 'microduckGamepadFrames' 'gamepad _ observed frame count reading' 'auto' ''
+spec 'r' 'microduckGamepadAxisCount' 'gamepad _ declared axis count reading' 'auto' ''
+spec 'r' 'microduckGamepadButtonCount' 'gamepad _ declared button count reading' 'auto' ''
+spec 'r' 'microduckGamepadName' 'gamepad _ reported device name reading' 'auto' ''
+spec 'r' 'microduckGamepadBus' 'gamepad _ reported bus id reading' 'auto' ''
+spec 'r' 'microduckGamepadVendor' 'gamepad _ reported vendor id reading' 'auto' ''
+spec 'r' 'microduckGamepadProduct' 'gamepad _ reported product id reading' 'auto' ''
+spec 'r' 'microduckGamepadObservationState' 'gamepad _ window observation state reading' 'auto' ''
+spec 'r' 'microduckGamepadRelease' 'release gamepad snapshot _ JSON' 'auto' ''
+advanced
+spec 'r' 'microduckGamepadAxisReading' 'gamepad _ axis code _ field _ reading' 'auto num str' '' 0 'raw'
+spec 'r' 'microduckGamepadButtonReading' 'gamepad _ button code _ field _ reading' 'auto num str' '' 304 'pressed'
+spec 'r' 'microduckGamepadControl' 'gamepad _ control type _ index _ field _ reading' 'auto str num str' '' 'axis' 1 'code'
+spec 'r' 'microduckGamepadMetadata' 'gamepad _ metadata field _ reading' 'auto str' '' 'frames'
+
+to microduckGamepadParams capture { return ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture))) }
+to microduckGamepadCapture { return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.capture' '{}' false)) }
+to microduckGamepadAxisReading capture code field { return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.axis' ('[data:join]' (microduckGamepadParams capture) ',"code":' code ',"field":' ('[microduck:quote]' field) '}') false)) }
+to microduckGamepadButtonReading capture code field { return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.button' ('[data:join]' (microduckGamepadParams capture) ',"code":' code ',"field":' ('[microduck:quote]' field) '}') false)) }
+to microduckGamepadAxis capture code { return (microduckGamepadAxisReading capture code 'raw') }
+to microduckGamepadPosition capture code { return (microduckGamepadAxisReading capture code 'position') }
+to microduckGamepadAxisEvent capture code { return (microduckGamepadAxisReading capture code 'event_seq') }
+to microduckGamepadButton capture code { return (microduckGamepadButtonReading capture code 'pressed') }
+to microduckGamepadButtonEvent capture code { return (microduckGamepadButtonReading capture code 'event_seq') }
+to microduckGamepadControl capture controlType index field { return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.control' ('[data:join]' (microduckGamepadParams capture) ',"kind":' ('[microduck:quote]' controlType) ',"index":' index ',"field":' ('[microduck:quote]' field) '}') false)) }
+to microduckGamepadMetadata capture field { return ('[microduck:gamepadReading]' (microduckRequest 'microduck.gamepad.metadata' ('[data:join]' (microduckGamepadParams capture) ',"field":' ('[microduck:quote]' field) '}') false)) }
+to microduckGamepadAxisCode capture index { return (microduckGamepadControl capture 'axis' index 'code') }
+to microduckGamepadAxisName capture index { return (microduckGamepadControl capture 'axis' index 'name') }
+to microduckGamepadAxisMin capture index { return (microduckGamepadControl capture 'axis' index 'min') }
+to microduckGamepadAxisMax capture index { return (microduckGamepadControl capture 'axis' index 'max') }
+to microduckGamepadAxisFlat capture index { return (microduckGamepadControl capture 'axis' index 'flat') }
+to microduckGamepadAxisFuzz capture index { return (microduckGamepadControl capture 'axis' index 'fuzz') }
+to microduckGamepadButtonCode capture index { return (microduckGamepadControl capture 'button' index 'code') }
+to microduckGamepadButtonName capture index { return (microduckGamepadControl capture 'button' index 'name') }
+to microduckGamepadSequence capture { return (microduckGamepadMetadata capture 'seq') }
+to microduckGamepadTime capture { return (microduckGamepadMetadata capture 'at_us') }
+to microduckGamepadInterval capture { return (microduckGamepadMetadata capture 'since_us') }
+to microduckGamepadFrames capture { return (microduckGamepadMetadata capture 'frames') }
+to microduckGamepadAxisCount capture { return (microduckGamepadMetadata capture 'axis_count') }
+to microduckGamepadButtonCount capture { return (microduckGamepadMetadata capture 'button_count') }
+to microduckGamepadName capture { return (microduckGamepadMetadata capture 'device_name') }
+to microduckGamepadBus capture { return (microduckGamepadMetadata capture 'bus') }
+to microduckGamepadVendor capture { return (microduckGamepadMetadata capture 'vendor') }
+to microduckGamepadProduct capture { return (microduckGamepadMetadata capture 'product') }
+to microduckGamepadObservationState capture { return (microduckGamepadMetadata capture 'observation_state') }
+to microduckGamepadRelease capture { return (microduckRequest 'microduck.gamepad.release' ('[data:join]' (microduckGamepadParams capture) '}') false) }

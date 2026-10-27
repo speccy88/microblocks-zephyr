@@ -1,0 +1,256 @@
+{
+  "result": "PASS",
+  "scope": "Actual x86_64 sanitizer VM bytecode/PTY -> normal Gateway -> checked pad.input -> fixed fictional padd",
+  "binary_sha256": "7a231fc8663bf8ba0758239955fbf887f7bb2c6a8ac602eb555514e5243bfc4a",
+  "input_is_simulated": true,
+  "physical_hardware_verified": false,
+  "physical_movement_enabled": false,
+  "origin": "local_ipc is transport only",
+  "capture": [
+    "ok",
+    "2910180b67f9960b2c8efe2fd29563a0",
+    "snapshot",
+    "local_ipc"
+  ],
+  "metadata": {
+    "seq": [
+      "ok",
+      "9223372036854775812",
+      "count64",
+      "local_ipc"
+    ],
+    "at_us": [
+      "ok",
+      "1793050000008000",
+      "us_unix",
+      "local_ipc"
+    ],
+    "since_us": [
+      "ok",
+      "8000",
+      "us_delta",
+      "local_ipc"
+    ],
+    "frames": [
+      "ok",
+      2,
+      "count",
+      "local_ipc"
+    ],
+    "axis_count": [
+      "ok",
+      1,
+      "count",
+      "local_ipc"
+    ],
+    "button_count": [
+      "ok",
+      1,
+      "count",
+      "local_ipc"
+    ],
+    "device_name": [
+      "ok",
+      "SIMULATED controller",
+      "text",
+      "local_ipc"
+    ],
+    "bus": [
+      "ok",
+      3,
+      "id",
+      "local_ipc"
+    ],
+    "vendor": [
+      "ok",
+      0,
+      "id",
+      "local_ipc"
+    ],
+    "product": [
+      "ok",
+      0,
+      "id",
+      "local_ipc"
+    ],
+    "observation_state": [
+      "ok",
+      "ok",
+      "state",
+      "local_ipc"
+    ]
+  },
+  "discovery": {
+    "axis.code": [
+      "ok",
+      0,
+      "code",
+      "local_ipc"
+    ],
+    "axis.name": [
+      "ok",
+      "ABS_X",
+      "text",
+      "local_ipc"
+    ],
+    "axis.min": [
+      "ok",
+      -32768,
+      "raw",
+      "local_ipc"
+    ],
+    "axis.max": [
+      "ok",
+      32767,
+      "raw",
+      "local_ipc"
+    ],
+    "axis.flat": [
+      "ok",
+      128,
+      "raw",
+      "local_ipc"
+    ],
+    "axis.fuzz": [
+      "ok",
+      0,
+      "raw",
+      "local_ipc"
+    ],
+    "button.code": [
+      "ok",
+      304,
+      "code",
+      "local_ipc"
+    ],
+    "button.name": [
+      "ok",
+      "BTN_SOUTH",
+      "text",
+      "local_ipc"
+    ]
+  },
+  "observed_inputs": {
+    "axis.raw": [
+      "ok",
+      1583,
+      "raw",
+      "local_ipc"
+    ],
+    "axis.position": [
+      "ok",
+      524,
+      "permille",
+      "local_ipc"
+    ],
+    "axis.event_seq": [
+      "ok",
+      "9223372036854775811",
+      "count64",
+      "local_ipc"
+    ],
+    "button.pressed": [
+      "ok",
+      true,
+      "boolean",
+      "local_ipc"
+    ],
+    "button.event_seq": [
+      "ok",
+      "9223372036854775811",
+      "count64",
+      "local_ipc"
+    ]
+  },
+  "after_release": [
+    "expired_or_unknown",
+    "",
+    "raw",
+    "local_ipc"
+  ],
+  "quiet": {
+    "frames": [
+      "ok",
+      0,
+      "count",
+      "local_ipc"
+    ],
+    "declared_code": [
+      "ok",
+      0,
+      "code",
+      "local_ipc"
+    ],
+    "button": [
+      "unobserved",
+      "",
+      "boolean",
+      "local_ipc"
+    ]
+  },
+  "dropped_axis": [
+    "dropped",
+    "",
+    "raw",
+    "local_ipc"
+  ],
+  "unavailable_extraction_denied": true,
+  "source_subscriptions": 3,
+  "robot_upstream_calls": 0,
+  "capabilities": {
+    "gateway_version": 1,
+    "api_version": 44,
+    "upstream_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+    "transport": "unix-peercred",
+    "methods": [
+      "microduck.gamepad.axis",
+      "microduck.gamepad.button",
+      "microduck.gamepad.capture",
+      "microduck.gamepad.control",
+      "microduck.gamepad.metadata",
+      "microduck.gamepad.release"
+    ],
+    "read_only_adapters": {
+      "head_imu": {
+        "configured": false,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "tofd",
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 350
+      },
+      "depth": {
+        "configured": false,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "tofd",
+        "rows": 8,
+        "cols": 8,
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 350
+      },
+      "gamepad": {
+        "configured": true,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "padd",
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "window_ms": 350,
+        "notifications": 16,
+        "continuous_reader": false
+      }
+    },
+    "allowed_mutations": [],
+    "last_upstream_api_versions": {},
+    "limits": {
+      "request_bytes": 8192,
+      "reply_bytes": 65536,
+      "clients": 4
+    },
+    "hardware_validation": "not performed"
+  },
+  "clock": "Fixed for coherence/scenario; separate lifecycle/cancellation tests retain their clock assertions"
+}

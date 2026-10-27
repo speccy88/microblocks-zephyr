@@ -15,26 +15,26 @@ PREFIX = 'microduck.headImu.'
 METHODS = frozenset(PREFIX + name for name in ('capture', 'read', 'release'))
 
 
-def validate_source(config):
-    if not isinstance(config, dict) or set(config) != {'version', 'daemon', 'path', 'uid'} \
-            or type(config['version']) is not int or config['version'] != 1 or config['daemon'] != 'tofd' \
+def validate_source(config, daemon='tofd'):
+    if daemon not in ('tofd','padd') or not isinstance(config, dict) or set(config) != {'version', 'daemon', 'path', 'uid'} \
+            or type(config['version']) is not int or config['version'] != 1 or config['daemon'] != daemon \
             or not isinstance(config['path'], str) or not config['path'].startswith('/') \
             or '\x00' in config['path'] or len(config['path'].encode('utf-8')) > 103 \
             or not core.wire.integer(config['uid'], 0, 0xffffffff):
-        raise ValueError('Head IMU config requires version1, daemon tofd, absolute socket path and expected numeric UID')
+        raise ValueError('Reader config requires version1, the selected daemon, absolute socket path and expected numeric UID')
     return dict(config)
 
 
-def load_source(path):
+def load_source(path, daemon='tofd'):
     path = Path(path)
     if not path.is_absolute() or path.parent.resolve(strict=True) != path.parent:
-        raise ValueError('Canonical absolute head IMU config path required')
+        raise ValueError('Canonical absolute reader config path required')
     fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK)
     try:
         info = os.fstat(fd)
         if not stat.S_ISREG(info.st_mode) or info.st_uid != os.geteuid() or info.st_mode & 0o077 or info.st_size > MAX_REQUEST:
-            raise ValueError('Head IMU config must be bounded, private and owned by this user')
-        return validate_source(decode(os.read(fd, MAX_REQUEST + 1).rstrip(b'\n') + b'\n', MAX_REQUEST))
+            raise ValueError('Reader config must be bounded, private and owned by this user')
+        return validate_source(decode(os.read(fd, MAX_REQUEST + 1).rstrip(b'\n') + b'\n', MAX_REQUEST), daemon)
     finally:
         os.close(fd)
 

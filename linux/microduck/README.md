@@ -60,6 +60,12 @@ tofd IPC. Both head/depth wrappers are admitted by the Python convenience client
 Depth has a separate library/example and labelled normal-gateway fixture; all
 current acceptance input is fictional and shipping/physical/graphical gates remain.
 
+The [normal gamepad adapter](GAMEPAD_SERVICE.md) adds finite padd observations,
+quiet-pad descriptor discovery, typed axes/buttons/span and exact timing. Attached
+values remain unobserved until events arrive. Dedicated Gamepad blocks/example
+and a labelled fixture use normal Gateway; physical/radio/graphical acceptance
+and shipping permissions/deployment remain open. No direct evdev or robot control.
+
 ## Filesystem-only commissioning inspection
 
 The optional [preflight](PREFLIGHT.md) inspects host and explicitly supplied

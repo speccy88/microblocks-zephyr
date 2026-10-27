@@ -139,6 +139,7 @@ jobs:
                 ('test_linux_microduck_head_imu.py', ['HeadImuProtocol', 'HeadImuUnixBackend', 'HeadImuNativeAdapter']),
                 ('test_linux_microduck_head_service.py', ['HeadServiceConfig', 'HeadServiceUnix', 'HeadServiceNativeAdapter']),
                 ('test_linux_microduck_depth_service.py', ['DepthProtocol', 'DepthUnix', 'DepthNativeAdapter']),
+                ('test_linux_microduck_gamepad_service.py', ['GamepadProtocol', 'GamepadUnix', 'GamepadNativeAdapter']),
               ('test_linux_microduck_simulator.py', ['ExplicitSimulation']),
               ('test_linux_microduck_vm.py', ['RealSmallVMMicroDuck']),
           ]

@@ -234,3 +234,8 @@ The coherent read-only depth adapter, private fictional-source fixture and Pytho
 tests are newly authored MIT code. Native depth decoder/row reuse and the Depth
 library/example/editor integration retain MPL-2.0. Pollen protocol/zone facts are
 referenced; no sensor driver, controller or physical capture is redistributed.
+
+The normal read-only gamepad adapter/discovery model integration, fictional-service
+fixture and Python tests are newly authored MIT code. Native decoder/gate additions,
+Gamepad library/example and editor integration retain MPL-2.0. Pinned Pollen/evdev
+interface facts are referenced; no input driver, robot controller or capture is copied.

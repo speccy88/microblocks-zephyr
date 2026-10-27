@@ -1,5 +1,5 @@
 {
-  "contract_version": 10,
+  "contract_version": 11,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -150,6 +150,13 @@
         "depth row JSON reply"
       ],
       "returns": "Eight GC-safe four-field distance records from one coherent frame row; appended index17; no_target/unusable remain unextractable"
+    },
+    {
+      "name": "[microduck:gamepadReading]",
+      "arguments": [
+        "gamepad capture/scalar JSON reply"
+      ],
+      "returns": "GC-safe descriptor/observed input/metadata reading; exact u64/signed64 clocks and bounded UTF8; local_ipc padd only; appended index18"
     }
   ],
   "implemented_hooks": [
@@ -583,6 +590,73 @@
       "source_audit": "depth-service-source.json",
       "validation": "Actual VM -> normal gateway -> checked tofd on local sanitizer and real Pi ordinary/ASan+UBSan;396 full local and185 selected per Pi binary; all input fictional; physical/graphical/shipping unverified"
     },
-    "python_client": "Explicit head IMU and depth wrappers share strict normal-gateway request validation; generic/source/simulation and mutation restrictions remain."
+    "python_client": "Reviewed head/depth/gamepad wrappers share strict request validation; raw source RPC, simulation-only names and arbitrary forwarding remain blocked.",
+    "gamepad": {
+      "methods": [
+        "microduck.gamepad.capture",
+        "microduck.gamepad.axis",
+        "microduck.gamepad.button",
+        "microduck.gamepad.control",
+        "microduck.gamepad.metadata",
+        "microduck.gamepad.release"
+      ],
+      "gateway_option": "--gamepad-config",
+      "config": "private explicit version1/daemon:padd/path/expected uid; no device-node input or discovery",
+      "library": "Gamepad.ubl",
+      "example": "gamepad.ubp",
+      "origin": "local_ipc transport only; never physical identity/radio freshness",
+      "physical_hardware_verified": false,
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "window_ms": 350,
+      "notifications": 16,
+      "line_bytes": 16384,
+      "capture": "Metadata-only capture allowed with Attached descriptor and zero observed frames; live controls remain unobserved",
+      "input_fields": {
+        "axis": [
+          "raw",
+          "position",
+          "event_seq"
+        ],
+        "button": [
+          "pressed",
+          "event_seq"
+        ]
+      },
+      "control_discovery": {
+        "axis": [
+          "code",
+          "name",
+          "min",
+          "max",
+          "flat",
+          "fuzz"
+        ],
+        "button": [
+          "code",
+          "name"
+        ]
+      },
+      "metadata": [
+        "seq",
+        "at_us",
+        "since_us",
+        "frames",
+        "axis_count",
+        "button_count",
+        "device_name",
+        "bus",
+        "vendor",
+        "product",
+        "observation_state"
+      ],
+      "time": "Kernel Unix microseconds u64; optional signed64 delta can be negative; no clock conversion/freshness inference",
+      "loss": "Held events survive empty frames; kernel/socket drops and sequence gaps invalidate until later clean per-control events",
+      "quiet_state": "Attached values/pressed are not live observations",
+      "source_audit": "gamepad-service-source.json",
+      "no_mutations": true,
+      "continuous_reader": false,
+      "validation": "Actual VM -> normal Gateway -> checked padd with fictional input; 421 full local/24 focused and209 selected per fresh ordinary and ASan+UBSan Pi binary; zero skips; physical/radio/graphical/shipping unverified"
+    }
   }
 }

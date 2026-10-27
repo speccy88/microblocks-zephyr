@@ -1,0 +1,142 @@
+{
+  "linux/microduck/tests/pi5-gamepad-service-pi-gamepad-service-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\pi-gamepad-service-validation.json",
+    "raw_sha256": "cd2c154c5779fefa3cfa83b0e25f9a56193a43c1fd11993cfe2d975c9941bd6d",
+    "retained_sha256": "cd2c154c5779fefa3cfa83b0e25f9a56193a43c1fd11993cfe2d975c9941bd6d",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\kit-manifest.json",
+    "raw_sha256": "b9268ae8d008129342766d7574e6a1ab2c80a8be71a4bb1fbbeed9963d7bf539",
+    "retained_sha256": "b9268ae8d008129342766d7574e6a1ab2c80a8be71a4bb1fbbeed9963d7bf539",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-tests.txt",
+    "raw_sha256": "dda7115b03a08a8efc5e4d5fd41e74e4e9133ab819dff651d8f70e7fe1def6c7",
+    "retained_sha256": "dda7115b03a08a8efc5e4d5fd41e74e4e9133ab819dff651d8f70e7fe1def6c7",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native\\build-manifest.json",
+    "raw_sha256": "879403ca9d7e5258e844effc17f20fd8a55f565f6cad8616dbd119f8dd742e42",
+    "retained_sha256": "879403ca9d7e5258e844effc17f20fd8a55f565f6cad8616dbd119f8dd742e42",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native\\source-manifest.json",
+    "raw_sha256": "f5994d573a05a9eac61a6413cfafb7a958cf42ffda6edbec9adb81c0cf705ba4",
+    "retained_sha256": "f5994d573a05a9eac61a6413cfafb7a958cf42ffda6edbec9adb81c0cf705ba4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-plain-build.txt",
+    "raw_sha256": "2627b7a0403191ac82a77037bfbda08f023f4a26da2d02c99c3ebb91ea35a128",
+    "retained_sha256": "2627b7a0403191ac82a77037bfbda08f023f4a26da2d02c99c3ebb91ea35a128",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-plain-tests.txt",
+    "raw_sha256": "febdbb377a08688255f2a7561e73cc453bad567f69c5e8a48862c8442966f910",
+    "retained_sha256": "febdbb377a08688255f2a7561e73cc453bad567f69c5e8a48862c8442966f910",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "fdeee7a29b4b767eba30c7ffe7df15860fe95b7b370be76e123e525fdda53eb3",
+    "retained_sha256": "fdeee7a29b4b767eba30c7ffe7df15860fe95b7b370be76e123e525fdda53eb3",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "38e167761d13f336742babf415e7e70c672806bdd964108eeefe000051725bbe",
+    "retained_sha256": "38e167761d13f336742babf415e7e70c672806bdd964108eeefe000051725bbe",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/gamepad-service-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-focused.txt",
+    "raw_sha256": "1888242e61fd6f2260752cf8c33e4d96954627af07db570a52db0a9dcdd8def4",
+    "retained_sha256": "1888242e61fd6f2260752cf8c33e4d96954627af07db570a52db0a9dcdd8def4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/gamepad-service-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-native-build.txt",
+    "raw_sha256": "45a2d03efe66bf25b53213d15a2c97da0cc2d7d6fba563730aa1cf8eeb939fcd",
+    "retained_sha256": "45a2d03efe66bf25b53213d15a2c97da0cc2d7d6fba563730aa1cf8eeb939fcd",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/gamepad-service-final-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-full-linux.txt",
+    "raw_sha256": "2a87aaacb67a13fa00ff1151d7d656c5a3210fc8a013aba977a99d9111b194c8",
+    "retained_sha256": "2a87aaacb67a13fa00ff1151d7d656c5a3210fc8a013aba977a99d9111b194c8",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/gamepad-service-final-stderr.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-full-stderr.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/gamepad-service-scenario-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-scenario-execution.txt",
+    "raw_sha256": "cbee35e41a5a8a92824c54308cd6298dcc658741dac5d9e0e379192449663a76",
+    "retained_sha256": "cbee35e41a5a8a92824c54308cd6298dcc658741dac5d9e0e379192449663a76",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/gamepad-service-pi-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\gamepad-service-pi-execution.txt",
+    "raw_sha256": "facf502bade0920e279c1c1dec5fcb06f7049ac6633041513f677d6962b971fc",
+    "retained_sha256": "facf502bade0920e279c1c1dec5fcb06f7049ac6633041513f677d6962b971fc",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-gamepad-service-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-pi-gamepad-service.py",
+    "raw_sha256": "2798cf314051cf47edc6db4451780e172cd7baa0bcd0f45bbfb6facb20006b0d",
+    "retained_sha256": "2798cf314051cf47edc6db4451780e172cd7baa0bcd0f45bbfb6facb20006b0d",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/gamepad-service-full-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-gamepad-ext4-full.py",
+    "raw_sha256": "de9f9d627efa871670179dff80cecbe3a309b4a20f28a9709bc45c857f22549d",
+    "retained_sha256": "de9f9d627efa871670179dff80cecbe3a309b4a20f28a9709bc45c857f22549d",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  }
+}

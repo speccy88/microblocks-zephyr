@@ -1,0 +1,19 @@
+{
+  "sha256": "dd158dc121e7667b1b697e56450da3c23362f32ca85176c82c44b623156333d6",
+  "bytes": 30546,
+  "files": [
+    "pi-gamepad-service-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ],
+  "remote_directory": "/home/fred/microblocks-gamepad-service-hwpb18jt"
+}
