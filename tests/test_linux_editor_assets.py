@@ -319,5 +319,18 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn('/Libraries/MicroDuck_Gamepad.ubl',list(core))
 
 
+    def test_normal_robot_library_and_readonly_example_are_microduck_only(self):
+        output = self.output.parent / 'robot-service-editor'
+        build(self.source,output,REPO,'microduck')
+        files = unpack_package((output/'gp_wasm.js').read_bytes(),(output/'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Robot.ubl'],(REPO/'linux/microduck/Robot.ubl').read_bytes())
+        self.assertIn(b"'MicroDuck Robot'",files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-robot.ubp'],b'\n'.join((REPO/'linux/microduck'/n).read_bytes() for n in ('robot-read.ubp','MicroDuck.ubl','Robot.ubl')))
+        core_output = self.output.parent / 'robot-service-core-editor'
+        build(self.source,core_output,REPO,'raspberry-pi5')
+        core = unpack_package((core_output/'gp_wasm.js').read_bytes(),(core_output/'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Robot.ubl',list(core))
+
+
 if __name__ == '__main__':
     unittest.main()

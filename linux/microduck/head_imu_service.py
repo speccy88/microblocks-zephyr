@@ -16,7 +16,7 @@ METHODS = frozenset(PREFIX + name for name in ('capture', 'read', 'release'))
 
 
 def validate_source(config, daemon='tofd'):
-    if daemon not in ('tofd','padd') or not isinstance(config, dict) or set(config) != {'version', 'daemon', 'path', 'uid'} \
+    if daemon not in ('tofd','padd','robotd') or not isinstance(config, dict) or set(config) != {'version', 'daemon', 'path', 'uid'} \
             or type(config['version']) is not int or config['version'] != 1 or config['daemon'] != daemon \
             or not isinstance(config['path'], str) or not config['path'].startswith('/') \
             or '\x00' in config['path'] or len(config['path'].encode('utf-8')) > 103 \

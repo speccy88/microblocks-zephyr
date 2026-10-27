@@ -24,6 +24,7 @@ ROUTES = {name: service for service, names in {
 MUTATIONS = frozenset('robot.sound robot.do robot.init robot.enable robot.loadPolicy'.split())
 HEAD_METHODS = frozenset('microduck.headImu.'+n for n in ('capture','read','release'))
 DEPTH_METHODS = frozenset('microduck.depth.'+n for n in ('capture','row','zone','metadata','release'))
+ROBOT_METHODS = frozenset('microduck.robot.'+n for n in ('capture','read','release'))
 GAMEPAD_METHODS = frozenset('microduck.gamepad.'+n for n in ('capture','axis','button','control','metadata','release'))
 
 
@@ -35,7 +36,7 @@ def validate(request):
     if not isinstance(request, dict) or set(request) - {'jsonrpc', 'id', 'method', 'params', 'confirmed'} or request.get('jsonrpc') != '2.0' or type(request.get('id')) is not int or not 1 <= request['id'] <= 0x7fffffff:
         raise RpcError(-32600, 'JSON-RPC request requires a bounded numeric ID')
     method, params = request.get('method'), request.get('params', {})
-    if isinstance(method,str) and method in HEAD_METHODS | DEPTH_METHODS | GAMEPAD_METHODS:
+    if isinstance(method,str) and method in HEAD_METHODS | DEPTH_METHODS | GAMEPAD_METHODS | ROBOT_METHODS:
         if method in HEAD_METHODS:
             try:
                 from .head_imu_service import validate as validate_adapter
@@ -46,6 +47,11 @@ def validate(request):
                 from .depth_service import validate as validate_adapter
             except ImportError:
                 from depth_service import validate as validate_adapter
+        elif method in ROBOT_METHODS:
+            try:
+                from .robot_service import validate as validate_adapter
+            except ImportError:
+                from robot_service import validate as validate_adapter
         else:
             try:
                 from .gamepad_service import validate as validate_adapter
@@ -98,8 +104,8 @@ def validate(request):
 
 
 class Gateway:
-    def __init__(self, upstreams, allowed_mutations=(), timeout=3, max_clients=4, head_imu=None, depth=None, gamepad=None):
-        if set(upstreams) - {'robot', 'config', 'updater'} or (not upstreams and head_imu is None and depth is None and gamepad is None) or set(allowed_mutations) - MUTATIONS or not 1 <= max_clients <= 16:
+    def __init__(self, upstreams, allowed_mutations=(), timeout=3, max_clients=4, head_imu=None, depth=None, gamepad=None, robot_read=None):
+        if set(upstreams) - {'robot', 'config', 'updater'} or (not upstreams and head_imu is None and depth is None and gamepad is None and robot_read is None) or set(allowed_mutations) - MUTATIONS or not 1 <= max_clients <= 16:
             raise ValueError('Invalid gateway configuration')
         self.head_imu = None
         if head_imu is not None:
@@ -123,6 +129,13 @@ class Gateway:
             except ImportError:
                 from gamepad_service import GamepadStore
             self.gamepad = GamepadStore(gamepad)
+        self.robot_read = None
+        if robot_read is not None:
+            try:
+                from .robot_service import RobotStore
+            except ImportError:
+                from robot_service import RobotStore
+            self.robot_read = RobotStore(robot_read)
         self.upstreams = {name: Upstream(value['path'], value['uid'], timeout) for name, value in upstreams.items()}
         self.allowed_mutations = frozenset(allowed_mutations)
         self.timeout, self.max_clients = timeout, max_clients
@@ -133,16 +146,16 @@ class Gateway:
         self.tasks = set()
 
     async def dispatch(self, request):
-        if isinstance(request, dict) and isinstance(request.get('method'), str) and request['method'] in HEAD_METHODS | DEPTH_METHODS | GAMEPAD_METHODS:
-            store=self.head_imu if request['method'] in HEAD_METHODS else self.depth if request['method'] in DEPTH_METHODS else self.gamepad
+        if isinstance(request, dict) and isinstance(request.get('method'), str) and request['method'] in HEAD_METHODS | DEPTH_METHODS | GAMEPAD_METHODS | ROBOT_METHODS:
+            store=self.head_imu if request['method'] in HEAD_METHODS else self.depth if request['method'] in DEPTH_METHODS else self.gamepad if request['method'] in GAMEPAD_METHODS else self.robot_read
             if store is None:
                 raise RpcError(-32004, 'Read-only service adapter is not configured')
             return await store.dispatch(request), None
         method, params = validate(request)
         if method == 'microduck.capabilities':
             return {'gateway_version': 1, 'api_version': API_VERSION, 'upstream_commit': SOURCE_COMMIT,
-                'transport': 'unix-peercred', 'methods': sorted([name for name, service in ROUTES.items() if service in self.upstreams] + (list(HEAD_METHODS) if self.head_imu else []) + (list(DEPTH_METHODS) if self.depth else []) + (list(GAMEPAD_METHODS) if self.gamepad else [])),
-                'read_only_adapters': {'head_imu': {'configured': self.head_imu is not None, 'physical_hardware_verified': False,
+                'transport': 'unix-peercred', 'methods': sorted([name for name, service in ROUTES.items() if service in self.upstreams] + (list(HEAD_METHODS) if self.head_imu else []) + (list(DEPTH_METHODS) if self.depth else []) + (list(GAMEPAD_METHODS) if self.gamepad else []) + (list(ROBOT_METHODS) if self.robot_read else [])),
+                'read_only_adapters': {'robot': {'configured':self.robot_read is not None,'physical_hardware_verified':False,'origin':'local_ipc','daemon':'robotd','retained_and_inflight':4,'expiry_ms':5000,'deadline_ms':500,'continuous_reader':False}, 'head_imu': {'configured': self.head_imu is not None, 'physical_hardware_verified': False,
                     'origin': 'local_ipc', 'daemon': 'tofd', 'retained_and_inflight': 4, 'expiry_ms': 5000, 'deadline_ms': 350},
                     'depth': {'configured':self.depth is not None,'physical_hardware_verified':False,'origin':'local_ipc','daemon':'tofd','rows':8,'cols':8,'retained_and_inflight':4,'expiry_ms':5000,'deadline_ms':350},
                     'gamepad': {'configured':self.gamepad is not None,'physical_hardware_verified':False,'origin':'local_ipc','daemon':'padd','retained_and_inflight':4,'expiry_ms':5000,'window_ms':350,'notifications':16,'continuous_reader':False}},
@@ -265,6 +278,8 @@ class Gateway:
             self.depth.close()
         if self.gamepad:
             self.gamepad.close()
+        if self.robot_read:
+            self.robot_read.close()
         if self.path:
             try:
                 meta = self.path.lstat()
@@ -294,8 +309,8 @@ def load_config(path):
 
 
 async def main(args):
-    head = depth = gamepad = None
-    if args.head_imu_config or args.depth_config or args.gamepad_config:
+    head = depth = gamepad = robot = None
+    if args.head_imu_config or args.depth_config or args.gamepad_config or args.robot_read_config:
         try:
             from .head_imu_service import load_source
         except ImportError:
@@ -303,7 +318,8 @@ async def main(args):
         if args.head_imu_config:head = load_source(args.head_imu_config)
         if args.depth_config:depth = load_source(args.depth_config)
         if args.gamepad_config:gamepad = load_source(args.gamepad_config,'padd')
-    service = Gateway(load_config(args.config), args.allow_mutation, head_imu=head, depth=depth, gamepad=gamepad)
+        if args.robot_read_config:robot = load_source(args.robot_read_config,'robotd')
+    service = Gateway(load_config(args.config), args.allow_mutation, head_imu=head, depth=depth, gamepad=gamepad, robot_read=robot)
     await service.start(args.socket)
     print('MicroDuck Unix gateway ready; hardware validation pending; mutations: ' + (','.join(sorted(service.allowed_mutations)) or 'disabled'), flush=True)
     stopped = asyncio.Event()
@@ -323,6 +339,7 @@ if __name__ == '__main__':
     parser.add_argument('--head-imu-config', type=Path, help='Optional private explicit tofd path/UID config; read-only, no discovery')
     parser.add_argument('--depth-config', type=Path, help='Optional private explicit tofd path/UID config for coherent depth; no discovery')
     parser.add_argument('--gamepad-config', type=Path, help='Optional private explicit padd path/UID config; read-only bounded observations')
+    parser.add_argument('--robot-read-config', type=Path, help='Optional private explicit robotd path/UID config; finite read-only health/state')
     parser.add_argument('--allow-mutation', choices=sorted(MUTATIONS), action='append', default=[])
     args = parser.parse_args()
     if sys.platform != 'linux':

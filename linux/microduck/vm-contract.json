@@ -1,5 +1,5 @@
 {
-  "contract_version": 11,
+  "contract_version": 12,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -157,6 +157,13 @@
         "gamepad capture/scalar JSON reply"
       ],
       "returns": "GC-safe descriptor/observed input/metadata reading; exact u64/signed64 clocks and bounded UTF8; local_ipc padd only; appended index18"
+    },
+    {
+      "name": "[microduck:robotReading]",
+      "arguments": [
+        "normal robot health/state capture/scalar JSON reply"
+      ],
+      "returns": "GC-safe typed reading; exact counters, schema defaults and bounded UTF8; robotd/local_ipc only; appended index19"
     }
   ],
   "implemented_hooks": [
@@ -657,6 +664,29 @@
       "no_mutations": true,
       "continuous_reader": false,
       "validation": "Actual VM -> normal Gateway -> checked padd with fictional input; 421 full local/24 focused and209 selected per fresh ordinary and ASan+UBSan Pi binary; zero skips; physical/radio/graphical/shipping unverified"
+    },
+    "robot": {
+      "methods": [
+        "microduck.robot.capture",
+        "microduck.robot.read",
+        "microduck.robot.release"
+      ],
+      "gateway_option": "--robot-read-config",
+      "config": "private explicit version1/daemon:robotd/path/expected uid",
+      "library": "Robot.ubl",
+      "example": "robot-read.ubp",
+      "origin": "local_ipc transport only; ipc_default for explicit source schema defaults",
+      "physical_hardware_verified": false,
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 500,
+      "line_bytes": 16384,
+      "health_selectors": 21,
+      "state_selectors": 29,
+      "no_mutations": true,
+      "continuous_reader": false,
+      "source_audit": "robot-service-source.json",
+      "validation": "Actual VM -> normal Gateway -> checked fictional robotd.446 full local/24 focused,233 selected each fresh ordinary and ASan+UBSan Pi binary,61 native each, zero skips. Physical/graphical/shipping unverified."
     }
   }
 }

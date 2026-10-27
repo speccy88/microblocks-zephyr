@@ -1,0 +1,14 @@
+{
+  "returncode": 0,
+  "seconds": 176.72464298800003,
+  "mode": "Full unchanged validator in byte-identical entire repository replica on local Linux filesystem; same verified sanitizer binary and source pin, no deadline/assertion/exclusion/flag changes",
+  "binary_sha256": "f870f0e1d25a4ae952242da114a255445a73bf6847cab1ade8069ce0ee3e6390",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "source_tree": "5699b1a910c64cf5e6ade8c89e510627383013ad",
+  "replica": "/tmp/robot-validation-ext4-2dbk0e_c/repo",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/tmp/robot-validation-ext4-2dbk0e_c/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/tmp/robot-validation-ext4-2dbk0e_c/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_UPSTREAM": "/tmp/robot-validation-ext4-2dbk0e_c/smallvm"
+  }
+}

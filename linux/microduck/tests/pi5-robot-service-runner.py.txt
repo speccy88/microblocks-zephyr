@@ -1,0 +1,34 @@
+import datetime,hashlib,json,os,pathlib,platform,re,socket,struct,subprocess,sys,time
+r=pathlib.Path(__file__).resolve().parent
+assert platform.system()=='Linux' and platform.machine()=='aarch64' and socket.gethostname()=='RPI5'
+assert __import__('pwd').getpwuid(os.geteuid()).pw_name=='fred'
+manifest=json.loads((r/'kit-manifest.json').read_text())
+for path,record in manifest['files'].items():
+ p=r/path;assert p.is_file() and not p.is_symlink();raw=p.read_bytes();assert len(raw)==record['bytes'] and hashlib.sha256(raw).hexdigest()==record['sha256'],path
+summary={'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'hostname':socket.gethostname(),'user':'fred','machine':platform.machine(),'kernel':platform.release(),'source_commit':'2071df569623ba9cdcd6f8106b61796e047df38b','kit_file_count':len(manifest['files']),'physical_robot_data':False,'physical_movement_enabled':False,'numeric_acceptance_suite_invoked':False,'service_or_security_changes':False,'variants':{}}
+for variant in ('native','native-plain'):
+ folder=r/variant;source=json.loads((folder/'source-manifest.json').read_text());assert source['source_commit']==summary['source_commit']
+ for name,record in source['sources'].items():assert hashlib.sha256((folder/name).read_bytes()).hexdigest()==record['prepared_sha256'],name
+ print('Building '+variant+' on RPI5 from verified staged sources',flush=True)
+ start=time.monotonic();build=subprocess.run(['sh',str(folder/'build.sh')],cwd=r,capture_output=True,text=True,timeout=300)
+ (r/(variant+'-build.txt')).write_text(build.stdout+build.stderr)
+ if build.returncode:print(build.stderr[-3000:],flush=True);raise SystemExit(build.returncode)
+ binary=folder/'smallvm';raw=binary.read_bytes();assert raw[:6]==b'\x7fELF\x02\x01' and struct.unpack_from('<H',raw,18)[0]==183
+ smoke=subprocess.run([str(binary),'--self-test'],capture_output=True,text=True,timeout=30)
+ (r/(variant+'-self-test.txt')).write_text(smoke.stdout+smoke.stderr);assert smoke.returncode==0
+ proof={**source,'build_host':platform.machine(),'binary_sha256':hashlib.sha256(raw).hexdigest(),'self_test':'PASS','build_seconds':time.monotonic()-start}
+ (folder/'build-manifest.json').write_text(json.dumps(proof,indent=2)+'\n')
+ env=os.environ.copy();env['SMALLVM_MICRODUCK_BINARY']=str(binary);env['PYTHONPATH']=str(r/'tests')
+ command=[sys.executable,'-m','unittest','test_linux_microduck_snapshots','test_linux_microduck_sensors','test_linux_microduck_motion','test_linux_microduck_robot','test_linux_microduck_media','test_linux_microduck_pad_imu','test_linux_microduck_head_imu','test_linux_microduck_head_service','test_linux_microduck_depth_service','test_linux_microduck_gamepad_service','test_linux_microduck_robot_service','-v']
+ start=time.monotonic();tests=subprocess.run(command,cwd=r,env=env,capture_output=True,text=True,timeout=180)
+ output=tests.stdout+tests.stderr;(r/(variant+'-tests.txt')).write_text(output)
+ count=re.search(r'Ran (\d+) tests in ([\d.]+)s',output)
+ result={'result':'PASS' if tests.returncode==0 else 'FAIL','tests':int(count.group(1)) if count else None,'test_seconds':float(count.group(2)) if count else None,'elapsed_seconds':time.monotonic()-start,'binary_sha256':proof['binary_sha256'],'elf_machine':183,'sanitize':source['sanitize'],'self_test':'PASS','build_seconds':proof['build_seconds'],'skipped':0 if 'skipped=' not in output and '... skipped' not in output else 'present','command':command}
+ summary['variants'][variant]=result
+ (r/'pi-robot-service-validation.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(json.dumps({variant:result}),flush=True)
+ if tests.returncode or result['tests']!=233 or result['skipped']!=0:
+  print(output[-4000:],flush=True);raise SystemExit(1)
+summary['result']='PASS';summary['finished_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+(r/'pi-robot-service-validation.json').write_text(json.dumps(summary,indent=2)+'\n')
+print('Both real Pi builds and all466 simulated-service tests passed',flush=True)

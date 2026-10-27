@@ -1,0 +1,87 @@
+test_all_health_selectors_and_u64_counters_on_actual_vm (test_linux_microduck_robot_service.RobotServiceNativeAdapter.test_all_health_selectors_and_u64_counters_on_actual_vm) ... ok
+test_all_state_selectors_coherent_and_exact_on_actual_vm (test_linux_microduck_robot_service.RobotServiceNativeAdapter.test_all_state_selectors_coherent_and_exact_on_actual_vm) ... ok
+test_native_cross_source_markers_types_and_defaults_are_rejected (test_linux_microduck_robot_service.RobotServiceNativeAdapter.test_native_cross_source_markers_types_and_defaults_are_rejected) ... ok
+test_native_defaults_missing_false_zero_and_extraction_refusal (test_linux_microduck_robot_service.RobotServiceNativeAdapter.test_native_defaults_missing_false_zero_and_extraction_refusal) ... ok
+test_native_health_utf8_survives_actual_compacting_gc (test_linux_microduck_robot_service.RobotServiceNativeAdapter.test_native_health_utf8_survives_actual_compacting_gc) ... FAIL
+test_native_invalid_requests_disabled_store_expiry_and_wrong_kind (test_linux_microduck_robot_service.RobotServiceNativeAdapter.test_native_invalid_requests_disabled_store_expiry_and_wrong_kind) ... ok
+test_all_health_units_values_and_zero_are_typed (test_linux_microduck_robot_service.RobotServiceProtocol.test_all_health_units_values_and_zero_are_typed) ... ok
+test_explicit_robotd_config_and_closed_request_schema (test_linux_microduck_robot_service.RobotServiceProtocol.test_explicit_robotd_config_and_closed_request_schema) ... ok
+test_health_frozen_threshold_and_diagnostic_precedence (test_linux_microduck_robot_service.RobotServiceProtocol.test_health_frozen_threshold_and_diagnostic_precedence) ... ok
+test_health_text_utf8_limit_and_no_control_or_surrogate_values (test_linux_microduck_robot_service.RobotServiceProtocol.test_health_text_utf8_limit_and_no_control_or_surrogate_values) ... FAIL
+test_library_has_separate_capture_kinds_and_no_control_calls (test_linux_microduck_robot_service.RobotServiceProtocol.test_library_has_separate_capture_kinds_and_no_control_calls) ... ok
+test_malformed_required_health_and_nonfinite_values_refused (test_linux_microduck_robot_service.RobotServiceProtocol.test_malformed_required_health_and_nonfinite_values_refused) ... ok
+test_schema_defaults_are_explicit_but_measurements_are_unavailable (test_linux_microduck_robot_service.RobotServiceProtocol.test_schema_defaults_are_explicit_but_measurements_are_unavailable) ... ok
+test_state_optional_zero_counters_and_default_contract_preserved (test_linux_microduck_robot_service.RobotServiceProtocol.test_state_optional_zero_counters_and_default_contract_preserved) ... ok
+test_actual_gateway_cli_private_config (test_linux_microduck_robot_service.RobotServiceUnix.test_actual_gateway_cli_private_config) ... ok
+test_api_skew_diagnostic_and_refusal_timeout_states (test_linux_microduck_robot_service.RobotServiceUnix.test_api_skew_diagnostic_and_refusal_timeout_states) ... ok
+test_malformed_envelopes_errors_and_line_bounds (test_linux_microduck_robot_service.RobotServiceUnix.test_malformed_envelopes_errors_and_line_bounds) ... ok
+test_normal_gateway_state_and_health_coherent_views_no_mutations (test_linux_microduck_robot_service.RobotServiceUnix.test_normal_gateway_state_and_health_coherent_views_no_mutations) ... ok
+test_pending_capacity_and_cancellation_close_source (test_linux_microduck_robot_service.RobotServiceUnix.test_pending_capacity_and_cancellation_close_source) ... ok
+test_private_config_ownership_bounds_symlink_and_daemon (test_linux_microduck_robot_service.RobotServiceUnix.test_private_config_ownership_bounds_symlink_and_daemon) ... ok
+test_real_python_client_routes_readonly_wrappers_and_disabled_source (test_linux_microduck_robot_service.RobotServiceUnix.test_real_python_client_routes_readonly_wrappers_and_disabled_source) ... ok
+test_shared_capacity_expiry_regression_release_and_wrong_kind (test_linux_microduck_robot_service.RobotServiceUnix.test_shared_capacity_expiry_regression_release_and_wrong_kind) ... ok
+test_source_uid_permissions_checked_before_any_write (test_linux_microduck_robot_service.RobotServiceUnix.test_source_uid_permissions_checked_before_any_write) ... ok
+test_user_fictional_fixture_cli_and_cleanup (test_linux_microduck_robot_service.RobotServiceUnix.test_user_fictional_fixture_cli_and_cleanup) ... ERROR
+
+======================================================================
+ERROR: test_user_fictional_fixture_cli_and_cleanup (test_linux_microduck_robot_service.RobotServiceUnix.test_user_fictional_fixture_cli_and_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_robot_service.py", line 208, in test_user_fictional_fixture_cli_and_cleanup
+    ready=json.loads(await asyncio.wait_for(p.stdout.readline(),3));self.assertTrue(ready['simulation']);self.assertFalse(ready['physical_hardware_verified'])
+  File "/usr/lib/python3.14/json/__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/usr/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/json/decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+======================================================================
+FAIL: test_native_health_utf8_survives_actual_compacting_gc (test_linux_microduck_robot_service.RobotServiceNativeAdapter.test_native_health_utf8_survives_actual_compacting_gc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_robot_service.py", line 278, in test_native_health_utf8_survives_actual_compacting_gc
+    P,V=self.helpers.Program,self.helpers.Var;events=self.runtime.wire.events;await self.execute(P().call('newByteArray',(262080,),prim_set=1).op(19,1).push(0));start=len(events)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_robot_service.py", line 237, in execute
+    async def execute(self,p):return await asyncio.to_thread(self.runtime.execute,p.finish())
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_vm.py", line 186, in execute
+    raise AssertionError('Actual SmallVM task error: ' + payload.hex())
+AssertionError: Actual SmallVM task error: 0a000a0000
+
+======================================================================
+FAIL: test_health_text_utf8_limit_and_no_control_or_surrogate_values (test_linux_microduck_robot_service.RobotServiceProtocol.test_health_text_utf8_limit_and_no_control_or_surrogate_values)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_robot_service.py", line 72, in test_health_text_utf8_limit_and_no_control_or_surrogate_values
+    h=health();h['reason']='Ã©'*64;self.assertEqual(svc.health.sample(h,'reason')['value'],'Ã©'*64)
+                                   ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©Ã©[84 chars]Ã©Ã©'
+
+----------------------------------------------------------------------
+Ran 24 tests in 18.330s
+
+FAILED (failures=2, errors=1)

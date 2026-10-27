@@ -1,0 +1,16 @@
+{
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/robot-service-native-persisted-20261027",
+  "original_temporary_directory": "/tmp/microduck-robot-service-native-a_kj5vqv",
+  "returncode": 0,
+  "seconds": 63.313387369999994,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py",
+    "--upstream",
+    "/tmp/robot-service-source-ohn1son4/smallvm",
+    "--output",
+    "/tmp/microduck-robot-service-native-a_kj5vqv",
+    "--sanitize",
+    "--test"
+  ]
+}

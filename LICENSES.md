@@ -239,3 +239,8 @@ The normal read-only gamepad adapter/discovery model integration, fictional-serv
 fixture and Python tests are newly authored MIT code. Native decoder/gate additions,
 Gamepad library/example and editor integration retain MPL-2.0. Pinned Pollen/evdev
 interface facts are referenced; no input driver, robot controller or capture is copied.
+
+Normal robotd observer: linux/microduck/robot_health.py, robot_service.py and
+robot_gateway_fixture.py retain MIT notices; Robot.ubl and robot-read.ubp follow
+the repository MPL-2.0 library policy. Pollen protocol is reviewed at its pinned
+source; no Rust source is copied into these adapters.

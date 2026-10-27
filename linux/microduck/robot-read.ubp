@@ -1,0 +1,25 @@
+module main
+description 'Read-only normal Gateway health/state; current acceptance uses fictional robotd. Diagnostics never authorize movement.'
+variables healthView stateView
+script 30 30 {
+    whenStarted
+    healthView = (microduckRobotHealthCapture)
+    sayIt healthView
+    if (microduckReadingKnown healthView) {
+        sayIt (microduckRobotHealthVerdict healthView)
+        sayIt (microduckRobotBatteryVoltage healthView)
+        sayIt (microduckRobotHealthReason healthView)
+        sayIt (microduckRobotTicks healthView)
+        sayIt (microduckRobotStateRelease healthView)
+    }
+    stateView = (microduckRobotStateCapture 10)
+    sayIt stateView
+    if (microduckReadingKnown stateView) {
+        sayIt (microduckRobotMoveRequested stateView 1)
+        sayIt (microduckRobotMoveApplied stateView 1)
+        sayIt (microduckRobotLoopHz stateView)
+        sayIt (microduckRobotCurrent stateView 1)
+        sayIt (microduckRobotTimestamp stateView)
+        sayIt (microduckRobotStateRelease stateView)
+    }
+}

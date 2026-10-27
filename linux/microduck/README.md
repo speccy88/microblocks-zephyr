@@ -301,3 +301,9 @@ depth-zone, raw-axis and button JSON read blocks against fixed private fake
 tofd/padd streams. All values are fictional. The
 [four-service matrix](../../docs/MICRODUCK_SERVICE_CAPABILITIES.md) tracks the
 remaining robotd/mediad/tofd/padd block families and physical acceptance gates.
+
+[Normal robotd health/state](ROBOT_SERVICE.md) uses explicit --robot-read-config
+and Robot.ubl/robot-read.ubp. It supplies21 coherent health fields and29 state
+selectors without control RPCs or a continuous reader. Exact counters and schema
+defaults remain distinct; fixture input is fictional and physical/graphical/
+shipping acceptance remains open. Existing raw health and simulation paths remain.

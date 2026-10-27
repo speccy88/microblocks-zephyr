@@ -1,0 +1,15 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 297.43700000003446,
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "rpi5",
+    "cd /home/fred/microblocks-robot-service-uh3o5w11 && python3 run-pi-robot-service.py"
+  ],
+  "source": "real Pi compilation/VM; all sensor data fake",
+  "security_or_service_changes": false
+}
