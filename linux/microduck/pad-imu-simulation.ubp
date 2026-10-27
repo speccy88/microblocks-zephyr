@@ -1,0 +1,17 @@
+module main
+description 'SIMULATION ONLY. Capture one coherent IMU batch, inspect typed readings and release. No device or robot command, no automatic motion, no inferred orientation or live freshness.'
+variables imuBatch
+
+script 30 30 {
+    whenStarted
+    imuBatch = (microduckSimPadImuCapture)
+    sayIt imuBatch
+    if (microduckReadingKnown imuBatch) {
+        sayIt (microduckSimPadImuCount imuBatch)
+        sayIt (microduckSimPadImuAccel imuBatch 1 3)
+        sayIt (microduckSimPadImuGyro imuBatch 1 1)
+        sayIt (microduckSimPadImuSequence imuBatch 1)
+        sayIt (microduckSimPadImuTime imuBatch 1)
+        sayIt (microduckSimPadImuRelease imuBatch)
+    }
+}

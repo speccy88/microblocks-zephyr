@@ -1,0 +1,33 @@
+module 'MicroDuck Pad IMU Simulation' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Requires MicroDuck and pad_imu_simulator.py. Capture one complete1..32-sample IMU batch, then read its immutable samples without more subscriptions. Four IMU slots expire five seconds after capture. Readings are [status,value,unit,origin]; extract only ok. Raw axes preserve signed31 limits; accel mg and gyro mdps use positive driver resolutions only. Zero resolution or unknown full scale means not_reported for derived readings; raw zero stays known. mg is milli-g, mdps milli-degree/second. Exact seq/count64 and kernel Unix-microsecond strings avoid precision loss; wall-clock steps are possible. Dropped batches, detach, timeouts and missing data never become zero. No orientation/fusion, head/body frame, calibration, freshness, dead-man or robot safety is inferred. Readings are historical data; never bind them to automatic movement. No endpoint, device input, command, audio, credential or continuous reader. Graphical UBL and physical IMU/gamepad remain unverified.'
+spec 'r' 'microduckSimPadImuCapture' 'SIMULATION capture gamepad IMU batch reading'
+spec 'r' 'microduckSimPadImuCount' 'SIMULATION IMU batch _ sample count reading' 'auto' ''
+spec 'r' 'microduckSimPadImuAccelRaw' 'SIMULATION IMU batch _ sample _ accel axis _ raw reading' 'auto num num' '' 1 1
+spec 'r' 'microduckSimPadImuGyroRaw' 'SIMULATION IMU batch _ sample _ gyro axis _ raw reading' 'auto num num' '' 1 1
+spec 'r' 'microduckSimPadImuAccel' 'SIMULATION IMU batch _ sample _ accel axis _ (mg) reading' 'auto num num' '' 1 1
+spec 'r' 'microduckSimPadImuGyro' 'SIMULATION IMU batch _ sample _ gyro axis _ (mdps) reading' 'auto num num' '' 1 1
+spec 'r' 'microduckSimPadImuSequence' 'SIMULATION IMU batch _ sample _ sequence reading' 'auto num' '' 1
+spec 'r' 'microduckSimPadImuTime' 'SIMULATION IMU batch _ sample _ kernel Unix us reading' 'auto num' '' 1
+spec 'r' 'microduckSimPadImuAccelLimit' 'SIMULATION IMU batch _ sample _ accel axis _ at reported limit reading' 'auto num num' '' 1 1
+spec 'r' 'microduckSimPadImuGyroLimit' 'SIMULATION IMU batch _ sample _ gyro axis _ at reported limit reading' 'auto num num' '' 1 1
+spec 'r' 'microduckSimPadImuRelease' 'SIMULATION release IMU batch _ JSON' 'auto' ''
+advanced
+spec 'r' 'microduckSimPadImuReading' 'SIMULATION IMU batch _ field _ sample _ component _ reading' 'auto str num num' '' 'accel_per_g' 1 1
+
+to microduckSimPadImuCapture { return ('[microduck:imuSample]' (microduckRequest 'microduck.imuSim.capturePad' '{}' false)) }
+to microduckSimPadImuReading batch field sample component {
+    local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' batch)) ',"field":' ('[microduck:quote]' field) ',"sample":' sample ',"component":' component '}')
+    return ('[microduck:imuSample]' (microduckRequest 'microduck.imuSim.read' params false))
+}
+to microduckSimPadImuCount batch { return (microduckSimPadImuReading batch 'sample_count' 1 1) }
+to microduckSimPadImuAccelRaw batch sample component { return (microduckSimPadImuReading batch 'accel_raw' sample component) }
+to microduckSimPadImuGyroRaw batch sample component { return (microduckSimPadImuReading batch 'gyro_raw' sample component) }
+to microduckSimPadImuAccel batch sample component { return (microduckSimPadImuReading batch 'accel_mg' sample component) }
+to microduckSimPadImuGyro batch sample component { return (microduckSimPadImuReading batch 'gyro_mdps' sample component) }
+to microduckSimPadImuSequence batch sample { return (microduckSimPadImuReading batch 'seq' sample 1) }
+to microduckSimPadImuTime batch sample { return (microduckSimPadImuReading batch 'at_us' sample 1) }
+to microduckSimPadImuAccelLimit batch sample component { return (microduckSimPadImuReading batch 'accel_at_limit' sample component) }
+to microduckSimPadImuGyroLimit batch sample component { return (microduckSimPadImuReading batch 'gyro_at_limit' sample component) }
+to microduckSimPadImuRelease batch { return (microduckRequest 'microduck.imuSim.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' batch)) '}') false) }

@@ -6,6 +6,26 @@ This is broader than a generic JSON console. The table distinguishes dedicated
 native blocks, advanced calls, simulated preparation and missing software.
 No row is physical MicroDuck acceptance; the robot has not arrived.
 
+Deployment goal: SmallVM runs on the MicroDuck itself, with a self-hosted editor
+or the GitHub Pages editor connecting to its VM bridge. Native Pi/SSH-loopback
+execution is evidence for the Linux architecture, not shipping MicroDuck
+commissioning. Local typed service adapters belong beside the VM and use checked
+Unix identities/permissions. No cloud command runner is required or invented.
+Do not assume port80 is free: inspect the shipping image and existing services
+before proposing a bind/proxy change; the lab Pi's Caddy remains untouched.
+Pages-to-robot transport still needs a trusted WSS endpoint/certificate and actual
+browser local-network acceptance. Do not bypass mixed-content, certificate or
+permission warnings, or change networking/security settings without required
+approval. Self-hosted HTTP and Pages are separate deployment acceptance paths;
+neither turns metadata, simulated input or an open socket into robot authority.
+
+| Service | Usable typed preparation | Remaining software / acceptance |
+|---|---|---|
+| robotd |18 health fields and29 coherent state selectors; confirmed simulation control preparation | Commissioned live control/identity, continuous freshness and physical robot acceptance |
+| tofd | Coherent8x8 depth capture, eight row readers and typed zone/status values | Dedicated head-IMU stream, live commissioning and physical/calibration acceptance |
+| padd | Typed raw/Boolean/span control state plus [13 coherent IMU batch selectors](../linux/microduck/PAD_IMU_SIMULATION.md): raw/scaled acceleration/gyro, exact sample/time and reported limits | Continuous freshness, semantic control calibration, physical IMU/radio and graphical execution |
+| mediad |17 metadata/status selectors and bounded relay preparation; audio explicitly unsupported by reviewed API | Native camera pixels/decoding, live relay/session authentication and a supplied audio interface |
+
 Source baseline: Pollen API44 at
 [96b89d8613f06722c1d64ce75ab0d7124fed9d8f](https://github.com/pollen-robotics/microduck/tree/96b89d8613f06722c1d64ce75ab0d7124fed9d8f).
 Actual daemon ownership, permissions and shipping revision still need inventory.
@@ -27,7 +47,8 @@ gallery sharing; the reviewed sensor/control/state shapes remain unchanged.
 | mediad: remote RPC relay and diagnostics | SSE plus POST/send peer/sessionId/rpc envelopes; separate from ICE/video. media.video metadata, media.stream params{} status, and routed robot.health/policies. RemoteStatus is a local runtime-file shape, not an RPC. | Separate native SIMULATION library:17 typed media/relay/robot diagnostic selectors and nine confirmed discrete-command packet families. Fixed internal fake session, ID correlation, bounded attempts/deadline and explicit error/absence/unsupported results. Previews retain packets only; zero mutation forwarding. No source credential or endpoint input. | Real HTTP/SSE/session discovery/account authentication, peer identity and live commissioning remain missing. Continuous intents/held wheee/subscriptions, stream start/stop and secret operations are refused. Registered status/metadata never grants motion authority. Physical and graphical acceptance are unverified. |
 | tofd: 8x8 depth | tof.stream on the sensor daemon, accepted/sensor/unavailable description, then tof.frame notifications; row-major distance_mm i16 and raw status u8 | [Sensor Simulation1.1](../linux/microduck/SENSOR_SNAPSHOTS.md): immutable whole-frame capture, all eight coherent rows, typed zone/status records and numeric extraction. Four shared five-second snapshots; explicit release/expiry. Ordinary and sanitizer native VMs tested on real Pi with fake tofd. | Missing live commissioning, physical depth/calibration and continuous freshness. Historical rows can be retained after release but are not current obstacle-avoidance authorization. Graphical UBL execution remains unverified. |
 | tofd/robotd: head IMU | head_imu.stream/head_imu.frame; daemon ownership depends on zero3/beta hardware | Existing health IMU diagnostics do not read this stream. | Dedicated bounded head-IMU stream blocks missing. Inventory hardware/owner, preserve units/timebase and unavailable semantics. |
-| padd: actual gamepad inputs | pad.input on padd, then pad.report attached/frame/detached and optional IMU reports | Separate simulated JSON blocks plus bounded observed-state snapshots. Held events persist across empty frames; typed raw/Boolean/declared-span permille helpers preserve unknown/loss states and signed31 limits. Real Pi ordinary/sanitizer tests use fake padd. | Missing live commissioning, continuous freshness/reader, semantic stick/trigger calibration, pad IMU and physical acceptance. Attachment values are not refreshed by upstream padd and are not treated as fresh state. Never automatically drive from retained/simulated input. |
+| padd: actual gamepad inputs | pad.input on padd, then pad.report attached/frame/detached and optional IMU reports | Separate simulated JSON blocks plus bounded observed-state snapshots. Held events persist across empty frames; typed raw/Boolean/declared-span permille helpers preserve unknown/loss states and signed31 limits. | Missing live commissioning, continuous freshness/reader, semantic stick/trigger calibration and physical acceptance. Attachment values are not refreshed by upstream padd and are not treated as fresh state. Never automatically drive from retained/simulated input. |
+| padd: gamepad IMU | Independent imu_attached/imu/imu_detached on pad.input; ordered sample batches, own drop counter, driver resolution and raw axes | [Pad IMU Simulation](../linux/microduck/PAD_IMU_SIMULATION.md): one immutable1..32-sample batch; four five-second slots,13 typed selectors, mg/mdps from reported scale, exact u64 sample/kernel time and explicit loss/unknown-scale states. No orientation, automatic drive or additional subscriptions for component reads. | Real caller/peer identity, shipping resolution/time behavior, continuous freshness, physical IMU/radio and graphical UBL remain unverified. No head/trunk pose or calibration is inferred. |
 
 The Pollen protocol definitions are in
 [duck-ipc-proto](https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/duck-ipc-proto/src/lib.rs).

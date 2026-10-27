@@ -1,0 +1,156 @@
+{
+  "linux/microduck/tests/pi5-pad-imu-pi-pad-imu-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\pi-pad-imu-validation.json",
+    "raw_sha256": "a20f3b738d6c074869cccecd9861efdaf75d36470dd96b4ac61f1d23e6deb506",
+    "retained_sha256": "a20f3b738d6c074869cccecd9861efdaf75d36470dd96b4ac61f1d23e6deb506",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\kit-manifest.json",
+    "raw_sha256": "f64350a10ab3c8651a486c3893434c920f8cb52c711bac166f962fcad322b8c1",
+    "retained_sha256": "f64350a10ab3c8651a486c3893434c920f8cb52c711bac166f962fcad322b8c1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-tests.txt",
+    "raw_sha256": "57aad18c82aabba4934bf5797142ed3fa81ded0ea1c73577f1604eddce206c74",
+    "retained_sha256": "57aad18c82aabba4934bf5797142ed3fa81ded0ea1c73577f1604eddce206c74",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native\\build-manifest.json",
+    "raw_sha256": "fc39ed841f38a900ae70e76047727759de33d6dd065c9ad4cf25438dcb974c76",
+    "retained_sha256": "fc39ed841f38a900ae70e76047727759de33d6dd065c9ad4cf25438dcb974c76",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native\\source-manifest.json",
+    "raw_sha256": "9eff2feab0b2b2320a880c3d344c6eab1cf21dd5b8a22998bea67a6d2410b6fd",
+    "retained_sha256": "9eff2feab0b2b2320a880c3d344c6eab1cf21dd5b8a22998bea67a6d2410b6fd",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-plain-build.txt",
+    "raw_sha256": "b693b942c5761bcdc8c8ab31cb01ea07cbd4b3772c6875e0e9180986a6983fd4",
+    "retained_sha256": "b693b942c5761bcdc8c8ab31cb01ea07cbd4b3772c6875e0e9180986a6983fd4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-plain-tests.txt",
+    "raw_sha256": "af0d080a86e5cf2bbf6156c0f864f403cf428692c2842a71ecbd5f3d992165c3",
+    "retained_sha256": "af0d080a86e5cf2bbf6156c0f864f403cf428692c2842a71ecbd5f3d992165c3",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "55b3fead2a534174156845ec4357d6ef5e9cf29e3ddc8cccf406c633aa97aad1",
+    "retained_sha256": "55b3fead2a534174156845ec4357d6ef5e9cf29e3ddc8cccf406c633aa97aad1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-pad-imu-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "517eeafe339c2102c9a8ebfcbf65e0397d34777799819f760e42fe3aba919ce6",
+    "retained_sha256": "517eeafe339c2102c9a8ebfcbf65e0397d34777799819f760e42fe3aba919ce6",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-initial-focused-failure.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-initial-failure.txt",
+    "raw_sha256": "22f2ef3ec8ff546c3453afb07a91ea705647f7b4cbf277a41426471a867e2d46",
+    "retained_sha256": "0c4006c16954a72940d4f9cbaac858a7884417eb895fbbf4962353d2d7d35c61",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-final-focused.txt",
+    "raw_sha256": "d29378815454168657e75b5ba6a80192188bdf24bcfaa8ae21704afc2c9b1ebc",
+    "retained_sha256": "77e2de8ed76d574ca32e27da16814b4ec77fb15aff689adbd6b644ab85b0c740",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-native-build.txt",
+    "raw_sha256": "9bf2e42e5e6d22a4e11a23d63f02de979333d7375959559aa9db3c0b9325938a",
+    "retained_sha256": "f157541aa010338faba9954a3163745e8bafb64befbe8523d7b5a686722920ff",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-final-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-detached-linux.txt",
+    "raw_sha256": "2750e2fbaeaeb0931e44b59584a869f2fb48fcf4902762290194fa067d81504a",
+    "retained_sha256": "2750e2fbaeaeb0931e44b59584a869f2fb48fcf4902762290194fa067d81504a",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-final-stderr.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-detached-stderr.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pad-imu-interrupted-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-interrupted-held-cache-linux.txt",
+    "raw_sha256": "3beabceeb7a05e0ad89a271544970f353ba5c2de76d7cc1686db58cabec34dc0",
+    "retained_sha256": "65ed5d6e83949fdd7a91c47795fb5ea3690196f081fad56d46b927b823abbbd6",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-cache-lifetime-failure.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-cache-lifetime-failure.txt",
+    "raw_sha256": "81e80d7634dd376072d2a46bebe550e2ec9c5a52481967c2bff90e770a521a0a",
+    "retained_sha256": "89d9d7240ff4368abb996c3bccb78f2d0a4fd262d12fcb1584a2be15812bf2f4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-scenario-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-scenario-execution.txt",
+    "raw_sha256": "832e06c7d96e1a62d86299736a16a9714610021e9691d51186d87bda8d6b6cef",
+    "retained_sha256": "dc2b83717657cccbe97cf6e5d9fd1f7b0fb99c7616c68e6d0695dedb05f59dab",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pad-imu-pi-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-pi-execution.txt",
+    "raw_sha256": "8d223435c32c266bf6af540e8d7ff391440218beaaedc2cff8b7cbf2f9ffcd44",
+    "retained_sha256": "f5fd16de5a68380f3f8a242dfd164c84b1ef546836f7982c1c54eebb928b1063",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pi5-pad-imu-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-pi-pad-imu.py",
+    "raw_sha256": "d79d4c1ffd4969f2940dfbbacf4cdd4cbc732fb99c38eccce3fd5824427d61b6",
+    "retained_sha256": "d79d4c1ffd4969f2940dfbbacf4cdd4cbc732fb99c38eccce3fd5824427d61b6",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  }
+}

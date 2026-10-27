@@ -1,0 +1,9 @@
+{
+  "session_id": 79275,
+  "result": "incomplete; no final receipt",
+  "partial_log_bytes": 20216,
+  "partial_log_sha256": "3beabceeb7a05e0ad89a271544970f353ba5c2de76d7cc1686db58cabec34dc0",
+  "process_probe": "No matching own-UID runner or validator found in /proc before restart",
+  "hardware_operation_repeated": false,
+  "old_readonly_log_session_33442": "Cancelled; no hardware or filesystem write"
+}

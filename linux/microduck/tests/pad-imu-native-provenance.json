@@ -1,0 +1,35 @@
+{
+  "result": "PASS",
+  "scope": "actual local x86_64 sanitizer VM build and self-test; no physical sensor, gamepad or Pi",
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/pad-imu-native-persisted-20261027",
+  "binary": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/pad-imu-native-persisted-20261027/smallvm",
+  "binary_sha256": "407ffaee8288728c5e6de5aa570fc726bc520c844fe040cd81fceea490a0ff48",
+  "elf_machine": 62,
+  "host": "x86_64",
+  "sanitize": true,
+  "self_test": "PASS",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "build_seconds": 119.521018179,
+  "port_source_sha256_verified_against_current_tree": {
+    "linux/arm64/runtime/mem.c": "5e91075458da595a7e3644e9b3a5b36e0558c6faff517259e6bb09d67e7accc9",
+    "linux/arm64/runtime/mem.h": "0ffc91e9a33e128f071f546c5c95c7f5f81365bdf54d029105882a6ede2f2184",
+    "linux/arm64/runtime/arena.c": "03c7c70134b904da96bc787adac8ba67f68d5dc3d7678c9ec2856898f471211c",
+    "linux/arm64/runtime/arena.h": "b18a7337ee46bcbb5330f85821f3b4f72eb204ba76fca05bfd0ea1fc88b10fb0",
+    "linux/arm64/platform/linux.c": "f04ca911be8d17e4ff8f56b3b942c59e6b17dfee53152e8411b5d6cd3189951d",
+    "linux/arm64/platform/main.c": "1e5e8b912f353917ed425419958e24799a010d6be3a1e5693d40ef1d79934e21",
+    "linux/arm64/platform/microduck.c": "13d9055d92d9cef65e455d851a30b3181aac3d48e6fb94994e01d5334f718b85",
+    "linux/arm64/platform/microduck.h": "49f7ad14358c9d9bec1baa1f681b6e9cced046788c174548307897dc6684da9b",
+    "linux/arm64/platform/platform.h": "9713d46f7b8953cd96b8a5cc223e3e21262062a651cc3ac11be31f5a28d87613",
+    "linux/arm64/platform/primitives.c": "090061b4c2788d1bb05ca23afba1b951fa086f44235e86bae78c297e19b4cfe8",
+    "linux/arm64/platform/self_test.c": "c5e1e934dcaf6e15a22dbaebc4bd488a4e7651055f81d7c3c0c3dee3001ea5c3",
+    "common/json/json_config.h": "a6f916d01cdb343828697d7eec2b1d94f51d4d4279bcebe4ae31125a6d1355d3"
+  },
+  "documented_external_binary_variables": [
+    "SMALLVM_MICRODUCK_BINARY",
+    "SMALLVM_NUMERIC_BINARY"
+  ],
+  "test_assertions_exclusions_or_timeouts_modified": false,
+  "native_media_decoder_executed": false,
+  "physical_microduck_tested": false,
+  "published": false
+}

@@ -248,5 +248,21 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn('/Libraries/MicroDuck_Media_Simulation.ubl', core)
 
 
+    def test_pad_imu_simulation_library_and_coherent_example_are_embedded(self):
+        output = self.output.parent / 'pad-imu-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output / 'gp_wasm.js').read_bytes(), (output / 'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Pad_IMU_Simulation.ubl'], (REPO / 'linux/microduck/Pad_IMU_Simulation.ubl').read_bytes())
+        self.assertIn(b'MicroDuck Pad IMU Simulation', files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-pad-imu-simulation.ubp'], b'\n'.join(
+            (REPO / 'linux/microduck' / name).read_bytes() for name in ('pad-imu-simulation.ubp', 'MicroDuck.ubl', 'Pad_IMU_Simulation.ubl')))
+        # The owned-output lifecycle test may intentionally rebuild self.output
+        # as MicroDuck; profile isolation needs an independent fresh Pi output.
+        core_output = self.output.parent / 'pad-imu-core-editor'
+        build(self.source, core_output, REPO, 'raspberry-pi5')
+        core = unpack_package((core_output / 'gp_wasm.js').read_bytes(), (core_output / 'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Pad_IMU_Simulation.ubl', list(core))
+
+
 if __name__ == '__main__':
     unittest.main()

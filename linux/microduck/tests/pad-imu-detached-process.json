@@ -1,0 +1,8 @@
+{
+  "pid": 22092,
+  "start_time_utc": "2026-10-27T18:09:34.0421992Z",
+  "stdout": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-detached-linux.txt",
+  "stderr": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-detached-stderr.txt",
+  "purpose": "One temporary full local validator; no startup/service/security change",
+  "result_file": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-final-full-run.json"
+}

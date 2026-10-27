@@ -1,0 +1,10 @@
+{
+  "returncode": 1,
+  "seconds": 285.86444081400003,
+  "mode": "full unchanged discovery with documented verified external sanitizer VM inputs",
+  "binary_sha256": "407ffaee8288728c5e6de5aa570fc726bc520c844fe040cd81fceea490a0ff48",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/pad-imu-native-persisted-20261027/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/pad-imu-native-persisted-20261027/smallvm"
+  }
+}

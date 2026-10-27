@@ -1,0 +1,65 @@
+{
+  "started_utc": "2026-10-27T17:51:58.461071+00:00",
+  "hostname": "RPI5",
+  "user": "fred",
+  "machine": "aarch64",
+  "kernel": "6.12.75+rpt-rpi-2712",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "kit_file_count": 149,
+  "physical_robot_data": false,
+  "physical_movement_enabled": false,
+  "numeric_acceptance_suite_invoked": false,
+  "service_or_security_changes": false,
+  "variants": {
+    "native": {
+      "result": "PASS",
+      "tests": 124,
+      "test_seconds": 22.361,
+      "elapsed_seconds": 22.583350626002357,
+      "binary_sha256": "38f5102116ac2a771f56d5766ad0cd67abee78b062ca90d17136b654ed245a4d",
+      "elf_machine": 183,
+      "sanitize": true,
+      "self_test": "PASS",
+      "build_seconds": 138.2351985780042,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "-v"
+      ]
+    },
+    "native-plain": {
+      "result": "PASS",
+      "tests": 124,
+      "test_seconds": 21.994,
+      "elapsed_seconds": 22.13562463200651,
+      "binary_sha256": "1518f8119858792e8658e07b4fb65e87d0ba116a164334f51c85c018baf0e619",
+      "elf_machine": 183,
+      "sanitize": false,
+      "self_test": "PASS",
+      "build_seconds": 24.14553594699828,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "-v"
+      ]
+    }
+  },
+  "result": "PASS",
+  "finished_utc": "2026-10-27T17:55:25.567695+00:00"
+}

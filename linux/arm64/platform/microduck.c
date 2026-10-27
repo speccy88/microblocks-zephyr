@@ -186,7 +186,7 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW, PARAM_PAD_IMU_READ } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
@@ -218,7 +218,10 @@ static const Method methods[] = {
     {"microduck.robotSim.release",PARAM_SNAPSHOT_HANDLE,0},
     {"microduck.robotSim.model",PARAM_EMPTY,0},
     {"microduck.mediaSim.reading",PARAM_MEDIA_READING,0},
-    {"microduck.mediaSim.preview",PARAM_RELAY_PREVIEW,1}
+    {"microduck.mediaSim.preview",PARAM_RELAY_PREVIEW,1},
+    {"microduck.imuSim.capturePad",PARAM_EMPTY,0},
+    {"microduck.imuSim.read",PARAM_PAD_IMU_READ,0},
+    {"microduck.imuSim.release",PARAM_SNAPSHOT_HANDLE,0}
 };
 static int snapshotHandle(yyjson_val *value) {
     if (!boundedText(value,32) || yyjson_get_len(value)!=32) return 0;
@@ -307,6 +310,21 @@ static int validRelayPreview(yyjson_val *params) {
     return !(equalText(method,"robot.move") || equalText(method,"robot.head") || equalText(method,"robot.pose") || equalText(method,"robot.mouth")
         || (equalText(method,"robot.sound") && equalText(yyjson_obj_get(args,"tag"),"wheee")));
 }
+typedef struct { const char *name,*unit; int samples,components,type; } ImuField;
+enum { IMU_NUMBER,IMU_COUNTER,IMU_BOOLEAN,IMU_COUNT,IMU_METADATA };
+static const ImuField imuFields[]={
+    {"accel_raw","raw",32,3,IMU_NUMBER},{"gyro_raw","raw",32,3,IMU_NUMBER},
+    {"accel_mg","mg",32,3,IMU_NUMBER},{"gyro_mdps","mdps",32,3,IMU_NUMBER},
+    {"seq","count64",32,1,IMU_COUNTER},{"at_us","us_unix",32,1,IMU_COUNTER},
+    {"sample_count","count",1,1,IMU_COUNT},
+    {"accel_per_g","raw/g",1,1,IMU_METADATA},{"gyro_per_dps","raw/dps",1,1,IMU_METADATA},
+    {"accel_max","raw",1,1,IMU_METADATA},{"gyro_max","raw",1,1,IMU_METADATA},
+    {"accel_at_limit","boolean",32,3,IMU_BOOLEAN},{"gyro_at_limit","boolean",32,3,IMU_BOOLEAN}
+};
+static const ImuField *findImuField(yyjson_val *value) {
+    for (size_t i=0;i<sizeof(imuFields)/sizeof(imuFields[0]);++i) if (equalText(value,imuFields[i].name)) return &imuFields[i];
+    return NULL;
+}
 static int validParams(const Method *method, yyjson_val *params) {
     const char *keys[4]; size_t count = 0;
     switch (method->params) {
@@ -331,6 +349,7 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_TELEMETRY_READ: keys[count++]="handle"; keys[count++]="field"; keys[count++]="index"; keys[count++]="component"; break;
         case PARAM_MEDIA_READING: keys[count++]="field"; break;
         case PARAM_RELAY_PREVIEW: keys[count++]="method"; keys[count++]="args"; break;
+        case PARAM_PAD_IMU_READ: keys[count++]="handle"; keys[count++]="field"; keys[count++]="sample"; keys[count++]="component"; break;
     }
     if (!objectKeys(params, keys, count)) return 0;
     yyjson_val *value;
@@ -383,6 +402,10 @@ static int validParams(const Method *method, yyjson_val *params) {
         }
         case PARAM_MEDIA_READING: return yyjson_obj_size(params)==1 && findMediaField(yyjson_obj_get(params,"field"));
         case PARAM_RELAY_PREVIEW: return yyjson_obj_size(params)==2 && validRelayPreview(params);
+        case PARAM_PAD_IMU_READ: {
+            const ImuField *field=findImuField(yyjson_obj_get(params,"field"));
+            return snapshotHandle(yyjson_obj_get(params,"handle")) && field && integerBetween(yyjson_obj_get(params,"sample"),1,field->samples) && integerBetween(yyjson_obj_get(params,"component"),1,field->components);
+        }
     }
     return 0;
 }
@@ -912,11 +935,44 @@ static OBJ mediaSamplePrimitive(int argc,OBJ *args) {
     } else if (result) reading.status="invalid";
     yyjson_doc_free(doc);return readingRecord(&reading);
 }
+static OBJ imuSamplePrimitive(int argc,OBJ *args) {
+    if (argc!=1) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u],text[33];size_t length;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
+    yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
+    HealthReading reading={.status="invalid",.text="",.unit="",.origin="unmarked"};
+    yyjson_val *result=sensorResult(yyjson_doc_get_root(doc),&reading),*value=yyjson_obj_get(result,"value");
+    if (result && equalText(yyjson_obj_get(result,"kind"),"pad_imu_capture")) {
+        reading.unit="snapshot";
+        if (equalText(yyjson_obj_get(result,"status"),"ok")) {
+            yyjson_val *handle=yyjson_obj_get(result,"handle");
+            if (snapshotHandle(handle) && integerBetween(yyjson_obj_get(result,"sample_count"),1,32)) {
+                memcpy(text,yyjson_get_str(handle),32);text[32]='\0';reading.text=text;reading.isText=1;reading.status="ok";
+            }
+        }
+    } else if (result && equalText(yyjson_obj_get(result,"kind"),"pad_imu_reading")) {
+        const ImuField *field=findImuField(yyjson_obj_get(result,"field"));
+        if (field && equalText(yyjson_obj_get(result,"unit"),field->unit) && integerBetween(yyjson_obj_get(result,"sample"),1,field->samples) && integerBetween(yyjson_obj_get(result,"component"),1,field->components)) {
+            reading.unit=field->unit;
+            if (equalText(yyjson_obj_get(result,"status"),"ok")) {
+                if (field->type==IMU_BOOLEAN && yyjson_is_bool(value)) { reading.isBoolean=1;reading.boolean=yyjson_get_bool(value);reading.status="ok"; }
+                else if (field->type==IMU_COUNTER) {
+                    uint64_t number;
+                    if (decimalCounter(value,&number)) { size_t n=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),n);text[n]='\0';reading.text=text;reading.isText=1;reading.status="ok"; }
+                } else if (field->type!=IMU_BOOLEAN && integerBetween(value,field->type==IMU_METADATA?0:field->type==IMU_COUNT?1:-1073741824,field->type==IMU_COUNT?32:1073741823)) {
+                    reading.number=(int)yyjson_get_sint(value);reading.status="ok";
+                }
+            }
+        } else reading.status="invalid";
+    } else if (result) reading.status="invalid";
+    yyjson_doc_free(doc);return readingRecord(&reading);
+}
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
     {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
     {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive},
     {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive},
-    {"mediaSample",mediaSamplePrimitive}
+    {"mediaSample",mediaSamplePrimitive},{"imuSample",imuSamplePrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

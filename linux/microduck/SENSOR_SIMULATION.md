@@ -4,6 +4,9 @@ Version1.1 adds [coherent snapshots and typed helpers](SENSOR_SNAPSHOTS.md).
 The three first-frame JSON calls described below remain compatible. Prefer a
 depth capture plus row readings for a coherent8x8 frame, and a bounded pad
 capture plus typed state readings for observed held-state across empty frames.
+The separate [Pad IMU Simulation library](PAD_IMU_SIMULATION.md) now adds coherent
+inertial batches and typed raw/scaled readings. Its IMU lifecycle/timebase and
+store are independent of these ordinary control-state snapshots.
 
 This increment implements Fred's requested tofd/padd read blocks against fixed,
 source-shaped simulated Unix services. There is no live endpoint argument,

@@ -1,0 +1,250 @@
+{
+  "algorithm": "SHA256",
+  "scope": "Pad IMU implementation, final/failed/interrupted evidence and documentation; self-index excluded",
+  "files": {
+    ".github/workflows/linux-arm64.yml": {
+      "sha256": "d1f5e5dbf8fe4a93c038996ae29bcaa8eea3f0ef83f69279de20c72dab162237",
+      "bytes": 10492
+    },
+    "docs/LINUX_CI.md": {
+      "sha256": "7832a7dfceae44ea10b84772204ecf31bf329fb573dc1b7f80d608de0fab1ed2",
+      "bytes": 10459
+    },
+    "docs/MICRODUCK_REMAINING_OBJECTIVES.md": {
+      "sha256": "9655556878134e7fe279ed3b11aa27f826c112dd3970c7433f9ac2030210d8eb",
+      "bytes": 8249
+    },
+    "docs/MICRODUCK_SERVICE_CAPABILITIES.md": {
+      "sha256": "412627641023ea48dda221b07be573a1ef10d922e762a96760b7bfe49af55d9a",
+      "bytes": 11785
+    },
+    "docs/PI5_MICRODUCK_STATUS.md": {
+      "sha256": "7434c5aaf1c339e5aa279ceb4ad4876ea6902c4fa4229a527b7e2e827354f001",
+      "bytes": 14311
+    },
+    "evidence/2026-10-27/microduck-pad-imu/README.md": {
+      "sha256": "15f8008f92c2fb4c5a2e778aeef18162bcfaac1cb396e704ecf3172fdbcb747b",
+      "bytes": 6810
+    },
+    "LICENSES.md": {
+      "sha256": "baab2630f1fc26e7d36651bd9e896994e746dd8ff1cb20f53573e64df0f7425d",
+      "bytes": 14464
+    },
+    "linux/arm64/platform/microduck.c": {
+      "sha256": "13d9055d92d9cef65e455d851a30b3181aac3d48e6fb94994e01d5334f718b85",
+      "bytes": 63673
+    },
+    "linux/microduck/pad-imu-simulation.ubp": {
+      "sha256": "772b62bdf5700ba434f60491c59b62d0d09471af4d3ab0cb40bdd2a26de05ed4",
+      "bytes": 675
+    },
+    "linux/microduck/PAD_IMU_SIMULATION.md": {
+      "sha256": "acbac3c1bd6a98546ef8bc0e4eaf78da6062ead035f102f991bc8b1e82a4d0d5",
+      "bytes": 5216
+    },
+    "linux/microduck/Pad_IMU_Simulation.ubl": {
+      "sha256": "8ad8cd19c5b9d65016cac898392a9228d0a07a3485bd1e6a92f5fbd5f9e05176",
+      "bytes": 4198
+    },
+    "linux/microduck/pad_imu_simulator.py": {
+      "sha256": "803d8a3138dfb4e39fdb9b99955aa3e83ccce34ee2bb292d7d0fd22816b8302b",
+      "bytes": 14266
+    },
+    "linux/microduck/SENSOR_SIMULATION.md": {
+      "sha256": "72f50717867c9c9b82fe1190a20a48da9f8003e30e2d650caceec6883ad31b1a",
+      "bytes": 5739
+    },
+    "linux/microduck/tests/pad-imu-build.txt": {
+      "sha256": "f157541aa010338faba9954a3163745e8bafb64befbe8523d7b5a686722920ff",
+      "bytes": 9481
+    },
+    "linux/microduck/tests/pad-imu-cache-lifetime-failure.txt": {
+      "sha256": "89d9d7240ff4368abb996c3bccb78f2d0a4fd262d12fcb1584a2be15812bf2f4",
+      "bytes": 894
+    },
+    "linux/microduck/tests/pad-imu-detached-process.json": {
+      "sha256": "28e8fb309774e19b2dc288fff907e97d6b58bceaecbb2d6dd8177181ea22549d",
+      "bytes": 627
+    },
+    "linux/microduck/tests/pad-imu-fast-upstream-initial.json": {
+      "sha256": "6a27b1f52ae25bb3d5e891be14229c3d6268d6463cded00aca50120021fd04fe",
+      "bytes": 462
+    },
+    "linux/microduck/tests/pad-imu-fast-upstream-interrupted.json": {
+      "sha256": "29e24b159d31fbca2f4971d2962524474d1c77fd8333377121a2b6748def69cc",
+      "bytes": 464
+    },
+    "linux/microduck/tests/pad-imu-fast-upstream.json": {
+      "sha256": "8e0eed1c45503f96a1ce9fdeaf10015ea61b385e8d9c9fb98ca83a83289da2f0",
+      "bytes": 464
+    },
+    "linux/microduck/tests/pad-imu-final-full-run.json": {
+      "sha256": "184bfec9e84f558abbc94115714f04aee372e1b46362f3512122aec52b03b64f",
+      "bytes": 887
+    },
+    "linux/microduck/tests/pad-imu-final-linux.txt": {
+      "sha256": "2750e2fbaeaeb0931e44b59584a869f2fb48fcf4902762290194fa067d81504a",
+      "bytes": 59399
+    },
+    "linux/microduck/tests/pad-imu-final-stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "linux/microduck/tests/pad-imu-focused.txt": {
+      "sha256": "77e2de8ed76d574ca32e27da16814b4ec77fb15aff689adbd6b644ab85b0c740",
+      "bytes": 3423
+    },
+    "linux/microduck/tests/pad-imu-initial-excerpt-retention.json": {
+      "sha256": "fc1f08b7c63daf6b91c9c08131ce758a7e0aab773ec48ad637ab315045269c71",
+      "bytes": 776
+    },
+    "linux/microduck/tests/pad-imu-initial-focused-failure.txt": {
+      "sha256": "0c4006c16954a72940d4f9cbaac858a7884417eb895fbbf4962353d2d7d35c61",
+      "bytes": 13304
+    },
+    "linux/microduck/tests/pad-imu-initial-full-run.json": {
+      "sha256": "9325f50e527518493abb0dab2537cec305e067ffe9151b28062ee317d60d1899",
+      "bytes": 623
+    },
+    "linux/microduck/tests/pad-imu-initial-linux-excerpt.txt": {
+      "sha256": "b39354b40dc2fdc780c5285f4362cf3208c138503b507245d6be63ebb06ddfa2",
+      "bytes": 64683
+    },
+    "linux/microduck/tests/pad-imu-interrupted-linux.txt": {
+      "sha256": "65ed5d6e83949fdd7a91c47795fb5ea3690196f081fad56d46b927b823abbbd6",
+      "bytes": 20102
+    },
+    "linux/microduck/tests/pad-imu-interruption.json": {
+      "sha256": "863564e712c042ee23611587380221fce77ce63a2105fa7a7b609d2f90981789",
+      "bytes": 406
+    },
+    "linux/microduck/tests/pad-imu-log-retention.json": {
+      "sha256": "65b8e3f2d9eefaee092f82c522c6adeca612d26b3c9584da81b1f791596af2b5",
+      "bytes": 10545
+    },
+    "linux/microduck/tests/pad-imu-native-build-manifest.json": {
+      "sha256": "2f23a1453d874df01f0fc4eee819eddb20bdeeffb50817516754d78bb306db3b",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/pad-imu-native-build-run.json": {
+      "sha256": "3159cf5bc20b6b08c3e3f3dfac3ed21f18da3910518b3da8b2ba868170cfa4c1",
+      "bytes": 736
+    },
+    "linux/microduck/tests/pad-imu-native-provenance.json": {
+      "sha256": "d800158fadfacd2d70c3cdb68598115d428023d737af276907dc1a08ddc5e4f2",
+      "bytes": 2304
+    },
+    "linux/microduck/tests/pad-imu-native-source-manifest.json": {
+      "sha256": "9eff2feab0b2b2320a880c3d344c6eab1cf21dd5b8a22998bea67a6d2410b6fd",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/pad-imu-packaging.json": {
+      "sha256": "233a96ae942f6de933da161d326d09538bf7cc6fbb855fba1d33ef71a8b09263",
+      "bytes": 2925
+    },
+    "linux/microduck/tests/pad-imu-pi-evidence-archive.json": {
+      "sha256": "577272cd8b84c1826ebe90bc295baf0d3c4f7c543ec897eda6ec1317c528abb5",
+      "bytes": 569
+    },
+    "linux/microduck/tests/pad-imu-pi-execution.txt": {
+      "sha256": "f5fd16de5a68380f3f8a242dfd164c84b1ef546836f7982c1c54eebb928b1063",
+      "bytes": 1276
+    },
+    "linux/microduck/tests/pad-imu-pi-kit.json": {
+      "sha256": "32bd3049b036a618927d974649fca0779b96d4933417c8e16114337db6f6c8aa",
+      "bytes": 366
+    },
+    "linux/microduck/tests/pad-imu-pi-remote.json": {
+      "sha256": "5b6698f822bcad487778224314dc24130a306d8c54b2a7ff997b1d18587e1ce4",
+      "bytes": 98
+    },
+    "linux/microduck/tests/pad-imu-scenario-execution.txt": {
+      "sha256": "dc2b83717657cccbe97cf6e5d9fd1f7b0fb99c7616c68e6d0695dedb05f59dab",
+      "bytes": 134
+    },
+    "linux/microduck/tests/pad-imu-scenario-vm.txt": {
+      "sha256": "d39f107af3381518d36f6330c1d6bd60c829508eaebc6fc7f7d2b772d0b3fd29",
+      "bytes": 48
+    },
+    "linux/microduck/tests/pad-imu-scenario.json": {
+      "sha256": "aa2ff9f101893698beb1c969d19aa51b44a91f0655621681ee300094b3bbbb96",
+      "bytes": 2115
+    },
+    "linux/microduck/tests/pad-imu-source.json": {
+      "sha256": "576d9b1b310cad9cac7dc9583db8afcc164a3475d55c072ee6eb0e0a85679ae6",
+      "bytes": 1298
+    },
+    "linux/microduck/tests/pad-imu-validation.json": {
+      "sha256": "02f813ebc2b9c404c98945c9b43a86d2af099144cda75a724cf289c1b623cd58",
+      "bytes": 9038
+    },
+    "linux/microduck/tests/pi5-pad-imu-kit-manifest.json": {
+      "sha256": "f64350a10ab3c8651a486c3893434c920f8cb52c711bac166f962fcad322b8c1",
+      "bytes": 22196
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-build-manifest.json": {
+      "sha256": "fc39ed841f38a900ae70e76047727759de33d6dd065c9ad4cf25438dcb974c76",
+      "bytes": 11860
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-build.txt": {
+      "sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+      "bytes": 7941
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-plain-build-manifest.json": {
+      "sha256": "55b3fead2a534174156845ec4357d6ef5e9cf29e3ddc8cccf406c633aa97aad1",
+      "bytes": 11861
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-plain-build.txt": {
+      "sha256": "b693b942c5761bcdc8c8ab31cb01ea07cbd4b3772c6875e0e9180986a6983fd4",
+      "bytes": 8701
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-plain-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-plain-source-manifest.json": {
+      "sha256": "517eeafe339c2102c9a8ebfcbf65e0397d34777799819f760e42fe3aba919ce6",
+      "bytes": 11686
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-plain-tests.txt": {
+      "sha256": "af0d080a86e5cf2bbf6156c0f864f403cf428692c2842a71ecbd5f3d992165c3",
+      "bytes": 21647
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-source-manifest.json": {
+      "sha256": "9eff2feab0b2b2320a880c3d344c6eab1cf21dd5b8a22998bea67a6d2410b6fd",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/pi5-pad-imu-native-tests.txt": {
+      "sha256": "57aad18c82aabba4934bf5797142ed3fa81ded0ea1c73577f1604eddce206c74",
+      "bytes": 21647
+    },
+    "linux/microduck/tests/pi5-pad-imu-pi-pad-imu-validation.json": {
+      "sha256": "a20f3b738d6c074869cccecd9861efdaf75d36470dd96b4ac61f1d23e6deb506",
+      "bytes": 1921
+    },
+    "linux/microduck/tests/pi5-pad-imu-runner.py.txt": {
+      "sha256": "d79d4c1ffd4969f2940dfbbacf4cdd4cbc732fb99c38eccce3fd5824427d61b6",
+      "bytes": 3817
+    },
+    "linux/microduck/vm-contract.json": {
+      "sha256": "25b364ab931736c0b88a828f2b5f1d83612af6dd7df71dc3271d751e91868b9b",
+      "bytes": 12796
+    },
+    "tests/test_linux_editor_assets.py": {
+      "sha256": "9f150e8f12e755e14b01eaea921b131ac7e7e88ab2138887f543b6150202fadc",
+      "bytes": 16793
+    },
+    "tests/test_linux_microduck_pad_imu.py": {
+      "sha256": "6f86bff99f5a25e3430280740617ace9bf45b3ad99c57567c733ee2763594fea",
+      "bytes": 19674
+    },
+    "tools/linux_editor_assets.py": {
+      "sha256": "20b8ea4fbc2b797c6b0b3b6a8ba8aa2b9009829419a1429c45ce925a96d939bf",
+      "bytes": 12454
+    }
+  }
+}

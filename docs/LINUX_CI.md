@@ -142,3 +142,13 @@ including25 native cases, with zero skips. The
 [receipt](../evidence/2026-10-27/microduck-media/README.md) preserves the earlier
 scenario failure and precise status correction. These tests do not exercise a
 live HTTP/SSE service, account credential, audio device or physical robot.
+
+The typed gamepad IMU follow-up adds PadImuProtocol, PadImuUnixBackend and
+PadImuNativeAdapter:20 cases, six through real VM bytecode/PTY/GC, with raw/scaled
+values, coherent batches, unknown scale, loss/lifecycle and resource bounds.
+Final local discovery passes332 tests in203.696s with zero skips; both ordinary
+and sanitizer real Pi builds pass124 selected fake-service tests each, including
+31 native cases. The [receipt](../evidence/2026-10-27/microduck-pad-imu/README.md)
+preserves initial fixture/timeout/interruption failures and unchanged-check
+recovery using the existing pinned-source override. No hosted run or physical
+gamepad/IMU acceptance is claimed.

@@ -76,7 +76,7 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
     source, match, metadata = package_metadata(javascript, data, pinned=True)
     if type(microduck) is not bool:
         raise ValueError('MicroDuck library selection must be explicit')
-    library = example = motion_library = motion_example = sensor_library = sensor_example = robot_library = telemetry_library = robot_example = media_library = media_example = None
+    library = example = motion_library = motion_example = sensor_library = sensor_example = robot_library = telemetry_library = robot_example = media_library = media_example = imu_library = imu_example = None
     if microduck:
         root = Path(repo) if repo is not None else Path(__file__).resolve().parents[1]
         library = (root / 'linux/microduck/MicroDuck.ubl').read_bytes()
@@ -90,6 +90,8 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
         robot_example = (root / 'linux/microduck/robot-simulation.ubp').read_bytes() + b'\n' + library + b'\n' + sensor_library + b'\n' + robot_library + b'\n' + telemetry_library
         media_library = (root / 'linux/microduck/Media_Simulation.ubl').read_bytes()
         media_example = (root / 'linux/microduck/media-simulation.ubp').read_bytes() + b'\n' + library + b'\n' + media_library
+        imu_library = (root / 'linux/microduck/Pad_IMU_Simulation.ubl').read_bytes()
+        imu_example = (root / 'linux/microduck/pad-imu-simulation.ubp').read_bytes() + b'\n' + library + b'\n' + imu_library
     packed = bytearray()
     entries = []
     counts = {'api': 0, 'compiler': 0, 'library': 0, 'arithmetic': 0, 'output': 0}
@@ -129,8 +131,10 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Robot_Telemetry.ubl')\n"
                     b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Robot Telemetry Simulation' '' }\n"
                     b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Media_Simulation.ubl')\n"
-                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Media Simulation' '' }")
-                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation' 'microduck-sensor-simulation' 'microduck-robot-simulation' 'microduck-media-simulation'")
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Media Simulation' '' }\n"
+                    b"\t\tdata = (readEmbeddedFile 'Libraries/MicroDuck_Pad_IMU_Simulation.ubl')\n"
+                    b"\t\tif (notNil data) { importLibraryFromString scripter data 'MicroDuck Pad IMU Simulation' '' }")
+                payload = replace_once(payload, b"'arithmetic' 'output'", b"'arithmetic' 'output' 'microduck-health' 'microduck-motion-simulation' 'microduck-sensor-simulation' 'microduck-robot-simulation' 'microduck-media-simulation' 'microduck-pad-imu-simulation'")
             payload = replace_once(payload, b"} (endPoint == 'project.save') {", PROJECT_API + b"} (endPoint == 'project.save') {")
             counts['api'] += 1
         if name == '/Libraries/UNO_Q_Hardware.ubl':
@@ -167,7 +171,9 @@ def linux_package(javascript: bytes, data: bytes, *, microduck=False, repo=None)
                               ('/Libraries/MicroDuck_Robot_Telemetry.ubl', telemetry_library),
                               ('/Examples/Linux/microduck-robot-simulation.ubp', robot_example),
                               ('/Libraries/MicroDuck_Media_Simulation.ubl', media_library),
-                              ('/Examples/Linux/microduck-media-simulation.ubp', media_example)):
+                              ('/Examples/Linux/microduck-media-simulation.ubp', media_example),
+                              ('/Libraries/MicroDuck_Pad_IMU_Simulation.ubl', imu_library),
+                              ('/Examples/Linux/microduck-pad-imu-simulation.ubp', imu_example)):
             if name in {item['filename'] for item in entries}:
                 raise ValueError('MicroDuck virtual file already exists: ' + name)
             start = len(packed); packed.extend(payload)

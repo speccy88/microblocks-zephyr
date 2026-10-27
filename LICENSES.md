@@ -213,3 +213,8 @@ The mediad/relay simulation backend and its Python tests are newly authored MIT
 code. Native media reading/guard additions, UBL/example and GP packaging retain
 MPL-2.0. Only source protocol facts are used; no Pollen relay, audio codec or media
 implementation, account credential or captured media is redistributed.
+
+The gamepad IMU simulator, bounded batch store and Python tests are newly authored
+MIT code. The native IMU validators/decoder, UBL/example and GP integration retain
+MPL-2.0. Only pinned Pollen protocol facts are used; no driver, filter, third-party
+IMU implementation or physical sensor capture is redistributed.
