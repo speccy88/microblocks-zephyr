@@ -62,6 +62,18 @@ Wi-Fi or board-hosted HTTP. Select the exact Eval/original Edge/EC32MB image
 when installing firmware. Physical acceptance and limits are recorded in its
 [capability manifest](boards/propeller2/hardware.json).
 
+## Linux ARM64 and MicroDuck development checkpoint
+
+The [Linux ARM64 installer and candidate packaging](linux/arm64/README.md) have
+simulated lifecycle tests. A native ARM64 SmallVM is not implemented or compiled
+yet; the [LP64 audit](docs/SMALLVM_LP64_AUDIT.md) reproduces the pinned VM's
+32-bit memory-layout guard and evaluates an upstream offset-reference design.
+The [MicroDuck BLE/JSON-RPC client](docs/MICRODUCK_PROTOCOL.md) has mock-device
+tests, with real BLE PIN/Wi-Fi secret transmission blocked until confidentiality
+can be established. Neither platform is advertised as physically validated.
+No ARM64 binary or release is published by this checkpoint. See
+[recorded validation](evidence/2026-10-27/linux-arm64/checkpoint.json).
+
 ## Start here: Waveshare ESP32-S3-RLCD-4.2
 
 Read **[hardware inventory, Zephyr installation, flashing precautions, and
