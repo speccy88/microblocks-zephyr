@@ -1,0 +1,117 @@
+{
+  "result": "PASS",
+  "scope": "Actual x86_64 sanitizer VM bytecode/PTY/private Unix gateway and five fixed fake head_imu.stream subscriptions; no sensor or robot",
+  "binary_sha256": "d721ef22ffce39e77abb0b269aa1d645ffba9673ac3da8a456f425f9108e6fab",
+  "physical_movement_enabled": false,
+  "capture": [
+    "ok",
+    "7d7535e9489a74e11d49a8612c6b27f9",
+    "snapshot",
+    "simulation"
+  ],
+  "fields": {
+    "gyro": [
+      "ok",
+      125,
+      "mrad/s",
+      "simulation"
+    ],
+    "accel": [
+      "ok",
+      0,
+      "mm/s2",
+      "simulation"
+    ],
+    "quat": [
+      "ok",
+      1000000,
+      "ppm",
+      "simulation"
+    ],
+    "temperature": [
+      "ok",
+      23125,
+      "mC",
+      "simulation"
+    ],
+    "seq": [
+      "ok",
+      "9223372036854775813",
+      "count64",
+      "simulation"
+    ],
+    "at_us": [
+      "ok",
+      "1234567",
+      "us_sender",
+      "simulation"
+    ],
+    "t_ns": [
+      "ok",
+      "9223372036854775885",
+      "ns",
+      "simulation"
+    ],
+    "sensor": [
+      "ok",
+      "BMI088",
+      "sensor",
+      "simulation"
+    ],
+    "rate": [
+      "ok",
+      100,
+      "Hz",
+      "simulation"
+    ]
+  },
+  "accel_axis3": [
+    "ok",
+    9810,
+    "mm/s2",
+    "simulation"
+  ],
+  "gyro_axis2": [
+    "ok",
+    -500,
+    "mrad/s",
+    "simulation"
+  ],
+  "after_release": [
+    "expired_or_unknown",
+    "",
+    "count64",
+    "simulation"
+  ],
+  "unavailable": {
+    "partial": [
+      "not_reported",
+      "",
+      "mm/s2",
+      "simulation"
+    ],
+    "zero_quat": [
+      "unusable",
+      "",
+      "ppm",
+      "simulation"
+    ],
+    "legacy_clock": [
+      "not_reported",
+      "",
+      "ns",
+      "simulation"
+    ]
+  },
+  "unavailable_extraction_denied": true,
+  "wrong_owner_no_fallback": [
+    "absent",
+    "",
+    "snapshot",
+    "simulation"
+  ],
+  "tofd_subscriptions": 5,
+  "robot_upstream_calls": 0,
+  "component_reads_create_subscriptions": false,
+  "store_clock": "Explicit fixed test clock for scenario; real expiry/regression exercised by focused Unix tests"
+}

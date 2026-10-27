@@ -1,0 +1,57 @@
+<frozen site>:107: RuntimeWarning: Unexpected value in sys.prefix, expected /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv, got /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/../microblocks-zephyr-pi5/build-artifacts/bridge-venv
+<frozen site>:107: RuntimeWarning: Unexpected value in sys.exec_prefix, expected /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv, got /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/../microblocks-zephyr-pi5/build-artifacts/bridge-venv
+test_native_absence_timeout_partial_zero_and_unusable (test_linux_microduck_head_imu.HeadImuNativeAdapter.test_native_absence_timeout_partial_zero_and_unusable) ... ok
+test_native_bounds_reject_before_io (test_linux_microduck_head_imu.HeadImuNativeAdapter.test_native_bounds_reject_before_io) ... ok
+test_native_decoder_strict_types_units_ranges_and_cross_kind (test_linux_microduck_head_imu.HeadImuNativeAdapter.test_native_decoder_strict_types_units_ranges_and_cross_kind) ... ok
+test_native_release_expiry_and_legacy_zero_clock (test_linux_microduck_head_imu.HeadImuNativeAdapter.test_native_release_expiry_and_legacy_zero_clock) ... ok
+test_native_text_allocation_survives_moving_gc (test_linux_microduck_head_imu.HeadImuNativeAdapter.test_native_text_allocation_survives_moving_gc) ... ok
+test_real_vm_all_nine_fields_all_components_exact_time_and_one_subscription (test_linux_microduck_head_imu.HeadImuNativeAdapter.test_real_vm_all_nine_fields_all_components_exact_time_and_one_subscription) ... ok
+test_all_source_fields_and_units_without_transform (test_linux_microduck_head_imu.HeadImuProtocol.test_all_source_fields_and_units_without_transform) ... ok
+test_closed_read_only_methods_and_selectors (test_linux_microduck_head_imu.HeadImuProtocol.test_closed_read_only_methods_and_selectors) ... ok
+test_exact_u64_sender_uptime_and_legacy_clock_semantics (test_linux_microduck_head_imu.HeadImuProtocol.test_exact_u64_sender_uptime_and_legacy_clock_semantics) ... ok
+test_finite_f32_shape_and_unsigned_clock_validation (test_linux_microduck_head_imu.HeadImuProtocol.test_finite_f32_shape_and_unsigned_clock_validation) ... ok
+test_missing_and_zero_are_distinct_and_zero_quaternion_is_unusable (test_linux_microduck_head_imu.HeadImuProtocol.test_missing_and_zero_are_distinct_and_zero_quaternion_is_unusable) ... ok
+test_signed_rounding_and_explicit_fixed_point_overflow (test_linux_microduck_head_imu.HeadImuProtocol.test_signed_rounding_and_explicit_fixed_point_overflow) ... ok
+test_validated_frame_copy_is_independent (test_linux_microduck_head_imu.HeadImuProtocol.test_validated_frame_copy_is_independent) ... ok
+test_actual_cli_and_failed_metadata_cleanup (test_linux_microduck_head_imu.HeadImuUnixBackend.test_actual_cli_and_failed_metadata_cleanup) ... ok
+test_availability_wrong_owner_and_empty_never_create_handles (test_linux_microduck_head_imu.HeadImuUnixBackend.test_availability_wrong_owner_and_empty_never_create_handles) ... ERROR
+test_capacity_expiry_release_and_clock_regression (test_linux_microduck_head_imu.HeadImuUnixBackend.test_capacity_expiry_release_and_clock_regression) ... ok
+test_capture_all_components_has_one_subscription_and_no_renewal (test_linux_microduck_head_imu.HeadImuUnixBackend.test_capture_all_components_has_one_subscription_and_no_renewal) ... ok
+test_header_and_frame_fail_closed (test_linux_microduck_head_imu.HeadImuUnixBackend.test_header_and_frame_fail_closed) ... ok
+test_inflight_cancellation_releases_reservations (test_linux_microduck_head_imu.HeadImuUnixBackend.test_inflight_cancellation_releases_reservations) ... ok
+test_reusable_reader_first_request_has_no_hello_or_simulation_marker (test_linux_microduck_head_imu.HeadImuUnixBackend.test_reusable_reader_first_request_has_no_hello_or_simulation_marker) ... ERROR
+
+======================================================================
+ERROR: test_availability_wrong_owner_and_empty_never_create_handles (test_linux_microduck_head_imu.HeadImuUnixBackend.test_availability_wrong_owner_and_empty_never_create_handles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_head_imu.py", line 169, in test_availability_wrong_owner_and_empty_never_create_handles
+    self.assertEqual(self.service.calls, [])  # no fallback robot call
+                     ^^^^^^^^^^^^^^^^^^
+AttributeError: 'HeadSimulator' object has no attribute 'calls'
+
+======================================================================
+ERROR: test_reusable_reader_first_request_has_no_hello_or_simulation_marker (test_linux_microduck_head_imu.HeadImuUnixBackend.test_reusable_reader_first_request_has_no_hello_or_simulation_marker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_head_imu.py", line 146, in test_reusable_reader_first_request_has_no_hello_or_simulation_marker
+    self.assertEqual(self.service.calls, [])
+                     ^^^^^^^^^^^^^^^^^^
+AttributeError: 'HeadSimulator' object has no attribute 'calls'
+
+----------------------------------------------------------------------
+Ran 20 tests in 10.869s
+
+FAILED (errors=2)

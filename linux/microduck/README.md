@@ -42,6 +42,12 @@ receives API44-shaped robot.move notifications; no real movement path is added.
 The ordinary gateway and BLE still deny these motion calls. The new library is
 clearly named Motion Simulation and its example issues only a status read.
 
+The separate [tofd head IMU lab](HEAD_IMU_SIMULATION.md) adds a checked finite
+head_imu.stream reader and nine typed snapshot selector families, with an
+explicitly simulated block gateway. This uses the existing VM connection; live
+shipping socket/UID commissioning and beta frame semantics remain open. No
+automatic daemon fallback, transform or movement authority is introduced.
+
 ## Filesystem-only commissioning inspection
 
 The optional [preflight](PREFLIGHT.md) inspects host and explicitly supplied

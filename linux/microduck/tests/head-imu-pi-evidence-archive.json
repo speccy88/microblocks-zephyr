@@ -1,0 +1,19 @@
+{
+  "sha256": "4c89ec5467ac71b6a3619b95edfbbeb202e8006f8d5c8d8ef21dd07d6cfa9eea",
+  "bytes": 26373,
+  "files": [
+    "pi-head-imu-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ],
+  "remote_directory": "/home/fred/microblocks-head-imu-sjdlc28g"
+}

@@ -1,5 +1,5 @@
 {
-  "contract_version": 7,
+  "contract_version": 8,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -122,6 +122,13 @@
         "IMU capture/scalar JSON reply string"
       ],
       "returns": "GC-safe four-field simulation reading; snapshot handle or typed signed31/Boolean/exact u64 value only for statusok"
+    },
+    {
+      "name": "[microduck:headImuSample]",
+      "arguments": [
+        "head IMU capture/scalar JSON reply string"
+      ],
+      "returns": "GC-safe tofd-only four-field simulation reading; immutable handle or nine typed fields; explicit unknown/unusable/overflow, exact u64 clocks; appended index14"
     }
   ],
   "implemented_hooks": [
@@ -177,6 +184,16 @@
       "skipped": 0,
       "physical_IMU": false,
       "evidence": "../../evidence/2026-10-27/microduck-pad-imu/README.md"
+    },
+    "head_imu_lab": {
+      "local_full": 353,
+      "focused": 20,
+      "Pi_selected_each_variant": 144,
+      "Pi_native_cases_each": 37,
+      "skipped": 0,
+      "physical_head_IMU": false,
+      "beta_and_graphical": false,
+      "evidence": "../../evidence/2026-10-27/microduck-head-imu/README.md"
     }
   },
   "typed_readings": {
@@ -242,6 +259,11 @@
         "microduck.imuSim.capturePad",
         "microduck.imuSim.read",
         "microduck.imuSim.release"
+      ],
+      "head_imu": [
+        "microduck.headImuSim.capture",
+        "microduck.headImuSim.read",
+        "microduck.headImuSim.release"
       ]
     },
     "libraries": [
@@ -250,7 +272,8 @@
       "Robot_Simulation.ubl",
       "Robot_Telemetry.ubl",
       "Media_Simulation.ubl",
-      "Pad_IMU_Simulation.ubl"
+      "Pad_IMU_Simulation.ubl",
+      "Head_IMU_Simulation.ubl"
     ],
     "scope": "dedicated private simulation backends only; ordinary gateway rejects these local names",
     "physical_movement_enabled": false,
@@ -398,6 +421,61 @@
           "components": 3
         }
       }
+    },
+    "head_imu": {
+      "source_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+      "scope": "tofd only; reusable checked finite IPC reader, fixed private fake backend for blocks; no production routing or daemon fallback",
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "continuous_reader": false,
+      "real_endpoint": false,
+      "first_request": "head_imu.stream params{}; no hello",
+      "frame": "one head_imu.frame; chip sensor axes, acceleration includes gravity, quaternion wxyz sensor-to-own-world arbitrary yaw; no normalization or readiness inference",
+      "beta": "Deferred: robotd implementation rotates into head axes despite shared sensor-axis documentation",
+      "timebase": "at_us sender uptime; t_ns CLOCK_MONOTONIC ns; exact u64 decimal; t_ns0 unavailable",
+      "temperature": "Source-reported cached value; initial0 can be reported, no freshness claim",
+      "scaling": "nearest ties away, signed31 overflow explicit; no physical defaults for omitted measurements",
+      "fields": {
+        "gyro": {
+          "unit": "mrad/s",
+          "components": 3
+        },
+        "accel": {
+          "unit": "mm/s2",
+          "components": 3
+        },
+        "quat": {
+          "unit": "ppm",
+          "components": 4
+        },
+        "temperature": {
+          "unit": "mC",
+          "components": 1
+        },
+        "seq": {
+          "unit": "count64",
+          "components": 1
+        },
+        "at_us": {
+          "unit": "us_sender",
+          "components": 1
+        },
+        "t_ns": {
+          "unit": "ns",
+          "components": 1
+        },
+        "sensor": {
+          "unit": "sensor",
+          "components": 1
+        },
+        "rate": {
+          "unit": "Hz",
+          "components": 1
+        }
+      },
+      "validation": "Actual local x86_64 sanitizer and real Pi AArch64 ordinary/ASan+UBSan;353 local and144 selected tests per Pi variant, all data fake; physical/beta/graphical/live unverified"
     }
   }
 }

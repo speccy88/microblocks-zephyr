@@ -1,0 +1,15 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 221.35899999999674,
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "rpi5",
+    "cd /home/fred/microblocks-head-imu-sjdlc28g && python3 run-pi-head-imu.py"
+  ],
+  "source": "real Pi compilation/VM; all sensor data fake",
+  "security_or_service_changes": false
+}

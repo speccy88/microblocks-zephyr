@@ -1,0 +1,36 @@
+{
+  "reviewed_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+  "api_version": 45,
+  "production_pin_changed": false,
+  "files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "9461021bde3a029646095fac1f3a9aa241ad772a326446b2dcde3153e9458d57",
+      "bytes": 338701,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/duck-ipc-proto/src/lib.rs"
+    },
+    "tof/src/main.rs": {
+      "sha256": "99e8721bf262e134142723f6333b62a16472cda96cdb385cdef6f4e31d0622ce",
+      "bytes": 50433,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/tof/src/main.rs"
+    },
+    "tof/src/imu.rs": {
+      "sha256": "deef2b3be6d3b8e697d2d2f8f4ec4b93c8d218ab1652e2b40454a4fa7fe7e35a",
+      "bytes": 12398,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/tof/src/imu.rs"
+    },
+    "robotd/src/head_imu.rs": {
+      "sha256": "e09f750d83b7df18b91f72a99bc839594c4d7da91dd4eb2fe9a08e40fd944b88",
+      "bytes": 25256,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/robotd/src/head_imu.rs"
+    }
+  },
+  "findings": [
+    "HeadImuStreamResult accepted/sensor/unavailable/hz; HeadImuFrame seq/at_us/t_ns/gyro/accel/quat/temp_c",
+    "tofd reads head_imu.stream as first request without hello, then ack and head_imu.frame",
+    "tofd BMI088 gyro rad/s, accel m/s2, quat wxyz sensor-to-own-world arbitrary yaw, source-cached temperature",
+    "beta robotd to_head rotates vectors and quaternion into head axes; no guessed transform or fallback",
+    "serde default absent numeric fields are not proof of measured zero; t_ns0 means unavailable legacy clock",
+    "Single frame has no continuity, freshness, calibration or movement-authority claim"
+  ],
+  "physical_hardware_reviewed": false
+}

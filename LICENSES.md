@@ -218,3 +218,9 @@ The gamepad IMU simulator, bounded batch store and Python tests are newly author
 MIT code. The native IMU validators/decoder, UBL/example and GP integration retain
 MPL-2.0. Only pinned Pollen protocol facts are used; no driver, filter, third-party
 IMU implementation or physical sensor capture is redistributed.
+
+The bounded tofd head-IMU reader, fictional stream simulator and Python tests
+are newly authored MIT code. Shared native typed decoder, separate head-IMU
+UBL/example and editor packaging retain MPL-2.0. Pollen/BMI088 protocol facts
+are referenced; no driver, filter, sensor fusion, coordinate transformation or
+physical capture is copied or redistributed.

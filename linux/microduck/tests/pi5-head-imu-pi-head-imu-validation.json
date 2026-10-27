@@ -1,0 +1,67 @@
+{
+  "started_utc": "2026-10-27T18:40:55.021775+00:00",
+  "hostname": "RPI5",
+  "user": "fred",
+  "machine": "aarch64",
+  "kernel": "6.12.75+rpt-rpi-2712",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "kit_file_count": 153,
+  "physical_robot_data": false,
+  "physical_movement_enabled": false,
+  "numeric_acceptance_suite_invoked": false,
+  "service_or_security_changes": false,
+  "variants": {
+    "native": {
+      "result": "PASS",
+      "tests": 144,
+      "test_seconds": 28.786,
+      "elapsed_seconds": 29.01969062200078,
+      "binary_sha256": "c99e47ea4f617a7363157d3375e6e8a693cbff01d71cb7761ce92ab7dda5150e",
+      "elf_machine": 183,
+      "sanitize": true,
+      "self_test": "PASS",
+      "build_seconds": 139.00566431300103,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "test_linux_microduck_head_imu",
+        "-v"
+      ]
+    },
+    "native-plain": {
+      "result": "PASS",
+      "tests": 144,
+      "test_seconds": 28.451,
+      "elapsed_seconds": 28.59944533900125,
+      "binary_sha256": "40ff862a22d3de3ceb164a83f64b1341fe803da78ee14839b80c6b126e51bc07",
+      "elf_machine": 183,
+      "sanitize": false,
+      "self_test": "PASS",
+      "build_seconds": 24.2173614860003,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "test_linux_microduck_head_imu",
+        "-v"
+      ]
+    }
+  },
+  "result": "PASS",
+  "finished_utc": "2026-10-27T18:44:35.871387+00:00"
+}

@@ -264,5 +264,19 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn('/Libraries/MicroDuck_Pad_IMU_Simulation.ubl', list(core))
 
 
+    def test_head_imu_library_and_read_only_coherent_example_are_embedded(self):
+        output = self.output.parent / 'head-imu-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output / 'gp_wasm.js').read_bytes(), (output / 'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Head_IMU_Simulation.ubl'], (REPO / 'linux/microduck/Head_IMU_Simulation.ubl').read_bytes())
+        self.assertIn(b'MicroDuck Head IMU Simulation', files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-head-imu-simulation.ubp'], b'\n'.join(
+            (REPO / 'linux/microduck' / name).read_bytes() for name in ('head-imu-simulation.ubp', 'MicroDuck.ubl', 'Head_IMU_Simulation.ubl')))
+        core_output = self.output.parent / 'head-imu-core-editor'
+        build(self.source, core_output, REPO, 'raspberry-pi5')
+        core = unpack_package((core_output / 'gp_wasm.js').read_bytes(), (core_output / 'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Head_IMU_Simulation.ubl', list(core))
+
+
 if __name__ == '__main__':
     unittest.main()
