@@ -23,7 +23,8 @@ No ARM64 release or updated GitHub Pages deployment has been published.
 | JSON-RPC local gateway | Implemented and simulated | Real Unix sockets and peer identities; robot daemon replies are mocks. |
 | Native MicroDuck primitive adapter | Implemented on physical Pi with simulated robot | Real VM bytecode, moving GC, jobs, gateway, errors, timeouts and graphical health block. [Adapter evidence](../linux/microduck/tests/README.md). |
 | Sensor, battery, sound and skills on actual MicroDuck | Implemented but untested | API envelopes and simulated replies implemented; no physical device available. |
-| Receive-only camera signaling and browser peer core | Implemented and simulated | [Camera transport](../linux/microduck/CAMERA.md): pinned GStreamer consumer protocol, video recvonly/audio inactive, bounded lifecycle and sole media.video query. Actual modules execute against fake RTC/media and in-memory signaling. No live dialer/viewer, decoded-frame proof, native camera primitive or physical camera test. |
+| Receive-only camera signaling and browser peer core | Implemented and simulated | [Camera transport](../linux/microduck/CAMERA.md): pinned GStreamer consumer protocol, video recvonly/audio inactive, bounded lifecycle and sole media.video query. Actual modules execute against fake RTC/media and in-memory signaling. No live dialer or commissioned live viewer, native decoded-frame proof, native camera primitive or physical camera test. |
+| Camera viewer and decoded-frame observation path | Implemented and simulated | [Viewer lab](../linux/microduck/CAMERA_VIEWER.md): explicit simulated source selection, actual video-element observer with bounded callbacks/deadlines, reported rotation and cleanup. Fake media callbacks and a fictional canvas card do not establish native decoding, real footage, trusted identity or calibration. No live transport is commissioned. |
 | Continuous locomotion/direct motor control | Not implemented | Outside the selected BLE/local gateway surface; preserve robotd controller and use supported future transport. Camera observer exposes no motion RPC. |
 | Typed battery/temperature/loop/bus/IMU readings | Implemented on physical Pi with simulated robot | Eighteen source-backed fields, explicit status/value/unit/origin records, fixed-point signed31 values and refusal of missing/invalid values. [Contract and use](../linux/microduck/TYPED_READINGS.md). |
 | Reported health verdict and IMU convergence state | Implemented on physical Pi with simulated robot | Documented health/default/stale-run semantics; no global safe-to-move claim. |
@@ -74,6 +75,13 @@ Its [camera receipt](../evidence/2026-10-27/microduck-camera/README.md) records
 38 new focused checks, 207 selected Node checks and 203 full repository checks,
 all passing with zero skips, plus preserved GP profiles. Physical camera and
 live browser/media transport remain untested.
+The [viewer follow-up receipt](../evidence/2026-10-27/microduck-camera-viewer/README.md)
+records 36 new viewer checks and 243 selected Node checks with zero skips,
+preserved seven-profile packaging, and 203 required Linux checks with the
+documented verified external sanitizer VM inputs. Both default-build timeout
+attempts remain in the recovery record. Its internal fake frame callbacks and
+canvas test card are explicitly separate from native browser decoding and
+physical camera acceptance.
 
 | Brief section | Implementation/evidence map |
 |---|---|

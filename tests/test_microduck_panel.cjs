@@ -62,6 +62,7 @@ test('mount performs no chooser/request/write and has no secret or motion inputs
  assert.match(simulation.textContent,/fictional commissioning simulation/);
  const consoleLink=h.container.find(e=>e.className==='microduck-console-link');
  assert.equal(consoleLink.href,'microduck/console.html');assert.match(consoleLink.textContent,/protected API 44 console/);
+ const cameraLink=h.container.find(e=>e.className==='microduck-camera-link');assert.equal(cameraLink.href,'microduck/camera.html');assert.match(cameraLink.textContent,/fictional camera viewer lab/);
  const source=fs.readFileSync(require.resolve('../web/microduck/panel.js'),'utf8');
  assert.doesNotMatch(source,/\.(?:request|authenticate)\s*\(/);
  h.panel.destroy();assert.equal(h.lifecycle.count('pagehide'),0);assert.equal(f.calls.chooser,0);

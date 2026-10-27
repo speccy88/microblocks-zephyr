@@ -1,0 +1,149 @@
+{
+  "recorded_at": "2026-10-27T13:44:49.822226+00:00",
+  "result": "PASS for source-backed viewer and simulated media scope only",
+  "base_commit": "b6df7d010d588e4ed19fb6fec33f2fede83884e0",
+  "branch": "codex/pi5-watch-integration-20261027",
+  "source_sha256": {
+    "web/microduck/camera-viewer.js": "ab0d58921ac4bfc2141b3c9834019bd97f2227491a50ea6af0aaf33445cf8254",
+    "web/microduck/camera-view-fixture.js": "22bdb0bc77038b98cecb601c6ae84313f8574471e3f75ff6927a40133555a023",
+    "web/microduck/camera-panel.js": "b13596519691fdf29c2393062a31a336d4cf1f7743d62e6fad6276ad50e13ecc",
+    "web/microduck/camera.html": "0b9e5f26ac771fc11feb754bb38e6157ec6f2ce591ac31d13582d798eaa14eff",
+    "web/microduck/panel.js": "64301f7dbe590380d9102851ca49cb6e8af506a78ea2f3ea50746371f8c499a6",
+    "tests/test_microduck_camera_viewer.cjs": "cc346ed557d9a5cb1c19b5d9c3604c1c9212f936ec6b18cdba3790a80583a2a3",
+    "tests/test_microduck_panel.cjs": "a0de50c158e03474d7a105c8a488ad3a597e43a3c392e71619bcf820f259b5b8",
+    "tools/package_pages.py": "072fb2baf43a0f7a2bed47c83a51236a43534ebf63a74f19779145662cc09e23",
+    ".github/workflows/linux-arm64.yml": "ac128a340742ac8291ffae87c8ff9d70f0d75a65c6ce6854b579c60661f1a1bc",
+    "linux/microduck/CAMERA_VIEWER.md": "961abd12430cc183f7c8f601f1ae0dadd30746ba916a9aeaf6cbcd00e615d19f",
+    "linux/microduck/tests/camera-viewer-sources.json": "e4f8a3c52d75af8137c2e060984201b239f86c6ee3882723ce0ac5514f344fbb"
+  },
+  "focused_node": {
+    "tests": 36,
+    "result": "PASS",
+    "skipped": 0
+  },
+  "selected_node": {
+    "tests": 243,
+    "result": "PASS",
+    "skipped": 0
+  },
+  "required_linux_verified_binary": {
+    "tests": 203,
+    "result": "PASS",
+    "skipped": 0,
+    "seconds": 124.481,
+    "environment": "existing Ubuntu-26.04 WSL Python venv; local fixtures",
+    "mode": "documented external sanitizer binary for numeric and MicroDuck VM suites; full discovery with no exclusions",
+    "provenance": "camera-viewer-native-provenance.json"
+  },
+  "initial_linux_failure": {
+    "tests_run": 182,
+    "errors": 3,
+    "seconds": 424.403,
+    "reason": "existing sanitizer builds exceeded unchanged 120-second deadlines",
+    "capture": "camera-viewer-linux-initial-timeout.txt"
+  },
+  "unchanged_linux_rerun": {
+    "tests_run": 185,
+    "errors": 1,
+    "seconds": 338.813,
+    "reason": "existing MicroDuck VM sanitizer build again exceeded its unchanged 120-second deadline",
+    "capture": "camera-viewer-linux-unchanged-rerun.txt"
+  },
+  "recovery": "camera-viewer-recovery.json",
+  "captures": {
+    "camera-viewer-focused.txt": {
+      "captured_file": "build-artifacts/camera-viewer-focused.txt",
+      "captured_sha256": "e71d91e45be98ae50a4dbafc6083a57557e514edf1d62ab86e4e0086d8ba250c",
+      "retained_sha256": "79d43508e2fdf2496995c25597a25b1994b244f239c06dfd5b067563c4284f22",
+      "conversion": "CRLF to LF only"
+    },
+    "camera-viewer-node.txt": {
+      "captured_file": "build-artifacts/camera-viewer-node.txt",
+      "captured_sha256": "0094fc109a85d4038bcdd6c1ebb52b27b10e4bff29cefca42527588a21ddccb4",
+      "retained_sha256": "a1640724d70e7c77fc3885adaa6d9c691ec4317efa87ddf96b4f502751bfcebb",
+      "conversion": "CRLF to LF only"
+    },
+    "camera-viewer-linux-initial-timeout.txt": {
+      "captured_file": "build-artifacts/camera-viewer-linux.txt",
+      "captured_sha256": "be3665f801a6e1550e00cc9b134612dfad0ebd7241855e3d259a027b78ae28b1",
+      "retained_sha256": "4d4b0aca0e6dd4423274161b0f847a86ca677bb1d8bc01b0060897b4e32efd94",
+      "conversion": "CRLF to LF only"
+    },
+    "camera-viewer-linux-unchanged-rerun.txt": {
+      "captured_file": "build-artifacts/camera-viewer-linux-recovery.txt",
+      "captured_sha256": "577f79bc1e3b100f0834193e78cb4caaf01c71fe069571417cd07ae94ac53188",
+      "retained_sha256": "5b39bc8c24ecf8f459756694ceefc7997947df4b8d928401d8b0b406a1d3a8c0",
+      "conversion": "CRLF to LF only"
+    },
+    "camera-viewer-linux.txt": {
+      "captured_file": "build-artifacts/camera-viewer-linux-verified-binary.txt",
+      "captured_sha256": "533d6895135067fb1c7f207338220b7d549e543ba8cfa54540f2681caed28b10",
+      "retained_sha256": "2593cad609587ba9e79eb13b5825123be4c65118f09eb47ce565be37ef33e71a",
+      "conversion": "CRLF to LF only"
+    },
+    "camera-viewer-native-build.txt": {
+      "captured_file": "build-artifacts/camera-viewer-native-build.txt",
+      "captured_sha256": "99ea0a9a8373f4af8c0cffd34ff9c355bde3ff9555422394ed1b4b2d71333a9b",
+      "retained_sha256": "4e5ff05664305cff64f3a1d6982a46566b7d5e30a293c69fac6adb6cbb330b13",
+      "conversion": "CRLF to LF only"
+    }
+  },
+  "scenario": "camera-viewer-scenario.json",
+  "packaging": "camera-viewer-packaging.json",
+  "browser_interface_sources": "camera-viewer-sources.json",
+  "unchanged_compared_with_base": [
+    "linux/arm64",
+    "common",
+    "vm",
+    "boards",
+    "linux/microduck/MicroDuck.ubl",
+    "linux/microduck/gateway.py",
+    "linux/microduck/protocol.py",
+    "linux/microduck/preflight.py",
+    "web/microduck/camera-protocol.js",
+    "web/microduck/camera-peer.js",
+    "web/microduck/camera-session.js",
+    "web/microduck/camera-fixture.js",
+    "web/microduck/bluetooth.js",
+    "web/microduck/rpc.js",
+    "web/microduck/console.html",
+    "web/microduck/simulation.html",
+    "tests/test_linux_arm64_core_patch.py",
+    "tests/test_linux_arm64_numeric.py",
+    "tests/test_linux_microduck_vm.py"
+  ],
+  "verified_boundaries": [
+    "passive viewer/fixture/panel; explicit fictional discovery, selection and start",
+    "one owned video track; muted inline playback; no source URL or local capture",
+    "frame callbacks distinguished from track receipt, dimensions, media events and play resolution",
+    "simulation evidence never claims native decoding or physical footage",
+    "reported rotation only; absent/invalid geometry remains unknown; display/media pixels distinct",
+    "one outstanding frame callback and finite first-frame, stall, duration and count limits",
+    "failure, stop and page lifecycle close retained source/tracks/session without replay",
+    "no recording, pixels, timestamps, raw browser errors or credentials retained",
+    "sole transport application method remains media.video; no robot commands"
+  ],
+  "native_media_decoder_executed": false,
+  "graphical_browser_executed": false,
+  "decoded_frames_verified": false,
+  "real_robot_or_camera_tested": false,
+  "real_network_or_ble_connection": false,
+  "new_pi_run": false,
+  "native_vm_and_ubl_changed": false,
+  "compiler_flags_or_test_timeouts_modified": false,
+  "real_ble_confidentiality_changed": false,
+  "edge_control_used_or_retried": false,
+  "previously_denied_action_retried": false,
+  "shared_main_modified": false,
+  "p4_worktree_accessed_or_modified": false,
+  "published": false,
+  "pushed": false,
+  "approval_pending": false,
+  "remaining": [
+    "Trusted live signaling/identity/privacy commissioning and production source integration",
+    "Native decoder, codec/ICE/DTLS, graphical layout and browser playback acceptance",
+    "Shipping MicroDuck camera/API/geometry and physical robot acceptance",
+    "Native SmallVM camera primitive and continuous locomotion/direct motors",
+    "Existing Edge platform, P4 coordination, hosted CI, release/Pages and reboot/startup gates"
+  ]
+}

@@ -78,3 +78,22 @@ The local camera follow-up passes 207 selected Node tests (38 camera checks) and
 203 required Linux repository tests with zero skips; the
 [receipt](../evidence/2026-10-27/microduck-camera/README.md) distinguishes these
 local results from still-unexecuted hosted runs.
+
+The viewer follow-up adds tests/test_microduck_camera_viewer.cjs to the explicit
+Node command. It exercises actual video-element observer and simulation panel
+logic with internal fake DOM/media/callbacks, including absent/stalled frames,
+blocked/pending play, rotation layout, cancellation and hidden-page cleanup.
+These are not native browser decoder or graphical acceptance tests. The lab
+page is packaged locally; no live signaling/media URL is enabled or deployed.
+The local viewer selection passes 243 Node tests, including 36 focused viewer
+checks. The [viewer receipt](../evidence/2026-10-27/microduck-camera-viewer/README.md)
+also retains the initial sanitizer-build timeout capture and unchanged-validator
+recovery, rather than treating source review or a hosted workflow as execution.
+The local full run uses the existing SMALLVM_MICRODUCK_BINARY and
+SMALLVM_NUMERIC_BINARY inputs after a fresh pinned sanitizer build/self-test and
+provenance checks. Default repeated-build attempts exceeded the host's unchanged
+120-second setup deadlines; both failures remain in the receipt. No test class,
+assertion, source, compiler flag or deadline is edited to obtain that input mode.
+All 203 required repository tests pass in 124.481 seconds with that verified
+binary input and zero skips. This is a local WSL result, not hosted CI or native
+camera decoding acceptance.

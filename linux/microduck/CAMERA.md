@@ -112,9 +112,12 @@ This checkpoint prepares transport code, not a commissioned live camera UI.
 Trusted signaling, live browser/media interoperability, codecs/ICE/DTLS,
 mount geometry, playback/decoded-frame proof and actual robot behavior remain
 distinct acceptance gaps. Continuous motion/direct motors remain unimplemented.
-In particular there is no live signaling dialer, endpoint configuration, trusted
-signaling identity, production viewer, frame rotation UI or native SmallVM camera
-primitive in this checkpoint. Receiving a track event does not prove playback.
+At this initial core checkpoint there is no live signaling dialer, endpoint
+configuration, trusted signaling identity or native SmallVM camera primitive.
+The additive [viewer follow-up](CAMERA_VIEWER.md) implements a video-element
+frame observer, reported-rotation layout and a fictional viewer lab; its fake
+callbacks do not establish native decoding or physical playback. Receiving a
+track event alone still does not prove playback.
 Future work must validate the actual shipping image and media.video fields,
 privacy/authorization, trusted browser transport and negative disconnect cases
 before exposing live camera selection. Never attach the broad upstream control

@@ -118,8 +118,8 @@ def build(source, output, repo):
     for path in (repo/'web/microduck').glob('*.js'):
         target=output/'microduck'/path.name;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(path,target)
-    # Standalone lab and protected console; both forbid URL network connections.
-    for name in ('simulation.html','console.html'):
+    # Standalone labs and protected console; all forbid URL network connections.
+    for name in ('simulation.html','console.html','camera.html'):
         shutil.copyfile(repo/'web/microduck'/name,output/'microduck'/name)
     common=prepare_assets(repo,source)
     versioned_files=sorted(p for folder in ('web/portal','web/microduck') for p in (repo/folder).rglob('*') if p.is_file())

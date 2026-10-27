@@ -1,0 +1,369 @@
+{
+  "recorded_at": "2026-10-27T13:22:09.960Z",
+  "scope": "actual transport, peer and viewer modules; internal fake signaling/RTC/media callbacks; no native decoding or camera pixels",
+  "native_decoder_executed": false,
+  "graphical_browser_executed": false,
+  "real_robot_or_camera": false,
+  "robot_rpc_requests": 0,
+  "initial": {
+    "viewer": {
+      "phase": "detached",
+      "code": null,
+      "simulation": true,
+      "frameObservations": 0,
+      "frameFresh": false,
+      "frameEvidence": "none",
+      "browserFrameCallbackObserved": false,
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false,
+      "lastFrame": null,
+      "reportedGeometry": null,
+      "geometryError": null,
+      "layout": null,
+      "playAttempts": 0,
+      "playResolved": false,
+      "limits": {
+        "firstFrameTimeoutMs": 1000,
+        "stallTimeoutMs": 1000,
+        "durationMs": 60000,
+        "maxFrames": 3
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "physicalMicroDuckTested": false,
+      "nativeDecoderExecuted": false,
+      "transport": {
+        "simulation": true,
+        "signalMessages": 0,
+        "signalKinds": [],
+        "controlRequests": 0,
+        "controlMethods": [],
+        "peerConstructions": 0,
+        "remoteOffers": 0,
+        "localAnswers": 0,
+        "iceAdded": 0,
+        "videoStops": 0,
+        "audioStops": 0,
+        "channelCloses": 0,
+        "peerCloses": 0,
+        "closed": false,
+        "transceiverDirections": [],
+        "decodedFramesVerified": false,
+        "physicalMicroDuckTested": false
+      },
+      "media": {
+        "play": 0,
+        "pause": 0,
+        "load": 0,
+        "requested": 0,
+        "cancelled": 0,
+        "callbacks": 0,
+        "pendingCallbacks": 0,
+        "closed": false
+      }
+    }
+  },
+  "listed": {
+    "viewer": {
+      "phase": "detached",
+      "code": null,
+      "simulation": true,
+      "frameObservations": 0,
+      "frameFresh": false,
+      "frameEvidence": "none",
+      "browserFrameCallbackObserved": false,
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false,
+      "lastFrame": null,
+      "reportedGeometry": null,
+      "geometryError": null,
+      "layout": null,
+      "playAttempts": 0,
+      "playResolved": false,
+      "limits": {
+        "firstFrameTimeoutMs": 1000,
+        "stallTimeoutMs": 1000,
+        "durationMs": 60000,
+        "maxFrames": 3
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "physicalMicroDuckTested": false,
+      "nativeDecoderExecuted": false,
+      "transport": {
+        "simulation": true,
+        "signalMessages": 1,
+        "signalKinds": [
+          "list"
+        ],
+        "controlRequests": 0,
+        "controlMethods": [],
+        "peerConstructions": 0,
+        "remoteOffers": 0,
+        "localAnswers": 0,
+        "iceAdded": 0,
+        "videoStops": 0,
+        "audioStops": 0,
+        "channelCloses": 0,
+        "peerCloses": 0,
+        "closed": false,
+        "transceiverDirections": [],
+        "decodedFramesVerified": false,
+        "physicalMicroDuckTested": false
+      },
+      "media": {
+        "play": 0,
+        "pause": 0,
+        "load": 0,
+        "requested": 0,
+        "cancelled": 0,
+        "callbacks": 0,
+        "pendingCallbacks": 0,
+        "closed": false
+      }
+    }
+  },
+  "started": {
+    "viewer": {
+      "phase": "waiting-frame",
+      "code": null,
+      "simulation": true,
+      "frameObservations": 0,
+      "frameFresh": false,
+      "frameEvidence": "none",
+      "browserFrameCallbackObserved": false,
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false,
+      "lastFrame": null,
+      "reportedGeometry": null,
+      "geometryError": null,
+      "layout": null,
+      "playAttempts": 1,
+      "playResolved": true,
+      "limits": {
+        "firstFrameTimeoutMs": 1000,
+        "stallTimeoutMs": 1000,
+        "durationMs": 60000,
+        "maxFrames": 3
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "physicalMicroDuckTested": false,
+      "nativeDecoderExecuted": false,
+      "transport": {
+        "simulation": true,
+        "signalMessages": 4,
+        "signalKinds": [
+          "list",
+          "startSession",
+          "peer:answer",
+          "peer:ice"
+        ],
+        "controlRequests": 1,
+        "controlMethods": [
+          "media.video"
+        ],
+        "peerConstructions": 1,
+        "remoteOffers": 1,
+        "localAnswers": 1,
+        "iceAdded": 1,
+        "videoStops": 0,
+        "audioStops": 1,
+        "channelCloses": 0,
+        "peerCloses": 0,
+        "closed": false,
+        "transceiverDirections": [
+          "recvonly",
+          "inactive"
+        ],
+        "decodedFramesVerified": false,
+        "physicalMicroDuckTested": false
+      },
+      "media": {
+        "play": 1,
+        "pause": 0,
+        "load": 0,
+        "requested": 1,
+        "cancelled": 0,
+        "callbacks": 0,
+        "pendingCallbacks": 1,
+        "closed": false
+      }
+    }
+  },
+  "active": {
+    "viewer": {
+      "phase": "frames-observed",
+      "code": null,
+      "simulation": true,
+      "frameObservations": 1,
+      "frameFresh": true,
+      "frameEvidence": "simulated-callback",
+      "browserFrameCallbackObserved": false,
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false,
+      "lastFrame": {
+        "width": 1280,
+        "height": 720,
+        "displayWidth": 1280,
+        "displayHeight": 720,
+        "presentedFrames": 1
+      },
+      "reportedGeometry": {
+        "reportedWidth": 1280,
+        "reportedHeight": 720,
+        "reportedRotateClockwise": 90,
+        "origin": "unattested-remote"
+      },
+      "geometryError": null,
+      "layout": {
+        "rotationKnown": true,
+        "reportedRotation": 90,
+        "aspectWidth": 720,
+        "aspectHeight": 1280,
+        "videoWidthPercent": 177.77777777777777,
+        "videoHeightPercent": 56.25,
+        "transform": "translate(-50%, -50%) rotate(90deg)"
+      },
+      "playAttempts": 1,
+      "playResolved": true,
+      "limits": {
+        "firstFrameTimeoutMs": 1000,
+        "stallTimeoutMs": 1000,
+        "durationMs": 60000,
+        "maxFrames": 3
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "physicalMicroDuckTested": false,
+      "nativeDecoderExecuted": false,
+      "transport": {
+        "simulation": true,
+        "signalMessages": 4,
+        "signalKinds": [
+          "list",
+          "startSession",
+          "peer:answer",
+          "peer:ice"
+        ],
+        "controlRequests": 1,
+        "controlMethods": [
+          "media.video"
+        ],
+        "peerConstructions": 1,
+        "remoteOffers": 1,
+        "localAnswers": 1,
+        "iceAdded": 1,
+        "videoStops": 0,
+        "audioStops": 1,
+        "channelCloses": 0,
+        "peerCloses": 0,
+        "closed": false,
+        "transceiverDirections": [
+          "recvonly",
+          "inactive"
+        ],
+        "decodedFramesVerified": false,
+        "physicalMicroDuckTested": false
+      },
+      "media": {
+        "play": 1,
+        "pause": 0,
+        "load": 0,
+        "requested": 1,
+        "cancelled": 0,
+        "callbacks": 1,
+        "pendingCallbacks": 0,
+        "closed": false
+      }
+    }
+  },
+  "closed": {
+    "viewer": {
+      "phase": "closed",
+      "code": "FRAME_LIMIT",
+      "simulation": true,
+      "frameObservations": 3,
+      "frameFresh": false,
+      "frameEvidence": "simulated-callback",
+      "browserFrameCallbackObserved": false,
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false,
+      "lastFrame": {
+        "width": 1280,
+        "height": 720,
+        "displayWidth": 1280,
+        "displayHeight": 720,
+        "presentedFrames": 3
+      },
+      "reportedGeometry": null,
+      "geometryError": null,
+      "layout": {
+        "rotationKnown": false,
+        "reportedRotation": null,
+        "aspectWidth": 1280,
+        "aspectHeight": 720,
+        "videoWidthPercent": 100,
+        "videoHeightPercent": 100,
+        "transform": "translate(-50%, -50%) rotate(0deg)"
+      },
+      "playAttempts": 1,
+      "playResolved": true,
+      "limits": {
+        "firstFrameTimeoutMs": 1000,
+        "stallTimeoutMs": 1000,
+        "durationMs": 60000,
+        "maxFrames": 3
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "physicalMicroDuckTested": false,
+      "nativeDecoderExecuted": false,
+      "transport": {
+        "simulation": true,
+        "signalMessages": 5,
+        "signalKinds": [
+          "list",
+          "startSession",
+          "peer:answer",
+          "peer:ice",
+          "endSession"
+        ],
+        "controlRequests": 1,
+        "controlMethods": [
+          "media.video"
+        ],
+        "peerConstructions": 1,
+        "remoteOffers": 1,
+        "localAnswers": 1,
+        "iceAdded": 1,
+        "videoStops": 1,
+        "audioStops": 1,
+        "channelCloses": 1,
+        "peerCloses": 1,
+        "closed": true,
+        "transceiverDirections": [
+          "recvonly",
+          "inactive"
+        ],
+        "decodedFramesVerified": false,
+        "physicalMicroDuckTested": false
+      },
+      "media": {
+        "play": 1,
+        "pause": 1,
+        "load": 1,
+        "requested": 3,
+        "cancelled": 0,
+        "callbacks": 3,
+        "pendingCallbacks": 0,
+        "closed": true
+      }
+    }
+  }
+}

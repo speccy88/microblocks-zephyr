@@ -1,0 +1,16 @@
+{
+  "directory": "/tmp/microduck-viewer-native-verified-37_nqrot",
+  "returncode": 0,
+  "seconds": 144.23752075400006,
+  "host": "x86_64",
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "linux/arm64/build.py",
+    "--upstream",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/smallvm-linux-upstream",
+    "--output",
+    "/tmp/microduck-viewer-native-verified-37_nqrot",
+    "--sanitize",
+    "--test"
+  ]
+}

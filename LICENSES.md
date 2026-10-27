@@ -183,3 +183,7 @@ tests are newly authored MIT code. Their wire contract is reviewed against
 pinned Pollen mediad and GStreamer0.15.3 signaling source, with source URLs and
 hashes in `linux/microduck/tests/camera-source.json`. No GStreamer/Pollen media
 implementation, codec, source text or captured footage is redistributed here.
+The additive video-element observer, simulation viewer UI/test card and fake
+media callback fixture are also newly authored MIT code. Browser interface
+specifications are referenced in `linux/microduck/CAMERA_VIEWER.md`; no browser
+decoder implementation or third-party video file is copied.

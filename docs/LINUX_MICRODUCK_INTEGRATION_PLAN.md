@@ -211,3 +211,19 @@ producer or successful session is not trusted identity or authority to move.
 Keep the real BLE confidentiality gate unchanged. Physical camera/codec/browser
 acceptance, native camera primitives and continuous motion remain incomplete.
 No blocked Edge operation or previously denied test is retried for this phase.
+
+## Viewer follow-up
+
+The additive [viewer contract](../linux/microduck/CAMERA_VIEWER.md) extends the
+isolated camera core with a video-element frame observer, reported-rotation
+layout and explicitly fictional standalone lab. Its native interface is driven
+only by an owned video-only stream; it does not add signaling transport, robot
+commands or local capture. Simulation exercises the actual observer through
+internal fake media callbacks and a locally drawn test card, never a real media
+decoder. The portal adds a lab link and the package copies camera.html plus
+the new modules. Existing console/simulation HTML and security gates stay intact.
+
+Native decoded-frame, graphical, trusted signaling and physical camera acceptance
+remain unverified. Shared main, active P4 checkout, native VM, UBL and gateway are
+unchanged. No existing stopped/denied operation is retried for these independent
+viewer and packaging tests.

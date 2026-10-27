@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-10-27T13:21:20.384216+00:00",
+  "pollen_source_pin": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "transport_source_audit": "camera-source.json",
+  "browser_sources": [
+    {
+      "url": "https://wicg.github.io/video-rvfc/",
+      "observed_revision": "Draft Community Group Report, 2 August 2024",
+      "facts": [
+        "frame callback runs for a frame submitted to the compositor",
+        "presentedFrames is monotonically increasing unsigned long",
+        "callback media-pixel dimensions may differ from videoWidth/videoHeight",
+        "mediaTime may be zero for live/WebRTC; clock values are not retained",
+        "cancelVideoFrameCallback cancels an outstanding callback handle"
+      ]
+    },
+    {
+      "url": "https://html.spec.whatwg.org/multipage/media.html#dom-media-play",
+      "observed_revision": "Living Standard, last updated 26 October 2026",
+      "facts": [
+        "play returns a promise that may reject",
+        "playing or resolved play alone is not a compositor frame callback",
+        "srcObject supplies the assigned media provider; this observer accepts no source URL"
+      ]
+    }
+  ],
+  "source_kind": "public primary browser interface specifications reviewed; no browser implementation or video file copied",
+  "scope": "interface/source review only; native media decoder and graphical browser execution not performed",
+  "physical_microduck_tested": false
+}

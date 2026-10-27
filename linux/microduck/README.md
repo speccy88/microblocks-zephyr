@@ -32,6 +32,9 @@ A separate [receive-only browser camera core](CAMERA.md) prepares the documented
 GStreamer/WebRTC transport independently of this gateway and BLE. Its tests use
 internal fake signaling, RTC and media tracks only. It exposes no motion RPC or
 live endpoint in the portal and does not establish physical video playback.
+The [viewer follow-up](CAMERA_VIEWER.md) adds frame-callback observation,
+reported-rotation layout and an explicitly fictional standalone lab. Its fake
+callbacks and drawn test card do not execute a native video decoder.
 
 ## Filesystem-only commissioning inspection
 
