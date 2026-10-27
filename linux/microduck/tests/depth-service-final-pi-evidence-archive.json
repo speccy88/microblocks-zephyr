@@ -1,0 +1,19 @@
+{
+  "sha256": "e9c3eeb6f1dfe5db630450c55c343445debb132ae37d7c9a61721b74e9d23a5c",
+  "bytes": 29471,
+  "files": [
+    "pi-depth-service-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ],
+  "remote_directory": "/home/fred/microblocks-depth-final-u96q4mk9"
+}

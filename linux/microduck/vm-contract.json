@@ -1,5 +1,5 @@
 {
-  "contract_version": 9,
+  "contract_version": 10,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -136,6 +136,20 @@
         "normal tofd adapter JSON reply"
       ],
       "returns": "Nine GC-safe typed head fields or bounded snapshot; local_ipc transport-only origin; rejects simulation or claimed physical verification; appended index15"
+    },
+    {
+      "name": "[microduck:depthReading]",
+      "arguments": [
+        "depth capture/zone/metadata JSON reply"
+      ],
+      "returns": "GC-safe snapshot or distance/raw diagnostic/exact metadata record; local_ipc origin only, no hardware claim; appended index16"
+    },
+    {
+      "name": "[microduck:depthRow]",
+      "arguments": [
+        "depth row JSON reply"
+      ],
+      "returns": "Eight GC-safe four-field distance records from one coherent frame row; appended index17; no_target/unusable remain unextractable"
     }
   ],
   "implemented_hooks": [
@@ -211,6 +225,16 @@
       "input_is_simulated": true,
       "physical_and_graphical": false,
       "evidence": "../../evidence/2026-10-27/microduck-head-service/README.md"
+    },
+    "depth_service": {
+      "local_full": 396,
+      "focused": 22,
+      "Pi_selected_each_variant": 185,
+      "Pi_native_cases_each": 49,
+      "skipped": 0,
+      "input_is_simulated": true,
+      "physical_and_graphical": false,
+      "evidence": "../../evidence/2026-10-27/microduck-depth-service/README.md"
     }
   },
   "typed_readings": {
@@ -517,6 +541,48 @@
       "no_fallback": true,
       "source_audit": "head-imu-source.json",
       "validation": "Actual native VM -> normal gateway -> checked tofd reader on local sanitizer and real Pi ordinary/ASan+UBSan;373 local and163 selected tests per Pi build;all input fictional;physical/beta/graphical/shipping unverified"
-    }
+    },
+    "depth": {
+      "methods": [
+        "microduck.depth.capture",
+        "microduck.depth.row",
+        "microduck.depth.zone",
+        "microduck.depth.metadata",
+        "microduck.depth.release"
+      ],
+      "gateway_option": "--depth-config",
+      "config": "private explicit version1/daemon:tofd/path/expected numeric uid; shared tofd config format, no inference",
+      "library": "Depth.ubl",
+      "example": "depth.ubp",
+      "origin": "local_ipc; transport only, never physical identity or verification",
+      "physical_hardware_verified": false,
+      "geometry": [
+        8,
+        8
+      ],
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "zone_fields": {
+        "distance": "mm; positive with status5/9 only",
+        "raw_distance": "mm_raw; reported diagnostic including nonpositive values",
+        "raw_status": "raw_status; diagnostic u8, not range availability"
+      },
+      "metadata": {
+        "seq": "count64 decimal u64",
+        "at_us": "us_sender decimal u64",
+        "t_ns": "ns decimal u64;0 unavailable",
+        "rows": "count",
+        "cols": "count",
+        "sensor": "sensor",
+        "rate": "Hz declared"
+      },
+      "no_mutations": true,
+      "no_fallback": true,
+      "source_audit": "depth-service-source.json",
+      "validation": "Actual VM -> normal gateway -> checked tofd on local sanitizer and real Pi ordinary/ASan+UBSan;396 full local and185 selected per Pi binary; all input fictional; physical/graphical/shipping unverified"
+    },
+    "python_client": "Explicit head IMU and depth wrappers share strict normal-gateway request validation; generic/source/simulation and mutation restrictions remain."
   }
 }

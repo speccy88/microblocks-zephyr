@@ -229,3 +229,8 @@ The explicit read-only head-IMU service adapter/config loader and its Python
 tests are newly authored MIT code. Native origin/decoder additions and the
 separate Head_IMU library/example/editor integration retain MPL-2.0. No Pollen
 daemon or driver implementation is copied; only protocol facts are used.
+
+The coherent read-only depth adapter, private fictional-source fixture and Python
+tests are newly authored MIT code. Native depth decoder/row reuse and the Depth
+library/example/editor integration retain MPL-2.0. Pollen protocol/zone facts are
+referenced; no sensor driver, controller or physical capture is redistributed.

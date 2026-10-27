@@ -1,0 +1,14 @@
+{
+  "returncode": 0,
+  "seconds": 157.82538899999997,
+  "mode": "Full unchanged validator in byte-identical entire repository replica on local Linux filesystem; same verified sanitizer binary and source pin, no deadline/assertion/exclusion/flag changes",
+  "binary_sha256": "8891c0d149964d22ebdcc66e0157e873571c7a9118a257e95ea6838021de43d8",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "source_tree": "5699b1a910c64cf5e6ade8c89e510627383013ad",
+  "replica": "/tmp/depth-validation-ext4-vf8defno/repo",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/tmp/depth-validation-ext4-vf8defno/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/tmp/depth-validation-ext4-vf8defno/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_UPSTREAM": "/tmp/depth-validation-ext4-vf8defno/smallvm"
+  }
+}

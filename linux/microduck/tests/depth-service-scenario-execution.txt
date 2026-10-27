@@ -1,0 +1,1 @@
+{"result": "PASS", "rows": 8, "metadata": 7, "fake_subscriptions": 1, "normal_gateway": true, "robot_RPC": 0, "input_is_simulated": true}

@@ -292,5 +292,18 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn('/Libraries/MicroDuck_Head_IMU.ubl',list(core))
 
 
+    def test_normal_depth_library_and_coherent_readonly_example_are_microduck_only(self):
+        output = self.output.parent / 'depth-service-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output/'gp_wasm.js').read_bytes(),(output/'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Depth.ubl'],(REPO/'linux/microduck/Depth.ubl').read_bytes())
+        self.assertIn(b"'MicroDuck Depth'",files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-depth.ubp'],b'\n'.join((REPO/'linux/microduck'/n).read_bytes() for n in ('depth.ubp','MicroDuck.ubl','Depth.ubl')))
+        core_output = self.output.parent / 'depth-service-core-editor'
+        build(self.source,core_output,REPO,'raspberry-pi5')
+        core = unpack_package((core_output/'gp_wasm.js').read_bytes(),(core_output/'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Depth.ubl',list(core))
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -54,6 +54,12 @@ separate Head_IMU library. local_ipc describes transport only; shipping config
 and physical/beta/graphical acceptance remain open. A labelled fixture command
 exercises this normal path with fictional input and no system/network changes.
 
+The [normal coherent depth adapter](DEPTH_SERVICE.md) adds one8x8 capture, eight
+typed rows/all64 zones, raw diagnostics and seven metadata fields through checked
+tofd IPC. Both head/depth wrappers are admitted by the Python convenience client.
+Depth has a separate library/example and labelled normal-gateway fixture; all
+current acceptance input is fictional and shipping/physical/graphical gates remain.
+
 ## Filesystem-only commissioning inspection
 
 The optional [preflight](PREFLIGHT.md) inspects host and explicitly supplied

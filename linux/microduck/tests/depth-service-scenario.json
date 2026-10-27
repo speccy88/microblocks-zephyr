@@ -1,0 +1,244 @@
+{
+  "result": "PASS",
+  "scope": "Actual x86_64 sanitizer VM bytecode/PTY -> normal Gateway -> checked tof.stream reader -> fixed fictional Unix source",
+  "binary_sha256": "8891c0d149964d22ebdcc66e0157e873571c7a9118a257e95ea6838021de43d8",
+  "input_is_simulated": true,
+  "physical_hardware_verified": false,
+  "physical_movement_enabled": false,
+  "origin": "local_ipc is transport only",
+  "capture": [
+    "ok",
+    "0748a44a1d604b2387db8ff6c918d324",
+    "snapshot",
+    "local_ipc"
+  ],
+  "eight_coherent_rows": {
+    "1": {
+      "first": [
+        "ok",
+        1000,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1007,
+        "mm",
+        "local_ipc"
+      ]
+    },
+    "2": {
+      "first": [
+        "ok",
+        1008,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1015,
+        "mm",
+        "local_ipc"
+      ]
+    },
+    "3": {
+      "first": [
+        "ok",
+        1016,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1023,
+        "mm",
+        "local_ipc"
+      ]
+    },
+    "4": {
+      "first": [
+        "ok",
+        1024,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1031,
+        "mm",
+        "local_ipc"
+      ]
+    },
+    "5": {
+      "first": [
+        "ok",
+        1032,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1039,
+        "mm",
+        "local_ipc"
+      ]
+    },
+    "6": {
+      "first": [
+        "ok",
+        1040,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1047,
+        "mm",
+        "local_ipc"
+      ]
+    },
+    "7": {
+      "first": [
+        "ok",
+        1048,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1055,
+        "mm",
+        "local_ipc"
+      ]
+    },
+    "8": {
+      "first": [
+        "ok",
+        1056,
+        "mm",
+        "local_ipc"
+      ],
+      "last": [
+        "ok",
+        1063,
+        "mm",
+        "local_ipc"
+      ]
+    }
+  },
+  "metadata": {
+    "seq": [
+      "ok",
+      "9223372036854775815",
+      "count64",
+      "local_ipc"
+    ],
+    "at_us": [
+      "ok",
+      "9000001",
+      "us_sender",
+      "local_ipc"
+    ],
+    "t_ns": [
+      "ok",
+      "9000001000",
+      "ns",
+      "local_ipc"
+    ],
+    "rows": [
+      "ok",
+      8,
+      "count",
+      "local_ipc"
+    ],
+    "cols": [
+      "ok",
+      8,
+      "count",
+      "local_ipc"
+    ],
+    "rate": [
+      "ok",
+      15,
+      "Hz",
+      "local_ipc"
+    ],
+    "sensor": [
+      "ok",
+      "SIMULATED-VL53L8CX",
+      "sensor",
+      "local_ipc"
+    ]
+  },
+  "no_target": [
+    "no_target",
+    "",
+    "mm",
+    "local_ipc"
+  ],
+  "unavailable_extraction_denied": true,
+  "raw_status_diagnostic": [
+    "ok",
+    255,
+    "raw_status",
+    "local_ipc"
+  ],
+  "negative_raw_diagnostic": [
+    "ok",
+    -3,
+    "mm_raw",
+    "local_ipc"
+  ],
+  "after_release": [
+    "expired_or_unknown",
+    "",
+    "mm",
+    "local_ipc"
+  ],
+  "source_subscriptions": 1,
+  "robot_upstream_calls": 0,
+  "capabilities": {
+    "gateway_version": 1,
+    "api_version": 44,
+    "upstream_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+    "transport": "unix-peercred",
+    "methods": [
+      "microduck.depth.capture",
+      "microduck.depth.metadata",
+      "microduck.depth.release",
+      "microduck.depth.row",
+      "microduck.depth.zone"
+    ],
+    "read_only_adapters": {
+      "head_imu": {
+        "configured": false,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "tofd",
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 350
+      },
+      "depth": {
+        "configured": true,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "tofd",
+        "rows": 8,
+        "cols": 8,
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 350
+      }
+    },
+    "allowed_mutations": [],
+    "last_upstream_api_versions": {},
+    "limits": {
+      "request_bytes": 8192,
+      "reply_bytes": 65536,
+      "clients": 4
+    },
+    "hardware_validation": "not performed"
+  },
+  "clock": "Fixed for scenario; real lifetime/cancellation and all64 cells tested separately"
+}

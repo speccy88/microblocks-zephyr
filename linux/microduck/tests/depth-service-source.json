@@ -1,0 +1,31 @@
+{
+  "reviewed_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+  "api_version": 45,
+  "production_API44_pin_changed": false,
+  "files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "9461021bde3a029646095fac1f3a9aa241ad772a326446b2dcde3153e9458d57",
+      "bytes": 338701,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/duck-ipc-proto/src/lib.rs"
+    },
+    "tof/src/main.rs": {
+      "sha256": "99e8721bf262e134142723f6333b62a16472cda96cdb385cdef6f4e31d0622ce",
+      "bytes": 50433,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/tof/src/main.rs"
+    },
+    "tof/src/lib.rs": {
+      "sha256": "d9cce1cc0df5f33b2da523260ba5fcc74b80035173ccc23ead9866d4faaa2a18",
+      "bytes": 7140,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/tof/src/lib.rs"
+    }
+  },
+  "facts": [
+    "tof.stream first request, no hello; result followed by tof.frame",
+    "8x8 parallel row-major distance_mm i16 and status u8; ragged frames rejected by adapter",
+    "Status5/9 plus positive distance is range;255 no_target; other/nonpositive unusable",
+    "seq frames since daemon start, at_us sender uptime microseconds; t_ns CLOCK_MONOTONIC ns and0 legacy/unavailable",
+    "Declared Hz is not measured; sensor identifier is not physical attestation",
+    "Raw diagnostics are known reported values even when no usable range; no safety/calibration or clear-path inference"
+  ],
+  "physical_hardware_tested": false
+}

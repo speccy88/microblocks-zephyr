@@ -1,0 +1,10 @@
+{
+  "outcome": "Replica setup failed before any tests; completed, not denied or uncertain",
+  "operation": "WSL git clone from Windows worktree",
+  "reason": "The Windows gitdir path C:/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/.git/worktrees/microblocks-zephyr-integration-20261027 was interpreted relative to the WSL source path, so Git reported not a repository",
+  "recovery": "Windows Git created a verified local base bundle; Linux cloned it and overlaid hash-verified current files",
+  "source_git_or_security_settings_changed": false,
+  "base": "ef080f147acac2f81452e732c3293f9aba2eb155",
+  "bundle_sha256": "9adbfd3be44d951ecd59af3fb4221d345d9fafd652a17b21bbbf50a29c20bd8c",
+  "final_replica_file_count": 1922
+}

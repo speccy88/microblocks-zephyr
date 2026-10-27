@@ -1,0 +1,24 @@
+import datetime,hashlib,json,os,pathlib,platform,pwd,re,socket,struct,subprocess,sys,time
+r=pathlib.Path(__file__).resolve().parent;prior=pathlib.Path('/home/fred/microblocks-depth-service-e2hdk3dq')
+assert platform.machine()=='aarch64' and socket.gethostname()=='RPI5' and pwd.getpwuid(os.geteuid()).pw_name=='fred'
+kit=json.loads((r/'kit-manifest.json').read_text());initial=json.loads((prior/'pi-depth-service-validation.json').read_text());assert initial['result']=='PASS'
+for name,v in kit['files'].items():
+ p=r/name;assert p.is_file() and not p.is_symlink();raw=p.read_bytes();assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256'],name
+summary={'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'hostname':socket.gethostname(),'user':'fred','machine':platform.machine(),'kernel':platform.release(),'source_commit':'2071df569623ba9cdcd6f8106b61796e047df38b','kit_file_count':len(kit['files']),'physical_robot_data':False,'physical_movement_enabled':False,'numeric_acceptance_suite_invoked':False,'service_or_security_changes':False,'mode':'Current tests with isolated coherence clock; earlier real Pi binaries reused only after complete prepared-source/flag/hash equivalence checks','initial_build_directory':str(prior),'variants':{}}
+for variant in ('native','native-plain'):
+ source=json.loads((r/variant/'source-manifest.json').read_text());old=json.loads((prior/variant/'source-manifest.json').read_text());built=json.loads((prior/variant/'build-manifest.json').read_text())
+ assert source['source_commit']==old['source_commit']==summary['source_commit'] and source['sanitize']==old['sanitize']==built['sanitize']
+ prepared={k:v['prepared_sha256'] for k,v in source['sources'].items()};assert prepared=={k:v['prepared_sha256'] for k,v in old['sources'].items()}
+ for name,digest in prepared.items():assert hashlib.sha256((r/variant/name).read_bytes()).hexdigest()==digest,name
+ assert (r/variant/'build.sh').read_bytes()==(prior/variant/'build.sh').read_bytes()
+ binary=prior/variant/'smallvm';raw=binary.read_bytes();digest=hashlib.sha256(raw).hexdigest();assert digest==initial['variants'][variant]['binary_sha256']==built['binary_sha256'];assert raw[:6]==b'\x7fELF\x02\x01' and struct.unpack_from('<H',raw,18)[0]==183
+ selftest=subprocess.run([str(binary),'--self-test'],capture_output=True,text=True,timeout=30);assert selftest.returncode==0
+ (r/(variant+'-self-test.txt')).write_text(selftest.stdout+selftest.stderr);(r/(variant+'-build.txt')).write_bytes((prior/(variant+'-build.txt')).read_bytes())
+ built.update(build_reused_for_identical_sources=True,original_build_directory=str(prior/variant),current_prepared_source_equivalence=True);(r/variant/'build-manifest.json').write_text(json.dumps(built,indent=2)+'\n')
+ env=os.environ.copy();env['SMALLVM_MICRODUCK_BINARY']=str(binary);env['PYTHONPATH']=str(r/'tests')
+ command=[sys.executable,'-m','unittest','test_linux_microduck_snapshots','test_linux_microduck_sensors','test_linux_microduck_motion','test_linux_microduck_robot','test_linux_microduck_media','test_linux_microduck_pad_imu','test_linux_microduck_head_imu','test_linux_microduck_head_service','test_linux_microduck_depth_service','-v']
+ print('Testing current fixture with source-identical verified real Pi '+variant+' binary',flush=True);start=time.monotonic();p=subprocess.run(command,cwd=r,env=env,capture_output=True,text=True,timeout=180);output=p.stdout+p.stderr;(r/(variant+'-tests.txt')).write_text(output)
+ count=re.search(r'Ran (\d+) tests in ([\d.]+)s',output);value={'result':'PASS' if p.returncode==0 else 'FAIL','tests':int(count.group(1)) if count else None,'test_seconds':float(count.group(2)) if count else None,'elapsed_seconds':time.monotonic()-start,'binary_sha256':digest,'binary_path':str(binary),'elf_machine':183,'sanitize':source['sanitize'],'self_test':'PASS','build_seconds':initial['variants'][variant]['build_seconds'],'build_reused_for_identical_sources':True,'source_and_build_flags_identical':True,'skipped':0 if 'skipped=' not in output and '... skipped' not in output else 'present','command':command}
+ summary['variants'][variant]=value;(r/'pi-depth-service-validation.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps({variant:value}),flush=True)
+ if p.returncode or value['tests']!=185 or value['skipped']!=0:print(output[-5000:],flush=True);raise SystemExit(1)
+summary.update(result='PASS',finished_utc=datetime.datetime.now(datetime.timezone.utc).isoformat());(r/'pi-depth-service-validation.json').write_text(json.dumps(summary,indent=2)+'\n');print('Both final real Pi test suites PASS with verified identical compiled sources; no compiler or deadline change',flush=True)

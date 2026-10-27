@@ -90,9 +90,9 @@ The source socket owner, parent permissions, inode and SO_PEERCRED are checked
 before sending. This is still not daemon attestation, calibrated data, freshness
 or permission to move. Missing adapter config yields an explicit error. The
 gateway capabilities report adapter configuration and read-only limits.
-SmallVM talks directly to this gateway. The separate Python convenience client's
-legacy allowlist has not gained these adapter names in this checkpoint; use the
-native blocks/fixture path described above.
+SmallVM talks directly to this gateway. The later depth-adapter checkpoint also
+adds strict head/depth wrapper validation to the Python convenience client;
+source RPC and simulation-only names remain outside that client allowlist.
 
 Protocol/units remain those in [the pinned source audit](tests/head-imu-source.json)
 and [head IMU specification](HEAD_IMU_SIMULATION.md). Beta frame mapping and actual
