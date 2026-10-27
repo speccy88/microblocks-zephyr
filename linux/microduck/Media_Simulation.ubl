@@ -1,0 +1,60 @@
+module 'MicroDuck Media Simulation' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Requires MicroDuck and media_simulator.py. No live endpoint, account login, audio capture/playback, footage, camera destination or actual robot action. Audio readings are unsupported because the reviewed mediad interface supplies no audio track API. Relay reads use internal fake source-shaped peer/rpc envelopes; RemoteStatus uses an internal fixture of the local runtime-file contract. Registered is not a fresh connection or motion authority. Readings are [status,value,unit,origin]; unavailable/error/timeout/rate-limited/unsupported results have no value. Counters and signed Unix-second timestamps are exact decimal strings. Geometry is metadata, not decoded pixels. Discrete relay previews need backend --allow-relay-previews plus confirmation true; defaults false. They only record, with admission/applied unknown. Continuous intents, held wheee, subscriptions, stream start/stop and secrets are refused.32 attempts/minute and128 per process; no reconnect/replay. Graphical blocks, physical audio/robot and real HTTP/SSE authentication are unverified.'
+spec 'r' 'microduckSimMediaAudioReceive' 'SIMULATION mediad audio receive support reading'
+spec 'r' 'microduckSimMediaAudioSend' 'SIMULATION mediad audio send support reading'
+spec 'r' 'microduckSimRelayState' 'SIMULATION relay registration state reading'
+spec 'r' 'microduckSimRelaySince' 'SIMULATION relay state since (Unix s) reading'
+spec 'r' 'microduckSimRelayHeartbeat' 'SIMULATION relay last heartbeat (Unix s) reading'
+spec 'r' 'microduckSimRelayAccountKnown' 'SIMULATION relay account disclosed reading'
+spec 'r' 'microduckSimMediaWidth' 'SIMULATION video width (pixels) reading'
+spec 'r' 'microduckSimMediaHeight' 'SIMULATION video height (pixels) reading'
+spec 'r' 'microduckSimMediaRotation' 'SIMULATION video mount rotation (degrees) reading'
+spec 'r' 'microduckSimMediaStreaming' 'SIMULATION frame stream requested reading'
+spec 'r' 'microduckSimMediaConnected' 'SIMULATION frame stream connected reading'
+spec 'r' 'microduckSimMediaSent' 'SIMULATION frame stream sent count reading'
+spec 'r' 'microduckSimRelayRobotHealthy' 'SIMULATION robot reported healthy via relay reading'
+spec 'r' 'microduckSimRelayRobotEnabled' 'SIMULATION robot reported policy enabled via relay reading'
+spec 'r' 'microduckSimRelayStop' 'SIMULATION relay preview zero velocity confirmed _' 'bool' false
+spec 'r' 'microduckSimRelayInit' 'SIMULATION relay preview power joints and home confirmed _' 'bool' false
+spec 'r' 'microduckSimRelayRelax' 'SIMULATION relay preview cut torque confirmed _' 'bool' false
+spec 'r' 'microduckSimRelayEnable' 'SIMULATION relay preview policy on _ toggle _ confirmed _' 'bool bool bool' false false false
+spec 'r' 'microduckSimRelayDo' 'SIMULATION relay preview skill _ confirmed _' 'str bool' 'simulation_bow' false
+spec 'r' 'microduckSimRelaySound' 'SIMULATION relay preview sound _ confirmed _' 'str bool' 'chirp' false
+spec 'r' 'microduckSimRelayLoadPolicy' 'SIMULATION relay preview slot _ path _ confirmed _' 'str str bool' 'walk' '/SIMULATION/walk.onnx' false
+spec 'r' 'microduckSimRelayClearPolicy' 'SIMULATION relay preview clear slot _ override confirmed _' 'str bool' 'walk' false
+spec 'r' 'microduckSimRelayClearAllPolicies' 'SIMULATION relay preview clear all overrides confirmed _' 'bool' false
+spec 'r' 'microduckSimRelaySetMode' 'SIMULATION relay preview mode _ confirmed _' 'str bool' 'walk' false
+spec 'r' 'microduckSimRelayLook' 'SIMULATION relay preview look x _ y _ z _ mm neck _ mrad confirmed _' 'num num num num bool' 0 0 250 0 false
+advanced
+spec 'r' 'microduckSimMediaReading' 'SIMULATION media field _ reading' 'str' 'relay.state'
+
+to microduckSimMediaReading field { return ('[microduck:mediaSample]' (microduckRequest 'microduck.mediaSim.reading' ('[data:join]' '{"field":' ('[microduck:quote]' field) '}') false)) }
+to microduckSimMediaAudioReceive { return (microduckSimMediaReading 'audio.receive') }
+to microduckSimMediaAudioSend { return (microduckSimMediaReading 'audio.send') }
+to microduckSimRelayState { return (microduckSimMediaReading 'relay.state') }
+to microduckSimRelaySince { return (microduckSimMediaReading 'relay.since') }
+to microduckSimRelayHeartbeat { return (microduckSimMediaReading 'relay.heartbeat') }
+to microduckSimRelayAccountKnown { return (microduckSimMediaReading 'relay.account_known') }
+to microduckSimMediaWidth { return (microduckSimMediaReading 'video.width') }
+to microduckSimMediaHeight { return (microduckSimMediaReading 'video.height') }
+to microduckSimMediaRotation { return (microduckSimMediaReading 'video.rotate') }
+to microduckSimMediaStreaming { return (microduckSimMediaReading 'stream.streaming') }
+to microduckSimMediaConnected { return (microduckSimMediaReading 'stream.connected') }
+to microduckSimMediaSent { return (microduckSimMediaReading 'stream.sent') }
+to microduckSimRelayRobotHealthy { return (microduckSimMediaReading 'robot.healthy') }
+to microduckSimRelayRobotEnabled { return (microduckSimMediaReading 'robot.enabled') }
+
+to microduckSimRelayPreview method args confirmed { return (microduckRequest 'microduck.mediaSim.preview' ('[data:join]' '{"method":' ('[microduck:quote]' method) ',"args":' args '}') confirmed) }
+to microduckSimRelayStop confirmed { return (microduckSimRelayPreview 'robot.stop' '{}' confirmed) }
+to microduckSimRelayInit confirmed { return (microduckSimRelayPreview 'robot.init' '{}' confirmed) }
+to microduckSimRelayRelax confirmed { return (microduckSimRelayPreview 'robot.relax' '{}' confirmed) }
+to microduckSimRelayEnable on toggle confirmed { return (microduckSimRelayPreview 'robot.enable' ('[data:join]' '{"on":' on ',"toggle":' toggle '}') confirmed) }
+to microduckSimRelayDo skill confirmed { return (microduckSimRelayPreview 'robot.do' ('[data:join]' '{"skill":' ('[microduck:quote]' skill) '}') confirmed) }
+to microduckSimRelaySound tag confirmed { return (microduckSimRelayPreview 'robot.sound' ('[data:join]' '{"tag":' ('[microduck:quote]' tag) ',"hold":null}') confirmed) }
+to microduckSimRelayLoadPolicy slot path confirmed { return (microduckSimRelayPreview 'robot.loadPolicy' ('[data:join]' '{"slot":' ('[microduck:quote]' slot) ',"path":' ('[microduck:quote]' path) '}') confirmed) }
+to microduckSimRelayClearPolicy slot confirmed { return (microduckSimRelayPreview 'robot.loadPolicy' ('[data:join]' '{"slot":' ('[microduck:quote]' slot) ',"path":null}') confirmed) }
+to microduckSimRelayClearAllPolicies confirmed { return (microduckSimRelayPreview 'robot.loadPolicy' '{"slot":null,"path":null}' confirmed) }
+to microduckSimRelaySetMode mode confirmed { return (microduckSimRelayPreview 'robot.setMode' ('[data:join]' '{"mode":' ('[microduck:quote]' mode) '}') confirmed) }
+to microduckSimRelayLook x y z neck confirmed { return (microduckSimRelayPreview 'robot.look' ('[data:join]' '{"x_mm":' x ',"y_mm":' y ',"z_mm":' z ',"neck_pitch_mrad":' neck '}') confirmed) }

@@ -132,3 +132,13 @@ native VM cases per variant. The separate243-test Node run predates the final
 telemetry-default correction; no browser source changed afterward. These local
 results are [recorded separately](../evidence/2026-10-27/microduck-robot-api/README.md)
 from hosted CI, graphical block compilation and physical MicroDuck acceptance.
+
+The mediad follow-up adds MediaProtocol, MediaUnixBackend and MediaNativeAdapter.
+Its18 cases cover17 typed fields, nine discrete packet families, unsupported
+audio, exact clocks/counters, session/ID errors, rate/cancellation/startup cleanup
+and six actual native VM cases. Final local discovery passes311 tests in185.907s;
+ordinary and ASan/UBSan real Pi builds pass104 selected fake-service tests each,
+including25 native cases, with zero skips. The
+[receipt](../evidence/2026-10-27/microduck-media/README.md) preserves the earlier
+scenario failure and precise status correction. These tests do not exercise a
+live HTTP/SSE service, account credential, audio device or physical robot.

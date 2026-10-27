@@ -1,0 +1,19 @@
+{
+  "archive": "/home/fred/microblocks-media-lab-umw2b5km/evidence.tar.gz",
+  "sha256": "24b4802ffcce85c700a8fa435756455fc08999c7a9bc082b942f547355d1b10b",
+  "bytes": 24141,
+  "files": [
+    "pi-media-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ]
+}

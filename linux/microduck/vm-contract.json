@@ -1,5 +1,5 @@
 {
-  "contract_version": 5,
+  "contract_version": 6,
   "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
@@ -108,6 +108,13 @@
         "scalar telemetry JSON reply string"
       ],
       "returns": "GC-safe four-field simulation record; signed31 fixed units, Boolean and exact u64 decimal strings; no value for unavailable/error"
+    },
+    {
+      "name": "[microduck:mediaSample]",
+      "arguments": [
+        "media reading JSON reply string"
+      ],
+      "returns": "GC-safe four-field simulation record; explicit unsupported/unavailable/error, exact signed64 epoch and u64 counter strings; no audio or live relay"
     }
   ],
   "implemented_hooks": [
@@ -144,6 +151,16 @@
       "physical_microduck": false,
       "graphical_UBL": false,
       "evidence": "../../evidence/2026-10-27/microduck-robot-api/README.md"
+    },
+    "media_lab": {
+      "local_full": 311,
+      "focused": 18,
+      "Pi_selected_each_variant": 104,
+      "Pi_native_cases_each": 25,
+      "skipped": 0,
+      "physical_MicroDuck": false,
+      "live_HTTP_SSE": false,
+      "evidence": "../../evidence/2026-10-27/microduck-media/README.md"
     }
   },
   "typed_readings": {
@@ -200,13 +217,18 @@
         "microduck.robotSim.reading",
         "microduck.robotSim.release",
         "microduck.robotSim.model"
+      ],
+      "media": [
+        "microduck.mediaSim.reading",
+        "microduck.mediaSim.preview"
       ]
     },
     "libraries": [
       "Motion_Simulation.ubl",
       "Sensor_Simulation.ubl",
       "Robot_Simulation.ubl",
-      "Robot_Telemetry.ubl"
+      "Robot_Telemetry.ubl",
+      "Media_Simulation.ubl"
     ],
     "scope": "dedicated private simulation backends only; ordinary gateway rejects these local names",
     "physical_movement_enabled": false,
@@ -259,6 +281,36 @@
         "policy"
       ],
       "source_default_provenance": "Only omitted move.limited_by count is schema-default0 with origin sim_default; explicit empty has origin simulation; absent indexed reason is not_reported"
+    },
+    "media": {
+      "source_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+      "audio": "unsupported by reviewed mediad interface; no invented audio RPC",
+      "relay": "internal fake peer/sessionId/rpc envelopes; no live HTTP, SSE, OAuth or endpoint",
+      "attempts_per_rolling_60s": 32,
+      "lifetime_attempts": 128,
+      "deadline_ms": 500,
+      "continuous_intents": false,
+      "previews": "separate backend opt-in and confirmation; discrete source packets recorded, never forwarded",
+      "current_revision_tested": "Actual local x86_64 sanitizer and real Pi ordinary/ASan+UBSan VM/PTY/GC with internal fake services;311 local and104 selected tests per Pi variant; graphical/live/physical unverified",
+      "fields": {
+        "audio.receive": "boolean",
+        "audio.send": "boolean",
+        "relay.state": "state",
+        "relay.since": "epoch_s",
+        "relay.heartbeat": "epoch_s",
+        "relay.account_known": "boolean",
+        "video.width": "px",
+        "video.height": "px",
+        "video.rotate": "degrees",
+        "stream.streaming": "boolean",
+        "stream.connected": "boolean",
+        "stream.sent": "count64",
+        "stream.dropped": "count64",
+        "stream.replies": "count64",
+        "stream.reconnects": "count64",
+        "robot.healthy": "boolean",
+        "robot.enabled": "boolean"
+      }
     }
   }
 }

@@ -186,7 +186,7 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
@@ -216,7 +216,9 @@ static const Method methods[] = {
     {"microduck.robotSim.capture",PARAM_TELEMETRY_CAPTURE,0},
     {"microduck.robotSim.reading",PARAM_TELEMETRY_READ,0},
     {"microduck.robotSim.release",PARAM_SNAPSHOT_HANDLE,0},
-    {"microduck.robotSim.model",PARAM_EMPTY,0}
+    {"microduck.robotSim.model",PARAM_EMPTY,0},
+    {"microduck.mediaSim.reading",PARAM_MEDIA_READING,0},
+    {"microduck.mediaSim.preview",PARAM_RELAY_PREVIEW,1}
 };
 static int snapshotHandle(yyjson_val *value) {
     if (!boundedText(value,32) || yyjson_get_len(value)!=32) return 0;
@@ -283,6 +285,28 @@ static const Method *findMethod(const char *name) {
     for (size_t i = 0; i < sizeof(methods) / sizeof(methods[0]); ++i) if (!strcmp(name, methods[i].name)) return &methods[i];
     return NULL;
 }
+typedef struct { const char *name,*unit; int type; } MediaField;
+enum { MEDIA_BOOLEAN,MEDIA_PIXELS,MEDIA_COUNTER,MEDIA_EPOCH,MEDIA_STATE,MEDIA_ROTATION,MEDIA_AUDIO };
+static const MediaField mediaFields[]={
+    {"audio.receive","boolean",MEDIA_AUDIO},{"audio.send","boolean",MEDIA_AUDIO},
+    {"relay.state","state",MEDIA_STATE},{"relay.since","epoch_s",MEDIA_EPOCH},
+    {"relay.heartbeat","epoch_s",MEDIA_EPOCH},{"relay.account_known","boolean",MEDIA_BOOLEAN},
+    {"video.width","px",MEDIA_PIXELS},{"video.height","px",MEDIA_PIXELS},{"video.rotate","degrees",MEDIA_ROTATION},
+    {"stream.streaming","boolean",MEDIA_BOOLEAN},{"stream.connected","boolean",MEDIA_BOOLEAN},
+    {"stream.sent","count64",MEDIA_COUNTER},{"stream.dropped","count64",MEDIA_COUNTER},
+    {"stream.replies","count64",MEDIA_COUNTER},{"stream.reconnects","count64",MEDIA_COUNTER},
+    {"robot.healthy","boolean",MEDIA_BOOLEAN},{"robot.enabled","boolean",MEDIA_BOOLEAN}
+};
+static const MediaField *findMediaField(yyjson_val *value) {
+    for (size_t i=0;i<sizeof(mediaFields)/sizeof(mediaFields[0]);++i) if (equalText(value,mediaFields[i].name)) return &mediaFields[i];
+    return NULL;
+}
+static int validRelayPreview(yyjson_val *params) {
+    if (!validRobotPreview(params)) return 0;
+    yyjson_val *method=yyjson_obj_get(params,"method"),*args=yyjson_obj_get(params,"args");
+    return !(equalText(method,"robot.move") || equalText(method,"robot.head") || equalText(method,"robot.pose") || equalText(method,"robot.mouth")
+        || (equalText(method,"robot.sound") && equalText(yyjson_obj_get(args,"tag"),"wheee")));
+}
 static int validParams(const Method *method, yyjson_val *params) {
     const char *keys[4]; size_t count = 0;
     switch (method->params) {
@@ -305,6 +329,8 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_ROBOT_PREVIEW: keys[count++]="method"; keys[count++]="args"; break;
         case PARAM_TELEMETRY_CAPTURE: keys[count++]="hz"; break;
         case PARAM_TELEMETRY_READ: keys[count++]="handle"; keys[count++]="field"; keys[count++]="index"; keys[count++]="component"; break;
+        case PARAM_MEDIA_READING: keys[count++]="field"; break;
+        case PARAM_RELAY_PREVIEW: keys[count++]="method"; keys[count++]="args"; break;
     }
     if (!objectKeys(params, keys, count)) return 0;
     yyjson_val *value;
@@ -355,6 +381,8 @@ static int validParams(const Method *method, yyjson_val *params) {
             const TelemetryField *field=findTelemetryField(yyjson_obj_get(params,"field"));
             return snapshotHandle(yyjson_obj_get(params,"handle")) && field && integerBetween(yyjson_obj_get(params,"index"),1,field->indices) && integerBetween(yyjson_obj_get(params,"component"),1,field->components);
         }
+        case PARAM_MEDIA_READING: return yyjson_obj_size(params)==1 && findMediaField(yyjson_obj_get(params,"field"));
+        case PARAM_RELAY_PREVIEW: return yyjson_obj_size(params)==2 && validRelayPreview(params);
     }
     return 0;
 }
@@ -707,7 +735,7 @@ static yyjson_val *sensorResult(yyjson_val *root,HealthReading *reading) {
     reading->origin="simulation";
     yyjson_val *status=yyjson_obj_get(value,"status");
     if (equalText(status,"ok")) return value;
-    const char *states[]={"waiting","timeout","absent","refused","detached","dropped","unobserved","unsupported","no_event","event_limit","no_target","unusable","busy","expired_or_unknown","wrong_kind","not_reported","out_of_range"};
+    const char *states[]={"waiting","timeout","absent","refused","detached","dropped","unobserved","unsupported","no_event","event_limit","no_target","unusable","busy","expired_or_unknown","wrong_kind","not_reported","out_of_range","rate_limited","error"};
     for (size_t i=0;i<sizeof(states)/sizeof(states[0]);++i) if (equalText(status,states[i])) { reading->status=states[i]; return value; }
     return NULL;
 }
@@ -841,10 +869,54 @@ static OBJ telemetrySamplePrimitive(int argc,OBJ *args) {
     }
     yyjson_doc_free(doc);return readingRecord(&reading);
 }
+static int epochDecimal(yyjson_val *value) {
+    if (!yyjson_is_str(value)) return 0;
+    const char *s=yyjson_get_str(value);size_t n=yyjson_get_len(value),start=n && s[0]=='-'?1u:0u;
+    if (n<=start || n>20 || (n-start>1 && s[start]=='0') || (start && s[start]=='0')) return 0;
+    uint64_t limit=start?UINT64_C(9223372036854775808):UINT64_C(9223372036854775807),number=0;
+    for (size_t i=start;i<n;++i) {
+        if (s[i]<'0' || s[i]>'9') return 0;
+        unsigned digit=(unsigned)(s[i]-'0');if (number>(limit-digit)/10u) return 0;
+        number=number*10u+digit;
+    }
+    return 1;
+}
+static OBJ mediaSamplePrimitive(int argc,OBJ *args) {
+    if (argc!=1) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u],text[21];size_t length;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
+    yyjson_doc *doc=parseJSON(reply,length);if (!doc) return fail(argIndexOutOfRange);
+    HealthReading reading={.status="invalid",.text="",.unit="",.origin="unmarked"};
+    yyjson_val *result=sensorResult(yyjson_doc_get_root(doc),&reading),*value=yyjson_obj_get(result,"value");
+    const MediaField *field=findMediaField(yyjson_obj_get(result,"field"));
+    if (result && field && equalText(yyjson_obj_get(result,"kind"),"media_reading") && equalText(yyjson_obj_get(result,"unit"),field->unit)) {
+        reading.unit=field->unit;
+        if (equalText(yyjson_obj_get(result,"status"),"ok")) {
+            if (field->type==MEDIA_BOOLEAN && yyjson_is_bool(value)) { reading.isBoolean=1;reading.boolean=yyjson_get_bool(value);reading.status="ok"; }
+            else if (field->type==MEDIA_PIXELS || field->type==MEDIA_ROTATION) {
+                if (integerBetween(value,field->type==MEDIA_PIXELS?1:0,1073741823)
+                    && (field->type!=MEDIA_ROTATION || integerBetween(value,0,0) || integerBetween(value,90,90) || integerBetween(value,180,180) || integerBetween(value,270,270))) {
+                    reading.number=(int)yyjson_get_sint(value);reading.status="ok";
+                }
+            } else if (field->type==MEDIA_COUNTER || field->type==MEDIA_EPOCH) {
+                uint64_t number;
+                if ((field->type==MEDIA_COUNTER && decimalCounter(value,&number)) || (field->type==MEDIA_EPOCH && epochDecimal(value))) {
+                    size_t n=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),n);text[n]='\0';reading.text=text;reading.isText=1;reading.status="ok";
+                }
+            } else if (field->type==MEDIA_STATE) {
+                const char *states[]={"signed_out","connecting","registered","refused","retrying"};
+                for (size_t i=0;i<5;++i) if (equalText(value,states[i])) { reading.text=states[i];reading.isText=1;reading.status="ok"; }
+            }
+        }
+    } else if (result) reading.status="invalid";
+    yyjson_doc_free(doc);return readingRecord(&reading);
+}
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
     {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
     {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive},
-    {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive}
+    {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive},
+    {"mediaSample",mediaSamplePrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

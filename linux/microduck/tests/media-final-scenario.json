@@ -1,0 +1,268 @@
+{
+  "result": "PASS",
+  "scope": "Actual x86_64 sanitizer VM bytecode, PTY and private Unix gateway; RPC relay/SSE messages are internal fakes only",
+  "binary_sha256": "102880a461e2286a47e79542112593fa626ec25a3bdcfc60f6dcb0937a4c16d8",
+  "physical_movement_enabled": false,
+  "live_transport": false,
+  "audio_capture_playback": false,
+  "typed_readings": {
+    "audio.receive": [
+      "unsupported",
+      "",
+      "boolean",
+      "simulation"
+    ],
+    "audio.send": [
+      "unsupported",
+      "",
+      "boolean",
+      "simulation"
+    ],
+    "relay.state": [
+      "ok",
+      "registered",
+      "state",
+      "simulation"
+    ],
+    "relay.since": [
+      "ok",
+      "1793120000",
+      "epoch_s",
+      "simulation"
+    ],
+    "relay.heartbeat": [
+      "ok",
+      "1793120005",
+      "epoch_s",
+      "simulation"
+    ],
+    "relay.account_known": [
+      "ok",
+      false,
+      "boolean",
+      "simulation"
+    ],
+    "video.width": [
+      "ok",
+      640,
+      "px",
+      "simulation"
+    ],
+    "video.height": [
+      "ok",
+      480,
+      "px",
+      "simulation"
+    ],
+    "video.rotate": [
+      "ok",
+      180,
+      "degrees",
+      "simulation"
+    ],
+    "stream.streaming": [
+      "ok",
+      false,
+      "boolean",
+      "simulation"
+    ],
+    "stream.connected": [
+      "ok",
+      false,
+      "boolean",
+      "simulation"
+    ],
+    "stream.sent": [
+      "ok",
+      "0",
+      "count64",
+      "simulation"
+    ],
+    "stream.dropped": [
+      "ok",
+      "0",
+      "count64",
+      "simulation"
+    ],
+    "stream.replies": [
+      "ok",
+      "9223372036854775825",
+      "count64",
+      "simulation"
+    ],
+    "stream.reconnects": [
+      "ok",
+      "0",
+      "count64",
+      "simulation"
+    ],
+    "robot.healthy": [
+      "ok",
+      false,
+      "boolean",
+      "simulation"
+    ],
+    "robot.enabled": [
+      "ok",
+      false,
+      "boolean",
+      "simulation"
+    ]
+  },
+  "preview_receipt": {
+    "simulation": true,
+    "physical_movement_enabled": false,
+    "kind": "relay_preview",
+    "status": "recorded_not_executed",
+    "record_sequence": 1,
+    "source_method": "robot.init",
+    "notification": false,
+    "admission": null,
+    "applied": null,
+    "recorded": true
+  },
+  "preview_envelopes": [
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "method": "robot.init",
+        "params": {},
+        "id": 12
+      }
+    }
+  ],
+  "read_only_relay_envelopes": [
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "media.video",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "method": "media.video",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "method": "media.video",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "method": "media.stream",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 5,
+        "method": "media.stream",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 6,
+        "method": "media.stream",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 7,
+        "method": "media.stream",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 8,
+        "method": "media.stream",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 9,
+        "method": "media.stream",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 10,
+        "method": "robot.health",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 11,
+        "method": "robot.policies",
+        "params": {}
+      }
+    },
+    {
+      "type": "peer",
+      "sessionId": "SIMULATION_media_session",
+      "rpc": {
+        "jsonrpc": "2.0",
+        "id": 13,
+        "method": "media.video",
+        "params": {}
+      }
+    }
+  ],
+  "upstream_calls": 0,
+  "wrong_session_reading": [
+    "error",
+    "",
+    "px",
+    "simulation"
+  ],
+  "unconfirmed_preview_denied_before_io": true,
+  "continuous_move_denied_before_io": true,
+  "unknown_or_unsupported_value_extraction_denied": true
+}

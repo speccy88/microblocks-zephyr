@@ -208,3 +208,8 @@ reader and tests are newly authored MIT code. Native validators/typed decoder,
 separate Robot Simulation/Telemetry libraries and example retain MPL-2.0.
 Only interface facts are used; no Pollen controller, policy/ONNX weights, IK,
 kinematics, safety implementation or actual robot capture is redistributed.
+
+The mediad/relay simulation backend and its Python tests are newly authored MIT
+code. Native media reading/guard additions, UBL/example and GP packaging retain
+MPL-2.0. Only source protocol facts are used; no Pollen relay, audio codec or media
+implementation, account credential or captured media is redistributed.

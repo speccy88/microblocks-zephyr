@@ -1,0 +1,254 @@
+{
+  "linux/microduck/tests/pi5-media-initial-pi-media-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\pi-media-validation.json",
+    "raw_sha256": "a86ac5485d2372d71f337d5aaa134c93e9155bdb8b4a245df4f9baed657d9649",
+    "retained_sha256": "a86ac5485d2372d71f337d5aaa134c93e9155bdb8b4a245df4f9baed657d9649",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\kit-manifest.json",
+    "raw_sha256": "807d4d2713eb3bf85660406c926b54b6a9ba57b3b30bf29e2308610779efe984",
+    "retained_sha256": "807d4d2713eb3bf85660406c926b54b6a9ba57b3b30bf29e2308610779efe984",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-tests.txt",
+    "raw_sha256": "8d3466be1eab19911c970bceef1db046f4a2aaca60ad8b610672d3f7e2a1aa5f",
+    "retained_sha256": "8d3466be1eab19911c970bceef1db046f4a2aaca60ad8b610672d3f7e2a1aa5f",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native\\build-manifest.json",
+    "raw_sha256": "bcfc873431b59b7dab387680262d1e9f5e4be1ab2768c6f40a76a8b0de2ca2d6",
+    "retained_sha256": "bcfc873431b59b7dab387680262d1e9f5e4be1ab2768c6f40a76a8b0de2ca2d6",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native\\source-manifest.json",
+    "raw_sha256": "fe7ba1d227600a61b77beddb757bd65b63d866f4d76ffcaa682b96b38c42faee",
+    "retained_sha256": "fe7ba1d227600a61b77beddb757bd65b63d866f4d76ffcaa682b96b38c42faee",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-plain-build.txt",
+    "raw_sha256": "0271e28659681358e3af9f4fb625596212fb3d6b2c19d3173c0a3f5f9000b5ff",
+    "retained_sha256": "0271e28659681358e3af9f4fb625596212fb3d6b2c19d3173c0a3f5f9000b5ff",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-plain-tests.txt",
+    "raw_sha256": "6fbf2242d3db75905d794df25e68db93c4622d3375f5eb251e27fd03eb9f45b9",
+    "retained_sha256": "6fbf2242d3db75905d794df25e68db93c4622d3375f5eb251e27fd03eb9f45b9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "147b7d73456c7dd9e0631a520c7ba4b793b787da84d278701c8b8115c56e509f",
+    "retained_sha256": "147b7d73456c7dd9e0631a520c7ba4b793b787da84d278701c8b8115c56e509f",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-initial-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-initial-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "0325359ee39cc23f69ea4abbedfd02ce02de88af1470f6907f13cc85f1854901",
+    "retained_sha256": "0325359ee39cc23f69ea4abbedfd02ce02de88af1470f6907f13cc85f1854901",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-pi-media-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\pi-media-validation.json",
+    "raw_sha256": "98ec4620ccaa2c861dea35db74e82d419e8ab287b4fab37ef54cf3d33487be01",
+    "retained_sha256": "98ec4620ccaa2c861dea35db74e82d419e8ab287b4fab37ef54cf3d33487be01",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\kit-manifest.json",
+    "raw_sha256": "07d26cd274367d6597175fde38b06e2e4b44f13c6cf0b2aa6d5b6bdb7041b4eb",
+    "retained_sha256": "07d26cd274367d6597175fde38b06e2e4b44f13c6cf0b2aa6d5b6bdb7041b4eb",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-tests.txt",
+    "raw_sha256": "2a1b0f814ee64ea4888c13cd7a7f95992fdb51fda00e97424724a7afc6abf1e2",
+    "retained_sha256": "2a1b0f814ee64ea4888c13cd7a7f95992fdb51fda00e97424724a7afc6abf1e2",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native\\build-manifest.json",
+    "raw_sha256": "221db262a4f1bb92b02865c2025e293d2ae6531654c23296ca36319c95be8c1d",
+    "retained_sha256": "221db262a4f1bb92b02865c2025e293d2ae6531654c23296ca36319c95be8c1d",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native\\source-manifest.json",
+    "raw_sha256": "0f0488992e9e83ca9b7a569a36531513a4ad34de53db0c7128e55b34f7bf76b5",
+    "retained_sha256": "0f0488992e9e83ca9b7a569a36531513a4ad34de53db0c7128e55b34f7bf76b5",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-plain-build.txt",
+    "raw_sha256": "0271e28659681358e3af9f4fb625596212fb3d6b2c19d3173c0a3f5f9000b5ff",
+    "retained_sha256": "0271e28659681358e3af9f4fb625596212fb3d6b2c19d3173c0a3f5f9000b5ff",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-plain-tests.txt",
+    "raw_sha256": "50ffff869c0ab8d33fea6ad2e3279e798afabe5b407b19eea274e1b40f61a0ca",
+    "retained_sha256": "50ffff869c0ab8d33fea6ad2e3279e798afabe5b407b19eea274e1b40f61a0ca",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "e7199f7baa5ae70f09703c9e418c648a2fbbf2dda2c7b699e96dcf21b1441fb9",
+    "retained_sha256": "e7199f7baa5ae70f09703c9e418c648a2fbbf2dda2c7b699e96dcf21b1441fb9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-media-final-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "8960996bc4da76a2e46335b0f8ed4936d8abb61294715d8dfac42153e043e8a8",
+    "retained_sha256": "8960996bc4da76a2e46335b0f8ed4936d8abb61294715d8dfac42153e043e8a8",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/media-initial-backend-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-backend-focused.txt",
+    "raw_sha256": "8e14b4bf3c503a31019f31a48375614f5f8ff025b506147e1ba242015c3b0781",
+    "retained_sha256": "54bbd1159b693917ac84509fde3756a86e25046e5ac63cf56ad880e5709b7d6a",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-initial-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-focused.txt",
+    "raw_sha256": "0bdb0b9a45a08a200c0efee92799dc2b1106de4ecc4f715f3eb8cced90b0e634",
+    "retained_sha256": "081f84c9a779f5287f5afd4faa82a3c6a293586e7a3e55a293e64f37f5507783",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-final-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-final-focused.txt",
+    "raw_sha256": "0d7411f749659271add54ba840086b9714dadfdad79b3fc01650b99038ed9610",
+    "retained_sha256": "253b84fae64d6d094afb3100cedcf50e163f25ab85528ed598402ceaa3468b56",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-initial-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-linux.txt",
+    "raw_sha256": "66b186b7db75bbd126d0eda4d36f8992c64c60dc90f7d388bb1fa6b63002074c",
+    "retained_sha256": "6e1bb7f2ad3b407036076308c31af51da2863bd35c2d88caa588d8f6782c0045",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-final-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-final-linux.txt",
+    "raw_sha256": "84d8dcdfe7131d3e7d92a7c360994e7b9c8d652e96518896fcf2f6a46ff7ebc6",
+    "retained_sha256": "6e6ebf8171fefc1bbc7ba5a3bd8b8a1bd23b0446476c77f3539179dd17bac6ad",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-initial-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-native-build.txt",
+    "raw_sha256": "cf6d70db23194ccc6911c6df5f906457d8217dbe1ec26526c2d00b28a76ab223",
+    "retained_sha256": "3d69abc6497fe41f7facc59b044a55e82487b059d4379b83202bfa2656d85974",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-final-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-final-native-build.txt",
+    "raw_sha256": "d5938593cbe76b9be2f36ee61fd350d8db048d9fadf20c62ebb8e3335449e3b8",
+    "retained_sha256": "b16ee56ae64bfbf2a49d4dba5ecff91c3b8153a39b1f6689703794d96f029623",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-scenario-initial-failure.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-scenario-initial-failure.txt",
+    "raw_sha256": "7b532c64c7d2abc113606e56fd42cef933aef22680be60c323bfa74830976fa2",
+    "retained_sha256": "9de2b927478afbac54d79196a7b7142f638d329df9ca7d2a793b9f7dd97f71ff",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-final-scenario-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-final-scenario-execution.txt",
+    "raw_sha256": "fffa33e6ccb41b637eb42bc66233e96288fd9f1bc74f0121078c9c842f09631f",
+    "retained_sha256": "08463fc00c4f561831463ba3c9cae12e1513957e8fc970737fd169fe6c0fc268",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-pi-initial-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-execution.txt",
+    "raw_sha256": "af66388b6d4c1aa5f715dbf7adec1f7f1115469ea25911a159d6296134f30d20",
+    "retained_sha256": "f7ce72cbfff471eebff8913794e0c78790c4d3b100a76a8f519f36b56d3a32cf",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/media-pi-final-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\media-pi-final-execution.txt",
+    "raw_sha256": "5e796c39f617844454bbc15539299b90e86248b58c69c2a86ad55f255ca598bc",
+    "retained_sha256": "e5f13c41fcd4ce995d9329711dc6ce5c2991cdeee50a560cb6efeca170cb13b9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/pi5-media-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-pi-media.py",
+    "raw_sha256": "7d47a3a0e09125ab80dc08b588faf9c64f3ab6893dca8138df0b28a793858bf4",
+    "retained_sha256": "7d47a3a0e09125ab80dc08b588faf9c64f3ab6893dca8138df0b28a793858bf4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  }
+}

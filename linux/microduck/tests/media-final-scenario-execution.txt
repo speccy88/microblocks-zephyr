@@ -1,0 +1,1 @@
+{"result": "PASS", "typed_fields": 17, "fake_read_only_RPCs": 12, "internal_preview_packets": 1, "upstream_calls": 0, "physical_movement_enabled": false}

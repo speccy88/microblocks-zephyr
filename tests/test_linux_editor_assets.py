@@ -235,6 +235,18 @@ class RealPinnedEditor(unittest.TestCase):
         self.assertNotIn(b'microduckSimRobotPreview', script)
         self.assertNotIn(b'microduckSimMovePreview', script)
 
+    def test_media_simulation_library_and_read_only_example_are_embedded(self):
+        output = self.output.parent / 'media-editor'
+        build(self.source, output, REPO, 'microduck')
+        files = unpack_package((output / 'gp_wasm.js').read_bytes(), (output / 'gp_wasm.data').read_bytes())
+        self.assertEqual(files['/Libraries/MicroDuck_Media_Simulation.ubl'], (REPO / 'linux/microduck/Media_Simulation.ubl').read_bytes())
+        self.assertIn(b'MicroDuck Media Simulation', files['/runtime/lib/MicroBlocksAPI.gp'])
+        self.assertEqual(files['/Examples/Linux/microduck-media-simulation.ubp'], b'\n'.join(
+            (REPO / 'linux/microduck' / name).read_bytes() for name in ('media-simulation.ubp', 'MicroDuck.ubl', 'Media_Simulation.ubl')))
+        self.assertNotIn(b'microduckSimRelayPreview', (REPO / 'linux/microduck/media-simulation.ubp').read_bytes())
+        core = unpack_package((self.output / 'gp_wasm.js').read_bytes(), (self.output / 'gp_wasm.data').read_bytes())
+        self.assertNotIn('/Libraries/MicroDuck_Media_Simulation.ubl', core)
+
 
 if __name__ == '__main__':
     unittest.main()
