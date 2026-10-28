@@ -25,7 +25,11 @@ test('profiles distinguish real native Pi tests from simulated MicroDuck coverag
  assert.equal(core.profileInfo('raspberry-pi5').validationKind,'native-pi-tested');
  assert.match(core.profileInfo('raspberry-pi5').validation,/graphical uploads.*passed/);
  assert.match(core.profileInfo('raspberry-pi5').validation,/OS reboot.*pending/);
- assert.equal(core.profileInfo('microduck').validationKind,'simulated');
+ assert.equal(core.profileInfo('raspberry-pi5').requiresRobotServices,false);
+ assert.equal(core.profileInfo('raspberry-pi5').placeholder,false);
+ assert.equal(core.profileInfo('microduck').name,'MicroDuck Rockchip RK3566');
+ assert.equal(core.profileInfo('microduck').validationKind,'experimental-placeholder');
+ assert.equal(core.profileInfo('microduck').placeholder,true);
  assert.match(core.profileInfo('microduck').validation,/No physical MicroDuck/);
  for(const name of ['p4','__proto__','constructor','',undefined])assert.throws(()=>core.profileInfo(name));
 });
@@ -59,7 +63,7 @@ test('release metadata must pin the binary digest and installer commit plus dige
 });
 
 test('PowerShell and POSIX commands preserve one reviewable encoded remote argument',()=>{
- for(const profile of ['raspberry-pi5','microduck']){
+ for(const profile of ['raspberry-pi5']){
   const release=reviewedFixture(),result=core.generateInstallCommands({...target,profile,release});
   assert.equal(result.powershell,result.posix);
   assert.match(result.posix,/^ssh -o StrictHostKeyChecking=yes fred@192\.168\.1\.105 "printf %s [A-Za-z0-9+/=]+ \| base64 -d \| bash"$/);
@@ -77,6 +81,10 @@ test('PowerShell and POSIX commands preserve one reviewable encoded remote argum
   const curlLine=result.remoteScript.split('\n').find(line=>line.startsWith('curl '));
   assert.ok(curlLine.endsWith(' \\'));assert.equal(curlLine.endsWith(' \\\\'),false);
  }
+});
+
+test('MicroDuck placeholder cannot produce an install command even with a valid future ARM64 release',()=>{
+ assert.throws(()=>core.generateInstallCommands({...target,profile:'microduck',release:reviewedFixture()}),/experimental placeholder.*installation is not available/);
 });
 
 test('service flag is an explicit boolean choice and no secrets enter commands',()=>{
@@ -123,6 +131,8 @@ test('unpublished-release panel disables copy, offers no command and makes no pr
  assert.equal(button.disabled,true);assert.equal(area.value,'');
  await button.fire('click');assert.equal(h.copied.length,0);assert.equal(h.endpoints.length,0);assert.equal(h.editors.length,0);
  assert.match(h.container.textContent,/no reviewed ARM64 GitHub Release is published/i);
+ const guide=h.find(e=>e.tagName==='A'&&e.textContent==='Standalone Raspberry Pi 5 target and lifecycle');
+ assert.equal(guide.href,'https://github.com/'+core.REPOSITORY+'/blob/codex/js-editor-migration-20261027/docs/RASPBERRY_PI_5_STANDALONE.md');
  h.panel.destroy();assert.equal(h.container.children.length,0);
 });
 
@@ -142,6 +152,22 @@ test('invalid fields and profile switches clear stale install targets',async()=>
  host.value='192.168.1.105';await host.fire('input');assert.equal(button.disabled,false);
  h.panel.setProfile('microduck');assert.equal(host.value,'');assert.equal(username.value,'');assert.equal(button.disabled,true);
  assert.match(h.container.textContent,/No physical MicroDuck validation/);
+});
+
+test('placeholder panel disables install, service and endpoint paths but keeps offline editing',async()=>{
+ const h=harness(reviewedFixture());h.panel.setProfile('microduck');
+ const copy=h.find(e=>e.tagName==='BUTTON'&&e.textContent==='Copy installation command');
+ const endpoint=h.find(e=>e.tagName==='INPUT'&&e.type==='url');
+ const use=h.find(e=>e.tagName==='BUTTON'&&e.textContent==='Use endpoint for the editor');
+ for(const name of ['host','username'])assert.equal(h.find(e=>e.name===name).disabled,true);
+ assert.equal(h.find(e=>e.type==='checkbox').disabled,true);
+ assert.equal(copy.disabled,true);assert.equal(endpoint.disabled,true);assert.equal(use.disabled,true);
+ endpoint.value='wss://board.example/ws/vm';await endpoint.fire('input');await use.fire('click');await copy.fire('click');
+ assert.equal(use.disabled,true);assert.equal(h.endpoints.length,0);assert.equal(h.copied.length,0);
+ const editor=h.find(e=>e.tagName==='A'&&e.textContent==='Open placeholder editor (editing only)');
+ assert.ok(editor);await editor.fire('click');assert.deepEqual(h.editors,[{profile:'microduck',endpoint:null}]);
+ h.panel.setProfile('raspberry-pi5');assert.equal(h.find(e=>e.name==='host').disabled,false);assert.equal(endpoint.disabled,false);
+ assert.equal(endpoint.value,'');assert.equal(copy.disabled,true);
 });
 
 test('endpoint selection validates WSS and only passes configuration to a callback',async()=>{

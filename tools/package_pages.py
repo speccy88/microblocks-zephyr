@@ -170,9 +170,14 @@ def build(source, output, repo):
                   'xrp-rp2350':'SparkFun XRP RP2350 (development)','propeller2':'Parallax Propeller 2',
                   'esp32p4':'Waveshare ESP32-P4 WIFI6 camera (native Zephyr)',
                   'raspberry-pi5':'Raspberry Pi 5 - Linux ARM64',
-                  'microduck':'MicroDuck - Linux preparation'}[board]}
+                  'microduck':'MicroDuck Rockchip RK3566 (experimental placeholder)'}[board]}
         if board in ('raspberry-pi5','microduck'):profile['runtime']='linux'
+        if board=='raspberry-pi5':profile['requires_robot_services']=False
         if board=='xrp-rp2350':profile['connection_enabled']=False
+        if board=='microduck':
+            profile['connection_enabled']=False
+            profile['placeholder']=True
+            profile['connection_message']='MicroDuck Rockchip RK3566 is an experimental placeholder. Offline editing only; physical hardware, installation and services are unverified.'
         config=json.dumps(profile,separators=(',',':'))
         html=html.replace(tag,'<link rel="stylesheet" href="../../portal.css?v='+portal_version+'">\n'
             '<script>window.PORTAL_BOARD='+config+';</script>\n'
@@ -194,7 +199,7 @@ def build(source, output, repo):
         folder=output/'editor'/board;folder.mkdir(parents=True,exist_ok=True)
         for name,raw in assets.items():
             target=folder/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
-        report['boards'][board]={'files':len(assets),'hardware_connection_enabled':board!='xrp-rp2350',
+        report['boards'][board]={'files':len(assets),'hardware_connection_enabled':board not in ('xrp-rp2350','microduck'),
              'gp_data_sha256':hashlib.sha256(assets['gp_wasm.data']).hexdigest(),
              'gp_js_sha256':hashlib.sha256(assets['gp_wasm.js']).hexdigest(),'html_sha256':hashlib.sha256(assets['microblocks.html']).hexdigest()}
     for name in ('LICENSE','LICENSES.md'):

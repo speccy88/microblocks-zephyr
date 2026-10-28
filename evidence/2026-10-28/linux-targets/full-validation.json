@@ -1,0 +1,14 @@
+{
+  "returncode": 0,
+  "seconds": 211.78762851000002,
+  "mode": "Full unchanged validator, byte-identical entire repository Linux filesystem replica",
+  "files": 2070,
+  "replica": "/tmp/js-editor-validation-v_gs41mq/repo",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/tmp/js-editor-validation-v_gs41mq/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/tmp/js-editor-validation-v_gs41mq/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_UPSTREAM": "/tmp/js-editor-validation-v_gs41mq/smallvm",
+    "JS_EDITOR_UPSTREAM": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-editor-upstream-20261027",
+    "NODE_BINARY": "/tmp/js-editor-validation-v_gs41mq/node-windows-interop"
+  }
+}

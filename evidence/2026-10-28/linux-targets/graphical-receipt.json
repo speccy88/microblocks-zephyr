@@ -1,0 +1,24 @@
+{
+  "observed_utc": "2026-10-28T00:25:07.273924+00:00",
+  "browser": "Task-owned in-app browser; loopback preview only",
+  "actions": [
+    "Observed seven choices",
+    "Selected Raspberry Pi 5",
+    "Selected MicroDuck Rockchip RK3566",
+    "Switched back to Pi and verified controls re-enabled"
+  ],
+  "pi_standalone_text_visible": true,
+  "microduck_placeholder_text_visible": true,
+  "microduck_install_service_endpoint_fields_disabled": true,
+  "install_copy_disabled_for_both": true,
+  "offline_editor_link_present": true,
+  "hardware_connection_attempted": false,
+  "scope": "Portal selection and controls only. Embedded default editor not used for hardware acceptance. No Pages deployment.",
+  "final_documentation_link_change": "After the screenshots, links were corrected from main to the published migration branch; focused Node assertions verify the destination. Browser retained earlier links during reload, then navigation aborted when preview became unavailable.",
+  "preview_cleanup": "PID 9668 and listener 18894 were absent on read-only checks. Finalization receipt was absent; cause of termination is unknown. Own stop marker written for any retained wrapper. No duplicate server started.",
+  "library_screenshot": "Library supplied metadata and extracted text identifying the older five-option dropdown. Pixels were not inspected: supported materializer failed with Windows os.setxattr unavailable before installing a file. No metadata or security bypass attempted.",
+  "screenshots": {
+    "pi5-panel.jpg": "b7d3a5891a2901c8b3ad9d1d7d5a3f390637872618fd6dc3c5475ae09fdae90a",
+    "microduck-panel.jpg": "86a1960762d9eee411a310134e5f144f379d3df7342a3dc356c427ea389a156a"
+  }
+}

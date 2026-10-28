@@ -53,6 +53,17 @@
 
   function refreshCommand(){
    commands=null;command.value='';script.textContent='No install script is offered until a reviewed release is available.';releaseLink.hidden=true;
+   const placeholder=core.profileInfo(profile).placeholder===true;
+   for(const field of [username,host,terminal,service,endpoint])field.disabled=placeholder;
+   endpointButton.disabled=placeholder||!endpoint.value;
+   editorLink.textContent=placeholder?'Open placeholder editor (editing only)':'Open graphical editor (editing available)';
+   if(placeholder){
+    service.checked=false;copy.disabled=true;
+    releaseStatus.textContent='Experimental placeholder: no verified MicroDuck installation is available.';
+    status.textContent='MicroDuck Rockchip RK3566 hardware and OS/service acceptance are pending.';
+    script.textContent='No installation command is offered for this placeholder.';
+    return;
+   }
    try{
     const pinned=core.validateReleaseManifest(release);
     releaseStatus.textContent='Pinned release: '+pinned.version+'. Installer and binary archive SHA-256 values are fixed by the release manifest.';
@@ -74,7 +85,7 @@
    title.textContent=info.name;hardware.textContent=info.hardware;validation.textContent=info.validation;validation.dataset.validationKind=info.validationKind;
    host.placeholder=info.hostPlaceholder;editorLink.href=info.editorPath;
    docs.replaceChildren();
-   for(const item of info.docs){const link=make('a','',item.label);link.href='https://github.com/'+core.REPOSITORY+'/blob/main/'+item.path;link.target='_blank';link.rel='noopener noreferrer';docs.append(link,make('span','',' '));}
+   for(const item of info.docs){const link=make('a','',item.label);link.href='https://github.com/'+core.REPOSITORY+'/blob/'+core.DOCUMENTATION_REF+'/'+item.path;link.target='_blank';link.rel='noopener noreferrer';docs.append(link,make('span','',' '));}
    if(changed&&!preserveTarget){username.value='';host.value='';endpoint.value='';endpointButton.disabled=true;endpointStatus.textContent='';}
    refreshCommand();
   }
@@ -88,9 +99,10 @@
    catch{status.textContent='The browser did not allow copying. Select the reviewed command and copy it manually.';}
    finally{copyPending=false;copy.disabled=!commands;}
   });
-  endpoint.addEventListener('input',()=>{endpointButton.disabled=!endpoint.value;endpointStatus.textContent='';});
+  endpoint.addEventListener('input',()=>{endpointButton.disabled=core.profileInfo(profile).placeholder===true||!endpoint.value;endpointStatus.textContent='';});
   endpointButton.addEventListener('click',async()=>{
    try{
+    if(core.profileInfo(profile).placeholder)throw Error('This experimental placeholder has no live hardware connection.');
     const url=core.validateWSSEndpoint(endpoint.value);
     if(typeof options.onEndpoint==='function')await options.onEndpoint({profile,endpoint:url});
     else if(typeof root.CustomEvent==='function')panel.dispatchEvent(new root.CustomEvent('microblocks-linux-endpoint',{bubbles:true,detail:{profile,endpoint:url}}));

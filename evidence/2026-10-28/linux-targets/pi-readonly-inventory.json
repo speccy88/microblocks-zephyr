@@ -1,0 +1,18 @@
+{
+  "source": "Successful read-only SSH output observed during this target-selection slice; recorded from that output, not a second SSH operation",
+  "identity": {
+    "hostname": "RPI5",
+    "architecture": "aarch64",
+    "kernel": "6.12.75+rpt-rpi-2712",
+    "user": "fred",
+    "model": "Raspberry Pi 5 Model B Rev 1.0"
+  },
+  "ordinary_binary_exists": true,
+  "ordinary_binary_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+  "existing_vm_process_count": 3,
+  "read_only": true,
+  "service_reboot_or_security_changes": false,
+  "no_robot_service_access": true,
+  "new_native_execution": false,
+  "existing_processes_stopped": false
+}

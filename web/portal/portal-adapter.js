@@ -135,7 +135,7 @@
   const toolbar=element('details');toolbar.className='portal-tools';toolbar.open=profile.connection_enabled===false;
   toolbar.append(element('summary','Projects & board'));const panel=element('section');panel.className='portal-panel';toolbar.append(panel);
   document.querySelector('[data-ide="controls"]').prepend(toolbar);
-  panel.append(element('h2',profile.name));status=element('p',isLinux?'Choose Connect to use the Linux VM endpoint.':'Choose Connect to select your USB board.');status.setAttribute('role','status');panel.append(status);
+  panel.append(element('h2',profile.name));status=element('p',profile.connection_enabled===false&&profile.connection_message?profile.connection_message:isLinux?'Choose Connect to use the Linux VM endpoint.':'Choose Connect to select your USB board.');status.setAttribute('role','status');panel.append(status);
   if(!isLinux)panel.append(element('p',navigator.serial?'USB browser support is available. Connect opens the device chooser.':'USB is unavailable in this browser. Use desktop Chrome or Edge; project editing and browser saves still work.'));
   mode=element('select');mode.setAttribute('aria-label','Connection mode');
   for(const [value,label] of (isLinux?[['wifi','Linux VM WebSocket']]:isP2?[['usb','USB Web Serial']]:[['usb','USB Web Serial'],['wifi','Wi-Fi secure WebSocket']])){const option=element('option',label);option.value=value;mode.append(option);}panel.append(mode);

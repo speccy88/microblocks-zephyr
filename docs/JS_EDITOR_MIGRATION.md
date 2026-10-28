@@ -143,3 +143,9 @@ custom matrix defaults and verifies one actual saved file reopening. Full
 save/autosave behavior remains a separate gate. The
 [P4 integration plan](JS_P4_INTEGRATION_PLAN.md) identifies the preserved
 protocol/core pieces and the profile/compiler/view adapters still needed.
+
+Raspberry Pi 5 is an independent target, not a MicroDuck stand-in. The
+[standalone lifecycle assessment](RASPBERRY_PI_5_STANDALONE.md) separates
+native core/persistence/reconnect evidence from robot services, normal-launch
+gaps, unpublished installation and untested service/reboot phases. The distinct
+MicroDuck Rockchip RK3566 target remains an experimental offline placeholder.

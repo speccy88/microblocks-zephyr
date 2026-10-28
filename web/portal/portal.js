@@ -22,10 +22,10 @@
   onOpenEditor:async({profile})=>{board.value=profile;await openEditor();},
   onEndpoint:async({profile,endpoint})=>{endpoints.set(profile,endpoint);board.value=profile;await openEditor();}
  });
- board.onchange=()=>{linuxContainer.hidden=!isLinux(board.value);if(!linuxContainer.hidden)linuxPanel.setProfile(board.value);duckContainer.hidden=board.value!=='microduck';if(duckContainer.hidden)duckPanel.disconnect();};
+ board.onchange=()=>{linuxContainer.hidden=!isLinux(board.value);if(!linuxContainer.hidden)linuxPanel.setProfile(board.value);duckContainer.hidden=board.value!=='microduck'||MicroBlocksLinux.profileInfo('microduck').placeholder===true;if(duckContainer.hidden)duckPanel.disconnect();};
  fetch('linux-release.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw Error('Release manifest unavailable');return response.json();}).then(value=>linuxPanel.setReleaseManifest(value)).catch(()=>{});
  frame.onload=()=>{
   applyEndpoint();
-  status.textContent=isLinux(selected)?(selected==='microduck'?'MicroDuck preparation: Linux core editor; robot hardware validation is pending.':'Linux ARM64: use a trusted WSS bridge here, or open the Pi editor through a local SSH tunnel.'):selected==='esp32p4'?'P4 camera: native Zephyr USB programming, camera blocks and image preview. USB needs desktop Chrome or Edge. Wi-Fi hosting is not enabled yet.':selected==='xrp-rp2350'?'XRP development preview: edit and save projects. Hardware connection is not enabled yet.':'Choose Projects & board inside the editor for USB, Wi-Fi setup and browser projects. A board never connects automatically.';
+  status.textContent=isLinux(selected)?(selected==='microduck'?'MicroDuck Rockchip RK3566: experimental placeholder, offline editing only; installation and physical hardware are unverified.':'Raspberry Pi 5 is a standalone SmallVM target; no MicroDuck services are required. Use a trusted WSS bridge here, or the Pi editor through a local SSH tunnel.'):selected==='esp32p4'?'P4 camera: native Zephyr USB programming, camera blocks and image preview. USB needs desktop Chrome or Edge. Wi-Fi hosting is not enabled yet.':selected==='xrp-rp2350'?'XRP development preview: edit and save projects. Hardware connection is not enabled yet.':'Choose Projects & board inside the editor for USB, Wi-Fi setup and browser projects. A board never connects automatically.';
  };
 })();

@@ -1,0 +1,27 @@
+Γ£ö checked-in release manifest disables every installation command (2.3644ms)
+Γ£ö profiles distinguish real native Pi tests from simulated MicroDuck coverage (1.9123ms)
+Γ£ö SSH usernames and canonical IPv4/DNS targets are accepted without options (1.3983ms)
+Γ£ö target validation rejects shell/control injection, SSH options and malformed addresses (0.6283ms)
+Γ£ö release metadata must pin the binary digest and installer commit plus digest (2.1138ms)
+Γ£ö PowerShell and POSIX commands preserve one reviewable encoded remote argument (0.7313ms)
+Γ£ö MicroDuck placeholder cannot produce an install command even with a valid future ARM64 release (0.336ms)
+Γ£ö service flag is an explicit boolean choice and no secrets enter commands (0.9373ms)
+Γ£ö browser encoding path produces the same command without Node globals (2.6948ms)
+Γ£ö optional WSS endpoints reject insecure transports, URL secrets and alternate paths (0.8444ms)
+Γ£ö unpublished-release panel disables copy, offers no command and makes no probe (1.8308ms)
+Γ£ö reviewed command is copied only by explicit click and is revoked after release removal (0.7907ms)
+Γ£ö invalid fields and profile switches clear stale install targets (0.716ms)
+Γ£ö placeholder panel disables install, service and endpoint paths but keeps offline editing (1.6876ms)
+Γ£ö endpoint selection validates WSS and only passes configuration to a callback (0.8553ms)
+Γ£ö clipboard denial is reported without claiming a successful copy (0.8846ms)
+Γ£ö MicroDuck RK3566 placeholder cannot open USB or WebSocket through GP entry points (4.7548ms)
+Γ£ö the XRP editing preview cannot open USB or WebSocket through either GP entry point (1.5917ms)
+Γ£ö actual P2 adapter uses FTDI selection, releases reset, and rejects another VM identity (11.0599ms)
+Γä╣ tests 19
+Γä╣ suites 0
+Γä╣ pass 19
+Γä╣ fail 0
+Γä╣ cancelled 0
+Γä╣ skipped 0
+Γä╣ todo 0
+Γä╣ duration_ms 181.0231

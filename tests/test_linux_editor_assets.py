@@ -157,6 +157,25 @@ class RealPinnedEditor(unittest.TestCase):
     def tearDownClass(cls):
         cls.temporary.cleanup()
 
+    def test_portal_keeps_standalone_pi_and_explicit_microduck_placeholder(self):
+        from package_pages import build as portal_build
+        output = Path(self.temporary.name) / 'portal-targets'
+        report = portal_build(self.source, output, REPO)
+        html = (output / 'index.html').read_text(encoding='utf-8')
+        self.assertIn('value="raspberry-pi5">Raspberry Pi 5', html)
+        self.assertIn('MicroDuck Rockchip RK3566 (experimental placeholder)', html)
+        def profile(board):
+            page = (output / 'editor' / board / 'microblocks.html').read_text(encoding='utf-8')
+            return json.loads(re.search(r'window.PORTAL_BOARD=(\{.*?\});</script>', page)[1])
+        pi, duck = profile('raspberry-pi5'), profile('microduck')
+        self.assertEqual(pi['runtime'], 'linux')
+        self.assertFalse(pi['requires_robot_services'])
+        self.assertTrue(report['boards']['raspberry-pi5']['hardware_connection_enabled'])
+        self.assertTrue(duck['placeholder'])
+        self.assertFalse(duck['connection_enabled'])
+        self.assertIn('MicroDuck Rockchip RK3566', duck['connection_message'])
+        self.assertFalse(report['boards']['microduck']['hardware_connection_enabled'])
+
     def test_real_engine_and_pinned_filesystem_are_packaged(self):
         self.assertEqual(self.report['real_editor'], 'MicroBlocks GP 2.5.8')
         self.assertEqual(self.report['source_commit'], '70690291ac44a5c3a50dce572ee0c29ba99dc57f')

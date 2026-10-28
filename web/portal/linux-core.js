@@ -3,20 +3,22 @@
 (function(root){
  'use strict';
  const REPOSITORY='speccy88/microblocks-zephyr';
+ // Linux target documentation follows the published migration branch until main integration.
+ const DOCUMENTATION_REF='codex/js-editor-migration-20261027';
  const profiles=Object.freeze({
   'raspberry-pi5':Object.freeze({
-   id:'raspberry-pi5',name:'Raspberry Pi 5 — Linux ARM64',
+   id:'raspberry-pi5',name:'Raspberry Pi 5 - Linux ARM64',placeholder:false,requiresRobotServices:false,
    hardware:'Broadcom BCM2712, Cortex-A76; requires a 64-bit Linux OS.',
-   validation:'Native Pi compilation, bytecode, graphical uploads, browser save/restore and SSH-tunnel reconnect passed. Full OS reboot acceptance remains pending.',
+   validation:'Standalone native SmallVM core: Pi compilation, bytecode, graphical uploads, browser save/restore and SSH-tunnel reconnect passed. No MicroDuck services are required. Full OS reboot acceptance remains pending; GPIO, camera and audio are unsupported.',
    validationKind:'native-pi-tested',hostPlaceholder:'rpi5.local or an IPv4 address',
    editorPath:'editor/raspberry-pi5/microblocks.html',
-   docs:Object.freeze([{label:'Linux ARM64 installation and test status',path:'linux/arm64/README.md'},{label:'Portal installation and connection guide',path:'docs/LINUX_PORTAL.md'}])
+   docs:Object.freeze([{label:'Standalone Raspberry Pi 5 target and lifecycle',path:'docs/RASPBERRY_PI_5_STANDALONE.md'},{label:'Linux ARM64 installation and test status',path:'linux/arm64/README.md'},{label:'Portal installation and connection guide',path:'docs/LINUX_PORTAL.md'}])
   }),
   microduck:Object.freeze({
-   id:'microduck',name:'MicroDuck — Rockchip RK3566',
+   id:'microduck',name:'MicroDuck Rockchip RK3566',placeholder:true,
    hardware:'Pollen Robotics MicroDuck, Rockchip RK3566 / Cortex-A55, Linux ARM64.',
-   validation:'BLE/JSON-RPC mocks and native Pi adapter tests with simulated robot services pass. No physical MicroDuck validation; robot installation and motion remain unverified.',
-   validationKind:'simulated',hostPlaceholder:'IP address from robot provisioning',
+   validation:'Experimental placeholder. BLE/JSON-RPC mocks and native Pi adapter tests use simulated robot services. No physical MicroDuck validation; installation, services and motion remain unverified. Offline editing and preparation only.',
+   validationKind:'experimental-placeholder',hostPlaceholder:'Unavailable for this placeholder',
    editorPath:'editor/microduck/microblocks.html',
    docs:Object.freeze([{label:'MicroDuck BLE and JSON-RPC coverage',path:'docs/MICRODUCK_PROTOCOL.md'},{label:'Linux ARM64 installation and test status',path:'linux/arm64/README.md'},{label:'Portal installation and connection guide',path:'docs/LINUX_PORTAL.md'}])
   })
@@ -84,7 +86,9 @@
   fail('This browser cannot encode the reviewed installation command.');
  }
  function generateInstallCommands({profile,username,host,release,service=false}={}){
-  const board=profileInfo(profile),target=validateTarget({username,host}),pinned=validateReleaseManifest(release);
+  const board=profileInfo(profile);
+  if(board.placeholder)fail(board.name+' is an experimental placeholder; installation is not available.');
+  const target=validateTarget({username,host}),pinned=validateReleaseManifest(release);
   const remoteScript=remoteInstallScript(pinned,{service}),encoded=asciiBase64(remoteScript);
   // The remote argument has no inner quotes, dollars, backticks or newlines.
   // This survives both PowerShell's native-argument handling and POSIX shells.
@@ -101,6 +105,6 @@
   if(url.pathname!=='/ws/vm')fail('The SmallVM bridge endpoint must use /ws/vm.');
   return url.href;
  }
- const api=Object.freeze({REPOSITORY,profiles,ValidationError,ReleaseUnavailableError,profileInfo,validateUsername,validateHost,validateTarget,validateReleaseManifest,releaseReason,remoteInstallScript,generateInstallCommands,validateWSSEndpoint});
+ const api=Object.freeze({REPOSITORY,DOCUMENTATION_REF,profiles,ValidationError,ReleaseUnavailableError,profileInfo,validateUsername,validateHost,validateTarget,validateReleaseManifest,releaseReason,remoteInstallScript,generateInstallCommands,validateWSSEndpoint});
  root.MicroBlocksLinux=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window==='undefined'?globalThis:window);
