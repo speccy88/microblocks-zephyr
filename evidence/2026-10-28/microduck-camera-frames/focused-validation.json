@@ -1,0 +1,17 @@
+{
+  "camera_native_tests": 19,
+  "js_import_and_native_execution_tests": 3,
+  "focused_failures": 0,
+  "focused_skips": 0,
+  "new_pi_execution": false,
+  "physical_robot": false,
+  "graphical": false,
+  "js_modules": 12,
+  "compiled_functions": 227,
+  "existing_normal_functions": 169,
+  "existing_starter_functions": 211,
+  "earlier_failures": [
+    "Malformed-header fixture initially used tiny fragments and reached the deadline; separated malformed-framing case from explicit timeout test.",
+    "Windows sandbox temp denied package creation; explicit writable workspace temp then passed JS import. Native Windows tests were skipped; all three ran and passed in Linux."
+  ]
+}

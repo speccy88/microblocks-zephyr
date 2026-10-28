@@ -1,0 +1,49 @@
+test_actual_compiled_simple_and_advanced_blocks_share_frame_api (test_js_camera.CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api) ... skipped 'Verified local VM required'
+test_optional_bundle_preserves_other_imports_and_coexisting_layers (test_js_camera.CameraCompiledNative.test_optional_bundle_preserves_other_imports_and_coexisting_layers) ... skipped 'Verified local VM required'
+setUpClass (test_js_camera.CameraLibraries) ... ERROR
+
+======================================================================
+ERROR: setUpClass (test_js_camera.CameraLibraries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\test_js_camera.py", line 22, in setUpClass
+    package(source,cls.assets,profile='microduck')
+  File "C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tools\package_js_editor.py", line 219, in package
+    output.mkdir(parents=True, exist_ok=False)
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\fred_\\AppData\\Local\\Packages\\sandbox.{f61b1842-f676-4f8d-81a0-fab515dce139}\\AC\\Temp\\js-camera-p1p90zzx\\editor'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.815s
+
+FAILED (errors=1, skipped=2)
+Traceback (most recent call last):
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\fred_\\AppData\\Local\\Packages\\sandbox.{f61b1842-f676-4f8d-81a0-fab515dce139}\\AC\\Temp\\js-camera-p1p90zzx'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\weakref.py", line 666, in _exitfunc
+    f()
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\weakref.py", line 590, in __call__
+    return info.func(*info.args, **(info.kwargs or {}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\tempfile.py", line 939, in _cleanup
+    cls._rmtree(name, ignore_errors=ignore_errors)
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "C:\Users\fred_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\fred_\\AppData\\Local\\Packages\\sandbox.{f61b1842-f676-4f8d-81a0-fab515dce139}\\AC\\Temp\\js-camera-p1p90zzx'

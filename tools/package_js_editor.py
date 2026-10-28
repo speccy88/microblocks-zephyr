@@ -108,6 +108,21 @@ def microduck_files():
     result['microduck-starter-libraries.json'] = (json.dumps({'schema': 1, 'bundle': MICRODUCK_STARTER,
         'automatic_import': False, 'physical_hardware_validated': False,
         'action_blocks': 'simulation_only', 'sources': starter_records}, indent=2) + '\n').encode()
+    camera, camera_records = starter, starter_records.copy()
+    for name in ('Camera', 'Simple_Camera'):
+        source = 'linux/microduck/' + name + '.ubl'
+        data = (ROOT / source).read_bytes()
+        destination = 'sources/microduck/' + name + '.ubl'
+        result[destination] = data
+        camera_records.append({'source_path': source, 'packaged_source': destination,
+            'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest(), 'bundle_offset': len(camera)})
+        camera += data + b'\n\n'
+    camera_path = 'Libraries/MicroDuck Camera Lab.ubl'
+    result[camera_path] = camera
+    result['microduck-camera-libraries.json'] = (json.dumps({'schema': 1, 'bundle': camera_path,
+        'automatic_import': False, 'physical_hardware_validated': False,
+        'action_blocks': 'simulation_only', 'camera': 'explicit read-only local IPC; fixture validation only',
+        'sources': camera_records}, indent=2) + '\n').encode()
     return result
 
 

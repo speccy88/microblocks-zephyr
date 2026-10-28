@@ -51,7 +51,7 @@ void addPrimitiveSet(PrimitiveSetIndex index,const char *name,int count,PrimEntr
         "configured","quote","jobs","begin","status","result","release",
         "healthSample","readingValue","sensorSample","sensorRow","telemetrySample",
         "mediaSample","imuSample","headImuSample","headImuReading","depthReading",
-        "depthRow","gamepadReading","robotReading","padImuReading"
+        "depthRow","gamepadReading","robotReading","padImuReading","cameraReading"
     };
     CHECK(index==MicroDuckPrims && index==22);
     CHECK(!strcmp(name,"microduck") && count==(int)(sizeof(expected)/sizeof(expected[0])));

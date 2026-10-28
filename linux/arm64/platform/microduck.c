@@ -186,9 +186,11 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW, PARAM_PAD_IMU_READ, PARAM_HEAD_IMU_READ, PARAM_DEPTH_ZONE, PARAM_DEPTH_META, PARAM_GAMEPAD_AXIS, PARAM_GAMEPAD_BUTTON, PARAM_GAMEPAD_CONTROL, PARAM_GAMEPAD_META, PARAM_ROBOT_CAPTURE, PARAM_ROBOT_READ } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW, PARAM_PAD_IMU_READ, PARAM_HEAD_IMU_READ, PARAM_DEPTH_ZONE, PARAM_DEPTH_META, PARAM_GAMEPAD_AXIS, PARAM_GAMEPAD_BUTTON, PARAM_GAMEPAD_CONTROL, PARAM_GAMEPAD_META, PARAM_ROBOT_CAPTURE, PARAM_ROBOT_READ, PARAM_CAMERA_META, PARAM_CAMERA_PIXEL } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
+    {"microduck.camera.capture",PARAM_EMPTY,0},{"microduck.camera.metadata",PARAM_CAMERA_META,0},
+    {"microduck.camera.pixel",PARAM_CAMERA_PIXEL,0},{"microduck.camera.release",PARAM_SNAPSHOT_HANDLE,0},
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
     {"robot.health",PARAM_EMPTY,0},{"robot.policies",PARAM_EMPTY,0},{"robot.skills",PARAM_EMPTY,0},
     {"robot.model",PARAM_EMPTY,0},{"robot.vetbook",PARAM_EMPTY,0},{"pad.bindings",PARAM_EMPTY,0},
@@ -411,9 +413,17 @@ static int robotHealthName(yyjson_val *value) {
     for (size_t i=0;i<sizeof(names)/sizeof(names[0]);++i) if (equalText(value,names[i])) return 1;
     return 0;
 }
+static const char *cameraUnit(yyjson_val *field,int pixel) {
+    const char *fields[]={"width","height","bytes","format","rotate","captured_at_unix_us","y","u","v"};
+    const char *units[]={"pixels","pixels","bytes","format","degrees_clockwise","us_unix128","luma_raw8","chroma_u_raw8","chroma_v_raw8"};
+    for (int i=pixel?6:0;i<(pixel?9:6);++i) if (equalText(field,fields[i])) return units[i];
+    return NULL;
+}
 static int validParams(const Method *method, yyjson_val *params) {
     const char *keys[5]; size_t count = 0;
     switch (method->params) {
+        case PARAM_CAMERA_META: keys[count++]="handle";keys[count++]="field";break;
+        case PARAM_CAMERA_PIXEL: keys[count++]="handle";keys[count++]="x";keys[count++]="y";keys[count++]="channel";break;
         case PARAM_EMPTY: break;
         case PARAM_HELLO: keys[count++]="api_version"; break;
         case PARAM_COMPONENT: keys[count++]="component"; break;
@@ -486,6 +496,9 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_SENSOR_ZONE:
             return integerBetween(yyjson_obj_get(params,"row"),1,8) && integerBetween(yyjson_obj_get(params,"col"),1,8);
         case PARAM_SENSOR_CODE: return integerBetween(yyjson_obj_get(params,"code"),0,65535);
+        case PARAM_CAMERA_META: return snapshotHandle(yyjson_obj_get(params,"handle")) && cameraUnit(yyjson_obj_get(params,"field"),0);
+        case PARAM_CAMERA_PIXEL: return snapshotHandle(yyjson_obj_get(params,"handle")) && cameraUnit(yyjson_obj_get(params,"channel"),1)
+            && integerBetween(yyjson_obj_get(params,"x"),1,8388608) && integerBetween(yyjson_obj_get(params,"y"),1,4194304);
         case PARAM_SNAPSHOT_HANDLE: return snapshotHandle(yyjson_obj_get(params,"handle"));
         case PARAM_SNAPSHOT_ROW: return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"row"),1,8);
         case PARAM_SNAPSHOT_CODE: return snapshotHandle(yyjson_obj_get(params,"handle")) && integerBetween(yyjson_obj_get(params,"code"),0,65535);
@@ -882,7 +895,7 @@ static yyjson_val *boundedReadingResult(yyjson_val *root,HealthReading *reading,
     if (!yyjson_is_obj(value) || !yyjson_is_false(yyjson_obj_get(value,"physical_movement_enabled"))) return NULL;
     if (localIPC) {
         if (yyjson_obj_get(value,"simulation") || !equalText(yyjson_obj_get(value,"origin"),"local_ipc")
-            || !equalText(yyjson_obj_get(value,"source"),localIPC==3?"robotd":localIPC==2?"padd":"tofd") || !yyjson_is_false(yyjson_obj_get(value,"physical_hardware_verified"))) return NULL;
+            || !equalText(yyjson_obj_get(value,"source"),localIPC==4?"mediad":localIPC==3?"robotd":localIPC==2?"padd":"tofd") || !yyjson_is_false(yyjson_obj_get(value,"physical_hardware_verified"))) return NULL;
         reading->origin="local_ipc";
     } else {
         if (!yyjson_is_true(yyjson_obj_get(value,"simulation"))) return NULL;
@@ -982,6 +995,53 @@ static int decimalCounter(yyjson_val *value,uint64_t *number) {
         result=result*10u+digit;
     }
     *number=result;return 1;
+}
+static int decimal128(yyjson_val *value) {
+    if (!yyjson_is_str(value)) return 0;
+    size_t n=yyjson_get_len(value);const char *p=yyjson_get_str(value);
+    if (!n || n>39 || (n>1 && p[0]=='0')) return 0;
+    for(size_t i=0;i<n;++i) if(p[i]<'0' || p[i]>'9') return 0;
+    return n<39 || strcmp(p,"340282366920938463463374607431768211455")<=0;
+}
+static OBJ cameraReadingPrimitive(int argc,OBJ *args) {
+    if (argc!=1) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType)) return fail(needsStringError);
+    char reply[LINUX_MICRODUCK_MAX_REPLY+1u],text[40];size_t length;
+    if (!copyVMString(args[0],reply,LINUX_MICRODUCK_MAX_REPLY,&length)) return fail(argIndexOutOfRange);
+    yyjson_doc *doc=parseJSON(reply,length);if(!doc)return fail(argIndexOutOfRange);
+    HealthReading reading={.status="invalid",.text="",.unit="",.origin="unmarked"};
+    yyjson_val *result=boundedReadingResult(yyjson_doc_get_root(doc),&reading,4),*value=yyjson_obj_get(result,"value");
+    if(result && equalText(yyjson_obj_get(result,"kind"),"camera_capture")) {
+        reading.unit="snapshot";
+        if(equalText(yyjson_obj_get(result,"status"),"ok") && snapshotHandle(yyjson_obj_get(result,"handle"))
+            && integerBetween(yyjson_obj_get(result,"expires_in_ms"),5000,5000)) {
+            memcpy(text,yyjson_get_str(yyjson_obj_get(result,"handle")),32);text[32]=0;reading.text=text;reading.isText=1;reading.status="ok";
+        }
+    } else if(result && equalText(yyjson_obj_get(result,"kind"),"camera_metadata")) {
+        yyjson_val *field=yyjson_obj_get(result,"field");const char *unit=cameraUnit(field,0);
+        if(unit && equalText(yyjson_obj_get(result,"unit"),unit)) {
+            reading.unit=unit;
+            if(equalText(yyjson_obj_get(result,"status"),"ok")) {
+                if(equalText(field,"captured_at_unix_us") && decimal128(value)) {
+                    size_t n=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),n);text[n]=0;reading.text=text;reading.isText=1;reading.status="ok";
+                } else if(equalText(field,"format") && equalText(value,"UYVY")) {reading.text="UYVY";reading.isText=1;reading.status="ok";}
+                else if((equalText(field,"width") && integerBetween(value,2,8388608) && !(yyjson_get_sint(value)%2))
+                    || (equalText(field,"height") && integerBetween(value,1,4194304))
+                    || (equalText(field,"bytes") && integerBetween(value,4,16777216) && !(yyjson_get_sint(value)%4))
+                    || (equalText(field,"rotate") && integerBetween(value,0,270) && !(yyjson_get_sint(value)%90))) {
+                    reading.number=(int)yyjson_get_sint(value);reading.status="ok";
+                }
+            }
+        }
+    } else if(result && equalText(yyjson_obj_get(result,"kind"),"camera_pixel")) {
+        const char *unit=cameraUnit(yyjson_obj_get(result,"channel"),1);
+        if(unit && equalText(yyjson_obj_get(result,"unit"),unit) && integerBetween(yyjson_obj_get(result,"x"),1,8388608)
+            && integerBetween(yyjson_obj_get(result,"y"),1,4194304)) {
+            reading.unit=unit;
+            if(equalText(yyjson_obj_get(result,"status"),"ok") && integerBetween(value,0,255)) {reading.number=(int)yyjson_get_sint(value);reading.status="ok";}
+        }
+    } else if(result) reading.status="invalid";
+    yyjson_doc_free(doc);return readingRecord(&reading);
 }
 static OBJ depthReadingPrimitive(int argc,OBJ *args) {
     if (argc!=1) return fail(notEnoughArguments);
@@ -1302,6 +1362,6 @@ static PrimEntry entries[]={
     {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive},
     {"mediaSample",mediaSamplePrimitive},{"imuSample",imuSamplePrimitive},{"headImuSample",headImuSamplePrimitive},
     {"headImuReading",headImuReadingPrimitive},{"depthReading",depthReadingPrimitive},{"depthRow",depthRowPrimitive},
-    {"gamepadReading",gamepadReadingPrimitive},{"robotReading",robotReadingPrimitive},{"padImuReading",padImuReadingPrimitive}
+    {"gamepadReading",gamepadReadingPrimitive},{"robotReading",robotReadingPrimitive},{"padImuReading",padImuReadingPrimitive},{"cameraReading",cameraReadingPrimitive}
 };
 void addMicroduckPrims(void) { initialize(); addPrimitiveSet(MicroDuckPrims,"microduck",(int)(sizeof(entries)/sizeof(entries[0])),entries); }

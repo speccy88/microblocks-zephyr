@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/pollen-robotics/microduck",
+  "commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "api_version": 44,
+  "sources": {
+    "duck-ipc-proto/src/lib.rs": "e4372701007caacac120cded806e28f0da8d5f66b2231c983dbcafed3fa7b3a5",
+    "mediad/src/frame.rs": "b2440af0a98ba8f95c457410b99c935cb672ab0941def49bbcefcdc6043d9647",
+    "mediad/src/snapshot.rs": "cd370704aa7f9c8808f491c0f5baeaf464be674e94541ccb8fe53c691c7803c5",
+    "uyvy/src/lib.rs": "e801ad25f39573fb3c398f7584bc0ff88b365d02cf2c4f82aa1b39f8943a64ca"
+  },
+  "raw_coordinates": "stored-image1-based x/y; U0 Y0 V0 Y1 per horizontal pair; no rotation applied",
+  "raw_time": "unsigned128 Unix microseconds; exact decimal text; zero remains reported zero",
+  "physical_hardware": false,
+  "graphical": false,
+  "new_pi_execution": false
+}

@@ -1,0 +1,10 @@
+test_actual_compiled_simple_and_advanced_blocks_share_frame_api (test_js_camera.CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api) ... Executing <Task pending name='Task-2' coro=<CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api() running at /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_js_camera.py:45> cb=[_run_until_complete_cb() at /usr/lib/python3.14/asyncio/base_events.py:181] created at /usr/lib/python3.14/asyncio/runners.py:109> took 0.136 seconds
+Executing <Task pending name='Task-2' coro=<CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api() running at /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_js_camera.py:55> wait_for=<Future pending cb=[_chain_future.<locals>._call_check_cancel() at /usr/lib/python3.14/asyncio/futures.py:393, Task.task_wakeup()] created at /usr/lib/python3.14/asyncio/base_events.py:459> cb=[_run_until_complete_cb() at /usr/lib/python3.14/asyncio/base_events.py:181] created at /usr/lib/python3.14/asyncio/runners.py:109> took 0.338 seconds
+ok
+test_optional_bundle_preserves_other_imports_and_coexisting_layers (test_js_camera.CameraCompiledNative.test_optional_bundle_preserves_other_imports_and_coexisting_layers) ... ok
+test_optional_bundle_preserves_other_imports_and_coexisting_layers (test_js_camera.CameraLibraries.test_optional_bundle_preserves_other_imports_and_coexisting_layers) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 7.454s
+
+OK

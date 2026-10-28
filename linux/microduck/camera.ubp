@@ -1,0 +1,20 @@
+module main
+description 'Read-only stored camera pixels through the normal gateway. Current validation uses fictional UYVY input; no physical camera or motion claim. Import Camera Lab first.'
+variables cameraFrame
+
+script 30 30 {
+    whenStarted
+    sayIt (microduckEasyBrightness 1 1)
+    cameraFrame = (microduckCameraCapture)
+    sayIt cameraFrame
+    if (microduckReadingKnown cameraFrame) {
+        sayIt (microduckCameraWidth cameraFrame)
+        sayIt (microduckCameraHeight cameraFrame)
+        sayIt (microduckCameraLuma cameraFrame 1 1)
+        sayIt (microduckCameraU cameraFrame 1 1)
+        sayIt (microduckCameraV cameraFrame 1 1)
+        sayIt (microduckCameraRotation cameraFrame)
+        sayIt (microduckCameraTimestamp cameraFrame)
+        sayIt (microduckCameraRelease cameraFrame)
+    }
+}

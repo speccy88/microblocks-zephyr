@@ -24,8 +24,9 @@ discrete requests; it never opens motor buses, writes joints, replaces the
 controller or grants itself a daemon's UID/group membership. `configd` and
 `updaterd` enforce their own caller policies, which remain authoritative.
 `btd` is a separate BLE transport; `system.authenticate` is answered there and
-has no Unix daemon destination. `mediad` owns media/WebRTC; it is not connected
-by this gateway. No Wi-Fi credentials, application PINs, account tokens,
+has no Unix daemon destination. `mediad` owns media/WebRTC; only its separately
+configured finite [raw frame reader](CAMERA_FRAME_SERVICE.md) is supported here.
+The raw method is not forwarded by generic JSON routes. No Wi-Fi credentials, application PINs, account tokens,
 continuous motion or camera endpoints are accepted here.
 
 A separate [receive-only browser camera core](CAMERA.md) prepares the documented
@@ -65,6 +66,16 @@ quiet-pad descriptor discovery, typed axes/buttons/span and exact timing. Attach
 values remain unobserved until events arrive. Dedicated Gamepad blocks/example
 and a labelled fixture use normal Gateway; physical/radio/graphical acceptance
 and shipping permissions/deployment remain open. No direct evdev or robot control.
+
+The [camera frame adapter](CAMERA_FRAME_SERVICE.md) adds an optional
+`--camera-config` with explicit mediad path and verified UID. A dedicated reader
+validates the API44 header and UYVY binary tail, retaining at most four finite
+snapshots. Camera and Simple Camera blocks expose raw stored-pixel readings and
+exact metadata, with unavailable/error states preserved. The optional Camera Lab
+import includes both abstraction levels and the existing Starter libraries.
+Current tests use fictional pixels; physical camera, RGB previews and continuous
+video remain unverified or unimplemented. Existing normal/Starter imports are
+unchanged; no audio interface or motion path is added.
 
 ## Filesystem-only commissioning inspection
 

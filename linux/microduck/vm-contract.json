@@ -1,6 +1,6 @@
 {
-  "contract_version": 13,
-  "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
+  "contract_version": 14,
+  "status": "implemented and registered; prior Pi interpreter tests use simulated services; new camera adapter validated on local sanitized Linux VM only",
   "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
   "upstream_api_version": 44,
   "upstream_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
@@ -171,6 +171,13 @@
         "normal padd IMU capture/scalar JSON reply"
       ],
       "returns": "GC-safe typed thirteen-field batch reading; exact u64 clocks; local_ipc padd only; appended index20"
+    },
+    {
+      "name": "[microduck:cameraReading]",
+      "arguments": [
+        "camera JSON-RPC reply string"
+      ],
+      "returns": "List[status,value,unit,origin]; strict mediad local_ipc capture,metadata,raw Y/U/V reading; exact unsigned128 Unix-us string"
     }
   ],
   "implemented_hooks": [
@@ -717,6 +724,29 @@
       "continuous_reader": false,
       "source_audit": "pad-imu-service-source.json",
       "validation": "Actual VM -> normal Gateway -> checked fictional padd.465 full local/18 focused,251 selected each fresh ordinary/ASan+UBSan Pi binary,66 native each, zero skips. Physical/radio/graphical/shipping unverified."
+    },
+    "camera": {
+      "methods": [
+        "microduck.camera.capture",
+        "microduck.camera.metadata",
+        "microduck.camera.pixel",
+        "microduck.camera.release"
+      ],
+      "gateway_option": "--camera-config",
+      "config": "private version1/daemon:mediad/path/verified uid",
+      "library": "Camera.ubl",
+      "simple_library": "Simple_Camera.ubl",
+      "origin": "local_ipc transport only",
+      "physical_hardware_verified": false,
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 3000,
+      "max_frame_bytes": 16777216,
+      "format": "tightly packed UYVY",
+      "time": "exact unsigned128 Unix microseconds string; no freshness claim",
+      "no_mutations": true,
+      "continuous_reader": false,
+      "validation": "19 focused local Unix/native tests and3 actual JS import/compiled execution tests pass; fictional mediad pixels; physical, graphical and new Pi acceptance not performed"
     }
   }
 }

@@ -1,0 +1,8 @@
+test_actual_compiled_simple_and_advanced_blocks_share_frame_api (test_js_camera.CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api) ... skipped 'Verified local VM required'
+test_optional_bundle_preserves_other_imports_and_coexisting_layers (test_js_camera.CameraCompiledNative.test_optional_bundle_preserves_other_imports_and_coexisting_layers) ... skipped 'Verified local VM required'
+test_optional_bundle_preserves_other_imports_and_coexisting_layers (test_js_camera.CameraLibraries.test_optional_bundle_preserves_other_imports_and_coexisting_layers) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.859s
+
+OK (skipped=2)

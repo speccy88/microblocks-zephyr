@@ -1,0 +1,38 @@
+module 'MicroDuck Camera' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Experimental read-only mediad camera snapshots through an explicitly configured private Unix gateway. Fixture validation only; physical MicroDuck unverified. Capture one immutable UYVY frame, read stored-image coordinates and metadata, then release. Four five-second slots; reads never recapture or refresh. Raw Y is 8-bit luma, U/V are chroma shared by adjacent horizontal pixels. Coordinates start at1; rotate is reported clockwise mount angle, never applied. No RGB/colorimetry, calibration, lux, live freshness or camera preview is implied. Timestamp is an exact unsigned128 Unix microsecond string, not VM milliseconds. Readings are [status,value,unit,origin]; use reading known? before extracting a value. Missing/error/timeout/expired/out-of-range is not a black pixel. local_ipc denotes transport only. No file recording, WebRTC, audio, robot command, endpoint input, credentials or networking changes.'
+spec 'r' 'microduckCameraCapture' 'capture camera frame reading'
+spec 'r' 'microduckCameraWidth' 'camera frame _ stored width reading' 'auto' ''
+spec 'r' 'microduckCameraHeight' 'camera frame _ stored height reading' 'auto' ''
+spec 'r' 'microduckCameraLuma' 'camera frame _ x _ y _ brightness raw reading' 'auto num num' '' 1 1
+spec 'r' 'microduckCameraRelease' 'release camera frame _ JSON' 'auto' ''
+advanced
+spec 'r' 'microduckCameraFormat' 'camera frame _ format reading' 'auto' ''
+spec 'r' 'microduckCameraBytes' 'camera frame _ byte count reading' 'auto' ''
+spec 'r' 'microduckCameraRotation' 'camera frame _ reported clockwise rotation reading' 'auto' ''
+spec 'r' 'microduckCameraTimestamp' 'camera frame _ Unix microseconds text reading' 'auto' ''
+spec 'r' 'microduckCameraU' 'camera frame _ x _ y _ raw U chroma reading' 'auto num num' '' 1 1
+spec 'r' 'microduckCameraV' 'camera frame _ x _ y _ raw V chroma reading' 'auto num num' '' 1 1
+spec 'r' 'microduckCameraMetadata' 'camera frame _ metadata _ reading' 'auto str' '' 'width'
+spec 'r' 'microduckCameraPixel' 'camera frame _ x _ y _ raw channel _ reading' 'auto num num str' '' 1 1 'y'
+
+to microduckCameraParams frame { return ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' frame))) }
+to microduckCameraCapture { return ('[microduck:cameraReading]' (microduckRequest 'microduck.camera.capture' '{}' false)) }
+to microduckCameraMetadata frame field {
+    return ('[microduck:cameraReading]' (microduckRequest 'microduck.camera.metadata' ('[data:join]' (microduckCameraParams frame) ',"field":' ('[microduck:quote]' field) '}') false))
+}
+to microduckCameraWidth frame { return (microduckCameraMetadata frame 'width') }
+to microduckCameraHeight frame { return (microduckCameraMetadata frame 'height') }
+to microduckCameraFormat frame { return (microduckCameraMetadata frame 'format') }
+to microduckCameraBytes frame { return (microduckCameraMetadata frame 'bytes') }
+to microduckCameraRotation frame { return (microduckCameraMetadata frame 'rotate') }
+to microduckCameraTimestamp frame { return (microduckCameraMetadata frame 'captured_at_unix_us') }
+to microduckCameraPixel frame x y channel {
+    local 'params' ('[data:join]' (microduckCameraParams frame) ',"x":' x ',"y":' y ',"channel":' ('[microduck:quote]' channel) '}')
+    return ('[microduck:cameraReading]' (microduckRequest 'microduck.camera.pixel' params false))
+}
+to microduckCameraLuma frame x y { return (microduckCameraPixel frame x y 'y') }
+to microduckCameraU frame x y { return (microduckCameraPixel frame x y 'u') }
+to microduckCameraV frame x y { return (microduckCameraPixel frame x y 'v') }
+to microduckCameraRelease frame { return (microduckRequest 'microduck.camera.release' ('[data:join]' (microduckCameraParams frame) '}') false) }
