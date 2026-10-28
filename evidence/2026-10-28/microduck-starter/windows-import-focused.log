@@ -1,0 +1,7 @@
+test_coherent_optional_import_exact_sources_and_roundtrip (test_microduck_starter.MicroDuckStarterImport.test_coherent_optional_import_exact_sources_and_roundtrip) ... ok
+test_actual_native_execution_layers_errors_confirmation_and_disposal (test_microduck_starter.MicroDuckStarterNative.test_actual_native_execution_layers_errors_confirmation_and_disposal) ... skipped 'Verified local Linux SmallVM required'
+
+----------------------------------------------------------------------
+Ran 2 tests in 3.532s
+
+OK (skipped=1)

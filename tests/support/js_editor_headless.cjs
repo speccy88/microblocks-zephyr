@@ -26,7 +26,7 @@ function load(assets, options = {}) {
         createElement: element, addEventListener() {}, dispatchEvent() {},
         getElementById() {return null;}, querySelector() {return element('canvas');}};
     const sandbox = {console: options.console || console, crypto: options.crypto || crypto.webcrypto, AbortController, AbortSignal, TextEncoder, TextDecoder, Uint8Array, Uint8ClampedArray, ArrayBuffer,
-        URL, setTimeout, clearTimeout, setInterval() {return 0;}, requestAnimationFrame() {}, document,
+        URL, Blob, setTimeout, clearTimeout, clearInterval, setInterval() {return 0;}, requestAnimationFrame() {}, document,
         location: options.location || {href: 'http://127.0.0.1:18876/'}, WebSocket: options.Socket,
         async fetch(name) {
             if (typeof name !== 'string' || name.includes('..') || name.includes(':') || name.startsWith('/')) throw new Error('Fixture accepts packaged paths only');
@@ -55,7 +55,7 @@ function load(assets, options = {}) {
     vm.runInContext(fs.readFileSync(path.join(assets, 'board-transport.js'), 'utf8'), context);
     if (manifest && fs.existsSync(path.join(assets,'p4-service-sources.json'))) {
         for (const name of ['device-files-core.js','device-files-wire.js','device-files-controller.js',
-                            'p4-neural-core.js','p4-neural-client.js','p4-services.js']) {
+                            'p4-neural-core.js','p4-neural-client.js','p4-services.js','p4-media-core.js','p4-media-client.js','p4-media.js']) {
             vm.runInContext(fs.readFileSync(path.join(assets,name),'utf8'),context,{filename:name});
         }
     }

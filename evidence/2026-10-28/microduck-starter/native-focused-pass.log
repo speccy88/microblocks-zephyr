@@ -1,0 +1,10 @@
+{"replica": "/tmp/js-editor-validation-3d9ar9gc/repo", "git_base": "a2d2275b4e65ebde2e0c4993246ee7c78729a298", "assertions_deadlines_exclusions_changed": false, "preparation_seconds": 19.540800188, "node": "/tmp/js-editor-validation-3d9ar9gc/node-windows-interop"}
+test_coherent_optional_import_exact_sources_and_roundtrip (test_microduck_starter.MicroDuckStarterImport.test_coherent_optional_import_exact_sources_and_roundtrip) ... ok
+test_actual_native_execution_layers_errors_confirmation_and_disposal (test_microduck_starter.MicroDuckStarterNative.test_actual_native_execution_layers_errors_confirmation_and_disposal) ... Executing <Task pending name='Task-2' coro=<MicroDuckStarterNative.test_actual_native_execution_layers_errors_confirmation_and_disposal() running at /tmp/js-editor-validation-3d9ar9gc/repo/tests/test_microduck_starter.py:101> wait_for=<Future pending cb=[_chain_future.<locals>._call_check_cancel() at /usr/lib/python3.14/asyncio/futures.py:393, Task.task_wakeup()] created at /usr/lib/python3.14/asyncio/base_events.py:459> cb=[_run_until_complete_cb() at /usr/lib/python3.14/asyncio/base_events.py:181] created at /usr/lib/python3.14/asyncio/runners.py:109> took 0.126 seconds
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 7.621s
+
+OK
+{"microduck_starter": {"functions_uploaded": 178, "actual_local_vm": true, "physical_hardware": false, "simulated_services": true}}

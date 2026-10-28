@@ -1,0 +1,24 @@
+[
+  {
+    "package": "js-p4-media-final-20261028",
+    "files": 592,
+    "profile": "esp32p4",
+    "build_manifest_sha256": "348da289e1beaffc0498b00105144321986f6ac255956b838490dbe48d6b64ab",
+    "mismatches": [],
+    "upstream_files": 550,
+    "upstream_mismatches": [],
+    "local_mismatches": [],
+    "test_fixture_paths": []
+  },
+  {
+    "package": "js-microduck-starter-20261028-b",
+    "files": 580,
+    "profile": "microduck",
+    "build_manifest_sha256": "622e22727112b72bd53d07cf609eaa7cfdbf1e59519e6724d07637ab2e02e947",
+    "mismatches": [],
+    "upstream_files": 550,
+    "upstream_mismatches": [],
+    "local_mismatches": [],
+    "test_fixture_paths": []
+  }
+]

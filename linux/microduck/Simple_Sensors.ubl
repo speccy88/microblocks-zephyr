@@ -1,0 +1,55 @@
+module 'MicroDuck Simple Sensors' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Experimental convenience layer over the same advanced read-only gateway libraries. These helpers capture, read and release one snapshot. Readings retain [status,value,unit,origin]; missing or unobserved values never become zero. Use reading known? before number from reading. Battery uses hundredths percent; head temperature uses mC; range uses mm. Gamepad number is the declared button index, not an assumed A/B mapping. No continuous freshness, clear-path, calibrated orientation or movement readiness is inferred. Fixtures only so far; physical MicroDuck unverified. Advanced blocks remain usable in the same project.'
+spec 'r' 'microduckEasyBattery' 'battery reading'
+spec 'r' 'microduckEasyHeadTemperature' 'head temperature reading'
+spec 'r' 'microduckEasyRange' 'range at row _ column _ reading (mm)' 'num num' 4 4
+spec 'r' 'microduckEasyButton' 'declared gamepad button _ reading' 'num' 1
+spec 'b' 'microduckEasyKnown' 'reading _ known?' 'auto' ''
+spec 'r' 'microduckEasyValue' 'number or value from reading _' 'auto' ''
+spec 'r' 'microduckEasyStatus' 'reading _ status' 'auto' ''
+spec 'r' 'microduckEasyUnit' 'reading _ unit' 'auto' ''
+
+to microduckEasyBattery {
+    local 'sample' (microduckRobotHealthCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'reading' (microduckRobotBatteryPercent sample)
+    microduckRobotStateRelease sample
+    return reading
+}
+to microduckEasyHeadTemperature {
+    local 'sample' (microduckHeadImuCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'reading' (microduckHeadImuTemperature sample)
+    microduckHeadImuRelease sample
+    return reading
+}
+to microduckEasyRange row column {
+    if (not (and (isType row 'number') (isType column 'number'))) { return (microduckEasyInvalidInput) }
+    if (or (row < 1) (row > 8) (column < 1) (column > 8)) { return (microduckEasyInvalidInput) }
+    local 'sample' (microduckDepthCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'reading' (microduckDepthDistance sample row column)
+    microduckDepthRelease sample
+    return reading
+}
+to microduckEasyButton index {
+    if (not (isType index 'number')) { return (microduckEasyInvalidInput) }
+    if (or (index < 1) (index > 256)) { return (microduckEasyInvalidInput) }
+    local 'sample' (microduckGamepadCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'code' (microduckGamepadButtonCode sample index)
+    if (not (microduckReadingKnown code)) {
+        microduckGamepadRelease sample
+        return code
+    }
+    local 'reading' (microduckGamepadButton sample ('[microduck:readingValue]' code))
+    microduckGamepadRelease sample
+    return reading
+}
+to microduckEasyKnown reading { return (microduckReadingKnown reading) }
+to microduckEasyValue reading { return ('[microduck:readingValue]' reading) }
+to microduckEasyStatus reading { return (microduckReadingStatus reading) }
+to microduckEasyUnit reading { return (microduckReadingUnit reading) }
+to microduckEasyInvalidInput { return ('[microduck:depthReading]' '{"jsonrpc":"2.0","id":null,"error":{"code":-32602,"message":"Invalid sensor row, column or button index"}}') }

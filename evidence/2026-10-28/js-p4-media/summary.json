@@ -1,0 +1,38 @@
+{
+  "tests": 504,
+  "failures": 0,
+  "skips": 0,
+  "validator_seconds": 281.571,
+  "wrapper_seconds": 289.164591043,
+  "verified_source_inputs": 2274,
+  "media_focused_cases": 12,
+  "starter_functions": 178,
+  "starter_modules": 10,
+  "new_pi_execution": false,
+  "physical_hardware": false,
+  "pending_approval": false,
+  "package_audit": [
+    {
+      "package": "js-p4-media-final-20261028",
+      "files": 592,
+      "profile": "esp32p4",
+      "build_manifest_sha256": "348da289e1beaffc0498b00105144321986f6ac255956b838490dbe48d6b64ab",
+      "mismatches": [],
+      "upstream_files": 550,
+      "upstream_mismatches": [],
+      "local_mismatches": [],
+      "test_fixture_paths": []
+    },
+    {
+      "package": "js-microduck-starter-20261028-b",
+      "files": 580,
+      "profile": "microduck",
+      "build_manifest_sha256": "622e22727112b72bd53d07cf609eaa7cfdbf1e59519e6724d07637ab2e02e947",
+      "mismatches": [],
+      "upstream_files": 550,
+      "upstream_mismatches": [],
+      "local_mismatches": [],
+      "test_fixture_paths": []
+    }
+  ]
+}

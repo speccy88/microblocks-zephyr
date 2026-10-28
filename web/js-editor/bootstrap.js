@@ -46,6 +46,11 @@ window.addEventListener('DOMContentLoaded', () => {
         };
         panel.append(load);
     }
+    if (MicroBlocksJSProfile.id === 'microduck') {
+        const starter=document.createElement('button');starter.textContent='Load starter lab (includes SIMULATION)';
+        starter.onclick=async()=>{try{await MB_Files.initialize();await MB_editor.openLibraryFile('Libraries/MicroDuck Starter Lab.ubl');label.textContent='Simple sensors and advanced libraries loaded together. Action practice is SIMULATION ONLY. ';}catch(error){label.textContent=error.message;}};
+        panel.append(starter);
+    }
     document.body.append(panel);
     if (MicroBlocksJSProfile.id === 'esp32p4') {
         try {MicroBlocksP4UI.attach(MB_Connection,MB_connection,boardProfileRuntime);}

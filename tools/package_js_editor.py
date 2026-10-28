@@ -14,15 +14,16 @@ LOCAL_REDIRECT = "if (location.protocol === 'http:' && location.hostname !== '12
 ANCHOR = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
 MICRODUCK_LIBRARIES = ('MicroDuck', 'Head_IMU', 'Depth', 'Gamepad', 'Robot', 'Pad_IMU')
 MICRODUCK_BUNDLE = 'Libraries/MicroDuck Linux.ubl'
+MICRODUCK_STARTER = 'Libraries/MicroDuck Starter Lab.ubl'
 CATALOG = json.loads((ROOT / 'dependencies/editor-targets.json').read_text(encoding='utf-8'))
 PROFILES = CATALOG['targets']
 
 
 def p4_service_files():
     names = ['device-files-core.js', 'device-files-wire.js', 'device-files-controller.js',
-             'device-files.js', 'device-files.css', 'p4-neural-core.js', 'p4-neural.css']
+             'device-files.js', 'device-files.css', 'p4-neural-core.js', 'p4-neural.css', 'p4-media-core.js']
     result = {name: (ROOT / 'web' / name).read_bytes() for name in names}
-    for name in ('p4-services.js', 'p4-neural-client.js', 'p4-ui.js'):
+    for name in ('p4-services.js', 'p4-neural-client.js', 'p4-media-client.js', 'p4-media.js', 'p4-ui.js'):
         result[name] = (ROOT / 'web/js-editor' / name).read_bytes()
     sources = [{'packaged_path': name, 'source_path': ('web/' if name in names else 'web/js-editor/') + name,
                 'sha256': hashlib.sha256(raw).hexdigest()} for name, raw in result.items()]
@@ -75,6 +76,19 @@ def microduck_files():
     result['microduck-libraries.json'] = (json.dumps({'schema': 1, 'bundle': MICRODUCK_BUNDLE,
         'automatic_import': False, 'physical_hardware_validated': False,
         'sources': records}, indent=2) + '\n').encode()
+    starter, starter_records = bundle, records.copy()
+    for name in ('Motion_Simulation', 'Robot_Simulation', 'Simple_Sensors', 'Simple_Practice'):
+        source = 'linux/microduck/' + name + '.ubl'
+        data = (ROOT / source).read_bytes()
+        destination = 'sources/microduck/' + name + '.ubl'
+        result[destination] = data
+        starter_records.append({'source_path': source, 'packaged_source': destination,
+            'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest(), 'bundle_offset': len(starter)})
+        starter += data + b'\n\n'
+    result[MICRODUCK_STARTER] = starter
+    result['microduck-starter-libraries.json'] = (json.dumps({'schema': 1, 'bundle': MICRODUCK_STARTER,
+        'automatic_import': False, 'physical_hardware_validated': False,
+        'action_blocks': 'simulation_only', 'sources': starter_records}, indent=2) + '\n').encode()
     return result
 
 
@@ -102,7 +116,8 @@ def package(source, output, manifest_path=None, *, profile='development'):
     if profile == 'esp32p4':
         tags = ['<link rel="stylesheet" href="device-files.css">', '<link rel="stylesheet" href="p4-neural.css">']
         for name in ('device-files-core.js', 'device-files-wire.js', 'device-files-controller.js', 'device-files.js',
-                     'p4-neural-core.js', 'p4-neural-client.js', 'p4-services.js', 'p4-ui.js'):
+                     'p4-neural-core.js', 'p4-neural-client.js', 'p4-services.js', 'p4-media-core.js',
+                     'p4-media-client.js', 'p4-media.js', 'p4-ui.js'):
             tags.append('<script src="' + name + '"></script>')
         html = html.replace('\t\t<script src="linux-bootstrap.js"></script>',
                             '\n'.join(tags) + '\n\t\t<script src="linux-bootstrap.js"></script>')

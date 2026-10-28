@@ -11,6 +11,26 @@
    frameEvent:frame=>root.dispatchEvent(new CustomEvent('p4-vm-frame',{detail:frame})),
    error:message=>root.dispatchEvent(new CustomEvent('microblocks-target-status',{detail:message}))});
   const neural=new MicroBlocksP4Neural.Client(broker,P4NeuralCore);
+  const mediaPanel=document.createElement('details'),mediaTitle=document.createElement('summary');mediaTitle.textContent='Inline image and audio results';mediaPanel.append(mediaTitle);controls.append(mediaPanel);
+  const mediaStatus=document.createElement('p');mediaStatus.setAttribute('role','status');mediaStatus.textContent='Connect supported P4 firmware to enable per-block results.';mediaPanel.append(mediaStatus);
+  const mediaHelp=document.createElement('p');mediaHelp.textContent='Run an image or recording block to view its result on that block. Results expire on rerun or disconnect and are never saved. Audio plays only when you choose Play.';mediaPanel.append(mediaHelp);
+  const mediaList=document.createElement('div');mediaList.setAttribute('aria-label','Per-block media controls');mediaPanel.append(mediaList);
+  let media;
+  const rows=new Map();
+  function updateMedia(){
+   if(!media)return;
+   for(const [uid,row] of rows)if(!media.sites.has(uid)){row.node.remove();rows.delete(uid);}
+   for(const [uid,site] of media.sites){
+    let row=rows.get(uid);if(!row){const node=document.createElement('div'),label=document.createElement('span'),toggle=document.createElement('button'),play=document.createElement('button');
+     toggle.type=play.type='button';toggle.onclick=()=>media.toggle(uid);play.onclick=()=>void media.play(uid);label.style.display='block';node.style.cssText='padding:5px 0;border-bottom:1px solid #ddd';
+     for(const button of [toggle,play])button.style.cssText='display:inline-block;padding:4px 7px;margin:2px;border:1px solid #777;border-radius:4px;background:#f4f6f8;color:#17212b';
+     node.append(label,toggle,play);mediaList.append(node);row={node,label,toggle,play};rows.set(uid,row);}
+    row.label.textContent=site.block.selector+' — '+site.state+' ';row.toggle.textContent=site.expanded?'Collapse result':'Expand result';row.toggle.setAttribute('aria-expanded',String(site.expanded));
+    row.play.style.display=site.kind===2?'inline-block':'none';row.play.disabled=!site.item?.audio;row.play.textContent=site.item?.audio&&!site.item.audio.paused?'Pause audio':'Play audio';
+   }
+  }
+  media=MicroBlocksP4Media.install({Compiler:MB_Compiler,Decompiler:MB_Decompiler,CodeManager:MB_CodeManager,Morph,Point,Scripts:ScriptsMorph,editor:()=>MB_editor,profile:MicroBlocksJSProfile,broker,
+   status:message=>{mediaStatus.textContent=message;},changed:updateMedia});updateMedia();
   const panel=document.createElement('details');panel.className='p4-neural';const title=document.createElement('summary');title.textContent='Neural networks';panel.append(title);controls.append(panel);
   const el=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
   panel.append(el('p','Native TFLM dense models. ONNX needs the supported offline conversion. Inference uses the Neural Networks blocks; no actuator binding.'));
@@ -53,8 +73,8 @@
   panel.append(el('p','Model bytes stay in this tab and the selected board. They are not saved in the project or sent to a model service. Check tensor shape, dtype, scale and zero point before using blocks.'));
   const off=broker.subscribeState(state=>{if(!state.verified){action++;busy=false;cancelled=true;token=0;info.textContent='';status.textContent='Disconnected. Check the backend after reconnecting.';}});
   document.dispatchEvent(new CustomEvent('board-ide-ready'));
-  root.addEventListener('pagehide',()=>{off();neural.close();broker.close();connection.disconnect();controls.remove();});
-  return Object.freeze({broker,neural});
+  root.addEventListener('pagehide',()=>{off();media.close();neural.close();broker.close();connection.disconnect();controls.remove();});
+  return Object.freeze({broker,neural,media});
  }
  const api=Object.freeze({attach});root.MicroBlocksP4UI=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);

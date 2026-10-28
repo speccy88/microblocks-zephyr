@@ -1,0 +1,100 @@
+Browser tab: 17, Title: "MicroBlocks", URL: "http://127.0.0.1:18901/fixture.html?revision=media-final".
+0 AXWebArea MicroBlocks, URL: 127.0.0.1:18901/fixture.html?revision=media-final
+	1 container
+		4 container
+			5 link Description: MicroBlocks website, Value: microblocks.fun/
+			31 button Language
+				32 image
+			33 button Settings
+				34 image
+			35 button Project
+				36 image
+			133 text MediaFixtures
+			38 button Graph
+				39 image
+			40 button Connect
+				41 image
+				42 text Connect
+			43 button Start
+				44 image
+			45 button Stop
+				46 image
+		6 container
+			47 button Block Category
+				48 text Output
+			49 button Block Category
+				50 text Input
+			51 button Block Category
+				52 text Pins
+			53 button Block Category
+				54 text Control
+			55 button Block Category
+				56 text Operators
+			57 button Block Category
+				58 text Variables
+			59 button Block Category
+				60 text Data
+			61 button Block Category
+				62 text My Blocks
+			7 heading LIBRARIES, Value: 2
+				63 text LIBRARIES
+			9 button Add Library
+				64 text Add Library
+				11 image
+			134 button Block Category
+				135 text Clock & Timers
+			136 button Block Category
+				137 text I2C Devices
+			138 button Block Category
+				139 text JSON
+			140 button Block Category
+				141 text P4 Audio
+			142 button Block Category
+				143 text P4 Camera
+			144 button Block Category
+				145 text P4 Local Speech
+			146 button Block Category
+				147 text P4 Neural Networks
+			148 button Block Category
+				149 text Steps & Transitions
+			150 button Block Category
+				151 text Storage
+			152 button Block Category
+				153 text Wake Word
+			12 button Expand and collapse left bar
+				13 image
+		85 container
+			86 image canvas
+			121 button Undo
+				122 image
+			123 button Redo
+				124 image
+			125 button Zoom out
+				126 image
+			127 button Restore zoom
+				128 image
+			129 button Zoom in
+				130 image
+		154 text Scripts Pane Drag blocks here to build scripts.
+		155 image
+		156 text menu.
+		14 text entry area (settable)
+		15 text Waveshare ESP32-P4 WIFI6 — experimental JS editor.
+		16 button Connect target USB
+		17 button Close local link
+		18 text field (settable) Trusted P4 secure WebSocket address
+		19 button Connect P4 WSS
+		20 button Load target blocks
+		21 container P4 services
+			22 pop up button Device files
+			131 button (collapsed) Inline image and audio results, Secondary Actions: Expand
+				132 text Inline image and audio results
+			25 button (collapsed) Neural networks, Secondary Actions: Expand
+				26 text Neural networks
+		157 text REOPEN PASS: source unchanged; no pixels, PCM or site IDs restored.
+		28 button Load stored image and PCM fixtures
+		29 button Reopen saved fixture source
+		30 button Expire fixture results
+		109 text entry area (settable) morphic_keyboard
+
+The focused UI element is 0 AXWebArea MicroBlocks, URL: 127.0.0.1:18901/fixture.html?revision=media-final

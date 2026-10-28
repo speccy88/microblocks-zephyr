@@ -1,0 +1,17 @@
+module 'MicroDuck Simple Practice' Output
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Small action vocabulary over the existing advanced Motion Simulation and Robot Simulation interfaces. Both layers coexist in one project and share backend opt-in, bounds, explicit per-request confirmation, timeouts and unknown-outcome handling. Confirmation defaults false. Forward/turn record a bounded timed twist lease; duration does not promise distance or angle. Cancel affects the mock lease. Preview stop records robot.stop and is not a real emergency stop or torque-off. Skill names must be fictional advertised names. No physical motion or sound, live transport, new permissions or automatic retries.'
+spec 'r' 'microduckEasySimForward' 'SIMULATION forward _ mm/s for _ ms confirmed _' 'num num bool' 100 500 false
+spec 'r' 'microduckEasySimTurnLeft' 'SIMULATION turn left _ mrad/s for _ ms confirmed _' 'num num bool' 250 500 false
+spec 'r' 'microduckEasySimCancel' 'SIMULATION cancel timed motion lease'
+spec 'r' 'microduckEasySimStop' 'SIMULATION preview stop confirmed _' 'bool' false
+spec 'r' 'microduckEasySimChirp' 'SIMULATION chirp confirmed _' 'bool' false
+spec 'r' 'microduckEasySimSkill' 'SIMULATION skill _ confirmed _' 'str bool' 'simulation_bow' false
+
+to microduckEasySimForward speed duration confirmed { return (microduckSimMotionRun speed 0 0 duration confirmed) }
+to microduckEasySimTurnLeft rate duration confirmed { return (microduckSimMotionRun 0 0 rate duration confirmed) }
+to microduckEasySimCancel { return (microduckSimMotionCancel) }
+to microduckEasySimStop confirmed { return (microduckSimStop confirmed) }
+to microduckEasySimChirp confirmed { return (microduckSimSound 'chirp' confirmed) }
+to microduckEasySimSkill name confirmed { return (microduckSimDo name confirmed) }

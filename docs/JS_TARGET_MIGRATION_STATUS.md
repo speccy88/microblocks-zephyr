@@ -7,12 +7,12 @@ deployment. A visible library is not hardware acceptance.
 | Target / feature | Preserved source and current JS status | Remaining work |
 |---|---|---|
 | Raspberry Pi 5 | Separate JS profile, core compiler/readback/matrix adapters, strict explicit loopback transport; prior real Pi JS arithmetic/readback/reconnect pass | New profile lifecycle acceptance; persistent service/boot and hosted WSS |
-| MicroDuck RK3566 | Separate disconnected profile; coherent six typed read-only gateway libraries import140 functions; normal Pi fixtures retained | Remaining daemon interfaces, media pixels, physical commissioning; simple action library after editor migration |
+| MicroDuck RK3566 | Separate disconnected profile; original six typed read-only modules remain; optional ten-module Starter Lab imports178 functions with simple sensors and explicitly simulated actions alongside advanced blocks | Remaining live daemon interfaces, camera pixels, shipping identity and physical commissioning; simpler units/vocabulary need family feedback |
 | Fruit Jam | Explicit JS package, coherent library, private `fruitJam` namespace, version/identity-gated USB adapter | JS graphical peripherals/hardware and existing board-network path acceptance |
 | Waveshare RLCD | Explicit JS package, complete library, private `rlcd` namespace, identity-gated USB adapter | JS graphical peripherals/hardware and board-network transport |
 | Propeller 2 | Explicit FTDI USB profile with DTR false and v405 gate; complete `p2` library compile/roundtrip | Physical serial/reset behavior; independently inspect broader core primitive support |
 | XRP RP2350 | Exact production GP library and four dependencies copied with hashes; actual import/compile/roundtrip and USB gate; native actuator locks retained | Physical locked-runtime JS acceptance; public GP connection remains unchanged |
-| ESP32-P4 | Ten preserved modules and private maps; bounded extension dispatch; typed file controller/dialog, generation-bound neural import panel, guarded USB and explicit WSS frontend; native storage and full-suite checks in the dated receipt | Inline image/audio views and compiler tracing; owner checkpoint and real USB/WSS hardware acceptance |
+| ESP32-P4 | Ten preserved modules and private maps; bounded extension dispatch; typed files, neural import, guarded USB/WSS; inline image/explicit audio views with fresh-run compiler tracing and source/readback cleanup; actual JS compiler/morphs and labelled graphical fixtures | Reconcile owner's current firmware; real USB/WSS, camera/audio/inference acceptance; broader saved-library/readback combinations |
 | UNO Q matrix reference | Explicit offline profile and exact reference library;13x8 slot preserves104-digit strings/defaults and prior actual saved-file reopening | Independent firmware identity and connectivity; broader arbitrary-size variants need exact source |
 
 The P4 owner's checkout, COM5/COM12 and paused SFC must remain untouched.
