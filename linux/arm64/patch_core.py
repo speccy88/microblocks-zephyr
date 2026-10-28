@@ -207,6 +207,12 @@ static NativeCallee findCallee(char *functionOrPrimitiveName) {
 
 
 def _runtime(text):
+    # v417 calls display-off from protocol erase/reset cleanup, outside a task.
+    # The headless hardware stub would leave primitiveNotImplemented pending
+    # for the next unrelated script. Skip only these three internal cleanups;
+    # explicit display bytecode still reaches the unsupported hardware stub.
+    text = replace(text, 'primMBDisplayOff(0, NULL)',
+                   '((void) 0) /* headless protocol display cleanup */', 3)
     # Cancel only the local bounded RPC waits. This cannot roll back a request
     # already accepted by robotd, and does not replace the robot's own controls.
     text = replace(text, 'static void stopAllTasks() {',

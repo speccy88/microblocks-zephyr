@@ -1,0 +1,52 @@
+{
+  "args": [
+    "python3",
+    "-B",
+    "/home/fred/microblocks-fresh-install-afcxpmc5/bundle/linux/arm64/install_bundle.py",
+    "--prefix",
+    "/home/fred/microblocks-fresh-install-afcxpmc5/prefix",
+    "--data",
+    "/home/fred/microblocks-fresh-install-afcxpmc5/program"
+  ],
+  "returncode": 0,
+  "seconds": 4.254659064000407,
+  "fresh_prefix": true,
+  "fresh_private_venv": true,
+  "fresh_os_image": false,
+  "archive_sha256": "edabb7b3da9d22d129b6e56c39369f89538de26b4ec3da3636c8f8375d122607",
+  "installed": {
+    "binary": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks/rpi5-v417-20261028-alpha1/smallvm",
+    "bind": "127.0.0.1",
+    "bundle_sha256": "b62d96fa9e49d6ea236075a1f365cd4c190dc862644c824d385d5a5bfbe26a00",
+    "connection": "Use the same loopback port through SSH on another computer",
+    "data": "/home/fred/microblocks-fresh-install-afcxpmc5/program",
+    "editor_url": "http://127.0.0.1:8876/",
+    "lingering_changed": false,
+    "physical_robot": false,
+    "port": 8876,
+    "program_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/program",
+    "runtime_sha256": "64e493ffff9734e501b7c2ef566f59eaf1c714246c753abdffb12bfd20530989",
+    "session": {
+      "binary": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks/rpi5-v417-20261028-alpha1/smallvm",
+      "bind": "127.0.0.1",
+      "bridge_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/bridge-a64a1ea710f140a0b8a01d318190aac5.log",
+      "bridge_pid": 2258,
+      "data_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/program",
+      "editor_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/share/microblocks-editor/c6185ffe76a744a7ee5d422ab4cb3dda524ba642c671f5ba6c00ff6c8ab1a850",
+      "port": 8876,
+      "pty_info": "/home/fred/microblocks-fresh-install-afcxpmc5/program/pty-a64a1ea710f140a0b8a01d318190aac5.json",
+      "resume": true,
+      "service_installed": true,
+      "session_id": "a64a1ea710f140a0b8a01d318190aac5",
+      "state": "ready",
+      "supervisor_pid": 2253,
+      "vm_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/vm-a64a1ea710f140a0b8a01d318190aac5.log",
+      "vm_pid": 2257
+    },
+    "ssh_forward_command": "ssh -N -L 127.0.0.1:8876:127.0.0.1:8876 fred@192.168.1.105",
+    "startup": "boot-existing-or-explicitly-approved-linger",
+    "unchanged": false,
+    "uninstall_command": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/bin/microblocks-uninstall",
+    "unit": "/home/fred/.config/systemd/user/microblocks-smallvm.service"
+  }
+}

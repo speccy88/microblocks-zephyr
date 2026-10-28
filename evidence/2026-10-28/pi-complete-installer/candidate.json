@@ -1,0 +1,26 @@
+{
+  "version": "rpi5-v417-20261028-alpha1",
+  "archive": "smallvm-pi5-rpi5-v417-20261028-alpha1.tar.gz",
+  "archive_bytes": 3906001,
+  "archive_sha256": "edabb7b3da9d22d129b6e56c39369f89538de26b4ec3da3636c8f8375d122607",
+  "bootstrap_sha256": "6114e1400098131f5e967f42d025f6c892b96c60fedd8031b99d465ff1aa25fe",
+  "files": 585,
+  "source_archive_sha256": "0037f8985e2ff359876594923107cacdf40e6117600d3927c12776eb43a696b7",
+  "executable_sha256": "feea4dc52f7a4e083c6144bfa569518bd801cc62341dca04500464b3c4ac7b21",
+  "published": false,
+  "hardware_acceptance": "Fresh-prefix/reinstall/child recovery/first graphical result PASS; combined service reboot blocked and not executed; not a fresh OS image",
+  "prerequisites": [
+    "64-bit Raspberry Pi5 Linux",
+    "Python3.10+ and python3-venv",
+    "curl, bash, coreutils, systemd user manager",
+    "Boot lingering already enabled or explicit interactive consent"
+  ],
+  "reproduction": {
+    "byte_identical": true,
+    "files": {
+      "smallvm-pi5-rpi5-v417-20261028-alpha1.tar.gz": "edabb7b3da9d22d129b6e56c39369f89538de26b4ec3da3636c8f8375d122607",
+      "install-pi5.sh": "6114e1400098131f5e967f42d025f6c892b96c60fedd8031b99d465ff1aa25fe"
+    },
+    "independent_output": "build-artifacts/pi-installer-repro-check"
+  }
+}

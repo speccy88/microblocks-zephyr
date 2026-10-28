@@ -1,5 +1,16 @@
 # Linux ARM64 SmallVM: current status
 
+The [complete Pi installer candidate](../../docs/PI_INSTALLER.md) now bundles the
+VM, pinned JavaScript editor, bridge and a private offline Python dependency.
+Actual fresh-prefix installation, identical reinstallation and automatic recovery
+after either child fails pass on the Pi. The first graphical evaluation after
+reading an older raw-protocol fixture now returns 42 without reconnect: Linux
+protocol cleanup no longer calls the unsupported display primitive. Explicit
+unsupported hardware blocks still fail normally. See [current evidence](../../evidence/2026-10-28/pi-complete-installer/README.md).
+The complete VM-and-bridge service's reboot check is blocked after automatic
+approval review rejected the requested reboot; it has not run. The earlier
+VM-only reboot result below remains separate. No public installer URL is ready.
+
 The 2026-10-28 JavaScript-editor follow-up passes graphical standalone Pi
 arithmetic, project serialization/reopen, reconnect and real VM readback.
 Separate fictional robotd fixtures exercise simple missing-servo/model-name

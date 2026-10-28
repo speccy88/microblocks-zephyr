@@ -21,6 +21,10 @@
     "foreground_resume_js_crc_reconnect": "physical-pi-headless-pass",
     "user_service_install_restart_crash_recovery_uninstall": "physical-pi-headless-pass",
     "full_os_reboot": "physical-pi-pass-existing-linger-vm-autostart-manual-bridge",
+    "complete_bundle_fresh_prefix_install_reinstall": "physical-pi-pass-existing-os",
+    "combined_vm_bridge_child_crash_recovery": "physical-pi-pass",
+    "graphical_first_evaluation_after_raw_program_readback": "physical-pi-pass-cleanup-regression-fixed",
+    "combined_vm_bridge_full_os_reboot": "blocked-reboot-rejected-by-approval-review-not-executed",
     "gpio_i2c_spi_audio_camera": "unsupported",
     "microduck_unix_native_adapter": "physical-pi-vm-with-simulated-robot-services-pass",
     "microduck_graphical_health_blocks": "physical-pi-vm-with-explicit-simulation-pass",
@@ -31,5 +35,7 @@
   "release_published": false,
   "foreground_resume_evidence": "../../evidence/2026-10-28/pi5-standalone-session/README.md",
   "user_service_evidence": "../../evidence/2026-10-28/pi-user-service/README.md",
-  "reboot_evidence": "../../evidence/2026-10-28/pi-user-service/REBOOT.md"
+  "reboot_evidence": "../../evidence/2026-10-28/pi-user-service/REBOOT.md",
+  "complete_installer_evidence": "../../evidence/2026-10-28/pi-complete-installer/README.md",
+  "complete_installer_binary_sha256": "feea4dc52f7a4e083c6144bfa569518bd801cc62341dca04500464b3c4ac7b21"
 }

@@ -1,0 +1,27 @@
+{
+  "returncode": 0,
+  "validator_returncode": 0,
+  "post_validation_source_hashes_match": true,
+  "post_validation_source_inputs": 2528,
+  "post_validation_mismatches": [],
+  "seconds": 323.424025183,
+  "mode": "Full unchanged validator, byte-identical entire repository Linux filesystem replica",
+  "files": 2528,
+  "replica": "/tmp/js-editor-validation-b05awuq2/repo",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/tmp/js-editor-validation-b05awuq2/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/tmp/js-editor-validation-b05awuq2/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_UPSTREAM": "/tmp/js-editor-validation-b05awuq2/smallvm",
+    "JS_EDITOR_UPSTREAM": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-editor-upstream-20261027",
+    "NODE_BINARY": "/tmp/js-editor-validation-b05awuq2/node-windows-interop"
+  },
+  "tests": 571,
+  "test_seconds": 314.608,
+  "failures": 0,
+  "skips": 0,
+  "native_sha256": "bd767a64d09a2d6ffb9d4e6ec87adcf7dd81680d04ab97c0b033a5f4960fcfde",
+  "pi_complete_reboot": "blocked, rejected before execution",
+  "first_validator_attempt": "Runner not yet generated; exited before tests; retained as preparation-race.log",
+  "shell_syntax": "bash -n passed bootstrap and native install/uninstall scripts; no execution",
+  "hardware_scope": "Actual Pi installer/child recovery/graphical result receipts; full suite uses local Linux and simulated services"
+}

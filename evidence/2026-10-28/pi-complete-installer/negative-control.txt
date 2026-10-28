@@ -1,0 +1,21 @@
+test_boardie_soft_reset_display_cleanup_does_not_poison_first_task (test_linux_arm64_cleanup.ProtocolCleanup.test_boardie_soft_reset_display_cleanup_does_not_poison_first_task) ... ok
+test_erase_then_first_new_arithmetic_task_has_no_display_error (test_linux_arm64_cleanup.ProtocolCleanup.test_erase_then_first_new_arithmetic_task_has_no_display_error) ... ERROR
+
+======================================================================
+ERROR: test_erase_then_first_new_arithmetic_task_has_no_display_error (test_linux_arm64_cleanup.ProtocolCleanup.test_erase_then_first_new_arithmetic_task_has_no_display_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_linux_arm64_cleanup.py", line 24, in test_erase_then_first_new_arithmetic_task_has_no_display_error
+    self.assertEqual(wire.reporter(0),42);self.assertEqual(wire.reporter(0),42)
+                     ~~~~~~~~~~~~~^^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/linux_arm64_protocol.py", line 134, in reporter
+    body = self.wait(lambda e: e[:2] == (18, chunk), start)[2]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/linux_arm64_protocol.py", line 100, in wait
+    raise RuntimeError(f'Actual interpreter task error: {event[2].hex()}')
+RuntimeError: Actual interpreter task error: 1b00040000
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.270s
+
+FAILED (errors=1)

@@ -1,0 +1,23 @@
+{
+  "simulation": true,
+  "physical_robot": false,
+  "results": [
+    {
+      "id": 0,
+      "value": 42,
+      "error": false
+    }
+  ],
+  "events": [
+    "Refresh test status",
+    "Read current Pi program",
+    "Open Pi arithmetic fixture"
+  ],
+  "errors": [],
+  "connected": true,
+  "vm": 417,
+  "board": "Linux ARM64",
+  "modules": 0,
+  "functions": 0,
+  "scripts": 1
+}

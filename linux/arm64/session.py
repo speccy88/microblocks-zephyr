@@ -103,6 +103,7 @@ def main():
     parser.add_argument('--resume', action='store_true')
     parser.add_argument('--microduck-socket', type=Path)
     parser.add_argument('--port', type=int, default=8876)
+    parser.add_argument('--service-managed', action='store_true', help='Record explicit user-service launch context')
     args = parser.parse_args()
     binary, editor, data = args.binary.resolve(strict=True), args.editor.resolve(strict=True), args.data.absolute()
     if not 1024 <= args.port <= 65535:
@@ -117,7 +118,7 @@ def main():
     vm_log, bridge_log = 'vm-' + run_id + '.log', 'bridge-' + run_id + '.log'
     report = {'state': 'starting', 'session_id': run_id, 'supervisor_pid': os.getpid(),
               'resume': args.resume, 'bind': '127.0.0.1', 'port': args.port, 'binary': str(binary),
-              'data_directory': str(data), 'editor_directory': str(editor), 'service_installed': False,
+              'data_directory': str(data), 'editor_directory': str(editor), 'service_installed': args.service_managed,
               'pty_info': str(data / info_name), 'vm_log': str(data / vm_log), 'bridge_log': str(data / bridge_log)}
     stopped = False
     def stop(signum, frame):

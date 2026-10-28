@@ -1,0 +1,31 @@
+{
+  "root": "/home/fred/microblocks-fresh-install-afcxpmc5",
+  "physical_pi": true,
+  "physical_robot": false,
+  "manual_bridge_restart_after_reboot": false,
+  "checks": [
+    "Working graphical42 sealed with CRC and private fsynced backup"
+  ],
+  "boot_before": "589fbd5f-cfbc-41ca-8ed9-ceb925b094fb",
+  "session_before": {
+    "state": "ready",
+    "session_id": "16cc51e473624c2eb812a2bdd75c804c",
+    "supervisor_pid": 2408,
+    "resume": true,
+    "bind": "127.0.0.1",
+    "port": 8876,
+    "binary": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks/rpi5-v417-20261028-alpha1/smallvm",
+    "data_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/program",
+    "editor_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/share/microblocks-editor/c6185ffe76a744a7ee5d422ab4cb3dda524ba642c671f5ba6c00ff6c8ab1a850",
+    "service_installed": true,
+    "pty_info": "/home/fred/microblocks-fresh-install-afcxpmc5/program/pty-16cc51e473624c2eb812a2bdd75c804c.json",
+    "vm_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/vm-16cc51e473624c2eb812a2bdd75c804c.log",
+    "bridge_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/bridge-16cc51e473624c2eb812a2bdd75c804c.log",
+    "vm_pid": 2411,
+    "bridge_pid": 2412
+  },
+  "services_before": "  avahi-daemon.service          loaded active running Avahi mDNS/DNS-SD Stack\n  bluetooth.service             loaded active running Bluetooth service\n  caddy.service                 loaded active running Caddy\n  containerd.service            loaded active running containerd container runtime\n  cron.service                  loaded active running Regular background program processing daemon\n  dbus.service                  loaded active running D-Bus System Message Bus\n  docker.service                loaded active running Docker Application Container Engine\n  getty@tty1.service            loaded active running Getty on tty1\n  NetworkManager.service        loaded active running Network Manager\n  ollama.service                loaded active running Ollama Service\n  serial-getty@ttyAMA10.service loaded active running Serial Getty on ttyAMA10\n  ssh.service                   loaded active running OpenBSD Secure Shell server\n  systemd-journald.service      loaded active running Journal Service\n  systemd-logind.service        loaded active running User Login Management\n  systemd-timesyncd.service     loaded active running Network Time Synchronization\n  systemd-udevd.service         loaded active running Rule-based Manager for Device Events and Files\n  user@1000.service             loaded active running User Manager for UID 1000\n  wpa_supplicant.service        loaded active running WPA supplicant\n",
+  "linger_before": "yes\n",
+  "crc": 4087428137,
+  "program_sha256": "e1670b43577fb8aa7335fdd4fbef213d482c79874db785842275e6aca3325600"
+}

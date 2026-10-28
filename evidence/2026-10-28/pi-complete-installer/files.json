@@ -1,0 +1,19 @@
+{
+  "candidate.json": "d415b59aa692aa76eff3e6e7cc95ba9fd6e976c3431435254552d7e140215782",
+  "earlier-candidate-repeat-uninstall.json": "9b344aa99e81996bb72b05cc7a13b6870feb49847a0f1e035f47ebf706645135",
+  "editor-verification-before-test-overlay.json": "ff6db929cfe7864d335acdfebf1a84a2beda43e0d88fd97db3faf2c69c3feedd",
+  "first-graphical-result.json": "e15b82db5b5442f6887de90e667fdcf624b049803a3a4f317df77ce31276279b",
+  "first-graphical-result.png": "e9d64a78bcc70e031396965b84061d92f97147f7e549bf1e54567ad6a300066b",
+  "host-build-manifest.json": "4b2f4b7142f28399d0fce890cd7dd203099da11fedeb8c3297471c125d4a1cba",
+  "install-receipt.json": "f39556fa58ca5f4535abda6ccbe76bdcc5bcd0ff020f6a8341132515a3571a4f",
+  "lifecycle-receipt.json": "675475f9aa80f1b2f28011985caa6525b27222d038b05ee1128c1be8646344b8",
+  "negative-control.txt": "469d93748807ad957dfecfbea0a57a2e97ef65a8597f695f7892089e729162d1",
+  "pi-build-manifest.json": "84185b8300e6d6f67ca6bb040ccfb6d7a74bbded4ddd6b003e6a472b462b1ae5",
+  "raw-evidence.zip": "b6268089055a633bca7b72d1e51ee0353fe0969d360fcc1b8c2ce765f24c5c20",
+  "README.md": "17750539af409f8107d606b2cbb3ad2cf49593f65f78b032afb2d8d081518bbf",
+  "reboot-before-only.json": "13c13d2d989add7871cc287a6f1fc55ce322b5df7909c7c8023579d8213147f2",
+  "validation-inputs.json": "4da0b70d5b616e2bf174fee4df02acf93f1f28e71c3c98abc2223d0de52d4360",
+  "validation-reproduction.zip": "e7d486b6ec977462c38b86c668a54d5cbfbd4987141192615483c1004fac0bd6",
+  "validation.json": "1b09f908528538236ac41299445d3741f9cd617264b3737408fe59b811515812",
+  "validation.txt": "010a6a7ab12b412e5a1f9953a5159ef385a9929fbecd98ac59dfd6d3670aa5da"
+}
