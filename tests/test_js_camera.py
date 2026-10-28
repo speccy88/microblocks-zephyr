@@ -27,7 +27,7 @@ class CameraLibraries(unittest.TestCase):
     def tearDownClass(cls):cls.temp.cleanup()
     def test_optional_bundle_preserves_other_imports_and_coexisting_layers(self):
         self.assertEqual(self.compiled['modules'],12);self.assertTrue(self.compiled['roundtrip'])
-        self.assertEqual(len(self.compiled['functions']),227)
+        self.assertEqual(len(self.compiled['functions']),229)
         self.assertEqual(len(json.loads((self.assets/'microduck-libraries.json').read_text())['sources']),6)
         self.assertEqual(len(json.loads((self.assets/'microduck-starter-libraries.json').read_text())['sources']),10)
         catalog=json.loads((self.assets/'readback-libraries.json').read_text())
@@ -47,11 +47,12 @@ class CameraCompiledNative(CameraLibraries,unittest.IsolatedAsyncioTestCase):
         runtime=await asyncio.to_thread(vm.Runtime,Path(os.environ['SMALLVM_MICRODUCK_BINARY']),data,service.path)
         async def execute(name):
             code=bytes(self.compiled['probes'][name]);code+=bytes(-len(code)%4)
-            return await asyncio.to_thread(runtime.execute,code,None,250)
+            try:return await asyncio.to_thread(runtime.execute,code,None,250)
+            except AssertionError as error:raise AssertionError(name+': '+str(error)) from error
         try:
             for f in self.compiled['functions']:
                 code=bytes(f['bytes']);code+=bytes(-len(code)%4);await asyncio.to_thread(runtime.wire.upload,f['id'],code,3)
-            for name,expected in [('simpleZero',0),('simpleMax',255),('outOfRange','out_of_range'),('invalid','error'),('advanced',30),('timestamp',str(2**128-1))]:
+            for name,expected in [('simpleZero',0),('simpleMax',255),('simpleRGB',0x007300),('advancedRGB',0x007300),('outOfRange','out_of_range'),('invalid','error'),('advanced',30),('timestamp',str(2**128-1))]:
                 before=len(wire.audit);self.assertEqual(await execute(name),expected,name)
                 self.assertEqual(len(wire.audit)-before,0 if name=='invalid' else 2,name)
                 self.assertFalse(service.camera.entries,name)

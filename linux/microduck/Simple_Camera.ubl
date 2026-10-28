@@ -1,8 +1,9 @@
 module 'MicroDuck Simple Camera' Input
 author 'MicroBlocks Linux ARM64 contributors'
-version 1 0
-description 'Simple read-only brightness helper over the advanced Camera library. Each call captures one frame, reads one raw luma value and releases it. Use reading known? before extracting the number. Brightness is raw Y0..255, not lux or calibrated perception. Coordinates start at1 in stored pixels; mount rotation is not applied. Advanced Camera blocks remain available in this same project for multiple coherent pixel reads. Fixture validation only; physical camera unverified. No robot commands, audio, file recording or continuous streaming.'
+version 1 1
+description 'Simple read-only brightness and RGB color helpers over the advanced Camera library. Each call captures one frame, reads one raw luma or packed RGB24 value and releases it. Use reading known? before extracting the number. Brightness is raw Y0..255, not lux or calibrated perception. RGB uses pinned BT.601 limited range, not measured calibration. Coordinates start at1 in stored pixels; mount rotation is not applied. Advanced Camera blocks remain available in this same project for multiple coherent pixel reads. Fixture validation only; physical camera unverified. No robot commands, audio, file recording or continuous streaming.'
 spec 'r' 'microduckEasyBrightness' 'camera brightness at x _ y _ reading' 'num num' 1 1
+spec 'r' 'microduckEasyRGB' 'camera color at x _ y _ reading' 'num num' 1 1
 
 to microduckEasyBrightness x y {
     if (not (and (isType x 'number') (isType y 'number'))) { return (microduckCameraInvalidPixel) }
@@ -14,3 +15,13 @@ to microduckEasyBrightness x y {
     return reading
 }
 to microduckCameraInvalidPixel { return ('[microduck:cameraReading]' '{"jsonrpc":"2.0","id":null,"error":{"code":-32602,"message":"Invalid camera pixel coordinate"}}') }
+
+to microduckEasyRGB x y {
+    if (not (and (isType x 'number') (isType y 'number'))) { return (microduckCameraInvalidPixel) }
+    if (or (x < 1) (x > 8388608) (y < 1) (y > 4194304)) { return (microduckCameraInvalidPixel) }
+    local 'frame' (microduckCameraCapture)
+    if (not (microduckReadingKnown frame)) { return frame }
+    local 'reading' (microduckCameraRGB frame x y)
+    microduckCameraRelease frame
+    return reading
+}

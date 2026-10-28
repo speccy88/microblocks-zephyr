@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer"><title>MicroDuck · RGB snapshot lab</title>
+<style>
+:root{color-scheme:dark;font:16px/1.6 system-ui,sans-serif;background:#10202b;color:#edf4f6}*{box-sizing:border-box}body{margin:0}main{max-width:940px;margin:auto;padding:36px 24px}h1{font-size:clamp(30px,5vw,44px);margin:0}p{max-width:76ch;color:#bbced8}.badge{display:inline-block;padding:5px 12px;border:1px solid #e6c57a;border-radius:20px;color:#f4d994;font-weight:700}fieldset{border:1px solid #526d7c;border-radius:10px;display:flex;flex-wrap:wrap;gap:18px;align-items:end;padding:20px;margin:24px 0}label{display:block}select,button{font:inherit;padding:9px;border:1px solid #78909f;border-radius:6px;background:#1d3544;color:inherit}select{display:block}button{cursor:pointer;background:#9ce2c7;color:#10251c;font-weight:700}#clear{background:#294555;color:#eaf4f7}#status{min-height:82px;padding:16px;background:#1b3342;border-left:4px solid #9ce2c7}figure{margin:24px 0;padding:20px;background:#09151e;border:1px solid #526d7c;border-radius:10px;min-height:130px}canvas{image-rendering:pixelated;display:block;max-width:100%;width:480px;height:auto;max-height:480px;object-fit:contain;margin:auto}canvas[width="0"]{display:none}figcaption{color:#bbced8;margin-top:16px}a{color:#9ce2c7}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #f4d994;outline-offset:4px}footer{border-top:1px solid #526d7c;padding-top:16px;margin-top:28px}@media(max-width:560px){main{padding:24px 14px}fieldset{display:block}fieldset>*{margin:12px 0}}
+</style></head><body><main>
+<span class="badge">FICTIONAL UYVY DATA</span><h1>RGB snapshot lab</h1>
+<p>Convert one stored test card into a bounded color preview. No camera, robot, VM connection or video stream is opened. Simple and advanced camera blocks use the same color interpretation.</p>
+<fieldset><legend>Manual preview</legend>
+<label>Fixture<select id="fixture"><option value="card">Color bands and white corner</option><option value="truncated">Truncated bytes (error case)</option></select></label>
+<label>Reported rotation<select id="rotation"><option>0</option><option selected>90</option><option>180</option><option>270</option></select></label>
+<label>Maximum long side<select id="size"><option>4</option><option selected>160</option></select></label>
+<label><input type="checkbox" id="apply"> Apply reported rotation</label>
+<button id="convert">Convert fixture</button><button id="clear">Clear preview</button></fieldset>
+<div id="status" role="status" aria-live="polite">Ready. No pixels retained.</div>
+<figure><canvas id="preview" width="0" height="0" aria-label="Fictional RGB snapshot"></canvas><figcaption>At most 160 × 160 output pixels; no upscaling during conversion. Enlarged display shows individual pixels. The white corner marks the source top left.</figcaption></figure>
+<footer><p>BT.601 limited-range conversion follows pinned Pollen source. Reported rotation is optional presentation, not calibration. Clearing, hiding or leaving this page discards the preview. Continuous video and physical camera acceptance remain separate.</p><a href="camera.html">Camera observer lab</a> · <a href="camera-rgb-NOTICE.txt">Source and license notice</a></footer>
+</main><script src="camera-rgb.js"></script><script src="camera-rgb-lab.js"></script></body></html>

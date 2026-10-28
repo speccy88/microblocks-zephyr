@@ -1,0 +1,47 @@
+TAP version 13
+# Subtest: known BT601 colors and clipping are exact
+ok 1 - known BT601 colors and clipping are exact
+  ---
+  duration_ms: 2.2686
+  type: 'test'
+  ...
+# Subtest: all quarter turns map the marked corner without inventing calibration
+ok 2 - all quarter turns map the marked corner without inventing calibration
+  ---
+  duration_ms: 1.9131
+  type: 'test'
+  ...
+# Subtest: nearest sample sizing is bounded, downscale-only and aspect-preserving
+ok 3 - nearest sample sizing is bounded, downscale-only and aspect-preserving
+  ---
+  duration_ms: 99.6082
+  type: 'test'
+  ...
+# Subtest: malformed, oversized, detached and shared input fails before output
+ok 4 - malformed, oversized, detached and shared input fails before output
+  ---
+  duration_ms: 1.3543
+  type: 'test'
+  ...
+# Subtest: renderer clears on replacement/error and zeros temporary pixel arrays
+ok 5 - renderer clears on replacement/error and zeros temporary pixel arrays
+  ---
+  duration_ms: 0.9886
+  type: 'test'
+  ...
+# Subtest: busy canvas and graphics failures preserve ownership and clear partial output
+ok 6 - busy canvas and graphics failures preserve ownership and clear partial output
+  ---
+  duration_ms: 0.3492
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 118.5915
+

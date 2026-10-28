@@ -1,0 +1,16 @@
+test_browser_conversion_bounds_rotations_and_lifecycle (test_camera_rgb_preview.RGBPreview.test_browser_conversion_bounds_rotations_and_lifecycle) ... FAIL
+test_fixture_page_has_no_connection_or_automatic_capture (test_camera_rgb_preview.RGBPreview.test_fixture_page_has_no_connection_or_automatic_capture) ... ok
+test_python_known_colors_clipping_and_component_validation (test_camera_rgb_preview.RGBPreview.test_python_known_colors_clipping_and_component_validation) ... ok
+
+======================================================================
+FAIL: test_browser_conversion_bounds_rotations_and_lifecycle (test_camera_rgb_preview.RGBPreview.test_browser_conversion_bounds_rotations_and_lifecycle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\test_camera_rgb_preview.py", line 17, in test_browser_conversion_bounds_rotations_and_lifecycle
+    self.assertIn('# pass 6',result.stdout)
+AssertionError: '# pass 6' not found in 'Γ£ö known BT601 colors and clipping are exact (2.4557ms)\nΓ£ö all quarter turns map the marked corner without inventing calibration (1.7803ms)\nΓ£ö nearest sample sizing is bounded, downscale-only and aspect-preserving (104.2798ms)\nΓ£ö malformed, oversized, detached and shared input fails before output (1.6851ms)\nΓ£ö renderer clears on replacement/error and zeros temporary pixel arrays (1.2944ms)\nΓ£ö busy canvas and graphics failures preserve ownership and clear partial output (0.2965ms)\nΓä╣ tests 6\nΓä╣ suites 0\nΓä╣ pass 6\nΓä╣ fail 0\nΓä╣ cancelled 0\nΓä╣ skipped 0\nΓä╣ todo 0\nΓä╣ duration_ms 277.3048\n'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.418s
+
+FAILED (failures=1)

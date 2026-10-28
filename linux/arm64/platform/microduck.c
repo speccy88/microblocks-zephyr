@@ -414,9 +414,9 @@ static int robotHealthName(yyjson_val *value) {
     return 0;
 }
 static const char *cameraUnit(yyjson_val *field,int pixel) {
-    const char *fields[]={"width","height","bytes","format","rotate","captured_at_unix_us","y","u","v"};
-    const char *units[]={"pixels","pixels","bytes","format","degrees_clockwise","us_unix128","luma_raw8","chroma_u_raw8","chroma_v_raw8"};
-    for (int i=pixel?6:0;i<(pixel?9:6);++i) if (equalText(field,fields[i])) return units[i];
+    const char *fields[]={"width","height","bytes","format","rotate","captured_at_unix_us","y","u","v","rgb"};
+    const char *units[]={"pixels","pixels","bytes","format","degrees_clockwise","us_unix128","luma_raw8","chroma_u_raw8","chroma_v_raw8","rgb24_bt601_limited"};
+    for (int i=pixel?6:0;i<(pixel?10:6);++i) if (equalText(field,fields[i])) return units[i];
     return NULL;
 }
 static int validParams(const Method *method, yyjson_val *params) {
@@ -875,9 +875,9 @@ static OBJ readingValuePrimitive(int argc,OBJ *args) {
     OBJ list=args[0];
     if (!IS_TYPE(list,ListType)) return fail(needsListError);
     if (WORDS(list)<5 || !isInt(FIELD(list,0)) || obj2int(FIELD(list,0))!=4) return fail(argIndexOutOfRange);
-    char status[17],unit[17],origin[17]; size_t length;
+    char status[17],unit[33],origin[17]; size_t length;
     if (!copyVMString(FIELD(list,1),status,16,&length) || strcmp(status,"ok")
-        || !copyVMString(FIELD(list,3),unit,16,&length) || !copyVMString(FIELD(list,4),origin,16,&length)) return fail(argIndexOutOfRange);
+        || !copyVMString(FIELD(list,3),unit,32,&length) || !copyVMString(FIELD(list,4),origin,16,&length)) return fail(argIndexOutOfRange);
     OBJ value=FIELD(list,2);
     if (!isInt(value) && !isBoolean(value) && !IS_TYPE(value,StringType)) return fail(argIndexOutOfRange);
     return value;
@@ -1038,7 +1038,7 @@ static OBJ cameraReadingPrimitive(int argc,OBJ *args) {
         if(unit && equalText(yyjson_obj_get(result,"unit"),unit) && integerBetween(yyjson_obj_get(result,"x"),1,8388608)
             && integerBetween(yyjson_obj_get(result,"y"),1,4194304)) {
             reading.unit=unit;
-            if(equalText(yyjson_obj_get(result,"status"),"ok") && integerBetween(value,0,255)) {reading.number=(int)yyjson_get_sint(value);reading.status="ok";}
+            if(equalText(yyjson_obj_get(result,"status"),"ok") && integerBetween(value,0,equalText(yyjson_obj_get(result,"channel"),"rgb")?16777215:255)) {reading.number=(int)yyjson_get_sint(value);reading.status="ok";}
         }
     } else if(result) reading.status="invalid";
     yyjson_doc_free(doc);return readingRecord(&reading);

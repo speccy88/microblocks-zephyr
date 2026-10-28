@@ -1,0 +1,10 @@
+Camera RGB conversion and preview indexing use the algorithm in
+pollen-robotics/microduck, uyvy/src/lib.rs, commit
+96b89d8613f06722c1d64ce75ab0d7124fed9d8f.
+https://github.com/pollen-robotics/microduck
+
+Upstream is distributed under Apache License 2.0. The complete license is
+provided in ../../licenses/Apache-2.0.txt in this source distribution and beside
+the browser preview assets. The Python/JavaScript adaptations add validation,
+bounded output, integer half-up dimension rounding and strict truncated-frame
+refusal. They do not copy upstream's permissive missing-row fill behavior.

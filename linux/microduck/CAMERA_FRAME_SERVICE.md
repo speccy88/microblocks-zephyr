@@ -16,8 +16,8 @@ Four retained/in-flight slots, five-second immutable snapshots, explicit release
 cancellation and shutdown cleanup. At most64MiB retained raw pixels. Read requests
 return small JSON records, never a full image through SmallVM's JSON buffers.
 
-Provide normal capture, metadata and raw Y/U/V pixel blocks. Coordinates are
-1-based stored-image x/y, with no rotation, resize, RGB/colorimetry, calibration or
+Provide normal capture, metadata, raw Y/U/V and interpreted RGB pixel blocks. Coordinates are
+1-based stored-image x/y, with no rotation, resize, calibration or
 orientation inference. U and V are shared by a horizontal two-pixel pair; Y is raw
 8-bit luma, not lux or a calibrated perception score. Exact captured_at_unix_us is
 a decimal unsigned128 string; zero remains reported zero and is not freshness.
@@ -43,7 +43,7 @@ and verified numeric `uid`. It is separate from the generic upstreams config.
 No socket, permission, group or daemon setup is performed by this adapter.
 
 Import **MicroDuck Camera Lab** in the development/MicroDuck JS profile. It includes
-the existing ten Starter modules plus Camera and Simple Camera:227 functions total.
+the existing ten Starter modules plus Camera and Simple Camera:229 functions total.
 The ordinary six-module and ten-module Starter imports remain byte-for-byte
 unchanged. `camera.ubp` demonstrates both levels. Use the shared reading-known,
 status and value helpers; release a captured frame when finished. Repeating a
@@ -52,6 +52,9 @@ simple brightness call takes another snapshot, while advanced reads share one.
 Tests run with synthetic 4x2 UYVY samples over real Unix sockets and the actual
 sanitized native VM. The JS test uses pinned editor import/compiler/morph classes
 and serialized project reopen, not a graphical browser. No new Pi binary was
-installed and the existing Pi service/reboot checkpoint is untouched. Raw pixel
-reading is implemented; RGB conversion, image preview, native video playback,
-continuous capture and physical camera acceptance remain unimplemented/unverified.
+installed and the existing Pi service/reboot checkpoint is untouched. Raw and
+packed RGB pixel reading are implemented. The [bounded RGB preview](CAMERA_RGB_PREVIEW.md)
+has graphical fixture acceptance in a separate lab, without a VM-to-editor image
+connection. Inline image output, native video playback, continuous capture and
+physical camera acceptance remain unimplemented/unverified. RGB24 uses the pinned
+BT.601 limited-range interpretation, not measured color calibration.

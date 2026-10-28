@@ -5,11 +5,13 @@ from pathlib import Path
 import secrets
 
 try:
+    from .camera_rgb import rgb24
     from .head_imu_service import validate_source, load_source
     from .sensor_snapshots import SnapshotStore, token
     from .sensor_simulator import require, integer
     from .protocol import API_VERSION, RpcError, connect_checked, encode, read_message, response_result
 except ImportError:
+    from camera_rgb import rgb24
     from head_imu_service import validate_source, load_source
     from sensor_snapshots import SnapshotStore, token
     from sensor_simulator import require, integer
@@ -21,7 +23,7 @@ MAX_BYTES=16*1024*1024
 LINE_LIMIT=4096
 DEADLINE=3.0
 FIELDS={'width':'pixels','height':'pixels','bytes':'bytes','format':'format','rotate':'degrees_clockwise','captured_at_unix_us':'us_unix128'}
-CHANNELS={'y':'luma_raw8','u':'chroma_u_raw8','v':'chroma_v_raw8'}
+CHANNELS={'y':'luma_raw8','u':'chroma_u_raw8','v':'chroma_v_raw8','rgb':'rgb24_bt601_limited'}
 
 
 def result(kind,status,**parts):
@@ -107,7 +109,9 @@ class CameraStore(SnapshotStore):
         else:
             if p['x']>header['width'] or p['y']>header['height']:return result('camera_pixel','out_of_range',value=None,**extra)
             x,y=p['x']-1,p['y']-1;pair=(y*header['width']+(x//2)*2)*2
-            value=state['pixels'][pair+({'u':0,'v':2}.get(p['channel'],1+2*(x%2)))]
+            pixels=state['pixels']
+            value=(rgb24(pixels[pair+1+2*(x%2)],pixels[pair],pixels[pair+2]) if p['channel']=='rgb'
+                   else pixels[pair+({'u':0,'v':2}.get(p['channel'],1+2*(x%2)))])
         return result('camera_'+name,'ok',value=value,**extra)
 
     async def dispatch(self,request):

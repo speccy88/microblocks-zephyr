@@ -1,0 +1,73 @@
+test_method_and_coordinate_validation_is_closed (test_linux_microduck_camera_service.CameraContract.test_method_and_coordinate_validation_is_closed) ... ok
+test_pinned_geometry_limits_before_binary_allocation (test_linux_microduck_camera_service.CameraContract.test_pinned_geometry_limits_before_binary_allocation) ... ok
+test_api_skew_uid_mismatch_and_disabled_never_request_frame (test_linux_microduck_camera_service.CameraNative.test_api_skew_uid_mismatch_and_disabled_never_request_frame) ... ok
+test_bad_headers_partial_tail_extra_tail_and_refusal_retain_nothing (test_linux_microduck_camera_service.CameraNative.test_bad_headers_partial_tail_extra_tail_and_refusal_retain_nothing) ... ok
+test_capacity_counts_pending_and_retained (test_linux_microduck_camera_service.CameraNative.test_capacity_counts_pending_and_retained) ... ok
+test_fragmented_binary_all_pixels_and_exact_metadata_single_capture (test_linux_microduck_camera_service.CameraNative.test_fragmented_binary_all_pixels_and_exact_metadata_single_capture) ... ok
+test_native_exact128_raw_zero_and_unavailable_extraction (test_linux_microduck_camera_service.CameraNative.test_native_exact128_raw_zero_and_unavailable_extraction) ... ok
+test_native_reading_record_survives_moving_gc (test_linux_microduck_camera_service.CameraNative.test_native_reading_record_survives_moving_gc) ... ok
+test_native_rgb_packed_bounds_units_and_black_is_known (test_linux_microduck_camera_service.CameraNative.test_native_rgb_packed_bounds_units_and_black_is_known) ... ok
+test_native_strict_metadata_pixel_envelopes_and_unsupported_route (test_linux_microduck_camera_service.CameraNative.test_native_strict_metadata_pixel_envelopes_and_unsupported_route) ... ok
+test_out_of_bounds_release_expiry_and_clock_regression (test_linux_microduck_camera_service.CameraNative.test_out_of_bounds_release_expiry_and_clock_regression) ... ok
+test_rgb_is_a_coherent_read_with_explicit_units_and_expiry (test_linux_microduck_camera_service.CameraNative.test_rgb_is_a_coherent_read_with_explicit_units_and_expiry) ... ok
+test_silent_timeout_and_shutdown_cancel_release_resources (test_linux_microduck_camera_service.CameraNative.test_silent_timeout_and_shutdown_cancel_release_resources) ... Executing <Task pending name='Task-232' coro=<CameraUnix.test_silent_timeout_and_shutdown_cancel_release_resources() running at /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_linux_microduck_camera_service.py:169> wait_for=<Future pending cb=[_chain_future.<locals>._call_check_cancel() at /usr/lib/python3.14/asyncio/futures.py:393, Task.task_wakeup()] created at /usr/lib/python3.14/asyncio/base_events.py:459> cb=[_run_until_complete_cb() at /usr/lib/python3.14/asyncio/base_events.py:181] created at /usr/lib/python3.14/asyncio/runners.py:109> took 0.175 seconds
+ok
+test_zero_timestamp_is_reported_and_config_does_not_change_permissions (test_linux_microduck_camera_service.CameraNative.test_zero_timestamp_is_reported_and_config_does_not_change_permissions) ... ok
+test_api_skew_uid_mismatch_and_disabled_never_request_frame (test_linux_microduck_camera_service.CameraUnix.test_api_skew_uid_mismatch_and_disabled_never_request_frame) ... ok
+test_bad_headers_partial_tail_extra_tail_and_refusal_retain_nothing (test_linux_microduck_camera_service.CameraUnix.test_bad_headers_partial_tail_extra_tail_and_refusal_retain_nothing) ... ok
+test_capacity_counts_pending_and_retained (test_linux_microduck_camera_service.CameraUnix.test_capacity_counts_pending_and_retained) ... ok
+test_fragmented_binary_all_pixels_and_exact_metadata_single_capture (test_linux_microduck_camera_service.CameraUnix.test_fragmented_binary_all_pixels_and_exact_metadata_single_capture) ... ok
+test_out_of_bounds_release_expiry_and_clock_regression (test_linux_microduck_camera_service.CameraUnix.test_out_of_bounds_release_expiry_and_clock_regression) ... ok
+test_rgb_is_a_coherent_read_with_explicit_units_and_expiry (test_linux_microduck_camera_service.CameraUnix.test_rgb_is_a_coherent_read_with_explicit_units_and_expiry) ... ok
+test_silent_timeout_and_shutdown_cancel_release_resources (test_linux_microduck_camera_service.CameraUnix.test_silent_timeout_and_shutdown_cancel_release_resources) ... ok
+test_zero_timestamp_is_reported_and_config_does_not_change_permissions (test_linux_microduck_camera_service.CameraUnix.test_zero_timestamp_is_reported_and_config_does_not_change_permissions) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 18.149s
+
+OK
+test_actual_compiled_simple_and_advanced_blocks_share_frame_api (test_js_camera.CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api) ... Executing <Task pending name='Task-2' coro=<CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api() running at /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_js_camera.py:45> cb=[_run_until_complete_cb() at /usr/lib/python3.14/asyncio/base_events.py:181] created at /usr/lib/python3.14/asyncio/runners.py:109> took 0.120 seconds
+Executing <Task pending name='Task-2' coro=<CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api() running at /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_js_camera.py:55> wait_for=<Future pending cb=[_chain_future.<locals>._call_check_cancel() at /usr/lib/python3.14/asyncio/futures.py:393, Task.task_wakeup()] created at /usr/lib/python3.14/asyncio/base_events.py:459> cb=[_run_until_complete_cb() at /usr/lib/python3.14/asyncio/base_events.py:181] created at /usr/lib/python3.14/asyncio/runners.py:109> took 0.330 seconds
+FAIL
+test_optional_bundle_preserves_other_imports_and_coexisting_layers (test_js_camera.CameraCompiledNative.test_optional_bundle_preserves_other_imports_and_coexisting_layers) ... ok
+test_optional_bundle_preserves_other_imports_and_coexisting_layers (test_js_camera.CameraLibraries.test_optional_bundle_preserves_other_imports_and_coexisting_layers) ... ok
+
+======================================================================
+FAIL: test_actual_compiled_simple_and_advanced_blocks_share_frame_api (test_js_camera.CameraCompiledNative.test_actual_compiled_simple_and_advanced_blocks_share_frame_api)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_js_camera.py", line 55, in test_actual_compiled_simple_and_advanced_blocks_share_frame_api
+    before=len(wire.audit);self.assertEqual(await execute(name),expected,name)
+                                            ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_js_camera.py", line 50, in execute
+    return await asyncio.to_thread(runtime.execute,code,None,250)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_linux_microduck_vm.py", line 186, in execute
+    raise AssertionError('Actual SmallVM task error: ' + payload.hex())
+AssertionError: Actual SmallVM task error: 20c7080000
+
+----------------------------------------------------------------------
+Ran 3 tests in 7.228s
+
+FAILED (failures=1)
+test_browser_conversion_bounds_rotations_and_lifecycle (test_camera_rgb_preview.RGBPreview.test_browser_conversion_bounds_rotations_and_lifecycle) ... ok
+test_fixture_page_has_no_connection_or_automatic_capture (test_camera_rgb_preview.RGBPreview.test_fixture_page_has_no_connection_or_automatic_capture) ... ok
+test_python_known_colors_clipping_and_component_validation (test_camera_rgb_preview.RGBPreview.test_python_known_colors_clipping_and_component_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.409s
+
+OK

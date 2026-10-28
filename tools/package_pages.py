@@ -119,7 +119,7 @@ def build(source, output, repo):
         target=output/'microduck'/path.name;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(path,target)
     # Standalone labs and protected console; all forbid URL network connections.
-    for name in ('simulation.html','console.html','camera.html'):
+    for name in ('simulation.html','console.html','camera.html','camera-rgb.html','camera-rgb-NOTICE.txt','camera-rgb-LICENSE.txt'):
         shutil.copyfile(repo/'web/microduck'/name,output/'microduck'/name)
     common=prepare_assets(repo,source)
     versioned_files=sorted(p for folder in ('web/portal','web/microduck') for p in (repo/folder).rglob('*') if p.is_file())

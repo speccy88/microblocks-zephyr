@@ -1,0 +1,8 @@
+test_browser_conversion_bounds_rotations_and_lifecycle (test_camera_rgb_preview.RGBPreview.test_browser_conversion_bounds_rotations_and_lifecycle) ... ok
+test_fixture_page_has_no_connection_or_automatic_capture (test_camera_rgb_preview.RGBPreview.test_fixture_page_has_no_connection_or_automatic_capture) ... ok
+test_python_known_colors_clipping_and_component_validation (test_camera_rgb_preview.RGBPreview.test_python_known_colors_clipping_and_component_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.367s
+
+OK

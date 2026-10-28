@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/pollen-robotics/microduck",
+  "commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "sources": {
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "uyvy/src/lib.rs": "e801ad25f39573fb3c398f7584bc0ff88b365d02cf2c4f82aa1b39f8943a64ca",
+    "mediad/src/frame.rs": "b2440af0a98ba8f95c457410b99c935cb672ab0941def49bbcefcdc6043d9647",
+    "mediad/src/session.rs": "6d554947c4c35d3d68da0cb209c973aa3779978dc31173c70884fb2ae2d2196d",
+    "mediad/src/stream.rs": "65c82117b50fe9e4411827ce9978bc500a14b80656c82a1ec129325ec4f7f337",
+    "mediad/src/pipeline.rs": "3ff9a26d70217f24e63ba7348f3d2b1e6b0e2a1d751fe727e77756398eb96221"
+  }
+}

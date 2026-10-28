@@ -1,0 +1,4 @@
+127.0.0.1 - - [28/Oct/2026 10:00:09] "GET /camera-rgb.html HTTP/1.1" 200 -
+127.0.0.1 - - [28/Oct/2026 10:00:09] "GET /camera-rgb.js HTTP/1.1" 200 -
+127.0.0.1 - - [28/Oct/2026 10:00:09] "GET /camera-rgb-lab.js HTTP/1.1" 200 -
+Owned fixture server stopped

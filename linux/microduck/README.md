@@ -324,3 +324,5 @@ and pad-imu.ubp. Thirteen typed selectors retain one bounded coherent batch.
 Raw/scaled values, exact kernel timestamps, loss and unknown scale remain
 distinct; local_ipc is transport only. Current input is fictional, physical/
 graphical/shipping acceptance pending. No device or automatic drive is enabled.
+
+[RGB pixel blocks and bounded preview](CAMERA_RGB_PREVIEW.md) extend Camera Lab to229 functions. Simple and advanced RGB blocks share the normal finite frame API. The standalone graphical lab uses fictional pixels and retains one capped canvas; it is not connected to per-block VM image results. See the [continuous-video assessment](../../docs/MICRODUCK_CONTINUOUS_VIDEO.md) before designing live transport.

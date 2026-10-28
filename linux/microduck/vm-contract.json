@@ -746,7 +746,14 @@
       "time": "exact unsigned128 Unix microseconds string; no freshness claim",
       "no_mutations": true,
       "continuous_reader": false,
-      "validation": "19 focused local Unix/native tests and3 actual JS import/compiled execution tests pass; fictional mediad pixels; physical, graphical and new Pi acceptance not performed"
+      "validation": "RGB follow-up validation recorded separately in evidence/2026-10-28/microduck-camera-rgb; fictional input only",
+      "rgb_unit": "rgb24_bt601_limited",
+      "rgb_range": [
+        0,
+        16777215
+      ],
+      "reading_unit_max_bytes": 32,
+      "preview_scope": "bounded browser fixture lab only; no inline VM image transport"
     }
   }
 }

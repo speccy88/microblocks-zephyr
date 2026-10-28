@@ -1,11 +1,12 @@
 module 'MicroDuck Camera' Input
 author 'MicroBlocks Linux ARM64 contributors'
-version 1 0
-description 'Experimental read-only mediad camera snapshots through an explicitly configured private Unix gateway. Fixture validation only; physical MicroDuck unverified. Capture one immutable UYVY frame, read stored-image coordinates and metadata, then release. Four five-second slots; reads never recapture or refresh. Raw Y is 8-bit luma, U/V are chroma shared by adjacent horizontal pixels. Coordinates start at1; rotate is reported clockwise mount angle, never applied. No RGB/colorimetry, calibration, lux, live freshness or camera preview is implied. Timestamp is an exact unsigned128 Unix microsecond string, not VM milliseconds. Readings are [status,value,unit,origin]; use reading known? before extracting a value. Missing/error/timeout/expired/out-of-range is not a black pixel. local_ipc denotes transport only. No file recording, WebRTC, audio, robot command, endpoint input, credentials or networking changes.'
+version 1 1
+description 'Experimental read-only mediad camera snapshots through an explicitly configured private Unix gateway. Fixture validation only; physical MicroDuck unverified. Capture one immutable UYVY frame, read stored-image coordinates and metadata, then release. Four five-second slots; reads never recapture or refresh. Raw Y is 8-bit luma, U/V are chroma shared by adjacent horizontal pixels. Coordinates start at1; rotate is reported clockwise mount angle, never applied. RGB is packed RGB24 using the pinned BT.601 limited-range interpretation, not measured calibration. No lux, live freshness or inline camera preview is implied. Timestamp is an exact unsigned128 Unix microsecond string, not VM milliseconds. Readings are [status,value,unit,origin]; use reading known? before extracting a value. Missing/error/timeout/expired/out-of-range is not a black pixel. local_ipc denotes transport only. No file recording, WebRTC, audio, robot command, endpoint input, credentials or networking changes.'
 spec 'r' 'microduckCameraCapture' 'capture camera frame reading'
 spec 'r' 'microduckCameraWidth' 'camera frame _ stored width reading' 'auto' ''
 spec 'r' 'microduckCameraHeight' 'camera frame _ stored height reading' 'auto' ''
 spec 'r' 'microduckCameraLuma' 'camera frame _ x _ y _ brightness raw reading' 'auto num num' '' 1 1
+spec 'r' 'microduckCameraRGB' 'camera frame _ x _ y _ RGB color reading' 'auto num num' '' 1 1
 spec 'r' 'microduckCameraRelease' 'release camera frame _ JSON' 'auto' ''
 advanced
 spec 'r' 'microduckCameraFormat' 'camera frame _ format reading' 'auto' ''
@@ -33,6 +34,7 @@ to microduckCameraPixel frame x y channel {
     return ('[microduck:cameraReading]' (microduckRequest 'microduck.camera.pixel' params false))
 }
 to microduckCameraLuma frame x y { return (microduckCameraPixel frame x y 'y') }
+to microduckCameraRGB frame x y { return (microduckCameraPixel frame x y 'rgb') }
 to microduckCameraU frame x y { return (microduckCameraPixel frame x y 'u') }
 to microduckCameraV frame x y { return (microduckCameraPixel frame x y 'v') }
 to microduckCameraRelease frame { return (microduckRequest 'microduck.camera.release' ('[data:join]' (microduckCameraParams frame) '}') false) }

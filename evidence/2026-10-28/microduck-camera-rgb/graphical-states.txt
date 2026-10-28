@@ -1,0 +1,20 @@
+Browser tab: 26, Title: "MicroDuck · RGB snapshot lab", URL: "http://127.0.0.1:18910/camera-rgb.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~				24 pop up button (collapsed, settable) Maximum long side, Value: 4, ID: size, Secondary Actions: Expand
+~						26 (selected) 4
+~						27 160
+~		39 text FICTIONAL snapshot: 2 × 4 pixels; 32 RGBA bytes. Reported rotation 90°; applied 90°. BT.601 limited range; calibration unverified.
+The focused UI element is 29 button Convert fixture, ID: convert
+Browser tab: 26, Title: "MicroDuck · RGB snapshot lab", URL: "http://127.0.0.1:18910/camera-rgb.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 38-39
+~				10 pop up button (collapsed, settable) Fixture, Value: Truncated bytes (error case), ID: fixture, Secondary Actions: Expand
+~						12 Color bands and white corner
+~						13 (selected) Truncated bytes (error case)
++		37 text Preview unavailable: invalid fixture bytes. Previous pixels cleared.
+The focused UI element is 29 button Convert fixture, ID: convert
+Browser tab: 26, Title: "MicroDuck · RGB snapshot lab", URL: "http://127.0.0.1:18910/camera-rgb.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 38
+~		37 text Cleared. No pixels retained.
+The focused UI element is 30 button Clear preview, ID: clear

@@ -1,0 +1,26 @@
+{
+  "browser": "in-app",
+  "url": "http://127.0.0.1:18910/camera-rgb.html",
+  "fixture_only": true,
+  "stored_dimensions": [
+    8,
+    4
+  ],
+  "rotated_dimensions": [
+    4,
+    8
+  ],
+  "downscaled_dimensions": [
+    2,
+    4
+  ],
+  "truncated_input_clears_prior_pixels": true,
+  "recovery": true,
+  "explicit_clear": true,
+  "native_video_decoding": false,
+  "VM_link": false,
+  "physical_camera": false,
+  "owned_tab_closed": true,
+  "owned_server_stopped": true,
+  "failed_sandbox_load": "timeout; generated data-URL error page not inspected after policy refusal; host-local original HTTP URL later opened successfully"
+}

@@ -1,0 +1,33 @@
+{
+  "returncode": 0,
+  "validator_returncode": 0,
+  "post_validation_source_hashes_match": true,
+  "post_validation_source_inputs": 2589,
+  "post_validation_mismatches": [],
+  "seconds": 338.08742604500003,
+  "mode": "Full unchanged validator, byte-identical entire repository Linux filesystem replica",
+  "files": 2589,
+  "replica": "/tmp/js-editor-validation-xs39dtgb/repo",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/tmp/js-editor-validation-xs39dtgb/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/tmp/js-editor-validation-xs39dtgb/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_UPSTREAM": "/tmp/js-editor-validation-xs39dtgb/smallvm",
+    "JS_EDITOR_UPSTREAM": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-editor-upstream-20261027",
+    "NODE_BINARY": "/tmp/js-editor-validation-xs39dtgb/node-windows-interop"
+  },
+  "tests": 599,
+  "test_seconds": 328.324,
+  "failures": 0,
+  "skips": 0,
+  "focused_tests": 28,
+  "node_preview_cases": 6,
+  "native_sha256": "50685320b3a419158a66c5d6d5fe57b4eb68b400c3b63ddb4634cd45d6632d71",
+  "js_camera_modules": 12,
+  "js_camera_functions": 229,
+  "graphical_fixture_acceptance": true,
+  "graphical_VM_image_link": false,
+  "physical_camera": false,
+  "new_pi_execution": false,
+  "reboot_retried": false,
+  "published": false
+}

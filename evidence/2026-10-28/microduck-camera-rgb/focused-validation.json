@@ -1,0 +1,25 @@
+{
+  "suites": [
+    {
+      "suite": "test_linux_microduck_camera_service.py",
+      "returncode": 0
+    },
+    {
+      "suite": "test_js_camera.py",
+      "returncode": 0
+    },
+    {
+      "suite": "test_camera_rgb_preview.py",
+      "returncode": 0
+    }
+  ],
+  "seconds": 27.639530290000003,
+  "physical_hardware": false,
+  "new_pi_execution": false,
+  "tests": 28,
+  "node_subcases": 6,
+  "simple_and_advanced_functions": 229,
+  "modules": 12,
+  "graphical_fixture": true,
+  "graphical_inline_VM_image": false
+}

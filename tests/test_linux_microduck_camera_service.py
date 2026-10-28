@@ -78,7 +78,7 @@ class CameraContract(unittest.TestCase):
     def test_method_and_coordinate_validation_is_closed(self):
         self.assertEqual(gateway.validate(request())[0],svc.PREFIX+'capture')
         for q in (request('capture',{'path':'/run/mediad.sock'}),request('pixel',{'handle':'a'*32,'x':True,'y':1,'channel':'y'}),
-                  request('pixel',{'handle':'a'*32,'x':0,'y':1,'channel':'y'}),request('pixel',{'handle':'a'*32,'x':1,'y':1,'channel':'rgb'}),
+                  request('pixel',{'handle':'a'*32,'x':0,'y':1,'channel':'y'}),request('pixel',{'handle':'a'*32,'x':1,'y':1,'channel':'rgba'}),
                   request('metadata',{'handle':'A'*32,'field':'width'}),request('metadata',{'handle':'a'*32,'field':'unknown'}),
                   request('release',{'handle':'a'*32,'extra':0}),{**request(),'confirmed':1}):
             with self.assertRaises(rpc.RpcError):svc.validate(q)
@@ -121,6 +121,16 @@ class CameraUnix(unittest.IsolatedAsyncioTestCase):
         self.assertEqual((await self.call('release',{'handle':h}))['status'],'not_retained')
         h=(await self.call())['handle'];self.assertEqual((await self.call('release',{'handle':h}))['status'],'released')
         self.assertFalse(self.normal.camera.entries)
+    async def test_rgb_is_a_coherent_read_with_explicit_units_and_expiry(self):
+        self.wire.pixels=bytes([128,16,128,235,90,81,240,81]*2)
+        h=(await self.call())['handle']
+        for x,expected in ((1,0),(2,0xffffff),(3,0xff0000),(4,0xff0000)):
+            reading=await self.call('pixel',{'handle':h,'x':x,'y':1,'channel':'rgb'})
+            self.assertEqual((reading['status'],reading['value'],reading['unit']),('ok',expected,'rgb24_bt601_limited'))
+        self.assertEqual(len(self.wire.audit),2)
+        self.assertEqual((await self.call('pixel',{'handle':h,'x':5,'y':1,'channel':'rgb'}))['status'],'out_of_range')
+        await self.call('release',{'handle':h})
+        self.assertIsNone((await self.call('pixel',{'handle':h,'x':1,'y':1,'channel':'rgb'}))['value'])
     async def test_capacity_counts_pending_and_retained(self):
         self.normal.camera.clock=lambda:0
         handles=[(await self.call())['handle'] for _ in range(4)]
@@ -227,6 +237,18 @@ class CameraNative(CameraUnix):
         value=svc.result('camera_metadata','ok',field='captured_at_unix_us',unit='us_unix128',value=str(2**128-1))
         self.assertEqual(await self.typed(value),['ok',str(2**128-1),'us_unix128','local_ipc'])
         self.assertTrue(any(k==20 and i==255 and b'GC took' in b for k,i,b in self.runtime.wire.events[start:]))
+    async def test_native_rgb_packed_bounds_units_and_black_is_known(self):
+        good=svc.result('camera_pixel','ok',x=1,y=1,channel='rgb',unit='rgb24_bt601_limited',value=0)
+        for n in (0,255,65535,0xff0000,0xffffff):
+            self.assertEqual(await self.typed({**good,'value':n}),['ok',n,'rgb24_bt601_limited','local_ipc'])
+            self.assertEqual(await self.primitive('readingValue',(self.vm.Var(3),)),n)
+        self.assertEqual((await self.typed(svc.result('camera_metadata','ok',field='rotate',unit='degrees_clockwise',value=90)))[0],'ok')
+        self.assertEqual(await self.primitive('readingValue',(self.vm.Var(3),)),90)
+        P,V=self.vm.Program,self.vm.Var
+        code=P().call('makeList',('ok',1,'u'*33,'local_ipc'),prim_set=1).op(7,3).call('readingValue',(V(3),)).finish()
+        await asyncio.to_thread(self.runtime.execute,code,32)
+        for change in ({'value':-1},{'value':0x1000000},{'value':True},{'unit':'rgb'},{'channel':'y'},{'status':'expired_or_unknown','value':None}):
+            self.assertNotEqual((await self.typed({**good,**change}))[0],'ok')
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

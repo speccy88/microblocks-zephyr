@@ -1,0 +1,18 @@
+{
+  "returncode": 1,
+  "validator_returncode": 1,
+  "post_validation_source_hashes_match": true,
+  "post_validation_source_inputs": 2585,
+  "post_validation_mismatches": [],
+  "seconds": 335.473384805,
+  "mode": "Full unchanged validator, byte-identical entire repository Linux filesystem replica",
+  "files": 2585,
+  "replica": "/tmp/js-editor-validation-fywy8qvb/repo",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/tmp/js-editor-validation-fywy8qvb/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/tmp/js-editor-validation-fywy8qvb/repo/build-artifacts/verified-native/smallvm",
+    "SMALLVM_UPSTREAM": "/tmp/js-editor-validation-fywy8qvb/smallvm",
+    "JS_EDITOR_UPSTREAM": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-editor-upstream-20261027",
+    "NODE_BINARY": "/tmp/js-editor-validation-fywy8qvb/node-windows-interop"
+  }
+}
