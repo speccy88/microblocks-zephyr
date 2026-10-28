@@ -1,0 +1,156 @@
+- banner:
+  - link "MicroBlocks on Zephyr":
+    - /url: ./
+    - text: MicroBlocks
+    - generic: on Zephyr
+  - navigation "Main navigation":
+    - link "Editor":
+      - /url: "#editor"
+    - link "Connect":
+      - /url: "#connect"
+    - link "Your projects":
+      - /url: "#projects"
+    - link "Source ↗":
+      - /url: https://github.com/speccy88/microblocks-zephyr
+- main:
+  - paragraph: LIVE CODING · REAL HARDWARE
+  - heading "Make a change. See it happen." [level=1]:
+    - text: Make a change.
+    - text: See it happen.
+  - paragraph: Program your board with blocks. Run the real MicroBlocks editor here, or open the editor hosted by your board.
+  - generic: when started
+  - generic: read a sensor
+  - generic: 5 + 7 12
+  - generic: make something yours
+  - region "Choose your board. Start creating.":
+    - paragraph: YOUR WORKBENCH
+    - heading "Choose your board. Start creating." [level=2]
+    - generic: Board
+    - combobox "Board":
+      - option "Adafruit Fruit Jam"
+      - option "Waveshare ESP32-S3-RLCD-4.2"
+      - option "Waveshare ESP32-P4 WIFI6 camera (Zephyr USB)"
+      - option "Parallax Propeller 2 (native USB)"
+      - option "SparkFun XRP RP2350 (development)"
+      - option "Raspberry Pi 5 (Linux preview)"
+      - option "MicroDuck Rockchip RK3566 (experimental placeholder)" [selected]
+    - button "Open editor"
+    - status: "MicroDuck Rockchip RK3566: experimental placeholder. Offline editing only; physical hardware, services and installation remain unverified."
+    - iframe [active] [id="ide"]:
+      - navigation:
+        - link "MicroBlocks website":
+          - /url: https://microblocks.fun/
+        - button "Language":
+        - button "Settings":
+        - button "Project":
+        - generic "Projects & board"
+        - option "Linux VM WebSocket" [selected]
+        - option "Examples" [selected]
+        - option "5 + 7"
+        - option "50 outputs"
+        - option "MicroDuck health (gateway)"
+        - button "Graph":
+        - button "Connect":
+          - generic: Connect
+        - button "Start":
+        - button "Stop":
+      - button "Block Category":
+        - generic: Output
+      - button "Block Category":
+        - generic: Input
+      - button "Block Category":
+        - generic: Pins
+      - button "Block Category":
+        - generic: Control
+      - button "Block Category":
+        - generic: Operators
+      - button "Block Category":
+        - generic: Variables
+      - button "Block Category":
+        - generic: Data
+      - button "Block Category":
+        - generic: My Blocks
+      - heading "LIBRARIES" [level=2]:
+        - generic: LIBRARIES
+      - navigation:
+        - button "Add Library":
+          - generic: Add Library
+      - button "Block Category":
+        - generic: Linux Core
+      - button "Block Category":
+        - generic: MicroDuck
+      - button "Block Category":
+        - generic: MicroDuck Depth
+      - button "Block Category":
+        - generic: MicroDuck Gamepad
+      - button "Block Category":
+        - generic: MicroDuck Head IMU
+      - button "Block Category":
+        - generic: MicroDuck Head IMU Simulation
+      - button "Block Category" [active]:
+        - generic: MicroDuck Media Simulation
+      - button "Block Category":
+        - generic: MicroDuck Motion Simulation
+      - button "Block Category":
+        - generic: MicroDuck Pad IMU
+      - button "Block Category":
+        - generic: MicroDuck Pad IMU Simulation
+      - button "Block Category":
+        - generic: MicroDuck Robot
+      - button "Block Category":
+        - generic: MicroDuck Robot Simulation
+      - button "Block Category":
+        - generic: MicroDuck Robot Telemetry Simulation
+      - button "Block Category":
+        - generic: MicroDuck Sensor Simulation
+      - button "Expand and collapse left bar":
+      - button "Undo":
+      - button "Redo":
+      - button "Zoom out":
+      - button "Restore zoom":
+      - button "Zoom in":
+      - textbox
+    - generic: Real MicroBlocks GP 2.5.8
+    - generic: Zephyr boards and native Propeller 2
+    - link "Open editor in its own tab ↗":
+      - /url: preview/editor/microduck/microblocks.html
+  - region "Pick the connection that fits.":
+    - paragraph: ONE PROJECT, MORE WAYS TO CONNECT
+    - heading "Pick the connection that fits." [level=2]
+    - article:
+      - text: "01"
+      - heading "USB Web Serial" [level=3]
+      - paragraph: Plug in a data cable, choose Connect in the editor and select your board. Use desktop Chrome or Edge with Web Serial.
+      - generic: No local helper app
+    - article:
+      - text: "02"
+      - heading "Wi-Fi WebSocket" [level=3]
+      - paragraph:
+        - text: A secure
+        - code: wss://
+        - text: endpoint can connect inside this HTTPS page. The current LAN firmware uses
+        - code: ws://
+        - text: ", so open its board-hosted editor instead."
+      - generic: Browser security stays enabled
+    - article:
+      - text: "03"
+      - heading "Hosted by your board" [level=3]
+      - paragraph: Already on the same network? Open your board's address directly. Its own editor uses the local WebSocket connection, without an account or pairing code.
+      - generic: The board is the server
+  - generic: ↳
+  - heading "Your projects stay with you." [level=2]
+  - paragraph:
+    - text: Open
+    - strong: Projects & board
+    - text: in the editor to save named projects, restore your workspace or import and export
+    - code: .ubp
+    - text: files. Projects are stored in this browser on this site, not sent to a server.
+  - paragraph: Clearing site data, private browsing or browser storage eviction can remove local saves. Export files for backups and to move between devices. Wi-Fi passwords are never included in browser project storage.
+- contentinfo:
+  - paragraph:
+    - text: An independent experimental port of
+    - link "MicroBlocks":
+      - /url: https://microblocks.fun/
+    - text: . Hardware capabilities differ by board; see the source documentation.
+  - link "Upstream sources & licenses":
+    - /url: UPSTREAM.md

@@ -1,0 +1,36 @@
+{
+  "site": "https://speccy88.github.io/microblocks-zephyr/",
+  "main_commit": "6e2b4f9c0687006ac04a5d9a1bb14c265193cb3d",
+  "linux_commit": "2c060b7f4e9153dd7213d9b7c2a479810577eb51",
+  "output_manifest_files": 1070,
+  "all_output_hashes_match_canonical_utf8_preview": true,
+  "stable_files_preserved_from_hosted_stable_build": 763,
+  "downloaded_and_hashed_files": {
+    "index.html": "7b9659622f45111c39788707fe5e230b3cd8b1d23534f84cf1c4a54978033cb1",
+    "portal.js": "12cbc4edd465f01a0d36abd34b882e13892739dbb49c799de93666884e49600d",
+    "editor/fruit-jam/microblocks.html": "620d6031aa3a8c8c4fb3644fa06168b7f43a78753dc553744a93ddc5c6635952",
+    "editor/waveshare/microblocks.html": "2f36fc3300aa517a14f286e5c69c4fba428f74fb71defffcba31d8ea296fa11f",
+    "editor/esp32p4/microblocks.html": "c58817960afb6cff3ec40e43bdcde6e78a544ac544f0e4c604a990c720c53148",
+    "editor/propeller2/microblocks.html": "5afa60ed003e753bb54cc591f1b5e6e9c32c0a5f285fb470ee35d9c7d83675d9",
+    "editor/xrp-rp2350/microblocks.html": "b55d1c4f92f5bee1d5340539f3f7611d1b9fc4d6594ebef62427d26903bd0e9a",
+    "preview/editor/raspberry-pi5/microblocks.html": "cd987679cbbffb14fff8ef48d53c5f17664994b0be64deeab8a8a654a628c6c1",
+    "preview/editor/raspberry-pi5/unoq-network.js": "8a3fd0dda5875b25e9fb94b42e66f8051cb764e9396bea48ddb13da7603d480f",
+    "preview/editor/raspberry-pi5/gp_wasm.js": "025645805f0429fb2267da9f0c8be94c10c2a72ce494e31a38b9104b71e01936",
+    "preview/editor/raspberry-pi5/gp_wasm.data": "43328e1dc23affb5d24c9602e51e606cb5b7c666dcea2dbf91a3603c7edc1268",
+    "preview/editor/microduck/microblocks.html": "77533794c3229aa09946d8946989e5d3f10ddb1042ae395b64e0e4894a5d9bfe",
+    "preview/editor/microduck/unoq-network.js": "8a3fd0dda5875b25e9fb94b42e66f8051cb764e9396bea48ddb13da7603d480f",
+    "preview/editor/microduck/gp_wasm.js": "d16ebb77286cbb3afdfd0fc221a02f059559076bb5b6e213501100d9b2bc7eed",
+    "preview/editor/microduck/gp_wasm.data": "8de71d4c1bff4232126b660621012464f468918fe3144e799af01c6eb9c03eb8"
+  },
+  "manifest_sha256": "889de3772e9e2adaab060a0b727d896480f5c589d202d40e36e266f2870426fa",
+  "locale_comparison": {
+    "files_affected": [
+      "editor/esp32p4/unoq-network.js",
+      "editor/esp32p4/microblocks.html",
+      "build-manifest.json"
+    ],
+    "reason": "Existing P4 adapter generator reads text with OS default encoding; local Windows decode yielded mojibake, hosted Linux UTF-8 is correct. Only typography, dependent cache hash and manifest differ; no runtime/control code change.",
+    "new_p4_source_change": false
+  },
+  "private_evidence_included": false
+}

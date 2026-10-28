@@ -1,0 +1,26 @@
+{
+  "repository": "https://github.com/speccy88/microblocks-zephyr",
+  "main_commit": "6e2b4f9c0687006ac04a5d9a1bb14c265193cb3d",
+  "parent_commit": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+  "files": [
+    ".github/workflows/pages.yml",
+    "docs/LINUX_PAGES_TARGETS.md",
+    "tests/test_pages_linux_preview.py",
+    "tools/build_pages_linux_preview.py",
+    "tools/package_pages_linux_preview.py"
+  ],
+  "local_evidence_commit_published": false,
+  "local_evidence_commit": "4fa9262b11677f10ce3a48b697cb1eccd259446d",
+  "source_validation": {
+    "returncode": 0,
+    "seconds": 0.433768354999998,
+    "verified_inputs": 1178,
+    "replica": "/tmp/pages-main-validation-5uz37_eo/repo",
+    "main_base": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226"
+  },
+  "pages_run": 40619957388,
+  "main_update": {
+    "success": true
+  },
+  "remote_main_verified": "6e2b4f9c0687006ac04a5d9a1bb14c265193cb3d"
+}
