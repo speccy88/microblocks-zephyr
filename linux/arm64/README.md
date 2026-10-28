@@ -1,5 +1,15 @@
 # Linux ARM64 SmallVM: current status
 
+The 2026-10-28 JavaScript-editor follow-up passes graphical standalone Pi
+arithmetic, project serialization/reopen, reconnect and real VM readback.
+Separate fictional robotd fixtures exercise simple missing-servo/model-name
+blocks alongside advanced reference geometry in one project, including readback
+and execution after reconnect. Its [local readback adaptation](../../docs/JS_PI_READBACK_SPEC.md)
+preserves VM slot identities and serializes rapid explicit evaluations.
+This later result supersedes the older typed-example graphical limitation below
+for that tested subset; it does not validate every block, physical MicroDuck,
+live robot control, a browser Save dialog, user service or full OS reboot.
+
 The later [typed health checkpoint](../microduck/TYPED_READINGS.md) adds two pure
 snapshot-conversion primitives and library0.2. Ordinary and sanitizer Pi binaries
 each pass all eighteen MicroDuck feature tests (simulated robot services), with

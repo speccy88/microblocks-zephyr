@@ -32,6 +32,16 @@ async function setup(options = {}) {
         manager.syncScripts=async()=>{calls.sync++;manager.chunkIDs.set(manager.chunkKeyFor(block),[17,null,2,'',false,false]);};`);
     return h;
 }
+async function bindingFixture() {
+    const h=load(assets);
+    h.set('text',"module main\nscript 20 30 (echo 42)\nto echo value { return value }\n");
+    h.evaluate('MB_editor.project=new MB_Project();MB_editor.project.loadFromString(text);globalThis.original=MB_editor.project;globalThis.sourceManager=new MB_CodeManager(original);sourceManager.functionChunkIDs.set("echo",170);globalThis.compiler=new MB_Compiler(original,sourceManager);globalThis.d=new MB_Decompiler();for(const [id,kind,node] of [[170,3,original.functionNamed("echo")],[204,2,original.main.scripts[0][2]]]){const bytes=compiler.compiledBytesFor(node);while(bytes.length%4)bytes.push(0);d.addChunk(id,kind,new Uint8Array(bytes));}');
+    const project=await h.evaluate('d.decompileProject()');h.set('readProject',project);
+    h.evaluate('class BindingConnection{constructor(){this.port={};this.vmVersion=417;this.sendQueue=Promise.resolve();}isConnected(){return this.port!==null;}readCodeFromBoard(){return Promise.resolve(readProject);}sendMsg(){throw Error("unexpected write");}stopDecompilation(){}disconnect(){this.port=null;}}globalThis.bindingConnection=new BindingConnection();MicroBlocksReadback.protectRead(BindingConnection,MB_CodeManager,()=>bindingConnection,()=>MB_editor);');
+    await h.evaluate('bindingConnection.readCodeFromBoard()');
+    h.evaluate('globalThis.cloned=new MB_Project();cloned.loadFromString(readProject.codeString());cloned.main.scripts[0][0]=100;cloned.main.scripts[0][1]=200;MB_editor.project=cloned;');
+    return h;
+}
 async function main() {
     await check('unadapted pinned decompiler reproduces the reporter return-wrapper bug', async()=>{
         const h=load(assets,{readback:false});await decoded(h);
@@ -75,6 +85,38 @@ async function main() {
         const h=await setup();h.evaluate('MB_editor.saveBeforeRun=async()=>{pane.removeChild(block);return true;}');
         await h.evaluate('manager.evalOnBoard(block)');
         assert.equal(h.evaluate('calls.sync'),0);assert.equal(h.evaluate('calls.run.length'),0);
+    });
+    await check('rapid initial evaluations share one rebind instead of overlapping downloads',async()=>{
+        const h=await setup();let release;
+        const gate=new Promise(resolve=>{release=resolve;});h.set('waitForDownload',()=>gate);
+        h.evaluate('globalThis.activeSaves=0;globalThis.maxSaves=0;manager.syncScripts=async()=>{calls.sync++;activeSaves++;maxSaves=Math.max(maxSaves,activeSaves);await waitForDownload();manager.chunkIDs.set(manager.chunkKeyFor(block),[17,null,2,"",false,false]);activeSaves--;};');
+        const pending=[h.evaluate('manager.evalOnBoard(block)'),h.evaluate('manager.evalOnBoard(block)'),h.evaluate('manager.evalOnBoard(block)')];
+        await new Promise(resolve=>setImmediate(resolve));
+        release();await Promise.all(pending);
+        assert.equal(h.evaluate('maxSaves'),1);assert.equal(h.evaluate('calls.sync'),1);
+        assert.equal(h.evaluate('JSON.stringify(calls.run)'),'[17,17,17]');
+    });
+    await check('a failed queued download does not suppress the next explicit evaluation',async()=>{
+        const h=await setup();
+        h.evaluate('manager.syncScripts=async()=>{calls.sync++;if(calls.sync===1)throw Error("fixture store failed");manager.chunkIDs.set(manager.chunkKeyFor(block),[17,null,2,"",false,false]);};');
+        const failed=h.evaluate('manager.evalOnBoard(block)'),next=h.evaluate('manager.evalOnBoard(block)');
+        await assert.rejects(failed,/fixture store failed/);await next;
+        assert.equal(h.evaluate('calls.sync'),2);assert.equal(h.evaluate('JSON.stringify(calls.run)'),'[17]');
+    });
+    await check('readback keeps function and script VM slots through project cloning and layout changes',async()=>{
+        const h=await bindingFixture();h.evaluate('MB_editor.codeManager=new MB_CodeManager(cloned);');
+        assert.equal(h.evaluate('MB_editor.codeManager.functionChunkIDs.get("echo")'),170);
+        assert.equal(h.evaluate('MB_editor.codeManager.lookupChunkID(cloned.main.scripts[0][2])'),204);
+        assert.equal(h.evaluate('bindingConnection.readbackBlockedWrites.length'),0);
+    });
+    await check('a replaced connection cannot lend old readback slot identities to a project',async()=>{
+        const h=await bindingFixture();h.evaluate('bindingConnection.port={};MB_editor.codeManager=new MB_CodeManager(cloned);');
+        assert.equal(h.evaluate('MB_editor.codeManager.functionChunkIDs.get("echo")'),0);
+        assert.equal(h.evaluate('MB_editor.codeManager.lookupChunkID(cloned.main.scripts[0][2])'),null);
+    });
+    await check('editing a decoded project before binding rejects its stale slot plan',async()=>{
+        const h=await bindingFixture();h.evaluate('cloned.main.scripts=[];MB_editor.codeManager=new MB_CodeManager(cloned);');
+        assert.equal(h.evaluate('MB_editor.codeManager.functionChunkIDs.get("echo")'),0);
     });
     await check('install is idempotent and incompatible hooks are rejected',async()=>{
         const h=load(assets);h.evaluate('globalThis.beforeEval=MB_CodeManager.prototype.evalOnBoard;MicroBlocksReadback.install(MB_Decompiler,MB_CodeManager,ScriptsMorph,()=>MB_editor)');

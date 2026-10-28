@@ -1,5 +1,13 @@
 # Raspberry Pi 5 and MicroDuck delivery status
 
+Latest 2026-10-28 follow-up: the actual Pi ARM64 build passes six focused model
+and servo tests. The [JavaScript readback lifecycle](JS_PI_READBACK_SPEC.md)
+passes graphical arithmetic on the standalone Pi target and simple/advanced
+model/servo readings with fictional robotd data in a separate development
+profile. Reopen, reconnect and repeated readback retain four scripts and the
+expected values. Physical MicroDuck, the other graphical block families,
+camera/control commissioning and release/service/reboot acceptance remain open.
+
 Evidence date: 2026-10-27. This work is isolated from the active P4 checkout.
 No ARM64 release or updated GitHub Pages deployment has been published.
 

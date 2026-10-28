@@ -9,8 +9,11 @@ The physical robot has not arrived.
 
 The isolated [JS typed-library migration](JS_TYPED_LIBRARIES.md) now imports
 the six normal gateway modules through the actual pinned editor implementation
-and executes representative compiled wrappers on the real Pi. Depth/gamepad
-sources remain fictional; graphical and physical acceptance are still pending.
+and executes representative compiled wrappers on the real Pi. A later
+[graphical readback test](JS_PI_READBACK_SPEC.md) verifies simple model name and
+missing-servo count alongside advanced reference height, project reopen,
+reconnect and repeated readback. The daemon data remain fictional. Other
+graphical block families and all physical MicroDuck acceptance remain pending.
 
 The [four-service matrix](MICRODUCK_SERVICE_CAPABILITIES.md) makes the requested
 robotd/mediad/tofd/padd block coverage explicit. Separate simulated depth-zone,

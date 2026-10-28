@@ -1,0 +1,43 @@
+{
+  "operation": "CRLF to LF only in generated evidence text",
+  "raw_archive_sha256": "a4d783e4a9618a902faa09476c1bdadff5f2151a2f66317a1d387c6eb5393d70",
+  "files": {
+    "cleanup.json": {
+      "raw_sha256": "b0289ccc7f44539ae97a84dc6e2375ca3dbc396bdc70fb20b688af5e79a6afcc",
+      "normalized_sha256": "101eb8536d49423e0931f9ef65f0ab10c2898ca3428829547ad78cd0763546c7",
+      "json_values_unchanged": true
+    },
+    "final-verification.json": {
+      "raw_sha256": "93ad997782ae779e030133aedd8baf68f559cc26b6c7ffcbea9c58f4407e069b",
+      "normalized_sha256": "41ad418161a9b85f80826a749087e7cde93926ce47fe8425e1ff4194a7eb362c",
+      "json_values_unchanged": true
+    },
+    "frozen-validation-inputs.json": {
+      "raw_sha256": "a9a58f33543b7164e2c458747b768ba65e1cda520a73f75a9c9fd4e7ae1154c5",
+      "normalized_sha256": "c0ba2f76e0a4ae745d58da0d6eb7e204387eb0212076f02fba00611552d632dd",
+      "json_values_unchanged": true
+    },
+    "negative-control.json": {
+      "raw_sha256": "60e882a6664cccab8eeee29bd3b1769ba8d366e0a1dcbc925d6fa268061a8ebf",
+      "normalized_sha256": "c0c49c114a5f1946aed370e203399631f84b968ab8ebe0fa7dc1efbd479aded9",
+      "json_values_unchanged": true
+    },
+    "pi-build.json": {
+      "raw_sha256": "ffac3aadc8a7b909e7223cdd1beea788f25a3145b183452bf15b05c2469d6cc9",
+      "normalized_sha256": "b9d1789c30a4b1a3848f995a7b662cb87c2ccfdc9c8413050a08888881f74209",
+      "json_values_unchanged": true
+    },
+    "source-and-file-hashes.json": {
+      "raw_sha256": "8675cbfd0119e6106cfffced78b90edd4006673ce924fc9d89e24448bd9d032f",
+      "normalized_sha256": "5d21fdccc194593b72e7d0a6a873fd0761f789d764e7131dd606207383805b74",
+      "json_values_unchanged": true
+    },
+    "transfer.json": {
+      "raw_sha256": "ec329a6072eee6f72fdd967881029ea9b6cde40ac03baf5a2a4f8fbe4c5b85df",
+      "normalized_sha256": "ba208eaf71d050b861180e590bb95baff49b5d075985261c25dac7a1731a9334",
+      "json_values_unchanged": true
+    }
+  },
+  "product_and_test_sources_changed": false,
+  "test_provenance": "Full-run receipt describes exact raw frozen inputs at test completion; raw Windows text retained without alteration"
+}

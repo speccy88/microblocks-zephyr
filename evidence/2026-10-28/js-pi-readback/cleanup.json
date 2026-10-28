@@ -1,0 +1,61 @@
+{
+  "root": "/home/fred/microblocks-model-gui-akw9ddnn",
+  "ended": {
+    "pi": {
+      "profile": "pi",
+      "port": 52931,
+      "architecture": "aarch64",
+      "real_pi": true,
+      "robot_source": "fictional",
+      "physical_robot": false,
+      "max_seconds": 1800,
+      "root": "/home/fred/microblocks-model-gui-akw9ddnn",
+      "watchdog_pid": 16739,
+      "supervisor_pid": 16740,
+      "supervisor_returncode": 0,
+      "owned_children_stopped": true
+    },
+    "dev": {
+      "profile": "dev",
+      "port": 52932,
+      "architecture": "aarch64",
+      "real_pi": true,
+      "robot_source": "fictional",
+      "physical_robot": false,
+      "max_seconds": 1800,
+      "root": "/home/fred/microblocks-model-gui-akw9ddnn",
+      "watchdog_pid": 16764,
+      "supervisor_pid": 16765,
+      "supervisor_returncode": 0,
+      "owned_children_stopped": true
+    }
+  },
+  "existing_vms_after": [
+    {
+      "pid": 4819,
+      "exe": "/home/fred/microblocks-charlie/editor-sessions/20261027T054738960164Z/smallvm",
+      "start": "716081"
+    },
+    {
+      "pid": 5601,
+      "exe": "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z/smallvm",
+      "start": "963992"
+    },
+    {
+      "pid": 6874,
+      "exe": "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z/smallvm",
+      "start": "1449344"
+    }
+  ],
+  "robot_methods": [
+    "hello",
+    "robot.health",
+    "robot.model"
+  ],
+  "robot_audit_requests": 22,
+  "credentials_used_or_recorded": false,
+  "hardware_commands": false,
+  "archive_sha256": "a3ca87a296c6b90108811ecbdc832f1ef3626a86fa3559c6fedfd79f87fd9d6f",
+  "adapter_sha256": "703b92381bd8cc0831ccdc407a03005ef8a8f21523832f15d72942f6deb05fab",
+  "preexisting_vms_preserved_exactly": true
+}

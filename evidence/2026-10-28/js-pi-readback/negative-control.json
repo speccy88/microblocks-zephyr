@@ -1,0 +1,7 @@
+{
+  "baseline": "9ba2f25b898c827a2ad7939758492818dfce15c2",
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 1\n\n    at C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-js-migration-20261027\\build-artifacts\\readback-baseline-negative\\tests\\js-readback.test.cjs:96:16\n    at async main (C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-js-migration-20261027\\build-artifacts\\readback-baseline-negative\\tests\\js-readback.test.cjs:89:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 3,\n  expected: 1,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n",
+  "expected_negative": true
+}

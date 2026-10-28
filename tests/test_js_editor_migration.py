@@ -79,7 +79,7 @@ class JSVerifiedSourceTests(unittest.TestCase):
             result = subprocess.run([node, str(ROOT / 'tests/js-readback.test.cjs'), str(assets)],
                                     capture_output=True, text=True, timeout=30)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            self.assertIn('"passed":9', result.stdout)
+            self.assertIn('"passed":14', result.stdout)
 
     def test_deterministic_package_preserves_engine_and_loopback_boundary(self):
         with tempfile.TemporaryDirectory() as temp:

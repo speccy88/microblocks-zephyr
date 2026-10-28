@@ -1,0 +1,34 @@
+{
+  "simulation": true,
+  "physical_robot": false,
+  "results": [
+    {
+      "id": 0,
+      "value": 42,
+      "error": false
+    },
+    {
+      "id": 0,
+      "value": 42,
+      "error": false
+    }
+  ],
+  "events": [
+    "Open Pi arithmetic fixture",
+    "Refresh test status",
+    "Serialize and reopen current project",
+    "Read current Pi program"
+  ],
+  "errors": [],
+  "connected": true,
+  "vm": 417,
+  "board": "Linux ARM64",
+  "modules": 0,
+  "functions": 0,
+  "scripts": 1,
+  "roundtrip": {
+    "bytes": 122,
+    "scripts": 1,
+    "functions": 0
+  }
+}

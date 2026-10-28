@@ -69,15 +69,20 @@ when installing firmware. Physical acceptance and limits are recorded in its
 
 ## Linux ARM64 and MicroDuck development checkpoint
 
-The [Linux ARM64 installer and candidate packaging](linux/arm64/README.md) have
-simulated lifecycle tests. A native ARM64 SmallVM is not implemented or compiled
-yet; the [LP64 audit](docs/SMALLVM_LP64_AUDIT.md) reproduces the pinned VM's
-32-bit memory-layout guard and evaluates an upstream offset-reference design.
-The [MicroDuck BLE/JSON-RPC client](docs/MICRODUCK_PROTOCOL.md) has mock-device
-tests, with real BLE PIN/Wi-Fi secret transmission blocked until confidentiality
-can be established. Neither platform is advertised as physically validated.
-No ARM64 binary or release is published by this checkpoint. See
-[recorded validation](evidence/2026-10-27/linux-arm64/checkpoint.json).
+The [native ARM64 SmallVM](linux/arm64/README.md) now builds and executes on a
+real Raspberry Pi 5, using 32-bit arena offsets while native addresses remain
+native pointers. Pi interpreter, installer and isolated session-recovery tests
+have evidence. The separately pinned JavaScript editor also connects, executes,
+serializes/reopens, reconnects and reads programs back on the Pi; the latest
+[readback lifecycle](docs/JS_PI_READBACK_SPEC.md) preserves existing VM slots.
+The standalone Pi target requires no robot services.
+
+The separate MicroDuck RK3566 target remains an experimental offline placeholder.
+Its typed simple and advanced libraries coexist in one project, with real Pi
+VM/graphical tests against fictional daemon sources. Physical robot, live motion,
+camera commissioning and secure BLE provisioning remain unverified. Actual BLE
+PIN/Wi-Fi secrets remain blocked until confidentiality is established. No ARM64
+release or installer URL is published by this development checkpoint.
 
 ## Start here: Waveshare ESP32-S3-RLCD-4.2
 

@@ -1,0 +1,65 @@
+{
+  "simulation": true,
+  "physical_robot": false,
+  "results": [
+    {
+      "id": 213,
+      "value": "SIMULATION_UNCALIBRATED",
+      "error": false
+    },
+    {
+      "id": 212,
+      "value": 2,
+      "error": false
+    },
+    {
+      "id": 211,
+      "value": 42,
+      "error": false
+    },
+    {
+      "id": 214,
+      "value": 123,
+      "error": false
+    },
+    {
+      "id": 109,
+      "value": "SIMULATION_UNCALIBRATED",
+      "error": false
+    },
+    {
+      "id": 110,
+      "value": 2,
+      "error": false
+    },
+    {
+      "id": 107,
+      "value": 123,
+      "error": false
+    },
+    {
+      "id": 108,
+      "value": 42,
+      "error": false
+    }
+  ],
+  "events": [
+    "Open coexisting simple + advanced fixture",
+    "Read current Pi program",
+    "Serialize and reopen current project",
+    "Read current Pi program",
+    "Refresh test status"
+  ],
+  "errors": [],
+  "connected": true,
+  "vm": 417,
+  "board": "Linux ARM64",
+  "modules": 3,
+  "functions": 107,
+  "scripts": 4,
+  "roundtrip": {
+    "bytes": 28376,
+    "scripts": 4,
+    "functions": 107
+  }
+}
