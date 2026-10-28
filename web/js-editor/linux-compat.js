@@ -3,7 +3,7 @@
 (function (root) {
     'use strict';
     const MAX_FRAME = 4096, MAX_INPUT = 131072, MAX_OUTPUT = 32768;
-    const installed = new WeakSet();
+    const installed = new WeakMap();
 
     class LoopbackPort {
         constructor(location, Socket) {
@@ -81,12 +81,26 @@
         }
     }
 
-    function install(Compiler, CommPort, location, Socket) {
-        if (installed.has(Compiler)) return;
+    function install(Compiler, CommPort, location, Socket, aliases = {linux: 3, microduck: 22}, functionNames = []) {
+        const mappings = Object.entries(aliases);
+        const signature = JSON.stringify([mappings.slice().sort(), [...functionNames].sort()]);
+        if (installed.has(Compiler)) {
+            if (installed.get(Compiler) !== signature) throw Error('Cannot change installed target compiler mappings');
+            return;
+        }
+        const requiredFunctions = new Set(functionNames);
+        for (const [name, index] of mappings) {
+            if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(name) || !Number.isInteger(index) || index < 0 || index > 63) {
+                throw Error('Invalid target primitive-set mapping');
+            }
+        }
         const init = Compiler.prototype.initPrimsets;
         const literals = Compiler.prototype.appendLiterals;
         const primitive = Compiler.prototype.primitive;
         Compiler.prototype.primitive = function (op, inputs, isCommand) {
+            if (requiredFunctions.has(op) && !this.codeManager.functionChunkIDs.has(op)) {
+                throw new Error('Missing target function dependency: ' + op);
+            }
             if (typeof op === 'string' && /^microduck[A-Z]/.test(op) &&
                 !this.codeManager.functionChunkIDs.has(op)) {
                 throw new Error('Missing MicroDuck function dependency: ' + op);
@@ -96,18 +110,19 @@
         Compiler.prototype.initPrimsets = function () {
             init.call(this);
             this.primsets = new Map(this.primsets);
-            if (this.primsets.has('linux') || this.primsets.has('microduck') ||
-                [...this.primsets.values()].some(value => value >= 22)) {
-                throw new Error('Upstream primitive-set layout changed; review the Linux profile');
+            if ([...this.primsets.values()].some(value => value >= 22)) {
+                throw new Error('Upstream primitive-set layout changed; review the target profile');
             }
-            this.primsets.set('linux', 3);
-            this.primsets.set('microduck', 22);
+            for (const [name, index] of mappings) {
+                if (this.primsets.has(name) && this.primsets.get(name) !== index) throw Error('Target primitive-set conflict: ' + name);
+                this.primsets.set(name, index);
+            }
         };
         Compiler.prototype.appendLiterals = function (instructions) {
             for (const item of instructions) {
                 if (Array.isArray(item) && ['commandPrimitive', 'reporterPrimitive'].includes(item[0]) &&
                     !this.primsets.has(item[2])) {
-                    throw new Error('Unsupported primitive set in Linux profile: ' + item[2]);
+                    throw new Error('Unsupported primitive set in selected target: ' + item[2]);
                 }
             }
             return literals.call(this, instructions);
@@ -125,7 +140,7 @@
                 return this.linuxPort ? this.linuxPort[name](...args) : original.apply(this, args);
             };
         }
-        installed.add(Compiler);
+        installed.set(Compiler, signature);
     }
     const api = Object.freeze({LoopbackPort, install, MAX_FRAME, MAX_INPUT, MAX_OUTPUT});
     root.MicroBlocksLinux = api;

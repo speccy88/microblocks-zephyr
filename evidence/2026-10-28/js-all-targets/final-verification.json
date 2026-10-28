@@ -1,0 +1,16 @@
+{
+  "source_inputs": 2206,
+  "working_hashes_match_verified_test_input_ledger": true,
+  "replica_copies_verified_before_validation": true,
+  "post_run_replica_rehash": false,
+  "post_run_replica_rehash_limit": "The temporary WSL replica was absent when inspected after the runner exited; no post-run replica rehash is claimed.",
+  "python_tests": 498,
+  "failures": 0,
+  "skips": 0,
+  "validator_changed": false,
+  "git_base": "bee8cee27dd668e614649b1a411fe25cb80f799e",
+  "robot_hardware": false,
+  "new_pi_test": false,
+  "protected_p4_checkout_or_hardware_accessed": false,
+  "publication": false
+}

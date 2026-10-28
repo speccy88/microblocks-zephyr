@@ -1,0 +1,54 @@
+{
+  "source_repository": "https://github.com/speccy88/uno-q-microblocks",
+  "source_commit": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+  "source_assets": {
+    "gp_wasm.js": "5ff85ece9368ae3c7d53f7d21185d0ce5668e3670090b68ea713d6107cfecbb1",
+    "gp_wasm.data": "5f11822f1e3fdbd3036c2a2140c415969c6a6bdc9e70b5be274a50258f773940"
+  },
+  "files": [
+    {
+      "source_path": "/Libraries/Robots/XRP.ubl",
+      "path": "integration/XRP.ubl",
+      "bytes": 6680,
+      "sha256": "c137323584dbe1401b24962eed68a6a5a168215c30094ecf9098430a4c48aa66"
+    },
+    {
+      "source_path": "/Libraries/UNO_Q_Hardware.ubl",
+      "path": "integration/UNO_Q_Hardware.ubl",
+      "bytes": 1273,
+      "sha256": "e4bbe2254ef0ec684f60e1ae367d4c868ddd99b50463ca5e77a11139bf072145"
+    },
+    {
+      "source_path": "/Libraries/Motors/PID.ubl",
+      "path": "integration/gp-libraries/PID.ubl",
+      "bytes": 3838,
+      "sha256": "87de5a6bf9bf31abe1e83692c94b7511396410db2a210b8f421e7c45019e1366"
+    },
+    {
+      "source_path": "/Libraries/Motors/Encoded DC Motors.ubl",
+      "path": "integration/gp-libraries/Encoded_DC_Motors.ubl",
+      "bytes": 19371,
+      "sha256": "9a32957787004b7b956754eda268ec56fc909fbc86d7255224aa970d5256cded"
+    },
+    {
+      "source_path": "/Libraries/Servo.ubl",
+      "path": "integration/gp-libraries/Servo.ubl",
+      "bytes": 2670,
+      "sha256": "f824fb42ffabb95dae1b82e93004761bd36d901aed68b87855f16ec553cfe83a"
+    },
+    {
+      "source_path": "/Libraries/Sensing/Distance (HC-SR04).ubl",
+      "path": "integration/gp-libraries/Distance_HC_SR04.ubl",
+      "bytes": 1913,
+      "sha256": "4fac90f9210ebd5e8a493e9490a1c9f7246d722e3306758dceac1b7484943fb0"
+    }
+  ],
+  "modified": false,
+  "xrp_dependency_order": [
+    "integration/gp-libraries/PID.ubl",
+    "integration/gp-libraries/Encoded_DC_Motors.ubl",
+    "integration/gp-libraries/Servo.ubl",
+    "integration/gp-libraries/Distance_HC_SR04.ubl",
+    "integration/XRP.ubl"
+  ]
+}

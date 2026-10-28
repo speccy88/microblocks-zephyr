@@ -1,0 +1,90 @@
+{
+  "log_normalization": "Windows capture decoded with utf-8-sig, universal newlines, written UTF-8 LF; no lines removed.",
+  "original_log_sha256": "60e773e78b58b99d69312325754f8a8da75d6962c8b65d76097885e7588f7e16",
+  "normalized_log_sha256": "60e773e78b58b99d69312325754f8a8da75d6962c8b65d76097885e7588f7e16",
+  "remote_refs_read_only": {
+    "repository": "https://github.com/speccy88/microblocks-zephyr",
+    "main": "6e2b4f9c0687006ac04a5d9a1bb14c265193cb3d",
+    "gp": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+    "codex/js-editor-migration-20261027": "2c060b7f4e9153dd7213d9b7c2a479810577eb51"
+  },
+  "published": false,
+  "pending_approval": null,
+  "archived_files": {
+    "build-audit.json": {
+      "original_sha256": "311ec66192a50eb26c28dbb06d3d32d0c47dff0a6a2dd6138529c8d6c6905f07",
+      "archived_sha256": "62f03531434e8bd1b3f032bb2bcf0b86bb36b516d62b511c37e169830def8756",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "actual-library-imports.json": {
+      "original_sha256": "b2296127e30cc53ff483193643f854cddff771361c9157063c0c68d3cf81067c",
+      "archived_sha256": "b2296127e30cc53ff483193643f854cddff771361c9157063c0c68d3cf81067c",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "actual-connection-fixtures.json": {
+      "original_sha256": "327c51b1592dedd234df059e3cde32751250a0d16839a6c8e951c690e47e4833",
+      "archived_sha256": "327c51b1592dedd234df059e3cde32751250a0d16839a6c8e951c690e47e4833",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "browser-ax.json": {
+      "original_sha256": "c956ce6131f77d32fd50569ec896ab8f80dccd64ffbda14bc496f4c15f79393e",
+      "archived_sha256": "c956ce6131f77d32fd50569ec896ab8f80dccd64ffbda14bc496f4c15f79393e",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "browser-console.json": {
+      "original_sha256": "fe4c49152e60887566a90cdf7d876c88b75d45d1ee7f4f5e1a429466d71af5ab",
+      "archived_sha256": "fe4c49152e60887566a90cdf7d876c88b75d45d1ee7f4f5e1a429466d71af5ab",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "p4-camera-palette.png": {
+      "original_sha256": "0f4692cf5b465fd403df8d394df40b724411bef381cf51c74616aa9030f3dd61",
+      "archived_sha256": "0f4692cf5b465fd403df8d394df40b724411bef381cf51c74616aa9030f3dd61",
+      "normalization": null
+    },
+    "xrp-palette.png": {
+      "original_sha256": "d076b1bddc757782e93b55a690368cd1910f0b71154376d410548d28a4dfc025",
+      "archived_sha256": "d076b1bddc757782e93b55a690368cd1910f0b71154376d410548d28a4dfc025",
+      "normalization": null
+    },
+    "eight-target-hub.png": {
+      "original_sha256": "12e566b516930f9a2d1f69d19d093b1e040c98bb9db67f0e34c8f6552807cda4",
+      "archived_sha256": "12e566b516930f9a2d1f69d19d093b1e040c98bb9db67f0e34c8f6552807cda4",
+      "normalization": null
+    },
+    "unoq-reference-palette.png": {
+      "original_sha256": "a54ed5db23326c2b2d8835b8082f024870710827af9d3f37a346a32ff0ca9236",
+      "archived_sha256": "a54ed5db23326c2b2d8835b8082f024870710827af9d3f37a346a32ff0ca9236",
+      "normalization": null
+    },
+    "preview-cleanup.json": {
+      "original_sha256": "99a1059562fb09e4fdfc10df25c54fc147ba82d2ed81d822b953e5b04397ced3",
+      "archived_sha256": "8f8b0a1afd109a4a8e3a27f08b0cc47625f5727adf3bbeb1cd8838b801c5c3cd",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "full-validation.json": {
+      "original_sha256": "2a354efe91349d1c755442bcae1400d3b9bed25839584844faa2774f484704a5",
+      "archived_sha256": "2a354efe91349d1c755442bcae1400d3b9bed25839584844faa2774f484704a5",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "source-inputs.json": {
+      "original_sha256": "2f2dfa10e4bf9784b4a02d41843cea270d05e0472b403329ec1bae6d3bde0237",
+      "archived_sha256": "ff1fd960ec27914cf4919fb7e70000dea96c9435c404a221c5de40f038e2b331",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "verified-input-copy-ledger.json": {
+      "original_sha256": "9c55e6da813ff9b15b1e07fc60aec20a022874d5dd8df7ced787259e2fb122e5",
+      "archived_sha256": "9c55e6da813ff9b15b1e07fc60aec20a022874d5dd8df7ced787259e2fb122e5",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "final-verification.json": {
+      "original_sha256": "11e3959528b16e39c693a174a885eadba0a2c60bec63bc06bb1640e2cb6d2bd7",
+      "archived_sha256": "87f5c4cc5ef67d9eea12b83701aacbeac2ff42f4ee63861894109b7d8afe52a9",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    },
+    "validation-runner.py.txt": {
+      "original_sha256": "e28286ea47da38cb10f3efa8150353e8f84e4d945d85d8ae8d409379eb81c6c4",
+      "archived_sha256": "63a68773b1732c2a6cb7e0285e6fb9dc62dd8fb3aad68a800974695a5b5795bd",
+      "normalization": "UTF-8 LF; no records or lines removed"
+    }
+  }
+}

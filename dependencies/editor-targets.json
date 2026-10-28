@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "targets": {
+    "development": {
+      "name": "Experimental Linux development",
+      "kind": "development",
+      "placeholder": false,
+      "connection_enabled": true,
+      "primitive_sets": {
+        "linux": 3,
+        "microduck": 22
+      },
+      "libraries": []
+    },
+    "raspberry-pi5": {
+      "name": "Raspberry Pi 5",
+      "kind": "linux",
+      "placeholder": false,
+      "connection_enabled": true,
+      "primitive_sets": {
+        "linux": 3
+      },
+      "libraries": [],
+      "hardware_manifest": "linux/arm64/hardware.json"
+    },
+    "microduck": {
+      "name": "MicroDuck Rockchip RK3566",
+      "kind": "linux",
+      "placeholder": true,
+      "connection_enabled": false,
+      "primitive_sets": {
+        "linux": 3,
+        "microduck": 22
+      },
+      "libraries": [],
+      "hardware_manifest": "linux/arm64/hardware.json"
+    },
+    "fruit-jam": {
+      "name": "Adafruit Fruit Jam",
+      "kind": "serial",
+      "placeholder": false,
+      "connection_enabled": true,
+      "primitive_sets": {
+        "fruitJam": 3
+      },
+      "libraries": [
+        "boards/adafruit_fruit_jam/integration/Fruit_Jam.ubl"
+      ],
+      "bundle": "Libraries/Targets/Fruit Jam Project.ubl",
+      "board_type_prefix": "Fruit Jam",
+      "vm_versions": [
+        417
+      ],
+      "usb_filters": [
+        {
+          "usbVendorId": 12259,
+          "usbProductId": 4
+        }
+      ],
+      "dtr": true,
+      "hardware_manifest": "boards/adafruit_fruit_jam/hardware.json"
+    },
+    "waveshare": {
+      "name": "Waveshare ESP32-S3 RLCD 4.2",
+      "kind": "serial",
+      "placeholder": false,
+      "connection_enabled": true,
+      "primitive_sets": {
+        "rlcd": 3
+      },
+      "libraries": [
+        "boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl"
+      ],
+      "bundle": "Libraries/Targets/Waveshare RLCD Project.ubl",
+      "board_type_prefix": "Waveshare RLCD 4.2",
+      "vm_versions": [
+        417
+      ],
+      "usb_filters": [
+        {
+          "usbVendorId": 12346
+        },
+        {
+          "usbVendorId": 4292
+        }
+      ],
+      "dtr": true,
+      "hardware_manifest": "boards/waveshare_esp32s3_rlcd_4_2/hardware.json"
+    },
+    "propeller2": {
+      "name": "Parallax Propeller 2",
+      "kind": "serial",
+      "placeholder": false,
+      "connection_enabled": true,
+      "primitive_sets": {
+        "p2": 3
+      },
+      "libraries": [
+        "boards/propeller2/integration/P2_Hardware.ubl"
+      ],
+      "bundle": "Libraries/Targets/Propeller 2 Project.ubl",
+      "board_type_prefix": "Parallax P2",
+      "vm_versions": [
+        405
+      ],
+      "usb_filters": [
+        {
+          "usbVendorId": 1027
+        }
+      ],
+      "dtr": false,
+      "hardware_manifest": "boards/propeller2/hardware.json"
+    },
+    "esp32p4": {
+      "name": "Waveshare ESP32-P4 WIFI6",
+      "kind": "serial",
+      "placeholder": false,
+      "connection_enabled": true,
+      "primitive_sets": {
+        "p4": 3,
+        "i2cDetect": 4,
+        "json": 22,
+        "clock": 23,
+        "steps": 24,
+        "storage": 25
+      },
+      "libraries": [
+        "boards/waveshare_esp32p4_wifi6/integration/P4_Camera.ubl",
+        "boards/waveshare_esp32p4_wifi6/integration/P4_Audio.ubl",
+        "boards/waveshare_esp32p4_wifi6/integration/P4_Speech.ubl",
+        "boards/waveshare_esp32p4_wifi6/integration/P4_Neural.ubl",
+        "boards/waveshare_esp32p4_wifi6/integration/I2C_Devices.ubl",
+        "boards/waveshare_esp32p4_wifi6/integration/P4_Wake_Word.ubl",
+        "integration/JSON.ubl",
+        "integration/Clock_Timers.ubl",
+        "integration/Steps_Transitions.ubl",
+        "integration/Storage.ubl"
+      ],
+      "bundle": "Libraries/Targets/P4 Project.ubl",
+      "board_type_prefix": "Waveshare ESP32-P4",
+      "vm_versions": [
+        417
+      ],
+      "usb_filters": [
+        {
+          "usbVendorId": 6790
+        },
+        {
+          "usbVendorId": 12346
+        }
+      ],
+      "dtr": false,
+      "hardware_manifest": "boards/waveshare_esp32p4_wifi6/hardware.json"
+    },
+    "xrp-rp2350": {
+      "name": "SparkFun XRP RP2350",
+      "kind": "serial",
+      "placeholder": false,
+      "connection_enabled": true,
+      "primitive_sets": {
+        "xrp": 3
+      },
+      "libraries": [
+        "integration/gp-libraries/PID.ubl",
+        "integration/gp-libraries/Encoded_DC_Motors.ubl",
+        "integration/gp-libraries/Servo.ubl",
+        "integration/gp-libraries/Distance_HC_SR04.ubl",
+        "integration/XRP.ubl"
+      ],
+      "bundle": "Libraries/Targets/XRP Project.ubl",
+      "board_type_prefix": "XRP RP2350",
+      "vm_versions": [
+        417
+      ],
+      "usb_filters": [
+        {
+          "usbVendorId": 12259,
+          "usbProductId": 4
+        }
+      ],
+      "dtr": true,
+      "hardware_manifest": "boards/sparkfun_xrp_rp2350/hardware.json"
+    },
+    "unoq": {
+      "name": "Arduino UNO Q reference",
+      "kind": "serial",
+      "placeholder": true,
+      "connection_enabled": false,
+      "primitive_sets": {
+        "unoq": 3
+      },
+      "libraries": [
+        "integration/UNO_Q_Hardware.ubl"
+      ],
+      "bundle": "Libraries/Targets/UNO Q Project.ubl",
+      "board_type_prefix": "Arduino UNO Q",
+      "vm_versions": [],
+      "usb_filters": [],
+      "dtr": false,
+      "hardware_manifest": null
+    }
+  }
+}

@@ -1,0 +1,28 @@
+import hashlib,json,os,pathlib,shutil,subprocess,sys,tempfile,time
+src=pathlib.Path(__file__).resolve().parents[1];out=src/'build-artifacts';base=pathlib.Path(tempfile.mkdtemp(prefix='js-editor-validation-',dir='/tmp'));replica=base/'repo';start=time.monotonic()
+inputs=json.loads((out/'js-boards-validation-inputs.json').read_text());bundle=out/'js-boards-validation-base.bundle';assert hashlib.sha256(bundle.read_bytes()).hexdigest()==inputs['bundle_sha256']
+subprocess.run(['git','clone','--no-checkout',str(bundle),str(replica)],check=True,capture_output=True,timeout=120)
+subprocess.run(['git','-C',str(replica),'checkout','--detach',inputs['git_base']],check=True,capture_output=True,timeout=60)
+records={}
+def copy(source,target,label):
+ assert source.is_file() and not source.is_symlink();raw=source.read_bytes();target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw);assert target.read_bytes()==raw;records[label]=hashlib.sha256(raw).hexdigest()
+for name,digest in sorted(inputs['files'].items()):
+ assert '..' not in pathlib.PurePosixPath(name).parts;copy(src/name,replica/name,name);assert records[name]==digest
+gp=src.parent/'microblocks-zephyr-integration-20261027/build-artifacts/ide-source'
+for path in sorted(gp.rglob('*')):
+ if path.is_file():copy(path,replica/'build-artifacts/ide-source'/path.relative_to(gp),'gp-assets/'+path.relative_to(gp).as_posix())
+binary=replica/'build-artifacts/verified-native/smallvm';copy(src.parent/'microblocks-zephyr-integration-20261027/build-artifacts/pad-imu-service-native-persisted-20261027/smallvm',binary,'native');binary.chmod(0o755);assert records['native']=='695fc61a5d4ed119704eb84e4828b738816667d53bb9b4b83d06e350222c02a1'
+upstream=base/'smallvm';subprocess.run(['git','clone','--no-hardlinks','--no-checkout',str(src.parent/'smallvm-linux-upstream'),str(upstream)],check=True,capture_output=True,timeout=120)
+assert subprocess.check_output(['git','-C',str(upstream),'rev-parse','2071df569623ba9cdcd6f8106b61796e047df38b^{tree}'],text=True).strip()=='5699b1a910c64cf5e6ade8c89e510627383013ad'
+env=os.environ.copy();env.update(SMALLVM_MICRODUCK_BINARY=str(binary),SMALLVM_NUMERIC_BINARY=str(binary),SMALLVM_UPSTREAM=str(upstream),JS_EDITOR_UPSTREAM=str(src.parent/'microblocks-editor-upstream-20261027'))
+node=shutil.which('node')
+if not node:
+ wrapper=base/'node-windows-interop'
+ wrapper.write_text("#!/usr/bin/env python3\nimport os,subprocess,sys\nexe='/mnt/c/Users/fred_/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe'\nargs=[subprocess.check_output(['wslpath','-w',a],text=True).strip() if a.startswith('/') else a for a in sys.argv[1:]]\nos.execv(exe,[exe,*args])\n")
+ wrapper.chmod(0o755);node=str(wrapper)
+env['NODE_BINARY']=node
+record={'replica':str(replica),'git_base':inputs['git_base'],'files':records,'assertions_deadlines_exclusions_changed':False,'preparation_seconds':time.monotonic()-start,'node':node}
+(out/'js-boards-full-replica.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps({k:v for k,v in record.items() if k!='files'}),flush=True)
+start=time.monotonic();p=subprocess.run([sys.executable,'tools/validate.py'],cwd=replica,env=env,stderr=subprocess.STDOUT)
+receipt={'returncode':p.returncode,'seconds':time.monotonic()-start,'mode':'Full unchanged validator, byte-identical entire repository Linux filesystem replica','files':len(inputs['files']),'replica':str(replica),'environment':{k:env[k] for k in ('SMALLVM_MICRODUCK_BINARY','SMALLVM_NUMERIC_BINARY','SMALLVM_UPSTREAM','JS_EDITOR_UPSTREAM','NODE_BINARY')}}
+(out/'js-boards-full-validation-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');raise SystemExit(p.returncode)

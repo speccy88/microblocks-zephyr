@@ -22,7 +22,7 @@ class JSTargetProfiles(unittest.TestCase):
             self.skipTest('Node unavailable')
         result = subprocess.run([node, str(ROOT / 'tests/js-target-profile.test.cjs')], capture_output=True, text=True, timeout=30)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertEqual(json.loads(result.stdout)['passed'], 7)
+        self.assertEqual(json.loads(result.stdout)['passed'], 10)
 
     def test_unknown_profile_fails_before_source_or_output_access(self):
         with self.assertRaisesRegex(ValueError, 'Unknown'):
@@ -40,7 +40,7 @@ class JSTargetProfiles(unittest.TestCase):
             (gp / 'sample.bin').write_bytes(bytes(range(256)))
             before = hashes(gp)
             output = base / 'combined'
-            report = build(source, gp, output)
+            report = build(source, gp, output, profiles=('raspberry-pi5', 'microduck'))
             self.assertEqual(report['gp_files_preserved'], before)
             self.assertEqual(hashes(gp), before)
             for name, digest in before.items():

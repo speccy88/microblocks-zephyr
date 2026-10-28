@@ -27,7 +27,7 @@ spec 'b' '[clock:ntpAvailable]' 'NTP backend available?'
 
 to clockCheck success { if (not success) { sayIt ('[data:join]' 'Clock: ' ('[clock:status]')) } }
 to clockWaitTimer timer {
-    while (not ('[clock:ready]' timer)) {
+    repeatUntil ('[clock:ready]' timer) {
         if (('[clock:status]') != 'OK') { sayIt ('[clock:status]') return }
         waitMillis 1
     }

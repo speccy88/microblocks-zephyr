@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 from js_editor_source import load_manifest, verified_files
 
@@ -13,11 +14,34 @@ LOCAL_REDIRECT = "if (location.protocol === 'http:' && location.hostname !== '12
 ANCHOR = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
 MICRODUCK_LIBRARIES = ('MicroDuck', 'Head_IMU', 'Depth', 'Gamepad', 'Robot', 'Pad_IMU')
 MICRODUCK_BUNDLE = 'Libraries/MicroDuck Linux.ubl'
-PROFILES = {
-    'development': ('Experimental Linux development', False),
-    'raspberry-pi5': ('Raspberry Pi 5', False),
-    'microduck': ('MicroDuck Rockchip RK3566', True),
-}
+CATALOG = json.loads((ROOT / 'dependencies/editor-targets.json').read_text(encoding='utf-8'))
+PROFILES = CATALOG['targets']
+
+
+def board_files(profile):
+    config = PROFILES[profile]
+    if not config['libraries']:
+        return {}
+    vendor = json.loads((ROOT / 'dependencies/gp-board-libraries.json').read_text(encoding='utf-8'))
+    vendor_hashes = {entry['path']: entry['sha256'] for entry in vendor['files']}
+    bundle, result, sources = b'// Coherent target library import; JS hardware acceptance is pending.\n', {}, []
+    for name in config['libraries']:
+        path = Path(name)
+        if path.is_absolute() or '..' in path.parts:
+            raise ValueError('Unsafe target library source')
+        raw = (ROOT / path).read_bytes()
+        digest = hashlib.sha256(raw).hexdigest()
+        if name in vendor_hashes and vendor_hashes[name] != digest:
+            raise ValueError('Pinned GP library changed: ' + name)
+        packaged = 'sources/target/' + path.as_posix()
+        result[packaged] = raw
+        sources.append({'source_path': name, 'packaged_source': packaged, 'bytes': len(raw),
+                        'sha256': digest, 'bundle_offset': len(bundle)})
+        bundle += raw + b'\n\n'
+    result[config['bundle']] = bundle
+    result['target-libraries.json'] = (json.dumps({'schema': 1, 'bundle': config['bundle'],
+        'sources': sources, 'gp_source_provenance': vendor, 'hardware_validated': False}, indent=2) + '\n').encode()
+    return result
 
 
 def microduck_files():
@@ -43,6 +67,8 @@ def microduck_files():
 def package(source, output, manifest_path=None, *, profile='development'):
     if profile not in PROFILES:
         raise ValueError('Unknown JavaScript editor target')
+    if json.loads((ROOT / 'dependencies/editor-targets.json').read_text(encoding='utf-8')) != CATALOG:
+        raise ValueError('Target catalog changed while the builder was running')
     manifest_path = manifest_path or ROOT / 'dependencies/editor-js.json'
     manifest = load_manifest(manifest_path)
     files = verified_files(source, manifest)
@@ -55,6 +81,7 @@ def package(source, output, manifest_path=None, *, profile='development'):
         '\t\t<script src="target-config.js"></script>\n'
         '\t\t<script src="target-profile.js"></script>\n'
         '\t\t<script src="linux-compat.js"></script>\n'
+        '\t\t<script src="board-transport.js"></script>\n'
         '\t\t<script src="legacy-slots.js"></script>\n'
         '\t\t<script src="readback-compat.js"></script>\n'
         '\t\t<script src="linux-bootstrap.js"></script>\n' + ANCHOR)
@@ -65,13 +92,23 @@ def package(source, output, manifest_path=None, *, profile='development'):
     if profile != 'development':
         files['sources/upstream-entry/purejs.html.txt'] = files.pop('purejs.html')
     files['linux-compat.js'] = (ROOT / 'web/js-editor/linux-compat.js').read_bytes()
+    files['board-transport.js'] = (ROOT / 'web/js-editor/board-transport.js').read_bytes()
     files['target-profile.js'] = (ROOT / 'web/js-editor/target-profile.js').read_bytes()
-    target = {'id': profile, 'name': PROFILES[profile][0], 'placeholder': PROFILES[profile][1],
+    target = {**PROFILES[profile], 'id': profile,
               'requires_robot_services': profile == 'microduck', 'physical_microduck_validated': False,
               'hosted_wss_commissioned': False}
+    # GP library names may be quoted, including spaces (e.g. distance (cm)).
+    # Record both forms so a missing dependency cannot compile to a dummy zero.
+    target['function_names'] = sorted({(quoted.replace("''", "'") if quoted else bare)
+        for source_name in PROFILES[profile]['libraries']
+        for quoted, bare in re.findall(r"^[ \t]*to[ \t]+(?:'((?:[^']|'')+)'|([A-Za-z_][A-Za-z0-9_]*))(?=\s|$)",
+            (ROOT / source_name).read_text(encoding='utf-8'), re.MULTILINE)})
     files['target-profile.json'] = (json.dumps(target, indent=2) + '\n').encode()
+    catalog = {name: {**value, 'id': name} for name, value in PROFILES.items()}
     files['target-config.js'] = ('// Generated local profile; upstream files remain unchanged.\n'
+        'const MicroBlocksJSTargets = ' + json.dumps(catalog, separators=(',', ':')) + ';\n'
         'const MicroBlocksJSProfile = Object.freeze(' + json.dumps(target, separators=(',', ':')) + ');\n').encode()
+    files['editor-targets.json'] = (ROOT / 'dependencies/editor-targets.json').read_bytes()
     files['legacy-slots.js'] = (ROOT / 'web/js-editor/legacy-slots.js').read_bytes()
     files['readback-compat.js'] = (ROOT / 'web/js-editor/readback-compat.js').read_bytes()
     files['linux-bootstrap.js'] = (ROOT / 'web/js-editor/bootstrap.js').read_bytes()
@@ -79,7 +116,7 @@ def package(source, output, manifest_path=None, *, profile='development'):
     files['THIRD_PARTY_NOTICES.md'] = (ROOT / 'web/js-editor/THIRD_PARTY_NOTICES.md').read_bytes()
     files['source-manifest.json'] = manifest_path.read_bytes()
     files['matrix-source.json'] = (ROOT / 'dependencies/unoq-matrix-gp.json').read_bytes()
-    local = microduck_files() if profile != 'raspberry-pi5' else {}
+    local = microduck_files() if profile in ('development', 'microduck') else board_files(profile)
     if files.keys() & local.keys():
         raise ValueError('Local library path collides with upstream')
     files.update(local)

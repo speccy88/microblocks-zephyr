@@ -8,16 +8,22 @@ deployment. A visible library is not hardware acceptance.
 |---|---|---|
 | Raspberry Pi 5 | Separate JS profile, core compiler/readback/matrix adapters, strict explicit loopback transport; prior real Pi JS arithmetic/readback/reconnect pass | New profile lifecycle acceptance; persistent service/boot and hosted WSS |
 | MicroDuck RK3566 | Separate disconnected profile; coherent six typed read-only gateway libraries import140 functions; normal Pi fixtures retained | Remaining daemon interfaces, media pixels, physical commissioning; simple action library after editor migration |
-| Fruit Jam | Four native `fruitJam` specs preserved in board library; GP fallback retained | Board-specific JS packaging, namespace, verified identity and transport tests |
-| Waveshare RLCD | Fourteen `rlcd` specs and library functions preserved | Board-specific JS packaging, namespace and network/USB contract tests |
-| Propeller 2 | Twenty `p2` specs, Smart Pin helpers and GP native USB implementation preserved | Correct FTDI/reset signal handling, identity gate, compiler/library tests |
-| XRP RP2350 | Production XRP library remains in the pinned GP assets; public connection remains disabled | Extract exact library/provenance, import/compile/profile and matching locked-runtime semantics |
-| ESP32-P4 | Camera31, audio16, neural16, speech7, wake-word13 and I2C18 specs preserved; GP fallback has media/files/NN protocols | Typed JS namespace, complete library import/roundtrip; bounded extension dispatch and actual block rendering; owner checkpoint/hardware acceptance |
-| UNO Q matrix reference | Existing13x8 slot preserves104-digit string, defaults and actual saved-file reopening | Broader arbitrary-size variants need their exact source; no independent UNO Q firmware/checkout changes |
+| Fruit Jam | Explicit JS package, coherent library, private `fruitJam` namespace, version/identity-gated USB adapter | JS graphical peripherals/hardware and existing board-network path acceptance |
+| Waveshare RLCD | Explicit JS package, complete library, private `rlcd` namespace, identity-gated USB adapter | JS graphical peripherals/hardware and board-network transport |
+| Propeller 2 | Explicit FTDI USB profile with DTR false and v405 gate; complete `p2` library compile/roundtrip | Physical serial/reset behavior; independently inspect broader core primitive support |
+| XRP RP2350 | Exact production GP library and four dependencies copied with hashes; actual import/compile/roundtrip and USB gate; native actuator locks retained | Physical locked-runtime JS acceptance; public GP connection remains unchanged |
+| ESP32-P4 | Ten preserved library modules in one import; `p4`/I2C/JSON/clock/steps/storage private maps and USB gate | Bounded extension dispatch, inline image/audio and files/NN interfaces; owner checkpoint/hardware acceptance |
+| UNO Q matrix reference | Explicit offline profile and exact reference library;13x8 slot preserves104-digit strings/defaults and prior actual saved-file reopening | Independent firmware identity and connectivity; broader arbitrary-size variants need exact source |
 
 The P4 owner's checkout, COM5/COM12 and paused SFC must remain untouched.
 Use the sources already preserved in this isolated repository and obtain any
 new owner checkpoint through coordination rather than changing its worktree.
+
+The all-target contract is [JS_ALL_TARGETS_SPEC.md](JS_ALL_TARGETS_SPEC.md).
+Headless USB fixtures and actual pinned compiler tests do not establish physical
+board behavior. MicroDuck and UNO Q providers remain disabled. Existing ordinary
+Steps & Transitions blocks are imported unchanged for compatibility; the paused
+SFC graph/editor implementation has not been resumed.
 
 After the editor migration, continue MicroDuck daemon libraries from supported
 protocols with faithful fixtures. A small child-friendly library and advanced

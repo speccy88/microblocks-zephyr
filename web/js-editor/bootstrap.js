@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: MPL-2.0
 // Loaded after the pristine engine and before the upstream window.onload.
-MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket);
+MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket, MicroBlocksJSProfile.primitive_sets, MicroBlocksJSProfile.function_names);
+const boardProfileRuntime = MicroBlocksJSProfile.kind === 'serial' ? MicroBlocksBoardTransport.install(
+    MB_CommPort, MB_Connection, MicroBlocksJSProfile, navigator.serial, () => MB_editor,
+    message => window.dispatchEvent(new CustomEvent('microblocks-target-status', {detail: message}))) : null;
 const linuxTarget = MicroBlocksTarget.install(MB_CommPort, MicroBlocksJSProfile.id, location);
+MicroBlocksTarget.protectFirmware(typeof MB_Firmware === 'undefined' ? null : MB_Firmware, MicroBlocksJSProfile.id);
 MicroBlocksLegacySlots.install(MB_Specs, SyntaxElementMorph, MicroBitDisplaySlotMorph, ArgMorph, Color, Point, MenuMorph);
 MicroBlocksReadback.install(MB_Decompiler, MB_CodeManager, ScriptsMorph, () => MB_editor);
 window.addEventListener('DOMContentLoaded', () => {
@@ -11,19 +15,30 @@ window.addEventListener('DOMContentLoaded', () => {
     const label = document.createElement('span');
     label.textContent = linuxTarget.name + (linuxTarget.placeholder ? ' — experimental placeholder, offline editing only. ' : ' — experimental JS editor. ');
     const button = document.createElement('button');
-    button.textContent = 'Connect local VM';
+    button.textContent = linuxTarget.kind === 'serial' ? 'Connect target USB' : 'Connect local VM';
     button.disabled = !MicroBlocksTarget.canConnect(linuxTarget, location);
-    if (!linuxTarget.placeholder && button.disabled) label.textContent += 'Open the Pi-hosted editor through a local SSH tunnel to connect. ';
+    if (!linuxTarget.placeholder && button.disabled) label.textContent += linuxTarget.kind === 'serial' ? 'Use desktop Chrome or Edge on HTTPS or loopback for USB. ' : 'Open the Pi-hosted editor through a local SSH tunnel to connect. ';
     button.onclick = async () => {
         try {
             if (MB_connection.port) MB_connection.disconnect();
-            await MB_connection.connect('linux-loopback');
-            label.textContent = 'Connecting to local VM. ';
+            await MB_connection.connect(linuxTarget.kind === 'serial' ? 'serial' : 'linux-loopback');
+            label.textContent = linuxTarget.kind === 'serial' ? 'Waiting for the selected USB board identity. ' : 'Connecting to local VM. ';
         } catch (error) { label.textContent = error.message + ' '; }
     };
     const close = document.createElement('button');
     close.textContent = 'Close local link';
     close.onclick = () => { MB_connection.disconnect(); label.textContent = 'Local link closed. '; };
     panel.append(label, button, close);
+    window.addEventListener('microblocks-target-status', event => {label.textContent = String(event.detail).slice(0,512) + ' ';});
+    const library = MicroBlocksJSProfile.bundle || (MicroBlocksJSProfile.id === 'microduck' ? 'Libraries/MicroDuck Linux.ubl' : null);
+    if (library) {
+        const load = document.createElement('button');
+        load.textContent = 'Load target blocks';
+        load.onclick = async () => {
+            try {await MB_Files.initialize();await MB_editor.openLibraryFile(library);label.textContent = linuxTarget.name + ' target libraries loaded. ';}
+            catch (error) {label.textContent = error.message + ' ';}
+        };
+        panel.append(load);
+    }
     document.body.append(panel);
 });

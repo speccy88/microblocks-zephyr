@@ -25,7 +25,7 @@ function load(assets, options = {}) {
     const body = element('body'), document = {body, documentElement: {clientWidth: 1024, clientHeight: 768},
         createElement: element, addEventListener() {}, dispatchEvent() {},
         getElementById() {return null;}, querySelector() {return element('canvas');}};
-    const sandbox = {console, TextEncoder, TextDecoder, Uint8Array, Uint8ClampedArray, ArrayBuffer,
+    const sandbox = {console: options.console || console, TextEncoder, TextDecoder, Uint8Array, Uint8ClampedArray, ArrayBuffer,
         URL, setTimeout, clearTimeout, setInterval() {return 0;}, requestAnimationFrame() {}, document,
         location: options.location || {href: 'http://127.0.0.1:18876/'}, WebSocket: options.Socket,
         async fetch(name) {
@@ -33,7 +33,7 @@ function load(assets, options = {}) {
             const p = path.join(assets, name);
             return {ok: fs.existsSync(p), text: async () => fs.readFileSync(p, 'utf8')};
         },
-        navigator: {userAgent: 'Headless logic fixture', platform: 'test'},
+        navigator: {userAgent: 'Headless logic fixture', platform: 'test', serial: options.serial},
         Image: class {}, HTMLCanvasElement: class {}, CanvasRenderingContext2D: class {},
         GetText: {localize: s => s, getLanguage: () => 'en', locales: {}, currentLocale: 'en'}, CustomEvent: class {},
         storeIDEProperty() {}, localized: s => s, MB: {},
@@ -52,12 +52,14 @@ function load(assets, options = {}) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/linux-compat.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(assets, 'target-config.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(assets, 'target-profile.js'), 'utf8'), context);
+    vm.runInContext(fs.readFileSync(path.join(assets, 'board-transport.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/legacy-slots.js'), 'utf8'), context);
     if (options.readback !== false) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/readback-compat.js'), 'utf8'), context);
         vm.runInContext('MicroBlocksReadback.install(MB_Decompiler,MB_CodeManager,ScriptsMorph,()=>MB_editor);', context);
     }
-    vm.runInContext(`MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket);
+    vm.runInContext(`MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket,MicroBlocksJSProfile.primitive_sets,MicroBlocksJSProfile.function_names);
+        if(MicroBlocksJSProfile.kind==='serial')MicroBlocksBoardTransport.install(MB_CommPort,MB_Connection,MicroBlocksJSProfile,navigator.serial,()=>MB_editor);
         MicroBlocksTarget.install(MB_CommPort,MicroBlocksJSProfile.id,location);
         MicroBlocksLegacySlots.install(MB_Specs,SyntaxElementMorph,MicroBitDisplaySlotMorph,ArgMorph,Color,Point,MenuMorph);
         MB_Specs.initialize();`, context, {timeout: 10000});

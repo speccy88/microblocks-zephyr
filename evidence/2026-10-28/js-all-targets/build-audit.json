@@ -1,0 +1,69 @@
+{
+  "time_utc": "2026-10-28T04:19:08.347578+00:00",
+  "profiles": {
+    "raspberry-pi5": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 566,
+      "manifest_sha256": "62118a68fd6ff9db1730474f5f552cbdea052d19d474a8ad537a8e153589557c",
+      "placeholder": false,
+      "connection_enabled": true
+    },
+    "microduck": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 574,
+      "manifest_sha256": "deea6d2d25f2a64cbd908253d65e87b5566e55ae9f31745124509fbbe69e3b2b",
+      "placeholder": true,
+      "connection_enabled": false
+    },
+    "fruit-jam": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 569,
+      "manifest_sha256": "efde0fa581b81f2de889ea93d0a2bf54ceb95112cbb5f09dd24e7c5a197a390f",
+      "placeholder": false,
+      "connection_enabled": true
+    },
+    "waveshare": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 569,
+      "manifest_sha256": "7a1495310832f8dc6756b55fa0fad6a36203a1719ee00f5e99c3ab6c19c3d32b",
+      "placeholder": false,
+      "connection_enabled": true
+    },
+    "propeller2": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 569,
+      "manifest_sha256": "4bdcdb41b804d1c2c9e200330a45a35c21562eee363cc24368c99a82477e7f16",
+      "placeholder": false,
+      "connection_enabled": true
+    },
+    "esp32p4": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 578,
+      "manifest_sha256": "3d4a93811e53ae76ab88d6885bf3cff074fb524e3cfee4546b991968bae13826",
+      "placeholder": false,
+      "connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 573,
+      "manifest_sha256": "1b1a0f92d07c949b918cdd974c1b51932077c6533a29344692b7b7f7c289120d",
+      "placeholder": false,
+      "connection_enabled": true
+    },
+    "unoq": {
+      "upstream_files_verified": 550,
+      "package_files_verified": 569,
+      "manifest_sha256": "f2467cf399bae01d987330c1256c1c2e1fda1c98805bb3a6728f554829923b5d",
+      "placeholder": true,
+      "connection_enabled": false
+    }
+  },
+  "source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "gp_files_preserved": 1071,
+  "all_output_files_verified": 5648,
+  "site_manifest_sha256": "da98d72316355feae60d2f2de306f0dd581d49694e3274cc2adb39422d379f28",
+  "published": false,
+  "hardware_opened": false,
+  "existing_gp_bytes_changed": false,
+  "network_security_changed": false
+}

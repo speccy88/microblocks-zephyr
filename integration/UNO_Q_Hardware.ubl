@@ -1,0 +1,20 @@
+module 'UNO Q Hardware' Output
+author 'UNO Q community port; based on MicroBlocks SmallVM'
+version 1 1
+description 'UNO Q RGB LEDs and 13x8 blue matrix. RGB channels are on/off: 0=off, 1..255=on. Linux LED1/2 require running App. Matrix brightness 0..7; pixel/fill/pattern update framebuffer, show commits it.'
+spec ' ' '[unoq:setRGB]' 'UNO Q set LED _ red _ green _ blue _' 'num num num num' 3 255 0 0
+spec ' ' 'unoqOff' 'UNO Q turn LED _ off' 'num' 3
+spec ' ' 'unoqAllOff' 'UNO Q all RGB LEDs off'
+spec ' ' '[unoq:matrixClear]' 'UNO Q matrix clear'
+spec ' ' '[unoq:matrixPixel]' 'UNO Q matrix set pixel x _ y _ brightness _' 'num num num' 0 0 7
+spec ' ' '[unoq:matrixShow]' 'UNO Q matrix show'
+spec ' ' '[unoq:matrixFill]' 'UNO Q matrix fill _' 'num' 7
+spec ' ' 'unoqShowImage' 'UNO Q show image _' 'unoqMatrix' '00077000770000077770777700077777777777007777777777700077777777700000777777700000007777700000000007000000'
+spec ' ' '[unoq:matrixPattern]' 'UNO Q matrix draw image _' 'unoqMatrix' '00077000770000077770777700077777777777007777777777700077777777700000777777700000007777700000000007000000'
+to unoqOff led { '[unoq:setRGB]' led 0 0 0 }
+to unoqAllOff { for led 4 { unoqOff led } }
+
+to unoqShowImage pattern {
+ '[unoq:matrixPattern]' pattern
+ '[unoq:matrixShow]'
+}

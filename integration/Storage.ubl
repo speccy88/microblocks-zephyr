@@ -25,7 +25,7 @@ to storageSave data path replace { return ('[storage:write]' path data replace) 
 to storageSaveNew data path { return ('[storage:write]' path data false) }
 to storageReplace path data { return ('[storage:write]' path data true) }
 to storageWait job {
-    while (or (('[storage:state]' job) == 'receiving') (('[storage:state]' job) == 'ready')) { waitMillis 1 }
+    repeatUntil (not (or (('[storage:state]' job) == 'receiving') (('[storage:state]' job) == 'ready'))) { waitMillis 1 }
     if (('[storage:state]' job) != 'done') { sayIt ('[data:join]' 'File write: ' ('[storage:state]' job) ' / ' ('[storage:status]')) }
 }
 to storageDelete path { if (not ('[storage:delete]' path)) { sayIt ('[storage:status]') } }

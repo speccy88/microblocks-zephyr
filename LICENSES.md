@@ -98,6 +98,13 @@ unrelated recovered files are not vendored. P2 mode encodings are factual
 constants verified against Parallax's official PNut table; PNut source is not
 copied. FlexProp/loadp2 binaries stay external and retain their own licenses.
 
+The JavaScript target bundles include verbatim production XRP, PID, Encoded DC
+Motors, Servo, Distance (HC-SR04) and UNO Q hardware libraries extracted from
+the existing pinned GP distribution. `dependencies/gp-board-libraries.json`
+records their original paths, exact bytes and containing-asset hashes. Preserve
+their author/version declarations and MicroBlocks MPL-2.0 terms. The JS package
+includes the full upstream MPL text, notices and exact library source copies.
+
 The production XRP target references SparkFun's schematic at `86c4cd7f`
 (hardware CC BY-SA 4.0; software MIT) for factual wiring/part data; no schematic
 artwork is copied. The RP2350B/RM2 DeviceTree composition retains Apache-2.0

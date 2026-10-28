@@ -22,6 +22,13 @@ MicroBlocks-Zephyr migration branch. Keep these notices with redistributed files
   license source link retained.
 - `lib/usbDfuDevice.js`: Silicon Witchery AB, ISC; full notice in that source.
 - Local packaging tools: MIT, see `licenses/LOCAL-MIT.txt`.
+- The production XRP, PID, Encoded DC Motors, Servo, Distance (HC-SR04) and
+  UNO Q reference libraries are exact copies from the existing GP asset pin
+  `70690291ac44a5c3a50dce572ee0c29ba99dc57f` of
+  https://github.com/speccy88/uno-q-microblocks . Their author/version notices
+  remain in the source. `target-libraries.json` records the original asset
+  paths, containing-asset hashes and each copied file's hash. They retain the
+  MicroBlocks MPL-2.0 distribution terms; the full license is packaged above.
 
 Source headers and individual asset notices govern their respective files;
 the repository's root MPL notice does not replace third-party notices. This

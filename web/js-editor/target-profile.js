@@ -3,18 +3,18 @@
 (function (root) {
     'use strict';
     const installed = new WeakMap();
-    const profiles = Object.freeze({
-        development: Object.freeze({id: 'development', name: 'Experimental Linux development', placeholder: false}),
-        'raspberry-pi5': Object.freeze({id: 'raspberry-pi5', name: 'Raspberry Pi 5', placeholder: false}),
-        microduck: Object.freeze({id: 'microduck', name: 'MicroDuck Rockchip RK3566', placeholder: true})
-    });
+    const source = typeof MicroBlocksJSTargets === 'object' ? MicroBlocksJSTargets : require('../../dependencies/editor-targets.json').targets;
+    function freeze(value) {if(value && typeof value === 'object'){for(const child of Object.values(value))freeze(child);Object.freeze(value);}return value;}
+    const profiles = freeze(Object.fromEntries(Object.entries(JSON.parse(JSON.stringify(source))).map(([id,value])=>[id,{...value,id}])));
     function get(id) {
         if (!Object.hasOwn(profiles, id)) throw Error('Unknown JavaScript editor target');
         return profiles[id];
     }
     function canConnect(profile, location) {
-        if (profile.placeholder) return false;
+        if (profile.placeholder || profile.connection_enabled === false) return false;
         const url = new URL(location.href);
+        if (profile.kind === 'serial') return !url.username && !url.password &&
+            (url.protocol === 'https:' || url.protocol === 'http:' && url.hostname === '127.0.0.1');
         return url.protocol === 'http:' && url.hostname === '127.0.0.1' &&
             !url.username && !url.password && /^\d+$/.test(url.port) &&
             Number(url.port) >= 1024 && Number(url.port) <= 65535;
@@ -28,7 +28,11 @@
         }
         const original = CommPort.prototype.connect;
         CommPort.prototype.connect = function (type, ...args) {
-            if (profile.placeholder) throw Error('MicroDuck is an experimental placeholder; offline editing only');
+            if (profile.placeholder || profile.connection_enabled === false) throw Error(profile.name + ' is an experimental placeholder; offline editing only');
+            if (profile.kind === 'serial') {
+                if (!canConnect(profile, location) || type !== 'serial') throw Error('Use the selected target USB connection; other transports are not enabled');
+                return original.call(this, type, ...args);
+            }
             if (id !== 'development' && (!canConnect(profile, location) || type !== 'linux-loopback')) {
                 throw Error('Use the Pi-hosted editor through its local SSH tunnel and Connect local VM; hosted WSS is not commissioned');
             }
@@ -37,7 +41,16 @@
         installed.set(CommPort, id);
         return profile;
     }
-    const api = Object.freeze({get, canConnect, install});
+    const firmwareInstalled = new WeakSet();
+    function protectFirmware(Firmware, id) {
+        if(id==='development'||!Firmware)return;
+        get(id);
+        if(typeof Firmware.installVM!=='function')throw Error('Upstream firmware entry point changed');
+        if(firmwareInstalled.has(Firmware))return;
+        Firmware.installVM=()=>{throw Error('Use the project firmware installation procedure; this editor preview preserves the existing runtime');};
+        firmwareInstalled.add(Firmware);
+    }
+    const api = Object.freeze({get, canConnect, install, protectFirmware});
     root.MicroBlocksTarget = api;
     if (typeof module === 'object' && module.exports) module.exports = api;
 })(globalThis);
