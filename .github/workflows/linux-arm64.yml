@@ -31,7 +31,6 @@ jobs:
     env:
       SMALLVM_COMMIT: 2071df569623ba9cdcd6f8106b61796e047df38b
       IDE_COMMIT: 70690291ac44a5c3a50dce572ee0c29ba99dc57f
-      SMALLVM_UPSTREAM: ${{ runner.temp }}/smallvm-upstream
       SMALLVM_MICRODUCK_BINARY: ${{ github.workspace }}/build-artifacts/linux-ci-native/smallvm
       EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
       EXPECTED_ELF_MACHINE: ${{ matrix.elf_machine }}
@@ -64,6 +63,15 @@ jobs:
           assert vm['canonical_repository'] == 'https://codeberg.org/MicroBlocks/smallvm'
           assert ide['source_commit'] == os.environ['IDE_COMMIT']
           assert ide['source_repository'] == 'https://github.com/speccy88/uno-q-microblocks'
+          # runner context is unavailable in jobs.<job_id>.env. Publish this
+          # runtime-only path for subsequent steps through the runner env file.
+          # BEGIN_RUNNER_PATH_SETUP
+          runner_temp = os.environ['RUNNER_TEMP']
+          if not Path(runner_temp).is_absolute() or any(c in runner_temp for c in '\r\n'):
+              raise RuntimeError('RUNNER_TEMP must be an absolute single-line path')
+          with Path(os.environ['GITHUB_ENV']).open('a', encoding='utf-8', newline='\n') as env_file:
+              env_file.write('SMALLVM_UPSTREAM=' + str(Path(runner_temp) / 'smallvm-upstream') + '\n')
+          # END_RUNNER_PATH_SETUP
           Path('build-artifacts/linux-ci-evidence').mkdir(parents=True)
           PY
       - name: Fetch the exact official SmallVM revision

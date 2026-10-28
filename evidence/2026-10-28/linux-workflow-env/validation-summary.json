@@ -1,0 +1,17 @@
+{
+  "full_repository_tests": 478,
+  "failures": 0,
+  "skips": 0,
+  "focused_workflow_tests": 9,
+  "expected_prior_regression_confirmed": true,
+  "verified_source_inputs": 2078,
+  "seconds_including_wrapper": 211.240508757,
+  "mode": "Full unchanged repository validator in byte-identical Linux filesystem replica",
+  "workflow_fix_published": false,
+  "hosted_actions_run_claimed": false,
+  "runtime_sources_source_pins_sanitizers_or_suite_selection_changed": false,
+  "hardware_accessed": false,
+  "security_or_network_settings_changed": false,
+  "previous_publication_denial_resolved_by_specific_user_approval": true,
+  "only_published_checkpoint": "0de875495f2c188e8bb446f1fb5a23d1d141f136"
+}

@@ -38,6 +38,16 @@ release binaries or user programs. A source review or local workflow contract
 test is not evidence that a GitHub Actions run completed. Consult the actual run
 and its architecture-specific reports for execution results.
 
+The runner source path is initialized inside the first validation step using
+`RUNNER_TEMP` and appended to `GITHUB_ENV` for later steps. GitHub does not allow
+the `runner` context in `jobs.<job_id>.env`; a job-level `${{ runner.temp }}`
+expression prevents workflow validation before native tests can start. See
+[GitHub's context-availability table](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability)
+and [environment-file semantics](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#setting-an-environment-variable).
+Regression tests execute the actual path-setup block, retain existing env-file
+entries and spaces, reject malformed paths before writing, and check job-level
+context availability. They do not establish a hosted Actions run.
+
 The workflow's actual embedded selection was exercised locally on WSL Linux
 x86_64 on 2026-10-27: [100 Python tests, no skips](../linux/arm64/tests/ci-local-python-suites.json),
 [real sanitizer VM/PTY 50 repetitions and persistence](../linux/arm64/tests/ci-local-vm-protocol.json),

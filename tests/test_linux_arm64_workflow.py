@@ -4,10 +4,13 @@
 import ast
 import io
 import json
+import os
 from pathlib import Path
 import re
+import tempfile
 import textwrap
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,7 +30,49 @@ def workflow_guard():
     return namespace
 
 
+def runner_path_block():
+    source = WORKFLOW.read_text(encoding='utf-8')
+    block = source.split('# BEGIN_RUNNER_PATH_SETUP\n', 1)[1]
+    return textwrap.dedent(block.split('# END_RUNNER_PATH_SETUP', 1)[0])
+
+
 class WorkflowContracts(unittest.TestCase):
+    def test_job_environment_uses_only_contexts_available_before_runner_assignment(self):
+        # GitHub's context-availability table excludes runner and env here.
+        source = WORKFLOW.read_text(encoding='utf-8')
+        job_env = source.split('    env:\n', 1)[1].split('    steps:\n', 1)[0]
+        allowed = {'github', 'needs', 'strategy', 'matrix', 'vars', 'secrets', 'inputs'}
+        for expression in re.findall(r'\$\{\{\s*(.*?)\s*\}\}', job_env):
+            self.assertIn(expression.split('.', 1)[0], allowed, expression)
+        self.assertNotIn('SMALLVM_UPSTREAM:', job_env)
+        self.assertLess(source.index('# END_RUNNER_PATH_SETUP'), source.index('git init "$SMALLVM_UPSTREAM"'))
+
+    def test_actual_runner_path_setup_preserves_environment_and_spaces(self):
+        parent = ROOT / 'build-artifacts/workflow-env-tests'
+        parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=parent) as folder:
+            root = Path(folder).resolve()
+            env_file = root / 'step environment'
+            env_file.write_bytes(b'KEEP_EXISTING=1\n')
+            runner_temp = root / 'runner temp with spaces'
+            with patch.dict(os.environ, {'RUNNER_TEMP': str(runner_temp), 'GITHUB_ENV': str(env_file)}):
+                exec(compile(runner_path_block(), str(WORKFLOW), 'exec'), {'os': os, 'Path': Path})
+            self.assertEqual(env_file.read_bytes(),
+                             ('KEEP_EXISTING=1\nSMALLVM_UPSTREAM=' + str(runner_temp / 'smallvm-upstream') + '\n').encode())
+            self.assertFalse(runner_temp.exists(), 'Setup must not create or fetch an upstream checkout')
+
+    def test_actual_runner_path_setup_rejects_bad_paths_before_writing(self):
+        parent = ROOT / 'build-artifacts/workflow-env-tests'
+        parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=parent) as folder:
+            env_file = Path(folder).resolve() / 'step environment'
+            env_file.write_bytes(b'KEEP_EXISTING=1\n')
+            for value in ('relative/path', '', str(Path(folder).resolve()) + '\nINJECTED=yes', str(Path(folder).resolve()) + '\r'):
+                with self.subTest(value=value), patch.dict(os.environ, {'RUNNER_TEMP': value, 'GITHUB_ENV': str(env_file)}):
+                    with self.assertRaisesRegex(RuntimeError, 'absolute single-line'):
+                        exec(compile(runner_path_block(), str(WORKFLOW), 'exec'), {'os': os, 'Path': Path})
+                self.assertEqual(env_file.read_bytes(), b'KEEP_EXISTING=1\n')
+
     def test_actual_guard_executes_nested_passing_suite(self):
         class RequiredCase(unittest.TestCase):
             def test_real_assertion(self):
