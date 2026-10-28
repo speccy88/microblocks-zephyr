@@ -17,16 +17,18 @@ async function main(){
   unavailableButton:'microduckEasyStatus (microduckEasyButton 1)',unavailableHead:'microduckEasyStatus (microduckEasyHeadTemperature)',
   invalidRange:'microduckEasyStatus (microduckEasyRange 0 9)',invalidButton:'microduckEasyStatus (microduckEasyButton 257)',
   batteryStatus:'microduckEasyStatus (microduckEasyBattery)',batteryValue:'microduckEasyValue (microduckEasyBattery)',batteryUnit:'microduckEasyUnit (microduckEasyBattery)',
+  boardTemperature:'microduckEasyValue (microduckEasyBoardTemperature)',healthVerdict:'microduckEasyValue (microduckEasyHealth)',
   rangeValue:'microduckEasyValue (microduckEasyRange 1 1)',rangeNoTarget:'microduckEasyStatus (microduckEasyRange 1 2)',
   headValue:'microduckEasyValue (microduckEasyHeadTemperature)',buttonValue:'microduckEasyValue (microduckEasyButton 1)',
   advancedBattery:`local 's' (microduckRobotHealthCapture)\nlocal 'r' (microduckRobotBatteryPercent s)\nmicroduckRobotStateRelease s\nreturn (microduckReadingStatus r)`,
+  advancedClock:`local 's' (microduckRobotHealthCapture)\nlocal 'r' (microduckRobotCpuClockCeiling s)\nmicroduckRobotStateRelease s\nreturn (microduckEasyValue r)`,
   falseForward:'microduckEasySimForward 100 500 false',forward:'microduckEasySimForward 100 500 true',turn:'microduckEasySimTurnLeft 250 500 true',
   cancel:'microduckEasySimCancel',advancedStatus:'microduckSimMotionStatus',badSpeed:'microduckEasySimForward 301 500 true',
   falseStop:'microduckEasySimStop false',stop:'microduckEasySimStop true',chirp:'microduckEasySimChirp true',skill:'microduckEasySimSkill \'simulation_bow\' true',
   advancedStop:'microduckSimStop true',badSkill:'microduckEasySimSkill \'not_advertised\' true'
  };
  const compiled={};for(const [name,source] of Object.entries(probes)){
-  h.set('probe',source);h.set('reporter',name!=='advancedBattery');compiled[name]=h.evaluate('(()=>{const nodes=MB_Parser.parse(probe);return compiler.compiledBytesFor(MB_Parser.blockFor(reporter?nodes[0]:nodes,reporter));})()');
+  h.set('probe',source);h.set('reporter',!['advancedBattery','advancedClock'].includes(name));compiled[name]=h.evaluate('(()=>{const nodes=MB_Parser.parse(probe);return compiler.compiledBytesFor(MB_Parser.blockFor(reporter?nodes[0]:nodes,reporter));})()');
  }
  h.evaluate(`MB_editor.project.main.scripts=[
   [20,20,MB_Parser.blockFor(MB_Parser.parse('microduckEasySimForward 100 500 false')[0],true)],

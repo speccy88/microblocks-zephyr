@@ -1,8 +1,10 @@
 module 'MicroDuck Simple Sensors' Input
 author 'MicroBlocks Linux ARM64 contributors'
-version 1 0
+version 1 1
 description 'Experimental convenience layer over the same advanced read-only gateway libraries. These helpers capture, read and release one snapshot. Readings retain [status,value,unit,origin]; missing or unobserved values never become zero. Use reading known? before number from reading. Battery uses hundredths percent; head temperature uses mC; range uses mm. Gamepad number is the declared button index, not an assumed A/B mapping. No continuous freshness, clear-path, calibrated orientation or movement readiness is inferred. Fixtures only so far; physical MicroDuck unverified. Advanced blocks remain usable in the same project.'
 spec 'r' 'microduckEasyBattery' 'battery reading'
+spec 'r' 'microduckEasyBoardTemperature' 'robot board temperature reading (mC)'
+spec 'r' 'microduckEasyHealth' 'reported robot health reading'
 spec 'r' 'microduckEasyHeadTemperature' 'head temperature reading'
 spec 'r' 'microduckEasyRange' 'range at row _ column _ reading (mm)' 'num num' 4 4
 spec 'r' 'microduckEasyButton' 'declared gamepad button _ reading' 'num' 1
@@ -15,6 +17,22 @@ to microduckEasyBattery {
     local 'sample' (microduckRobotHealthCapture)
     if (not (microduckReadingKnown sample)) { return sample }
     local 'reading' (microduckRobotBatteryPercent sample)
+    microduckRobotStateRelease sample
+    return reading
+}
+
+to microduckEasyBoardTemperature {
+    local 'sample' (microduckRobotHealthCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'reading' (microduckRobotCpuTemperature sample)
+    microduckRobotStateRelease sample
+    return reading
+}
+
+to microduckEasyHealth {
+    local 'sample' (microduckRobotHealthCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'reading' (microduckRobotHealthVerdict sample)
     microduckRobotStateRelease sample
     return reading
 }

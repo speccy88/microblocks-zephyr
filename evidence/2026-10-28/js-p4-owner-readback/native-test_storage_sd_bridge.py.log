@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "application_bridge_scenarios": 12,
+  "native_sender": "pinned SmallVM sendMessage and waitAndSendMessage",
+  "physical_tested": false,
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "runtime_sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "sender_sha256": "21c3c71bce5b86e4561b21daab17866a23fa1ff2d0108c50ca34524b3d57d211"
+}
+{
+  "result": "PASS",
+  "application_bridge_scenarios": 19,
+  "native_sender": "pinned SmallVM sendMessage and waitAndSendMessage",
+  "physical_tested": false,
+  "scope": "actual VM frame bridge; synthetic worker; no board/card",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ]
+}

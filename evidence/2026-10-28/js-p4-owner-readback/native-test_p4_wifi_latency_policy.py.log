@@ -1,0 +1,1 @@
+{"result": "PASS", "checks": 28, "physical_tested": false, "sanitizers": ["address", "undefined"], "scope": "actual volatile PS policy; errors and lost ACK are never retried"}

@@ -1,0 +1,12 @@
+{
+  "checks": 270,
+  "cancellation_boundaries": 22,
+  "physical_tested": false,
+  "result": "PASS",
+  "scope": "actual file I/O and validation with synthetic filesystem only",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "no_card_or_board_access": true
+}

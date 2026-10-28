@@ -1,0 +1,14 @@
+{
+  "checks": 205,
+  "max_root_reads": 33,
+  "file_content_reads": 0,
+  "writes": 0,
+  "result": "PASS",
+  "scope": "actual probe with synthetic filesystem; no card/device access",
+  "rejected_unsafe_configurations": 3,
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "physical_tested": false
+}

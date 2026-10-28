@@ -2,13 +2,13 @@
 
 In the staged JavaScript MicroDuck editor, choose **Load starter lab (includes
 SIMULATION)**. The optional `Libraries/MicroDuck Starter Lab.ubl` import contains
-ten modules and178 functions: the six existing normal read-only modules, the
+ten modules and186 functions: the six existing normal read-only modules, the
 preserved advanced Motion/Robot Simulation modules, Simple Sensors and Simple
-Practice. The ordinary six-module `MicroDuck Linux` import stays unchanged.
+Practice. The ordinary six-module `MicroDuck Linux` import keeps six modules (146 functions).
 Both abstraction levels can be used in one project and saved/reopened together.
 There is no mode switch or second connection.
 
-Simple Sensors offers battery, head temperature, depth-zone and declared
+Simple Sensors offers battery, reported board temperature and health verdict, head temperature, depth-zone and declared
 gamepad-button readings. Each helper captures, reads and releases one immutable
 snapshot through the existing service adapter. Invalid indices are refused
 before capturing. Use **reading known?** before extracting a value; **reading

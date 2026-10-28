@@ -27,8 +27,18 @@ Requested and applied movement remain distinct. Schema-default omitted limit
 count is marked ipc_default, never a physical observation. No FK/calibration,
 pose transform, inferred velocity/current direction or freshness authorization.
 
-Health supplies21 typed selectors: the existing18 diagnostic fields plus reason,
-control_loop.ticks and control_loop.missed. Preserve finite measurements, missing
+Health supplies27 typed selectors: the existing18 diagnostic fields plus reason,
+control_loop.ticks, control_loop.missed, motors.hottest and five CPU throttle
+readings. The CPU fields level/max_level use exact count64 decimal text;
+khz/max_khz use exact kHz64 decimal text, preserving the full u32 domain without
+signed31 truncation. These are clock ceilings, not instantaneous frequency.
+The throttled predicate matches upstream: level>0 or max_khz>0 and khz<max_khz.
+Absent optional CPU sections/keys stay not_reported even though upstream serde
+may default them; the derived predicate requires its three source operands.
+No frequency, throttle level or hottest-joint identity is inferred from heat.
+The declarations are present in pinned API44 commit96b89d8613f06722c1d64ce75ab0d7124fed9d8f
+(`duck-ipc-proto/src/lib.rs`: HealthResult, MotorThermal, CpuThrottle).
+Preserve finite measurements, missing
 versus zero/false, nested required members and documented degraded/bus/IMU defaults.
 Health u32/u64 counters and ms age use exact decimal strings, not truncation.
 IMU state uses source FROZEN_RUN25 with missing/frozen/converged/not_converged

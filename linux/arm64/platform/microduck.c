@@ -377,7 +377,21 @@ static const GamepadField *findGamepadField(const char *section,yyjson_val *fiel
     for (size_t i=0;i<sizeof(gamepadFields)/sizeof(gamepadFields[0]);++i) if (!strcmp(section,gamepadFields[i].section) && equalText(field,gamepadFields[i].name)) return &gamepadFields[i];
     return NULL;
 }
+enum { ROBOT_DETAIL_TEXT, ROBOT_DETAIL_BOOLEAN, ROBOT_DETAIL_U32 };
+typedef struct { const char *name,*unit; int kind; } RobotHealthDetail;
+static const RobotHealthDetail robotHealthDetails[]={
+    {"motors.hottest","text",ROBOT_DETAIL_TEXT},
+    {"cpu_throttle.level","count64",ROBOT_DETAIL_U32},{"cpu_throttle.max_level","count64",ROBOT_DETAIL_U32},
+    {"cpu_throttle.khz","kHz64",ROBOT_DETAIL_U32},{"cpu_throttle.max_khz","kHz64",ROBOT_DETAIL_U32},
+    {"cpu_throttle.throttled","boolean",ROBOT_DETAIL_BOOLEAN}
+};
+static const RobotHealthDetail *robotHealthDetail(yyjson_val *name) {
+    for (size_t i=0;i<sizeof(robotHealthDetails)/sizeof(robotHealthDetails[0]);++i)
+        if (equalText(name,robotHealthDetails[i].name)) return &robotHealthDetails[i];
+    return NULL;
+}
 static int robotHealthName(yyjson_val *value) {
+    if (robotHealthDetail(value)) return 1;
     const char *names[]={"healthy","degraded","health.state","battery.percent","battery.volts","cpu_temp_c","motors.max_c","motors.mean_c","control_loop.target_hz","control_loop.achieved_hz","control_loop.last_tick_age_ms","bus.consecutive_errors","bus.startup_failures","imu.ready","imu.missing","imu.stale_blocks","imu.consecutive_stale_blocks","imu.state","reason","control_loop.ticks","control_loop.missed"};
     for (size_t i=0;i<sizeof(names)/sizeof(names[0]);++i) if (equalText(value,names[i])) return 1;
     return 0;
@@ -1197,10 +1211,25 @@ static OBJ robotReadingPrimitive(int argc,OBJ *args) {
         && integerBetween(yyjson_obj_get(result,"index"),1,1) && integerBetween(yyjson_obj_get(result,"component"),1,1)) {
         yyjson_val *name=yyjson_obj_get(result,"field"),*defaulted=yyjson_obj_get(result,"source_default");const HealthField *field=NULL;
         for (size_t i=0;i<sizeof(healthFields)/sizeof(healthFields[0]);++i) if (equalText(name,healthFields[i].name)) field=&healthFields[i];
+        const RobotHealthDetail *detail=robotHealthDetail(name);
         int counter=(field && field->kind==HEALTH_COUNTER) || equalText(name,"control_loop.ticks") || equalText(name,"control_loop.missed");
         int reason=equalText(name,"reason"),isDefault=yyjson_is_true(defaulted);
         const char *unit=counter?(equalText(name,"control_loop.last_tick_age_ms")?"ms64":"count64"):reason?"text":field?field->unit:NULL;
-        if (unit && equalText(yyjson_obj_get(result,"unit"),unit)) {
+        if (detail && equalText(yyjson_obj_get(result,"unit"),detail->unit)) {
+            reading.unit=detail->unit;
+            if (equalText(yyjson_obj_get(result,"status"),"ok")) {
+                if (detail->kind==ROBOT_DETAIL_BOOLEAN && yyjson_is_bool(value)) {
+                    reading.isBoolean=1;reading.boolean=yyjson_get_bool(value);reading.status="ok";
+                } else if (detail->kind==ROBOT_DETAIL_TEXT && boundedText(value,128)) {
+                    size_t n=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),n);text[n]='\0';reading.text=text;reading.isText=1;reading.status="ok";
+                } else if (detail->kind==ROBOT_DETAIL_U32) {
+                    uint64_t n;
+                    if (decimalCounter(value,&n) && n<=UINT32_MAX) {
+                        size_t len=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),len);text[len]='\0';reading.text=text;reading.isText=1;reading.status="ok";
+                    }
+                }
+            }
+        } else if (unit && equalText(yyjson_obj_get(result,"unit"),unit)) {
             reading.unit=unit;
             if (equalText(yyjson_obj_get(result,"status"),"ok")) {
                 if (counter) {

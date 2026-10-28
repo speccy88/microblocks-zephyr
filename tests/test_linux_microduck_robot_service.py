@@ -25,7 +25,7 @@ client=importlib.import_module(package.__name__+'.client')
 def request(name='capture',p=None):return {'jsonrpc':'2.0','id':1,'method':svc.PREFIX+name,'params':{'kind':'state','hz':10} if p is None else p,'confirmed':False}
 def read(handle,field='loop.hz',kind='state',index=1,component=1):return {'handle':handle,'kind':kind,'field':field,'index':index,'component':component}
 def source(path,uid=None):return {'version':1,'daemon':'robotd','path':str(path),'uid':os.geteuid() if uid is None else uid}
-def health():return {'healthy':False,'degraded':True,'reason':'SIMULATION no controller','battery':{'percent':0.,'volts':7.8},'cpu_temp_c':41.25,'motors':{'hottest':'fictional','max_c':45.5,'mean_c':40.25},'control_loop':{'target_hz':50.,'achieved_hz':49.95,'ticks':2**64-1,'missed':2**63+5,'last_tick_age_ms':4},'bus':{'consecutive_errors':0,'startup_failures':0},'imu':{'ready':True,'missing':False,'stale_blocks':2**63+1,'consecutive_stale_blocks':25}}
+def health():return {'healthy':False,'degraded':True,'reason':'SIMULATION no controller','battery':{'percent':0.,'volts':7.8},'cpu_temp_c':41.25,'cpu_throttle':{'level':0,'max_level':7,'khz':408000,'max_khz':1800000},'motors':{'hottest':'fictional','max_c':45.5,'mean_c':40.25},'control_loop':{'target_hz':50.,'achieved_hz':49.95,'ticks':2**64-1,'missed':2**63+5,'last_tick_age_ms':4},'bus':{'consecutive_errors':0,'startup_failures':0},'imu':{'ready':True,'missing':False,'stale_blocks':2**63+1,'consecutive_stale_blocks':25}}
 
 async def normal_gateway(directory,path,uid=None):
     directory.mkdir(mode=0o700);config=directory/'robot.json';config.write_text(json.dumps(source(path,uid)));config.chmod(0o600)
@@ -40,13 +40,27 @@ class RobotServiceProtocol(unittest.TestCase):
             with self.assertRaises(rpc.RpcError):svc.validate(q)
 
     def test_all_health_units_values_and_zero_are_typed(self):
-        h=svc.health.validate_health(health());self.assertEqual(len(svc.health.FIELDS),21)
+        h=svc.health.validate_health(health());self.assertEqual(len(svc.health.FIELDS),27)
         for field,(unit,_) in svc.health.FIELDS.items():
             s=svc.health.sample(h,field);self.assertEqual((s['status'],s['unit']),('ok',unit),field)
         self.assertIs(svc.health.sample(h,'healthy')['value'],False)
         self.assertEqual(svc.health.sample(h,'battery.percent')['value'],0)
         self.assertEqual(svc.health.sample(h,'battery.volts')['value'],7800)
         self.assertEqual(svc.health.sample(h,'control_loop.ticks')['value'],str(2**64-1))
+
+    def test_throttle_presence_exact_u32_and_upstream_predicate(self):
+        for part in (None,{}, {'level':0}):
+            h=svc.health.validate_health({**health(),'cpu_throttle':part})
+            self.assertEqual(svc.health.sample(h,'cpu_throttle.throttled')['status'],'not_reported')
+        for part,expected in [({'level':0,'khz':0,'max_khz':0},False),({'level':0,'khz':0,'max_khz':1},True),({'level':1,'khz':2,'max_khz':1},True),({'level':0,'khz':2,'max_khz':1},False)]:
+            h=svc.health.validate_health({**health(),'cpu_throttle':part})
+            self.assertIs(svc.health.sample(h,'cpu_throttle.throttled')['value'],expected)
+        for field in ('level','max_level','khz','max_khz'):
+            h=svc.health.validate_health({**health(),'cpu_throttle':{field:2**32-1}})
+            self.assertEqual(svc.health.sample(h,'cpu_throttle.'+field)['value'],str(2**32-1))
+            for invalid in (True,-1,2**32,1.5):
+                with self.assertRaises(rpc.RpcError):svc.health.validate_health({**health(),'cpu_throttle':{field:invalid}})
+        self.assertEqual(svc.health.sample(health(),'motors.hottest')['value'],'fictional')
 
     def test_schema_defaults_are_explicit_but_measurements_are_unavailable(self):
         h=svc.health.validate_health({'healthy':False,'imu':{}})
@@ -273,6 +287,22 @@ class RobotServiceNativeAdapter(unittest.IsolatedAsyncioTestCase):
         handle=(await self.typed(await self.call()))[1];self.assertEqual((await self.typed(await self.call('read',read(handle,'healthy','health'))))[0],'wrong_kind')
         await self.call('release',{'handle':handle});self.assertEqual((await self.typed(await self.call('read',read(handle))))[0],'expired_or_unknown')
         self.normal.robot_read=None;self.assertEqual((await self.typed(await self.call()))[0],'error')
+    async def test_native_health_detail_forgery_absence_and_u32_boundary(self):
+        store=svc.RobotStore(source(self.wire.path));store.clock=lambda:0.
+        store.entries['a'*32]={'kind':'health','value':health(),'expires':5}
+        for field in ('cpu_throttle.level','cpu_throttle.max_level','cpu_throttle.khz','cpu_throttle.max_khz'):
+            good=store.read(read('a'*32,field,'health'))
+            for value in ('01','-1',str(2**32),True,42):
+                bad={**good,'value':value}
+                self.assertNotEqual((await self.typed(json.dumps({'jsonrpc':'2.0','id':1,'result':bad})))[0],'ok')
+            good['value']=str(2**32-1)
+            self.assertEqual((await self.typed(json.dumps({'jsonrpc':'2.0','id':1,'result':good})))[1],str(2**32-1))
+            for delta in ({'source_default':True},{'unit':'mHz'}):
+                self.assertNotEqual((await self.typed(json.dumps({'jsonrpc':'2.0','id':1,'result':{**good,**delta}})))[0],'ok')
+        self.wire.health={'healthy':True,'cpu_throttle':{'level':0,'max_level':0,'khz':0,'max_khz':0}}
+        handle=(await self.typed(await self.call(p={'kind':'health'})))[1]
+        self.assertEqual(await self.typed(await self.call('read',read(handle,'cpu_throttle.throttled','health'))),['ok',False,'boolean','local_ipc'])
+        self.assertEqual((await self.typed(await self.call('read',read(handle,'motors.hottest','health'))))[0],'not_reported')
     async def test_native_health_utf8_survives_actual_compacting_gc(self):
         h=health();h['reason']='\u00e9'*64;store=svc.RobotStore(source(self.wire.path));store.clock=lambda:0.;store.entries['a'*32]={'kind':'health','value':h,'expires':5}
         reply=json.dumps({'jsonrpc':'2.0','id':1,'result':store.read(read('a'*32,'reason','health'))})

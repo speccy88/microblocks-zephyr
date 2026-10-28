@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "checks": 32,
+  "physical_tested": false,
+  "scope": "actual hosted_transport.c ownership and VM-thread cleanup",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ]
+}

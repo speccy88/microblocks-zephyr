@@ -1,0 +1,58 @@
+{
+  "internal": {
+    "checks": 99,
+    "concurrent_clients": 4,
+    "concurrent_transfers": 400,
+    "max_flash_read": 512,
+    "physical_tested": false
+  },
+  "psram": {
+    "checks": 99,
+    "concurrent_clients": 4,
+    "concurrent_transfers": 400,
+    "max_flash_read": 512,
+    "physical_tested": false
+  },
+  "internal-diagnostic": {
+    "checks": 102,
+    "concurrent_clients": 4,
+    "concurrent_transfers": 400,
+    "max_flash_read": 512,
+    "physical_tested": false
+  },
+  "psram-diagnostic": {
+    "checks": 102,
+    "concurrent_clients": 4,
+    "concurrent_transfers": 400,
+    "max_flash_read": 512,
+    "physical_tested": false
+  },
+  "internal-diagnostic-latency": {
+    "checks": 109,
+    "concurrent_clients": 4,
+    "concurrent_transfers": 400,
+    "max_flash_read": 512,
+    "physical_tested": false
+  },
+  "psram-diagnostic-latency": {
+    "checks": 109,
+    "concurrent_clients": 4,
+    "concurrent_transfers": 400,
+    "max_flash_read": 512,
+    "physical_tested": false
+  },
+  "undersized_poll_budget": "rejected",
+  "linker_guard": {
+    "0": "rejected",
+    "1760": "rejected",
+    "8191": "rejected",
+    "8192": "accepted",
+    "9488": "accepted",
+    "149360": "accepted"
+  },
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "hardware_access": false
+}

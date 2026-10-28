@@ -1,0 +1,10 @@
+{
+  "checks": 73,
+  "malformed_frames": 10000,
+  "physical_tested": false,
+  "result": "PASS",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ]
+}

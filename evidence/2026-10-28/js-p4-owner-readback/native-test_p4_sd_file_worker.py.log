@@ -1,0 +1,31 @@
+{
+  "checks": 97,
+  "worker_runs": 25,
+  "job_allocations": 27,
+  "job_frees": 27,
+  "stack_allocations": 26,
+  "stack_frees": 26,
+  "result": "PASS",
+  "scope": "actual worker with synthetic Zephyr/thread/probe; no card/board access",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "physical_tested": false
+}
+{
+  "checks": 121,
+  "worker_runs": 25,
+  "job_allocations": 31,
+  "job_frees": 31,
+  "stack_allocations": 30,
+  "stack_frees": 30,
+  "result": "PASS",
+  "file_worker_runs": 4,
+  "scope": "actual optional worker with synthetic threads/files only",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "physical_tested": false
+}

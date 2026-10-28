@@ -51,7 +51,7 @@ class StarterFixture:
 class MicroDuckStarterImport(StarterFixture, unittest.TestCase):
     def test_coherent_optional_import_exact_sources_and_roundtrip(self):
         self.assertTrue(self.compiled['roundtrip'])
-        self.assertEqual(len(self.compiled['functions']), 178)
+        self.assertEqual(len(self.compiled['functions']), 186)
         meta = json.loads((self.assets / 'microduck-starter-libraries.json').read_text())
         bundle = (self.assets / meta['bundle']).read_bytes()
         self.assertEqual(meta['action_blocks'], 'simulation_only')
@@ -113,6 +113,9 @@ class MicroDuckStarterNative(StarterFixture, unittest.IsolatedAsyncioTestCase):
             self.assertEqual(await execute(r, 'batteryValue'), 0)
             self.assertEqual(await execute(r, 'batteryUnit'), '0.01%')
             self.assertEqual(await execute(r, 'advancedBattery'), 'ok')
+            self.assertEqual(await execute(r, 'boardTemperature'), 41250)
+            self.assertEqual(await execute(r, 'healthVerdict'), 'degraded')
+            self.assertEqual(await execute(r, 'advancedClock'), '408000')
             self.assertEqual(gateway.robot_read.entries, {})
             self.assertTrue(all(q['method'] in ('hello', 'robot.health') for q in wire.audit))
         finally:

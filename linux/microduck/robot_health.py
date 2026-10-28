@@ -18,6 +18,10 @@ FIELDS = {
     'bus.startup_failures': ('count64', 1), 'imu.ready': ('boolean', 1), 'imu.missing': ('boolean', 1),
     'imu.stale_blocks': ('count64', 1), 'imu.consecutive_stale_blocks': ('count64', 1),
     'imu.state': ('state', 1), 'reason': ('text', 1),
+    'motors.hottest': ('text', 1),
+    'cpu_throttle.level': ('count64', 1), 'cpu_throttle.max_level': ('count64', 1),
+    'cpu_throttle.khz': ('kHz64', 1), 'cpu_throttle.max_khz': ('kHz64', 1),
+    'cpu_throttle.throttled': ('boolean', 1),
 }
 DEFAULT_FIELDS = frozenset(('degraded', 'health.state', 'bus.consecutive_errors', 'bus.startup_failures',
                            'imu.ready', 'imu.missing', 'imu.stale_blocks', 'imu.consecutive_stale_blocks', 'imu.state'))
@@ -28,6 +32,9 @@ def validate_health(value):
     if 'degraded' in value: state.require(type(value['degraded']) is bool)
     if value.get('reason') is not None: state.require(state.text(value['reason']) or isinstance(value['reason'], str) and not any(ord(c)<32 or ord(c)==127 for c in value['reason']))
     if value.get('cpu_temp_c') is not None: state.require(state.number(value['cpu_temp_c']))
+    if value.get('cpu_throttle') is not None:
+        part=value['cpu_throttle'];state.require(isinstance(part,dict))
+        state.require(all(k not in part or state.integer(part[k],0,2**32-1) for k in ('level','max_level','khz','max_khz')))
     for section, fields in [('battery', ('volts','percent')), ('motors', ('max_c','mean_c')),
                             ('control_loop', ('target_hz',))]:
         if value.get(section) is not None:
@@ -56,6 +63,10 @@ def sample(value, field):
         if imu is not None:
             raw='missing' if imu.get('missing',False) else 'frozen' if imu.get('consecutive_stale_blocks',0)>=25 else 'converged' if imu.get('ready',False) else 'not_converged'
             default=any(k not in imu for k in ('missing','consecutive_stale_blocks','ready'))
+    elif field=='cpu_throttle.throttled':
+        part=value.get('cpu_throttle')
+        if isinstance(part,dict) and all(k in part for k in ('level','khz','max_khz')):
+            raw=part['level']>0 or part['max_khz']>0 and part['khz']<part['max_khz']
     elif '.' in field:
         section,key=field.split('.');part=value.get(section)
         if part is not None: raw=part.get(key)
@@ -65,7 +76,7 @@ def sample(value, field):
     else:raw=value.get(field)
     out={'kind':'robot_reading','snapshot_kind':'health','status':'not_reported','field':field,'index':1,'component':1,'unit':unit,'value':None}
     if raw is None:return out
-    if unit in ('count64','ms64'): raw=str(raw)
+    if unit in ('count64','ms64','kHz64'): raw=str(raw)
     elif unit in ('text','state'):
         if not state.text(raw) or len(raw.encode('utf-8'))>128:return {**out,'status':'out_of_range'}
     elif unit!='boolean':

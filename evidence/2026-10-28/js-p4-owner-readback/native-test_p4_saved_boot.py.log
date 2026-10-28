@@ -1,0 +1,51 @@
+{
+  "result": "PASS",
+  "scope": "actual network_backend worker; synthetic settings/radio only",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "physical_tested": false,
+  "modes": [
+    {
+      "result": "PASS",
+      "saved_boot_enabled": false,
+      "loss_retry_enabled": false,
+      "loss_test_enabled": false,
+      "checks": 8,
+      "largest_status_bytes": 399,
+      "credential_writes": 0,
+      "physical_tested": false
+    },
+    {
+      "result": "PASS",
+      "saved_boot_enabled": true,
+      "loss_retry_enabled": false,
+      "loss_test_enabled": false,
+      "checks": 126,
+      "largest_status_bytes": 440,
+      "credential_writes": 0,
+      "physical_tested": false
+    },
+    {
+      "result": "PASS",
+      "saved_boot_enabled": true,
+      "loss_retry_enabled": true,
+      "loss_test_enabled": false,
+      "checks": 203,
+      "largest_status_bytes": 440,
+      "credential_writes": 0,
+      "physical_tested": false
+    },
+    {
+      "result": "PASS",
+      "saved_boot_enabled": true,
+      "loss_retry_enabled": true,
+      "loss_test_enabled": true,
+      "checks": 207,
+      "largest_status_bytes": 440,
+      "credential_writes": 0,
+      "physical_tested": false
+    }
+  ]
+}

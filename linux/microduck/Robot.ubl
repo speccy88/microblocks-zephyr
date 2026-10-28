@@ -1,7 +1,7 @@
 module 'MicroDuck Robot' Input
 author 'MicroBlocks Linux ARM64 contributors'
-version 1 0
-description 'Read-only coherent robotd health/state via normal private Gateway and robot-read-config. Tests use fictional services on real Pi. Health and state are separate five-second immutable snapshots, no shared-tick claim. Four total retained/in-flight slots;0.5s bounded capture, no continuous reader/retry/renewal. Records [status,value,unit,origin]; only ok is extractable. local_ipc is transport only; ipc_default identifies a schema default, never physical observation. Exact counter/ns/ms64 strings; scaled signed31 measurements. Missing optional telemetry is unavailable, present false/zero known. No applied physics, FK/calibration, force direction, freshness or safe-to-move authority. No control commands, robotctl parsing, motion or device access. Physical, graphical and shipping identity/deployment unverified.'
+version 1 1
+description 'Read-only coherent robotd health/state via normal private Gateway and robot-read-config. Earlier selectors have Pi fixture evidence; new CPU throttle and hottest-joint fields use local Linux fixtures pending Pi acceptance. Health and state are separate five-second immutable snapshots, no shared-tick claim. Four total retained/in-flight slots;0.5s bounded capture, no continuous reader/retry/renewal. Records [status,value,unit,origin]; only ok is extractable. local_ipc is transport only; ipc_default identifies a schema default, never physical observation. Exact counter/ns/ms64 strings; scaled signed31 measurements. Missing optional telemetry is unavailable, present false/zero known. No applied physics, FK/calibration, force direction, freshness or safe-to-move authority. No control commands, robotctl parsing, motion or device access. Physical, graphical and shipping identity/deployment unverified.'
 spec 'r' 'microduckRobotStateCapture' 'capture robot state at _ Hz reading' 'num' 10
 spec 'r' 'microduckRobotStateRelease' 'release robot state _ JSON' 'auto' ''
 spec 'r' 'microduckRobotMoveRequested' 'state _ requested move component _ reading' 'auto num' '' 1
@@ -43,6 +43,12 @@ spec 'r' 'microduckRobotImuStaleBlocks' 'robot health _ imu.stale_blocks reading
 spec 'r' 'microduckRobotImuStaleRun' 'robot health _ imu.consecutive_stale_blocks reading' 'auto' ''
 spec 'r' 'microduckRobotHealthImuState' 'robot health _ imu.state reading' 'auto' ''
 spec 'r' 'microduckRobotHealthReason' 'robot health _ reason reading' 'auto' ''
+spec 'r' 'microduckRobotHottestJoint' 'robot health _ hottest joint name reading' 'auto' ''
+spec 'r' 'microduckRobotCpuThrottleLevel' 'robot health _ CPU throttle level reading' 'auto' ''
+spec 'r' 'microduckRobotCpuThrottleMaximum' 'robot health _ CPU maximum throttle level reading' 'auto' ''
+spec 'r' 'microduckRobotCpuClockCeiling' 'robot health _ CPU clock ceiling (kHz) reading' 'auto' ''
+spec 'r' 'microduckRobotCpuHardwareMaximum' 'robot health _ CPU hardware maximum (kHz) reading' 'auto' ''
+spec 'r' 'microduckRobotCpuThrottled' 'robot health _ CPU reported throttled reading' 'auto' ''
 spec 'r' 'microduckRobotLoopMissed' 'robot state _ missed ticks reading' 'auto' ''
 spec 'r' 'microduckRobotPolicy' 'robot state _ reported policy reading' 'auto' ''
 advanced
@@ -97,5 +103,17 @@ to microduckRobotImuStaleBlocks health { return (microduckRobotHealthReading hea
 to microduckRobotImuStaleRun health { return (microduckRobotHealthReading health 'imu.consecutive_stale_blocks') }
 to microduckRobotHealthImuState health { return (microduckRobotHealthReading health 'imu.state') }
 to microduckRobotHealthReason health { return (microduckRobotHealthReading health 'reason') }
+
+to microduckRobotHottestJoint health { return (microduckRobotHealthReading health 'motors.hottest') }
+
+to microduckRobotCpuThrottleLevel health { return (microduckRobotHealthReading health 'cpu_throttle.level') }
+
+to microduckRobotCpuThrottleMaximum health { return (microduckRobotHealthReading health 'cpu_throttle.max_level') }
+
+to microduckRobotCpuClockCeiling health { return (microduckRobotHealthReading health 'cpu_throttle.khz') }
+
+to microduckRobotCpuHardwareMaximum health { return (microduckRobotHealthReading health 'cpu_throttle.max_khz') }
+
+to microduckRobotCpuThrottled health { return (microduckRobotHealthReading health 'cpu_throttle.throttled') }
 to microduckRobotLoopMissed state { return (microduckRobotStateReading state 'loop.missed' 1 1) }
 to microduckRobotPolicy state { return (microduckRobotStateReading state 'policy' 1 1) }

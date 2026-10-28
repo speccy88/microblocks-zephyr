@@ -64,7 +64,7 @@ class JSTargetProfiles(unittest.TestCase):
                 result = subprocess.run([node, str(ROOT / 'tests/js-typed-libraries.test.cjs'), str(duck)],
                                         capture_output=True, text=True, timeout=30)
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-                self.assertEqual(json.loads(result.stdout)['functions'], 140)
+            self.assertEqual(json.loads(result.stdout)['functions'], 146)
             with self.assertRaises(FileExistsError):
                 build(source, gp, output)
             with self.assertRaisesRegex(ValueError, 'separate'):
