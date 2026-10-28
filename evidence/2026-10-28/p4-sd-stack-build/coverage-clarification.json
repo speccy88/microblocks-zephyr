@@ -1,0 +1,17 @@
+{
+  "reason": "Correct documentation: all211 functions compiled/uploaded, representative blocks executed; each native model selector/component separately tested. No product or test change.",
+  "validated_implementation_commit": "489f0f04fade2268c26010361bbafda2899525eb",
+  "unchanged_tested_inputs": 2411,
+  "post_validation_documentation_changes": [
+    {
+      "path": "evidence/2026-10-28/microduck-model-servo/README.md",
+      "before_sha256": "ec6dc144c57c7f6c677602661269e5e6acfba1d7ca52bfe484e79527b8b451d4",
+      "after_sha256": "ce8bf7a101fe1feb4060d6589ec0b50b924ca589a8a34188b807130b4dfaaa85"
+    },
+    {
+      "path": "evidence/2026-10-28/p4-sd-stack-build/README.md",
+      "before_sha256": "ef6aa111a8021619fd6066db2a80a07cfbf936c8b43c7bfbee7dbd8da0bbbad9",
+      "after_sha256": "905993544ef8307d1d9616aa43e4ed00f30d8c18d1324462c9b50b6fa896b814"
+    }
+  ]
+}

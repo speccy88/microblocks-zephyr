@@ -17,7 +17,7 @@ runs the actual worker with both prerequisites, neither, init-only and info-only
 under ASan/UBSan, retaining25 lifecycle runs per variant; the four file-worker
 runs and balanced allocation/release assertions also pass. The unchanged
 sanitized local Linux MicroDuck VM7ed25bbe is source-hash verified before reuse.
-The actual211-function starter execution and all model/servo tests still pass.
+The actual211-function upload, representative block execution and all native model/servo selector tests still pass.
 
 **Fresh isolated cross-build passed**, including VM memory placement.
 Target esp32p4_wifi6/esp32p4/hpcore; pinned Zephyr

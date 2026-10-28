@@ -24,8 +24,9 @@ upstream beta/head-IMU reference-mount caveat remains explicit.
 23 advanced functions and two simple capture/read/release helpers were added.
 Normal import:6 modules/169 functions; optional Starter Lab:10 modules/211
 functions. Actual JS import, compilation and fresh source reopen pass. All211
-compiled functions execute on the freshly rebuilt native VM with fictional
-robot services. The simple model name was SIMULATION_STARTER, missing count2,
+compiled functions upload to the freshly rebuilt native VM with fictional
+robot services. Representative simple and advanced blocks execute; the native
+selector tests separately exercise every model field/component. The simple model name was SIMULATION_STARTER, missing count2,
 and the advanced model height123mm; retained snapshots were empty afterward.
 
 Full unchanged validator: **540 tests passed**, no failures/skips,298.745s;
