@@ -1,0 +1,41 @@
+{
+  "scope": "Build evidence only; no firmware/model binaries",
+  "files": {
+    "build-receipt.json": {
+      "bytes": 7647,
+      "sha256": "efb14fc1e5759f7454bcfbfd4f5eaff7085a468768411a8941df8f43edc83514"
+    },
+    "build-review-scripts.zip": {
+      "bytes": 9096,
+      "sha256": "65f551bce2065e49ff448613d8f6e000f54b80b2307abd65269ff791ffab8b0e"
+    },
+    "optional-source-pins.json": {
+      "bytes": 330,
+      "sha256": "05388088fed77fb7cfd2c4c64a09c1535d6e3f0cfa308b936f5aceaacdc5b6e4"
+    },
+    "owner-sdk-comparison.json": {
+      "bytes": 1843,
+      "sha256": "fdb824c85b4e8717399a56668485160a4448750f1c74c40259bd62927ced98ba"
+    },
+    "post-build-checks.json": {
+      "bytes": 2434,
+      "sha256": "39adc8f9a5d54872c241542a256be0f526d65fc35629604ed6739cdb5d5b95f0"
+    },
+    "public-input-provenance.json": {
+      "bytes": 1329,
+      "sha256": "a2e501c1ece6cfd5f96feea074e9b742571f12a44e7dc696c582b9b6c1266dbb"
+    },
+    "raw-build-logs.zip": {
+      "bytes": 60056,
+      "sha256": "d68b9f8d5cd4c3ae4f9aecbae176659154a5f22524c17260216999dfefe7b094"
+    },
+    "README.md": {
+      "bytes": 5398,
+      "sha256": "1584bf625f15c709878de7f3a1ef1b7717dcaba349e5e99ee7d18cf47db3624b"
+    },
+    "verification.json": {
+      "bytes": 2723,
+      "sha256": "e62b25cc8ae1f3d0627c9313a4202fcdbc7fbf92d8ba80f6ac7eda2f42e0449b"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "tflm": {
+    "head": "43b2a106a391dd8a099ac47f2ae858630a397264",
+    "expected": "43b2a106a391dd8a099ac47f2ae858630a397264",
+    "tracked_changes": []
+  },
+  "hal_espressif": {
+    "head": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+    "expected": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+    "tracked_changes": []
+  }
+}

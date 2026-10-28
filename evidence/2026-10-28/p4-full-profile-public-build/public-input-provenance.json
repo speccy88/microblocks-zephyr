@@ -1,0 +1,31 @@
+{
+  "scope": "Build inputs only; not owner image reproduction or flashed firmware",
+  "whistle_model": {
+    "bytes": 14515887,
+    "sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+    "source": "existing licensed release outside protected P4 checkout, exact repository pin"
+  },
+  "kws": {
+    "source_url": "https://raw.githubusercontent.com/esphome/micro-wake-word-models/40ff33f57f8fc6ad71a75ef085abbf742495b225/models/v2/okay_nabu.tflite",
+    "sha256": "0689abe1912a95a3318a0d8cb2e67bad0cbcfe3e24dd6e050c75debddfb6f891",
+    "bytes": 60264,
+    "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "hosted_assets": {
+    "board": "ESP32-P4 WIFI6",
+    "offset": "0xfe0000",
+    "partition_bytes": 16777216,
+    "bytes": 3571877,
+    "sha256": "8b4af32a80ccddd02e4fd1cc4404c590c0d8a7530a5ff64aeffa4efe950fd02e",
+    "files": 165,
+    "credentials_included": false
+  },
+  "private_audio_used": false,
+  "credentials_used": false,
+  "protected_checkout_accessed": false,
+  "exact_owner_rebuild_blockers": [
+    "Retained private camera-ready.wav fixture not accessed or substituted",
+    "Owner exact hosted asset blob differs from freshly regenerated current GP assets",
+    "Owner SDK reports1.0.1; available reviewed compiler is SDK1.0.0 GNU14.3.0"
+  ]
+}

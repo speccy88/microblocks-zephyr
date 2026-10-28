@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "path": "drivers/i2s/i2s_esp32.c",
+      "actual_sha256": "c0f0e5d9dece98799a83b51b8ef23a751778bc1e38623c974d0fa43ff55db56c",
+      "owner_sha256": "c0f0e5d9dece98799a83b51b8ef23a751778bc1e38623c974d0fa43ff55db56c"
+    },
+    {
+      "path": "drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c",
+      "actual_sha256": "3e63d339e8a49cfc0271263c7a358523a8c04f8154f8a7efdc43be1668b963eb",
+      "owner_sha256": "3e63d339e8a49cfc0271263c7a358523a8c04f8154f8a7efdc43be1668b963eb"
+    },
+    {
+      "path": "drivers/misc/esp_hosted_mcu/esp_hosted_mcu_sdio.c",
+      "actual_sha256": "c8197ae77f0d21bc503f4c17d5ad0b035ea374cf588b49e774cb49e66a02f559",
+      "owner_sha256": "c8197ae77f0d21bc503f4c17d5ad0b035ea374cf588b49e774cb49e66a02f559"
+    },
+    {
+      "path": "drivers/sdhc/sdhc_esp32.c",
+      "actual_sha256": "0a85a585d3c77853d563150057fbe87cb0629d85acfaa2f5d5033fa37427620b",
+      "owner_sha256": "0a85a585d3c77853d563150057fbe87cb0629d85acfaa2f5d5033fa37427620b"
+    },
+    {
+      "path": "drivers/wifi/esp_hosted_mcu/Kconfig.esp_hosted_mcu",
+      "actual_sha256": "346fa80490ff948bdb730a139670da8105fb02343e7ebe2c8bd3c63d5330ea6b",
+      "owner_sha256": "346fa80490ff948bdb730a139670da8105fb02343e7ebe2c8bd3c63d5330ea6b"
+    },
+    {
+      "path": "drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c",
+      "actual_sha256": "0ddead3e70c1a09d87348e61cfced1f4f90df6a13a2542b6a14f86f7f48e5012",
+      "owner_sha256": "0ddead3e70c1a09d87348e61cfced1f4f90df6a13a2542b6a14f86f7f48e5012"
+    },
+    {
+      "path": "subsys/net/lib/http/http_server_core.c",
+      "actual_sha256": "62c37e5e7c0574cabbb2eea9bb9e5e7a20b14a6f6f40d1e8597b17410cfe11b5",
+      "owner_sha256": "62c37e5e7c0574cabbb2eea9bb9e5e7a20b14a6f6f40d1e8597b17410cfe11b5"
+    }
+  ],
+  "all_seven_match_owner_export": true,
+  "original_sdk_changed": false
+}

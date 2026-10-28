@@ -1,0 +1,87 @@
+{
+  "workspace": "/home/fred/microblocks-js-p4-build-5ng6uxl3/workspace",
+  "source_revision": "9ba2f25b898c827a2ad7939758492818dfce15c2; P4 source unchanged; public-input full-profile review",
+  "original_sdk": "/home/fred/microblocks-zephyr-work",
+  "original_sdk_changed": false,
+  "hardware_touched": false,
+  "scope": "station/neural/Whistle/KWS/SD/saved-boot full-profile source build with newly generated GP assets; private audio fixture omitted; SDK1.0.0; never an exact owner image rebuild",
+  "configure_returncode": 0,
+  "configured": true,
+  "compiled": true,
+  "build": "/home/fred/microblocks-js-p4-build-5ng6uxl3/build",
+  "zephyr": "/home/fred/microblocks-js-p4-build-5ng6uxl3/workspace/zephyr",
+  "log_tail": "build/zephyr/zephyr.elf\n{\"result\": \"PASS\", \"VM_task_bytes\": 5240, \"VM_task_address\": \"0x48010000\", \"native_stacks\": {\"z_main_stack\": {\"bytes\": 16384, \"address\": \"0x4ff77d40\"}, \"_k_thread_stack_whistle_thread\": {\"bytes\": 65536, \"address\": \"0x4ff5d940\"}, \"_k_thread_stack_http_server_tid\": {\"bytes\": 6144, \"address\": \"0x4ff74b40\"}}, \"physical_tested\": false}\n[788/790] cd /home/fred/microblocks-js-p4-build-5ng6uxl3/build && /home/fred/microblocks-zephyr-work/.venv/bin/python /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/check_p4_rpc_memory.py --elf /home/fred/microblocks-js-p4-build-5ng6uxl3/build/zephyr/zephyr.elf --objdump /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review/gnu/riscv64-zephyr-elf/bin/riscv64-zephyr-elf-objdump\n{\"rpc_pool\": {\"address\": \"0x480605b0\", \"bytes\": 65536}, \"rpc_state\": {\"address\": \"0x48060590\", \"bytes\": 28}, \"rpc_allocator_lock\": {\"address\": \"0x4ff57d24\", \"bytes\": 20}, \"libc_arena_bytes\": 10336, \"result\": \"PASS\", \"nanopb_uses_isolated_pool\": true, \"decode_hook\": \"strong\", \"physical_tested\": false}\n[789/790] cd /home/fred/microblocks-js-p4-build-5ng6uxl3/build && /home/fred/microblocks-zephyr-work/.venv/bin/python /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/check_p4_hosted_layout.py --elf /home/fred/microblocks-js-p4-build-5ng6uxl3/build/zephyr/zephyr.elf --image /home/fred/microblocks-js-p4-build-5ng6uxl3/build/zephyr/zephyr.bin --assets /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/p4-full-profile-public-inputs/gp-assets/assets.bin --dts /home/fred/microblocks-js-p4-build-5ng6uxl3/build/zephyr/zephyr.dts\n{\"flash_bytes\": 33554432, \"regions\": {\"p4_whistle_app\": {\"offset\": \"0x2000\", \"bytes\": 16637952, \"end_exclusive\": \"0xfe0000\"}, \"p4_assets\": {\"offset\": \"0xfe0000\", \"bytes\": 16777216, \"end_exclusive\": \"0x1fe0000\"}, \"p4_settings\": {\"offset\": \"0x1fe0000\", \"bytes\": 131072, \"end_exclusive\": \"0x2000000\"}}, \"application_bytes\": 15312480, \"application_sha256\": \"1d01461c5efb7c80584f8360fd22e2d84b486d66c0133324fa759212dddd86e0\", \"application_end_exclusive\": \"0xe9c660\", \"assets_bytes\": 3571877, \"assets_sha256\": \"8b4af32a80ccddd02e4fd1cc4404c590c0d8a7530a5ff64aeffa4efe950fd02e\", \"assets_end_exclusive\": \"0x13480a5\", \"model\": {\"present\": true, \"bytes\": 14515887, \"sha256\": \"e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1\", \"mapped_begin\": \"0x40080ec0\", \"mapped_end\": \"0x40e58d6f\", \"physical_begin\": \"0x20ec0\", \"physical_end\": \"0xdf8d6f\", \"copied_to_psram\": false}, \"overlap\": false, \"result\": \"PASS\"}\n[790/790] cd /home/fred/microblocks-js-p4-build-5ng6uxl3/build && /home/fred/microblocks-zephyr-work/.venv/bin/python /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/check_p4_whistle_image.py --elf /home/fred/microblocks-js-p4-build-5ng6uxl3/build/zephyr/zephyr.elf --bin /home/fred/microblocks-js-p4-build-5ng6uxl3/build/zephyr/zephyr.bin\n{\"native_elf\": \"RV32 Zephyr\", \"image_bytes\": 15312480, \"flash_offset\": \"0x2000\", \"reserved_boundary\": \"0xfe0000\", \"model_start\": \"0x40080ec0\", \"model_end\": \"0x40e58d6f\", \"model_bytes\": 14515887, \"model_sha256\": \"e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1\", \"image_sha256\": \"1d01461c5efb7c80584f8360fd22e2d84b486d66c0133324fa759212dddd86e0\", \"weights_copied_to_psram\": false}\n",
+  "build_returncode": 0,
+  "outputs": {
+    "zephyr.elf": {
+      "bytes": 29962240,
+      "sha256": "2bf98347eabd8a42bc9c62f2324e88e2adaf7cbed19582e28bc1b494b9e44781"
+    },
+    "zephyr.bin": {
+      "bytes": 15312480,
+      "sha256": "1d01461c5efb7c80584f8360fd22e2d84b486d66c0133324fa759212dddd86e0"
+    },
+    ".config": {
+      "bytes": 78582,
+      "sha256": "a656c3231b91a8e5d5ed14f2ef30c88b0b3e331a327cc98e54253ef2f72f7ba7"
+    },
+    "zephyr.dts": {
+      "bytes": 81538,
+      "sha256": "ecd225da415751cfda518365b7f591c20f44e56bdbe87b4fc357d765ed2e7397"
+    }
+  },
+  "seconds": 1064.718904068,
+  "commands": [
+    [
+      "git",
+      "clone",
+      "--shared",
+      "--no-checkout",
+      "/home/fred/microblocks-zephyr-work/zephyr",
+      "/home/fred/microblocks-js-p4-build-5ng6uxl3/workspace/zephyr"
+    ],
+    [
+      "git",
+      "-C",
+      "/home/fred/microblocks-js-p4-build-5ng6uxl3/workspace/zephyr",
+      "checkout",
+      "--detach",
+      "a915b2f12675b48b16d56653ea145dcd8f20cbbf"
+    ],
+    [
+      "/usr/bin/python3",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/apply_p4_zephyr_patches.py",
+      "--zephyr",
+      "/home/fred/microblocks-js-p4-build-5ng6uxl3/workspace/zephyr",
+      "--execute"
+    ],
+    [
+      "/home/fred/microblocks-zephyr-work/.venv/bin/west",
+      "build",
+      "--cmake-only",
+      "-b",
+      "esp32p4_wifi6/esp32p4/hpcore",
+      "-s",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr",
+      "-d",
+      "/home/fred/microblocks-js-p4-build-5ng6uxl3/build",
+      "--",
+      "-DSMALLVM_SOURCE_DIR=/home/fred/microblocks-js-p4-build-5ng6uxl3/smallvm",
+      "-DEXTRA_CONF_FILE=profiles/station.conf;profiles/neural.conf;profiles/whistle.conf;profiles/compat-diagnostic.conf;profiles/sd-files.conf;profiles/saved-boot.conf;profiles/wifi-loss-retry.conf;profiles/wifi-latency-diagnostic.conf;profiles/wifi-low-latency.conf",
+      "-DEXTRA_DTC_OVERLAY_FILE=profiles/c6-sdio.overlay;profiles/hosted.overlay;profiles/sd-readonly.overlay",
+      "-DP4_HOSTED_ASSETS_DIR=/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/p4-full-profile-public-inputs/gp-assets",
+      "-DP4_WHISTLE_SOURCES=/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/p4-full-profile-public-inputs/whistle-sources",
+      "-DP4_WHISTLE_MODEL=/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/p4-full-profile-public-inputs/whistle_d4.cact",
+      "-DP4_KWS_MODEL=/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/p4-full-profile-public-inputs/okay_nabu.tflite",
+      "-DP4_TFLM_SOURCE=/home/fred/microblocks-zephyr-work/optional/modules/lib/tflite-micro",
+      "-DZEPHYR_EXTRA_MODULES=/home/fred/microblocks-zephyr-work/optional/modules/lib/tflite-micro"
+    ],
+    [
+      "cmake",
+      "--build",
+      "/home/fred/microblocks-js-p4-build-5ng6uxl3/build",
+      "--",
+      "-j2"
+    ]
+  ]
+}

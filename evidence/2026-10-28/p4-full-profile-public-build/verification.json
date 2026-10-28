@@ -1,0 +1,61 @@
+{
+  "result": "PASS cross-build only",
+  "source_base": "9ba2f25b898c827a2ad7939758492818dfce15c2",
+  "tested_js_checkpoint": "b55fcce5012326e2ad597f1de4069898cd6ddcd1",
+  "p4_source_tree": "bbc4027ce38cb0a4d20ca8a43670affd1c16eeb2",
+  "tools_tree": "425354be37e878b232d919c279f3f1153ad14422",
+  "p4_and_tools_source_trees_unchanged": true,
+  "compiled": true,
+  "sdk": "Zephyr SDK1.0.0, GNU14.3.0 RISC-V; project-local toolchain",
+  "model_weights_or_firmware_in_git": false,
+  "sensitive_config_values_present": false,
+  "private_audio_used": false,
+  "physical_hardware": false,
+  "flashed": false,
+  "revision_guarded_release": false,
+  "exact_owner_image": false,
+  "post_build_checks": 4,
+  "sdk_files_matching_owner": 7,
+  "outputs": {
+    "zephyr.elf": {
+      "bytes": 29962240,
+      "sha256": "2bf98347eabd8a42bc9c62f2324e88e2adaf7cbed19582e28bc1b494b9e44781"
+    },
+    "zephyr.bin": {
+      "bytes": 15312480,
+      "sha256": "1d01461c5efb7c80584f8360fd22e2d84b486d66c0133324fa759212dddd86e0"
+    },
+    ".config": {
+      "bytes": 78582,
+      "sha256": "a656c3231b91a8e5d5ed14f2ef30c88b0b3e331a327cc98e54253ef2f72f7ba7"
+    },
+    "zephyr.dts": {
+      "bytes": 81538,
+      "sha256": "ecd225da415751cfda518365b7f591c20f44e56bdbe87b4fc357d765ed2e7397"
+    }
+  },
+  "memory_regions": [
+    "Memory region         Used Size  Region Size  %age Used",
+    "           FLASH:    15330836 B   33554176 B     45.69%",
+    "     sram0_0_seg:      382880 B       384 KB     97.37%",
+    "     irom0_0_seg:      509536 B        32 MB      1.52%",
+    "     drom0_0_seg:    15199764 B        32 MB     45.30%",
+    "    ext_dram_seg:    17321280 B        32 MB     51.62%",
+    "      lp_ram_seg:          36 B      30944 B      0.12%",
+    " lp_reserved_seg:           0 B         24 B      0.00%",
+    "        IDT_LIST:           0 B         8 KB      0.00%",
+    "Generating files from /home/fred/microblocks-js-p4-build-5ng6uxl3/build/zephyr/zephyr.elf for board: esp32p4_wifi6/esp32p4/hpcore",
+    "esptool v5.6.0"
+  ],
+  "seconds": 1064.718904068,
+  "exact_owner_differences": [
+    "Private camera-ready.wav fixture deliberately omitted; no substitute recording",
+    "Freshly generated165-file GP assets differ from retained owner asset blob",
+    "SDK1.0.0 used instead of owner-reported1.0.1"
+  ],
+  "clean_machine_gap": "Exact four-decoder-layerWhistle model was recovered from an existing licensed local release and matched the pin; a reviewed public acquisition/derivation recipe is still needed for a clean-machine build",
+  "persistent_workspace": "/home/fred/microblocks-js-p4-build-5ng6uxl3",
+  "original_sdk_changed": false,
+  "protected_p4_checkout_or_ports_accessed": false,
+  "published": false
+}
