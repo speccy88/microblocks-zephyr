@@ -18,6 +18,20 @@ CATALOG = json.loads((ROOT / 'dependencies/editor-targets.json').read_text(encod
 PROFILES = CATALOG['targets']
 
 
+def p4_service_files():
+    names = ['device-files-core.js', 'device-files-wire.js', 'device-files-controller.js',
+             'device-files.js', 'device-files.css', 'p4-neural-core.js', 'p4-neural.css']
+    result = {name: (ROOT / 'web' / name).read_bytes() for name in names}
+    for name in ('p4-services.js', 'p4-neural-client.js', 'p4-ui.js'):
+        result[name] = (ROOT / 'web/js-editor' / name).read_bytes()
+    sources = [{'packaged_path': name, 'source_path': ('web/' if name in names else 'web/js-editor/') + name,
+                'sha256': hashlib.sha256(raw).hexdigest()} for name, raw in result.items()]
+    result['p4-service-sources.json'] = (json.dumps({'schema': 1, 'sources': sources,
+        'gp_sources_modified': False, 'physical_js_acceptance': False,
+        'native_owner_checkpoint': '3063bf1 (preserved media implementation); newer private owner work unreconciled'}, indent=2) + '\n').encode()
+    return result
+
+
 def board_files(profile):
     config = PROFILES[profile]
     if not config['libraries']:
@@ -85,6 +99,17 @@ def package(source, output, manifest_path=None, *, profile='development'):
         '\t\t<script src="legacy-slots.js"></script>\n'
         '\t\t<script src="readback-compat.js"></script>\n'
         '\t\t<script src="linux-bootstrap.js"></script>\n' + ANCHOR)
+    if profile == 'esp32p4':
+        tags = ['<link rel="stylesheet" href="device-files.css">', '<link rel="stylesheet" href="p4-neural.css">']
+        for name in ('device-files-core.js', 'device-files-wire.js', 'device-files-controller.js', 'device-files.js',
+                     'p4-neural-core.js', 'p4-neural-client.js', 'p4-services.js', 'p4-ui.js'):
+            tags.append('<script src="' + name + '"></script>')
+        html = html.replace('\t\t<script src="linux-bootstrap.js"></script>',
+                            '\n'.join(tags) + '\n\t\t<script src="linux-bootstrap.js"></script>')
+        services = p4_service_files()
+        if files.keys() & services.keys():
+            raise ValueError('P4 service path collides with upstream')
+        files.update(services)
     files['index.html'] = html.encode('utf-8')
     # The existing Linux bridge intentionally serves this fixed entry name.
     files['microblocks.html'] = files['index.html']

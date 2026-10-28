@@ -12,7 +12,7 @@ deployment. A visible library is not hardware acceptance.
 | Waveshare RLCD | Explicit JS package, complete library, private `rlcd` namespace, identity-gated USB adapter | JS graphical peripherals/hardware and board-network transport |
 | Propeller 2 | Explicit FTDI USB profile with DTR false and v405 gate; complete `p2` library compile/roundtrip | Physical serial/reset behavior; independently inspect broader core primitive support |
 | XRP RP2350 | Exact production GP library and four dependencies copied with hashes; actual import/compile/roundtrip and USB gate; native actuator locks retained | Physical locked-runtime JS acceptance; public GP connection remains unchanged |
-| ESP32-P4 | Ten preserved library modules in one import; `p4`/I2C/JSON/clock/steps/storage private maps and USB gate | Bounded extension dispatch, inline image/audio and files/NN interfaces; owner checkpoint/hardware acceptance |
+| ESP32-P4 | Ten preserved modules and private maps; bounded extension dispatch; typed file controller/dialog, generation-bound neural import panel, guarded USB and explicit WSS frontend; native storage and full-suite checks in the dated receipt | Inline image/audio views and compiler tracing; owner checkpoint and real USB/WSS hardware acceptance |
 | UNO Q matrix reference | Explicit offline profile and exact reference library;13x8 slot preserves104-digit strings/defaults and prior actual saved-file reopening | Independent firmware identity and connectivity; broader arbitrary-size variants need exact source |
 
 The P4 owner's checkout, COM5/COM12 and paused SFC must remain untouched.

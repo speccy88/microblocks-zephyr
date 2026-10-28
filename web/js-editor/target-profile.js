@@ -30,7 +30,7 @@
         CommPort.prototype.connect = function (type, ...args) {
             if (profile.placeholder || profile.connection_enabled === false) throw Error(profile.name + ' is an experimental placeholder; offline editing only');
             if (profile.kind === 'serial') {
-                if (!canConnect(profile, location) || type !== 'serial') throw Error('Use the selected target USB connection; other transports are not enabled');
+                if (!canConnect(profile, location) || !(type === 'serial' || type === 'board-wss' && profile.secure_websocket)) throw Error('Use the selected target USB connection or its explicitly supported secure WebSocket');
                 return original.call(this, type, ...args);
             }
             if (id !== 'development' && (!canConnect(profile, location) || type !== 'linux-loopback')) {

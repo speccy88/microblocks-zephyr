@@ -64,7 +64,7 @@ def build(source, gp_site, output, profiles=None):
         else:
             description = 'Experimental USB editor with an explicit board identity/version check. Load target blocks to import its libraries. JavaScript hardware acceptance remains pending.'
             if profile == 'esp32p4':
-                description += ' Inline image/audio views and extended services are still being ported; use GP for the existing implementation.'
+                description += ' Files and neural model panels share the identified session; WSS requires your trusted TLS endpoint. Inline image/audio views remain in GP while being ported.'
         cards.append('<article><h2>' + escape(config['name']) + '</h2><p>' + escape(description) + '</p><a href="' + profile + '/index.html" target="_blank" rel="noopener noreferrer">Open ' + escape(config['name']) + ' JavaScript editor</a></article>')
     (preview / 'index.html').write_text(HUB.replace('<!-- TARGETS -->', '\n'.join(cards)), encoding='utf-8', newline='\n')
     result = hashes(output)
@@ -90,6 +90,10 @@ def build(source, gp_site, output, profiles=None):
                 for entry in json.loads((folder / manifest_name).read_text(encoding='utf-8'))['sources']:
                     if hashlib.sha256((ROOT / entry['source_path']).read_bytes()).hexdigest() != entry['sha256']:
                         raise ValueError('Library changed during packaging: ' + entry['source_path'])
+        if (folder / 'p4-service-sources.json').exists():
+            for entry in json.loads((folder / 'p4-service-sources.json').read_text(encoding='utf-8'))['sources']:
+                if hashlib.sha256((ROOT / entry['source_path']).read_bytes()).hexdigest() != entry['sha256']:
+                    raise ValueError('P4 service source changed during packaging: ' + entry['source_path'])
     report = {'schema': 1, 'published': False, 'gp_files_preserved': original,
               'profiles': entries, 'files': result, 'runtime_upgraded': False,
               'upstream_engine_modified': False}

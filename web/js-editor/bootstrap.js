@@ -29,6 +29,12 @@ window.addEventListener('DOMContentLoaded', () => {
     close.textContent = 'Close local link';
     close.onclick = () => { MB_connection.disconnect(); label.textContent = 'Local link closed. '; };
     panel.append(label, button, close);
+    if (MicroBlocksJSProfile.secure_websocket) {
+        const endpoint=document.createElement('input');endpoint.type='url';endpoint.placeholder='wss://board.local/ws/vm';endpoint.setAttribute('aria-label','Trusted P4 secure WebSocket address');
+        const network=document.createElement('button');network.textContent='Connect P4 WSS';
+        network.onclick=async()=>{try{const url=MicroBlocksBoardTransport.secureEndpoint(endpoint.value);await MB_connection.connect('board-wss',url);label.textContent='Waiting for secure P4 readiness and identity. ';}catch(error){label.textContent=error.message;}};
+        panel.append(endpoint,network);
+    }
     window.addEventListener('microblocks-target-status', event => {label.textContent = String(event.detail).slice(0,512) + ' ';});
     const library = MicroBlocksJSProfile.bundle || (MicroBlocksJSProfile.id === 'microduck' ? 'Libraries/MicroDuck Linux.ubl' : null);
     if (library) {
@@ -41,4 +47,8 @@ window.addEventListener('DOMContentLoaded', () => {
         panel.append(load);
     }
     document.body.append(panel);
+    if (MicroBlocksJSProfile.id === 'esp32p4') {
+        try {MicroBlocksP4UI.attach(MB_Connection,MB_connection,boardProfileRuntime);}
+        catch (error) {label.textContent = 'P4 services unavailable: ' + error.message;}
+    }
 });

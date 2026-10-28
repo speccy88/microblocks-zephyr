@@ -1,0 +1,13 @@
+{
+  "profile": "esp32p4",
+  "files_verified": 589,
+  "upstream_files_verified": 550,
+  "service_source_copies_verified": 10,
+  "no_production_file_fixture": true,
+  "manifest_sha256": "ba180a8522e8cf4eb863310292a05997ee711a516f5e6f7d7b40cda347670027",
+  "preserved_native_and_gp_sources_match_main": "6e2b4f9c0687006ac04a5d9a1bb14c265193cb3d",
+  "protected_owner_checkout_accessed": false,
+  "newer_unpublished_owner_checkpoint_known": false,
+  "physical_hardware": false,
+  "published": false
+}

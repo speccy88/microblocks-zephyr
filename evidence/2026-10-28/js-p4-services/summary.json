@@ -1,0 +1,150 @@
+{
+  "python_tests": 501,
+  "failures": 0,
+  "skips": 0,
+  "seconds": 266.566,
+  "source_inputs": 2231,
+  "pre_and_post_run_replica_and_working_hashes_match": true,
+  "native_file_fixture": {
+    "js_p4_native_storage": {
+      "actual_pinned_connection": true,
+      "native_storage_service": true,
+      "native_pinned_vm_sender": true,
+      "synthetic_usb": true,
+      "physical_hardware": false,
+      "conditional_writes": true,
+      "exact_bytes": true,
+      "asan_ubsan": true
+    },
+    "pinned_runtime_sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b",
+    "sender_sha256": "21c3c71bce5b86e4561b21daab17866a23fa1ff2d0108c50ca34524b3d57d211",
+    "sanitized_fixture_sha256": "75a2117a772862c074338519a140b4ecfbca40b687af19595509acd345050d11"
+  },
+  "protocol_fixture_checks": 8,
+  "wss_fixture_checks": 5,
+  "actual_pinned_connection_classes": true,
+  "hardware": false,
+  "new_pi_execution": false,
+  "tls_or_network_configuration_changed": false,
+  "protected_p4_checkout_or_ports_accessed": false,
+  "gp_sources_or_live_site_changed": false,
+  "pending_approval": null,
+  "published": false,
+  "first_to_final_source_delta": {
+    "tests/js-p4-services.test.cjs": {
+      "first": "27cb6d83b1ea3b0db10a31e0bf1bebfc343b680931107bad257acdaa6d78c460",
+      "final": "91d8d3c59e173676fa23d61ffc281ced5add3ff2b49e0b648f8926548026771a"
+    },
+    "tests/support/js_editor_headless.cjs": {
+      "first": "a6a82f42139743770f2fa981ef1f5ed5b41fb6fb645068dfb50cd15737c9f950",
+      "final": "42685e9f847f44eaa9d66a54ee22f05ebd4ed3df98900c0afd6d742163d7826c"
+    },
+    "tests/test_js_p4_services.py": {
+      "first": "59f12d1b10b2615b91d07a73133e19c479f1795410852e851f97ccc5874f21fb",
+      "final": "f731b0d98b9dab7ba5c2dc4d75441786baabc5ddb84e32a1e248f5262ae876a9"
+    }
+  },
+  "first_full_result": {
+    "tests": 501,
+    "failures": 1,
+    "native_child_started": false,
+    "reason": "WSL custom environment variable did not reach Windows Node"
+  },
+  "focused_fixture_corrections": [
+    "Browser AbortController/AbortSignal supplied to the headless fixture",
+    "Existing Client.read API used instead of nonexistent Client.open"
+  ],
+  "graphical": [
+    "Disconnected files modal, RAM temporary and Flash/SD unavailable; actions disabled",
+    "Neural panel renders and rejects disconnected action",
+    "UI rejects ws:// before a socket is opened",
+    "All ten library categories remain available; no captured console warnings/errors"
+  ],
+  "evidence_files": {
+    "build-audit.json": {
+      "source_sha256": "dd46946ee11bcaa54180121cf14b9f26eb33e3844f4c145d930e756c19fa75e9",
+      "archived_sha256": "dd46946ee11bcaa54180121cf14b9f26eb33e3844f4c145d930e756c19fa75e9",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "browser.json": {
+      "source_sha256": "472241f79531fd96e56f7ab607e5a4f3468abe1011131ed4f7891f6427f02aa8",
+      "archived_sha256": "472241f79531fd96e56f7ab607e5a4f3468abe1011131ed4f7891f6427f02aa8",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "files-dialog.png": {
+      "source_sha256": "8af4bc7eb9bd4c8fa36c8b742fe228adf731a65668de59376b9d52a9525f9abd",
+      "archived_sha256": "8af4bc7eb9bd4c8fa36c8b742fe228adf731a65668de59376b9d52a9525f9abd",
+      "normalization": null
+    },
+    "neural-panel.png": {
+      "source_sha256": "665df643d5645935272fbeaac5d58bf52ee2ca31a4c36e724e78f46ff0ad7a09",
+      "archived_sha256": "665df643d5645935272fbeaac5d58bf52ee2ca31a4c36e724e78f46ff0ad7a09",
+      "normalization": null
+    },
+    "loaded-libraries.png": {
+      "source_sha256": "7f0681962bd5c00af76b03c4d8958c8859809dcc7744c427fb6b4aadf8f9bced",
+      "archived_sha256": "7f0681962bd5c00af76b03c4d8958c8859809dcc7744c427fb6b4aadf8f9bced",
+      "normalization": null
+    },
+    "preview-cleanup.json": {
+      "source_sha256": "1156e31a084a46815caa6f5f4f17a33556e8a544aaa42e39f082ab4b85fdb198",
+      "archived_sha256": "eb4b0f7aa98765892ee5d1c880b004216f79fc290bdf838e612f919aa982c2ed",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "full-validation.json": {
+      "source_sha256": "87623801229ffcb207b8d357c6dea47a993fad7e09b483aec7fa3319efb9d5a2",
+      "archived_sha256": "87623801229ffcb207b8d357c6dea47a993fad7e09b483aec7fa3319efb9d5a2",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "full-validation.log": {
+      "source_sha256": "4e0d89b7956871ab7bb827edb3668c8bdd443e4dcfeed58bd4ecbe47d2ec8dcc",
+      "archived_sha256": "4e0d89b7956871ab7bb827edb3668c8bdd443e4dcfeed58bd4ecbe47d2ec8dcc",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "source-inputs.json": {
+      "source_sha256": "f2e8c5ba4cdf7ad5d15ffc22c4546bfc9a109946c77b130bdbced6aa031d6ac4",
+      "archived_sha256": "8eb102ba004b09f5032ab7e642520535a2b0ca86704f0710f71eb5ae6b539dd3",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "verified-copy-ledger.json": {
+      "source_sha256": "a25e5db54a93f49f9a96ceda5abb0089cced2f702bd865487529471a28d08126",
+      "archived_sha256": "a25e5db54a93f49f9a96ceda5abb0089cced2f702bd865487529471a28d08126",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "validation-runner.py.txt": {
+      "source_sha256": "66d90c6615a05fc63631a0ac00cbad43b6da68562378491501417ecaf7956807",
+      "archived_sha256": "73b75d4b633c8f282004591c321f4799fefa3ef2b0ca506596a7419aa9f7a83d",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "native-focused.log": {
+      "source_sha256": "43bf7bf022c103453dddc62022bbafea2519def9a94de90591e5dfedcbe5f8b1",
+      "archived_sha256": "43bf7bf022c103453dddc62022bbafea2519def9a94de90591e5dfedcbe5f8b1",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "focused-abort-api-failure.log": {
+      "source_sha256": "ecafca3230cf5e6532f9a0aa64ec2477ebe45b8b0d796d950f252c71dd9bee70",
+      "archived_sha256": "ecafca3230cf5e6532f9a0aa64ec2477ebe45b8b0d796d950f252c71dd9bee70",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "focused-read-api-failure.log": {
+      "source_sha256": "d6ff2c4da460f4afa24a0395eb4404871d13f1a8033742eb66ff72a4d10a5295",
+      "archived_sha256": "d6ff2c4da460f4afa24a0395eb4404871d13f1a8033742eb66ff72a4d10a5295",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "first-full-failed.log": {
+      "source_sha256": "560f85ad47692698d18d9aed162199155d142ed0d1841158ba82571fd6b9961e",
+      "archived_sha256": "560f85ad47692698d18d9aed162199155d142ed0d1841158ba82571fd6b9961e",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "first-full-failed.json": {
+      "source_sha256": "32101f71f7cbc4c72f08a068040c9e2ba50238f1c457ed79668053e0d6faa681",
+      "archived_sha256": "32101f71f7cbc4c72f08a068040c9e2ba50238f1c457ed79668053e0d6faa681",
+      "normalization": "UTF-8 LF only; no lines removed"
+    },
+    "first-source-inputs.json": {
+      "source_sha256": "bbd26dfd1a66804779d7df89f610b4b924852ba1e60eb2c28a35594c36b3bef3",
+      "archived_sha256": "1eced069be874e9e0a5dec2e7d5157292835af0062c25af582eafba75c2579d6",
+      "normalization": "UTF-8 LF only; no lines removed"
+    }
+  }
+}

@@ -25,7 +25,7 @@ function load(assets, options = {}) {
     const body = element('body'), document = {body, documentElement: {clientWidth: 1024, clientHeight: 768},
         createElement: element, addEventListener() {}, dispatchEvent() {},
         getElementById() {return null;}, querySelector() {return element('canvas');}};
-    const sandbox = {console: options.console || console, TextEncoder, TextDecoder, Uint8Array, Uint8ClampedArray, ArrayBuffer,
+    const sandbox = {console: options.console || console, crypto: options.crypto || crypto.webcrypto, AbortController, AbortSignal, TextEncoder, TextDecoder, Uint8Array, Uint8ClampedArray, ArrayBuffer,
         URL, setTimeout, clearTimeout, setInterval() {return 0;}, requestAnimationFrame() {}, document,
         location: options.location || {href: 'http://127.0.0.1:18876/'}, WebSocket: options.Socket,
         async fetch(name) {
@@ -53,13 +53,20 @@ function load(assets, options = {}) {
     vm.runInContext(fs.readFileSync(path.join(assets, 'target-config.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(assets, 'target-profile.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(assets, 'board-transport.js'), 'utf8'), context);
+    if (manifest && fs.existsSync(path.join(assets,'p4-service-sources.json'))) {
+        for (const name of ['device-files-core.js','device-files-wire.js','device-files-controller.js',
+                            'p4-neural-core.js','p4-neural-client.js','p4-services.js']) {
+            vm.runInContext(fs.readFileSync(path.join(assets,name),'utf8'),context,{filename:name});
+        }
+    }
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/legacy-slots.js'), 'utf8'), context);
     if (options.readback !== false) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/readback-compat.js'), 'utf8'), context);
         vm.runInContext('MicroBlocksReadback.install(MB_Decompiler,MB_CodeManager,ScriptsMorph,()=>MB_editor);', context);
     }
     vm.runInContext(`MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket,MicroBlocksJSProfile.primitive_sets,MicroBlocksJSProfile.function_names);
-        if(MicroBlocksJSProfile.kind==='serial')MicroBlocksBoardTransport.install(MB_CommPort,MB_Connection,MicroBlocksJSProfile,navigator.serial,()=>MB_editor);
+        if(MicroBlocksJSProfile.kind==='serial')globalThis.MB_boardRuntime=MicroBlocksBoardTransport.install(MB_CommPort,MB_Connection,MicroBlocksJSProfile,navigator.serial,()=>MB_editor);
+        if(MicroBlocksJSProfile.id==='esp32p4'&&typeof MicroBlocksP4Services==='object')globalThis.MB_p4Services=MicroBlocksP4Services.install(MB_Connection,MB_connection,MB_boardRuntime,{files:MicroBlocksFilesConnection});
         MicroBlocksTarget.install(MB_CommPort,MicroBlocksJSProfile.id,location);
         MicroBlocksLegacySlots.install(MB_Specs,SyntaxElementMorph,MicroBitDisplaySlotMorph,ArgMorph,Color,Point,MenuMorph);
         MB_Specs.initialize();`, context, {timeout: 10000});

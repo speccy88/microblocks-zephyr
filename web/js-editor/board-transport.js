@@ -3,6 +3,39 @@
 (function (root) {
     'use strict';
     const MAX_INPUT=131072,MAX_OUTPUT=32768,installed=new WeakMap();
+    function secureEndpoint(value){
+        if(typeof value!=='string'||value.length>512||/[\x00-\x20\x7f]/.test(value))throw Error('Invalid secure board address');
+        const url=new URL(value);
+        if(url.protocol!=='wss:'||!url.hostname||url.username||url.password||url.search||url.hash||url.pathname!=='/ws/vm')throw Error('Use a trusted wss:// board address ending in /ws/vm, without credentials, query or fragment');
+        return url.href;
+    }
+    class WSSPort{
+        constructor(Socket,endpoint,notify=()=>{}){this.Socket=Socket;this.endpoint=secureEndpoint(endpoint);this.notify=notify;this.ready=false;this.closed=false;this.parts=[];this.size=0;this.opening=null;}
+        connect(){
+            if(this.opening)return this.opening;
+            this.opening=new Promise((resolve,reject)=>{
+                this.reject=reject;
+                if(typeof this.Socket!=='function'){reject(Error('WebSocket is unavailable'));return;}
+                const socket=this.socket=new this.Socket(this.endpoint);socket.binaryType='arraybuffer';
+                const fail=message=>{if(this.closed)return;this.error=message;this.notify(message);this.disconnect();};
+                this.timer=setTimeout(()=>fail('Secure board readiness timed out'),5000);
+                socket.onmessage=event=>{
+                    if(this.closed)return;
+                    if(!this.ready){if(event.data!=='ready'){fail('Expected board readiness marker');return;}this.ready=true;clearTimeout(this.timer);this.reject=null;resolve();return;}
+                    if(!(event.data instanceof ArrayBuffer)&&!(event.data instanceof Uint8Array)){fail('Secure board stream requires binary data');return;}
+                    const bytes=new Uint8Array(event.data);
+                    if(!bytes.length||bytes.length>4096||this.size+bytes.length>MAX_INPUT){fail('Secure board input limit exceeded');return;}
+                    this.parts.push(bytes.slice());this.size+=bytes.length;if(this.dataArrived)this.dataArrived();
+                };
+                socket.onerror=()=>fail('Secure board connection failed; check the address and certificate without bypassing browser warnings');
+                socket.onclose=()=>{if(!this.closed){this.notify('Secure board connection closed');this.disconnect();}};
+            }).catch(error=>{if(!this.closed){this.error=error.message;this.notify(error.message);this.disconnect();}throw error;}).finally(()=>{this.opening=null;if(this.settled)this.settled();});return this.opening;
+        }
+        isConnected(){return !this.closed&&this.ready&&this.socket?.readyState===1;}
+        read(){const bytes=new Uint8Array(this.size);let offset=0;for(const part of this.parts){bytes.set(part,offset);offset+=part.length;part.fill(0);}this.parts=[];this.size=0;return bytes;}
+        write(bytes){if(!(bytes instanceof Uint8Array)||bytes.length<1||bytes.length>4096)throw Error('Secure board write requires 1..4096 bytes');if(!this.isConnected()||this.socket.bufferedAmount+bytes.length>MAX_OUTPUT)return 0;this.socket.send(bytes.slice());return bytes.length;}
+        disconnect(){if(this.closed)return;this.closed=true;this.ready=false;clearTimeout(this.timer);if(this.reject){this.reject(Error(this.error||'Secure board connection cancelled'));this.reject=null;}for(const part of this.parts)part.fill(0);this.parts=[];this.size=0;if(this.socket?.readyState<2)this.socket.close();if(this.settled)this.settled();}
+    }
     class USBPort {
         constructor(provider, profile, notify=()=>{}) {
             this.provider=provider;this.profile=profile;this.notify=notify;
@@ -69,16 +102,18 @@
             this.cleanup=this.release(resources).finally(()=>{this.cleanup=null;if(this.settled)this.settled();});return this.cleanup;
         }
     }
-    function install(CommPort,Connection,profile,provider,editor,notify=()=>{}) {
-        if(installed.has(Connection)){if(installed.get(Connection)!==profile.id)throw Error('Board profile already installed');return;}
+    function install(CommPort,Connection,profile,provider,editor,notify=()=>{},Socket=root.WebSocket) {
+        if(installed.has(Connection)){const prior=installed.get(Connection);if(prior.id!==profile.id)throw Error('Board profile already installed');return prior.api;}
         for(const name of ['connect','disconnect','sendMsg','versionReceived','justConnected'])if(typeof Connection.prototype[name]!=='function')throw Error('Upstream board hook changed: '+name);
         const opening=new Set(),states=new WeakMap();
-        const state=connection=>{if(!states.has(connection))states.set(connection,{epoch:0,verified:false,pending:0});return states.get(connection);};
+        const state=connection=>{if(!states.has(connection))states.set(connection,{epoch:0,verified:false,pending:0,listeners:new Set()});return states.get(connection);};
+        const snapshot=connection=>Object.freeze({epoch:state(connection).epoch,verified:state(connection).verified&&connection.isConnected()});
+        const signal=connection=>{const update=snapshot(connection);for(const fn of [...state(connection).listeners]){try{fn(update);}catch(error){notify('Target service listener failed: '+error.message);}}};
         const originalPortConnect=CommPort.prototype.connect;
         CommPort.prototype.connect=function(type,...args){
-            if(type!=='serial')return originalPortConnect.call(this,type,...args);
+            if(type!=='serial'&&!(type==='board-wss'&&profile.secure_websocket))return originalPortConnect.call(this,type,...args);
             if([...opening].some(port=>port.opening||port.cleanup))throw Error('Previous USB selection or cleanup is still pending');
-            this.boardUSB=new USBPort(provider,profile,notify);const own=this.boardUSB;
+            this.boardUSB=type==='serial'?new USBPort(provider,profile,notify):new WSSPort(Socket,args[0],notify);const own=this.boardUSB;
             own.dataArrived=()=>{if(this.boardUSB===own&&this.dataArrived)this.dataArrived();};
             own.settled=()=>{if(!own.ready&&!own.opening&&!own.cleanup)opening.delete(own);};
             // Keep ready ports tracked: a read failure can start asynchronous
@@ -90,20 +125,20 @@
             CommPort.prototype[name]=function(...args){
                 if(!this.boardUSB)return original.apply(this,args);
                 const own=this.boardUSB;
-                if(name==='disconnect'){opening.add(own);void own.disconnect().finally(()=>{if(!own.opening)opening.delete(own);});return;}
+                if(name==='disconnect'){opening.add(own);void Promise.resolve(own.disconnect()).finally(()=>{if(!own.opening)opening.delete(own);});return;}
                 return own[name](...args);
             };
         }
         const connect=Connection.prototype.connect,disconnect=Connection.prototype.disconnect,version=Connection.prototype.versionReceived;
         Connection.prototype.connect=function(...args){this.disconnect();return connect.apply(this,args);};
-        Connection.prototype.disconnect=function(...args){const own=state(this);own.epoch++;own.verified=false;if(this.recvBuf instanceof Uint8Array)this.recvBuf.fill(0);this.recvBuf=new Uint8Array(0);return disconnect.apply(this,args);};
+        Connection.prototype.disconnect=function(...args){const own=state(this);own.epoch++;own.verified=false;if(this.recvBuf instanceof Uint8Array)this.recvBuf.fill(0);this.recvBuf=new Uint8Array(0);try{return disconnect.apply(this,args);}finally{signal(this);}};
         Connection.prototype.versionReceived=function(text){
             const own=state(this),type=typeof text==='string'?this.extractBoardType(text):'',number=typeof text==='string'?this.extractVersionNumber(text):-1;
             if(typeof text!=='string'||text.length>220||!/^v\d+\s/.test(text)||/[\x00-\x1f\x7f]/.test(text)||!profile.vm_versions.includes(number)||
                 !(type===profile.board_type_prefix||type.startsWith(profile.board_type_prefix+' '))){
                 notify('Board identity/version does not match '+profile.name+'. No program was uploaded.');this.disconnect();return;
             }
-            own.verified=true;return version.call(this,text);
+            own.verified=true;const result=version.call(this,text);signal(this);return result;
         };
         // Pin each queued write to its originating port/session. A reconnect
         // must never receive a previously queued program from another board.
@@ -144,9 +179,17 @@
         };
         Connection.prototype.checkVmVersion=async()=>false;
         Connection.prototype.installBoardSpecificBlocks=async()=>{};
-        installed.set(Connection,profile.id);
-        return {verified:connection=>state(connection).verified};
+        const api={verified:connection=>snapshot(connection).verified,
+            subscribe(connection,fn){if(typeof fn!=='function')throw Error('Target listener must be a function');state(connection).listeners.add(fn);fn(snapshot(connection));return ()=>state(connection).listeners.delete(fn);},
+            sendFrame(connection,frame){
+                if(!(frame instanceof Uint8Array)||frame.length<6||frame.length>4096||frame[0]!==251||frame[1]<1||frame[3]+256*frame[4]!==frame.length-5||frame[frame.length-1]!==254)throw Error('Invalid framed target request');
+                if(!snapshot(connection).verified||state(connection).pending+frame.length>MAX_OUTPUT)return 0;
+                // sendMsg validates/copies and reserves the queue synchronously.
+                // Returning a byte count acknowledges that reservation only.
+                void connection.sendMsg(frame[1],frame[2],frame.slice(5,-1)).catch(()=>{});return frame.length;
+            }};
+        installed.set(Connection,{id:profile.id,api});return api;
     }
-    const api=Object.freeze({USBPort,install,MAX_INPUT,MAX_OUTPUT});root.MicroBlocksBoardTransport=api;
+    const api=Object.freeze({USBPort,WSSPort,secureEndpoint,install,MAX_INPUT,MAX_OUTPUT});root.MicroBlocksBoardTransport=api;
     if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);

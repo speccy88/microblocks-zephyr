@@ -1,5 +1,10 @@
 # P4 integration after the JavaScript project round trip
 
+Follow-up: the separate [service integration](JS_P4_SERVICES_SPEC.md) adds
+bounded dispatch, typed files/neural panels and a guarded explicit WSS frontend.
+Its dated evidence distinguishes protocol/native-service fixtures and browser
+UI checks from physical acceptance. Inline block media remains unfinished.
+
 This is a read-only assessment of the P4 sources already preserved in this
 isolated clone at `279321173eff14a4c4fadbc58f33818184579cc4`. The protected
 owner checkout, COM5/COM12, physical board and paused SFC work were not accessed.

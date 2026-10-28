@@ -1,0 +1,22 @@
+test_actual_connection_and_typed_service_lifecycle (test_js_p4_services.JSP4Services.test_actual_connection_and_typed_service_lifecycle) ... ok
+test_actual_connection_routes_native_storage_and_pinned_sender (test_js_p4_services.JSP4Services.test_actual_connection_routes_native_storage_and_pinned_sender) ... FAIL
+test_secure_network_transport_with_actual_connection (test_js_p4_services.JSP4Services.test_secure_network_transport_with_actual_connection) ... ok
+
+======================================================================
+FAIL: test_actual_connection_routes_native_storage_and_pinned_sender (test_js_p4_services.JSP4Services.test_actual_connection_routes_native_storage_and_pinned_sender)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tests/test_js_p4_services.py", line 90, in test_actual_connection_routes_native_storage_and_pinned_sender
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : ReferenceError: AbortController is not defined
+    at Client.run (device-files-core.js:88:21)
+    at Client.refresh (device-files-core.js:92:31)
+    at nativeFiles (C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\js-p4-services.test.cjs:34:64)
+    at async main (C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\js-p4-services.test.cjs:42:168)
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 18.293s
+
+FAILED (failures=1)

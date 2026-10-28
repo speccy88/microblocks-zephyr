@@ -1,0 +1,7 @@
+test_actual_connection_routes_native_storage_and_pinned_sender (test_js_p4_services.JSP4Services.test_actual_connection_routes_native_storage_and_pinned_sender) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.655s
+
+OK
+{"js_p4_native_storage": {"actual_pinned_connection": true, "native_storage_service": true, "native_pinned_vm_sender": true, "synthetic_usb": true, "physical_hardware": false, "conditional_writes": true, "exact_bytes": true, "asan_ubsan": true}, "pinned_runtime_sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b", "sender_sha256": "21c3c71bce5b86e4561b21daab17866a23fa1ff2d0108c50ca34524b3d57d211", "sanitized_fixture_sha256": "55f349fe5952dfe41c4f564f6277d8d734e8588632093149e9eba8b83020e843"}

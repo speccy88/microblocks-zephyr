@@ -116,6 +116,7 @@
       "kind": "serial",
       "placeholder": false,
       "connection_enabled": true,
+      "secure_websocket": true,
       "primitive_sets": {
         "p4": 3,
         "i2cDetect": 4,
