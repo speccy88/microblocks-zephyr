@@ -1,0 +1,81 @@
+{
+  "workspace": "/tmp/p4-zephyr-review-61uc2__0/workspace",
+  "source_revision": "9c60ae6f77ba48d0b55bd33fd34b63cff8fcb49e plus optional SD diagnostic guard; frozen validation inputs p4-sd-stack-final",
+  "original_sdk": "/home/fred/microblocks-zephyr-work",
+  "original_sdk_changed": false,
+  "hardware_touched": false,
+  "scope": "fresh minimal camera/audio/SD source configuration; neural/Whistle/KWS/private media omitted; never an exact owner image rebuild",
+  "configure_returncode": 0,
+  "configured": true,
+  "compiled": true,
+  "build": "/tmp/p4-zephyr-review-61uc2__0/build",
+  "zephyr": "/tmp/p4-zephyr-review-61uc2__0/workspace/zephyr",
+  "log_tail": "king C static library zephyr/lib/libc/common/liblib__libc__common.a\n[344/370] Linking C static library zephyr/subsys/fs/libsubsys__fs.a\n[345/370] Linking C static library zephyr/subsys/portability/posix/c_lib_ext/libsubsys__portability__posix__c_lib_ext.a\n[346/370] Linking C static library zephyr/subsys/sd/libsubsys__sd.a\n[347/370] Linking C static library zephyr/drivers/interrupt_controller/libdrivers__interrupt_controller.a\n[348/370] Linking C static library zephyr/drivers/cache/libdrivers__cache.a\n[349/370] Linking C static library zephyr/drivers/clock_control/libdrivers__clock_control.a\n[350/370] Linking C static library zephyr/drivers/disk/libdrivers__disk.a\n[351/370] Linking C static library zephyr/drivers/dma/libdrivers__dma.a\n[352/370] Linking C static library zephyr/drivers/gpio/libdrivers__gpio.a\n[353/370] Linking C static library zephyr/drivers/i2c/libdrivers__i2c.a\n[354/370] Linking C static library zephyr/drivers/i2s/libdrivers__i2s.a\n[355/370] Linking C static library zephyr/drivers/pinctrl/libdrivers__pinctrl.a\n[356/370] Linking C static library zephyr/drivers/regulator/libdrivers__regulator.a\n[357/370] Linking C static library zephyr/drivers/sdhc/libdrivers__sdhc.a\n[358/370] Linking C static library zephyr/drivers/serial/libdrivers__serial.a\n[359/370] Linking C static library zephyr/drivers/timer/libdrivers__timer.a\n[360/370] Linking C static library zephyr/drivers/video/libdrivers__video.a\n[361/370] Linking C static library modules/fatfs/libmodules__fatfs.a\n[362/370] Linking C static library zephyr/kernel/libkernel.a\n[363/370] Linking C static library zephyr/libzephyr.a\n[364/370] Linking C executable zephyr/zephyr_pre0.elf; Logical command for additional byproducts on target: zephyr_pre0\n[365/370] Generating linker.cmd\n[366/370] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld\n[367/370] Building C object zephyr/CMakeFiles/zephyr_final.dir/misc/empty_file.c.obj\n[368/370] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj\n[369/370] Linking C executable zephyr/zephyr.elf\nMemory region         Used Size  Region Size  %age Used\n           FLASH:      438772 B   33554176 B      1.31%\n     sram0_0_seg:      163680 B       384 KB     41.63%\n     irom0_0_seg:      251744 B        32 MB      0.75%\n     drom0_0_seg:      307700 B        32 MB      0.92%\n    ext_dram_seg:    17188256 B        32 MB     51.22%\n      lp_ram_seg:          36 B      30944 B      0.12%\n lp_reserved_seg:           0 B         24 B      0.00%\n        IDT_LIST:           0 B         8 KB      0.00%\nGenerating files from /tmp/p4-zephyr-review-61uc2__0/build/zephyr/zephyr.elf for board: esp32p4_wifi6/esp32p4/hpcore\nesptool v5.6.0\nCreating ESP32-P4 image...\nImage has only RAM segments visible. ROM segments are hidden and SHA256 digest is not appended.\nNOTE: Inserting 4 bytes padding between device_api_area and tdata\nNOTE: Inserting 4 bytes padding between k_kernel_init_pre_entry_area and _static_thread_data_area\nMerged 17 ELF sections.\nSuccessfully created ESP32-P4 image.\n[370/370] cd /tmp/p4-zephyr-review-61uc2__0/build && /home/fred/microblocks-zephyr-work/.venv/bin/python /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/check_p4_vm_memory.py --elf /tmp/p4-zephyr-review-61uc2__0/build/zephyr/zephyr.elf\n{\"result\": \"PASS\", \"VM_task_bytes\": 5240, \"VM_task_address\": \"0x48010000\", \"native_stacks\": {\"z_main_stack\": {\"bytes\": 16384, \"address\": \"0x4ff5ac00\"}}, \"physical_tested\": false}\n",
+  "build_returncode": 0,
+  "outputs": {
+    "zephyr.elf": {
+      "bytes": 5229188,
+      "sha256": "6f0158ea3f4793d2aa00490005247bda51ab3755689d574a809f9820199e3657"
+    },
+    "zephyr.bin": {
+      "bytes": 440160,
+      "sha256": "b66e6b0eee0214608bd4b03efd5dfc119869d347eb212ba696013a1f7baec6c0"
+    },
+    ".config": {
+      "bytes": 55237,
+      "sha256": "06098355ed9aab7f0470d5585d7affc9fb231bb51fab47c76e7bd66e0898e1f0"
+    },
+    "zephyr.dts": {
+      "bytes": 83054,
+      "sha256": "cae490b6e9eb192f79d365b0b41872feefdcb6097d3069a753939663409b9110"
+    }
+  },
+  "seconds": 219.12879219500002,
+  "commands": [
+    [
+      "git",
+      "clone",
+      "--shared",
+      "--no-checkout",
+      "/home/fred/microblocks-zephyr-work/zephyr",
+      "/tmp/p4-zephyr-review-61uc2__0/workspace/zephyr"
+    ],
+    [
+      "git",
+      "-C",
+      "/tmp/p4-zephyr-review-61uc2__0/workspace/zephyr",
+      "checkout",
+      "--detach",
+      "a915b2f12675b48b16d56653ea145dcd8f20cbbf"
+    ],
+    [
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/apply_p4_zephyr_patches.py",
+      "--zephyr",
+      "/tmp/p4-zephyr-review-61uc2__0/workspace/zephyr",
+      "--execute"
+    ],
+    [
+      "/home/fred/microblocks-zephyr-work/.venv/bin/west",
+      "build",
+      "--cmake-only",
+      "-b",
+      "esp32p4_wifi6/esp32p4/hpcore",
+      "-s",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr",
+      "-d",
+      "/tmp/p4-zephyr-review-61uc2__0/build",
+      "--",
+      "-DSMALLVM_SOURCE_DIR=/tmp/p4-zephyr-review-61uc2__0/smallvm",
+      "-DEXTRA_CONF_FILE=profiles/sd-files.conf",
+      "-DEXTRA_DTC_OVERLAY_FILE=profiles/sd-readonly.overlay"
+    ],
+    [
+      "cmake",
+      "--build",
+      "/tmp/p4-zephyr-review-61uc2__0/build",
+      "--",
+      "-j2"
+    ]
+  ]
+}

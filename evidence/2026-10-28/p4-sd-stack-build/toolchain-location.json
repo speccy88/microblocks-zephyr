@@ -1,0 +1,16 @@
+{
+  "uid": 1000,
+  "home": "/home/fred",
+  "registry": [],
+  "configured": {
+    "ZEPHYR_SDK_INSTALL_DIR": null,
+    "ZEPHYR_TOOLCHAIN_VARIANT": null,
+    "CROSS_COMPILE": null
+  },
+  "cross_compilers": {
+    "riscv64-zephyr-elf-gcc": null,
+    "riscv32-esp-elf-gcc": null,
+    "riscv32-zephyr-elf-gcc": null
+  },
+  "sdk_candidates": []
+}

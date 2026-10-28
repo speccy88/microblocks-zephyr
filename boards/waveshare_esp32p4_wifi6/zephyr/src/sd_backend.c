@@ -85,7 +85,12 @@ void mb_sd_poll(void)
     struct sd_job *job=sd_state.active;
     if(!job||k_thread_join(&job->thread,K_NO_WAIT))return;
     sd_state.result=job->result;sd_state.elapsed=k_uptime_get()-job->began;
+#if defined(CONFIG_INIT_STACKS) && defined(CONFIG_THREAD_STACK_INFO)
     sd_state.stack_error=k_thread_stack_space_get(&job->thread,&sd_state.unused_stack);
+#else
+    /* This diagnostic is optional; minimal SD profiles do not link its syscall. */
+    sd_state.unused_stack=0;sd_state.stack_error=-ENOTSUP;
+#endif
     /* A failed free keeps ownership so no second job can reuse a live stack. */
     int error=k_thread_stack_free(job->stack);
     if(error){sd_state.phase="stack release failed";sd_state.stack_error=error;return;}

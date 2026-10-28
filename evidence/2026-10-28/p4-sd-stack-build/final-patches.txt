@@ -1,0 +1,12 @@
+0003-esp-hosted-bounded-header-diagnostics.patch: applied
+0004-esp-hosted-ap-only-compatible-init.patch: applied
+0005-esp-hosted-deferred-station.patch: applied
+0006-esp-hosted-decode-ownership-hook.patch: applied
+0007-esp-hosted-partial-padding-bound.patch: applied
+0008-esp-hosted-legacy-config-presence.patch: applied
+0009-esp-hosted-shared-internal-tx.patch: applied
+0010-esp-hosted-cpu-tx-staging-psram.patch: applied
+0011-http-bounded-observation-hooks.patch: applied
+0012-http-poll-error-observation.patch: applied
+i2s-pre-v3-xtal.patch: applied
+sdhc-native-irq-error.patch: applied

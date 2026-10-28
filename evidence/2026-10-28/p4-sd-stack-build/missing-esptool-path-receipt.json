@@ -1,0 +1,55 @@
+{
+  "workspace": "/tmp/p4-zephyr-review-c37qm_oh/workspace",
+  "source_revision": "9c60ae6f77ba48d0b55bd33fd34b63cff8fcb49e; P4 sources unchanged since9126294",
+  "original_sdk": "/home/fred/microblocks-zephyr-work",
+  "original_sdk_changed": false,
+  "hardware_touched": false,
+  "scope": "fresh minimal camera/audio/SD source configuration; neural/Whistle/KWS/private media omitted; never an exact owner image rebuild",
+  "configure_returncode": 1,
+  "configured": false,
+  "compiled": false,
+  "build": "/tmp/p4-zephyr-review-c37qm_oh/build",
+  "zephyr": "/tmp/p4-zephyr-review-c37qm_oh/workspace/zephyr",
+  "log_tail": "rch paths.\n-- Found BOARD.dts: /tmp/p4-zephyr-review-c37qm_oh/workspace/zephyr/boards/waveshare/esp32p4_wifi6/esp32p4_wifi6_esp32p4_hpcore.dts\n-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/app.overlay\n-- Found devicetree overlay: profiles/sd-readonly.overlay\n-- Generated zephyr.dts: /tmp/p4-zephyr-review-c37qm_oh/build/zephyr/zephyr.dts\n-- Generated pickled edt: /tmp/p4-zephyr-review-c37qm_oh/build/zephyr/edt.pickle\n-- Generated devicetree_generated.h: /tmp/p4-zephyr-review-c37qm_oh/build/zephyr/include/generated/zephyr/devicetree_generated.h\nParsing /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/Kconfig\nLoaded configuration '/tmp/p4-zephyr-review-c37qm_oh/workspace/zephyr/boards/waveshare/esp32p4_wifi6/esp32p4_wifi6_esp32p4_hpcore_defconfig'\nMerged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/prj.conf'\nMerged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/profiles/sd-files.conf'\nConfiguration saved to '/tmp/p4-zephyr-review-c37qm_oh/build/zephyr/.config'\nKconfig header saved to '/tmp/p4-zephyr-review-c37qm_oh/build/zephyr/include/generated/zephyr/autoconf.h'\n-- Could NOT find Ccache (missing: CCACHE) (Required is at least version \"4.12\")\nHint: The project() command has not yet been called.  It sets up system-specific search paths.\n-- Found GnuLd: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review/gnu/riscv64-zephyr-elf/riscv64-zephyr-elf/bin/ld.bfd (found version \"2.43.1\")\n-- The C compiler identification is GNU 14.3.0\n-- The CXX compiler identification is GNU 14.3.0\n-- The ASM compiler identification is GNU\n-- Found assembler: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review/gnu/riscv64-zephyr-elf/bin/riscv64-zephyr-elf-gcc\n-- Configuring incomplete, errors occurred!\nLoading Zephyr default modules (Zephyr base).\n\nwarning: Deprecated symbol RING_BUFFER is enabled.\n\nCMake Error at /tmp/p4-zephyr-review-c37qm_oh/workspace/zephyr/soc/espressif/common/CMakeLists.txt:8 (message):\n  esptool>=5.0.2 not found in PATH.\n\n  Please install it using:\n\n    west packages pip --install\n\n\nFATAL ERROR: command exited with status 1: /usr/bin/cmake -DWEST_PYTHON=/home/fred/microblocks-zephyr-work/.venv/bin/python -DWEST_TOPDIR=/tmp/p4-zephyr-review-c37qm_oh/workspace -DWEST_VERSION=1.5.0 -B/tmp/p4-zephyr-review-c37qm_oh/build -GNinja '-DWEST_PYTHON_PROPERTIES=\"Python;3;12;15;64;;cpython-312-x86_64-linux-gnu.so;abi3;/home/fred/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages\"' -DBOARD=esp32p4_wifi6/esp32p4/hpcore -DSMALLVM_SOURCE_DIR=/tmp/p4-zephyr-review-c37qm_oh/smallvm -DEXTRA_CONF_FILE=profiles/sd-files.conf -DEXTRA_DTC_OVERLAY_FILE=profiles/sd-readonly.overlay -S/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr\n",
+  "seconds": 55.849293839,
+  "commands": [
+    [
+      "git",
+      "clone",
+      "--shared",
+      "--no-checkout",
+      "/home/fred/microblocks-zephyr-work/zephyr",
+      "/tmp/p4-zephyr-review-c37qm_oh/workspace/zephyr"
+    ],
+    [
+      "git",
+      "-C",
+      "/tmp/p4-zephyr-review-c37qm_oh/workspace/zephyr",
+      "checkout",
+      "--detach",
+      "a915b2f12675b48b16d56653ea145dcd8f20cbbf"
+    ],
+    [
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/apply_p4_zephyr_patches.py",
+      "--zephyr",
+      "/tmp/p4-zephyr-review-c37qm_oh/workspace/zephyr",
+      "--execute"
+    ],
+    [
+      "/home/fred/microblocks-zephyr-work/.venv/bin/west",
+      "build",
+      "--cmake-only",
+      "-b",
+      "esp32p4_wifi6/esp32p4/hpcore",
+      "-s",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr",
+      "-d",
+      "/tmp/p4-zephyr-review-c37qm_oh/build",
+      "--",
+      "-DSMALLVM_SOURCE_DIR=/tmp/p4-zephyr-review-c37qm_oh/smallvm",
+      "-DEXTRA_CONF_FILE=profiles/sd-files.conf",
+      "-DEXTRA_DTC_OVERLAY_FILE=profiles/sd-readonly.overlay"
+    ]
+  ]
+}

@@ -1,0 +1,45 @@
+-- west build: generating a build system
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr
+-- CMake version: 4.4.4
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: esp32p4_wifi6, qualifiers: esp32p4/hpcore
+-- Found host-tools: zephyr 1.0.0 (/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review)
+-- Found toolchain: zephyr 1.0.0 (/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review)
+-- Could NOT find Dtc (missing: DTC) (Required is at least version "1.4.6")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found BOARD.dts: /tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr/boards/waveshare/esp32p4_wifi6/esp32p4_wifi6_esp32p4_hpcore.dts
+-- Found devicetree overlay: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/app.overlay
+-- Found devicetree overlay: profiles/sd-readonly.overlay
+-- Generated zephyr.dts: /tmp/p4-zephyr-review-eig1vk9h/build/zephyr/zephyr.dts
+-- Generated pickled edt: /tmp/p4-zephyr-review-eig1vk9h/build/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /tmp/p4-zephyr-review-eig1vk9h/build/zephyr/include/generated/zephyr/devicetree_generated.h
+Parsing /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/Kconfig
+Loaded configuration '/tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr/boards/waveshare/esp32p4_wifi6/esp32p4_wifi6_esp32p4_hpcore_defconfig'
+Merged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/prj.conf'
+Merged configuration '/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr/profiles/sd-files.conf'
+Configuration saved to '/tmp/p4-zephyr-review-eig1vk9h/build/zephyr/.config'
+Kconfig header saved to '/tmp/p4-zephyr-review-eig1vk9h/build/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache (missing: CCACHE) (Required is at least version "4.12")
+Hint: The project() command has not yet been called.  It sets up system-specific search paths.
+-- Found GnuLd: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review/gnu/riscv64-zephyr-elf/riscv64-zephyr-elf/bin/ld.bfd (found version "2.43.1")
+-- The C compiler identification is GNU 14.3.0
+-- The CXX compiler identification is GNU 14.3.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review/gnu/riscv64-zephyr-elf/bin/riscv64-zephyr-elf-gcc
+-- Image partition address: 0x2000
+-- Found gen_kobject_list: /tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr/scripts/build/gen_kobject_list.py
+Complete pinned native P4 patch series applied (12 patches)
+Prepared verified SmallVM v417 with bounded scheduling and RAM-only code storage
+-- Configuring done (16.0s)
+-- Generating done (0.6s)
+-- Build files have been written to: /tmp/p4-zephyr-review-eig1vk9h/build
+Loading Zephyr default modules (Zephyr base).
+
+warning: Deprecated symbol RING_BUFFER is enabled.
+
+-- Espressif HAL path: /tmp/p4-zephyr-review-eig1vk9h/workspace/modules/hal/espressif
+CMake Warning at /tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr/CMakeLists.txt:2358 (message):
+  __ASSERT() statements are globally ENABLED

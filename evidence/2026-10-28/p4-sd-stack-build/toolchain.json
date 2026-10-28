@@ -1,0 +1,11 @@
+{
+  "official_release": "https://github.com/zephyrproject-rtos/sdk-ng/releases/tag/v1.0.0",
+  "sdk_version": "1.0.0",
+  "compiler": "GNU14.3.0",
+  "compiler_sha256": "79b638a9d7d8ad80384409a6796c0f0831a5f3f397e126a6f0ed910950bfe4a7",
+  "install_path": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-js-migration-20261027\\build-artifacts\\zephyr-sdk-1.0.0-review",
+  "selection": "riscv64-zephyr-elf only; no hosttools",
+  "installer": "official west sdk install; fetched SHA256 before download",
+  "esptool": "5.6.0 already present in existing venv; process PATH prefixed, no original venv modification",
+  "hardware_touched": false
+}

@@ -1,0 +1,73 @@
+{
+  "workspace": "/tmp/p4-zephyr-review-eig1vk9h/workspace",
+  "source_revision": "9c60ae6f77ba48d0b55bd33fd34b63cff8fcb49e; P4 sources unchanged since9126294",
+  "original_sdk": "/home/fred/microblocks-zephyr-work",
+  "original_sdk_changed": false,
+  "hardware_touched": false,
+  "scope": "fresh minimal camera/audio/SD source configuration; neural/Whistle/KWS/private media omitted; never an exact owner image rebuild",
+  "configure_returncode": 0,
+  "configured": true,
+  "compiled": false,
+  "build": "/tmp/p4-zephyr-review-eig1vk9h/build",
+  "zephyr": "/tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr",
+  "log_tail": "r/drivers/i2c/libdrivers__i2c.a  zephyr/drivers/i2s/libdrivers__i2s.a  zephyr/drivers/pinctrl/libdrivers__pinctrl.a  zephyr/drivers/regulator/libdrivers__regulator.a  zephyr/drivers/sdhc/libdrivers__sdhc.a  zephyr/drivers/serial/libdrivers__serial.a  zephyr/drivers/timer/libdrivers__timer.a  zephyr/drivers/video/libdrivers__video.a  modules/fatfs/libmodules__fatfs.a  -Wl,--no-whole-archive  zephyr/kernel/libkernel.a  -L/tmp/p4-zephyr-review-eig1vk9h/build/zephyr  zephyr/arch/common/libisr_tables.a  -fuse-ld=bfd  -mabi=ilp32f  -march=rv32imafc_zicsr_zifencei  -mcmodel=medlow  -Wl,--gc-sections  -Wl,--build-id=none  -Wl,--sort-common=descending  -Wl,--sort-section=alignment  -Wl,-u,_OffsetAbsSyms  -Wl,-u,_ConfigAbsSyms  -nostdlib  -static  -znoexecstack  -Wl,-X  -Wl,-N  -Wl,--orphan-handling=warn  -Wl,-no-pie  -Wl,--undefined=_sw_isr_table  -Wl,--undefined=_irq_vector_table  -specs=picolibc.specs  -DPICOLIBC_DOUBLE_PRINTF_SCANF  -lgcc  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/soc/esp32p4/ld/esp32p4.peripherals.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.eco0_4.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.eco0_4.rvfp.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.eco0_4.newlib.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.eco0_4.libc.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.eco0_4.libgcc.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/src/linker/esp32p4.rom.alias.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.api.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.version.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_rom/esp32p4/ld/esp32p4.rom.libc-suboptimal_for_misaligned_mem.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/esp_hal_wdt/esp32p4/rom.wdt.ld  -T/home/fred/microblocks-zephyr-work/modules/hal/espressif/zephyr/esp32p4/../../components/riscv/ld/rom.api.ld -L\"/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review/gnu/riscv64-zephyr-elf/bin/../lib/gcc/riscv64-zephyr-elf/14.3.0/rv32imafc_zicsr_zifencei/ilp32f/space\" -lc -lgcc && cd /tmp/p4-zephyr-review-eig1vk9h/build/zephyr && /home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages/cmake/data/bin/cmake -E true\n/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/zephyr-sdk-1.0.0-review/gnu/riscv64-zephyr-elf/bin/../lib/gcc/riscv64-zephyr-elf/14.3.0/../../../../riscv64-zephyr-elf/bin/ld.bfd: app/libapp.a(sd_backend.c.obj): in function `k_thread_stack_space_get':\n/tmp/p4-zephyr-review-eig1vk9h/build/zephyr/include/generated/zephyr/syscalls/kernel.h:98:(.text.mb_sd_poll+0x76): undefined reference to `z_impl_k_thread_stack_space_get'\ncollect2: error: ld returned 1 exit status\nninja: build stopped: subcommand failed.\n",
+  "build_returncode": 1,
+  "outputs": {
+    ".config": {
+      "bytes": 55237,
+      "sha256": "03fa47b6dc75a67063df0038ba72fa061c1e9a692c9dfc53885d2b77186bbe55"
+    },
+    "zephyr.dts": {
+      "bytes": 83054,
+      "sha256": "cae490b6e9eb192f79d365b0b41872feefdcb6097d3069a753939663409b9110"
+    }
+  },
+  "seconds": 202.892835054,
+  "commands": [
+    [
+      "git",
+      "clone",
+      "--shared",
+      "--no-checkout",
+      "/home/fred/microblocks-zephyr-work/zephyr",
+      "/tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr"
+    ],
+    [
+      "git",
+      "-C",
+      "/tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr",
+      "checkout",
+      "--detach",
+      "a915b2f12675b48b16d56653ea145dcd8f20cbbf"
+    ],
+    [
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/tools/apply_p4_zephyr_patches.py",
+      "--zephyr",
+      "/tmp/p4-zephyr-review-eig1vk9h/workspace/zephyr",
+      "--execute"
+    ],
+    [
+      "/home/fred/microblocks-zephyr-work/.venv/bin/west",
+      "build",
+      "--cmake-only",
+      "-b",
+      "esp32p4_wifi6/esp32p4/hpcore",
+      "-s",
+      "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr",
+      "-d",
+      "/tmp/p4-zephyr-review-eig1vk9h/build",
+      "--",
+      "-DSMALLVM_SOURCE_DIR=/tmp/p4-zephyr-review-eig1vk9h/smallvm",
+      "-DEXTRA_CONF_FILE=profiles/sd-files.conf",
+      "-DEXTRA_DTC_OVERLAY_FILE=profiles/sd-readonly.overlay"
+    ],
+    [
+      "cmake",
+      "--build",
+      "/tmp/p4-zephyr-review-eig1vk9h/build",
+      "--",
+      "-j2"
+    ]
+  ]
+}

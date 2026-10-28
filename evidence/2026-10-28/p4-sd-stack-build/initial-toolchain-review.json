@@ -1,0 +1,17 @@
+{
+  "read_only": true,
+  "sdk": "/home/fred/microblocks-zephyr-work",
+  "zephyr": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "west_available": true,
+  "hal_espressif": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "native_tools": {
+    "cmake": "/usr/bin/cmake",
+    "ninja": "/usr/bin/ninja",
+    "gcc": "/usr/bin/gcc",
+    "ccache": null
+  },
+  "toolchains": [],
+  "exact_owner_image_requires_excluded_private_inputs": true,
+  "hardware_touched": false,
+  "original_sdk_changed": false
+}

@@ -1,0 +1,116 @@
+{
+  "raw_archive_sha256": "f4ab11c4cafeccaac5e89544cc8778e32f049490df216ff8bbc5e8955cc06cd5",
+  "normalization": "UTF8 LF and trailing whitespace removed; raw text preserved in ZIP; no ELF/bin files included",
+  "files": [
+    {
+      "name": "full-validation-receipt.json",
+      "raw_sha256": "6fc04c0446cf20e5ee531fd88e4269620b3826e85206815b01137b03adb5a429",
+      "normalized_sha256": "6fc04c0446cf20e5ee531fd88e4269620b3826e85206815b01137b03adb5a429"
+    },
+    {
+      "name": "validation-inputs.json",
+      "raw_sha256": "2b871cee1826431e128939091d38ad4b089bbe27f3d0ab3deeccc641bab4e314",
+      "normalized_sha256": "36583883321900ecf791b2bcaf8f6a80f380747c7c883b0bebc145c34b2a5a38"
+    },
+    {
+      "name": "initial-toolchain-review.json",
+      "raw_sha256": "9e0b8a53238d3961bbfc6b1ec0a17e41468d78cdad9b53702346aed4823ec75e",
+      "normalized_sha256": "9e0b8a53238d3961bbfc6b1ec0a17e41468d78cdad9b53702346aed4823ec75e"
+    },
+    {
+      "name": "toolchain-location.json",
+      "raw_sha256": "c8754b2ecaecf6fe0f6353e5f2a01f8f5a94c977cb78a8630f8e9231fd6dec7f",
+      "normalized_sha256": "c8754b2ecaecf6fe0f6353e5f2a01f8f5a94c977cb78a8630f8e9231fd6dec7f"
+    },
+    {
+      "name": "initial-missing-sdk-receipt.json",
+      "raw_sha256": "1bed2fac8f4557d581214b3a8d638a430d7c9b238284964383469bcf7367b251",
+      "normalized_sha256": "1bed2fac8f4557d581214b3a8d638a430d7c9b238284964383469bcf7367b251"
+    },
+    {
+      "name": "initial-missing-sdk-configure.txt",
+      "raw_sha256": "a7e05e94995e6a31fe7277ac6f28599a10f3f56ea9c81ab0d1f9194f01c8e0ee",
+      "normalized_sha256": "a7e05e94995e6a31fe7277ac6f28599a10f3f56ea9c81ab0d1f9194f01c8e0ee"
+    },
+    {
+      "name": "initial-missing-sdk-patches.txt",
+      "raw_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3",
+      "normalized_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3"
+    },
+    {
+      "name": "missing-esptool-path-receipt.json",
+      "raw_sha256": "7d202f060d218d51c5429cb355a5505c0ae2de777bf9945f84bbce2612d74777",
+      "normalized_sha256": "7d202f060d218d51c5429cb355a5505c0ae2de777bf9945f84bbce2612d74777"
+    },
+    {
+      "name": "missing-esptool-path-configure.txt",
+      "raw_sha256": "00fa1c7e42c428e60ec254593ffeba96c66b31304eff10cee3e225d719a28bf3",
+      "normalized_sha256": "00fa1c7e42c428e60ec254593ffeba96c66b31304eff10cee3e225d719a28bf3"
+    },
+    {
+      "name": "missing-esptool-path-patches.txt",
+      "raw_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3",
+      "normalized_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3"
+    },
+    {
+      "name": "initial-link-failure-receipt.json",
+      "raw_sha256": "6c8cc8f95d659aeb11b57ccd836ca92e2802535832fa1c8d3c09c829dbfb7a6b",
+      "normalized_sha256": "6c8cc8f95d659aeb11b57ccd836ca92e2802535832fa1c8d3c09c829dbfb7a6b"
+    },
+    {
+      "name": "initial-link-failure-configure.txt",
+      "raw_sha256": "77d7b742136563848afdc373aa10160967a414411336575dd7ea671b457a2634",
+      "normalized_sha256": "86047d53f11e1affa3270c49e75402aae59d23c61c373d76f4106dc8c3733404"
+    },
+    {
+      "name": "initial-link-failure-build.txt",
+      "raw_sha256": "4eb6b9f174b0bd4ebbb68d900fc3449cc1a68674053dee8234f2dcee5dc2a32e",
+      "normalized_sha256": "22268e2ed1ae2b812ac9a396fb78e9a35dfe81725c24444b7f684c9e89747a69"
+    },
+    {
+      "name": "initial-link-failure-patches.txt",
+      "raw_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3",
+      "normalized_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3"
+    },
+    {
+      "name": "initial-link-failure-build-config.txt",
+      "raw_sha256": "03fa47b6dc75a67063df0038ba72fa061c1e9a692c9dfc53885d2b77186bbe55",
+      "normalized_sha256": "03fa47b6dc75a67063df0038ba72fa061c1e9a692c9dfc53885d2b77186bbe55"
+    },
+    {
+      "name": "initial-link-failure-zephyr.dts",
+      "raw_sha256": "cae490b6e9eb192f79d365b0b41872feefdcb6097d3069a753939663409b9110",
+      "normalized_sha256": "cae490b6e9eb192f79d365b0b41872feefdcb6097d3069a753939663409b9110"
+    },
+    {
+      "name": "final-receipt.json",
+      "raw_sha256": "33760294a8b4fb04d527faa26b419859f26f6a79c14b8f079a720e76815aea1e",
+      "normalized_sha256": "33760294a8b4fb04d527faa26b419859f26f6a79c14b8f079a720e76815aea1e"
+    },
+    {
+      "name": "final-configure.txt",
+      "raw_sha256": "6854ba977d42cca8034b59800a195f34f2139d81fef2500f896b9d9577919806",
+      "normalized_sha256": "3dba6891f121d737bf8c3fcf4c96d788191c9b5fa308cc41e44bbe8c80133b0a"
+    },
+    {
+      "name": "final-build.txt",
+      "raw_sha256": "a6371d24191fa4a8e68b69aba13656dca31ee2c2692acd5bf8d83fe4d32d47a3",
+      "normalized_sha256": "a6371d24191fa4a8e68b69aba13656dca31ee2c2692acd5bf8d83fe4d32d47a3"
+    },
+    {
+      "name": "final-patches.txt",
+      "raw_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3",
+      "normalized_sha256": "e4c0ffee4ea2efb5d0d02792a3bcbd1505a9c8d981a0dc9dd51f59a504ac17f3"
+    },
+    {
+      "name": "final-build-config.txt",
+      "raw_sha256": "06098355ed9aab7f0470d5585d7affc9fb231bb51fab47c76e7bd66e0898e1f0",
+      "normalized_sha256": "06098355ed9aab7f0470d5585d7affc9fb231bb51fab47c76e7bd66e0898e1f0"
+    },
+    {
+      "name": "final-zephyr.dts",
+      "raw_sha256": "cae490b6e9eb192f79d365b0b41872feefdcb6097d3069a753939663409b9110",
+      "normalized_sha256": "cae490b6e9eb192f79d365b0b41872feefdcb6097d3069a753939663409b9110"
+    }
+  ]
+}

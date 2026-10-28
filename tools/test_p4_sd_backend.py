@@ -53,7 +53,9 @@ void k_free(void *p){if(p)frees++;free(p);}
 k_thread_stack_t *k_thread_stack_alloc(size_t n,int f){assert(!f&&n==4096);if(fail_stack)return NULL;void *p=malloc(n);if(p)stacks++;return p;}
 int k_thread_stack_free(k_thread_stack_t *p){if(release_error)return release_error;stack_frees++;free(p);return 0;}
 int k_thread_join(struct k_thread *t,int wait){assert(!wait);return t->dead?0:-EBUSY;}
+#if defined(CONFIG_INIT_STACKS) && defined(CONFIG_THREAD_STACK_INFO)
 int k_thread_stack_space_get(struct k_thread *t,size_t *n){assert(t->dead);*n=1234;return 0;}
+#endif
 struct k_thread *k_thread_create(struct k_thread *t,k_thread_stack_t *s,size_t n,void(*entry)(void*,void*,void*),void *a,void *b,void *c,int priority,int flags,int delay){
  assert(s&&n==4096&&!b&&!c&&priority==9&&!flags&&!delay);t->entry=entry;t->arg=a;pending=t;return t;
 }
@@ -76,7 +78,13 @@ int main(void){
  mb_sd_cancel();finish();CHECK(!mb_sd_busy());CHECK(!mb_sd_result(NULL,NULL));CHECK(!strcmp(mb_sd_phase(),"cancelled"));
  CHECK(mb_sd_start());now+=30000;finish();CHECK(!strcmp(mb_sd_phase(),"deadline exceeded"));CHECK(!mb_sd_result(NULL,NULL));
  CHECK(mb_sd_start());finish();CHECK(mb_sd_result(&bytes,&entries));CHECK(bytes==32*1024*1024&&entries==3);
- mb_sd_status(status,sizeof(status));CHECK(strstr(status,"\\"stack_unused\\":1234")!=NULL);CHECK(strstr(status,"\\"busy\\":false")!=NULL);
+ mb_sd_status(status,sizeof(status));
+#if defined(CONFIG_INIT_STACKS) && defined(CONFIG_THREAD_STACK_INFO)
+ CHECK(strstr(status,"\\"stack_unused\\":1234")!=NULL);
+#else
+ CHECK(sd_state.unused_stack==0 && sd_state.stack_error==-ENOTSUP);
+#endif
+ CHECK(strstr(status,"\\"busy\\":false")!=NULL);
  probe_error=-EIO;CHECK(mb_sd_start());finish();CHECK(!mb_sd_result(NULL,NULL));CHECK(!strcmp(mb_sd_phase(),"probe failed"));probe_error=0;
  CHECK(mb_sd_start());release_error=-EBUSY;finish();CHECK(mb_sd_busy());CHECK(!mb_sd_start());CHECK(!mb_sd_result(NULL,NULL));
  release_error=0;mb_sd_poll();CHECK(!mb_sd_busy());CHECK(mb_sd_result(NULL,NULL));
@@ -91,8 +99,12 @@ binary=out/'test'
 flags=['cc','-std=c11','-g','-O1','-Wall','-Wextra','-Werror','-fno-pie','-no-pie','-fsanitize=address,undefined','-fno-sanitize-recover=all',
        '-DCONFIG_FS_FATFS_READ_ONLY=1','-DCONFIG_FS_FATFS_MOUNT_MKFS=0','-DCONFIG_DYNAMIC_THREAD_POOL_SIZE=0',
        '-I'+str(inc),'-I'+str(backend),'-I'+str(probe),'-I'+str(root/'common/storage')]
-subprocess.run(flags+[str(test),'-o',str(binary)],check=True)
-run=subprocess.run([str(binary)],capture_output=True,text=True,check=True,timeout=20,env=dict(os.environ,ASAN_OPTIONS='detect_leaks=1'))
-report=json.loads(run.stdout)
+variants=[]
+for name,config in [('enabled',['-DCONFIG_INIT_STACKS=1','-DCONFIG_THREAD_STACK_INFO=1']),('disabled',[]),('init_only',['-DCONFIG_INIT_STACKS=1']),('info_only',['-DCONFIG_THREAD_STACK_INFO=1'])]:
+    binary=out/('test-'+name)
+    subprocess.run(flags+config+[str(test),'-o',str(binary)],check=True)
+    run=subprocess.run([str(binary)],capture_output=True,text=True,check=True,timeout=20,env=dict(os.environ,ASAN_OPTIONS='detect_leaks=1'))
+    variants.append({'configuration':name,**json.loads(run.stdout)})
+report={**variants[0],'variants':variants}
 report.update(result='PASS',scope='actual worker with synthetic Zephyr/thread/probe; no card/board access',sanitizers=['address','undefined'],physical_tested=False)
 (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

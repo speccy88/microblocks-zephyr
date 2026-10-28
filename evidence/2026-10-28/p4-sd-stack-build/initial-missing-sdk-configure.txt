@@ -1,0 +1,32 @@
+-- west build: generating a build system
+-- Application: /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr
+-- CMake version: 4.2.3
+-- Found Python3: /home/fred/microblocks-zephyr-work/.venv/bin/python (found suitable version "3.12.15", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/fred/.cache/zephyr
+-- Zephyr version: 4.5.0-rc2 (/tmp/p4-zephyr-review-78saeko1/workspace/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: esp32p4_wifi6, qualifiers: esp32p4/hpcore
+-- ZEPHYR_TOOLCHAIN_VARIANT not set, trying to locate Zephyr SDK
+-- Configuring incomplete, errors occurred!
+Loading Zephyr default modules (Zephyr base).
+CMake Error at /tmp/p4-zephyr-review-78saeko1/workspace/zephyr/cmake/modules/FindZephyr-sdk.cmake:165 (find_package):
+  Could not find a package configuration file provided by "Zephyr-sdk"
+  (requested version 1.0) with any of the following names:
+
+    Zephyr-sdkConfig.cmake
+    zephyr-sdk-config.cmake
+
+  Add the installation prefix of "Zephyr-sdk" to CMAKE_PREFIX_PATH or set
+  "Zephyr-sdk_DIR" to a directory containing one of the above files.  If
+  "Zephyr-sdk" provides a separate development package or SDK, be sure it has
+  been installed.
+Call Stack (most recent call first):
+  /tmp/p4-zephyr-review-78saeko1/workspace/zephyr/cmake/modules/FindHostTools.cmake:46 (find_package)
+  /tmp/p4-zephyr-review-78saeko1/workspace/zephyr/cmake/modules/dts.cmake:9 (find_package)
+  /tmp/p4-zephyr-review-78saeko1/workspace/zephyr/cmake/modules/zephyr_default.cmake:115 (include)
+  /tmp/p4-zephyr-review-78saeko1/workspace/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:57 (include)
+  /tmp/p4-zephyr-review-78saeko1/workspace/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:83 (include_boilerplate)
+  CMakeLists.txt:3 (find_package)
+
+
+FATAL ERROR: command exited with status 1: /usr/bin/cmake -DWEST_PYTHON=/home/fred/microblocks-zephyr-work/.venv/bin/python -DWEST_TOPDIR=/tmp/p4-zephyr-review-78saeko1/workspace -DWEST_VERSION=1.5.0 -B/tmp/p4-zephyr-review-78saeko1/build -GNinja '-DWEST_PYTHON_PROPERTIES="Python;3;12;15;64;;cpython-312-x86_64-linux-gnu.so;abi3;/home/fred/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages;/home/fred/microblocks-zephyr-work/.venv/lib/python3.12/site-packages"' -DBOARD=esp32p4_wifi6/esp32p4/hpcore -DSMALLVM_SOURCE_DIR=/tmp/p4-zephyr-review-78saeko1/smallvm -DEXTRA_CONF_FILE=profiles/sd-files.conf -DEXTRA_DTC_OVERLAY_FILE=profiles/sd-readonly.overlay -S/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/boards/waveshare_esp32p4_wifi6/zephyr

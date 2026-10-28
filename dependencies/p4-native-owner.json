@@ -880,5 +880,13 @@
   "owner_reported_uninstalled_combined_candidate_sha256": "139ef2e07ea9a1fcb8b73107378796bf193374a2ef1dfabf02419e2a66f416bc",
   "hardware_checked_here": false,
   "new_zephyr_build_here": false,
-  "sfc_included": false
+  "sfc_included": false,
+  "reconciliation_baseline_commit": "9126294182b00ba6944d682899f106c5f1e5a004",
+  "post_reconciliation_changes": [
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/sd_backend.c",
+      "sha256": "d3d4ba387a85ce270e71935293ca3b530500686207a6fb3c83373cab2057c1ae",
+      "reason": "Match pinned Zephyr optional stack diagnostic compile guard; unavailable measurement reports ENOTSUP. See docs/P4_SD_OPTIONAL_STACK_DIAGNOSTICS.md"
+    }
+  ]
 }
