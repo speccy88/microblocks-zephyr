@@ -22,6 +22,7 @@ FIELDS = {
     'cpu_throttle.level': ('count64', 1), 'cpu_throttle.max_level': ('count64', 1),
     'cpu_throttle.khz': ('kHz64', 1), 'cpu_throttle.max_khz': ('kHz64', 1),
     'cpu_throttle.throttled': ('boolean', 1),
+    'bus.missing_count': ('count', 1), 'bus.missing_id': ('id', 1),
 }
 DEFAULT_FIELDS = frozenset(('degraded', 'health.state', 'bus.consecutive_errors', 'bus.startup_failures',
                            'imu.ready', 'imu.missing', 'imu.stale_blocks', 'imu.consecutive_stale_blocks', 'imu.state'))
@@ -50,10 +51,12 @@ def validate_health(value):
             if section=='imu' and part is None: continue
             state.require(isinstance(part,dict) and all(k not in part or state.integer(part[k],0,maximum) for k in fields))
             if section=='imu': state.require(all(k not in part or type(part[k]) is bool for k in ('ready','missing')))
+            elif 'missing' in part:
+                ids=part['missing'];state.require(isinstance(ids,list) and len(ids)<=256 and all(state.integer(x,0,255) for x in ids))
     return copy.deepcopy(value)
 
 
-def sample(value, field):
+def sample(value, field, index=1):
     unit,scale=FIELDS[field];default=False;raw=None
     if field=='health.state':
         raw='healthy' if value['healthy'] else 'degraded' if value.get('degraded',False) else 'unhealthy'
@@ -67,6 +70,11 @@ def sample(value, field):
         part=value.get('cpu_throttle')
         if isinstance(part,dict) and all(k in part for k in ('level','khz','max_khz')):
             raw=part['level']>0 or part['max_khz']>0 and part['khz']<part['max_khz']
+    elif field in ('bus.missing_count','bus.missing_id'):
+        ids=(value.get('bus') or {}).get('missing')
+        if ids is not None:
+            if field=='bus.missing_count':raw=len(ids)
+            elif index<=len(ids):raw=ids[index-1]
     elif '.' in field:
         section,key=field.split('.');part=value.get(section)
         if part is not None: raw=part.get(key)
@@ -74,7 +82,7 @@ def sample(value, field):
             raw=False if unit=='boolean' else 0;default=True
     elif field=='degraded':raw=value.get(field,False);default=field not in value
     else:raw=value.get(field)
-    out={'kind':'robot_reading','snapshot_kind':'health','status':'not_reported','field':field,'index':1,'component':1,'unit':unit,'value':None}
+    out={'kind':'robot_reading','snapshot_kind':'health','status':'not_reported','field':field,'index':index,'component':1,'unit':unit,'value':None}
     if raw is None:return out
     if unit in ('count64','ms64','kHz64'): raw=str(raw)
     elif unit in ('text','state'):

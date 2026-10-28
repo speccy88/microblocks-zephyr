@@ -1,7 +1,7 @@
 module 'MicroDuck Robot' Input
 author 'MicroBlocks Linux ARM64 contributors'
-version 1 1
-description 'Read-only coherent robotd health/state via normal private Gateway and robot-read-config. Earlier selectors have Pi fixture evidence; new CPU throttle and hottest-joint fields use local Linux fixtures pending Pi acceptance. Health and state are separate five-second immutable snapshots, no shared-tick claim. Four total retained/in-flight slots;0.5s bounded capture, no continuous reader/retry/renewal. Records [status,value,unit,origin]; only ok is extractable. local_ipc is transport only; ipc_default identifies a schema default, never physical observation. Exact counter/ns/ms64 strings; scaled signed31 measurements. Missing optional telemetry is unavailable, present false/zero known. No applied physics, FK/calibration, force direction, freshness or safe-to-move authority. No control commands, robotctl parsing, motion or device access. Physical, graphical and shipping identity/deployment unverified.'
+version 1 2
+description 'Read-only coherent robotd health/state/reference-model via normal private Gateway and robot-read-config. Earlier selectors have Pi fixture evidence; new CPU throttle and hottest-joint fields use local Linux fixtures pending Pi acceptance. Health, state and model are separate five-second immutable snapshots, no shared-tick claim. Four total retained/in-flight slots;0.5s bounded capture, no continuous reader/retry/renewal. Records [status,value,unit,origin]; only ok is extractable. local_ipc is transport only; ipc_default identifies a schema default, never physical observation. Exact counter/ns/ms64 strings; scaled signed31 measurements. Missing optional telemetry is unavailable, present false/zero known. No applied physics, FK/calibration, force direction, freshness or safe-to-move authority. Reference geometry is reported at joint zero, never live FK or calibration. Skeleton parents are one-based with root0; omitted root defaults retain ipc_default. Beta head IMU reference mount may differ from shipping hardware. Empty missing-servo lists never imply bus readiness. No control commands, robotctl parsing, motion or device access. Physical, graphical and shipping identity/deployment unverified.'
 spec 'r' 'microduckRobotStateCapture' 'capture robot state at _ Hz reading' 'num' 10
 spec 'r' 'microduckRobotStateRelease' 'release robot state _ JSON' 'auto' ''
 spec 'r' 'microduckRobotMoveRequested' 'state _ requested move component _ reading' 'auto num' '' 1
@@ -51,7 +51,30 @@ spec 'r' 'microduckRobotCpuHardwareMaximum' 'robot health _ CPU hardware maximum
 spec 'r' 'microduckRobotCpuThrottled' 'robot health _ CPU reported throttled reading' 'auto' ''
 spec 'r' 'microduckRobotLoopMissed' 'robot state _ missed ticks reading' 'auto' ''
 spec 'r' 'microduckRobotPolicy' 'robot state _ reported policy reading' 'auto' ''
+spec 'r' 'microduckRobotMissingServoCount' 'robot health _ reported missing servo count reading' 'auto' ''
+spec 'r' 'microduckRobotMissingServoId' 'robot health _ reported missing servo _ ID reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelCapture' 'capture robot reference model reading'
+spec 'r' 'microduckRobotModelRelease' 'release robot model _ JSON' 'auto' ''
+spec 'r' 'microduckRobotModelAsset' 'model _ reported asset reading' 'auto' ''
+spec 'r' 'microduckRobotModelTrunkHeight' 'model _ trunk reference height (mm) reading' 'auto' ''
+spec 'r' 'microduckRobotModelJointCount' 'model _ joint count reading' 'auto' ''
+spec 'r' 'microduckRobotModelJointName' 'model _ joint _ name reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelHeadJointCount' 'model _ head joint count reading' 'auto' ''
+spec 'r' 'microduckRobotModelHeadJointName' 'model _ head joint _ name reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelBeamCount' 'model _ ToF beam count reading' 'auto' ''
+spec 'r' 'microduckRobotModelBeamComponent' 'model _ ToF beam _ component _ (ppm) reading' 'auto num num' '' 1 1
+spec 'r' 'microduckRobotModelFov' 'model _ ToF FOV (mdeg) reading' 'auto' ''
+spec 'r' 'microduckRobotModelCameraPosition' 'model _ reference camera position component _ (mm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelCameraQuaternion' 'model _ reference camera wxyz component _ (ppm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelTofPosition' 'model _ reference ToF position component _ (mm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelTofQuaternion' 'model _ reference ToF wxyz component _ (ppm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelHeadImuPosition' 'model _ reference head IMU position component _ (mm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelHeadImuQuaternion' 'model _ reference head IMU wxyz component _ (ppm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelSkeletonCount' 'model _ skeleton link count reading' 'auto' ''
+spec 'r' 'microduckRobotModelSkeletonName' 'model _ skeleton link _ name reading' 'auto num' '' 1
+spec 'r' 'microduckRobotModelSkeletonParent' 'model _ skeleton link _ parent (root 0) reading' 'auto num' '' 1
 advanced
+spec 'r' 'microduckRobotModelReading' 'model _ field _ index _ component _ reading' 'auto str num num' '' 'asset' 1 1
 spec 'r' 'microduckRobotHealthReading' 'robot health _ field _ reading' 'auto str' '' 'healthy'
 spec 'r' 'microduckRobotStateReading' 'state _ field _ index _ component _ reading' 'auto str num num' '' 'loop.hz' 1 1
 spec 'r' '[microduck:robotReading]' 'robot telemetry JSON _ reading' 'str' '{}'
@@ -117,3 +140,51 @@ to microduckRobotCpuHardwareMaximum health { return (microduckRobotHealthReading
 to microduckRobotCpuThrottled health { return (microduckRobotHealthReading health 'cpu_throttle.throttled') }
 to microduckRobotLoopMissed state { return (microduckRobotStateReading state 'loop.missed' 1 1) }
 to microduckRobotPolicy state { return (microduckRobotStateReading state 'policy' 1 1) }
+
+to microduckRobotMissingServoCount health { return (microduckRobotHealthReading health 'bus.missing_count') }
+
+to microduckRobotMissingServoId health index { return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.read' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' health)) ',"kind":"health","field":' ('[microduck:quote]' 'bus.missing_id') ',"index":' index ',"component":1}') false)) }
+
+to microduckRobotModelCapture { return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.capture' '{"kind":"model"}' false)) }
+
+to microduckRobotModelRelease capture { return (microduckRobotStateRelease capture) }
+
+to microduckRobotModelReading capture field index component {
+    return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.read' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) ',"kind":"model","field":' ('[microduck:quote]' field) ',"index":' index ',"component":' component '}') false))
+}
+
+to microduckRobotModelAsset model { return (microduckRobotModelReading model 'asset' 1 1) }
+
+to microduckRobotModelTrunkHeight model { return (microduckRobotModelReading model 'trunk_height_m' 1 1) }
+
+to microduckRobotModelJointCount model { return (microduckRobotModelReading model 'joint_count' 1 1) }
+
+to microduckRobotModelJointName model index { return (microduckRobotModelReading model 'joint_name' index 1) }
+
+to microduckRobotModelHeadJointCount model { return (microduckRobotModelReading model 'head_joint_count' 1 1) }
+
+to microduckRobotModelHeadJointName model index { return (microduckRobotModelReading model 'head_joint_name' index 1) }
+
+to microduckRobotModelBeamCount model { return (microduckRobotModelReading model 'tof_beam_count' 1 1) }
+
+to microduckRobotModelBeamComponent model index component { return (microduckRobotModelReading model 'tof_beam' index component) }
+
+to microduckRobotModelFov model { return (microduckRobotModelReading model 'tof_fov_deg' 1 1) }
+
+to microduckRobotModelCameraPosition model component { return (microduckRobotModelReading model 'frames.camera.pos' 1 component) }
+
+to microduckRobotModelCameraQuaternion model component { return (microduckRobotModelReading model 'frames.camera.quat' 1 component) }
+
+to microduckRobotModelTofPosition model component { return (microduckRobotModelReading model 'frames.tof.pos' 1 component) }
+
+to microduckRobotModelTofQuaternion model component { return (microduckRobotModelReading model 'frames.tof.quat' 1 component) }
+
+to microduckRobotModelHeadImuPosition model component { return (microduckRobotModelReading model 'frames.head_imu.pos' 1 component) }
+
+to microduckRobotModelHeadImuQuaternion model component { return (microduckRobotModelReading model 'frames.head_imu.quat' 1 component) }
+
+to microduckRobotModelSkeletonCount model { return (microduckRobotModelReading model 'skeleton_count' 1 1) }
+
+to microduckRobotModelSkeletonName model index { return (microduckRobotModelReading model 'skeleton_name' index 1) }
+
+to microduckRobotModelSkeletonParent model index { return (microduckRobotModelReading model 'skeleton_parent' index 1) }

@@ -12,7 +12,7 @@ process attestation. Send hello(api_version45), require numeric API version and
 record it diagnostically without rejecting a different version. Then send either
 robot.health{} or robot.subscribe{hz:1..50}. For state require acceptedbool and
 one robot.state notification. Close after the finite capture, error or cancellation;
-no reconnect, background reader, model lookup, device or robot command.
+no reconnect, background reader, device or robot command.
 
 Capture deadline0.5s, lines16KiB, four total retained/in-flight health/state slots,
 five-second TTL and explicit release/regression invalidation. Health and state
@@ -27,7 +27,7 @@ Requested and applied movement remain distinct. Schema-default omitted limit
 count is marked ipc_default, never a physical observation. No FK/calibration,
 pose transform, inferred velocity/current direction or freshness authorization.
 
-Health supplies27 typed selectors: the existing18 diagnostic fields plus reason,
+Health supplies29 typed selectors: the existing18 diagnostic fields plus reason,
 control_loop.ticks, control_loop.missed, motors.hottest and five CPU throttle
 readings. The CPU fields level/max_level use exact count64 decimal text;
 khz/max_khz use exact kHz64 decimal text, preserving the full u32 domain without
@@ -107,3 +107,5 @@ and ASan/UBSan RPI5 builds each passed233 selected tests,61 native cases each.
 All service input is fictional; seven editor profiles were verified. Graphical
 compilation/execution remains unverified.
 See [evidence and remaining gates](../../evidence/2026-10-27/microduck-robot-service/README.md).
+
+Reference-model captures now issue robot.model{} over the same checked finite Unix transport, with18 bounded selectors for source asset, names, ToF directions/FOV, zero-joint frames and skeleton parents. Missing geometry is not synthesized from serde defaults. Units: mm, mdeg, ppm; parents index1/root0 with omitted root marked ipc_default. Missing-servo count/IDs preserve order; absent list is unavailable, explicit empty count0 never implies readiness. Beta head-IMU reference geometry retains the upstream zero3 mount caveat. See docs/MICRODUCK_MODEL_SERVO_SPEC.md for limits and acceptance.

@@ -30,7 +30,7 @@ test('matrix default quoting extends only the custom slot dispatch', () => {
 test('full project imports main scripts and all embedded modules', () => {
     assert.equal(h.evaluate('MB_editor.project.main.scripts.length'), 3);
     assert.equal(h.evaluate('MB_editor.project.libraries.size'), 7);
-    assert.equal(h.evaluate('MB_editor.project.allFunctions().length'), 147);
+    assert.equal(h.evaluate('MB_editor.project.allFunctions().length'), 170);
     assert.equal(h.evaluate('MB_connection.port'), null);
 });
 test('matrix remains a String and typed script remains a real reporter', () => {
@@ -56,7 +56,7 @@ test('restored matrix edits do not change saved bytes or palette defaults', () =
 test('all restored functions and scripts compile without any VM connection', () => {
     fresh.evaluate('MB_editor.codeManager=new MB_CodeManager(MB_editor.project); MB_editor.codeManager.assignFunctionIDs();');
     const sizes = fresh.evaluate('(()=>{const c=new MB_Compiler(MB_editor.project,MB_editor.codeManager); return [...MB_editor.project.allFunctions().map(f=>c.compiledBytesFor(f).length),...MB_editor.project.main.scripts.map(s=>c.compiledBytesFor(s[2]).length)];})()');
-    assert.equal(sizes.length, 150);
+    assert.equal(sizes.length, 173);
     assert.ok(sizes.every(n=>Number.isInteger(n)&&n>0&&n<=1000));
     assert.equal(fresh.evaluate('MB_connection.port'), null);
 });
@@ -70,6 +70,6 @@ test('repeated fresh-context saves preserve the original ABI', () => {
     }
 });
 if(process.argv[3]) fs.writeFileSync(process.argv[3],saved);
-console.log(JSON.stringify({tests:passed,passed,modules:7,functions:147,scripts:3,compiled:150,
+console.log(JSON.stringify({tests:passed,passed,modules:7,functions:170,scripts:3,compiled:173,
     canonical_project_sha256:sha(saved),bytes:Buffer.byteLength(saved),graphical:false,hardware:false,
     upstream_modified:false,saved_format:'ordinary .ubp text; 104-character matrix String'}));

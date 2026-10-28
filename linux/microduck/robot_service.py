@@ -4,11 +4,11 @@ import asyncio
 from pathlib import Path
 import secrets
 try:
-    from . import head_imu_service as config_io, robot_health as health, robot_telemetry as state
+    from . import head_imu_service as config_io, robot_health as health, robot_telemetry as state, robot_model as model
     from .sensor_snapshots import SnapshotStore, token
     from .protocol import connect_checked, encode, read_message, response_result
 except ImportError:
-    import head_imu_service as config_io, robot_health as health, robot_telemetry as state
+    import head_imu_service as config_io, robot_health as health, robot_telemetry as state, robot_model as model
     from sensor_snapshots import SnapshotStore, token
     from protocol import connect_checked, encode, read_message, response_result
 
@@ -26,13 +26,13 @@ def validate(request):
     state.require(isinstance(method,str) and method in METHODS and isinstance(p,dict) and ('confirmed' not in request or type(request['confirmed']) is bool))
     name=method.removeprefix(PREFIX)
     if name=='capture':
-        state.require(p.get('kind') in ('health','state') and set(p)==({'kind'} if p['kind']=='health' else {'kind','hz'}))
+        state.require(p.get('kind') in ('health','state','model') and set(p)==({'kind','hz'} if p['kind']=='state' else {'kind'}))
         if p['kind']=='state':state.require(state.integer(p['hz'],1,50))
     else:
         state.require(set(p)==({'handle'} if name=='release' else {'handle','kind','field','index','component'}) and token(p['handle']))
         if name=='read':
-            state.require(p['kind'] in ('health','state') and isinstance(p['field'],str))
-            fields={k:(1,1) for k in health.FIELDS} if p['kind']=='health' else state.FIELDS
+            state.require(p['kind'] in ('health','state','model') and isinstance(p['field'],str))
+            fields={k:(256 if k=='bus.missing_id' else 1,1) for k in health.FIELDS} if p['kind']=='health' else {k:v[:2] for k,v in model.FIELDS.items()} if p['kind']=='model' else state.FIELDS
             state.require(p['field'] in fields);a,b=fields[p['field']]
             state.require(state.integer(p['index'],1,a) and state.integer(p['component'],1,b))
     return name,dict(p)
@@ -48,8 +48,8 @@ async def capture(config,kind,hz=None):
             writer.write(encode({'jsonrpc':'2.0','id':0,'method':'hello','params':{'api_version':state.API_VERSION}},8192));await writer.drain()
             hello=response_result(await read_message(reader,LINE_LIMIT),0)
             state.require(isinstance(hello,dict) and state.integer(hello.get('api_version'),0,2**32-1));version=hello['api_version']
-            method='robot.health' if kind=='health' else 'robot.subscribe'
-            writer.write(encode({'jsonrpc':'2.0','id':1,'method':method,'params':{} if kind=='health' else {'hz':hz}},8192));await writer.drain()
+            method='robot.health' if kind=='health' else 'robot.model' if kind=='model' else 'robot.subscribe'
+            writer.write(encode({'jsonrpc':'2.0','id':1,'method':method,'params':{'hz':hz} if kind=='state' else {}},8192));await writer.drain()
             value=response_result(await read_message(reader,LINE_LIMIT),1)
             if kind=='state':
                 state.require(isinstance(value,dict) and type(value.get('accepted')) is bool)
@@ -57,7 +57,8 @@ async def capture(config,kind,hz=None):
                 stage='waiting';value=await read_message(reader,LINE_LIMIT)
                 state.require(isinstance(value,dict) and set(value)=={'jsonrpc','method','params'} and value['jsonrpc']=='2.0' and value['method']=='robot.state')
                 value=state.validate_state(value['params'])
-            else:value=health.validate_health(value)
+            elif kind=='health':value=health.validate_health(value)
+            else:value=model.validate_model(value)
             return 'ok',value,version
     except TimeoutError:return stage,None,version
     finally:
@@ -82,11 +83,11 @@ class RobotStore(SnapshotStore):
 
     def read(self,p):
         self.purge();entry=self.entries.get(p['handle']);kind=p['kind'];field=p['field']
-        unit=health.FIELDS[field][0] if kind=='health' else state.unit_for(field,p['component'])
+        unit=health.FIELDS[field][0] if kind=='health' else model.FIELDS[field][2] if kind=='model' else state.unit_for(field,p['component'])
         base=dict(snapshot_kind=kind,field=field,index=p['index'],component=p['component'],unit=unit,value=None)
         if entry is None:return result('robot_reading','expired_or_unknown',**base)
         if entry['kind']!=kind:return result('robot_reading','wrong_kind',**base)
-        value=health.sample(entry['value'],field) if kind=='health' else state.sample(entry['value'],field,p['index'],p['component'])
+        value=health.sample(entry['value'],field,p['index']) if kind=='health' else model.sample(entry['value'],field,p['index'],p['component']) if kind=='model' else state.sample(entry['value'],field,p['index'],p['component'])
         value.pop('simulation',None);value.pop('physical_movement_enabled',None)
         value.update(kind='robot_reading',snapshot_kind=kind)
         return result(**value)

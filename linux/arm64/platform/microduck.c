@@ -258,6 +258,20 @@ static const TelemetryField *findTelemetryField(yyjson_val *value) {
     for (size_t i=0;i<sizeof(telemetryFields)/sizeof(telemetryFields[0]);++i) if (equalText(value,telemetryFields[i].name)) return &telemetryFields[i];
     return NULL;
 }
+static const TelemetryField modelFields[]={
+    {"asset",1,1,"text"},{"trunk_height_m",1,1,"mm"},
+    {"joint_count",1,1,"count"},{"joint_name",128,1,"text"},
+    {"head_joint_count",1,1,"count"},{"head_joint_name",4,1,"text"},
+    {"tof_beam_count",1,1,"count"},{"tof_beam",64,3,"ppm"},{"tof_fov_deg",1,1,"mdeg"},
+    {"frames.camera.pos",1,3,"mm"},{"frames.camera.quat",1,4,"ppm"},
+    {"frames.tof.pos",1,3,"mm"},{"frames.tof.quat",1,4,"ppm"},
+    {"frames.head_imu.pos",1,3,"mm"},{"frames.head_imu.quat",1,4,"ppm"},
+    {"skeleton_count",1,1,"count"},{"skeleton_name",128,1,"text"},{"skeleton_parent",128,1,"index1_or_root0"}
+};
+static const TelemetryField *findModelField(yyjson_val *value) {
+    for (size_t i=0;i<sizeof(modelFields)/sizeof(modelFields[0]);++i) if (equalText(value,modelFields[i].name)) return &modelFields[i];
+    return NULL;
+}
 static int validRobotPreview(yyjson_val *params) {
     yyjson_val *method=yyjson_obj_get(params,"method"),*args=yyjson_obj_get(params,"args");
     const char *keys[4];size_t count=0;
@@ -377,13 +391,14 @@ static const GamepadField *findGamepadField(const char *section,yyjson_val *fiel
     for (size_t i=0;i<sizeof(gamepadFields)/sizeof(gamepadFields[0]);++i) if (!strcmp(section,gamepadFields[i].section) && equalText(field,gamepadFields[i].name)) return &gamepadFields[i];
     return NULL;
 }
-enum { ROBOT_DETAIL_TEXT, ROBOT_DETAIL_BOOLEAN, ROBOT_DETAIL_U32 };
+enum { ROBOT_DETAIL_TEXT, ROBOT_DETAIL_BOOLEAN, ROBOT_DETAIL_U32, ROBOT_DETAIL_ID, ROBOT_DETAIL_COUNT };
 typedef struct { const char *name,*unit; int kind; } RobotHealthDetail;
 static const RobotHealthDetail robotHealthDetails[]={
     {"motors.hottest","text",ROBOT_DETAIL_TEXT},
     {"cpu_throttle.level","count64",ROBOT_DETAIL_U32},{"cpu_throttle.max_level","count64",ROBOT_DETAIL_U32},
     {"cpu_throttle.khz","kHz64",ROBOT_DETAIL_U32},{"cpu_throttle.max_khz","kHz64",ROBOT_DETAIL_U32},
-    {"cpu_throttle.throttled","boolean",ROBOT_DETAIL_BOOLEAN}
+    {"cpu_throttle.throttled","boolean",ROBOT_DETAIL_BOOLEAN},
+    {"bus.missing_count","count",ROBOT_DETAIL_COUNT},{"bus.missing_id","id",ROBOT_DETAIL_ID}
 };
 static const RobotHealthDetail *robotHealthDetail(yyjson_val *name) {
     for (size_t i=0;i<sizeof(robotHealthDetails)/sizeof(robotHealthDetails[0]);++i)
@@ -506,13 +521,14 @@ static int validParams(const Method *method, yyjson_val *params) {
         case PARAM_GAMEPAD_META:
             return snapshotHandle(yyjson_obj_get(params,"handle")) && findGamepadField("metadata",yyjson_obj_get(params,"field"));
         case PARAM_ROBOT_CAPTURE:
-            return equalText(yyjson_obj_get(params,"kind"),"health") || (equalText(yyjson_obj_get(params,"kind"),"state") && integerBetween(yyjson_obj_get(params,"hz"),1,50));
+            return ((equalText(yyjson_obj_get(params,"kind"),"health") || equalText(yyjson_obj_get(params,"kind"),"model")) && yyjson_obj_size(params)==1)
+                || (equalText(yyjson_obj_get(params,"kind"),"state") && yyjson_obj_size(params)==2 && integerBetween(yyjson_obj_get(params,"hz"),1,50));
         case PARAM_ROBOT_READ: {
             yyjson_val *kind=yyjson_obj_get(params,"kind"),*field=yyjson_obj_get(params,"field");
-            const TelemetryField *descriptor=findTelemetryField(field);
-            int health=equalText(kind,"health"),state=equalText(kind,"state");
-            return snapshotHandle(yyjson_obj_get(params,"handle")) && ((health && robotHealthName(field)) || (state && descriptor))
-                && integerBetween(yyjson_obj_get(params,"index"),1,health?1:descriptor->indices)
+            const TelemetryField *descriptor=equalText(kind,"model")?findModelField(field):findTelemetryField(field);
+            int health=equalText(kind,"health"),other=equalText(kind,"state") || equalText(kind,"model");
+            return snapshotHandle(yyjson_obj_get(params,"handle")) && ((health && robotHealthName(field)) || (other && descriptor))
+                && integerBetween(yyjson_obj_get(params,"index"),1,health?(equalText(field,"bus.missing_id")?256:1):descriptor->indices)
                 && integerBetween(yyjson_obj_get(params,"component"),1,health?1:descriptor->components);
         }
     }
@@ -1201,14 +1217,36 @@ static OBJ robotReadingPrimitive(int argc,OBJ *args) {
     yyjson_val *result=boundedReadingResult(yyjson_doc_get_root(doc),&reading,3),*kind=yyjson_obj_get(result,"snapshot_kind"),*value=yyjson_obj_get(result,"value");
     if (result && equalText(yyjson_obj_get(result,"kind"),"robot_capture")) {
         reading.unit="snapshot";
-        if (equalText(yyjson_obj_get(result,"status"),"ok") && (equalText(kind,"health") || equalText(kind,"state"))
+        if (equalText(yyjson_obj_get(result,"status"),"ok") && (equalText(kind,"health") || equalText(kind,"state") || equalText(kind,"model"))
             && snapshotHandle(yyjson_obj_get(result,"handle")) && integerBetween(yyjson_obj_get(result,"reported_api_version"),0,UINT32_MAX)) {
             memcpy(text,yyjson_get_str(yyjson_obj_get(result,"handle")),32);text[32]='\0';reading.text=text;reading.isText=1;reading.status="ok";
         }
     } else if (result && equalText(yyjson_obj_get(result,"kind"),"robot_reading") && equalText(kind,"state")) {
         yyjson_doc_free(doc);return telemetryReadingPrimitive(argc,args,3);
+    } else if (result && equalText(yyjson_obj_get(result,"kind"),"robot_reading") && equalText(kind,"model")) {
+        yyjson_val *name=yyjson_obj_get(result,"field"),*defaulted=yyjson_obj_get(result,"source_default");
+        const TelemetryField *field=findModelField(name);
+        if (field && integerBetween(yyjson_obj_get(result,"index"),1,field->indices) && integerBetween(yyjson_obj_get(result,"component"),1,field->components)
+            && equalText(yyjson_obj_get(result,"unit"),field->unit)) {
+            reading.unit=field->unit;
+            if (equalText(yyjson_obj_get(result,"status"),"ok")) {
+                if (!strcmp(field->unit,"text") && boundedText(value,128)) {
+                    size_t n=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),n);text[n]='\0';reading.text=text;reading.isText=1;reading.status="ok";
+                } else if (strcmp(field->unit,"text") && integerBetween(value,-1073741824,1073741823)) {
+                    int valid=1;
+                    if (!strcmp(field->unit,"count")) valid=integerBetween(value,0,equalText(name,"tof_beam_count")?64:equalText(name,"head_joint_count")?4:128);
+                    else if (!strcmp(field->unit,"index1_or_root0")) valid=integerBetween(value,0,128);
+                    if (valid) {reading.number=(int)yyjson_get_sint(value);reading.status="ok";}
+                }
+            }
+        }
+        if (defaulted && !yyjson_is_bool(defaulted)) reading.status="invalid";
+        else if (yyjson_is_true(defaulted)) {
+            if (equalText(name,"skeleton_parent") && integerBetween(value,0,0) && !strcmp(reading.status,"ok")) reading.origin="ipc_default";
+            else reading.status="invalid";
+        }
     } else if (result && equalText(yyjson_obj_get(result,"kind"),"robot_reading") && equalText(kind,"health")
-        && integerBetween(yyjson_obj_get(result,"index"),1,1) && integerBetween(yyjson_obj_get(result,"component"),1,1)) {
+        && integerBetween(yyjson_obj_get(result,"index"),1,equalText(yyjson_obj_get(result,"field"),"bus.missing_id")?256:1) && integerBetween(yyjson_obj_get(result,"component"),1,1)) {
         yyjson_val *name=yyjson_obj_get(result,"field"),*defaulted=yyjson_obj_get(result,"source_default");const HealthField *field=NULL;
         for (size_t i=0;i<sizeof(healthFields)/sizeof(healthFields[0]);++i) if (equalText(name,healthFields[i].name)) field=&healthFields[i];
         const RobotHealthDetail *detail=robotHealthDetail(name);
@@ -1222,6 +1260,8 @@ static OBJ robotReadingPrimitive(int argc,OBJ *args) {
                     reading.isBoolean=1;reading.boolean=yyjson_get_bool(value);reading.status="ok";
                 } else if (detail->kind==ROBOT_DETAIL_TEXT && boundedText(value,128)) {
                     size_t n=yyjson_get_len(value);memcpy(text,yyjson_get_str(value),n);text[n]='\0';reading.text=text;reading.isText=1;reading.status="ok";
+                } else if ((detail->kind==ROBOT_DETAIL_ID || detail->kind==ROBOT_DETAIL_COUNT) && integerBetween(value,0,detail->kind==ROBOT_DETAIL_ID?255:256)) {
+                    reading.number=(int)yyjson_get_sint(value);reading.status="ok";
                 } else if (detail->kind==ROBOT_DETAIL_U32) {
                     uint64_t n;
                     if (decimalCounter(value,&n) && n<=UINT32_MAX) {

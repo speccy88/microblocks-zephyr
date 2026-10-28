@@ -137,7 +137,7 @@ class JSVerifiedSourceTests(unittest.TestCase):
                 capture_output=True, text=True, timeout=30)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             data = json.loads(result.stdout)
-            self.assertEqual((data['passed'], data['modules'], data['functions']), (8, 6, 146))
+            self.assertEqual((data['passed'], data['modules'], data['functions']), (8, 6, 169))
 
     def test_actual_upstream_matrix_slot_abi_and_legacy_palette(self):
         node = os.environ.get('NODE_BINARY') or shutil.which('node')
@@ -162,7 +162,7 @@ class JSVerifiedSourceTests(unittest.TestCase):
                 capture_output=True, text=True, timeout=30)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             data = json.loads(result.stdout)
-            self.assertEqual((data['passed'], data['modules'], data['functions'], data['compiled']), (7, 7, 147, 150))
+            self.assertEqual((data['passed'], data['modules'], data['functions'], data['compiled']), (7, 7, 170, 173))
 
 
 if __name__ == '__main__':

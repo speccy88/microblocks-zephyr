@@ -1,7 +1,9 @@
 module 'MicroDuck Simple Sensors' Input
 author 'MicroBlocks Linux ARM64 contributors'
-version 1 1
+version 1 2
 description 'Experimental convenience layer over the same advanced read-only gateway libraries. These helpers capture, read and release one snapshot. Readings retain [status,value,unit,origin]; missing or unobserved values never become zero. Use reading known? before number from reading. Battery uses hundredths percent; head temperature uses mC; range uses mm. Gamepad number is the declared button index, not an assumed A/B mapping. No continuous freshness, clear-path, calibrated orientation or movement readiness is inferred. Fixtures only so far; physical MicroDuck unverified. Advanced blocks remain usable in the same project.'
+spec 'r' 'microduckEasyMissingServos' 'reported missing servo count reading'
+spec 'r' 'microduckEasyModelName' 'reported robot model name reading'
 spec 'r' 'microduckEasyBattery' 'battery reading'
 spec 'r' 'microduckEasyBoardTemperature' 'robot board temperature reading (mC)'
 spec 'r' 'microduckEasyHealth' 'reported robot health reading'
@@ -71,3 +73,19 @@ to microduckEasyValue reading { return ('[microduck:readingValue]' reading) }
 to microduckEasyStatus reading { return (microduckReadingStatus reading) }
 to microduckEasyUnit reading { return (microduckReadingUnit reading) }
 to microduckEasyInvalidInput { return ('[microduck:depthReading]' '{"jsonrpc":"2.0","id":null,"error":{"code":-32602,"message":"Invalid sensor row, column or button index"}}') }
+
+to microduckEasyMissingServos {
+    local 'sample' (microduckRobotHealthCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'reading' (microduckRobotMissingServoCount sample)
+    microduckRobotStateRelease sample
+    return reading
+}
+
+to microduckEasyModelName {
+    local 'sample' (microduckRobotModelCapture)
+    if (not (microduckReadingKnown sample)) { return sample }
+    local 'reading' (microduckRobotModelAsset sample)
+    microduckRobotModelRelease sample
+    return reading
+}

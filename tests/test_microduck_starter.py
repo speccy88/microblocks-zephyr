@@ -51,7 +51,7 @@ class StarterFixture:
 class MicroDuckStarterImport(StarterFixture, unittest.TestCase):
     def test_coherent_optional_import_exact_sources_and_roundtrip(self):
         self.assertTrue(self.compiled['roundtrip'])
-        self.assertEqual(len(self.compiled['functions']), 186)
+        self.assertEqual(len(self.compiled['functions']), 211)
         meta = json.loads((self.assets / 'microduck-starter-libraries.json').read_text())
         bundle = (self.assets / meta['bundle']).read_bytes()
         self.assertEqual(meta['action_blocks'], 'simulation_only')
@@ -105,6 +105,7 @@ class MicroDuckStarterNative(StarterFixture, unittest.IsolatedAsyncioTestCase):
         finally:
             await stop(r)
         wire = await read.RobotWire(work / 'robot.sock').start()
+        wire.model={'asset':'SIMULATION_STARTER','trunk_height_m':.123}
         gateway = await read.normal_gateway(work / 'read-only', wire.path)
         folder = work / 'health';folder.mkdir()
         r = await runtime(folder, gateway.path)
@@ -116,8 +117,11 @@ class MicroDuckStarterNative(StarterFixture, unittest.IsolatedAsyncioTestCase):
             self.assertEqual(await execute(r, 'boardTemperature'), 41250)
             self.assertEqual(await execute(r, 'healthVerdict'), 'degraded')
             self.assertEqual(await execute(r, 'advancedClock'), '408000')
+            self.assertEqual(await execute(r, 'missingServoCount'), 2)
+            self.assertEqual(await execute(r, 'modelName'), 'SIMULATION_STARTER')
+            self.assertEqual(await execute(r, 'advancedModel'), 123)
             self.assertEqual(gateway.robot_read.entries, {})
-            self.assertTrue(all(q['method'] in ('hello', 'robot.health') for q in wire.audit))
+            self.assertTrue(all(q['method'] in ('hello', 'robot.health','robot.model') for q in wire.audit))
         finally:
             await stop(r);await gateway.stop();await wire.stop()
         for name, module, make, socket_name, store, probes in (

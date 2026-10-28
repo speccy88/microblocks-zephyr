@@ -25,7 +25,7 @@ client=importlib.import_module(package.__name__+'.client')
 def request(name='capture',p=None):return {'jsonrpc':'2.0','id':1,'method':svc.PREFIX+name,'params':{'kind':'state','hz':10} if p is None else p,'confirmed':False}
 def read(handle,field='loop.hz',kind='state',index=1,component=1):return {'handle':handle,'kind':kind,'field':field,'index':index,'component':component}
 def source(path,uid=None):return {'version':1,'daemon':'robotd','path':str(path),'uid':os.geteuid() if uid is None else uid}
-def health():return {'healthy':False,'degraded':True,'reason':'SIMULATION no controller','battery':{'percent':0.,'volts':7.8},'cpu_temp_c':41.25,'cpu_throttle':{'level':0,'max_level':7,'khz':408000,'max_khz':1800000},'motors':{'hottest':'fictional','max_c':45.5,'mean_c':40.25},'control_loop':{'target_hz':50.,'achieved_hz':49.95,'ticks':2**64-1,'missed':2**63+5,'last_tick_age_ms':4},'bus':{'consecutive_errors':0,'startup_failures':0},'imu':{'ready':True,'missing':False,'stale_blocks':2**63+1,'consecutive_stale_blocks':25}}
+def health():return {'healthy':False,'degraded':True,'reason':'SIMULATION no controller','battery':{'percent':0.,'volts':7.8},'cpu_temp_c':41.25,'cpu_throttle':{'level':0,'max_level':7,'khz':408000,'max_khz':1800000},'motors':{'hottest':'fictional','max_c':45.5,'mean_c':40.25},'control_loop':{'target_hz':50.,'achieved_hz':49.95,'ticks':2**64-1,'missed':2**63+5,'last_tick_age_ms':4},'bus':{'consecutive_errors':0,'startup_failures':0,'missing':[3,11]},'imu':{'ready':True,'missing':False,'stale_blocks':2**63+1,'consecutive_stale_blocks':25}}
 
 async def normal_gateway(directory,path,uid=None):
     directory.mkdir(mode=0o700);config=directory/'robot.json';config.write_text(json.dumps(source(path,uid)));config.chmod(0o600)
@@ -40,7 +40,7 @@ class RobotServiceProtocol(unittest.TestCase):
             with self.assertRaises(rpc.RpcError):svc.validate(q)
 
     def test_all_health_units_values_and_zero_are_typed(self):
-        h=svc.health.validate_health(health());self.assertEqual(len(svc.health.FIELDS),27)
+        h=svc.health.validate_health(health());self.assertEqual(len(svc.health.FIELDS),29)
         for field,(unit,_) in svc.health.FIELDS.items():
             s=svc.health.sample(h,field);self.assertEqual((s['status'],s['unit']),('ok',unit),field)
         self.assertIs(svc.health.sample(h,'healthy')['value'],False)
@@ -105,7 +105,7 @@ class RobotServiceProtocol(unittest.TestCase):
 class RobotWire:
     """Protocol-shaped source only. No policy, controller, device or physical model."""
     def __init__(self,path):
-        self.path=path;self.frame=svc.state.fixture();self.health=health();self.profile='normal';self.version=45;self.audit=[];self.active=0;self.tasks=set()
+        self.path=path;self.frame=svc.state.fixture();self.health=health();self.model={};self.profile='normal';self.version=45;self.audit=[];self.active=0;self.tasks=set()
     async def start(self):
         self.server=await asyncio.start_unix_server(self.handle,path=str(self.path));self.path.chmod(0o600);return self
     async def stop(self):
@@ -120,11 +120,12 @@ class RobotWire:
             assert q=={'jsonrpc':'2.0','id':0,'method':'hello','params':{'api_version':45}}
             writer.write(rpc.encode({'jsonrpc':'2.0','id':0,'result':{'api_version':True if self.profile=='badhello' else self.version,'daemon_version':'0.0.0','revision':'SIMULATION'}},16384));await writer.drain()
             q=await rpc.read_message(reader,8192);self.audit.append(q)
-            assert q['id']==1 and q['method'] in ('robot.health','robot.subscribe')
+            assert q['id']==1 and q['method'] in ('robot.health','robot.subscribe','robot.model')
+            if q['method']=='robot.model':assert q['params']=={}
             if self.profile=='eof':return
             if self.profile=='preack_timeout':await reader.read();return
             if self.profile=='rpcerror':writer.write(rpc.encode({'jsonrpc':'2.0','id':1,'error':{'code':-32003,'message':'do not echo this'}},16384));await writer.drain();return
-            value=copy.deepcopy(self.health) if q['method']=='robot.health' else {'accepted':self.profile!='refused'}
+            value=copy.deepcopy(self.health) if q['method']=='robot.health' else copy.deepcopy(self.model) if q['method']=='robot.model' else {'accepted':self.profile!='refused'}
             if self.profile=='badack':value={'accepted':1}
             writer.write(rpc.encode({'jsonrpc':'2.0','id':2 if self.profile=='wrongid' else 1,'result':value},16384))
             if q['method']=='robot.subscribe' and self.profile not in ('absent','refused'):
