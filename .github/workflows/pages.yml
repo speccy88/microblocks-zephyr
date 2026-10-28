@@ -27,8 +27,14 @@ jobs:
           python-version: '3.12'
       - name: Validate repository
         run: python tools/validate.py
-      - name: Build pinned real GP editor and static portal
-        run: python tools/package_pages.py --fetch --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages
+      - name: Checkout approved Linux target source
+        uses: actions/checkout@v4
+        with:
+          ref: 2c060b7f4e9153dd7213d9b7c2a479810577eb51
+          path: .linux-target-source
+          persist-credentials: false
+      - name: Build stable portal with isolated Linux target previews
+        run: python tools/build_pages_linux_preview.py --linux-repo .linux-target-source --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages --fetch
       - name: Test browser transport contracts
         run: node --test tests/portal-core.test.cjs tests/portal-adapter-guard.test.cjs tests/p4-transport.test.cjs tests/p4_media_core.test.js tests/p4_nn_core.test.js tests/device_files.test.js
       - uses: actions/upload-pages-artifact@v3
