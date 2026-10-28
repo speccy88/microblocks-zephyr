@@ -47,9 +47,15 @@ void updateMicrobitDisplay(void) {}
 uint32 microsecs(void) { static uint32 ticks;return ++ticks; }
 void outputString(const char *text) { (void)text; }
 void addPrimitiveSet(PrimitiveSetIndex index,const char *name,int count,PrimEntry *table) {
+    static const char *expected[]={
+        "configured","quote","jobs","begin","status","result","release",
+        "healthSample","readingValue","sensorSample","sensorRow","telemetrySample",
+        "mediaSample","imuSample","headImuSample","headImuReading","depthReading",
+        "depthRow","gamepadReading","robotReading","padImuReading"
+    };
     CHECK(index==MicroDuckPrims && index==22);
-    CHECK(!strcmp(name,"microduck") && count==9);
-    CHECK(!strcmp(table[0].primName,"configured"));
+    CHECK(!strcmp(name,"microduck") && count==(int)(sizeof(expected)/sizeof(expected[0])));
+    for(int i=0;i<count;i++) CHECK(!strcmp(table[i].primName,expected[i]) && table[i].primFunc!=NULL);
 }
 
 typedef struct { char directory[64],path[108]; int listener; } Fixture;

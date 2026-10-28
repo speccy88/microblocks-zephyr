@@ -1,0 +1,18 @@
+{
+  "files": {
+    "tests/linux_microduck_native.c": "0a3bd124f9a8f9736c335c1a9d7c5c564788356aec8ed48a15a7f2ba8d3f8f74",
+    "tools/test_linux_microduck_native.py": "311abd3ac86148f2a8ef2aaa9b6165eec556bebefe34470d0315585ae74af2d3",
+    "linux/arm64/platform/microduck.c": "f768e16145379805481583c25e81ca250dbd66e60b2dfce97188846e92e6a6ac"
+  },
+  "production_source_changed": false,
+  "fixture_checks": 462,
+  "exact_primitive_count": 21,
+  "all_names_and_nonnull_callbacks_checked": true,
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "test_timeout_ms": 40,
+  "production_timeout_ms": 10000,
+  "hosted_repair_pass_claimed": false
+}
