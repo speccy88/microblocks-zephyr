@@ -6,6 +6,7 @@ No download, model/audio upload, or hardware access. Outputs belong in build/.
 # SPDX-License-Identifier: MIT
 import argparse,hashlib,json,shutil,wave
 from pathlib import Path
+from p4_whistle_permutations import adapt_source, header, permutations
 
 def prepare(sources,model,output,fixture=None):
  repo=Path(__file__).resolve().parents[1]
@@ -16,6 +17,10 @@ def prepare(sources,model,output,fixture=None):
  data=model.read_bytes();spec=manifest['model']
  if len(data)!=spec['bytes'] or hashlib.sha256(data).hexdigest()!=spec['sha256']:raise ValueError('Model size/SHA256 mismatch')
  output.mkdir(parents=True,exist_ok=True)
+ tables=permutations(data)
+ adapted=adapt_source((sources/'engine/src/nd_whistle.c').read_bytes())
+ (output/'nd_whistle_p4.c').write_text(adapted,encoding='utf-8',newline='\n')
+ (output/'whistle_permutations.h').write_text(header(tables),encoding='utf-8',newline='\n')
  target=output/'whistle_d4.cact';target.write_bytes(data)
  sections=['.section .rodata.p4_whistle,"a",@progbits','.balign 64',
   '.global p4_whistle_model_start, p4_whistle_model_end','p4_whistle_model_start:',
@@ -32,9 +37,12 @@ def prepare(sources,model,output,fixture=None):
    'p4_whistle_fixture_start:','.incbin "'+target.resolve().as_posix()+'"','p4_whistle_fixture_end:']
  (output/'whistle_assets.S').write_text('\n'.join(sections)+'\n',newline='\n')
  for name in ['nd_cact','nd_quant','nd_tokenizer','nd_ledcmd','nd_whistle']:
-  (output/(name+'_zephyr.c')).write_text('#include "whistle_port.h"\n#include "'+(sources/'engine/src'/ (name+'.c')).resolve().as_posix()+'"\n',newline='\n')
+  path=output/'nd_whistle_p4.c' if name=='nd_whistle' else sources/'engine/src'/(name+'.c')
+  (output/(name+'_zephyr.c')).write_text('#include "whistle_port.h"\n#include "'+path.resolve().as_posix()+'"\n',encoding='utf-8',newline='\n')
  report={'source_commit':manifest['source_commit'],'model_bytes':len(data),'model_sha256':spec['sha256'],
-  'fixture_frames':frames,'backend':'native Zephyr portable C99 int8; model mapped flash; 12MiB bounded PSRAM arena'}
+  'fixture_frames':frames,'backend':'native Zephyr portable C99 int8; model mapped flash; 12MiB bounded PSRAM arena',
+  'const_permutations':{'bytes':4096,'generated_source_sha256':hashlib.sha256(adapted.encode()).hexdigest(),
+   'header_sha256':hashlib.sha256(header(tables).encode()).hexdigest(),'runtime_model_equality_check':True}}
  (output/'inputs.json').write_text(json.dumps(report,indent=2)+'\n',newline='\n')
  return report
 if __name__=='__main__':

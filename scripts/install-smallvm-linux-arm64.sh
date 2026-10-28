@@ -23,6 +23,7 @@ fi
 for command in python3 sha256sum tar mktemp df install sed head awk stat cp cmp mv grep chmod; do command -v "$command" >/dev/null || fail "Missing dependency: $command"; done
 [[ $prefix == /* && $data_dir == /* && $prefix != / && $data_dir != / ]] || fail 'Install and data paths must be absolute non-root directories'
 [[ ! $prefix =~ [[:cntrl:]] && ! $data_dir =~ [[:cntrl:]] && $prefix != *'$'* && $data_dir != *'$'* && $prefix != *'"'* && $data_dir != *'"'* && $prefix != *'%'* && $data_dir != *'%'* && $prefix != *'\'* && $data_dir != *'\'* ]] || fail 'Unsupported characters in paths'
+[[ $prefix != *' ' && $data_dir != *' ' ]] || fail 'Unsupported trailing space in paths'
 [[ -r /etc/os-release ]] || fail 'Linux distribution metadata is unavailable'
 printf 'Platform: %s / %s\n' "$(uname -m)" "$(sed -n 's/^PRETTY_NAME=//p' /etc/os-release | head -1)"
 work=$(mktemp -d)
@@ -130,7 +131,8 @@ if ((service)); then
 Description=MicroBlocks SmallVM (user session)
 [Service]
 ExecStart="$prefix/bin/smallvm"
-WorkingDirectory="$data_dir"
+# WorkingDirectory is a single path, not a shell/ExecStart word list.
+WorkingDirectory=$data_dir
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true

@@ -130,10 +130,10 @@ class InstallerVerification(InstallerFixture):
 
     def test_service_expansion_characters_rejected(self):
         archive = self.archive()
-        for path in ['/tmp/$EXPANSION', '/tmp/path\rcontrol', '/tmp/path\tcontrol', '/tmp/percent%name']:
+        for path in ['/tmp/$EXPANSION', '/tmp/path\rcontrol', '/tmp/path\tcontrol', '/tmp/percent%name', '/tmp/trailing ']:
             result = self.run_installer(archive, extra=('--prefix', path))
             self.assertNotEqual(result.returncode, 0, path)
-            self.assertIn('Unsupported characters', result.stderr)
+            self.assertIn('Unsupported trailing space' if path.endswith(' ') else 'Unsupported characters', result.stderr)
 
     def test_shell_syntax(self):
         for name in ['install-smallvm-linux-arm64.sh', 'uninstall-smallvm-linux-arm64.sh']:
@@ -151,7 +151,9 @@ class InstallerLifecycle(InstallerFixture):
         for name, script in {
             'uname': '#!/bin/sh\ncase "$1" in -m) echo aarch64;; -s) echo Linux;; *) exit 1;; esac\n',
             'timeout': '#!/bin/sh\n# The ELF fixture is never executed.\nexit "${TEST_SELFTEST_EXIT:-0}"\n',
-            'systemctl': '#!/bin/sh\nprintf "%s\\n" "$*" >> "$TEST_SYSTEMCTL_LOG"\nexit 0\n',
+            'systemctl': ('#!/bin/sh\nprintf "%s\\n" "$*" >> "$TEST_SYSTEMCTL_LOG"\n'
+                          'case "$*" in *"disable --now"*) exit "${TEST_STOP_EXIT:-0}";;\n'
+                          '*"show microblocks-smallvm.service"*) printf "%s\\n" "${TEST_UNIT_STATE:-}"; exit "${TEST_SHOW_EXIT:-0}";; esac\nexit 0\n'),
         }.items():
             path = fakebin / name; path.write_text(script); path.chmod(0o700)
         self.environment = dict(os.environ)
@@ -247,6 +249,39 @@ class InstallerLifecycle(InstallerFixture):
         self.assertIn('--user enable --now microblocks-smallvm.service', log)
         self.assertIn('--user restart microblocks-smallvm.service', log)
         self.assertNotIn('sudo', log)
+        self.assertIn('WorkingDirectory=' + str(self.work / 'programs') + '\n', unit.read_text())
+        self.assertIn('NoNewPrivileges=true\nPrivateTmp=true\nProtectSystem=strict', unit.read_text())
+
+    def test_real_systemd_parser_accepts_service_with_spaces(self):
+        if not shutil.which('systemd-analyze'):
+            self.skipTest('requires systemd-analyze')
+        self.work = self.work / 'path with spaces'; self.work.mkdir()
+        result = self.install(self.archive(), service=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        # XDG_CONFIG_HOME still names the original temporary directory.
+        unit = Path(self.environment['XDG_CONFIG_HOME']) / 'systemd/user/microblocks-smallvm.service'
+        parsed = subprocess.run(['systemd-analyze', 'verify', str(unit)], capture_output=True, text=True)
+        self.assertEqual(parsed.returncode, 0, parsed.stdout + parsed.stderr)
+
+    def test_uninstall_rejected_inactive_unit_and_preserve_uncertain_stop(self):
+        result = self.install(self.archive(), service=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        unit = Path(self.environment['XDG_CONFIG_HOME']) / 'systemd/user/microblocks-smallvm.service'
+        launcher = self.work / 'prefix/bin/smallvm'
+        self.environment['TEST_STOP_EXIT'] = '5'
+        for state, show_exit in [('ActiveState=active\nMainPID=123', '0'),
+                                 ('ActiveState=inactive\nMainPID=123', '0'),
+                                 ('ActiveState=inactive\nMainPID=0', '1'), ('', '0')]:
+            self.environment.update(TEST_UNIT_STATE=state, TEST_SHOW_EXIT=show_exit)
+            outcome = subprocess.run(['bash', str(REPO / 'scripts/uninstall-smallvm-linux-arm64.sh'),
+                                      '--prefix', str(self.work / 'prefix')], env=self.environment, capture_output=True)
+            self.assertNotEqual(outcome.returncode, 0)
+            self.assertTrue(unit.exists()); self.assertTrue(launcher.exists())
+        self.environment.update(TEST_UNIT_STATE='MainPID=0\nActiveState=inactive', TEST_SHOW_EXIT='0')
+        outcome = subprocess.run(['bash', str(REPO / 'scripts/uninstall-smallvm-linux-arm64.sh'),
+                                  '--prefix', str(self.work / 'prefix')], env=self.environment, capture_output=True)
+        self.assertEqual(outcome.returncode, 0, outcome.stderr)
+        self.assertFalse(unit.exists()); self.assertFalse(launcher.exists())
 
     def test_existing_release_manifest_corruption_refuses_reinstall(self):
         archive = self.archive()

@@ -146,6 +146,9 @@ if(P4_WHISTLE_MODEL)
     set(P4_WHISTLE_SOURCES "${repo}/build-artifacts/whistle-sources")
   endif()
   set(whistle_generated "${CMAKE_CURRENT_BINARY_DIR}/whistle")
+  set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+    "${repo}/tools/prepare_p4_whistle.py" "${repo}/tools/p4_whistle_permutations.py"
+    "${repo}/dependencies/p4-whistle.json" "${P4_WHISTLE_MODEL}")
   set(whistle_args --sources "${P4_WHISTLE_SOURCES}" --model "${P4_WHISTLE_MODEL}" --output "${whistle_generated}")
   if(P4_WHISTLE_FIXTURE)
     list(APPEND whistle_args --fixture "${P4_WHISTLE_FIXTURE}")

@@ -1,0 +1,93 @@
+{
+  "physical_tested": false,
+  "audio": "deterministic synthetic 1600-sample PCM; no recorded audio",
+  "preparation": {
+    "source_commit": "9e9e996e55b0f945438da1082eac4a087ed3ca39",
+    "model_bytes": 14515887,
+    "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+    "fixture_frames": 0,
+    "backend": "native Zephyr portable C99 int8; model mapped flash; 12MiB bounded PSRAM arena",
+    "const_permutations": {
+      "bytes": 4096,
+      "generated_source_sha256": "43715c23ed21f0ccf302df86c1404bb901c677d41c78e700777d345251161220",
+      "header_sha256": "d57953c9b29938910fae094e25a3fa880e5e455e08331299a823eaf1cc327bdc",
+      "runtime_model_equality_check": true
+    }
+  },
+  "commands": [
+    {
+      "args": [
+        "cc",
+        "-O2",
+        "-std=gnu99",
+        "-Ibuild-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/include",
+        "-DWHISTLE_SOURCE=\"/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_whistle.c\"",
+        "build-artifacts/whistle-const-oracle/oracle.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_cact.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_quant.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_tokenizer.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_ledcmd.c",
+        "-lm",
+        "-o",
+        "build-artifacts/whistle-const-oracle/original"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "args": [
+        "build-artifacts/whistle-const-oracle/original",
+        "build-artifacts/p4-full-profile-public-inputs/whistle_d4.cact",
+        "build-artifacts/whistle-const-oracle/original.bin",
+        "0"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "args": [
+        "cc",
+        "-O2",
+        "-std=gnu99",
+        "-Ibuild-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/include",
+        "-DWHISTLE_SOURCE=\"/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/whistle-const-oracle/generated/nd_whistle_p4.c\"",
+        "build-artifacts/whistle-const-oracle/oracle.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_cact.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_quant.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_tokenizer.c",
+        "build-artifacts/p4-full-profile-public-inputs/whistle-sources/engine/src/nd_ledcmd.c",
+        "-lm",
+        "-o",
+        "build-artifacts/whistle-const-oracle/const"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "args": [
+        "build-artifacts/whistle-const-oracle/const",
+        "build-artifacts/p4-full-profile-public-inputs/whistle_d4.cact",
+        "build-artifacts/whistle-const-oracle/const.bin",
+        "0"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "args": [
+        "build-artifacts/whistle-const-oracle/const",
+        "build-artifacts/p4-full-profile-public-inputs/whistle_d4.cact",
+        "build-artifacts/whistle-const-oracle/unused.bin",
+        "1"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    }
+  ],
+  "result": "PASS",
+  "exact_table_values": 1024,
+  "encoder_floats": 1024,
+  "combined_sha256": "e6ca0476891952052f9ed36b37544b7f101f8e95730e67aae14721db6ec2999e",
+  "mismatch_rejected": true,
+  "seconds": 7.867521002000004
+}

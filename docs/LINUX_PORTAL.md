@@ -4,8 +4,9 @@ The source portal modules offer Raspberry Pi 5 and MicroDuck profile information
 SSH target validation and a reviewable installation command. Raspberry Pi native
 SmallVM/PTY protocol tests now pass. The real graphical editor also passed
 arithmetic, a bounded 50-output loop, browser save/restore and reconnect to the
-Pi through SSH. Full OS reboot acceptance and physical MicroDuck validation
-remain pending.
+Pi through SSH. A later [authorized Pi reboot](../evidence/2026-10-28/pi-user-service/REBOOT.md)
+passes VM startup, saved code and graphical reconnect with a manually restarted
+bridge. Physical MicroDuck validation remains pending.
 
 **No ARM64 release is published yet.** `web/portal/linux-release.json` has
 `available: false`; the panel refuses to generate or copy an installation command.

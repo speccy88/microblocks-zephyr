@@ -8,7 +8,14 @@ and execution after reconnect. Its [local readback adaptation](../../docs/JS_PI_
 preserves VM slot identities and serializes rapid explicit evaluations.
 This later result supersedes the older typed-example graphical limitation below
 for that tested subset; it does not validate every block, physical MicroDuck,
-live robot control, a browser Save dialog, user service or full OS reboot.
+live robot control, a browser Save dialog or full OS reboot.
+The later [user-service acceptance](../../evidence/2026-10-28/pi-user-service/README.md)
+passes actual install, bytecode upload/reconnect, explicit restart, crash
+recovery and uninstall with the service hardening enabled. It preserves the
+three pre-existing VMs and leaves no test service enabled. A later separately
+authorized [reboot test](../../evidence/2026-10-28/pi-user-service/REBOOT.md) also
+passes automatic VM startup, saved code42 and graphical readback/reconnect.
+That reboot ends the old foreground VMs, retaining their three saved programs.
 
 The later [typed health checkpoint](../microduck/TYPED_READINGS.md) adds two pure
 snapshot-conversion primitives and library0.2. Ordinary and sanitizer Pi binaries
@@ -33,8 +40,10 @@ WebSocket disconnect/reconnect through the SSH tunnel. Screenshots and a scoped
 browser report are retained in `tests/`. The IDE's first-ping handshake and its
 BLE preference message are covered by regressions found during this real test.
 
-No ARM64 release is published yet. User-service and full OS reboot acceptance
-remain pending. No physical MicroDuck test has run.
+No ARM64 release is published yet. Pi reboot acceptance passes with the lab's
+pre-existing lingering enabled; the foreground bridge is restarted manually.
+Windows reboot/SSH-agent persistence and clean-machine setup remain unverified.
+No physical MicroDuck test has run.
 See [SPEC.md](SPEC.md), [hardware.json](hardware.json) and the evidence in
 [tests](tests/) for the acceptance boundary. CPU/RAM readings are short bounded
 idle samples, not performance benchmarks.

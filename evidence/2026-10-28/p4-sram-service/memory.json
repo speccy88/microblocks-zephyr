@@ -1,0 +1,691 @@
+{
+  "after": {
+    "elf_sha256": "3111e23af8acf4a52d14cb0370bf7861293eda7a4bd74cbf11ec71e09c869640",
+    "region_bytes": 393216,
+    "static_occupied_bytes": 378784,
+    "static_occupied_percent": 96.33,
+    "libc_arena_reserved_bytes": 14432,
+    "allocated_sections": [
+      {
+        "name": ".iram0.text",
+        "address": "0x4ff40000",
+        "bytes": 70512
+      },
+      {
+        "name": ".loader.text",
+        "address": "0x4ff51370",
+        "bytes": 1308
+      },
+      {
+        "name": ".iram0.text_end",
+        "address": "0x4ff5188c",
+        "bytes": 4
+      },
+      {
+        "name": ".iram0.bss",
+        "address": "0x4ff51890",
+        "bytes": 16
+      },
+      {
+        "name": ".dram0.data",
+        "address": "0x4ff518c0",
+        "bytes": 24028
+      },
+      {
+        "name": ".loader.data",
+        "address": "0x4ff5769c",
+        "bytes": 692
+      },
+      {
+        "name": "sw_isr_table",
+        "address": "0x4ff57950",
+        "bytes": 384
+      },
+      {
+        "name": "device_states",
+        "address": "0x4ff57ad0",
+        "bytes": 40
+      },
+      {
+        "name": "k_mem_slab_area",
+        "address": "0x4ff57af8",
+        "bytes": 192
+      },
+      {
+        "name": "k_heap_area",
+        "address": "0x4ff57bb8",
+        "bytes": 24
+      },
+      {
+        "name": "k_mutex_area",
+        "address": "0x4ff57bd0",
+        "bytes": 480
+      },
+      {
+        "name": "k_msgq_area",
+        "address": "0x4ff57db0",
+        "bytes": 156
+      },
+      {
+        "name": "k_sem_area",
+        "address": "0x4ff57e4c",
+        "bytes": 360
+      },
+      {
+        "name": "net_buf_pool_area",
+        "address": "0x4ff57fb4",
+        "bytes": 96
+      },
+      {
+        "name": "net_if_area",
+        "address": "0x4ff58018",
+        "bytes": 152
+      },
+      {
+        "name": "net_if_dev_area",
+        "address": "0x4ff580b0",
+        "bytes": 40
+      },
+      {
+        "name": "net_l2_area",
+        "address": "0x4ff580d8",
+        "bytes": 20
+      },
+      {
+        "name": "video_device_area",
+        "address": "0x4ff580ec",
+        "bytes": 32
+      },
+      {
+        "name": "wifi_nm_instance_area",
+        "address": "0x4ff5810c",
+        "bytes": 16
+      },
+      {
+        "name": ".dram0.noinit",
+        "address": "0x4ff58140",
+        "bytes": 230728
+      },
+      {
+        "name": ".dram0.bss",
+        "address": "0x4ff906c0",
+        "bytes": 49376
+      }
+    ],
+    "largest_internal_objects": [
+      {
+        "names": [
+          "_k_thread_stack_whistle_thread"
+        ],
+        "address": "0x4ff5d940",
+        "bytes": 65536
+      },
+      {
+        "names": [
+          "kheap__system_heap"
+        ],
+        "address": "0x4ff7e628",
+        "bytes": 32852
+      },
+      {
+        "names": [
+          "net_buf_data_rx_bufs"
+        ],
+        "address": "0x4ff8b948",
+        "bytes": 16384
+      },
+      {
+        "names": [
+          "z_main_stack"
+        ],
+        "address": "0x4ff77d40",
+        "bytes": 16384
+      },
+      {
+        "names": [
+          "server_ctx"
+        ],
+        "address": "0x4ff93f28",
+        "bytes": 13944
+      },
+      {
+        "names": [
+          "net_buf_data_tx_bufs"
+        ],
+        "address": "0x4ff886a8",
+        "bytes": 12288
+      },
+      {
+        "names": [
+          "_k_thread_stack_p4_station_worker"
+        ],
+        "address": "0x4ff70140",
+        "bytes": 12288
+      },
+      {
+        "names": [
+          "_ring_buffer_data_uart_rx"
+        ],
+        "address": "0x4ff8667c",
+        "bytes": 8192
+      },
+      {
+        "names": [
+          "_k_thread_stack_camera_thread"
+        ],
+        "address": "0x4ff59940",
+        "bytes": 8192
+      },
+      {
+        "names": [
+          "_k_thread_stack_audio_thread"
+        ],
+        "address": "0x4ff5b940",
+        "bytes": 8192
+      },
+      {
+        "names": [
+          "_k_mem_slab_buf_tcp_conns_slab"
+        ],
+        "address": "0x4ff7cb98",
+        "bytes": 6800
+      },
+      {
+        "names": [
+          "dma_config_0"
+        ],
+        "address": "0x4ff51f88",
+        "bytes": 6360
+      },
+      {
+        "names": [
+          "_k_mem_slab_buf_dma_slab"
+        ],
+        "address": "0x4ff58140",
+        "bytes": 6144
+      },
+      {
+        "names": [
+          "_k_thread_stack_p4_ws_worker"
+        ],
+        "address": "0x4ff6e940",
+        "bytes": 6144
+      },
+      {
+        "names": [
+          "_k_thread_stack_http_server_tid"
+        ],
+        "address": "0x4ff74b40",
+        "bytes": 6144
+      },
+      {
+        "names": [
+          "event_stack.2"
+        ],
+        "address": "0x4ff76340",
+        "bytes": 4096
+      },
+      {
+        "names": [
+          "_k_thread_stack_ppa_thread"
+        ],
+        "address": "0x4ff6d940",
+        "bytes": 4096
+      },
+      {
+        "names": [
+          "rx.0"
+        ],
+        "address": "0x4ff90f00",
+        "bytes": 3200
+      },
+      {
+        "names": [
+          "sys_work_q_stack"
+        ],
+        "address": "0x4ff7bd40",
+        "bytes": 3072
+      },
+      {
+        "names": [
+          "rx_stack"
+        ],
+        "address": "0x4ff73940",
+        "bytes": 2560
+      },
+      {
+        "names": [
+          "_ZN12_GLOBAL__N_1L8suppliedE"
+        ],
+        "address": "0x4ff9a428",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "work_q_stack"
+        ],
+        "address": "0x4ff74340",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "z_interrupt_stacks"
+        ],
+        "address": "0x4ff77340",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "mgmt_stack"
+        ],
+        "address": "0x4ff73140",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "chunks"
+        ],
+        "address": "0x4ff98b38",
+        "bytes": 2040
+      },
+      {
+        "names": [
+          "esp_hosted_mcu_shared_tx"
+        ],
+        "address": "0x4ff91b80",
+        "bytes": 1600
+      },
+      {
+        "names": [
+          "contexts"
+        ],
+        "address": "0x4ff9b894",
+        "bytes": 1560
+      },
+      {
+        "names": [
+          "outBuf"
+        ],
+        "address": "0x4ff99730",
+        "bytes": 1024
+      },
+      {
+        "names": [
+          "rcvBuf"
+        ],
+        "address": "0x4ff99330",
+        "bytes": 1024
+      },
+      {
+        "names": [
+          "printBuffer"
+        ],
+        "address": "0x4ff98550",
+        "bytes": 1000
+      }
+    ],
+    "permutations": [
+      {
+        "name": "s_perm1",
+        "address": "0x40e79220",
+        "bytes": 2048,
+        "section": ".flash.rodata",
+        "writable": false
+      },
+      {
+        "name": "s_perm2",
+        "address": "0x40e78a20",
+        "bytes": 2048,
+        "section": ".flash.rodata",
+        "writable": false
+      }
+    ],
+    "physical_tested": false,
+    "runtime_free_heap_measured": false
+  },
+  "before": {
+    "elf_sha256": "2bf98347eabd8a42bc9c62f2324e88e2adaf7cbed19582e28bc1b494b9e44781",
+    "region_bytes": 393216,
+    "static_occupied_bytes": 382880,
+    "static_occupied_percent": 97.371,
+    "libc_arena_reserved_bytes": 10336,
+    "allocated_sections": [
+      {
+        "name": ".iram0.text",
+        "address": "0x4ff40000",
+        "bytes": 70512
+      },
+      {
+        "name": ".loader.text",
+        "address": "0x4ff51370",
+        "bytes": 1308
+      },
+      {
+        "name": ".iram0.text_end",
+        "address": "0x4ff5188c",
+        "bytes": 4
+      },
+      {
+        "name": ".iram0.bss",
+        "address": "0x4ff51890",
+        "bytes": 16
+      },
+      {
+        "name": ".dram0.data",
+        "address": "0x4ff518c0",
+        "bytes": 24028
+      },
+      {
+        "name": ".loader.data",
+        "address": "0x4ff5769c",
+        "bytes": 692
+      },
+      {
+        "name": "sw_isr_table",
+        "address": "0x4ff57950",
+        "bytes": 384
+      },
+      {
+        "name": "device_states",
+        "address": "0x4ff57ad0",
+        "bytes": 40
+      },
+      {
+        "name": "k_mem_slab_area",
+        "address": "0x4ff57af8",
+        "bytes": 192
+      },
+      {
+        "name": "k_heap_area",
+        "address": "0x4ff57bb8",
+        "bytes": 24
+      },
+      {
+        "name": "k_mutex_area",
+        "address": "0x4ff57bd0",
+        "bytes": 480
+      },
+      {
+        "name": "k_msgq_area",
+        "address": "0x4ff57db0",
+        "bytes": 156
+      },
+      {
+        "name": "k_sem_area",
+        "address": "0x4ff57e4c",
+        "bytes": 360
+      },
+      {
+        "name": "net_buf_pool_area",
+        "address": "0x4ff57fb4",
+        "bytes": 96
+      },
+      {
+        "name": "net_if_area",
+        "address": "0x4ff58018",
+        "bytes": 152
+      },
+      {
+        "name": "net_if_dev_area",
+        "address": "0x4ff580b0",
+        "bytes": 40
+      },
+      {
+        "name": "net_l2_area",
+        "address": "0x4ff580d8",
+        "bytes": 20
+      },
+      {
+        "name": "video_device_area",
+        "address": "0x4ff580ec",
+        "bytes": 32
+      },
+      {
+        "name": "wifi_nm_instance_area",
+        "address": "0x4ff5810c",
+        "bytes": 16
+      },
+      {
+        "name": ".dram0.noinit",
+        "address": "0x4ff58140",
+        "bytes": 230728
+      },
+      {
+        "name": ".dram0.bss",
+        "address": "0x4ff906c0",
+        "bytes": 53472
+      }
+    ],
+    "largest_internal_objects": [
+      {
+        "names": [
+          "_k_thread_stack_whistle_thread"
+        ],
+        "address": "0x4ff5d940",
+        "bytes": 65536
+      },
+      {
+        "names": [
+          "kheap__system_heap"
+        ],
+        "address": "0x4ff7e628",
+        "bytes": 32852
+      },
+      {
+        "names": [
+          "net_buf_data_rx_bufs"
+        ],
+        "address": "0x4ff8b948",
+        "bytes": 16384
+      },
+      {
+        "names": [
+          "z_main_stack"
+        ],
+        "address": "0x4ff77d40",
+        "bytes": 16384
+      },
+      {
+        "names": [
+          "server_ctx"
+        ],
+        "address": "0x4ff93f28",
+        "bytes": 13944
+      },
+      {
+        "names": [
+          "net_buf_data_tx_bufs"
+        ],
+        "address": "0x4ff886a8",
+        "bytes": 12288
+      },
+      {
+        "names": [
+          "_k_thread_stack_p4_station_worker"
+        ],
+        "address": "0x4ff70140",
+        "bytes": 12288
+      },
+      {
+        "names": [
+          "_ring_buffer_data_uart_rx"
+        ],
+        "address": "0x4ff8667c",
+        "bytes": 8192
+      },
+      {
+        "names": [
+          "_k_thread_stack_camera_thread"
+        ],
+        "address": "0x4ff59940",
+        "bytes": 8192
+      },
+      {
+        "names": [
+          "_k_thread_stack_audio_thread"
+        ],
+        "address": "0x4ff5b940",
+        "bytes": 8192
+      },
+      {
+        "names": [
+          "_k_mem_slab_buf_tcp_conns_slab"
+        ],
+        "address": "0x4ff7cb98",
+        "bytes": 6800
+      },
+      {
+        "names": [
+          "dma_config_0"
+        ],
+        "address": "0x4ff51f88",
+        "bytes": 6360
+      },
+      {
+        "names": [
+          "_k_mem_slab_buf_dma_slab"
+        ],
+        "address": "0x4ff58140",
+        "bytes": 6144
+      },
+      {
+        "names": [
+          "_k_thread_stack_p4_ws_worker"
+        ],
+        "address": "0x4ff6e940",
+        "bytes": 6144
+      },
+      {
+        "names": [
+          "_k_thread_stack_http_server_tid"
+        ],
+        "address": "0x4ff74b40",
+        "bytes": 6144
+      },
+      {
+        "names": [
+          "event_stack.2"
+        ],
+        "address": "0x4ff76340",
+        "bytes": 4096
+      },
+      {
+        "names": [
+          "_k_thread_stack_ppa_thread"
+        ],
+        "address": "0x4ff6d940",
+        "bytes": 4096
+      },
+      {
+        "names": [
+          "rx.0"
+        ],
+        "address": "0x4ff90f00",
+        "bytes": 3200
+      },
+      {
+        "names": [
+          "sys_work_q_stack"
+        ],
+        "address": "0x4ff7bd40",
+        "bytes": 3072
+      },
+      {
+        "names": [
+          "rx_stack"
+        ],
+        "address": "0x4ff73940",
+        "bytes": 2560
+      },
+      {
+        "names": [
+          "_ZN12_GLOBAL__N_1L8suppliedE"
+        ],
+        "address": "0x4ff9a428",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "work_q_stack"
+        ],
+        "address": "0x4ff74340",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "s_perm1"
+        ],
+        "address": "0x4ff9b9b8",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "s_perm2"
+        ],
+        "address": "0x4ff9b1b8",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "z_interrupt_stacks"
+        ],
+        "address": "0x4ff77340",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "mgmt_stack"
+        ],
+        "address": "0x4ff73140",
+        "bytes": 2048
+      },
+      {
+        "names": [
+          "chunks"
+        ],
+        "address": "0x4ff98b38",
+        "bytes": 2040
+      },
+      {
+        "names": [
+          "esp_hosted_mcu_shared_tx"
+        ],
+        "address": "0x4ff91b80",
+        "bytes": 1600
+      },
+      {
+        "names": [
+          "contexts"
+        ],
+        "address": "0x4ff9c894",
+        "bytes": 1560
+      },
+      {
+        "names": [
+          "outBuf"
+        ],
+        "address": "0x4ff99730",
+        "bytes": 1024
+      }
+    ],
+    "permutations": [
+      {
+        "name": "s_perm1",
+        "address": "0x4ff9b9b8",
+        "bytes": 2048,
+        "section": ".dram0.bss",
+        "writable": true
+      },
+      {
+        "name": "s_perm2",
+        "address": "0x4ff9b1b8",
+        "bytes": 2048,
+        "section": ".dram0.bss",
+        "writable": true
+      }
+    ],
+    "physical_tested": false,
+    "runtime_free_heap_measured": false
+  },
+  "static_reduction_bytes": 4096
+}

@@ -1,0 +1,333 @@
+{
+  "root": "/home/fred/microblocks-service-test-2n155u0n",
+  "checks": [
+    "Pre-reboot actual service active and bytecode12 persisted",
+    "Editor graphical42 and protocol42; final program privately sealed before reboot",
+    "Different Linux boot; service auto-started, saved bytecode42 and CRC preserved; manual foreground bridge reconnected"
+  ],
+  "robot_connected": false,
+  "network_security_changed": false,
+  "identity_before": {
+    "hostname": "RPI5",
+    "architecture": "aarch64",
+    "boot_id": "9afb6819-cce2-452e-b159-2a9db5245492"
+  },
+  "vms_before": [
+    {
+      "pid": 4819,
+      "exe": "/home/fred/microblocks-charlie/editor-sessions/20261027T054738960164Z/smallvm",
+      "argv": [
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T054738960164Z/smallvm",
+        "--data-dir",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T054738960164Z/data",
+        "--pty-info",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T054738960164Z/data/pty.json"
+      ],
+      "cwd": "/home/fred/microblocks-charlie/editor-sessions/20261027T054738960164Z",
+      "start": "716081"
+    },
+    {
+      "pid": 5601,
+      "exe": "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z/smallvm",
+      "argv": [
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z/smallvm",
+        "--data-dir",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z/data",
+        "--pty-info",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z/data/pty.json",
+        "--microduck-socket",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z/simulation/gateway.sock"
+      ],
+      "cwd": "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z",
+      "start": "963992"
+    },
+    {
+      "pid": 6874,
+      "exe": "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z/smallvm",
+      "argv": [
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z/smallvm",
+        "--data-dir",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z/data",
+        "--pty-info",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z/data/pty.json",
+        "--microduck-socket",
+        "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z/simulation/gateway.sock"
+      ],
+      "cwd": "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z",
+      "start": "1449344"
+    }
+  ],
+  "commands": [
+    {
+      "args": [
+        "systemctl",
+        "list-units",
+        "--type=service",
+        "--state=running",
+        "--plain",
+        "--no-legend",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "avahi-daemon.service          loaded active running Avahi mDNS/DNS-SD Stack\nbluetooth.service             loaded active running Bluetooth service\ncaddy.service                 loaded active running Caddy\ncontainerd.service            loaded active running containerd container runtime\ncron.service                  loaded active running Regular background program processing daemon\ndbus.service                  loaded active running D-Bus System Message Bus\ndocker.service                loaded active running Docker Application Container Engine\ngetty@tty1.service            loaded active running Getty on tty1\nNetworkManager.service        loaded active running Network Manager\nollama.service                loaded active running Ollama Service\nserial-getty@ttyAMA10.service loaded active running Serial Getty on ttyAMA10\nssh.service                   loaded active running OpenBSD Secure Shell server\nsystemd-journald.service      loaded active running Journal Service\nsystemd-logind.service        loaded active running User Login Management\nsystemd-timesyncd.service     loaded active running Network Time Synchronization\nsystemd-udevd.service         loaded active running Rule-based Manager for Device Events and Files\nuser@1000.service             loaded active running User Manager for UID 1000\nwpa_supplicant.service        loaded active running WPA supplicant\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "systemctl",
+        "--user",
+        "list-units",
+        "--failed",
+        "--no-legend",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "\u25cf openclaw-gateway.service loaded failed failed OpenClaw Gateway (v2026.4.24)\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "loginctl",
+        "show-user",
+        "1000",
+        "-p",
+        "Linger",
+        "--value"
+      ],
+      "returncode": 0,
+      "stdout": "yes\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bash",
+        "/home/fred/microblocks-service-test-2n155u0n/install.sh",
+        "--version",
+        "pi5-service-acceptance-20261028",
+        "--sha256",
+        "56bf440b3f3c15ce4c5dbf86889ea602cd50caf9f601f455016b7bd89a6e72b1",
+        "--archive",
+        "/home/fred/microblocks-service-test-2n155u0n/candidate.tar.gz",
+        "--prefix",
+        "/home/fred/microblocks-service-test-2n155u0n/prefix",
+        "--data-dir",
+        "/home/fred/microblocks-service-test-2n155u0n/program",
+        "--service"
+      ],
+      "returncode": 0,
+      "stdout": "Platform: aarch64 / \"Debian GNU/Linux 13 (trixie)\"\nArchive checksum, layout, pinned source and AArch64 ELF identity verified\n{\"result\":\"PASS\",\"scope\":\"real SmallVM v417; local PTY; no external peripherals\",\"architecture\":\"aarch64\",\"arithmetic\":12,\"variable\":42,\"network_listener\":false}\nInstalled pi5-service-acceptance-20261028 at /home/fred/microblocks-service-test-2n155u0n/prefix/bin/smallvm; programs retained in /home/fred/microblocks-service-test-2n155u0n/program\nNo network listener configured. User service startup requires an active user manager; boot without login is not enabled.\n",
+      "stderr": "Created symlink '/home/fred/.config/systemd/user/default.target.wants/microblocks-smallvm.service' \u2192 '/home/fred/.config/systemd/user/microblocks-smallvm.service'.\n"
+    },
+    {
+      "args": [
+        "systemctl",
+        "--user",
+        "show",
+        "microblocks-smallvm.service",
+        "-p",
+        "MainPID",
+        "-p",
+        "ActiveState",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "NoNewPrivileges",
+        "-p",
+        "PrivateTmp",
+        "-p",
+        "ProtectSystem"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=17626\nPrivateTmp=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nActiveState=active\nFragmentPath=/home/fred/.config/systemd/user/microblocks-smallvm.service\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "systemctl",
+        "--user",
+        "show",
+        "microblocks-smallvm.service",
+        "-p",
+        "MainPID",
+        "-p",
+        "ActiveState",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "NoNewPrivileges",
+        "-p",
+        "PrivateTmp",
+        "-p",
+        "ProtectSystem"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=17626\nPrivateTmp=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nActiveState=active\nFragmentPath=/home/fred/.config/systemd/user/microblocks-smallvm.service\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "systemctl",
+        "--user",
+        "show",
+        "microblocks-smallvm.service",
+        "-p",
+        "MainPID",
+        "-p",
+        "ActiveState",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "NoNewPrivileges",
+        "-p",
+        "PrivateTmp",
+        "-p",
+        "ProtectSystem"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=1040\nPrivateTmp=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nActiveState=active\nFragmentPath=/home/fred/.config/systemd/user/microblocks-smallvm.service\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "systemctl",
+        "list-units",
+        "--type=service",
+        "--state=running",
+        "--plain",
+        "--no-legend",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "avahi-daemon.service              loaded active running Avahi mDNS/DNS-SD Stack\nbluetooth.service                 loaded active running Bluetooth service\ncaddy.service                     loaded active running Caddy\ncontainerd.service                loaded active running containerd container runtime\ncron.service                      loaded active running Regular background program processing daemon\ndbus.service                      loaded active running D-Bus System Message Bus\ndocker.service                    loaded active running Docker Application Container Engine\ngetty@tty1.service                loaded active running Getty on tty1\nNetworkManager-dispatcher.service loaded active running Network Manager Script Dispatcher Service\nNetworkManager.service            loaded active running Network Manager\nollama.service                    loaded active running Ollama Service\nserial-getty@ttyAMA10.service     loaded active running Serial Getty on ttyAMA10\nssh.service                       loaded active running OpenBSD Secure Shell server\nsystemd-hostnamed.service         loaded active running Hostname Service\nsystemd-journald.service          loaded active running Journal Service\nsystemd-logind.service            loaded active running User Login Management\nsystemd-timesyncd.service         loaded active running Network Time Synchronization\nsystemd-udevd.service             loaded active running Rule-based Manager for Device Events and Files\nuser@1000.service                 loaded active running User Manager for UID 1000\nwpa_supplicant.service            loaded active running WPA supplicant\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "systemctl",
+        "--user",
+        "list-units",
+        "--failed",
+        "--no-legend",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "loginctl",
+        "show-user",
+        "1000",
+        "-p",
+        "Linger",
+        "--value"
+      ],
+      "returncode": 0,
+      "stdout": "yes\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bash",
+        "/home/fred/microblocks-service-test-2n155u0n/uninstall.sh",
+        "--prefix",
+        "/home/fred/microblocks-service-test-2n155u0n/prefix"
+      ],
+      "returncode": 0,
+      "stdout": "Managed launcher/service removed. Programs and versioned binaries retained for recovery at /home/fred/microblocks-service-test-2n155u0n/prefix/lib/microblocks.\n",
+      "stderr": "Removed '/home/fred/.config/systemd/user/default.target.wants/microblocks-smallvm.service'.\n"
+    }
+  ],
+  "services_before": "avahi-daemon.service          loaded active running Avahi mDNS/DNS-SD Stack\nbluetooth.service             loaded active running Bluetooth service\ncaddy.service                 loaded active running Caddy\ncontainerd.service            loaded active running containerd container runtime\ncron.service                  loaded active running Regular background program processing daemon\ndbus.service                  loaded active running D-Bus System Message Bus\ndocker.service                loaded active running Docker Application Container Engine\ngetty@tty1.service            loaded active running Getty on tty1\nNetworkManager.service        loaded active running Network Manager\nollama.service                loaded active running Ollama Service\nserial-getty@ttyAMA10.service loaded active running Serial Getty on ttyAMA10\nssh.service                   loaded active running OpenBSD Secure Shell server\nsystemd-journald.service      loaded active running Journal Service\nsystemd-logind.service        loaded active running User Login Management\nsystemd-timesyncd.service     loaded active running Network Time Synchronization\nsystemd-udevd.service         loaded active running Rule-based Manager for Device Events and Files\nuser@1000.service             loaded active running User Manager for UID 1000\nwpa_supplicant.service        loaded active running WPA supplicant\n",
+  "user_failed_before": "\u25cf openclaw-gateway.service loaded failed failed OpenClaw Gateway (v2026.4.24)\n",
+  "linger_before": "yes\n",
+  "preexisting_saved_files": [
+    {
+      "path": "/home/fred/microblocks-charlie/editor-sessions/20261027T054738960164Z/data/program.ucode",
+      "backup": "/home/fred/microblocks-service-test-2n155u0n/preexisting-program-backups/4819-program.ucode",
+      "bytes": 32,
+      "sha256": "00385c456b5131a26fbbd90605aafcd93486fb2030d49c1b669a94fc04b4aa32"
+    },
+    {
+      "path": "/home/fred/microblocks-charlie/editor-sessions/20261027T062816121820Z/data/program.ucode",
+      "backup": "/home/fred/microblocks-service-test-2n155u0n/preexisting-program-backups/5601-program.ucode",
+      "bytes": 620,
+      "sha256": "a9d260a3100ae6936c665426c5dbc560bd0a1e30e816eb11bcf3d94af8894188"
+    },
+    {
+      "path": "/home/fred/microblocks-charlie/editor-sessions/20261027T074836071386Z/data/program.ucode",
+      "backup": "/home/fred/microblocks-service-test-2n155u0n/preexisting-program-backups/6874-program.ucode",
+      "bytes": 72,
+      "sha256": "bdd6cb8e2f12e6efc84b16d0dc96f3e966114766e999a5cb5de3fbf9ee82b3ad"
+    }
+  ],
+  "service_before": {
+    "MainPID": "17626",
+    "PrivateTmp": "yes",
+    "ProtectSystem": "strict",
+    "NoNewPrivileges": "yes",
+    "ActiveState": "active",
+    "FragmentPath": "/home/fred/.config/systemd/user/microblocks-smallvm.service"
+  },
+  "bridge_resume-before": {
+    "pid": 17702,
+    "port": 52591,
+    "start": "11223618"
+  },
+  "crc": 4087428137,
+  "program_sha256": "793b3a2f02e4371cff270f3323e8d45b3df0b8483fd72bb4706ef9ddcc5ab07f",
+  "ready_for_authorized_reboot": true,
+  "expected_result": 42,
+  "identity_after": {
+    "hostname": "RPI5",
+    "architecture": "aarch64",
+    "boot_id": "589fbd5f-cfbc-41ca-8ed9-ceb925b094fb"
+  },
+  "service_after": {
+    "MainPID": "1040",
+    "PrivateTmp": "yes",
+    "ProtectSystem": "strict",
+    "NoNewPrivileges": "yes",
+    "ActiveState": "active",
+    "FragmentPath": "/home/fred/.config/systemd/user/microblocks-smallvm.service"
+  },
+  "preexisting_saved_files_preserved": true,
+  "bridge_after": {
+    "pid": 1462,
+    "port": 52591,
+    "start": "2142"
+  },
+  "services_after": "avahi-daemon.service              loaded active running Avahi mDNS/DNS-SD Stack\nbluetooth.service                 loaded active running Bluetooth service\ncaddy.service                     loaded active running Caddy\ncontainerd.service                loaded active running containerd container runtime\ncron.service                      loaded active running Regular background program processing daemon\ndbus.service                      loaded active running D-Bus System Message Bus\ndocker.service                    loaded active running Docker Application Container Engine\ngetty@tty1.service                loaded active running Getty on tty1\nNetworkManager-dispatcher.service loaded active running Network Manager Script Dispatcher Service\nNetworkManager.service            loaded active running Network Manager\nollama.service                    loaded active running Ollama Service\nserial-getty@ttyAMA10.service     loaded active running Serial Getty on ttyAMA10\nssh.service                       loaded active running OpenBSD Secure Shell server\nsystemd-hostnamed.service         loaded active running Hostname Service\nsystemd-journald.service          loaded active running Journal Service\nsystemd-logind.service            loaded active running User Login Management\nsystemd-timesyncd.service         loaded active running Network Time Synchronization\nsystemd-udevd.service             loaded active running Rule-based Manager for Device Events and Files\nuser@1000.service                 loaded active running User Manager for UID 1000\nwpa_supplicant.service            loaded active running WPA supplicant\n",
+  "vms_after": [
+    {
+      "pid": 1040,
+      "exe": "/home/fred/microblocks-service-test-2n155u0n/prefix/lib/microblocks/pi5-service-acceptance-20261028/smallvm",
+      "argv": [
+        "/home/fred/microblocks-service-test-2n155u0n/prefix/lib/microblocks/pi5-service-acceptance-20261028/smallvm",
+        "--data-dir",
+        "/home/fred/microblocks-service-test-2n155u0n/program"
+      ],
+      "cwd": "/home/fred/microblocks-service-test-2n155u0n/program",
+      "start": "865"
+    }
+  ],
+  "user_failed_after": "",
+  "linger_after": "yes\n",
+  "reboot_passed": true,
+  "test_unit_removed": true,
+  "test_launcher_removed": true,
+  "program_retained": false,
+  "vms_final": [],
+  "program_file_exists_after_cleanup": true,
+  "program_sha256_after_graphical": "0afa98c9c73163c3e71c92b7163bfb6eca49321ed307bfd405371bbb3071c212",
+  "service_started_microseconds_since_boot": 8653883,
+  "first_return_uptime_seconds": 13.71,
+  "user_running_after_reboot": "  dbus.service           loaded active running D-Bus User Message Bus\n  hermes-gateway.service loaded active running Hermes Agent Gateway - Messaging Platform Integration\n  mpris-proxy.service    loaded active running Bluetooth mpris proxy\n",
+  "system_services_no_longer_running": [],
+  "system_services_newly_running": [
+    "NetworkManager-dispatcher.service",
+    "systemd-hostnamed.service"
+  ],
+  "post_graphical_process_reload_result": 42
+}

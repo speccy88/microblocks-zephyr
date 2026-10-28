@@ -10,7 +10,16 @@ marker="$prefix/lib/microblocks/INSTALLATION"
 unit="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user/microblocks-smallvm.service"
 if [[ -f $unit && ! -L $unit ]] && grep -q '^# microblocks-linux-arm64-v1$' "$unit" && grep -Fxq -- "# microblocks-prefix=$prefix" "$unit"; then
   command -v systemctl >/dev/null || { echo 'systemctl required to remove managed service' >&2; exit 1; }
-  systemctl --user disable --now microblocks-smallvm.service
+  if ! systemctl --user disable --now microblocks-smallvm.service; then
+    # A rejected unit can be inactive but not stoppable. Do not remove files
+    # after an uncertain stop: independently require a reachable manager,
+    # an inactive/failed state and no remaining main process.
+    state=$(systemctl --user show microblocks-smallvm.service -p ActiveState -p MainPID) || exit 1
+    if ! grep -Eq '^ActiveState=(inactive|failed)$' <<< "$state" || ! grep -Fxq 'MainPID=0' <<< "$state"; then
+      echo 'Managed service stop not confirmed; unit and launcher retained' >&2
+      exit 1
+    fi
+  fi
   rm -- "$unit"
   systemctl --user daemon-reload
 fi
