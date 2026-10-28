@@ -13,6 +13,11 @@ LOCAL_REDIRECT = "if (location.protocol === 'http:' && location.hostname !== '12
 ANCHOR = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
 MICRODUCK_LIBRARIES = ('MicroDuck', 'Head_IMU', 'Depth', 'Gamepad', 'Robot', 'Pad_IMU')
 MICRODUCK_BUNDLE = 'Libraries/MicroDuck Linux.ubl'
+PROFILES = {
+    'development': ('Experimental Linux development', False),
+    'raspberry-pi5': ('Raspberry Pi 5', False),
+    'microduck': ('MicroDuck Rockchip RK3566', True),
+}
 
 
 def microduck_files():
@@ -35,7 +40,9 @@ def microduck_files():
     return result
 
 
-def package(source, output, manifest_path=None):
+def package(source, output, manifest_path=None, *, profile='development'):
+    if profile not in PROFILES:
+        raise ValueError('Unknown JavaScript editor target')
     manifest_path = manifest_path or ROOT / 'dependencies/editor-js.json'
     manifest = load_manifest(manifest_path)
     files = verified_files(source, manifest)
@@ -45,6 +52,8 @@ def package(source, output, manifest_path=None):
     # The original entry point is retained. This generated entry allows only
     # the existing loopback bridge's HTTP origin; remote HTTP still redirects.
     html = html.replace(REDIRECT, LOCAL_REDIRECT).replace(ANCHOR,
+        '\t\t<script src="target-config.js"></script>\n'
+        '\t\t<script src="target-profile.js"></script>\n'
         '\t\t<script src="linux-compat.js"></script>\n'
         '\t\t<script src="legacy-slots.js"></script>\n'
         '\t\t<script src="readback-compat.js"></script>\n'
@@ -52,7 +61,17 @@ def package(source, output, manifest_path=None):
     files['index.html'] = html.encode('utf-8')
     # The existing Linux bridge intentionally serves this fixed entry name.
     files['microblocks.html'] = files['index.html']
+    # Explicit targets have no executable unprofiled alternative entry point.
+    if profile != 'development':
+        files['sources/upstream-entry/purejs.html.txt'] = files.pop('purejs.html')
     files['linux-compat.js'] = (ROOT / 'web/js-editor/linux-compat.js').read_bytes()
+    files['target-profile.js'] = (ROOT / 'web/js-editor/target-profile.js').read_bytes()
+    target = {'id': profile, 'name': PROFILES[profile][0], 'placeholder': PROFILES[profile][1],
+              'requires_robot_services': profile == 'microduck', 'physical_microduck_validated': False,
+              'hosted_wss_commissioned': False}
+    files['target-profile.json'] = (json.dumps(target, indent=2) + '\n').encode()
+    files['target-config.js'] = ('// Generated local profile; upstream files remain unchanged.\n'
+        'const MicroBlocksJSProfile = Object.freeze(' + json.dumps(target, separators=(',', ':')) + ');\n').encode()
     files['legacy-slots.js'] = (ROOT / 'web/js-editor/legacy-slots.js').read_bytes()
     files['readback-compat.js'] = (ROOT / 'web/js-editor/readback-compat.js').read_bytes()
     files['linux-bootstrap.js'] = (ROOT / 'web/js-editor/bootstrap.js').read_bytes()
@@ -60,7 +79,7 @@ def package(source, output, manifest_path=None):
     files['THIRD_PARTY_NOTICES.md'] = (ROOT / 'web/js-editor/THIRD_PARTY_NOTICES.md').read_bytes()
     files['source-manifest.json'] = manifest_path.read_bytes()
     files['matrix-source.json'] = (ROOT / 'dependencies/unoq-matrix-gp.json').read_bytes()
-    local = microduck_files()
+    local = microduck_files() if profile != 'raspberry-pi5' else {}
     if files.keys() & local.keys():
         raise ValueError('Local library path collides with upstream')
     files.update(local)
@@ -69,9 +88,10 @@ def package(source, output, manifest_path=None):
     if 'files.txt' in files:
         raise ValueError('Upstream now provides files.txt; review index generation')
     files['files.txt'] = ('\n'.join(sorted(files)) + '\n').encode()
-    receipt = {'schema': 1, 'profile': 'experimental-linux-microduck',
+    receipt = {'schema': 1, 'profile': profile, 'target': target,
                'source_commit': manifest['source_commit'], 'runtime_upgraded': False,
                'upstream_engine_modified': False, 'graphical_acceptance': False,
+               'upstream_entry_relocated_as_text': profile != 'development',
                'firmware_images_included': False,
                'files': {p: {'bytes': len(b), 'sha256': hashlib.sha256(b).hexdigest()}
                          for p, b in sorted(files.items())}}
@@ -89,6 +109,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--profile', choices=PROFILES, default='development')
     args = parser.parse_args()
-    result = package(args.source, args.output)
+    result = package(args.source, args.output, profile=args.profile)
     print(f"Packaged {len(result['files'])} files from {result['source_commit']}")

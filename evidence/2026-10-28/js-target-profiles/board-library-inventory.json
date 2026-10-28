@@ -1,0 +1,235 @@
+[
+  {
+    "path": "boards/adafruit_fruit_jam/integration/Fruit_Jam.ubl",
+    "module": [
+      "Fruit Jam"
+    ],
+    "specs": 4,
+    "native_sets": [
+      "fruitJam"
+    ]
+  },
+  {
+    "path": "boards/propeller2/integration/P2_Hardware.ubl",
+    "module": [
+      "P2 Hardware"
+    ],
+    "specs": 20,
+    "native_sets": [
+      "p2"
+    ]
+  },
+  {
+    "path": "boards/waveshare_esp32p4_wifi6/integration/I2C_Devices.ubl",
+    "module": [
+      "I2C Devices"
+    ],
+    "specs": 18,
+    "native_sets": [
+      "data",
+      "i2cDetect"
+    ]
+  },
+  {
+    "path": "boards/waveshare_esp32p4_wifi6/integration/P4_Audio.ubl",
+    "module": [
+      "P4 Audio"
+    ],
+    "specs": 16,
+    "native_sets": [
+      "p4"
+    ]
+  },
+  {
+    "path": "boards/waveshare_esp32p4_wifi6/integration/P4_Camera.ubl",
+    "module": [
+      "P4 Camera"
+    ],
+    "specs": 31,
+    "native_sets": [
+      "p4"
+    ]
+  },
+  {
+    "path": "boards/waveshare_esp32p4_wifi6/integration/P4_Neural.ubl",
+    "module": [
+      "P4 Neural Networks"
+    ],
+    "specs": 16,
+    "native_sets": [
+      "p4"
+    ]
+  },
+  {
+    "path": "boards/waveshare_esp32p4_wifi6/integration/P4_Speech.ubl",
+    "module": [
+      "P4 Local Speech"
+    ],
+    "specs": 7,
+    "native_sets": [
+      "p4"
+    ]
+  },
+  {
+    "path": "boards/waveshare_esp32p4_wifi6/integration/P4_Wake_Word.ubl",
+    "module": [
+      "Wake Word"
+    ],
+    "specs": 13,
+    "native_sets": [
+      "p4"
+    ]
+  },
+  {
+    "path": "boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl",
+    "module": [
+      "Waveshare RLCD 4.2"
+    ],
+    "specs": 14,
+    "native_sets": [
+      "rlcd"
+    ]
+  },
+  {
+    "path": "linux/microduck/Depth.ubl",
+    "module": [
+      "MicroDuck Depth"
+    ],
+    "specs": 15,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Gamepad.ubl",
+    "module": [
+      "MicroDuck Gamepad"
+    ],
+    "specs": 30,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Head_IMU.ubl",
+    "module": [
+      "MicroDuck Head IMU"
+    ],
+    "specs": 12,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Head_IMU_Simulation.ubl",
+    "module": [
+      "MicroDuck Head IMU Simulation"
+    ],
+    "specs": 12,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Media_Simulation.ubl",
+    "module": [
+      "MicroDuck Media Simulation"
+    ],
+    "specs": 26,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/MicroDuck.ubl",
+    "module": [
+      "MicroDuck"
+    ],
+    "specs": 28,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Motion_Simulation.ubl",
+    "module": [
+      "MicroDuck Motion Simulation"
+    ],
+    "specs": 3,
+    "native_sets": [
+      "data"
+    ]
+  },
+  {
+    "path": "linux/microduck/Pad_IMU.ubl",
+    "module": [
+      "MicroDuck Pad IMU"
+    ],
+    "specs": 16,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Pad_IMU_Simulation.ubl",
+    "module": [
+      "MicroDuck Pad IMU Simulation"
+    ],
+    "specs": 12,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Robot.ubl",
+    "module": [
+      "MicroDuck Robot"
+    ],
+    "specs": 46,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Robot_Simulation.ubl",
+    "module": [
+      "MicroDuck Robot Simulation"
+    ],
+    "specs": 19,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Robot_Telemetry.ubl",
+    "module": [
+      "MicroDuck Robot Telemetry Simulation"
+    ],
+    "specs": 21,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  },
+  {
+    "path": "linux/microduck/Sensor_Simulation.ubl",
+    "module": [
+      "MicroDuck Sensor Simulation"
+    ],
+    "specs": 13,
+    "native_sets": [
+      "data",
+      "microduck"
+    ]
+  }
+]

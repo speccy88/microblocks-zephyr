@@ -1,0 +1,46 @@
+{
+  "gp_files_byte_preserved": 1071,
+  "profiles": {
+    "raspberry-pi5": {
+      "entry": "raspberry-pi5/index.html",
+      "target": {
+        "id": "raspberry-pi5",
+        "name": "Raspberry Pi 5",
+        "placeholder": false,
+        "requires_robot_services": false,
+        "physical_microduck_validated": false,
+        "hosted_wss_commissioned": false
+      },
+      "source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2"
+    },
+    "microduck": {
+      "entry": "microduck/index.html",
+      "target": {
+        "id": "microduck",
+        "name": "MicroDuck Rockchip RK3566",
+        "placeholder": true,
+        "requires_robot_services": true,
+        "physical_microduck_validated": false,
+        "hosted_wss_commissioned": false
+      },
+      "source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2"
+    }
+  },
+  "source_pin": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "site_manifest_sha256": "6bf29a6361955c9df100e095a3d3cbc8ab39d317be3ffaf1e56a4f7747a169c7",
+  "provider_policy_checks": 7,
+  "actual_pinned_port_compiler_checks": 3,
+  "typed_functions_compiled": 140,
+  "graphical_six_library_import": true,
+  "physical_hardware": false,
+  "pi_processes_started": false,
+  "published": false,
+  "sfc_paused": true,
+  "slow_browser_input_seconds": 708.7352,
+  "approval_pending": false,
+  "full_tests": 495,
+  "failures": 0,
+  "skips": 0,
+  "verified_source_inputs": 2188,
+  "full_seconds": 232.560798858
+}

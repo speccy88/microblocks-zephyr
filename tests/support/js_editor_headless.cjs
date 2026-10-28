@@ -50,12 +50,15 @@ function load(assets, options = {}) {
         vm.runInContext(data.toString('utf8'), context, {filename: p, timeout: 10000});
     }
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/linux-compat.js'), 'utf8'), context);
+    vm.runInContext(fs.readFileSync(path.join(assets, 'target-config.js'), 'utf8'), context);
+    vm.runInContext(fs.readFileSync(path.join(assets, 'target-profile.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/legacy-slots.js'), 'utf8'), context);
     if (options.readback !== false) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/readback-compat.js'), 'utf8'), context);
         vm.runInContext('MicroBlocksReadback.install(MB_Decompiler,MB_CodeManager,ScriptsMorph,()=>MB_editor);', context);
     }
     vm.runInContext(`MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket);
+        MicroBlocksTarget.install(MB_CommPort,MicroBlocksJSProfile.id,location);
         MicroBlocksLegacySlots.install(MB_Specs,SyntaxElementMorph,MicroBitDisplaySlotMorph,ArgMorph,Color,Point,MenuMorph);
         MB_Specs.initialize();`, context, {timeout: 10000});
     return {context, evaluate: (s, timeout = 20000) => vm.runInContext(s, context, {timeout}),
