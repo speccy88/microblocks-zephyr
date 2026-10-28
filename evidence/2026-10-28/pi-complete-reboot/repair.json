@@ -1,0 +1,33 @@
+{
+  "phase": "started",
+  "manual_service_restart_after_boot_acceptance": true,
+  "original_session": {
+    "state": "ready",
+    "session_id": "7b93fd549c994443855c5878d852213e",
+    "supervisor_pid": 1045,
+    "resume": true,
+    "bind": "127.0.0.1",
+    "port": 8876,
+    "binary": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks/rpi5-v417-20261028-alpha1/smallvm",
+    "data_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/program",
+    "editor_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/share/microblocks-editor/c6185ffe76a744a7ee5d422ab4cb3dda524ba642c671f5ba6c00ff6c8ab1a850",
+    "service_installed": true,
+    "pty_info": "/home/fred/microblocks-fresh-install-afcxpmc5/program/pty-7b93fd549c994443855c5878d852213e.json",
+    "vm_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/vm-7b93fd549c994443855c5878d852213e.log",
+    "bridge_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/bridge-7b93fd549c994443855c5878d852213e.log",
+    "vm_pid": 1051,
+    "bridge_pid": 1053
+  },
+  "adapter_hashes": {
+    "readback-compat.js": {
+      "old_sha256": "703b92381bd8cc0831ccdc407a03005ef8a8f21523832f15d72942f6deb05fab",
+      "new_sha256": "713dc7a0838dd47911dedb56342d7b79aee73a4227bdc4511c977f35d20888d8"
+    },
+    "linux-bootstrap.js": {
+      "old_sha256": "242d0e891e66ead722a0f675ef91101a109e3f4733eccd3029950357d59f1f04",
+      "new_sha256": "78992af54b0caadb032aac3f9e9d87e75f0fc86f4f2e6c0714e1928119b62bdb"
+    }
+  },
+  "backup_sha256": "e1670b43577fb8aa7335fdd4fbef213d482c79874db785842275e6aca3325600",
+  "network_security_changed": false
+}

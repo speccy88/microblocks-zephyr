@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/fred/microblocks-fresh-install-afcxpmc5/bundle-reboot.py", line 46, in <module>
+    vm=Runtime(pathlib.Path(r['session_after']['binary']),target,928)
+  File "/home/fred/microblocks-auto-service-o5ygmr3m/tests/linux_arm64_protocol.py", line 164, in __init__
+    raise RuntimeError('Real VM did not become ready: ' + self.log.read())
+RuntimeError: Real VM did not become ready: SmallVM Linux error: refusing non-private or non-regular state file
+

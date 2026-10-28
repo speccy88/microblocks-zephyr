@@ -1,0 +1,29 @@
+test_empty_linux_connection_reads_saved_project_before_any_sync (test_js_editor_migration.JSVerifiedSourceTests.test_empty_linux_connection_reads_saved_project_before_any_sync) ... FAIL
+
+======================================================================
+FAIL: test_empty_linux_connection_reads_saved_project_before_any_sync (test_js_editor_migration.JSVerifiedSourceTests.test_empty_linux_connection_reads_saved_project_before_any_sync)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\test_js_editor_migration.py", line 93, in test_empty_linux_connection_reads_saved_project_before_any_sync
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 1 != 0 : engine/mb-support.js:402
+	if (typeof MB_editor !== 'undefined' && MB_editor.codeManager) MB_editor.codeManager.recompileNeeded();
+	                                                                                     ^
+
+TypeError: MB_editor.codeManager.recompileNeeded is not a function
+    at recompileNeeded (engine/mb-support.js:402:87)
+    at MB_Module.loadFunctions (engine/mb-project.js:1199:3)
+    at MB_Module.loadFromCmds (engine/mb-project.js:1056:8)
+    at MB_Project.loadFromString (engine/mb-project.js:470:14)
+    at evalmachine.<anonymous>:1:54
+    at Script.runInContext (node:vm:149:12)
+    at Object.runInContext (node:vm:301:6)
+    at Object.evaluate (C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\support\js_editor_headless.cjs:78:59)
+    at reset (C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\js-empty-connect.test.cjs:14:70)
+    at main (C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\js-empty-connect.test.cjs:16:8)
+
+
+----------------------------------------------------------------------
+Ran 1 test in 2.422s
+
+FAILED (failures=1)

@@ -1,0 +1,32 @@
+test_empty_linux_connection_reads_saved_project_before_any_sync (test_js_editor_migration.JSVerifiedSourceTests.test_empty_linux_connection_reads_saved_project_before_any_sync) ... FAIL
+
+======================================================================
+FAIL: test_empty_linux_connection_reads_saved_project_before_any_sync (test_js_editor_migration.JSVerifiedSourceTests.test_empty_linux_connection_reads_saved_project_before_any_sync)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\test_js_editor_migration.py", line 93, in test_empty_linux_connection_reads_saved_project_before_any_sync
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 1 != 0 : Full download
+Full download
+Full download
+Full download
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Editor changed/. Input:
+
+'TypeError: Assignment to constant variable.'
+
+    at async main (C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\js-empty-connect.test.cjs:22:102) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: TypeError: Assignment to constant variable.
+      at evalmachine.<anonymous>:1:64
+      at async Connection.connect (evalmachine.<anonymous>:148:39),
+  expected: /Editor changed/,
+  operator: 'rejects',
+  diff: 'simple'
+}
+
+
+----------------------------------------------------------------------
+Ran 1 test in 2.332s
+
+FAILED (failures=1)

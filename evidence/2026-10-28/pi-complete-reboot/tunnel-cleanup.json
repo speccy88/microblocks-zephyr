@@ -1,0 +1,6 @@
+{
+  "pid": 3128,
+  "identityChecked": true,
+  "earlierGuard": "DateTime reparsing mismatch; original process was reverified before stopping",
+  "stopped": true
+}

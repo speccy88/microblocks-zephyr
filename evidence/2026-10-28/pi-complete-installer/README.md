@@ -1,5 +1,9 @@
 # Complete Raspberry Pi installer checkpoint
 
+Historical checkpoint: the later [approved reboot acceptance](../pi-complete-reboot/README.md)
+resolves the reboot and uninstall gates below, and records a separately discovered
+empty-editor reconnect defect and its fix. This alpha1 archive itself is unchanged.
+
 This is an unpublished candidate for the independent Raspberry Pi 5 target.
 The actual Pi runs the native AArch64 VM; no physical MicroDuck, GPIO, camera or
 audio is exercised. No main, GP, live site, paused SFC or P4 hardware changes.

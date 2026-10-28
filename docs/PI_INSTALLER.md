@@ -6,6 +6,15 @@ and downloaded back for verification. Do not replace pinned versions with `lates
 MicroDuck remains a separate placeholder target; this installer does not commission
 robot services or provide Pi GPIO/camera/audio support.
 
+The approved full reboot now passes automatic combined VM/bridge startup and
+byte-identical program persistence. Graphical acceptance found and fixed an
+empty-editor connection that otherwise cleared the saved program. The corrected
+adapter automatically reads a saved project when connecting an empty local
+editor; an editor containing code or libraries retains normal synchronization
+behavior. See [reboot evidence](../evidence/2026-10-28/pi-complete-reboot/README.md).
+The older alpha1 archive predates this adapter fix and must be rebuilt and
+revalidated before publication. A fresh SD image remains untested.
+
 Prerequisites are a64-bit Raspberry Pi5 Linux OS, glibc2.34+, an unprivileged user,
 Python3.10+ with `python3-venv`, bash/coreutils, curl and a working systemd user
 manager. On Debian/Raspberry Pi OS, install missing prerequisites through the normal

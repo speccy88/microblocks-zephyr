@@ -2,7 +2,7 @@
 // Linux-profile adaptation; pinned upstream engine files stay unchanged.
 (function (root) {
     'use strict';
-    const installed = new WeakSet(), protectedConnections = new WeakSet(), evaluations = new WeakMap();
+    const installed = new WeakSet(), protectedConnections = new WeakSet(), emptyConnections = new WeakSet(), evaluations = new WeakMap();
     const projectBindings = new WeakMap(), editorBindings = new WeakMap();
     function signature(project) {
         return JSON.stringify([project.allVariableNames(),
@@ -138,7 +138,24 @@
         };
         protectedConnections.add(Connection);
     }
-    const api = Object.freeze({install,protectRead});
+    function preserveEmptyConnect(Connection, editor) {
+        if (typeof Connection?.prototype?.connect !== 'function' || typeof editor !== 'function') throw Error('Upstream empty-project connection hook changed.');
+        if (emptyConnections.has(Connection)) return;
+        const connect=Connection.prototype.connect;
+        Connection.prototype.connect=async function(type,...args) {
+            if(type==='linux-loopback') {
+                const current=editor();
+                if(current?.autosave) await current.autosave.offer;
+                if(editor()!==current || typeof current?.project?.hasUserCode!=='function') throw Error('Editor changed before local connection.');
+                // Upstream justConnected otherwise clears even an empty project.
+                // Arm its normal read path before the handshake can synchronize.
+                if(!current.project.hasUserCode()) current.readFromBoard=true;
+            }
+            return connect.call(this,type,...args);
+        };
+        emptyConnections.add(Connection);
+    }
+    const api = Object.freeze({install,protectRead,preserveEmptyConnect});
     root.MicroBlocksReadback = api;
     if (typeof module === 'object' && module.exports) module.exports = api;
 })(globalThis);

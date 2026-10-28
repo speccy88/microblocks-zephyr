@@ -1,0 +1,6 @@
+test_empty_linux_connection_reads_saved_project_before_any_sync (test_js_editor_migration.JSVerifiedSourceTests.test_empty_linux_connection_reads_saved_project_before_any_sync) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.439s
+
+OK

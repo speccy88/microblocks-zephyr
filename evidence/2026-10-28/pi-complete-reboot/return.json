@@ -1,0 +1,20 @@
+{
+  "returned": true,
+  "observed_utc": "2026-10-28T14:38:07.825929+00:00",
+  "identity": {
+    "boot_id": "2f648fa6-81dd-4fa0-99d3-e796a17faf38",
+    "uptime": "21.69 59.48",
+    "hostname": "RPI5",
+    "machine": "aarch64"
+  },
+  "attempts": [
+    {
+      "seconds": 0.625,
+      "returncode": 0,
+      "stdout": "{\"boot_id\": \"2f648fa6-81dd-4fa0-99d3-e796a17faf38\", \"uptime\": \"21.69 59.48\", \"hostname\": \"RPI5\", \"machine\": \"aarch64\"}\n",
+      "stderr": ""
+    }
+  ],
+  "reboot_command_returncode": 0,
+  "reboot_retry_count_after_new_authorization": 1
+}

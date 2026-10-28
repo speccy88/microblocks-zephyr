@@ -10,6 +10,7 @@ MicroBlocksLegacySlots.install(MB_Specs, SyntaxElementMorph, MicroBitDisplaySlot
 MicroBlocksLegacyLoops.install(MB_Compiler);
 MicroBlocksReadback.install(MB_Decompiler, MB_CodeManager, ScriptsMorph, () => MB_editor,{primitiveSets:MicroBlocksJSProfile.primitive_sets});
 MicroBlocksReadback.protectRead(MB_Connection,MB_CodeManager,()=>MB_connection,()=>MB_editor);
+if (linuxTarget.kind !== 'serial') MicroBlocksReadback.preserveEmptyConnect(MB_Connection,()=>MB_editor);
 MicroBlocksReadbackLibraries.install(MB_Decompiler,MicroBlocksReadbackLibraryMap);
 window.addEventListener('DOMContentLoaded', () => {
     const panel = document.createElement('div');

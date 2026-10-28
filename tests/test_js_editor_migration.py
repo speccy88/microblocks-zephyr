@@ -81,6 +81,19 @@ class JSVerifiedSourceTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn('"passed":14', result.stdout)
 
+    def test_empty_linux_connection_reads_saved_project_before_any_sync(self):
+        node = os.environ.get('NODE_BINARY') or shutil.which('node')
+        if not node:
+            self.skipTest('Node unavailable: set NODE_BINARY')
+        with tempfile.TemporaryDirectory() as temp:
+            assets = Path(temp) / 'editor'
+            package(self.source, assets, profile='raspberry-pi5')
+            result = subprocess.run([node, str(ROOT / 'tests/js-empty-connect.test.cjs'), str(assets)],
+                                    capture_output=True, text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertEqual(json.loads(result.stdout)['passed'], 7)
+            self.assertIn('MicroBlocksReadback.preserveEmptyConnect', (assets/'linux-bootstrap.js').read_text())
+
     def test_deterministic_package_preserves_engine_and_loopback_boundary(self):
         with tempfile.TemporaryDirectory() as temp:
             a, b = Path(temp) / 'a', Path(temp) / 'b'

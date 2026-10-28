@@ -1,0 +1,87 @@
+Browser tab: 27, Title: "MicroBlocks", URL: "http://127.0.0.1:8876/".
+0 AXWebArea MicroBlocks, URL: 127.0.0.1:8876/
+	1 container
+		4 container
+			5 link Description: MicroBlocks website, Value: microblocks.fun/
+			25 button Language
+				26 image
+			27 button Settings
+				28 image
+			29 button Project
+				30 image
+			31 button Graph
+				32 image
+			33 button Linux ARM64
+				34 image
+				35 text Linux ARM64
+			36 button Start
+				37 image
+			38 button Stop
+				39 image
+		6 container
+			40 button Block Category
+				41 text Output
+			42 button Block Category
+				43 text Input
+			44 button Block Category
+				45 text Pins
+			46 button Block Category
+				47 text Control
+			48 button Block Category
+				49 text Operators
+			50 button Block Category
+				51 text Variables
+			52 button Block Category
+				53 text Data
+			54 button Block Category
+				55 text My Blocks
+			7 heading LIBRARIES, Value: 2
+				56 text LIBRARIES
+			9 button Add Library
+				57 text Add Library
+				11 image
+			12 button Expand and collapse left bar
+				13 image
+		58 container
+			59 image canvas
+			60 button Undo
+				61 image
+			62 button Redo
+				63 image
+			64 button Zoom out
+				65 image
+			66 button Restore zoom
+				67 image
+			68 button Zoom in
+				69 image
+		70 text Palette Drag blocks from here to build scripts. Drop scripts here to delete them.
+		14 text entry area (settable)
+		71 text Connecting to local VM. 
+		16 button Connect local VM
+		17 button Close local link
+		18 container pi-acceptance
+			19 text PRIVATE ACCEPTANCE LAB — real Pi, fictional robot
+			20 button Open Pi arithmetic fixture
+			21 button Serialize and reopen current project
+			22 button Read current Pi program
+			23 button Refresh test status
+			73 text {
+  "simulation": true,
+  "physical_robot": false,
+  "results": [],
+  "events": [
+    "Refresh test status",
+    "Read current Pi program",
+    "Refresh test status"
+  ],
+  "errors": [],
+  "connected": true,
+  "vm": 417,
+  "board": "Linux ARM64",
+  "modules": 0,
+  "functions": 0,
+  "scripts": 0
+}
+		72 text entry area (settable) morphic_keyboard
+
+The focused UI element is 23 button Refresh test status

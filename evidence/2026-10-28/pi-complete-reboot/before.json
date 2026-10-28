@@ -1,0 +1,59 @@
+{
+  "hostname": "RPI5",
+  "architecture": "aarch64",
+  "uid": 1000,
+  "boot_id": "589fbd5f-cfbc-41ca-8ed9-ceb925b094fb",
+  "old_boot_id": "589fbd5f-cfbc-41ca-8ed9-ceb925b094fb",
+  "saved_sha256": "e1670b43577fb8aa7335fdd4fbef213d482c79874db785842275e6aca3325600",
+  "expected_crc": 4087428137,
+  "private_backup_verified": true,
+  "session": {
+    "state": "ready",
+    "session_id": "16cc51e473624c2eb812a2bdd75c804c",
+    "supervisor_pid": 2408,
+    "resume": true,
+    "bind": "127.0.0.1",
+    "port": 8876,
+    "binary": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks/rpi5-v417-20261028-alpha1/smallvm",
+    "data_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/program",
+    "editor_directory": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/share/microblocks-editor/c6185ffe76a744a7ee5d422ab4cb3dda524ba642c671f5ba6c00ff6c8ab1a850",
+    "service_installed": true,
+    "pty_info": "/home/fred/microblocks-fresh-install-afcxpmc5/program/pty-16cc51e473624c2eb812a2bdd75c804c.json",
+    "vm_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/vm-16cc51e473624c2eb812a2bdd75c804c.log",
+    "bridge_log": "/home/fred/microblocks-fresh-install-afcxpmc5/program/bridge-16cc51e473624c2eb812a2bdd75c804c.log",
+    "vm_pid": 2411,
+    "bridge_pid": 2412
+  },
+  "unit": "# microblocks-linux-arm64-v1\n# microblocks-prefix=/home/fred/microblocks-fresh-install-afcxpmc5/prefix\n[Unit]\nDescription=MicroBlocks VM and local editor bridge\n[Service]\nExecStart=\"/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks-python/f7a866fbc1e97b5c617ee4116daaa09b722101d4a3c170c787450ba409f9736f/bin/python\" \"/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks-session/64e493ffff9734e501b7c2ef566f59eaf1c714246c753abdffb12bfd20530989/session.py\" \"--binary\" \"/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks/rpi5-v417-20261028-alpha1/smallvm\" \"--editor\" \"/home/fred/microblocks-fresh-install-afcxpmc5/prefix/share/microblocks-editor/c6185ffe76a744a7ee5d422ab4cb3dda524ba642c671f5ba6c00ff6c8ab1a850\" \"--data\" \"/home/fred/microblocks-fresh-install-afcxpmc5/program\" \"--resume\" \"--port\" \"8876\" \"--service-managed\"\nWorkingDirectory=/home/fred/microblocks-fresh-install-afcxpmc5/program\nRestart=on-failure\nRestartSec=3\nKillMode=control-group\nNoNewPrivileges=true\nPrivateTmp=true\nProtectSystem=strict\nReadWritePaths=\"/home/fred/microblocks-fresh-install-afcxpmc5/program\"\n[Install]\nWantedBy=default.target\n",
+  "unit_properties": "MainPID=2408\nPrivateTmp=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nActiveState=active\nSubState=running\nUnitFileState=enabled\nActiveEnterTimestampMonotonic=5181115760\n",
+  "vms": [
+    {
+      "pid": 2411,
+      "exe": "/home/fred/microblocks-fresh-install-afcxpmc5/prefix/lib/microblocks/rpi5-v417-20261028-alpha1/smallvm",
+      "cwd": "/home/fred/microblocks-fresh-install-afcxpmc5/program"
+    }
+  ],
+  "services": "  avahi-daemon.service          loaded active running Avahi mDNS/DNS-SD Stack\n  bluetooth.service             loaded active running Bluetooth service\n  caddy.service                 loaded active running Caddy\n  containerd.service            loaded active running containerd container runtime\n  cron.service                  loaded active running Regular background program processing daemon\n  dbus.service                  loaded active running D-Bus System Message Bus\n  docker.service                loaded active running Docker Application Container Engine\n  getty@tty1.service            loaded active running Getty on tty1\n  NetworkManager.service        loaded active running Network Manager\n  ollama.service                loaded active running Ollama Service\n  serial-getty@ttyAMA10.service loaded active running Serial Getty on ttyAMA10\n  ssh.service                   loaded active running OpenBSD Secure Shell server\n  systemd-journald.service      loaded active running Journal Service\n  systemd-logind.service        loaded active running User Login Management\n  systemd-timesyncd.service     loaded active running Network Time Synchronization\n  systemd-udevd.service         loaded active running Rule-based Manager for Device Events and Files\n  user@1000.service             loaded active running User Manager for UID 1000\n  wpa_supplicant.service        loaded active running WPA supplicant\n",
+  "linger": "yes\n",
+  "probe_sha256": null,
+  "files": [
+    "lifecycle-probe.py",
+    "before.json",
+    "bundle-reboot.py",
+    "repeat.stderr",
+    "lab.js",
+    "prefix",
+    "install.stderr",
+    "lifecycle-receipt.json",
+    "install-receipt.json",
+    ".owned-fresh-install",
+    "program",
+    "pre-gui-editor-verification.json",
+    "reboot-receipt.json",
+    "bundle.tar.gz",
+    "bundle",
+    "repeat.stdout",
+    "saved-before-reboot.ucode",
+    "install.stdout"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "specific_human_authorization_received": true,
+  "exact_previously_denied_command": "ssh -o BatchMode=yes -o StrictHostKeyChecking=yes rpi5 sudo -n /usr/sbin/reboot",
+  "retry_count": 1,
+  "returncode": 0,
+  "new_boot": "2f648fa6-81dd-4fa0-99d3-e796a17faf38",
+  "automatic_service_start_seconds": 8.645127,
+  "first_ssh_check_uptime_seconds": 21.69,
+  "manual_service_start_before_boot_acceptance": false,
+  "pre_gui_program_sha256": "e1670b43577fb8aa7335fdd4fbef213d482c79874db785842275e6aca3325600",
+  "post_repaired_gui_program_sha256": "e1670b43577fb8aa7335fdd4fbef213d482c79874db785842275e6aca3325600",
+  "crc": 4087428137,
+  "empty_editor_negative_control_erased_owned_fixture": true,
+  "private_backup_restored": true,
+  "controlled_service_restart_for_adapter_repair": true,
+  "fixed_graphical_fresh_connections": 2,
+  "fixed_graphical_results": [
+    42,
+    42
+  ],
+  "test_only_overlay": true,
+  "physical_pi": true,
+  "physical_robot": false,
+  "uninstall_complete": true,
+  "program_and_backup_retained": true,
+  "owned_tab_and_tunnel_closed": true,
+  "new_bundle_built": false,
+  "publication": false,
+  "security_settings_changed": false
+}

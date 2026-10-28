@@ -1,0 +1,15 @@
+{
+  "uninstall_not_repeated": true,
+  "unit_removed": true,
+  "launcher_removed": true,
+  "retained_program_sha256": "e1670b43577fb8aa7335fdd4fbef213d482c79874db785842275e6aca3325600",
+  "original_backup_retained": true,
+  "retained_program_result": 42,
+  "remaining_vms": [],
+  "boot_id": "2f648fa6-81dd-4fa0-99d3-e796a17faf38",
+  "linger": "yes\n",
+  "running_services": "  avahi-daemon.service          loaded active running Avahi mDNS/DNS-SD Stack\n  bluetooth.service             loaded active running Bluetooth service\n  caddy.service                 loaded active running Caddy\n  containerd.service            loaded active running containerd container runtime\n  cron.service                  loaded active running Regular background program processing daemon\n  dbus.service                  loaded active running D-Bus System Message Bus\n  docker.service                loaded active running Docker Application Container Engine\n  getty@tty1.service            loaded active running Getty on tty1\n  NetworkManager.service        loaded active running Network Manager\n  ollama.service                loaded active running Ollama Service\n  serial-getty@ttyAMA10.service loaded active running Serial Getty on ttyAMA10\n  ssh.service                   loaded active running OpenBSD Secure Shell server\n  systemd-journald.service      loaded active running Journal Service\n  systemd-logind.service        loaded active running User Login Management\n  systemd-timesyncd.service     loaded active running Network Time Synchronization\n  systemd-udevd.service         loaded active running Rule-based Manager for Device Events and Files\n  user@1000.service             loaded active running User Manager for UID 1000\n  wpa_supplicant.service        loaded active running WPA supplicant\n",
+  "verification_copy_private_mode": "0600",
+  "earlier_probe_error": "Post-uninstall reload fixture used a non-private copy; runtime correctly refused it; original program was unchanged.",
+  "previous_system_services_absent": []
+}
