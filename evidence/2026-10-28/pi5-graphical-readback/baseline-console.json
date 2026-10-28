@@ -1,0 +1,32 @@
+[
+  {
+    "level": "log",
+    "message": "Connect board to proceed.",
+    "timestamp": "2026-10-28T01:25:33.152Z",
+    "url": "http://127.0.0.1:52905/engine/mb-editor.js"
+  },
+  {
+    "level": "log",
+    "message": "serial disconnected",
+    "timestamp": "2026-10-28T01:25:49.188Z",
+    "url": "http://127.0.0.1:52905/engine/mb-comm-port.js"
+  },
+  {
+    "level": "log",
+    "message": "Connected (linux-loopback)",
+    "timestamp": "2026-10-28T01:25:49.365Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "All tasks stopped",
+    "timestamp": "2026-10-28T01:25:49.487Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "Read from board: 1 scripts, 0 functions",
+    "timestamp": "2026-10-28T01:25:51.691Z",
+    "url": "http://127.0.0.1:52905/engine/mb-editor.js"
+  }
+]

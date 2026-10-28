@@ -1,0 +1,53 @@
+{
+  "full_repository_tests": 492,
+  "failures": 0,
+  "skips": 0,
+  "verified_source_inputs": 2153,
+  "seconds": 228.46488514100002,
+  "readback_focused_checks": 9,
+  "graphical_actual_pi_results": [
+    42,
+    42,
+    42
+  ],
+  "transient_service_pty_ping": true,
+  "persistent_service_or_reboot_tested": false,
+  "physical_robot_tested": false,
+  "upstream_engine_modified": false,
+  "new_work_published": false,
+  "hosted_green_commit": "2c060b7f4e9153dd7213d9b7c2a479810577eb51",
+  "normalization": {
+    "full-validation.log": {
+      "original_sha256": "59a576e8734e0bef7f7c313b377b1a8d93fb3dacdde7bb3ebdf53fd4ca0f9bb5",
+      "saved_sha256": "59a576e8734e0bef7f7c313b377b1a8d93fb3dacdde7bb3ebdf53fd4ca0f9bb5",
+      "newline_and_bom_only": true
+    },
+    "full-validation.json": {
+      "original_sha256": "e69028fe32d8138f3b9f29bbbbb014c09b190ced858ddcf2d85e520c7badc10d",
+      "saved_sha256": "e69028fe32d8138f3b9f29bbbbb014c09b190ced858ddcf2d85e520c7badc10d",
+      "newline_and_bom_only": true
+    },
+    "validation-inputs.json": {
+      "original_sha256": "47941fe622490840d863b657469bf92a25e5f42172fb395a709b3fb7a26416eb",
+      "saved_sha256": "8dcb2db1ac5f5c46778ff6ba606e8d4fe8e043a0fe16129c9bbe33deaa52df9c",
+      "newline_and_bom_only": true
+    },
+    "staged-source-audit.json": {
+      "original_sha256": "c5baf92401e8af7772ae3ae2ef19b46d7209f561d94b922791cb11ad70957483",
+      "saved_sha256": "255f59123b0feff077c08797bcf3fd020605c7c7790534336a003a7add31dc7b",
+      "newline_and_bom_only": true
+    },
+    "content-audit.json": {
+      "original_sha256": "c317ca99cc63140382c51030209c76e9d942e969ff7d5e5a52e90cea697271d1",
+      "saved_sha256": "d3c08e56bad2bff79c40f7303f2d07273cf95f74ca4608c84671a5b0b49fbaf3",
+      "newline_and_bom_only": true
+    }
+  },
+  "post_validation_evidence_normalization": {
+    "file": "evidence/2026-10-28/pi5-graphical-readback/receipt-sha256.json",
+    "tested_original_sha256": "38c2125956409d174ee07b499d3131f831f7f431bcfff6074fa9a1662be73da3",
+    "committed_sha256": "971908f09008d2b084188b9e8489324039236a383c086bfcba2dad9aacc8f3ca",
+    "change": "CRLF to LF in evidence hash index only; JSON values identical",
+    "implementation_or_tests_changed": false
+  }
+}

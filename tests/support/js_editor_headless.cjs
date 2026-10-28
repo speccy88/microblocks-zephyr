@@ -43,7 +43,7 @@ function load(assets, options = {}) {
     const manifest = JSON.parse(fs.readFileSync(path.join(assets, 'source-manifest.json')));
     for (const name of ['morphic.js', 'mb-support.js', 'mb-blocks.js', 'mb-slots.js', 'mb-code-manager.js',
         'mb-compiler.js', 'mb-comm-port.js', 'mb-connection.js', 'mb-parser.js', 'mb-function.js',
-        'mb-project.js', 'mb-specs.js', 'mb-files.js', 'mb-editor.js']) {
+        'mb-project.js', 'mb-specs.js', 'mb-files.js', 'mb-editor.js', 'mb-decompiler.js']) {
         const p = 'engine/' + name, data = fs.readFileSync(path.join(assets, p));
         const record = manifest.files.find(f => f.path === p);
         if (!record || crypto.createHash('sha256').update(data).digest('hex') !== record.sha256) throw new Error('Upstream source mismatch: ' + p);
@@ -51,6 +51,10 @@ function load(assets, options = {}) {
     }
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/linux-compat.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/legacy-slots.js'), 'utf8'), context);
+    if (options.readback !== false) {
+        vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/readback-compat.js'), 'utf8'), context);
+        vm.runInContext('MicroBlocksReadback.install(MB_Decompiler,MB_CodeManager,ScriptsMorph,()=>MB_editor);', context);
+    }
     vm.runInContext(`MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket);
         MicroBlocksLegacySlots.install(MB_Specs,SyntaxElementMorph,MicroBitDisplaySlotMorph,ArgMorph,Color,Point,MenuMorph);
         MB_Specs.initialize();`, context, {timeout: 10000});

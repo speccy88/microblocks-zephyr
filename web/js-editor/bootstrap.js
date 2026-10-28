@@ -2,6 +2,7 @@
 // Loaded after the pristine engine and before the upstream window.onload.
 MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket);
 MicroBlocksLegacySlots.install(MB_Specs, SyntaxElementMorph, MicroBitDisplaySlotMorph, ArgMorph, Color, Point, MenuMorph);
+MicroBlocksReadback.install(MB_Decompiler, MB_CodeManager, ScriptsMorph, () => MB_editor);
 window.addEventListener('DOMContentLoaded', () => {
     const panel = document.createElement('div');
     panel.setAttribute('role', 'status');

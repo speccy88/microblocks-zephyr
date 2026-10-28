@@ -1,0 +1,18 @@
+[
+  {
+    "id": 122579314681,
+    "name": "native (ubuntu-24.04, x86_64, 62)",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-28T01:38:33Z",
+    "completed_at": "2026-10-28T01:42:03Z"
+  },
+  {
+    "id": 122579314967,
+    "name": "native (ubuntu-24.04-arm, aarch64, 183)",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-28T01:38:36Z",
+    "completed_at": "2026-10-28T01:41:51Z"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "unit": "microblocks-accept-20261028-0155.service",
+  "persistent_service_enabled": false,
+  "reboot_tested": false,
+  "data": "/home/fred/microblocks-standalone-_54lml8g/transient-service-20261028",
+  "program_before": "793b3a2f02e4371cff270f3323e8d45b3df0b8483fd72bb4706ef9ddcc5ab07f",
+  "start": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "Running as unit: microblocks-accept-20261028-0155.service; invocation ID: 8b8504477a1641b6af694f38e8a5390f\n"
+  },
+  "properties": "MainPID=16128\nResult=success\nExecStart={ path=/home/fred/microblocks-standalone-_54lml8g/prefix/lib/microblocks/pi5-standalone-v417-20261028/smallvm ; argv[]=/home/fred/microblocks-standalone-_54lml8g/prefix/lib/microblocks/pi5-standalone-v417-20261028/smallvm --data-dir /home/fred/microblocks-standalone-_54lml8g/transient-service-20261028 --pty-info /home/fred/microblocks-standalone-_54lml8g/transient-service-20261028/pty.json ; ignore_errors=no ; start_time=[Tue 2026-10-27 21:52:13 EDT] ; stop_time=[n/a] ; pid=16128 ; code=(null) ; status=0/0 }\nReadWritePaths=/home/fred/microblocks-standalone-_54lml8g/transient-service-20261028\nPrivateTmp=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nActiveState=active\nSubState=running\n",
+  "discovery": {
+    "pty": "/dev/pts/3",
+    "pid": 16128,
+    "transport": "pty",
+    "vm_version": 417,
+    "network_listener": false
+  },
+  "ping_reply": true,
+  "stop": {
+    "returncode": 0
+  },
+  "after_stop": "MainPID=0\nResult=success\nReadWritePaths=\nPrivateTmp=no\nProtectSystem=no\nNoNewPrivileges=no\nActiveState=inactive\nSubState=dead\n",
+  "program_after": "793b3a2f02e4371cff270f3323e8d45b3df0b8483fd72bb4706ef9ddcc5ab07f",
+  "preexisting_vms_alive": {
+    "4819": true,
+    "5601": true,
+    "6874": true
+  }
+}

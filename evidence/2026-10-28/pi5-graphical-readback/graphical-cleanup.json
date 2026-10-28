@@ -1,0 +1,40 @@
+{
+  "watchdog": {
+    "watchdog_pid": 16073,
+    "supervisor_pid": 16075,
+    "max_seconds": 1800,
+    "port": 52905
+  },
+  "final_session": {
+    "state": "stopped",
+    "session_id": "ad388e8f556b49cb8dbd67f883890ebf",
+    "supervisor_pid": 16075,
+    "resume": true,
+    "bind": "127.0.0.1",
+    "port": 52905,
+    "binary": "/home/fred/microblocks-standalone-_54lml8g/prefix/lib/microblocks/pi5-standalone-v417-20261028/smallvm",
+    "data_directory": "/home/fred/microblocks-standalone-_54lml8g/programs",
+    "editor_directory": "/home/fred/microblocks-standalone-_54lml8g/gui-fixed-20261028/editor",
+    "service_installed": false,
+    "pty_info": "/home/fred/microblocks-standalone-_54lml8g/programs/pty-ad388e8f556b49cb8dbd67f883890ebf.json",
+    "vm_log": "/home/fred/microblocks-standalone-_54lml8g/programs/vm-ad388e8f556b49cb8dbd67f883890ebf.log",
+    "bridge_log": "/home/fred/microblocks-standalone-_54lml8g/programs/bridge-ad388e8f556b49cb8dbd67f883890ebf.log",
+    "vm_pid": 16076,
+    "bridge_pid": 16077,
+    "children_returncodes": [
+      0,
+      0
+    ]
+  },
+  "ended": {
+    "supervisor_returncode": 0,
+    "owned_supervisor_stopped": true
+  },
+  "program_sha256_after_explicit_runs": "793b3a2f02e4371cff270f3323e8d45b3df0b8483fd72bb4706ef9ddcc5ab07f",
+  "cleanup_preserved_program": true,
+  "preexisting_vms_alive": {
+    "4819": true,
+    "5601": true,
+    "6874": true
+  }
+}

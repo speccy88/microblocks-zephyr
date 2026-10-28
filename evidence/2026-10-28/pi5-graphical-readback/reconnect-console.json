@@ -1,0 +1,92 @@
+[
+  {
+    "level": "log",
+    "message": "Connect board to proceed.",
+    "timestamp": "2026-10-28T01:46:36.693Z",
+    "url": "http://127.0.0.1:52905/engine/mb-editor.js"
+  },
+  {
+    "level": "log",
+    "message": "serial disconnected",
+    "timestamp": "2026-10-28T01:46:42.904Z",
+    "url": "http://127.0.0.1:52905/engine/mb-comm-port.js"
+  },
+  {
+    "level": "log",
+    "message": "Connected (linux-loopback)",
+    "timestamp": "2026-10-28T01:46:43.149Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "All tasks stopped",
+    "timestamp": "2026-10-28T01:46:43.308Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "Read from board: 1 scripts, 0 functions",
+    "timestamp": "2026-10-28T01:46:45.518Z",
+    "url": "http://127.0.0.1:52905/engine/mb-editor.js"
+  },
+  {
+    "level": "log",
+    "message": "Downloaded 1 scripts to board (803 msecs)",
+    "timestamp": "2026-10-28T01:47:48.719Z",
+    "url": "http://127.0.0.1:52905/engine/mb-code-manager.js"
+  },
+  {
+    "level": "log",
+    "message": "serial disconnected",
+    "timestamp": "2026-10-28T01:47:59.183Z",
+    "url": "http://127.0.0.1:52905/engine/mb-comm-port.js"
+  },
+  {
+    "level": "log",
+    "message": "Connected (linux-loopback)",
+    "timestamp": "2026-10-28T01:47:59.267Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "All tasks stopped",
+    "timestamp": "2026-10-28T01:47:59.365Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "The MicroBlocks in your board is not current (v417 vs. v421).",
+    "timestamp": "2026-10-28T01:47:59.503Z",
+    "url": "http://127.0.0.1:52905/engine/mb-editor.js"
+  },
+  {
+    "level": "log",
+    "message": "Full download",
+    "timestamp": "2026-10-28T01:47:59.602Z",
+    "url": "http://127.0.0.1:52905/engine/mb-editor.js"
+  },
+  {
+    "level": "log",
+    "message": "All tasks stopped",
+    "timestamp": "2026-10-28T01:47:59.684Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "Memory cleared",
+    "timestamp": "2026-10-28T01:47:59.685Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  },
+  {
+    "level": "log",
+    "message": "Downloaded 1 scripts to board (190 msecs)",
+    "timestamp": "2026-10-28T01:47:59.914Z",
+    "url": "http://127.0.0.1:52905/engine/mb-code-manager.js"
+  },
+  {
+    "level": "log",
+    "message": "Memory cleared",
+    "timestamp": "2026-10-28T01:48:00.768Z",
+    "url": "http://127.0.0.1:52905/engine/mb-connection.js"
+  }
+]

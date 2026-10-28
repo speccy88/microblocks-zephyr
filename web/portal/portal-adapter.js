@@ -203,7 +203,7 @@
   for(const [value,text] of [['','Examples'],['arithmetic','5 + 7'],['output','50 outputs']]){const option=element('option',text);option.value=value;examples.append(option);}
   if(profile.board==='microduck'){const option=element('option','MicroDuck health (gateway)');option.value='microduck-health';examples.append(option);}
   examples.onchange=()=>{if(examples.value)GP.apiCall(boardEndpoint+'.openExample',[examples.value]);examples.value='';toolbar.open=false;};panel.insertBefore(examples,read);
-  if(profile.connection_enabled===false)notify('XRP development preview: the production RP2350 library is available for editing. Hardware connection is not enabled yet.');
+  if(profile.connection_enabled===false)notify(profile.connection_message||'XRP development preview: the production RP2350 library is available for editing. Hardware connection is not enabled yet.');
   else if(!isLinux&&!navigator.serial)notify('This browser cannot connect USB. Use desktop Chrome or Edge; you can still edit and save projects here.');
   else if(profile.board==='waveshare')notify('Current Waveshare standalone firmware uses its board-hosted Wi-Fi editor. USB requires the separate binary-USB VM firmware.');
   const fresh=element('button','Use this workspace for autosave');fresh.onclick=()=>{autosaveArmed=true;lastSource=null;saveStatus.textContent='Autosave enabled for this workspace.';};panel.insertBefore(fresh,name);

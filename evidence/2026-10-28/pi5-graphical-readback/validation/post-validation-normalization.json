@@ -1,0 +1,7 @@
+{
+  "file": "evidence/2026-10-28/pi5-graphical-readback/receipt-sha256.json",
+  "tested_original_sha256": "38c2125956409d174ee07b499d3131f831f7f431bcfff6074fa9a1662be73da3",
+  "committed_sha256": "971908f09008d2b084188b9e8489324039236a383c086bfcba2dad9aacc8f3ca",
+  "change": "CRLF to LF in evidence hash index only; JSON values identical",
+  "implementation_or_tests_changed": false
+}

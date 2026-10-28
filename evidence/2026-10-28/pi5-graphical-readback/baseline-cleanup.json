@@ -1,0 +1,1 @@
+{"baseline_readback_and_click_preserved_program": true, "program_sha256": "5eb1428507ee871aa765c43e81ceab9bb61f277cb7f0b7f396abbbd3b608a00d", "cleanup": {"supervisor_returncode": 0, "owned_supervisor_stopped": true}, "preexisting_vms_alive": {"4819": true, "5601": true, "6874": true}}
