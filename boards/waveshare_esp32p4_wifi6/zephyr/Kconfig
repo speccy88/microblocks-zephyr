@@ -9,3 +9,52 @@ config P4_NEURAL
  bool "Bounded native TFLM dense model backend"
  depends on TENSORFLOW_LITE_MICRO && CPP
  default n
+
+config P4_WIFI_COMPAT_DIAGNOSTIC
+ bool "Gated synthetic C6 RAM configuration diagnostic"
+ depends on P4_HOSTED
+ default n
+config P4_WIFI_SAVED_BOOT
+ bool "One automatic saved-station attempt after the C6 compatibility check"
+ depends on P4_WIFI_COMPAT_DIAGNOSTIC
+ default n
+ help
+  Load only existing saved credentials after a successful synthetic check.
+  Attempt association and DHCP once per boot. No AP or retry loop is enabled.
+config P4_WIFI_LOSS_RETRY
+ bool "Three bounded recovery attempts after an established station loses its link"
+ depends on P4_WIFI_SAVED_BOOT
+ default n
+ help
+  Retry after 5, 15 and 45 seconds, with a global three-attempt boot budget.
+  A successful recovery does not refill it. No initial-boot failure loop.
+config P4_WIFI_LOSS_TEST
+ bool "Diagnostic-only single USB request to disconnect this board"
+ depends on P4_WIFI_LOSS_RETRY
+ default n
+ help
+  Acknowledge one USB-only local disconnect request per boot for acceptance.
+  Never enable in the normal recovery profile; no router or settings changes.
+config P4_SD_READONLY
+ bool "Explicit read-only SD detection and FAT listing worker"
+ depends on FAT_FILESYSTEM_ELM && DISK_DRIVER_SDMMC && DYNAMIC_THREAD
+ default n
+config P4_WIFI_LATENCY_DIAGNOSTIC
+ bool "Read-only USB power-save query and transport timings"
+ depends on P4_WIFI_COMPAT_DIAGNOSTIC
+ default n
+ help
+  Expose bounded numeric timings and read the current C6 power-save state.
+  Never change power save, RF settings, credentials or file contents.
+config P4_WIFI_LOW_LATENCY
+ bool "One verified volatile no-power-save policy for the station editor"
+ depends on P4_WIFI_SAVED_BOOT
+ default n
+ help
+  After association, read the current PS state and disable it once if enabled.
+  Confirm by reading state again, including after a lost setter acknowledgement.
+  Never retry the setter, persist settings, flash C6 or change credentials.
+config P4_SD_FILES
+ bool "Explicit bounded SD create/read and own-test-file removal"
+ depends on FAT_FILESYSTEM_ELM && DISK_DRIVER_SDMMC && DYNAMIC_THREAD && !P4_SD_READONLY
+ default n

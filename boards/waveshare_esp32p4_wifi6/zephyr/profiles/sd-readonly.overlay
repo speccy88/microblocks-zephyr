@@ -1,0 +1,3 @@
+/* Append after c6-sdio.overlay. Exact compact board slot0 pins/power retained. */
+&sdhc0 { status = "okay"; max-bus-freq = <20000000>; };
+&sdhc0 { mmc { status = "okay"; }; };

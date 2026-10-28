@@ -8,7 +8,12 @@
 #include <errno.h>
 #include <pthread.h>
 #include <assert.h>
+#include <stdatomic.h>
 #define CONFIG_HTTP_SERVER_MAX_CLIENTS 4
+#ifndef CONFIG_ZVFS_POLL_MAX
+#define CONFIG_ZVFS_POLL_MAX 8
+#endif
+#define BUILD_ASSERT(condition,message) _Static_assert(condition,message)
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
 #define BIT(a) (1u<<(a))
@@ -17,7 +22,15 @@
 #define K_MUTEX_DEFINE(a) static pthread_mutex_t a=PTHREAD_MUTEX_INITIALIZER
 static inline int k_mutex_lock(pthread_mutex_t *m,int t){(void)t;return pthread_mutex_lock(m);}
 static inline int k_mutex_unlock(pthread_mutex_t *m){return pthread_mutex_unlock(m);}
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+static atomic_uint fake_cycles;
+static inline uint32_t k_cycle_get_32(void){return atomic_fetch_add(&fake_cycles,1);}
+static inline uint64_t k_cyc_to_us_floor64(uint64_t cycles){return cycles;}
+static inline uint32_t k_uptime_get_32(void){return atomic_load(&fake_cycles)/1000;}
+static inline void k_sleep(int t){atomic_fetch_add(&fake_cycles,t*1000);}
+#else
 static inline void k_sleep(int t){(void)t;}
+#endif
 struct http_client_ctx {unsigned id;};
 struct http_header {const char *name,*value;};
 struct http_request_ctx {size_t header_count;const struct http_header *headers;};

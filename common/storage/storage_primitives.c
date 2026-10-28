@@ -2,6 +2,12 @@
 #include "vm/interp.h"
 #include "storage.h"
 #include "storage_primitives.h"
+#include "sd_service.h"
+#include "sd_file.h"
+#if defined(CONFIG_P4_SD_FILES)
+#include "sd_wire.h"
+#endif
+#include <stdio.h>
 #include <string.h>
 
 #if defined(CONFIG_ESP_SPIRAM)
@@ -33,10 +39,17 @@ static bool job_arg(int n, OBJ *args, uint32_t *job) {
     *job = (uint32_t)obj2int(args[0]); return true;
 }
 void mb_storage_poll(void) {
+    mb_sd_poll();
     if (initialized && mb_store_poll(&files) && files.state == MB_WRITE_FAILED)
         last_error = files.job_error;
 }
-void mb_storage_stop(void) { if (initialized) mb_store_stop(&files); }
+void mb_storage_stop(void) {
+    mb_sd_cancel();
+#if defined(CONFIG_P4_SD_FILES)
+    mb_sd_files_wire_reset();
+#endif
+    if (initialized) mb_store_stop(&files);
+}
 
 static OBJ write_file(int n, OBJ *args) {
     if (n != 3) return fail(notEnoughArguments);
@@ -131,11 +144,68 @@ static OBJ used(int n, OBJ *args) { (void)args; return n ? fail(notEnoughArgumen
 static OBJ slots(int n, OBJ *args) { (void)args; return n ? fail(notEnoughArguments) : int2obj(MB_FILE_COUNT-mb_store_count(&files)); }
 static OBJ maximum(int n, OBJ *args) { (void)args; return n ? fail(notEnoughArguments) : int2obj(MB_FILE_BYTES); }
 static OBJ status(int n, OBJ *args) { (void)args; return n ? fail(notEnoughArguments) : text(mb_store_error_text(last_error)); }
+static OBJ sd_available(int n,OBJ *args) {(void)args;return n?fail(notEnoughArguments):(mb_sd_available()?trueObj:falseObj);}
+static OBJ sd_start(int n,OBJ *args) {(void)args;return n?fail(notEnoughArguments):(mb_sd_start()?trueObj:falseObj);}
+static OBJ sd_busy(int n,OBJ *args) {(void)args;return n?fail(notEnoughArguments):(mb_sd_busy()?trueObj:falseObj);}
+static OBJ sd_cancel(int n,OBJ *args) {(void)args;if(n)return fail(notEnoughArguments);mb_sd_cancel();return falseObj;}
+static OBJ sd_status(int n,OBJ *args) {(void)args;if(n)return fail(notEnoughArguments);char out[512];mb_sd_status(out,sizeof(out));return text(out);}
+static OBJ sd_phase(int n,OBJ *args) {(void)args;return n?fail(notEnoughArguments):text(mb_sd_phase());}
+static OBJ sd_ready(int n,OBJ *args) {(void)args;return n?fail(notEnoughArguments):(mb_sd_result(NULL,NULL)?trueObj:falseObj);}
+static OBJ sd_capacity(int n,OBJ *args) {
+    (void)args;if(n)return fail(notEnoughArguments);uint64_t bytes;
+    if(!mb_sd_result(&bytes,NULL))return falseObj;
+    uint64_t mib=bytes/(1024*1024);if(mib>0x3fffffff)return fail(indexOutOfRangeError);
+    return int2obj((int)mib);
+}
+static OBJ sd_entries(int n,OBJ *args) {(void)args;if(n)return fail(notEnoughArguments);unsigned entries;return mb_sd_result(NULL,&entries)?int2obj(entries):falseObj;}
+static OBJ sd_file_available(int n,OBJ *args){(void)args;return n?fail(notEnoughArguments):(mb_sd_file_available()?trueObj:falseObj);}
+static OBJ sd_file_start(int n,OBJ *args,mb_sd_file_op op) {
+    if(n!=(op==MB_SD_FILE_CREATE?2:1))return fail(notEnoughArguments);
+    const char *name;size_t name_length;
+    if(!vm_text(args[0],MB_SD_NAME_BYTES-1,&name,&name_length))return falseObj;
+    const uint8_t *data=NULL;size_t length=0;
+    if(op==MB_SD_FILE_CREATE) {
+        if(IS_TYPE(args[1],ByteArrayType)){data=(const uint8_t*)&FIELD(args[1],0);length=BYTES(args[1]);}
+        else {const char *s;if(!vm_text(args[1],MB_SD_FILE_BYTES,&s,&length))return falseObj;data=(const uint8_t*)s;}
+    }
+    return mb_sd_file_start(op,name,name_length,data,length)?trueObj:falseObj;
+}
+static OBJ sd_file_create(int n,OBJ *args){return sd_file_start(n,args,MB_SD_FILE_CREATE);}
+static OBJ sd_file_read(int n,OBJ *args){return sd_file_start(n,args,MB_SD_FILE_READ);}
+static OBJ sd_file_remove(int n,OBJ *args){return sd_file_start(n,args,MB_SD_FILE_REMOVE_OWN);}
+static OBJ sd_file_ok(int n,OBJ *args){(void)args;if(n)return fail(notEnoughArguments);mb_sd_file_result r;return mb_sd_file_result_get(&r)&&!r.error?r.verified?trueObj:falseObj:falseObj;}
+static OBJ sd_file_name(int n,OBJ *args){(void)args;return n?fail(notEnoughArguments):text(mb_sd_file_last_name());}
+static OBJ sd_file_text(int n,OBJ *args){
+    (void)args;if(n)return fail(notEnoughArguments);size_t length;const uint8_t *p=mb_sd_file_view(&length);
+    if(!p||!mb_store_utf8(p,length))return falseObj;
+    return newStringFromBytes((const char*)p,length);
+}
+static OBJ sd_file_bytes(int n,OBJ *args){
+    (void)args;if(n)return fail(notEnoughArguments);size_t length;const uint8_t *p=mb_sd_file_view(&length);
+    if(!p)return falseObj;
+    OBJ out=newObj(ByteArrayType,(length+3)/4,zeroObj);if(out==falseObj)return out;
+    setByteCountAdjust(out,length);memcpy(&FIELD(out,0),p,length);return out;
+}
+static OBJ sd_file_status(int n,OBJ *args){
+    (void)args;if(n)return fail(notEnoughArguments);mb_sd_file_result r;
+    if(!mb_sd_file_result_get(&r))return text(mb_sd_file_available()?"No completed SD file operation":"SD files unavailable in this firmware");
+    char out[256];snprintf(out,sizeof(out),"{\"error\":%d,\"bytes\":%zu,\"created\":%s,\"synced\":%s,\"verified\":%s,\"removed\":%s,\"native\":%d,\"close\":%d,\"unmount\":%d}",
+        r.error,r.bytes,r.created?"true":"false",r.synced?"true":"false",r.verified?"true":"false",r.removed?"true":"false",r.native_result,r.close_error,r.unmount_error);
+    return text(out);
+}
 static PrimEntry entries[] = {
     {"write",write_file},{"state",state},{"cancel",cancel},{"text",read_text},
     {"bytes",read_bytes},{"size",size},{"exists",exists},{"delete",remove_file},
     {"list",list},{"available",available},{"used",used},{"slots",slots},
-    {"maxFile",maximum},{"status",status}
+    {"maxFile",maximum},{"status",status},
+    /* Append only: existing storage:* indices and RAM behavior are unchanged. */
+    {"sdAvailable",sd_available},{"sdProbe",sd_start},{"sdBusy",sd_busy},
+    {"sdCancel",sd_cancel},{"sdStatus",sd_status},{"sdPhase",sd_phase},
+    {"sdReady",sd_ready},{"sdMiB",sd_capacity},{"sdEntries",sd_entries},
+    {"sdFilesAvailable",sd_file_available},{"sdFileCreate",sd_file_create},
+    {"sdFileRead",sd_file_read},{"sdFileRemoveOwn",sd_file_remove},
+    {"sdFileOK",sd_file_ok},{"sdFileName",sd_file_name},
+    {"sdFileText",sd_file_text},{"sdFileBytes",sd_file_bytes},{"sdFileStatus",sd_file_status}
 };
 mb_store *mb_storage_store(void) {
     if (!initialized) { mb_store_init(&files); initialized = true; }

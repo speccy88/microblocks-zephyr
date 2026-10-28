@@ -4,7 +4,8 @@
  'use strict';
  const core=typeof module==='object'&&module.exports?require('./device-files-core.js'):root.MicroBlocksFiles;
  const TYPE=217,MAX=0x3fffffff,CHUNK=512,RESPONSE_MAX=640;
- const OPS=Object.freeze({capabilities:1,list:2,stat:3,read:4,begin:5,append:6,finish:7,cancel:8,open:9,close:10});
+ const OPS=Object.freeze({capabilities:1,list:2,stat:3,read:4,begin:5,append:6,finish:7,cancel:8,open:9,close:10,
+  sdCaps:11,sdBegin:12,sdAppend:13,sdCreate:14,sdOpen:15,sdStatus:16,sdChunk:17,sdRemove:18,sdCancel:19,sdList:20});
  const STATUS=['','PROTOCOL','DISCONNECTED','PATH','UNAVAILABLE','SIZE','BUSY','CONFLICT','EXISTS','NOT_FOUND','FULL','CANCELLED','TIMEOUT','STATE'];
  const fail=code=>{throw new core.StorageError(code);};
  const bounded=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
@@ -16,6 +17,9 @@
   const id=need(request.id,1,0xffffffff),a=request.args,op=OPS[request.op];
   let path='',token=0,arg=0,count=0,data=new Uint8Array();
   if(['stat','read','begin'].includes(request.op))path=core.path(a.path);
+  if(['sdBegin','sdOpen','sdRemove'].includes(request.op)){
+   if(typeof a.name!=='string'||!/^[A-Z0-9_]{1,8}(\.[A-Z0-9_]{1,3})?$/.test(a.name))fail('PATH');path=a.name;
+  }
   switch(request.op){
    case 'list':if(a.backend!=='RAM')fail('UNAVAILABLE');break;
    case 'read':token=ref(a.revision);arg=need(a.offset,0,8192);count=need(a.count,0,CHUNK);if(arg+count>8192)fail('SIZE');break;
@@ -26,6 +30,13 @@
     if(arg+count>8192)fail('SIZE');data=a.bytes;break;
    case 'finish':case 'cancel':token=need(a.job,1,MAX);break;
    case 'open':token=need(a.nonce,1,0xffffffff);break;
+   case 'sdBegin':arg=need(a.bytes,0,8192);break;
+   case 'sdAppend':
+    token=need(a.job,1,MAX);arg=need(a.offset,0,8192);
+    if(!(a.bytes instanceof Uint8Array))fail('PROTOCOL');count=need(a.bytes.length,1,CHUNK);
+    if(arg+count>8192)fail('SIZE');data=a.bytes;break;
+   case 'sdChunk':token=need(a.job,1,MAX);arg=need(a.offset,0,8192);count=need(a.count,1,CHUNK);if(arg+count>8192)fail('SIZE');break;
+   case 'sdCreate':case 'sdStatus':case 'sdCancel':token=need(a.job,1,MAX);break;
   }
   const bodyLength=26+path.length+data.length,frame=new Uint8Array(bodyLength+6),v=new DataView(frame.buffer,5,bodyLength);
   frame.set([251,TYPE,0,(bodyLength+1)&255,(bodyLength+1)>>8]);frame.set([77,66,70,83,1,op],5);
@@ -71,6 +82,22 @@
    case 'cancel':if(u8()!==1)fail('PROTOCOL');result={cancelled:true};break;
    case 'open':result={session:need(u32(),1,MAX),nonce:need(u32(),1,0xffffffff)};break;
    case 'close':if(u8()!==1)fail('PROTOCOL');result={closed:true};break;
+   case 'sdCaps':{
+    const available=u8();if(available>1)fail('PROTOCOL');
+    result={available:!!available,maxBytes:need(u16(),1,8192),chunkBytes:need(u16(),1,CHUNK),listLimit:need(u8(),1,8),flags:u8()};
+    if(result.flags!==3)fail('PROTOCOL');break;
+   }
+   case 'sdBegin':case 'sdCreate':case 'sdOpen':case 'sdRemove':case 'sdList':result={job:need(u32(),1,MAX)};break;
+   case 'sdAppend':result={received:need(u16(),0,8192)};break;
+   case 'sdStatus':{
+    const busy=u8(),error=u32(),bytes=need(u16(),0,8192),flags=u8(),n=need(u8(),0,12),start=take(n);let name='';
+    if(busy>1||flags>31)fail('PROTOCOL');
+    for(let i=0;i<n;i++)name+=String.fromCharCode(b[start+i]);
+    if(name&&!/^[A-Z0-9_]{1,8}(\.[A-Z0-9_]{1,3})?$/.test(name))fail('PROTOCOL');
+    result={busy:!!busy,error:error|0,bytes,flags,name};break;
+   }
+   case 'sdChunk':{const count=need(u16(),1,CHUNK),start=take(count);result={bytes:b.slice(start,start+count)};break;}
+   case 'sdCancel':if(u8()!==1)fail('PROTOCOL');result={requested:true};break;
    default:fail('PROTOCOL');
   }
   if(at!==b.length)fail('PROTOCOL');return {version:1,id:request.id,ok:true,data:result};

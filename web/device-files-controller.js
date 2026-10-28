@@ -48,9 +48,20 @@
     if(epoch!==this.epoch)throw new core.StorageError('DISCONNECTED');
     if(grant.nonce!==nonce)throw new core.StorageError('PROTOCOL');
     const send=this.send;
-    this.transport=new wire.Transport({session:grant.session,
+    const transport=new wire.Transport({session:grant.session,
      send:frame=>{if(epoch!==this.epoch||this.send!==send||send(frame)!==frame.length)throw new core.StorageError('DISCONNECTED');},
      subscribe:fn=>{this.frames.add(fn);return ()=>this.frames.delete(fn);}});
+    const sendRequest=transport.request.bind(transport);
+    transport.request=async (r,options)=>{
+     const reply=await sendRequest(r,options);
+     // Only an explicit, validated native session rejection invalidates a grant.
+     // A timeout is uncertain and must not cause an automatic reconnect/replay.
+     if(!reply.ok&&['DISCONNECTED','TIMEOUT'].includes(reply.code)&&epoch===this.epoch&&this.transport===transport){
+      this.drop();this.notify(this.send?'available':'disconnected',reply.code);
+     }
+     return reply;
+    };
+    this.transport=transport;
     this.notify('ready');return this.transport;
    }catch(e){if(epoch===this.epoch)this.notify('error',e.code||'PROTOCOL');throw e;}
   }

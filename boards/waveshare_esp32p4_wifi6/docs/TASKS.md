@@ -202,3 +202,40 @@ publication remains separately held. See `docs/STORAGE_PHYSICAL.md` at repo root
 - [ ] Review a new file partition and migration/initialization authorization.
 - [ ] Budget PSRAM, worker stack and filesystem caches before VM routing.
 - [ ] Physical NOR/cache/power-loss/wear acceptance and Flash blocks/UI integration.
+
+## Local station/storage follow-up, 2026-10-27
+
+- [x] Factory C6 unchanged; synthetic response540, real saved-network association
+  and DHCP; host workqueue/callback fixes; generated-image VM pipeline over Wi-Fi.
+- [x] 33 individual editor runtime asset hashes and 918 RAM requests over Wi-Fi.
+- [x] USB and numeric HTTP diagnostic native builds; layout/memory guard;
+  ASan/UBSan numeric-ring and four asset-handler placement/diagnostic variants.
+- [ ] Diagnose intermittent concurrent HTTP closure on the board. Local numeric
+  instrumentation is prepared but not flashed; client limits remain unchanged.
+- [ ] Actual complete GP load, Device Files workflow/download and production
+  reboot/reconnection acceptance. Browser inspection transport is unavailable.
+- [x] Isolated SD read-only probe: 80 host checks, three unsafe configurations
+  rejected, pinned FatFs dependency and native build; no production integration.
+- [ ] Appropriately scoped SD installation/restoration, actual card capacity,
+  SD/Wi-Fi coexistence and later file-manager adapter. Card contents unchanged.
+- [ ] Stable scope review before publication of this uncommitted follow-up.
+
+## Native SD read-only milestone, 2026-10-27 (supersedes earlier SD rows)
+
+- [x] Native VM worker on slot0 with C6 slot1 retained; explicit request,
+  cooperative cancellation/deadline, safe thread join and internal stack release.
+- [x] 205 actual-probe and97 actual-worker host checks under ASan/UBSan;
+  zero host device I/O. USB and station cross-builds; layout and memory guards.
+- [x] Keep the8KiB libc audit floor: move5240 bytes of CPU-owned VM task data
+  to PSRAM; native stacks/DMA buffers remain internal. Final libc arena11248.
+- [x] COM5-only application flash/hash verification0a704563; no assets/settings,
+  C6 firmware, COM12, card writes or backups.
+- [x] Physical FAT32 mount, raw capacity31299993600, six root entries without
+  filenames/content, unmount, cancellation and subsequent successful reuse.
+- [x] Physical overlapping2.195MB HTTP transfer/hash, VM arithmetic during SD,
+  200 status reporters and generated-image resize/grayscale; no SDIO errors.
+- [ ] Graphical SD library validation and matching hosted/Pages packages;
+  local preview hit a browser data-error-page URL policy block, isolated.
+- [ ] Separate bounded RW backend with exclusive new-file creation and exact
+  readback; no format fallback or overwrite of existing card data.
+- [ ] SD file-manager protocol, media files and removal/power-loss acceptance.

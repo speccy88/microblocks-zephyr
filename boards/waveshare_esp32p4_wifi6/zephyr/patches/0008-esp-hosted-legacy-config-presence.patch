@@ -1,0 +1,75 @@
+--- a/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -331,6 +331,60 @@
+ 
+ static bool p4_station_started;
+ 
++
++#if defined(CONFIG_P4_WIFI_COMPAT_DIAGNOSTIC)
++/* Explicit bounded diagnostic; never loads credentials or calls WifiConnect. */
++static int p4_compat_rpc(Rpc *req, int *status)
++{
++ Rpc resp=Rpc_init_zero;
++ int e=esp_hosted_mcu_rpc_call(req,&resp,5000);
++ if(!e && (resp.msg_id!=req->msg_id+256 || resp.which_payload!=req->which_payload+256)) e=-EPROTO;
++ if(!e){
++  switch(req->msg_id){
++   case RpcId_Req_WifiSetStorage:*status=resp.payload.resp_wifi_set_storage.resp;break;
++   case RpcId_Req_SetWifiMode:*status=resp.payload.resp_set_wifi_mode.resp;break;
++   case RpcId_Req_WifiStart:*status=resp.payload.resp_wifi_start.resp;break;
++   case RpcId_Req_WifiSetConfig:*status=resp.payload.resp_wifi_set_config.resp;break;
++   case RpcId_Req_WifiStop:*status=resp.payload.resp_wifi_stop.resp;break;
++   default:e=-EINVAL;
++  }
++  if(!e && *status)e=-EREMOTE;
++ }
++ pb_release(Rpc_fields,&resp);return e;
++}
++int p4_wifi_compat_probe(unsigned *step, int *reply_id, int *reply_status)
++{
++ Rpc req=Rpc_init_zero;int e,status=-1;bool started=false;
++ *reply_id=0;*reply_status=-1;
++ /* RAM=1 in esp_wifi_storage_t. A successful response is mandatory. */
++ req.msg_id=RpcId_Req_WifiSetStorage;req.which_payload=Rpc_req_wifi_set_storage_tag;
++ req.payload.req_wifi_set_storage.storage=1;*step=req.msg_id;
++ e=p4_compat_rpc(&req,&status);if(e)return e;
++ req=(Rpc)Rpc_init_zero;req.msg_id=RpcId_Req_SetWifiMode;req.which_payload=Rpc_req_set_wifi_mode_tag;
++ req.payload.req_set_wifi_mode.mode=ESP_HOSTED_MCU_WIFI_MODE_STA;*step=req.msg_id;
++ e=p4_compat_rpc(&req,&status);if(e)return e;
++ req=(Rpc)Rpc_init_zero;req.msg_id=RpcId_Req_WifiStart;req.which_payload=Rpc_req_wifi_start_tag;*step=req.msg_id;
++ e=p4_compat_rpc(&req,&status);if(e)return e;started=true;
++ req=(Rpc)Rpc_init_zero;req.msg_id=RpcId_Req_WifiSetConfig;req.which_payload=Rpc_req_wifi_set_config_tag;
++ req.payload.req_wifi_set_config.iface=ESP_HOSTED_MCU_WIFI_IF_STA;
++ req.payload.req_wifi_set_config.has_cfg=true;req.payload.req_wifi_set_config.cfg.which_u=wifi_config_sta_tag;
++ wifi_sta_config *sta=&req.payload.req_wifi_set_config.cfg.u.sta;
++ const char ssid[]="MB-OFFLINE-DIAGNOSTIC",key[]="synthetic-test-only";
++ sta->ssid.size=sizeof(ssid)-1;memcpy(sta->ssid.bytes,ssid,sta->ssid.size);
++ sta->password.size=sizeof(key)-1;memcpy(sta->password.bytes,key,sta->password.size);
++ sta->has_threshold=true;sta->has_pmf_cfg=true;
++ *step=req.msg_id;status=-1;e=p4_compat_rpc(&req,&status);
++ if(!e || e==-EREMOTE){*reply_id=540;*reply_status=status;}
++ memset(&req,0,sizeof(req));
++ if(started){
++  req.msg_id=RpcId_Req_WifiStop;req.which_payload=Rpc_req_wifi_stop_tag;
++  int stop=p4_compat_rpc(&req,&status);if(!e && stop){*step=req.msg_id;e=stop;}
++ }
++ p4_station_started=false;
++ memset(&req,0,sizeof(req));return e;
++}
++#endif
++
+ static int esp_hosted_mcu_connect(const struct device *dev, struct net_if *iface,
+ 				  struct wifi_connect_req_params *params)
+ {
+@@ -366,6 +420,11 @@
+ 	req.payload.req_wifi_set_config.has_cfg = true;
+ 	req.payload.req_wifi_set_config.cfg.which_u = wifi_config_sta_tag;
+ 	sta = &req.payload.req_wifi_set_config.cfg.u.sta;
++        /* Older esp_hosted 1.4.x handlers dereference these unconditionally.
++         * Keep values/security unchanged; encode present empty submessages. */
++        sta->has_threshold = true;
++        sta->has_pmf_cfg = true;
++
+ 
+ 	sta->ssid.size = MIN(params->ssid_length, ESP_HOSTED_MCU_MAX_SSID_LEN);
+ 	memcpy(sta->ssid.bytes, params->ssid, sta->ssid.size);

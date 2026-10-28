@@ -1,0 +1,37 @@
+--- a/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -196,12 +196,15 @@
+ 	return (int)total;
+ }
+ 
++/* RPC and data share the existing synchronous TX lock and DMA buffer. */
++static uint8_t esp_hosted_mcu_shared_tx[ESP_HOSTED_MCU_FRAME_SIZE] __aligned(ESP_HOSTED_MCU_DMA_ALIGN);
++
+ int esp_hosted_mcu_rpc_call(Rpc *req, Rpc *resp, int32_t timeout)
+ {
+ 	const struct device *dev = esp_hosted_mcu_data_0.dev;
+ 	const struct esp_hosted_mcu_config *cfg = dev->config;
+ 	struct esp_hosted_mcu_data *data = dev->data;
+-	static uint8_t tx[ESP_HOSTED_MCU_FRAME_SIZE] __aligned(ESP_HOSTED_MCU_DMA_ALIGN);
++	uint8_t *tx = esp_hosted_mcu_shared_tx;
+ 	int ret;
+ 
+ 	k_mutex_lock(&esp_hosted_mcu_rpc_lock, K_FOREVER);
+@@ -226,7 +229,7 @@
+ 	 * block another consumer's transmit.
+ 	 */
+ 	k_mutex_lock(&esp_hosted_mcu_tx_lock, K_FOREVER);
+-	int len = esp_hosted_mcu_frame_rpc(data, ESP_HOSTED_MCU_EP_RSP, req, tx, sizeof(tx));
++	int len = esp_hosted_mcu_frame_rpc(data, ESP_HOSTED_MCU_EP_RSP, req, tx, ESP_HOSTED_MCU_FRAME_SIZE);
+ 	esp_hosted_mcu_diag(10, req->msg_id, req->which_payload, req->uid, len > 0 ? ((struct esp_hosted_mcu_header *)tx)->checksum : 0, len < 0 ? len : 0);
+ 
+ 	if (len < 0) {
+@@ -631,7 +634,7 @@
+ 	const struct device *dev = esp_hosted_mcu_data_0.dev;
+ 	const struct esp_hosted_mcu_config *cfg = dev->config;
+ 	struct esp_hosted_mcu_data *data = dev->data;
+-	static uint8_t tx[ESP_HOSTED_MCU_FRAME_SIZE] __aligned(ESP_HOSTED_MCU_DMA_ALIGN);
++	uint8_t *tx = esp_hosted_mcu_shared_tx;
+ 	struct esp_hosted_mcu_header *hdr = (struct esp_hosted_mcu_header *)tx;
+ 	uint16_t total = ESP_HOSTED_MCU_HEADER_SIZE + len;
+ 	int ret;

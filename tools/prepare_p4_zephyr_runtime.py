@@ -7,6 +7,11 @@ from prepare_smallvm import prepare
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('source',type=Path);p.add_argument('output',type=Path);a=p.parse_args()
  prepare(a.source.resolve(),a.output.resolve(),strict_digital_arity=True)
+ path=a.output/'vm/interp.c';text=path.read_text()
+ anchor='Task tasks[MAX_TASKS];'
+ if text.count(anchor)!=1:raise ValueError('Changed pinned VM task-state declaration')
+ # Single-owner VM/GC state: no DMA descriptor, IRQ or native stack uses it.
+ path.write_text(text.replace(anchor,'#if defined(CONFIG_ESP_SPIRAM)\nTask tasks[MAX_TASKS] __attribute__((section(".ext_ram.bss.vm_tasks"), aligned(16)));\n#else\n'+anchor+'\n#endif'),newline='\n')
  path=a.output/'vm/runtime.c';text=path.read_text()
  if text.count('(cmd <= 205)')!=2:raise ValueError('Unexpected extension dispatch')
  path.write_text(text.replace('(cmd <= 205)','(cmd <= 217)'),newline='\n')

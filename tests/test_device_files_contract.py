@@ -44,7 +44,8 @@ class DeviceFilesContract(unittest.TestCase):
   self.assertIn("type:'application/octet-stream'",source)
   self.assertIn('URL.revokeObjectURL',source)
   self.assertIn("querySelector('[data-device-project-panel]')",source)
-  self.assertIn('queueMicrotask',source)
+  # Startup ordering is exercised by device_files_ui.test.js; requiring a
+  # particular scheduling primitive hid the real browser ready-listener race.
  def test_live_transport_and_backends_are_not_claimed(self):
   source=(ROOT/'web/device-files.js').read_text(encoding='utf-8')
   self.assertIn('Compatible storage firmware is required',source)

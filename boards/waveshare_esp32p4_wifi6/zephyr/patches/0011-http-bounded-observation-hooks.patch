@@ -1,0 +1,39 @@
+--- a/subsys/net/lib/http/http_server_core.c
++++ b/subsys/net/lib/http/http_server_core.c
+@@ -67,6 +67,12 @@
+ 	struct http_client_ctx clients[HTTP_SERVER_MAX_CLIENTS];
+ };
+ 
++#if defined(CONFIG_P4_WIFI_COMPAT_DIAGNOSTIC)
++extern void p4_http_diag(unsigned stage, int result);
++#define P4_HTTP_DIAG(stage, result) p4_http_diag(stage, result)
++#else
++#define P4_HTTP_DIAG(stage, result) ((void)0)
++#endif
+ static struct http_server_ctx server_ctx;
+ static K_SEM_DEFINE(server_start, 0, 1);
+ static bool server_running;
+@@ -683,6 +689,7 @@
+ 		CONTAINER_OF(dwork, struct http_client_ctx, inactivity_timer);
+ 
+ 	LOG_DBG("Client %p timeout", client);
++    P4_HTTP_DIAG(3, 0);
+ 
+ 	if (IS_ENABLED(CONFIG_HTTP_SERVER_VERSION_3) && client->is_h3) {
+ 		LOG_DBG("[%p] %s client connection closing", client, "HTTP/3");
+@@ -1108,6 +1115,7 @@
+ 	}
+ 
+ 	if (service->data->num_clients >= service->concurrent) {
++        P4_HTTP_DIAG(2, service->data->num_clients);
+ 		ctx->fds[i].events = 0;
+ 		return;
+ 	}
+@@ -1905,6 +1913,7 @@
+ 
+ 		if (out_len < 0) {
+ 			if (errno != EOPNOTSUPP && errno != ENOTSUP) {
++                P4_HTTP_DIAG(1, -errno);
+ 				return -errno;
+ 			}
+ 

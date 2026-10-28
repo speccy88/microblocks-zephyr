@@ -1,0 +1,719 @@
+{
+  "base": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+  "migration": "7e228efa54379ca1766d460d4ee02eb81b3eeb11",
+  "source_files": 101,
+  "counts": {
+    "owner_only": 100,
+    "merged": 1
+  },
+  "conflicts": [],
+  "files": [
+    {
+      "path": "README.md",
+      "status": "merged",
+      "owner_sha256": "c5be3617d4b3e7bba1c14c3daf62ee70d48632f67673e58ac77f8b82d21fabfb",
+      "migration_sha256": "7b71f184446f1b4eab07b0c829e5dffd23a06edbd6519396479f6fb8432499a5",
+      "result_sha256": "ba0e16ed67c544e40c7947aa8559aa1c4fb4f6d4a736f1f374f7a986297872a3"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/README.md",
+      "status": "owner_only",
+      "owner_sha256": "979a98e191021d5823d2f0104b1d6d088123aa01b27809ebc8909f2e94652ab0",
+      "migration_sha256": "742f248cbbaeaa760f50ae3ed6a0030fa96c4a553657bfc2517a4243a79d2948",
+      "result_sha256": "979a98e191021d5823d2f0104b1d6d088123aa01b27809ebc8909f2e94652ab0"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/START_HERE.md",
+      "status": "owner_only",
+      "owner_sha256": "441fdb2663bba4806cf89f2fc681459da2e95f099e3eeb671a57778a42b74403",
+      "migration_sha256": "308563db5be1e3b9cdb591a118171fc235a1138ffb1077a7660a31fd7114551f",
+      "result_sha256": "441fdb2663bba4806cf89f2fc681459da2e95f099e3eeb671a57778a42b74403"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/diagnostics/sd_readonly/CMakeLists.txt",
+      "status": "owner_only",
+      "owner_sha256": "9db3021768107d78370521928de0ef83f7579d4f48107692c729c5a08ee8b7ff",
+      "migration_sha256": null,
+      "result_sha256": "9db3021768107d78370521928de0ef83f7579d4f48107692c729c5a08ee8b7ff"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/diagnostics/sd_readonly/README.md",
+      "status": "owner_only",
+      "owner_sha256": "e0856f30e4d529da5fb9624c3e54637afeb28e09c601997ab29749c91dadb3c9",
+      "migration_sha256": null,
+      "result_sha256": "e0856f30e4d529da5fb9624c3e54637afeb28e09c601997ab29749c91dadb3c9"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/diagnostics/sd_readonly/app.overlay",
+      "status": "owner_only",
+      "owner_sha256": "6a056fff569b548b7d4be269e0a9354617824b1faf51850dcedfe7b4d0c69129",
+      "migration_sha256": null,
+      "result_sha256": "6a056fff569b548b7d4be269e0a9354617824b1faf51850dcedfe7b4d0c69129"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/diagnostics/sd_readonly/prj.conf",
+      "status": "owner_only",
+      "owner_sha256": "93433f89fdb18ea329d86cba248f9d3b08f047e5a231facc696f4a559aac133b",
+      "migration_sha256": null,
+      "result_sha256": "93433f89fdb18ea329d86cba248f9d3b08f047e5a231facc696f4a559aac133b"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/diagnostics/sd_readonly/src/main.c",
+      "status": "owner_only",
+      "owner_sha256": "1cb935643566376caaff439352cbab26204161bb363e969089ffb3b19342bbb0",
+      "migration_sha256": null,
+      "result_sha256": "1cb935643566376caaff439352cbab26204161bb363e969089ffb3b19342bbb0"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/diagnostics/sd_readonly/src/probe.c",
+      "status": "owner_only",
+      "owner_sha256": "66221120bfbd436f6c1096fd37ed6cadda7df3562f20af563733ad04f8f3ec0c",
+      "migration_sha256": null,
+      "result_sha256": "66221120bfbd436f6c1096fd37ed6cadda7df3562f20af563733ad04f8f3ec0c"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/diagnostics/sd_readonly/src/probe.h",
+      "status": "owner_only",
+      "owner_sha256": "cb92911aceb3511d70eb253f7d87f8e5bf3b300db8435847a584da45af446b0d",
+      "migration_sha256": null,
+      "result_sha256": "cb92911aceb3511d70eb253f7d87f8e5bf3b300db8435847a584da45af446b0d"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/docs/HARDWARE_SUPPORT.md",
+      "status": "owner_only",
+      "owner_sha256": "21e1931ddc7d9703bc62a0ad1cc505989cb573f0ceb2b25d9e42484d62867566",
+      "migration_sha256": "d5e96629d379f45e49a2ce326a82295736f9e10fe5cbe0448212f8d6379aa6ec",
+      "result_sha256": "21e1931ddc7d9703bc62a0ad1cc505989cb573f0ceb2b25d9e42484d62867566"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/docs/NETWORK_LIVE_VALIDATION.md",
+      "status": "owner_only",
+      "owner_sha256": "a01727e20d98916d5e53786c5a8c264f352534793fab7922caa7cc547e18f6ed",
+      "migration_sha256": null,
+      "result_sha256": "a01727e20d98916d5e53786c5a8c264f352534793fab7922caa7cc547e18f6ed"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/docs/NETWORK_STATION.md",
+      "status": "owner_only",
+      "owner_sha256": "2a02c91318ca3b98927feadcf1fcada12c74967d732ada6e19099f86e221131b",
+      "migration_sha256": "983d00bd1ed7e0154bef6ac6c22091cdf5a7e5efbdd2b708f769e2cffa5cf1b3",
+      "result_sha256": "2a02c91318ca3b98927feadcf1fcada12c74967d732ada6e19099f86e221131b"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/docs/TASKS.md",
+      "status": "owner_only",
+      "owner_sha256": "286186a3d466b420891b848111eb3075b6973d98b0b56e1637ca658d08cf648b",
+      "migration_sha256": "3acb49f87b14ffb5ad174548b1e6ad514017b13ce2f682ab74bd02c26fee97df",
+      "result_sha256": "286186a3d466b420891b848111eb3075b6973d98b0b56e1637ca658d08cf648b"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/hardware.json",
+      "status": "owner_only",
+      "owner_sha256": "66ded4cd4d186599745cc5e38f3a873cfd1c93b0342acd3087baa48c31345fb3",
+      "migration_sha256": "ee31cb5b522417a42952a90f92dda9b2864cafbad9022cbd3d945b8fdbe48666",
+      "result_sha256": "66ded4cd4d186599745cc5e38f3a873cfd1c93b0342acd3087baa48c31345fb3"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/CMakeLists.txt",
+      "status": "owner_only",
+      "owner_sha256": "6f0023df08a7a8f0cc0385dd85aab44bba4acd832f5cb7555b7b704d337eba6a",
+      "migration_sha256": "d7b2fb9bb523aabffebd3cd91c5ae2852518c23faf3614dcb482c0ba27e7fe22",
+      "result_sha256": "6f0023df08a7a8f0cc0385dd85aab44bba4acd832f5cb7555b7b704d337eba6a"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/Kconfig",
+      "status": "owner_only",
+      "owner_sha256": "6ccc62585d057815858aa4149ceec3443885a31cf8648d1283f63e6aa821221e",
+      "migration_sha256": "d8318600495b3df2be25c87bce344b17d9bb269e1d9c8d60e879af950f9b249e",
+      "result_sha256": "6ccc62585d057815858aa4149ceec3443885a31cf8648d1283f63e6aa821221e"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/patches/0008-esp-hosted-legacy-config-presence.patch",
+      "status": "owner_only",
+      "owner_sha256": "4c44a0075b20928848f9c3dc2e52c065e86d49e4f732aeb39e54f10ffbdf83fe",
+      "migration_sha256": null,
+      "result_sha256": "4c44a0075b20928848f9c3dc2e52c065e86d49e4f732aeb39e54f10ffbdf83fe"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/patches/0009-esp-hosted-shared-internal-tx.patch",
+      "status": "owner_only",
+      "owner_sha256": "3eea9663b91956c33d711e7ae1f84ff16e708088ff99fe4a2d48bd053f55f844",
+      "migration_sha256": null,
+      "result_sha256": "3eea9663b91956c33d711e7ae1f84ff16e708088ff99fe4a2d48bd053f55f844"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/patches/0010-esp-hosted-cpu-tx-staging-psram.patch",
+      "status": "owner_only",
+      "owner_sha256": "10686b816d65b4cfe2dba9b181e1f604772cce82cd897cd0f9d60b7346ccee19",
+      "migration_sha256": null,
+      "result_sha256": "10686b816d65b4cfe2dba9b181e1f604772cce82cd897cd0f9d60b7346ccee19"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/patches/0011-http-bounded-observation-hooks.patch",
+      "status": "owner_only",
+      "owner_sha256": "fe5bf1e4e07301b8cb5a82d8d35a8dad81742643299d5967ed85841ad5b4e257",
+      "migration_sha256": null,
+      "result_sha256": "fe5bf1e4e07301b8cb5a82d8d35a8dad81742643299d5967ed85841ad5b4e257"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/patches/0012-http-poll-error-observation.patch",
+      "status": "owner_only",
+      "owner_sha256": "204dc47e9600c65dee40c319ff24d657057b383a3746445995861d59cf7c3d02",
+      "migration_sha256": null,
+      "result_sha256": "204dc47e9600c65dee40c319ff24d657057b383a3746445995861d59cf7c3d02"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/compat-diagnostic.conf",
+      "status": "owner_only",
+      "owner_sha256": "34cb17a295933ae513f6ea40d84a4b74db7c0e225ae40dd1e5859fd63ed0d429",
+      "migration_sha256": null,
+      "result_sha256": "34cb17a295933ae513f6ea40d84a4b74db7c0e225ae40dd1e5859fd63ed0d429"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/saved-boot.conf",
+      "status": "owner_only",
+      "owner_sha256": "5c3cf039dd5594fb522f27142e729bbb6c2ce51567ba0b64a6675b94a49a1c79",
+      "migration_sha256": null,
+      "result_sha256": "5c3cf039dd5594fb522f27142e729bbb6c2ce51567ba0b64a6675b94a49a1c79"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/sd-files.conf",
+      "status": "owner_only",
+      "owner_sha256": "f8179574ffbe0ffd98901b017fb08b89e10273d78edddf0008a7166a6e84f448",
+      "migration_sha256": null,
+      "result_sha256": "f8179574ffbe0ffd98901b017fb08b89e10273d78edddf0008a7166a6e84f448"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/sd-readonly.conf",
+      "status": "owner_only",
+      "owner_sha256": "a87d2e21a92376026877d9366715da8384d620f5af273598d4f46935d42702e3",
+      "migration_sha256": null,
+      "result_sha256": "a87d2e21a92376026877d9366715da8384d620f5af273598d4f46935d42702e3"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/sd-readonly.overlay",
+      "status": "owner_only",
+      "owner_sha256": "9d80dfe21040bcce91be1b80fc8a88ae907edea2d645fb2cc3853f99e2ddd5d2",
+      "migration_sha256": null,
+      "result_sha256": "9d80dfe21040bcce91be1b80fc8a88ae907edea2d645fb2cc3853f99e2ddd5d2"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/station.conf",
+      "status": "owner_only",
+      "owner_sha256": "fbfbc07007dce2004edc2209046e459bc5dce62780ecdf5cc594698826fbf294",
+      "migration_sha256": "72ccd0de178b9673243be41c92ade4d077fe512e153dc821d0fb617b8451aac6",
+      "result_sha256": "fbfbc07007dce2004edc2209046e459bc5dce62780ecdf5cc594698826fbf294"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/wifi-latency-diagnostic.conf",
+      "status": "owner_only",
+      "owner_sha256": "ca7decab1121dafb4114f7b462140fea6503afbb7119d7c6efed6c78906551ae",
+      "migration_sha256": null,
+      "result_sha256": "ca7decab1121dafb4114f7b462140fea6503afbb7119d7c6efed6c78906551ae"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/wifi-loss-retry.conf",
+      "status": "owner_only",
+      "owner_sha256": "07eb97fb6f4ac8dd69fae22e1ffa932f7b833417657ed9453d53185b0b96eec9",
+      "migration_sha256": null,
+      "result_sha256": "07eb97fb6f4ac8dd69fae22e1ffa932f7b833417657ed9453d53185b0b96eec9"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/wifi-loss-test.conf",
+      "status": "owner_only",
+      "owner_sha256": "f6314e96f07610e03f96bc1ba3e6708a9eda2176410ebdb94f452fcc149e3079",
+      "migration_sha256": null,
+      "result_sha256": "f6314e96f07610e03f96bc1ba3e6708a9eda2176410ebdb94f452fcc149e3079"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/profiles/wifi-low-latency.conf",
+      "status": "owner_only",
+      "owner_sha256": "428f52aa0b00427a41763e2c1465de2bc5315f96bbf5ee4c3ac00f58210efbf9",
+      "migration_sha256": null,
+      "result_sha256": "428f52aa0b00427a41763e2c1465de2bc5315f96bbf5ee4c3ac00f58210efbf9"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/hosted_server.c",
+      "status": "owner_only",
+      "owner_sha256": "fd0d1bbd488d5175577d9d90f7c1f52bcafc9d5c0003c70d7680954a549b79de",
+      "migration_sha256": "736dc9610e0c991ae9fd2b8c60305c5c6cb22a4eff74f0d20e9765a354cf71c3",
+      "result_sha256": "fd0d1bbd488d5175577d9d90f7c1f52bcafc9d5c0003c70d7680954a549b79de"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/hosted_server.h",
+      "status": "owner_only",
+      "owner_sha256": "182f8a1cb950df918f208aa152c843e5586ceb60e1086382989b6febccfded8b",
+      "migration_sha256": "d7547e89ef0ebf275da26876d0b089adfdb39ffc35ac4fece11086e5bd31e4fd",
+      "result_sha256": "182f8a1cb950df918f208aa152c843e5586ceb60e1086382989b6febccfded8b"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/hosted_transport.c",
+      "status": "owner_only",
+      "owner_sha256": "46ad63f223048f0aecb1c42246e60a415bbfa6fcdcfce771a3b0cf65ee665c0f",
+      "migration_sha256": "7a26bddc7b63c593cda278a4a1ccc33f9c02ca5ae15d194ee5d2fb1ea63d5030",
+      "result_sha256": "46ad63f223048f0aecb1c42246e60a415bbfa6fcdcfce771a3b0cf65ee665c0f"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/http_diagnostics.c",
+      "status": "owner_only",
+      "owner_sha256": "8a949204f060368a223943b2c32370a31b5d5962c9a4ca174e6740c2e7d68e93",
+      "migration_sha256": null,
+      "result_sha256": "8a949204f060368a223943b2c32370a31b5d5962c9a4ca174e6740c2e7d68e93"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/http_diagnostics.h",
+      "status": "owner_only",
+      "owner_sha256": "83deb5b393b12750996a6656f765e8359b0d15a830899fe9ebd4808106f27768",
+      "migration_sha256": null,
+      "result_sha256": "83deb5b393b12750996a6656f765e8359b0d15a830899fe9ebd4808106f27768"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/network_backend.c",
+      "status": "owner_only",
+      "owner_sha256": "01b917a0faea85accca1fb906274e1d8a4d11e45cbeef14ca49360008f9884e9",
+      "migration_sha256": "e8d416f93dafa3414d5d3e6bdaec4b8d28da051a2ece8905fe539b0fbf5e1ee8",
+      "result_sha256": "01b917a0faea85accca1fb906274e1d8a4d11e45cbeef14ca49360008f9884e9"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/sd_backend.c",
+      "status": "owner_only",
+      "owner_sha256": "dd7e7f9444710829721ae68fff0cf91fe8e10ab3ddf29b3f68a62609ac7678c8",
+      "migration_sha256": null,
+      "result_sha256": "dd7e7f9444710829721ae68fff0cf91fe8e10ab3ddf29b3f68a62609ac7678c8"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/sd_file_io.c",
+      "status": "owner_only",
+      "owner_sha256": "5b876cf33662b3b25fd253bec3add76c4e4042b38a62b746de2d8b52ce7a1805",
+      "migration_sha256": null,
+      "result_sha256": "5b876cf33662b3b25fd253bec3add76c4e4042b38a62b746de2d8b52ce7a1805"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/sd_file_io.h",
+      "status": "owner_only",
+      "owner_sha256": "6938339fd0899ee6d8cb20ca04479b4a59e9e59cf41c67682b0fbadd5b944e5e",
+      "migration_sha256": null,
+      "result_sha256": "6938339fd0899ee6d8cb20ca04479b4a59e9e59cf41c67682b0fbadd5b944e5e"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/wifi_latency_policy.h",
+      "status": "owner_only",
+      "owner_sha256": "bc722ccec60517b2ed181d9efb5de547499ebff9d10887e7289a7aee356f3040",
+      "migration_sha256": null,
+      "result_sha256": "bc722ccec60517b2ed181d9efb5de547499ebff9d10887e7289a7aee356f3040"
+    },
+    {
+      "path": "boards/waveshare_esp32p4_wifi6/zephyr/src/wifi_retry.h",
+      "status": "owner_only",
+      "owner_sha256": "a4d771ca89c8b4f51bed7d370c7b18394fb629975d4b4e6e47bacaddaf985d30",
+      "migration_sha256": null,
+      "result_sha256": "a4d771ca89c8b4f51bed7d370c7b18394fb629975d4b4e6e47bacaddaf985d30"
+    },
+    {
+      "path": "common/storage/sd_file.c",
+      "status": "owner_only",
+      "owner_sha256": "3b5f69b95c6c24d146efbbb1bf4e62e0616d77cfc90f7c32e0958fe58c3c3606",
+      "migration_sha256": null,
+      "result_sha256": "3b5f69b95c6c24d146efbbb1bf4e62e0616d77cfc90f7c32e0958fe58c3c3606"
+    },
+    {
+      "path": "common/storage/sd_file.h",
+      "status": "owner_only",
+      "owner_sha256": "90972c1947bc3dbe79b5a14eeda31e7d137aa27be11283f61fe86a2c40983801",
+      "migration_sha256": null,
+      "result_sha256": "90972c1947bc3dbe79b5a14eeda31e7d137aa27be11283f61fe86a2c40983801"
+    },
+    {
+      "path": "common/storage/sd_service.h",
+      "status": "owner_only",
+      "owner_sha256": "e53a5d2606594995bfa79b894fa35605f686088ee5e829c17180b2081ed56584",
+      "migration_sha256": null,
+      "result_sha256": "e53a5d2606594995bfa79b894fa35605f686088ee5e829c17180b2081ed56584"
+    },
+    {
+      "path": "common/storage/sd_service_stub.c",
+      "status": "owner_only",
+      "owner_sha256": "85ef4b19cb6049d19103da49def81f2d1bdbaa783152c88202a2033e6473e29b",
+      "migration_sha256": null,
+      "result_sha256": "85ef4b19cb6049d19103da49def81f2d1bdbaa783152c88202a2033e6473e29b"
+    },
+    {
+      "path": "common/storage/sd_wire.c",
+      "status": "owner_only",
+      "owner_sha256": "b70b8840b5a2e57b9ac23708a4aa9490bc096f94a106ed490c6bd4f772e79b24",
+      "migration_sha256": null,
+      "result_sha256": "b70b8840b5a2e57b9ac23708a4aa9490bc096f94a106ed490c6bd4f772e79b24"
+    },
+    {
+      "path": "common/storage/sd_wire.h",
+      "status": "owner_only",
+      "owner_sha256": "e03d20b1b41f2cf5b6c04ab8e4426b244f43b46ac757a4d610abccdb95d74c08",
+      "migration_sha256": null,
+      "result_sha256": "e03d20b1b41f2cf5b6c04ab8e4426b244f43b46ac757a4d610abccdb95d74c08"
+    },
+    {
+      "path": "common/storage/storage_primitives.c",
+      "status": "owner_only",
+      "owner_sha256": "c64b6e2c5a8b8e4f72b09c211d1bec18a7dd77df6a47ade3a6bcf8f9e61ce072",
+      "migration_sha256": "566340535e8c4f97e47efc1a6da96bea09e6f390fb910176d0ea92f3a63a60ec",
+      "result_sha256": "c64b6e2c5a8b8e4f72b09c211d1bec18a7dd77df6a47ade3a6bcf8f9e61ce072"
+    },
+    {
+      "path": "common/storage/storage_protocol.c",
+      "status": "owner_only",
+      "owner_sha256": "3f936d5ff88cf81a7e608edc075132c7af3abaa0aa54076486ea444546754882",
+      "migration_sha256": "f6abe1717bf7030589a9ffaa04e1f0dbd547bfdc0721d268b777433f5b4273a5",
+      "result_sha256": "3f936d5ff88cf81a7e608edc075132c7af3abaa0aa54076486ea444546754882"
+    },
+    {
+      "path": "docs/FILE_MANAGER.md",
+      "status": "owner_only",
+      "owner_sha256": "87cc26c7a3081ca1e0bec9d94c90a4c01dc49b556137c8c5705895d6abf3334d",
+      "migration_sha256": "44e32c27b509aed984dd67f4395c593f418eacf351346130d4b57a89edbc5b6d",
+      "result_sha256": "87cc26c7a3081ca1e0bec9d94c90a4c01dc49b556137c8c5705895d6abf3334d"
+    },
+    {
+      "path": "docs/HOSTED_MEMORY_AUDIT.md",
+      "status": "owner_only",
+      "owner_sha256": "88f998f40283a85a2a661986cbff5eabcb778c369f5e60083b1d5cf1c77557c6",
+      "migration_sha256": "89be93a45682d93c8f25df71909a4b0fd83d039bac05bd7aaf0c5a7ef4b84f8c",
+      "result_sha256": "88f998f40283a85a2a661986cbff5eabcb778c369f5e60083b1d5cf1c77557c6"
+    },
+    {
+      "path": "docs/P4_CONNECTION_OPENING.md",
+      "status": "owner_only",
+      "owner_sha256": "a0615e9ce72a83c8d50df7e3b56e52d4c636c2190173e37c97e02f065a8697ad",
+      "migration_sha256": null,
+      "result_sha256": "a0615e9ce72a83c8d50df7e3b56e52d4c636c2190173e37c97e02f065a8697ad"
+    },
+    {
+      "path": "docs/P4_HTTP_THROUGHPUT.md",
+      "status": "owner_only",
+      "owner_sha256": "2236633e0a8a9dbfacf43b06ea846cd77ce0b6b428b503a68ce72aa9a36835e5",
+      "migration_sha256": null,
+      "result_sha256": "2236633e0a8a9dbfacf43b06ea846cd77ce0b6b428b503a68ce72aa9a36835e5"
+    },
+    {
+      "path": "docs/P4_SAVED_WIFI_BOOT.md",
+      "status": "owner_only",
+      "owner_sha256": "c2ea08d7aaf77dd2adc35d47cb674558b0f3f87c6b5a878cf50a4ed10d6138fa",
+      "migration_sha256": null,
+      "result_sha256": "c2ea08d7aaf77dd2adc35d47cb674558b0f3f87c6b5a878cf50a4ed10d6138fa"
+    },
+    {
+      "path": "docs/P4_TCP_LATENCY.md",
+      "status": "owner_only",
+      "owner_sha256": "39082366623ae2683857986e952b970ecd6d55d498260ec82d34fbbfda11e77a",
+      "migration_sha256": null,
+      "result_sha256": "39082366623ae2683857986e952b970ecd6d55d498260ec82d34fbbfda11e77a"
+    },
+    {
+      "path": "docs/P4_WIFI_LOSS_RETRY.md",
+      "status": "owner_only",
+      "owner_sha256": "217a7f58e03996be0875d9ee7814b03708cb93c690ba82bcd953d78be8309ae9",
+      "migration_sha256": null,
+      "result_sha256": "217a7f58e03996be0875d9ee7814b03708cb93c690ba82bcd953d78be8309ae9"
+    },
+    {
+      "path": "docs/SD_FILE_MANAGER.md",
+      "status": "owner_only",
+      "owner_sha256": "1f0eee856c78def827967df8c0b133e46f232cbd7fe5d1018b1066411a602dd1",
+      "migration_sha256": null,
+      "result_sha256": "1f0eee856c78def827967df8c0b133e46f232cbd7fe5d1018b1066411a602dd1"
+    },
+    {
+      "path": "docs/SD_STORAGE_NATIVE.md",
+      "status": "owner_only",
+      "owner_sha256": "19c0093f367370393cd60a7ec95494fa4f886e3afc6dec35028879c5129e8a18",
+      "migration_sha256": null,
+      "result_sha256": "19c0093f367370393cd60a7ec95494fa4f886e3afc6dec35028879c5129e8a18"
+    },
+    {
+      "path": "integration/SD_Card.ubl",
+      "status": "owner_only",
+      "owner_sha256": "312995b8cf75df3c5ce3e4a08ac21e2dd5665d5a9f76fefa9870564ef692fc73",
+      "migration_sha256": null,
+      "result_sha256": "312995b8cf75df3c5ce3e4a08ac21e2dd5665d5a9f76fefa9870564ef692fc73"
+    },
+    {
+      "path": "tests/device_files.test.js",
+      "status": "owner_only",
+      "owner_sha256": "7c41bc896cbbef830fd490881102bfafd48dcb3eda6a8d63ae652675da32ea86",
+      "migration_sha256": "00a8d3432a7d493e2ffe8d95bcb41bdd74b4544c29dc691d0f332fcbf90a7b0b",
+      "result_sha256": "7c41bc896cbbef830fd490881102bfafd48dcb3eda6a8d63ae652675da32ea86"
+    },
+    {
+      "path": "tests/device_files_application.test.js",
+      "status": "owner_only",
+      "owner_sha256": "e066d66ccfaf8803ce09f535d7dd967e69a61311c5ed758216ec6fd4650fa0e7",
+      "migration_sha256": "8ed1a03be5b4b74d818dd871696bc970d5161439650ef03e083e477984703eb5",
+      "result_sha256": "e066d66ccfaf8803ce09f535d7dd967e69a61311c5ed758216ec6fd4650fa0e7"
+    },
+    {
+      "path": "tests/device_files_latency.test.js",
+      "status": "owner_only",
+      "owner_sha256": "161972341f206f3f846cd2d35faabf1cb198b48ff9fb59d9fdf51370adc14632",
+      "migration_sha256": null,
+      "result_sha256": "161972341f206f3f846cd2d35faabf1cb198b48ff9fb59d9fdf51370adc14632"
+    },
+    {
+      "path": "tests/device_files_ui.test.js",
+      "status": "owner_only",
+      "owner_sha256": "ce2b0fc0375395204d48baadf98ea1904f5ac34379db5205b5723c43a58914a7",
+      "migration_sha256": null,
+      "result_sha256": "ce2b0fc0375395204d48baadf98ea1904f5ac34379db5205b5723c43a58914a7"
+    },
+    {
+      "path": "tests/device_sd.test.js",
+      "status": "owner_only",
+      "owner_sha256": "b020c64330cdb97ea441914b03a9abd02894935238819cce9005a2ffd14ea8c4",
+      "migration_sha256": null,
+      "result_sha256": "b020c64330cdb97ea441914b03a9abd02894935238819cce9005a2ffd14ea8c4"
+    },
+    {
+      "path": "tests/device_sd_fakes.js",
+      "status": "owner_only",
+      "owner_sha256": "907f673337d71e52041744b265289c42a1c28e4bd408badf1d7a49529f36bbb7",
+      "migration_sha256": null,
+      "result_sha256": "907f673337d71e52041744b265289c42a1c28e4bd408badf1d7a49529f36bbb7"
+    },
+    {
+      "path": "tests/device_sd_ui.test.js",
+      "status": "owner_only",
+      "owner_sha256": "38f409d775cfbaf8c22aa89b7c7e652fb3183764bb329a7568542e392e2336e6",
+      "migration_sha256": null,
+      "result_sha256": "38f409d775cfbaf8c22aa89b7c7e652fb3183764bb329a7568542e392e2336e6"
+    },
+    {
+      "path": "tests/hosted_assets_fakes.h",
+      "status": "owner_only",
+      "owner_sha256": "a4018ac0749fb87e45583fc731256fbfa8bcb9babb6560cd4c9623ac7b1fa24c",
+      "migration_sha256": "4bc09e26452e428f5e3d09ba116407d2a7392dbed6eccc27bec85d366bb07ec6",
+      "result_sha256": "a4018ac0749fb87e45583fc731256fbfa8bcb9babb6560cd4c9623ac7b1fa24c"
+    },
+    {
+      "path": "tests/hosted_assets_test.c",
+      "status": "owner_only",
+      "owner_sha256": "bfa98f353bc4abb8f012dd2f8b24af27eee65d3f63b734d31fdf311ebaf82e2a",
+      "migration_sha256": "5c30e7f17e70fc9ce155efade018b82131340e3c5ff007764ae4c61093d7a6b9",
+      "result_sha256": "bfa98f353bc4abb8f012dd2f8b24af27eee65d3f63b734d31fdf311ebaf82e2a"
+    },
+    {
+      "path": "tests/p4-transport.test.cjs",
+      "status": "owner_only",
+      "owner_sha256": "e170efae41b15095e8524b11a8919b5ac53b38677bb11a2e9bc475f4c884c713",
+      "migration_sha256": "82227ddb7e1d0b5dbff21a8e5704008a226f71b95d8ef01387bd1d8804eb88de",
+      "result_sha256": "e170efae41b15095e8524b11a8919b5ac53b38677bb11a2e9bc475f4c884c713"
+    },
+    {
+      "path": "tests/test_device_files_contract.py",
+      "status": "owner_only",
+      "owner_sha256": "6d17b1d2f0ef8bd4e5d1782058d83430d0d02384a28e9dcce1cf474981b08155",
+      "migration_sha256": "cb25ca06908c204a0774cb700b95947610e3c28b59ec33525bad859770d3fecc",
+      "result_sha256": "6d17b1d2f0ef8bd4e5d1782058d83430d0d02384a28e9dcce1cf474981b08155"
+    },
+    {
+      "path": "tests/test_p4_connection_wait.py",
+      "status": "owner_only",
+      "owner_sha256": "06fb7e892fa92261a53abca9d6ead143e1e8e548b8ac5ec751f2dfc9de7765ee",
+      "migration_sha256": null,
+      "result_sha256": "06fb7e892fa92261a53abca9d6ead143e1e8e548b8ac5ec751f2dfc9de7765ee"
+    },
+    {
+      "path": "tests/test_p4_http_probe.py",
+      "status": "owner_only",
+      "owner_sha256": "3659f83bbbc29f6000cc536cf65242baaabfac0e929e8e15048ccd61086f3095",
+      "migration_sha256": null,
+      "result_sha256": "3659f83bbbc29f6000cc536cf65242baaabfac0e929e8e15048ccd61086f3095"
+    },
+    {
+      "path": "tests/test_p4_http_throughput_contract.py",
+      "status": "owner_only",
+      "owner_sha256": "99f31ac17defc050482a70d8c5c4313f4bfa4731d2d571d309f69efb144319a9",
+      "migration_sha256": null,
+      "result_sha256": "99f31ac17defc050482a70d8c5c4313f4bfa4731d2d571d309f69efb144319a9"
+    },
+    {
+      "path": "tests/test_p4_latency_contract.py",
+      "status": "owner_only",
+      "owner_sha256": "34196233d514f204c420c1e2830d1c8a7b48686bfb3611b02ce6309c9eb3f47e",
+      "migration_sha256": null,
+      "result_sha256": "34196233d514f204c420c1e2830d1c8a7b48686bfb3611b02ce6309c9eb3f47e"
+    },
+    {
+      "path": "tests/test_p4_latency_policy_contract.py",
+      "status": "owner_only",
+      "owner_sha256": "ae21ccd3283cc2e268b5d7784d6db97063dd3448cec71be2360cf99a78ed6f26",
+      "migration_sha256": null,
+      "result_sha256": "ae21ccd3283cc2e268b5d7784d6db97063dd3448cec71be2360cf99a78ed6f26"
+    },
+    {
+      "path": "tests/test_p4_saved_boot_contract.py",
+      "status": "owner_only",
+      "owner_sha256": "ac2bd44f382fcc893efb05beff0ddbeb9fd89640e0882f136c35969ab47565a7",
+      "migration_sha256": null,
+      "result_sha256": "ac2bd44f382fcc893efb05beff0ddbeb9fd89640e0882f136c35969ab47565a7"
+    },
+    {
+      "path": "tools/benchmark_p4_http.py",
+      "status": "owner_only",
+      "owner_sha256": "d0f7a6aa7ceda8e138e434a6690fe1babf6443da80af88dca9a71252d92d2ebf",
+      "migration_sha256": null,
+      "result_sha256": "d0f7a6aa7ceda8e138e434a6690fe1babf6443da80af88dca9a71252d92d2ebf"
+    },
+    {
+      "path": "tools/check_p4_vm_memory.py",
+      "status": "owner_only",
+      "owner_sha256": "5987fe967072e3409b02c0e8cb455349da56090dafbb750faec88f3c772f2239",
+      "migration_sha256": null,
+      "result_sha256": "5987fe967072e3409b02c0e8cb455349da56090dafbb750faec88f3c772f2239"
+    },
+    {
+      "path": "tools/package_p4_ide.py",
+      "status": "owner_only",
+      "owner_sha256": "c8b9eb31d2ec8a382c338b8a78986056cf02b19fe72246096e7d4b4aa07e3cd6",
+      "migration_sha256": "5b1f1ec711d5e8f42558699f0728994932ce57501f92a2bd4bb3962b89297c16",
+      "result_sha256": "c8b9eb31d2ec8a382c338b8a78986056cf02b19fe72246096e7d4b4aa07e3cd6"
+    },
+    {
+      "path": "tools/prepare_p4_zephyr_runtime.py",
+      "status": "owner_only",
+      "owner_sha256": "61bf43ec95afdf16e0a4add24e509967d7c5e456fdc9b6a7c18760fa871a5f11",
+      "migration_sha256": "562f919eb2afe144ff6fbdaf0e585488eaad8336cc71b9603a1fda79911c2977",
+      "result_sha256": "61bf43ec95afdf16e0a4add24e509967d7c5e456fdc9b6a7c18760fa871a5f11"
+    },
+    {
+      "path": "tools/test_hosted_assets.py",
+      "status": "owner_only",
+      "owner_sha256": "29320af9a35d0862032080f0ee0d7e8498b0db34d1af82cc2650e02ed537ac45",
+      "migration_sha256": "98126891657fcf7a85925ece64046c5333df5b4cd50cdb579c9b471e2cd3979b",
+      "result_sha256": "29320af9a35d0862032080f0ee0d7e8498b0db34d1af82cc2650e02ed537ac45"
+    },
+    {
+      "path": "tools/test_p4_http_diagnostics.py",
+      "status": "owner_only",
+      "owner_sha256": "9d871436992514a0ae3911982901e8ca08c0f14e4773a13cec978394deb28a26",
+      "migration_sha256": null,
+      "result_sha256": "9d871436992514a0ae3911982901e8ca08c0f14e4773a13cec978394deb28a26"
+    },
+    {
+      "path": "tools/test_p4_http_poll_budget.py",
+      "status": "owner_only",
+      "owner_sha256": "f9216241a5feb0a0b9874c153939f4e3112d55fd008e830ba2c7d857e15c429c",
+      "migration_sha256": null,
+      "result_sha256": "f9216241a5feb0a0b9874c153939f4e3112d55fd008e830ba2c7d857e15c429c"
+    },
+    {
+      "path": "tools/test_p4_latency_transport.py",
+      "status": "owner_only",
+      "owner_sha256": "dd81dbfa36e83e15b21130dfa85cd7d4338041527f5e55fba593cc343ca7aa4f",
+      "migration_sha256": null,
+      "result_sha256": "dd81dbfa36e83e15b21130dfa85cd7d4338041527f5e55fba593cc343ca7aa4f"
+    },
+    {
+      "path": "tools/test_p4_saved_boot.py",
+      "status": "owner_only",
+      "owner_sha256": "31eeabd0223232733c7753387dfe76d9430875619f61af0f2a9b84bddf31216d",
+      "migration_sha256": null,
+      "result_sha256": "31eeabd0223232733c7753387dfe76d9430875619f61af0f2a9b84bddf31216d"
+    },
+    {
+      "path": "tools/test_p4_sd_backend.py",
+      "status": "owner_only",
+      "owner_sha256": "2a8207888a4c45ddb7aea685444b4ba5569f98f0911edaa6a73389c51f3eccec",
+      "migration_sha256": null,
+      "result_sha256": "2a8207888a4c45ddb7aea685444b4ba5569f98f0911edaa6a73389c51f3eccec"
+    },
+    {
+      "path": "tools/test_p4_sd_file_worker.py",
+      "status": "owner_only",
+      "owner_sha256": "8554cd96cda1f23f47aeb772e9c5fc74a1f3602800c61afeb592eecf03feb7fb",
+      "migration_sha256": null,
+      "result_sha256": "8554cd96cda1f23f47aeb772e9c5fc74a1f3602800c61afeb592eecf03feb7fb"
+    },
+    {
+      "path": "tools/test_p4_sd_files.py",
+      "status": "owner_only",
+      "owner_sha256": "7c863f05d80fdd27e4101e1bd9848c1bf34070d2da93ad16b30fd65ce796fe21",
+      "migration_sha256": null,
+      "result_sha256": "7c863f05d80fdd27e4101e1bd9848c1bf34070d2da93ad16b30fd65ce796fe21"
+    },
+    {
+      "path": "tools/test_p4_sd_readonly.py",
+      "status": "owner_only",
+      "owner_sha256": "46d071e2eefacd190ed1bddeb8435a6c523b3a32947cd468e2512f80337337b1",
+      "migration_sha256": null,
+      "result_sha256": "46d071e2eefacd190ed1bddeb8435a6c523b3a32947cd468e2512f80337337b1"
+    },
+    {
+      "path": "tools/test_p4_transport_loss.py",
+      "status": "owner_only",
+      "owner_sha256": "bc9f347ff1865aa985a3d72d464b32dec1a3b0e407aff7462d8d1cb12dc4d03c",
+      "migration_sha256": null,
+      "result_sha256": "bc9f347ff1865aa985a3d72d464b32dec1a3b0e407aff7462d8d1cb12dc4d03c"
+    },
+    {
+      "path": "tools/test_p4_wifi_latency_policy.py",
+      "status": "owner_only",
+      "owner_sha256": "29a551b9a88fc9e6c7577c919d3607003c71866cf10c5bf874b83a690e894d2c",
+      "migration_sha256": null,
+      "result_sha256": "29a551b9a88fc9e6c7577c919d3607003c71866cf10c5bf874b83a690e894d2c"
+    },
+    {
+      "path": "tools/test_sd_wire.py",
+      "status": "owner_only",
+      "owner_sha256": "975789b7b269a8a2e29d9eda2e263c2cae2f1713c1834a9445619a4d84981b45",
+      "migration_sha256": null,
+      "result_sha256": "975789b7b269a8a2e29d9eda2e263c2cae2f1713c1834a9445619a4d84981b45"
+    },
+    {
+      "path": "tools/test_storage_sd_bridge.py",
+      "status": "owner_only",
+      "owner_sha256": "aefaeb92c1443791fada4bc8246a56986a18883926a932e8f35d73e111dba102",
+      "migration_sha256": null,
+      "result_sha256": "aefaeb92c1443791fada4bc8246a56986a18883926a932e8f35d73e111dba102"
+    },
+    {
+      "path": "web/device-files-controller.js",
+      "status": "owner_only",
+      "owner_sha256": "841923ad73d38aff65d1aabfe0267ec2e25a47803cfaff142da5b665ea282d14",
+      "migration_sha256": "90997067dcd5fd4b40fbf2b34a6c660e6d405a5d39e2262e2b41efd54b364585",
+      "result_sha256": "841923ad73d38aff65d1aabfe0267ec2e25a47803cfaff142da5b665ea282d14"
+    },
+    {
+      "path": "web/device-files-core.js",
+      "status": "owner_only",
+      "owner_sha256": "9f227201925c1783b5ea611ef8815d4b4dc51f101ebaa68c66268bdf1ea4b5d0",
+      "migration_sha256": "e92f016bd55578962fd93db26144e810a8707085fdc302cede20a69d5b2b7139",
+      "result_sha256": "9f227201925c1783b5ea611ef8815d4b4dc51f101ebaa68c66268bdf1ea4b5d0"
+    },
+    {
+      "path": "web/device-files-wire.js",
+      "status": "owner_only",
+      "owner_sha256": "1db905f96c36ab2e409ada859868a393a08c8d1a443fe4c19af42882c28e697d",
+      "migration_sha256": "8c3eca2dde0a73ec40107fdc7c31573a6d22f39c65cd84fde659cfdb6b88e8d8",
+      "result_sha256": "1db905f96c36ab2e409ada859868a393a08c8d1a443fe4c19af42882c28e697d"
+    },
+    {
+      "path": "web/device-files.js",
+      "status": "owner_only",
+      "owner_sha256": "fc99db6ad52d442ff2b8f0027ab00e94ebb1b1011ddcdf31290bc1186849d00b",
+      "migration_sha256": "000741930e1d396f9934363593586ba3b8b8f858d01def75dc872b7fe74db0b2",
+      "result_sha256": "fc99db6ad52d442ff2b8f0027ab00e94ebb1b1011ddcdf31290bc1186849d00b"
+    },
+    {
+      "path": "web/device-sd-core.js",
+      "status": "owner_only",
+      "owner_sha256": "b8250bc37f588773de0c4ec65ed4671ecf2b16b98910ca79a86f8d642352b701",
+      "migration_sha256": null,
+      "result_sha256": "b8250bc37f588773de0c4ec65ed4671ecf2b16b98910ca79a86f8d642352b701"
+    },
+    {
+      "path": "web/device-sd-ui.js",
+      "status": "owner_only",
+      "owner_sha256": "2c35509de614dd04410780ed286c88b321fee6b21f772e8b088a6e4b5c7590fe",
+      "migration_sha256": null,
+      "result_sha256": "2c35509de614dd04410780ed286c88b321fee6b21f772e8b088a6e4b5c7590fe"
+    }
+  ]
+}

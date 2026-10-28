@@ -1,0 +1,102 @@
+Browser tab: 19, Title: "MicroBlocks", URL: "http://127.0.0.1:18903/fixture.html".
+0 AXWebArea MicroBlocks, URL: 127.0.0.1:18903/fixture.html
+	1 container
+		2 container
+			3 link Description: MicroBlocks website, Value: microblocks.fun/
+			4 button Language
+				5 image
+			6 button Settings
+				7 image
+			8 button Project
+				9 image
+			76 text SimulatedReadback
+			10 button Graph
+				11 image
+			12 button Connect
+				13 image
+				77 text Connect
+			15 button Start
+				16 image
+			17 button Stop
+				18 image
+		19 container
+			20 button Block Category
+				21 text Output
+			22 button Block Category
+				23 text Input
+			24 button Block Category
+				25 text Pins
+			26 button Block Category
+				27 text Control
+			28 button Block Category
+				29 text Operators
+			30 button Block Category
+				31 text Variables
+			32 button Block Category
+				33 text Data
+			34 button Block Category
+				35 text My Blocks
+			36 heading LIBRARIES, Value: 2
+				37 text LIBRARIES
+			38 button Add Library
+				39 text Add Library
+				40 image
+			78 button Block Category
+				79 text Clock & Timers
+			80 button Block Category
+				81 text I2C Devices
+			82 button Block Category
+				83 text JSON
+			84 button Block Category
+				85 text P4 Audio
+			86 button Block Category
+				87 text P4 Camera
+			88 button Block Category
+				89 text P4 Local Speech
+			90 button Block Category
+				91 text P4 Neural Networks
+			92 button Block Category
+				93 text SD Card
+			94 button Block Category
+				95 text Steps & Transitions
+			96 button Block Category
+				97 text Storage
+			98 button Block Category
+				99 text Wake Word
+			41 button Expand and collapse left bar
+				42 image
+		43 container
+			44 image canvas
+			45 button Undo
+				46 image
+			47 button Redo
+				48 image
+			49 button Zoom out
+				50 image
+			51 button Restore zoom
+				52 image
+			53 button Zoom in
+				54 image
+		55 text Palette Drag blocks from here to build scripts. Drop scripts here to delete them.
+		56 text entry area (settable)
+		57 text Waveshare ESP32-P4 WIFI6 — experimental JS editor.
+		58 button Connect target USB
+		59 button Close local link
+		60 text field (settable) Trusted P4 secure WebSocket address
+		61 button Connect P4 WSS
+		62 button Load target blocks
+		63 container P4 services
+			64 pop up button Device files
+			65 button (disabled) Read current board project, Help: Read the identified link without uploading or clearing code. Ordinary connection setup is separate.
+			66 button (collapsed) Inline image and audio results, Secondary Actions: Expand
+				67 text Inline image and audio results
+			68 button (collapsed) Neural networks, Secondary Actions: Expand
+				69 text Neural networks
+		100 text SIMULATED REOPEN PASS:189 definitions and3 scripts; no media or transient site IDs.
+		71 button Connect and read SIMULATED board
+		72 button Verify simulated readback
+		73 button Cancel a simulated read without clearing
+		74 button Reopen saved readback source
+		75 text entry area (settable) morphic_keyboard
+
+The focused UI element is 74 button Reopen saved readback source

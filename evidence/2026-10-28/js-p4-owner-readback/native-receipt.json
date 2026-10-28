@@ -1,0 +1,62 @@
+{
+  "tests": [
+    {
+      "test": "test_p4_sd_file_worker.py",
+      "returncode": 0,
+      "seconds": 1.0766391260000034
+    },
+    {
+      "test": "test_p4_sd_files.py",
+      "returncode": 0,
+      "seconds": 0.6758839169999931
+    },
+    {
+      "test": "test_p4_sd_readonly.py",
+      "returncode": 0,
+      "seconds": 0.5037074640000014
+    },
+    {
+      "test": "test_p4_saved_boot.py",
+      "returncode": 0,
+      "seconds": 2.292191575000004
+    },
+    {
+      "test": "test_p4_transport_loss.py",
+      "returncode": 0,
+      "seconds": 0.3864273109999914
+    },
+    {
+      "test": "test_p4_latency_transport.py",
+      "returncode": 0,
+      "seconds": 0.45219079000000306
+    },
+    {
+      "test": "test_p4_wifi_latency_policy.py",
+      "returncode": 0,
+      "seconds": 0.40551005000000373
+    },
+    {
+      "test": "test_p4_http_diagnostics.py",
+      "returncode": 0,
+      "seconds": 0.41948696400000074
+    },
+    {
+      "test": "test_sd_wire.py",
+      "returncode": 0,
+      "seconds": 0.9508357419999953
+    },
+    {
+      "test": "test_storage_sd_bridge.py",
+      "returncode": 1,
+      "seconds": 0.15929547399998967
+    },
+    {
+      "test": "test_hosted_assets.py",
+      "returncode": 0,
+      "seconds": 3.0076581000000004
+    }
+  ],
+  "hardware": false,
+  "source_replica": "/tmp/p4-owner-host-vd7u_5b6/repo",
+  "zephyr_image_compiled": false
+}

@@ -1,0 +1,4 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* Slot 0 and its pins/power come from the exact compact-board DTS. */
+&sdhc0 { status = "okay"; max-bus-freq = <20000000>; };
+&sdhc1 { status = "disabled"; };

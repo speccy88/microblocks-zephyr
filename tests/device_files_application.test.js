@@ -99,3 +99,21 @@ test('open cancellation and replacement links cannot publish an obsolete grant',
  assert.throws(()=>wire.encode({version:1,id:1,op:'open',args:{nonce:0}},0),code('PROTOCOL'));
  controller.link(null);
 });
+
+for(const [nativeStatus,nativeCode] of [[2,'DISCONNECTED'],[12,'TIMEOUT']])test('expired native '+nativeCode+' grants leave ready state without reconnecting or replaying',async()=>{
+ const controller=new Controller({timeout:50,nonce:()=>42}),sent=[],states=[];
+ controller.subscribe(s=>states.push(s.state));
+ controller.link(f=>{sent.push(f);return f.length;});
+ const opened=controller.open(),grant=new Uint8Array(29),gv=new DataView(grant.buffer);
+ grant.set([251,217,0,24,0,77,66,70,82,1,9]);gv.setUint32(11,42,true);gv.setUint32(21,7,true);gv.setUint32(25,42,true);
+ controller.receive(grant);const transport=await opened,client=new core.Client(transport);
+ const pending=client.keepAlive(),rejected=assert.rejects(pending,code(nativeCode));await tick();
+ const response=new Uint8Array(21),v=new DataView(response.buffer);
+ response.set([251,217,0,16,0,77,66,70,82,1,1]);v.setUint32(11,1,true);v.setUint32(15,7,true);response[19]=nativeStatus;
+ controller.receive(response);await rejected;
+ assert.equal(controller.state,'available');assert.equal(controller.error,nativeCode);
+ assert.equal(controller.transport,null);assert.equal(transport.closed,true);
+ assert.equal(sent.length,2,'One grant and one read-only check; no implicit new grant or replay');
+ assert.deepEqual(states,['disconnected','available','connecting','ready','available']);
+ controller.link(null);
+});

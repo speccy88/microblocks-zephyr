@@ -7,7 +7,10 @@ const boardProfileRuntime = MicroBlocksJSProfile.kind === 'serial' ? MicroBlocks
 const linuxTarget = MicroBlocksTarget.install(MB_CommPort, MicroBlocksJSProfile.id, location);
 MicroBlocksTarget.protectFirmware(typeof MB_Firmware === 'undefined' ? null : MB_Firmware, MicroBlocksJSProfile.id);
 MicroBlocksLegacySlots.install(MB_Specs, SyntaxElementMorph, MicroBitDisplaySlotMorph, ArgMorph, Color, Point, MenuMorph);
-MicroBlocksReadback.install(MB_Decompiler, MB_CodeManager, ScriptsMorph, () => MB_editor);
+MicroBlocksLegacyLoops.install(MB_Compiler);
+MicroBlocksReadback.install(MB_Decompiler, MB_CodeManager, ScriptsMorph, () => MB_editor,{primitiveSets:MicroBlocksJSProfile.primitive_sets});
+MicroBlocksReadback.protectRead(MB_Connection,MB_CodeManager,()=>MB_connection,()=>MB_editor);
+MicroBlocksReadbackLibraries.install(MB_Decompiler,MicroBlocksReadbackLibraryMap);
 window.addEventListener('DOMContentLoaded', () => {
     const panel = document.createElement('div');
     panel.setAttribute('role', 'status');

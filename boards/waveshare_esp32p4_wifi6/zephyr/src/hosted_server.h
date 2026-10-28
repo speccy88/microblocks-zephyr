@@ -16,7 +16,12 @@ int p4_ws_setup(int,struct http_request_ctx *,void *);
 void p4_transport_init(void);
 bool p4_transport_ready(void);
 void p4_transport_poll(void);
+void p4_transport_network_lost(void);
 int p4_transport_recv(uint8_t *,int);
 int p4_transport_send(uint8_t *,int,int);
 bool p4_transport_is_usb(void);
 const char *p4_transport_owner(void);
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+void p4_transport_latency_json(char *,size_t);
+void p4_asset_timing_json(char *,size_t);
+#endif

@@ -22,7 +22,7 @@ async function editor(origin,profile){
   createElement:node,createTextNode:()=>node('text'),querySelector:()=>node('div'),
   addEventListener(name,fn){listeners[name]=fn;}};
  const window={addEventListener(){}};
- class Socket{static OPEN=1;constructor(url){this.url=url;this.readyState=1;sockets.push(this);}close(){this.readyState=3;}}
+ class Socket{static OPEN=1;constructor(url){this.url=url;this.readyState=1;this.sent=[];this.closeCount=0;sockets.push(this);}close(){this.closeCount++;this.readyState=3;}send(data){this.sent.push([...data]);}}
  const context={window,document,location:new URL(origin),MicroBlocksPortal:core,
   PORTAL_BOARD:{board:'esp32p4',name:'P4',...profile},
   navigator:{serial:{async requestPort(){serialRequests++;throw Error('Fake USB');}}},
@@ -77,4 +77,33 @@ test('old socket callbacks cannot disconnect or feed a replacement controller',a
  old.onclose();old.onmessage({data:'not binary'});old.onerror();
  assert.equal(app.window.webSerialIsConnected(),true);assert.equal(app.window.GP_readSerialPort(100).length,0);
  current.onclose();assert.equal(app.window.webSerialIsConnected(),false);
+});
+
+const waits=JSON.parse(execFileSync(process.env.PYTHON||'python',['-c',
+ "import sys,json;sys.path.insert(0,'tools');from package_p4_ide import serial_open_wait;print(json.dumps({'usb':serial_open_wait().decode(),'hosted':serial_open_wait(True).decode()}))"],{cwd:repo,encoding:'utf8'}));
+const budget=kind=>Number(waits[kind].match(/< (\d+)\)\)/)[1]);
+async function gpOpen(app,deadline,readyAt){
+ app.window.GP_openSerialPort();const socket=app.sockets[0];socket.readyState=0;let elapsed=0;
+ while(!app.window.GP_isOpenSerialPort(1)&&elapsed<deadline){
+  elapsed+=10;
+  if(elapsed>=readyAt){socket.readyState=1;socket.onmessage({data:'ready'});}
+ }
+ if(!app.window.GP_isOpenSerialPort(1))app.window.GP_closeSerialPort(1);
+ return {elapsed,socket,connected:app.window.GP_isOpenSerialPort(1)};
+}
+test('measured 8.9s handshake fails at legacy deadline but completes in actual hosted budget',async()=>{
+ const old=await editor('http://10.0.0.7',{hosted:true});
+ const expired=await gpOpen(old,budget('usb'),8907);
+ assert.equal(expired.connected,false);assert.equal(expired.elapsed,5000);assert.equal(expired.socket.closeCount,1);assert.deepEqual(expired.socket.sent,[]);
+ const hosted=await editor('http://10.0.0.7',{hosted:true});
+ const opened=await gpOpen(hosted,budget('hosted'),8907);
+ assert.equal(opened.connected,true);assert.equal(opened.elapsed,8910);assert.equal(opened.socket.closeCount,0);
+ assert.equal(hosted.sockets.length,1);assert.equal(hosted.serialRequests,0);assert.deepEqual(opened.socket.sent,[]);
+ assert.equal(hosted.window.GP_writeSerialPort(new Uint8Array([250,12,0])),3);assert.deepEqual(opened.socket.sent,[[250,12,0]]);
+});
+test('hosted opening still expires once without replaying commands or opening another socket',async()=>{
+ const app=await editor('http://10.0.0.7',{hosted:true});const expired=await gpOpen(app,budget('hosted'),Infinity);
+ assert.equal(expired.connected,false);assert.equal(expired.elapsed,30000);assert.equal(expired.socket.closeCount,1);
+ assert.equal(app.sockets.length,1);assert.deepEqual(expired.socket.sent,[]);assert.equal(app.serialRequests,0);
+ expired.socket.readyState=1;expired.socket.onmessage({data:'ready'});assert.equal(app.window.GP_isOpenSerialPort(1),false);
 });

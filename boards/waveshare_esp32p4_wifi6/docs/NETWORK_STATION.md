@@ -1,5 +1,16 @@
 # Station mode replaces the AP target
 
+**2026-10-27 local follow-up:** the historical control-path blocker below was
+resolved without replacing C6 firmware. Real association, DHCP, served-asset
+hashes, VM programming, RAM transfers and the actual board-hosted editor pass.
+The bounded SD file manager is installed and tested. The installed opt-in
+saved-boot profile reconnects after tested warm resets with no manual station
+command. The later bounded recovery profile passes one controlled local loss
+with resumed HTTP, read-only SD and VM checks. Initial TCP intermittence and
+full power removal remain limits; see [recovery evidence](../../../docs/P4_WIFI_LOSS_RETRY.md).
+See [current validation](NETWORK_LIVE_VALIDATION.md) and the
+[bounded boot contract](../../../docs/P4_SAVED_WIFI_BOOT.md).
+
 Fred revoked AP work on 2026-10-26 at 01:25 UTC and requested connection to
 his existing Wi-Fi. The AP was confirmed inactive by USB status immediately
 after that instruction. No new AP attempts are authorized or performed.
@@ -9,8 +20,8 @@ and do not load its saved key or start that mode.
 Retain the separate USB image and genuine board-hosted editor. The new hosted
 target must use native Zephyr C6 SDIO station control and DHCP, serve assets
 from P4 flash, accept same-origin VM WebSockets and preserve single-controller
-ownership. The existing driver contains a station control path, but its exact
-installed-C6 compatibility remains physically unverified. The AP configuration
+ownership. The current native station path passes with the unchanged factory
+C6 after the synthetic response-540 compatibility check. The AP configuration
 failure is historical evidence, not proof station mode works or cannot work.
 
 ## Approved credential handoff

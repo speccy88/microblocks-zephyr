@@ -159,3 +159,13 @@ speech/network stack watermark or live station/editor validation was performed.
 Hardware, flash, commit, push, publication and deployment remain held. Feature
 expansion stays paused; no credential, AP, C6, COM12, microphone or Windows
 network/audio setting was touched.
+
+## Later throughput follow-up
+
+The 2026-10-27 [HTTP throughput follow-up](P4_HTTP_THROUGHPUT.md) retains this
+2048/512-byte ownership contract and all pools/stacks/heaps/windows. Its optional
+numeric recorder adds64 internal and208 external static bytes in the diagnostic
+profile; the explicit powered-board profile alone selects5ms SDIO polling.
+The earlier hardware hold above describes that historical memory-only stage.
+Current measured results, device digests, power tradeoff and limits are in the
+linked follow-up; the arena regression floor is still not an allocation proof.

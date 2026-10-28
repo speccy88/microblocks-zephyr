@@ -31,7 +31,7 @@ function load(assets, options = {}) {
         async fetch(name) {
             if (typeof name !== 'string' || name.includes('..') || name.includes(':') || name.startsWith('/')) throw new Error('Fixture accepts packaged paths only');
             const p = path.join(assets, name);
-            return {ok: fs.existsSync(p), text: async () => fs.readFileSync(p, 'utf8')};
+            return {ok: fs.existsSync(p), text: async () => fs.readFileSync(p, 'utf8'),headers:{get:()=>null},body:{getReader(){let done=false;return {async read(){if(done)return {done:true};done=true;return {done:false,value:new Uint8Array(fs.readFileSync(p))};},async cancel(){},releaseLock(){}};}}};
         },
         navigator: {userAgent: 'Headless logic fixture', platform: 'test', serial: options.serial},
         Image: class {}, HTMLCanvasElement: class {}, CanvasRenderingContext2D: class {},
@@ -60,9 +60,13 @@ function load(assets, options = {}) {
         }
     }
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/legacy-slots.js'), 'utf8'), context);
+    vm.runInContext(fs.readFileSync(path.join(assets,'legacy-loops.js'),'utf8'),context);
+    vm.runInContext('MicroBlocksLegacyLoops.install(MB_Compiler);',context);
     if (options.readback !== false) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '../../web/js-editor/readback-compat.js'), 'utf8'), context);
-        vm.runInContext('MicroBlocksReadback.install(MB_Decompiler,MB_CodeManager,ScriptsMorph,()=>MB_editor);', context);
+        vm.runInContext('MicroBlocksReadback.install(MB_Decompiler,MB_CodeManager,ScriptsMorph,()=>MB_editor,{primitiveSets:MicroBlocksJSProfile.primitive_sets});', context);
+        for(const name of ['readback-library-map.js','readback-libraries.js'])vm.runInContext(fs.readFileSync(path.join(assets,name),'utf8'),context,{filename:name});
+        vm.runInContext('MicroBlocksReadbackLibraries.install(MB_Decompiler,MicroBlocksReadbackLibraryMap);',context);
     }
     vm.runInContext(`MicroBlocksLinux.install(MB_Compiler, MB_CommPort, location, WebSocket,MicroBlocksJSProfile.primitive_sets,MicroBlocksJSProfile.function_names);
         if(MicroBlocksJSProfile.kind==='serial')globalThis.MB_boardRuntime=MicroBlocksBoardTransport.install(MB_CommPort,MB_Connection,MicroBlocksJSProfile,navigator.serial,()=>MB_editor);
@@ -70,6 +74,7 @@ function load(assets, options = {}) {
         MicroBlocksTarget.install(MB_CommPort,MicroBlocksJSProfile.id,location);
         MicroBlocksLegacySlots.install(MB_Specs,SyntaxElementMorph,MicroBitDisplaySlotMorph,ArgMorph,Color,Point,MenuMorph);
         MB_Specs.initialize();`, context, {timeout: 10000});
+    if(options.readback!==false)vm.runInContext('MicroBlocksReadback.protectRead(MB_Connection,MB_CodeManager,()=>MB_connection,()=>MB_editor);',context);
     return {context, evaluate: (s, timeout = 20000) => vm.runInContext(s, context, {timeout}),
         set: (name, value) => {context[name] = value;}};
 }

@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "test": "test_storage_sd_bridge.py",
+      "returncode": 0,
+      "seconds": 3.4029319340000086
+    }
+  ],
+  "hardware": false,
+  "source_replica": "/tmp/p4-owner-host-cb9gnzk_/repo",
+  "zephyr_image_compiled": false
+}

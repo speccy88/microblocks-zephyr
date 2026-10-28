@@ -16,6 +16,41 @@ RING_BUF_DECLARE(uart_rx,8192);
 static struct ring_buf ws_rx,ws_tx;
 static bool queues_ready;
 static struct k_spinlock io_lock;
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+#include <stdio.h>
+static struct {
+ uint32_t recv_calls,recv_max_ms,send_calls,send_max_ms;
+ uint32_t vm_rx_calls,vm_rx_max_ms,vm_tx_calls,vm_tx_max_ms;
+ uint32_t rx_queued_ms,tx_queued_ms;
+ bool rx_waiting,tx_waiting;
+} latency;
+static void observe_io(bool receive,uint32_t began)
+{
+ uint32_t elapsed=k_uptime_get_32()-began;
+ k_spinlock_key_t key=k_spin_lock(&io_lock);
+ uint32_t *calls=receive?&latency.recv_calls:&latency.send_calls;
+ uint32_t *maximum=receive?&latency.recv_max_ms:&latency.send_max_ms;
+ if(*calls!=UINT32_MAX)(*calls)++;
+ if(elapsed>*maximum)*maximum=elapsed;
+ k_spin_unlock(&io_lock,key);
+}
+static int observed_send(int fd,const uint8_t *data,size_t n,int opcode,bool mask,bool final,int timeout)
+{
+ uint32_t began=k_uptime_get_32();
+ int result=websocket_send_msg(fd,data,n,opcode,mask,final,timeout);
+ observe_io(false,began);return result;
+}
+#define WS_SEND observed_send
+void p4_transport_latency_json(char *out,size_t n)
+{
+ k_spinlock_key_t key=k_spin_lock(&io_lock);
+ uint32_t now=k_uptime_get_32();
+ snprintf(out,n,"{\"uptime_ms\":%u,\"recv_calls\":%u,\"recv_max_ms\":%u,\"send_calls\":%u,\"send_max_ms\":%u,\"vm_rx_calls\":%u,\"vm_rx_max_ms\":%u,\"vm_tx_calls\":%u,\"vm_tx_max_ms\":%u}",now,latency.recv_calls,latency.recv_max_ms,latency.send_calls,latency.send_max_ms,latency.vm_rx_calls,latency.vm_rx_max_ms,latency.vm_tx_calls,latency.vm_tx_max_ms);
+ k_spin_unlock(&io_lock,key);
+}
+#else
+#define WS_SEND websocket_send_msg
+#endif
 /* 0 idle, 1 UART pending, 2 UART active, 3 WS pending, 4 WS active, 5 closing */
 static int owner;
 static uint32_t last_uart;
@@ -47,6 +82,14 @@ void p4_transport_init(void)
  if(device_is_ready(serial)){uart_irq_callback_user_data_set(serial,serial_irq,NULL);uart_irq_rx_enable(serial);}
 }
 bool p4_transport_ready(void){return queues_ready;}
+void p4_transport_network_lost(void)
+{
+ /* The network callback only marks the old WS owner closing. Poll performs
+  * VM/media/file-session cleanup on the VM thread; USB ownership is retained. */
+ k_spinlock_key_t key=k_spin_lock(&io_lock);
+ if(owner==3||owner==4)owner=5;
+ k_spin_unlock(&io_lock,key);
+}
 void p4_transport_poll(void)
 {
  int action=0;
@@ -55,6 +98,9 @@ void p4_transport_poll(void)
  if(owner==1){action=1;ring_buf_reset(&ws_rx);ring_buf_reset(&ws_tx);}
  if(owner==3){action=3;ring_buf_reset(&uart_rx);ring_buf_reset(&ws_rx);ring_buf_reset(&ws_tx);}
  if(owner==5){action=5;ring_buf_reset(&uart_rx);ring_buf_reset(&ws_rx);ring_buf_reset(&ws_tx);}
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+ if(action)latency.rx_waiting=latency.tx_waiting=false;
+#endif
  k_spin_unlock(&io_lock,key);
  if(!action)return;
  /* This function only runs on the VM thread. No worker/ISR enters VM state. */
@@ -73,6 +119,14 @@ int p4_transport_recv(uint8_t *dst,int n)
  if(n<=0)return 0;
  k_spinlock_key_t key=k_spin_lock(&io_lock);
  int count=owner==2?ring_buf_get(&uart_rx,dst,n):owner==4?ring_buf_get(&ws_rx,dst,n):0;
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+ if(owner==4 && count>0){
+  if(latency.vm_rx_calls!=UINT32_MAX)latency.vm_rx_calls++;
+  uint32_t elapsed=k_uptime_get_32()-latency.rx_queued_ms;
+  if(latency.rx_waiting && elapsed>latency.vm_rx_max_ms)latency.vm_rx_max_ms=elapsed;
+  if(ring_buf_is_empty(&ws_rx))latency.rx_waiting=false;
+ }
+#endif
  k_spin_unlock(&io_lock,key);return count;
 }
 int p4_transport_send(uint8_t *data,int start,int end)
@@ -80,6 +134,12 @@ int p4_transport_send(uint8_t *data,int start,int end)
  if(start<0||end<start)return 0;
  k_spinlock_key_t key=k_spin_lock(&io_lock);int o=owner;
  int n=o==4?ring_buf_put(&ws_tx,data+start,end-start):end-start;
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+ if(o==4 && n>0){
+  if(!latency.tx_waiting){latency.tx_waiting=true;latency.tx_queued_ms=k_uptime_get_32();}
+  if(latency.vm_tx_calls!=UINT32_MAX)latency.vm_tx_calls++;
+ }
+#endif
  k_spin_unlock(&io_lock,key);
  if(o==2)for(int i=start;i<end;i++)uart_poll_out(serial,data[i]);
  return n;
@@ -90,20 +150,31 @@ static void websocket_worker(void *a,void *b,void *c)
  for(;;){
   k_sem_take(&ws_client,K_FOREVER);int fd=ws_fd;
   bool valid=k_sem_take(&ws_reset,K_SECONDS(1))==0;
-  if(valid)valid=websocket_send_msg(fd,(const uint8_t *)"ready",5,WEBSOCKET_OPCODE_DATA_TEXT,false,true,1000)==5;
+  if(valid)valid=WS_SEND(fd,(const uint8_t *)"ready",5,WEBSOCKET_OPCODE_DATA_TEXT,false,true,1000)==5;
   size_t message_bytes=0;bool binary=false;
   while(valid){
    uint32_t type=0;uint64_t remaining=0;
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+   uint32_t recv_began=k_uptime_get_32();
+#endif
    int n=websocket_recv_msg(fd,input,sizeof(input),&type,&remaining,10);
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+   observe_io(true,recv_began);
+#endif
    if(n==-EAGAIN)n=0;else if(n<0||(type&WEBSOCKET_FLAG_CLOSE))break;
    if(n>0){
-    if(type&WEBSOCKET_FLAG_PING){if(websocket_send_msg(fd,input,n,WEBSOCKET_OPCODE_PONG,false,true,500)!=n)break;continue;}
+    if(type&WEBSOCKET_FLAG_PING){if(WS_SEND(fd,input,n,WEBSOCKET_OPCODE_PONG,false,true,500)!=n)break;continue;}
     if(type&WEBSOCKET_FLAG_BINARY)binary=true;
     if(!binary||(type&WEBSOCKET_FLAG_TEXT)||message_bytes+n+remaining>8192)break;
     message_bytes+=n;bool queued=false;int64_t until=k_uptime_get()+500;
     do{
      k_spinlock_key_t key=k_spin_lock(&io_lock);
-     if(owner==4 && ring_buf_space_get(&ws_rx)>=(unsigned)n){ring_buf_put(&ws_rx,input,n);queued=true;}
+     if(owner==4 && ring_buf_space_get(&ws_rx)>=(unsigned)n){
+      ring_buf_put(&ws_rx,input,n);queued=true;
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+      if(!latency.rx_waiting){latency.rx_waiting=true;latency.rx_queued_ms=k_uptime_get_32();}
+#endif
+     }
      k_spin_unlock(&io_lock,key);if(!queued)k_sleep(K_MSEC(1));
     }while(!queued&&k_uptime_get()<until);
     if(!queued)break;
@@ -111,8 +182,15 @@ static void websocket_worker(void *a,void *b,void *c)
    }
    k_spinlock_key_t key=k_spin_lock(&io_lock);
    int count=owner==4?ring_buf_get(&ws_tx,output,sizeof(output)):0;valid=owner==4;
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+   if(count>0 && latency.tx_waiting){
+    uint32_t elapsed=k_uptime_get_32()-latency.tx_queued_ms;
+    if(elapsed>latency.vm_tx_max_ms)latency.vm_tx_max_ms=elapsed;
+    if(ring_buf_is_empty(&ws_tx))latency.tx_waiting=false;
+   }
+#endif
    k_spin_unlock(&io_lock,key);
-   if(count && websocket_send_msg(fd,output,count,WEBSOCKET_OPCODE_DATA_BINARY,false,true,1000)!=count)break;
+   if(count && WS_SEND(fd,output,count,WEBSOCKET_OPCODE_DATA_BINARY,false,true,1000)!=count)break;
   }
   k_spinlock_key_t key=k_spin_lock(&io_lock);if(owner==3||owner==4)owner=5;k_spin_unlock(&io_lock,key);
   websocket_unregister(fd);ws_fd=-1;atomic_clear(&ws_busy);

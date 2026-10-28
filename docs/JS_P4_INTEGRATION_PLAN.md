@@ -1,15 +1,16 @@
 # P4 integration after the JavaScript project round trip
 
-Follow-up: the separate [service integration](JS_P4_SERVICES_SPEC.md) adds
-bounded dispatch, typed files/neural panels and a guarded explicit WSS frontend.
-Its dated evidence distinguishes protocol/native-service fixtures and browser
-UI checks from physical acceptance. Inline block media remains unfinished.
+Follow-up: [service integration](JS_P4_SERVICES_SPEC.md),
+[inline media](JS_P4_MEDIA.md), and [owner-source readback](JS_P4_OWNER_READBACK_SPEC.md)
+now have local implementations and fixture tests. The owner’s sealed fe01c3fb
+source has been reconciled in the migration branch; see
+`dependencies/p4-native-owner.json` for provenance. Physical JS acceptance and
+a new Zephyr build remain outstanding.
 
-This is a read-only assessment of the P4 sources already preserved in this
-isolated clone at `279321173eff14a4c4fadbc58f33818184579cc4`. The protected
+The remainder records the earlier assessment at
+`279321173eff14a4c4fadbc58f33818184579cc4` and its acceptance plan. The protected
 owner checkout, COM5/COM12, physical board and paused SFC work were not accessed.
-Its newer independent work must be reconciled by its owner before integration.
-No P4 implementation or hardware validation is claimed by this assessment.
+No new hardware validation is claimed by this assessment.
 
 The official JS engine remains pinned to `5564b1e42d6790360450ebf11c9eb33a1c6877f2`.
 The GP preservation branch and SmallVM v417 pin remain separate. Keep adapting

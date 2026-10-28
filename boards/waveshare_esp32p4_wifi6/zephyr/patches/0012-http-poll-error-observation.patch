@@ -1,0 +1,10 @@
+--- a/subsys/net/lib/http/http_server_core.c
++++ b/subsys/net/lib/http/http_server_core.c
+@@ -1508,6 +1508,7 @@
+ 		ret = zsock_poll(ctx->fds, ARRAY_SIZE(ctx->fds), -1);
+ 		if (ret < 0) {
+ 			ret = -errno;
++			P4_HTTP_DIAG(7, ret);
+ 			LOG_DBG("poll failed (%d)", ret);
+ 			goto closing;
+ 		}

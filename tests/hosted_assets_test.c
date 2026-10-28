@@ -11,6 +11,13 @@ static struct flash_area area={16384};
 static unsigned calls,fail_call,max_read;
 static unsigned checks;
 #define CHECK(x) do{assert(x);checks++;}while(0)
+#if defined(CONFIG_P4_WIFI_COMPAT_DIAGNOSTIC)
+static atomic_uint observed[7];
+void p4_http_diag(unsigned stage,int result){
+ assert(stage>=1 && stage<=7 && result<0);
+ atomic_fetch_add(&observed[stage-1],1);
+}
+#endif
 static uint8_t byte_at(size_t x){return (uint8_t)((x*37u)^(x>>8));}
 int flash_area_open(int id,const struct flash_area **a){(void)id;*a=&area;return 0;}
 int flash_area_read(const struct flash_area *a,size_t offset,void *dest,size_t n){
@@ -41,6 +48,17 @@ static void *worker(void *arg){
 }
 int main(void){
  struct http_response_ctx r;struct p4_asset a={64,0,false};clean();
+#if defined(CONFIG_P4_WIFI_LATENCY_DIAGNOSTIC)
+ /* Actual counters include flash work, deliberate yield and socket gap;
+  * only terminal notifications publish a snapshot, which is read-only. */
+ a.size=4096;CHECK(!next(0,&a,&r));atomic_fetch_add(&fake_cycles,1234);
+ CHECK(!next(0,&a,&r));done(0,&a,false);
+ CHECK(last_transfer.bytes==4096 && last_transfer.calls==2 && last_transfer.reads==8);
+ CHECK(last_transfer.yield_us>=2000 && last_transfer.gap_us>=1234 && !last_transfer.aborted);
+ char timing[512];p4_asset_timing_json(timing,sizeof(timing));CHECK(strstr(timing,"\"bytes\":4096")!=NULL);
+ CHECK(!next(0,&a,&r));done(0,&a,true);CHECK(last_transfer.aborted);
+ clean();a.size=0;
+#endif
  const size_t sizes[]={0,1,511,512,513,2047,2048,2049,4096,7001};
  for(unsigned i=0;i<ARRAY_SIZE(sizes);i++){
   a.size=sizes[i];size_t pos=0;bool first=true;
@@ -75,5 +93,10 @@ int main(void){
  for(uintptr_t i=0;i<4;i++)assert(!pthread_create(&workers[i],NULL,worker,(void*)i));
  for(unsigned i=0;i<4;i++)assert(!pthread_join(workers[i],NULL));
  CHECK(max_read==512);for(unsigned i=0;i<4;i++)CHECK(!transfers[i].client);
+#if defined(CONFIG_P4_WIFI_COMPAT_DIAGNOSTIC)
+ CHECK(atomic_load(&observed[3])==1); /* Full transfer-slot table. */
+ CHECK(atomic_load(&observed[4])==4); /* Each flash-read failure cleans up. */
+ CHECK(atomic_load(&observed[5])==6); /* Missing/bad assets and stale bounds. */
+#endif
  printf("{\"checks\":%u,\"concurrent_clients\":4,\"concurrent_transfers\":400,\"max_flash_read\":%u,\"physical_tested\":false}\n",checks,max_read);
 }

@@ -18,6 +18,11 @@ execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/prepare_p4_zephyr_r
 target_include_directories(app PRIVATE "${vm_root}" "${vm_root}/vm" "${repo}/common/image" "${repo}/common/audio" "${repo}/common/media" src "${ZEPHYR_BASE}/drivers/video")
 target_include_directories(app PRIVATE "${repo}/common/nn" "${repo}/common/i2c")
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1 HAS_BOARD_HOOKS=1 IMAGE_ALLOC_EXTERNAL=1 AUDIO_ALLOC_EXTERNAL=1 MEDIA_ALLOC_EXTERNAL=1)
+if(CONFIG_ESP_SPIRAM)
+ add_custom_target(p4_vm_memory_validate ALL DEPENDS zephyr_final
+   COMMAND ${Python3_EXECUTABLE} "${repo}/tools/check_p4_vm_memory.py"
+     --elf "${CMAKE_BINARY_DIR}/zephyr/zephyr.elf")
+endif()
 if(CONFIG_ESP_HOSTED_MCU)
   target_include_directories(app PRIVATE "${ZEPHYR_BASE}/drivers/misc/esp_hosted_mcu")
 endif()
@@ -41,9 +46,18 @@ set_source_files_properties("${repo}/third_party/yyjson/yyjson.c" PROPERTIES COM
 target_include_directories(app PRIVATE "${repo}/common/automation")
 target_sources(app PRIVATE "${repo}/common/automation/clock.c" "${repo}/common/automation/steps.c" "${repo}/common/automation/primitives.c")
 target_include_directories(app PRIVATE "${repo}/common/storage")
-target_sources(app PRIVATE "${repo}/common/storage/storage.c" "${repo}/common/storage/storage_primitives.c"
+target_sources(app PRIVATE "${repo}/common/storage/storage.c" "${repo}/common/storage/storage_primitives.c" "${repo}/common/storage/sd_file.c"
   "${repo}/common/storage/dispatcher.c" "${repo}/common/storage/wire.c"
   "${repo}/common/storage/controller.c" "${repo}/common/storage/storage_protocol.c")
+if(CONFIG_P4_SD_READONLY OR CONFIG_P4_SD_FILES)
+  target_include_directories(app PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../diagnostics/sd_readonly/src")
+  target_sources(app PRIVATE src/sd_backend.c "${CMAKE_CURRENT_SOURCE_DIR}/../diagnostics/sd_readonly/src/probe.c")
+  if(CONFIG_P4_SD_FILES)
+    target_sources(app PRIVATE src/sd_file_io.c "${repo}/common/storage/sd_wire.c")
+  endif()
+else()
+  target_sources(app PRIVATE "${repo}/common/storage/sd_service_stub.c")
+endif()
 target_sources(app PRIVATE src/kws_primitives.c)
 if(P4_KWS_MODEL)
   if(NOT CONFIG_P4_NEURAL OR NOT P4_TFLM_SOURCE)
@@ -88,6 +102,9 @@ else()
   target_sources(app PRIVATE src/neural_stub.c)
 endif()
 # Native HAL only: no esp_driver_cam/ISP FreeRTOS drivers are linked.
+if(CONFIG_P4_WIFI_COMPAT_DIAGNOSTIC)
+ target_sources(app PRIVATE src/http_diagnostics.c)
+endif()
 if(CONFIG_P4_HOSTED)
   if(NOT TARGET modules__nanopb OR NOT CONFIG_ESP_SPIRAM)
     message(FATAL_ERROR "Hosted RPC isolation requires pinned nanopb and initialized PSRAM")

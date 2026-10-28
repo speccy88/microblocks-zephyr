@@ -1,6 +1,6 @@
-# ESP32-P4-WIFI6 support audit, version 3
+# ESP32-P4-WIFI6 support audit, version 4
 
-Audited 2026-10-26 against the linked Waveshare schematic (all three pages),
+Audited 2026-10-26, updated 2026-10-27, against the linked Waveshare schematic (all three pages),
 the pinned Zephyr source and this port's physical evidence. This is the
 ESP32-P4-WIFI6 with 32 MiB PSRAM and 32 MiB NOR, not a 16 MiB DEV-KIT variant.
 The attached P4 reports silicon revision 1.3/pre-v3. The PCB revision and
@@ -30,7 +30,7 @@ Upstream driver availability alone never earns tested status.
 | OV5647, alternate attachment | ID5647 at0x36; mutually exclusive current camera attachment | Retained native sensor path and licensed reference | **implemented-unverified** in current native image; earlier IDF capture is not native Zephyr evidence |
 | ES8311 U9 + MIC1 | Codec at0x18; I2C7/8; MCLK13/BCLK12/LRCK10, codec output→P4 RX11; P4 TX9→codec input | Native Zephyr I2S AHB DMA, bounded 16 kHz mono PCM blocks | Input/controlled acoustic response/GUI playback **tested**; `p4-audio-pcm.json`, `p4-audio-browser.json`, `p4-whistle-microphone.json`. Browser playback does not prove board speaker output |
 | NS4150B U11, SPK H6 | ES8311 analog output to PA; enable GPIO53; separate speaker load required | PA held off; no TX I2S/codec playback path | **missing** output blocks/driver setup; attached speaker and safe load not verified |
-| C6-MINI-1 U14 | SDIO P4 D0..3=14..17, CLK18, CMD19, reset54; C6 boot strap has GPIO6 path; UART header H4 is C6 IO9/GND/RX/TX | Native ESP-Hosted driver, station-only profile | Init/MAC/mode/start event **tested**; installed companion version unknown. Association **implemented-unverified/blocked**: request284 no reply then SDHC-116; `p4-station-control.json`. No C6 flash authorized |
+| C6-MINI-1 U14 | SDIO P4 D0..3=14..17, CLK18, CMD19, reset54; C6 boot strap has GPIO6 path; UART header H4 is C6 IO9/GND/RX/TX | Native ESP-Hosted driver, station-only profile | Synthetic response540, real association/DHCP and wireless VM **tested** after host fixes; factory C6 unchanged, installed version unknown. Gated diagnostic reboot behavior only; no production reconnect pass. [Current results](NETWORK_LIVE_VALIDATION.md) |
 | C6 Bluetooth / 802.15.4 | C6 radio silicon, no separate P4 radio | No selected Hosted transport/backend or blocks | **missing**; Wi-Fi presence does not establish BLE/Thread support |
 | Unknown I2C responder | 0x64 on bus0 | Address-only record; no guessed probe/decoder | ACK **tested**, identity/measurements **missing** |
 
@@ -40,7 +40,7 @@ Upstream driver availability alone never earns tested status.
 |---|---|---|
 | J1 CSI, 22 pins | Dedicated CSI0/1 data + clock; I2C7/8; connector control IO0/IO1 drawn via 0-ohm links to GPIO4/5 | Current IMX219 capture **tested**; connector presence does not validate arbitrary sensors |
 | J2 DSI DISPLAY, 22 pins | Dedicated DSI lanes + clock; I2C7/8; shares the camera/codec control bus | Display attachment absent; MicroBlocks display/touch path **missing**. Do not infer a touch controller from the connector |
-| MicroSD TF1 | CLK43/CMD44/D0=39/D1=40/D2=41/D3=42; load switch GPIO45 | Upstream native SDHC/board DTS available; SmallVM SD/file blocks **missing**. Card presence/filesystem not tested; no formatting performed |
+| MicroSD TF1 | CLK43/CMD44/D0=39/D1=40/D2=41/D3=42; active-low power GPIO45 | Native asynchronous read-only FAT32 mount/capacity/root count, cancellation/reuse and simultaneous Wi-Fi asset transfer **tested** on0a704563. Raw capacity31,299,993,600 bytes; six entries, no private filenames/content logged. SD file editing/backend and graphical library acceptance remain **missing**. No format or write. [Evidence](../../../evidence/2026-10-27/p4-sd-readonly-summary.json) |
 | USB OTG P1, 4 pins | VCC5V/D-/D+/GND, dedicated SoC USB signals; distinct from Type-C CH343 | HS host/device application, HID, mass storage **missing**; no attached peripheral verified |
 | USB FS/JTAG test pads | GPIO34/36 test pads; also header positions 17/16 per schematic | **missing** application/debug exposure; do not conflate with P1 HS or CH343 serial |
 | 40-pin Pico-style header U10 | Physical header labels are GPIO numbers, not sequential P4 GPIO0..29. Includes power/ground/EN, SDA7/SCL8, GPIO2..5,20..33,46..52, USB34/36 | Generic GPIO/ADC/PWM/SPI/UART blocks currently **missing** (`platform.c` rejects them). Pin conflict validation must precede enabling raw outputs |
@@ -73,8 +73,8 @@ pin-output support is claimed or enabled by this audit.
 | Timers / watchdog / cache / DMA | Used as native infrastructure by current camera/audio/VM | Current paths **tested**; does not establish every controller/mode or standalone block |
 | Clock / scheduling blocks | Zephyr monotonic uptime, bounded eight-timer core and manual UTC/fixed-offset clock | **implemented-unverified on board**; host fake-clock sanitizer tests, both native builds and disconnected GP layout pass. RTC/NTP providers, automatic timezone rules and retained calendar clock **missing** |
 | Logical steps / transitions | Separate portable core, 16 steps / 24 transitions, explicit deterministic scans | **implemented-unverified on board**; host fork/join/conflict/timer/reset tests pass. No automatic physical outputs; no IEC 60848 or safety certification claim |
-| User file storage | Separate bounded RAM service, eight files up to 8192 bytes; staged replacement and cancellation | **tested over USB**: 918 requests, actual GP file manager edit/reopen, independent byte readback, resource-pressure regressions and reset volatility. See [physical acceptance](../../../docs/STORAGE_PHYSICAL.md). Flash/SD, full media archive and database **missing**; completed browser download and network transfer unverified; no formatting or partition changes |
-| Board-hosted editor | Flash asset/whole-layout validation; strict same-origin HTTP/WS and single programming controller | **implemented-unverified**, C6 station blocker prevents DHCP/HTTP/real GP network acceptance; USB remains usable |
+| User file storage | Separate bounded RAM service, eight files up to 8192 bytes; staged replacement and cancellation | USB acceptance and additional 918 real Wi-Fi WebSocket file requests **tested**; cleanup/revisions/reconnect/resource pressure pass. [USB acceptance](../../../docs/STORAGE_PHYSICAL.md), [network follow-up](NETWORK_LIVE_VALIDATION.md). Complete hosted graphical file manager/download, Flash/SD/media archive and database remain **missing/unverified** |
+| Board-hosted editor | Flash asset/whole-layout validation; strict same-origin HTTP/WS and single programming controller | Actual served-asset hashes and VM programming **tested**. Concurrent HTTP closes intermittently; complete graphical load still **blocked/unverified**. Local numeric diagnostic built but not installed; USB remains usable |
 | ArduinoCore-Zephyr | Future board variant/compatibility work | **missing**, no arbitrary Arduino library/board portability promise |
 
 Evidence filenames above are under `evidence/2026-10-25/`, with physical RAM

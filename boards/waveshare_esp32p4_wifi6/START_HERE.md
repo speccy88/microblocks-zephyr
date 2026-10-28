@@ -5,6 +5,14 @@ ESP32-P4-WIFI6 revision 1.3/pre-v3 board (32 MiB flash and PSRAM). The tested
 camera is the IMX219 Camera V2.1 in the WX-RPI CAMERA adapter socket. DISP is
 unused. Keep COM12 untouched. Do not use ESP32-P4 revision-v3 firmware.
 
+Current local follow-up: actual station DHCP, served assets, wireless VM/image
+operations, RAM file transfers and the board-hosted graphical editor pass.
+The installed bounded FAT32 SD file manager creates/reopens verified test files
+without replacing existing files. The opt-in saved-boot profile reconnects to
+the saved network after tested warm resets without a host connection command.
+See [SD acceptance](../../docs/SD_STORAGE_NATIVE.md) and
+[boot policy and exact firmware](../../docs/P4_SAVED_WIFI_BOOT.md).
+
 Physical tests: three 1280x720 RGB565 stills, 160x90 resize/grayscale,
 RGB888 HWC uint8 preprocessing, bounded export and handle lifecycle passed.
 Scene quality is untuned: fixed exposure/gain, no calibrated AWB/AE/LSC.
@@ -122,9 +130,9 @@ No companion firmware was changed. See [station target](docs/NETWORK_STATION.md)
 
 The separate [station-only hosted target](docs/NETWORK_STATION.md) builds with
 verified local editor assets and nonoverlapping app/model/settings regions.
-C6 initialization, station mode/start and USB/Whistle regression pass. Station
-configuration request 284 still times out, blocking association, DHCP and
-board-hosted HTTP/GP/WebSocket acceptance. AP was canceled and remains disabled.
+C6 initialization, station association/DHCP, USB/Whistle regression and real
+board-hosted HTTP/GP/WebSocket pass. The historical request-284 blocker below
+was resolved through the compatible native control path. AP remains disabled.
 User-entered station credentials were saved/readback-verified and remain private;
 no new credential prompt, C6 firmware or Windows network change is involved.
 
@@ -241,10 +249,10 @@ Download PNG exports within the browser. Stop releases native image handles.
 Only one browser/serial controller can own COM5 at a time; close/disconnect
 the graphical session before running Python board tests or flashing.
 
-This bridge binds loopback only. It is a local development client, not
-board-hosted Wi-Fi. The native C6 station profile has passed initialization and
-asset checks, but request 284 blocks association and actual network/editor
-acceptance. AP mode is retired. Station credentials were previously saved with
+This bridge binds loopback only and is a local development client. The separate
+native C6 station profile now passes association and actual network/editor
+acceptance, as recorded in the current follow-up. AP mode is retired.
+Station credentials were previously saved with
 approval; this USB storage validation did not access or modify them. No Windows
 firewall, association or network-security setting was changed.
 
@@ -295,7 +303,25 @@ The local [Storage](../../docs/STORAGE.md) library adds small volatile RAM
 files. Its blocks and the web file manager now pass real GP/USB create, edit,
 reopen and byte-readback tests, plus reset volatility and resource-pressure
 regressions. See [physical evidence and artifact identity](../../docs/STORAGE_PHYSICAL.md).
-Flash/SD, large media archives and completed browser download remain unverified
+Flash, large media archives and completed browser download remain unverified
 or unavailable. See the [release verification boundaries](../../docs/P4_RELEASE_2026_10_26.md).
-The board currently runs USB-only;
-the loopback editor does not establish board-hosted Wi-Fi support.
+The current local board runs the native station/SD file-manager trial image
+`a4e49b75d390a4c24ca011662b5c80972d6b1c3447f69d5d33cecae1df1cad56`.
+Its real board-hosted editor and saved Wi-Fi connection work in the tested
+session and after tested warm restarts. Append `profiles/saved-boot.conf` to
+the station/neural/whistle/compat-diagnostic/sd-files configuration list to
+enable one saved-station attempt after the unchanged compatibility check.
+The default diagnostic profile retains its manual gate. The installed normal
+profile also adds `profiles/wifi-loss-retry.conf`: three boot-wide recovery
+attempts after5/15/45s backoff. One controlled link loss and resumed HTTP/SD/VM
+passed; exact timing is host-tested and initial TCP intermittence remains.
+Full power removal remains untested. See [recovery evidence](../../docs/P4_WIFI_LOSS_RETRY.md).
+The native station build and memory/layout guards pass. The
+[SD service](../../docs/SD_STORAGE_NATIVE.md) has physical FAT32 metadata and
+bounded 8 KiB create/reopen/cleanup evidence during Wi-Fi HTTP. The actual
+board-hosted Device files dialog also creates and reopens UTF-8 SD text, with
+independent native byte verification and cleanup of only its test file. Use
+Projects & board, Device files, Connect files, then SD. Files stay in MBFILES;
+uppercase 8.3 names and save-as-new preserve existing files. The SD Card palette
+is embedded and visible; its full block-by-block acceptance is separate. These
+local follow-up changes are not a published release.

@@ -183,7 +183,7 @@
             subscribe(connection,fn){if(typeof fn!=='function')throw Error('Target listener must be a function');state(connection).listeners.add(fn);fn(snapshot(connection));return ()=>state(connection).listeners.delete(fn);},
             sendFrame(connection,frame){
                 if(!(frame instanceof Uint8Array)||frame.length<6||frame.length>4096||frame[0]!==251||frame[1]<1||frame[3]+256*frame[4]!==frame.length-5||frame[frame.length-1]!==254)throw Error('Invalid framed target request');
-                if(!snapshot(connection).verified||state(connection).pending+frame.length>MAX_OUTPUT)return 0;
+                if(connection.readbackInProgress||!snapshot(connection).verified||state(connection).pending+frame.length>MAX_OUTPUT)return 0;
                 // sendMsg validates/copies and reserves the queue synchronously.
                 // Returning a byte count acknowledges that reservation only.
                 void connection.sendMsg(frame[1],frame[2],frame.slice(5,-1)).catch(()=>{});return frame.length;

@@ -1,0 +1,47 @@
+module 'SD Card' Data
+author 'MicroBlocks Zephyr contributors'
+version 0 2
+description 'SD check mounts FAT without formatting, reads raw capacity and counts up to 32 root entries, then unmounts. Optional SD files firmware also creates new files exclusively inside MBFILES, opens files and removes only files created successfully during this firmware session after checking every byte. Up to eight creation snapshots, 8192 bytes per file, uppercase 8.3 names such as NOTE.TXT. Existing names are never overwritten; edit by saving under a new name. Other card contents are preserved. Read-only firmware reports file operations unavailable. No formatting or repair fallback. Stop All requests cleanup between driver calls; it does not roll back a completed or partial write. Wait for completion before power-off or card removal. FAT32 is not power-loss atomic. Opened text is false for binary/invalid UTF-8; opened bytes preserves binary data. SD card ready refers to the last completed metadata check. Physical/build/editor verification status belongs to the board support matrix.'
+spec ' ' 'sdCheck' 'check SD card (read only)'
+spec 'b' '[storage:sdReady]' 'last SD check passed?'
+spec 'r' '[storage:sdMiB]' 'SD card capacity (MiB)'
+spec 'r' '[storage:sdEntries]' 'SD root entries (up to 32)'
+spec 'r' '[storage:sdPhase]' 'SD card status'
+spec ' ' '[storage:sdCancel]' 'cancel SD check'
+spec ' ' 'sdCreateFile' 'create new SD file _ with _' 'str str' 'NOTE.TXT' 'Hello from MicroBlocks'
+spec ' ' 'sdReadFile' 'open SD file _' 'str' 'NOTE.TXT'
+spec 'r' '[storage:sdFileText]' 'opened SD text'
+spec 'r' '[storage:sdFileBytes]' 'opened SD bytes'
+spec 'b' '[storage:sdFileOK]' 'last SD file operation passed?'
+spec 'r' '[storage:sdFileName]' 'last SD filename'
+spec ' ' 'sdRemoveOwnFile' 'remove SD file created here _' 'str' 'NOTE.TXT'
+advanced
+spec 'b' '[storage:sdAvailable]' 'SD controller available?'
+spec 'b' '[storage:sdProbe]' 'start SD check'
+spec 'b' '[storage:sdBusy]' 'SD check running?'
+spec 'r' '[storage:sdStatus]' 'SD diagnostic JSON'
+spec 'b' '[storage:sdFilesAvailable]' 'SD files supported?'
+spec 'r' '[storage:sdFileStatus]' 'SD file diagnostic JSON'
+
+to sdCheck {
+    if (not ('[storage:sdProbe]')) { sayIt ('[storage:sdPhase]'); return }
+    while ('[storage:sdBusy]') { waitMillis 10 }
+    if (not ('[storage:sdReady]')) { sayIt ('[storage:sdPhase]') }
+}
+
+to sdWaitFile {
+    while ('[storage:sdBusy]') { waitMillis 10 }
+    if (not ('[storage:sdFileOK]')) { sayIt ('[storage:sdFileStatus]') }
+}
+to sdCreateFile name data {
+    if (not ('[storage:sdFileCreate]' name data)) { sayIt 'SD create refused: check support, name, or busy state'; return }
+    sdWaitFile
+}
+to sdReadFile name {
+    if (not ('[storage:sdFileRead]' name)) { sayIt 'SD open refused: check support, name, or busy state'; return }
+    sdWaitFile
+}
+to sdRemoveOwnFile name {
+    if (not ('[storage:sdFileRemoveOwn]' name)) { sayIt 'Only the file created in this session can be removed'; return }
+    sdWaitFile
+}

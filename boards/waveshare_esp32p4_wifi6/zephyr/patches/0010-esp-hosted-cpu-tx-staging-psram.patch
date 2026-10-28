@@ -1,0 +1,17 @@
+--- a/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
++++ b/drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c
+@@ -924,7 +924,14 @@
+ #if defined(CONFIG_NET_STATISTICS_WIFI)
+ 	struct esp_hosted_mcu_data *data = dev->data;
+ #endif
++#if defined(CONFIG_ESP_SPIRAM)
++ /* CPU staging only: send_frame copies into internal DMA TX before transfer.
++  * Existing netif TX mutex retains exclusive ownership throughout that call. */
++ static uint8_t buf[ESP_HOSTED_MCU_MAX_PAYLOAD]
++  __attribute__((section(".ext_ram.bss.hosted_wifi_tx"),aligned(16)));
++#else
+ 	static uint8_t buf[ESP_HOSTED_MCU_MAX_PAYLOAD];
++#endif
+ 	size_t itf = esp_hosted_mcu_iface_index(net_pkt_iface(pkt));
+ 	size_t pkt_len = net_pkt_get_len(pkt);
+ 	esp_hosted_mcu_if_type_t if_type;

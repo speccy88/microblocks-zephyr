@@ -21,7 +21,8 @@ PROFILES = CATALOG['targets']
 
 def p4_service_files():
     names = ['device-files-core.js', 'device-files-wire.js', 'device-files-controller.js',
-             'device-files.js', 'device-files.css', 'p4-neural-core.js', 'p4-neural.css', 'p4-media-core.js']
+             'device-files.js', 'device-files.css', 'p4-neural-core.js', 'p4-neural.css', 'p4-media-core.js',
+             'device-sd-core.js', 'device-sd-ui.js']
     result = {name: (ROOT / 'web' / name).read_bytes() for name in names}
     for name in ('p4-services.js', 'p4-neural-client.js', 'p4-media-client.js', 'p4-media.js', 'p4-ui.js'):
         result[name] = (ROOT / 'web/js-editor' / name).read_bytes()
@@ -29,8 +30,26 @@ def p4_service_files():
                 'sha256': hashlib.sha256(raw).hexdigest()} for name, raw in result.items()]
     result['p4-service-sources.json'] = (json.dumps({'schema': 1, 'sources': sources,
         'gp_sources_modified': False, 'physical_js_acceptance': False,
-        'native_owner_checkpoint': '3063bf1 (preserved media implementation); newer private owner work unreconciled'}, indent=2) + '\n').encode()
+        'native_owner_checkpoint': 'sealed fe01c3fb v4 source; owner-reported installed image, not hardware checked here',
+        'native_owner_pin': 'p4-native-owner.json'}, indent=2) + '\n').encode()
+    result['p4-native-owner.json'] = (ROOT / 'dependencies/p4-native-owner.json').read_bytes()
     return result
+
+
+def readback_catalog(files):
+    modules = {}
+    for name, raw in sorted(files.items()):
+        if not name.startswith(('sources/target/', 'sources/microduck/')) or not name.endswith('.ubl'):
+            continue
+        declarations = re.findall(r"(?m)^module[ \t]+(?:'((?:[^']|'')*)'|([^\s']+))", raw.decode('utf-8-sig'))
+        if len(declarations) != 1:
+            raise ValueError('Expected one local module: ' + name)
+        quoted, bare = declarations[0]
+        module = quoted.replace("''", "'") if quoted else bare
+        if module in modules:
+            raise ValueError('Ambiguous local module: ' + module)
+        modules[module] = {'path': name, 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()}
+    return {'schema': 1, 'modules': modules}
 
 
 def board_files(profile):
@@ -111,11 +130,14 @@ def package(source, output, manifest_path=None, *, profile='development'):
         '\t\t<script src="linux-compat.js"></script>\n'
         '\t\t<script src="board-transport.js"></script>\n'
         '\t\t<script src="legacy-slots.js"></script>\n'
+        '\t\t<script src="legacy-loops.js"></script>\n'
         '\t\t<script src="readback-compat.js"></script>\n'
+        '\t\t<script src="readback-library-map.js"></script>\n'
+        '\t\t<script src="readback-libraries.js"></script>\n'
         '\t\t<script src="linux-bootstrap.js"></script>\n' + ANCHOR)
     if profile == 'esp32p4':
         tags = ['<link rel="stylesheet" href="device-files.css">', '<link rel="stylesheet" href="p4-neural.css">']
-        for name in ('device-files-core.js', 'device-files-wire.js', 'device-files-controller.js', 'device-files.js',
+        for name in ('device-files-core.js', 'device-files-wire.js', 'device-files-controller.js', 'device-sd-core.js', 'device-sd-ui.js', 'device-files.js',
                      'p4-neural-core.js', 'p4-neural-client.js', 'p4-services.js', 'p4-media-core.js',
                      'p4-media-client.js', 'p4-media.js', 'p4-ui.js'):
             tags.append('<script src="' + name + '"></script>')
@@ -150,7 +172,9 @@ def package(source, output, manifest_path=None, *, profile='development'):
         'const MicroBlocksJSProfile = Object.freeze(' + json.dumps(target, separators=(',', ':')) + ');\n').encode()
     files['editor-targets.json'] = (ROOT / 'dependencies/editor-targets.json').read_bytes()
     files['legacy-slots.js'] = (ROOT / 'web/js-editor/legacy-slots.js').read_bytes()
+    files['legacy-loops.js'] = (ROOT / 'web/js-editor/legacy-loops.js').read_bytes()
     files['readback-compat.js'] = (ROOT / 'web/js-editor/readback-compat.js').read_bytes()
+    files['readback-libraries.js'] = (ROOT / 'web/js-editor/readback-libraries.js').read_bytes()
     files['linux-bootstrap.js'] = (ROOT / 'web/js-editor/bootstrap.js').read_bytes()
     files['licenses/LOCAL-MIT.txt'] = (ROOT / 'LICENSE').read_bytes()
     files['THIRD_PARTY_NOTICES.md'] = (ROOT / 'web/js-editor/THIRD_PARTY_NOTICES.md').read_bytes()
@@ -160,6 +184,9 @@ def package(source, output, manifest_path=None, *, profile='development'):
     if files.keys() & local.keys():
         raise ValueError('Local library path collides with upstream')
     files.update(local)
+    catalog = readback_catalog(files)
+    files['readback-libraries.json'] = (json.dumps(catalog, indent=2) + '\n').encode()
+    files['readback-library-map.js'] = ('// Generated pinned local library readback catalog.\nconst MicroBlocksReadbackLibraryMap = ' + json.dumps(catalog) + ';\n').encode()
     # Official MB_Files and its picker require the build-generated file index.
     # Generate it from actual packaged paths; no upstream engine patch needed.
     if 'files.txt' in files:

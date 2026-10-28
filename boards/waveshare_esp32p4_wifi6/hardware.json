@@ -147,15 +147,42 @@
         "cmd": 19,
         "reset": 54
       },
-      "smallvm": "station mode/start event PASS; user-supplied credentials saved and readback-verified; request-284/SDHC-timeout blocks association; AP disabled; version unknown",
-      "physical_tested": false
+      "smallvm": "saved boot and bounded loss recovery tested; opt-in once-per-boot volatile PS disable confirmed; raw TCP62ms, worker15..16ms, VM16..32ms; real GUI open89ms/reconnect95ms and SD session36ms with original3s deadline; C6 firmware unchanged, AP off; bulk HTTP/full power/long stability limits retained",
+      "physical_tested": true,
+      "evidence": "evidence/2026-10-27/p4-tcp-latency-summary.json",
+      "http_polling": {
+        "explicit_profile_ms": 5,
+        "default_ms": 20,
+        "power_measured": false,
+        "evidence": "evidence/2026-10-27/p4-http-throughput-summary.json"
+      }
     },
     {
       "id": "board_hosting",
       "hardware": "C6 Wi-Fi plus P4 HTTP/WebSocket",
       "pins": {},
-      "smallvm": "station target/app/model/assets/NVS built, mapped and hash-flashed; USB NN/media/Whistle regressions PASS; C6 request-284 failure blocks DHCP/HTTP",
-      "physical_tested": false
+      "smallvm": "real board-hosted GP image transforms and RAM create/edit/reopen tested; six-client asset burst and recovery passed in bounded follow-up; simultaneous SD probe and editor asset transfer tested; latest controlled2.2MB gzip transfer23.623s ->10.236s, concurrent existing WebSocket/VM and retained GUI/SD reads pass",
+      "physical_tested": true,
+      "limits": "explicit powered-board profile wakes P4 more often; energy/full-power/long-duration/multi-AP behavior and browser download unverified; synchronous GET may delay new HTTP work; local-only installation",
+      "evidence": "evidence/2026-10-27/p4-http-throughput-summary.json"
+    },
+    {
+      "id": "sd_storage",
+      "hardware": "microSD slot0; FAT32 metadata and bounded MBFILES file I/O; earlier measured raw capacity31299993600 bytes; CID and existing private filenames not logged",
+      "pins": {
+        "clk": 43,
+        "cmd": 44,
+        "d0": 39,
+        "d1": 40,
+        "d2": 41,
+        "d3": 42,
+        "power_active_low": 45
+      },
+      "smallvm": "native metadata probe plus exclusive 8KiB file create/sync/reopen/exact readback/owned cleanup during Wi-Fi HTTP; real board-hosted SD text create/reopen independently verified over COM5",
+      "physical_tested": true,
+      "evidence": "evidence/2026-10-27/p4-sd-files-summary.json",
+      "limits": "MBFILES only; uppercase 8.3 names; 8KiB/file; eight listed files; save as new; remove only exact verified session creations; no format/overwrite/rename; free space unavailable; cooperative deadlines; power-loss atomicity and full graphical block palette acceptance unverified; latest low-latency pair passes native/GUI SD-read session/list; writes on this pair not retested",
+      "latest_read_evidence": "evidence/2026-10-27/p4-http-throughput-summary.json"
     },
     {
       "id": "arduino_api",
@@ -200,15 +227,15 @@
     },
     "ram_storage": {
       "installed_in_local_usb_profile": true,
-      "status": "physical-USB-blocks-file-manager-readback-lifecycle-resource-regressions-reset-pass",
+      "status": "physical-USB-blocks-file-manager-pass-and-918-WiFi-WebSocket-file-requests-pass",
       "physical_tested": true,
       "evidence": "evidence/2026-10-26/p4-storage-physical-summary.json",
-      "limits": "Eight volatile files of 8192 bytes; one staged write; Flash/SD unavailable; completed browser download and board-hosted network transfer unverified"
+      "limits": "Eight volatile RAM files of 8192 bytes; one staged RAM write; separate bounded SD file manager now verified; Flash backend and completed browser download unverified"
     }
   },
   "coverage_audit": {
-    "version": 3,
-    "date": "2026-10-26",
+    "version": 5,
+    "date": "2026-10-27",
     "document": "docs/HARDWARE_SUPPORT.md",
     "pcb_revision": "unverified; silicon revision is separate",
     "all_hardware_supported": false

@@ -4,17 +4,19 @@ This stage adds a shared frontend to the real editor's **Projects & board →
 Device files** entry. The same production assets are packaged for Pages and
 the station-hosted editor. The controller and RAM service are installed in the
 local USB firmware, with real GP editing and independent COM5 byte readback
-verified in [physical acceptance](STORAGE_PHYSICAL.md). Station network transfer
-remains unverified. A separate local-only
+verified in [physical acceptance](STORAGE_PHYSICAL.md). Station RAM transfer and
+the bounded [SD file manager](SD_FILE_MANAGER.md) now also have physical evidence.
+A separate local-only
 fixture adapter demonstrates and tests the UI using browser memory; its banner
 must always say **Browser fixture — not the board**. It is opt-in, loopback-only
-and excluded from Pages/hosted packages. No network connection is opened.
+and excluded from Pages/hosted packages. The fixture opens no network connection.
 
 ## Acceptance contract
 
 - List canonical paths and byte sizes, show capacity/file slots/per-file limit,
   open strict UTF-8 text or identify binary content, create/edit text, and
-  download raw bytes through an explicit user click. Flash/SD stay unavailable.
+  download raw bytes through an explicit user click. Flash remains unavailable;
+  SD has the separate bounded create/open/save-as-new contract linked above.
 - Preserve native editor styling. A keyboard-accessible dialog uses text-only
   DOM insertion and a textarea, never HTML rendering. Dirty edits require an
   explicit discard before changing selection/closing. Save and overwrite use
@@ -54,8 +56,10 @@ The actual JavaScript client is tested against that C implementation through a
 synthetic stdio harness. See [the dispatcher contract](STORAGE_DISPATCH.md).
 The [controller integration](STORAGE_CONTROLLER.md) now packages the adapter,
 routes extension217 through the actual P4 controller and VM, and opens files
-only after **Connect files**. Replacing a connection clears pending replies,
-loaded contents and drafts. No extra serial/socket connection is opened.
+only after **Connect files**. Replacing a connection clears pending replies
+and detaches an unsaved text draft. The draft stays visible, but cannot be saved
+to the new session until the user explicitly discards it and reopens/creates a
+file. No extra serial/socket connection is opened.
 Generated-adapter/native-bridge tests use synthetic streams. The subsequent
 physical acceptance uses the production GP editor, loopback WebSocket bridge
 and COM5, without the browser fixture. It does not establish board-hosted Wi-Fi.
@@ -91,3 +95,56 @@ The later physical USB tests validate create/edit/reopen, capacity, revisions,
 session cleanup, exact bytes and RAM clearing on reset. A filesystem mount,
 Flash/SD support, large media archive and completed browser download remain
 unverified or unavailable. See the [release boundaries](P4_RELEASE_2026_10_26.md).
+
+## Wi-Fi acceptance and local session repair, 2026-10-27
+
+The actual board-hosted editor on the P4 created a unique RAM file, replaced
+its text, refreshed the list and reopened it. After the HTTP stress test, a
+new file session reopened the same text with an exact string/UTF-8 length
+match (52 bytes, including an em dash and accented e). The file was left on
+the board. No browser-memory fixture was used. Browser download permission
+repeatedly stalled outside the page; the transfer is **not verified** and was
+not repeated. Do not confuse the copied download-buffer unit tests with that
+missing browser result.
+
+The existing native file lease expires after 30 seconds without a request.
+The installed editor failed its first creation after ordinary editing exceeded
+that interval; a fresh directory read proved that failed attempt created no
+file. Local-only repair now makes a read-only capability request every 10
+seconds while the dialog is open and visible, sharing the client's request-ID
+and busy guards. Closing/hiding the dialog stops those checks; a check failure
+pauses them. An explicit native expired-session reply leaves ready state;
+a client-side timeout remains uncertain and is never retried automatically.
+Detached drafts remain visible and cannot silently overwrite another session.
+
+The actual UI source is tested with a minimal synthetic DOM/connection for
+lease renewal, a busy foreground operation, expiry, draft preservation,
+reconnection, explicit discard and timer cleanup. Controller/frame tests use
+the native C bridge with synthetic I/O. The repair is packaged in local Pages
+and hosted assets. The local station installation below now includes it; it has
+not been published.
+
+## Native SD and real graphical acceptance, 2026-10-27
+
+The board-hosted editor's Device files dialog now lists the actual SD MBFILES
+directory, creates a unique 60-byte UTF-8 test file, and reopens the same accented
+text exactly. An independent COM5 lease then read the same bytes and removed
+only that test creation through the native snapshot/content guard. The earlier
+native 8 KiB test passed alongside a hash-verified Wi-Fi editor asset transfer;
+the SD backend sources are unchanged across the subsequent UI updates.
+
+Real browser testing found a ready-listener ordering bug that synthetic DOM
+tests had missed. A next-task startup now waits for the portal panel, with a
+regression covering a microtask checkpoint between ready listeners. The active
+SD view also has its own persistence banner instead of the RAM volatility text.
+Both repairs are installed in the local final pair. See the
+[curated evidence](../evidence/2026-10-27/p4-sd-files-summary.json) for exact image
+identities, tests and the retained incomplete host-harness receipt. Browser
+download remains unverified. The later opt-in
+[saved-boot profile](P4_SAVED_WIFI_BOOT.md) verifies automatic station connection
+after warm resets, with the same editor assets and no further SD writes.
+
+The subsequent [bounded Wi-Fi recovery profile](P4_WIFI_LOSS_RETRY.md) keeps
+the same file-manager assets and SD backend. Loss recovery never replays file
+writes or restores a lease automatically. Hardware SD checks in that follow-up
+were read-only; initial TCP connection intermittence remains documented.

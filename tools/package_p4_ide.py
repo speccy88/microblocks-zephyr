@@ -8,7 +8,26 @@ from patch_p4_media import patch_source
 from patch_p4_kws import patch as patch_kws
 from fruit_jam_ide_assets import prepare_assets
 
-def patch_p4(js,data,repo):
+def serial_open_wait(hosted=False):
+ # The real browser TCP establishment was measured at8.9s. Keep USB's
+ # existing5s bound, but let a hosted connection finish within a finite30s.
+ timeout=30000 if hosted else 5000
+ return (b"\t\t\topenSerialPort 'webserial' 115200\n"
+   b"\t\t\topenStart = (msecsSinceStart)\n"
+   b"\t\t\twhile (and (not (isOpenSerialPort 1)) (((msecsSinceStart) - openStart) < "+str(timeout).encode()+b")) {\n"
+   b"\t\t\t\twaitMSecs 10\n\t\t\t}\n"
+   b"\t\t\tif (not (isOpenSerialPort 1)) {\n"
+   b"\t\t\t\tcloseSerialPort 1\n\t\t\t\tdisconnected = true\n\t\t\t\treturn\n\t\t\t}\n"
+   b"\t\t\tportName = 'webserial'")
+
+def heartbeat_wait(payload,hosted=False):
+ # Native pings returned successfully after9.7..10.6s on this P4. Keep the
+ # default8s policy in USB/public packages; hosted P4 tolerates a finite30s.
+ anchor=b'\tpingTimeout = 8000'
+ if payload.count(anchor)!=2:raise ValueError('Changed GP heartbeat timeout anchors')
+ return payload.replace(anchor,b'\tpingTimeout = 30000') if hosted else payload
+
+def patch_p4(js,data,repo,*,hosted=False):
  from package_pages import project_api
  board=repo/'boards/waveshare_esp32p4_wifi6/integration'
  js,data=patch_ide(js,data,(board/'P4_Camera.ubl').read_bytes())
@@ -21,14 +40,8 @@ def patch_p4(js,data,repo):
    if payload.count(anchor)!=1:raise ValueError('Changed GP WebSerial startup anchor')
    # Like GP's firmware installer, yield while the asynchronous browser port
    # opens. Sending immediately makes sendMsg close the not-yet-open port.
-   wait=(b"\t\t\topenSerialPort 'webserial' 115200\n"
-     b"\t\t\topenStart = (msecsSinceStart)\n"
-     b"\t\t\twhile (and (not (isOpenSerialPort 1)) (((msecsSinceStart) - openStart) < 5000)) {\n"
-     b"\t\t\t\twaitMSecs 10\n\t\t\t}\n"
-     b"\t\t\tif (not (isOpenSerialPort 1)) {\n"
-     b"\t\t\t\tcloseSerialPort 1\n\t\t\t\tdisconnected = true\n\t\t\t\treturn\n\t\t\t}\n"
-     b"\t\t\tportName = 'webserial'")
-   payload=payload.replace(anchor,wait)
+   wait=serial_open_wait(hosted)
+   payload=heartbeat_wait(payload.replace(anchor,wait),hosted)
    for method in [b'boardIsBLECapable',b'boardHasFileSystem']:
     header=b'method '+method+b' SmallRuntime {\n'
     if payload.count(header)!=1:raise ValueError('Changed GP board capability anchor')
@@ -52,6 +65,8 @@ def patch_p4(js,data,repo):
   if automation_anchor in payload:payload=payload.replace(automation_anchor,automation_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/Clock_Timers.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Clock & Timers' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/Steps_Transitions.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Steps & Transitions' '' }")
   storage_anchor=b"importLibraryFromString scripter data 'Steps & Transitions' '' }"
   if storage_anchor in payload:payload=payload.replace(storage_anchor,storage_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/Storage.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Storage' '' }")
+  sd_anchor=b"importLibraryFromString scripter data 'Storage' '' }"
+  if sd_anchor in payload:payload=payload.replace(sd_anchor,sd_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/SD_Card.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'SD Card' '' }")
   payload=payload.replace(b"'output' 'camera-pipeline'",b"'output' 'camera-pipeline' 'audio-levels' 'local-speech' 'neural-sine' 'neural-custom' 'i2c-devices' 'image-transforms'")
   payload=payload.replace(b"'i2c-devices' 'image-transforms'",b"'i2c-devices' 'image-transforms' 'wake-word-fixture'")
   payload=payload.replace(b"'image-transforms' 'wake-word-fixture'",b"'image-transforms' 'wake-word-fixture' 'json-edit'")
@@ -66,14 +81,14 @@ def patch_p4(js,data,repo):
  payload=(board/'I2C_Devices.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/I2C_Devices.ubl',start=start,end=len(out)))
  payload=(board/'P4_Wake_Word.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Wake_Word.ubl',start=start,end=len(out)))
  payload=(repo/'integration/JSON.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/JSON.ubl',start=start,end=len(out)))
- for library in ['Clock_Timers','Steps_Transitions','Storage']:
+ for library in ['Clock_Timers','Steps_Transitions','Storage','SD_Card']:
   payload=(repo/('integration/'+library+'.ubl')).read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/'+library+'.ubl',start=start,end=len(out)))
  for example in ['camera-pipeline','audio-levels','local-speech','neural-sine','neural-custom','i2c-devices','image-transforms','wake-word-fixture','json-edit','steps-timer','ram-file']:
   example_path=repo/('integration/'+example+'.ubp') if example in ['json-edit','steps-timer','ram-file'] else board/(example+'.ubp')
   payload=example_path.read_bytes()+b'\n'+(board/'P4_Camera.ubl').read_bytes()+b'\n'+(board/'P4_Audio.ubl').read_bytes()+b'\n'+(board/'P4_Speech.ubl').read_bytes()+b'\n'+(board/'P4_Neural.ubl').read_bytes()+b'\n'+(board/'I2C_Devices.ubl').read_bytes()
   payload+=b'\n'+(board/'P4_Wake_Word.ubl').read_bytes()
   payload+=b'\n'+(repo/'integration/JSON.ubl').read_bytes()
-  for library in ['Clock_Timers','Steps_Transitions','Storage']:payload+=b'\n'+(repo/('integration/'+library+'.ubl')).read_bytes()
+  for library in ['Clock_Timers','Steps_Transitions','Storage','SD_Card']:payload+=b'\n'+(repo/('integration/'+library+'.ubl')).read_bytes()
   start=len(out);out.extend(payload);files.append(dict(filename='/Examples/P4/'+example+'.ubp',start=start,end=len(out)))
  source=source[:m.start(1)]+json.dumps(dict(files=files,remote_package_size=len(out)),separators=(',',':'))+source[m.end(1):]
  source=source.replace('"/Examples","Waveshare"','"/Examples","P4"')
@@ -103,7 +118,7 @@ def adapter(repo):
    "const disconnect=()=>{window.MicroBlocksFilesConnection?.link(null);const old=socket;socket=null;if(old)old.close(1000,'Client disconnect');ready=false;void serial.disconnect();input.clear();assembly.fill(0);assembly=new Uint8Array();rejectControls();update();};",
   "const connect=async()=>{\n  try{":"const connect=async()=>{\n  try{\n   if(socket||active())return;",
   "socket=new WebSocket(url.href);socket.binaryType='arraybuffer';ready=false;":
-   "const opened=new WebSocket(url.href);socket=opened;socket.binaryType='arraybuffer';ready=false;const current=()=>socket===opened;",
+   "notify(profile.hosted?'Connecting to board Wi-Fi...':'Connecting to board...');const opened=new WebSocket(url.href);socket=opened;socket.binaryType='arraybuffer';ready=false;const current=()=>socket===opened;",
   "socket.onmessage=e=>{try{":"socket.onmessage=e=>{if(!current())return;try{",
   "ready=true;notify('Secure WebSocket connected');":"ready=true;window.MicroBlocksFilesConnection?.link(write);notify(PORTAL_BOARD.bridge?'USB bridge connected':url.protocol==='wss:'?'Secure WebSocket connected':'Board WebSocket connected');",
   "socket.onclose=()=>{socket=null;ready=false;input.clear();rejectControls();":"socket.onclose=()=>{if(!current())return;window.MicroBlocksFilesConnection?.link(null);socket=null;ready=false;input.clear();assembly.fill(0);assembly=new Uint8Array();rejectControls();",
@@ -138,11 +153,11 @@ def adapter(repo):
  return text.encode()
 
 def media_assets(assets,html,repo,file_fixture=False):
- for name in ['p4-media-core.js','p4-media.js','p4-media.css','p4-neural-core.js','p4-neural.js','p4-neural.css','p4-neural-catalog.json','device-files-core.js','device-files-wire.js','device-files-controller.js','device-files.js','device-files.css']:
+ for name in ['p4-media-core.js','p4-media.js','p4-media.css','p4-neural-core.js','p4-neural.js','p4-neural.css','p4-neural-catalog.json','device-files-core.js','device-files-wire.js','device-files-controller.js','device-sd-core.js','device-sd-ui.js','device-files.js','device-files.css']:
   assets[name]=(repo/'web'/name).read_bytes()
  if file_fixture:assets['device-files-fixture.js']=(repo/'web/device-files-fixture.js').read_bytes()
  tags=[]
- names=['p4-media.css','p4-media-core.js','p4-media.js','p4-neural.css','p4-neural-core.js','p4-neural.js','device-files.css','device-files-core.js','device-files-wire.js','device-files-controller.js']
+ names=['p4-media.css','p4-media-core.js','p4-media.js','p4-neural.css','p4-neural-core.js','p4-neural.js','device-files.css','device-files-core.js','device-files-wire.js','device-files-controller.js','device-sd-core.js','device-sd-ui.js']
  if file_fixture:names.append('device-files-fixture.js')
  names.append('device-files.js')
  for name in names:
@@ -162,7 +177,7 @@ def build(source,output,repo,hosted=False,file_fixture=False):
   raw=(source/item['path']).read_bytes()
   if hashlib.sha256(raw).hexdigest()!=item['sha256']:raise ValueError('Changed source: '+item['path'])
   assets[item['path']]=raw
- common=prepare_assets(repo,source);js,data=patch_p4(assets['gp_wasm.js'],assets['gp_wasm.data'],repo)
+ common=prepare_assets(repo,source);js,data=patch_p4(assets['gp_wasm.js'],assets['gp_wasm.data'],repo,hosted=hosted)
  assets.update(common);assets['gp_wasm.js']=js;assets['gp_wasm.data']=data
  assets['portal-core.js']=(repo/'web/portal/portal-core.js').read_bytes();assets['portal.css']=(repo/'web/portal/portal.css').read_bytes()
  assets['unoq-network.js']=adapter(repo);assets['p4-camera.js']=(repo/'web/p4-camera.js').read_bytes()

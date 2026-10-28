@@ -11,6 +11,12 @@
    frameEvent:frame=>root.dispatchEvent(new CustomEvent('p4-vm-frame',{detail:frame})),
    error:message=>root.dispatchEvent(new CustomEvent('microblocks-target-status',{detail:message}))});
   const neural=new MicroBlocksP4Neural.Client(broker,P4NeuralCore);
+  const read=document.createElement('button');read.type='button';read.textContent='Read current board project';read.title='Read the identified link without uploading or clearing code. Ordinary connection setup is separate.';controls.append(read);
+  const readStatus=document.createElement('p');readStatus.setAttribute('role','status');controls.append(readStatus);let reading=false;
+  read.onclick=async()=>{if(reading||!runtime.verified(connection))return;reading=true;read.disabled=true;readStatus.textContent='Reading project; uploads and extension commands are held.';
+   try{await MB_editor.openProjectFromBoard();readStatus.textContent='Readback finished or cancelled. No program write was sent by the readback operation.';}catch(e){readStatus.textContent='Readback failed: '+e.message;}
+   finally{reading=false;read.disabled=!runtime.verified(connection);}};
+  const offRead=broker.subscribeState(state=>{read.disabled=reading||!state.verified;});
   const mediaPanel=document.createElement('details'),mediaTitle=document.createElement('summary');mediaTitle.textContent='Inline image and audio results';mediaPanel.append(mediaTitle);controls.append(mediaPanel);
   const mediaStatus=document.createElement('p');mediaStatus.setAttribute('role','status');mediaStatus.textContent='Connect supported P4 firmware to enable per-block results.';mediaPanel.append(mediaStatus);
   const mediaHelp=document.createElement('p');mediaHelp.textContent='Run an image or recording block to view its result on that block. Results expire on rerun or disconnect and are never saved. Audio plays only when you choose Play.';mediaPanel.append(mediaHelp);
@@ -73,7 +79,7 @@
   panel.append(el('p','Model bytes stay in this tab and the selected board. They are not saved in the project or sent to a model service. Check tensor shape, dtype, scale and zero point before using blocks.'));
   const off=broker.subscribeState(state=>{if(!state.verified){action++;busy=false;cancelled=true;token=0;info.textContent='';status.textContent='Disconnected. Check the backend after reconnecting.';}});
   document.dispatchEvent(new CustomEvent('board-ide-ready'));
-  root.addEventListener('pagehide',()=>{off();media.close();neural.close();broker.close();connection.disconnect();controls.remove();});
+  root.addEventListener('pagehide',()=>{offRead();off();media.close();neural.close();broker.close();connection.disconnect();controls.remove();});
   return Object.freeze({broker,neural,media});
  }
  const api=Object.freeze({attach});root.MicroBlocksP4UI=api;if(typeof module==='object'&&module.exports)module.exports=api;
