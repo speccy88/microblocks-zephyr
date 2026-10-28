@@ -1,0 +1,14 @@
+test_competing_supervisor_leaves_owner_and_status_untouched (test_linux_arm64_session.SessionNativeLifecycle.test_competing_supervisor_leaves_owner_and_status_untouched) ... ok
+test_direct_vm_owner_is_preserved_after_failed_resume (test_linux_arm64_session.SessionNativeLifecycle.test_direct_vm_owner_is_preserved_after_failed_resume) ... ok
+test_occupied_http_port_cannot_falsely_report_ready (test_linux_arm64_session.SessionNativeLifecycle.test_occupied_http_port_cannot_falsely_report_ready) ... ok
+test_socket_reconnect_and_resume_preserve_program_and_prior_logs (test_linux_arm64_session.SessionNativeLifecycle.test_socket_reconnect_and_resume_preserve_program_and_prior_logs) ... ok
+test_stale_live_vm_metadata_is_not_consumed_or_removed (test_linux_arm64_session.SessionNativeLifecycle.test_stale_live_vm_metadata_is_not_consumed_or_removed) ... ok
+test_discovery_cannot_select_a_different_pid_or_unsafe_file (test_linux_arm64_session.SessionPolicy.test_discovery_cannot_select_a_different_pid_or_unsafe_file) ... ok
+test_explicit_resume_private_directory_and_missing_data (test_linux_arm64_session.SessionPolicy.test_explicit_resume_private_directory_and_missing_data) ... ok
+test_supervisor_ownership_is_exclusive_and_released (test_linux_arm64_session.SessionPolicy.test_supervisor_ownership_is_exclusive_and_released) ... ok
+test_symlink_directory_lock_and_status_are_refused (test_linux_arm64_session.SessionPolicy.test_symlink_directory_lock_and_status_are_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 8.644s
+
+OK

@@ -1,0 +1,22 @@
+{
+  "full_repository_tests": 488,
+  "failures": 0,
+  "skips": 0,
+  "verified_source_inputs": 2114,
+  "seconds_including_wrapper": 230.09930604500002,
+  "local_native_session_tests": 9,
+  "physical_pi_session_tests": 9,
+  "actual_js_connections_returning42": 4,
+  "normal_private_candidate_installed": true,
+  "saved_program_unchanged": true,
+  "native_fixture_sanitizer_checks": 462,
+  "graphical_acceptance": false,
+  "os_reboot_or_service_acceptance": false,
+  "physical_microduck": false,
+  "production_c_sources_changed": false,
+  "network_or_security_settings_changed": false,
+  "owned_pi_children_stopped": true,
+  "all_three_preexisting_pi_vms_preserved": true,
+  "newer_work_published": false,
+  "prior_approved_commit_published": "77bf00d0d8c0853bd812be94d95292a340322223"
+}

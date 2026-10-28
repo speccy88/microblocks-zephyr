@@ -174,4 +174,5 @@ async function main() {
     }
     console.log(JSON.stringify({tests: count, passed: count, upstream_engine: 'unmodified', graphical: false}));
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+if (require.main === module) main().catch(error => { console.error(error); process.exitCode = 1; });
+module.exports = {upstream};

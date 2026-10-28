@@ -18,6 +18,7 @@
     "graphical_ide_upload": "physical-pass",
     "graphical_arithmetic_loop_variables_save_restore_reconnect": "physical-pass",
     "loopback_bridge": "physical-pass-over-ssh-tunnel",
+    "foreground_resume_js_crc_reconnect": "physical-pi-headless-pass",
     "full_os_reboot": "pending",
     "gpio_i2c_spi_audio_camera": "unsupported",
     "microduck_unix_native_adapter": "physical-pi-vm-with-simulated-robot-services-pass",
@@ -26,5 +27,6 @@
   },
   "compatibility_note": "Baseline ARMv8-A is selected, but Pi 3, Zero 2 W and MicroDuck have not run this binary. The ordinary binary's ELF symbols require glibc 2.34 or newer; it ran with 2.41. Other distributions are unverified.",
   "network_default": "VM has no listener; separate bridge binds only 127.0.0.1",
-  "release_published": false
+  "release_published": false,
+  "foreground_resume_evidence": "../../evidence/2026-10-28/pi5-standalone-session/README.md"
 }

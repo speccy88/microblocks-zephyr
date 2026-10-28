@@ -20,6 +20,7 @@ establish Rockchip/MicroDuck hardware or OS compatibility.
 | Saved VM programs | Atomic durable `program.ucode`, exclusive data-directory ownership, process restart/autostart, acknowledged-write durability and corrupt-file refusal were physically tested. This is not OS reboot acceptance. |
 | GP editor reconnect | Actual graphical arithmetic, variables/loop, browser project restore and SSH-loopback reconnect were tested against the real Pi. |
 | JavaScript editor | Pinned actual JS compiler/port upload and execution on Pi; typed functions also have explicit simulated-service evidence. The later representative project save/manual-file/reopen check ran on the host, without a VM. A complete normal JS/Pi lifecycle is still an acceptance gate. |
+| Foreground resume | Actual Pi private-prefix candidate installation, native launcher self-test, nine session policy/lifecycle tests, then JS-compiled `20 + 22 = 42` across four connections and a VM/bridge restart. CRC and program bytes survive; readback sends no code uploads. This is headless compiler/connection acceptance with minimal block views, not graphical project readback. |
 | User service / reboot | Unit generation uses a mocked systemctl. Actual user-service start/stop and full OS reboot remain untested. No boot-before-login setup is enabled. |
 | Public install | No reviewed ARM64 release is published; the portal release manifest remains unavailable and install-command copy stays disabled. Publishing source branches is not a binary release. |
 
@@ -61,11 +62,25 @@ Caddy/Docker/Ollama or ports 80/443 need no change. A browser on the Pi can use
 that loopback editor; a PC uses an already verified SSH tunnel to the same port.
 HTTPS Pages still requires a trusted WSS path; no insecure fallback is supplied.
 
-`linux/arm64/session.py` is currently a disposable development supervisor: it
-requires a fresh data directory. Do not present restarting that helper against
-an existing directory as a supported resume operation. A combined normal-use
-launcher with explicit resume, fresh-child PTY identity checks and safe logs is
-a concrete follow-up; the two-process path above remains the existing interface.
+Alternatively, use the foreground supervisor for both owned processes:
+
+```sh
+"$SMALLVM_VENV/bin/python" linux/arm64/session.py \
+  --binary "$SMALLVM_PREFIX/lib/microblocks/$SMALLVM_VERSION/smallvm" \
+  --editor "$SMALLVM_EDITOR" --data "$SMALLVM_DATA" --resume --port 8876
+```
+
+`--resume` is explicit and requires existing private data, including a directory
+created by the installer. Omit it only when creating a new data directory.
+Choose one launch path at a time. The supervisor and VM have separate exclusive
+ownership locks. Each run creates fresh PTY discovery and log filenames; earlier
+files remain intact. `session.json` atomically records the current paths, owned
+PIDs, readiness and final status. Readiness requires the newly spawned VM and
+the owned bridge's bind marker, so stale discovery or an unrelated HTTP server
+cannot make the session ready. Ctrl-C stops its own two children and retains
+programs and logs. It does not adopt or stop another running VM. After an abrupt
+supervisor failure, inspect the recorded processes before any manual recovery;
+do not signal a PID from old metadata without verifying its identity.
 
 ## Persistence and reconnect acceptance still needed
 
@@ -75,13 +90,21 @@ synchronize its project to the VM, so load the intended project or use the
 editor's explicit read-from-board path before replacing existing code. Do not
 infer safe readback from a fresh editor merely connecting.
 
-The next standalone Pi acceptance should install a reviewed candidate in a
-fresh private prefix, launch without any MicroDuck socket, upload a harmless
-bounded program, record acknowledged CRCs, close/reopen the browser link, and
-restart only its own VM/bridge with the same data directory. Verify retained
-code and actual execution after each step, plus exclusive ownership and stale
-PTY refusal. Test normal JavaScript editor readback/reconnect separately from
-the earlier GP evidence. Keep other active Pi sessions untouched.
+The [2026-10-28 standalone acceptance](../evidence/2026-10-28/pi5-standalone-session/README.md)
+installs a candidate in a fresh private prefix, launches without any MicroDuck
+socket, records acknowledged compiler CRCs, reopens the JS transport and restarts
+only its own VM/bridge with the same data. The stored-program SHA-256 remains
+unchanged through readback/reconnect, and all three pre-existing VMs remain
+alive. Reproduce it with `tools/test_pi5_standalone_session.py` only in a newly
+staged private test directory; it refuses an earlier attempt rather than
+overwriting evidence.
+
+Normal graphical JS editor project readback, reconnect choices and autosave
+still require acceptance with the real editor UI. The headless driver uses
+actual pinned compiler/connection classes but minimal block-view fixtures and
+manual message processing. It does not exercise the full editor's project-sync
+callback, decompiler or native browser lifecycle. Keep that distinction from
+the earlier GP graphical evidence.
 
 Only afterward consider actual optional user-service and OS reboot acceptance.
 Those phases require explicit actions and evidence; no service, lingering,

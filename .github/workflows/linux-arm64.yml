@@ -135,6 +135,7 @@ jobs:
               ('test_linux_arm64_package.py', ['CandidatePackage']),
               ('test_linux_arm64_release.py', ['ReleaseContracts']),
               ('test_linux_arm64_bridge.py', ['Assets', 'LocalBridge']),
+              ('test_linux_arm64_session.py', ['SessionPolicy', 'SessionNativeLifecycle']),
               ('test_linux_editor_assets.py', ['LinuxPackage', 'LocalBootstrap', 'RealPinnedEditor']),
               ('test_linux_microduck_gateway.py', ['Protocol', 'UnixGateway']),
               ('test_linux_microduck_preflight.py', ['PreflightHost', 'ReadOnlyPreflight']),

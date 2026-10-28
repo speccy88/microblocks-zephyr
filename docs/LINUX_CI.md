@@ -48,6 +48,24 @@ Regression tests execute the actual path-setup block, retain existing env-file
 entries and spaces, reject malformed paths before writing, and check job-level
 context availability. They do not establish a hosted Actions run.
 
+The approved `77bf00d` publication started hosted run `40611159771`. Both native
+jobs passed workflow startup but failed in the standalone C harness, whose
+registration callback still required nine primitives after the table grew to
+21. Offline validation and XRP contracts passed. The local repair specifies all
+21 expected names in order and requires every callback to be non-null, while
+retaining the exact count, set index/name, existing socket fixtures, sanitizer
+flags and timeouts. Its unchanged harness now passes 462 checks with empty
+sanitizer diagnostics; the original failure is preserved in
+[the CI fixture receipt](../evidence/2026-10-28/native-ci-primitive-registry/README.md).
+This local result does not turn the earlier hosted failure into a pass.
+
+The foreground-session follow-up adds SessionPolicy and SessionNativeLifecycle
+to the explicit Linux selection: nine tests use private Linux paths, actual VM
+bytecode and loopback fixture assets. They cover explicit resume, stored code and
+logs, fresh child identity, competing owners and occupied ports. Separate
+[real Pi/JS evidence](../evidence/2026-10-28/pi5-standalone-session/README.md)
+still distinguishes headless compiler/transport from graphical acceptance.
+
 The workflow's actual embedded selection was exercised locally on WSL Linux
 x86_64 on 2026-10-27: [100 Python tests, no skips](../linux/arm64/tests/ci-local-python-suites.json),
 [real sanitizer VM/PTY 50 repetitions and persistence](../linux/arm64/tests/ci-local-vm-protocol.json),

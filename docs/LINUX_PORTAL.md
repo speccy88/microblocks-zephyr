@@ -84,7 +84,12 @@ python3 -m venv /absolute/project/venv
 
 Pass `--pty-info /absolute/private/data/pty.json` to the VM to match that example.
 The optional `linux/arm64/session.py` starts both as foreground child processes
-using a fresh data directory; it is a development supervisor, not a service.
+using a fresh data directory, or existing private program storage with explicit
+`--resume`. It selects fresh discovery/log files per run, verifies its child PID
+before bridge startup, refuses competing ownership and stops only its own
+children. Pass the actual versioned ELF, rather than the installed shell
+launcher, to `--binary`. See the
+[standalone lifecycle guide](RASPBERRY_PI_5_STANDALONE.md). It installs no service.
 Keep SSH host verification enabled and forward the same loopback port:
 
 ```sh
