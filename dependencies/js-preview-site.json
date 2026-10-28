@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "release_tag": "js-editor-preview-20261028-alpha1",
+  "asset_url": "https://github.com/speccy88/microblocks-zephyr/releases/download/js-editor-preview-20261028-alpha1/gp-with-js-preview-preserved.zip",
+  "archive_sha256": "2a281817e37d2355816e0d022de06d397f7c0dd8878cc5e4f8c08cfd5010f72b",
+  "archive_bytes": 48473504,
+  "gp_source_commit": "6e2b4f9c0687006ac04a5d9a1bb14c265193cb3d",
+  "gp_manifest_sha256": "889de3772e9e2adaab060a0b727d896480f5c589d202d40e36e266f2870426fa",
+  "site_manifest_sha256": "227487a1c58ae148d1e128eea5e4176cfec7bebecee907c12ac836743e310cfa",
+  "editor_source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "file_count": 5721
+}

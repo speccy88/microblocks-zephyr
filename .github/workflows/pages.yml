@@ -27,6 +27,15 @@ jobs:
           python-version: '3.12'
       - name: Validate repository
         run: python tools/validate.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Checkout frozen GP baseline
+        uses: actions/checkout@v4
+        with:
+          ref: 6e2b4f9c0687006ac04a5d9a1bb14c265193cb3d
+          path: .gp-stable-source
+          persist-credentials: false
       - name: Checkout approved Linux target source
         uses: actions/checkout@v4
         with:
@@ -34,7 +43,13 @@ jobs:
           path: .linux-target-source
           persist-credentials: false
       - name: Build stable portal with isolated Linux target previews
-        run: python tools/build_pages_linux_preview.py --linux-repo .linux-target-source --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages --fetch
+        run: python .gp-stable-source/tools/build_pages_linux_preview.py --linux-repo .linux-target-source --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages --fetch
+      - name: Add reviewed JavaScript preview without changing GP
+        run: python tools/add_js_preview.py --gp-site build-artifacts/pages --archive ${{ runner.temp }}/js-preview.zip --fetch
+      - name: Verify preview archive contracts and actual pinned editor bundles
+        run: |
+          python -m unittest discover -s tests -p test_js_preview_asset.py -v
+          node tests/js-preview-compile.test.cjs build-artifacts/pages
       - name: Test browser transport contracts
         run: node --test tests/portal-core.test.cjs tests/portal-adapter-guard.test.cjs tests/p4-transport.test.cjs tests/p4_media_core.test.js tests/p4_nn_core.test.js tests/device_files.test.js
       - uses: actions/upload-pages-artifact@v3
