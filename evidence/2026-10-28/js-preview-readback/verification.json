@@ -1,0 +1,43 @@
+{
+  "result": "PASS",
+  "full_tests": 541,
+  "skips": 0,
+  "frozen_inputs": 2476,
+  "source_inputs_unchanged": true,
+  "site_files": 5704,
+  "profiles": [
+    "raspberry-pi5",
+    "microduck",
+    "fruit-jam",
+    "waveshare",
+    "propeller2",
+    "esp32p4",
+    "xrp-rp2350",
+    "unoq"
+  ],
+  "gp_files_preserved": 1071,
+  "upstream_engine_unchanged": true,
+  "zip_crc_and_members_verified": true,
+  "archive_sha256": "f15d839f70ad1d6a6f858704dfeb31a25a72643762553ba87c603f323524ab2f",
+  "package_recipe_sha256": "a201eaf90c4199c4371817150426c3287634174e40c2f1673b58bdae4160209e",
+  "published": false,
+  "physical_microduck": false,
+  "files": {
+    "archive-receipt.json": {
+      "bytes": 1505,
+      "sha256": "26bc1d638d3137d10a3ecfd09b6439b01bf9718039695a3e56cb7261c319df9a"
+    },
+    "full-validation-receipt.json": {
+      "bytes": 894,
+      "sha256": "265902975ed6fe7c9969879cc8292c00c431f2187c20adf0a801e5d1675c4849"
+    },
+    "README.md": {
+      "bytes": 2339,
+      "sha256": "fc66c4433ddabc218209bdfb7806558707e16e3ee0ee07b579b00f8c4b51af71"
+    },
+    "validation-and-manifests.zip": {
+      "bytes": 384686,
+      "sha256": "df5403e705e82fccfd6fc98a3ad8585dfe21b63eea60f8d0e83aace1bf393728"
+    }
+  }
+}

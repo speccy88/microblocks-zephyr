@@ -1,0 +1,30 @@
+{
+  "source_base": "6c4d85a12296c02e0c75d0c0c595b14bdaa396a7",
+  "only_uncommitted_product_change": "P4 preview description corrected; runtime unchanged",
+  "package_recipe_sha256": "a201eaf90c4199c4371817150426c3287634174e40c2f1673b58bdae4160209e",
+  "gp_baseline_manifest_sha256": "da98d72316355feae60d2f2de306f0dd581d49694e3274cc2adb39422d379f28",
+  "profiles": [
+    "raspberry-pi5",
+    "microduck",
+    "fruit-jam",
+    "waveshare",
+    "propeller2",
+    "esp32p4",
+    "xrp-rp2350",
+    "unoq"
+  ],
+  "files_verified": 5704,
+  "gp_files_preserved": 1071,
+  "upstream_source_inputs_per_profile": 550,
+  "upstream_engine_files_verified_per_profile": 31,
+  "readback_adapter_sha256": "703b92381bd8cc0831ccdc407a03005ef8a8f21523832f15d72942f6deb05fab",
+  "site_manifest_sha256": "16ce8287e407c2d941442e7074d64b1121700c0fd66eae9ee40e4df20fb835e1",
+  "output": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-js-migration-20261027\\build-artifacts\\js-all-targets-pi-readback-20261028",
+  "zip": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-js-migration-20261027\\build-artifacts\\js-all-targets-pi-readback-20261028.zip",
+  "zip_bytes": 48417087,
+  "zip_sha256": "f15d839f70ad1d6a6f858704dfeb31a25a72643762553ba87c603f323524ab2f",
+  "seconds": 98.56199999997625,
+  "published": false,
+  "runtime_upgraded": false,
+  "graphical_acceptance_scope": "Pi standalone and representative MicroDuck fictional robotd readings only; other hardware pending"
+}

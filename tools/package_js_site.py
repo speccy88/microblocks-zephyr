@@ -64,7 +64,7 @@ def build(source, gp_site, output, profiles=None):
         else:
             description = 'Experimental USB editor with an explicit board identity/version check. Load target blocks to import its libraries. JavaScript hardware acceptance remains pending.'
             if profile == 'esp32p4':
-                description += ' Files and neural model panels share the identified session; WSS requires your trusted TLS endpoint. Inline image/audio views remain in GP while being ported.'
+                description += ' Files, neural model panels and inline image/audio views share the identified session. WSS requires your trusted TLS endpoint. Media and readback fixture tests pass; physical JavaScript hardware acceptance remains pending.'
         cards.append('<article><h2>' + escape(config['name']) + '</h2><p>' + escape(description) + '</p><a href="' + profile + '/index.html" target="_blank" rel="noopener noreferrer">Open ' + escape(config['name']) + ' JavaScript editor</a></article>')
     (preview / 'index.html').write_text(HUB.replace('<!-- TARGETS -->', '\n'.join(cards)), encoding='utf-8', newline='\n')
     result = hashes(output)
