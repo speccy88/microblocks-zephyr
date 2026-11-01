@@ -41,5 +41,11 @@
   "hardware_access": false,
   "editor_source_scope": "SFC source only; newer GP/Pi commits retained, unrelated local P4 SD/Wi-Fi changes not overlaid",
   "fixture_formatting": "Structural brace trailing spaces removed; all fixtures recompiled, valid bytecode/canonical projects identical.",
-  "CI": "push triggers offline validation, the native GP SFC job and Linux x86_64/ARM64 native runtime jobs; no Pages deployment"
+  "CI": "push triggers offline validation, the native GP SFC job and Linux x86_64/ARM64 native runtime jobs; no Pages deployment",
+  "CI_workflow_correction": {
+    "reason": "Pre-existing job env expression used runner.temp, which GitHub rejects in that context.",
+    "previous_failure": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41320473204",
+    "change": "Place the pinned upstream checkout under github.workspace/build-artifacts, using an allowed context.",
+    "runtime_source_changed": false
+  }
 }

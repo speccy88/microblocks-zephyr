@@ -31,7 +31,7 @@ jobs:
     env:
       SMALLVM_COMMIT: 2071df569623ba9cdcd6f8106b61796e047df38b
       IDE_COMMIT: 70690291ac44a5c3a50dce572ee0c29ba99dc57f
-      SMALLVM_UPSTREAM: ${{ runner.temp }}/smallvm-upstream
+      SMALLVM_UPSTREAM: ${{ github.workspace }}/build-artifacts/smallvm-upstream
       SMALLVM_MICRODUCK_BINARY: ${{ github.workspace }}/build-artifacts/linux-ci-native/smallvm
       EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
       EXPECTED_ELF_MACHINE: ${{ matrix.elf_machine }}
