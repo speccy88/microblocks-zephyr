@@ -25,7 +25,7 @@ final class EditorSmokeTests: XCTestCase {
         address.tap()
         address.typeText("8.8.8.8")
         web.buttons["Connect"].tap()
-        let rejected = web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "private IPv4")).firstMatch
+        let rejected = web.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@", "private IPv4")).firstMatch
         XCTAssertTrue(rejected.waitForExistence(timeout: 10), "Native validation must round-trip through the real bridge")
         connect.tap()
         web.buttons["Close connection sheet"].tap()
