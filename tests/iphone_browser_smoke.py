@@ -50,7 +50,7 @@ def main():
             page.select_option('#iphone-board', 'p4')
             assert page.locator('#iphone-open').is_disabled()
             page.get_by_role('button', name='Close connection sheet', exact=True).click()
-            assert not page.evaluate('GP.delegateKeyboardEvents')
+            page.wait_for_function('!GP.delegateKeyboardEvents')
             # Trusted touch events exercise the real Morphic block drag path.
             def block():
                 return page.evaluate('''() => {

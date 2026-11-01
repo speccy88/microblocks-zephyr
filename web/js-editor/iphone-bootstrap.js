@@ -32,11 +32,33 @@
     window.addEventListener('DOMContentLoaded', async () => {
         const toolbar = document.createElement('div');
         toolbar.className = 'iphone-toolbar';
-        toolbar.innerHTML = '<button id="iphone-connect" type="button">Connect board</button>' +
-            '<button id="iphone-blocks" type="button" aria-pressed="false">Blocks</button>' +
-            '<button id="iphone-save" type="button">Save</button>' +
+        const icon = path => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + path + '"/></svg>';
+        const button = (id, label, path, state = '') => '<button id="' + id + '" type="button" aria-label="' +
+            label + '" title="' + label + '" ' + state + '>' + icon(path) + '</button>';
+        toolbar.innerHTML = button('iphone-menu', 'Menu', 'M4 6h16M4 12h16M4 18h16', 'aria-expanded="false" aria-controls="iphone-menu-panel"') +
+            button('iphone-blocks', 'Blocks', 'M4 4h6v3h4V4h6v7h-3v4h3v5H4v-5h3v-4H4z', 'aria-pressed="false"') +
+            button('iphone-hand', 'Pan workspace', 'M8 12V6a2 2 0 0 1 4 0v5-7a2 2 0 0 1 4 0v7-4a2 2 0 0 1 4 0v8c0 5-3 7-7 7-3 0-5-3-7-6l-2-3a2 2 0 0 1 3-2l3 3', 'aria-pressed="false"') +
+            '<span class="iphone-toolbar-spacer"></span>' +
+            button('iphone-connect', 'Connect board', 'M3 8a14 14 0 0 1 18 0M6 12a9 9 0 0 1 12 0M9 16a4 4 0 0 1 6 0M12 20h.01');
+        const ide = document.querySelector('[data-ide="ide"]');
+        ide.prepend(toolbar);
+        const menu = document.createElement('div');
+        menu.id = 'iphone-menu-panel'; menu.className = 'iphone-menu-panel'; menu.hidden = true;
+        menu.innerHTML = '<div id="iphone-original-menus"></div>' +
+            '<button id="iphone-save" type="button">Save project</button>' +
+            '<button id="iphone-focus" type="button">Hide controls</button>' +
+            '<p>Drag empty space to pan. Drag blocks to move them. Use two fingers to pan and pinch to zoom. Hand mode pans over blocks.</p>' +
             '<span id="iphone-status" role="status" aria-live="polite">Offline editing</span>';
-        document.querySelector('[data-ide="ide"]').prepend(toolbar);
+        ide.append(menu);
+        const restore = document.createElement('div');
+        restore.className = 'iphone-restore';
+        restore.innerHTML = button('iphone-restore', 'Show controls', 'M4 6h16M4 12h16M4 18h16');
+        ide.append(restore);
+        const tools = document.createElement('div');
+        tools.className = 'iphone-view';
+        tools.innerHTML = '<button id="iphone-view" type="button" aria-label="View tools" title="View tools" aria-describedby="iphone-zoom-status" aria-expanded="false"><span id="iphone-scale" aria-hidden="true">100%</span></button>' +
+            '<output id="iphone-zoom-status" class="iphone-sr-only" role="status">Workspace zoom 100%</output>';
+        document.querySelector('.workspace__canvas-wrapper').append(tools);
         const sheet = document.createElement('dialog');
         sheet.className = 'iphone-connect-sheet';
         sheet.setAttribute('aria-labelledby', 'iphone-sheet-title');
@@ -54,7 +76,12 @@
         document.body.append(sheet);
         const $ = id => document.getElementById(id);
         let previousKeyboardDelegate = false;
+        function closeMenu() {
+            menu.hidden = true; $('iphone-menu').setAttribute('aria-expanded', 'false');
+            if (typeof Menus !== 'undefined') Menus.close();
+        }
         const showSheet = () => {
+            closeMenu();
             // Follow the editor's HTML-dialog keyboard contract. Morphic's
             // hidden textarea must not reclaim the keys from this form.
             MB_editor.endOpenEdit();
@@ -66,11 +93,28 @@
         sheet.addEventListener('close', () => { GP.delegateKeyboardEvents = previousKeyboardDelegate; });
         $('iphone-connect').onclick = showSheet;
         $('iphone-save').onclick = () => MB_editor.saveProject();
+        $('iphone-menu').onclick = () => {
+            if (!menu.hidden) closeMenu();
+            else { menu.hidden = false; $('iphone-menu').setAttribute('aria-expanded', 'true'); }
+        };
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+        const setFocus = value => {
+            closeMenu(); blocksVisible = false;
+            document.body.classList.toggle('iphone-focus', value);
+            document.body.classList.remove('iphone-tools-visible');
+            $('iphone-view').setAttribute('aria-expanded', 'false'); layout();
+        };
+        $('iphone-focus').onclick = () => setFocus(true);
+        $('iphone-restore').onclick = () => { setFocus(false); $('iphone-menu').focus(); };
+        $('iphone-view').onclick = () => {
+            const visible = document.body.classList.toggle('iphone-tools-visible');
+            $('iphone-view').setAttribute('aria-expanded', String(visible));
+        };
         function layout() {
             if (typeof world === 'undefined' || !world || !MB_editor.palette) return;
             const compact = window.innerWidth < 600;
             document.body.classList.toggle('iphone-blocks-visible', blocksVisible);
-            const show = !compact || blocksVisible;
+            const show = blocksVisible && !document.body.classList.contains('iphone-focus');
             MB_editor.paletteWidth = show ? (compact ? Math.min(190, window.innerWidth * 0.46) : 240) : 0;
             MB_editor.palette[show ? 'show' : 'hide']();
             if (MB_editor.paletteResizer) MB_editor.paletteResizer.hide();
@@ -79,18 +123,10 @@
             $('iphone-blocks').setAttribute('aria-pressed', String(blocksVisible));
         }
         $('iphone-blocks').onclick = () => { blocksVisible = !blocksVisible; layout(); };
-        let scriptCount = 0;
-        document.querySelector('#canvas').addEventListener('touchstart', () => {
-            scriptCount = MB_editor.scriptsPane()?.children.filter(m => m instanceof BlockMorph).length || 0;
-        }, {passive: true});
-        document.querySelector('#canvas').addEventListener('touchend', () => {
-            setTimeout(() => {
-                const count = MB_editor.scriptsPane()?.children.filter(m => m instanceof BlockMorph).length || 0;
-                if (window.innerWidth < 600 && blocksVisible && count > scriptCount) {
-                    blocksVisible = false; layout();
-                }
-            }, 50);
-        }, {passive: true});
+        const canvas = document.querySelector('#canvas');
+        canvas.setAttribute('role', 'img'); canvas.setAttribute('aria-label', 'Programming workspace');
+        canvas.addEventListener('touchstart', closeMenu, {passive: true});
+        canvas.addEventListener('mousedown', closeMenu);
         window.addEventListener('resize', layout);
         window.visualViewport?.addEventListener('resize', layout);
         $('iphone-close').onclick = () => { MB_connection.disconnect(); sheet.close(); };
@@ -122,7 +158,7 @@
         $('iphone-board').onchange = profileChanged;
         profileChanged();
 
-        // Keep original run/stop/project controls; route connection UI to the
+        // Keep original run/stop/project handlers; route connection UI to the
         // only supported phone transport and make first-flash actions explicit.
         const call = GP.apiCall.bind(GP);
         GP.apiCall = (endpoint, params, callback) => {
@@ -148,7 +184,30 @@
         };
         const timer = setInterval(() => {
             if (typeof world === 'undefined' || !world || !MB_editor.palette) return;
-            clearInterval(timer); layout();
+            if (!document.querySelector('.top-bar__controls-run')) return;
+            clearInterval(timer);
+            const originalMenus = document.querySelector('[data-ide="main-menu"]');
+            $('iphone-original-menus').append(originalMenus);
+            const graph = document.querySelector('.top-bar__button-rounded');
+            if (graph) originalMenus.append(graph);
+            toolbar.append(document.querySelector('.top-bar__controls-run'), document.querySelector('.top-bar__controls-stop'));
+            // Keep a quick Stop in focus mode, with the exact stock handler.
+            const stop = document.querySelector('.top-bar__controls-stop');
+            const quickStop = stop.cloneNode(true); quickStop.id = 'iphone-quick-stop';
+            quickStop.setAttribute('aria-label', 'Stop scripts'); quickStop.onclick = () => stop.click();
+            restore.append(quickStop);
+            MicroBlocksIPhone.installGestures(canvas, {
+                scaleChanged: percent => {
+                    $('iphone-scale').textContent = Math.round(percent) + '%';
+                    $('iphone-zoom-status').textContent = 'Workspace zoom ' + Math.round(percent) + '%';
+                },
+                paletteDrop: () => { if (blocksVisible) { blocksVisible = false; layout(); } }
+            });
+            $('iphone-hand').onclick = () => {
+                const active = MicroBlocksIPhone.gestures.toggleHand();
+                $('iphone-hand').setAttribute('aria-pressed', String(active));
+            };
+            layout();
         }, 100);
         setInterval(() => {
             const verified = MB_connection.port?.iphonePort?.isConnected() &&
@@ -157,6 +216,8 @@
                 lastPort?.error || (MB_connection.port?.iphonePort ? 'Waiting for board reply…' : 'Offline editing');
             $('iphone-status').textContent = status;
             $('iphone-status').dataset.connected = String(!!verified);
+            $('iphone-connect').dataset.connected = String(!!verified);
+            document.body.classList.toggle('iphone-connected', !!verified);
             // Never leave run/stop enabled against an unverified native link.
             document.querySelectorAll('.top-bar__controls-run, .top-bar__controls-stop').forEach(button => {
                 button.disabled = !verified;

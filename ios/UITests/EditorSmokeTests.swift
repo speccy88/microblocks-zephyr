@@ -12,7 +12,9 @@ final class EditorSmokeTests: XCTestCase {
         // type, which is not necessarily XCUIElementTypeButton.
         XCTAssertTrue(web.descendants(matching: .any)["Blocks"].firstMatch.exists)
         // Wait for the real engine's project chrome, not just the local toolbar.
+        web.buttons["Menu"].tap()
         XCTAssertTrue(web.buttons["Project"].waitForExistence(timeout: 20))
+        web.buttons["Menu"].tap()
         let portrait = XCTAttachment(screenshot: app.screenshot())
         portrait.name = "iPhone portrait editor"; portrait.lifetime = .keepAlways
         add(portrait)
@@ -48,5 +50,56 @@ final class EditorSmokeTests: XCTestCase {
         landscape.name = "iPhone landscape editor"; landscape.lifetime = .keepAlways
         add(landscape)
         XCUIDevice.shared.orientation = .portrait
+    }
+
+    func testCompactControlsAndWorkspacePinch() {
+        let app = XCUIApplication()
+        app.launch()
+        let web = app.webViews.firstMatch
+        let menu = web.buttons["Menu"]
+        XCTAssertTrue(menu.waitForExistence(timeout: 30))
+        let view = web.buttons["View tools"]
+        XCTAssertTrue(view.waitForExistence(timeout: 20))
+        let workspace = web.descendants(matching: .any)["Programming workspace"].firstMatch
+        XCTAssertTrue(workspace.waitForExistence(timeout: 10))
+        for landscape in [false, true] {
+            XCUIDevice.shared.orientation = landscape ? .landscapeLeft : .portrait
+            for _ in 0..<3 {
+                menu.tap()
+                XCTAssertTrue(web.buttons["Project"].waitForExistence(timeout: 5))
+                web.buttons["Hide controls"].tap()
+                let restore = web.buttons["Show controls"]
+                XCTAssertTrue(restore.waitForExistence(timeout: 5))
+                XCTAssertTrue(restore.isHittable)
+                restore.tap()
+                XCTAssertTrue(menu.isHittable)
+                let blocks = web.descendants(matching: .any)["Blocks"].firstMatch
+                blocks.tap(); blocks.tap()
+                view.tap(); view.tap()
+            }
+            // A real WebKit touch sequence, with the engine scale exposed as
+            // an accessible status. This is Simulator evidence, not hardware.
+            let zoom = web.descendants(matching: .any).matching(
+                NSPredicate(format: "label BEGINSWITH %@", "Workspace zoom ")).firstMatch
+            XCTAssertTrue(zoom.waitForExistence(timeout: 5))
+            let initial = zoom.label
+            workspace.pinch(withScale: landscape ? 0.7 : 1.4, velocity: landscape ? -1 : 1)
+            let changed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label != %@", initial), object: zoom)
+            XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 5), .completed, app.debugDescription)
+            let capture = XCTAttachment(screenshot: app.screenshot())
+            capture.name = landscape ? "Compact landscape after pinch" : "Compact portrait after pinch"
+            capture.lifetime = .keepAlways; add(capture)
+        }
+        XCUIDevice.shared.orientation = .portrait
+        menu.tap()
+        web.buttons["Hide controls"].tap()
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        let restore = web.buttons["Show controls"]
+        XCTAssertTrue(restore.waitForExistence(timeout: 10))
+        restore.tap()
+        web.buttons["Connect board"].tap()
+        XCTAssertTrue(web.staticTexts["Program over Wi-Fi"].waitForExistence(timeout: 5))
+        web.buttons["Close connection sheet"].tap()
     }
 }

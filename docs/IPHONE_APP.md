@@ -58,6 +58,34 @@ separately; wireless silicon is not proof of a working programming server.
 | micro:bit / stock BLE boards | Next native CoreBluetooth adapter | Stock MicroBlocks service/characteristic UUIDs are in the pinned source; no BLE support is claimed by this slice |
 | UNO Q / Pi / MicroDuck | Separate adapters/acceptance required | Do not infer this board-server contract from a reference repository or a local Linux bridge |
 
+## Small-screen editing
+
+The [phone touch contract](IPHONE_TOUCH.md) describes the follow-up layout and
+gestures. A single 48-pixel toolbar has compact icons on 44-pixel targets.
+Menu reveals the original Project, Settings, Language and Graph actions, Save
+project, and Hide controls. Show controls stays visible in the full workspace;
+a connected board also retains a quick Stop. Blocks toggles the palette in
+either orientation, and the percentage button reveals undo/redo and zoom tools.
+
+Drag empty space to pan, drag a block to edit, or enable the hand to pan over
+blocks. Two fingers pan and pinch between 50% and 250%, anchored at their
+midpoint. This changes the actual editor scale and uses its existing bounded
+scroll area; it does not scale a screenshot or change saved script coordinates.
+Navigation does not synchronize code with the board. Palette insertion into
+an existing stack also collapses the palette after a successful drop.
+
+The browser checks can be reproduced with Playwright and a sandbox-capable
+Chromium executable, after packaging the editor:
+
+```sh
+python3 tests/iphone_browser_smoke.py --editor /path/to/bundle --output /path/to/browser-evidence --browser /path/to/chrome
+python3 tests/iphone_touch_smoke.py --editor /path/to/bundle --output /path/to/touch-evidence --browser /path/to/chrome
+```
+
+These are desktop mobile-emulation tests. The iPhone workflow also runs the
+native WebKit UI tests on small and large available iPhone Simulators. Actual
+phone ergonomics, gesture latency and board-radio acceptance remain separate.
+
 ## Build on macOS
 
 Requires Xcode with an iOS 17+ SDK, Python 3, Git and XcodeGen. Fetch the exact

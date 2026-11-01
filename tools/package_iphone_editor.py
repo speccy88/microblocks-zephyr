@@ -23,6 +23,7 @@ def package(source, output):
     redirect = "if (location.protocol === 'http:' && location.hostname !== '127.0.0.1') { location.protocol = 'https:'; }"
     html = html.replace(REDIRECT, redirect).replace(ANCHOR,
         '<script src="iphone-transport.js"></script>\n' +
+        '<script src="iphone-gestures.js"></script>\n' +
         '<script src="iphone-bootstrap.js"></script>\n' + ANCHOR)
     viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
     if html.count(viewport) != 1:
@@ -33,6 +34,7 @@ def package(source, output):
     files['microblocks.html'] = files['index.html']
     for destination, source_path in {
         'iphone-transport.js': 'web/js-editor/iphone-transport.js',
+        'iphone-gestures.js': 'web/js-editor/iphone-gestures.js',
         'iphone-bootstrap.js': 'web/js-editor/iphone-bootstrap.js',
         'iphone.css': 'web/js-editor/iphone.css',
         'iphone-boards.json': 'ios/board-profiles.json',
