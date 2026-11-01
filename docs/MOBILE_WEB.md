@@ -103,3 +103,15 @@ After approval to merge this isolated mobile change, the normal main-push Pages
 workflow can publish it. Recheck the live/default source before doing so; do not
 replace a newer release. Board firmware still needs a separate build and
 explicit authorization before any installation.
+
+## Native browser protocol fixture
+
+`prepare_mobile_vm_test.py` uses the approved Linux source pin without modifying
+that checkout. The normal editor sends v417 `deleteAllCodeMsg`, whose runtime
+cleanup calls `primMBDisplayOff(0, NULL)` outside a task. The pinned headless
+display stub treated that housekeeping call as a hardware failure and left the
+global error for the next real script. The fixture permits only that absent
+display cleanup. Explicit display calls still fail; the native self-test checks
+both paths. The overlay is hash-guarded and recorded in its source/build
+manifests. Arithmetic, compilation, CRCs, task execution and WebSocket traffic
+remain real. This does not update a Linux release or claim board hardware works.

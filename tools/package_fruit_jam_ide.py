@@ -28,7 +28,8 @@ def package(source,output,repo,mobile_source=None):
         mime=mimetypes.guess_type(name)[0] or 'application/octet-stream'
         if name.endswith('.wasm'):mime='application/wasm'
         if name.endswith('.js'):mime='text/javascript'
-        rows.append('{'+','.join([json.dumps(mobile.route(name) if extra else '/'+name),json.dumps(mime),label,str(len(blob)),'true' if encoded else 'false'])+'}')
+        # Fruit Jam's existing HTTP parser decodes the URL before lookup.
+        rows.append('{'+','.join([json.dumps('/'+name),json.dumps(mime),label,str(len(blob)),'true' if encoded else 'false'])+'}')
         audit.append({'path':'/'+name,'encoding':'gzip' if encoded else '', 'content_type':mime,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'flash_bytes':len(blob),'flash_sha256':hashlib.sha256(blob).hexdigest()})
         if name=='mobile/index.html':
             for alias in ['/mobile','/mobile/']:

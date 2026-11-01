@@ -39,7 +39,8 @@ def main():
                     target.write_bytes(raw)
             code=(output/'assets.c').read_text()
             if cache:
-                assert 'Fruit%20Jam.ubl' in code and '"/mobile/"' in code
+                assert ('Fruit Jam.ubl' if name=='fruit-jam' else 'Fruit%20Jam.ubl') in code
+                assert '"/mobile/"' in code
                 assert '"/index.html"' in code
                 assert report['flash_bytes']<7*1024*1024
                 assert report['mobile']['added_flash_bytes']<3*1024*1024

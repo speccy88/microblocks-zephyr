@@ -16,6 +16,8 @@ int main(void)
     struct fj_http_request request;
     CHECK(!parse_http("GET / HTTP/1.1\r\nHost: 192.168.1.7\r\n\r\n",&request)&&!request.websocket&&!strcmp(request.path,"/"));
     CHECK(!parse_http("GET /a%20b?version=1 HTTP/1.1\r\nHost: 192.168.1.7:80\r\n\r\n",&request)&&!strcmp(request.path,"/a b"));
+    CHECK(!parse_http("GET /mobile/Libraries/Zephyr/Fruit%20Jam.ubl HTTP/1.1\r\nHost: 192.168.1.7\r\n\r\n",&request)&&!strcmp(request.path,"/mobile/Libraries/Zephyr/Fruit Jam.ubl"));
+    CHECK(!parse_http("GET /mobile/Examples/Games/Simon%20(ED1).ubp HTTP/1.1\r\nHost: 192.168.1.7\r\n\r\n",&request)&&!strcmp(request.path,"/mobile/Examples/Games/Simon (ED1).ubp"));
     const char *upgrade="GET /ws/vm HTTP/1.1\r\nHost: 192.168.1.7\r\nOrigin: http://192.168.1.7\r\nConnection: keep-alive, Upgrade\r\nUpgrade: websocket\r\nSec-WebSocket-Version: 13\r\nSec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\n\r\n";
     CHECK(!parse_http(upgrade,&request)&&request.websocket);
     char accept[29];CHECK(!fj_ws_accept(request.key,accept));CHECK(!strcmp(accept,"s3pPLMBiTxaQ9kYGzzhZRbK+xOo="));
