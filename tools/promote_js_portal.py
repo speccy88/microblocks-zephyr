@@ -57,6 +57,9 @@ def promote(site):
         (folder / 'build-manifest.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8', newline='\n')
     for name in ['index.html', 'portal.js']:
         (site / name).write_bytes((ROOT / 'web/js-portal' / name).read_bytes())
+    html = (site / 'index.html').read_text(encoding='utf-8')
+    version = hashlib.sha256((site / 'portal.js').read_bytes()).hexdigest()[:16]
+    (site / 'index.html').write_text(html.replace('src="portal.js"', 'src="portal.js?v='+version+'"'), encoding='utf-8', newline='\n')
     after = files(site)
     changed = sorted(name for name, digest in before.items() if after.get(name) != digest)
     allowed = {'index.html', 'portal.js'} | {'js-preview/' + p + '/' + n for p in PROFILES for n in ['index.html','microblocks.html','build-manifest.json']}

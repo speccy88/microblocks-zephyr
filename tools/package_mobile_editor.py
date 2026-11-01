@@ -15,6 +15,15 @@ def mobile_files(source, runtime='pages', board=None, desktop='../?layout=deskto
     if runtime not in ('pages', 'board') or (runtime == 'board' and board not in BOARDS):
         raise ValueError('Unsupported mobile runtime or board')
     files = read_editor(source)
+    overlays = {name:(ROOT / 'web/js-editor' / name).read_bytes() for name in
+        ['iphone-transport.js', 'iphone-gestures.js', 'iphone-bootstrap.js', 'iphone.css', 'THIRD_PARTY_NOTICES.md']}
+    overlays.update({name:(ROOT / 'web/mobile' / name).read_bytes() for name in
+        ['mobile-browser.js', 'mobile-load.js', 'mobile-entry.js', 'mobile-entry.css']})
+    # Pages serves assets with max-age=600. A changed document must request the
+    # matching UI bytes even when a returning browser has the prior release.
+    # Board URLs stay unchanged for the embedded HTTP parsers.
+    def resource_url(name):
+        return name + ('?v=' + hashlib.sha256(overlays[name]).hexdigest()[:16] if runtime == 'pages' and name in overlays else '')
     html = files['purejs.html'].decode('utf-8')
     redirect = "if (location.protocol === 'http:') { location.protocol = 'https:'; }"
     anchor = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
@@ -31,13 +40,15 @@ def mobile_files(source, runtime='pages', board=None, desktop='../?layout=deskto
     if runtime == 'board':
         html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<base href="/mobile/">')
     html = html.replace('</head>', '<link rel="stylesheet" href="iphone.css">\n<link rel="stylesheet" href="mobile-entry.css">\n</head>')
+    for name in ['iphone.css', 'mobile-entry.css']:
+        html = html.replace('href="'+name+'"', 'href="'+resource_url(name)+'"')
     # Execute blocking scripts, then deferred scripts, exactly as the pinned
     # document does. One script/CSS request at a time fits the board servers.
     blocking, deferred = [], []
     def script(match):
         attrs, body = match.groups()
         src = re.search(r'\bsrc="([^"]+)"', attrs)
-        entry = {'src': src[1]} if src else {'inline': body}
+        entry = {'src': resource_url(src[1])} if src else {'inline': body}
         (deferred if re.search(r'\bdefer\b', attrs) else blocking).append(entry)
         return ''
     # Remove the commented developer-script tag before parsing real tags.
@@ -50,16 +61,13 @@ def mobile_files(source, runtime='pages', board=None, desktop='../?layout=deskto
     profile = {'runtime': runtime, 'board': BOARDS.get(board), 'surface': 'mobile',
                'desktop': desktop, 'startupEvent': 'microblocks-mobile-assets'}
     config = json.dumps({'scripts': blocking + deferred, 'profile': profile}, separators=(',', ':')).replace('<', '\\u003c')
-    startup = '<script id="mobile-load-config" type="application/json">' + config + '</script>\n<script src="mobile-load.js"></script>'
+    startup = '<script id="mobile-load-config" type="application/json">' + config + '</script>\n<script src="'+resource_url('mobile-load.js')+'"></script>'
     html = html.replace('</body>', startup + '\n</body>')
     if runtime == 'pages':
         html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="default-src \'self\' data: blob:; connect-src \'self\'; script-src \'self\' \'unsafe-inline\' \'unsafe-eval\'; style-src \'self\' \'unsafe-inline\'; object-src \'none\'; base-uri \'self\'">')
     files['index.html'] = html.encode()
     files['microblocks.html'] = files['index.html']
-    for name in ['iphone-transport.js', 'iphone-gestures.js', 'iphone-bootstrap.js', 'iphone.css', 'THIRD_PARTY_NOTICES.md']:
-        files[name] = (ROOT / 'web/js-editor' / name).read_bytes()
-    for name in ['mobile-browser.js', 'mobile-load.js', 'mobile-entry.js', 'mobile-entry.css']:
-        files[name] = (ROOT / 'web/mobile' / name).read_bytes()
+    files.update(overlays)
     files['iphone-boards.json'] = (ROOT / 'web/mobile/board-profiles.json').read_bytes()
     files['source-manifest.json'] = MANIFEST.read_bytes()
     files['licenses/LOCAL-MIT.txt'] = (ROOT / 'LICENSE').read_bytes()

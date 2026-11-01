@@ -4,6 +4,7 @@ import gzip
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -17,6 +18,16 @@ from package_mobile_editor import mobile_files
 
 
 class MobileSourceTests(unittest.TestCase):
+    @unittest.skipUnless(os.environ.get('MOBILE_EDITOR_SOURCE'), 'requires verified local source cache')
+    def test_pages_requests_matching_ui_while_board_routes_keep_plain_paths(self):
+        cache = Path(os.environ['MOBILE_EDITOR_SOURCE'])
+        pages, _ = mobile_files(cache)
+        board_files, _ = mobile_files(cache, runtime='board', board='waveshare')
+        for name in ['iphone-bootstrap.js','iphone-gestures.js','iphone.css','mobile-load.js','mobile-browser.js']:
+            version = hashlib.sha256(pages[name]).hexdigest()[:16]
+            self.assertIn(name+'?v='+version, pages['index.html'].decode())
+            self.assertNotIn(name+'?v=', board_files['index.html'].decode())
+
     def test_reviewed_template_is_exact_upstream_source(self):
         item = next(r for r in json.loads(source.MANIFEST.read_text())['files'] if r['path'] == 'purejs.html')
         raw = (ROOT / 'web/mobile/purejs-source.html').read_bytes()
