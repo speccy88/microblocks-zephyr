@@ -54,7 +54,13 @@
         if (explicit) remember('desktop'); document.documentElement.removeAttribute('data-touch-offer');
         const offer = document.getElementById('mobile-editor-offer'); if (offer) offer.hidden = true;
         const frame = document.getElementById('ide');
-        if (frame && !frame.getAttribute('src')) frame.src = frame.dataset.desktopSrc;
+        if (frame && !frame.getAttribute('src')) {
+            const board = document.getElementById('board');
+            const requested = new URLSearchParams(location.search).get('board');
+            if (board && Array.from(board.options).some(o=>o.value===requested) && requested!=='fruit-jam') {
+                board.value = requested; document.getElementById('open-editor').click();
+            } else frame.src = frame.dataset.desktopSrc;
+        }
     }
     function offer() {
         if (document.getElementById('mobile-editor-offer')) return;

@@ -90,7 +90,11 @@
         const config = JSON.parse(document.getElementById('mobile-load-config').textContent).profile;
         const map = {'waveshare': 'rlcd', 'xrp-rp2350': 'xrp', 'propeller2': 'p2', 'esp32p4': 'p4', 'fruit-jam': 'fruit-jam', 'raspberry-pi5':'pi5', 'microduck':'microduck'};
         const selected = new URLSearchParams(location.search).get('board');
-        if (config.runtime === 'pages' && map[selected]) config.board = map[selected];
+        if (config.runtime === 'pages' && map[selected]) {
+            config.board = map[selected];
+            const desktop = new URL(config.desktop, location.href);
+            desktop.searchParams.set('board', selected); config.desktop = desktop.href;
+        }
         root.MicroBlocksBrowser = create({profile: config, location: root.location, Socket: root.WebSocket,
             receive: e => root.MicroBlocksIPhone.receive(e)});
         document.addEventListener('visibilitychange', () => { if (document.hidden) root.MicroBlocksIPhone.close(); });

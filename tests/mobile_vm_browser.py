@@ -20,6 +20,12 @@ def browser_test(url, output, executable=None):
     with sync_playwright() as pw:
         browser = pw.chromium.launch(executable_path=executable, headless=True, chromium_sandbox=True)
         context = browser.new_context(viewport={'width':390,'height':844}, is_mobile=True, has_touch=True)
+        context.add_init_script('''window.testSockets=[];window.testWrites=[];
+            const ActualSocket=window.WebSocket;
+            window.WebSocket=class extends ActualSocket {
+                constructor(...args){super(...args);testSockets.push(this)}
+                send(data){testWrites.push(Array.from(new Uint8Array(data)));return super.send(data)}
+            };''')
         page = context.new_page()
         page.on('pageerror', lambda e:errors.append(str(e)))
         page.goto(url + 'mobile/index.html')
@@ -50,6 +56,8 @@ def browser_test(url, output, executable=None):
             foreign.close()
         finally:fixture.shutdown()
         page.evaluate('''() => { window.actualResults=[];
+            window.testMessages=[];const handle=MB_connection.handleMessage.bind(MB_connection);
+            MB_connection.handleMessage=m=>{if([16,17,18,19].includes(m[1]))testMessages.push(Array.from(m));return handle(m)};
             const show=MB_editor.showResult.bind(MB_editor);
             MB_editor.showResult=(id,value)=>{actualResults.push(value);show(id,value)};
         }''')
@@ -63,20 +71,30 @@ def browser_test(url, output, executable=None):
             if attempt == 0:
                 page.evaluate('''async () => {
                     await MB_editor.openProjectFromString("projectName 'Browser VM'\\nmodule 'main'\\nscript 40 60 (+ 20 22)\\n",'Browser VM.ubp');
-                    const block=MB_editor.scripts.children.find(b=>b instanceof ReporterBlockMorph);
-                    window.actualCode=new MB_Compiler(null).compiledBytesFor(block);
-                    while(actualCode.length%4) actualCode.push(0);
-                    window.actualCRC=MB_editor.codeManager.computeCRC(actualCode);
-                    if(!await MB_editor.codeManager.storeChunkOnBoard(0,[2,...actualCode],actualCRC)) throw Error('CRC upload failed');
+                    window.actualBlock=MB_editor.scripts.children.find(b=>b instanceof ReporterBlockMorph);
+                    if(!await MB_editor.saveBeforeRun()) throw Error('Editor did not complete its actual upload');
+                    window.actualChunk=MB_editor.codeManager.lookupChunkID(actualBlock);
+                    window.actualCRC=MB_editor.codeManager.chunkEntryForBlock(actualBlock)[1];
+                    if(actualChunk==null || !actualCRC) throw Error('Editor did not verify its chunk CRC');
                 }''')
             else:
-                page.evaluate('MB_editor.codeManager.lastCRC=null; MB_connection.sendMsg("getChunkCRCMsg",0)')
+                page.evaluate('MB_editor.codeManager.lastCRC=null; MB_connection.sendMsg("getChunkCRCMsg",actualChunk)')
                 page.wait_for_function('MB_editor.codeManager.lastCRC!==null')
                 assert page.evaluate('JSON.stringify(Array.from(MB_editor.codeManager.lastCRC))===JSON.stringify(Array.from(actualCRC))')
             count=page.evaluate('actualResults.length')
-            page.evaluate('MB_connection.sendMsg("startChunkMsg",0)')
-            page.wait_for_function('n=>actualResults.length>n', arg=count)
-            assert page.evaluate('actualResults.at(-1)') == 42
+            page.evaluate('MB_editor.codeManager.evalOnBoard(actualBlock)')
+            try:
+                page.wait_for_function('n=>actualResults.slice(n).includes(42)', arg=count,timeout=12000)
+            except Exception:
+                print('VM diagnostic:',page.evaluate('''() => ({results:actualResults,
+                    chunk:actualChunk,crc:Array.from(actualCRC),connected:MB_connection.connectedToBoard(),
+                    vm:MB_connection.vmVersion,selector:actualBlock.selector,
+                    bytes:MB_editor.codeManager.compiledBytesFor(actualBlock).slice(0,40),
+                    instructions:MB_editor.codeManager.compiler.instructionsFor(actualBlock).filter(Array.isArray).slice(0,10).map(i=>i.slice(0,4)),
+                    inputs:actualBlock.inputs().map(x=>x.evaluate()),
+                    chunks:Array.from(MB_editor.codeManager.chunkIDs.values()),messages:testMessages,writes:testWrites.slice(-20)})'''))
+                page.screenshot(path=str(output/'vm-failure.png'))
+                raise
             page.evaluate('async () => {await MB_connection.sendMsg("stopAllMsg"); await MB_connection.sendQueue; MB_connection.disconnect()}')
             page.wait_for_timeout(200)
         page.screenshot(path=str(output/'real-vm-workspace.png'))

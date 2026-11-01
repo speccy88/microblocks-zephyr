@@ -54,3 +54,52 @@ Acceptance:
    change repository/environment security, acquire credentials or overwrite a
    newer live version. Report any such blocker precisely. Verify the live
    entry points and retain screenshots if deployment succeeds.
+
+## Build and use
+
+The shared source is `web/js-editor/iphone-*`; `web/mobile/` adds the explicit
+browser transport, local loading and layout choice. The immutable official
+engine remains byte-for-byte unchanged. Prepare the reviewed cache once:
+
+```sh
+python tools/prepare_mobile_editor.py --archive build-artifacts/reviewed.zip --output build-artifacts/mobile-source --fetch
+```
+
+For board firmware, either place that verified cache at
+`IDE_SOURCE_DIR/mobile-editor`, or add
+`-DMOBILE_EDITOR_SOURCE_DIR=/absolute/path/to/mobile-source` to the existing
+board's documented `west build` command. The three packager CLIs also accept
+`--mobile-source`. They never fetch assets themselves. An explicitly missing or
+corrupt cache fails packaging. With no cache the existing desktop payloads and
+root entry remain intact. `/mobile/` and `/mobile/index.html` open touch mode;
+`/?layout=mobile` and `/?layout=desktop` explicitly choose a layout. On a board,
+`/microblocks.html` retains the desktop editor and offers a touch-mode link.
+Private browsing may prevent remembering a choice, so the explicit URLs work
+without local storage. Editors keep their own project stores; export/import a
+project to carry work between them. Cancelling a switch keeps the current work.
+
+For Pages, the existing `pages.yml` builds its same frozen GP and reviewed JS
+previews, then runs `tools/add_mobile_web.py`. The compositor refuses to alter
+any previous asset except the root landing document. `/mobile/index.html` works
+directly; the root offers it on mobile. `?layout=desktop` preserves the usual
+desktop portal, with a visible touch-mode switch. Unsupported P2, P4 and Linux
+targets retain explicit guidance instead of opening an unrelated board link.
+
+Board packages add 571 files and about 2.75 MB compressed, for about 6.26 MB
+total. Generated descriptors rise to roughly 720. These are asset verification
+results, **not compiled firmware** or a final RAM/flash linker result. The
+existing 2 KiB streaming limits and WebSocket Origin rules are unchanged.
+The Fruit Jam root route change and optional CMake arguments are explicitly
+recorded in `evidence/mobile-web-firmware-uncompiled.json`; historical compiled
+evidence is preserved rather than relabelled as current validation.
+
+## Publication gate
+
+On 2026-11-01, read-only inspection of the existing `github-pages` environment
+showed **Selected branches and tags: main, one branch allowed**. Feature-branch
+deployment is therefore blocked by that existing policy. No deployment was
+attempted, no environment/security setting changed, and no merge was performed.
+After approval to merge this isolated mobile change, the normal main-push Pages
+workflow can publish it. Recheck the live/default source before doing so; do not
+replace a newer release. Board firmware still needs a separate build and
+explicit authorization before any installation.

@@ -159,7 +159,7 @@
                 MB_connection.disconnect();
                 await MB_connection.connect('iphone-wifi');
                 lastPort = MB_connection.port?.iphonePort;
-                if (!lastPort) throw new Error('Native board link was not created');
+                if (!lastPort) throw new Error('Board link was not created');
                 connectingPort = lastPort;
                 // Native validation and socket readiness arrive asynchronously.
                 // Keep the form visible until the real VM handshake completes.
@@ -178,7 +178,7 @@
                 $('iphone-board').disabled = true;
                 $('iphone-address').value = location.hostname; $('iphone-address').readOnly = true;
             }
-        } catch (_) { $('iphone-sheet-status').textContent = 'Board profiles could not load. Rebuild the app bundle.'; }
+        } catch (_) { $('iphone-sheet-status').textContent = 'Board choices could not load. Reload and try again.'; }
         function profileChanged() {
             const profile = profiles.find(p => p.id === $('iphone-board').value);
             $('iphone-board-note').textContent = profile?.note || 'Board unavailable';
