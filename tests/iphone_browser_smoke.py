@@ -122,7 +122,7 @@ def main():
                       'offline_connection_disabled': True, 'portrait_landscape': True,
                       'native_export_response': 'synthetic success and cancellation',
                       'project_roundtrip': True, 'page_errors': errors}
-            (args.output / 'browser.json').write_text(json.dumps(report, indent=2) + '\n')
+            (args.output / 'browser.json').write_text(json.dumps(report, indent=2) + '\n', newline='\n')
             print(json.dumps(report))
             browser.close()
     finally:
