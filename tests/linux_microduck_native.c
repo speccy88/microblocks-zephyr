@@ -40,6 +40,7 @@ int taskCount;
 OBJ lastBroadcast;
 static uint8 vmError;
 static unsigned checks;
+static unsigned registeredPrimitives;
 #define CHECK(condition) do { assert(condition); ++checks; } while (0)
 OBJ fail(uint8 error) { vmError=error; return falseObj; }
 void captureIncomingBytes(void) {}
@@ -47,9 +48,25 @@ void updateMicrobitDisplay(void) {}
 uint32 microsecs(void) { static uint32 ticks;return ++ticks; }
 void outputString(const char *text) { (void)text; }
 void addPrimitiveSet(PrimitiveSetIndex index,const char *name,int count,PrimEntry *table) {
+    /* Pin the full append-only ABI, including the typed read primitives added
+     * after the original nine-entry client. Do not relax this to a minimum. */
+    PrimEntry expected[]={
+        {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},
+        {"status",statusPrimitive},{"result",resultPrimitive},{"release",releasePrimitive},
+        {"healthSample",healthSamplePrimitive},{"readingValue",readingValuePrimitive},
+        {"sensorSample",sensorSamplePrimitive},{"sensorRow",sensorRowPrimitive},{"telemetrySample",telemetrySamplePrimitive},
+        {"mediaSample",mediaSamplePrimitive},{"imuSample",imuSamplePrimitive},{"headImuSample",headImuSamplePrimitive},
+        {"headImuReading",headImuReadingPrimitive},{"depthReading",depthReadingPrimitive},{"depthRow",depthRowPrimitive},
+        {"gamepadReading",gamepadReadingPrimitive},{"robotReading",robotReadingPrimitive},{"padImuReading",padImuReadingPrimitive}
+    };
     CHECK(index==MicroDuckPrims && index==22);
-    CHECK(!strcmp(name,"microduck") && count==9);
-    CHECK(!strcmp(table[0].primName,"configured"));
+    CHECK(!strcmp(name,"microduck"));
+    CHECK(count==(int)(sizeof(expected)/sizeof(expected[0])));
+    for (int i=0;i<count;++i) {
+        CHECK(!strcmp(table[i].primName,expected[i].primName));
+        CHECK(table[i].primFunc==expected[i].primFunc);
+    }
+    registeredPrimitives=(unsigned)count;
 }
 
 typedef struct { char directory[64],path[108]; int listener; } Fixture;
@@ -216,5 +233,5 @@ static void typedReadingsAndMovingRoots(void) {
 int main(void) {
     memInit();addMicroduckPrims();primitiveValidation();repliesAndFraming();securityBeforeFirstByte();cancellationSlotsAndRecovery();quoteAndIdentifierBoundary();typedReadingsAndMovingRoots();
     linuxMicroduckClose();smallvmArenaDestroy();
-    printf("{\"result\":\"PASS\",\"checks\":%u,\"scope\":\"native Unix fixture sockets and real VM memory; peer/write fault providers; no robot hardware\"}\n",checks);return 0;
+    printf("{\"result\":\"PASS\",\"checks\":%u,\"registered_primitives\":%u,\"scope\":\"native Unix fixture sockets and real VM memory; peer/write fault providers; no robot hardware\"}\n",checks,registeredPrimitives);return 0;
 }
