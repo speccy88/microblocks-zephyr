@@ -1,0 +1,36 @@
+{
+  "reviewed_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+  "api_version": 45,
+  "production_API44_pin_changed": false,
+  "files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "9461021bde3a029646095fac1f3a9aa241ad772a326446b2dcde3153e9458d57",
+      "bytes": 338701,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/duck-ipc-proto/src/lib.rs"
+    },
+    "robotd/src/main.rs": {
+      "sha256": "e1ad601bbf2a20ca382a3ed640fc452e0fa1e9e3e8000727221e9f5f1332a530",
+      "bytes": 437771,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/robotd/src/main.rs"
+    },
+    "robotctl/src/main.rs": {
+      "sha256": "a8595b52bc4dbe9d9732514d76e3f634b99e33f591d83d959871f341b6a999c5",
+      "bytes": 343036,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/robotctl/src/main.rs"
+    },
+    "docs/design/robotd-design.md": {
+      "sha256": "3af5a4258a6631b39076b8382130b5255d9ab9da2844b1f0a8bb805b0029ac3a",
+      "bytes": 76237,
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/docs/design/robotd-design.md"
+    }
+  },
+  "facts": [
+    "hello API version is diagnostic u32; daemon does not refuse skew. Finite caller uses hello then robot.health or subscribe accepted then robot.state.",
+    "HealthResult required healthy; degraded defaultsfalse; bus counters defaultzero. Optional battery/motor/CPU/loop/IMU absence never becomes a measurement. Present ImuHealth defaults each member; FROZEN_RUN25.",
+    "LoopHealth ticks/missed/last_tick_age_ms u64, bus errorsu32, IMU staleu64. Health values/counters are diagnostic, never movement authority.",
+    "robot.subscribe hz is optionalu32, daemon decimates by positiveHz. This finite observer bounds requestedHz1..50 and closes after one complete state.",
+    "State t daemon-uptime seconds and t_ns common CLOCK_MONOTONIC nanoseconds. Legacyt_ns0 unavailable; exactu64 representation preserved.",
+    "Existing conservative state selectors preserve omitted/empty optional telemetry as not_reported; move.limited_by serde default markedexplicitly. No velocity inference, current direction, FK, control or CLI composite is implemented."
+  ],
+  "physical_robot_tested": false
+}

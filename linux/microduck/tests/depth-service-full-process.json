@@ -1,0 +1,6 @@
+{
+  "started_utc": "2026-10-27T19:34:52.5641427Z",
+  "setup_path_issue_resolved_by": "local Git bundle; no metadata or security-setting change",
+  "operation": "full validator from verified bundle plus byte-identical current files in Linux scratch",
+  "pid": 9276
+}

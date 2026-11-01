@@ -1,0 +1,636 @@
+{
+  "files": {
+    "linux/microduck/Head_IMU.ubl": {
+      "bytes": 3690,
+      "sha256": "eae7bf826941278f13d55650de1b92e48fc98538f51eba30cb77c62823d5d11d"
+    },
+    "linux/microduck/Head_IMU_Simulation.ubl": {
+      "bytes": 3993,
+      "sha256": "9c9b75f39b14cd3f5a952920ee92127a368ac8aba7a4f8998c7bf46441f3a13b"
+    },
+    "linux/microduck/Media_Simulation.ubl": {
+      "bytes": 7019,
+      "sha256": "e439fceddf269280a580cc0de6f8a7aa993aff70a0b2796b727c1d592a54afae"
+    },
+    "linux/microduck/MicroDuck.ubl": {
+      "bytes": 5225,
+      "sha256": "ccd401cda345e0c4f7ee1e228807c03900ad840f86ffecd83c3d326b99b47707"
+    },
+    "linux/microduck/Motion_Simulation.ubl": {
+      "bytes": 1741,
+      "sha256": "0ef07a95f92df98ccb2bc0688c7b85985693436aeddae64903ac83b17de1cfee"
+    },
+    "linux/microduck/Pad_IMU_Simulation.ubl": {
+      "bytes": 4198,
+      "sha256": "8ad8cd19c5b9d65016cac898392a9228d0a07a3485bd1e6a92f5fbd5f9e05176"
+    },
+    "linux/microduck/Robot_Simulation.ubl": {
+      "bytes": 6076,
+      "sha256": "8a600deba59037b609ccfb29b0347f19bf2f957fad84874d1da33e69d2df0a54"
+    },
+    "linux/microduck/Robot_Telemetry.ubl": {
+      "bytes": 5835,
+      "sha256": "47617c4708e97d3f975aba1f4bcc47112766eb000922646f7a4349c84b91bd7a"
+    },
+    "linux/microduck/Sensor_Simulation.ubl": {
+      "bytes": 4445,
+      "sha256": "8b71e66a73ae8fda8da4f885b2121e50f90642b31e0aeb8c3784e469133da2c3"
+    },
+    "linux/microduck/__init__.py": {
+      "bytes": 113,
+      "sha256": "e02a177df47d8bd03ddc82400ecd30a03f3ba3eb4538e6f45be4910d26ef4ede"
+    },
+    "linux/microduck/client.py": {
+      "bytes": 4459,
+      "sha256": "4d1dbcba2044585e3787fff31980e50226aaa637a8d58dc46f18c4d4b0631e15"
+    },
+    "linux/microduck/gateway.py": {
+      "bytes": 15384,
+      "sha256": "28b46e6e7c808d642a15d6287ea018f3b4a5caef5f82276603d455a27c785097"
+    },
+    "linux/microduck/head-imu-simulation.ubp": {
+      "bytes": 734,
+      "sha256": "e1aab432b173110f5f6ab6e09891753176129d63fbdb2d65ec95101a519c5655"
+    },
+    "linux/microduck/head-imu.ubp": {
+      "bytes": 745,
+      "sha256": "1d297bd4dd5759d7b5690ad85fb8ae44ceb99ff1c897d85e0d3d13bdbb900efd"
+    },
+    "linux/microduck/head_imu_gateway_fixture.py": {
+      "bytes": 3482,
+      "sha256": "42e5032e6eb766219b46daca16e0dcabd222fa8da053dd3f735d5eab9c3dba40"
+    },
+    "linux/microduck/head_imu_service.py": {
+      "bytes": 2988,
+      "sha256": "afae529b1704e8f4a9f4fdee3af3513227c6df50f220f8f949427065d7adbda0"
+    },
+    "linux/microduck/head_imu_simulator.py": {
+      "bytes": 14432,
+      "sha256": "dc547220ba090f39139db2adc507b3afeab5dca32d370bd7391612a61a5d8c5e"
+    },
+    "linux/microduck/health.ubp": {
+      "bytes": 739,
+      "sha256": "8e1fd04f7bffa39302078cc8b93c8572c6f7363d297271c8f3a4d50dd16c1622"
+    },
+    "linux/microduck/media-simulation.ubp": {
+      "bytes": 454,
+      "sha256": "489a3e2dd7027f4d4ee11d7670ef9eea4d6fa33d533f9af5d6b3e94a67c5fbd9"
+    },
+    "linux/microduck/media_simulator.py": {
+      "bytes": 12565,
+      "sha256": "c2b837b62a7758e41f30a9c0065ca9050ffacbd9409bec7173de5f67d9f4d00a"
+    },
+    "linux/microduck/motion-simulation.ubp": {
+      "bytes": 494,
+      "sha256": "f752572cc626926687d388097159cb9f1a5cceddce8c2882064cf783b74f471f"
+    },
+    "linux/microduck/motion_simulator.py": {
+      "bytes": 13983,
+      "sha256": "d4eb0403cbc229511c1bb012f06da667369569e1281da51c747680db2c465add"
+    },
+    "linux/microduck/pad-imu-simulation.ubp": {
+      "bytes": 675,
+      "sha256": "772b62bdf5700ba434f60491c59b62d0d09471af4d3ab0cb40bdd2a26de05ed4"
+    },
+    "linux/microduck/pad_imu_simulator.py": {
+      "bytes": 14266,
+      "sha256": "803d8a3138dfb4e39fdb9b99955aa3e83ccce34ee2bb292d7d0fd22816b8302b"
+    },
+    "linux/microduck/preflight.py": {
+      "bytes": 8873,
+      "sha256": "ea43000df8d599dfbc19fdafe7083217acdebe88ecbe31194d1c81a55b4984a8"
+    },
+    "linux/microduck/protocol.py": {
+      "bytes": 7611,
+      "sha256": "42967eaa2de37176bf8350ff0e0ec6f98db9c49f3460fb645d9610cc65c79b1b"
+    },
+    "linux/microduck/robot-simulation.ubp": {
+      "bytes": 785,
+      "sha256": "00244ea477a96e73633f538dc3476614bc0ffff41c0df173c90318ddbd8bf90a"
+    },
+    "linux/microduck/robot_simulator.py": {
+      "bytes": 15409,
+      "sha256": "221aa72bc090e4b89abc50501fe334c126486fea2e21cb560c077bc55beb524f"
+    },
+    "linux/microduck/robot_telemetry.py": {
+      "bytes": 8806,
+      "sha256": "8addc4b035e0755944898af31f8498306b021daa123ddb0a491809718986ea97"
+    },
+    "linux/microduck/sensor-simulation.ubp": {
+      "bytes": 947,
+      "sha256": "777dd05a8b8452f1d9fa03ba01d5b476a4055fc682633b0000c51fb70f75398b"
+    },
+    "linux/microduck/sensor_simulator.py": {
+      "bytes": 17311,
+      "sha256": "fcdc0b73fb4f3d588d4f6803691d5c6347b46e207d9616ed407ec3f41fbb5b79"
+    },
+    "linux/microduck/sensor_snapshots.py": {
+      "bytes": 9476,
+      "sha256": "d591c8c88c1b33ca7f8d87c825a1dce00f2d569163681e76ea22554f7a1cd86b"
+    },
+    "linux/microduck/simulator.py": {
+      "bytes": 10663,
+      "sha256": "aee9939d2ce7f5f1bdbefc238989f247c7b3ce1eee5c953500bd926a83db68fc"
+    },
+    "native/.linux-arm64-build": {
+      "bytes": 44,
+      "sha256": "5fba86d1bd236a543d14a3187355e9aae72ae50c9f7ab9d76667795fae527518"
+    },
+    "native/LICENSE": {
+      "bytes": 193,
+      "sha256": "2bfdca60adf803108d4c7f009000bea76ad00e621e163197881b0eaae91b530e"
+    },
+    "native/build.sh": {
+      "bytes": 714,
+      "sha256": "c6f7f8fe0cd2ec0c26f408aeeb681c65362529009711b2fb4644ce31dccd24aa"
+    },
+    "native/common/json/json_config.h": {
+      "bytes": 271,
+      "sha256": "a6f916d01cdb343828697d7eec2b1d94f51d4d4279bcebe4ae31125a6d1355d3"
+    },
+    "native/platform/linux.c": {
+      "bytes": 11076,
+      "sha256": "f04ca911be8d17e4ff8f56b3b942c59e6b17dfee53152e8411b5d6cd3189951d"
+    },
+    "native/platform/main.c": {
+      "bytes": 3248,
+      "sha256": "1e5e8b912f353917ed425419958e24799a010d6be3a1e5693d40ef1d79934e21"
+    },
+    "native/platform/microduck.c": {
+      "bytes": 66800,
+      "sha256": "3d5bd174c38eb472882b4d78ca243ecc3b88b357ef94eb050a71cab113d70fe9"
+    },
+    "native/platform/microduck.h": {
+      "bytes": 2126,
+      "sha256": "49f7ad14358c9d9bec1baa1f681b6e9cced046788c174548307897dc6684da9b"
+    },
+    "native/platform/platform.h": {
+      "bytes": 442,
+      "sha256": "9713d46f7b8953cd96b8a5cc223e3e21262062a651cc3ac11be31f5a28d87613"
+    },
+    "native/platform/primitives.c": {
+      "bytes": 3186,
+      "sha256": "090061b4c2788d1bb05ca23afba1b951fa086f44235e86bae78c297e19b4cfe8"
+    },
+    "native/platform/self_test.c": {
+      "bytes": 3166,
+      "sha256": "c5e1e934dcaf6e15a22dbaebc4bd488a4e7651055f81d7c3c0c3dee3001ea5c3"
+    },
+    "native/source-manifest.json": {
+      "bytes": 11685,
+      "sha256": "72426d0433d1110167860e772e1c81d853520ba754fcccfad21fd38402b7e47b"
+    },
+    "native/third_party/yyjson/LICENSE": {
+      "bytes": 1084,
+      "sha256": "45e384d3d52c73cba3a64d6e6c25d47cd738cd8a55c30629e3201046eda62947"
+    },
+    "native/third_party/yyjson/yyjson.c": {
+      "bytes": 424765,
+      "sha256": "d2d58ef0a3b2267862dc363832c4f3185fd375aea933d5d3419d1a940d6ece2e"
+    },
+    "native/third_party/yyjson/yyjson.h": {
+      "bytes": 330896,
+      "sha256": "ef803cda5c06b8962face6dfa39c3284b3bcf3e73f4d7317664690cc779679ca"
+    },
+    "native/vm/arena.c": {
+      "bytes": 1645,
+      "sha256": "03c7c70134b904da96bc787adac8ba67f68d5dc3d7678c9ec2856898f471211c"
+    },
+    "native/vm/arena.h": {
+      "bytes": 1137,
+      "sha256": "b18a7337ee46bcbb5330f85821f3b4f72eb204ba76fca05bfd0ea1fc88b10fb0"
+    },
+    "native/vm/blePrims.cpp": {
+      "bytes": 25037,
+      "sha256": "08d8d836df30b564eb071ab191d723ed28ecfa777f44e22a4dd30f05c3367059"
+    },
+    "native/vm/bmi270config.h": {
+      "bytes": 52720,
+      "sha256": "97e41be79065c8292a5e2baa74bff81895fe49c78d60a03a0a60b74a54232807"
+    },
+    "native/vm/boardHooks.c": {
+      "bytes": 2422,
+      "sha256": "164bc1479f7c5447742a25f47fe148a0158d382c0f50484727824f9baf28429d"
+    },
+    "native/vm/boardHooks.h": {
+      "bytes": 2807,
+      "sha256": "b92091d3e5b6c8fd31d5a89a81e48ba695492567f84d36ab5f5363ecbd651da7"
+    },
+    "native/vm/cameraPrims.cpp": {
+      "bytes": 6333,
+      "sha256": "06cb757c821bf0c2ceceb48028bd2923088723b422b2b4e12645ef56829fd5f7"
+    },
+    "native/vm/cocubePrims.cpp": {
+      "bytes": 2053,
+      "sha256": "a112c7f333e12c5256a4823b85ffa7b526797d84be23021c77eb7253e98996a7"
+    },
+    "native/vm/dataPrims.c": {
+      "bytes": 37561,
+      "sha256": "0d699e767afd1954d7da7226988019111ff31bd27b51479955e9708006eb4b48"
+    },
+    "native/vm/encoderPrims.cpp": {
+      "bytes": 8426,
+      "sha256": "2ad14fd0b1e118b55e8ad0250be1b43843600c4d6d3e25e3b133b72d2a4d3cad"
+    },
+    "native/vm/filePrims.cpp": {
+      "bytes": 13565,
+      "sha256": "1c679567156ff65ee86526ae137badb57f18e5de2fe1d7c8bb84bb3eff3fcc80"
+    },
+    "native/vm/fileSys.h": {
+      "bytes": 502,
+      "sha256": "6f6c5417a544c464cd63ae364d24703a1d7afdc5ec08943683f94dcfd469ace7"
+    },
+    "native/vm/fileTransfer.cpp": {
+      "bytes": 6061,
+      "sha256": "880cd3740e62867811bfbc6b923ae104f9d45955e337093d2e0b7aeb882dbbc7"
+    },
+    "native/vm/hidPrims.cpp": {
+      "bytes": 4725,
+      "sha256": "d28d7568ba3ed29395b2acc6d7f31113fa2397a27d455149852b1bebe2799a26"
+    },
+    "native/vm/hub75Prims.cpp": {
+      "bytes": 12482,
+      "sha256": "292c2c932eb825d773cf3d6adb2204973b16981a08916a9089a3d4a606e9bbab"
+    },
+    "native/vm/ideComm.cpp": {
+      "bytes": 22623,
+      "sha256": "98a879db0a1cf921ed89df21922cb1dd881b83aa44ac526187b956c1c14646f4"
+    },
+    "native/vm/interp.c": {
+      "bytes": 47500,
+      "sha256": "cfc8c6e4fdda966644edc6f102f81809e81567177d9af49a72d89c80db003653"
+    },
+    "native/vm/interp.h": {
+      "bytes": 17450,
+      "sha256": "962e1a5dd297ed8a565e856ba0acb5110142936c6da4485e0c0c7807f81eacdc"
+    },
+    "native/vm/ioPrims.cpp": {
+      "bytes": 111243,
+      "sha256": "55397d58b02b95fdb96b3cca9126cbeca020a45af28358c0749e903b15ea4bee"
+    },
+    "native/vm/mbFont.c": {
+      "bytes": 18130,
+      "sha256": "5ab121ca6ae9750889367a354ea263a21662e4fde5f19807e76e5d4bf8fda4e2"
+    },
+    "native/vm/mem.c": {
+      "bytes": 11084,
+      "sha256": "5e91075458da595a7e3644e9b3a5b36e0558c6faff517259e6bb09d67e7accc9"
+    },
+    "native/vm/mem.h": {
+      "bytes": 3159,
+      "sha256": "0ffc91e9a33e128f071f546c5c95c7f5f81365bdf54d029105882a6ede2f2184"
+    },
+    "native/vm/miscPrims.c": {
+      "bytes": 26261,
+      "sha256": "cdbb29a8745f124ca013a3b6e99a2fdb48ad3f71759ff74b7f6e0ff33bd62e72"
+    },
+    "native/vm/netPrims.cpp": {
+      "bytes": 45231,
+      "sha256": "ec7ed1623bfb07b4f5e802c65d6188daada03e63bdbf315aeb69c2c173e52e22"
+    },
+    "native/vm/nezha32Prims.cpp": {
+      "bytes": 2818,
+      "sha256": "55fc85af6b059a75db3e46eb004013c7e359d8b7dfc78646fcd134e890b32607"
+    },
+    "native/vm/oneWirePrims.cpp": {
+      "bytes": 4132,
+      "sha256": "5a774d82c29d3c3c56d7675936473c2325833b8889766788250983cee4285886"
+    },
+    "native/vm/outputPrims.cpp": {
+      "bytes": 55125,
+      "sha256": "13d43bdccd79e1f7d4551e88719e01077f52d055cbb3832528391d45b23ac03e"
+    },
+    "native/vm/persist.c": {
+      "bytes": 40484,
+      "sha256": "382d80470fba589848e08461e47bdc69ba3a098841a895e86f88eaa52266bf42"
+    },
+    "native/vm/persist.h": {
+      "bytes": 2045,
+      "sha256": "51dbcb3df4249cd5c66f078e8d6040e9a35e6b9502b44def7572335c41ffa3f2"
+    },
+    "native/vm/persistFile.cpp": {
+      "bytes": 5583,
+      "sha256": "0ec519285110c71661c86657b6d624f470c4ac85d2d10dd300c45e1eccfd9942"
+    },
+    "native/vm/radioPrims.cpp": {
+      "bytes": 17281,
+      "sha256": "7c89d13235baead816bc98a8ad3e83a21f11e6eb8e2ba2db140d55b4d5405815"
+    },
+    "native/vm/runtime.c": {
+      "bytes": 44189,
+      "sha256": "0b1f08d166a91e732e8c1c5501a8e81cd49e9562dd5beaee024e3375af33bb21"
+    },
+    "native/vm/sdCardPrims.cpp": {
+      "bytes": 18458,
+      "sha256": "b7a6a46f844f2e59fe78de324ad373002a3d66ef212bba403d3ac90b1ebf2c88"
+    },
+    "native/vm/sensorPrims.cpp": {
+      "bytes": 91712,
+      "sha256": "e72c68060553d50e4d7b765424c76095e8a7bd665cc314032924058d06657b17"
+    },
+    "native/vm/serialPrims.cpp": {
+      "bytes": 24162,
+      "sha256": "68def5bd3904a2868a38a7bb53647435ed6f7e42b8a020c0e4eb987d3b72d8ec"
+    },
+    "native/vm/soundPrims.cpp": {
+      "bytes": 25003,
+      "sha256": "9c24c3d2920bedf2214b39d9efab9bae2728e3626885243979c2e9e0f5bc4d48"
+    },
+    "native/vm/tftPrims.cpp": {
+      "bytes": 74296,
+      "sha256": "3760749f521ebc5466aaea7c81df25c27613a83db8507898de37b42cb6bac223"
+    },
+    "native/vm/tinyJSON.c": {
+      "bytes": 10639,
+      "sha256": "67b82bbdacc0745ce7aeed0ae13d32a7350dddd96bab67bb1990d62186eb4d2a"
+    },
+    "native/vm/tinyJSON.h": {
+      "bytes": 1200,
+      "sha256": "c97e03ef56f461c12011a6ca0f254b5db7b9e17ab3b69a59090141f89a856f5f"
+    },
+    "native/vm/varPrims.c": {
+      "bytes": 2062,
+      "sha256": "45d178e6e5a3793fc71b33084b7b0922eaede739461ddd25b0f31be3a42348f9"
+    },
+    "native/vm/version.h": {
+      "bytes": 26,
+      "sha256": "52510d223789a90bd0df96078ae97a8a85c42e76eb535ef6feca10ea8c75650a"
+    },
+    "native/vm/vm.ino": {
+      "bytes": 1802,
+      "sha256": "dcca8238737f9cf94e0241554fa1abb2f862054b5092911bdbd4ba13e7400324"
+    },
+    "native-plain/.linux-arm64-build": {
+      "bytes": 44,
+      "sha256": "5fba86d1bd236a543d14a3187355e9aae72ae50c9f7ab9d76667795fae527518"
+    },
+    "native-plain/LICENSE": {
+      "bytes": 193,
+      "sha256": "2bfdca60adf803108d4c7f009000bea76ad00e621e163197881b0eaae91b530e"
+    },
+    "native-plain/build.sh": {
+      "bytes": 661,
+      "sha256": "ad6064304b09cd00d3d1ffe20001f954fc94c2e39d4177c3b22571b0d156cfd1"
+    },
+    "native-plain/common/json/json_config.h": {
+      "bytes": 271,
+      "sha256": "a6f916d01cdb343828697d7eec2b1d94f51d4d4279bcebe4ae31125a6d1355d3"
+    },
+    "native-plain/platform/linux.c": {
+      "bytes": 11076,
+      "sha256": "f04ca911be8d17e4ff8f56b3b942c59e6b17dfee53152e8411b5d6cd3189951d"
+    },
+    "native-plain/platform/main.c": {
+      "bytes": 3248,
+      "sha256": "1e5e8b912f353917ed425419958e24799a010d6be3a1e5693d40ef1d79934e21"
+    },
+    "native-plain/platform/microduck.c": {
+      "bytes": 66800,
+      "sha256": "3d5bd174c38eb472882b4d78ca243ecc3b88b357ef94eb050a71cab113d70fe9"
+    },
+    "native-plain/platform/microduck.h": {
+      "bytes": 2126,
+      "sha256": "49f7ad14358c9d9bec1baa1f681b6e9cced046788c174548307897dc6684da9b"
+    },
+    "native-plain/platform/platform.h": {
+      "bytes": 442,
+      "sha256": "9713d46f7b8953cd96b8a5cc223e3e21262062a651cc3ac11be31f5a28d87613"
+    },
+    "native-plain/platform/primitives.c": {
+      "bytes": 3186,
+      "sha256": "090061b4c2788d1bb05ca23afba1b951fa086f44235e86bae78c297e19b4cfe8"
+    },
+    "native-plain/platform/self_test.c": {
+      "bytes": 3166,
+      "sha256": "c5e1e934dcaf6e15a22dbaebc4bd488a4e7651055f81d7c3c0c3dee3001ea5c3"
+    },
+    "native-plain/source-manifest.json": {
+      "bytes": 11686,
+      "sha256": "a978a55ae64964df79bf19faa2e1a9fbf64a398e2fe54d058b25012a54b555e9"
+    },
+    "native-plain/third_party/yyjson/LICENSE": {
+      "bytes": 1084,
+      "sha256": "45e384d3d52c73cba3a64d6e6c25d47cd738cd8a55c30629e3201046eda62947"
+    },
+    "native-plain/third_party/yyjson/yyjson.c": {
+      "bytes": 424765,
+      "sha256": "d2d58ef0a3b2267862dc363832c4f3185fd375aea933d5d3419d1a940d6ece2e"
+    },
+    "native-plain/third_party/yyjson/yyjson.h": {
+      "bytes": 330896,
+      "sha256": "ef803cda5c06b8962face6dfa39c3284b3bcf3e73f4d7317664690cc779679ca"
+    },
+    "native-plain/vm/arena.c": {
+      "bytes": 1645,
+      "sha256": "03c7c70134b904da96bc787adac8ba67f68d5dc3d7678c9ec2856898f471211c"
+    },
+    "native-plain/vm/arena.h": {
+      "bytes": 1137,
+      "sha256": "b18a7337ee46bcbb5330f85821f3b4f72eb204ba76fca05bfd0ea1fc88b10fb0"
+    },
+    "native-plain/vm/blePrims.cpp": {
+      "bytes": 25037,
+      "sha256": "08d8d836df30b564eb071ab191d723ed28ecfa777f44e22a4dd30f05c3367059"
+    },
+    "native-plain/vm/bmi270config.h": {
+      "bytes": 52720,
+      "sha256": "97e41be79065c8292a5e2baa74bff81895fe49c78d60a03a0a60b74a54232807"
+    },
+    "native-plain/vm/boardHooks.c": {
+      "bytes": 2422,
+      "sha256": "164bc1479f7c5447742a25f47fe148a0158d382c0f50484727824f9baf28429d"
+    },
+    "native-plain/vm/boardHooks.h": {
+      "bytes": 2807,
+      "sha256": "b92091d3e5b6c8fd31d5a89a81e48ba695492567f84d36ab5f5363ecbd651da7"
+    },
+    "native-plain/vm/cameraPrims.cpp": {
+      "bytes": 6333,
+      "sha256": "06cb757c821bf0c2ceceb48028bd2923088723b422b2b4e12645ef56829fd5f7"
+    },
+    "native-plain/vm/cocubePrims.cpp": {
+      "bytes": 2053,
+      "sha256": "a112c7f333e12c5256a4823b85ffa7b526797d84be23021c77eb7253e98996a7"
+    },
+    "native-plain/vm/dataPrims.c": {
+      "bytes": 37561,
+      "sha256": "0d699e767afd1954d7da7226988019111ff31bd27b51479955e9708006eb4b48"
+    },
+    "native-plain/vm/encoderPrims.cpp": {
+      "bytes": 8426,
+      "sha256": "2ad14fd0b1e118b55e8ad0250be1b43843600c4d6d3e25e3b133b72d2a4d3cad"
+    },
+    "native-plain/vm/filePrims.cpp": {
+      "bytes": 13565,
+      "sha256": "1c679567156ff65ee86526ae137badb57f18e5de2fe1d7c8bb84bb3eff3fcc80"
+    },
+    "native-plain/vm/fileSys.h": {
+      "bytes": 502,
+      "sha256": "6f6c5417a544c464cd63ae364d24703a1d7afdc5ec08943683f94dcfd469ace7"
+    },
+    "native-plain/vm/fileTransfer.cpp": {
+      "bytes": 6061,
+      "sha256": "880cd3740e62867811bfbc6b923ae104f9d45955e337093d2e0b7aeb882dbbc7"
+    },
+    "native-plain/vm/hidPrims.cpp": {
+      "bytes": 4725,
+      "sha256": "d28d7568ba3ed29395b2acc6d7f31113fa2397a27d455149852b1bebe2799a26"
+    },
+    "native-plain/vm/hub75Prims.cpp": {
+      "bytes": 12482,
+      "sha256": "292c2c932eb825d773cf3d6adb2204973b16981a08916a9089a3d4a606e9bbab"
+    },
+    "native-plain/vm/ideComm.cpp": {
+      "bytes": 22623,
+      "sha256": "98a879db0a1cf921ed89df21922cb1dd881b83aa44ac526187b956c1c14646f4"
+    },
+    "native-plain/vm/interp.c": {
+      "bytes": 47500,
+      "sha256": "cfc8c6e4fdda966644edc6f102f81809e81567177d9af49a72d89c80db003653"
+    },
+    "native-plain/vm/interp.h": {
+      "bytes": 17450,
+      "sha256": "962e1a5dd297ed8a565e856ba0acb5110142936c6da4485e0c0c7807f81eacdc"
+    },
+    "native-plain/vm/ioPrims.cpp": {
+      "bytes": 111243,
+      "sha256": "55397d58b02b95fdb96b3cca9126cbeca020a45af28358c0749e903b15ea4bee"
+    },
+    "native-plain/vm/mbFont.c": {
+      "bytes": 18130,
+      "sha256": "5ab121ca6ae9750889367a354ea263a21662e4fde5f19807e76e5d4bf8fda4e2"
+    },
+    "native-plain/vm/mem.c": {
+      "bytes": 11084,
+      "sha256": "5e91075458da595a7e3644e9b3a5b36e0558c6faff517259e6bb09d67e7accc9"
+    },
+    "native-plain/vm/mem.h": {
+      "bytes": 3159,
+      "sha256": "0ffc91e9a33e128f071f546c5c95c7f5f81365bdf54d029105882a6ede2f2184"
+    },
+    "native-plain/vm/miscPrims.c": {
+      "bytes": 26261,
+      "sha256": "cdbb29a8745f124ca013a3b6e99a2fdb48ad3f71759ff74b7f6e0ff33bd62e72"
+    },
+    "native-plain/vm/netPrims.cpp": {
+      "bytes": 45231,
+      "sha256": "ec7ed1623bfb07b4f5e802c65d6188daada03e63bdbf315aeb69c2c173e52e22"
+    },
+    "native-plain/vm/nezha32Prims.cpp": {
+      "bytes": 2818,
+      "sha256": "55fc85af6b059a75db3e46eb004013c7e359d8b7dfc78646fcd134e890b32607"
+    },
+    "native-plain/vm/oneWirePrims.cpp": {
+      "bytes": 4132,
+      "sha256": "5a774d82c29d3c3c56d7675936473c2325833b8889766788250983cee4285886"
+    },
+    "native-plain/vm/outputPrims.cpp": {
+      "bytes": 55125,
+      "sha256": "13d43bdccd79e1f7d4551e88719e01077f52d055cbb3832528391d45b23ac03e"
+    },
+    "native-plain/vm/persist.c": {
+      "bytes": 40484,
+      "sha256": "382d80470fba589848e08461e47bdc69ba3a098841a895e86f88eaa52266bf42"
+    },
+    "native-plain/vm/persist.h": {
+      "bytes": 2045,
+      "sha256": "51dbcb3df4249cd5c66f078e8d6040e9a35e6b9502b44def7572335c41ffa3f2"
+    },
+    "native-plain/vm/persistFile.cpp": {
+      "bytes": 5583,
+      "sha256": "0ec519285110c71661c86657b6d624f470c4ac85d2d10dd300c45e1eccfd9942"
+    },
+    "native-plain/vm/radioPrims.cpp": {
+      "bytes": 17281,
+      "sha256": "7c89d13235baead816bc98a8ad3e83a21f11e6eb8e2ba2db140d55b4d5405815"
+    },
+    "native-plain/vm/runtime.c": {
+      "bytes": 44189,
+      "sha256": "0b1f08d166a91e732e8c1c5501a8e81cd49e9562dd5beaee024e3375af33bb21"
+    },
+    "native-plain/vm/sdCardPrims.cpp": {
+      "bytes": 18458,
+      "sha256": "b7a6a46f844f2e59fe78de324ad373002a3d66ef212bba403d3ac90b1ebf2c88"
+    },
+    "native-plain/vm/sensorPrims.cpp": {
+      "bytes": 91712,
+      "sha256": "e72c68060553d50e4d7b765424c76095e8a7bd665cc314032924058d06657b17"
+    },
+    "native-plain/vm/serialPrims.cpp": {
+      "bytes": 24162,
+      "sha256": "68def5bd3904a2868a38a7bb53647435ed6f7e42b8a020c0e4eb987d3b72d8ec"
+    },
+    "native-plain/vm/soundPrims.cpp": {
+      "bytes": 25003,
+      "sha256": "9c24c3d2920bedf2214b39d9efab9bae2728e3626885243979c2e9e0f5bc4d48"
+    },
+    "native-plain/vm/tftPrims.cpp": {
+      "bytes": 74296,
+      "sha256": "3760749f521ebc5466aaea7c81df25c27613a83db8507898de37b42cb6bac223"
+    },
+    "native-plain/vm/tinyJSON.c": {
+      "bytes": 10639,
+      "sha256": "67b82bbdacc0745ce7aeed0ae13d32a7350dddd96bab67bb1990d62186eb4d2a"
+    },
+    "native-plain/vm/tinyJSON.h": {
+      "bytes": 1200,
+      "sha256": "c97e03ef56f461c12011a6ca0f254b5db7b9e17ab3b69a59090141f89a856f5f"
+    },
+    "native-plain/vm/varPrims.c": {
+      "bytes": 2062,
+      "sha256": "45d178e6e5a3793fc71b33084b7b0922eaede739461ddd25b0f31be3a42348f9"
+    },
+    "native-plain/vm/version.h": {
+      "bytes": 26,
+      "sha256": "52510d223789a90bd0df96078ae97a8a85c42e76eb535ef6feca10ea8c75650a"
+    },
+    "native-plain/vm/vm.ino": {
+      "bytes": 1802,
+      "sha256": "dcca8238737f9cf94e0241554fa1abb2f862054b5092911bdbd4ba13e7400324"
+    },
+    "run-pi-head-service.py": {
+      "bytes": 3895,
+      "sha256": "11301fe0e4590be6a616811e4e8b3c458734c52978cc2fb42990c8eef2685bee"
+    },
+    "tests/linux_arm64_protocol.py": {
+      "bytes": 15704,
+      "sha256": "2f9a58db81c299ff094d73d56a8a1c99ab810eb4443c962828fc91e99544d5b5"
+    },
+    "tests/test_linux_microduck_head_imu.py": {
+      "bytes": 20233,
+      "sha256": "0c376d07d812fb85eab68fb643ab6c2f95056febd8f7f34f8c78d0b71e11e309"
+    },
+    "tests/test_linux_microduck_head_service.py": {
+      "bytes": 19171,
+      "sha256": "6ed6b0b2fa1c7010a561d260d5f6e93d7dcbc21fdc410f7f64bfd002a4e27050"
+    },
+    "tests/test_linux_microduck_media.py": {
+      "bytes": 18894,
+      "sha256": "8def7150042c5abd302c04aae94a4eb47bba887d5578d91285cd375a9af72bbe"
+    },
+    "tests/test_linux_microduck_motion.py": {
+      "bytes": 22643,
+      "sha256": "cbedb46acdb4965c63592e7803e56b97b1f43f59bfb235be7e8f88541d76620a"
+    },
+    "tests/test_linux_microduck_pad_imu.py": {
+      "bytes": 19674,
+      "sha256": "6f86bff99f5a25e3430280740617ace9bf45b3ad99c57567c733ee2763594fea"
+    },
+    "tests/test_linux_microduck_robot.py": {
+      "bytes": 22162,
+      "sha256": "3120335805cef49725ceda6142a82dd77e3e7ef0abf1738b6632c356711d16db"
+    },
+    "tests/test_linux_microduck_sensors.py": {
+      "bytes": 17487,
+      "sha256": "73a6350bffdc74c04c92059a4bf0451ee548ce23f2894e4814b9cf740c062735"
+    },
+    "tests/test_linux_microduck_snapshots.py": {
+      "bytes": 18176,
+      "sha256": "b0525201afa095564add9307d621ca4975cebc503b0091d711c3e6ec3a2facba"
+    },
+    "tests/test_linux_microduck_vm.py": {
+      "bytes": 38242,
+      "sha256": "1d5173c8a723c64c3c9aadaef79132d65176d97006c5e6ac3b930d4999a4767a"
+    }
+  }
+}

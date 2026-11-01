@@ -1,0 +1,68 @@
+module 'MicroDuck' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 0 2
+description 'Experimental Linux Unix-gateway integration, tested with simulated robot services; physical MicroDuck validation pending. Start SmallVM with an explicitly configured private gateway socket. Requests use four bounded asynchronous job slots, a ten-second deadline and no automatic retry. Convenience reporters return the full JSON-RPC reply. Typed readings from one health snapshot are [status, value, unit, origin]; only ok has a known typed value. Missing data is unknown, never zero. Fixed-point units avoid inventing VM floating point. Simulation readings say simulation; unmarked is not a physical measurement claim. Reported health and IMU convergence are diagnostics, never safe-to-move authorization. Sound and skill inputs default to unconfirmed and require gateway operator allowlist and discovery. Stop All cancels local waits but cannot undo accepted actions. Unknown outcomes must be inspected before another command. Ordinary IDE disconnect preserves autonomous scripts. No direct motors, continuous locomotion, camera, Wi-Fi credentials or BLE PIN.'
+spec 'b' '[microduck:configured]' 'gateway configured?'
+spec 'r' 'microduckHealth' 'health JSON'
+spec 'r' 'microduckBatteryHealth' 'battery health JSON'
+spec 'r' 'microduckSkills' 'skills JSON'
+spec 'r' 'microduckPolicies' 'policies JSON'
+spec 'r' 'microduckCapabilities' 'gateway capabilities JSON'
+spec 'r' 'microduckBatteryPercent' 'battery percent reading (x100) from _' 'str' '{}'
+spec 'r' 'microduckBatteryMillivolts' 'battery voltage reading (mV) from _' 'str' '{}'
+spec 'r' 'microduckCpuTemperature' 'CPU temperature reading (mC) from _' 'str' '{}'
+spec 'r' 'microduckMotorTemperature' 'hottest motor reading (mC) from _' 'str' '{}'
+spec 'r' 'microduckLoopRate' 'achieved loop rate reading (mHz) from _' 'str' '{}'
+spec 'r' 'microduckHealthVerdict' 'reported health verdict reading from _' 'str' '{}'
+spec 'r' 'microduckImuState' 'IMU convergence state reading from _' 'str' '{}'
+spec 'b' 'microduckReadingKnown' 'reading _ has a known value' 'auto' ''
+spec 'r' '[microduck:readingValue]' 'known reading value _' 'auto' ''
+spec 'r' 'microduckReadingStatus' 'reading _ status' 'auto' ''
+spec 'r' 'microduckReadingUnit' 'reading _ unit' 'auto' ''
+spec 'r' 'microduckReadingOrigin' 'reading _ origin' 'auto' ''
+spec 'r' 'microduckSound' 'sound _ confirmed _' 'str bool' 'chirp' false
+spec 'r' 'microduckSkill' 'skill _ confirmed _' 'str bool' '' false
+advanced
+spec 'r' '[microduck:healthSample]' 'health _ field _ reading' 'str str' '{}' 'battery.percent'
+spec 'r' '[microduck:jobs]' 'MicroDuck retained job IDs'
+spec 'r' '[microduck:begin]' 'begin MicroDuck _ params _ confirmed _' 'str str bool' 'robot.health' '{}' false
+spec 'r' '[microduck:status]' 'MicroDuck job _ state' 'num' 0
+spec 'r' '[microduck:result]' 'MicroDuck job _ reply JSON' 'num' 0
+spec ' ' '[microduck:release]' 'release MicroDuck job _' 'num' 0
+spec 'r' '[microduck:quote]' 'MicroDuck JSON quote _' 'str' ''
+spec 'r' 'microduckWait' 'wait for MicroDuck job _ reply JSON' 'num' 0
+
+to microduckWait job {
+    repeatUntil (not (('[microduck:status]' job) == 'pending')) { waitMillis 10 }
+    local 'reply' ('[microduck:result]' job)
+    '[microduck:release]' job
+    return reply
+}
+to microduckRequest method params confirmed {
+    if (not ('[microduck:configured]')) {
+        return '{"jsonrpc":"2.0","id":null,"error":{"code":-32004,"message":"MicroDuck gateway is not configured","data":{"outcome":"not_sent"}}}'
+    }
+    return (microduckWait ('[microduck:begin]' method params confirmed))
+}
+to microduckHealth { return (microduckRequest 'robot.health' '{}' false) }
+to microduckBatteryHealth { return (microduckHealth) }
+to microduckSkills { return (microduckRequest 'robot.skills' '{}' false) }
+to microduckPolicies { return (microduckRequest 'robot.policies' '{}' false) }
+to microduckCapabilities { return (microduckRequest 'microduck.capabilities' '{}' false) }
+to microduckBatteryPercent health { return ('[microduck:healthSample]' health 'battery.percent') }
+to microduckBatteryMillivolts health { return ('[microduck:healthSample]' health 'battery.volts') }
+to microduckCpuTemperature health { return ('[microduck:healthSample]' health 'cpu_temp_c') }
+to microduckMotorTemperature health { return ('[microduck:healthSample]' health 'motors.max_c') }
+to microduckLoopRate health { return ('[microduck:healthSample]' health 'control_loop.achieved_hz') }
+to microduckHealthVerdict health { return ('[microduck:healthSample]' health 'health.state') }
+to microduckImuState health { return ('[microduck:healthSample]' health 'imu.state') }
+to microduckReadingKnown reading { return ((at 1 reading) == 'ok') }
+to microduckReadingStatus reading { return (at 1 reading) }
+to microduckReadingUnit reading { return (at 3 reading) }
+to microduckReadingOrigin reading { return (at 4 reading) }
+to microduckSound tag confirmed {
+    return (microduckRequest 'robot.sound' ('[data:join]' '{"tag":' ('[microduck:quote]' tag) '}') confirmed)
+}
+to microduckSkill skill confirmed {
+    return (microduckRequest 'robot.do' ('[data:join]' '{"skill":' ('[microduck:quote]' skill) '}') confirmed)
+}

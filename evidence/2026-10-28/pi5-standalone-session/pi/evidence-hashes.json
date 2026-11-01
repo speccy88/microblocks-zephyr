@@ -1,0 +1,20 @@
+{
+  "acceptance.json": "90e9aef1684d0ac47681eea19636a9b9419e32b1de1eedc999d2fcad496cb31c",
+  "attempt.json": "0557e763ca95083e7e7a8825720ed5c6b103788e96d678a5543f50e12be17b33",
+  "input-hashes.json": "db98213b7761053823dcf786e763dc1c7940a2885aa6c8eebb701b15eec65d82",
+  "programs/session.json": "6987c506dbab13d73649e8adee95854a8429134dc308f898a8b3cd4c64187d02",
+  "remote-acceptance.stdout": "90e9aef1684d0ac47681eea19636a9b9419e32b1de1eedc999d2fcad496cb31c",
+  "remote-acceptance.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "focused-session-tests.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "focused-session-tests.stderr": "f7a15629b91443f01f6a49e4e139376887a973ca75df9ba69762794427ea58eb",
+  "install.stdout": "2486118a8f69c7e858f8b688d086d5d67f0775543f43bad8103b6e0b9c1c6060",
+  "install.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "installed-self-test.stdout": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+  "installed-self-test.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "js-upload-reconnect.stdout": "92e1cdee7be1d1b0becfb7d9ca9ba77df5c925443f8d649c7b5ce561bbd11097",
+  "js-upload-reconnect.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "js-resume-readback.stdout": "10cc232ff52110ad1e35195536694aab4ea49113c8c8f22b577037c60320e61c",
+  "js-resume-readback.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "supervisor-1.log": "77e8d7418f26499c1c9bad5d4f3937593447c53602b046240b95832fcdf1630a",
+  "supervisor-2.log": "52b0f113529fb30a9faef84765260b6f36fc75068b523e4c2e3c52c8c6d06e06"
+}

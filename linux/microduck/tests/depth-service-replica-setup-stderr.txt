@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/run-depth-ext4-full.py", line 3, in <module>
+    subprocess.run(['git','clone','--no-hardlinks','--no-checkout',str(src),str(replica)],check=True,capture_output=True,timeout=120)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'clone', '--no-hardlinks', '--no-checkout', '/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027', '/tmp/depth-validation-ext4-tay3v5h5/repo']' returned non-zero exit status 128.

@@ -1,0 +1,145 @@
+{
+  "scope": "actual local x86_64 sanitizer VM/PTY/native decoders/private fake tofd+padd",
+  "binary_sha256": "3a670d57f8389095327421e10ddfbcc43ab17d5b592f96b4f9ca4b56a9d80db3",
+  "physical_movement_enabled": false,
+  "physical_robot_data": false,
+  "depth_capture": {
+    "simulation": true,
+    "physical_movement_enabled": false,
+    "kind": "tof_capture",
+    "status": "ok",
+    "seq": "9223372036854775815",
+    "at_us": "9000001",
+    "t_ns": "9000001000",
+    "rows": 8,
+    "cols": 8,
+    "handle": "5fd67c128895fe7469adaaa534973efb",
+    "expires_in_ms": 5000
+  },
+  "all8_rows": [
+    {
+      "row": 1,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1007,
+        "mm",
+        "simulation"
+      ]
+    },
+    {
+      "row": 2,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1015,
+        "mm",
+        "simulation"
+      ]
+    },
+    {
+      "row": 3,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1023,
+        "mm",
+        "simulation"
+      ]
+    },
+    {
+      "row": 4,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1031,
+        "mm",
+        "simulation"
+      ]
+    },
+    {
+      "row": 5,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1039,
+        "mm",
+        "simulation"
+      ]
+    },
+    {
+      "row": 6,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1047,
+        "mm",
+        "simulation"
+      ]
+    },
+    {
+      "row": 7,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1055,
+        "mm",
+        "simulation"
+      ]
+    },
+    {
+      "row": 8,
+      "seq": "9223372036854775815",
+      "last_reading": [
+        "ok",
+        1063,
+        "mm",
+        "simulation"
+      ]
+    }
+  ],
+  "pad_capture": {
+    "simulation": true,
+    "physical_movement_enabled": false,
+    "kind": "pad_capture",
+    "status": "ok",
+    "seq": "9223372036854775812",
+    "at_us": "1793050000008000",
+    "frames": 2,
+    "sample_basis": "bounded_observed_events",
+    "handle": "ee91afc8f374c1721240f945ea4e52b1",
+    "expires_in_ms": 5000
+  },
+  "axis": [
+    "ok",
+    1583,
+    "raw",
+    "simulation"
+  ],
+  "span_position": [
+    "ok",
+    524,
+    "permille",
+    "simulation"
+  ],
+  "held_button_after_empty_frame": [
+    "ok",
+    true,
+    "boolean",
+    "simulation"
+  ],
+  "released_depth": [
+    "expired_or_unknown",
+    "",
+    "mm",
+    "simulation"
+  ],
+  "error_envelope_reading": [
+    "error",
+    "",
+    "raw",
+    "unmarked"
+  ],
+  "actual_stream_subscriptions": 2,
+  "ordinary_upstream_calls": 0
+}

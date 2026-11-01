@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+ <meta name="referrer" content="no-referrer">
+ <title>MicroDuck / Camera viewer simulation</title>
+ <style>
+  :root{color-scheme:dark;font:16px/1.55 system-ui,sans-serif;background:#101b25;color:#ecf3f3}*{box-sizing:border-box}body{margin:0}main{max-width:1020px;margin:auto;padding:32px 24px 60px}header{padding-bottom:20px;border-bottom:1px solid #344b59}h1{font-size:clamp(28px,5vw,44px);letter-spacing:-.04em;margin:0 0 6px}h2{font-size:24px;letter-spacing:-.02em}header p,.camera-notice,.camera-boundary,footer{color:#b7cad3}a{color:#9ce5ce}.camera-badge{display:inline-block;border:1px solid #826d3e;border-radius:24px;padding:6px 14px;color:#f5d18c;font-weight:750;font-size:13px;letter-spacing:.08em;margin-top:26px}.camera-controls{display:flex;flex-wrap:wrap;align-items:end;gap:14px;border:1px solid #526474;border-radius:10px;padding:18px;margin:24px 0}legend{font-weight:700}label{display:block;font-size:14px}select,button{font:inherit;color:inherit;background:#192b38;border:1px solid #566d7a;border-radius:7px;padding:10px;display:block}select{max-width:100%;margin-top:5px}button{cursor:pointer;font-weight:650}button:disabled,select:disabled{opacity:.45;cursor:default}.camera-start{background:#9ce5ce;color:#102b25;border-color:#9ce5ce}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #f5c975;outline-offset:4px}.camera-status{border-left:3px solid #9ce5ce;padding:14px 18px;background:#182b36;min-height:76px}.camera-stage{position:relative;overflow:hidden;max-width:640px;max-height:560px;aspect-ratio:16/9;margin:24px auto;background:#0b151e;border:1px solid #526474;border-radius:8px}.camera-canvas{position:absolute;top:50%;left:50%;width:100%;height:100%;transform:translate(-50%,-50%)}.camera-measurements{display:grid;grid-template-columns:minmax(140px,1fr) 3fr;border-top:1px solid #344b59}.camera-measurements dt,.camera-measurements dd{margin:0;border-bottom:1px solid #344b59;padding:12px 8px}.camera-measurements dt{font-weight:700}.camera-measurements dd{color:#bed0d8;overflow-wrap:anywhere}footer{margin-top:32px;border-top:1px solid #344b59;padding-top:20px;font-size:14px}noscript{display:block;padding:20px;border:1px solid #f5d18c}@media(max-width:650px){main{padding:24px 14px 40px}.camera-controls{display:block}.camera-controls>*{margin:12px 0;width:100%}.camera-controls select{width:100%}.camera-measurements{grid-template-columns:1fr}.camera-measurements dt{border:0;padding-bottom:0}.camera-stage{max-height:460px}}
+ </style>
+</head>
+<body>
+ <main>
+  <header><h1>Camera viewer lab</h1><p>Receive-only interface / fictional frames / hardware validation pending</p></header>
+  <noscript>JavaScript is required for this internal simulation. No connection was attempted.</noscript>
+  <div id="microduck-camera"></div>
+  <footer><p>The test card is drawn locally. It is not captured, encoded or decoded video. Track receipt, playback promises and simulated callbacks do not establish real camera playback, identity or calibration.</p><p>This page accepts no live URL or credentials and exposes no robot commands. Live signaling trust, codec/browser interoperability and physical MicroDuck testing remain separate acceptance work.</p><a href="console.html">Protected API console</a></footer>
+ </main>
+ <script src="camera-protocol.js"></script>
+ <script src="camera-peer.js"></script>
+ <script src="camera-session.js"></script>
+ <script src="camera-fixture.js"></script>
+ <script src="camera-viewer.js"></script>
+ <script src="camera-view-fixture.js"></script>
+ <script src="camera-panel.js" data-mount="microduck-camera"></script>
+</body>
+</html>

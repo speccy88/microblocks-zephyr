@@ -1,0 +1,16 @@
+{
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/pad-imu-service-native-persisted-20261027",
+  "original_temporary_directory": "/tmp/microduck-pad-imu-service-native-8ggmd8ve",
+  "returncode": 0,
+  "seconds": 64.568635781,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py",
+    "--upstream",
+    "/tmp/pad-imu-service-source-67a5xg7t/smallvm",
+    "--output",
+    "/tmp/microduck-pad-imu-service-native-8ggmd8ve",
+    "--sanitize",
+    "--test"
+  ]
+}

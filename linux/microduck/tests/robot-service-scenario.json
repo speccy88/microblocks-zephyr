@@ -1,0 +1,642 @@
+{
+  "result": "PASS",
+  "scope": "Actual x86_64 sanitizer VM/PTY -> normal Gateway -> checked source-shaped fictional robotd",
+  "binary_sha256": "f870f0e1d25a4ae952242da114a255445a73bf6847cab1ade8069ce0ee3e6390",
+  "input_is_simulated": true,
+  "physical_hardware_verified": false,
+  "physical_movement_enabled": false,
+  "health": {
+    "healthy": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "degraded": [
+      "ok",
+      true,
+      "boolean",
+      "local_ipc"
+    ],
+    "health.state": [
+      "ok",
+      "degraded",
+      "state",
+      "local_ipc"
+    ],
+    "battery.percent": [
+      "ok",
+      0,
+      "0.01%",
+      "local_ipc"
+    ],
+    "battery.volts": [
+      "ok",
+      7800,
+      "mV",
+      "local_ipc"
+    ],
+    "cpu_temp_c": [
+      "ok",
+      41250,
+      "mC",
+      "local_ipc"
+    ],
+    "motors.max_c": [
+      "ok",
+      45500,
+      "mC",
+      "local_ipc"
+    ],
+    "motors.mean_c": [
+      "ok",
+      40250,
+      "mC",
+      "local_ipc"
+    ],
+    "control_loop.target_hz": [
+      "ok",
+      50000,
+      "mHz",
+      "local_ipc"
+    ],
+    "control_loop.achieved_hz": [
+      "ok",
+      49950,
+      "mHz",
+      "local_ipc"
+    ],
+    "control_loop.last_tick_age_ms": [
+      "ok",
+      "4",
+      "ms64",
+      "local_ipc"
+    ],
+    "control_loop.ticks": [
+      "ok",
+      "18446744073709551615",
+      "count64",
+      "local_ipc"
+    ],
+    "control_loop.missed": [
+      "ok",
+      "9223372036854775813",
+      "count64",
+      "local_ipc"
+    ],
+    "bus.consecutive_errors": [
+      "ok",
+      "0",
+      "count64",
+      "local_ipc"
+    ],
+    "bus.startup_failures": [
+      "ok",
+      "0",
+      "count64",
+      "local_ipc"
+    ],
+    "imu.ready": [
+      "ok",
+      true,
+      "boolean",
+      "local_ipc"
+    ],
+    "imu.missing": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "imu.stale_blocks": [
+      "ok",
+      "9223372036854775809",
+      "count64",
+      "local_ipc"
+    ],
+    "imu.consecutive_stale_blocks": [
+      "ok",
+      "25",
+      "count64",
+      "local_ipc"
+    ],
+    "imu.state": [
+      "ok",
+      "frozen",
+      "state",
+      "local_ipc"
+    ],
+    "reason": [
+      "ok",
+      "SIMULATION no controller",
+      "text",
+      "local_ipc"
+    ]
+  },
+  "state": {
+    "move.requested:1": [
+      "ok",
+      125,
+      "mm/s",
+      "local_ipc"
+    ],
+    "move.requested:2": [
+      "ok",
+      -50,
+      "mm/s",
+      "local_ipc"
+    ],
+    "move.requested:3": [
+      "ok",
+      300,
+      "mrad/s",
+      "local_ipc"
+    ],
+    "move.applied:1": [
+      "ok",
+      0,
+      "mm/s",
+      "local_ipc"
+    ],
+    "move.applied:2": [
+      "ok",
+      0,
+      "mm/s",
+      "local_ipc"
+    ],
+    "move.applied:3": [
+      "ok",
+      0,
+      "mrad/s",
+      "local_ipc"
+    ],
+    "move.limit_count": [
+      "ok",
+      1,
+      "count",
+      "local_ipc"
+    ],
+    "move.limited_by": [
+      "ok",
+      "SIMULATION_fixture_limit",
+      "text",
+      "local_ipc"
+    ],
+    "loop.hz": [
+      "ok",
+      48500,
+      "mHz",
+      "local_ipc"
+    ],
+    "loop.missed": [
+      "ok",
+      "9223372036854775809",
+      "count64",
+      "local_ipc"
+    ],
+    "safety.fallen": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "safety.limp": [
+      "ok",
+      true,
+      "boolean",
+      "local_ipc"
+    ],
+    "safety.picked_up": [
+      "ok",
+      false,
+      "boolean",
+      "local_ipc"
+    ],
+    "safety.gain": [
+      "not_reported",
+      "",
+      "gain",
+      "local_ipc"
+    ],
+    "safety.gravity:1": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "safety.gravity:2": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "safety.gravity:3": [
+      "ok",
+      -1000000,
+      "ppm",
+      "local_ipc"
+    ],
+    "joints": [
+      "ok",
+      0,
+      "mrad",
+      "local_ipc"
+    ],
+    "targets": [
+      "ok",
+      10,
+      "mrad",
+      "local_ipc"
+    ],
+    "velocities": [
+      "ok",
+      -200,
+      "mrad/s",
+      "local_ipc"
+    ],
+    "currents_ma": [
+      "ok",
+      0,
+      "uA",
+      "local_ipc"
+    ],
+    "odom.position:1": [
+      "ok",
+      0,
+      "mm",
+      "local_ipc"
+    ],
+    "odom.position:2": [
+      "ok",
+      0,
+      "mm",
+      "local_ipc"
+    ],
+    "odom.position:3": [
+      "ok",
+      0,
+      "mm",
+      "local_ipc"
+    ],
+    "odom.yaw": [
+      "ok",
+      100,
+      "mrad",
+      "local_ipc"
+    ],
+    "imu.gyro:1": [
+      "ok",
+      100,
+      "mrad/s",
+      "local_ipc"
+    ],
+    "imu.gyro:2": [
+      "ok",
+      200,
+      "mrad/s",
+      "local_ipc"
+    ],
+    "imu.gyro:3": [
+      "ok",
+      -100,
+      "mrad/s",
+      "local_ipc"
+    ],
+    "imu.quat:1": [
+      "ok",
+      1000000,
+      "ppm",
+      "local_ipc"
+    ],
+    "imu.quat:2": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "imu.quat:3": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "imu.quat:4": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.camera.pos:1": [
+      "ok",
+      100,
+      "mm",
+      "local_ipc"
+    ],
+    "frames.camera.pos:2": [
+      "ok",
+      20,
+      "mm",
+      "local_ipc"
+    ],
+    "frames.camera.pos:3": [
+      "ok",
+      300,
+      "mm",
+      "local_ipc"
+    ],
+    "frames.camera.quat:1": [
+      "ok",
+      1000000,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.camera.quat:2": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.camera.quat:3": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.camera.quat:4": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.tof.pos:1": [
+      "ok",
+      120,
+      "mm",
+      "local_ipc"
+    ],
+    "frames.tof.pos:2": [
+      "ok",
+      10,
+      "mm",
+      "local_ipc"
+    ],
+    "frames.tof.pos:3": [
+      "ok",
+      250,
+      "mm",
+      "local_ipc"
+    ],
+    "frames.tof.quat:1": [
+      "ok",
+      1000000,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.tof.quat:2": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.tof.quat:3": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.tof.quat:4": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.head_imu.pos:1": [
+      "not_reported",
+      "",
+      "mm",
+      "local_ipc"
+    ],
+    "frames.head_imu.pos:2": [
+      "not_reported",
+      "",
+      "mm",
+      "local_ipc"
+    ],
+    "frames.head_imu.pos:3": [
+      "not_reported",
+      "",
+      "mm",
+      "local_ipc"
+    ],
+    "frames.head_imu.quat:1": [
+      "not_reported",
+      "",
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.head_imu.quat:2": [
+      "not_reported",
+      "",
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.head_imu.quat:3": [
+      "not_reported",
+      "",
+      "ppm",
+      "local_ipc"
+    ],
+    "frames.head_imu.quat:4": [
+      "not_reported",
+      "",
+      "ppm",
+      "local_ipc"
+    ],
+    "skeleton.pos:1": [
+      "ok",
+      0,
+      "mm",
+      "local_ipc"
+    ],
+    "skeleton.pos:2": [
+      "ok",
+      0,
+      "mm",
+      "local_ipc"
+    ],
+    "skeleton.pos:3": [
+      "ok",
+      0,
+      "mm",
+      "local_ipc"
+    ],
+    "skeleton.quat:1": [
+      "ok",
+      1000000,
+      "ppm",
+      "local_ipc"
+    ],
+    "skeleton.quat:2": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "skeleton.quat:3": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "skeleton.quat:4": [
+      "ok",
+      0,
+      "ppm",
+      "local_ipc"
+    ],
+    "t_ns": [
+      "ok",
+      "9223372036854775931",
+      "ns",
+      "local_ipc"
+    ],
+    "policy": [
+      "ok",
+      "held",
+      "text",
+      "local_ipc"
+    ]
+  },
+  "wrong_kind": [
+    "wrong_kind",
+    "",
+    "boolean",
+    "local_ipc"
+  ],
+  "released": [
+    "expired_or_unknown",
+    "",
+    "mHz",
+    "local_ipc"
+  ],
+  "health_default": [
+    "ok",
+    "0",
+    "count64",
+    "ipc_default"
+  ],
+  "health_missing": [
+    "not_reported",
+    "",
+    "mV",
+    "local_ipc"
+  ],
+  "legacy_clock": [
+    "not_reported",
+    "",
+    "ns",
+    "local_ipc"
+  ],
+  "empty_velocity": [
+    "not_reported",
+    "",
+    "mrad/s",
+    "local_ipc"
+  ],
+  "limit_default": [
+    "ok",
+    0,
+    "count",
+    "ipc_default"
+  ],
+  "waiting": [
+    "waiting",
+    "",
+    "snapshot",
+    "local_ipc"
+  ],
+  "source_methods": [
+    "hello",
+    "robot.health",
+    "hello",
+    "robot.subscribe",
+    "hello",
+    "robot.health",
+    "hello",
+    "robot.subscribe",
+    "hello",
+    "robot.subscribe"
+  ],
+  "source_captures": 5,
+  "mutation_RPC": 0,
+  "health_selectors": 21,
+  "state_selectors": 29,
+  "capabilities": {
+    "gateway_version": 1,
+    "api_version": 44,
+    "upstream_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+    "transport": "unix-peercred",
+    "methods": [
+      "microduck.robot.capture",
+      "microduck.robot.read",
+      "microduck.robot.release"
+    ],
+    "read_only_adapters": {
+      "robot": {
+        "configured": true,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "robotd",
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 500,
+        "continuous_reader": false
+      },
+      "head_imu": {
+        "configured": false,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "tofd",
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 350
+      },
+      "depth": {
+        "configured": false,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "tofd",
+        "rows": 8,
+        "cols": 8,
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "deadline_ms": 350
+      },
+      "gamepad": {
+        "configured": false,
+        "physical_hardware_verified": false,
+        "origin": "local_ipc",
+        "daemon": "padd",
+        "retained_and_inflight": 4,
+        "expiry_ms": 5000,
+        "window_ms": 350,
+        "notifications": 16,
+        "continuous_reader": false
+      }
+    },
+    "allowed_mutations": [],
+    "last_upstream_api_versions": {},
+    "limits": {
+      "request_bytes": 8192,
+      "reply_bytes": 65536,
+      "clients": 4
+    },
+    "hardware_validation": "not performed"
+  },
+  "teardown": {
+    "runtime_exit_status_verified": 0,
+    "ASan_or_UBSan_diagnostics": false,
+    "raw_runtime_log_retained": false,
+    "note": "Native test harness verified runtime log and exit during cleanup; raw scenario VM log removed by temporary-directory cleanup. Structured actual-bytecode results retained; Pi suite logs retained separately."
+  }
+}

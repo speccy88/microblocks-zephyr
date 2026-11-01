@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "scope": "local generated portal source/editor contracts;no graphical/deployed/hardware claim",
+  "boards": 7,
+  "six_other_profiles_code_and_connection_flags_preserved": true,
+  "microduck_data_matches_prior_typed_package": true,
+  "console_assets_match_exact_source": true,
+  "local_references_resolve": [
+    "../portal.css",
+    "commands.js",
+    "rpc.js",
+    "bluetooth.js",
+    "console-core.js",
+    "console-fixture.js",
+    "console-panel.js"
+  ],
+  "release_available": false,
+  "console_core_sha256": "e8f57f32337486b7f8e84a904678344ba08ad0e2d65fbd636e20e1d184715dbd"
+}

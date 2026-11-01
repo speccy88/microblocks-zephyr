@@ -1,0 +1,19 @@
+{
+  "archive": "/home/fred/microblocks-robot-final-f5mz_ocj/evidence.tar.gz",
+  "sha256": "9103a09047da9ae02b49767abc290be5ec8ae7008bb3808d769c336d880d60f5",
+  "bytes": 22863,
+  "files": [
+    "pi-robot-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ]
+}

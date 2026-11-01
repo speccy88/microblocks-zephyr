@@ -1,0 +1,77 @@
+{
+  "scope": "retained viewer/mock evidence and actual local sanitizer VM provenance; no native camera decoding or hardware attestation",
+  "files": {
+    "linux/microduck/tests/camera-viewer-focused.txt": {
+      "sha256": "79d43508e2fdf2496995c25597a25b1994b244f239c06dfd5b067563c4284f22",
+      "bytes": 8336
+    },
+    "linux/microduck/tests/camera-viewer-linux-initial-timeout.txt": {
+      "sha256": "4d4b0aca0e6dd4423274161b0f847a86ca677bb1d8bc01b0060897b4e32efd94",
+      "bytes": 38717
+    },
+    "linux/microduck/tests/camera-viewer-linux-unchanged-rerun.txt": {
+      "sha256": "5b39bc8c24ecf8f459756694ceefc7997947df4b8d928401d8b0b406a1d3a8c0",
+      "bytes": 35196
+    },
+    "linux/microduck/tests/camera-viewer-linux.txt": {
+      "sha256": "2593cad609587ba9e79eb13b5825123be4c65118f09eb47ce565be37ef33e71a",
+      "bytes": 36794
+    },
+    "linux/microduck/tests/camera-viewer-native-build-manifest.json": {
+      "sha256": "3541f88608aa9ba0cdc2331b2bbb928fbf203262519812b39dc47f81e8847a0b",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/camera-viewer-native-build-run.json": {
+      "sha256": "2971cf2833d9cce3fadc6be33b21bc8dbf20fe9bf9af1246294ad205e65266b1",
+      "bytes": 508
+    },
+    "linux/microduck/tests/camera-viewer-native-build.txt": {
+      "sha256": "4e5ff05664305cff64f3a1d6982a46566b7d5e30a293c69fac6adb6cbb330b13",
+      "bytes": 8749
+    },
+    "linux/microduck/tests/camera-viewer-native-provenance.json": {
+      "sha256": "0dd3a48f08662531757c9edd1398dbef98faef16f4155ddc0fc9bc85d0bab573",
+      "bytes": 2111
+    },
+    "linux/microduck/tests/camera-viewer-native-source-manifest.json": {
+      "sha256": "20f925c18b6b2a539daf0db750d8bdc084166db4e9e37418998612e9442227be",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/camera-viewer-node.txt": {
+      "sha256": "a1640724d70e7c77fc3885adaa6d9c691ec4317efa87ddf96b4f502751bfcebb",
+      "bytes": 55957
+    },
+    "linux/microduck/tests/camera-viewer-packaging.json": {
+      "sha256": "1c2e444b061f9ba54fd345329c202376c420af2041f5418489eec188581df794",
+      "bytes": 2554
+    },
+    "linux/microduck/tests/camera-viewer-recovery.json": {
+      "sha256": "4911eeb75f4db18dac5351ea5a3ed94edb3e6a93f32c852af770ed8ed06fd79d",
+      "bytes": 2892
+    },
+    "linux/microduck/tests/camera-viewer-scenario.json": {
+      "sha256": "85049cf9bda53125efa3a90a22e61a595b2d72e661edda9fd79dda03f516cbad",
+      "bytes": 9422
+    },
+    "linux/microduck/tests/camera-viewer-sources.json": {
+      "sha256": "e4f8a3c52d75af8137c2e060984201b239f86c6ee3882723ce0ac5514f344fbb",
+      "bytes": 1429
+    },
+    "linux/microduck/tests/camera-viewer-validation.json": {
+      "sha256": "1bfbd2eabe42966d9cafd3344237942bc40f60fb0eb4e81692da4e95bb118cf4",
+      "bytes": 7296
+    },
+    "linux/microduck/tests/camera-viewer-verified-binary-run.json": {
+      "sha256": "7cf59134cddeebde9118fde769233f6538b8322cc37a8c009573364b667b0bd0",
+      "bytes": 490
+    },
+    "evidence/2026-10-27/microduck-camera-viewer/README.md": {
+      "sha256": "6c5a63ea49ccb4b5fe63b27c0e6b488b91a3d304a152c1e786e258ae2dcaa014",
+      "bytes": 7364
+    },
+    "linux/microduck/CAMERA_VIEWER.md": {
+      "sha256": "961abd12430cc183f7c8f601f1ae0dadd30746ba916a9aeaf6cbcd00e615d19f",
+      "bytes": 7297
+    }
+  }
+}

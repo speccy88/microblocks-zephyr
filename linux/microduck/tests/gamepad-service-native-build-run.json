@@ -1,0 +1,16 @@
+{
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/gamepad-service-native-persisted-20261027",
+  "original_temporary_directory": "/tmp/microduck-gamepad-service-native-4vq1jzl3",
+  "returncode": 0,
+  "seconds": 59.870287356000006,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py",
+    "--upstream",
+    "/tmp/gamepad-service-source-mh1xj20h/smallvm",
+    "--output",
+    "/tmp/microduck-gamepad-service-native-4vq1jzl3",
+    "--sanitize",
+    "--test"
+  ]
+}

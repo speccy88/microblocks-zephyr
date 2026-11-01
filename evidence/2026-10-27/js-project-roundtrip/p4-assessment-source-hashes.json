@@ -1,0 +1,46 @@
+{
+  "clone_base": "279321173eff14a4c4fadbc58f33818184579cc4",
+  "scope": "Preserved sources only; protected P4 owner checkout and paused SFC unaccessed",
+  "files": {
+    "web/p4-media-core.js": {
+      "bytes": 3402,
+      "sha256": "23269fbca2174ca22fab20065f2b3c301498ba4e6422a6d0d3367d5aa48fc394"
+    },
+    "web/p4-media.js": {
+      "bytes": 10266,
+      "sha256": "b744488b635dd6606f3ef3766610dd133f40a17b3858399c214b694c03614166"
+    },
+    "web/p4-camera.js": {
+      "bytes": 4080,
+      "sha256": "b807c0474378f726e4b8aa19c8b7b4ba1e5e4ea19f2367fb7b484fc4236a1d07"
+    },
+    "web/p4-media.gp": {
+      "bytes": 9320,
+      "sha256": "e51da7698d0386bb8f4002a7398c54ace985396512104b5609ee56d696a0c0cd"
+    },
+    "tools/patch_p4_media.py": {
+      "bytes": 2634,
+      "sha256": "485f9c5019700cc9afbef465e72c4b322c5c769034f9eddc8db66727f3db7daf"
+    },
+    "boards/waveshare_esp32p4_wifi6/integration/P4_Camera.ubl": {
+      "bytes": 3496,
+      "sha256": "046ee612ea70a617d5d5ce0593bea4a46014a8d25d7ecf3d2e38f590e2b933b5"
+    },
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/image_primitives.c": {
+      "bytes": 15426,
+      "sha256": "55f3676c0f1525148593bb309d51d92e066212c95db71fdd282b04ea8d10a0bd"
+    },
+    "boards/waveshare_esp32p4_wifi6/docs/INLINE_RESULTS.md": {
+      "bytes": 5194,
+      "sha256": "f788d1351e43e7dc37974821c1b4eb383783f622d9da335b1066294b5620d774"
+    },
+    "tests/p4_media_core.test.js": {
+      "bytes": 2945,
+      "sha256": "963a665159a9bd8c0e2edda71d17fab1e353ea243ef4e90ec182987eb821bfcd"
+    },
+    "web/js-editor/linux-compat.js": {
+      "bytes": 6306,
+      "sha256": "67f40360cbd162de1fb9da88b0b119b99b02233d6415db36e3d950cc86fe8aeb"
+    }
+  }
+}

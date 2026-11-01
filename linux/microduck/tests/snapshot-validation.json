@@ -1,0 +1,101 @@
+{
+  "recorded_at": "2026-10-27T15:57:52.929528+00:00",
+  "result": "PASS for actual local/Pi VM execution with simulated MicroDuck data",
+  "base_commit": "361ceb9e940a8dcde643934d1b26e3d850d1b232",
+  "branch": "codex/pi5-watch-integration-20261027",
+  "focused_local": {
+    "tests": 39,
+    "native_vm_cases": 9,
+    "skipped": 0,
+    "seconds": 9.443
+  },
+  "full_local_linux": {
+    "tests": 267,
+    "skipped": 0,
+    "seconds": 151.909,
+    "mode": "full unchanged discovery with documented verified external sanitizer VM inputs"
+  },
+  "selected_node": {
+    "tests": 243,
+    "skipped": 0,
+    "milliseconds": 943.6607
+  },
+  "real_pi": {
+    "machine": "aarch64",
+    "hostname": "RPI5",
+    "user": "fred",
+    "ordinary_tests": 62,
+    "sanitizer_tests": 62,
+    "native_vm_cases_per_variant": 13,
+    "skipped": 0,
+    "evidence": "pi5-snapshot-pi-snapshot-validation.json",
+    "source_C_sha256": "fab1d0507e1e6305830bd4716e679f2af6b7bba05a30b0c3d26ff9253908a6cb",
+    "physical_robot_data": false
+  },
+  "local_native_binary_sha256": "3a670d57f8389095327421e10ddfbcc43ab17d5b592f96b4f9ca4b56a9d80db3",
+  "packaging": "snapshot-packaging.json",
+  "scenario": "snapshot-scenario.json",
+  "current_upstream_review": "snapshot-upstream-review.json",
+  "source_sha256": {
+    ".github/workflows/linux-arm64.yml": "46d8a03f3f6981666108c57b7423074194d56af181ce28ef6008c96f086de284",
+    "LICENSES.md": "b4f99a2ee9e2cd265ed52a3d1f3b170a6d5dd3214e75895b608a14a359fb1761",
+    "docs/LINUX_CI.md": "489b1db3920db9c936117e608e7677bba65422a0c0f661306473680373657f95",
+    "docs/MICRODUCK_REMAINING_OBJECTIVES.md": "6084d106eb28918c8af4afb05367a38ef5a13d9ea81f062b16e5f8fc1128748d",
+    "docs/MICRODUCK_ROBOT_API.md": "bb527465b891156ae082fad8162eb41f80b24d5004778e39f751575aa12802da",
+    "docs/MICRODUCK_SERVICE_CAPABILITIES.md": "072c49feece3aa081db39d914944283b50fda847f91be2b63e69bc8ddd109f9b",
+    "docs/PI5_MICRODUCK_STATUS.md": "8ba7e8b991e297a5bfd7a16f4eda4bd2f1393bb87c6e7d9776bd98ce1325d54d",
+    "linux/arm64/platform/microduck.c": "fab1d0507e1e6305830bd4716e679f2af6b7bba05a30b0c3d26ff9253908a6cb",
+    "linux/microduck/SENSOR_SIMULATION.md": "4afffc0181d282c9c9291e54b53a045f9867852369bef7984e1b85457551f4ba",
+    "linux/microduck/SENSOR_SNAPSHOTS.md": "d2653824fa8f075a44ebaae7ceccca1bfb07e7365549c11817019a5a9409dad6",
+    "linux/microduck/Sensor_Simulation.ubl": "8b71e66a73ae8fda8da4f885b2121e50f90642b31e0aeb8c3784e469133da2c3",
+    "linux/microduck/sensor-simulation.ubp": "777dd05a8b8452f1d9fa03ba01d5b476a4055fc682633b0000c51fb70f75398b",
+    "linux/microduck/sensor_simulator.py": "fcdc0b73fb4f3d588d4f6803691d5c6347b46e207d9616ed407ec3f41fbb5b79",
+    "linux/microduck/sensor_snapshots.py": "d591c8c88c1b33ca7f8d87c825a1dce00f2d569163681e76ea22554f7a1cd86b",
+    "linux/microduck/vm-contract.json": "b27db3bc5479c197489505fdc705bf416ebaa05de527887ed441ee6c90f74afa",
+    "tests/test_linux_editor_assets.py": "b8202a6031e078eddec6279918092eb0c693a91c5d38c2b4535b6fdc9e7e9127",
+    "tests/test_linux_microduck_sensors.py": "73a6350bffdc74c04c92059a4bf0451ee548ce23f2894e4814b9cf740c062735",
+    "tests/test_linux_microduck_snapshots.py": "b0525201afa095564add9307d621ca4975cebc503b0091d711c3e6ec3a2facba"
+  },
+  "log_captures": {
+    "snapshot-final-focused.txt": {
+      "raw_sha256": "c1de7a486b6ac6990c0bb8c9b3053e8c884fa13ab8ab7284c48600c8777e2ed1",
+      "retained_sha256": "e21cb5ec30da02cb087aecd1a95819f4bfb320da17e561963ac4bf57b0a14c8a",
+      "raw_bytes": 6937,
+      "retained_bytes": 6892,
+      "normalization": "CRLF to LF until stable only",
+      "passes": 1
+    },
+    "snapshot-final-linux.txt": {
+      "raw_sha256": "7ecc5d931b21ed1b97f91a73bf3f5b2bc3428ee549a2b02cbe367e806c153542",
+      "retained_sha256": "2c51ba7f11a1c546c15c1dae0177bec4484500e46bcab451c69b5e19d1d23ad1",
+      "raw_bytes": 47848,
+      "retained_bytes": 47567,
+      "normalization": "CRLF to LF until stable only",
+      "passes": 1
+    },
+    "snapshot-node.txt": {
+      "raw_sha256": "a40c8b5fb9dfd3bfdc1fb2c935093e32fa72185729ea7e4a021b7444be517c2f",
+      "retained_sha256": "a233517d16e7d6c77d3caf9efcf370f008e290eb4dc264c001ce184b8987810d",
+      "raw_bytes": 57420,
+      "retained_bytes": 55952,
+      "normalization": "CRLF to LF until stable only",
+      "passes": 1
+    },
+    "snapshot-final-native-build.txt": {
+      "raw_sha256": "6107c3659a60ce639ac72707e023367e808725fe80da78d1375e364165d9f232",
+      "retained_sha256": "20c31edd6d8e21c692b526fb6b329f4fa85ec6d5f946917ab68f86108a0815d3",
+      "raw_bytes": 9647,
+      "retained_bytes": 9521,
+      "normalization": "CRLF to LF until stable only",
+      "passes": 1
+    }
+  },
+  "physical_movement_enabled": false,
+  "physical_microduck_validated": false,
+  "graphical_ubl_execution_tested": false,
+  "numeric_acceptance_suite_invoked_on_pi": false,
+  "service_security_or_credential_change": false,
+  "denied_operations_retried": false,
+  "p4_checkout_accessed": false,
+  "published": false
+}

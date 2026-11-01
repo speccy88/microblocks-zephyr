@@ -1,0 +1,19 @@
+{
+  "files": {
+    "package.json": "a51bff776fdd53226e2e67d8f654d17dadfe3decc8bf8bf869cba3aff9813826",
+    "web/js-editor/legacy-slots.js": "bfdc13e6b938a2787c8229a7efd7947b44874c0c3ea112e24b23b574e7545c00",
+    "tests/js-project-roundtrip.test.cjs": "0d8d7f4e6d3128884d22ed3961d46424bf9471b90b6124199f60dbd4e0ce7902",
+    "tests/test_js_editor_migration.py": "5eeca1ef206679a00935171c6cbdaa4e59d49700778abd6434013933fb32d44b",
+    "docs/JS_PROJECT_ROUNDTRIP.md": "ac440f4285cabcca005ba234290ce254768483007b82e6d74a430471e29cb06f",
+    "docs/JS_PROJECT_ROUNDTRIP_SPEC.md": "1c1812e07b903db5191d909f14c3e3bf2a06d5dc55d66848ba76a88a4feacb5f",
+    "docs/JS_P4_INTEGRATION_PLAN.md": "2f4a108b16f566b80ed022450b0ec7b3f1e8e3b8fee5fb3119fd108e35c7ac4e",
+    "docs/JS_MATRIX_ADAPTER.md": "0298fdbf9d5b503973f7b65a1ed09edecea68a667b8ebc8ffc2c4234f8353c3c",
+    "docs/JS_EDITOR_MIGRATION.md": "17e171467d245a2156382dd03784a5c25ed9f321775cb4671c326c052b365fd9"
+  },
+  "validation_input_count": 2053,
+  "all_validation_inputs_unchanged": true,
+  "upstream_engine_changed": false,
+  "runtime_changed": false,
+  "p4_code_changed": false,
+  "sfc_accessed": false
+}

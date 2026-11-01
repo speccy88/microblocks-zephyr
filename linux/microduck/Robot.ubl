@@ -1,0 +1,101 @@
+module 'MicroDuck Robot' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only coherent robotd health/state via normal private Gateway and robot-read-config. Tests use fictional services on real Pi. Health and state are separate five-second immutable snapshots, no shared-tick claim. Four total retained/in-flight slots;0.5s bounded capture, no continuous reader/retry/renewal. Records [status,value,unit,origin]; only ok is extractable. local_ipc is transport only; ipc_default identifies a schema default, never physical observation. Exact counter/ns/ms64 strings; scaled signed31 measurements. Missing optional telemetry is unavailable, present false/zero known. No applied physics, FK/calibration, force direction, freshness or safe-to-move authority. No control commands, robotctl parsing, motion or device access. Physical, graphical and shipping identity/deployment unverified.'
+spec 'r' 'microduckRobotStateCapture' 'capture robot state at _ Hz reading' 'num' 10
+spec 'r' 'microduckRobotStateRelease' 'release robot state _ JSON' 'auto' ''
+spec 'r' 'microduckRobotMoveRequested' 'state _ requested move component _ reading' 'auto num' '' 1
+spec 'r' 'microduckRobotMoveApplied' 'state _ applied move component _ reading' 'auto num' '' 1
+spec 'r' 'microduckRobotMoveLimitCount' 'state _ reported limit count reading' 'auto' ''
+spec 'r' 'microduckRobotMoveLimitReason' 'state _ limit reason _ reading' 'auto num' '' 1
+spec 'r' 'microduckRobotLoopHz' 'state _ loop rate (mHz) reading' 'auto' ''
+spec 'r' 'microduckRobotSafety' 'state _ safety field _ component _ reading' 'auto str num' '' 'fallen' 1
+spec 'r' 'microduckRobotJoint' 'state _ measured joint _ (mrad) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotTarget' 'state _ target joint _ (mrad) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotVelocity' 'state _ joint _ velocity (mrad/s) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotCurrent' 'state _ joint _ current magnitude (uA) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotOdomPosition' 'state _ odom position component _ (mm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotOdomYaw' 'state _ boot-relative odom yaw (mrad) reading' 'auto' ''
+spec 'r' 'microduckRobotImuGyro' 'state _ IMU gyro component _ (mrad/s) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotImuQuat' 'state _ IMU quaternion wxyz component _ (ppm) reading' 'auto num' '' 1
+spec 'r' 'microduckRobotFrame' 'state _ frame _ part _ component _ reading' 'auto str str num' '' 'camera' 'pos' 1
+spec 'r' 'microduckRobotSkeleton' 'state _ skeleton link _ part _ component _ reading' 'auto num str num' '' 1 'pos' 1
+spec 'r' 'microduckRobotTimestamp' 'state _ monotonic timestamp ns reading' 'auto' ''
+spec 'r' 'microduckRobotHealthCapture' 'capture robot health reading'
+spec 'r' 'microduckRobotHealthy' 'robot health _ healthy reading' 'auto' ''
+spec 'r' 'microduckRobotDegraded' 'robot health _ degraded reading' 'auto' ''
+spec 'r' 'microduckRobotHealthVerdict' 'robot health _ health.state reading' 'auto' ''
+spec 'r' 'microduckRobotBatteryPercent' 'robot health _ battery.percent reading' 'auto' ''
+spec 'r' 'microduckRobotBatteryVoltage' 'robot health _ battery.volts reading' 'auto' ''
+spec 'r' 'microduckRobotCpuTemperature' 'robot health _ cpu_temp_c reading' 'auto' ''
+spec 'r' 'microduckRobotMotorMaxTemperature' 'robot health _ motors.max_c reading' 'auto' ''
+spec 'r' 'microduckRobotMotorMeanTemperature' 'robot health _ motors.mean_c reading' 'auto' ''
+spec 'r' 'microduckRobotTargetLoopRate' 'robot health _ control_loop.target_hz reading' 'auto' ''
+spec 'r' 'microduckRobotAchievedLoopRate' 'robot health _ control_loop.achieved_hz reading' 'auto' ''
+spec 'r' 'microduckRobotLastTickAge' 'robot health _ control_loop.last_tick_age_ms reading' 'auto' ''
+spec 'r' 'microduckRobotTicks' 'robot health _ control_loop.ticks reading' 'auto' ''
+spec 'r' 'microduckRobotMissedTicks' 'robot health _ control_loop.missed reading' 'auto' ''
+spec 'r' 'microduckRobotBusErrors' 'robot health _ bus.consecutive_errors reading' 'auto' ''
+spec 'r' 'microduckRobotBusStartupFailures' 'robot health _ bus.startup_failures reading' 'auto' ''
+spec 'r' 'microduckRobotImuReady' 'robot health _ imu.ready reading' 'auto' ''
+spec 'r' 'microduckRobotImuMissing' 'robot health _ imu.missing reading' 'auto' ''
+spec 'r' 'microduckRobotImuStaleBlocks' 'robot health _ imu.stale_blocks reading' 'auto' ''
+spec 'r' 'microduckRobotImuStaleRun' 'robot health _ imu.consecutive_stale_blocks reading' 'auto' ''
+spec 'r' 'microduckRobotHealthImuState' 'robot health _ imu.state reading' 'auto' ''
+spec 'r' 'microduckRobotHealthReason' 'robot health _ reason reading' 'auto' ''
+spec 'r' 'microduckRobotLoopMissed' 'robot state _ missed ticks reading' 'auto' ''
+spec 'r' 'microduckRobotPolicy' 'robot state _ reported policy reading' 'auto' ''
+advanced
+spec 'r' 'microduckRobotHealthReading' 'robot health _ field _ reading' 'auto str' '' 'healthy'
+spec 'r' 'microduckRobotStateReading' 'state _ field _ index _ component _ reading' 'auto str num num' '' 'loop.hz' 1 1
+spec 'r' '[microduck:robotReading]' 'robot telemetry JSON _ reading' 'str' '{}'
+
+to microduckRobotStateCapture hz { return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.capture' ('[data:join]' '{"kind":"state","hz":' hz '}') false)) }
+to microduckRobotStateRelease capture { return (microduckRequest 'microduck.robot.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) '}') false) }
+to microduckRobotStateReading capture field index component {
+    local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) ',"kind":"state","field":' ('[microduck:quote]' field) ',"index":' index ',"component":' component '}')
+    return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.read' params false))
+}
+to microduckRobotMoveRequested state component { return (microduckRobotStateReading state 'move.requested' 1 component) }
+to microduckRobotMoveApplied state component { return (microduckRobotStateReading state 'move.applied' 1 component) }
+to microduckRobotMoveLimitCount state { return (microduckRobotStateReading state 'move.limit_count' 1 1) }
+to microduckRobotMoveLimitReason state index { return (microduckRobotStateReading state 'move.limited_by' index 1) }
+to microduckRobotLoopHz state { return (microduckRobotStateReading state 'loop.hz' 1 1) }
+to microduckRobotSafety state field component { return (microduckRobotStateReading state ('[data:join]' 'safety.' field) 1 component) }
+to microduckRobotJoint state index { return (microduckRobotStateReading state 'joints' index 1) }
+to microduckRobotTarget state index { return (microduckRobotStateReading state 'targets' index 1) }
+to microduckRobotVelocity state index { return (microduckRobotStateReading state 'velocities' index 1) }
+to microduckRobotCurrent state index { return (microduckRobotStateReading state 'currents_ma' index 1) }
+to microduckRobotOdomPosition state component { return (microduckRobotStateReading state 'odom.position' 1 component) }
+to microduckRobotOdomYaw state { return (microduckRobotStateReading state 'odom.yaw' 1 1) }
+to microduckRobotImuGyro state component { return (microduckRobotStateReading state 'imu.gyro' 1 component) }
+to microduckRobotImuQuat state component { return (microduckRobotStateReading state 'imu.quat' 1 component) }
+to microduckRobotFrame state name part component { return (microduckRobotStateReading state ('[data:join]' 'frames.' name '.' part) 1 component) }
+to microduckRobotSkeleton state index part component { return (microduckRobotStateReading state ('[data:join]' 'skeleton.' part) index component) }
+to microduckRobotTimestamp state { return (microduckRobotStateReading state 't_ns' 1 1) }
+
+to microduckRobotHealthCapture { return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.capture' '{"kind":"health"}' false)) }
+to microduckRobotHealthReading capture field { return ('[microduck:robotReading]' (microduckRequest 'microduck.robot.read' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) ',"kind":"health","field":' ('[microduck:quote]' field) ',"index":1,"component":1}') false)) }
+to microduckRobotHealthy health { return (microduckRobotHealthReading health 'healthy') }
+to microduckRobotDegraded health { return (microduckRobotHealthReading health 'degraded') }
+to microduckRobotHealthVerdict health { return (microduckRobotHealthReading health 'health.state') }
+to microduckRobotBatteryPercent health { return (microduckRobotHealthReading health 'battery.percent') }
+to microduckRobotBatteryVoltage health { return (microduckRobotHealthReading health 'battery.volts') }
+to microduckRobotCpuTemperature health { return (microduckRobotHealthReading health 'cpu_temp_c') }
+to microduckRobotMotorMaxTemperature health { return (microduckRobotHealthReading health 'motors.max_c') }
+to microduckRobotMotorMeanTemperature health { return (microduckRobotHealthReading health 'motors.mean_c') }
+to microduckRobotTargetLoopRate health { return (microduckRobotHealthReading health 'control_loop.target_hz') }
+to microduckRobotAchievedLoopRate health { return (microduckRobotHealthReading health 'control_loop.achieved_hz') }
+to microduckRobotLastTickAge health { return (microduckRobotHealthReading health 'control_loop.last_tick_age_ms') }
+to microduckRobotTicks health { return (microduckRobotHealthReading health 'control_loop.ticks') }
+to microduckRobotMissedTicks health { return (microduckRobotHealthReading health 'control_loop.missed') }
+to microduckRobotBusErrors health { return (microduckRobotHealthReading health 'bus.consecutive_errors') }
+to microduckRobotBusStartupFailures health { return (microduckRobotHealthReading health 'bus.startup_failures') }
+to microduckRobotImuReady health { return (microduckRobotHealthReading health 'imu.ready') }
+to microduckRobotImuMissing health { return (microduckRobotHealthReading health 'imu.missing') }
+to microduckRobotImuStaleBlocks health { return (microduckRobotHealthReading health 'imu.stale_blocks') }
+to microduckRobotImuStaleRun health { return (microduckRobotHealthReading health 'imu.consecutive_stale_blocks') }
+to microduckRobotHealthImuState health { return (microduckRobotHealthReading health 'imu.state') }
+to microduckRobotHealthReason health { return (microduckRobotHealthReading health 'reason') }
+to microduckRobotLoopMissed state { return (microduckRobotStateReading state 'loop.missed' 1 1) }
+to microduckRobotPolicy state { return (microduckRobotStateReading state 'policy' 1 1) }

@@ -1,0 +1,8 @@
+{
+  "source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "upstream_engine_modified": false,
+  "files_verified": 569,
+  "build_manifest_sha256": "1fed131fc5b44e50c0597fafeaab1666844a4fc5bf9a8ae20b60066aa7a2618b",
+  "overlay_sha256": "bfdc13e6b938a2787c8229a7efd7947b44874c0c3ea112e24b23b574e7545c00",
+  "profile": "Experimental Linux; generated graphical fixture served separately; no VM"
+}

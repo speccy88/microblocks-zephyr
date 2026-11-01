@@ -1,0 +1,18 @@
+module main
+description 'SIMULATION ONLY. Capture one tofd head IMU frame and read coherent reported values. No bus, robot command, automatic movement or inferred calibrated pose.'
+variables headSample
+
+script 30 30 {
+    whenStarted
+    headSample = (microduckSimHeadImuCapture)
+    sayIt headSample
+    if (microduckReadingKnown headSample) {
+        sayIt (microduckSimHeadImuSensor headSample)
+        sayIt (microduckSimHeadImuAccel headSample 3)
+        sayIt (microduckSimHeadImuGyro headSample 1)
+        sayIt (microduckSimHeadImuQuat headSample 1)
+        sayIt (microduckSimHeadImuTemperature headSample)
+        sayIt (microduckSimHeadImuTimestamp headSample)
+        sayIt (microduckSimHeadImuRelease headSample)
+    }
+}

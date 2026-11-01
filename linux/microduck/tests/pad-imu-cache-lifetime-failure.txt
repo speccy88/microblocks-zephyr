@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/run-pad-imu-final-full.py", line 6, in <module>
+    cache=json.loads((r/'build-artifacts/pad-imu-fast-upstream.json').read_text());source=pathlib.Path(cache['cache']);assert source.is_absolute() and source.resolve()==source and source.parent.stat().st_uid==os.geteuid()
+                                                                                                                                                                                    ~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 655, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pad-imu-upstream-et4ca1w_'

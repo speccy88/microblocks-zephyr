@@ -1,0 +1,11 @@
+module main
+description 'SIMULATION ONLY: read the dedicated motion simulation backend status. Starting this example issues no motion lease. The separate Motion Simulation library provides bounded leases with confirmation default false. No physical movement, readiness, controller enable or stop is demonstrated.'
+variables simulationStatus
+
+script 50 50 {
+    whenStarted
+    simulationStatus = (microduckSimMotionStatus)
+    sayIt simulationStatus
+}
+
+script 350 50 ('[microduck:configured]')

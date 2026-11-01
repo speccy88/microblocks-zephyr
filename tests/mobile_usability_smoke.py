@@ -72,16 +72,26 @@ def exercise(page, touch, output, size):
     grip.press('Home')
     assert page.evaluate('MB_editor.paletteWidth') == 90
     grip.press('End')
+    # A wide landscape palette can fit the entire block. Narrow it deliberately
+    # to verify access to overflow rather than demanding an unnecessary bar.
+    grip.press('Home')
     # Long blocks remain reachable with the stock horizontal palette scroll.
     scroll = page.evaluate('''() => {const f=MB_editor.palette; f.adjustScrollBars();
         const before=f.contents.left(); f.scrollX(-10000); f.adjustScrollBars();
         return {before,after:f.contents.left(),bar:f.hBar.isVisible};}''')
     assert scroll['bar'] and scroll['after'] < scroll['before'], scroll
-    page.screenshot(path=str(output / f'{width}x{height}-wide-palette.png'))
+    page.screenshot(path=str(output / f'{width}x{height}-palette-overflow.png'))
     page.locator('#iphone-palette-wide').click()
     page.locator('#iphone-blocks').click()
-    page.evaluate('text => {MB_editor.removeAllScripts(); MB_editor.updateProject(); return MB_editor.openProjectFromString(text, "Pinch example.ubp")}', FIXTURE)
+    # Load an internal test fixture through the editor's undo/rebuild path.
+    # Opening a file here correctly asks to save the imported library, which
+    # leaves an unattended evaluate() awaiting the user's answer indefinitely.
+    page.evaluate('text => MB_editor.restoreUndoState(text)', FIXTURE)
     page.evaluate('MB_editor.setBlockScalePercent(100)')
+    # Keep a real block close to the pinch anchor in wide landscape as well.
+    # Otherwise a correct zoom can move every block offscreen, making a blank
+    # workspace indistinguishable from a cleared bitmap in pixel sampling.
+    page.evaluate('x => MB_editor.scripts.topBlocks()[0].setPosition(MB_editor.scripts.position().add(new Point(x,60)))', width*.52)
     before = script_state(page)
     # Instrument the actual renderer, not a simulated camera. An unchanged
     # bitmap must never be reset. Palette rebuilds happen only at gesture end.

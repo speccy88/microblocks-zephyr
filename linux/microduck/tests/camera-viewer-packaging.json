@@ -1,0 +1,69 @@
+{
+  "result": "PASS",
+  "scope": "local packaging/source comparison; no graphical browser or deployment",
+  "reference_package": "build-artifacts\\pages-camera-20261027",
+  "output_package": "build-artifacts\\pages-camera-viewer-verified-20261027",
+  "boards": 7,
+  "gp_code_and_connection_flags_preserved": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    }
+  },
+  "camera_asset_sha256": {
+    "web/microduck/camera-fixture.js": "997f70bf077cf8fb0719b1aa5abec7aac8ef6624dbb65fb044603e73bb94ae75",
+    "web/microduck/camera-panel.js": "b13596519691fdf29c2393062a31a336d4cf1f7743d62e6fad6276ad50e13ecc",
+    "web/microduck/camera-peer.js": "80c8c314bee9c06b54aab72f29ac018ea7e78f40ae32e9072d9a9f7f4c0957cb",
+    "web/microduck/camera-protocol.js": "36ec501e3201e2f1376f1e7547e02507f85ff9693d27d489b22f70c186347412",
+    "web/microduck/camera-session.js": "105d73a77b805acf28fe9a535b319124eedb7870bfcbde180473c77a40444e45",
+    "web/microduck/camera-view-fixture.js": "22bdb0bc77038b98cecb601c6ae84313f8574471e3f75ff6927a40133555a023",
+    "web/microduck/camera-viewer.js": "ab0d58921ac4bfc2141b3c9834019bd97f2227491a50ea6af0aaf33445cf8254",
+    "web/microduck/camera.html": "0b9e5f26ac771fc11feb754bb38e6157ec6f2ce591ac31d13582d798eaa14eff"
+  },
+  "all_microduck_js_exact_source_copy": true,
+  "camera_local_script_references": [
+    "camera-protocol.js",
+    "camera-peer.js",
+    "camera-session.js",
+    "camera-fixture.js",
+    "camera-viewer.js",
+    "camera-view-fixture.js",
+    "camera-panel.js"
+  ],
+  "camera_network_and_media_urls_forbidden_by_csp": true,
+  "console_and_simulation_html_unchanged": true,
+  "explicit_fictional_viewer_link_present": true,
+  "release_available": false,
+  "published": false
+}

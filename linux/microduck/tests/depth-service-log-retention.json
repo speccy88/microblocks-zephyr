@@ -1,0 +1,261 @@
+{
+  "linux/microduck/tests/pi5-depth-service-initial-pi-depth-service-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\pi-depth-service-validation.json",
+    "raw_sha256": "330e8f127cb0cf5e32042454e8559b87c623683f8d011638b9e0c0366cf33f86",
+    "retained_sha256": "330e8f127cb0cf5e32042454e8559b87c623683f8d011638b9e0c0366cf33f86",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\kit-manifest.json",
+    "raw_sha256": "d36f15e39e602341055deae043e35ed2a25be5a85636d546818329b5ae9a8a5a",
+    "retained_sha256": "d36f15e39e602341055deae043e35ed2a25be5a85636d546818329b5ae9a8a5a",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-tests.txt",
+    "raw_sha256": "ab4710af14c105aa4947df1f596f62216c772e9901ef543ade26f9b659413e05",
+    "retained_sha256": "ab4710af14c105aa4947df1f596f62216c772e9901ef543ade26f9b659413e05",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native\\build-manifest.json",
+    "raw_sha256": "f21f512321ad6b07f331d92a7a27b200e23dd77e8fa107946166b0683739437e",
+    "retained_sha256": "f21f512321ad6b07f331d92a7a27b200e23dd77e8fa107946166b0683739437e",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native\\source-manifest.json",
+    "raw_sha256": "6309a9141dff1dc8fc430505525cf8baabb47295e151db6624ce00b54afbe6c4",
+    "retained_sha256": "6309a9141dff1dc8fc430505525cf8baabb47295e151db6624ce00b54afbe6c4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-plain-build.txt",
+    "raw_sha256": "47277f158a67072289c455a23a85a7fe93443a4d8e763667e92e23c8ef5f5bf0",
+    "retained_sha256": "47277f158a67072289c455a23a85a7fe93443a4d8e763667e92e23c8ef5f5bf0",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-plain-tests.txt",
+    "raw_sha256": "1825c4af35cedaac09bad2d10af4de936a5cf1ad9a944d1c3b5b2a2b57f43c10",
+    "retained_sha256": "1825c4af35cedaac09bad2d10af4de936a5cf1ad9a944d1c3b5b2a2b57f43c10",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "20955f7f13b99c5e38383cc21522ec389fcb7ad7dc1256f971ce512cea353161",
+    "retained_sha256": "20955f7f13b99c5e38383cc21522ec389fcb7ad7dc1256f971ce512cea353161",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-initial-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-pi-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "178fa12fb91f9e61cd21ac28c0f69243a4e7d24f6c725ecd28cd0adc15b33df4",
+    "retained_sha256": "178fa12fb91f9e61cd21ac28c0f69243a4e7d24f6c725ecd28cd0adc15b33df4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-pi-depth-service-validation.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\pi-depth-service-validation.json",
+    "raw_sha256": "751674381f49b40e997b4d71a727c3c242590aa5ff54237f6c42b205cf509651",
+    "retained_sha256": "751674381f49b40e997b4d71a727c3c242590aa5ff54237f6c42b205cf509651",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-kit-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\kit-manifest.json",
+    "raw_sha256": "3b15d955032aef5a00715fac5a6ba20aab16e83b0b77a2db64d6d3cd07e91ea3",
+    "retained_sha256": "3b15d955032aef5a00715fac5a6ba20aab16e83b0b77a2db64d6d3cd07e91ea3",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-build.txt",
+    "raw_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "retained_sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-tests.txt",
+    "raw_sha256": "af16faaeb8b6cccb5de13ee3a50c766cece6977c402a05309bc31c942070a699",
+    "retained_sha256": "af16faaeb8b6cccb5de13ee3a50c766cece6977c402a05309bc31c942070a699",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native\\build-manifest.json",
+    "raw_sha256": "3cf430dffbb8ba7778c40632227419f38aa6a2038fd261b30e2cb6d489908f58",
+    "retained_sha256": "3cf430dffbb8ba7778c40632227419f38aa6a2038fd261b30e2cb6d489908f58",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native\\source-manifest.json",
+    "raw_sha256": "6309a9141dff1dc8fc430505525cf8baabb47295e151db6624ce00b54afbe6c4",
+    "retained_sha256": "6309a9141dff1dc8fc430505525cf8baabb47295e151db6624ce00b54afbe6c4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-plain-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-plain-build.txt",
+    "raw_sha256": "47277f158a67072289c455a23a85a7fe93443a4d8e763667e92e23c8ef5f5bf0",
+    "retained_sha256": "47277f158a67072289c455a23a85a7fe93443a4d8e763667e92e23c8ef5f5bf0",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-plain-tests.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-plain-tests.txt",
+    "raw_sha256": "5ec7b5c50b3c914df84cba337d782a96fd29b85653700d233101434d5a54e38f",
+    "retained_sha256": "5ec7b5c50b3c914df84cba337d782a96fd29b85653700d233101434d5a54e38f",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-plain-self-test.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-plain-self-test.txt",
+    "raw_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "retained_sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-plain-build-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-plain\\build-manifest.json",
+    "raw_sha256": "14bbb04e8291c7899a13a4e5063de13d9eb1d7ddf9431f0e79528eb2dc5d4a40",
+    "retained_sha256": "14bbb04e8291c7899a13a4e5063de13d9eb1d7ddf9431f0e79528eb2dc5d4a40",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-native-plain-source-manifest.json": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-evidence\\native-plain\\source-manifest.json",
+    "raw_sha256": "178fa12fb91f9e61cd21ac28c0f69243a4e7d24f6c725ecd28cd0adc15b33df4",
+    "retained_sha256": "178fa12fb91f9e61cd21ac28c0f69243a4e7d24f6c725ecd28cd0adc15b33df4",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-focused.txt",
+    "raw_sha256": "30af5b7626242d8096feac2800b32772ef9f2e8cb6fae1dfae384e6df68436e1",
+    "retained_sha256": "30af5b7626242d8096feac2800b32772ef9f2e8cb6fae1dfae384e6df68436e1",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-build.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-native-build.txt",
+    "raw_sha256": "e006b9007b10f2cbdd7878eed4bd67ed333de4620c005819964ad0d7d1830ff3",
+    "retained_sha256": "e006b9007b10f2cbdd7878eed4bd67ed333de4620c005819964ad0d7d1830ff3",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-final-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-full-linux.txt",
+    "raw_sha256": "00d5b985610916b7171822980628c411fb6a5aba51cfcc6af67007721c5d9faf",
+    "retained_sha256": "00d5b985610916b7171822980628c411fb6a5aba51cfcc6af67007721c5d9faf",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-final-stderr.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-full-stderr.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-scenario-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-scenario-execution.txt",
+    "raw_sha256": "2928cbe140df23fb168359570e5ec3e51b2354dbbc5c5ed5e2c03d287ed922ae",
+    "retained_sha256": "2928cbe140df23fb168359570e5ec3e51b2354dbbc5c5ed5e2c03d287ed922ae",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-pi-execution.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-final-pi-execution.txt",
+    "raw_sha256": "d39ef5e05b4f04e937adbcf60e740acfda024a59ca3be93f43a8cea21954f715",
+    "retained_sha256": "d39ef5e05b4f04e937adbcf60e740acfda024a59ca3be93f43a8cea21954f715",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/pi5-depth-service-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-pi-depth-final.py",
+    "raw_sha256": "6d7a6563be86d9d07b3b46c6bf21f4831f6be7f968dc6d48dad1f577f8cd9a19",
+    "retained_sha256": "6ce66eceaf890072e915c546d099780f190f23038315c4468c046dc1a8371162",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 1
+  },
+  "linux/microduck/tests/depth-service-initial-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-full-linux.txt",
+    "raw_sha256": "7c5f37dd7737f77e6aeb306cff7c94fa4ff7d86133460b37ece0ead1866a3f6a",
+    "retained_sha256": "7c5f37dd7737f77e6aeb306cff7c94fa4ff7d86133460b37ece0ead1866a3f6a",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-initial-stderr.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-full-stderr.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-initial-focused.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-initial-focused.txt",
+    "raw_sha256": "5cdf5f9abcec5ef27eeed29936fb747b29f866a04a30735a93eca8651de81de2",
+    "retained_sha256": "5cdf5f9abcec5ef27eeed29936fb747b29f866a04a30735a93eca8651de81de2",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-replica-setup-linux.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-replica-setup-full-linux.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-replica-setup-stderr.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\depth-service-replica-setup-full-stderr.txt",
+    "raw_sha256": "c064f5eeb1dab1e38fdbd4ca0e66e800fbf90b8350d2bf6b50f5ddc62e2b86a7",
+    "retained_sha256": "c064f5eeb1dab1e38fdbd4ca0e66e800fbf90b8350d2bf6b50f5ddc62e2b86a7",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  },
+  "linux/microduck/tests/depth-service-full-runner.py.txt": {
+    "source": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\run-depth-ext4-full.py",
+    "raw_sha256": "02facbada5604bbad180e30cad6b8e8507caeff61153d18ed1fb13d8b42dd6f0",
+    "retained_sha256": "02facbada5604bbad180e30cad6b8e8507caeff61153d18ed1fb13d8b42dd6f0",
+    "normalization": "CRLF to LF until stable only",
+    "passes": 0
+  }
+}

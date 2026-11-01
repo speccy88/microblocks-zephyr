@@ -1,0 +1,102 @@
+{
+  "tested_at": "2026-10-27T04:22:02.487281+00:00",
+  "source_repository": "https://codeberg.org/MicroBlocks/smallvm",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+  },
+  "smallvm": {
+    "result": "EXPECTED_REJECTION",
+    "int_bytes": 4,
+    "pointer_bytes": 8,
+    "obj_bytes": 8,
+    "heap_word_bytes": 4,
+    "field_zero_offset": 8,
+    "raw_body_offset": 4,
+    "mem_init_panic_observed": true,
+    "forwarding_truncates_high_bits": true,
+    "vm_bytecode_executed": false
+  },
+  "compile_guard": {
+    "expected_rejection": true,
+    "diagnostic": "In file included from guard.c:1:\nmem.h: In function \u2018objWords\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:144:13: note: in expansion of macro \u2018isInt\u2019\n  144 |         if (isInt(obj) || isBoolean(obj)) return 0;\n      |             ^~~~~\nmem.h: In function \u2018setByteCountAdjust\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:158:13: note: in expansion of macro \u2018isInt\u2019\n  158 |         if (isInt(obj) || isBoolean(obj) || (ByteArrayType != TYPE(obj))) return;\n      |             ^~~~~\nmem.h: In function \u2018objType\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:166:13: note: in expansion of macro \u2018isInt\u2019\n  166 |         if (isInt(obj)) return IntegerType;\n      |             ^~~~~\nguard.c: At top level:\nguard.c:2:1: error: static assertion failed: \"SMALLVM_REQUIRES_32_BIT_OBJ\"\n    2 | _Static_assert(sizeof(OBJ) == 4, \"SMALLVM_REQUIRES_32_BIT_OBJ\");\n      | ^~~~~~~~~~~~~~\n"
+  },
+  "gp_offset_reference": {
+    "result": "PASS_REFERENCE_ONLY",
+    "obj_bytes": 4,
+    "pointer_bytes": 8,
+    "header_words": 5,
+    "field_stride": 4,
+    "offset_roundtrip": true,
+    "positive_integer_roundtrip": true,
+    "smallvm_compatibility_claim": false
+  },
+  "sources": {
+    "vm/mem.h": {
+      "sha256": "670b2d64c04822c4440476a8eab4a4a7bdf4f049eca7cd7245445c5dfe2a80b0",
+      "bytes": 6167
+    },
+    "vm/mem.c": {
+      "sha256": "453dcee99d4f1d016e58733fa7ef1e82d9ca627881d23d3d0ddd55ed0d2b50ff",
+      "bytes": 15936
+    },
+    "vm/interp.h": {
+      "sha256": "ff94118f0aba88500a6a3a1aaee63cedfa3e5c855735c99bc2354f9ec7eaf735",
+      "bytes": 16492
+    },
+    "vm/boardHooks.h": {
+      "sha256": "b92091d3e5b6c8fd31d5a89a81e48ba695492567f84d36ab5f5363ecbd651da7",
+      "bytes": 2807
+    },
+    "chromeApp/emscripten/mem.h": {
+      "sha256": "444a35c8d06cf66d1a1de10633da7caa38c7c186ed98e8b6b1bc9321b402910e",
+      "bytes": 7539
+    },
+    "linux+pi/buildVMLinux.sh": {
+      "sha256": "74fcb361b35b8eb323395763009c18f845cbffca67c5ee602e9e15e3571d5c34",
+      "bytes": 1079
+    },
+    "linux+pi/buildVMRaspberryPi.sh": {
+      "sha256": "c4de64b2eb8d9ca2a736899b8e46b0bcb26a2a63ebf160f82b1f150c8f521bf7",
+      "bytes": 478
+    },
+    "tests/smallvm_lp64_probe.c": {
+      "sha256": "b2100858564d313230cf71fbfe924ab700b4918d901046396bd6e63f9997ea7b",
+      "bytes": 2201
+    },
+    "tests/gp_lp64_reference_probe.c": {
+      "sha256": "32fdf0fe69a4213e30ca94999dfdaeaeee84556f9eca6a9a6c5cb545af022bb5",
+      "bytes": 1181
+    }
+  },
+  "compile_commands": [
+    [
+      "/usr/bin/gcc",
+      "-std=c11",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-I.",
+      "smallvm_lp64_probe.c",
+      "mem.c",
+      "-o",
+      "smallvm-lp64-probe"
+    ],
+    [
+      "/usr/bin/gcc",
+      "-std=c11",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-I.",
+      "gp_lp64_reference_probe.c",
+      "-o",
+      "gp-lp64-reference-probe"
+    ]
+  ],
+  "smallvm_compiler_diagnostics": "In file included from smallvm_lp64_probe.c:12:\nmem.h: In function \u2018objWords\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:144:13: note: in expansion of macro \u2018isInt\u2019\n  144 |         if (isInt(obj) || isBoolean(obj)) return 0;\n      |             ^~~~~\nmem.h: In function \u2018setByteCountAdjust\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:158:13: note: in expansion of macro \u2018isInt\u2019\n  158 |         if (isInt(obj) || isBoolean(obj) || (ByteArrayType != TYPE(obj))) return;\n      |             ^~~~~\nmem.h: In function \u2018objType\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:166:13: note: in expansion of macro \u2018isInt\u2019\n  166 |         if (isInt(obj)) return IntegerType;\n      |             ^~~~~\ninterp.h: In function \u2018evalInt\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\ninterp.h:260:13: note: in expansion of macro \u2018isInt\u2019\n  260 |         if (isInt(obj)) {\n      |             ^~~~~\nmem.h:130:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  130 | #define obj2int(obj) ((int)(obj) >> 1)\n      |                       ^\ninterp.h:261:24: note: in expansion of macro \u2018obj2int\u2019\n  261 |                 return obj2int(obj);\n      |                        ^~~~~~~\nmem.h:174:34: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  174 | #define IS_TYPE(obj, typeID) (((((int) obj) & 1) == 0) && ((obj) > trueObj) && (TYPE(obj) == typeID))\n      |                                  ^\ninterp.h:262:20: note: in expansion of macro \u2018IS_TYPE\u2019\n  262 |         } else if (IS_TYPE(obj, StringType)) {\n      |                    ^~~~~~~\nmem.h:174:34: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  174 | #define IS_TYPE(obj, typeID) (((((int) obj) & 1) == 0) && ((obj) > trueObj) && (TYPE(obj) == typeID))\n      |                                  ^\ninterp.h:265:20: note: in expansion of macro \u2018IS_TYPE\u2019\n  265 |         } else if (IS_TYPE(obj, ByteArrayType)) {\n      |                    ^~~~~~~\nIn file included from mem.c:16:\nmem.h: In function \u2018objWords\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:144:13: note: in expansion of macro \u2018isInt\u2019\n  144 |         if (isInt(obj) || isBoolean(obj)) return 0;\n      |             ^~~~~\nmem.h: In function \u2018setByteCountAdjust\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:158:13: note: in expansion of macro \u2018isInt\u2019\n  158 |         if (isInt(obj) || isBoolean(obj) || (ByteArrayType != TYPE(obj))) return;\n      |             ^~~~~\nmem.h: In function \u2018objType\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.h:166:13: note: in expansion of macro \u2018isInt\u2019\n  166 |         if (isInt(obj)) return IntegerType;\n      |             ^~~~~\ninterp.h: In function \u2018evalInt\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\ninterp.h:260:13: note: in expansion of macro \u2018isInt\u2019\n  260 |         if (isInt(obj)) {\n      |             ^~~~~\nmem.h:130:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  130 | #define obj2int(obj) ((int)(obj) >> 1)\n      |                       ^\ninterp.h:261:24: note: in expansion of macro \u2018obj2int\u2019\n  261 |                 return obj2int(obj);\n      |                        ^~~~~~~\nmem.h:174:34: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  174 | #define IS_TYPE(obj, typeID) (((((int) obj) & 1) == 0) && ((obj) > trueObj) && (TYPE(obj) == typeID))\n      |                                  ^\ninterp.h:262:20: note: in expansion of macro \u2018IS_TYPE\u2019\n  262 |         } else if (IS_TYPE(obj, StringType)) {\n      |                    ^~~~~~~\nmem.h:174:34: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  174 | #define IS_TYPE(obj, typeID) (((((int) obj) & 1) == 0) && ((obj) > trueObj) && (TYPE(obj) == typeID))\n      |                                  ^\ninterp.h:265:20: note: in expansion of macro \u2018IS_TYPE\u2019\n  265 |         } else if (IS_TYPE(obj, ByteArrayType)) {\n      |                    ^~~~~~~\nmem.c: In function \u2018resizeObj\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.c:192:13: note: in expansion of macro \u2018isInt\u2019\n  192 |         if (isInt(oldObj)) return oldObj;\n      |             ^~~~~\nmem.c:206:25: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  206 |         *(oldObj - 1) = (uint32) result; // point forwarding field of oldObj to result\n      |                         ^\nmem.c: In function \u2018obj2str\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.c:237:13: note: in expansion of macro \u2018isInt\u2019\n  237 |         if (isInt(obj)) return (char *) \"<Integer>\";\n      |             ^~~~~\nmem.h:174:34: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  174 | #define IS_TYPE(obj, typeID) (((((int) obj) & 1) == 0) && ((obj) > trueObj) && (TYPE(obj) == typeID))\n      |                                  ^\nmem.c:239:13: note: in expansion of macro \u2018IS_TYPE\u2019\n  239 |         if (IS_TYPE(obj, StringType)) return (char *) &obj[HEADER_WORDS];\n      |             ^~~~~~~\nmem.h:174:34: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  174 | #define IS_TYPE(obj, typeID) (((((int) obj) & 1) == 0) && ((obj) > trueObj) && (TYPE(obj) == typeID))\n      |                                  ^\nmem.c:240:13: note: in expansion of macro \u2018IS_TYPE\u2019\n  240 |         if (IS_TYPE(obj, ListType)) return (char *) \"<List>\";\n      |             ^~~~~~~\nmem.h:174:34: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  174 | #define IS_TYPE(obj, typeID) (((((int) obj) & 1) == 0) && ((obj) > trueObj) && (TYPE(obj) == typeID))\n      |                                  ^\nmem.c:241:13: note: in expansion of macro \u2018IS_TYPE\u2019\n  241 |         if (IS_TYPE(obj, ByteArrayType)) return (char *) \"<ByteArray>\";\n      |             ^~~~~~~\nmem.c: In function \u2018reportObj\u2019:\nmem.h:130:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  130 | #define obj2int(obj) ((int)(obj) >> 1)\n      |                       ^\nmem.c:264:43: note: in expansion of macro \u2018obj2int\u2019\n  264 |                 sprintf(s, \"%s: %d\", msg, obj2int(obj));\n      |                                           ^~~~~~~\nmem.h:130:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  130 | #define obj2int(obj) ((int)(obj) >> 1)\n      |                       ^\nmem.c:273:57: note: in expansion of macro \u2018obj2int\u2019\n  273 |                 sprintf(s, \"%s: List (%d fields)\", msg, obj2int(FIELD(obj, 0)));\n      |                                                         ^~~~~~~\nmem.c: In function \u2018dumpObjectStore\u2019:\nmem.c:292:39: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]\n  292 |                         uint32 *fwd = (uint32 *) *(next - 1);\n      |                                       ^\nmem.c:295:109: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  295 |                                 sprintf(s, \"%d type: %d words: %d fwd: %d\", (next - base), type, wordCount, (int) fwd);\n      |                                                                                                             ^\nmem.c:295:46: warning: format \u2018%d\u2019 expects argument of type \u2018int\u2019, but argument 3 has type \u2018long int\u2019 [-Wformat=]\n  295 |                                 sprintf(s, \"%d type: %d words: %d fwd: %d\", (next - base), type, wordCount, (int) fwd);\n      |                                             ~^                              ~~~~~~~~~~~~~\n      |                                              |                                    |\n      |                                              int                                  long int\n      |                                             %ld\nmem.c:297:46: warning: format \u2018%d\u2019 expects argument of type \u2018int\u2019, but argument 3 has type \u2018long int\u2019 [-Wformat=]\n  297 |                                 sprintf(s, \"%d type: %d words: %d\", (next - base), type, wordCount);\n      |                                             ~^                      ~~~~~~~~~~~~~\n      |                                              |                            |\n      |                                              int                          long int\n      |                                             %ld\nmem.c:300:38: warning: format \u2018%d\u2019 expects argument of type \u2018int\u2019, but argument 3 has type \u2018long int\u2019 [-Wformat=]\n  300 |                         sprintf(s, \"%d FREE %d\", (next - base), wordCount);\n      |                                     ~^           ~~~~~~~~~~~~~\n      |                                      |                 |\n      |                                      int               long int\n      |                                     %ld\nmem.c: In function \u2018memDumpObj\u2019:\nmem.c:312:48: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  312 |                 sprintf(s, \"bad object at %x\", (int) obj);\n      |                                                ^\nmem.c:318:47: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  318 |         sprintf(s, \"%x: %d words, typeID %d\", (int) obj, wordCount, typeID);\n      |                                               ^\nmem.c: In function \u2018forward\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.c:345:13: note: in expansion of macro \u2018isInt\u2019\n  345 |         if (isInt(obj)) return obj;\n      |             ^~~~~\nmem.c:347:19: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]\n  347 |         OBJ fwd = (OBJ) *(obj - 1);\n      |                   ^\nmem.c: In function \u2018applyForwarding\u2019:\nmem.c:377:45: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]\n  377 |                                 OBJ child = (OBJ) next[i];\n      |                                             ^\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.c:378:38: note: in expansion of macro \u2018isInt\u2019\n  378 |                                 if (!isInt(child) && // child is not an integer\n      |                                      ^~~~~\nmem.c: In function \u2018mark\u2019:\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.c:398:13: note: in expansion of macro \u2018isInt\u2019\n  398 |         if (isInt(root)) return;\n      |             ^~~~~\nmem.c:409:38: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]\n  409 |                         OBJ parent = (OBJ) *current; // backpointer to parent was stored in header\n      |                                      ^\nmem.c:412:37: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  412 |                         parent[i] = (int) current; // restore pointer to child in parent[i]\n      |                                     ^\nmem.c:419:29: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]\n  419 |                 OBJ child = (OBJ) current[i];\n      |                             ^\nmem.h:128:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  128 | #define isInt(obj) (((int) (obj)) & 1)\n      |                      ^\nmem.c:420:22: note: in expansion of macro \u2018isInt\u2019\n  420 |                 if (!isInt(child) && (memStart <= child) && (child <= memEnd) && !IS_MARKED(child)) {\n      |                      ^~~~~\nmem.c:427:42: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  427 |                                 *child = (int) current; // backpointer to current\n      |                                          ^\nmem.c: In function \u2018sweep\u2019:\nmem.c:467:55: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]\n  467 |                         *(next - 1) = (dst != next) ? (uint32) dst : 0;\n      |                                                       ^\n",
+  "gp_compiler_diagnostics": "",
+  "scope": "LP64 host layout/startup and GP reference macros only; no ARM64 VM, Pi or robot execution"
+}

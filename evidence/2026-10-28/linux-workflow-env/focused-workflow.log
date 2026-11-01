@@ -1,0 +1,14 @@
+test_actual_guard_executes_nested_passing_suite (test_linux_arm64_workflow.WorkflowContracts.test_actual_guard_executes_nested_passing_suite) ... ok
+test_actual_guard_rejects_empty_missing_and_failed_suites (test_linux_arm64_workflow.WorkflowContracts.test_actual_guard_rejects_empty_missing_and_failed_suites) ... ok
+test_actual_guard_rejects_skips (test_linux_arm64_workflow.WorkflowContracts.test_actual_guard_rejects_skips) ... ok
+test_actual_runner_path_setup_preserves_environment_and_spaces (test_linux_arm64_workflow.WorkflowContracts.test_actual_runner_path_setup_preserves_environment_and_spaces) ... ok
+test_actual_runner_path_setup_rejects_bad_paths_before_writing (test_linux_arm64_workflow.WorkflowContracts.test_actual_runner_path_setup_rejects_bad_paths_before_writing) ... ok
+test_inline_python_is_valid_and_commands_are_scoped (test_linux_arm64_workflow.WorkflowContracts.test_inline_python_is_valid_and_commands_are_scoped) ... ok
+test_job_environment_uses_only_contexts_available_before_runner_assignment (test_linux_arm64_workflow.WorkflowContracts.test_job_environment_uses_only_contexts_available_before_runner_assignment) ... ok
+test_selections_have_real_nonempty_classes_and_no_broad_discovery (test_linux_arm64_workflow.WorkflowContracts.test_selections_have_real_nonempty_classes_and_no_broad_discovery) ... ok
+test_source_pins_and_native_architectures_are_explicit (test_linux_arm64_workflow.WorkflowContracts.test_source_pins_and_native_architectures_are_explicit) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.184s
+
+OK

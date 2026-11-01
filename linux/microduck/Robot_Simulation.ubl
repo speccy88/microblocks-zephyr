@@ -1,0 +1,56 @@
+module 'MicroDuck Robot Simulation' Output
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Requires robot_simulator.py, backend --allow-control-previews and per-request confirmation true for previews. Defaults are false. Previews record one source-shaped API45 packet and never send it to a robot service: admission and applied behavior remain unknown. Continuous intent previews are single notifications, not a live/repeated sender; use the separate Motion Simulation lease for timed twist recording. Head/look bounds are serialization limits, not physical travel or safety guarantees. Pose stays within the documented trained span. Stop zeros velocity on the actual API; it is not torque-off or an emergency stop. Relax can collapse a real robot. No controller, IK, policy swap, motion physics, real audio, motor bus or confidential transport is modelled. Only fictional advertised skills/paths are accepted. Health/policies/model reads are simulated diagnostics. Graphical execution and physical MicroDuck behavior unverified.'
+spec 'r' 'microduckSimMovePreview' 'SIMULATION preview move forward _ mm/s left _ mm/s yaw _ mrad/s confirmed _' 'num num num bool' 0 0 0 false
+spec 'r' 'microduckSimHead' 'SIMULATION preview head neck _ pitch _ yaw _ roll _ mrad confirmed _' 'num num num num bool' 0 0 0 0 false
+spec 'r' 'microduckSimLook' 'SIMULATION preview look x _ y _ z _ mm neck _ mrad confirmed _' 'num num num num bool' 0 0 250 0 false
+spec 'r' 'microduckSimStop' 'SIMULATION preview zero velocity confirmed _' 'bool' false
+spec 'r' 'microduckSimEnable' 'SIMULATION preview policy on _ toggle _ confirmed _' 'bool bool bool' false false false
+spec 'r' 'microduckSimInit' 'SIMULATION preview power joints and home confirmed _' 'bool' false
+spec 'r' 'microduckSimRelax' 'SIMULATION preview cut torque confirmed _' 'bool' false
+spec 'r' 'microduckSimDo' 'SIMULATION preview skill _ confirmed _' 'str bool' 'simulation_bow' false
+spec 'r' 'microduckSimPose' 'SIMULATION preview body z _ mm roll _ pitch _ mrad active _ confirmed _' 'num num num bool bool' 0 0 0 true false
+spec 'r' 'microduckSimMouth' 'SIMULATION preview mouth _ permille confirmed _' 'num bool' 0 false
+spec 'r' 'microduckSimSound' 'SIMULATION preview sound _ confirmed _' 'str bool' 'chirp' false
+spec 'r' 'microduckSimWheee' 'SIMULATION preview wheee held _ confirmed _' 'bool bool' false false
+spec 'r' 'microduckSimLoadPolicy' 'SIMULATION preview policy slot _ path _ confirmed _' 'str str bool' 'walk' '/SIMULATION/walk.onnx' false
+spec 'r' 'microduckSimClearPolicy' 'SIMULATION preview clear slot _ override confirmed _' 'str bool' 'walk' false
+spec 'r' 'microduckSimClearAllPolicies' 'SIMULATION preview clear all policy overrides confirmed _' 'bool' false
+spec 'r' 'microduckSimSetMode' 'SIMULATION preview mode _ confirmed _' 'str bool' 'walk' false
+spec 'r' 'microduckSimRobotHealth' 'SIMULATION robot health JSON'
+spec 'r' 'microduckSimRobotPolicies' 'SIMULATION loaded policies JSON'
+spec 'r' 'microduckSimRobotModel' 'SIMULATION uncalibrated model metadata JSON'
+
+to microduckSimRobotPreview method args confirmed {
+    return (microduckRequest 'microduck.robotSim.preview' ('[data:join]' '{"method":' ('[microduck:quote]' method) ',"args":' args '}') confirmed)
+}
+to microduckSimMovePreview vx vy yaw confirmed {
+    return (microduckSimRobotPreview 'robot.move' ('[data:join]' '{"vx_mm_s":' vx ',"vy_mm_s":' vy ',"vyaw_mrad_s":' yaw '}') confirmed)
+}
+to microduckSimHead neck pitch yaw roll confirmed {
+    return (microduckSimRobotPreview 'robot.head' ('[data:join]' '{"neck_pitch_mrad":' neck ',"head_pitch_mrad":' pitch ',"head_yaw_mrad":' yaw ',"head_roll_mrad":' roll '}') confirmed)
+}
+to microduckSimLook x y z neck confirmed {
+    return (microduckSimRobotPreview 'robot.look' ('[data:join]' '{"x_mm":' x ',"y_mm":' y ',"z_mm":' z ',"neck_pitch_mrad":' neck '}') confirmed)
+}
+to microduckSimStop confirmed { return (microduckSimRobotPreview 'robot.stop' '{}' confirmed) }
+to microduckSimInit confirmed { return (microduckSimRobotPreview 'robot.init' '{}' confirmed) }
+to microduckSimRelax confirmed { return (microduckSimRobotPreview 'robot.relax' '{}' confirmed) }
+to microduckSimEnable on toggle confirmed {
+    return (microduckSimRobotPreview 'robot.enable' ('[data:join]' '{"on":' on ',"toggle":' toggle '}') confirmed)
+}
+to microduckSimDo skill confirmed { return (microduckSimRobotPreview 'robot.do' ('[data:join]' '{"skill":' ('[microduck:quote]' skill) '}') confirmed) }
+to microduckSimPose z roll pitch active confirmed {
+    return (microduckSimRobotPreview 'robot.pose' ('[data:join]' '{"z_mm":' z ',"roll_mrad":' roll ',"pitch_mrad":' pitch ',"active":' active '}') confirmed)
+}
+to microduckSimMouth open confirmed { return (microduckSimRobotPreview 'robot.mouth' ('[data:join]' '{"open_permille":' open '}') confirmed) }
+to microduckSimSound tag confirmed { return (microduckSimRobotPreview 'robot.sound' ('[data:join]' '{"tag":' ('[microduck:quote]' tag) ',"hold":null}') confirmed) }
+to microduckSimWheee held confirmed { return (microduckSimRobotPreview 'robot.sound' ('[data:join]' '{"tag":"wheee","hold":' held '}') confirmed) }
+to microduckSimLoadPolicy slot path confirmed { return (microduckSimRobotPreview 'robot.loadPolicy' ('[data:join]' '{"slot":' ('[microduck:quote]' slot) ',"path":' ('[microduck:quote]' path) '}') confirmed) }
+to microduckSimClearPolicy slot confirmed { return (microduckSimRobotPreview 'robot.loadPolicy' ('[data:join]' '{"slot":' ('[microduck:quote]' slot) ',"path":null}') confirmed) }
+to microduckSimClearAllPolicies confirmed { return (microduckSimRobotPreview 'robot.loadPolicy' '{"slot":null,"path":null}' confirmed) }
+to microduckSimSetMode mode confirmed { return (microduckSimRobotPreview 'robot.setMode' ('[data:join]' '{"mode":' ('[microduck:quote]' mode) '}') confirmed) }
+to microduckSimRobotHealth { return (microduckHealth) }
+to microduckSimRobotPolicies { return (microduckPolicies) }
+to microduckSimRobotModel { return (microduckRequest 'microduck.robotSim.model' '{}' false) }

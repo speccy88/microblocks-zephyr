@@ -1,0 +1,47 @@
+{
+  "source_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+  "api": 45,
+  "production_pin_changed": false,
+  "files": {
+    "mediad/src/main.rs": {
+      "sha256": "ed24f4bec87fa9036dedd09360797b2248acb30bfe3cafdf2ceeafb45395427e",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/mediad/src/main.rs"
+    },
+    "mediad/src/pipeline.rs": {
+      "sha256": "3ff9a26d70217f24e63ba7348f3d2b1e6b0e2a1d751fe727e77756398eb96221",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/mediad/src/pipeline.rs"
+    },
+    "mediad/src/session.rs": {
+      "sha256": "6d554947c4c35d3d68da0cb209c973aa3779978dc31173c70884fb2ae2d2196d",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/mediad/src/session.rs"
+    },
+    "mediad/src/route.rs": {
+      "sha256": "1a03d724fd2ad18612a13472ca175083aebd0e9217e242f2afeb6fc328f03e3a",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/mediad/src/route.rs"
+    },
+    "mediad/src/relay.rs": {
+      "sha256": "12593fd4868de5561d28b49f4ee81e14d284ba74e25e2d7c88b1cd1e3c99e795",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/mediad/src/relay.rs"
+    },
+    "mediad/src/stream.rs": {
+      "sha256": "65c82117b50fe9e4411827ce9978bc500a14b80656c82a1ec129325ec4f7f337",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/mediad/src/stream.rs"
+    },
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "9461021bde3a029646095fac1f3a9aa241ad772a326446b2dcde3153e9458d57",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/duck-ipc-proto/src/lib.rs"
+    },
+    "docs/design/remote-access-design.md": {
+      "sha256": "aa9b71a456312e244d53baa42ce313ea5c3893e026eb8214afbd1b9aa8066681",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/docs/design/remote-access-design.md"
+    }
+  },
+  "facts": [
+    "No mediad audio track/microphone API supplied; video pipeline and frames-only fallback",
+    "media.video returns metadata or error; media.stream params{} is read-only status; urlnull stops and URL starts/replaces",
+    "RPC relay uses peer/sessionId/rpc over SSE plus POST/send; fixed-session envelope must match",
+    "RemoteStatus local runtime-file shape: signed_out,connecting,registered,refused,retrying; signed64 epoch seconds",
+    "Source1200 requests/minute shared budget; relay is not a teleop or media-pixel lane"
+  ],
+  "local_scope": "Internal fixtures and confirmed discrete packet previews only; no HTTP/SSE, account credential, live endpoint or real motion"
+}

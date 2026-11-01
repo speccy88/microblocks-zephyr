@@ -1,0 +1,173 @@
+test_native_bounds_reject_before_io (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_native_bounds_reject_before_io) ... ok
+test_native_decoder_rejects_forged_shapes_units_types_and_counter_overflow (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_native_decoder_rejects_forged_shapes_units_types_and_counter_overflow) ... ok
+test_native_lifecycle_unavailable_and_release (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_native_lifecycle_unavailable_and_release) ... FAIL
+test_native_reading_allocation_survives_moving_gc (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_native_reading_allocation_survives_moving_gc) ... ok
+test_native_unknown_scale_reported_limit_and_numeric_overflow (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_native_unknown_scale_reported_limit_and_numeric_overflow) ... FAIL
+test_real_vm_coherent_batch_all_thirteen_fields_and_samples (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_real_vm_coherent_batch_all_thirteen_fields_and_samples) ... FAIL
+test_batch_bounds_shape_loss_and_nonconsecutive_sequences (test_linux_microduck_pad_imu.PadImuProtocol.test_batch_bounds_shape_loss_and_nonconsecutive_sequences) ... ok
+test_closed_read_only_methods_and_selectors (test_linux_microduck_pad_imu.PadImuProtocol.test_closed_read_only_methods_and_selectors) ... ok
+test_device_requires_reported_nonnegative_resolutions_not_assumptions (test_linux_microduck_pad_imu.PadImuProtocol.test_device_requires_reported_nonnegative_resolutions_not_assumptions) ... ok
+test_exact_scale_signed_rounding_zero_and_overflow (test_linux_microduck_pad_imu.PadImuProtocol.test_exact_scale_signed_rounding_zero_and_overflow) ... ok
+test_exact_u64_and_wall_clock_regression_preserve_order (test_linux_microduck_pad_imu.PadImuProtocol.test_exact_u64_and_wall_clock_regression_preserve_order) ... ok
+test_reported_limits_are_boolean_or_unknown (test_linux_microduck_pad_imu.PadImuProtocol.test_reported_limits_are_boolean_or_unknown) ... ok
+test_sample_range_metadata_and_validated_copies_are_independent (test_linux_microduck_pad_imu.PadImuProtocol.test_sample_range_metadata_and_validated_copies_are_independent) ... ok
+test_actual_cli_and_failed_metadata_cleanup (test_linux_microduck_pad_imu.PadImuUnixBackend.test_actual_cli_and_failed_metadata_cleanup) ... ok
+test_availability_loss_and_malformed_profiles_never_create_handles (test_linux_microduck_pad_imu.PadImuUnixBackend.test_availability_loss_and_malformed_profiles_never_create_handles) ... ERROR
+test_capacity_expiry_release_and_clock_regression (test_linux_microduck_pad_imu.PadImuUnixBackend.test_capacity_expiry_release_and_clock_regression) ... ERROR
+test_capture_whole_batch_and_all_queries_issue_one_subscription (test_linux_microduck_pad_imu.PadImuUnixBackend.test_capture_whole_batch_and_all_queries_issue_one_subscription) ... ERROR
+test_event_cap_and_unknown_scale_are_explicit (test_linux_microduck_pad_imu.PadImuUnixBackend.test_event_cap_and_unknown_scale_are_explicit) ... ERROR
+test_inflight_reservations_and_cancellation_release_capacity (test_linux_microduck_pad_imu.PadImuUnixBackend.test_inflight_reservations_and_cancellation_release_capacity) ... ok
+test_metadata_before_sample_and_independent_imu_lifecycle (test_linux_microduck_pad_imu.PadImuUnixBackend.test_metadata_before_sample_and_independent_imu_lifecycle) ... ERROR
+
+======================================================================
+ERROR: test_availability_loss_and_malformed_profiles_never_create_handles (test_linux_microduck_pad_imu.PadImuUnixBackend.test_availability_loss_and_malformed_profiles_never_create_handles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 161, in test_availability_loss_and_malformed_profiles_never_create_handles
+    value = (await self.call())['result']
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'result'
+
+======================================================================
+ERROR: test_capacity_expiry_release_and_clock_regression (test_linux_microduck_pad_imu.PadImuUnixBackend.test_capacity_expiry_release_and_clock_regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 180, in test_capacity_expiry_release_and_clock_regression
+    captures = [(await self.call())['result'] for _ in range(4)]
+                ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'result'
+
+======================================================================
+ERROR: test_capture_whole_batch_and_all_queries_issue_one_subscription (test_linux_microduck_pad_imu.PadImuUnixBackend.test_capture_whole_batch_and_all_queries_issue_one_subscription)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 144, in test_capture_whole_batch_and_all_queries_issue_one_subscription
+    capture = (await self.call())['result']
+              ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'result'
+
+======================================================================
+ERROR: test_event_cap_and_unknown_scale_are_explicit (test_linux_microduck_pad_imu.PadImuUnixBackend.test_event_cap_and_unknown_scale_are_explicit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 207, in test_event_cap_and_unknown_scale_are_explicit
+    self.assertEqual((await self.call())['result']['status'], 'event_limit')
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'result'
+
+======================================================================
+ERROR: test_metadata_before_sample_and_independent_imu_lifecycle (test_linux_microduck_pad_imu.PadImuUnixBackend.test_metadata_before_sample_and_independent_imu_lifecycle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 174, in test_metadata_before_sample_and_independent_imu_lifecycle
+    self.assertEqual((await self.call())['result']['status'], 'ok')
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'result'
+
+======================================================================
+FAIL: test_native_lifecycle_unavailable_and_release (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_native_lifecycle_unavailable_and_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 337, in test_native_lifecycle_unavailable_and_release
+    self.assertEqual(await self.typed(await self.call()), [status, '', 'snapshot', 'simulation'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['error', '', '', 'unmarked'] != ['dropped', '', 'snapshot', 'simulation']
+
+First differing element 0:
+'error'
+'dropped'
+
+- ['error', '', '', 'unmarked']
++ ['dropped', '', 'snapshot', 'simulation']
+
+======================================================================
+FAIL: test_native_unknown_scale_reported_limit_and_numeric_overflow (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_native_unknown_scale_reported_limit_and_numeric_overflow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 323, in test_native_unknown_scale_reported_limit_and_numeric_overflow
+    self.assertEqual(await self.typed(await self.call('read', select(handle, 'accel_raw'))), ['ok', 0, 'raw', 'simulation'])
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 285, in call
+    job = await self.primitive('begin', (imu.PREFIX + name, json.dumps(p or {}), False))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 279, in primitive
+    return await asyncio.to_thread(self.runtime.primitive, name, args, error, command)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_vm.py", line 201, in primitive
+    return self.execute(program.finish(), error)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_vm.py", line 186, in execute
+    raise AssertionError('Actual SmallVM task error: ' + payload.hex())
+AssertionError: Actual SmallVM task error: 20000c0000
+
+======================================================================
+FAIL: test_real_vm_coherent_batch_all_thirteen_fields_and_samples (test_linux_microduck_pad_imu.PadImuNativeAdapter.test_real_vm_coherent_batch_all_thirteen_fields_and_samples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_pad_imu.py", line 302, in test_real_vm_coherent_batch_all_thirteen_fields_and_samples
+    self.assertEqual(captured[0], 'ok')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: 'error' != 'ok'
+- error
++ ok
+
+
+----------------------------------------------------------------------
+Ran 20 tests in 3.533s
+
+FAILED (failures=3, errors=5)

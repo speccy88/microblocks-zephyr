@@ -1,0 +1,17 @@
+{
+  "full-validation.log": {
+    "original_sha256": "71e3b933d761cb48d41e27191eb3ee9dd1de582505ec1b85fb2ea9c29ac00e61",
+    "saved_sha256": "71e3b933d761cb48d41e27191eb3ee9dd1de582505ec1b85fb2ea9c29ac00e61",
+    "universal_newlines_only": true
+  },
+  "full-validation.json": {
+    "original_sha256": "5da5a55a2fb43e46e35104cfd5314e8c0f52f8c5beb70ed3c9bc34d2b17b1808",
+    "saved_sha256": "5da5a55a2fb43e46e35104cfd5314e8c0f52f8c5beb70ed3c9bc34d2b17b1808",
+    "universal_newlines_only": true
+  },
+  "validation-inputs.json": {
+    "original_sha256": "2dc609cbcac3518794c57d218f7791563a916818258404e7909784d0e1ae4385",
+    "saved_sha256": "2dc609cbcac3518794c57d218f7791563a916818258404e7909784d0e1ae4385",
+    "universal_newlines_only": true
+  }
+}

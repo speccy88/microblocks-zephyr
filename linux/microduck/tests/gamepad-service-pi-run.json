@@ -1,0 +1,15 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 271.4220000000205,
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "rpi5",
+    "cd /home/fred/microblocks-gamepad-service-hwpb18jt && python3 run-pi-gamepad-service.py"
+  ],
+  "source": "real Pi compilation/VM; all sensor data fake",
+  "security_or_service_changes": false
+}

@@ -1,0 +1,69 @@
+{
+  "started_utc": "2026-10-27T19:00:26.085832+00:00",
+  "hostname": "RPI5",
+  "user": "fred",
+  "machine": "aarch64",
+  "kernel": "6.12.75+rpt-rpi-2712",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "kit_file_count": 158,
+  "physical_robot_data": false,
+  "physical_movement_enabled": false,
+  "numeric_acceptance_suite_invoked": false,
+  "service_or_security_changes": false,
+  "variants": {
+    "native": {
+      "result": "PASS",
+      "tests": 163,
+      "test_seconds": 32.809,
+      "elapsed_seconds": 33.053151398999034,
+      "binary_sha256": "bb07f8431837df3ab1d94884e0199e532a0e1d0281bb54b6b63e2718100ac843",
+      "elf_machine": 183,
+      "sanitize": true,
+      "self_test": "PASS",
+      "build_seconds": 138.699643001004,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "test_linux_microduck_head_imu",
+        "test_linux_microduck_head_service",
+        "-v"
+      ]
+    },
+    "native-plain": {
+      "result": "PASS",
+      "tests": 163,
+      "test_seconds": 32.334,
+      "elapsed_seconds": 32.48319028100377,
+      "binary_sha256": "a0b6ca6e7ed09084979c23087480f585bb0bc0df3bd584bd26a5038d1000ea73",
+      "elf_machine": 183,
+      "sanitize": false,
+      "self_test": "PASS",
+      "build_seconds": 24.32749615600187,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "test_linux_microduck_head_imu",
+        "test_linux_microduck_head_service",
+        "-v"
+      ]
+    }
+  },
+  "result": "PASS",
+  "finished_utc": "2026-10-27T19:04:14.657436+00:00"
+}

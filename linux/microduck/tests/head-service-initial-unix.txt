@@ -1,0 +1,13 @@
+test_absence_malformed_and_partial_are_not_defaults (test_linux_microduck_head_service.HeadServiceUnix.test_absence_malformed_and_partial_are_not_defaults) ... ok
+test_actual_gateway_cli_with_separate_private_source_config (test_linux_microduck_head_service.HeadServiceUnix.test_actual_gateway_cli_with_separate_private_source_config) ... ok
+test_capabilities_disabled_routes_and_protected_methods (test_linux_microduck_head_service.HeadServiceUnix.test_capabilities_disabled_routes_and_protected_methods) ... ok
+test_expiry_and_shutdown_clear_retained_state (test_linux_microduck_head_service.HeadServiceUnix.test_expiry_and_shutdown_clear_retained_state) ... ok
+test_normal_gateway_all_nine_fields_one_subscription_and_no_simulation_claim (test_linux_microduck_head_service.HeadServiceUnix.test_normal_gateway_all_nine_fields_one_subscription_and_no_simulation_claim) ... ok
+test_private_config_permissions_symlinks_duplicates_and_oversize (test_linux_microduck_head_service.HeadServiceUnix.test_private_config_permissions_symlinks_duplicates_and_oversize) ... ok
+test_shutdown_cancels_actual_pending_subscription_and_releases_capacity (test_linux_microduck_head_service.HeadServiceUnix.test_shutdown_cancels_actual_pending_subscription_and_releases_capacity) ... ok
+test_wrong_source_uid_rejected_before_request_write (test_linux_microduck_head_service.HeadServiceUnix.test_wrong_source_uid_rejected_before_request_write) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.971s
+
+OK

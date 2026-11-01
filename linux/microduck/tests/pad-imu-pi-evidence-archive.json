@@ -1,0 +1,19 @@
+{
+  "archive": "/home/fred/microblocks-pad-imu-70fx5kwb/evidence.tar.gz",
+  "sha256": "c2865f90e5f17e14da9e6556d17aac3bb0954bdb1309445353beb4c78d7718e2",
+  "bytes": 25349,
+  "files": [
+    "pi-pad-imu-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ]
+}

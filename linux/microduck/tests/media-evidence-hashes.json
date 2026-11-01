@@ -1,0 +1,302 @@
+{
+  "algorithm": "SHA256",
+  "scope": "Mediad preparation implementation, initial/final evidence and documentation; self-index excluded",
+  "files": {
+    ".github/workflows/linux-arm64.yml": {
+      "sha256": "8fe17906541d9bc0a0a2913d96db84a74202f26f95eaea332bab6031d50e03cb",
+      "bytes": 10375
+    },
+    "docs/LINUX_CI.md": {
+      "sha256": "e0a94255f748ffd403054cc9a269fa32255c97f09cadb43c4e011f7c21ba87e1",
+      "bytes": 9790
+    },
+    "docs/MICRODUCK_REMAINING_OBJECTIVES.md": {
+      "sha256": "cd1c417407f7727fc687a880a6d65305dd32341eecb8e18369edaa68894ca1fb",
+      "bytes": 7755
+    },
+    "docs/MICRODUCK_SERVICE_CAPABILITIES.md": {
+      "sha256": "e2e5e17f5f70fc1bc71529e44e9991f6f386f271e275c584a28a0b5b28d8594d",
+      "bytes": 9276
+    },
+    "docs/PI5_MICRODUCK_STATUS.md": {
+      "sha256": "7726f91efd670cc0d1c575acc43800b6b71f016ab600d17487f960f75fc77928",
+      "bytes": 13819
+    },
+    "evidence/2026-10-27/microduck-media/README.md": {
+      "sha256": "d9c2c4ef0a5758f1a42abf23cf1ee6146109347ff88c93b07f09bd45aeb827d5",
+      "bytes": 6671
+    },
+    "LICENSES.md": {
+      "sha256": "e661194d3b354a64d72f5d29883d52b4baf238a5f064cd81f4c84e67147a5577",
+      "bytes": 14149
+    },
+    "linux/arm64/platform/microduck.c": {
+      "sha256": "3a7933a400b8f5ac8579ee7685afa65c9685c66efea3b863a9dad1a89555723f",
+      "bytes": 59554
+    },
+    "linux/microduck/media-simulation.ubp": {
+      "sha256": "489a3e2dd7027f4d4ee11d7670ef9eea4d6fa33d533f9af5d6b3e94a67c5fbd9",
+      "bytes": 454
+    },
+    "linux/microduck/MEDIA_SIMULATION.md": {
+      "sha256": "469da450283237d498c059e965d22ce453c80f3e54805028175e9fb08f86c575",
+      "bytes": 5177
+    },
+    "linux/microduck/Media_Simulation.ubl": {
+      "sha256": "e439fceddf269280a580cc0de6f8a7aa993aff70a0b2796b727c1d592a54afae",
+      "bytes": 7019
+    },
+    "linux/microduck/media_simulator.py": {
+      "sha256": "c2b837b62a7758e41f30a9c0065ca9050ffacbd9409bec7173de5f67d9f4d00a",
+      "bytes": 12565
+    },
+    "linux/microduck/tests/media-final-build.txt": {
+      "sha256": "b16ee56ae64bfbf2a49d4dba5ecff91c3b8153a39b1f6689703794d96f029623",
+      "bytes": 9500
+    },
+    "linux/microduck/tests/media-final-focused.txt": {
+      "sha256": "253b84fae64d6d094afb3100cedcf50e163f25ab85528ed598402ceaa3468b56",
+      "bytes": 3257
+    },
+    "linux/microduck/tests/media-final-full-run.json": {
+      "sha256": "aa3861bc6ece6570ae68e92cc3cbff66a1e578f52b4f72ffff03b8ea078dca71",
+      "bytes": 626
+    },
+    "linux/microduck/tests/media-final-linux.txt": {
+      "sha256": "6e6ebf8171fefc1bbc7ba5a3bd8b8a1bd23b0446476c77f3539179dd17bac6ad",
+      "bytes": 55414
+    },
+    "linux/microduck/tests/media-final-native-build-manifest.json": {
+      "sha256": "d842470def052d558ac290a95a107d8d623afdabc24756f1516881745e66bfbe",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/media-final-native-build-run.json": {
+      "sha256": "787bb5ba79917c22b60748ef53b39d3a122b6e7fe7f7d68acf90afb19db432df",
+      "bytes": 747
+    },
+    "linux/microduck/tests/media-final-native-provenance.json": {
+      "sha256": "b6a5756dbde95ef6809a0921a5cd320b058cfcf2d0bb8ff24312ed5b6a047d55",
+      "bytes": 2311
+    },
+    "linux/microduck/tests/media-final-native-source-manifest.json": {
+      "sha256": "0f0488992e9e83ca9b7a569a36531513a4ad34de53db0c7128e55b34f7bf76b5",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/media-final-scenario-execution.txt": {
+      "sha256": "08463fc00c4f561831463ba3c9cae12e1513957e8fc970737fd169fe6c0fc268",
+      "bytes": 154
+    },
+    "linux/microduck/tests/media-final-scenario-vm.txt": {
+      "sha256": "aac37537112a32a08316d9712e4aebc47bdfd1c5406727d263447b765199f6ec",
+      "bytes": 48
+    },
+    "linux/microduck/tests/media-final-scenario.json": {
+      "sha256": "06fc8a76eabd0c6975dd847f4df0189596f12d413ec77af54fe841de7b8cb3e0",
+      "bytes": 5216
+    },
+    "linux/microduck/tests/media-initial-backend-focused.txt": {
+      "sha256": "54bbd1159b693917ac84509fde3756a86e25046e5ac63cf56ad880e5709b7d6a",
+      "bytes": 2235
+    },
+    "linux/microduck/tests/media-initial-build.txt": {
+      "sha256": "3d69abc6497fe41f7facc59b044a55e82487b059d4379b83202bfa2656d85974",
+      "bytes": 9470
+    },
+    "linux/microduck/tests/media-initial-focused.txt": {
+      "sha256": "081f84c9a779f5287f5afd4faa82a3c6a293586e7a3e55a293e64f37f5507783",
+      "bytes": 3257
+    },
+    "linux/microduck/tests/media-initial-full-run.json": {
+      "sha256": "344a1648e64f13f39e6cac016080a09543b4f16171e4ead7c983eb379c7bf113",
+      "bytes": 614
+    },
+    "linux/microduck/tests/media-initial-linux.txt": {
+      "sha256": "6e1bb7f2ad3b407036076308c31af51da2863bd35c2d88caa588d8f6782c0045",
+      "bytes": 55771
+    },
+    "linux/microduck/tests/media-log-retention.json": {
+      "sha256": "d3ceca687ac11b0dacbbb87ee4c52cc138cb5c6348c49b53f32465c48566259b",
+      "bytes": 17565
+    },
+    "linux/microduck/tests/media-native-build-manifest.json": {
+      "sha256": "15d66fd9f1217dfcdba8daa5a47a97c890366137170b4579fb951b59aea30c58",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/media-native-build-run.json": {
+      "sha256": "fd40442689d2a5c9c98fc1226f07af02ea70921ee9371bc39ee6e1cd45948115",
+      "bytes": 729
+    },
+    "linux/microduck/tests/media-native-provenance.json": {
+      "sha256": "8fb9d03c67780ce4348ca2c2bb8a06e4254ecda880b0c6516e1acdc6a511b688",
+      "bytes": 2299
+    },
+    "linux/microduck/tests/media-native-source-manifest.json": {
+      "sha256": "fe7ba1d227600a61b77beddb757bd65b63d866f4d76ffcaa682b96b38c42faee",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/media-packaging.json": {
+      "sha256": "772d2388d61ffdc6978a4716559944f06d4dab0062e800b46fdf7b481675c8f5",
+      "bytes": 2553
+    },
+    "linux/microduck/tests/media-pi-final-evidence-archive.json": {
+      "sha256": "f391daa3ef80aafdb8fc49e9b9f5f8bac7242bb9951983fbb0ff5ce4e00a297c",
+      "bytes": 571
+    },
+    "linux/microduck/tests/media-pi-final-execution.txt": {
+      "sha256": "e5f13c41fcd4ce995d9329711dc6ce5c2991cdeee50a560cb6efeca170cb13b9",
+      "bytes": 1213
+    },
+    "linux/microduck/tests/media-pi-final-kit.json": {
+      "sha256": "9cabe70ccfaa5c6f1ea6518a43ac9fd7fb52d5024284f3750bb127b523d1789f",
+      "bytes": 370
+    },
+    "linux/microduck/tests/media-pi-final-remote.json": {
+      "sha256": "9152dc500bcc81fc297d2a4008f1128ad52d250c8b9bdfe1fb5b049481ebc3ff",
+      "bytes": 102
+    },
+    "linux/microduck/tests/media-pi-initial-evidence-archive.json": {
+      "sha256": "ba15644bd1e772074cd34decb081cdffa3adb204f2f19c7950d1ed098604ed8b",
+      "bytes": 569
+    },
+    "linux/microduck/tests/media-pi-initial-execution.txt": {
+      "sha256": "f7ce72cbfff471eebff8913794e0c78790c4d3b100a76a8f519f36b56d3a32cf",
+      "bytes": 1213
+    },
+    "linux/microduck/tests/media-pi-initial-kit.json": {
+      "sha256": "e96b8306015c6dc5257e22d1c3181888dc61e4e89c0ae13a396418e799d69092",
+      "bytes": 364
+    },
+    "linux/microduck/tests/media-pi-initial-remote.json": {
+      "sha256": "31aa296b5c5c5231cf465513ca8a370eb4fde7f0facecd3406c0cdb171bc9d70",
+      "bytes": 100
+    },
+    "linux/microduck/tests/media-scenario-initial-failure.txt": {
+      "sha256": "9de2b927478afbac54d79196a7b7142f638d329df9ca7d2a793b9f7dd97f71ff",
+      "bytes": 1462
+    },
+    "linux/microduck/tests/media-source.json": {
+      "sha256": "c70e379ef112c5cfe1c462caf44cb712e97e38329a73a404508c189631cf6137",
+      "bytes": 2847
+    },
+    "linux/microduck/tests/media-validation.json": {
+      "sha256": "f73306db89f2400a2605db8b596b1e531d431ba09b74c24cbfc1bbcc75c076a8",
+      "bytes": 8337
+    },
+    "linux/microduck/tests/pi5-media-final-kit-manifest.json": {
+      "sha256": "07d26cd274367d6597175fde38b06e2e4b44f13c6cf0b2aa6d5b6bdb7041b4eb",
+      "bytes": 21560
+    },
+    "linux/microduck/tests/pi5-media-final-native-build-manifest.json": {
+      "sha256": "221db262a4f1bb92b02865c2025e293d2ae6531654c23296ca36319c95be8c1d",
+      "bytes": 11860
+    },
+    "linux/microduck/tests/pi5-media-final-native-build.txt": {
+      "sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+      "bytes": 7941
+    },
+    "linux/microduck/tests/pi5-media-final-native-plain-build-manifest.json": {
+      "sha256": "e7199f7baa5ae70f09703c9e418c648a2fbbf2dda2c7b699e96dcf21b1441fb9",
+      "bytes": 11862
+    },
+    "linux/microduck/tests/pi5-media-final-native-plain-build.txt": {
+      "sha256": "0271e28659681358e3af9f4fb625596212fb3d6b2c19d3173c0a3f5f9000b5ff",
+      "bytes": 8701
+    },
+    "linux/microduck/tests/pi5-media-final-native-plain-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-media-final-native-plain-source-manifest.json": {
+      "sha256": "8960996bc4da76a2e46335b0f8ed4936d8abb61294715d8dfac42153e043e8a8",
+      "bytes": 11686
+    },
+    "linux/microduck/tests/pi5-media-final-native-plain-tests.txt": {
+      "sha256": "50ffff869c0ab8d33fea6ad2e3279e798afabe5b407b19eea274e1b40f61a0ca",
+      "bytes": 18324
+    },
+    "linux/microduck/tests/pi5-media-final-native-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-media-final-native-source-manifest.json": {
+      "sha256": "0f0488992e9e83ca9b7a569a36531513a4ad34de53db0c7128e55b34f7bf76b5",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/pi5-media-final-native-tests.txt": {
+      "sha256": "2a1b0f814ee64ea4888c13cd7a7f95992fdb51fda00e97424724a7afc6abf1e2",
+      "bytes": 18324
+    },
+    "linux/microduck/tests/pi5-media-final-pi-media-validation.json": {
+      "sha256": "98ec4620ccaa2c861dea35db74e82d419e8ab287b4fab37ef54cf3d33487be01",
+      "bytes": 1842
+    },
+    "linux/microduck/tests/pi5-media-initial-kit-manifest.json": {
+      "sha256": "807d4d2713eb3bf85660406c926b54b6a9ba57b3b30bf29e2308610779efe984",
+      "bytes": 21560
+    },
+    "linux/microduck/tests/pi5-media-initial-native-build-manifest.json": {
+      "sha256": "bcfc873431b59b7dab387680262d1e9f5e4be1ab2768c6f40a76a8b0de2ca2d6",
+      "bytes": 11860
+    },
+    "linux/microduck/tests/pi5-media-initial-native-build.txt": {
+      "sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+      "bytes": 7941
+    },
+    "linux/microduck/tests/pi5-media-initial-native-plain-build-manifest.json": {
+      "sha256": "147b7d73456c7dd9e0631a520c7ba4b793b787da84d278701c8b8115c56e509f",
+      "bytes": 11861
+    },
+    "linux/microduck/tests/pi5-media-initial-native-plain-build.txt": {
+      "sha256": "0271e28659681358e3af9f4fb625596212fb3d6b2c19d3173c0a3f5f9000b5ff",
+      "bytes": 8701
+    },
+    "linux/microduck/tests/pi5-media-initial-native-plain-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-media-initial-native-plain-source-manifest.json": {
+      "sha256": "0325359ee39cc23f69ea4abbedfd02ce02de88af1470f6907f13cc85f1854901",
+      "bytes": 11686
+    },
+    "linux/microduck/tests/pi5-media-initial-native-plain-tests.txt": {
+      "sha256": "6fbf2242d3db75905d794df25e68db93c4622d3375f5eb251e27fd03eb9f45b9",
+      "bytes": 18324
+    },
+    "linux/microduck/tests/pi5-media-initial-native-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-media-initial-native-source-manifest.json": {
+      "sha256": "fe7ba1d227600a61b77beddb757bd65b63d866f4d76ffcaa682b96b38c42faee",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/pi5-media-initial-native-tests.txt": {
+      "sha256": "8d3466be1eab19911c970bceef1db046f4a2aaca60ad8b610672d3f7e2a1aa5f",
+      "bytes": 18324
+    },
+    "linux/microduck/tests/pi5-media-initial-pi-media-validation.json": {
+      "sha256": "a86ac5485d2372d71f337d5aaa134c93e9155bdb8b4a245df4f9baed657d9649",
+      "bytes": 1842
+    },
+    "linux/microduck/tests/pi5-media-runner.py.txt": {
+      "sha256": "7d47a3a0e09125ab80dc08b588faf9c64f3ab6893dca8138df0b28a793858bf4",
+      "bytes": 3782
+    },
+    "linux/microduck/vm-contract.json": {
+      "sha256": "4cd070fd1213226c1f850b68fd42dae2c732def4449d0f984a8d9eb88b101cb8",
+      "bytes": 10308
+    },
+    "tests/test_linux_editor_assets.py": {
+      "sha256": "7171b1dda2a70cb2b3ba6ac7d71372858bdc60dffd018dfd967a8220ec7a2997",
+      "bytes": 15524
+    },
+    "tests/test_linux_microduck_media.py": {
+      "sha256": "8def7150042c5abd302c04aae94a4eb47bba887d5578d91285cd375a9af72bbe",
+      "bytes": 18894
+    },
+    "tools/linux_editor_assets.py": {
+      "sha256": "1c19cc47fb0c276fc37e8644e6d6c06ee4dc7519a59a2cfb5765995bb1321097",
+      "bytes": 11774
+    }
+  }
+}

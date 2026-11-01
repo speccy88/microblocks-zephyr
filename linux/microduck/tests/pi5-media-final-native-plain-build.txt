@@ -1,0 +1,127 @@
+In file included from vm/interp.c:17:
+vm/interp.c: In function ‘primMSecsSince’:
+vm/mem.h:48:22: warning: operand of ‘?:’ changes signedness from ‘int’ to ‘unsigned int’ due to unsignedness of other operand [-Wsign-compare]
+   48 | #define obj2int(obj) smallvmObj2Int((OBJ)(obj))
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+vm/interp.c:181:17: note: in expansion of macro ‘obj2int’
+  181 |                 obj2int(args[1]) :
+      |                 ^~~~~~~
+vm/interp.c: In function ‘primUSecsSince’:
+vm/mem.h:48:22: warning: operand of ‘?:’ changes signedness from ‘int’ to ‘uint32’ {aka ‘unsigned int’} due to unsignedness of other operand [-Wsign-compare]
+   48 | #define obj2int(obj) smallvmObj2Int((OBJ)(obj))
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+vm/interp.c:192:17: note: in expansion of macro ‘obj2int’
+  192 |                 obj2int(args[1]) :
+      |                 ^~~~~~~
+vm/interp.c: At top level:
+vm/interp.c:420:13: warning: ‘interpDebug’ defined but not used [-Wunused-function]
+  420 | static void interpDebug(int ip, int cmd, int arg, int sp) {
+      |             ^~~~~~~~~~~
+vm/runtime.c: In function ‘broadcastMatches’:
+vm/runtime.c:360:23: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  360 |         if (strlen(s) != byteCount) return false;
+      |                       ^~
+vm/runtime.c: In function ‘sendVersionString’:
+vm/runtime.c:874:35: warning: unused parameter ‘chunkIndex’ [-Wunused-parameter]
+  874 | static void sendVersionString(int chunkIndex) {
+      |                               ~~~~^~~~~~~~~~
+vm/persist.c: In function ‘eraseCheck’:
+vm/persist.c:765:24: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
+  765 |                 if (*p != 0xFFFFFFFF) badCount++;
+      |                        ^~
+vm/persist.c:766:24: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
+  766 |                 if (*p != 0xFFFFFFFF) {
+      |                        ^~
+vm/persist.c: In function ‘dumpWords’:
+vm/persist.c:1230:27: warning: unused parameter ‘halfSpace’ [-Wunused-parameter]
+ 1230 | static void dumpWords(int halfSpace, int count) {
+      |                       ~~~~^~~~~~~~~
+vm/dataPrims.c: In function ‘primFillList’:
+vm/dataPrims.c:178:27: warning: comparison of integer expressions of different signedness: ‘int’ and ‘uint32_t’ {aka ‘unsigned int’} [-Wsign-compare]
+  178 |                 if (count >= WORDS(obj))count = WORDS(obj) - 1;
+      |                           ^~
+vm/dataPrims.c:172:22: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+  172 | OBJ primFillList(int argCount, OBJ *args) {
+      |                  ~~~~^~~~~~~~
+vm/dataPrims.c: In function ‘primAt’:
+vm/dataPrims.c:199:27: warning: comparison of integer expressions of different signedness: ‘int’ and ‘uint32_t’ {aka ‘unsigned int’} [-Wsign-compare]
+  199 |                 if (count >= WORDS(obj)) count = WORDS(obj) - 1;
+      |                           ^~
+vm/dataPrims.c:193:16: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+  193 | OBJ primAt(int argCount, OBJ *args) {
+      |            ~~~~^~~~~~~~
+vm/dataPrims.c: In function ‘primAtPut’:
+vm/dataPrims.c:248:27: warning: comparison of integer expressions of different signedness: ‘int’ and ‘uint32_t’ {aka ‘unsigned int’} [-Wsign-compare]
+  248 |                 if (count >= WORDS(obj)) count = WORDS(obj) - 1;
+      |                           ^~
+vm/dataPrims.c:240:19: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+  240 | OBJ primAtPut(int argCount, OBJ *args) {
+      |               ~~~~^~~~~~~~
+vm/dataPrims.c: In function ‘primLength’:
+vm/dataPrims.c:293:20: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+  293 | OBJ primLength(int argCount, OBJ *args) {
+      |                ~~~~^~~~~~~~
+vm/dataPrims.c: In function ‘primListAddLast’:
+vm/dataPrims.c:349:19: warning: comparison of integer expressions of different signedness: ‘int’ and ‘uint32_t’ {aka ‘unsigned int’} [-Wsign-compare]
+  349 |         if (count >= (WORDS(list) - 1)) { // no more capacity; try to grow
+      |                   ^~
+vm/dataPrims.c:356:19: warning: comparison of integer expressions of different signedness: ‘int’ and ‘uint32_t’ {aka ‘unsigned int’} [-Wsign-compare]
+  356 |         if (count < (WORDS(list) - 1)) { // append item if there's room
+      |                   ^
+vm/dataPrims.c:342:25: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+  342 | OBJ primListAddLast(int argCount, OBJ *args) {
+      |                     ~~~~^~~~~~~~
+vm/dataPrims.c: In function ‘primListDelete’:
+vm/dataPrims.c:371:19: warning: comparison of integer expressions of different signedness: ‘int’ and ‘uint32_t’ {aka ‘unsigned int’} [-Wsign-compare]
+  371 |         if (count >= WORDS(list)) count = WORDS(list) - 1;
+      |                   ^~
+vm/dataPrims.c: In function ‘primJoin’:
+vm/dataPrims.c:487:35: warning: comparison of integer expressions of different signedness: ‘int’ and ‘uint32_t’ {aka ‘unsigned int’} [-Wsign-compare]
+  487 |                         if (count >= WORDS(arg)) count = WORDS(arg) - 1;
+      |                                   ^~
+vm/dataPrims.c:509:84: warning: operand of ‘?:’ changes signedness from ‘int’ to ‘unsigned int’ due to unsignedness of other operand [-Wsign-compare]
+  509 |                         int byteCount = IS_TYPE(arg, ByteArrayType) ? BYTES(arg) : stringSize(arg);
+      |                                                                                    ^~~~~~~~~~~~~~~
+vm/dataPrims.c: In function ‘primFreeMemory’:
+vm/dataPrims.c:853:24: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+  853 | OBJ primFreeMemory(int argCount, OBJ *args) {
+      |                    ~~~~^~~~~~~~
+vm/dataPrims.c:853:39: warning: unused parameter ‘args’ [-Wunused-parameter]
+  853 | OBJ primFreeMemory(int argCount, OBJ *args) {
+      |                                  ~~~~~^~~~
+vm/varPrims.c: In function ‘primVarExists’:
+vm/varPrims.c:18:31: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+   18 | static OBJ primVarExists (int argCount, OBJ *args) {
+      |                           ~~~~^~~~~~~~
+vm/varPrims.c: In function ‘primVarNamed’:
+vm/varPrims.c:22:30: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+   22 | static OBJ primVarNamed (int argCount, OBJ *args) {
+      |                          ~~~~^~~~~~~~
+vm/varPrims.c: In function ‘primSetVarNamed’:
+vm/varPrims.c:30:33: warning: unused parameter ‘argCount’ [-Wunused-parameter]
+   30 | static OBJ primSetVarNamed (int argCount, OBJ *args) {
+      |                             ~~~~^~~~~~~~
+vm/tinyJSON.c: In function ‘tjr_atPath’:
+vm/tinyJSON.c:143:45: warning: operand of ‘?:’ changes signedness from ‘long int’ to ‘size_t’ {aka ‘long unsigned int’} due to unsignedness of other operand [-Wsign-compare]
+  143 |                 int propNameLen = nextDot ? (nextDot - propName) : strlen(propName);
+      |                                             ^~~~~~~~~~~~~~~~~~~~
+vm/boardHooks.c: In function ‘boardIDEConnectionChanged’:
+vm/boardHooks.c:22:36: warning: unused parameter ‘isConnected’ [-Wunused-parameter]
+   22 | void boardIDEConnectionChanged(int isConnected) { }
+      |                                ~~~~^~~~~~~~~~~
+vm/boardHooks.c: In function ‘stopAllRequest’:
+vm/boardHooks.c:84:34: warning: unused parameter ‘arg’ [-Wunused-parameter]
+   84 | static void stopAllRequest(void *arg) {
+      |                            ~~~~~~^~~
+In function ‘validParams’,
+    inlined from ‘beginPrimitive.part.0’ at platform/microduck.c:524:15:
+platform/microduck.c:335:10: warning: ‘keys’ may be used uninitialized [-Wmaybe-uninitialized]
+  335 |     if (!objectKeys(params, keys, count)) return 0;
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+platform/microduck.c: In function ‘beginPrimitive.part.0’:
+platform/microduck.c:178:12: note: by argument 2 of type ‘const char * const*’ to ‘objectKeys’ declared here
+  178 | static int objectKeys(yyjson_val *object, const char *const *allowed, size_t count) {
+      |            ^~~~~~~~~~
+platform/microduck.c:311:17: note: ‘keys’ declared here
+  311 |     const char *keys[4]; size_t count = 0;
+      |                 ^~~~

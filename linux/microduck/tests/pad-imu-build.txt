@@ -1,0 +1,126 @@
+Building fresh pinned pad-imu-native sanitizer VM
+{"result":"PASS","scope":"real SmallVM v417; local PTY; no external peripherals","architecture":"x86_64","arithmetic":12,"variable":42,"network_listener":false}
+{
+  "prepared": "/tmp/microduck-pad-imu-native-0jcmejzw",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "compiled": true,
+  "self_test": "PASS"
+}
+
+In file included from vm/interp.c:17:
+vm/interp.c: In function ΓÇÿprimMSecsSinceΓÇÖ:
+vm/mem.h:48:22: warning: operand of ΓÇÿ?:ΓÇÖ changes signedness from ΓÇÿintΓÇÖ to ΓÇÿunsigned intΓÇÖ due to unsignedness of other operand [-Wsign-compare]
+   48 | #define obj2int(obj) smallvmObj2Int((OBJ)(obj))
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+vm/interp.c:181:17: note: in expansion of macro ΓÇÿobj2intΓÇÖ
+  181 |                 obj2int(args[1]) :
+      |                 ^~~~~~~
+vm/interp.c: In function ΓÇÿprimUSecsSinceΓÇÖ:
+vm/mem.h:48:22: warning: operand of ΓÇÿ?:ΓÇÖ changes signedness from ΓÇÿintΓÇÖ to ΓÇÿuint32ΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} due to unsignedness of other operand [-Wsign-compare]
+   48 | #define obj2int(obj) smallvmObj2Int((OBJ)(obj))
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+vm/interp.c:192:17: note: in expansion of macro ΓÇÿobj2intΓÇÖ
+  192 |                 obj2int(args[1]) :
+      |                 ^~~~~~~
+vm/interp.c: At top level:
+vm/interp.c:420:13: warning: ΓÇÿinterpDebugΓÇÖ defined but not used [-Wunused-function]
+  420 | static void interpDebug(int ip, int cmd, int arg, int sp) {
+      |             ^~~~~~~~~~~
+vm/runtime.c: In function ΓÇÿbroadcastMatchesΓÇÖ:
+vm/runtime.c:360:23: warning: comparison of integer expressions of different signedness: ΓÇÿsize_tΓÇÖ {aka ΓÇÿlong unsigned intΓÇÖ} and ΓÇÿintΓÇÖ [-Wsign-compare]
+  360 |         if (strlen(s) != byteCount) return false;
+      |                       ^~
+vm/runtime.c: In function ΓÇÿsendVersionStringΓÇÖ:
+vm/runtime.c:874:35: warning: unused parameter ΓÇÿchunkIndexΓÇÖ [-Wunused-parameter]
+  874 | static void sendVersionString(int chunkIndex) {
+      |                               ~~~~^~~~~~~~~~
+vm/persist.c: In function ΓÇÿeraseCheckΓÇÖ:
+vm/persist.c:765:24: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿunsigned intΓÇÖ [-Wsign-compare]
+  765 |                 if (*p != 0xFFFFFFFF) badCount++;
+      |                        ^~
+vm/persist.c:766:24: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿunsigned intΓÇÖ [-Wsign-compare]
+  766 |                 if (*p != 0xFFFFFFFF) {
+      |                        ^~
+vm/persist.c: In function ΓÇÿdumpWordsΓÇÖ:
+vm/persist.c:1230:27: warning: unused parameter ΓÇÿhalfSpaceΓÇÖ [-Wunused-parameter]
+ 1230 | static void dumpWords(int halfSpace, int count) {
+      |                       ~~~~^~~~~~~~~
+vm/dataPrims.c: In function ΓÇÿprimFillListΓÇÖ:
+vm/dataPrims.c:178:27: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+  178 |                 if (count >= WORDS(obj))count = WORDS(obj) - 1;
+      |                           ^~
+vm/dataPrims.c:172:22: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+  172 | OBJ primFillList(int argCount, OBJ *args) {
+      |                  ~~~~^~~~~~~~
+vm/dataPrims.c: In function ΓÇÿprimAtΓÇÖ:
+vm/dataPrims.c:199:27: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+  199 |                 if (count >= WORDS(obj)) count = WORDS(obj) - 1;
+      |                           ^~
+vm/dataPrims.c:193:16: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+  193 | OBJ primAt(int argCount, OBJ *args) {
+      |            ~~~~^~~~~~~~
+vm/dataPrims.c: In function ΓÇÿprimAtPutΓÇÖ:
+vm/dataPrims.c:248:27: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+  248 |                 if (count >= WORDS(obj)) count = WORDS(obj) - 1;
+      |                           ^~
+vm/dataPrims.c:240:19: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+  240 | OBJ primAtPut(int argCount, OBJ *args) {
+      |               ~~~~^~~~~~~~
+vm/dataPrims.c: In function ΓÇÿprimLengthΓÇÖ:
+vm/dataPrims.c:293:20: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+  293 | OBJ primLength(int argCount, OBJ *args) {
+      |                ~~~~^~~~~~~~
+vm/dataPrims.c: In function ΓÇÿprimListAddLastΓÇÖ:
+vm/dataPrims.c:349:19: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+  349 |         if (count >= (WORDS(list) - 1)) { // no more capacity; try to grow
+      |                   ^~
+vm/dataPrims.c:356:19: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+  356 |         if (count < (WORDS(list) - 1)) { // append item if there's room
+      |                   ^
+vm/dataPrims.c:342:25: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+  342 | OBJ primListAddLast(int argCount, OBJ *args) {
+      |                     ~~~~^~~~~~~~
+vm/dataPrims.c: In function ΓÇÿprimListDeleteΓÇÖ:
+vm/dataPrims.c:371:19: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+  371 |         if (count >= WORDS(list)) count = WORDS(list) - 1;
+      |                   ^~
+vm/dataPrims.c: In function ΓÇÿprimJoinΓÇÖ:
+vm/dataPrims.c:487:35: warning: comparison of integer expressions of different signedness: ΓÇÿintΓÇÖ and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+  487 |                         if (count >= WORDS(arg)) count = WORDS(arg) - 1;
+      |                                   ^~
+vm/dataPrims.c:509:84: warning: operand of ΓÇÿ?:ΓÇÖ changes signedness from ΓÇÿintΓÇÖ to ΓÇÿunsigned intΓÇÖ due to unsignedness of other operand [-Wsign-compare]
+  509 |                         int byteCount = IS_TYPE(arg, ByteArrayType) ? BYTES(arg) : stringSize(arg);
+      |                                                                                    ^~~~~~~~~~~~~~~
+vm/dataPrims.c: In function ΓÇÿprimFreeMemoryΓÇÖ:
+vm/dataPrims.c:853:24: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+  853 | OBJ primFreeMemory(int argCount, OBJ *args) {
+      |                    ~~~~^~~~~~~~
+vm/dataPrims.c:853:39: warning: unused parameter ΓÇÿargsΓÇÖ [-Wunused-parameter]
+  853 | OBJ primFreeMemory(int argCount, OBJ *args) {
+      |                                  ~~~~~^~~~
+vm/varPrims.c: In function ΓÇÿprimVarExistsΓÇÖ:
+vm/varPrims.c:18:31: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+   18 | static OBJ primVarExists (int argCount, OBJ *args) {
+      |                           ~~~~^~~~~~~~
+vm/varPrims.c: In function ΓÇÿprimVarNamedΓÇÖ:
+vm/varPrims.c:22:30: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+   22 | static OBJ primVarNamed (int argCount, OBJ *args) {
+      |                          ~~~~^~~~~~~~
+vm/varPrims.c: In function ΓÇÿprimSetVarNamedΓÇÖ:
+vm/varPrims.c:30:33: warning: unused parameter ΓÇÿargCountΓÇÖ [-Wunused-parameter]
+   30 | static OBJ primSetVarNamed (int argCount, OBJ *args) {
+      |                             ~~~~^~~~~~~~
+vm/tinyJSON.c: In function ΓÇÿtjr_atPathΓÇÖ:
+vm/tinyJSON.c:143:45: warning: operand of ΓÇÿ?:ΓÇÖ changes signedness from ΓÇÿlong intΓÇÖ to ΓÇÿsize_tΓÇÖ {aka ΓÇÿlong unsigned intΓÇÖ} due to unsignedness of other operand [-Wsign-compare]
+  143 |                 int propNameLen = nextDot ? (nextDot - propName) : strlen(propName);
+      |                                             ^~~~~~~~~~~~~~~~~~~~
+vm/boardHooks.c: In function ΓÇÿboardIDEConnectionChangedΓÇÖ:
+vm/boardHooks.c:22:36: warning: unused parameter ΓÇÿisConnectedΓÇÖ [-Wunused-parameter]
+   22 | void boardIDEConnectionChanged(int isConnected) { }
+      |                                ~~~~^~~~~~~~~~~
+vm/boardHooks.c: In function ΓÇÿstopAllRequestΓÇÖ:
+vm/boardHooks.c:84:34: warning: unused parameter ΓÇÿargΓÇÖ [-Wunused-parameter]
+   84 | static void stopAllRequest(void *arg) {
+      |                            ~~~~~~^~~
+
+{"directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/pad-imu-native-persisted-20261027", "original_temporary_directory": "/tmp/microduck-pad-imu-native-0jcmejzw", "returncode": 0, "seconds": 119.521018179, "command": ["/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python", "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py", "--upstream", "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/smallvm-linux-upstream", "--output", "/tmp/microduck-pad-imu-native-0jcmejzw", "--sanitize", "--test"]}

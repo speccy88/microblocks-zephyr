@@ -1,0 +1,48 @@
+{
+  "observed_utc": "2026-10-27T21:58:53.968173+00:00",
+  "local_refs": {
+    "refs/heads/codex/js-editor-migration-20261027": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+    "refs/heads/codex/pi5-microduck-preparation": "62fb982268a9db7f749057842696ad3b74c6b85b",
+    "refs/heads/codex/pi5-upstream-integration-20261027": "e5fd3d0a1d77f7024cade03136e9d6e859947cc5",
+    "refs/heads/codex/pi5-watch-integration-20261027": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+    "refs/heads/gp": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+    "refs/heads/main": "af742e8d34b194603182a303e07c130859f0cf8c"
+  },
+  "worktrees": "worktree C:/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5\nHEAD 62fb982268a9db7f749057842696ad3b74c6b85b\nbranch refs/heads/codex/pi5-microduck-preparation\n\nworktree C:/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027\nHEAD 3905dc1808f65dad65d5a37b05990f74cc4fca83\nbranch refs/heads/codex/pi5-watch-integration-20261027\n\nworktree C:/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027\nHEAD 3905dc1808f65dad65d5a37b05990f74cc4fca83\nbranch refs/heads/codex/js-editor-migration-20261027\n\n",
+  "gp_base_contains": {
+    "main": true,
+    "codex/pi5-microduck-preparation": true,
+    "codex/pi5-upstream-integration-20261027": true
+  },
+  "origin": "https://github.com/speccy88/microblocks-zephyr.git",
+  "remote_branches": {
+    "main": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+    "development/fruit-jam": "91a4dad2766e36d2737754cadb164492661c6e6e",
+    "development/waveshare-rlcd": "8616af6f59256ef251622ac70ab802ea2d7b2b53"
+  },
+  "remote_evidence": "Connected GitHub read-only branches and open pull requests API; zero open PRs. No remote gp/JS branch at inspection.",
+  "pi_ahead_remote_main": 31,
+  "pi_behind_remote_main": 0,
+  "remote_changed": false,
+  "shared_main_changed": false,
+  "independent_owner_work": [
+    {
+      "task_title": "Resume ESP32-P4 SD integration",
+      "state": "SFC paused by user; no source or hardware accessed by this migration",
+      "latest_known_seal": "2026-10-27T21:29:27.855753Z",
+      "artifact": "microblocks-sfc-interface-export.zip",
+      "sha256": "eafcd114b3373ae429db8c28404bb8cf99b3cb999c0f499678a1f4224f0459b1",
+      "bytes": 137129,
+      "merged": false,
+      "test_scope": "Host-tested UI/export; actual GP, browser and hardware acceptance unverified at seal"
+    },
+    {
+      "artifact": "microblocks-sfc-execution.zip",
+      "latest_known_seal": "2026-10-27T21:01:57.505628Z",
+      "sha256": "61fea86c7ad5ea7938bb4337defc60c83d1f2ee8eff6cb7d30a44bff92a14d4b",
+      "bytes": 82075,
+      "merged": false
+    }
+  ],
+  "inventory_limit": "All refs in this clone and remote inspected. Latest independent P4 dirty/commit state requires its owner checkpoint; protected P4 checkout not inspected. Sealed archive identities are preserved, not silently imported."
+}

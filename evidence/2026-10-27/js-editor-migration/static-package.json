@@ -1,0 +1,7 @@
+{
+  "file": "microblocks-js-editor-5564b1e-linux-staging.tar.gz",
+  "sha256": "db5e0f8faa02585c887a2d6763419eec77772e26bec6b086f7bd1897502cc885",
+  "bytes": 2412738,
+  "status": "local experimental static editor candidate; no VM, release or publication",
+  "upstream": "5564b1e42d6790360450ebf11c9eb33a1c6877f2"
+}

@@ -1,0 +1,37 @@
+{
+  "scope": "retained limited-scope software/mock evidence; no hardware attestation",
+  "files": {
+    "linux/microduck/tests/camera-source.json": {
+      "sha256": "287098734388656a77e74bac43949266ae497f5241f2354c4b25de1e105d7ff6",
+      "bytes": 2044
+    },
+    "linux/microduck/tests/camera-scenario.json": {
+      "sha256": "ee065183c1087f745c2ad32e861def48235c980e7d3f335cc6dce074f4c245ba",
+      "bytes": 4792
+    },
+    "linux/microduck/tests/camera-packaging.json": {
+      "sha256": "73fd9ada21129bb568fce84c0138436ee79a6f9979ad980c64e47177cffaeb8f",
+      "bytes": 1944
+    },
+    "linux/microduck/tests/camera-validation.json": {
+      "sha256": "30a577545c7948309283965635bffca914238ce612eda0ccaa4ac4d86249d231",
+      "bytes": 4596
+    },
+    "linux/microduck/tests/camera-focused.txt": {
+      "sha256": "2b931e7173efa675998eeb7a44b59e2c2ee0db6fc23557c0ed6ccc3ad2fcf99a",
+      "bytes": 8864
+    },
+    "linux/microduck/tests/camera-node.txt": {
+      "sha256": "5de00606d14a86aabbfe2ab8ae27c15adbc2f0b4d26ae97f27e17ecc83a68e5b",
+      "bytes": 47690
+    },
+    "linux/microduck/tests/camera-linux.txt": {
+      "sha256": "67b84977c7b9c223642cde333e4bbe30b5beb9cc5fbd608e327773992be6ac3a",
+      "bytes": 37621
+    },
+    "evidence/2026-10-27/microduck-camera/README.md": {
+      "sha256": "1333eab78411ce6cbf28829f05003dd4d706fe6dac86304ba05d450d564b0ebb",
+      "bytes": 4467
+    }
+  }
+}

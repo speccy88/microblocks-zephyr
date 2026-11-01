@@ -1,0 +1,22 @@
+{
+  "final_full_tests": 473,
+  "failures": 0,
+  "skips": 0,
+  "final_source_files_verified": 2028,
+  "replica": "/tmp/js-editor-validation-1p_zxv9y/repo",
+  "seconds": 216.124872575,
+  "focused_python_in_full_suite": 8,
+  "node_checks_in_focused_suite": {
+    "compatibility": 10,
+    "typed_library": 8,
+    "matrix_slot": 7
+  },
+  "production_binary_rebuilt": false,
+  "native_test_binaries_built_by_full_suite": true,
+  "zephyr_rebuilt": false,
+  "pi_graphical_acceptance": "Scoped no-gateway real Pi VM; see gui-scope.json",
+  "robot_or_unoq_physical_validation": false,
+  "evidence_metadata_added_after_validation": true,
+  "interrupted_final_log_last_test": "coherent depth real VM fixture; no process remained on recovery inspection",
+  "preparation_failure_reason": "Stale captured documentation hashes; exited before any tests; inputs recaptured for final pass"
+}

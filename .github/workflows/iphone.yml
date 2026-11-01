@@ -1,0 +1,94 @@
+name: iPhone wireless editor
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: iphone-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  editor-contracts:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Fetch immutable official editor source
+        run: |
+          git init build-artifacts/editor-upstream
+          git -C build-artifacts/editor-upstream remote add origin https://codeberg.org/MicroBlocks/smallvm.git
+          git -C build-artifacts/editor-upstream fetch --depth=1 origin 5564b1e42d6790360450ebf11c9eb33a1c6877f2
+      - name: Package and test real pinned compiler and iPhone profile
+        env:
+          JS_EDITOR_UPSTREAM: ${{ github.workspace }}/build-artifacts/editor-upstream
+        run: |
+          python3 -m unittest discover -s tests -p test_iphone_editor.py -v
+          python3 tools/package_iphone_editor.py --source build-artifacts/editor-upstream --output build-artifacts/iphone-editor > build-artifacts/iphone-receipt.json
+          node tests/iphone-transport.test.cjs build-artifacts/iphone-editor
+      - name: Execute iPhone adapter uploads against the real native VM
+        run: |
+          git -C build-artifacts/editor-upstream fetch --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b
+          python3 -m pip install -r linux/arm64/bridge-requirements.txt
+          python3 linux/arm64/build.py --upstream build-artifacts/editor-upstream --output build-artifacts/iphone-vm --sanitize --test
+          python3 tools/test_iphone_wireless_vm.py --binary build-artifacts/iphone-vm/smallvm --editor build-artifacts/iphone-editor --evidence build-artifacts/iphone-real-vm.json
+      - name: Exercise real editor touch interactions at six phone sizes
+        run: |
+          python3 -m pip install playwright==1.64.1
+          python3 tests/iphone_browser_smoke.py --editor build-artifacts/iphone-editor --output build-artifacts/iphone-browser --browser /usr/bin/google-chrome
+          python3 tests/iphone_touch_smoke.py --editor build-artifacts/iphone-editor --output build-artifacts/iphone-touch --browser /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iphone-touch-evidence
+          path: |
+            build-artifacts/iphone-browser
+            build-artifacts/iphone-touch
+            build-artifacts/iphone-real-vm.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iphone-editor-source
+          path: build-artifacts/iphone-editor
+  simulator:
+    needs: editor-contracts
+    runs-on: macos-15
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        phone: [small, large]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: iphone-editor-source
+          path: ios/MicroBlocks/Editor
+      - name: Generate native app project
+        run: |
+          brew install xcodegen
+          xcodegen --version
+          xcodebuild -version
+          cd ios
+          xcodegen generate
+      - name: Compile and test unsigned iPhone Simulator app
+        env:
+          PHONE_SIZE: ${{ matrix.phone }}
+        run: |
+          DEVICE_ID=$(xcrun simctl list devices available -j | python3 -c 'import json,os,sys; ds=[d for devices in json.load(sys.stdin)["devices"].values() for d in devices if d["name"].startswith("iPhone")]; names=(["iPhone SE (3rd generation)","iPhone 16e","iPhone 16"] if os.environ["PHONE_SIZE"]=="small" else ["iPhone 16 Pro Max","iPhone 16 Plus"]); d=next(d for name in names for d in ds if d["name"]==name); print(d["name"],file=sys.stderr); print(d["udid"])')
+          xcrun simctl boot "$DEVICE_ID"
+          xcrun simctl bootstatus "$DEVICE_ID" -b
+          xcodebuild -project ios/MicroBlocks.xcodeproj -scheme MicroBlocks -configuration Debug -destination "platform=iOS Simulator,id=$DEVICE_ID" -parallel-testing-enabled NO -derivedDataPath ios/DerivedData -resultBundlePath build-artifacts/iphone-tests.xcresult CODE_SIGNING_ALLOWED=NO test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iphone-simulator-${{ matrix.phone }}-evidence
+          path: build-artifacts/iphone-tests.xcresult

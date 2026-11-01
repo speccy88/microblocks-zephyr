@@ -1,0 +1,19 @@
+{
+  "sha256": "5181716e25f8a1d703b41a0259acd89974d76014651c2ca29d13feddcf79f5e9",
+  "bytes": 32009,
+  "files": [
+    "pi-robot-service-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ],
+  "remote_directory": "/home/fred/microblocks-robot-service-uh3o5w11"
+}

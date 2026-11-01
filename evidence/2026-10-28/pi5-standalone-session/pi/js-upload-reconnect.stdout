@@ -1,0 +1,3 @@
+serial disconnected
+serial disconnected
+{"graphical":false,"real_compiler":true,"block_views":"minimal fixtures","expression":"20 + 22","expected":42,"crc":[41,52,161,243],"code_sha256":"1bdda56f9b71238b8796da5d3236958e7362495f26a1e30d447b76d3cc13f406","connections":[{"pass":0,"result":42,"crc_verified":true,"no_code_upload":false,"sent_message_types":[26,12,32,11,3]},{"pass":1,"result":42,"crc_verified":true,"no_code_upload":true,"sent_message_types":[26,12,11,3]}]}

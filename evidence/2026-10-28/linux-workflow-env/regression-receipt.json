@@ -1,0 +1,17 @@
+{
+  "observed_utc": "2026-10-28T00:36:43.633078+00:00",
+  "prior_workflow_commit": "0de875495f2c188e8bb446f1fb5a23d1d141f136",
+  "prior_workflow_sha256": "887524086f6eaff7699bf4ac66c9ebebd522d951fe1af2a54d11876b012b272f",
+  "prior_context_regression": "Expected assertion failure: runner context unavailable in job env",
+  "current_focused_tests": 9,
+  "failures": 0,
+  "skips": 0,
+  "hosted_workflow_executed": false,
+  "hardware_accessed": false,
+  "publication_attempted_this_slice": false,
+  "source_files": {
+    ".github/workflows/linux-arm64.yml": "d1888b54dc856d88ad0e873f48061aab35fc77b5f83e2e06c0eaa6ef462bdd36",
+    "tests/test_linux_arm64_workflow.py": "a8b95c512cacd84dbf4471deff05fe0f20ba5e1f69b71703407b6e8ae71e36f5",
+    "docs/LINUX_CI.md": "f06ca209f9aae94323097656cc0a663ae653a77d35db39ec02de85cd7d982ad4"
+  }
+}

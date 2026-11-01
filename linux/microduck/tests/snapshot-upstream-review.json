@@ -1,0 +1,38 @@
+{
+  "user_protocol_url": "https://raw.githubusercontent.com/pollen-robotics/microduck/main/duck-ipc-proto/src/lib.rs",
+  "resolved_main_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+  "api_version": 45,
+  "files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "9461021bde3a029646095fac1f3a9aa241ad772a326446b2dcde3153e9458d57",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/duck-ipc-proto/src/lib.rs"
+    },
+    "padd/src/tap.rs": {
+      "sha256": "9e97c76f34ea124d442a2c8f41b8e97532decde4340c55b61fa26cdd64734c53",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/padd/src/tap.rs"
+    },
+    "tof/src/lib.rs": {
+      "sha256": "d9cce1cc0df5f33b2da523260ba5fcc74b80035173ccc23ead9866d4faaa2a18",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/tof/src/lib.rs"
+    },
+    "docs/design/robotd-design.md": {
+      "sha256": "3af5a4258a6631b39076b8382130b5255d9ab9da2844b1f0a8bb805b0029ac3a",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/docs/design/robotd-design.md"
+    },
+    "robotctl/src/main.rs": {
+      "sha256": "a8595b52bc4dbe9d9732514d76e3f634b99e33f591d83d959871f341b6a999c5",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/robotctl/src/main.rs"
+    },
+    "robotctl/src/monitor.rs": {
+      "sha256": "af40a573a537b217a09a7132328f48c273b98ab12c83985ecabf763f712188e0",
+      "url": "https://github.com/pollen-robotics/microduck/blob/5def2f3e66501f0f365d4fb1183020b8ee875443/robotctl/src/monitor.rs"
+    }
+  },
+  "baseline_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "baseline_api": 44,
+  "delta": "protocol changes concern vetbook gallery sharing; requested sensor/control/state types unchanged; tof/src/lib.rs and padd/src/tap.rs unchanged",
+  "runtime_api_pin_changed": false,
+  "robotctl_executed": false,
+  "physical_robot_validated": false,
+  "design_is_execution_evidence": false
+}

@@ -1,0 +1,199 @@
+{
+  "recorded_at": "2026-10-27T12:57:41.724Z",
+  "scope": "actual camera JS modules; internal fake signaling, RTC and tracks only; geometry and all media fictional",
+  "real_network": false,
+  "real_rtc": false,
+  "real_capture": false,
+  "real_robot": false,
+  "decoded_frames_verified": false,
+  "robot_rpc_requests": 0,
+  "initial": {
+    "session": {
+      "phase": "attached",
+      "simulation": true,
+      "producers": [],
+      "selected": null,
+      "geometry": null,
+      "metadataError": null,
+      "videoTrackReceived": false,
+      "decodedFramesVerified": false,
+      "expectedApiVersion": 44,
+      "identityVerified": false,
+      "physicalMicroDuckTested": false,
+      "code": null,
+      "endSessionAttempted": false,
+      "counters": {
+        "received": 0,
+        "sent": 0,
+        "ignored": 0,
+        "localIce": 0,
+        "remoteIce": 0
+      },
+      "limits": {
+        "timeoutMs": 1000,
+        "durationMs": 60000,
+        "messages": 256,
+        "queue": 32,
+        "candidates": 64
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "signalMessages": 0,
+      "signalKinds": [],
+      "controlRequests": 0,
+      "controlMethods": [],
+      "peerConstructions": 0,
+      "remoteOffers": 0,
+      "localAnswers": 0,
+      "iceAdded": 0,
+      "videoStops": 0,
+      "audioStops": 0,
+      "channelCloses": 0,
+      "peerCloses": 0,
+      "closed": false,
+      "transceiverDirections": [],
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false
+    }
+  },
+  "active": {
+    "session": {
+      "phase": "track-received",
+      "simulation": true,
+      "producers": [
+        {
+          "id": "simulation-camera-1",
+          "name": "SIMULATION CAMERA / NO REAL VIDEO",
+          "advertisedApiVersion": 44
+        }
+      ],
+      "selected": {
+        "id": "simulation-camera-1",
+        "name": "SIMULATION CAMERA / NO REAL VIDEO",
+        "advertisedApiVersion": 44
+      },
+      "geometry": {
+        "reportedWidth": 1280,
+        "reportedHeight": 720,
+        "reportedRotateClockwise": 90,
+        "origin": "unattested-remote"
+      },
+      "metadataError": null,
+      "videoTrackReceived": true,
+      "decodedFramesVerified": false,
+      "expectedApiVersion": 44,
+      "identityVerified": false,
+      "physicalMicroDuckTested": false,
+      "code": null,
+      "endSessionAttempted": false,
+      "counters": {
+        "received": 5,
+        "sent": 4,
+        "ignored": 0,
+        "localIce": 1,
+        "remoteIce": 1
+      },
+      "limits": {
+        "timeoutMs": 1000,
+        "durationMs": 60000,
+        "messages": 256,
+        "queue": 32,
+        "candidates": 64
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "signalMessages": 4,
+      "signalKinds": [
+        "list",
+        "startSession",
+        "peer:answer",
+        "peer:ice"
+      ],
+      "controlRequests": 1,
+      "controlMethods": [
+        "media.video"
+      ],
+      "peerConstructions": 1,
+      "remoteOffers": 1,
+      "localAnswers": 1,
+      "iceAdded": 1,
+      "videoStops": 0,
+      "audioStops": 1,
+      "channelCloses": 0,
+      "peerCloses": 0,
+      "closed": false,
+      "transceiverDirections": [
+        "recvonly",
+        "inactive"
+      ],
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false
+    },
+    "observedTrackKinds": [
+      "video"
+    ]
+  },
+  "closed": {
+    "session": {
+      "phase": "closed",
+      "simulation": true,
+      "producers": [],
+      "selected": null,
+      "geometry": null,
+      "metadataError": null,
+      "videoTrackReceived": false,
+      "decodedFramesVerified": false,
+      "expectedApiVersion": 44,
+      "identityVerified": false,
+      "physicalMicroDuckTested": false,
+      "code": "STOPPED",
+      "endSessionAttempted": true,
+      "counters": {
+        "received": 5,
+        "sent": 4,
+        "ignored": 0,
+        "localIce": 1,
+        "remoteIce": 1
+      },
+      "limits": {
+        "timeoutMs": 1000,
+        "durationMs": 60000,
+        "messages": 256,
+        "queue": 32,
+        "candidates": 64
+      }
+    },
+    "fixture": {
+      "simulation": true,
+      "signalMessages": 5,
+      "signalKinds": [
+        "list",
+        "startSession",
+        "peer:answer",
+        "peer:ice",
+        "endSession"
+      ],
+      "controlRequests": 1,
+      "controlMethods": [
+        "media.video"
+      ],
+      "peerConstructions": 1,
+      "remoteOffers": 1,
+      "localAnswers": 1,
+      "iceAdded": 1,
+      "videoStops": 1,
+      "audioStops": 1,
+      "channelCloses": 1,
+      "peerCloses": 1,
+      "closed": true,
+      "transceiverDirections": [
+        "recvonly",
+        "inactive"
+      ],
+      "decodedFramesVerified": false,
+      "physicalMicroDuckTested": false
+    }
+  }
+}

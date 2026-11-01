@@ -1,0 +1,226 @@
+TAP version 13
+# Subtest: viewer construction is passive and validates finite bounds
+ok 1 - viewer construction is passive and validates finite bounds
+  ---
+  duration_ms: 4.1337
+  type: 'test'
+  ...
+# Subtest: occupied media elements are refused without stopping or replacing existing media
+ok 2 - occupied media elements are refused without stopping or replacing existing media
+  ---
+  duration_ms: 0.3973
+  type: 'test'
+  ...
+# Subtest: attach refuses audio, mixed, ended or multiple tracks and leaves unaccepted streams alone
+ok 3 - attach refuses audio, mixed, ended or multiple tracks and leaves unaccepted streams alone
+  ---
+  duration_ms: 1.0039
+  type: 'test'
+  ...
+# Subtest: owned attach is muted and inline, plays once, and has one pending callback
+ok 4 - owned attach is muted and inline, plays once, and has one pending callback
+  ---
+  duration_ms: 8.9071
+  type: 'test'
+  ...
+# Subtest: dimensions, loadeddata/playing/timeupdate and play resolution never count as frame evidence
+ok 5 - dimensions, loadeddata/playing/timeupdate and play resolution never count as frame evidence
+  ---
+  duration_ms: 1.4256
+  type: 'test'
+  ...
+# Subtest: valid callbacks count without persisting timestamps or inventing native decoding
+ok 6 - valid callbacks count without persisting timestamps or inventing native decoding
+  ---
+  duration_ms: 1.3872
+  type: 'test'
+  ...
+# Subtest: browser callback evidence remains separate from physical camera attestation
+ok 7 - browser callback evidence remains separate from physical camera attestation
+  ---
+  duration_ms: 0.8143
+  type: 'test'
+  ...
+# Subtest: reported rotation uses display dimensions and tolerates anamorphic media dimensions
+ok 8 - reported rotation uses display dimensions and tolerates anamorphic media dimensions
+  ---
+  duration_ms: 1.1443
+  type: 'test'
+  ...
+# Subtest: missing or malformed geometry stays unknown and removes an earlier rotation
+ok 9 - missing or malformed geometry stays unknown and removes an earlier rotation
+  ---
+  duration_ms: 0.6132
+  type: 'test'
+  ...
+# Subtest: invalid dimensions, readiness, paused state and frame metadata close cleanly
+ok 10 - invalid dimensions, readiness, paused state and frame metadata close cleanly
+  ---
+  duration_ms: 1.2646
+  type: 'test'
+  ...
+# Subtest: presented counters must increase while valid zero or negative media timestamps are ignored
+ok 11 - presented counters must increase while valid zero or negative media timestamps are ignored
+  ---
+  duration_ms: 0.3112
+  type: 'test'
+  ...
+# Subtest: unsupported callback or cancellation APIs fail explicitly without a play retry
+ok 12 - unsupported callback or cancellation APIs fail explicitly without a play retry
+  ---
+  duration_ms: 0.2562
+  type: 'test'
+  ...
+# Subtest: frame registration failure closes without play and stopping from a frame observer cannot rearm
+ok 13 - frame registration failure closes without play and stopping from a frame observer cannot rearm
+  ---
+  duration_ms: 0.3647
+  type: 'test'
+  ...
+# Subtest: blocked and failed playback expose fixed codes, no browser messages or automatic retry
+ok 14 - blocked and failed playback expose fixed codes, no browser messages or automatic retry
+  ---
+  duration_ms: 5.0329
+  type: 'test'
+  ...
+# Subtest: pending playback and absent callbacks hit the first-frame deadline without hanging
+ok 15 - pending playback and absent callbacks hit the first-frame deadline without hanging
+  ---
+  duration_ms: 31.1646
+  type: 'test'
+  ...
+# Subtest: pause/wait/stall removes freshness immediately and a valid callback can restore it
+ok 16 - pause/wait/stall removes freshness immediately and a valid callback can restore it
+  ---
+  duration_ms: 0.6296
+  type: 'test'
+  ...
+# Subtest: a stopped frame stream and finite total duration each close the owned resources
+ok 17 - a stopped frame stream and finite total duration each close the owned resources
+  ---
+  duration_ms: 29.9374
+  type: 'test'
+  ...
+# Subtest: frame count bounds stop instead of scheduling another callback
+ok 18 - frame count bounds stop instead of scheduling another callback
+  ---
+  duration_ms: 0.4385
+  type: 'test'
+  ...
+# Subtest: track and media failures detach and callbacks cannot revive a closed viewer
+ok 19 - track and media failures detach and callbacks cannot revive a closed viewer
+  ---
+  duration_ms: 0.606
+  type: 'test'
+  ...
+# Subtest: source replacement is refused without pausing, detaching or stopping the foreign source
+ok 20 - source replacement is refused without pausing, detaching or stopping the foreign source
+  ---
+  duration_ms: 0.2187
+  type: 'test'
+  ...
+# Subtest: new audio or extra tracks cannot join the owned stream unnoticed
+ok 21 - new audio or extra tracks cannot join the owned stream unnoticed
+  ---
+  duration_ms: 0.226
+  type: 'test'
+  ...
+# Subtest: a newly inserted source child is refused without loading its URL during cleanup
+ok 22 - a newly inserted source child is refused without loading its URL during cleanup
+  ---
+  duration_ms: 0.198
+  type: 'test'
+  ...
+# Subtest: late play resolution/rejection and callback exceptions cannot prevent idempotent cleanup
+ok 23 - late play resolution/rejection and callback exceptions cannot prevent idempotent cleanup
+  ---
+  duration_ms: 4.5385
+  type: 'test'
+  ...
+# Subtest: complete viewer fixture composes real modules and never claims native decoding
+ok 24 - complete viewer fixture composes real modules and never claims native decoding
+  ---
+  duration_ms: 44.4457
+  type: 'test'
+  ...
+# Subtest: named fixture faults cover unavailable, blocked, pending, absent, stalled and failed playback
+ok 25 - named fixture faults cover unavailable, blocked, pending, absent, stalled and failed playback
+  ---
+  duration_ms: 113.8384
+  type: 'test'
+  ...
+# Subtest: viewer fixture cannot accept real URLs, credentials, transport or media providers
+ok 26 - viewer fixture cannot accept real URLs, credentials, transport or media providers
+  ---
+  duration_ms: 0.5725
+  type: 'test'
+  ...
+# Subtest: panel mount is detached with no media, network controls or auto-selected producer
+ok 27 - panel mount is detached with no media, network controls or auto-selected producer
+  ---
+  duration_ms: 1.7768
+  type: 'test'
+  ...
+# Subtest: explicit discovery, selection and start exercise the viewer with fictional callback labels
+ok 28 - explicit discovery, selection and start exercise the viewer with fictional callback labels
+  ---
+  duration_ms: 29.265
+  type: 'test'
+  ...
+# Subtest: panel stop clears display/state and requires another explicit discovery
+ok 29 - panel stop clears display/state and requires another explicit discovery
+  ---
+  duration_ms: 14.8571
+  type: 'test'
+  ...
+# Subtest: closing during discovery or start prevents late media from attaching to the panel
+ok 30 - closing during discovery or start prevents late media from attaching to the panel
+  ---
+  duration_ms: 2.8387
+  type: 'test'
+  ...
+# Subtest: pagehide and hidden-page changes close the fixture without automatic resume
+ok 31 - pagehide and hidden-page changes close the fixture without automatic resume
+  ---
+  duration_ms: 2.8698
+  type: 'test'
+  ...
+# Subtest: hidden initial page cannot begin discovery
+ok 32 - hidden initial page cannot begin discovery
+  ---
+  duration_ms: 0.228
+  type: 'test'
+  ...
+# Subtest: fixture failure shows a fixed code and does not schedule a replacement session
+ok 33 - fixture failure shows a fixed code and does not schedule a replacement session
+  ---
+  duration_ms: 25.05
+  type: 'test'
+  ...
+# Subtest: a closed failure permits changing scenario but never restarts until discovery is clicked
+ok 34 - a closed failure permits changing scenario but never restarts until discovery is clicked
+  ---
+  duration_ms: 47.6378
+  type: 'test'
+  ...
+# Subtest: browser-global lab works with external RTC/media/network APIs prohibited
+ok 35 - browser-global lab works with external RTC/media/network APIs prohibited
+  ---
+  duration_ms: 32.8276
+  type: 'test'
+  ...
+# Subtest: standalone lab references only local scripts and forbids network, media URLs and inline script
+ok 36 - standalone lab references only local scripts and forbids network, media URLs and inline script
+  ---
+  duration_ms: 5.2466
+  type: 'test'
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 36
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 586.4652

@@ -1,0 +1,26 @@
+module main
+description 'Read-only discovery/observed gamepad state through normal Gateway; current acceptance uses simulated input. No movement or radio readiness claim.'
+variables padWindow declaredAxis declaredButton
+
+script 30 30 {
+    whenStarted
+    padWindow = (microduckGamepadCapture)
+    sayIt padWindow
+    if (microduckReadingKnown padWindow) {
+        sayIt (microduckGamepadName padWindow)
+        sayIt (microduckGamepadFrames padWindow)
+        sayIt (microduckGamepadObservationState padWindow)
+        declaredAxis = (microduckGamepadAxisCode padWindow 1)
+        if (microduckReadingKnown declaredAxis) {
+            sayIt (microduckGamepadAxisName padWindow 1)
+            sayIt (microduckGamepadAxis padWindow ('[microduck:readingValue]' declaredAxis))
+            sayIt (microduckGamepadPosition padWindow ('[microduck:readingValue]' declaredAxis))
+        }
+        declaredButton = (microduckGamepadButtonCode padWindow 1)
+        if (microduckReadingKnown declaredButton) {
+            sayIt (microduckGamepadButtonName padWindow 1)
+            sayIt (microduckGamepadButton padWindow ('[microduck:readingValue]' declaredButton))
+        }
+        sayIt (microduckGamepadRelease padWindow)
+    }
+}

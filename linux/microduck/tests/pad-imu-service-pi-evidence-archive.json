@@ -1,0 +1,19 @@
+{
+  "sha256": "a1df397a0d569f6cecdbadc4369cb3f557bf3774efe31c5cbd3bbc73e1f07648",
+  "bytes": 32974,
+  "files": [
+    "pi-pad-imu-service-validation.json",
+    "kit-manifest.json",
+    "native-build.txt",
+    "native-tests.txt",
+    "native-self-test.txt",
+    "native/build-manifest.json",
+    "native/source-manifest.json",
+    "native-plain-build.txt",
+    "native-plain-tests.txt",
+    "native-plain-self-test.txt",
+    "native-plain/build-manifest.json",
+    "native-plain/source-manifest.json"
+  ],
+  "remote_directory": "/home/fred/microblocks-pad-imu-service-nh70tski"
+}

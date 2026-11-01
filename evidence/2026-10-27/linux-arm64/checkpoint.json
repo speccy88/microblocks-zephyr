@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-27",
+  "base_commit": "9db5c3f",
+  "scope": "Independent Linux ARM64 installation scaffolding, LP64 source investigation and simulated MicroDuck protocol implementation",
+  "tests": [
+    {
+      "command": "python3 tools/validate.py",
+      "environment": "WSL Ubuntu-26.04 x86_64 Linux",
+      "passed": 93,
+      "failed": 0,
+      "includes_installer_and_packaging": 28,
+      "log": "build-artifacts/linux-arm64-tests/repository-validation.txt"
+    },
+    {
+      "command": "node --test tests/test_microduck_protocol.cjs tests/portal-core.test.cjs tests/portal-adapter-guard.test.cjs tests/p4-transport.test.cjs tests/p4_media_core.test.js tests/p4_nn_core.test.js tests/device_files.test.js",
+      "environment": "Windows, Node 24.19.0",
+      "passed": 68,
+      "failed": 0,
+      "microduck_mock_tests": 23,
+      "note": "Initial run passed 64 tests but could not spawn the WindowsApps Python alias for p4-transport. Its four tests passed separately after adding the bundled Python interpreter to that command's PATH.",
+      "logs": ["build-artifacts/linux-arm64-tests/node-validation.txt", "build-artifacts/linux-arm64-tests/p4-transport-validation.txt"]
+    },
+    {
+      "command": "python3 tools/probe_smallvm_lp64.py --upstream /path/to/smallvm --output build-artifacts/lp64-probe",
+      "environment": "WSL x86_64, GCC 15.2.0",
+      "result": "EXPECTED_REJECTION of unchanged SmallVM startup; GP offset-reference probe PASS_REFERENCE_ONLY",
+      "evidence": "evidence/2026-10-27/linux-arm64/lp64-probe.json"
+    }
+  ],
+  "source_pins": {
+    "smallvm": "2071df569623ba9cdcd6f8106b61796e047df38b",
+    "audited_smallvm_mirror": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+    "microduck": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+    "microduck_api": 44
+  },
+  "status": {
+    "installer_and_packaging": "Implemented; native installation, binary self-test and systemd are simulated in lifecycle fixtures",
+    "smallvm_lp64": "Representation obstacle reproduced using pinned unmodified sources; runtime migration not implemented",
+    "microduck_protocol": "Implemented and mock-tested; no hardware",
+    "pi_execution": "Blocked: no authenticated executor SSH session",
+    "portal_profiles": "Not yet implemented",
+    "robot_primitives": "Not yet implemented",
+    "arm64_build_and_release": "Not compiled; no binary or release published"
+  },
+  "security": {
+    "ble_credentials": "Refused on real Web Bluetooth because link confidentiality cannot be attested",
+    "ssh_credentials_created_or_installed": false,
+    "powershell_policy_changed_or_bypassed": false,
+    "other_board_access": false
+  },
+  "environment_repair": "Only pinned files in the isolated checkout were restored to byte-identical HEAD contents after Windows autocrlf translation; provenance hashes now pass. No semantic existing-source changes.",
+  "physical_hardware_tested": false,
+  "published": false
+}

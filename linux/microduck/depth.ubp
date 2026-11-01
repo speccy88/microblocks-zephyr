@@ -1,0 +1,17 @@
+module main
+description 'Read-only coherent depth through the normal gateway; this checkpoint uses simulated input. No movement or clear-path claim.'
+variables depthFrame
+
+script 30 30 {
+    whenStarted
+    depthFrame = (microduckDepthCapture)
+    sayIt depthFrame
+    if (microduckReadingKnown depthFrame) {
+        sayIt (microduckDepthRow depthFrame 1)
+        sayIt (microduckDepthDistance depthFrame 1 1)
+        sayIt (microduckDepthRawStatus depthFrame 1 2)
+        sayIt (microduckDepthSequence depthFrame)
+        sayIt (microduckDepthTimestamp depthFrame)
+        sayIt (microduckDepthRelease depthFrame)
+    }
+}

@@ -1,0 +1,15 @@
+module main
+description 'Read-only MicroDuck health and typed readings from one snapshot. Each reading is [status, value, unit, origin]. Simulation values are labelled simulation; unmarked never proves physical measurement. Missing data stays unknown. Read the reported health verdict and IMU convergence state, not a universal safe-to-move flag. No sound, skill, enable, policy or motion command is issued.'
+variables reply batteryReading orientationReading
+
+script 50 50 {
+    whenStarted
+    reply = (microduckHealth)
+    sayIt reply
+    batteryReading = (microduckBatteryPercent reply)
+    orientationReading = (microduckImuState reply)
+    sayIt batteryReading
+    sayIt orientationReading
+}
+
+script 350 50 ('[microduck:configured]')

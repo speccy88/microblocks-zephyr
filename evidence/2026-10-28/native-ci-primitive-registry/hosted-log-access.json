@@ -1,0 +1,8 @@
+{
+  "endpoint": "https://api.github.com/repos/speccy88/microblocks-zephyr/actions/jobs/122562741381/logs",
+  "http_status": 403,
+  "response_message": "Must have admin rights to Repository.",
+  "repeated_request": false,
+  "credentials_extracted_or_requested": false,
+  "diagnosis_source": "Public job status, parent inspection and exact local sanitizer reproduction"
+}

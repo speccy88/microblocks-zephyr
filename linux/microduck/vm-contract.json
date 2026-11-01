@@ -1,0 +1,722 @@
+{
+  "contract_version": 13,
+  "status": "implemented and registered; native Pi interpreter tests use simulated robot services",
+  "gateway_protocol": "JSON-RPC 2.0 NDJSON over private verified Unix socket",
+  "upstream_api_version": 44,
+  "upstream_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "limits": {
+    "request_bytes": 8192,
+    "reply_bytes": 65536,
+    "pending_jobs": 4,
+    "id_max": 1073741823,
+    "json_depth": 16,
+    "json_values": 8192,
+    "json_object_members": 256
+  },
+  "not_available": [
+    "continuous motion",
+    "camera streaming",
+    "raw motor access",
+    "Wi-Fi credentials",
+    "BLE PIN",
+    "arbitrary JSON-RPC methods",
+    "emergency stop guarantee"
+  ],
+  "primitive_set_index": 22,
+  "timeout_ms": 10000,
+  "primitives": [
+    {
+      "name": "[microduck:configured]",
+      "arguments": [],
+      "returns": "explicit CLI path configured; Boolean with no I/O or readiness claim"
+    },
+    {
+      "name": "[microduck:quote]",
+      "arguments": [
+        "string"
+      ],
+      "returns": "strict JSON quoted string"
+    },
+    {
+      "name": "[microduck:jobs]",
+      "arguments": [],
+      "returns": "list of retained job IDs"
+    },
+    {
+      "name": "[microduck:begin]",
+      "arguments": [
+        "method string",
+        "params JSON string",
+        "confirmed boolean"
+      ],
+      "returns": "positive job ID or explicit VM error"
+    },
+    {
+      "name": "[microduck:status]",
+      "arguments": [
+        "job ID"
+      ],
+      "returns": "pending, ready, error or unknown"
+    },
+    {
+      "name": "[microduck:result]",
+      "arguments": [
+        "job ID"
+      ],
+      "returns": "bounded terminal JSON-RPC reply string; pending is an explicit error"
+    },
+    {
+      "name": "[microduck:release]",
+      "arguments": [
+        "job ID"
+      ],
+      "returns": "command; release bounded job buffers"
+    },
+    {
+      "name": "[microduck:healthSample]",
+      "arguments": [
+        "health JSON-RPC reply string",
+        "supported field string"
+      ],
+      "returns": "List[status,value,unit,origin]; pure API44 health snapshot conversion; no I/O"
+    },
+    {
+      "name": "[microduck:readingValue]",
+      "arguments": [
+        "reading list"
+      ],
+      "returns": "signed31 integer,Boolean or state string only if statusok; otherwise explicitVMerror32"
+    },
+    {
+      "name": "[microduck:sensorSample]",
+      "arguments": [
+        "JSON reply string",
+        "raw/position/capture selector"
+      ],
+      "returns": "four-field simulation reading; only ok has a value; signed31 raw bounds"
+    },
+    {
+      "name": "[microduck:sensorRow]",
+      "arguments": [
+        "depth row JSON reply string"
+      ],
+      "returns": "eight GC-safe four-field readings from one coherent simulated frame row"
+    },
+    {
+      "name": "[microduck:telemetrySample]",
+      "arguments": [
+        "scalar telemetry JSON reply string"
+      ],
+      "returns": "GC-safe four-field simulation record; signed31 fixed units, Boolean and exact u64 decimal strings; no value for unavailable/error"
+    },
+    {
+      "name": "[microduck:mediaSample]",
+      "arguments": [
+        "media reading JSON reply string"
+      ],
+      "returns": "GC-safe four-field simulation record; explicit unsupported/unavailable/error, exact signed64 epoch and u64 counter strings; no audio or live relay"
+    },
+    {
+      "name": "[microduck:imuSample]",
+      "arguments": [
+        "IMU capture/scalar JSON reply string"
+      ],
+      "returns": "GC-safe four-field simulation reading; snapshot handle or typed signed31/Boolean/exact u64 value only for statusok"
+    },
+    {
+      "name": "[microduck:headImuSample]",
+      "arguments": [
+        "head IMU capture/scalar JSON reply string"
+      ],
+      "returns": "GC-safe tofd-only four-field simulation reading; immutable handle or nine typed fields; explicit unknown/unusable/overflow, exact u64 clocks; appended index14"
+    },
+    {
+      "name": "[microduck:headImuReading]",
+      "arguments": [
+        "normal tofd adapter JSON reply"
+      ],
+      "returns": "Nine GC-safe typed head fields or bounded snapshot; local_ipc transport-only origin; rejects simulation or claimed physical verification; appended index15"
+    },
+    {
+      "name": "[microduck:depthReading]",
+      "arguments": [
+        "depth capture/zone/metadata JSON reply"
+      ],
+      "returns": "GC-safe snapshot or distance/raw diagnostic/exact metadata record; local_ipc origin only, no hardware claim; appended index16"
+    },
+    {
+      "name": "[microduck:depthRow]",
+      "arguments": [
+        "depth row JSON reply"
+      ],
+      "returns": "Eight GC-safe four-field distance records from one coherent frame row; appended index17; no_target/unusable remain unextractable"
+    },
+    {
+      "name": "[microduck:gamepadReading]",
+      "arguments": [
+        "gamepad capture/scalar JSON reply"
+      ],
+      "returns": "GC-safe descriptor/observed input/metadata reading; exact u64/signed64 clocks and bounded UTF8; local_ipc padd only; appended index18"
+    },
+    {
+      "name": "[microduck:robotReading]",
+      "arguments": [
+        "normal robot health/state capture/scalar JSON reply"
+      ],
+      "returns": "GC-safe typed reading; exact counters, schema defaults and bounded UTF8; robotd/local_ipc only; appended index19"
+    },
+    {
+      "name": "[microduck:padImuReading]",
+      "arguments": [
+        "normal padd IMU capture/scalar JSON reply"
+      ],
+      "returns": "GC-safe typed thirteen-field batch reading; exact u64 clocks; local_ipc padd only; appended index20"
+    }
+  ],
+  "implemented_hooks": [
+    "append a new primitive set/compiler mapping without renumbering existing indices",
+    "poll nonblocking socket jobs between bounded VM slices",
+    "copy bytes outside GC-managed OBJ storage while pending",
+    "validate socket owner and SO_PEERCRED before any request write",
+    "retain one request ID through the terminal reply and enforce byte limits",
+    "Stop All and gateway loss close pending local waits without replay or rollback; ordinary IDE disconnect preserves autonomous scripts"
+  ],
+  "cancellation": "Terminal error/unknown jobs are retained until explicit release. VM process shutdown frees all jobs; results are not durable across process restart.",
+  "errors": {
+    "arity": 28,
+    "string": 14,
+    "integer": 13,
+    "boolean": 12,
+    "invalid_blocked_unconfirmed_or_pending": 32,
+    "absent_or_released_job": 18,
+    "disabled": 27,
+    "no_slots": 10,
+    "list": 11
+  },
+  "validation": {
+    "real_vm_and_unix_gateway": true,
+    "native_aarch64_pi_with_simulated_robot": "18 feature tests on each ordinary andASan/UBSan build;original10+typed8",
+    "physical_microduck": false,
+    "standalone_native_fixture_checks": 442,
+    "standalone_test_timeout_ms": 40,
+    "robot_api45_lab": {
+      "local_full_tests": 292,
+      "local_skipped": 0,
+      "Pi_selected_tests_each_ordinary_and_sanitizer": 86,
+      "Pi_native_cases_each": 19,
+      "physical_microduck": false,
+      "graphical_UBL": false,
+      "evidence": "../../evidence/2026-10-27/microduck-robot-api/README.md"
+    },
+    "media_lab": {
+      "local_full": 311,
+      "focused": 18,
+      "Pi_selected_each_variant": 104,
+      "Pi_native_cases_each": 25,
+      "skipped": 0,
+      "physical_MicroDuck": false,
+      "live_HTTP_SSE": false,
+      "evidence": "../../evidence/2026-10-27/microduck-media/README.md"
+    },
+    "pad_imu_lab": {
+      "local_full": 332,
+      "focused": 20,
+      "Pi_selected_each_variant": 124,
+      "Pi_native_cases_each": 31,
+      "skipped": 0,
+      "physical_IMU": false,
+      "evidence": "../../evidence/2026-10-27/microduck-pad-imu/README.md"
+    },
+    "head_imu_lab": {
+      "local_full": 353,
+      "focused": 20,
+      "Pi_selected_each_variant": 144,
+      "Pi_native_cases_each": 37,
+      "skipped": 0,
+      "physical_head_IMU": false,
+      "beta_and_graphical": false,
+      "evidence": "../../evidence/2026-10-27/microduck-head-imu/README.md"
+    },
+    "head_service": {
+      "local_full": 373,
+      "focused": 19,
+      "Pi_selected_each_variant": 163,
+      "Pi_native_cases_each": 43,
+      "skipped": 0,
+      "input_is_simulated": true,
+      "physical_and_graphical": false,
+      "evidence": "../../evidence/2026-10-27/microduck-head-service/README.md"
+    },
+    "depth_service": {
+      "local_full": 396,
+      "focused": 22,
+      "Pi_selected_each_variant": 185,
+      "Pi_native_cases_each": 49,
+      "skipped": 0,
+      "input_is_simulated": true,
+      "physical_and_graphical": false,
+      "evidence": "../../evidence/2026-10-27/microduck-depth-service/README.md"
+    }
+  },
+  "typed_readings": {
+    "statuses": [
+      "ok",
+      "unknown",
+      "invalid",
+      "out_of_range",
+      "error"
+    ],
+    "non_ok_value": "empty string; explicit extraction refuses",
+    "origin": [
+      "simulation for explicit result markertrue",
+      "unmarked; never proves physicalmeasurement"
+    ],
+    "units": [
+      "0.01%",
+      "mV",
+      "mC",
+      "mHz",
+      "ms",
+      "count",
+      "boolean",
+      "state"
+    ],
+    "scaling": "nearest, tiesawayfromzero; signed31bounds;no silentwrap/clamp",
+    "readiness": "reported health verdict and upstream IMU convergence/missing/frozen diagnostics;no universalready/motionauthorization",
+    "schema": "See TYPED_READINGS.md; required,optional andserde(default) have distinct semantics",
+    "io": false
+  },
+  "local_simulation_extensions": {
+    "methods": {
+      "motion": [
+        "microduck.motionSim.status",
+        "microduck.motionSim.run",
+        "microduck.motionSim.cancel"
+      ],
+      "sensors": [
+        "microduck.sensorSim.tof",
+        "microduck.sensorSim.axis",
+        "microduck.sensorSim.button"
+      ],
+      "snapshots": [
+        "microduck.sensorSim.captureTof",
+        "microduck.sensorSim.capturePad",
+        "microduck.sensorSim.depthRow",
+        "microduck.sensorSim.padAxis",
+        "microduck.sensorSim.padButton",
+        "microduck.sensorSim.release"
+      ],
+      "robot": [
+        "microduck.robotSim.preview",
+        "microduck.robotSim.capture",
+        "microduck.robotSim.reading",
+        "microduck.robotSim.release",
+        "microduck.robotSim.model"
+      ],
+      "media": [
+        "microduck.mediaSim.reading",
+        "microduck.mediaSim.preview"
+      ],
+      "pad_imu": [
+        "microduck.imuSim.capturePad",
+        "microduck.imuSim.read",
+        "microduck.imuSim.release"
+      ],
+      "head_imu": [
+        "microduck.headImuSim.capture",
+        "microduck.headImuSim.read",
+        "microduck.headImuSim.release"
+      ]
+    },
+    "libraries": [
+      "Motion_Simulation.ubl",
+      "Sensor_Simulation.ubl",
+      "Robot_Simulation.ubl",
+      "Robot_Telemetry.ubl",
+      "Media_Simulation.ubl",
+      "Pad_IMU_Simulation.ubl",
+      "Head_IMU_Simulation.ubl"
+    ],
+    "scope": "dedicated private simulation backends only; ordinary gateway rejects these local names",
+    "physical_movement_enabled": false,
+    "current_revision_tested": "Actual local x86_64 and real Pi AArch64 ordinary/ASan+UBSan VM/bytecode/GC/private fixtures; all robot data simulated; graphical UBL unverified",
+    "reply_summary_bytes": 760,
+    "existing_primitive_indices_preserved": true,
+    "snapshot_limits": {
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "token": "32 lowercase hex; process-local resource, not authentication",
+      "pad_window_ms": 350,
+      "notifications": 16,
+      "continuous_reader": false
+    },
+    "robot_api_review": {
+      "version": 45,
+      "commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+      "production_protocol_pin_changed": false,
+      "preview_only": true,
+      "admission_and_applied": null,
+      "fields": [
+        "move.requested",
+        "move.applied",
+        "move.limit_count",
+        "move.limited_by",
+        "loop.hz",
+        "loop.missed",
+        "safety.fallen",
+        "safety.limp",
+        "safety.picked_up",
+        "safety.gain",
+        "safety.gravity",
+        "joints",
+        "targets",
+        "velocities",
+        "currents_ma",
+        "odom.position",
+        "odom.yaw",
+        "imu.gyro",
+        "imu.quat",
+        "frames.camera.pos",
+        "frames.camera.quat",
+        "frames.tof.pos",
+        "frames.tof.quat",
+        "frames.head_imu.pos",
+        "frames.head_imu.quat",
+        "skeleton.pos",
+        "skeleton.quat",
+        "t_ns",
+        "policy"
+      ],
+      "source_default_provenance": "Only omitted move.limited_by count is schema-default0 with origin sim_default; explicit empty has origin simulation; absent indexed reason is not_reported"
+    },
+    "media": {
+      "source_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+      "audio": "unsupported by reviewed mediad interface; no invented audio RPC",
+      "relay": "internal fake peer/sessionId/rpc envelopes; no live HTTP, SSE, OAuth or endpoint",
+      "attempts_per_rolling_60s": 32,
+      "lifetime_attempts": 128,
+      "deadline_ms": 500,
+      "continuous_intents": false,
+      "previews": "separate backend opt-in and confirmation; discrete source packets recorded, never forwarded",
+      "current_revision_tested": "Actual local x86_64 sanitizer and real Pi ordinary/ASan+UBSan VM/PTY/GC with internal fake services;311 local and104 selected tests per Pi variant; graphical/live/physical unverified",
+      "fields": {
+        "audio.receive": "boolean",
+        "audio.send": "boolean",
+        "relay.state": "state",
+        "relay.since": "epoch_s",
+        "relay.heartbeat": "epoch_s",
+        "relay.account_known": "boolean",
+        "video.width": "px",
+        "video.height": "px",
+        "video.rotate": "degrees",
+        "stream.streaming": "boolean",
+        "stream.connected": "boolean",
+        "stream.sent": "count64",
+        "stream.dropped": "count64",
+        "stream.replies": "count64",
+        "stream.reconnects": "count64",
+        "robot.healthy": "boolean",
+        "robot.enabled": "boolean"
+      }
+    },
+    "pad_imu": {
+      "source_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+      "maximum_samples": 32,
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "continuous_reader": false,
+      "real_endpoint": false,
+      "timebase": "kernel Unix microseconds, not head/ToF monotonic ns",
+      "scaling": "raw driver units; mg/mdps only with positive advertised resolution; signed31 overflow explicit",
+      "current_revision_tested": "Actual local sanitizer VM/PTY/GC and real Pi ordinary/ASan+UBSan;332 local and124 selected tests per Pi variant, all data fake; graphical/physical/live unverified",
+      "fields": {
+        "accel_raw": {
+          "unit": "raw",
+          "components": 3
+        },
+        "gyro_raw": {
+          "unit": "raw",
+          "components": 3
+        },
+        "accel_mg": {
+          "unit": "mg",
+          "components": 3
+        },
+        "gyro_mdps": {
+          "unit": "mdps",
+          "components": 3
+        },
+        "seq": {
+          "unit": "count64",
+          "components": 1
+        },
+        "at_us": {
+          "unit": "us_unix",
+          "components": 1
+        },
+        "sample_count": {
+          "unit": "count",
+          "components": 1
+        },
+        "accel_per_g": {
+          "unit": "raw/g",
+          "components": 1
+        },
+        "gyro_per_dps": {
+          "unit": "raw/dps",
+          "components": 1
+        },
+        "accel_max": {
+          "unit": "raw",
+          "components": 1
+        },
+        "gyro_max": {
+          "unit": "raw",
+          "components": 1
+        },
+        "accel_at_limit": {
+          "unit": "boolean",
+          "components": 3
+        },
+        "gyro_at_limit": {
+          "unit": "boolean",
+          "components": 3
+        }
+      }
+    },
+    "head_imu": {
+      "source_commit": "5def2f3e66501f0f365d4fb1183020b8ee875443",
+      "scope": "tofd only; reusable checked finite IPC reader, fixed private fake backend for blocks; no production routing or daemon fallback",
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "continuous_reader": false,
+      "real_endpoint": false,
+      "first_request": "head_imu.stream params{}; no hello",
+      "frame": "one head_imu.frame; chip sensor axes, acceleration includes gravity, quaternion wxyz sensor-to-own-world arbitrary yaw; no normalization or readiness inference",
+      "beta": "Deferred: robotd implementation rotates into head axes despite shared sensor-axis documentation",
+      "timebase": "at_us sender uptime; t_ns CLOCK_MONOTONIC ns; exact u64 decimal; t_ns0 unavailable",
+      "temperature": "Source-reported cached value; initial0 can be reported, no freshness claim",
+      "scaling": "nearest ties away, signed31 overflow explicit; no physical defaults for omitted measurements",
+      "fields": {
+        "gyro": {
+          "unit": "mrad/s",
+          "components": 3
+        },
+        "accel": {
+          "unit": "mm/s2",
+          "components": 3
+        },
+        "quat": {
+          "unit": "ppm",
+          "components": 4
+        },
+        "temperature": {
+          "unit": "mC",
+          "components": 1
+        },
+        "seq": {
+          "unit": "count64",
+          "components": 1
+        },
+        "at_us": {
+          "unit": "us_sender",
+          "components": 1
+        },
+        "t_ns": {
+          "unit": "ns",
+          "components": 1
+        },
+        "sensor": {
+          "unit": "sensor",
+          "components": 1
+        },
+        "rate": {
+          "unit": "Hz",
+          "components": 1
+        }
+      },
+      "validation": "Actual local x86_64 sanitizer and real Pi AArch64 ordinary/ASan+UBSan;353 local and144 selected tests per Pi variant, all data fake; physical/beta/graphical/live unverified"
+    }
+  },
+  "read_only_service_adapters": {
+    "head_imu": {
+      "methods": [
+        "microduck.headImu.capture",
+        "microduck.headImu.read",
+        "microduck.headImu.release"
+      ],
+      "gateway_option": "--head-imu-config",
+      "config": "private current-user version1/daemon:tofd/path/expected numeric uid; no auto-inference",
+      "library": "Head_IMU.ubl",
+      "example": "head-imu.ubp",
+      "origin": "local_ipc; transport consistency, not hardware/daemon attestation",
+      "physical_hardware_verified": false,
+      "no_simulation_member": "Unknown input origin; fake and physical daemons indistinguishable from transport alone",
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "no_mutations": true,
+      "no_fallback": true,
+      "source_audit": "head-imu-source.json",
+      "validation": "Actual native VM -> normal gateway -> checked tofd reader on local sanitizer and real Pi ordinary/ASan+UBSan;373 local and163 selected tests per Pi build;all input fictional;physical/beta/graphical/shipping unverified"
+    },
+    "depth": {
+      "methods": [
+        "microduck.depth.capture",
+        "microduck.depth.row",
+        "microduck.depth.zone",
+        "microduck.depth.metadata",
+        "microduck.depth.release"
+      ],
+      "gateway_option": "--depth-config",
+      "config": "private explicit version1/daemon:tofd/path/expected numeric uid; shared tofd config format, no inference",
+      "library": "Depth.ubl",
+      "example": "depth.ubp",
+      "origin": "local_ipc; transport only, never physical identity or verification",
+      "physical_hardware_verified": false,
+      "geometry": [
+        8,
+        8
+      ],
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "zone_fields": {
+        "distance": "mm; positive with status5/9 only",
+        "raw_distance": "mm_raw; reported diagnostic including nonpositive values",
+        "raw_status": "raw_status; diagnostic u8, not range availability"
+      },
+      "metadata": {
+        "seq": "count64 decimal u64",
+        "at_us": "us_sender decimal u64",
+        "t_ns": "ns decimal u64;0 unavailable",
+        "rows": "count",
+        "cols": "count",
+        "sensor": "sensor",
+        "rate": "Hz declared"
+      },
+      "no_mutations": true,
+      "no_fallback": true,
+      "source_audit": "depth-service-source.json",
+      "validation": "Actual VM -> normal gateway -> checked tofd on local sanitizer and real Pi ordinary/ASan+UBSan;396 full local and185 selected per Pi binary; all input fictional; physical/graphical/shipping unverified"
+    },
+    "python_client": "Reviewed head/depth/gamepad wrappers share strict request validation; raw source RPC, simulation-only names and arbitrary forwarding remain blocked.",
+    "gamepad": {
+      "methods": [
+        "microduck.gamepad.capture",
+        "microduck.gamepad.axis",
+        "microduck.gamepad.button",
+        "microduck.gamepad.control",
+        "microduck.gamepad.metadata",
+        "microduck.gamepad.release"
+      ],
+      "gateway_option": "--gamepad-config",
+      "config": "private explicit version1/daemon:padd/path/expected uid; no device-node input or discovery",
+      "library": "Gamepad.ubl",
+      "example": "gamepad.ubp",
+      "origin": "local_ipc transport only; never physical identity/radio freshness",
+      "physical_hardware_verified": false,
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "window_ms": 350,
+      "notifications": 16,
+      "line_bytes": 16384,
+      "capture": "Metadata-only capture allowed with Attached descriptor and zero observed frames; live controls remain unobserved",
+      "input_fields": {
+        "axis": [
+          "raw",
+          "position",
+          "event_seq"
+        ],
+        "button": [
+          "pressed",
+          "event_seq"
+        ]
+      },
+      "control_discovery": {
+        "axis": [
+          "code",
+          "name",
+          "min",
+          "max",
+          "flat",
+          "fuzz"
+        ],
+        "button": [
+          "code",
+          "name"
+        ]
+      },
+      "metadata": [
+        "seq",
+        "at_us",
+        "since_us",
+        "frames",
+        "axis_count",
+        "button_count",
+        "device_name",
+        "bus",
+        "vendor",
+        "product",
+        "observation_state"
+      ],
+      "time": "Kernel Unix microseconds u64; optional signed64 delta can be negative; no clock conversion/freshness inference",
+      "loss": "Held events survive empty frames; kernel/socket drops and sequence gaps invalidate until later clean per-control events",
+      "quiet_state": "Attached values/pressed are not live observations",
+      "source_audit": "gamepad-service-source.json",
+      "no_mutations": true,
+      "continuous_reader": false,
+      "validation": "Actual VM -> normal Gateway -> checked padd with fictional input; 421 full local/24 focused and209 selected per fresh ordinary and ASan+UBSan Pi binary; zero skips; physical/radio/graphical/shipping unverified"
+    },
+    "robot": {
+      "methods": [
+        "microduck.robot.capture",
+        "microduck.robot.read",
+        "microduck.robot.release"
+      ],
+      "gateway_option": "--robot-read-config",
+      "config": "private explicit version1/daemon:robotd/path/expected uid",
+      "library": "Robot.ubl",
+      "example": "robot-read.ubp",
+      "origin": "local_ipc transport only; ipc_default for explicit source schema defaults",
+      "physical_hardware_verified": false,
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 500,
+      "line_bytes": 16384,
+      "health_selectors": 21,
+      "state_selectors": 29,
+      "no_mutations": true,
+      "continuous_reader": false,
+      "source_audit": "robot-service-source.json",
+      "validation": "Actual VM -> normal Gateway -> checked fictional robotd.446 full local/24 focused,233 selected each fresh ordinary and ASan+UBSan Pi binary,61 native each, zero skips. Physical/graphical/shipping unverified."
+    },
+    "pad_imu": {
+      "methods": [
+        "microduck.padImu.capture",
+        "microduck.padImu.read",
+        "microduck.padImu.release"
+      ],
+      "gateway_option": "--pad-imu-config",
+      "config": "private explicit version1/daemon:padd/path/uid",
+      "library": "Pad_IMU.ubl",
+      "example": "pad-imu.ubp",
+      "selectors": 13,
+      "origin": "local_ipc transport only; physical false",
+      "retained_and_inflight": 4,
+      "expiry_ms": 5000,
+      "deadline_ms": 350,
+      "line_bytes": 16384,
+      "notifications": 16,
+      "samples_max": 32,
+      "no_mutations": true,
+      "continuous_reader": false,
+      "source_audit": "pad-imu-service-source.json",
+      "validation": "Actual VM -> normal Gateway -> checked fictional padd.465 full local/18 focused,251 selected each fresh ordinary/ASan+UBSan Pi binary,66 native each, zero skips. Physical/radio/graphical/shipping unverified."
+    }
+  }
+}

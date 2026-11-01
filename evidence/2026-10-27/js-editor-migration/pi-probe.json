@@ -1,0 +1,15 @@
+{
+  "architecture": "aarch64",
+  "hostname": "RPI5",
+  "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+  "port": 34307,
+  "graphical": false,
+  "robot_hardware": false,
+  "network_settings_changed": false,
+  "returncode": 0,
+  "output": "serial disconnected\n{\"real_vm\":true,\"graphical\":false,\"robot_hardware\":false,\"version\":417,\"board\":\"Linux ARM64\",\"results\":[{\"selector\":\"+\",\"result\":12,\"crc\":[27,25,125,41],\"code_sha256\":\"de94be6c1b3f28dc0dd5e0ad72d6e4c2db2655e933c77263640da353238b0219\"},{\"selector\":\"[microduck:configured]\",\"result\":false,\"crc\":[28,18,97,89],\"code_sha256\":\"85f1e6aa962a5b73c208a1e5999e7a5d0fb55ecdb69d2ceddafdc2e23d8c72f5\"}]}\n{\"tests\":10,\"passed\":10,\"upstream_engine\":\"unmodified\",\"graphical\":false}\n",
+  "stderr": "",
+  "node_version": "v22.22.2",
+  "passed": true,
+  "children_stopped": true
+}

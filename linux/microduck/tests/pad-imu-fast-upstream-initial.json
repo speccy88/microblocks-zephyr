@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "original": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/smallvm-linux-upstream",
+  "cache": "/tmp/pad-imu-upstream-et4ca1w_/smallvm",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "tree": "5699b1a910c64cf5e6ade8c89e510627383013ad",
+  "mode": "Local filesystem clone, no checkout/hook/network operation; used through existing SMALLVM_UPSTREAM override",
+  "tests_flags_assertions_and_deadlines_changed": false
+}

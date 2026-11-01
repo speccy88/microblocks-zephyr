@@ -1,0 +1,57 @@
+{
+  "result": "PASS",
+  "scope": "actual local pinned GP package bytes; no graphical execution or deployment",
+  "profiles": 7,
+  "six_profiles_unchanged": [
+    "fruit-jam",
+    "waveshare",
+    "xrp-rp2350",
+    "propeller2",
+    "esp32p4",
+    "raspberry-pi5"
+  ],
+  "comparisons_with_viewer_package": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": false,
+      "gp_data_sha256": false,
+      "hardware_connection_enabled": true
+    }
+  },
+  "microduck_profile_change": "intentional separate simulation library import and status-only example; primitive set remains22",
+  "library_sha256": "0ef07a95f92df98ccb2bc0688c7b85985693436aeddae64903ac83b17de1cfee",
+  "example_sha256": "eff09e4fbcf8e64c4eed0482896a897fe8855a0d5a976ea6213157ba942e1bdc",
+  "all_connection_flags_preserved": true,
+  "existing_camera_console_and_commissioning_html_unchanged": true,
+  "release_available": false,
+  "published": false
+}

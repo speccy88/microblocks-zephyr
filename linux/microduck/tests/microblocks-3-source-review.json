@@ -1,0 +1,301 @@
+{
+  "review_date_utc": "2026-10-27",
+  "scope": "read-only migration assessment; no dependencies changed or preview execution",
+  "blog": {
+    "url": "https://microblocks.fun/blog/2026-10-27-microblocks-3.0/",
+    "dependency_changes": false,
+    "status": 200,
+    "bytes": 21339,
+    "sha256": "61d0256319537be1c38744ee8e6aca267eb5e7e04b3fb0e2d7f3d6ce25ca450d"
+  },
+  "preview": {
+    "url": "https://microblocks.fun/run-pilot/purejs.html",
+    "sha256": "e058a7748301e61f21fe7dd8695bbb55f60522deb9378523c7206165e57ae3a2",
+    "bytes": 10150,
+    "scripts": [
+      {
+        "type": "text/javascript",
+        "src": "ui/gettext.js",
+        "defer": null
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/windows.js",
+        "defer": null
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/libraryinfo.js",
+        "defer": null
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/filebrowser.js",
+        "defer": null
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/graph.js",
+        "defer": null
+      },
+      {
+        "type": "text/javascript",
+        "src": "lib/usbDfuDevice.js",
+        "defer": null
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/flasher.js",
+        "defer": null
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/morphic.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-blocks.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-slots.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-block-search.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-code-manager.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-comm-port.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-compare.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-compiler.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-connection.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-decompiler.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-file-picker.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-firmware.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-esptool.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-esptool-stubs.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-files.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-function.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-help-strings.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-help.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-jsAPI.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-library-widgets.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-boardie.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-parser.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-project.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-specs.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-tips.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-autosave.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "engine/mb-editor.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/ide.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/menus.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/buttons.js"
+      },
+      {
+        "type": "text/javascript",
+        "src": "ui/categories.js"
+      }
+    ],
+    "executed": false,
+    "dependencies_changed": false
+  },
+  "engine_sources": {
+    "files": {
+      "engine/mb-compiler.js": {
+        "url": "https://microblocks.fun/run-pilot/engine/mb-compiler.js",
+        "sha256": "9f09b454c5c5b56450392a59c211e1049740fcaf35db15a6da66320f0315d1f1",
+        "bytes": 41557
+      },
+      "engine/mb-connection.js": {
+        "url": "https://microblocks.fun/run-pilot/engine/mb-connection.js",
+        "sha256": "4efdc9f0efe1ec892fd1dda42074d2e5f1f88bec9e740add6ff2b555b2588e77",
+        "bytes": 53477
+      },
+      "engine/mb-comm-port.js": {
+        "url": "https://microblocks.fun/run-pilot/engine/mb-comm-port.js",
+        "sha256": "60a9afa2ba80f905c362bec53debe55df7698d4a053e8fae39ca6793862f534c",
+        "bytes": 9580
+      },
+      "engine/mb-jsAPI.js": {
+        "url": "https://microblocks.fun/run-pilot/engine/mb-jsAPI.js",
+        "sha256": "0851cce6e328da6cb63d24b0acdcdb3931e7a47864fd9c9a6735f18a80a62f10",
+        "bytes": 12158
+      }
+    },
+    "executed": false,
+    "dependency_changes": false,
+    "scope": "moving official preview text only; not a pinned/validated integration"
+  },
+  "current_editor_pin": {
+    "version": "MicroBlocks2.5.8",
+    "commit": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+    "manifest": "dependencies/ide-assets.json"
+  },
+  "current_VM_pin": {
+    "version": "v417",
+    "commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+    "manifest": "dependencies/smallvm-v417.json"
+  },
+  "unverified": [
+    "3.0 end-to-end compiler/VM/transport compatibility",
+    "stable3.0 commit/version pin",
+    "actual browser/library import and graphical execution",
+    "all seven board profiles and released assets"
+  ],
+  "dependency_changes": false,
+  "slot_sources": {
+    "files": {
+      "engine/mb-slots.js": {
+        "url": "https://microblocks.fun/run-pilot/engine/mb-slots.js",
+        "bytes": 58181,
+        "sha256": "7b7b31bcabfff929fdc09b7b96901d903f4dfd080d5f63ae2bc4a46a5b3bdc02"
+      },
+      "engine/mb-specs.js": {
+        "url": "https://microblocks.fun/run-pilot/engine/mb-specs.js",
+        "bytes": 33252,
+        "sha256": "77aa65fe2dc764e79ddb1858499790f9d3d056acac4d6ec32932ecc59875383d"
+      }
+    },
+    "executed": false,
+    "dependencies_changed": false
+  },
+  "existing_feature_sources": {
+    "tools/package_p4_ide.py": {
+      "sha256": "5b1f1ec711d5e8f42558699f0728994932ce57501f92a2bd4bb3962b89297c16",
+      "bytes": 20394
+    },
+    "tools/patch_p4_media.py": {
+      "sha256": "485f9c5019700cc9afbef465e72c4b322c5c769034f9eddc8db66727f3db7daf",
+      "bytes": 2634
+    },
+    "web/p4-media.gp": {
+      "sha256": "e51da7698d0386bb8f4002a7398c54ace985396512104b5609ee56d696a0c0cd",
+      "bytes": 9320
+    },
+    "web/p4-media-core.js": {
+      "sha256": "23269fbca2174ca22fab20065f2b3c301498ba4e6422a6d0d3367d5aa48fc394",
+      "bytes": 3402
+    },
+    "web/p4-media.js": {
+      "sha256": "b744488b635dd6606f3ef3766610dd133f40a17b3858399c214b694c03614166",
+      "bytes": 10266
+    },
+    "web/p4-camera.js": {
+      "sha256": "b807c0474378f726e4b8aa19c8b7b4ba1e5e4ea19f2367fb7b484fc4236a1d07",
+      "bytes": 4080
+    },
+    "common/image/image_store.c": {
+      "sha256": "422e71d34abe8f6b8097000827936f53f56b42ae99a0a589c312cd7c1c64d3b3",
+      "bytes": 3636
+    },
+    "boards/waveshare_esp32p4_wifi6/integration/P4_Camera.ubl": {
+      "sha256": "046ee612ea70a617d5d5ce0593bea4a46014a8d25d7ecf3d2e38f590e2b933b5",
+      "bytes": 3496
+    },
+    "boards/waveshare_esp32p4_wifi6/docs/INLINE_RESULTS.md": {
+      "sha256": "f788d1351e43e7dc37974821c1b4eb383783f622d9da335b1066294b5620d774",
+      "bytes": 5194
+    },
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/image_primitives.c": {
+      "sha256": "55f3676c0f1525148593bb309d51d92e066212c95db71fdd282b04ea8d10a0bd",
+      "bytes": 15426
+    }
+  },
+  "pinned_UNO_Q_virtual_files": {
+    "/runtime/lib/UnoQMatrixSlot.gp": {
+      "sha256": "136d38e226d44811d551ad9d780557492e3c7a6ef9ef4911fc5338ecf8966b0c",
+      "bytes": 5609
+    },
+    "/runtime/lib/BlockSpec.gp": {
+      "sha256": "7b8ee58ea495e3e35e1d5f445c94bc7a7f3c8b42bfdfd7327564f4c927df4ae0",
+      "bytes": 11349
+    },
+    "/runtime/lib/Block.gp": {
+      "sha256": "e7cf8fb96624d64b6cbc78e6bdc1dff2df4fe1ecfefa2a294086fc930cfff434",
+      "bytes": 67078
+    },
+    "/Libraries/UNO_Q_Hardware.ubl": {
+      "sha256": "e4bbe2254ef0ec684f60e1ae367d4c868ddd99b50463ca5e77a11139bf072145",
+      "bytes": 1273
+    }
+  },
+  "UNO_Q_matrix_scope": "Pinned13x8/104-character brightness string; later arbitrary-size owner changes not inspected",
+  "P4_scope": "Read-only isolated snapshot; active P4 checkout/board/ports not accessed"
+}

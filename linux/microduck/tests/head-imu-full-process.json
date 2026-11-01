@@ -1,0 +1,8 @@
+{
+  "stdout": "build-artifacts/head-imu-full-linux.txt",
+  "started_utc": "2026-10-27T18:39:26.5123792Z",
+  "pid": 16368,
+  "operation": "unchanged full local validator with held pinned source and verified sanitizer VM",
+  "stderr": "build-artifacts/head-imu-full-stderr.txt",
+  "hardware_data": "simulated"
+}

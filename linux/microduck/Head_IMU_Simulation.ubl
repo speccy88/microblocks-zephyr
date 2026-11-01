@@ -1,0 +1,33 @@
+module 'MicroDuck Head IMU Simulation' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Requires MicroDuck and head_imu_simulator.py. Capture one tofd head_imu.frame, then read its nine typed fields without another subscription. Four five-second snapshots. Gyro/accel are the tofd chip sensor axes, not head/camera/robot axes; acceleration includes gravity. Quaternion wxyz is sensor-to-own-world with arbitrary yaw, no normalization/calibration/FK or orientation-ready claim. Missing measurements are not_reported, degenerate zero quaternion unusable, t_ns zero unavailable. Explicit vector zero remains known. Temperature is reported/cached and can initially be0; rate is declared, not measured. Exact u64 clock strings preserve precision; at_us is sender uptime, not Unix. Readings are [status,value,unit,origin]; extract only ok. No freshness, safe-to-move signal or automatic drive. Tofd only: beta robotd axes conflict in the reviewed protocol/implementation, so no automatic daemon fallback. No endpoint, credentials, device bus, audio, command or continuous reader. Physical/shipping/beta and graphical acceptance remain unverified.'
+spec 'r' 'microduckSimHeadImuCapture' 'SIMULATION capture tofd head IMU reading'
+spec 'r' 'microduckSimHeadImuGyro' 'SIMULATION head IMU _ gyro axis _ (mrad/s) reading' 'auto num' '' 1
+spec 'r' 'microduckSimHeadImuAccel' 'SIMULATION head IMU _ accel axis _ (mm/s2) reading' 'auto num' '' 1
+spec 'r' 'microduckSimHeadImuQuat' 'SIMULATION head IMU _ quaternion wxyz component _ (ppm) reading' 'auto num' '' 1
+spec 'r' 'microduckSimHeadImuTemperature' 'SIMULATION head IMU _ reported temperature (mC) reading' 'auto' ''
+spec 'r' 'microduckSimHeadImuSequence' 'SIMULATION head IMU _ sample sequence reading' 'auto' ''
+spec 'r' 'microduckSimHeadImuUptime' 'SIMULATION head IMU _ sender uptime us reading' 'auto' ''
+spec 'r' 'microduckSimHeadImuTimestamp' 'SIMULATION head IMU _ monotonic ns reading' 'auto' ''
+spec 'r' 'microduckSimHeadImuSensor' 'SIMULATION head IMU _ reported sensor reading' 'auto' ''
+spec 'r' 'microduckSimHeadImuRate' 'SIMULATION head IMU _ declared rate Hz reading' 'auto' ''
+spec 'r' 'microduckSimHeadImuRelease' 'SIMULATION release head IMU _ JSON' 'auto' ''
+advanced
+spec 'r' 'microduckSimHeadImuReading' 'SIMULATION head IMU _ field _ component _ reading' 'auto str num' '' 'gyro' 1
+
+to microduckSimHeadImuCapture { return ('[microduck:headImuSample]' (microduckRequest 'microduck.headImuSim.capture' '{}' false)) }
+to microduckSimHeadImuReading snapshot field component {
+    local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' snapshot)) ',"field":' ('[microduck:quote]' field) ',"component":' component '}')
+    return ('[microduck:headImuSample]' (microduckRequest 'microduck.headImuSim.read' params false))
+}
+to microduckSimHeadImuGyro snapshot component { return (microduckSimHeadImuReading snapshot 'gyro' component) }
+to microduckSimHeadImuAccel snapshot component { return (microduckSimHeadImuReading snapshot 'accel' component) }
+to microduckSimHeadImuQuat snapshot component { return (microduckSimHeadImuReading snapshot 'quat' component) }
+to microduckSimHeadImuTemperature snapshot { return (microduckSimHeadImuReading snapshot 'temperature' 1) }
+to microduckSimHeadImuSequence snapshot { return (microduckSimHeadImuReading snapshot 'seq' 1) }
+to microduckSimHeadImuUptime snapshot { return (microduckSimHeadImuReading snapshot 'at_us' 1) }
+to microduckSimHeadImuTimestamp snapshot { return (microduckSimHeadImuReading snapshot 't_ns' 1) }
+to microduckSimHeadImuSensor snapshot { return (microduckSimHeadImuReading snapshot 'sensor' 1) }
+to microduckSimHeadImuRate snapshot { return (microduckSimHeadImuReading snapshot 'rate' 1) }
+to microduckSimHeadImuRelease snapshot { return (microduckRequest 'microduck.headImuSim.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' snapshot)) '}') false) }

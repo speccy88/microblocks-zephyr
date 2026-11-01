@@ -1,0 +1,16 @@
+{
+  "README.md": "7b71f184446f1b4eab07b0c829e5dffd23a06edbd6519396479f6fb8432499a5",
+  "LICENSES.md": "3c2de80b4a641c551089d46fe1266537b4190db0a498e60ccf0731f80a18b70c",
+  "dependencies/editor-js.json": "d63bc744fc826e12929555abb34a963725bac9e30a34fe394bf3c99207a7bbea",
+  "docs/JS_EDITOR_MIGRATION.md": "a778dc62cd8fa686bde3d0a85bdf49cd291585747874d3741abb6ea5f88e464a",
+  "docs/JS_EDITOR_MIGRATION_SPEC.md": "a7b9381a78bb07dfd05ba4e1a3de95923ae0a609906f5c9216ac6c26063f0bc3",
+  "tests/js-editor-compat.test.cjs": "698b8a9958535ed80cb9ce4f2a9a7d497a423cafc27b7aa09495a44b6aaf53c5",
+  "tests/js_editor_pi_probe.py": "6739cbc355b893f6b636901e256ea54c5b626a5594a20c0e8176c7dc99d1cdeb",
+  "tests/test_js_editor_migration.py": "7ea115d0258469d5f31ad244e3c1d076fdc90d1bab45fc1719497e7376b2caea",
+  "tools/js_editor_source.py": "8ba8817de7b23b520740976389b46ad9a598910b6f52eb9c00af4dce8e13afa3",
+  "tools/package_js_editor.py": "4156a0bbeec1199bf7d6b1091e19998fde474ef975e3d6060dbccfbf3c8be216",
+  "tools/sync_js_editor.py": "21017faa514028d746802391291c8bff67ffb271965f95c1cd4105aa35d9d3d5",
+  "web/js-editor/linux-compat.js": "c8aaaf6698b9f78f850ed75b85630c77733ccef396ea8b1384d262f9ad3e6c71",
+  "web/js-editor/bootstrap.js": "4988e4c9a1a2f94f8d1a5a3be20798adbfab2ba0fafb310d7ad2143dff3cb195",
+  "web/js-editor/THIRD_PARTY_NOTICES.md": "cb80e548b825e0025e51dd0934f31ec02ed8660f7c51bf89458489a5bee9bd13"
+}

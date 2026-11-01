@@ -1,0 +1,16 @@
+{
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/sensor-native-persisted-20261027",
+  "original_temporary_directory": "/tmp/microduck-sensor-native-f4u38ay9",
+  "returncode": 0,
+  "seconds": 67.810305875,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py",
+    "--upstream",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/smallvm-linux-upstream",
+    "--output",
+    "/tmp/microduck-sensor-native-f4u38ay9",
+    "--sanitize",
+    "--test"
+  ]
+}

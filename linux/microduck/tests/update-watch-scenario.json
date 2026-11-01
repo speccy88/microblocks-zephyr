@@ -1,0 +1,82 @@
+{
+  "result": "PASS",
+  "scope": "actual Controller/RpcClient/NDJSON with in-memory fixture; no graphical browser, BLE, network, daemon, update or physical robot",
+  "fictional": true,
+  "request_methods": [
+    "system.authenticate",
+    "update.subscribe"
+  ],
+  "mutation_actions": 0,
+  "notifications_received": 19,
+  "visible_samples": [
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    },
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    },
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    },
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    },
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    },
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    },
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    },
+    {
+      "component": "robotd",
+      "phase": "idle",
+      "percent": null,
+      "detailOmitted": false,
+      "origin": "simulation"
+    }
+  ],
+  "maximum_visible_samples": 8,
+  "watch_end": {
+    "code": "WATCH_STOPPED",
+    "acknowledged": true,
+    "notifications": 19,
+    "accepted": 19
+  },
+  "write_chunk_max": 20,
+  "maximum_ack_writes_in_flight": 1,
+  "controller_phase_after_stop": "closed",
+  "automatic_retries": 0,
+  "physical_microduck_tested": false,
+  "edge_control_used": false
+}

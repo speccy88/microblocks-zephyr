@@ -1,0 +1,156 @@
+{
+  "passed": true,
+  "hostname": "RPI5",
+  "architecture": "aarch64",
+  "binary_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+  "candidate_sha256": "d85e2d921c13cfe63caf38a20aeb7b5d222cdb7695cb20d94060b28511286ed9",
+  "version": "pi5-standalone-v417-20261028",
+  "private_prefix": "/home/fred/microblocks-standalone-_54lml8g/prefix",
+  "persistent_data": "/home/fred/microblocks-standalone-_54lml8g/programs",
+  "graphical": false,
+  "robot_services_used": false,
+  "service_installed": false,
+  "os_rebooted": false,
+  "network_or_security_configuration_changed": false,
+  "published_release": false,
+  "preexisting_vm_pids": [
+    4819,
+    5601,
+    6874
+  ],
+  "installed_launcher_self_test": {
+    "result": "PASS",
+    "scope": "real SmallVM v417; local PTY; no external peripherals",
+    "architecture": "aarch64",
+    "arithmetic": 12,
+    "variable": 42,
+    "network_listener": false
+  },
+  "port": 52905,
+  "initial_session": {
+    "state": "ready",
+    "session_id": "3caf030b187344b1b7a8d540e498b196",
+    "supervisor_pid": 15911,
+    "resume": true,
+    "bind": "127.0.0.1",
+    "port": 52905,
+    "binary": "/home/fred/microblocks-standalone-_54lml8g/prefix/lib/microblocks/pi5-standalone-v417-20261028/smallvm",
+    "data_directory": "/home/fred/microblocks-standalone-_54lml8g/programs",
+    "editor_directory": "/home/fred/microblocks-standalone-_54lml8g/editor",
+    "service_installed": false,
+    "pty_info": "/home/fred/microblocks-standalone-_54lml8g/programs/pty-3caf030b187344b1b7a8d540e498b196.json",
+    "vm_log": "/home/fred/microblocks-standalone-_54lml8g/programs/vm-3caf030b187344b1b7a8d540e498b196.log",
+    "bridge_log": "/home/fred/microblocks-standalone-_54lml8g/programs/bridge-3caf030b187344b1b7a8d540e498b196.log",
+    "vm_pid": 15912,
+    "bridge_pid": 15913
+  },
+  "js_upload_reconnect": {
+    "graphical": false,
+    "real_compiler": true,
+    "block_views": "minimal fixtures",
+    "expression": "20 + 22",
+    "expected": 42,
+    "crc": [
+      41,
+      52,
+      161,
+      243
+    ],
+    "code_sha256": "1bdda56f9b71238b8796da5d3236958e7362495f26a1e30d447b76d3cc13f406",
+    "connections": [
+      {
+        "pass": 0,
+        "result": 42,
+        "crc_verified": true,
+        "no_code_upload": false,
+        "sent_message_types": [
+          26,
+          12,
+          32,
+          11,
+          3
+        ]
+      },
+      {
+        "pass": 1,
+        "result": 42,
+        "crc_verified": true,
+        "no_code_upload": true,
+        "sent_message_types": [
+          26,
+          12,
+          11,
+          3
+        ]
+      }
+    ]
+  },
+  "resumed_session": {
+    "state": "ready",
+    "session_id": "c95ec31c5cc048fc99e727dff8b6fd0d",
+    "supervisor_pid": 15922,
+    "resume": true,
+    "bind": "127.0.0.1",
+    "port": 52905,
+    "binary": "/home/fred/microblocks-standalone-_54lml8g/prefix/lib/microblocks/pi5-standalone-v417-20261028/smallvm",
+    "data_directory": "/home/fred/microblocks-standalone-_54lml8g/programs",
+    "editor_directory": "/home/fred/microblocks-standalone-_54lml8g/editor",
+    "service_installed": false,
+    "pty_info": "/home/fred/microblocks-standalone-_54lml8g/programs/pty-c95ec31c5cc048fc99e727dff8b6fd0d.json",
+    "vm_log": "/home/fred/microblocks-standalone-_54lml8g/programs/vm-c95ec31c5cc048fc99e727dff8b6fd0d.log",
+    "bridge_log": "/home/fred/microblocks-standalone-_54lml8g/programs/bridge-c95ec31c5cc048fc99e727dff8b6fd0d.log",
+    "vm_pid": 15923,
+    "bridge_pid": 15924
+  },
+  "js_resume_readback": {
+    "graphical": false,
+    "real_compiler": true,
+    "block_views": "minimal fixtures",
+    "expression": "20 + 22",
+    "expected": 42,
+    "crc": [
+      41,
+      52,
+      161,
+      243
+    ],
+    "code_sha256": "1bdda56f9b71238b8796da5d3236958e7362495f26a1e30d447b76d3cc13f406",
+    "connections": [
+      {
+        "pass": 0,
+        "result": 42,
+        "crc_verified": true,
+        "no_code_upload": true,
+        "sent_message_types": [
+          26,
+          12,
+          11,
+          3
+        ]
+      },
+      {
+        "pass": 1,
+        "result": 42,
+        "crc_verified": true,
+        "no_code_upload": true,
+        "sent_message_types": [
+          26,
+          12,
+          11,
+          3
+        ]
+      }
+    ]
+  },
+  "retained_program_sha256": "5eb1428507ee871aa765c43e81ceab9bb61f277cb7f0b7f396abbbd3b608a00d",
+  "earlier_logs_preserved": true,
+  "fresh_discovery_per_launch": true,
+  "install_service_option_used": false,
+  "preexisting_vms_still_alive": true,
+  "children_stopped": true,
+  "remaining_vm_pids": [
+    4819,
+    5601,
+    6874
+  ]
+}

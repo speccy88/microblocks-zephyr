@@ -1,0 +1,44 @@
+{
+  "source_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "repository": "https://github.com/pollen-robotics/microduck",
+  "api_version": 44,
+  "source_files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "e4372701007caacac120cded806e28f0da8d5f66b2231c983dbcafed3fa7b3a5",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/duck-ipc-proto/src/lib.rs"
+    },
+    "updater/src/ipc.rs": {
+      "sha256": "8b5a6234ece0ebb7f5f50e6908d7c7c9e29e854a468cb14bf928622523540cd4",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/updater/src/ipc.rs"
+    },
+    "btd/src/route.rs": {
+      "sha256": "aa492ef681d40f1b94d0405b4fae19a603bf27c764af3cc0eec362cd7e463195",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/btd/src/route.rs"
+    },
+    "btd/src/session.rs": {
+      "sha256": "2ee29dd8b21cd23a3c32350c228e176e258220cdf23f0957c03841eab84c62b2",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/btd/src/session.rs"
+    }
+  },
+  "phase_names": [
+    "idle",
+    "preflight",
+    "checking",
+    "downloading",
+    "verifying",
+    "extracting",
+    "running_pre_hook",
+    "swapping",
+    "running_post_hook",
+    "applying",
+    "health_gate",
+    "committing",
+    "rolling_back"
+  ],
+  "subscribe_has_ordinary_reply": false,
+  "subscribe_sends_latest_then_notifications": true,
+  "ble_route_allows_subscribe": true,
+  "authentication_still_required": true,
+  "confidentiality_attested": false,
+  "scope": "source audit of pinned upstream only; no daemon, BLE or physical robot executed"
+}

@@ -1,0 +1,58 @@
+{
+  "source_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "source_api_version": 44,
+  "files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "e4372701007caacac120cded806e28f0da8d5f66b2231c983dbcafed3fa7b3a5",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/duck-ipc-proto/src/lib.rs"
+    },
+    "mediad/src/route.rs": {
+      "sha256": "081d292a44148cf30c42c401e9de21c1abf9dd96db7c65db53f92df08ae523a8",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/mediad/src/route.rs"
+    },
+    "mediad/webclient/index.html": {
+      "sha256": "1bbb214c83b492112626efbd44a4099104b418920a07453b005e198c0e259a8d",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/mediad/webclient/index.html"
+    },
+    "docs/design/remote-webrtc.md": {
+      "sha256": "e0ebff8a0687b74b29d7670c5c26db4cfcf7518de1b3617874388f896a8534c2",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/docs/design/remote-webrtc.md"
+    },
+    "btd/src/route.rs": {
+      "sha256": "aa492ef681d40f1b94d0405b4fae19a603bf27c764af3cc0eec362cd7e463195",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/btd/src/route.rs"
+    },
+    "robotd/src/intents.rs": {
+      "sha256": "3738b8db219396e383fa47556fae62cecc23472fabc20090127e87b9c9ff092a",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/robotd/src/intents.rs"
+    }
+  },
+  "implemented_wire_method": "robot.move",
+  "wire_family": "notification; no id, no application response expected",
+  "wire_params": {
+    "vx": "m/s forward",
+    "vy": "m/s left",
+    "vyaw": "rad/s positive left"
+  },
+  "current_browser_transport": "reliable ordered control data channel",
+  "current_browser_hz": 10,
+  "current_browser_full_stick_per_axis": {
+    "linear_m_s": 0.3,
+    "yaw_rad_s": 1.5
+  },
+  "unreliable_teleop_channel": "deferred by this source; not invented",
+  "ble_move_allowed": false,
+  "robot_control_and_safety": "owned by robotd; not reproduced by the intent recorder",
+  "local_wrapper_methods": [
+    "microduck.motionSim.status",
+    "microduck.motionSim.run",
+    "microduck.motionSim.cancel"
+  ],
+  "local_wrappers_are_pollen_methods": false,
+  "local_duration_bound_ms": [
+    100,
+    2000
+  ],
+  "local_limits_are_physical_safety_claims": false,
+  "physical_movement_enabled": false
+}

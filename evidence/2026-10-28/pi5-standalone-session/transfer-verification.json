@@ -1,0 +1,29 @@
+{
+  "archive_sha256": "4e4d95fe6a15e4c00c2027940f4040f85cd74fb6f1565ded058ae8ca85dcbb21",
+  "fetched_files": 19,
+  "all_fetched_hashes_match": true,
+  "all_11_executed_project_source_files_match_current_working_tree": true,
+  "source_files": {
+    "linux/arm64/bridge.py": "e01c34b5a6b91cbf0a90ee9749af2a570f9369a1773bd385799a8686f2c0300b",
+    "linux/arm64/package.py": "fec516cc2e54df0600eaa1964e484afdf6f358d5cc416249d9e4c5c7de33c6b1",
+    "linux/arm64/session.py": "d78755a43c922eb3d2ad9abee1b1776e7945785acc8795b969bb8dd2a45e05a3",
+    "scripts/install-smallvm-linux-arm64.sh": "5ba81dbe1a95c11ddf60f90d31ec9ab6bf6d74006ba32d9e96f9d8cb5cb63849",
+    "tests/js-editor-compat.test.cjs": "15e577632442dc9441d48c1a6fe918202f0eac9760a535e3647e83be73ed6de8",
+    "tests/js-standalone-session.cjs": "0b138daf404e367849e81a5d309f248c27fac2dab45f85a70490e1222be6c361",
+    "tests/linux_arm64_protocol.py": "2f9a58db81c299ff094d73d56a8a1c99ab810eb4443c962828fc91e99544d5b5",
+    "tests/test_linux_arm64_session.py": "7374a028d3615cbe7b5b75a9df4f69f8bfab6a6dfecbab812d63f214ccce36be",
+    "third_party/yyjson/LICENSE": "45e384d3d52c73cba3a64d6e6c25d47cd738cd8a55c30629e3201046eda62947",
+    "tools/test_pi5_standalone_session.py": "ed8957533842bd4661c7b2761bc437c526afc35a46fa5ed08a86fea38a72ebcf",
+    "web/js-editor/linux-compat.js": "67f40360cbd162de1fb9da88b0b119b99b02233d6415db36e3d950cc86fe8aeb"
+  },
+  "physical_pi": true,
+  "graphical": false,
+  "four_js_transport_connections": true,
+  "native_session_tests": 9,
+  "owned_children_stopped": true,
+  "preexisting_vm_pids_preserved": [
+    4819,
+    5601,
+    6874
+  ]
+}

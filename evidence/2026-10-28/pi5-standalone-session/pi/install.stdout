@@ -1,0 +1,5 @@
+Platform: aarch64 / "Debian GNU/Linux 13 (trixie)"
+Archive checksum, layout, pinned source and AArch64 ELF identity verified
+{"result":"PASS","scope":"real SmallVM v417; local PTY; no external peripherals","architecture":"aarch64","arithmetic":12,"variable":42,"network_listener":false}
+Installed pi5-standalone-v417-20261028 at /home/fred/microblocks-standalone-_54lml8g/prefix/bin/smallvm; programs retained in /home/fred/microblocks-standalone-_54lml8g/programs
+No network listener configured. User service startup requires an active user manager; boot without login is not enabled.

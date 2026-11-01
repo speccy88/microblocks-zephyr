@@ -1,0 +1,16 @@
+{
+  "directory": "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/build-artifacts/depth-service-native-persisted-20261027",
+  "original_temporary_directory": "/tmp/microduck-depth-service-native-4a0r721n",
+  "returncode": 0,
+  "seconds": 214.84029690400007,
+  "command": [
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5/build-artifacts/bridge-venv/bin/python",
+    "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/arm64/build.py",
+    "--upstream",
+    "/tmp/depth-service-source-oess_9yf/smallvm",
+    "--output",
+    "/tmp/microduck-depth-service-native-4a0r721n",
+    "--sanitize",
+    "--test"
+  ]
+}

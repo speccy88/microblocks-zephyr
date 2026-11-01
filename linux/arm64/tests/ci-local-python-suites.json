@@ -1,0 +1,38 @@
+{
+  "test_linux_arm64_workflow.py": {
+    "tests": 6,
+    "skipped": 0
+  },
+  "test_linux_arm64_installer.py": {
+    "tests": 25,
+    "skipped": 0
+  },
+  "test_linux_arm64_package.py": {
+    "tests": 5,
+    "skipped": 0
+  },
+  "test_linux_arm64_release.py": {
+    "tests": 4,
+    "skipped": 0
+  },
+  "test_linux_arm64_bridge.py": {
+    "tests": 14,
+    "skipped": 0
+  },
+  "test_linux_editor_assets.py": {
+    "tests": 9,
+    "skipped": 0
+  },
+  "test_linux_microduck_gateway.py": {
+    "tests": 21,
+    "skipped": 0
+  },
+  "test_linux_microduck_simulator.py": {
+    "tests": 6,
+    "skipped": 0
+  },
+  "test_linux_microduck_vm.py": {
+    "tests": 10,
+    "skipped": 0
+  }
+}

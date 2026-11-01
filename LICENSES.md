@@ -51,6 +51,20 @@ preserve its own licensing and attribution when integrated:
 Review each upstream project's actual license and notices before copying files.
 Having a device driver API available does not transfer upstream code ownership.
 
+The experimental JavaScript editor staging profile pins official Codeberg Git
+blobs independently in `dependencies/editor-js.json`. Its engine files remain
+unchanged. The generated package retains upstream source headers, the complete
+MPL text and `web/js-editor/THIRD_PARTY_NOTICES.md`. Snap-derived `mb-blocks.js`
+and `morphic.js` record explicit MIT licenses for use in MicroBlocks in their
+own headers; preserve those headers, including historical notices. Marked and
+FileSaver retain their MIT notices; usbDfuDevice retains its full ISC notice.
+Local compatibility scripts use MPL-2.0 and packaging tools use MIT. Packaging
+is local staging, not a claim of completed distribution/license acceptance.
+The local `legacy-slots.js` matrix port retains the pinned GP slot's MPL-2.0
+attribution to John Maloney, Bernat Romagosa and Jens Mönig. Exact containing
+asset/source identity is in `dependencies/unoq-matrix-gp.json`; upstream JS
+engine files remain unchanged.
+
 The P4 native camera port uses the pinned external Zephyr/Espressif HAL
 (Apache-2.0), without linking FreeRTOS or ESP-IDF camera/ISP RTOS drivers.
 `p4_csi.c` retains Espressif's Apache-2.0 notice for adapted CSI/ISP/DW-GDMA
@@ -184,3 +198,74 @@ The simulator links the external Zephyr Apache-2.0 filesystem layer and its
 pinned LittleFS module `e9a8638fc228e43a3156ed3ac602229af3e3c1d5` (BSD-3-Clause).
 No LittleFS implementation is vendored or linked into the P4 application by
 this local increment; the external module retains its original LICENSE.md.
+
+The receive-only camera JavaScript modules, internal fake-media fixture and
+tests are newly authored MIT code. Their wire contract is reviewed against
+pinned Pollen mediad and GStreamer0.15.3 signaling source, with source URLs and
+hashes in `linux/microduck/tests/camera-source.json`. No GStreamer/Pollen media
+implementation, codec, source text or captured footage is redistributed here.
+The additive video-element observer, simulation viewer UI/test card and fake
+media callback fixture are also newly authored MIT code. Browser interface
+specifications are referenced in `linux/microduck/CAMERA_VIEWER.md`; no browser
+decoder implementation or third-party video file is copied.
+
+The motion-simulation backend, internal notification recorder and Python tests
+are newly authored MIT code. The native simulation-wrapper validator additions,
+UBL library/example and GP packaging changes retain MPL-2.0. Only protocol facts
+from pinned Pollen sources are used; no robot controller, gait, safety engine,
+motor driver or physics implementation is copied or redistributed.
+
+The read-only sensor-simulation backend, fixed fictional ToF/pad fixtures and
+Python tests are newly authored MIT code. Native validator, UBL/example and GP
+packaging additions retain MPL-2.0. Pinned protocol facts and zone interpretation
+are referenced; no Pollen/ST driver, firmware or device capture is redistributed.
+
+The bounded snapshot store and observed gamepad state model/tests are also
+newly authored MIT code. Native typed sensor decoders, library/version1.1 and
+example changes retain MPL-2.0. No Pollen controller or continuous driver is copied.
+
+The API45 control-packet preview recorder, bounded robot.state simulator/typed
+reader and tests are newly authored MIT code. Native validators/typed decoder,
+separate Robot Simulation/Telemetry libraries and example retain MPL-2.0.
+Only interface facts are used; no Pollen controller, policy/ONNX weights, IK,
+kinematics, safety implementation or actual robot capture is redistributed.
+
+The mediad/relay simulation backend and its Python tests are newly authored MIT
+code. Native media reading/guard additions, UBL/example and GP packaging retain
+MPL-2.0. Only source protocol facts are used; no Pollen relay, audio codec or media
+implementation, account credential or captured media is redistributed.
+
+The gamepad IMU simulator, bounded batch store and Python tests are newly authored
+MIT code. The native IMU validators/decoder, UBL/example and GP integration retain
+MPL-2.0. Only pinned Pollen protocol facts are used; no driver, filter, third-party
+IMU implementation or physical sensor capture is redistributed.
+
+The bounded tofd head-IMU reader, fictional stream simulator and Python tests
+are newly authored MIT code. Shared native typed decoder, separate head-IMU
+UBL/example and editor packaging retain MPL-2.0. Pollen/BMI088 protocol facts
+are referenced; no driver, filter, sensor fusion, coordinate transformation or
+physical capture is copied or redistributed.
+
+The explicit read-only head-IMU service adapter/config loader and its Python
+tests are newly authored MIT code. Native origin/decoder additions and the
+separate Head_IMU library/example/editor integration retain MPL-2.0. No Pollen
+daemon or driver implementation is copied; only protocol facts are used.
+
+The coherent read-only depth adapter, private fictional-source fixture and Python
+tests are newly authored MIT code. Native depth decoder/row reuse and the Depth
+library/example/editor integration retain MPL-2.0. Pollen protocol/zone facts are
+referenced; no sensor driver, controller or physical capture is redistributed.
+
+The normal read-only gamepad adapter/discovery model integration, fictional-service
+fixture and Python tests are newly authored MIT code. Native decoder/gate additions,
+Gamepad library/example and editor integration retain MPL-2.0. Pinned Pollen/evdev
+interface facts are referenced; no input driver, robot controller or capture is copied.
+
+Normal robotd observer: linux/microduck/robot_health.py, robot_service.py and
+robot_gateway_fixture.py retain MIT notices; Robot.ubl and robot-read.ubp follow
+the repository MPL-2.0 library policy. Pollen protocol is reviewed at its pinned
+source; no Rust source is copied into these adapters.
+
+Normal padd IMU observer: pad_imu_service.py and pad_imu_gateway_fixture.py
+retain MIT notices. Pad_IMU.ubl and pad-imu.ubp follow the repository MPL-2.0
+library policy; shared reviewed batch parser retains its MIT notice.

@@ -1,0 +1,24 @@
+{
+  "observed_utc": "2026-10-28T00:38:22.281155+00:00",
+  "destination": "https://github.com/speccy88/microblocks-zephyr.git",
+  "visibility": "public",
+  "updated_ref": "refs/heads/codex/js-editor-migration-20261027",
+  "requested_commit": "0de875495f2c188e8bb446f1fb5a23d1d141f136",
+  "old_commit": "9354e1093a11c7244bc7a63be16212579e322958",
+  "new_commit": "0de875495f2c188e8bb446f1fb5a23d1d141f136",
+  "status": "published_and_remote_verified",
+  "executed": true,
+  "force": false,
+  "returncode": 0,
+  "attempts_after_specific_approval": 1,
+  "prior_rejected_attempts": 1,
+  "prior_attempt_executed": false,
+  "scope": "Exact previously rejected checkpoint, including its disclosed code/screenshots/logs/lab metadata; newer workflow edits excluded",
+  "remote_refs_verified": {
+    "refs/heads/codex/js-editor-migration-20261027": "0de875495f2c188e8bb446f1fb5a23d1d141f136",
+    "refs/heads/gp": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+    "refs/heads/main": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226"
+  },
+  "main_and_gp_unchanged": true,
+  "workflow_fix_published": false
+}

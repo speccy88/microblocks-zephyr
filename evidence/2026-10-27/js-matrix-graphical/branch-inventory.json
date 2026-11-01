@@ -1,0 +1,216 @@
+{
+  "observed_utc": "2026-10-27T23:04:39.472595+00:00",
+  "scope": "Pre-commit checkpoint; cached remote refs, no fetch or push",
+  "repository": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-js-migration-20261027",
+  "remotes": [
+    "origin\thttps://github.com/speccy88/microblocks-zephyr.git (fetch)",
+    "origin\thttps://github.com/speccy88/microblocks-zephyr.git (push)"
+  ],
+  "refs": {
+    "refs/heads/codex/js-editor-migration-20261027": "9a41f9d8d3472dc1390c28ff577eb99b79010968",
+    "refs/heads/codex/pi5-microduck-preparation": "62fb982268a9db7f749057842696ad3b74c6b85b",
+    "refs/heads/codex/pi5-upstream-integration-20261027": "e5fd3d0a1d77f7024cade03136e9d6e859947cc5",
+    "refs/heads/codex/pi5-watch-integration-20261027": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+    "refs/heads/gp": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+    "refs/heads/main": "af742e8d34b194603182a303e07c130859f0cf8c",
+    "refs/remotes/origin/HEAD": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+    "refs/remotes/origin/development/fruit-jam": "91a4dad2766e36d2737754cadb164492661c6e6e",
+    "refs/remotes/origin/development/waveshare-rlcd": "8616af6f59256ef251622ac70ab802ea2d7b2b53",
+    "refs/remotes/origin/main": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226"
+  },
+  "worktrees": [
+    {
+      "worktree": "C:/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-pi5",
+      "HEAD": "62fb982268a9db7f749057842696ad3b74c6b85b",
+      "branch": "refs/heads/codex/pi5-microduck-preparation",
+      "status_porcelain": []
+    },
+    {
+      "worktree": "C:/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027",
+      "HEAD": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+      "branch": "refs/heads/codex/pi5-watch-integration-20261027",
+      "status_porcelain": []
+    },
+    {
+      "worktree": "C:/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027",
+      "HEAD": "9a41f9d8d3472dc1390c28ff577eb99b79010968",
+      "branch": "refs/heads/codex/js-editor-migration-20261027",
+      "status_porcelain": [
+        "M LICENSES.md",
+        " M docs/JS_EDITOR_MIGRATION.md",
+        " M docs/JS_TYPED_LIBRARIES.md",
+        " M tests/js-typed-libraries.test.cjs",
+        " M tests/support/js_editor_headless.cjs",
+        " M tests/test_js_editor_migration.py",
+        " M tools/package_js_editor.py",
+        " M web/js-editor/bootstrap.js",
+        "?? dependencies/unoq-matrix-gp.json",
+        "?? docs/JS_MATRIX_ADAPTER.md",
+        "?? docs/JS_MATRIX_SPEC.md",
+        "?? evidence/2026-10-27/js-matrix-graphical/README.md",
+        "?? evidence/2026-10-27/js-matrix-graphical/branch-inventory.json",
+        "?? evidence/2026-10-27/js-matrix-graphical/browser-errors.json",
+        "?? evidence/2026-10-27/js-matrix-graphical/cleanup.txt",
+        "?? evidence/2026-10-27/js-matrix-graphical/gui-input-hashes.json",
+        "?? evidence/2026-10-27/js-matrix-graphical/gui-scope.json",
+        "?? evidence/2026-10-27/js-matrix-graphical/js-gui-head-result.jpg",
+        "?? evidence/2026-10-27/js-matrix-graphical/js-gui-import.jpg",
+        "?? evidence/2026-10-27/js-matrix-graphical/js-gui-matrix-clear.jpg",
+        "?? evidence/2026-10-27/js-matrix-graphical/js-gui-matrix-painted.jpg",
+        "?? evidence/2026-10-27/js-matrix-graphical/js-gui-matrix-value.jpg",
+        "?? evidence/2026-10-27/js-matrix-graphical/js-gui-matrix-zero-value.jpg",
+        "?? evidence/2026-10-27/js-matrix-graphical/js-gui-predicate.jpg",
+        "?? evidence/2026-10-27/js-matrix-graphical/matrix-fixture.ubl",
+        "?? evidence/2026-10-27/js-matrix-graphical/screenshots.json",
+        "?? evidence/2026-10-27/js-matrix-graphical/static-package.json",
+        "?? tests/js-matrix-slot.test.cjs",
+        "?? web/js-editor/legacy-slots.js"
+      ]
+    }
+  ],
+  "head_contains": {
+    "main": true,
+    "gp": true,
+    "codex/pi5-microduck-preparation": true,
+    "codex/pi5-upstream-integration-20261027": true,
+    "codex/pi5-watch-integration-20261027": true
+  },
+  "ahead_behind_cached_origin_main": "0\t33",
+  "arm64_committed": {
+    "port_commit": "c880c87c2592ca02553bc14829eb8ecdc70eb83a",
+    "packaging_commit": "a860d36c64eee7c24ca32c16cb883063d4d87256",
+    "native_microduck_commit": "191d52404a1b2e40709b05b598a62377215c63be",
+    "tracked_linux_arm64_files": 41,
+    "uncommitted_linux_arm64_files": [],
+    "in_main_and_gp": true
+  },
+  "independent_p4_sfc": [
+    {
+      "task_title": "Resume ESP32-P4 SD integration",
+      "state": "SFC paused by user; no source or hardware accessed by this migration",
+      "latest_known_seal": "2026-10-27T21:29:27.855753Z",
+      "artifact": "microblocks-sfc-interface-export.zip",
+      "sha256": "eafcd114b3373ae429db8c28404bb8cf99b3cb999c0f499678a1f4224f0459b1",
+      "bytes": 137129,
+      "merged": false,
+      "test_scope": "Host-tested UI/export; actual GP, browser and hardware acceptance unverified at seal"
+    },
+    {
+      "artifact": "microblocks-sfc-execution.zip",
+      "latest_known_seal": "2026-10-27T21:01:57.505628Z",
+      "sha256": "61fea86c7ad5ea7938bb4337defc60c83d1f2ee8eff6cb7d30a44bff92a14d4b",
+      "bytes": 82075,
+      "merged": false
+    }
+  ],
+  "protected_p4_path": "C:/Users/fred_/Documents/Codex/2026-10-25/task-2/microblocks-zephyr",
+  "p4_limit": "Owner-controlled checkout and hardware not accessed; latest branches/remotes/dirty state require owner inventory. Known sealed archives are unmerged and SFC remains paused.",
+  "source_caches": [
+    {
+      "path": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-editor-upstream-20261027",
+      "head": null,
+      "remotes": [
+        "upstream\thttps://codeberg.org/MicroBlocks/smallvm.git (fetch)",
+        "upstream\thttps://codeberg.org/MicroBlocks/smallvm.git (push)"
+      ],
+      "tracked_status_entries": 0,
+      "role": "Read-only upstream object/asset cache; never stage or commit its intentional unpopulated checkout"
+    },
+    {
+      "path": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microduck-upstream",
+      "head": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+      "remotes": [
+        "origin\thttps://github.com/pollen-robotics/microduck.git (fetch)",
+        "origin\thttps://github.com/pollen-robotics/microduck.git (push)"
+      ],
+      "tracked_status_entries": 0,
+      "role": "Read-only upstream object/asset cache; never stage or commit its intentional unpopulated checkout"
+    },
+    {
+      "path": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\smallvm-linux-mirror",
+      "head": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+      "remotes": [
+        "origin\thttps://github.com/speccy88/uno-q-microblocks.git (fetch) [blob:none]",
+        "origin\thttps://github.com/speccy88/uno-q-microblocks.git (push)"
+      ],
+      "tracked_status_entries": 0,
+      "role": "Read-only upstream object/asset cache; never stage or commit its intentional unpopulated checkout"
+    },
+    {
+      "path": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\smallvm-linux-upstream",
+      "head": "71a5a7adebda317348d2c1ea0662abe4b870d31b",
+      "remotes": [
+        "origin\thttps://codeberg.org/MicroBlocks/smallvm.git (fetch)",
+        "origin\thttps://codeberg.org/MicroBlocks/smallvm.git (push)"
+      ],
+      "tracked_status_entries": 991,
+      "role": "Read-only upstream object/asset cache; never stage or commit its intentional unpopulated checkout"
+    }
+  ],
+  "publication": {
+    "attempted": false,
+    "destination_configured": "https://github.com/speccy88/microblocks-zephyr.git",
+    "candidate_branch": "codex/js-editor-migration-20261027",
+    "gp_preservation_branch": "gp",
+    "trust_or_push_approval_inferred": false,
+    "shared_main_modified": false
+  },
+  "sensitive_content_scope": "No SSH key/config, credentials, environment files or flash dumps added. Evidence includes local usernames/paths and disposable lab/session metadata; review/redact these before any approved publication. Source caches and root authentication helpers excluded.",
+  "board_remote_refs": [
+    {
+      "ref": "refs/remotes/origin/development/fruit-jam",
+      "commit": "91a4dad2766e36d2737754cadb164492661c6e6e",
+      "fetched_from_configured_origin": "https://github.com/speccy88/microblocks-zephyr.git",
+      "local_branch_exists": false,
+      "tip_commit_metadata": {
+        "commit": "91a4dad2766e36d2737754cadb164492661c6e6e",
+        "author": "Frederick Blais",
+        "date": "2026-10-18T19:13:01-04:00",
+        "subject": "Verify native graphical save/readback and retained-association boot"
+      },
+      "behind_ahead_cached_origin_main": "36\t0",
+      "unique_commits_vs_cached_origin_main": [],
+      "containing_refs": [
+        "* codex/js-editor-migration-20261027",
+        "+ codex/pi5-microduck-preparation",
+        "  codex/pi5-upstream-integration-20261027",
+        "+ codex/pi5-watch-integration-20261027",
+        "  gp",
+        "  main",
+        "  remotes/origin/HEAD -> origin/main",
+        "  remotes/origin/development/fruit-jam",
+        "  remotes/origin/main"
+      ],
+      "conclusion": "Tip is an ancestor of cached origin/main and all local development branches; no unique commits remain to integrate. This is Git ancestry evidence, not fresh board acceptance.",
+      "creation_provenance_limit": "Pre-existing remote-tracking ref; no local reflog entry records creation. Commit authorship does not identify who requested or created the remote branch. No fetch, branch mutation, merge or deletion performed."
+    },
+    {
+      "ref": "refs/remotes/origin/development/waveshare-rlcd",
+      "commit": "8616af6f59256ef251622ac70ab802ea2d7b2b53",
+      "fetched_from_configured_origin": "https://github.com/speccy88/microblocks-zephyr.git",
+      "local_branch_exists": false,
+      "tip_commit_metadata": {
+        "commit": "8616af6f59256ef251622ac70ab802ea2d7b2b53",
+        "author": "Frederick Blais",
+        "date": "2026-10-18T05:15:15-04:00",
+        "subject": "Complete bounded I2C list and presence primitives"
+      },
+      "behind_ahead_cached_origin_main": "60\t0",
+      "unique_commits_vs_cached_origin_main": [],
+      "containing_refs": [
+        "* codex/js-editor-migration-20261027",
+        "+ codex/pi5-microduck-preparation",
+        "  codex/pi5-upstream-integration-20261027",
+        "+ codex/pi5-watch-integration-20261027",
+        "  gp",
+        "  main",
+        "  remotes/origin/HEAD -> origin/main",
+        "  remotes/origin/development/fruit-jam",
+        "  remotes/origin/development/waveshare-rlcd",
+        "  remotes/origin/main"
+      ],
+      "conclusion": "Tip is an ancestor of cached origin/main and all local development branches; no unique commits remain to integrate. This is Git ancestry evidence, not fresh board acceptance.",
+      "creation_provenance_limit": "Pre-existing remote-tracking ref; no local reflog entry records creation. Commit authorship does not identify who requested or created the remote branch. No fetch, branch mutation, merge or deletion performed."
+    }
+  ]
+}

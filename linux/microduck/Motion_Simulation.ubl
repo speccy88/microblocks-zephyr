@@ -1,0 +1,15 @@
+module 'MicroDuck Motion Simulation' Output
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Depends on MicroDuck library and the dedicated private motion_simulator.py backend. Local microduck.motionSim methods are project lab wrappers, not Pollen methods. Physical movement is always disabled. Real gateway and BLE reject them. The backend must opt in with --allow-motion and each run needs confirmed true; default is false. Inputs use integer mm/s and mrad/s, capped at 300/300/1500, duration 100..2000ms. A run acknowledges a finite simulated intent lease, not applied movement; no physics, robot readiness, enable, safety or real stop is inferred. The internal recorder emits documented robot.move notifications and a final zero when writable. Stop All cancels waits, not an already accepted lease; cancel it explicitly or let its two-second bound expire. No automatic replay or real transport, motor access, credentials or emergency-stop guarantee.'
+spec 'r' 'microduckSimMotionStatus' 'SIMULATION motion status JSON'
+spec 'r' 'microduckSimMotionRun' 'SIMULATION lease forward _ mm/s left _ mm/s yaw _ mrad/s for _ ms confirmed _' 'num num num num bool' 0 0 0 500 false
+spec 'r' 'microduckSimMotionCancel' 'SIMULATION cancel motion lease JSON'
+
+to microduckSimMotionStatus { return (microduckRequest 'microduck.motionSim.status' '{}' false) }
+to microduckSimMotionCancel { return (microduckRequest 'microduck.motionSim.cancel' '{}' false) }
+
+to microduckSimMotionRun vx vy vyaw duration confirmed {
+    local 'params' ('[data:join]' '{"vx_mm_s":' vx ',"vy_mm_s":' vy ',"vyaw_mrad_s":' vyaw ',"duration_ms":' duration '}')
+    return (microduckRequest 'microduck.motionSim.run' params confirmed)
+}

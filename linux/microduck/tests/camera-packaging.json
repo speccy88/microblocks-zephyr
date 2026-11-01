@@ -1,0 +1,57 @@
+{
+  "result": "PASS",
+  "scope": "local packaging; no deployment, browser, network, board or radio",
+  "reference_package": "build-artifacts/pages-watch-merged",
+  "output_package": "build-artifacts/pages-camera-20261027",
+  "boards": 7,
+  "gp_code_and_connection_flags_preserved": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    }
+  },
+  "camera_module_sha256": {
+    "web/microduck/camera-fixture.js": "997f70bf077cf8fb0719b1aa5abec7aac8ef6624dbb65fb044603e73bb94ae75",
+    "web/microduck/camera-peer.js": "80c8c314bee9c06b54aab72f29ac018ea7e78f40ae32e9072d9a9f7f4c0957cb",
+    "web/microduck/camera-protocol.js": "36ec501e3201e2f1376f1e7547e02507f85ff9693d27d489b22f70c186347412",
+    "web/microduck/camera-session.js": "105d73a77b805acf28fe9a535b319124eedb7870bfcbde180473c77a40444e45"
+  },
+  "all_microduck_js_exact_source_copy": true,
+  "existing_console_and_simulation_html_bytes_unchanged": true,
+  "console_connect_src_none": true,
+  "no_existing_page_instantiates_camera": true,
+  "release_available": false,
+  "published": false,
+  "html_version_tokens_change_with_new_portal_asset_hash": true
+}

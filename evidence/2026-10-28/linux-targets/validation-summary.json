@@ -1,0 +1,22 @@
+{
+  "full_repository_python_tests": 475,
+  "failures": 0,
+  "skips": 0,
+  "focused_node_tests": 19,
+  "verified_source_inputs": 2070,
+  "seconds_including_wrapper": 211.78762851000002,
+  "mode": "Full unchanged repository validator in byte-identical Linux filesystem replica",
+  "new_portal_real_pin_test": true,
+  "runtime_source_changed": false,
+  "upstream_pins_changed": false,
+  "physical_test_this_slice": "Read-only Pi identity/binary inventory only",
+  "new_vm_execution": false,
+  "robot_hardware": false,
+  "zephyr_built": false,
+  "source_target_catalog_updated": true,
+  "public_main_or_pages_deployed": false,
+  "service_or_reboot_tested": false,
+  "security_or_network_settings_changed": false,
+  "historical_safety_denials_retried": false,
+  "pending_approval": false
+}

@@ -1,0 +1,77 @@
+{
+  "recorded_at": "2026-10-27T13:31:12.097290+00:00",
+  "scope": "local WSL validator interruption and recovery; no Pi or board action",
+  "initial_validator": {
+    "capture": "camera-viewer-linux-initial-timeout.txt",
+    "tests_run": 182,
+    "seconds": 424.403,
+    "errors": 3,
+    "cause_observed": "subprocess.TimeoutExpired during existing sanitizer compilation; 120-second limits unchanged",
+    "affected": [
+      "test_real_interpreter_shifts_are_defined_and_invalid_counts_are_vm_errors",
+      "setUpClass test_linux_arm64_numeric.RealInterpreterNumeric",
+      "setUpClass test_linux_microduck_vm.RealSmallVMMicroDuck"
+    ]
+  },
+  "at_failure_observation": {
+    "logical_cpu_count": 2,
+    "load_average": [
+      6.53,
+      6.31,
+      3.74
+    ],
+    "compiler_processes_seen": 3,
+    "compiler_process_ownership_not_established": true
+  },
+  "transport_interruption": {
+    "action": "read-only process-directory inspection",
+    "failure": "exec-server transport disconnected; selected desktop environment unavailable",
+    "process_cleanup_or_mutation_executed": false
+  },
+  "after_reconnection": {
+    "logical_cpu_count": 2,
+    "load_average": [
+      0.08,
+      0.02,
+      0.01
+    ],
+    "processes_with_cwd_in_exact_three_failed_temporary_build_paths": 0,
+    "cleanup_needed": false
+  },
+  "diagnosis": "Resource contention is consistent with the observed high load and compilation timeouts, but the exact cause was not established. No compiler or sanitizer runtime diagnostic preceded these build deadline failures.",
+  "unchanged_compared_with_base": [
+    "linux/arm64",
+    "common",
+    "vm",
+    "boards",
+    "linux/microduck/MicroDuck.ubl",
+    "linux/microduck/gateway.py",
+    "linux/microduck/protocol.py",
+    "tests/test_linux_arm64_core_patch.py",
+    "tests/test_linux_arm64_numeric.py",
+    "tests/test_linux_microduck_vm.py"
+  ],
+  "compiler_flags_or_test_timeouts_modified": false,
+  "validator_rerun": "same tools/validate.py command and existing venv, once after observing low load; result retained separately",
+  "previously_denied_action_retried": false,
+  "pi_accessed": false,
+  "shared_main_modified": false,
+  "p4_worktree_accessed_or_modified": false,
+  "unchanged_rerun_result": {
+    "tests_run": 185,
+    "errors": 1,
+    "seconds": 338.813,
+    "reason": "existing MicroDuck VM sanitizer build again exceeded its unchanged 120-second deadline",
+    "capture": "camera-viewer-linux-unchanged-rerun.txt"
+  },
+  "verified_binary_result": {
+    "tests": 203,
+    "result": "PASS",
+    "skipped": 0,
+    "seconds": 124.481,
+    "environment": "existing Ubuntu-26.04 WSL Python venv; local fixtures",
+    "mode": "documented external sanitizer binary for numeric and MicroDuck VM suites; full discovery with no exclusions",
+    "provenance": "camera-viewer-native-provenance.json"
+  },
+  "final_capture": "camera-viewer-linux.txt"
+}

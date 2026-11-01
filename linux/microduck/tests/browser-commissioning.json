@@ -1,0 +1,44 @@
+{
+  "tested_at": "2026-10-27T07:21:34.922663+00:00",
+  "result": "PASS",
+  "scope": "Local packaged portal and actual Edge browser UI with fictional in-memory API44; no physical robot",
+  "url": "http://127.0.0.1:8878/microduck/simulation.html",
+  "portal_tab": "899188297",
+  "simulation_tab": "899188300",
+  "physical_microduck": false,
+  "real_ble_tested": false,
+  "linux_gateway_used": false,
+  "checks": [
+    "Portal selected MicroDuck while preserving seven-board selector",
+    "Installation copying remains disabled with available:false",
+    "Actual portal simulation link opens packaged HTML and local assets",
+    "Explicit start renders fictional API44 identity,73.25percent/7.8V battery and discovered simulation_bow/simulation_nod",
+    "Confirmed fictional open-network join reports documentation address192.0.2.44",
+    "Confirmed chirp and simulation_bow each recorded exactly once",
+    "Each checkbox consumed and action button disabled after completion",
+    "End/restart clears all three fictional records and fake IP"
+  ],
+  "mock_actions_before_reset": 3,
+  "mock_actions_after_reset": 0,
+  "real_robot_actions": 0,
+  "inputs": "Only fixed fictional dropdowns and per-action checkboxes; no PIN/password or caller transport",
+  "network_boundary": "CSP connect-src none and source-contract tests; no network traffic capture claimed",
+  "source_sha256": {
+    "web/microduck/commands.js": "f0b13ff353480a63e325d52d29055c2f41ce42065c7a6035a0dd536e0108f9dd",
+    "web/microduck/rpc.js": "3ebe363d96892c067ee89b26b81b9cbace33a142dd4ca1f75b3904976ae2b6c1",
+    "web/microduck/simulation.js": "367d712f693d5eaee9da4a4ba84de65d1fd8101708892994986d4a54678f9a58",
+    "web/microduck/simulation-panel.js": "3709cb7adc4f9679285e3be7546a0b2f63feba0d526d60ff29d2a72458795861",
+    "web/microduck/simulation.html": "1f8ffe97cadfe98b7817b211369fcdc74f44964b3a70037bbf2488b2f32f833c",
+    "web/microduck/panel.js": "33a83ea4478a67081d0957c4ff0f39b2579c68a7f0fa8d06f80bb1cb659c9f0d",
+    "tools/package_pages.py": "1c688ca2fbea59572521d6f681fddb18d06dd7490623958ebd2cda78136b7af7"
+  },
+  "screenshot_sha256": "c1d190adb13305815a95c5d535d9513b132a65bef8837bef701ab0d7f0f22b32",
+  "node_simulation_cases": 14,
+  "node_selected_cases_final": 91,
+  "limitations": [
+    "No radio/pairing/robot hardware",
+    "No production provisioning/update/install command",
+    "No native VM/Gateway on this standalone page",
+    "No deployed Pages test"
+  ]
+}

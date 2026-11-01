@@ -1,0 +1,70 @@
+{
+  "source_api_version": 44,
+  "source_commit": "96b89d8613f06722c1d64ce75ab0d7124fed9d8f",
+  "files": {
+    "duck-ipc-proto/src/lib.rs": {
+      "sha256": "e4372701007caacac120cded806e28f0da8d5f66b2231c983dbcafed3fa7b3a5",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/duck-ipc-proto/src/lib.rs"
+    },
+    "tof/src/lib.rs": {
+      "sha256": "d9cce1cc0df5f33b2da523260ba5fcc74b80035173ccc23ead9866d4faaa2a18",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/tof/src/lib.rs"
+    },
+    "tof/src/main.rs": {
+      "sha256": "99e8721bf262e134142723f6333b62a16472cda96cdb385cdef6f4e31d0622ce",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/tof/src/main.rs"
+    },
+    "tof/src/status.rs": {
+      "sha256": "7f464e6fb541cc77c07008f2e49d51f078d3997d4058c4dab75903e6b7855997",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/tof/src/status.rs"
+    },
+    "padd/src/tap.rs": {
+      "sha256": "9e97c76f34ea124d442a2c8f41b8e97532decde4340c55b61fa26cdd64734c53",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/padd/src/tap.rs"
+    },
+    "mediad/src/route.rs": {
+      "sha256": "081d292a44148cf30c42c401e9de21c1abf9dd96db7c65db53f92df08ae523a8",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/mediad/src/route.rs"
+    },
+    "btd/src/route.rs": {
+      "sha256": "aa492ef681d40f1b94d0405b4fae19a603bf27c764af3cc0eec362cd7e463195",
+      "url": "https://github.com/pollen-robotics/microduck/blob/96b89d8613f06722c1d64ce75ab0d7124fed9d8f/btd/src/route.rs"
+    }
+  },
+  "tof": {
+    "subscribe": "tof.stream",
+    "notification": "tof.frame",
+    "geometry": [
+      8,
+      8
+    ],
+    "distance_mm": "signed16 row-major",
+    "status": "unsigned8;5 or9 with distance>0 range;255 no_target;otherwise unusable",
+    "accepted_is_sensor_present": false,
+    "at_us": "sender uptime microseconds",
+    "t_ns": "CLOCK_MONOTONIC nanoseconds;0 when omitted by older revision"
+  },
+  "pad": {
+    "subscribe": "pad.input",
+    "notification": "pad.report",
+    "hello_required_by_subscription_adapter": false,
+    "accepted_is_attached": false,
+    "device": "attached metadata with per-device raw code/ranges; no guessed normalization",
+    "axis": "kind3 absolute event",
+    "button": "kind1 key event;0 released/nonzero held",
+    "at_us": "kernel CLOCK_REALTIME microseconds",
+    "since_us": "optional signed64;negative permitted",
+    "loss": "after_drop or socket_dropped>0 makes selected value unknown",
+    "imu": "recognized and skipped within16-notification bound; no IMU block supplied"
+  },
+  "local_wrapper_methods": [
+    "microduck.sensorSim.tof",
+    "microduck.sensorSim.axis",
+    "microduck.sensorSim.button"
+  ],
+  "wrappers_are_pollen_methods": false,
+  "physical_movement_enabled": false,
+  "live_endpoint_supported": false,
+  "timestamps_and_u64_counters": "decimal strings in native JSON reply; not coerced to signed31",
+  "whole_grid_atomicity": "not supplied; each zone starts a fresh subscription"
+}

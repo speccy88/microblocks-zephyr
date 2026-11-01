@@ -1,0 +1,12 @@
+module main
+description 'SIMULATION ONLY. Read fake relay/media diagnostics and explicit unsupported audio. No preview, live session, stream mutation, camera/microphone or robot command.'
+
+script 30 30 {
+    whenStarted
+    sayIt (microduckSimRelayState)
+    sayIt (microduckSimRelayHeartbeat)
+    sayIt (microduckSimMediaAudioReceive)
+    sayIt (microduckSimMediaWidth)
+    sayIt (microduckSimMediaConnected)
+    sayIt (microduckSimRelayRobotEnabled)
+}

@@ -1,0 +1,18 @@
+module main
+description 'Read-only IPC, validated here with simulated input. Capture one tofd head IMU frame and read coherent reported values. No bus, robot command, automatic movement or inferred calibrated pose.'
+variables headSample
+
+script 30 30 {
+    whenStarted
+    headSample = (microduckHeadImuCapture)
+    sayIt headSample
+    if (microduckReadingKnown headSample) {
+        sayIt (microduckHeadImuSensor headSample)
+        sayIt (microduckHeadImuAccel headSample 3)
+        sayIt (microduckHeadImuGyro headSample 1)
+        sayIt (microduckHeadImuQuat headSample 1)
+        sayIt (microduckHeadImuTemperature headSample)
+        sayIt (microduckHeadImuTimestamp headSample)
+        sayIt (microduckHeadImuRelease headSample)
+    }
+}

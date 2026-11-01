@@ -1,0 +1,310 @@
+{
+  "algorithm": "SHA256",
+  "scope": "Robot API checkpoint implementation, final and initial captures, documentation and source audit; excludes this self-index",
+  "files": {
+    ".github/workflows/linux-arm64.yml": {
+      "sha256": "b0430841ad5a3ca04759095497ee83f7a94b4e71934411efe2ca9797e6a08de8",
+      "bytes": 10263
+    },
+    "docs/LINUX_CI.md": {
+      "sha256": "284efc33915de654872350859570377544258dd1c0d5bd6d36e0296ed69ee8be",
+      "bytes": 9102
+    },
+    "docs/MICRODUCK_REMAINING_OBJECTIVES.md": {
+      "sha256": "0679c9b400e4eaa0ae1613b1b8f4e50d9d27914c18d7ab7784a2943b38ad2eb6",
+      "bytes": 7119
+    },
+    "docs/MICRODUCK_ROBOT_API.md": {
+      "sha256": "4987c72acd60ee716d08aab79b0d038d8dce0ee5988996ba767c0e17aa7b6f13",
+      "bytes": 10619
+    },
+    "docs/MICRODUCK_SERVICE_CAPABILITIES.md": {
+      "sha256": "617eed1281b899d6dc96e626beb14b47e8fe73dce7af1f1c059aa7bc4ac7e982",
+      "bytes": 8201
+    },
+    "docs/PI5_MICRODUCK_STATUS.md": {
+      "sha256": "02e29d067b9d6b6f779d5e389d01865e618af9fc6f18580dd27485b14c475c57",
+      "bytes": 13287
+    },
+    "evidence/2026-10-27/microduck-robot-api/README.md": {
+      "sha256": "727d3859c72fd60ef6f1ed8bfc97eba75eda964540683c4e6bc915ed35c89ffa",
+      "bytes": 7678
+    },
+    "LICENSES.md": {
+      "sha256": "633b78078bfde231a6548365abdaf8ccd933c9e915cf9e0e811706f280a1ccae",
+      "bytes": 13833
+    },
+    "linux/arm64/platform/microduck.c": {
+      "sha256": "76d36ee8e90ccb3c9bb341c4c71806d0ab09f972aa237b089bb3e3d4893fa50d",
+      "bytes": 54379
+    },
+    "linux/microduck/robot-simulation.ubp": {
+      "sha256": "00244ea477a96e73633f538dc3476614bc0ffff41c0df173c90318ddbd8bf90a",
+      "bytes": 785
+    },
+    "linux/microduck/ROBOT_SIMULATION.md": {
+      "sha256": "0b3a98f5e45319e2a4c3ce15ebfbeff46bab1ce7cd4002fd4bd509df08e93a13",
+      "bytes": 5073
+    },
+    "linux/microduck/Robot_Simulation.ubl": {
+      "sha256": "8a600deba59037b609ccfb29b0347f19bf2f957fad84874d1da33e69d2df0a54",
+      "bytes": 6076
+    },
+    "linux/microduck/robot_simulator.py": {
+      "sha256": "221aa72bc090e4b89abc50501fe334c126486fea2e21cb560c077bc55beb524f",
+      "bytes": 15409
+    },
+    "linux/microduck/robot_telemetry.py": {
+      "sha256": "8addc4b035e0755944898af31f8498306b021daa123ddb0a491809718986ea97",
+      "bytes": 8806
+    },
+    "linux/microduck/Robot_Telemetry.ubl": {
+      "sha256": "47617c4708e97d3f975aba1f4bcc47112766eb000922646f7a4349c84b91bd7a",
+      "bytes": 5835
+    },
+    "linux/microduck/tests/pi5-robot-final-kit-manifest.json": {
+      "sha256": "45ceeb8cb4e3ccea39a0d4cc79bcf26c0b62928d07048839968fee0cc4fcfbcd",
+      "bytes": 20934
+    },
+    "linux/microduck/tests/pi5-robot-final-native-build-manifest.json": {
+      "sha256": "e08f9c2ef8b225a28af82203fcb0c654f8ec78a4007ccfd10a2d054e48bdedda",
+      "bytes": 11861
+    },
+    "linux/microduck/tests/pi5-robot-final-native-build.txt": {
+      "sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+      "bytes": 7941
+    },
+    "linux/microduck/tests/pi5-robot-final-native-plain-build-manifest.json": {
+      "sha256": "c188207bce672137bfd7dae3c8f5e7536025fb6095de9c743c33b08f371095a6",
+      "bytes": 11861
+    },
+    "linux/microduck/tests/pi5-robot-final-native-plain-build.txt": {
+      "sha256": "da300bfc4feabb36524c26fb33c62debb46734b909bb16aadcb9064a38711799",
+      "bytes": 8701
+    },
+    "linux/microduck/tests/pi5-robot-final-native-plain-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-robot-final-native-plain-source-manifest.json": {
+      "sha256": "bd28eb41aaeb8dc942509ca09defefa5750b04c1d49ac77ca2f22d91433aa3ad",
+      "bytes": 11686
+    },
+    "linux/microduck/tests/pi5-robot-final-native-plain-tests.txt": {
+      "sha256": "2cc3402120f0f03d28771f43d892b6a75c0f3ddcbc78aeac4b25f09cbc6956bd",
+      "bytes": 15165
+    },
+    "linux/microduck/tests/pi5-robot-final-native-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-robot-final-native-source-manifest.json": {
+      "sha256": "c2cf912f0a3b956a4a1ce90703686290e210d409d25f9f6c31c403d773270516",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/pi5-robot-final-native-tests.txt": {
+      "sha256": "cd7367eafd5e32968a378b263cd461c3d516630993562c64675a59f52f75cfc1",
+      "bytes": 15165
+    },
+    "linux/microduck/tests/pi5-robot-final-pi-robot-validation.json": {
+      "sha256": "ed6d127baee4f6c8c257ff2d18196b632dfc36a4c185d54cf720e293e329b221",
+      "bytes": 1764
+    },
+    "linux/microduck/tests/pi5-robot-initial-kit-manifest.json": {
+      "sha256": "c4a95b304967c862f6e40df10f34abfd890f65830ccaa6f5797b6d0fd09408d1",
+      "bytes": 20934
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-build-manifest.json": {
+      "sha256": "3a39219d6d4dd4afd68419c42032653451fb18d44ed2878cc6498c5698b7b508",
+      "bytes": 11860
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-build.txt": {
+      "sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+      "bytes": 7941
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-plain-build-manifest.json": {
+      "sha256": "5b51f913e93839be74bc387652c720359a44c98e1b3962b9a7e869f9f1f436fa",
+      "bytes": 11862
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-plain-build.txt": {
+      "sha256": "da300bfc4feabb36524c26fb33c62debb46734b909bb16aadcb9064a38711799",
+      "bytes": 8701
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-plain-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-plain-source-manifest.json": {
+      "sha256": "dc7a9bf9deaec628db808c5b734cd41ac18338d2086a67d63b0c4c10f5521df6",
+      "bytes": 11686
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-plain-tests.txt": {
+      "sha256": "1ac423f17fb549a5d67b3efbc28d1a6729b5432dcdd4ae666e7d321a1190ecec",
+      "bytes": 15165
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-source-manifest.json": {
+      "sha256": "674a0309f7eded57cfb94928426cdd3ba6c5fe8e0bfc3b1684391f24255cd6ec",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/pi5-robot-initial-native-tests.txt": {
+      "sha256": "398bee492c3fef039c4822e1b43797643f63ce9f8a48f0183810b3c9efcd11d7",
+      "bytes": 15165
+    },
+    "linux/microduck/tests/pi5-robot-initial-pi-robot-validation.json": {
+      "sha256": "c8140a00e8fe8787d4f2c6c7bc22233edcbdf96588c22ac8287c2c8c6c4c20dd",
+      "bytes": 1765
+    },
+    "linux/microduck/tests/pi5-robot-runner.py.txt": {
+      "sha256": "6bb47105fa5c8cc4f1f56f1c3b464681802848567d448806223b063cfc7174fe",
+      "bytes": 3752
+    },
+    "linux/microduck/tests/robot-default-focused.txt": {
+      "sha256": "e1ae5ea1c0ef99456a4b3d5246b1e02324b9daded7066f2f50182d1ed6b89c65",
+      "bytes": 4408
+    },
+    "linux/microduck/tests/robot-final-build.txt": {
+      "sha256": "d3f4153d5b30d991594c1f94d48d70655ea8cf6fa4b999149c72d04447077085",
+      "bytes": 9506
+    },
+    "linux/microduck/tests/robot-final-full-run.json": {
+      "sha256": "a1c0151ea95cf01cebe8da79509ba42f5eaae6dd34da21101d8a8ea765616301",
+      "bytes": 626
+    },
+    "linux/microduck/tests/robot-final-linux.txt": {
+      "sha256": "2f212c9258f48f129a5a520ac5b9c4e05c932bd9535ccea9f8331c32c43f8ae2",
+      "bytes": 52960
+    },
+    "linux/microduck/tests/robot-final-native-build-manifest.json": {
+      "sha256": "4a4880d2b2665b0b0b20d2d9a75d4445ccdb342bd4049fa312e1a69f5ec997c6",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/robot-final-native-build-run.json": {
+      "sha256": "d4cdb6abae948bd6d7cc10982aba481124729c6eb2b1831bdf23ed8683963945",
+      "bytes": 753
+    },
+    "linux/microduck/tests/robot-final-native-provenance.json": {
+      "sha256": "01d120973dd6c30df129d8234860cb95526b9079bd93c15a56c1d89c1ba63472",
+      "bytes": 2317
+    },
+    "linux/microduck/tests/robot-final-native-source-manifest.json": {
+      "sha256": "c2cf912f0a3b956a4a1ce90703686290e210d409d25f9f6c31c403d773270516",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/robot-final-packaging.json": {
+      "sha256": "de4b224f11d3a032052e6a6c6457ce72771fd7cc21debe49e5560fd756627ad0",
+      "bytes": 2218
+    },
+    "linux/microduck/tests/robot-final-scenario-vm.txt": {
+      "sha256": "bc687140733452fb46300af35be3f2e6b5172609a95d73dadc0d10f16ba8d147",
+      "bytes": 48
+    },
+    "linux/microduck/tests/robot-final-scenario.json": {
+      "sha256": "b2a5f0247affd01899fefa3d86ec4820398d9ff37e7cb73cde808286efc5c07f",
+      "bytes": 3533
+    },
+    "linux/microduck/tests/robot-initial-build.txt": {
+      "sha256": "75338628faa8d41e226fb0a0e2f437498a12b636e7e79ee07febc740074af44d",
+      "bytes": 9470
+    },
+    "linux/microduck/tests/robot-initial-focused.txt": {
+      "sha256": "009885d477b4f839ee8ea3b8c5a136b39c4c60efbd55300ca7c0db099023af37",
+      "bytes": 4408
+    },
+    "linux/microduck/tests/robot-initial-full-run.json": {
+      "sha256": "feefa3c7245fe854893a249760573095073870653a471902058113cc17481cb4",
+      "bytes": 614
+    },
+    "linux/microduck/tests/robot-initial-linux.txt": {
+      "sha256": "62b5c17f6ec131bcbff6e56eaa5edba78526ad71b5484a956092ca19958f1293",
+      "bytes": 52075
+    },
+    "linux/microduck/tests/robot-log-retention.json": {
+      "sha256": "452fef8244ef7f3f157b638d186ebf22e272f060805d9b79c0b4da36aac82b15",
+      "bytes": 16355
+    },
+    "linux/microduck/tests/robot-native-build-manifest.json": {
+      "sha256": "b19e8a8b865c7a0a63077ab4d167233692d1659a4cca2a497f176be2b199d00f",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/robot-native-build-run.json": {
+      "sha256": "dfa02f86b20e48711da033048001b4c650e1d62057905d478611a701bfdf5970",
+      "bytes": 729
+    },
+    "linux/microduck/tests/robot-native-provenance.json": {
+      "sha256": "4a435b3c09d226aaf5ff1ff87c5ddefbb46fceff9ba48f985f339ef00640082d",
+      "bytes": 2299
+    },
+    "linux/microduck/tests/robot-native-source-manifest.json": {
+      "sha256": "674a0309f7eded57cfb94928426cdd3ba6c5fe8e0bfc3b1684391f24255cd6ec",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/robot-node.txt": {
+      "sha256": "bd2801d2e58509745d492c20434c133f3fb59901165c230882db15e8233761ff",
+      "bytes": 55968
+    },
+    "linux/microduck/tests/robot-packaging.json": {
+      "sha256": "1bf92f80763a410d5b42fb0d8d7400b125e71afd871e75f01f8c9b1a44ed88fb",
+      "bytes": 1736
+    },
+    "linux/microduck/tests/robot-pi-final-evidence-archive.json": {
+      "sha256": "75390293c00853607ab1ec62786277667ed5fb51007ea2a967d98b121c1c0a48",
+      "bytes": 571
+    },
+    "linux/microduck/tests/robot-pi-final-execution.txt": {
+      "sha256": "c3c3134c2824da4a16e3feab8826d16a410e37f32a7cbd2adfaeea9224f4cc5d",
+      "bytes": 1151
+    },
+    "linux/microduck/tests/robot-pi-final-kit.json": {
+      "sha256": "447d4e4a7fa795f3ad37bd18b73cb442b11caac36e6f28ad83f32d779703b7c7",
+      "bytes": 370
+    },
+    "linux/microduck/tests/robot-pi-final-remote.json": {
+      "sha256": "7cc595b6adac0dfde6120e4b34d992e76ce756e415a9fc27d9d382db1a08d524",
+      "bytes": 102
+    },
+    "linux/microduck/tests/robot-pi-initial-evidence-archive.json": {
+      "sha256": "02e6680bfe7e87a2a708163611bc114cd282d373c275c0338ef804d83350f93f",
+      "bytes": 175
+    },
+    "linux/microduck/tests/robot-pi-initial-execution.txt": {
+      "sha256": "4a71e7001dfb97a63b12f7de4bdeaa98462209f59c76744b27b6e41ce2c2be4f",
+      "bytes": 1152
+    },
+    "linux/microduck/tests/robot-scenario-vm.txt": {
+      "sha256": "bc687140733452fb46300af35be3f2e6b5172609a95d73dadc0d10f16ba8d147",
+      "bytes": 48
+    },
+    "linux/microduck/tests/robot-scenario.json": {
+      "sha256": "3b92ccb042da381b7e91ebe781c91e0aca8d4c82f3e708a82d0f1a9dd45f9b67",
+      "bytes": 3447
+    },
+    "linux/microduck/tests/robot-validation.json": {
+      "sha256": "1d1ab10e32456774350ac06b42e73831948520a59610953ae9474262957751a5",
+      "bytes": 7533
+    },
+    "linux/microduck/tests/snapshot-upstream-review.json": {
+      "sha256": "2d4d0000d201bc49760ca746ee6819db615d85427a0c64b0e789e413d0172d2c",
+      "bytes": 2114
+    },
+    "linux/microduck/vm-contract.json": {
+      "sha256": "c8ee31800089e5f85851da42cfb24360c4eb5089369f14035a223f2e4ea8cb5f",
+      "bytes": 8218
+    },
+    "tests/test_linux_editor_assets.py": {
+      "sha256": "71cd44841aadff44ad4562c82b683afdfdc93e7035211fa2644255b79af49c0f",
+      "bytes": 14451
+    },
+    "tests/test_linux_microduck_robot.py": {
+      "sha256": "3120335805cef49725ceda6142a82dd77e3e7ef0abf1738b6632c356711d16db",
+      "bytes": 22162
+    },
+    "tools/linux_editor_assets.py": {
+      "sha256": "76636a1643cd6da7c2427f81f96d65e76e848045ede3340f7d992111ceb189a6",
+      "bytes": 11094
+    }
+  }
+}

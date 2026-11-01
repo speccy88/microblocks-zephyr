@@ -1,0 +1,92 @@
+{
+  "result": "PASS",
+  "scope": "actual local pinned GP bytes and package; no graphical execution or deployment",
+  "profiles": 7,
+  "six_profiles_unchanged": [
+    "fruit-jam",
+    "waveshare",
+    "xrp-rp2350",
+    "propeller2",
+    "esp32p4",
+    "raspberry-pi5"
+  ],
+  "comparison_with_robot_package": {
+    "fruit-jam": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "waveshare": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "xrp-rp2350": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "propeller2": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "esp32p4": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "raspberry-pi5": {
+      "gp_js_sha256": true,
+      "gp_data_sha256": true,
+      "hardware_connection_enabled": true
+    },
+    "microduck": {
+      "gp_js_sha256": false,
+      "gp_data_sha256": false,
+      "hardware_connection_enabled": true
+    }
+  },
+  "all_connection_flags_preserved": true,
+  "microduck_change": "intentional normal Pad IMU import and read-only batch example; primitive set22 retains earlier names/indices",
+  "library_sha256": "8b71e66a73ae8fda8da4f885b2121e50f90642b31e0aeb8c3784e469133da2c3",
+  "example_sha256": "5e6de2119a01f1fa70a2c3d5a098eacbeac6b14a480a7312a40343d7d2b7ae8f",
+  "robot_libraries_sha256": {
+    "Robot_Simulation.ubl": "8a600deba59037b609ccfb29b0347f19bf2f957fad84874d1da33e69d2df0a54",
+    "Robot_Telemetry.ubl": "47617c4708e97d3f975aba1f4bcc47112766eb000922646f7a4349c84b91bd7a"
+  },
+  "robot_example_source_sha256": "00244ea477a96e73633f538dc3476614bc0ffff41c0df173c90318ddbd8bf90a",
+  "robot_example_embedded_sha256": "2833d7623d761388e59f140705a12d026da67aff266b43ef00d7183721178e4f",
+  "robot_example_exact_library_concatenation": true,
+  "media_library_sha256": "e439fceddf269280a580cc0de6f8a7aa993aff70a0b2796b727c1d592a54afae",
+  "media_example_source_sha256": "489a3e2dd7027f4d4ee11d7670ef9eea4d6fa33d533f9af5d6b3e94a67c5fbd9",
+  "media_example_embedded_sha256": "d87b237577b69515063994734d42bdd05d324e4ec71ac3e1f3fe546210f0231b",
+  "media_example_exact_library_concatenation": true,
+  "pad_imu_library_sha256": "8ad8cd19c5b9d65016cac898392a9228d0a07a3485bd1e6a92f5fbd5f9e05176",
+  "pad_imu_example_source_sha256": "772b62bdf5700ba434f60491c59b62d0d09471af4d3ab0cb40bdd2a26de05ed4",
+  "pad_imu_example_embedded_sha256": "ae2553bd1ffe893eaef36abb8fcfb59d35c916e3f8c190f4963a6bd8b5134ba9",
+  "pad_imu_example_exact_library_concatenation": true,
+  "existing_camera_console_commissioning_and_security_assets_unchanged": true,
+  "current_licenses_copied": true,
+  "release_available": false,
+  "head_imu_library_sha256": "9c9b75f39b14cd3f5a952920ee92127a368ac8aba7a4f8998c7bf46441f3a13b",
+  "head_imu_example_source_sha256": "e1aab432b173110f5f6ab6e09891753176129d63fbdb2d65ec95101a519c5655",
+  "head_imu_example_embedded_sha256": "c52827276238fb1faa87916c1e77af24b01c9df7120dce46206864f0e26f35f8",
+  "head_imu_example_exact_library_concatenation": true,
+  "head_service_library_sha256": "eae7bf826941278f13d55650de1b92e48fc98538f51eba30cb77c62823d5d11d",
+  "head_service_example_embedded_sha256": "cfae7eec32689eaf53dac2c0bdead1d0faa0214b9d5269deade483ba4d04b57d",
+  "head_service_example_exact_library_concatenation": true,
+  "depth_library_sha256": "3da1439fb7d31eed97d5cda9bcd33b2fbd13ab20fda45576bf8efcaabcb0dab6",
+  "depth_example_embedded_sha256": "ad5728415f1ed9087e47d6cf8b76de43a708db5a26d458a60aeab289993fe102",
+  "depth_example_exact_library_concatenation": true,
+  "gamepad_library_sha256": "79c56d998722c28f04d9ad04d5859a7c564b5b52f6d58c249e1c7ed18f588639",
+  "gamepad_example_embedded_sha256": "f2f6e4d0f24446c4ab5933608d3640b587ae90484b9d6c5349888a2a78d5c9fb",
+  "gamepad_example_exact_library_concatenation": true,
+  "normal_robot_library_sha256": "4194ef26350561d7af3b716346570fc84d477145dcbd3cdcaf4214518d53ce4d",
+  "normal_robot_example_exact_library_concatenation": true,
+  "normal_robot_example_embedded_sha256": "ecfd699bde0cb75f2ba8287e7336ca0ab8690c07219e589ad97f39e7f23234f8",
+  "pad_imu_service_example_exact_library_concatenation": true,
+  "pad_imu_service_library_sha256": "20929f280b8d72a7e25cd53de7df0e110f3de04bf68801e53bb82444a72c00a8",
+  "pad_imu_service_example_embedded_sha256": "efea66503422e8583413a0cbdce6a2ff723786271faf2353fced41164417fbe7",
+  "published": false
+}

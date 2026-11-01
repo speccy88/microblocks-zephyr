@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-js-migration-20261027/build-artifacts/run-js-matrix-full-validation.py", line 10, in <module>
+    assert '..' not in pathlib.PurePosixPath(name).parts;copy(src/name,replica/name,name);assert records[name]==digest
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^
+AssertionError

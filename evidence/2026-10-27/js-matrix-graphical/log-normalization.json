@@ -1,0 +1,32 @@
+{
+  "full-validation.log": {
+    "original_sha256": "dbbfa4df7387237c54ef7a4b092699408a092a2059e05b4b2e9c579b2eb703e7",
+    "saved_sha256": "dbbfa4df7387237c54ef7a4b092699408a092a2059e05b4b2e9c579b2eb703e7",
+    "only_universal_newline_normalization": true
+  },
+  "full-validation.json": {
+    "original_sha256": "74f87b75b9f34a5865327537a520e0abb44c9a9bd745193ce4609bbee6494e07",
+    "saved_sha256": "74f87b75b9f34a5865327537a520e0abb44c9a9bd745193ce4609bbee6494e07",
+    "only_universal_newline_normalization": true
+  },
+  "validation-inputs.json": {
+    "original_sha256": "009cf7b133489ec63c6cb9155f1876d3946a863857632d4fa155683c6f717863",
+    "saved_sha256": "009cf7b133489ec63c6cb9155f1876d3946a863857632d4fa155683c6f717863",
+    "only_universal_newline_normalization": true
+  },
+  "earlier-full-validation.json": {
+    "original_sha256": "fd36a3c0b333ea6d29bf0d3e5c036b9fbcb01e87d4313a51263d7544aa3b0cd3",
+    "saved_sha256": "fd36a3c0b333ea6d29bf0d3e5c036b9fbcb01e87d4313a51263d7544aa3b0cd3",
+    "only_universal_newline_normalization": true
+  },
+  "earlier-full-validation.log": {
+    "original_sha256": "dba7f68fd22235fca5469563fe3e843f6b3885f28c47eb947a2a66b6920c94d9",
+    "saved_sha256": "dba7f68fd22235fca5469563fe3e843f6b3885f28c47eb947a2a66b6920c94d9",
+    "only_universal_newline_normalization": true
+  },
+  "preparation-failure.stderr": {
+    "original_sha256": "2f289be05761e9ede2ed244c0af5c39caa67ea94c4613cc3828af48e12e65ec8",
+    "saved_sha256": "2f289be05761e9ede2ed244c0af5c39caa67ea94c4613cc3828af48e12e65ec8",
+    "only_universal_newline_normalization": true
+  }
+}

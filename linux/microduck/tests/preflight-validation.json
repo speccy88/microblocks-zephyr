@@ -1,0 +1,63 @@
+{
+  "recorded_at": "2026-10-27T12:02:37.295505+00:00",
+  "result": "PASS for limited tested software scope; program never reports robot-ready",
+  "parent_merge": "5272ce8c67d490c2040e920cf8b7d8df10a9b321",
+  "source_sha256": {
+    "linux/microduck/preflight.py": "ea43000df8d599dfbc19fdafe7083217acdebe88ecbe31194d1c81a55b4984a8",
+    "linux/microduck/gateway.py": "c7032e61bf5f3715c7a21a7f02072d6f8a339186a3e11cf30451e7d2a0da2c7c",
+    "linux/microduck/protocol.py": "42967eaa2de37176bf8350ff0e0ec6f98db9c49f3460fb645d9610cc65c79b1b",
+    "tests/test_linux_microduck_preflight.py": "077c5647cf77c1cf27dc0cb2f5bd93cc325ef50b1de67955b7203e49e9237142",
+    ".github/workflows/linux-arm64.yml": "71e33ba8187ecb971dc39da8237ca5f2c1bcc6f8e8ec56e3a89a93020298a521",
+    "linux/microduck/PREFLIGHT.md": "b89c8aace3a7cbd3ccd7cff943d7ce449c013398eb2d91aa022066a851a4f43d"
+  },
+  "focused_linux": {
+    "tests": 22,
+    "skipped": 0,
+    "result": "PASS"
+  },
+  "required_linux": {
+    "tests": 203,
+    "skipped": 0,
+    "result": "PASS",
+    "seconds": 262.179
+  },
+  "selected_node_at_watch_merge": {
+    "tests": 169,
+    "skipped": 0,
+    "result": "PASS",
+    "browser_code_unchanged_by_preflight": true
+  },
+  "captures": {
+    "preflight-focused.txt": {
+      "captured_sha256": "0265c9cf4c01d884edd288924c7fca1140eac0af4f5dbb6e2bb0bc89d24edbcd",
+      "retained_sha256": "3ac855d08954fe9b9ff0545f1c7a45eb7f7fd4786e7db14f353ad52c4ae87f81",
+      "conversion": "CRLF to LF only"
+    },
+    "preflight-linux.txt": {
+      "captured_sha256": "cc62ad3f5e83a76862eaffbfdac724ff3a95bffba685a216f39042564a3bc6cb",
+      "retained_sha256": "3397f9ac6c0687e7365b23b47f51075f98381ef83eea68415edfeeedede15bf1",
+      "conversion": "CRLF to LF only"
+    }
+  },
+  "pi_host_observation": "preflight-pi-host.json",
+  "pi_run": "preflight-pi-run.json",
+  "fixtures": "actual private Linux config, directory and Unix-socket metadata; compatible host fields injected for unit cases; no fixture daemon listens",
+  "verified_boundaries": [
+    "no connection, request, listener or subprocess during inspection",
+    "no config/file/permission/service mutation during inspection",
+    "private bounded config and UID/path/socket metadata checks reused from gateway",
+    "no repair of missing, unsafe or changed metadata",
+    "arbitrary contents/paths/errors not echoed",
+    "no bytecode-cache or output file created by CLI",
+    "global result remains INCOMPLETE or BLOCKED; API/peer UID/robot-ready not invented"
+  ],
+  "physical_microduck_tested": false,
+  "real_ble_changed": false,
+  "native_vm_changed": false,
+  "edge_control_retried": false,
+  "previously_denied_action_retried": false,
+  "shared_main_or_p4_worktree_modified": false,
+  "published": false,
+  "approval_pending": false,
+  "remaining_objectives": "../../../docs/MICRODUCK_REMAINING_OBJECTIVES.md"
+}

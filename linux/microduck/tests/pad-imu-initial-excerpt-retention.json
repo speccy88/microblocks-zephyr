@@ -1,0 +1,16 @@
+{
+  "raw_capture": "C:\\Users\\fred_\\Documents\\Codex\\2026-10-27\\task\\microblocks-zephyr-integration-20261027\\build-artifacts\\pad-imu-linux.txt",
+  "raw_bytes": 12755814,
+  "raw_sha256": "60b6491d70e6da274bd941fe167cb65ccf29691784eb272ff49e10d43a0accf1",
+  "retained": "linux\\microduck\\tests\\pad-imu-initial-linux-excerpt.txt",
+  "retained_sha256": "b39354b40dc2fdc780c5285f4362cf3208c138503b507245d6be63ebb06ddfa2",
+  "omitted_payloads": [
+    {
+      "line": 378,
+      "bytes": 12691320,
+      "sha256": "e04d653c0b05ca6e8de3d6e9c3f2a69e38f3436b57a56c33a42cb41238ef2676",
+      "reason": "Assertion failure rendered complete pinned GP package; bounded diagnostic prefix retained, raw capture preserved outside Git"
+    }
+  ],
+  "test_diagnostics_retained": true
+}

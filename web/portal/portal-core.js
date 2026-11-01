@@ -16,6 +16,15 @@
    throw Error('The board VM connection must use this editor\'s own /ws/vm endpoint.');
   return url;
  }
+ function linuxVMWebSocket(profile,origin,candidate){
+  const page=new URL(origin),url=new URL(candidate);
+  if(profile.runtime!=='linux')throw Error('A Linux editor profile is required.');
+  if(profile.local_bridge===true&&page.protocol==='http:'&&['127.0.0.1','localhost'].includes(page.hostname))
+   return sameOriginVMWebSocket(origin,url.href);
+  if(url.protocol!=='wss:'||url.username||url.password||url.search||url.hash)
+   throw Error('Enter a trusted wss:// endpoint, or use the Linux editor through its local SSH tunnel.');
+  return url;
+ }
  class ProjectStore{
   constructor(indexedDB=root.indexedDB){this.provider=indexedDB;this.opened=null;}
   open(){
@@ -123,6 +132,6 @@
    this.onState(false);this.closing=false;
   }
  }
- const api={ProjectStore,ByteQueue,EditorAPI,SerialTransport,sameOriginVMWebSocket,MAX_PROJECT,MAX_QUEUE};
+ const api={ProjectStore,ByteQueue,EditorAPI,SerialTransport,sameOriginVMWebSocket,linuxVMWebSocket,MAX_PROJECT,MAX_QUEUE};
  root.MicroBlocksPortal=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

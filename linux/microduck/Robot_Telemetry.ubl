@@ -1,0 +1,50 @@
+module 'MicroDuck Robot Telemetry Simulation' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'SIMULATION ONLY. Requires MicroDuck, Sensor Simulation and robot_simulator.py. Capture one robot.state via a bounded robot.subscribe request, then read typed fields from the same five-second snapshot. Four retained/in-flight slots. Readings are [status,value,unit,origin]; only ok can be extracted with known reading value. Present zero and false are known; missing/null/empty optional vectors are not_reported. Signed31 fixed-point units and exact decimal-string t_ns/count64 preserve numeric limits. t_ns zero is a legacy unavailable clock. Quaternion/gravity use ppm; current uses microamps and is magnitude only. No absolute odometry/heading, inferred velocity, FK/calibration, live freshness, applied physics or safe-to-move authorization. Snapshot records are historical data and must not drive a robot automatically. No continuous reader, real endpoint or robotctl dependency. Graphical and physical robot execution unverified.'
+spec 'r' 'microduckSimStateCapture' 'SIMULATION capture robot state at _ Hz reading' 'num' 10
+spec 'r' 'microduckSimStateRelease' 'SIMULATION release robot state _ JSON' 'auto' ''
+spec 'r' 'microduckSimMoveRequested' 'SIMULATION state _ requested move component _ reading' 'auto num' '' 1
+spec 'r' 'microduckSimMoveApplied' 'SIMULATION state _ applied move component _ reading' 'auto num' '' 1
+spec 'r' 'microduckSimMoveLimitCount' 'SIMULATION state _ reported limit count reading' 'auto' ''
+spec 'r' 'microduckSimMoveLimitReason' 'SIMULATION state _ limit reason _ reading' 'auto num' '' 1
+spec 'r' 'microduckSimLoopHz' 'SIMULATION state _ loop rate (mHz) reading' 'auto' ''
+spec 'r' 'microduckSimSafety' 'SIMULATION state _ safety field _ component _ reading' 'auto str num' '' 'fallen' 1
+spec 'r' 'microduckSimJoint' 'SIMULATION state _ measured joint _ (mrad) reading' 'auto num' '' 1
+spec 'r' 'microduckSimTarget' 'SIMULATION state _ target joint _ (mrad) reading' 'auto num' '' 1
+spec 'r' 'microduckSimVelocity' 'SIMULATION state _ joint _ velocity (mrad/s) reading' 'auto num' '' 1
+spec 'r' 'microduckSimCurrent' 'SIMULATION state _ joint _ current magnitude (uA) reading' 'auto num' '' 1
+spec 'r' 'microduckSimOdomPosition' 'SIMULATION state _ odom position component _ (mm) reading' 'auto num' '' 1
+spec 'r' 'microduckSimOdomYaw' 'SIMULATION state _ boot-relative odom yaw (mrad) reading' 'auto' ''
+spec 'r' 'microduckSimImuGyro' 'SIMULATION state _ IMU gyro component _ (mrad/s) reading' 'auto num' '' 1
+spec 'r' 'microduckSimImuQuat' 'SIMULATION state _ IMU quaternion wxyz component _ (ppm) reading' 'auto num' '' 1
+spec 'r' 'microduckSimFrame' 'SIMULATION state _ frame _ part _ component _ reading' 'auto str str num' '' 'camera' 'pos' 1
+spec 'r' 'microduckSimSkeleton' 'SIMULATION state _ skeleton link _ part _ component _ reading' 'auto num str num' '' 1 'pos' 1
+spec 'r' 'microduckSimTimestamp' 'SIMULATION state _ monotonic timestamp ns reading' 'auto' ''
+advanced
+spec 'r' 'microduckSimStateReading' 'SIMULATION state _ field _ index _ component _ reading' 'auto str num num' '' 'loop.hz' 1 1
+spec 'r' '[microduck:telemetrySample]' 'SIMULATION robot telemetry JSON _ reading' 'str' '{}'
+
+to microduckSimStateCapture hz { return ('[microduck:sensorSample]' (microduckRequest 'microduck.robotSim.capture' ('[data:join]' '{"hz":' hz '}') false) 'capture') }
+to microduckSimStateRelease capture { return (microduckRequest 'microduck.robotSim.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) '}') false) }
+to microduckSimStateReading capture field index component {
+    local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture)) ',"field":' ('[microduck:quote]' field) ',"index":' index ',"component":' component '}')
+    return ('[microduck:telemetrySample]' (microduckRequest 'microduck.robotSim.reading' params false))
+}
+to microduckSimMoveRequested state component { return (microduckSimStateReading state 'move.requested' 1 component) }
+to microduckSimMoveApplied state component { return (microduckSimStateReading state 'move.applied' 1 component) }
+to microduckSimMoveLimitCount state { return (microduckSimStateReading state 'move.limit_count' 1 1) }
+to microduckSimMoveLimitReason state index { return (microduckSimStateReading state 'move.limited_by' index 1) }
+to microduckSimLoopHz state { return (microduckSimStateReading state 'loop.hz' 1 1) }
+to microduckSimSafety state field component { return (microduckSimStateReading state ('[data:join]' 'safety.' field) 1 component) }
+to microduckSimJoint state index { return (microduckSimStateReading state 'joints' index 1) }
+to microduckSimTarget state index { return (microduckSimStateReading state 'targets' index 1) }
+to microduckSimVelocity state index { return (microduckSimStateReading state 'velocities' index 1) }
+to microduckSimCurrent state index { return (microduckSimStateReading state 'currents_ma' index 1) }
+to microduckSimOdomPosition state component { return (microduckSimStateReading state 'odom.position' 1 component) }
+to microduckSimOdomYaw state { return (microduckSimStateReading state 'odom.yaw' 1 1) }
+to microduckSimImuGyro state component { return (microduckSimStateReading state 'imu.gyro' 1 component) }
+to microduckSimImuQuat state component { return (microduckSimStateReading state 'imu.quat' 1 component) }
+to microduckSimFrame state name part component { return (microduckSimStateReading state ('[data:join]' 'frames.' name '.' part) 1 component) }
+to microduckSimSkeleton state index part component { return (microduckSimStateReading state ('[data:join]' 'skeleton.' part) index component) }
+to microduckSimTimestamp state { return (microduckSimStateReading state 't_ns' 1 1) }

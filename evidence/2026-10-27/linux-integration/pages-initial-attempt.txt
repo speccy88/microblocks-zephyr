@@ -1,0 +1,74 @@
+Γ£ö paths bound aliases, depth and ASCII without URL decoding (3.1088ms)
+Γ£ö text preserves UTF-8 and rejects NUL, malformed UTF-8 and surrogate replacement (1.1897ms)
+Γ£ö disconnected client never substitutes storage or a network request (1.0534ms)
+Γ£ö capability and list replies cannot inflate limits or inject paths (1.4261ms)
+Γ£ö empty, Unicode and full-size binary files roundtrip in bounded chunks (94.8916ms)
+Γ£ö create refuses overwrites and conditional replace rejects stale revisions (1.4046ms)
+Γ£ö cancel during upload preserves the previous complete file and frees staging (1.2068ms)
+Γ£ö failed append acknowledgements cancel staging without changing file data (0.8857ms)
+Γ£ö lost commit reply is uncertain, blocks further writes, and never retries (21.4339ms)
+Γ£ö mismatched begin reply cannot become success or be blindly cancelled (0.543ms)
+Γ£ö mixed or oversized read chunks are rejected (0.9716ms)
+Γ£ö one foreground operation prevents parallel request queues (0.3971ms)
+Γ£ö timeouts abort adapters and late replies cannot be accepted (30.7725ms)
+Γ£ö capacity is bounded and failed writes consume no file slots (1.7114ms)
+Γ£ö downloads use copied opaque bytes and safe basenames, including active types (0.244ms)
+Γ£ö 10,000 deterministic malformed paths do not become requests (193.3619ms)
+node:child_process:981
+    throw err;
+    ^
+
+<ref *1> Error: spawnSync python EACCES
+    at Object.spawnSync (node:internal/child_process:1160:20)
+    at spawnSync (node:child_process:928:24)
+    at execFileSync (node:child_process:971:15)
+    at Object.<anonymous> (C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-integration-20261027\tests\p4-transport.test.cjs:11:14)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5) {
+  errno: -4092,
+  code: 'EACCES',
+  syscall: 'spawnSync python',
+  path: 'python',
+  spawnargs: [
+    '-c',
+    "import sys;from pathlib import Path;sys.path.insert(0,'tools');from package_p4_ide import adapter;sys.stdout.buffer.write(adapter(Path('.')))"
+  ],
+  error: [Circular *1],
+  status: null,
+  signal: null,
+  output: null,
+  pid: 0,
+  stdout: undefined,
+  stderr: undefined
+}
+
+Node.js v24.19.0
+Γ£û tests\p4-transport.test.cjs (162.809ms)
+Γ£ö media protocol uses bounded native fields and exact terminator (2.0256ms)
+Γ£ö known pixels preserve grayscale, RGB565 little endian and RGB888 (2.5378ms)
+Γ£ö PCM export has exact sample rate, signed byte payload and WAV length (0.4352ms)
+Γ£ö cache limits independent outputs and disposes replaced, evicted and cleared blobs (0.597ms)
+Γ£ö replacement reaches ready after older expiry even with a last-request-first GP host (0.3894ms)
+Γ£ö manifest keeps native runtime separate from converted source and preserves hashes (2.1511ms)
+Γ£ö rejects unsupported, mismatched, oversized and unsafe metadata before transport (0.796ms)
+Γ£ö binary upload and output read use bounded exact little-endian frames (0.4547ms)
+Γ£ö the XRP editing preview cannot open USB or WebSocket through either GP entry point (3.824ms)
+Γ£ö actual P2 adapter uses FTDI selection, releases reset, and rejects another VM identity (10.2193ms)
+Γä╣ tests 27
+Γä╣ suites 0
+Γä╣ pass 26
+Γä╣ fail 1
+Γä╣ cancelled 0
+Γä╣ skipped 0
+Γä╣ todo 0
+Γä╣ duration_ms 516.3419
+
+Γ£û failing tests:
+
+test at tests\p4-transport.test.cjs:1:1
+Γ£û tests\p4-transport.test.cjs (162.809ms)
+  'test failed'

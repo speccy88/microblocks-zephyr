@@ -1,0 +1,80 @@
+{
+  "recorded_at": "2026-10-27T14:49:42.302890+00:00",
+  "result": "PASS within simulation and local x86_64 scope",
+  "base_commit": "97a5a26058fde0316c4cce49ca43da831450f382",
+  "branch": "codex/pi5-watch-integration-20261027",
+  "focused": {
+    "tests": 23,
+    "native_vm_cases": 4,
+    "skipped": 0,
+    "seconds": 2.094
+  },
+  "full_linux": {
+    "tests": 227,
+    "skipped": 0,
+    "seconds": 125.938,
+    "mode": "full unchanged tools/validate.py discovery; documented verified external sanitizer binary for both VM suites",
+    "provenance": "motion-native-provenance.json"
+  },
+  "selected_node": {
+    "tests": 243,
+    "skipped": 0
+  },
+  "packaging": "motion-packaging.json",
+  "scenario": "motion-scenario.json",
+  "log_captures": {
+    "motion-focused.txt": {
+      "raw_sha256": "32d8bca1e393ee87e59880e4abb0b27aec2b68fe38c9880d5cc7c8b6cfc40e3b",
+      "retained": "linux/microduck/tests/motion-focused.txt",
+      "retained_sha256": "a1a098f68e996a960a53fb6009725fc9d12fc0a344a2e85e3efeeb83af50de1d",
+      "normalization": "CRLF to LF only"
+    },
+    "motion-full-linux.txt": {
+      "raw_sha256": "b4d07a09124c753beaea21f9c8f6459ebdd28d0899540764179a01f1d45a947f",
+      "retained": "linux/microduck/tests/motion-linux.txt",
+      "retained_sha256": "604b5808b6ce87d4c3176a2ced983ddc944e4a714538605fce5de052133cce86",
+      "normalization": "CRLF to LF only"
+    },
+    "motion-node.txt": {
+      "raw_sha256": "efa4cb8876c132bef66d2bba3680993a5b4472fb7d1e8905300bbb5b1646b2aa",
+      "retained": "linux/microduck/tests/motion-node.txt",
+      "retained_sha256": "fccc0bf829f2577f242f852232094a68ae4a0d276b7637afd16859be9a236e01",
+      "normalization": "CRLF to LF only"
+    },
+    "motion-native-persisted-build.txt": {
+      "raw_sha256": "27d6aa139537c8fa3fb2f0442184ca1b250efc749d9075c02e69ef3964c0e7d3",
+      "retained": "linux/microduck/tests/motion-native-build.txt",
+      "retained_sha256": "d4c069743bd740ebccf7439572333c3eb4138ed5207871ca1c61200ba3e6aa98",
+      "normalization": "CRLF to LF only"
+    }
+  },
+  "source_sha256": {
+    ".github/workflows/linux-arm64.yml": "6f99080bc93f189090033a93e60b7bf4dbb8d5b83a9c60dc30906845b215d195",
+    "LICENSES.md": "9723036ebe0e9bda031b62e2bb37eafdadc685ee4733e1204ba724911fbc95e2",
+    "docs/LINUX_CI.md": "a0da8ea9ba43310b40383d9dd1bc9ee897e05a4a15faa524c6b691bffbbc4f48",
+    "docs/LINUX_MICRODUCK_INTEGRATION_PLAN.md": "59071b32d0e8d25f075bddcb6ceaa37fae015f62f54c834f6b12c5daa58ab47d",
+    "docs/MICRODUCK_REMAINING_OBJECTIVES.md": "6528da772aad43635f8e9bc794e2ce533a2631db4605df54e6745b0a9bb15dca",
+    "docs/MICRODUCK_SERVICE_CAPABILITIES.md": "26cc6a2166d91f5208867fef0c53703a3a401bc08cf959ddb7b66e7466104221",
+    "docs/PI5_MICRODUCK_STATUS.md": "89e86f8a3d703601fc18bea7dd47b412d333eb97c33ef1989fda7d586216892b",
+    "linux/arm64/platform/microduck.c": "9e7e16d5f4e14a90ec68311c363b1d6e5bed2ca75159856d2e2b8e307b5ce8ba",
+    "linux/microduck/MOTION_SIMULATION.md": "52207cda7ba8ea9db2123a586cfcb78f4781ce4866b2ca6350df08fd09a0760c",
+    "linux/microduck/Motion_Simulation.ubl": "0ef07a95f92df98ccb2bc0688c7b85985693436aeddae64903ac83b17de1cfee",
+    "linux/microduck/README.md": "537bb7ff11758e81983bb74b3f762c3c5dd1b6df957fc56fcc04c4c0d8758916",
+    "linux/microduck/motion-simulation.ubp": "f752572cc626926687d388097159cb9f1a5cceddce8c2882064cf783b74f471f",
+    "linux/microduck/motion_simulator.py": "d4eb0403cbc229511c1bb012f06da667369569e1281da51c747680db2c465add",
+    "linux/microduck/simulator.py": "aee9939d2ce7f5f1bdbefc238989f247c7b3ce1eee5c953500bd926a83db68fc",
+    "tests/test_linux_editor_assets.py": "d17bae918e03d49e8f4a8841b2636ae60fbc7579e9dcb3ed68067499b13db86a",
+    "tests/test_linux_microduck_motion.py": "cbedb46acdb4965c63592e7803e56b97b1f43f59bfb235be7e8f88541d76620a",
+    "tools/linux_editor_assets.py": "95f569dbe41ffa8b80f20e10f2d7c3a10aa6a3322f96e0a056682dbc9b0b0a03"
+  },
+  "native_c_changed": true,
+  "pi_arm64_revision_tested": false,
+  "graphical_ubl_execution_tested": false,
+  "physical_movement_enabled": false,
+  "applied_motion": null,
+  "real_robot_or_live_webrtc_tested": false,
+  "ble_confidentiality_gate_changed": false,
+  "denied_operations_retried": false,
+  "p4_checkout_accessed": false,
+  "published": false
+}

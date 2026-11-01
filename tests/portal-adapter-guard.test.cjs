@@ -8,6 +8,22 @@ const path=require('node:path');
 const vm=require('node:vm');
 const core=require('../web/portal/portal-core.js');
 
+test('MicroDuck RK3566 placeholder cannot open USB or WebSocket through GP entry points',async()=>{
+ let serialRequests=0,networkRequests=0;
+ const window={addEventListener(){}};
+ const context={window,MicroBlocksPortal:core,
+  PORTAL_BOARD:{board:'microduck',name:'MicroDuck Rockchip RK3566',runtime:'linux',placeholder:true,connection_enabled:false,
+   connection_message:'Experimental placeholder; offline editing only.'},
+  navigator:{serial:{async requestPort(){serialRequests++;throw Error('Unexpected USB');}}},
+  document:{addEventListener(){}},GP_writeFile(){},GP:{apiCall(){}},
+  WebSocket:class{constructor(){networkRequests++;throw Error('Unexpected connection');}},
+  TextEncoder,TextDecoder,setTimeout,clearTimeout,Uint8Array,Uint32Array,Map,URL};
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../web/portal/portal-adapter.js'),'utf8'),context);
+ await window.webSerialConnect();assert.equal(window.GP_openSerialPort(),1);await Promise.resolve();
+ assert.equal(serialRequests,0);assert.equal(networkRequests,0);assert.equal(window.webSerialIsConnected(),false);
+ assert.equal(window.GP_writeSerialPort(new Uint8Array([250,26,0])),0);
+});
+
 test('the XRP editing preview cannot open USB or WebSocket through either GP entry point',async()=>{
  let serialRequests=0,networkRequests=0;
  const window={addEventListener(){}};

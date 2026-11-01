@@ -30,3 +30,8 @@ __pycache__/
 # IDE generated
 .vscode/
 .idea/
+# Generated native iPhone project and immutable bundled editor
+ios/MicroBlocks/Editor/
+ios/MicroBlocks.xcodeproj/
+ios/Generated/
+ios/DerivedData/

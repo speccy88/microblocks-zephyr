@@ -1,0 +1,15 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 82.25,
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "rpi5",
+    "cd /home/fred/microblocks-depth-final-u96q4mk9 && python3 run-pi-depth-final.py"
+  ],
+  "source": "current real Pi VM tests using source-identical earlier real Pi builds; all sensor data fake",
+  "security_or_service_changes": false
+}

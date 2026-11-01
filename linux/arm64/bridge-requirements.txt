@@ -1,0 +1,2 @@
+# Runtime API reviewed at https://websockets.readthedocs.io/en/15.0.1/reference/asyncio/server.html
+websockets==15.0.1

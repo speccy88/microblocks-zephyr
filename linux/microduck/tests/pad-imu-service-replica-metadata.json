@@ -1,0 +1,7 @@
+{
+  "git_base": "7844b801edb6616b96063ce31023e6d7bcb4c085",
+  "bundle_sha256": "a7dd6deea092a1d69470dae96c32d2824b758d1c660e1b20bcb2454c519094b8",
+  "runner": "pad-imu-service-full-runner.py.txt",
+  "files": "pad-imu-service-linux-replica.json",
+  "scope": "Verified local bundle supplies ordinary Linux Git metadata; original worktree/Git/security settings unchanged."
+}

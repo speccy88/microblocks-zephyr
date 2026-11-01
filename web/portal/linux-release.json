@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "repository": "speccy88/microblocks-zephyr",
+  "available": false,
+  "reason": "Native Raspberry Pi VM tests pass, but no reviewed ARM64 GitHub Release is published yet. Installation command copying is disabled.",
+  "version": null,
+  "artifactSHA256": null,
+  "installerCommit": null,
+  "installerSHA256": null
+}

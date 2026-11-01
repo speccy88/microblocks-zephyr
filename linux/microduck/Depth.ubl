@@ -1,0 +1,42 @@
+module 'MicroDuck Depth' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only coherent tofd depth through the normal private Unix gateway with explicit depth-config path/UID. This checkpoint uses fictional sensor input on the real Pi; physical/shipping/graphical acceptance is unverified. Capture one immutable8x8 frame, read all rows/zones/metadata and release. Four five-second slots; reads do not subscribe or renew lifetime. Records are [status,value,unit,origin]; only ok can be extracted. local_ipc means transport only, not physical sensor identity, calibration, current freshness or readiness. Positive distance with raw status5/9 is a known mm range;255 is no_target; other/zero/negative ranges are unusable. Raw distance/status blocks are diagnostics and can be known when a range is not. Missing timestamps/rate stay unknown; t_ns0 is legacy/unavailable, seq0/at_us0 remain exact reported values. Sequence/clock values are decimal u64 strings; at_us is sender uptime, not Unix; t_ns is monotonic ns. Row/column1..8, row-major; no camera/robot transform. No endpoint input, fallback, bus, command, automatic drive, credentials or network setup. No target does not mean a safe path.'
+spec 'r' 'microduckDepthCapture' 'capture coherent depth frame reading'
+spec 'r' 'microduckDepthRow' 'depth frame _ row _ readings' 'auto num' '' 1
+spec 'r' 'microduckDepthDistance' 'depth frame _ row _ col _ distance (mm) reading' 'auto num num' '' 1 1
+spec 'r' 'microduckDepthRawDistance' 'depth frame _ row _ col _ diagnostic raw distance reading' 'auto num num' '' 1 1
+spec 'r' 'microduckDepthRawStatus' 'depth frame _ row _ col _ diagnostic raw status reading' 'auto num num' '' 1 1
+spec 'r' 'microduckDepthSequence' 'depth frame _ sequence reading' 'auto' ''
+spec 'r' 'microduckDepthUptime' 'depth frame _ sender uptime us reading' 'auto' ''
+spec 'r' 'microduckDepthTimestamp' 'depth frame _ monotonic ns reading' 'auto' ''
+spec 'r' 'microduckDepthRows' 'depth frame _ row count reading' 'auto' ''
+spec 'r' 'microduckDepthCols' 'depth frame _ column count reading' 'auto' ''
+spec 'r' 'microduckDepthRate' 'depth frame _ declared rate Hz reading' 'auto' ''
+spec 'r' 'microduckDepthSensor' 'depth frame _ reported sensor reading' 'auto' ''
+spec 'r' 'microduckDepthRelease' 'release depth frame _ JSON' 'auto' ''
+advanced
+spec 'r' 'microduckDepthZoneReading' 'depth frame _ row _ col _ field _ reading' 'auto num num str' '' 1 1 'distance'
+spec 'r' 'microduckDepthMetadata' 'depth frame _ metadata field _ reading' 'auto str' '' 'seq'
+
+to microduckDepthParams capture { return ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' capture))) }
+to microduckDepthCapture { return ('[microduck:depthReading]' (microduckRequest 'microduck.depth.capture' '{}' false)) }
+to microduckDepthRow capture row { return ('[microduck:depthRow]' (microduckRequest 'microduck.depth.row' ('[data:join]' (microduckDepthParams capture) ',"row":' row '}') false)) }
+to microduckDepthZoneReading capture row col field {
+    local 'params' ('[data:join]' (microduckDepthParams capture) ',"row":' row ',"col":' col ',"field":' ('[microduck:quote]' field) '}')
+    return ('[microduck:depthReading]' (microduckRequest 'microduck.depth.zone' params false))
+}
+to microduckDepthDistance capture row col { return (microduckDepthZoneReading capture row col 'distance') }
+to microduckDepthRawDistance capture row col { return (microduckDepthZoneReading capture row col 'raw_distance') }
+to microduckDepthRawStatus capture row col { return (microduckDepthZoneReading capture row col 'raw_status') }
+to microduckDepthMetadata capture field {
+    return ('[microduck:depthReading]' (microduckRequest 'microduck.depth.metadata' ('[data:join]' (microduckDepthParams capture) ',"field":' ('[microduck:quote]' field) '}') false))
+}
+to microduckDepthSequence capture { return (microduckDepthMetadata capture 'seq') }
+to microduckDepthUptime capture { return (microduckDepthMetadata capture 'at_us') }
+to microduckDepthTimestamp capture { return (microduckDepthMetadata capture 't_ns') }
+to microduckDepthRows capture { return (microduckDepthMetadata capture 'rows') }
+to microduckDepthCols capture { return (microduckDepthMetadata capture 'cols') }
+to microduckDepthRate capture { return (microduckDepthMetadata capture 'rate') }
+to microduckDepthSensor capture { return (microduckDepthMetadata capture 'sensor') }
+to microduckDepthRelease capture { return (microduckRequest 'microduck.depth.release' ('[data:join]' (microduckDepthParams capture) '}') false) }

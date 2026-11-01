@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "status": "independent mobile candidate verified; main integration blocked",
+  "local_main": "acf9f08a5af4c2852a1f9c0aa40c4d1141aa7056",
+  "verified_remote_main": "a651529d24c3f7ae10c6f9f5acd884c1dda57641",
+  "merge_parent": "e10a5ee90bd2f5b04b6bc9245d806764c3df2483",
+  "conflicts": [
+    "web/js-editor/iphone-bootstrap.js",
+    "web/js-editor/iphone-gestures.js",
+    "web/js-editor/iphone-transport.js",
+    "web/js-editor/iphone.css"
+  ],
+  "physical_iphone": false,
+  "push_performed": false,
+  "deployment_performed": false,
+  "engine_pin": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "bundled_version": "IDE 2.5.12 / VM 421; experimental dev snapshot; official v3 release not established",
+  "mobile_browser_contracts": {
+    "passed": 6
+  },
+  "native_transport_contracts": "not run: test imports unresolved working-tree conflict file",
+  "usability_sizes": [
+    {
+      "size": [
+        375,
+        667
+      ],
+      "locale_cycles": 5,
+      "pinch_frames": 24,
+      "canvas_dimension_writes": 0,
+      "final_relayouts": 1
+    },
+    {
+      "size": [
+        667,
+        375
+      ],
+      "locale_cycles": 5,
+      "pinch_frames": 24,
+      "canvas_dimension_writes": 0,
+      "final_relayouts": 1
+    },
+    {
+      "size": [
+        390,
+        844
+      ],
+      "locale_cycles": 5,
+      "pinch_frames": 24,
+      "canvas_dimension_writes": 0,
+      "final_relayouts": 1
+    },
+    {
+      "size": [
+        844,
+        390
+      ],
+      "locale_cycles": 5,
+      "pinch_frames": 24,
+      "canvas_dimension_writes": 0,
+      "final_relayouts": 1
+    },
+    {
+      "size": [
+        430,
+        932
+      ],
+      "locale_cycles": 5,
+      "pinch_frames": 24,
+      "canvas_dimension_writes": 0,
+      "final_relayouts": 1
+    },
+    {
+      "size": [
+        932,
+        430
+      ],
+      "locale_cycles": 5,
+      "pinch_frames": 24,
+      "canvas_dimension_writes": 0,
+      "final_relayouts": 1
+    }
+  ],
+  "touch_sizes": [
+    [
+      375,
+      667
+    ],
+    [
+      667,
+      375
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      932,
+      430
+    ]
+  ],
+  "page_errors": [],
+  "candidate_matches_commit": {
+    "iphone-bootstrap.js": true,
+    "iphone-gestures.js": true,
+    "iphone-transport.js": true,
+    "iphone.css": true
+  }
+}

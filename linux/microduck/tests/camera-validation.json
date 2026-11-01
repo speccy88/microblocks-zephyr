@@ -1,0 +1,94 @@
+{
+  "recorded_at": "2026-10-27T13:00:58.831726+00:00",
+  "result": "PASS for source-backed receive-only core and mock scope only",
+  "base_commit": "79ed6cbd5f1e99b4caec901a3f8c686c85bea62a",
+  "branch": "codex/pi5-watch-integration-20261027",
+  "remote_main_read_only_recheck": "9db5c3ff9cf5287a7edcd6c1b0fb0cde3aa33226",
+  "source_sha256": {
+    "web/microduck/camera-protocol.js": "36ec501e3201e2f1376f1e7547e02507f85ff9693d27d489b22f70c186347412",
+    "web/microduck/camera-peer.js": "80c8c314bee9c06b54aab72f29ac018ea7e78f40ae32e9072d9a9f7f4c0957cb",
+    "web/microduck/camera-session.js": "105d73a77b805acf28fe9a535b319124eedb7870bfcbde180473c77a40444e45",
+    "web/microduck/camera-fixture.js": "997f70bf077cf8fb0719b1aa5abec7aac8ef6624dbb65fb044603e73bb94ae75",
+    "tests/test_microduck_camera.cjs": "5bb5f36a270bc5b4f94222b4c89367d348cd570cff1e242a37730b342fa1eb41",
+    ".github/workflows/linux-arm64.yml": "38cd576c5c3839e175a63a21ada798e91fd500221259a261a38d215eb69f548f",
+    "linux/microduck/CAMERA.md": "4e3b6923443d8a746a1ce129715e830bac268a13ada50a7c972e75eb9fe71fd4",
+    "linux/microduck/tests/camera-source.json": "287098734388656a77e74bac43949266ae497f5241f2354c4b25de1e105d7ff6"
+  },
+  "focused_node": {
+    "tests": 38,
+    "result": "PASS",
+    "skipped": 0
+  },
+  "selected_node": {
+    "tests": 207,
+    "result": "PASS",
+    "skipped": 0
+  },
+  "required_linux": {
+    "tests": 203,
+    "result": "PASS",
+    "skipped": 0,
+    "seconds": 246.227,
+    "environment": "existing Ubuntu-26.04 WSL Linux venv; local fixtures only"
+  },
+  "captures": {
+    "camera-focused.txt": {
+      "captured_sha256": "1468c5fa083dda1b97e752cb3785622582f551bdbd054eb65802ace0fa9e3cb8",
+      "retained_sha256": "2b931e7173efa675998eeb7a44b59e2c2ee0db6fc23557c0ed6ccc3ad2fcf99a",
+      "conversion": "CRLF to LF only"
+    },
+    "camera-node.txt": {
+      "captured_sha256": "9debd759e96fbaad01c83fd23a75dc00c18e8d8e0cd710c52647709c9f47f2e5",
+      "retained_sha256": "5de00606d14a86aabbfe2ab8ae27c15adbc2f0b4d26ae97f27e17ecc83a68e5b",
+      "conversion": "CRLF to LF only"
+    },
+    "camera-linux.txt": {
+      "captured_sha256": "a2b0588c935bd65b6e8918c701d509e911243a73bbe59fcb8d6ee320824c27de",
+      "retained_sha256": "67b84977c7b9c223642cde333e4bbe30b5beb9cc5fbd608e327773992be6ac3a",
+      "conversion": "CRLF to LF only"
+    }
+  },
+  "primary_source_audit": "camera-source.json",
+  "scenario": "camera-scenario.json",
+  "packaging": "camera-packaging.json",
+  "verified_boundaries": [
+    "passive attachment; explicit discovery and confirmed selection of listed producer",
+    "producer offers; consumer answer queued before local ICE and track exposure",
+    "one receive-only video track; audio inactive; no local sender/capture/data-channel creation",
+    "one fixed media.video query; unexpected channels closed and no robot RPC forwarding",
+    "bounded strict JSON, ownership, queues, ICE, channels, metadata, deadlines and lease",
+    "stop/failure/timeout/drop clear local resources without replay or remote power-off/stop claim",
+    "metadata geometry is reported/unattested; clocks and intrinsics are not converted or inferred",
+    "snapshots retain no SDP, ICE, media object, address or remote error text",
+    "browser-global fixture works with all external network/RTC/capture APIs unavailable"
+  ],
+  "simulated_parts": [
+    "existing signaling link",
+    "RTCPeerConnection and MediaStream providers",
+    "SDP/ICE envelopes",
+    "video/audio tracks and geometry",
+    "control-channel metadata response"
+  ],
+  "real_rtc_or_gstreamer_executed": false,
+  "decoded_frames_verified": false,
+  "real_network_or_camera_connection": false,
+  "real_microduck_or_motion_tested": false,
+  "new_pi_run": false,
+  "native_vm_and_ubl_changed": false,
+  "real_ble_confidentiality_changed": false,
+  "existing_portal_flows_changed": false,
+  "edge_control_used_or_retried": false,
+  "previously_denied_action_retried": false,
+  "published": false,
+  "pushed": false,
+  "approval_pending": false,
+  "remaining": [
+    "Trusted live signaling dialer, identity, privacy/authorization and browser transport commissioning",
+    "Production viewer, playback/rotation UI, actual codec/ICE/DTLS and decoded-frame acceptance",
+    "Shipping API/media geometry validation and any native SmallVM camera primitive",
+    "Continuous locomotion/direct motor transport and safety acceptance",
+    "Existing BLE confidentiality, physical robot, Edge platform, P4 coordination and release/reboot gates"
+  ],
+  "shared_main_modified": false,
+  "p4_worktree_accessed_or_modified": false
+}

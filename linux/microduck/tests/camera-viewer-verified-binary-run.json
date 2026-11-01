@@ -1,0 +1,11 @@
+{
+  "returncode": 0,
+  "seconds": 126.405705506,
+  "mode": "full unchanged tools/validate.py discovery with documented external sanitizer VM inputs",
+  "environment": {
+    "SMALLVM_MICRODUCK_BINARY": "/tmp/microduck-viewer-native-verified-37_nqrot/smallvm",
+    "SMALLVM_NUMERIC_BINARY": "/tmp/microduck-viewer-native-verified-37_nqrot/smallvm"
+  },
+  "provenance": "linux/microduck/tests/camera-viewer-native-provenance.json",
+  "assertions_exclusions_or_test_timeouts_modified": false
+}

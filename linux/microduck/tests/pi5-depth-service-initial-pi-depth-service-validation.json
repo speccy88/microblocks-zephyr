@@ -1,0 +1,71 @@
+{
+  "started_utc": "2026-10-27T19:23:48.569129+00:00",
+  "hostname": "RPI5",
+  "user": "fred",
+  "machine": "aarch64",
+  "kernel": "6.12.75+rpt-rpi-2712",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "kit_file_count": 163,
+  "physical_robot_data": false,
+  "physical_movement_enabled": false,
+  "numeric_acceptance_suite_invoked": false,
+  "service_or_security_changes": false,
+  "variants": {
+    "native": {
+      "result": "PASS",
+      "tests": 185,
+      "test_seconds": 40.749,
+      "elapsed_seconds": 41.01027185699786,
+      "binary_sha256": "0d3ac92bdeb561d2867b7c117e6f8c5315aad6e717efcb9620c4d17b4d18bacd",
+      "elf_machine": 183,
+      "sanitize": true,
+      "self_test": "PASS",
+      "build_seconds": 141.93367600700003,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "test_linux_microduck_head_imu",
+        "test_linux_microduck_head_service",
+        "test_linux_microduck_depth_service",
+        "-v"
+      ]
+    },
+    "native-plain": {
+      "result": "PASS",
+      "tests": 185,
+      "test_seconds": 40.256,
+      "elapsed_seconds": 40.41029811499902,
+      "binary_sha256": "cdb492ad6d9de4ed7a41212afc5d4045be6ad3c8787529084f7f5ca30be645a4",
+      "elf_machine": 183,
+      "sanitize": false,
+      "self_test": "PASS",
+      "build_seconds": 24.73793052700057,
+      "skipped": 0,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_linux_microduck_snapshots",
+        "test_linux_microduck_sensors",
+        "test_linux_microduck_motion",
+        "test_linux_microduck_robot",
+        "test_linux_microduck_media",
+        "test_linux_microduck_pad_imu",
+        "test_linux_microduck_head_imu",
+        "test_linux_microduck_head_service",
+        "test_linux_microduck_depth_service",
+        "-v"
+      ]
+    }
+  },
+  "result": "PASS",
+  "finished_utc": "2026-10-27T19:27:56.668265+00:00"
+}

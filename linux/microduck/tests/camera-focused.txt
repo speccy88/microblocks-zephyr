@@ -1,0 +1,238 @@
+TAP version 13
+# Subtest: wire expectations match the pinned independent camera/GStreamer source audit
+ok 1 - wire expectations match the pinned independent camera/GStreamer source audit
+  ---
+  duration_ms: 2.5883
+  type: 'test'
+  ...
+# Subtest: bounded signaling parser rejects duplicates, prototypes, batches, invalid Unicode and nonfinite values
+ok 2 - bounded signaling parser rejects duplicates, prototypes, batches, invalid Unicode and nonfinite values
+  ---
+  duration_ms: 1.6732
+  type: 'test'
+  ...
+# Subtest: exact signaling envelopes refuse arbitrary RPC methods and mixed SDP/ICE
+ok 3 - exact signaling envelopes refuse arbitrary RPC methods and mixed SDP/ICE
+  ---
+  duration_ms: 1.8048
+  type: 'test'
+  ...
+# Subtest: producer list is bounded, unique, sanitized, ephemeral and does not attest API or identity
+ok 4 - producer list is bounded, unique, sanitized, ephemeral and does not attest API or identity
+  ---
+  duration_ms: 1.012
+  type: 'test'
+  ...
+# Subtest: SDP and ICE validation bounds payloads without exposing candidates in state
+ok 5 - SDP and ICE validation bounds payloads without exposing candidates in state
+  ---
+  duration_ms: 0.6772
+  type: 'test'
+  ...
+# Subtest: geometry has no invented upright default, calibration or imprecise clock conversion
+ok 6 - geometry has no invented upright default, calibration or imprecise clock conversion
+  ---
+  duration_ms: 0.4609
+  type: 'test'
+  ...
+# Subtest: browser peer is passive until answered/activated and uses no implicit ICE servers
+ok 7 - browser peer is passive until answered/activated and uses no implicit ICE servers
+  ---
+  duration_ms: 2.9105
+  type: 'test'
+  ...
+# Subtest: a local sender is refused before remote negotiation and no local capture is stopped
+ok 8 - a local sender is refused before remote negotiation and no local capture is stopped
+  ---
+  duration_ms: 0.5374
+  type: 'test'
+  ...
+# Subtest: answer policy rejects outgoing media, audio receive, missing direction and rejected video
+ok 9 - answer policy rejects outgoing media, audio receive, missing direction and rejected video
+  ---
+  duration_ms: 1.4209
+  type: 'test'
+  ...
+# Subtest: missing video transceiver or a mixed output stream is refused
+ok 10 - missing video transceiver or a mixed output stream is refused
+  ---
+  duration_ms: 0.6372
+  type: 'test'
+  ...
+# Subtest: audio is excluded, duplicate video is not redelivered, and a second track closes the peer
+ok 11 - audio is excluded, duplicate video is not redelivered, and a second track closes the peer
+  ---
+  duration_ms: 0.5713
+  type: 'test'
+  ...
+# Subtest: other, unreliable and duplicate data channels are closed without a write
+ok 12 - other, unreliable and duplicate data channels are closed without a write
+  ---
+  duration_ms: 0.4939
+  type: 'test'
+  ...
+# Subtest: data-channel flooding closes the owned peer within its bound
+ok 13 - data-channel flooding closes the owned peer within its bound
+  ---
+  duration_ms: 0.2946
+  type: 'test'
+  ...
+# Subtest: typed metadata accepts the query/push race but omits timestamps and raw errors
+ok 14 - typed metadata accepts the query/push race but omits timestamps and raw errors
+  ---
+  duration_ms: 0.7329
+  type: 'test'
+  ...
+# Subtest: missing, invalid or changing metadata becomes unknown and never guesses orientation
+ok 15 - missing, invalid or changing metadata becomes unknown and never guesses orientation
+  ---
+  duration_ms: 1.1843
+  type: 'test'
+  ...
+# Subtest: incoming robot commands cannot be invoked or forwarded; malformed control is bounded
+ok 16 - incoming robot commands cannot be invoked or forwarded; malformed control is bounded
+  ---
+  duration_ms: 1.0542
+  type: 'test'
+  ...
+# Subtest: metadata errors, send failure and timeout have fixed codes without replay
+ok 17 - metadata errors, send failure and timeout have fixed codes without replay
+  ---
+  duration_ms: 29.021
+  type: 'test'
+  ...
+# Subtest: a control channel rejected before activation cannot be replaced or lose its error
+ok 18 - a control channel rejected before activation cannot be replaced or lose its error
+  ---
+  duration_ms: 30.6304
+  type: 'test'
+  ...
+# Subtest: a connecting control channel sends its sole query only after open and activation
+ok 19 - a connecting control channel sends its sole query only after open and activation
+  ---
+  duration_ms: 0.4972
+  type: 'test'
+  ...
+# Subtest: close during a pending browser API prevents late activation, metadata and video
+ok 20 - close during a pending browser API prevents late activation, metadata and video
+  ---
+  duration_ms: 1.7362
+  type: 'test'
+  ...
+# Subtest: peer failure, ended track and callback exceptions cannot prevent cleanup
+ok 21 - peer failure, ended track and callback exceptions cannot prevent cleanup
+  ---
+  duration_ms: 0.6054
+  type: 'test'
+  ...
+# Subtest: discovery is explicit, never selects the first producer, and requires a confirmed known ID
+ok 22 - discovery is explicit, never selects the first producer, and requires a confirmed known ID
+  ---
+  duration_ms: 1.9811
+  type: 'test'
+  ...
+# Subtest: session uses producer offer, flushes early ICE and queues answer before local ICE
+ok 23 - session uses producer offer, flushes early ICE and queues answer before local ICE
+  ---
+  duration_ms: 4.0893
+  type: 'test'
+  ...
+# Subtest: wrong selected peer is refused without sending endSession for an unowned session
+ok 24 - wrong selected peer is refused without sending endSession for an unowned session
+  ---
+  duration_ms: 0.6911
+  type: 'test'
+  ...
+# Subtest: foreign SDP, ICE and endSession do not enter or stop the owned peer
+ok 25 - foreign SDP, ICE and endSession do not enter or stop the owned peer
+  ---
+  duration_ms: 1.6135
+  type: 'test'
+  ...
+# Subtest: an early track cannot resolve start before the final answer is queued successfully
+ok 26 - an early track cannot resolve start before the final answer is queued successfully
+  ---
+  duration_ms: 2.1411
+  type: 'test'
+  ...
+# Subtest: serialized signaling backlog and early ICE are bounded while negotiation waits
+ok 27 - serialized signaling backlog and early ICE are bounded while negotiation waits
+  ---
+  duration_ms: 1.592
+  type: 'test'
+  ...
+# Subtest: local and remote ICE budgets close instead of accepting an unbounded stream
+ok 28 - local and remote ICE budgets close instead of accepting an unbounded stream
+  ---
+  duration_ms: 6.4494
+  type: 'test'
+  ...
+# Subtest: discovery, negotiation and observation leases all terminate without auto-retry
+ok 29 - discovery, negotiation and observation leases all terminate without auto-retry
+  ---
+  duration_ms: 40.491
+  type: 'test'
+  ...
+# Subtest: stop rejects pending work, clears private selection, and late callbacks cannot reopen it
+ok 30 - stop rejects pending work, clears private selection, and late callbacks cannot reopen it
+  ---
+  duration_ms: 0.586
+  type: 'test'
+  ...
+# Subtest: remote end and signaling loss close local resources without replay or a robot-stop claim
+ok 31 - remote end and signaling loss close local resources without replay or a robot-stop claim
+  ---
+  duration_ms: 1.6186
+  type: 'test'
+  ...
+# Subtest: producer removal, remote errors and malformed messages have fixed redacted outcomes
+ok 32 - producer removal, remote errors and malformed messages have fixed redacted outcomes
+  ---
+  duration_ms: 1.2061
+  type: 'test'
+  ...
+# Subtest: unrestricted peer factories are refused and callback exceptions cannot suppress cleanup
+ok 33 - unrestricted peer factories are refused and callback exceptions cannot suppress cleanup
+  ---
+  duration_ms: 1.3794
+  type: 'test'
+  ...
+# Subtest: a synchronous consumer stop does not resolve a successful start afterwards
+ok 34 - a synchronous consumer stop does not resolve a successful start afterwards
+  ---
+  duration_ms: 0.7072
+  type: 'test'
+  ...
+# Subtest: the complete camera fixture uses actual modules, video-only tracks and one metadata RPC
+ok 35 - the complete camera fixture uses actual modules, video-only tracks and one metadata RPC
+  ---
+  duration_ms: 2.7257
+  type: 'test'
+  ...
+# Subtest: fixture faults never contact a real peer or fabricate physical video success
+ok 36 - fixture faults never contact a real peer or fabricate physical video success
+  ---
+  duration_ms: 40.3899
+  type: 'test'
+  ...
+# Subtest: fixture rejects real endpoints/providers/credentials and snapshots retain no SDP or ICE
+ok 37 - fixture rejects real endpoints/providers/credentials and snapshots retain no SDP or ICE
+  ---
+  duration_ms: 1.0621
+  type: 'test'
+  ...
+# Subtest: browser-global fixture runs with every external network/RTC/capture API unavailable
+ok 38 - browser-global fixture runs with every external network/RTC/capture API unavailable
+  ---
+  duration_ms: 15.645
+  type: 'test'
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 347.8083

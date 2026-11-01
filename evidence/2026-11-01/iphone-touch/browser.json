@@ -1,0 +1,28 @@
+{
+  "browser": "156.0.8078.74",
+  "environment": "desktop Chromium with mobile emulation",
+  "physical_iphone": false,
+  "native_socket": false,
+  "engine_loaded": true,
+  "touch_drag": {
+    "before": {
+      "x": 111.125,
+      "y": 140.5,
+      "left": 40,
+      "top": 60
+    },
+    "after": {
+      "x": 207.75000000000006,
+      "y": 225.5,
+      "left": 117.3,
+      "top": 128
+    }
+  },
+  "usb_only_boundary": true,
+  "offline_connection_disabled": true,
+  "portrait_landscape": true,
+  "native_export_response": "synthetic success and cancellation",
+  "native_connection_response": "synthetic refusal, retry, cancellation and explicit handshake-state fixture",
+  "project_roundtrip": true,
+  "page_errors": []
+}

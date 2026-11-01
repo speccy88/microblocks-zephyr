@@ -1,0 +1,31 @@
+test_native_bounds_and_disabled_adapter_refuse_before_source_io (test_linux_microduck_gamepad_service.GamepadNativeAdapter.test_native_bounds_and_disabled_adapter_refuse_before_source_io) ... ok
+test_native_decoder_strict_markers_types_sources_and_counter_bounds (test_linux_microduck_gamepad_service.GamepadNativeAdapter.test_native_decoder_strict_markers_types_sources_and_counter_bounds) ... ok
+test_native_loss_false_zero_and_exact_signed_unsigned_clocks (test_linux_microduck_gamepad_service.GamepadNativeAdapter.test_native_loss_false_zero_and_exact_signed_unsigned_clocks) ... ok
+test_native_quiet_discovery_and_unobserved_extraction_refusal (test_linux_microduck_gamepad_service.GamepadNativeAdapter.test_native_quiet_discovery_and_unobserved_extraction_refusal) ... ok
+test_native_utf8_text_survives_actual_moving_gc (test_linux_microduck_gamepad_service.GamepadNativeAdapter.test_native_utf8_text_survives_actual_moving_gc) ... ok
+test_real_vm_all_sections_and_discovery_use_one_subscription (test_linux_microduck_gamepad_service.GamepadNativeAdapter.test_real_vm_all_sections_and_discovery_use_one_subscription) ... ok
+test_cached_attachment_values_are_unobserved_but_descriptors_known (test_linux_microduck_gamepad_service.GamepadProtocol.test_cached_attachment_values_are_unobserved_but_descriptors_known) ... ok
+test_editor_and_python_client_use_only_readonly_wrapper_methods (test_linux_microduck_gamepad_service.GamepadProtocol.test_editor_and_python_client_use_only_readonly_wrapper_methods) ... ok
+test_exact_counter_kernel_time_and_signed_negative_interval (test_linux_microduck_gamepad_service.GamepadProtocol.test_exact_counter_kernel_time_and_signed_negative_interval) ... ok
+test_explicit_padd_config_and_closed_selectors (test_linux_microduck_gamepad_service.GamepadProtocol.test_explicit_padd_config_and_closed_selectors) ... ok
+test_held_values_survive_empty_frames_and_event_zero_is_known (test_linux_microduck_gamepad_service.GamepadProtocol.test_held_values_survive_empty_frames_and_event_zero_is_known) ... ok
+test_loss_and_sequence_gaps_require_later_clean_events_per_control (test_linux_microduck_gamepad_service.GamepadProtocol.test_loss_and_sequence_gaps_require_later_clean_events_per_control) ... ok
+test_raw_overflow_span_extremes_and_unsupported_controls (test_linux_microduck_gamepad_service.GamepadProtocol.test_raw_overflow_span_extremes_and_unsupported_controls) ... ok
+test_utf8_descriptor_bounds_and_no_attached_value_surface (test_linux_microduck_gamepad_service.GamepadProtocol.test_utf8_descriptor_bounds_and_no_attached_value_surface) ... ok
+test_actual_gateway_cli_and_private_config (test_linux_microduck_gamepad_service.GamepadUnix.test_actual_gateway_cli_and_private_config) ... ok
+test_capacity_release_ttl_and_clock_regression (test_linux_microduck_gamepad_service.GamepadUnix.test_capacity_release_ttl_and_clock_regression) ... Executing <Task pending name='Task-135' coro=<GamepadUnix.test_capacity_release_ttl_and_clock_regression() running at /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/tests/test_linux_microduck_gamepad_service.py:188> wait_for=<Future pending cb=[Task.task_wakeup()] created at /usr/lib/python3.14/asyncio/base_events.py:459> cb=[_run_until_complete_cb() at /usr/lib/python3.14/asyncio/base_events.py:181] created at /usr/lib/python3.14/asyncio/runners.py:109> took 0.184 seconds
+Executing <Task pending name='Task-137' coro=<Gateway.handle() running at /mnt/c/Users/fred_/Documents/Codex/2026-10-27/task/microblocks-zephyr-integration-20261027/linux/microduck/gateway.py:196> wait_for=<Future pending cb=[Task.task_wakeup()] created at /usr/lib/python3.14/asyncio/base_events.py:459> cb=[StreamReaderProtocol.connection_made.<locals>.callback() at /usr/lib/python3.14/asyncio/streams.py:242] created at /usr/lib/python3.14/asyncio/streams.py:255> took 0.167 seconds
+ok
+test_detach_and_malformed_events_never_retain_old_state (test_linux_microduck_gamepad_service.GamepadUnix.test_detach_and_malformed_events_never_retain_old_state) ... ok
+test_labelled_fixture_cli_and_clean_shutdown (test_linux_microduck_gamepad_service.GamepadUnix.test_labelled_fixture_cli_and_clean_shutdown) ... ok
+test_no_pad_imu_only_and_refusal_are_explicit_without_handles (test_linux_microduck_gamepad_service.GamepadUnix.test_no_pad_imu_only_and_refusal_are_explicit_without_handles) ... ok
+test_one_subscription_supports_all_typed_queries_and_discovery (test_linux_microduck_gamepad_service.GamepadUnix.test_one_subscription_supports_all_typed_queries_and_discovery) ... ok
+test_quiet_descriptor_capture_has_no_live_values (test_linux_microduck_gamepad_service.GamepadUnix.test_quiet_descriptor_capture_has_no_live_values) ... ok
+test_shutdown_cancels_pending_reader_and_clears_capacity (test_linux_microduck_gamepad_service.GamepadUnix.test_shutdown_cancels_pending_reader_and_clears_capacity) ... ok
+test_source_loss_is_unknown_until_a_clean_event_restores_each_control (test_linux_microduck_gamepad_service.GamepadUnix.test_source_loss_is_unknown_until_a_clean_event_restores_each_control) ... ok
+test_uid_before_write_and_disabled_protected_methods (test_linux_microduck_gamepad_service.GamepadUnix.test_uid_before_write_and_disabled_protected_methods) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 17.596s
+
+OK

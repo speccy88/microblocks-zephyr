@@ -1,0 +1,1 @@
+{"result": "PASS", "typed_selectors": 9, "fake_tofd_subscriptions": 5, "robot_upstream_calls": 0, "physical_movement_enabled": false}

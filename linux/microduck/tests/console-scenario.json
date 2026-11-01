@@ -1,0 +1,140 @@
+{
+  "result": "PASS",
+  "scope": "actual console core/RPC with in-memory fictional backend; no GUI/network/BLE/robot",
+  "simulation": true,
+  "attach_and_prepare_request_count": 0,
+  "unconfirmed_mutation_writes": 0,
+  "removed_skill_outcome": "not_sent",
+  "recorded_fictional_actions": [
+    {
+      "sequence": 1,
+      "method": "robot.sound",
+      "simulation": true
+    },
+    {
+      "sequence": 2,
+      "method": "robot.do",
+      "simulation": true
+    },
+    {
+      "sequence": 3,
+      "method": "update.apply",
+      "simulation": true
+    },
+    {
+      "sequence": 4,
+      "method": "net.connect",
+      "simulation": true
+    }
+  ],
+  "request_metadata": [
+    {
+      "id": 1,
+      "method": "hello"
+    },
+    {
+      "id": 2,
+      "method": "system.authenticate"
+    },
+    {
+      "id": 3,
+      "method": "robot.policies"
+    },
+    {
+      "id": 4,
+      "method": "robot.sound"
+    },
+    {
+      "id": 5,
+      "method": "robot.policies"
+    },
+    {
+      "id": 6,
+      "method": "robot.policies"
+    },
+    {
+      "id": 7,
+      "method": "robot.do"
+    },
+    {
+      "id": 8,
+      "method": "update.apply"
+    },
+    {
+      "id": 9,
+      "method": "net.connect"
+    }
+  ],
+  "audit_metadata": [
+    {
+      "sequence": 1,
+      "method": "hello",
+      "outcome": "completed",
+      "code": "",
+      "simulation": true
+    },
+    {
+      "sequence": 2,
+      "method": "system.authenticate",
+      "outcome": "completed",
+      "code": "",
+      "simulation": true
+    },
+    {
+      "sequence": 3,
+      "method": "robot.policies",
+      "outcome": "completed",
+      "code": "",
+      "simulation": true
+    },
+    {
+      "sequence": 4,
+      "method": "robot.sound",
+      "outcome": "completed",
+      "code": "",
+      "simulation": true
+    },
+    {
+      "sequence": 5,
+      "method": "robot.do",
+      "outcome": "not_sent",
+      "code": "UNDISCOVERED_SKILL",
+      "simulation": true
+    },
+    {
+      "sequence": 6,
+      "method": "robot.do",
+      "outcome": "completed",
+      "code": "",
+      "simulation": true
+    },
+    {
+      "sequence": 7,
+      "method": "update.apply",
+      "outcome": "completed",
+      "code": "",
+      "simulation": true
+    },
+    {
+      "sequence": 8,
+      "method": "net.connect",
+      "outcome": "completed",
+      "code": "",
+      "simulation": true
+    }
+  ],
+  "stats": {
+    "requests": 9,
+    "writeChunks": 42,
+    "replyChunks": 407,
+    "maxWriteBytes": 20,
+    "maxAckInFlight": 1
+  },
+  "after_detach": {
+    "phase": "disconnected",
+    "history": []
+  },
+  "actual_robot_commands": 0,
+  "actual_software_updates": 0,
+  "actual_network_provisioning": 0
+}

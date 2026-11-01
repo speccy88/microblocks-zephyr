@@ -1,0 +1,108 @@
+{
+  "scope": "actual x86_64 sanitizer VM bytecode/PTY/private Unix adapters; fake tofd and padd only",
+  "native_vm_executed": true,
+  "binary_sha256": "df75b7771e3a1748d48bc14a1b0ffe67c038da0f1ab25fcec140c2a199adaf7a",
+  "physical_movement_enabled": false,
+  "bounds_and_real_motion_refused_before_io": true,
+  "upstream_calls": 0,
+  "actual_stream_subscriptions": 5,
+  "results": {
+    "depth": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "simulation": true,
+        "physical_movement_enabled": false,
+        "source": "tofd",
+        "sample_basis": "first_frame_on_new_subscription",
+        "status": "ok",
+        "value": 1063,
+        "row": 8,
+        "col": 8,
+        "unit": "mm",
+        "raw_distance_mm": 1063,
+        "raw_status": 5,
+        "seq": "9223372036854775815",
+        "at_us": "9000001",
+        "t_ns": "9000001000"
+      }
+    },
+    "empty_zone": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "simulation": true,
+        "physical_movement_enabled": false,
+        "source": "tofd",
+        "sample_basis": "first_frame_on_new_subscription",
+        "status": "no_target",
+        "value": null,
+        "row": 1,
+        "col": 2,
+        "unit": "mm",
+        "raw_distance_mm": 1001,
+        "raw_status": 255,
+        "seq": "9223372036854775815",
+        "at_us": "9000001",
+        "t_ns": "9000001000"
+      }
+    },
+    "axis": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "simulation": true,
+        "physical_movement_enabled": false,
+        "source": "padd",
+        "sample_basis": "first_frame_on_new_subscription",
+        "status": "ok",
+        "value": 1583,
+        "code": 0,
+        "unit": "raw",
+        "min": -32768,
+        "max": 32767,
+        "seq": "9223372036854775811",
+        "at_us": "1793050000000000",
+        "since_us": "-25",
+        "socket_dropped": "0",
+        "after_drop": false,
+        "raw_value": 1583
+      }
+    },
+    "button": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "simulation": true,
+        "physical_movement_enabled": false,
+        "source": "padd",
+        "sample_basis": "first_frame_on_new_subscription",
+        "status": "ok",
+        "value": true,
+        "code": 304,
+        "unit": "pressed",
+        "seq": "9223372036854775811",
+        "at_us": "1793050000000000",
+        "since_us": "-25",
+        "socket_dropped": "0",
+        "after_drop": false,
+        "raw_value": 2
+      }
+    },
+    "absent": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "result": {
+        "simulation": true,
+        "physical_movement_enabled": false,
+        "source": "tofd",
+        "sample_basis": "first_frame_on_new_subscription",
+        "status": "absent",
+        "value": null,
+        "row": 1,
+        "col": 1,
+        "unit": "mm"
+      }
+    }
+  }
+}

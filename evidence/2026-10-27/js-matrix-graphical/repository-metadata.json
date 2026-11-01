@@ -1,0 +1,12 @@
+{
+  "source": "Connected GitHub get_repo, read-only; no fetch/push",
+  "observed_date_utc": "2026-10-27",
+  "repository_full_name": "speccy88/microblocks-zephyr",
+  "repository_id": "1423558005",
+  "clone_url": "https://github.com/speccy88/microblocks-zephyr.git",
+  "visibility": "public",
+  "default_branch": "main",
+  "archived": false,
+  "publication_attempted": false,
+  "push_authorization_inferred": false
+}

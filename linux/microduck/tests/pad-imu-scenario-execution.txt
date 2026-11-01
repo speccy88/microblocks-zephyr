@@ -1,0 +1,1 @@
+{"result": "PASS", "typed_selectors": 13, "fake_pad_subscriptions": 3, "robot_upstream_calls": 0, "physical_movement_enabled": false}

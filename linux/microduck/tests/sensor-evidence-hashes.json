@@ -1,0 +1,77 @@
+{
+  "scope": "simulated sensor streams and actual local x86_64 native VM only",
+  "files": {
+    "linux/microduck/tests/sensor-focused.txt": {
+      "sha256": "0d8a497093cd5d678a7512e665588eb32a0bea5913bca296c4c5ceece67496cf",
+      "bytes": 3722
+    },
+    "linux/microduck/tests/sensor-full-initial-run.json": {
+      "sha256": "b30cc37ed943f4a8abe45f81f9dec5fc4afc9c1156002d8e9377f6e4f8172b3a",
+      "bytes": 616
+    },
+    "linux/microduck/tests/sensor-full-run.json": {
+      "sha256": "d0f1036def622b3bb92aae32ed4a03793ccf30e1eb24d41a4e8aaa8e31d7d48d",
+      "bytes": 616
+    },
+    "linux/microduck/tests/sensor-linux-initial-failure.json": {
+      "sha256": "ccfee8432df1745f029fb603cdfb14d7cd397f0bb68e933641171b0fa36ab95e",
+      "bytes": 584
+    },
+    "linux/microduck/tests/sensor-linux-initial-failure.txt": {
+      "sha256": "42e654f9bf29cbc263f01dde3edc66fdf0945c8e87f3212837dfc73aa8191372",
+      "bytes": 942
+    },
+    "linux/microduck/tests/sensor-linux.txt": {
+      "sha256": "6d6849666c239157fd8478b195421c6c5eeea981245ed7603d8fa4208a89884c",
+      "bytes": 44403
+    },
+    "linux/microduck/tests/sensor-native-build-manifest.json": {
+      "sha256": "d1d75b974cb13a7ffeeb58eaad3e0debeed02a83be166e7add7bdf7a1d393652",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/sensor-native-build-run.json": {
+      "sha256": "3463d7db3df23dd3b6e353f0124a36f9394d8167b72ca609b39e0f142e72ca61",
+      "bytes": 732
+    },
+    "linux/microduck/tests/sensor-native-build.txt": {
+      "sha256": "1c650ac8dc74a2a4edb48cee3155ce02609a0fdfcea7fb5c0856a103038bde30",
+      "bytes": 9475
+    },
+    "linux/microduck/tests/sensor-native-provenance.json": {
+      "sha256": "d69301a0d2022f5b2e52c0d71a37b2dcde5cdf6b7f61afa4cef6510ac4de0e8a",
+      "bytes": 2301
+    },
+    "linux/microduck/tests/sensor-native-source-manifest.json": {
+      "sha256": "a5cc52d1ab86181fdbea72fcf439a479f704bf79f180b04e5ef7597d516dbede",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/sensor-node.txt": {
+      "sha256": "aca593259b4fd1cfbc4900ad1781ebeeb385a239cc773d91df6c8f4e81ff6b44",
+      "bytes": 55961
+    },
+    "linux/microduck/tests/sensor-packaging.json": {
+      "sha256": "cc3ca759be546a293593dd2f41bc2f95bb981a827b589d7dc5b3b46c787f0326",
+      "bytes": 1702
+    },
+    "linux/microduck/tests/sensor-scenario-vm.txt": {
+      "sha256": "bc687140733452fb46300af35be3f2e6b5172609a95d73dadc0d10f16ba8d147",
+      "bytes": 48
+    },
+    "linux/microduck/tests/sensor-scenario.json": {
+      "sha256": "821996f0d4a2d5ec6390df09abc032054e48d4adbea8927aed4094de7a5b3449",
+      "bytes": 2850
+    },
+    "linux/microduck/tests/sensor-source.json": {
+      "sha256": "e126cbf65b7f2193b5f910e53c2961f9359b8dcf9fb7382382b5f96704cec083",
+      "bytes": 3265
+    },
+    "linux/microduck/tests/sensor-validation.json": {
+      "sha256": "f163dd0020229652c3441f2ff55dac832c9233c67d100a6c4f546dddee7b9736",
+      "bytes": 4619
+    },
+    "evidence/2026-10-27/microduck-sensors/README.md": {
+      "sha256": "3602fd88d80f9b9e4522fbae3872e91041005b8bb4f49ed3f7a7833659ed3a16",
+      "bytes": 4787
+    }
+  }
+}

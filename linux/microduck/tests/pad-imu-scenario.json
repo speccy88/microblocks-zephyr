@@ -1,0 +1,126 @@
+{
+  "result": "PASS",
+  "scope": "Actual x86_64 sanitizer VM bytecode/PTY/private Unix gateway and three fixed fake pad.input subscriptions; no device or robot",
+  "binary_sha256": "407ffaee8288728c5e6de5aa570fc726bc520c844fe040cd81fceea490a0ff48",
+  "physical_movement_enabled": false,
+  "capture": [
+    "ok",
+    "c8d3ea616f921efc5e4fc5bffa72ee47",
+    "snapshot",
+    "simulation"
+  ],
+  "sample1_fields": {
+    "accel_raw": [
+      "ok",
+      0,
+      "raw",
+      "simulation"
+    ],
+    "gyro_raw": [
+      "ok",
+      14247,
+      "raw",
+      "simulation"
+    ],
+    "accel_mg": [
+      "ok",
+      0,
+      "mg",
+      "simulation"
+    ],
+    "gyro_mdps": [
+      "ok",
+      1000,
+      "mdps",
+      "simulation"
+    ],
+    "seq": [
+      "ok",
+      "9223372036854775808",
+      "count64",
+      "simulation"
+    ],
+    "at_us": [
+      "ok",
+      "1793120000000000",
+      "us_unix",
+      "simulation"
+    ],
+    "sample_count": [
+      "ok",
+      3,
+      "count",
+      "simulation"
+    ],
+    "accel_per_g": [
+      "ok",
+      4096,
+      "raw/g",
+      "simulation"
+    ],
+    "gyro_per_dps": [
+      "ok",
+      14247,
+      "raw/dps",
+      "simulation"
+    ],
+    "accel_max": [
+      "ok",
+      32767,
+      "raw",
+      "simulation"
+    ],
+    "gyro_max": [
+      "ok",
+      32767,
+      "raw",
+      "simulation"
+    ],
+    "accel_at_limit": [
+      "ok",
+      false,
+      "boolean",
+      "simulation"
+    ],
+    "gyro_at_limit": [
+      "ok",
+      false,
+      "boolean",
+      "simulation"
+    ]
+  },
+  "sample3_sequence": [
+    "ok",
+    "9223372036854775810",
+    "count64",
+    "simulation"
+  ],
+  "sample3_gyro_axis3": [
+    "ok",
+    -500,
+    "mdps",
+    "simulation"
+  ],
+  "after_release": [
+    "expired_or_unknown",
+    "",
+    "count64",
+    "simulation"
+  ],
+  "unknown_scale": [
+    "not_reported",
+    "",
+    "mg",
+    "simulation"
+  ],
+  "unknown_extraction_denied": true,
+  "dropped_capture": [
+    "dropped",
+    "",
+    "snapshot",
+    "simulation"
+  ],
+  "pad_subscriptions": 3,
+  "robot_upstream_calls": 0,
+  "component_reads_create_subscriptions": false
+}

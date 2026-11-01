@@ -1,0 +1,3 @@
+{"supervisor_returncode": 0, "own_session_stopped": true}
+
+{"vm_pid": true, "bridge_pid": true}

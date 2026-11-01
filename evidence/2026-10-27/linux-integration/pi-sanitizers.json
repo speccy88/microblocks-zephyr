@@ -1,0 +1,71 @@
+{
+  "tested_at": "2026-10-27T10:28:11.942420+00:00",
+  "result": "PASS",
+  "remote_directory": "microblocks-charlie/builds/lp64-20261027T102545444828Z",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "host": {
+    "architecture": "aarch64",
+    "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
+    "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+    "sanitizers": true,
+    "source_hashes_verified": 53
+  },
+  "binary_sha256": "49360b487b7d36267848622845b12f1835173b7aeaaee170ee137a5af6eb811e",
+  "self_test": {
+    "result": "PASS",
+    "scope": "real SmallVM v417; local PTY; no external peripherals",
+    "architecture": "aarch64",
+    "arithmetic": 12,
+    "variable": 42,
+    "network_listener": false
+  },
+  "protocol": {
+    "result": "PASS",
+    "scope": "real SmallVM v417 on local Linux PTY; no external peripheral or graphical IDE claim",
+    "architecture": "aarch64",
+    "binary_sha256": "49360b487b7d36267848622845b12f1835173b7aeaaee170ee137a5af6eb811e",
+    "checks": {
+      "real_interpreter_self_test": {
+        "result": "PASS",
+        "scope": "real SmallVM v417; local PTY; no external peripherals",
+        "architecture": "aarch64",
+        "arithmetic": 12,
+        "variable": 42,
+        "network_listener": false
+      },
+      "exclusive_data_owner": true,
+      "idle_resources": {
+        "scope": "this runner child process, idle before test-program uploads",
+        "host_architecture": "aarch64",
+        "sample_seconds": 0.50006,
+        "clock_ticks_per_second": 100,
+        "cpu_ticks_delta": 0,
+        "cpu_percent_one_core": 0.0,
+        "rss_before_bytes": 17301504,
+        "rss_after_bytes": 17448960,
+        "peak_rss_bytes": 17448960,
+        "instrumentation": "not inferred; consult the binary build manifest",
+        "sanitizer_caveat": "ASan/UBSan builds add CPU and memory overhead; compare them separately from production builds."
+      },
+      "unsupported_ble_preference_does_not_poison_tasks": true,
+      "arithmetic_executions": 20,
+      "live_edit_result": 13,
+      "variable_readback": 42,
+      "stop_and_readback": true,
+      "fragmented_upload_bytes": 1019,
+      "suspend_resume_and_compaction": true,
+      "graceful_restart_code_crc_and_autostart": true,
+      "process_kill_after_ack_persistence": true,
+      "corrupt_files_refused_and_retained": 4,
+      "existing_info_file_preserved": true
+    }
+  },
+  "limitations": [
+    "No graphical IDE test",
+    "No network VM transport",
+    "No service/installer/OS reboot test",
+    "No external peripherals",
+    "No MicroDuck hardware"
+  ],
+  "system_or_service_changes": false
+}

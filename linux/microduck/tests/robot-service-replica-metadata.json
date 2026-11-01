@@ -1,0 +1,7 @@
+{
+  "git_base": "f56748ce99159c98b14927f8eb1eb324ec6c74ee",
+  "bundle_sha256": "7e9c70ee668b1577d1dcc21da072855eee8b16705f0c76b1afeaee6c0531ab20",
+  "runner": "robot-service-full-runner.py.txt",
+  "files": "robot-service-linux-replica.json",
+  "scope": "Verified local bundle supplied normal Linux Git metadata to a byte-identical execution replica; original Git/security settings unchanged."
+}

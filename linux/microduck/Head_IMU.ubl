@@ -1,0 +1,33 @@
+module 'MicroDuck Head IMU' Input
+author 'MicroBlocks Linux ARM64 contributors'
+version 1 0
+description 'Read-only tofd head IMU through an explicitly configured normal private Unix gateway. This checkpoint is tested only with simulated sensor data on the real Pi. Requires MicroDuck plus the gateway head-imu-config option, with inventoried path and expected UID. Origin local_ipc describes transport only; UID/path consistency is not physical identity or hardware validation. Capture one frame, read nine fields and release; four five-second snapshots. Tofd chip axes, accel includes gravity, quaternion wxyz sensor-to-own-world arbitrary yaw; no transform, normalization, freshness, calibration or movement authority. Missing data is not_reported, zero quaternion unusable, legacy t_ns0 unavailable; explicit vector zero remains known. Temperature is cached/source-reported, rate declared. Exact u64 clocks preserve precision; sender uptime is not Unix time. No endpoint input, daemon fallback, bus, credentials, command, network or continuous reader. Beta, physical, shipping and graphical acceptance remain pending.'
+spec 'r' 'microduckHeadImuCapture' 'capture tofd head IMU reading'
+spec 'r' 'microduckHeadImuGyro' 'head IMU _ gyro axis _ (mrad/s) reading' 'auto num' '' 1
+spec 'r' 'microduckHeadImuAccel' 'head IMU _ accel axis _ (mm/s2) reading' 'auto num' '' 1
+spec 'r' 'microduckHeadImuQuat' 'head IMU _ quaternion wxyz component _ (ppm) reading' 'auto num' '' 1
+spec 'r' 'microduckHeadImuTemperature' 'head IMU _ reported temperature (mC) reading' 'auto' ''
+spec 'r' 'microduckHeadImuSequence' 'head IMU _ sample sequence reading' 'auto' ''
+spec 'r' 'microduckHeadImuUptime' 'head IMU _ sender uptime us reading' 'auto' ''
+spec 'r' 'microduckHeadImuTimestamp' 'head IMU _ monotonic ns reading' 'auto' ''
+spec 'r' 'microduckHeadImuSensor' 'head IMU _ reported sensor reading' 'auto' ''
+spec 'r' 'microduckHeadImuRate' 'head IMU _ declared rate Hz reading' 'auto' ''
+spec 'r' 'microduckHeadImuRelease' 'release head IMU _ JSON' 'auto' ''
+advanced
+spec 'r' 'microduckHeadImuReading' 'head IMU _ field _ component _ reading' 'auto str num' '' 'gyro' 1
+
+to microduckHeadImuCapture { return ('[microduck:headImuReading]' (microduckRequest 'microduck.headImu.capture' '{}' false)) }
+to microduckHeadImuReading snapshot field component {
+    local 'params' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' snapshot)) ',"field":' ('[microduck:quote]' field) ',"component":' component '}')
+    return ('[microduck:headImuReading]' (microduckRequest 'microduck.headImu.read' params false))
+}
+to microduckHeadImuGyro snapshot component { return (microduckHeadImuReading snapshot 'gyro' component) }
+to microduckHeadImuAccel snapshot component { return (microduckHeadImuReading snapshot 'accel' component) }
+to microduckHeadImuQuat snapshot component { return (microduckHeadImuReading snapshot 'quat' component) }
+to microduckHeadImuTemperature snapshot { return (microduckHeadImuReading snapshot 'temperature' 1) }
+to microduckHeadImuSequence snapshot { return (microduckHeadImuReading snapshot 'seq' 1) }
+to microduckHeadImuUptime snapshot { return (microduckHeadImuReading snapshot 'at_us' 1) }
+to microduckHeadImuTimestamp snapshot { return (microduckHeadImuReading snapshot 't_ns' 1) }
+to microduckHeadImuSensor snapshot { return (microduckHeadImuReading snapshot 'sensor' 1) }
+to microduckHeadImuRate snapshot { return (microduckHeadImuReading snapshot 'rate' 1) }
+to microduckHeadImuRelease snapshot { return (microduckRequest 'microduck.headImu.release' ('[data:join]' '{"handle":' ('[microduck:quote]' ('[microduck:readingValue]' snapshot)) '}') false) }

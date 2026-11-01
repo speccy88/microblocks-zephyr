@@ -1,0 +1,15 @@
+test_actual_ten_second_deadline_does_not_block_or_retry (test_linux_microduck_vm.RealSmallVMMicroDuck.test_actual_ten_second_deadline_does_not_block_or_retry) ... ok
+test_delayed_job_keeps_another_real_vm_task_and_ping_running (test_linux_microduck_vm.RealSmallVMMicroDuck.test_delayed_job_keeps_another_real_vm_task_and_ping_running) ... ok
+test_disabled_default_is_queryable_and_never_connects (test_linux_microduck_vm.RealSmallVMMicroDuck.test_disabled_default_is_queryable_and_never_connects) ... ok
+test_four_job_slots_are_retained_until_release_and_ids_are_not_reused (test_linux_microduck_vm.RealSmallVMMicroDuck.test_four_job_slots_are_retained_until_release_and_ids_are_not_reused) ... ok
+test_malformed_wrong_id_eof_and_oversized_replies_are_unknown (test_linux_microduck_vm.RealSmallVMMicroDuck.test_malformed_wrong_id_eof_and_oversized_replies_are_unknown) ... ok
+test_moving_gc_during_pending_job_does_not_retain_vm_object_addresses (test_linux_microduck_vm.RealSmallVMMicroDuck.test_moving_gc_during_pending_job_does_not_retain_vm_object_addresses) ... ok
+test_native_and_gateway_mutation_gates_then_known_sound (test_linux_microduck_vm.RealSmallVMMicroDuck.test_native_and_gateway_mutation_gates_then_known_sound) ... ok
+test_native_json_quote_roundtrips_unicode_control_and_quotes (test_linux_microduck_vm.RealSmallVMMicroDuck.test_native_json_quote_roundtrips_unicode_control_and_quotes) ... ok
+test_real_dispatch_health_optional_battery_and_policy_skill_discovery (test_linux_microduck_vm.RealSmallVMMicroDuck.test_real_dispatch_health_optional_battery_and_policy_skill_discovery) ... ok
+test_stop_all_cancels_sent_job_as_unknown_without_replay (test_linux_microduck_vm.RealSmallVMMicroDuck.test_stop_all_cancels_sent_job_as_unknown_without_replay) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 13.403s
+
+OK

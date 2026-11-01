@@ -1,0 +1,17 @@
+module main
+description 'Fictional input; normal Gateway ONLY. Capture one coherent IMU batch, inspect typed readings and release. No device or robot command, no automatic motion, no inferred orientation or live freshness.'
+variables imuBatch
+
+script 30 30 {
+    whenStarted
+    imuBatch = (microduckPadImuCapture)
+    sayIt imuBatch
+    if (microduckReadingKnown imuBatch) {
+        sayIt (microduckPadImuCount imuBatch)
+        sayIt (microduckPadImuAccel imuBatch 1 3)
+        sayIt (microduckPadImuGyro imuBatch 1 1)
+        sayIt (microduckPadImuSequence imuBatch 1)
+        sayIt (microduckPadImuTime imuBatch 1)
+        sayIt (microduckPadImuRelease imuBatch)
+    }
+}

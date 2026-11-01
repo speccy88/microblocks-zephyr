@@ -1,0 +1,40 @@
+{
+  "architecture": "linux-aarch64",
+  "artifacts": {
+    "RELEASE-NOTES.md": "b0382d446512ca5d6a61bbbeda1d5f0c85c91caba826fdaf1bd32c208ac09594",
+    "install-smallvm-linux-arm64.sh": "5ba81dbe1a95c11ddf60f90d31ec9ab6bf6d74006ba32d9e96f9d8cb5cb63849",
+    "native-report.json": "9f792b6b50c3e2c1bb91a8d3674e408422ccd857486eefd293a6fc655e568ab9",
+    "prepared-source-manifest.json": "222c022f9f23ca0799c64003c43bc01fe4e39888a18dde2c032195765862b6a1",
+    "smallvm-linux-arm64-v417-pi5-candidate-20261027.tar.gz": "143b6ed710a99a5f6d38f93b9fa21c4b92452340679d0784aa1caa5987590f4b",
+    "smallvm-v417-pi5-candidate-20261027-source.tar.gz": "977aa462a0ad04c6fd7c6b0815c8e1de05ee702e46a08855aff8e032067cecfa",
+    "uninstall-smallvm-linux-arm64.sh": "353903b66dc4bc8290d7fc83106ada35073fceea3984b939c236759df672fa3e"
+  },
+  "available": false,
+  "binary_sha256": "0365d817036b74819f27ea405f8036f2d892f503891a03d561eb9e1c12f51ef2",
+  "checkout_conversions": {
+    "common/json/json_config.h": {
+      "checkout_sha256": "6ccd94f697f36e0f567ebd861a949999cebc1edb5e1fd75ca690442416eb7d69",
+      "conversion": "LF to CRLF",
+      "git_sha256": "a6f916d01cdb343828697d7eec2b1d94f51d4d4279bcebe4ae31125a6d1355d3"
+    },
+    "dependencies/smallvm-v417.json": {
+      "checkout_sha256": "d30375bc67690ba0c5ff381e1974602eae2bcbf91b55060e7083e07c2ec24474",
+      "conversion": "LF to CRLF",
+      "git_sha256": "6944b652bab1919aaadfdafbb78cea96a9e026c46cec8cd0a9c6f5cae3112687"
+    }
+  },
+  "limitations": [
+    "User-service and OS reboot acceptance pending",
+    "No physical MicroDuck",
+    "No other ARM64 board tested",
+    "No published installer or Pages acceptance"
+  ],
+  "native_report_sha256": "9f792b6b50c3e2c1bb91a8d3674e408422ccd857486eefd293a6fc655e568ab9",
+  "port_commit": "b9cf30cb3e51e03e5204629b073d55f37295b6e6",
+  "prepared_source_sha256": "222c022f9f23ca0799c64003c43bc01fe4e39888a18dde2c032195765862b6a1",
+  "published": false,
+  "scope": "candidate; unpublished; Pi evidence only; no physical MicroDuck",
+  "source_archive_sha256": "977aa462a0ad04c6fd7c6b0815c8e1de05ee702e46a08855aff8e032067cecfa",
+  "upstream_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "version": "v417-pi5-candidate-20261027"
+}

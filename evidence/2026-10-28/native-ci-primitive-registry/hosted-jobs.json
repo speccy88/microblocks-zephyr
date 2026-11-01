@@ -1,0 +1,37 @@
+{
+  "jobs": [
+    {
+      "steps": [
+        {
+          "name": "Execute the real native MicroDuck client with private Unix fixtures",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 14
+        }
+      ],
+      "name": "native (ubuntu-24.04, x86_64, 62)",
+      "status": "completed",
+      "conclusion": "failure",
+      "id": 122562741381,
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/40611159771/job/122562741381"
+    },
+    {
+      "steps": [
+        {
+          "name": "Execute the real native MicroDuck client with private Unix fixtures",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 14
+        }
+      ],
+      "name": "native (ubuntu-24.04-arm, aarch64, 183)",
+      "status": "completed",
+      "conclusion": "failure",
+      "id": 122562741695,
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/40611159771/job/122562741695"
+    }
+  ],
+  "observed_utc": "2026-10-28T00:52:54.2639239Z",
+  "run_id": 40611159771,
+  "head": "77bf00d0d8c0853bd812be94d95292a340322223"
+}

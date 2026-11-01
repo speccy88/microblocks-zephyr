@@ -1,0 +1,15 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 228.98500000004424,
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "rpi5",
+    "cd /home/fred/microblocks-head-service-4knyxr5t && python3 run-pi-head-service.py"
+  ],
+  "source": "real Pi compilation/VM; all sensor data fake",
+  "security_or_service_changes": false
+}

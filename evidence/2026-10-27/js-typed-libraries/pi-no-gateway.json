@@ -1,0 +1,951 @@
+{
+  "receipt": {
+    "architecture": "aarch64",
+    "hostname": "RPI5",
+    "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+    "port": 54619,
+    "graphical": false,
+    "robot_hardware": false,
+    "network_settings_changed": false,
+    "typed_libraries": true,
+    "simulated_sensor_services": false,
+    "returncode": 0,
+    "stderr": "",
+    "node_version": "v22.22.2",
+    "passed": true,
+    "children_stopped": true
+  },
+  "node_report": {
+    "tests": 7,
+    "passed": 7,
+    "modules": 6,
+    "functions": 140,
+    "max_function_bytes": 400,
+    "graphical": false,
+    "robot_hardware": false,
+    "imported_via": "MB_editor.openLibraryFile -> MB_Project/MB_Parser, actual morph classes",
+    "compiled": [
+      {
+        "name": "microduckWait",
+        "chunk": 0,
+        "bytes": 173,
+        "sha256": "b59a309621506953b9131be6e7ed2130cff6fc760e600e042be472434e820ae1"
+      },
+      {
+        "name": "microduckRequest",
+        "chunk": 1,
+        "bytes": 296,
+        "sha256": "eeb2535855730fbb6c5bfefd1b419e5ed85431e4bc725326722f0562357f9101"
+      },
+      {
+        "name": "microduckHealth",
+        "chunk": 2,
+        "bytes": 123,
+        "sha256": "ebba91577ee13ae539f763e3da2dda7273c8e267424e32696e029b7caa428b10"
+      },
+      {
+        "name": "microduckBatteryHealth",
+        "chunk": 3,
+        "bytes": 106,
+        "sha256": "3ddaf5ff0508c7763e06607c922dc067effe914c0d524010fbc60350445d7226"
+      },
+      {
+        "name": "microduckSkills",
+        "chunk": 4,
+        "bytes": 123,
+        "sha256": "ae25ab5702beadd19c82b659e4a36ece907ba98994fb6044c13d28765b2b02b0"
+      },
+      {
+        "name": "microduckPolicies",
+        "chunk": 5,
+        "bytes": 131,
+        "sha256": "c218b99347a32f279514f7ce76da4393ea0e933a5431557e56b935dab22aa2f3"
+      },
+      {
+        "name": "microduckCapabilities",
+        "chunk": 6,
+        "bytes": 159,
+        "sha256": "b25dcaaefbef988e52d8552fc86a1d324a532de341dc33230bbe494d6ba06fec"
+      },
+      {
+        "name": "microduckBatteryPercent",
+        "chunk": 7,
+        "bytes": 146,
+        "sha256": "8b03da58e78c7b5a1f69dda88984a60c31aeea5469e23e7e56cc3ae43824f0cc"
+      },
+      {
+        "name": "microduckBatteryMillivolts",
+        "chunk": 8,
+        "bytes": 147,
+        "sha256": "effe4e02cbf5fb84f9fc7212be16623937795828d8057a4c8814b4e9d3ee7fce"
+      },
+      {
+        "name": "microduckCpuTemperature",
+        "chunk": 9,
+        "bytes": 140,
+        "sha256": "624adc82b9e59d56927c4dc05eb3389c122ffcd4efda4e071b174f2785082d21"
+      },
+      {
+        "name": "microduckMotorTemperature",
+        "chunk": 10,
+        "bytes": 144,
+        "sha256": "ba7afe84d47fccb3f8a29402da2a869e17378a6fa06d0732b040d34f2290e519"
+      },
+      {
+        "name": "microduckLoopRate",
+        "chunk": 11,
+        "bytes": 154,
+        "sha256": "3e3d522fd1876a611accb660cf5cf16616389044ab9044d7067282165edc7150"
+      },
+      {
+        "name": "microduckHealthVerdict",
+        "chunk": 12,
+        "bytes": 146,
+        "sha256": "949b7a4f5fcd0e4f30d172a2d6dd8c7ad059060072f08d3b65fe1336702b8d8a"
+      },
+      {
+        "name": "microduckImuState",
+        "chunk": 13,
+        "bytes": 135,
+        "sha256": "59df75461c21a1cd8f63b019eab32f56516acba5326829399797df14da5964c0"
+      },
+      {
+        "name": "microduckReadingKnown",
+        "chunk": 14,
+        "bytes": 108,
+        "sha256": "c3ad7d6fe5095eda098e5ae3714dd2028a54270db7457729950f15717f15b823"
+      },
+      {
+        "name": "microduckReadingStatus",
+        "chunk": 15,
+        "bytes": 82,
+        "sha256": "3b6a0ab799211c7e0ac9f015e61704aa66fd1650925a6e7a9db161b02d87f6a5"
+      },
+      {
+        "name": "microduckReadingUnit",
+        "chunk": 16,
+        "bytes": 78,
+        "sha256": "6308c77e3e0d07244f9b767ef98d4bc61bc2eeac2a3687916021544d53eb12a8"
+      },
+      {
+        "name": "microduckReadingOrigin",
+        "chunk": 17,
+        "bytes": 82,
+        "sha256": "cb5f74fc7c9d7afde215ef82d4a02b6df1582063cf2daa7bbab4d2074ccec997"
+      },
+      {
+        "name": "microduckSound",
+        "chunk": 18,
+        "bytes": 171,
+        "sha256": "983284452c87315025cb925b735cc6b35447cc5d190e988dc76eb8aeaa8b31e4"
+      },
+      {
+        "name": "microduckSkill",
+        "chunk": 19,
+        "bytes": 177,
+        "sha256": "28315ee5d5c594b6e57b846026b35d93d328ea22b3d82699c1cf3b175958b692"
+      },
+      {
+        "name": "microduckHeadImuCapture",
+        "chunk": 20,
+        "bytes": 202,
+        "sha256": "f18b39da6593ee74b948364b26892cc909e435cf0c282582fa7fe95208b35615"
+      },
+      {
+        "name": "microduckHeadImuReading",
+        "chunk": 21,
+        "bytes": 350,
+        "sha256": "8a3ebe19193e902199e1334d6474f2fa1b5a69d2078696e80eb872501a5c2e9e"
+      },
+      {
+        "name": "microduckHeadImuGyro",
+        "chunk": 22,
+        "bytes": 147,
+        "sha256": "59d50cd04d89d84ee84884097da8209906f49a2ff57e9b796e68ee4947c932df"
+      },
+      {
+        "name": "microduckHeadImuAccel",
+        "chunk": 23,
+        "bytes": 148,
+        "sha256": "2d022dfa8eddd595b58dbae8ae87d09b9642d97b82960c35ede46ce2fda91772"
+      },
+      {
+        "name": "microduckHeadImuQuat",
+        "chunk": 24,
+        "bytes": 160,
+        "sha256": "9e50540aa4dc961d6c24908911493cb3bf8391dcc7934b322f5dfc7d0b82d917"
+      },
+      {
+        "name": "microduckHeadImuTemperature",
+        "chunk": 25,
+        "bytes": 149,
+        "sha256": "19c36b169cb9058cbdab6fc37d3e72ebc93a4474bb0fffad226bd61bc1f7fa46"
+      },
+      {
+        "name": "microduckHeadImuSequence",
+        "chunk": 26,
+        "bytes": 128,
+        "sha256": "eb4f17ca2308bb358f017007aab8159137352fbb3c93b77ceccc2d2870c9f759"
+      },
+      {
+        "name": "microduckHeadImuUptime",
+        "chunk": 27,
+        "bytes": 131,
+        "sha256": "f4fdc2dde40637a25cc0035433b4d70326a07f13f8aab51fd6246e5916ee2330"
+      },
+      {
+        "name": "microduckHeadImuTimestamp",
+        "chunk": 28,
+        "bytes": 130,
+        "sha256": "09bc910b88dbed35c164e0be6a1a7ecb84d83663b98c0daaabafa5fbba19ee35"
+      },
+      {
+        "name": "microduckHeadImuSensor",
+        "chunk": 29,
+        "bytes": 130,
+        "sha256": "73525b4bdc7e99a119c15e5f0a52079c6df557aec59a222f910c84d91e356387"
+      },
+      {
+        "name": "microduckHeadImuRate",
+        "chunk": 30,
+        "bytes": 129,
+        "sha256": "5470d9aa52d1a607ea7409e1cc90f0aa7aa0386a7c6ca41912cbf58dc1173b35"
+      },
+      {
+        "name": "microduckHeadImuRelease",
+        "chunk": 31,
+        "bytes": 228,
+        "sha256": "307ac4724061d272d7e326054e689889aa8eac858c24e36484d03d27edddcb21"
+      },
+      {
+        "name": "microduckDepthParams",
+        "chunk": 32,
+        "bytes": 164,
+        "sha256": "7c5a165a325d24cbb29bfde62abe85cf539960f0f9b99479b81ab3202b9fac3c"
+      },
+      {
+        "name": "microduckDepthCapture",
+        "chunk": 33,
+        "bytes": 200,
+        "sha256": "f292573e7ec9370dd3bdc572baadb38c18dcbb97017529d6bcc39d39f0556c76"
+      },
+      {
+        "name": "microduckDepthRow",
+        "chunk": 34,
+        "bytes": 203,
+        "sha256": "096efaf5f7aef620cc40b36e1f9cb06d5f1f856698f954a54f0410cf5e58ec7f"
+      },
+      {
+        "name": "microduckDepthZoneReading",
+        "chunk": 35,
+        "bytes": 317,
+        "sha256": "8af48003f559e0ae650133ce1fcabd76e5f9dc43c1d6666003352018a6da2395"
+      },
+      {
+        "name": "microduckDepthDistance",
+        "chunk": 36,
+        "bytes": 159,
+        "sha256": "ab492f0c1348b5fd2f6ed4dd0881074fcea6242df6c19cbf7bf6e53760cdfe5f"
+      },
+      {
+        "name": "microduckDepthRawDistance",
+        "chunk": 37,
+        "bytes": 176,
+        "sha256": "92a056535878bfb37761dd7666d3363fc28ae2e0411bbe25e6f4e9b6c1f85ad9"
+      },
+      {
+        "name": "microduckDepthRawStatus",
+        "chunk": 38,
+        "bytes": 168,
+        "sha256": "32811abed1cfcb119c0e3a2da3f3fde52727c685765537ab070328f42febb54e"
+      },
+      {
+        "name": "microduckDepthMetadata",
+        "chunk": 39,
+        "bytes": 252,
+        "sha256": "ba20fe1c0c320575dc3cc84b4879d36fe7f302adb1f9573d7710c23b69ce664d"
+      },
+      {
+        "name": "microduckDepthSequence",
+        "chunk": 40,
+        "bytes": 114,
+        "sha256": "38f041636cca288a36b27be2427e989922f5eeb13496a25b2d7e2bb52ed3f850"
+      },
+      {
+        "name": "microduckDepthUptime",
+        "chunk": 41,
+        "bytes": 124,
+        "sha256": "ece5da277f24386996befe1eab0ceed514c9639ae8c08a93412c90f1fcabb834"
+      },
+      {
+        "name": "microduckDepthTimestamp",
+        "chunk": 42,
+        "bytes": 123,
+        "sha256": "e1ec3e283b97be87742b7eccf53f1202768de690253bf623b4ec8270843f6c42"
+      },
+      {
+        "name": "microduckDepthRows",
+        "chunk": 43,
+        "bytes": 115,
+        "sha256": "3e25ea798bf3936408561f43a666a88dee3e95a6f943f13019c4376b4eefa4b5"
+      },
+      {
+        "name": "microduckDepthCols",
+        "chunk": 44,
+        "bytes": 118,
+        "sha256": "660ec0872c66f89846d5a6de026910c42739f180803ffae4f57f62e1c0e0046a"
+      },
+      {
+        "name": "microduckDepthRate",
+        "chunk": 45,
+        "bytes": 122,
+        "sha256": "d2835a46294337d39279714c87419a761c756293e864740c5ea3e551391b7d4f"
+      },
+      {
+        "name": "microduckDepthSensor",
+        "chunk": 46,
+        "bytes": 123,
+        "sha256": "6205142264f093d3e659ce99ed279ce52f9303780dbeb35225ab5ed7a1ec054f"
+      },
+      {
+        "name": "microduckDepthRelease",
+        "chunk": 47,
+        "bytes": 165,
+        "sha256": "91c7c681e783e93d22bbf99e9e0e25720a8679299c64fc264bcc25320eb73602"
+      },
+      {
+        "name": "microduckGamepadParams",
+        "chunk": 48,
+        "bytes": 170,
+        "sha256": "88154a87fce70bb9ece0c1875e3190c717882dba0b7e160b01bab6140189535e"
+      },
+      {
+        "name": "microduckGamepadCapture",
+        "chunk": 49,
+        "bytes": 202,
+        "sha256": "7c2d9f7817dffc2192c3955ff6c71d115c8614ce01641e531a67c6919865f69b"
+      },
+      {
+        "name": "microduckGamepadAxisReading",
+        "chunk": 50,
+        "bytes": 287,
+        "sha256": "237c18f372255af60058579443272e6df654897ee0249fecb9b1b96b45a51d0c"
+      },
+      {
+        "name": "microduckGamepadButtonReading",
+        "chunk": 51,
+        "bytes": 295,
+        "sha256": "e981dddc56d1b48f06d57ae221e86081ec9f16430b57987a69d3ffb65b45abe3"
+      },
+      {
+        "name": "microduckGamepadAxis",
+        "chunk": 52,
+        "bytes": 130,
+        "sha256": "79574299fb0b2444ad672a16fb786fbf865e3d1790209245ce59bb3e0641fe02"
+      },
+      {
+        "name": "microduckGamepadPosition",
+        "chunk": 53,
+        "bytes": 161,
+        "sha256": "299eabbdd2ca2259737cef91247c6e71e8769ab18aeed55df54630d2aa730fa8"
+      },
+      {
+        "name": "microduckGamepadAxisEvent",
+        "chunk": 54,
+        "bytes": 160,
+        "sha256": "ae795cc3b83d71f88f64fda9a88397967e6b45698ac6eb1dea223bf62667e88b"
+      },
+      {
+        "name": "microduckGamepadButton",
+        "chunk": 55,
+        "bytes": 142,
+        "sha256": "1a13e08c31f7ae4bd639294fa345f0433cf7ac5ee5d3b9167651bb81d8a028a9"
+      },
+      {
+        "name": "microduckGamepadButtonEvent",
+        "chunk": 56,
+        "bytes": 164,
+        "sha256": "f89f033ee2c095eb2abeb862ce27c22c20f77cda9daf12bd6c30dfecebeb8a81"
+      },
+      {
+        "name": "microduckGamepadControl",
+        "chunk": 57,
+        "bytes": 339,
+        "sha256": "6b331ca86e9136cca9f6305e7c43a247cb874d21383e350d7142ba140d8344d0"
+      },
+      {
+        "name": "microduckGamepadMetadata",
+        "chunk": 58,
+        "bytes": 252,
+        "sha256": "e03080bfb2eb652b0e7a8dc083f914b48ce07714d732285bb86d5fadcb7a1773"
+      },
+      {
+        "name": "microduckGamepadAxisCode",
+        "chunk": 59,
+        "bytes": 160,
+        "sha256": "ed88a70826acfc902381ec05ab0a94a80e1659b252e1dfc21d1896941ecf7928"
+      },
+      {
+        "name": "microduckGamepadAxisName",
+        "chunk": 60,
+        "bytes": 160,
+        "sha256": "993fe26842c79551f83aba57877807a1ebd7e7e6ea67971da81ce670af913224"
+      },
+      {
+        "name": "microduckGamepadAxisMin",
+        "chunk": 61,
+        "bytes": 158,
+        "sha256": "af3d8861fffc5b3c1843b3f2edde8d20d1341aa6f3f0fdcc5303006b9b06d154"
+      },
+      {
+        "name": "microduckGamepadAxisMax",
+        "chunk": 62,
+        "bytes": 158,
+        "sha256": "78303b20ceae6c8714d9a27c4a8b1b52d606f1b871163c535a2a75c2ca1f9c3c"
+      },
+      {
+        "name": "microduckGamepadAxisFlat",
+        "chunk": 63,
+        "bytes": 160,
+        "sha256": "94222ccc147ffa4312e00b4f8a9c8b7514e4dd1d95ac041ccecf496e4a15128a"
+      },
+      {
+        "name": "microduckGamepadAxisFuzz",
+        "chunk": 64,
+        "bytes": 160,
+        "sha256": "c14a51b32973f1f6c0cf21237202cedbe3eaf8280baeb4c3996cf318b0696de2"
+      },
+      {
+        "name": "microduckGamepadButtonCode",
+        "chunk": 65,
+        "bytes": 164,
+        "sha256": "66eec7e88e42c334ad2e577fc19fd1f82b57aceb1ea9071221e943b0da3ae6c8"
+      },
+      {
+        "name": "microduckGamepadButtonName",
+        "chunk": 66,
+        "bytes": 164,
+        "sha256": "ec8074ba1cc7b4d4e612de4bd659dce57a782b6f3556e5f0ec55a2437e1213b9"
+      },
+      {
+        "name": "microduckGamepadSequence",
+        "chunk": 67,
+        "bytes": 128,
+        "sha256": "d293a932b30ab4e3d789cbfb43a0eed0014ee298f2c82a02ce66ee8476388611"
+      },
+      {
+        "name": "microduckGamepadTime",
+        "chunk": 68,
+        "bytes": 127,
+        "sha256": "60d1a9628e78e99b2b115b0c155d1a2312a33274d9c7033f9a33ccba5dfc472c"
+      },
+      {
+        "name": "microduckGamepadInterval",
+        "chunk": 69,
+        "bytes": 143,
+        "sha256": "adc9db4b8f637c6a5c0f3f5958b5ac802d15000d5550484b8f92f1abf9d6a6e7"
+      },
+      {
+        "name": "microduckGamepadFrames",
+        "chunk": 70,
+        "bytes": 128,
+        "sha256": "4803d8e3d34d7b34daff8ab5a7197dd9ba0bbd06e5e5767f0af412fa37c76f03"
+      },
+      {
+        "name": "microduckGamepadAxisCount",
+        "chunk": 71,
+        "bytes": 134,
+        "sha256": "60e272a7f997adace5cc05063d424ad4e9a91279588be633745737eaf7fdab17"
+      },
+      {
+        "name": "microduckGamepadButtonCount",
+        "chunk": 72,
+        "bytes": 142,
+        "sha256": "5f246b050cb73c0d051153245c251c7a0620f08e34898497a3ce7d0f83be48d8"
+      },
+      {
+        "name": "microduckGamepadName",
+        "chunk": 73,
+        "bytes": 130,
+        "sha256": "8dd7b060fb805203da455d4fb76353927265d8f1168306dd2cc8dcc642eda4a1"
+      },
+      {
+        "name": "microduckGamepadBus",
+        "chunk": 74,
+        "bytes": 116,
+        "sha256": "90b6c1871cbaa1806f077ae47741ba301e40d98813f2e48ce06c11f91439349c"
+      },
+      {
+        "name": "microduckGamepadVendor",
+        "chunk": 75,
+        "bytes": 126,
+        "sha256": "e39861062b5dc0e129c67f633b2605043136f70d9e006d7764e37da475f4f34d"
+      },
+      {
+        "name": "microduckGamepadProduct",
+        "chunk": 76,
+        "bytes": 128,
+        "sha256": "e00b8a2009ea76dc924170a1a26754ce18cb66acd6f38c53024fb6027f2aec06"
+      },
+      {
+        "name": "microduckGamepadObservationState",
+        "chunk": 77,
+        "bytes": 154,
+        "sha256": "c59fc2f15bf7281c0183f55125bb6e6ae8945f1aba69f8b8809c5e8cfc75605f"
+      },
+      {
+        "name": "microduckGamepadRelease",
+        "chunk": 78,
+        "bytes": 178,
+        "sha256": "752488f0b8ca77a96c64a74ed1bed913b288504eb8175af08408b9e205810819"
+      },
+      {
+        "name": "microduckRobotStateCapture",
+        "chunk": 79,
+        "bytes": 225,
+        "sha256": "f6005e973ad72e4c09e88d13c55143573ebba5ef2350d3a0012a96faf8519e90"
+      },
+      {
+        "name": "microduckRobotStateRelease",
+        "chunk": 80,
+        "bytes": 226,
+        "sha256": "d2e5f89840bef6befd9f6bc2d6ebc961c7de5426b7fbee08c6693dd29e023cd4"
+      },
+      {
+        "name": "microduckRobotStateReading",
+        "chunk": 81,
+        "bytes": 400,
+        "sha256": "9e09741a1f00ca28d08f062df1f3792e277c88f4d7393504e3f972169845792b"
+      },
+      {
+        "name": "microduckRobotMoveRequested",
+        "chunk": 82,
+        "bytes": 159,
+        "sha256": "f38b5f4030972cca5d2094a132f3e94afcc76d86728cf9b99a612a7fd525543e"
+      },
+      {
+        "name": "microduckRobotMoveApplied",
+        "chunk": 83,
+        "bytes": 155,
+        "sha256": "2889bb70ef70c9341890f908a16e54442373b7dc8708e05fb352a25309f11385"
+      },
+      {
+        "name": "microduckRobotMoveLimitCount",
+        "chunk": 84,
+        "bytes": 144,
+        "sha256": "b2d3d0bda750f70cb471fbe043109f5ff74ffe8856bf995eff24f9c95e940d70"
+      },
+      {
+        "name": "microduckRobotMoveLimitReason",
+        "chunk": 85,
+        "bytes": 145,
+        "sha256": "db4e8795a73d5ea2a5b64ef27b30212035777df2222fad26ac2e992d2d08b4cc"
+      },
+      {
+        "name": "microduckRobotLoopHz",
+        "chunk": 86,
+        "bytes": 119,
+        "sha256": "b7700088ec402fa91a5279fc8c2932c77626964b8c6da77cc42d5cad91c6a579"
+      },
+      {
+        "name": "microduckRobotSafety",
+        "chunk": 87,
+        "bytes": 174,
+        "sha256": "70bcfd2236527053b2aaf72e88640764b2bd2d6169f6836b276b7d89bda61d67"
+      },
+      {
+        "name": "microduckRobotJoint",
+        "chunk": 88,
+        "bytes": 136,
+        "sha256": "f0b6a9f5fb3240174acd4f9663418ee99b14e658f885336c3f3bb286831bd341"
+      },
+      {
+        "name": "microduckRobotTarget",
+        "chunk": 89,
+        "bytes": 135,
+        "sha256": "dee102f0ff3bf5c1fd465bdf94a309f6feabf511da36fbbbb92ce70882e0776a"
+      },
+      {
+        "name": "microduckRobotVelocity",
+        "chunk": 90,
+        "bytes": 145,
+        "sha256": "b5e786b8eeb41abfec18b57b42ea5feb324434163251ae9df9723c4fcdcfa616"
+      },
+      {
+        "name": "microduckRobotCurrent",
+        "chunk": 91,
+        "bytes": 149,
+        "sha256": "e47e1156e4fe368123a28151b1fcd2b00c2efdc26a05e6c433d256a5d3f76cf9"
+      },
+      {
+        "name": "microduckRobotOdomPosition",
+        "chunk": 92,
+        "bytes": 162,
+        "sha256": "6ec4c393467874f499db0cd3d9e525be95d8adfc99a29ba0e800fe9fae9512c1"
+      },
+      {
+        "name": "microduckRobotOdomYaw",
+        "chunk": 93,
+        "bytes": 138,
+        "sha256": "e50300fc33e488d1912b0d86bbf05c3d265ded9e11b2436ef02247bfc7645899"
+      },
+      {
+        "name": "microduckRobotImuGyro",
+        "chunk": 94,
+        "bytes": 152,
+        "sha256": "ae0984031e0e572142ea7335d86669aad866f57c31ad0bb38198e03a793d94ca"
+      },
+      {
+        "name": "microduckRobotImuQuat",
+        "chunk": 95,
+        "bytes": 160,
+        "sha256": "42120e4fb34dcaa77ce76c38e45ae9fe508c338978e6ae991ebbf24947bc3e2e"
+      },
+      {
+        "name": "microduckRobotFrame",
+        "chunk": 96,
+        "bytes": 193,
+        "sha256": "9c87d2565ba649820cce211c70aa5f990126e5e297f60d11511c458ae23e0197"
+      },
+      {
+        "name": "microduckRobotSkeleton",
+        "chunk": 97,
+        "bytes": 197,
+        "sha256": "755268447be44521974f82b9c7efac0775b43a1eba4b6da2248a39d62750c668"
+      },
+      {
+        "name": "microduckRobotTimestamp",
+        "chunk": 98,
+        "bytes": 129,
+        "sha256": "8d7c36482d42ca818885dc83ab528ab29b265eda9785fe98b53d404845d383a7"
+      },
+      {
+        "name": "microduckRobotHealthCapture",
+        "chunk": 99,
+        "bytes": 218,
+        "sha256": "d7802c29dd709e158afee999665fb3ed3a2b0b7128c8848e0c84f473828a12da"
+      },
+      {
+        "name": "microduckRobotHealthReading",
+        "chunk": 100,
+        "bytes": 329,
+        "sha256": "28e3017267990c6c66efebe799adc649c906fd225427d0c6c403550b5d30b3c5"
+      },
+      {
+        "name": "microduckRobotHealthy",
+        "chunk": 101,
+        "bytes": 116,
+        "sha256": "5edf6faf4eff963f76d099d088af89e1cf5f19a106de6582419a2f4d1a514a26"
+      },
+      {
+        "name": "microduckRobotDegraded",
+        "chunk": 102,
+        "bytes": 122,
+        "sha256": "41430781f4cff2a83cfed7c3b6aa35801c3bad6e563e8618bec69771385ae2ff"
+      },
+      {
+        "name": "microduckRobotHealthVerdict",
+        "chunk": 103,
+        "bytes": 135,
+        "sha256": "2228850ad52711ed77f126e999110ced91769be1b5300276bfc0f63d5af6ae30"
+      },
+      {
+        "name": "microduckRobotBatteryPercent",
+        "chunk": 104,
+        "bytes": 139,
+        "sha256": "df086f6467b979ec7e3957889b4098ca6f592f3a7d45631cdd7112fba23d10d4"
+      },
+      {
+        "name": "microduckRobotBatteryVoltage",
+        "chunk": 105,
+        "bytes": 137,
+        "sha256": "bf932566a79eec66ccbd9e8679964e30ce074ab94bcc6323b90470391e022e6d"
+      },
+      {
+        "name": "microduckRobotCpuTemperature",
+        "chunk": 106,
+        "bytes": 130,
+        "sha256": "59fe2cde8eb486b223efc5a9a0d2f5208f940832194795da0fb5485fd35370cd"
+      },
+      {
+        "name": "microduckRobotMotorMaxTemperature",
+        "chunk": 107,
+        "bytes": 141,
+        "sha256": "3189ce0361542bc8c2d2de0b973dc3417c573a865c8373fed4dd8fde6720c50d"
+      },
+      {
+        "name": "microduckRobotMotorMeanTemperature",
+        "chunk": 108,
+        "bytes": 143,
+        "sha256": "078702ad51aa28b2b437e29c8fc8bdb602499116b46546c7741ccf22c34445f3"
+      },
+      {
+        "name": "microduckRobotTargetLoopRate",
+        "chunk": 109,
+        "bytes": 154,
+        "sha256": "193e6d461fd79c06cbef0558f0a146e97dce2987a16f22fd8e9466f2a43f9d21"
+      },
+      {
+        "name": "microduckRobotAchievedLoopRate",
+        "chunk": 110,
+        "bytes": 162,
+        "sha256": "095532b9fad65f1393d8afa81e464535a824caf5808f60f26ae57e43af9dc395"
+      },
+      {
+        "name": "microduckRobotLastTickAge",
+        "chunk": 111,
+        "bytes": 166,
+        "sha256": "aaa1c4a04f73453b6e837280f81a983f9b7fe9c7f09494034bf06ee28553a260"
+      },
+      {
+        "name": "microduckRobotTicks",
+        "chunk": 112,
+        "bytes": 137,
+        "sha256": "7ea9c2c2351ede1f785923e93f9032a27ce25cc20a6539dee982661d947ca0c3"
+      },
+      {
+        "name": "microduckRobotMissedTicks",
+        "chunk": 113,
+        "bytes": 144,
+        "sha256": "d503845074e2c562f430dac959e4b699d81ab497b2456129c22f37cb72c63ba2"
+      },
+      {
+        "name": "microduckRobotBusErrors",
+        "chunk": 114,
+        "bytes": 149,
+        "sha256": "5e0c7a6d17f741a3b78fd08e7abdab74aeb82b6ec2891616e966b9ae99c4105e"
+      },
+      {
+        "name": "microduckRobotBusStartupFailures",
+        "chunk": 115,
+        "bytes": 156,
+        "sha256": "61d7c432b683425bb20d51a352167129f780ff5eee531fb54d0eacf6599e3c82"
+      },
+      {
+        "name": "microduckRobotImuReady",
+        "chunk": 116,
+        "bytes": 123,
+        "sha256": "87070d02723b2d41e49c441d72fc346bc20a51c904dedd6ef02b2c746adaa142"
+      },
+      {
+        "name": "microduckRobotImuMissing",
+        "chunk": 117,
+        "bytes": 127,
+        "sha256": "8e3b17c6302e1c860f43cb60c211524eb2bf10af8fd0014b2b671c9d9caf0fda"
+      },
+      {
+        "name": "microduckRobotImuStaleBlocks",
+        "chunk": 118,
+        "bytes": 144,
+        "sha256": "2e44c718d3a01d63f9aa685038762b3f8abe2abf8d7206bc798c2c61566572b3"
+      },
+      {
+        "name": "microduckRobotImuStaleRun",
+        "chunk": 119,
+        "bytes": 165,
+        "sha256": "9dea8c6a08116d4e2fa9ae1e19abb685f0767f71d04dd1395faa74b1a2677d11"
+      },
+      {
+        "name": "microduckRobotHealthImuState",
+        "chunk": 120,
+        "bytes": 129,
+        "sha256": "7e595040892bef77c073f2b7040312a7785db827fc6e45a2cb875379f90b727f"
+      },
+      {
+        "name": "microduckRobotHealthReason",
+        "chunk": 121,
+        "bytes": 120,
+        "sha256": "e1b734af1d68c348c86695eabb7d7587ccc2d92fcfd8c6a36ce4568660a84240"
+      },
+      {
+        "name": "microduckRobotLoopMissed",
+        "chunk": 122,
+        "bytes": 130,
+        "sha256": "4b64c70d0a69be49116eccf8806a8c4910d5b94af1b73a47736d9be90460fe79"
+      },
+      {
+        "name": "microduckRobotPolicy",
+        "chunk": 123,
+        "bytes": 125,
+        "sha256": "317eb8c8f59dba2ee0f9f7f5b5494fbb2f4da210696ca4b14b4540355b63a15a"
+      },
+      {
+        "name": "microduckPadImuCapture",
+        "chunk": 124,
+        "bytes": 204,
+        "sha256": "298d365158e77c80317a4339ddea81652b96aae0f2df9d1926c3f57d0fc99456"
+      },
+      {
+        "name": "microduckPadImuReading",
+        "chunk": 125,
+        "bytes": 386,
+        "sha256": "0480185f1b88b107858a7396a8536ceb55572d76be4cef6203f0399eebf6fc29"
+      },
+      {
+        "name": "microduckPadImuCount",
+        "chunk": 126,
+        "bytes": 130,
+        "sha256": "723ac3a8749e01e6df7eeeacf47ff59b7719da021e164f7d4edc53673f0116cf"
+      },
+      {
+        "name": "microduckPadImuAccelRaw",
+        "chunk": 127,
+        "bytes": 167,
+        "sha256": "01bebff19756b29653124f5f25fc2aab475715df05dd96e4fd6c7f434f37160b"
+      },
+      {
+        "name": "microduckPadImuGyroRaw",
+        "chunk": 128,
+        "bytes": 165,
+        "sha256": "6f8e0e9470d83ff194e17808a982c2bd167902dc52ad4c7f723eef1036f2428d"
+      },
+      {
+        "name": "microduckPadImuAccel",
+        "chunk": 129,
+        "bytes": 165,
+        "sha256": "0e52bfa9f25146be774cc51470a5bc0dae7b8ddabd53c5d5644e4653e51f664c"
+      },
+      {
+        "name": "microduckPadImuGyro",
+        "chunk": 130,
+        "bytes": 165,
+        "sha256": "5e87fa5d04fae73cc4707e7e72f374e29cf8369e9f6bd8aa89ea49a486a788b0"
+      },
+      {
+        "name": "microduckPadImuSequence",
+        "chunk": 131,
+        "bytes": 137,
+        "sha256": "ec3cdd88f924945131fe1902ba5a566f4ae6eb6ebbf89f942e8ec38be1c49d97"
+      },
+      {
+        "name": "microduckPadImuTime",
+        "chunk": 132,
+        "bytes": 143,
+        "sha256": "e6fd22ff6cf363ffc59722a21de7063f00d7437d0f249d2c1b1125638b3cef49"
+      },
+      {
+        "name": "microduckPadImuAccelLimit",
+        "chunk": 133,
+        "bytes": 187,
+        "sha256": "21104b02accd73394a5440947c01e1fc573d5dc07d848c4ee2c23de5f79956d3"
+      },
+      {
+        "name": "microduckPadImuGyroLimit",
+        "chunk": 134,
+        "bytes": 185,
+        "sha256": "4565af175c225b9697537e5d4a1d5f8959b1c711a3ab665ae6d90b789704a149"
+      },
+      {
+        "name": "microduckPadImuRelease",
+        "chunk": 135,
+        "bytes": 224,
+        "sha256": "db0688ce7ad7ca46cba11e58fc5ebd8939d300ed719fb840c821667ebfbebce3"
+      },
+      {
+        "name": "microduckPadImuAccelResolution",
+        "chunk": 136,
+        "bytes": 154,
+        "sha256": "c0a73f06aba9942c01704a07674b0148a8b80d34e80a75b3849c28d46f8afd60"
+      },
+      {
+        "name": "microduckPadImuGyroResolution",
+        "chunk": 137,
+        "bytes": 163,
+        "sha256": "06550a44c504543f07d1c0f88e1e4f7a1e9197c65607fae62f6037dd210d2f7e"
+      },
+      {
+        "name": "microduckPadImuAccelRange",
+        "chunk": 138,
+        "bytes": 148,
+        "sha256": "dbfb37610f133b5fb1061eb720c90d54a400d79b857725ebe33dea97230b72a9"
+      },
+      {
+        "name": "microduckPadImuGyroRange",
+        "chunk": 139,
+        "bytes": 146,
+        "sha256": "8f616cac41c898c54b7239af15f98a66e30aed3371af252f2470853e7ca82a58"
+      }
+    ],
+    "real_vm": {
+      "version": 417,
+      "board": "Linux ARM64",
+      "functions_uploaded_with_crc": 140,
+      "checks": [
+        {
+          "source": "microduckReadingStatus (microduckBatteryPercent '{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false,\"simulation\":true,\"battery\":{\"percent\":0}}}')",
+          "expected": "ok",
+          "actual": "ok",
+          "sha256": "c30323294b008738368ea2767bc357fd3ccea3010e87fe7d7264d4f0b0122850"
+        },
+        {
+          "source": "'[microduck:readingValue]' (microduckBatteryPercent '{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false,\"simulation\":true,\"battery\":{\"percent\":0}}}')",
+          "expected": 0,
+          "actual": 0,
+          "sha256": "e3b34017dc8574064c2f63d41a27df1ea215bf49a6e13fcd91ab2a42ae82a560"
+        },
+        {
+          "source": "microduckReadingUnit (microduckBatteryPercent '{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false,\"simulation\":true,\"battery\":{\"percent\":0}}}')",
+          "expected": "0.01%",
+          "actual": "0.01%",
+          "sha256": "ef69e9d096bfd782b8b35da0018e008ea92199aac3eae34d70af785c6524ccb6"
+        },
+        {
+          "source": "microduckReadingOrigin (microduckBatteryPercent '{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false,\"simulation\":true,\"battery\":{\"percent\":0}}}')",
+          "expected": "simulation",
+          "actual": "simulation",
+          "sha256": "976983afbf1131b5a425c213c494342b48f5bb342f23e5605a7dcfc25c4037b1"
+        },
+        {
+          "source": "microduckReadingKnown (microduckBatteryPercent '{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false}}')",
+          "expected": false,
+          "actual": false,
+          "sha256": "5f644be53e400cf418b6fd62b904d5c66cf732a2769db6e5eb213646d4ddd9b0"
+        },
+        {
+          "source": "microduckReadingStatus (microduckBatteryPercent '{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"healthy\":false}}')",
+          "expected": "unknown",
+          "actual": "unknown",
+          "sha256": "e7114144a828cb3f901eeedab84bd9fbac45be69e121e34cf2974575137b5014"
+        },
+        {
+          "source": "microduckReadingStatus (microduckBatteryPercent '{\"healthy\":false}')",
+          "expected": "invalid",
+          "actual": "invalid",
+          "sha256": "0d3efda3452d2493c90cb4a54d545b6a8641d02b8071d02fadcbd4ad2d09291e"
+        },
+        {
+          "source": "microduckReadingStatus (microduckHeadImuCapture)",
+          "expected": "error",
+          "actual": "error",
+          "sha256": "56bbb817474f6fb7f2663080ff2127697c8593ce054962a04e649c8405847bbf"
+        },
+        {
+          "source": "microduckReadingStatus (microduckDepthCapture)",
+          "expected": "error",
+          "actual": "error",
+          "sha256": "a251210bdb1245fedd4cf5b30fb0cfe74f941ce9b0fff04f686271793409d4db"
+        },
+        {
+          "source": "microduckReadingStatus (microduckGamepadCapture)",
+          "expected": "error",
+          "actual": "error",
+          "sha256": "43068c94df6a4481128b1d6c276cf26be869b33efbac09e6662da9ffa39f254d"
+        },
+        {
+          "source": "microduckReadingStatus (microduckRobotHealthCapture)",
+          "expected": "error",
+          "actual": "error",
+          "sha256": "841c6e20b68a289b1053291169f4078a32a28874c967e2784172316cdf8137f2"
+        },
+        {
+          "source": "microduckReadingStatus (microduckPadImuCapture)",
+          "expected": "error",
+          "actual": "error",
+          "sha256": "2fd98dca10c22388c835e7d1a4fa4b2616d2d41b5955a81d85145018fafda007"
+        }
+      ],
+      "simulated_sensor_services": false,
+      "physical_robot": false
+    }
+  }
+}

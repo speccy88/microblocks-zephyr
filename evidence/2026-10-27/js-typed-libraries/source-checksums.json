@@ -1,0 +1,12 @@
+{
+  "docs/JS_TYPED_LIBRARIES.md": "da04c97c13a765fcbcf9fed5551eeec9438e4f6e4ea159b94be98f5fb3b5e811",
+  "docs/JS_TYPED_LIBRARIES_SPEC.md": "a0ebf7259e0f21474f99e86e3399b7061ada3d63490d07be387fa0f8b1d0d33e",
+  "docs/JS_EDITOR_MIGRATION.md": "aa14409334982626cea26efeb5a6131ea801b616e0a47d9c372416a101392b00",
+  "docs/MICRODUCK_REMAINING_OBJECTIVES.md": "e7269b37ca7b86532abb3cd461fb73a6588bdb9f072ec180aedce1ab3d111a49",
+  "tools/package_js_editor.py": "20ebd221f5a3e08214414c8e3cb8b0e230be36385cffe273365b053228ae29c7",
+  "web/js-editor/linux-compat.js": "67f40360cbd162de1fb9da88b0b119b99b02233d6415db36e3d950cc86fe8aeb",
+  "tests/js-typed-libraries.test.cjs": "8d1d57a63a80c6021c6d3051ccd27ca848322619a04ed070edf88c1110d71d18",
+  "tests/support/js_editor_headless.cjs": "7d035eaa27c0493fb3c842219505f2b78845358a1092c367fa05e2013ed2a9c2",
+  "tests/test_js_editor_migration.py": "c3592897ee07ac0288d78789e28d1087fe416131af23893e333e89ee8d2a3832",
+  "tests/js_editor_pi_probe.py": "a4959ea69bc324fab0b47fb0857b2f12374f375489386e83fa01e1fe6ecf04f9"
+}

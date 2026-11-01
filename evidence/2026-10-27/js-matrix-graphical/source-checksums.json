@@ -1,0 +1,66 @@
+{
+  "source_and_test_files": {
+    "LICENSES.md": {
+      "bytes": 17279,
+      "sha256": "6ee86af1608bde7d5e30c39324a700efc7c7ae46c88d3407a0c7f973bafc0267"
+    },
+    "dependencies/unoq-matrix-gp.json": {
+      "bytes": 579,
+      "sha256": "0c8aeb8ef8e7737e87787cfa7c38e8dcfa77c6da7c4c77ca7371e74a58fa9eee"
+    },
+    "docs/JS_EDITOR_MIGRATION.md": {
+      "bytes": 8066,
+      "sha256": "e7c61023bc30aceed82e802b47fb0f07a7052c7fc9320e43e65dc1539c3785eb"
+    },
+    "docs/JS_MATRIX_ADAPTER.md": {
+      "bytes": 4840,
+      "sha256": "43bfb7d9d85d1772a5a0ff2e7b6b57abde15a9f6a72a43277d4db0cdbc9b029d"
+    },
+    "docs/JS_MATRIX_SPEC.md": {
+      "bytes": 1313,
+      "sha256": "15e7da6f16ab3f586f5d22bef52fd3abb75cebfe74bf2e3bb7c970847550391a"
+    },
+    "docs/JS_TYPED_LIBRARIES.md": {
+      "bytes": 4380,
+      "sha256": "27fa63e4d65884c6196ed33d663146488c1100d9d719db5851e85f50516a6a3c"
+    },
+    "tests/js-matrix-slot.test.cjs": {
+      "bytes": 4183,
+      "sha256": "aa64b62ac201584bfcfa7cb3684a51a8b5ea16568c1b7e62d376c472d65890fe"
+    },
+    "tests/js-typed-libraries.test.cjs": {
+      "bytes": 9059,
+      "sha256": "24abb2760c8279904985404c730ae31b41dba643281dcc10b543ca1886b2a2fe"
+    },
+    "tests/support/js_editor_headless.cjs": {
+      "bytes": 4467,
+      "sha256": "6c32a08d6f8d2cfe95072e124128a5937a1adfd3e0f8265becf8d210309a1dea"
+    },
+    "tests/test_js_editor_migration.py": {
+      "bytes": 6511,
+      "sha256": "1341a016372e984efb4511e2e69440fe6eaecd277217a7ddcecde4c2665c4022"
+    },
+    "tools/package_js_editor.py": {
+      "bytes": 4931,
+      "sha256": "50d38a4162eb1e6ccbc0df2a06e0836b940a8ab10ce61296db0b9c3b98859643"
+    },
+    "web/js-editor/bootstrap.js": {
+      "bytes": 1382,
+      "sha256": "f082eb5ed1278e72f4c6526cd20412b05e7d01107c8e2297dd1f99fdb7caf7c6"
+    },
+    "web/js-editor/legacy-slots.js": {
+      "bytes": 7039,
+      "sha256": "8c84fc2baf0815ce092cb7188b044de4e85dd7f2bebbcec35f48a57737e18871"
+    }
+  },
+  "all_staged_files_byte_identical_to_working_tree": true,
+  "validation_input_files": 2028,
+  "post_validation_input_changes": [
+    "evidence/2026-10-27/js-matrix-graphical/README.md"
+  ],
+  "post_validation_input_change_scope": "Evidence README result wording only; no production/test changes",
+  "static_package_files_verified": 569,
+  "static_archive_verified": true,
+  "no_high_confidence_secret_patterns_in_staged_files": true,
+  "scan_limit": "Heuristic scan of staged checkpoint only; local usernames/paths and lab process metadata remain. Root authentication helpers, private keys and upstream cache worktrees excluded."
+}

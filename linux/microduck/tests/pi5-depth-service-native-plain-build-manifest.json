@@ -1,0 +1,233 @@
+{
+  "canonical_repository": "https://codeberg.org/MicroBlocks/smallvm",
+  "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "vm_version": 417,
+  "sources": {
+    "vm/blePrims.cpp": {
+      "upstream_sha256": "08d8d836df30b564eb071ab191d723ed28ecfa777f44e22a4dd30f05c3367059",
+      "prepared_sha256": "08d8d836df30b564eb071ab191d723ed28ecfa777f44e22a4dd30f05c3367059"
+    },
+    "vm/bmi270config.h": {
+      "upstream_sha256": "97e41be79065c8292a5e2baa74bff81895fe49c78d60a03a0a60b74a54232807",
+      "prepared_sha256": "97e41be79065c8292a5e2baa74bff81895fe49c78d60a03a0a60b74a54232807"
+    },
+    "vm/boardHooks.c": {
+      "upstream_sha256": "164bc1479f7c5447742a25f47fe148a0158d382c0f50484727824f9baf28429d",
+      "prepared_sha256": "164bc1479f7c5447742a25f47fe148a0158d382c0f50484727824f9baf28429d"
+    },
+    "vm/boardHooks.h": {
+      "upstream_sha256": "b92091d3e5b6c8fd31d5a89a81e48ba695492567f84d36ab5f5363ecbd651da7",
+      "prepared_sha256": "b92091d3e5b6c8fd31d5a89a81e48ba695492567f84d36ab5f5363ecbd651da7"
+    },
+    "vm/cameraPrims.cpp": {
+      "upstream_sha256": "06cb757c821bf0c2ceceb48028bd2923088723b422b2b4e12645ef56829fd5f7",
+      "prepared_sha256": "06cb757c821bf0c2ceceb48028bd2923088723b422b2b4e12645ef56829fd5f7"
+    },
+    "vm/cocubePrims.cpp": {
+      "upstream_sha256": "a112c7f333e12c5256a4823b85ffa7b526797d84be23021c77eb7253e98996a7",
+      "prepared_sha256": "a112c7f333e12c5256a4823b85ffa7b526797d84be23021c77eb7253e98996a7"
+    },
+    "vm/dataPrims.c": {
+      "upstream_sha256": "af314984d4b6b71b9eaff28fe0dc65d184afbcfc3d1865895580bd55c958a715",
+      "prepared_sha256": "0d699e767afd1954d7da7226988019111ff31bd27b51479955e9708006eb4b48"
+    },
+    "vm/encoderPrims.cpp": {
+      "upstream_sha256": "2ad14fd0b1e118b55e8ad0250be1b43843600c4d6d3e25e3b133b72d2a4d3cad",
+      "prepared_sha256": "2ad14fd0b1e118b55e8ad0250be1b43843600c4d6d3e25e3b133b72d2a4d3cad"
+    },
+    "vm/filePrims.cpp": {
+      "upstream_sha256": "1c679567156ff65ee86526ae137badb57f18e5de2fe1d7c8bb84bb3eff3fcc80",
+      "prepared_sha256": "1c679567156ff65ee86526ae137badb57f18e5de2fe1d7c8bb84bb3eff3fcc80"
+    },
+    "vm/fileSys.h": {
+      "upstream_sha256": "6f6c5417a544c464cd63ae364d24703a1d7afdc5ec08943683f94dcfd469ace7",
+      "prepared_sha256": "6f6c5417a544c464cd63ae364d24703a1d7afdc5ec08943683f94dcfd469ace7"
+    },
+    "vm/fileTransfer.cpp": {
+      "upstream_sha256": "880cd3740e62867811bfbc6b923ae104f9d45955e337093d2e0b7aeb882dbbc7",
+      "prepared_sha256": "880cd3740e62867811bfbc6b923ae104f9d45955e337093d2e0b7aeb882dbbc7"
+    },
+    "vm/hidPrims.cpp": {
+      "upstream_sha256": "d28d7568ba3ed29395b2acc6d7f31113fa2397a27d455149852b1bebe2799a26",
+      "prepared_sha256": "d28d7568ba3ed29395b2acc6d7f31113fa2397a27d455149852b1bebe2799a26"
+    },
+    "vm/hub75Prims.cpp": {
+      "upstream_sha256": "292c2c932eb825d773cf3d6adb2204973b16981a08916a9089a3d4a606e9bbab",
+      "prepared_sha256": "292c2c932eb825d773cf3d6adb2204973b16981a08916a9089a3d4a606e9bbab"
+    },
+    "vm/ideComm.cpp": {
+      "upstream_sha256": "98a879db0a1cf921ed89df21922cb1dd881b83aa44ac526187b956c1c14646f4",
+      "prepared_sha256": "98a879db0a1cf921ed89df21922cb1dd881b83aa44ac526187b956c1c14646f4"
+    },
+    "vm/interp.c": {
+      "upstream_sha256": "73fe8829d0b3e7394a5660c8a433ef317e4ffb08376b6bc0b25bd2fe5404c78e",
+      "prepared_sha256": "cfc8c6e4fdda966644edc6f102f81809e81567177d9af49a72d89c80db003653"
+    },
+    "vm/interp.h": {
+      "upstream_sha256": "ff94118f0aba88500a6a3a1aaee63cedfa3e5c855735c99bc2354f9ec7eaf735",
+      "prepared_sha256": "962e1a5dd297ed8a565e856ba0acb5110142936c6da4485e0c0c7807f81eacdc"
+    },
+    "vm/ioPrims.cpp": {
+      "upstream_sha256": "55397d58b02b95fdb96b3cca9126cbeca020a45af28358c0749e903b15ea4bee",
+      "prepared_sha256": "55397d58b02b95fdb96b3cca9126cbeca020a45af28358c0749e903b15ea4bee"
+    },
+    "vm/mbFont.c": {
+      "upstream_sha256": "5ab121ca6ae9750889367a354ea263a21662e4fde5f19807e76e5d4bf8fda4e2",
+      "prepared_sha256": "5ab121ca6ae9750889367a354ea263a21662e4fde5f19807e76e5d4bf8fda4e2"
+    },
+    "vm/mem.c": {
+      "upstream_sha256": "453dcee99d4f1d016e58733fa7ef1e82d9ca627881d23d3d0ddd55ed0d2b50ff",
+      "prepared_sha256": "5e91075458da595a7e3644e9b3a5b36e0558c6faff517259e6bb09d67e7accc9",
+      "port_source": "linux/arm64/runtime/mem.c"
+    },
+    "vm/mem.h": {
+      "upstream_sha256": "670b2d64c04822c4440476a8eab4a4a7bdf4f049eca7cd7245445c5dfe2a80b0",
+      "prepared_sha256": "0ffc91e9a33e128f071f546c5c95c7f5f81365bdf54d029105882a6ede2f2184",
+      "port_source": "linux/arm64/runtime/mem.h"
+    },
+    "vm/miscPrims.c": {
+      "upstream_sha256": "67605b35a3d4acfdd8e59b5a543d2af10d2deca63bd44a2ebcbe898c7ca42c8b",
+      "prepared_sha256": "cdbb29a8745f124ca013a3b6e99a2fdb48ad3f71759ff74b7f6e0ff33bd62e72"
+    },
+    "vm/netPrims.cpp": {
+      "upstream_sha256": "ec7ed1623bfb07b4f5e802c65d6188daada03e63bdbf315aeb69c2c173e52e22",
+      "prepared_sha256": "ec7ed1623bfb07b4f5e802c65d6188daada03e63bdbf315aeb69c2c173e52e22"
+    },
+    "vm/nezha32Prims.cpp": {
+      "upstream_sha256": "55fc85af6b059a75db3e46eb004013c7e359d8b7dfc78646fcd134e890b32607",
+      "prepared_sha256": "55fc85af6b059a75db3e46eb004013c7e359d8b7dfc78646fcd134e890b32607"
+    },
+    "vm/oneWirePrims.cpp": {
+      "upstream_sha256": "5a774d82c29d3c3c56d7675936473c2325833b8889766788250983cee4285886",
+      "prepared_sha256": "5a774d82c29d3c3c56d7675936473c2325833b8889766788250983cee4285886"
+    },
+    "vm/outputPrims.cpp": {
+      "upstream_sha256": "13d43bdccd79e1f7d4551e88719e01077f52d055cbb3832528391d45b23ac03e",
+      "prepared_sha256": "13d43bdccd79e1f7d4551e88719e01077f52d055cbb3832528391d45b23ac03e"
+    },
+    "vm/persist.c": {
+      "upstream_sha256": "5c38022e1b77f9d6f59b14dd65380cd972cdebc124a7e81479c4b7ef9ff81b9a",
+      "prepared_sha256": "382d80470fba589848e08461e47bdc69ba3a098841a895e86f88eaa52266bf42"
+    },
+    "vm/persist.h": {
+      "upstream_sha256": "51dbcb3df4249cd5c66f078e8d6040e9a35e6b9502b44def7572335c41ffa3f2",
+      "prepared_sha256": "51dbcb3df4249cd5c66f078e8d6040e9a35e6b9502b44def7572335c41ffa3f2"
+    },
+    "vm/persistFile.cpp": {
+      "upstream_sha256": "0ec519285110c71661c86657b6d624f470c4ac85d2d10dd300c45e1eccfd9942",
+      "prepared_sha256": "0ec519285110c71661c86657b6d624f470c4ac85d2d10dd300c45e1eccfd9942"
+    },
+    "vm/radioPrims.cpp": {
+      "upstream_sha256": "7c89d13235baead816bc98a8ad3e83a21f11e6eb8e2ba2db140d55b4d5405815",
+      "prepared_sha256": "7c89d13235baead816bc98a8ad3e83a21f11e6eb8e2ba2db140d55b4d5405815"
+    },
+    "vm/runtime.c": {
+      "upstream_sha256": "d12c4c258b34555dbbf5e7e50770b4af0cec1b7ba282dadc3a6fd57002685f3b",
+      "prepared_sha256": "0b1f08d166a91e732e8c1c5501a8e81cd49e9562dd5beaee024e3375af33bb21"
+    },
+    "vm/sdCardPrims.cpp": {
+      "upstream_sha256": "b7a6a46f844f2e59fe78de324ad373002a3d66ef212bba403d3ac90b1ebf2c88",
+      "prepared_sha256": "b7a6a46f844f2e59fe78de324ad373002a3d66ef212bba403d3ac90b1ebf2c88"
+    },
+    "vm/sensorPrims.cpp": {
+      "upstream_sha256": "e72c68060553d50e4d7b765424c76095e8a7bd665cc314032924058d06657b17",
+      "prepared_sha256": "e72c68060553d50e4d7b765424c76095e8a7bd665cc314032924058d06657b17"
+    },
+    "vm/serialPrims.cpp": {
+      "upstream_sha256": "68def5bd3904a2868a38a7bb53647435ed6f7e42b8a020c0e4eb987d3b72d8ec",
+      "prepared_sha256": "68def5bd3904a2868a38a7bb53647435ed6f7e42b8a020c0e4eb987d3b72d8ec"
+    },
+    "vm/soundPrims.cpp": {
+      "upstream_sha256": "9c24c3d2920bedf2214b39d9efab9bae2728e3626885243979c2e9e0f5bc4d48",
+      "prepared_sha256": "9c24c3d2920bedf2214b39d9efab9bae2728e3626885243979c2e9e0f5bc4d48"
+    },
+    "vm/tftPrims.cpp": {
+      "upstream_sha256": "3760749f521ebc5466aaea7c81df25c27613a83db8507898de37b42cb6bac223",
+      "prepared_sha256": "3760749f521ebc5466aaea7c81df25c27613a83db8507898de37b42cb6bac223"
+    },
+    "vm/tinyJSON.c": {
+      "upstream_sha256": "67b82bbdacc0745ce7aeed0ae13d32a7350dddd96bab67bb1990d62186eb4d2a",
+      "prepared_sha256": "67b82bbdacc0745ce7aeed0ae13d32a7350dddd96bab67bb1990d62186eb4d2a"
+    },
+    "vm/tinyJSON.h": {
+      "upstream_sha256": "c97e03ef56f461c12011a6ca0f254b5db7b9e17ab3b69a59090141f89a856f5f",
+      "prepared_sha256": "c97e03ef56f461c12011a6ca0f254b5db7b9e17ab3b69a59090141f89a856f5f"
+    },
+    "vm/varPrims.c": {
+      "upstream_sha256": "45d178e6e5a3793fc71b33084b7b0922eaede739461ddd25b0f31be3a42348f9",
+      "prepared_sha256": "45d178e6e5a3793fc71b33084b7b0922eaede739461ddd25b0f31be3a42348f9"
+    },
+    "vm/version.h": {
+      "upstream_sha256": "52510d223789a90bd0df96078ae97a8a85c42e76eb535ef6feca10ea8c75650a",
+      "prepared_sha256": "52510d223789a90bd0df96078ae97a8a85c42e76eb535ef6feca10ea8c75650a"
+    },
+    "vm/vm.ino": {
+      "upstream_sha256": "dcca8238737f9cf94e0241554fa1abb2f862054b5092911bdbd4ba13e7400324",
+      "prepared_sha256": "dcca8238737f9cf94e0241554fa1abb2f862054b5092911bdbd4ba13e7400324"
+    },
+    "vm/arena.c": {
+      "port_source": "linux/arm64/runtime/arena.c",
+      "prepared_sha256": "03c7c70134b904da96bc787adac8ba67f68d5dc3d7678c9ec2856898f471211c"
+    },
+    "vm/arena.h": {
+      "port_source": "linux/arm64/runtime/arena.h",
+      "prepared_sha256": "b18a7337ee46bcbb5330f85821f3b4f72eb204ba76fca05bfd0ea1fc88b10fb0"
+    },
+    "platform/linux.c": {
+      "port_source": "linux/arm64/platform/linux.c",
+      "prepared_sha256": "f04ca911be8d17e4ff8f56b3b942c59e6b17dfee53152e8411b5d6cd3189951d"
+    },
+    "platform/main.c": {
+      "port_source": "linux/arm64/platform/main.c",
+      "prepared_sha256": "1e5e8b912f353917ed425419958e24799a010d6be3a1e5693d40ef1d79934e21"
+    },
+    "platform/microduck.c": {
+      "port_source": "linux/arm64/platform/microduck.c",
+      "prepared_sha256": "a539941c35c53bd690844a60908c0f02b1fe4489b69f3d5384d1a8548bb23e1c"
+    },
+    "platform/microduck.h": {
+      "port_source": "linux/arm64/platform/microduck.h",
+      "prepared_sha256": "49f7ad14358c9d9bec1baa1f681b6e9cced046788c174548307897dc6684da9b"
+    },
+    "platform/platform.h": {
+      "port_source": "linux/arm64/platform/platform.h",
+      "prepared_sha256": "9713d46f7b8953cd96b8a5cc223e3e21262062a651cc3ac11be31f5a28d87613"
+    },
+    "platform/primitives.c": {
+      "port_source": "linux/arm64/platform/primitives.c",
+      "prepared_sha256": "090061b4c2788d1bb05ca23afba1b951fa086f44235e86bae78c297e19b4cfe8"
+    },
+    "platform/self_test.c": {
+      "port_source": "linux/arm64/platform/self_test.c",
+      "prepared_sha256": "c5e1e934dcaf6e15a22dbaebc4bd488a4e7651055f81d7c3c0c3dee3001ea5c3"
+    },
+    "third_party/yyjson/yyjson.c": {
+      "dependency_repository": "https://github.com/ibireme/yyjson",
+      "dependency_commit": "6447536015f3d600f3d65323b10976103b337ca7",
+      "prepared_sha256": "d2d58ef0a3b2267862dc363832c4f3185fd375aea933d5d3419d1a940d6ece2e"
+    },
+    "third_party/yyjson/LICENSE": {
+      "dependency_repository": "https://github.com/ibireme/yyjson",
+      "dependency_commit": "6447536015f3d600f3d65323b10976103b337ca7",
+      "prepared_sha256": "45e384d3d52c73cba3a64d6e6c25d47cd738cd8a55c30629e3201046eda62947"
+    },
+    "third_party/yyjson/yyjson.h": {
+      "dependency_repository": "https://github.com/ibireme/yyjson",
+      "dependency_commit": "6447536015f3d600f3d65323b10976103b337ca7",
+      "prepared_sha256": "ef803cda5c06b8962face6dfa39c3284b3bcf3e73f4d7317664690cc779679ca"
+    },
+    "common/json/json_config.h": {
+      "port_source": "common/json/json_config.h",
+      "prepared_sha256": "a6f916d01cdb343828697d7eec2b1d94f51d4d4279bcebe4ae31125a6d1355d3"
+    }
+  },
+  "sanitize": false,
+  "scope": "Development LP64 port; target functionality requires runtime acceptance",
+  "build_host": "aarch64",
+  "binary_sha256": "cdb492ad6d9de4ed7a41212afc5d4045be6ad3c8787529084f7f5ca30be645a4",
+  "self_test": "PASS",
+  "build_seconds": 24.73793052700057,
+  "build_reused_for_identical_sources": true,
+  "original_build_directory": "/home/fred/microblocks-depth-service-e2hdk3dq/native-plain",
+  "current_prepared_source_equivalence": true
+}

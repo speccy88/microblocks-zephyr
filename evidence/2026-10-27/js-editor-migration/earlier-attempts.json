@@ -1,0 +1,66 @@
+[
+  {
+    "attempt": 1,
+    "diagnosis": "Probe resolved the virtual-environment interpreter symlink; bridge could not import installed websockets.",
+    "receipt": {
+      "architecture": "aarch64",
+      "hostname": "RPI5",
+      "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+      "port": 38203,
+      "graphical": false,
+      "robot_hardware": false,
+      "network_settings_changed": false,
+      "children_stopped": true
+    }
+  },
+  {
+    "attempt": 2,
+    "diagnosis": "Package omitted the fixed microblocks.html entry expected by the unchanged bridge.",
+    "receipt": {
+      "architecture": "aarch64",
+      "hostname": "RPI5",
+      "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+      "port": 43523,
+      "graphical": false,
+      "robot_hardware": false,
+      "network_settings_changed": false,
+      "children_stopped": true
+    }
+  },
+  {
+    "attempt": 3,
+    "diagnosis": "Adapter initially treated the bridge ready control marker as invalid text; corrected readiness gate.",
+    "receipt": {
+      "architecture": "aarch64",
+      "hostname": "RPI5",
+      "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+      "port": 51903,
+      "graphical": false,
+      "robot_hardware": false,
+      "network_settings_changed": false,
+      "returncode": 1,
+      "output": "serial disconnected\n",
+      "stderr": "Error: Timed out waiting for real VM response\n    at until (/home/fred/microblocks-js-migration-gc6fmlm7/tests/js-editor-compat.test.cjs:134:50)\n    at async main (/home/fred/microblocks-js-migration-gc6fmlm7/tests/js-editor-compat.test.cjs:141:13)\n",
+      "node_version": "v22.22.2",
+      "children_stopped": true
+    }
+  },
+  {
+    "attempt": 4,
+    "diagnosis": "Probe omitted stock code-manager upload padding/CRC acknowledgement; corrected to the actual upstream path.",
+    "receipt": {
+      "architecture": "aarch64",
+      "hostname": "RPI5",
+      "vm_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+      "port": 57489,
+      "graphical": false,
+      "robot_hardware": false,
+      "network_settings_changed": false,
+      "returncode": 1,
+      "output": "serial disconnected\n",
+      "stderr": "Error: Timed out waiting for real VM response\n    at until (/home/fred/microblocks-js-migration-gc6fmlm7/tests/js-editor-compat.test.cjs:146:50)\n    at async main (/home/fred/microblocks-js-migration-gc6fmlm7/tests/js-editor-compat.test.cjs:164:17)\n",
+      "node_version": "v22.22.2",
+      "children_stopped": true
+    }
+  }
+]

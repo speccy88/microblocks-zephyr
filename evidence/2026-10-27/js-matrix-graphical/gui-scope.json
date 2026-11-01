@@ -1,0 +1,27 @@
+{
+  "browser": "new owned in-app-browser tabs",
+  "url": "http://127.0.0.1:18891/",
+  "vm": "real isolated Pi v417; no gateway",
+  "binary_sha256": "22387aeabb91c99041b13c07a453233496eb80f771881e5143394b1618f24d84",
+  "gui_assets_verified": 570,
+  "checks": [
+    "six-module picker import",
+    "explicit unconfigured health reply",
+    "typed head IMU error record",
+    "legacy predicate visible and returns false",
+    "13x8 widget render",
+    "palette copy dragged to workspace",
+    "first pixel paint leaves template intact",
+    "edited ordinary String evaluation on Pi",
+    "preset menu and Clear",
+    "cleared ordinary String evaluation on Pi"
+  ],
+  "fixture": "Identity function; no UNO Q native set or hardware",
+  "final_delta_after_gui": "Initial-gap guard covered by headless regression, not repeated graphically",
+  "vm_notice": "v417 versus v421; informational only; no upgrade",
+  "desktop_disconnect": "First full launch failed before process creation; later first full run completed separately. Final guard run interrupted; inspected independently.",
+  "pending_approval": false,
+  "own_vm_and_bridge_stopped": true,
+  "own_ssh_forward_stopped": true,
+  "main_p4_sfc_untouched": true
+}

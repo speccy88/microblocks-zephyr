@@ -1,0 +1,12 @@
+Γ£ö real hosted adapter uses station address and ignores an injected endpoint field (8.2208ms)
+Γ£ö hosted USB selection stays USB and loopback bridge cannot become a remote exception (4.2971ms)
+Γ£ö public portal retains its secure remote endpoint guard (1.2099ms)
+Γ£ö old socket callbacks cannot disconnect or feed a replacement controller (5.4196ms)
+Γä╣ tests 4
+Γä╣ suites 0
+Γä╣ pass 4
+Γä╣ fail 0
+Γä╣ cancelled 0
+Γä╣ skipped 0
+Γä╣ todo 0
+Γä╣ duration_ms 341.8932

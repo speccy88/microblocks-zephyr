@@ -1,0 +1,141 @@
+{
+  "scope": "real Linux/Pi native execution; all MicroDuck input simulated",
+  "files": {
+    "linux/microduck/tests/snapshot-final-focused.txt": {
+      "sha256": "e21cb5ec30da02cb087aecd1a95819f4bfb320da17e561963ac4bf57b0a14c8a",
+      "bytes": 6892
+    },
+    "linux/microduck/tests/snapshot-final-full-run.json": {
+      "sha256": "63915082e8c70ba78b47f011a52d46e746ff87804e212458c0e7c30dae5f26b5",
+      "bytes": 637
+    },
+    "linux/microduck/tests/snapshot-final-linux.txt": {
+      "sha256": "2c51ba7f11a1c546c15c1dae0177bec4484500e46bcab451c69b5e19d1d23ad1",
+      "bytes": 47567
+    },
+    "linux/microduck/tests/snapshot-final-native-build-manifest.json": {
+      "sha256": "1ce8e20294c92727309dc80d01c1beb233e4e1711536618b60e3b11ba2c28d42",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/snapshot-final-native-build-run.json": {
+      "sha256": "102e4d6723baf9ba4c70f64a8bd59a3438d21e2cf153ff895a9c9293a5cde36d",
+      "bytes": 762
+    },
+    "linux/microduck/tests/snapshot-final-native-build.txt": {
+      "sha256": "20c31edd6d8e21c692b526fb6b329f4fa85ec6d5f946917ab68f86108a0815d3",
+      "bytes": 9521
+    },
+    "linux/microduck/tests/snapshot-final-native-provenance.json": {
+      "sha256": "3cb2c1853f109d8b906ae5160c59ac183c8130aba013a70ce6dea63715e5459c",
+      "bytes": 2323
+    },
+    "linux/microduck/tests/snapshot-final-native-source-manifest.json": {
+      "sha256": "11e1b9d98e7754127e06983bae1785480a067980023c71e9364c1eeec2b56803",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/snapshot-full-run.json": {
+      "sha256": "b6302e28c3c72a296b3049ebef00041f37a1d3fa878e33f12db4ddf1fb4ed551",
+      "bytes": 620
+    },
+    "linux/microduck/tests/snapshot-native-build-manifest.json": {
+      "sha256": "07d9e0574e997effdb2dd5677b44a0327cecde825fc27af23626d41138e9f68f",
+      "bytes": 11821
+    },
+    "linux/microduck/tests/snapshot-native-build-run.json": {
+      "sha256": "a6a67e717a4b05569b85ecb321008c05ae3c321d9a5e618cae08130776884d94",
+      "bytes": 737
+    },
+    "linux/microduck/tests/snapshot-native-provenance.json": {
+      "sha256": "060439441556d738580bc277c6845447703ed644189889ad30616a5db0ddef35",
+      "bytes": 2304
+    },
+    "linux/microduck/tests/snapshot-native-source-manifest.json": {
+      "sha256": "c9f010906bb3e0aaf2297b6a9780b7fd535aa315419e0e161e5bdac35a442ba0",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/snapshot-node.txt": {
+      "sha256": "a233517d16e7d6c77d3caf9efcf370f008e290eb4dc264c001ce184b8987810d",
+      "bytes": 55952
+    },
+    "linux/microduck/tests/snapshot-packaging.json": {
+      "sha256": "10ff75c5b2f37fe5983da815a990219679c19a5ad0793157f7427c9834c053be",
+      "bytes": 1727
+    },
+    "linux/microduck/tests/snapshot-pi-final-kit.json": {
+      "sha256": "ff77fb8f5159a3a3162a3fc1bccc52de4a1e9a99c90be797dfb418d60ee0af55",
+      "bytes": 373
+    },
+    "linux/microduck/tests/snapshot-scenario-vm.txt": {
+      "sha256": "48e934fde2363b7416181aa016c53c43cc141c1fde4502d6fc5f079880f14c10",
+      "bytes": 48
+    },
+    "linux/microduck/tests/snapshot-scenario.json": {
+      "sha256": "99fab2d637fc89e5db778f56385c81f350129019a962125da0bd3fdb91465337",
+      "bytes": 2695
+    },
+    "linux/microduck/tests/snapshot-upstream-review.json": {
+      "sha256": "2d4d0000d201bc49760ca746ee6819db615d85427a0c64b0e789e413d0172d2c",
+      "bytes": 2114
+    },
+    "linux/microduck/tests/snapshot-validation.json": {
+      "sha256": "4cd8d037a77297a27698e1ab9a281d74f2c761b045f0dde64d05110cd99b8ce1",
+      "bytes": 4979
+    },
+    "linux/microduck/tests/pi5-snapshot-initial-validation.json": {
+      "sha256": "93ed7f220981fec3d83795d2aee7966457765bb585c64071db890ae6a048a186",
+      "bytes": 1685
+    },
+    "linux/microduck/tests/pi5-snapshot-kit-manifest.json": {
+      "sha256": "02de4cc8a2154f58159b2642908afc9e38eefa828230801cdcb56ff602f43245",
+      "bytes": 20001
+    },
+    "linux/microduck/tests/pi5-snapshot-native-build-manifest.json": {
+      "sha256": "2e0ecb5bbce801fc8f2210b9f9c740156c51744c4b5f64779db2f55eedcade14",
+      "bytes": 11861
+    },
+    "linux/microduck/tests/pi5-snapshot-native-build.txt": {
+      "sha256": "fca310245d9c0ae5e5e7fc2411b92b76330f3673c12a90bfd1c7908259c2fda1",
+      "bytes": 7941
+    },
+    "linux/microduck/tests/pi5-snapshot-native-plain-build-manifest.json": {
+      "sha256": "749c196f55f7f0905585a1c439244d330c3bf5fc5b968e75384858862349f2cf",
+      "bytes": 11862
+    },
+    "linux/microduck/tests/pi5-snapshot-native-plain-build.txt": {
+      "sha256": "0ce33daeddd5c05f3830798e25bb4280d27b4e7649a17b340c51ff92993ed336",
+      "bytes": 8701
+    },
+    "linux/microduck/tests/pi5-snapshot-native-plain-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-snapshot-native-plain-source-manifest.json": {
+      "sha256": "840bb02f1dbb4ea3b52bb4176d3a593513143425b178058c990f0f70e2c11819",
+      "bytes": 11686
+    },
+    "linux/microduck/tests/pi5-snapshot-native-plain-tests.txt": {
+      "sha256": "628c756e567b9796d0faa219314cab89c3a5f9a176c217d7899a75c4b090f5dd",
+      "bytes": 10855
+    },
+    "linux/microduck/tests/pi5-snapshot-native-self-test.txt": {
+      "sha256": "092e1676036ef42072c633631252f9bb6765e189335ff57927541930ab4221e9",
+      "bytes": 162
+    },
+    "linux/microduck/tests/pi5-snapshot-native-source-manifest.json": {
+      "sha256": "11e1b9d98e7754127e06983bae1785480a067980023c71e9364c1eeec2b56803",
+      "bytes": 11685
+    },
+    "linux/microduck/tests/pi5-snapshot-native-tests.txt": {
+      "sha256": "9fda24ed6b008d3dbf0f9cfeead722f72d4bb3ccb08e318a0b2532d930d711aa",
+      "bytes": 10855
+    },
+    "linux/microduck/tests/pi5-snapshot-pi-snapshot-validation.json": {
+      "sha256": "993ec7b1dbd43577dd082e2543937b0006f0458911072bcd3282386f6d5f3ead",
+      "bytes": 1686
+    },
+    "evidence/2026-10-27/microduck-snapshots/README.md": {
+      "sha256": "d66062ecded45d6b96703b118d22bbaccf5eb6ed613eaed3e1b51cd32287fbdc",
+      "bytes": 5005
+    }
+  }
+}

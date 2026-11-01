@@ -1,0 +1,14 @@
+test_job_environment_uses_only_contexts_available_before_runner_assignment (workflow_regression_probe.WorkflowContracts.test_job_environment_uses_only_contexts_available_before_runner_assignment) ... FAIL
+
+======================================================================
+FAIL: test_job_environment_uses_only_contexts_available_before_runner_assignment (workflow_regression_probe.WorkflowContracts.test_job_environment_uses_only_contexts_available_before_runner_assignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\fred_\Documents\Codex\2026-10-27\task\microblocks-zephyr-js-migration-20261027\tests\test_linux_arm64_workflow.py", line 46, in test_job_environment_uses_only_contexts_available_before_runner_assignment
+    self.assertIn(expression.split('.', 1)[0], allowed, expression)
+AssertionError: 'runner' not found in {'inputs', 'vars', 'matrix', 'strategy', 'github', 'secrets', 'needs'} : runner.temp
+
+----------------------------------------------------------------------
+Ran 1 test in 0.013s
+
+FAILED (failures=1)
