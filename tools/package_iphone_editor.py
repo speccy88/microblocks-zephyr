@@ -38,6 +38,8 @@ def package(source, output):
         'iphone-boards.json': 'ios/board-profiles.json',
         'THIRD_PARTY_NOTICES.md': 'web/js-editor/THIRD_PARTY_NOTICES.md',
         'licenses/LOCAL-MIT.txt': 'LICENSE',
+        'Libraries/Zephyr/Waveshare RLCD 4.2.ubl': 'boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl',
+        'Libraries/Zephyr/Fruit Jam.ubl': 'boards/adafruit_fruit_jam/integration/Fruit_Jam.ubl',
     }.items():
         if destination in files:
             raise ValueError('iPhone overlay collides with upstream: ' + destination)

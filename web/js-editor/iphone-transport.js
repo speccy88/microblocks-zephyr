@@ -5,6 +5,7 @@
     const MAX_FRAME = 1024, MAX_INPUT = 131072, MAX_OUTPUT = 32768;
     let active = null, serial = 0;
     const installed = new WeakSet();
+    const compilers = new WeakSet();
     const nativeBridge = () => root.webkit?.messageHandlers?.microblocks;
 
     class NativePort {
@@ -102,7 +103,32 @@
         }
         installed.add(CommPort);
     }
-    const api = {NativePort, install, MAX_FRAME, MAX_INPUT, MAX_OUTPUT,
+    function installCompiler(Compiler) {
+        if (compilers.has(Compiler)) return;
+        const init = Compiler.prototype.initPrimsets, append = Compiler.prototype.appendLiterals;
+        Compiler.prototype.initPrimsets = function () {
+            init.call(this);
+            // Each canonical board port registers its named hardware table at
+            // IOPrims, index 3 in the independently pinned v417 interp.h.
+            if (this.primsets.get('io') !== 3) throw new Error('Review changed upstream IO primitive layout');
+            this.primsets = new Map(this.primsets);
+            for (const name of ['rlcd', 'fruitJam', 'xrp']) {
+                if (this.primsets.has(name)) throw new Error('Review changed upstream board primitive layout');
+                this.primsets.set(name, 3);
+            }
+        };
+        Compiler.prototype.appendLiterals = function (instructions) {
+            for (const item of instructions) {
+                if (Array.isArray(item) && ['commandPrimitive', 'reporterPrimitive'].includes(item[0]) &&
+                    !this.primsets.has(item[2])) {
+                    throw new Error('Unsupported primitive set in iPhone board profile: ' + item[2]);
+                }
+            }
+            return append.call(this, instructions);
+        };
+        compilers.add(Compiler);
+    }
+    const api = {NativePort, install, installCompiler, MAX_FRAME, MAX_INPUT, MAX_OUTPUT,
         receive: event => { if (active) active.receive(event); },
         close: () => { if (active) active.fail('Link closed when app left the foreground. Connect to resume.'); },
         status: () => active ? {ready: active.ready, pending: active.pending, received: active.size} : {ready: false}};

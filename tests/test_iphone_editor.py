@@ -46,6 +46,12 @@ class IPhoneContracts(unittest.TestCase):
         self.assertIn('self.generation == token', transport)
         self.assertIn('completionHandler(nil)', transport)
 
+    def test_board_primitive_aliases_match_canonical_ports(self):
+        for name in ['boards/waveshare_esp32s3_rlcd_4_2/integration/rlcd_smallvm_primitives.c',
+                     'boards/adafruit_fruit_jam/smallvm/src/platform.c',
+                     'boards/sparkfun_xrp_rp2350/smallvm/src/platform.c']:
+            self.assertIn('addPrimitiveSet(IOPrims', (ROOT / name).read_text())
+
 
 class IPhonePackage(unittest.TestCase):
     @classmethod
@@ -72,6 +78,9 @@ class IPhonePackage(unittest.TestCase):
             self.assertIn('iphone-transport.js', html)
             self.assertNotIn('linux-compat.js', html)
             self.assertNotIn('user-scalable=no', html)
+            for name, source in [('Waveshare RLCD 4.2.ubl', 'boards/waveshare_esp32s3_rlcd_4_2/integration/Waveshare_RLCD_4_2.ubl'),
+                                 ('Fruit Jam.ubl', 'boards/adafruit_fruit_jam/integration/Fruit_Jam.ubl')]:
+                self.assertEqual((first / 'Libraries/Zephyr' / name).read_bytes(), (ROOT / source).read_bytes())
             with self.assertRaises(FileExistsError):
                 package(self.source, first)
             node = shutil.which('node')

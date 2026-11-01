@@ -146,8 +146,16 @@ async function realCompiler(assets, endpoint) {
     }
     vm.runInContext(fs.readFileSync(path.join(assets, 'iphone-transport.js'), 'utf8'), context);
     const run = script => vm.runInContext(script, context);
-    run('MicroBlocksIPhone.install(MB_CommPort, () => "192.168.1.42"); globalThis.MB_connection = new MB_Connection(); globalThis.manager = new MB_CodeManager(null); MB_connection.setCodeManager(manager);');
+    run('MicroBlocksIPhone.installCompiler(MB_Compiler); MicroBlocksIPhone.install(MB_CommPort, () => "192.168.1.42"); globalThis.MB_connection = new MB_Connection(); globalThis.manager = new MB_CodeManager(null); MB_connection.setCodeManager(manager);');
     assert.equal(run('new MB_Compiler(null).primsets.has("microduck")'), false, 'No Linux compiler overlay on boards');
+    for (const name of ['rlcd', 'fruitJam', 'xrp']) {
+        assert.equal(run(`new MB_Compiler(null).primsets.get(${JSON.stringify(name)})`), 3);
+        const bytes = run(`new MB_Compiler(null).compiledBytesFor(new ReporterBlockMorph(${JSON.stringify('[' + name + ':ioCapabilities]')}, []))`);
+        const offset = bytes.indexOf(37); assert.ok(offset >= 0);
+        assert.equal((bytes[offset + 3] >> 2) & 63, 3);
+    }
+    assert.equal(run('MB_PRIMSET_TABLE.has("rlcd")'), false, 'Shared upstream table remains pristine');
+    assert.throws(() => run('new MB_Compiler(null).compiledBytesFor(new ReporterBlockMorph("[p4:camera]", []))'), /Unsupported primitive set/);
     async function until(check) {
         const deadline = Date.now() + 8000;
         while (!check()) {

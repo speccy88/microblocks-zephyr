@@ -7,6 +7,14 @@ Build on `codex/js-editor-migration-20261027` and its exact official JS pin
 branch. This profile does not upgrade firmware or import the Linux primitive
 map into microcontroller programs.
 
+The local compiler overlay maps `rlcd`, `fruitJam` and `xrp` to the canonical
+ports' `IOPrims` index 3. It copies the compiler map without changing the
+shared upstream table. Unknown named sets fail before upload instead of the
+stock compiler's fallback to set zero. The existing RLCD and Fruit Jam
+libraries are available in `Libraries/Zephyr`; custom matrix/media/SFC slots
+remain outside this slice. Compiling a board primitive does not prove its
+physical peripheral works.
+
 The first app bundles the real editor for offline editing and uses a native
 `URLSessionWebSocketTask` bridge for station-mode Wi-Fi programming. A user
 enters the board's private IPv4 address and explicitly connects. The socket

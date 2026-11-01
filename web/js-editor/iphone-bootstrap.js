@@ -3,6 +3,7 @@
 (() => {
     'use strict';
     let address = '', blocksVisible = false, profiles = [], lastPort = null;
+    MicroBlocksIPhone.installCompiler(MB_Compiler);
     MicroBlocksIPhone.install(MB_CommPort, () => address);
     const native = () => window.webkit?.messageHandlers?.microblocks;
     const exports = new Map();

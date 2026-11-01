@@ -14,18 +14,20 @@
     "python": "3.12.10",
     "node": "24.22.1",
     "command": "python tools/validate.py",
-    "tests_discovered": 484,
-    "passed": 192,
+    "tests_discovered": 485,
+    "passed": 193,
     "skipped": 292,
     "failure_count": 0,
     "limits": "Linux, compiler-dependent and external-binary suites may skip on Windows; see GitHub Linux validation separately",
     "checkout_preparation": "Restored exact Git blob bytes after Windows autocrlf conversion; repository-local core.autocrlf=false; no source content changed"
   },
   "iphone_profile": {
-    "python_packaging_contracts_passed": 4,
+    "python_packaging_contracts_passed": 5,
     "node_contracts_passed": 9,
     "deterministic_packages_compared": 2,
     "source_hashes_verified": true,
+    "board_primitive_aliases": "rlcd, fruitJam and xrp encode IOPrims index 3; upstream shared map remains unchanged; unknown sets fail before upload",
+    "board_libraries": "Canonical RLCD and Fruit Jam libraries are bundled byte-for-byte in Libraries/Zephyr",
     "synthetic_protocol_test": "ping/version, fragmented input, compiled 20+22 upload, CRC acknowledgement, run/stop and reconnect",
     "real_vm_test": {
       "passed": true,
