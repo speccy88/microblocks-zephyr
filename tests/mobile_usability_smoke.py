@@ -36,7 +36,13 @@ def exercise(page, touch, output, size):
         page.wait_for_function('(code) => GetText.currentLocale === code && document.documentElement.lang === code', arg=code)
         page.wait_for_timeout(200)
         assert page.locator('#iphone-original-menus .--language').get_attribute('aria-label') == caption
+        expected_menus = {'fr':['Paramètres','Projet','Graphique'], 'de':['Einstellungen','Projekt','Diagramm'],
+                          'es':['Ajustes','Proyecto','Gráfico'], 'en':['Settings','Project','Graph']}[code]
+        for selector, text in zip(['settings','project','graph'], expected_menus):
+            assert page.locator('#iphone-original-menus .--'+selector).get_attribute('aria-label') == text
         assert page.locator('#iphone-save').inner_text() == save
+        assert page.locator('#iphone-status').inner_text() == {'fr':'Édition hors ligne','de':'Offline bearbeiten',
+            'es':'Edición sin conexión','en':'Offline editing'}[code]
         assert page.evaluate('JSON.parse(localStorage["user-prefs"]).locale') == code
         assert script_state(page) == before, 'Locale changes must preserve source and positions'
         palette = page.evaluate('''() => MB_editor.palette.contents.children.filter(b=>b instanceof BlockMorph).map(b=>b.blockSpec)''')
