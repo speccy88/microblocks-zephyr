@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "date": "2026-11-01",
+  "branch": "codex/iphone-wireless-20261101",
+  "base_profile": "codex/js-editor-migration-20261027",
+  "editor_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "runtime_pin": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "upstream_engine_modified": false,
+  "physical_iphone_tested": false,
+  "physical_board_accessed": false,
+  "firmware_flashed": false,
+  "merged": false,
+  "local_windows": {
+    "python": "3.12.10",
+    "node": "24.22.1",
+    "command": "python tools/validate.py",
+    "tests_discovered": 484,
+    "passed": 192,
+    "skipped": 292,
+    "failure_count": 0,
+    "limits": "Linux, compiler-dependent and external-binary suites may skip on Windows; see GitHub Linux validation separately",
+    "checkout_preparation": "Restored exact Git blob bytes after Windows autocrlf conversion; repository-local core.autocrlf=false; no source content changed"
+  },
+  "iphone_profile": {
+    "python_packaging_contracts_passed": 4,
+    "node_contracts_passed": 9,
+    "deterministic_packages_compared": 2,
+    "source_hashes_verified": true,
+    "synthetic_protocol_test": "ping/version, fragmented input, compiled 20+22 upload, CRC acknowledgement, run/stop and reconnect",
+    "real_vm_test": {
+      "passed": true,
+      "peer": "real native x86_64 SmallVM v417 through the existing loopback WebSocket/PTY bridge",
+      "native_socket_bridge": "Node test shim; not iOS URLSession",
+      "checks": ["ping", "version", "real compiler", "CRC-acknowledged upload", "actual interpreter result 42", "stop", "reconnect", "retained CRC readback"],
+      "job_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41328237377/job/124912609187"
+    }
+  },
+  "native_ios": {
+    "compiled": true,
+    "toolchain": "Xcode 16.4 on macos-15, unsigned iOS Simulator",
+    "endpoint_unit_tests_passed": 2,
+    "first_ui_attempt": "Bundled editor/project chrome and connection sheet loaded. Two accessibility queries failed; corrected in 7a36e2496585b3baf161765d34d2e5ca9ae8045d",
+    "first_attempt_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41327361289",
+    "corrected_run_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41328320690",
+    "note": "Time-stamped snapshot: read the corrected GitHub run for the final UI conclusion. No physical iPhone, signing team, device installation or App Store publication is claimed."
+  },
+  "graphical": {
+    "report": "browser.json",
+    "engine_loaded": true,
+    "touch_drag_existing_block": true,
+    "touch_drag_palette_block": true,
+    "workspace_restored_after_drop": true,
+    "portrait_and_landscape": true,
+    "project_export_cancel_and_reparse": true,
+    "usb_only_and_blocked_board_controls": true,
+    "page_errors": 0,
+    "environment": "Desktop Chromium 156.0.8078.74 with mobile emulation; synthetic native export responses"
+  },
+  "remaining_gates": [
+    "Physical iPhone local-network permission and native socket acceptance",
+    "Physical board wireless editing, 50 outputs, large uploads, stop, Wi-Fi loss and background/resume",
+    "Real iOS Files import and share-sheet export",
+    "Native CoreBluetooth bridge for stock BLE boards",
+    "P4 C6/hosting recovery before advertising P4 Wi-Fi programming",
+    "Board-specific custom slots/media/SFC adapters"
+  ]
+}

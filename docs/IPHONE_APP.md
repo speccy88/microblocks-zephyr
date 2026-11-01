@@ -74,6 +74,21 @@ WSS firmware path needs its own certificate/identity design.
 ## Evidence and remaining gates
 
 See `evidence/2026-11-01/iphone/validation.json` for actual executed checks.
+The [portrait workspace](../evidence/2026-11-01/iphone/portrait.png),
+[block palette](../evidence/2026-11-01/iphone/portrait-blocks.png) and
+[landscape view](../evidence/2026-11-01/iphone/landscape.png) are captures of the
+real pinned editor under desktop Chromium mobile emulation. Trusted touch
+events moved an existing block and added one from the palette; the workspace
+expanded after the drop. Export cancellation and successful serialization/
+reparse were checked with explicit synthetic native-share responses.
+
+The CI also builds the actual pinned native SmallVM under ASan/UBSan and runs
+the iPhone JS adapter through the existing loopback WebSocket/PTY bridge. The
+real compiler uploads a chunk with CRC acknowledgement; the actual interpreter
+returns 42, then stop/reconnect and retained CRC readback pass. Only the native
+socket API is modeled by a Node test shim in this check. This does not test
+`URLSession`, iOS local-network permissions or a physical board's radio.
+
 Simulator compilation, desktop graphical QA and synthetic protocol checks are
 separate from physical iPhone acceptance. Before calling this ready, test on
 an iPhone: local-network permission denial/retry, first connection, block drag
