@@ -37,6 +37,7 @@ def main():
             page.on('request', lambda request: requests.append(request.url))
             page.goto(f'http://127.0.0.1:{server.server_port}/')
             page.get_by_role('link', name='Open touch editor', exact=True).wait_for()
+            assert page.get_by_role('link',name='Open touch editor',exact=True).evaluate('e=>getComputedStyle(e).color') == 'rgb(255, 255, 255)'
             assert not page.locator('#ide').get_attribute('src')
             assert not any('/editor/' in url for url in requests), requests
             page.screenshot(path=str(args.output / 'mobile-offer.png'))
