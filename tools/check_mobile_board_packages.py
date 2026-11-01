@@ -33,6 +33,10 @@ def main():
                 assert hashlib.sha256(blob).hexdigest()==asset['flash_sha256']
                 raw=gzip.decompress(blob) if asset['encoding']=='gzip' else blob
                 assert len(raw)==asset['bytes'] and hashlib.sha256(raw).hexdigest()==asset['sha256']
+                if cache:
+                    target=args.output/name/'http-root'/asset['path'].lstrip('/')
+                    target.parent.mkdir(parents=True,exist_ok=True)
+                    target.write_bytes(raw)
             code=(output/'assets.c').read_text()
             if cache:
                 assert 'Fruit%20Jam.ubl' in code and '"/mobile/"' in code

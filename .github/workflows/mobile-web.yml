@@ -58,8 +58,7 @@ jobs:
           git -C build-artifacts/upstream fetch --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b
           python -m pip install -r .linux-target-source/linux/arm64/bridge-requirements.txt
           python .linux-target-source/linux/arm64/build.py --upstream build-artifacts/upstream --output build-artifacts/vm --sanitize --test
-          python tools/package_mobile_editor.py --source build-artifacts/site/js-preview/waveshare --output build-artifacts/board-editor --runtime board --board waveshare
-          python tests/mobile_vm_browser.py --linux-source .linux-target-source --binary build-artifacts/vm/smallvm --editor build-artifacts/board-editor --output build-artifacts/real-vm --browser /usr/bin/google-chrome
+          python tests/mobile_vm_browser.py --linux-source .linux-target-source --binary build-artifacts/vm/smallvm --editor build-artifacts/board-packages/rlcd/http-root --output build-artifacts/real-vm --browser /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -20,7 +20,7 @@ def browser_test(url, output, executable=None):
         context = browser.new_context(viewport={'width':390,'height':844}, is_mobile=True, has_touch=True)
         page = context.new_page()
         page.on('pageerror', lambda e:errors.append(str(e)))
-        page.goto(url + 'microblocks.html')
+        page.goto(url + 'mobile/index.html')
         page.wait_for_function('typeof world!=="undefined" && world && MicroBlocksIPhone.gestures')
         page.locator('[data-ide="app-preloader"]').wait_for(state='hidden')
         assert page.evaluate('MicroBlocksBrowser.runtime') == 'board'

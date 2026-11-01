@@ -53,6 +53,7 @@ def main():
             page.screenshot(path=str(args.output / 'mobile-menu.png'))
             # Cancellation must retain the actual edited project and layout.
             url = page.url
+            project = page.evaluate('MB_editor.updateProject(); MB_editor.project.codeString()')
             page.evaluate('''async () => {
                 const dirty=MB_editor.hasUnsavedEdits, confirm=MB_editor.confirm;
                 MB_editor.hasUnsavedEdits=()=>true;MB_editor.confirm=async()=>false;
@@ -60,7 +61,7 @@ def main():
                 finally {MB_editor.hasUnsavedEdits=dirty;MB_editor.confirm=confirm;}
             }''')
             assert page.url == url
-            assert page.evaluate('MB_editor.project.codeString().includes("20 22")')
+            assert page.evaluate('MB_editor.updateProject(); MB_editor.project.codeString()') == project
             page.get_by_role('button', name='Menu', exact=True).click()
             page.get_by_role('button', name='Connect board', exact=True).click()
             assert page.locator('#iphone-open').is_disabled()
