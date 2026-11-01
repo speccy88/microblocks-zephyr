@@ -28,6 +28,8 @@ class MobileSourceTests(unittest.TestCase):
             self.assertEqual(board.assets(None, 'waveshare'), {})
             with self.assertRaises(ValueError): board.source_for(Path(temp), Path(temp) / 'missing')
         self.assertEqual(board.route('mobile/Libraries/Zephyr/Fruit Jam.ubl'), '/mobile/Libraries/Zephyr/Fruit%20Jam.ubl')
+        self.assertEqual(board.route("mobile/Examples/Music/L'Apprenti Sorcier.ubp"), "/mobile/Examples/Music/L'Apprenti%20Sorcier.ubp")
+        self.assertEqual(board.route('mobile/Examples/Games/Simon (ED1).ubp'), '/mobile/Examples/Games/Simon%20(ED1).ubp')
 
     @unittest.skipUnless(os.environ.get('MOBILE_EDITOR_SOURCE'), 'requires verified local source cache')
     def test_actual_engine_assets_and_board_resource_budget(self):

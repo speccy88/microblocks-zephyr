@@ -44,7 +44,9 @@ def desktop(raw):
 
 def route(name):
     # HTTP parsers intentionally keep encoded paths; never broaden their input.
-    return '/' + quote(name, safe='/-._~')
+    # Match fetch(URL).pathname: URL path punctuation stays literal, while
+    # spaces, Unicode, query/fragment delimiters and quotes are encoded.
+    return '/' + quote(name, safe="/-._~!$&'()*+,;=:@")
 
 
 def summary(extra):

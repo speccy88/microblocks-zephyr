@@ -79,7 +79,7 @@ def main():
             normal = desktop.new_page()
             normal.on('pageerror', lambda error: errors.append(str(error)))
             normal.goto(f'http://127.0.0.1:{server.server_port}/')
-            normal.wait_for_function('!!document.getElementById("ide").getAttribute("src")')
+            normal.locator('#ide[src]').wait_for(state='attached')
             assert not normal.locator('#mobile-editor-offer').count()
             normal.frame_locator('#ide').locator('[data-ide="app-preloader"]').wait_for(state='hidden',timeout=60000)
             normal.locator('.editor-notes').get_by_role('link',name='Touch editor',exact=True).click()
@@ -90,7 +90,7 @@ def main():
             override = browser.new_context(viewport={'width':375,'height':667},is_mobile=True,has_touch=True)
             phone = override.new_page()
             phone.goto(f'http://127.0.0.1:{server.server_port}/?layout=desktop&board=propeller2')
-            phone.wait_for_function('!!document.getElementById("ide").getAttribute("src")')
+            phone.locator('#ide[src]').wait_for(state='attached')
             assert '/propeller2/' in phone.locator('#ide').get_attribute('src')
             assert phone.evaluate('localStorage.getItem(MicroBlocksLayout.key)') == 'desktop'
             phone.goto(f'http://127.0.0.1:{server.server_port}/')

@@ -97,11 +97,24 @@ def browser_test(url, output, executable=None):
                 raise
             page.evaluate('async () => {await MB_connection.sendMsg("stopAllMsg"); await MB_connection.sendQueue; MB_connection.disconnect()}')
             page.wait_for_timeout(200)
+        # Close the actual browser socket mid-session, then use the normal UI
+        # to recover. The test neither injects ready nor fabricates VM replies.
+        for interrupted in [True,False]:
+            page.get_by_role('button', name='Connect board', exact=True).click()
+            page.locator('#iphone-open').click()
+            page.wait_for_function('MB_connection.connectedToBoard() && MB_connection.vmVersion===417')
+            page.wait_for_function('!document.querySelector(".iphone-connect-sheet").open')
+            if interrupted:
+                page.evaluate('testSockets.at(-1).close(3001,"Owned test link interruption")')
+                page.wait_for_function('!MicroBlocksIPhone.status().ready')
+                page.wait_for_function('!MB_connection.connectedToBoard()')
+            else:page.evaluate('MB_connection.disconnect()')
         page.screenshot(path=str(output/'real-vm-workspace.png'))
         assert not errors, errors
         report={'environment':'desktop Chromium and native SmallVM over loopback', 'browser':browser.version,
                 'real_browser_websocket':True,'actual_compiler':True,'vm_version':417,'result':42,
                 'crc_upload_readback':True,'stop_reconnect':True,'foreign_origin_rejected':True,
+                'interrupted_link_recovered':True,'headless_display_cleanup_overlay':True,
                 'native_ios_bridge':False,'physical_board':False,'physical_iphone':False,'page_errors':errors}
         (output/'real-vm.json').write_text(json.dumps(report,indent=2)+'\n')
         print(json.dumps(report))

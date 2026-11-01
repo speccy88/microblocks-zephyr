@@ -116,7 +116,9 @@
     }
     root.MicroBlocksLayout = {leave, key};
     const event = config.startupEvent || 'DOMContentLoaded';
-    if (event !== 'DOMContentLoaded' || document.readyState === 'loading') root.addEventListener(event, start, {once: true});
+    // Deferred landing scripts run while readyState is interactive, before
+    // portal.js has installed its board-switch handler.
+    if (event !== 'DOMContentLoaded' || document.readyState !== 'complete') root.addEventListener(event, start, {once: true});
     else start();
     if (config.surface === 'desktop') document.addEventListener('board-ide-ready', start);
 })(globalThis);

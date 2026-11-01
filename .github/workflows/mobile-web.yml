@@ -46,6 +46,7 @@ jobs:
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/browser --browser /usr/bin/google-chrome
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/webkit --engine webkit
           python tests/mobile_touch_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/touch --browser /usr/bin/google-chrome
+          python tests/mobile_board_smoke.py --packages build-artifacts/board-packages --output build-artifacts/board-browser --browser /usr/bin/google-chrome
       - uses: actions/checkout@v4
         with:
           ref: 2c060b7f4e9153dd7213d9b7c2a479810577eb51
@@ -57,7 +58,7 @@ jobs:
           git -C build-artifacts/upstream remote add origin https://codeberg.org/MicroBlocks/smallvm.git
           git -C build-artifacts/upstream fetch --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b
           python -m pip install -r .linux-target-source/linux/arm64/bridge-requirements.txt
-          python .linux-target-source/linux/arm64/build.py --upstream build-artifacts/upstream --output build-artifacts/vm --sanitize --test
+          python tools/prepare_mobile_vm_test.py --linux-source .linux-target-source --upstream build-artifacts/upstream --output build-artifacts/vm --sanitize --test
           python tests/mobile_vm_browser.py --linux-source .linux-target-source --binary build-artifacts/vm/smallvm --editor build-artifacts/board-packages/rlcd/http-root --output build-artifacts/real-vm --browser /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
@@ -68,6 +69,8 @@ jobs:
             build-artifacts/webkit
             build-artifacts/touch
             build-artifacts/real-vm
+            build-artifacts/board-browser
+            build-artifacts/vm/build-manifest.json
             build-artifacts/board-packages/summary.json
       - uses: actions/upload-artifact@v4
         with:
