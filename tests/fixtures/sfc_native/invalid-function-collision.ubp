@@ -1,0 +1,27 @@
+module main
+variables Source After B1 B2 Gate Join Done Choice1 Choice2 SourceEntry SourceLoop AfterEntry AfterLoop B1Entry B1Loop B2Entry B2Loop Completed Heartbeat PeerSeen
+script 30 30 {
+whenStarted
+sfcSequence {
+sfcStep 'Source' { SourceEntry += 1 } { SourceLoop += 1 }
+sfcTransition 'Gate'
+sfcAnd {
+sfcStep 'B1' { B1Entry += 1
+PeerSeen = B2 } { waitMillis 30
+B1Loop += 1 }
+} {
+sfcStep 'B2' { B2Entry += 1 } { B2Loop += 1 }
+}
+sfcAndJoin 'Join'
+sfcStep 'After' { AfterEntry += 1 } { AfterLoop += 1 }
+sfcTransition 'Done'
+}
+Completed += 1
+}
+script 800 30 {
+whenStarted
+forever { Heartbeat += 1
+waitMillis 2 }
+}
+
+to '_sfc1_worker1' { return true }

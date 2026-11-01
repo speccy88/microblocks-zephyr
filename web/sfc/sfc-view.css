@@ -1,0 +1,2 @@
+/* SPDX-License-Identifier: MIT */
+.sfc-header input{width:210px;max-width:25vw;padding:7px;border:1px solid #6b7391;border-radius:7px;background:#454c69;color:#fff}.sfc-workspace{position:relative}.sfc-view-tools{position:sticky;bottom:8px;left:8px;width:max-content;margin:0 0 8px 8px;display:flex;align-items:center;gap:7px;padding:4px;border:1px solid #d5dae5;border-radius:8px;background:#fffe;font-size:12px}.sfc-view-tools button{padding:3px 9px}.sfc-wire{pointer-events:none}.sfc-wire-hit{fill:none;stroke:transparent;stroke-width:14;pointer-events:stroke;cursor:pointer}

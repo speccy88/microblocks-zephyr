@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "graph": {
+    "version": 1,
+    "name": "Parallel requests and reset",
+    "nodes": [
+      {"kind":"step","id":1,"label":"Ready","x":360,"y":60,"initial":true},
+      {"kind":"transition","id":1,"label":"Start both","x":360,"y":180,"guard":"input","afterMs":0},
+      {"kind":"step","id":2,"label":"Left branch","x":180,"y":330,"initial":false},
+      {"kind":"step","id":3,"label":"Right branch","x":540,"y":330,"initial":false},
+      {"kind":"transition","id":2,"label":"Both ready","x":360,"y":490,"guard":"input","afterMs":0},
+      {"kind":"step","id":4,"label":"Together","x":360,"y":620,"initial":false}
+    ],
+    "links": [
+      {"from":"s1","to":"t1"},{"from":"t1","to":"s2"},{"from":"t1","to":"s3"},
+      {"from":"s2","to":"t2"},{"from":"s3","to":"t2"},{"from":"t2","to":"s4"}
+    ]
+  },
+  "signals": [
+    {"id":1,"label":"Fan request"},
+    {"id":2,"label":"Parallel request"},
+    {"id":3,"label":"Arrival pulse"}
+  ],
+  "bindings": [
+    {"step":1,"signal":1,"qualifier":"S"},
+    {"step":4,"signal":1,"qualifier":"R"},
+    {"step":2,"signal":2,"qualifier":"N"},
+    {"step":3,"signal":2,"qualifier":"N"},
+    {"step":4,"signal":3,"qualifier":"P1"}
+  ],
+  "priority": [1,2]
+}

@@ -63,6 +63,13 @@ pattern uses one atomic transaction; see [its exact bounds](docs/GENERIC_IO.md).
 | [Adafruit Fruit Jam RP2350B](boards/adafruit_fruit_jam/README.md) | Pinned ARM build and physical boot | v417 USB/graphical calculations, reconnect and reboot persistence pass | Real module/variant compiled | SWD/USB, NeoPixels, three buttons and user-triggered Wi-Fi, native graphical edit/save/readback and retained-association boot verified; full-power Wi-Fi and remaining peripherals pending |
 | [SparkFun XRP production RP2350B](boards/sparkfun_xrp_rp2350/README.md) | Integrated Canada image installed and verified | v417 USB and Wi-Fi arithmetic/edit,50 outputs,fragmentation,reconnect and retained boot pass | Real isolated module linked; ADC/I2C reads pass | All 147 HTTP assets pass during VM traffic; IMU ID and raw ADC verified; graphical acceptance pending; motors/servos locked |
 
+## Native SFC editor
+
+The opt-in [native SFC editor](docs/SFC.md) adds MicroBlocks-style setup/loop
+steps, shared-variable transitions and configurable OR/AND branches to GP 2.5.8.
+It builds as a disconnected review bundle with its own compiler/resource tests;
+it does not change the normal portal or deploy firmware.
+
 ## Native Propeller 2
 
 The [P2 port](boards/propeller2/README.md) runs the recovered native FlexC

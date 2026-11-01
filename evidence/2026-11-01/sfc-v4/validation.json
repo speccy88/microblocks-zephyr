@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-01",
+  "status": "PASS",
+  "integration_base": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+  "branch": "codex/sfc-native-v4-20261101",
+  "full_python": {
+    "tests": 480,
+    "failures": 0,
+    "skips": 0
+  },
+  "real_smallvm": {
+    "cases": 10,
+    "assertions": 152,
+    "VM_sha256": "695fc61a5d4ed119704eb84e4828b738816667d53bb9b4b83d06e350222c02a1",
+    "C_source_sha256": "4b36b9cce5729809eeb7bb6d694a2137a13471377ce8b47bf04f2a36ed375c23",
+    "C_host_sha256": "b05e9f3a883bfb291841718e3d1bf2a077c60e5ef1f8b87a6a1447236da75de9",
+    "sanitizers_clean": true
+  },
+  "GP_compiler": {
+    "valid_cases": 10,
+    "malformed_rejected": 21,
+    "headless_checks": 43,
+    "icon_software_checks": 37,
+    "save_reload_equal": true
+  },
+  "node_SFC": {
+    "tests": 58,
+    "failures": 0
+  },
+  "source_sha256": {
+    "web/sfc-native.gp": "fdf782caa48cc1221886ae3e6ee4622adfd395e23931ae646cf8bedd9502d292",
+    "web/sfc-branches.gp": "7458f11aafce0a3157cf9700d581c77764aefdc03ce30ec2acfdf8d089a3014a",
+    "web/sfc-live.gp": "26040600a46f4e131eef2609f9f6df9f1056c9d1c69b17c1e8c97d292c3773cd",
+    "web/sfc-bars.json": "9f960fc45a00c9026f20a84472de650db0cdd8bdb654b5a344077b9335b0c845",
+    "tools/patch_sfc_blocks.py": "a18dac9e0151618c965568eacb952ad2d902204e96c9bb6a439a3f43707fae3d",
+    "tools/sfc_branch_icons.py": "90bb699a13cf99e9626c1b28e14f51f9b9fb1babfd2108fe129ae3499004ae33"
+  },
+  "GP_editor_pin": "70690291ac44a5c3a50dce572ee0c29ba99dc57f",
+  "SmallVM_pin": "2071df569623ba9cdcd6f8106b61796e047df38b",
+  "native_browser_rendering": "not validated by headless tests; cloud review is separate",
+  "hardware_access": false,
+  "editor_source_scope": "SFC source only; newer GP/Pi commits retained, unrelated local P4 SD/Wi-Fi changes not overlaid",
+  "fixture_formatting": "Structural brace trailing spaces removed; all fixtures recompiled, valid bytecode/canonical projects identical.",
+  "CI": "push triggers offline validation, the native GP SFC job and Linux x86_64/ARM64 native runtime jobs; no Pages deployment",
+  "CI_workflow_correction": {
+    "reason": "Pre-existing job env expression used runner.temp, which GitHub rejects in that context.",
+    "previous_failure": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41320473204",
+    "change": "Place the pinned upstream checkout under github.workspace/build-artifacts, using an allowed context.",
+    "runtime_source_changed": false
+  }
+}

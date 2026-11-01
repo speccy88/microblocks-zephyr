@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-01",
+  "status": "PASS",
+  "parent_commit": "714054f5ccf1ae16b7085163c716942d843b2fc3",
+  "branch": "codex/sfc-native-v4-20261101",
+  "change": "Test-only correction: require all 21 primitive names, order and function pointers in MicroDuck primitive set 22; preserve existing security, IPC and GC assertions.",
+  "runtime_source_changed": false,
+  "hardware_access": false,
+  "baseline_comparison": {
+    "status": "PASS_BASELINE_FAILURE_REPRODUCED",
+    "same_host": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "python": "3.12.15",
+    "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "SmallVM_pin": "2071df569623ba9cdcd6f8106b61796e047df38b",
+    "hardware_access": false,
+    "records": [
+      {
+        "commit": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+        "command": "python3 tools/test_linux_microduck_native.py --upstream SAME_PINNED_UPSTREAM --output OWNED_OUTPUT --evidence OWNED_EVIDENCE",
+        "returncode": 1,
+        "error": "!strcmp(name,\"microduck\") && count==9",
+        "source_sha256": {
+          "tests/linux_microduck_native.c": "1913de5ad77075a09988254d11807758e6820ed5b947e909bbc41dc3b1f6f1c5",
+          "linux/arm64/platform/microduck.c": "f768e16145379805481583c25e81ca250dbd66e60b2dfce97188846e92e6a6ac",
+          "tools/test_linux_microduck_native.py": "311abd3ac86148f2a8ef2aaa9b6165eec556bebefe34470d0315585ae74af2d3",
+          "linux/arm64/build.py": "e59fc31928bd5d0147392c967b8b91ddf649a5ea6b3e2adbb152f71c372dd2f4",
+          "dependencies/smallvm-v417.json": "6944b652bab1919aaadfdafbb78cea96a9e026c46cec8cd0a9c6f5cae3112687",
+          "dependencies/json.json": "2a553c35a9a8ac3d66ea8e9f991a9f3e8c2d9a17ee0771620b3c322aaebdd556",
+          "third_party/yyjson/yyjson.c": "d2d58ef0a3b2267862dc363832c4f3185fd375aea933d5d3419d1a940d6ece2e",
+          "third_party/yyjson/yyjson.h": "ef803cda5c06b8962face6dfa39c3284b3bcf3e73f4d7317664690cc779679ca"
+        }
+      },
+      {
+        "commit": "714054f5ccf1ae16b7085163c716942d843b2fc3",
+        "command": "python3 tools/test_linux_microduck_native.py --upstream SAME_PINNED_UPSTREAM --output OWNED_OUTPUT --evidence OWNED_EVIDENCE",
+        "returncode": 1,
+        "error": "!strcmp(name,\"microduck\") && count==9",
+        "source_sha256": {
+          "tests/linux_microduck_native.c": "1913de5ad77075a09988254d11807758e6820ed5b947e909bbc41dc3b1f6f1c5",
+          "linux/arm64/platform/microduck.c": "f768e16145379805481583c25e81ca250dbd66e60b2dfce97188846e92e6a6ac",
+          "tools/test_linux_microduck_native.py": "311abd3ac86148f2a8ef2aaa9b6165eec556bebefe34470d0315585ae74af2d3",
+          "linux/arm64/build.py": "e59fc31928bd5d0147392c967b8b91ddf649a5ea6b3e2adbb152f71c372dd2f4",
+          "dependencies/smallvm-v417.json": "6944b652bab1919aaadfdafbb78cea96a9e026c46cec8cd0a9c6f5cae3112687",
+          "dependencies/json.json": "2a553c35a9a8ac3d66ea8e9f991a9f3e8c2d9a17ee0771620b3c322aaebdd556",
+          "third_party/yyjson/yyjson.c": "d2d58ef0a3b2267862dc363832c4f3185fd375aea933d5d3419d1a940d6ece2e",
+          "third_party/yyjson/yyjson.h": "ef803cda5c06b8962face6dfa39c3284b3bcf3e73f4d7317664690cc779679ca"
+        }
+      }
+    ],
+    "conclusion": "The exact fixture command fails identically before and after SFC. The failure is pre-existing, not introduced by this branch.",
+    "scope": "Same local x86_64 host, compiler, sanitizer runner and pinned upstream; not a replay of baseline GitHub Actions, whose workflow definition is invalid."
+  },
+  "native_fixture": {
+    "result": "PASS",
+    "checks": 484,
+    "registered_primitives": 21,
+    "scope": "native Unix fixture sockets and real VM memory; peer/write fault providers; no robot hardware",
+    "sanitizers": [
+      "address",
+      "undefined"
+    ],
+    "sanitizer_diagnostics": "",
+    "production_timeout_ms": 10000,
+    "test_timeout_ms": 40,
+    "physical_microduck": false
+  },
+  "full_python": {
+    "command": "python3 tools/validate.py",
+    "tests": 480,
+    "failures": 0,
+    "skips": 0
+  },
+  "source_sha256": {
+    "tests/linux_microduck_native.c": "ce45d0cac92373a919140da4386991735fac4138771771f658b61f38a2431171",
+    "linux/arm64/platform/microduck.c": "f768e16145379805481583c25e81ca250dbd66e60b2dfce97188846e92e6a6ac",
+    "tools/test_linux_microduck_native.py": "311abd3ac86148f2a8ef2aaa9b6165eec556bebefe34470d0315585ae74af2d3",
+    "linux/arm64/build.py": "e59fc31928bd5d0147392c967b8b91ddf649a5ea6b3e2adbb152f71c372dd2f4",
+    "dependencies/smallvm-v417.json": "6944b652bab1919aaadfdafbb78cea96a9e026c46cec8cd0a9c6f5cae3112687",
+    "dependencies/json.json": "2a553c35a9a8ac3d66ea8e9f991a9f3e8c2d9a17ee0771620b3c322aaebdd556",
+    "third_party/yyjson/yyjson.c": "d2d58ef0a3b2267862dc363832c4f3185fd375aea933d5d3419d1a940d6ece2e",
+    "third_party/yyjson/yyjson.h": "ef803cda5c06b8962face6dfa39c3284b3bcf3e73f4d7317664690cc779679ca"
+  },
+  "logs_sha256": {
+    "authorized_native_compile": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "authorized_native_run": "e331972923ad45e789a8e440b95266cdd01aae7d6b96b794c86d2ab0823e9350",
+    "authorized_full_validation": "f8a1c247cdea25c159fa59256568643138963307ac2ec88c652d9ac0c5d175ae",
+    "baseline_gp": "df2bf57a78b1104d62a9613ce6b40c128ac6a2795731fcaa4458fd958c9f70a4",
+    "baseline_feature": "b1f67e624a5e2760072c459ab65a603d543f2d8829a4989329db993e1e682470"
+  },
+  "limits": [
+    "Local Linux x86_64 sanitizer execution; remote ARM64 matrix pending after push.",
+    "Private Unix gateway fixtures only; no physical MicroDuck, P4, Pi, service install or deployment."
+  ]
+}

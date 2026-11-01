@@ -1,0 +1,30 @@
+module main
+variables Step1 Step2 Transition1 Transition2 Entries1 Loops1 Entries2 Loops2 Completed Heartbeat
+description 'Native serial SFC test. Entry runs once; loop repeats until its following transition variable is Boolean true. Set Transition1 and Transition2 from ordinary MicroBlocks scripts or variable controls. No hardware is used. Red stop can retain the last step flags; a new sequence entry resets them.'
+
+script 30 30 {
+    whenStarted
+    sfcSequence {
+        sfcStep 'Step1' {
+            Entries1 += 1
+        } {
+            Loops1 += 1
+        }
+        sfcTransition 'Transition1'
+        sfcStep 'Step2' {
+            Entries2 += 1
+        } {
+            Loops2 += 1
+        }
+        sfcTransition 'Transition2'
+    }
+    Completed += 1
+}
+
+script 500 30 {
+    whenStarted
+    forever {
+        Heartbeat += 1
+        waitMillis 2
+    }
+}
