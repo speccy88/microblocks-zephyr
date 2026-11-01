@@ -64,9 +64,15 @@ test('bridge failures, background and erroneous acknowledgements close link', ()
     assert.equal(c.p.write(new Uint8Array([1])), 0); assert.equal(c.p.isConnected(), false);
 });
 
-async function realCompiler(assets) {
+async function realCompiler(assets, endpoint) {
     const results = [], errors = [], frames = [], kinds = [];
-    let context, rx = [], current = '', savedCRC;
+    let context, rx = [], current = '', savedCRC, socket;
+    const page = endpoint && new URL(endpoint);
+    if (page) {
+        assert.equal(page.protocol, 'http:'); assert.equal(page.hostname, '127.0.0.1');
+        assert.ok(Number(page.port) >= 1024 && Number(page.port) <= 65535);
+        assert.equal(page.username + page.password + page.search + page.hash, '');
+    }
     const deliver = (type, fields = {}) => vm.runInContext(
         `MicroBlocksIPhone.receive(${JSON.stringify({type, id: current, ...fields})})`, context);
     const long = (kind, index, body) => {
@@ -75,14 +81,36 @@ async function realCompiler(assets) {
         deliver('data', {bytes: bytes.slice(0, 2)}); deliver('data', {bytes: bytes.slice(2)});
     };
     const bridge = {postMessage(event) {
-        if (event.type === 'connect') { current = event.id; rx = []; deliver('ready'); return; }
+        if (event.type === 'connect') {
+            current = event.id; rx = [];
+            if (!endpoint) { deliver('ready'); return; }
+            const owned = new WebSocket('ws://' + page.host + '/ws/vm', {headers: {Origin: page.origin}});
+            socket = owned; owned.binaryType = 'arraybuffer'; let ready = false;
+            owned.onmessage = message => {
+                if (socket !== owned) return;
+                if (!ready) {
+                    assert.equal(message.data, 'ready'); ready = true; deliver('ready');
+                } else {
+                    assert.ok(message.data instanceof ArrayBuffer);
+                    deliver('data', {bytes: [...new Uint8Array(message.data)]});
+                }
+            };
+            owned.onerror = () => deliver('error', {reason: 'Loopback test socket failed'});
+            return;
+        }
+        if (event.type === 'close') {
+            if (socket) { const old = socket; socket = null; old.close(); }
+            return;
+        }
         if (event.type !== 'write') return;
         frames.push(event.bytes.length); rx.push(...event.bytes);
+        if (socket) socket.send(Uint8Array.from(event.bytes));
         deliver('sent', {count: event.bytes.length});
         while (rx.length >= 3) {
             const size = rx[0] === 250 ? 3 : rx.length >= 5 ? 5 + rx[3] + (rx[4] << 8) : Infinity;
             if (rx.length < size) break;
             const msg = rx.splice(0, size), kind = msg[1], index = msg[2]; kinds.push(kind);
+            if (endpoint) continue; // real VM supplies every response
             if (kind === 26) deliver('data', {bytes: [250, 26, index]});
             if (kind === 12) long(22, index, [2, ...Buffer.from('v417 iPhone protocol fixture')]);
             if (kind === 32) {
@@ -120,32 +148,49 @@ async function realCompiler(assets) {
     const run = script => vm.runInContext(script, context);
     run('MicroBlocksIPhone.install(MB_CommPort, () => "192.168.1.42"); globalThis.MB_connection = new MB_Connection(); globalThis.manager = new MB_CodeManager(null); MB_connection.setCodeManager(manager);');
     assert.equal(run('new MB_Compiler(null).primsets.has("microduck")'), false, 'No Linux compiler overlay on boards');
+    async function until(check) {
+        const deadline = Date.now() + 8000;
+        while (!check()) {
+            run('MB_connection.processMessages()');
+            if (Date.now() > deadline) throw Error('Timed out waiting for actual VM protocol');
+            await new Promise(resolve => setTimeout(resolve, 5));
+        }
+    }
     for (let pass = 0; pass < 2; pass++) {
         await run('MB_connection.connect("iphone-wifi")');
+        await until(() => run('MB_connection.isConnected()'));
         await run('MB_connection.sendMsg("pingMsg")'); run('MB_connection.processMessages()');
+        await until(() => run('MB_connection.lastPingRecvMSecs > 0'));
         assert.equal(run('MB_connection.connectedToBoard()'), true);
         await run('MB_connection.sendMsg("getVersionMsg")'); run('MB_connection.processMessages()');
+        await until(() => run('MB_connection.vmVersion !== null'));
         assert.equal(run('MB_connection.vmVersion'), 417);
         if (pass === 0) {
             run('globalThis.code = new MB_Compiler(null).compiledBytesFor(new ReporterBlockMorph("+", [20,22])); while(code.length%4) code.push(0);');
+            savedCRC = run('manager.computeCRC(code)');
             assert.equal(await run('manager.storeChunkOnBoard(0, [2,...code], manager.computeCRC(code))'), true);
         } else {
             run('manager.lastCRC = null'); await run('MB_connection.sendMsg("getChunkCRCMsg",0)');
-            run('MB_connection.processMessages()'); assert.deepEqual(Array.from(context.manager.lastCRC), Array.from(savedCRC));
+            await until(() => context.manager.lastCRC !== null);
+            assert.deepEqual(Array.from(context.manager.lastCRC), Array.from(savedCRC));
         }
+        const before = results.length;
         await run('MB_connection.sendMsg("startChunkMsg",0)'); run('MB_connection.processMessages()');
+        await until(() => results.length > before);
         assert.equal(results.at(-1), 42);
         await run('MB_connection.sendMsg("stopAllMsg")'); run('MB_connection.disconnect()');
         assert.equal(run('MB_connection.isConnected()'), false);
+        await new Promise(resolve => setTimeout(resolve, 100));
     }
     assert.equal(errors.length, 0); assert.ok(kinds.includes(6)); assert.ok(frames.every(n => n <= 1024));
     passed++;
-    return {real_compiler: true, protocol_peer: 'synthetic fixture', physical_board: false,
+    return {real_compiler: true, protocol_peer: endpoint ? 'real native SmallVM v417 via loopback' : 'synthetic fixture',
+        native_ios_socket: false, physical_board: false,
         ping_version: true, crc_upload: true, fragmented_input: true, run_stop_reconnect: true};
 }
 
 (async () => {
     const assets = process.argv[2];
-    const protocol = assets ? await realCompiler(assets) : null;
+    const protocol = assets ? await realCompiler(assets, process.argv[3]) : null;
     console.log(JSON.stringify({passed, protocol}));
 })().catch(error => { console.error(error); process.exitCode = 1; });

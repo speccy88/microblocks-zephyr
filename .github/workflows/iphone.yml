@@ -22,7 +22,7 @@ jobs:
           python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
       - name: Fetch immutable official editor source
         run: |
           git init build-artifacts/editor-upstream
@@ -35,6 +35,12 @@ jobs:
           python3 -m unittest discover -s tests -p test_iphone_editor.py -v
           python3 tools/package_iphone_editor.py --source build-artifacts/editor-upstream --output build-artifacts/iphone-editor > build-artifacts/iphone-receipt.json
           node tests/iphone-transport.test.cjs build-artifacts/iphone-editor
+      - name: Execute iPhone adapter uploads against the real native VM
+        run: |
+          git -C build-artifacts/editor-upstream fetch --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b
+          python3 -m pip install -r linux/arm64/bridge-requirements.txt
+          python3 linux/arm64/build.py --upstream build-artifacts/editor-upstream --output build-artifacts/iphone-vm --sanitize --test
+          python3 tools/test_iphone_wireless_vm.py --binary build-artifacts/iphone-vm/smallvm --editor build-artifacts/iphone-editor --evidence build-artifacts/iphone-real-vm.json
       - uses: actions/upload-artifact@v4
         with:
           name: iphone-editor-source

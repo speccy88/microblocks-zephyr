@@ -16,11 +16,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
 button:disabled { opacity: .45; }
 button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #e89922; outline-offset: 2px; }
 .workspace { min-height: 0; height: auto; overflow: hidden; }
-.workspace__left { width: 64px !important; flex-shrink: 0; padding-bottom: 0; transition: none; }
+.workspace__left { width: 128px !important; flex-shrink: 0; padding-bottom: 0; transition: none; }
 .workspace__left button, .categories__item { min-height: 44px; }
+.categories__list, .libraries { padding-left: 4px; }
+.category-button { font-size: 13px; padding: 4px 8px; }
 .workspace__canvas-wrapper { min-width: 0; min-height: 0; overflow: hidden; }
 #canvas { touch-action: none; }
 .bottom-bar { display: none; }
+.scripts-pane-controls { height: 56px; padding: 5px; gap: 0; bottom: 12px; right: 12px; box-sizing: border-box; }
+.scripts-pane-controls__button { width: 44px; height: 44px; display: grid; place-items: center; }
+.scripts-pane-controls__button svg { width: 24px; height: 24px; }
 .menu { max-height: 75dvh; overflow-y: auto; max-width: calc(100vw - 16px); }
 .iphone-connect-sheet { border: 0; border-radius: 18px; padding: 20px; width: min(460px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow: auto; box-sizing: border-box; color: #18324d; background: #fff; font: 16px/1.45 -apple-system, sans-serif; }
 .iphone-connect-sheet::backdrop { background: #10233bb0; }
@@ -33,7 +38,15 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 #iphone-close { background: #56667a; margin-top: 12px; }
 .iphone-limit { font-size: 14px; color: #53667b; }
 @media (max-width: 599px) {
+    .workspace { flex-direction: column; }
     body:not(.iphone-blocks-visible) .workspace__left { display: none; }
-    .categories__item { font-size: 11px; padding: 6px 2px; }
+    .workspace__left { width: 100% !important; height: 56px; display: flex; flex-direction: row; overflow: auto hidden; }
+    .workspace__left::after { display: none; }
+    .categories__list { display: flex; gap: 4px; margin: 0; padding: 4px; }
+    .category-button { min-width: 70px; flex-shrink: 0; white-space: nowrap; }
+    .libraries { display: flex; margin: 0; padding: 4px; }
+    .libraries__title { display: none; }
+    .libraries__list { display: flex; margin: 0; }
+    .libraries__add-button-wrapper { margin: 0; padding: 0; min-width: max-content; }
     .scripts-pane-controls { max-width: 100%; }
 }

@@ -68,6 +68,18 @@
             $('iphone-blocks').setAttribute('aria-pressed', String(blocksVisible));
         }
         $('iphone-blocks').onclick = () => { blocksVisible = !blocksVisible; layout(); };
+        let scriptCount = 0;
+        document.querySelector('#canvas').addEventListener('touchstart', () => {
+            scriptCount = MB_editor.scriptsPane()?.children.filter(m => m instanceof BlockMorph).length || 0;
+        }, {passive: true});
+        document.querySelector('#canvas').addEventListener('touchend', () => {
+            setTimeout(() => {
+                const count = MB_editor.scriptsPane()?.children.filter(m => m instanceof BlockMorph).length || 0;
+                if (window.innerWidth < 600 && blocksVisible && count > scriptCount) {
+                    blocksVisible = false; layout();
+                }
+            }, 50);
+        }, {passive: true});
         window.addEventListener('resize', layout);
         window.visualViewport?.addEventListener('resize', layout);
         $('iphone-close').onclick = () => { MB_connection.disconnect(); sheet.close(); };

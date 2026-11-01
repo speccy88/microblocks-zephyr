@@ -30,6 +30,7 @@ def package(source, output):
     html = html.replace(viewport, 'width=device-width, initial-scale=1.0, viewport-fit=cover')
     html = html.replace('</head>', '<link rel="stylesheet" href="iphone.css">\n</head>')
     files['index.html'] = html.encode()
+    files['microblocks.html'] = files['index.html']
     for destination, source_path in {
         'iphone-transport.js': 'web/js-editor/iphone-transport.js',
         'iphone-bootstrap.js': 'web/js-editor/iphone-bootstrap.js',
