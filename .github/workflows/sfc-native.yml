@@ -1,0 +1,45 @@
+name: Native SFC GP editor
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  compiler-and-resources:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build disconnected native SFC editor from pinned GP assets
+        run: python3 tools/build_sfc_preview.py --fetch --output build-artifacts/sfc-editor
+      - name: Check SFC package and SVG resource contracts
+        run: python3 -m unittest discover -s tests -p 'test_sfc_*.py' -v
+      - name: Compile valid and malformed fixtures with the genuine GP compiler
+        run: python3 tools/test_sfc_compiler.py --editor build-artifacts/sfc-editor --output build-artifacts/sfc-compiler
+      - name: Build sanitized portable SFC reference fixtures
+        run: |
+          python3 tools/build_sfc_native_fixture.py
+          python3 tools/test_sfc_execution.py
+      - name: Check retained portable graph and action semantics
+        env:
+          MB_SFC_HOST: ${{ github.workspace }}/build-artifacts/sfc-native/host
+          MB_SFC_EXECUTION_HOST: ${{ github.workspace }}/build-artifacts/sfc-execution/host
+        run: node --test tests/sfc-core.test.js tests/sfc-execution.test.js tests/sfc-export.test.js tests/sfc-studio.test.js tests/sfc-actions-ui.test.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-sfc-editor-and-evidence
+          path: |
+            build-artifacts/sfc-editor
+            build-artifacts/sfc-compiler
+          if-no-files-found: error

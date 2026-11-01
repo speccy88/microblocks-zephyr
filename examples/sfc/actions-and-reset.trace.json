@@ -1,0 +1,7 @@
+[
+  {"op":"start","now":0},
+  {"op":"scan","now":50,"inputs":{"1":true}},
+  {"op":"scan","now":100,"inputs":{"2":true}},
+  {"op":"resetInitial","now":150},
+  {"op":"stopAndClear"}
+]

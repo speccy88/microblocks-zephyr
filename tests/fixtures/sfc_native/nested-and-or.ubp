@@ -1,0 +1,19 @@
+module main
+variables Source Left L1 L2 Right LeftEnd After Gate Pick1 Pick2 Merge Join Done E0 EL E1 E2 ER EE EA Completed
+script 30 30 {
+ whenStarted
+ sfcSequence {
+  sfcStep 'Source' { E0 += 1 } {}
+  sfcTransition 'Gate'
+  sfcAnd {
+   sfcStep 'Left' { EL += 1 } {}
+   sfcOr 'Pick1' { sfcStep 'L1' { E1 += 1 } {} } 'Pick2' { sfcStep 'L2' { E2 += 1 } {} }
+   sfcOrJoin 'Merge'
+   sfcStep 'LeftEnd' { EE += 1 } {}
+  } { sfcStep 'Right' { ER += 1 } {} }
+  sfcAndJoin 'Join'
+  sfcStep 'After' { EA += 1 } {}
+  sfcTransition 'Done'
+ }
+ Completed += 1
+}

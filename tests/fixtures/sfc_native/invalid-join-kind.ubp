@@ -1,0 +1,33 @@
+module main
+variables Source After B1 F1 B2 F2 B3 F3 Gate Join Done Choice1 Choice2 Choice3 Move1 Move2 Move3 SourceEntry SourceLoop AfterEntry AfterLoop B1Entry B1Loop F1Entry F1Loop B2Entry B2Loop F2Entry F2Loop B3Entry B3Loop F3Entry F3Loop Completed Heartbeat PeerSeen
+script 30 30 {
+whenStarted
+sfcSequence {
+sfcStep 'Source' { SourceEntry += 1 } { SourceLoop += 1 }
+sfcTransition 'Gate'
+sfcAnd {
+sfcStep 'B1' { B1Entry += 1
+PeerSeen = B2 } { waitMillis 30
+B1Loop += 1 }
+sfcTransition 'Move1'
+sfcStep 'F1' { F1Entry += 1 } { F1Loop += 1 }
+} {
+sfcStep 'B2' { B2Entry += 1 } { B2Loop += 1 }
+sfcTransition 'Move2'
+sfcStep 'F2' { F2Entry += 1 } { F2Loop += 1 }
+} {
+sfcStep 'B3' { B3Entry += 1 } { B3Loop += 1 }
+sfcTransition 'Move3'
+sfcStep 'F3' { F3Entry += 1 } { F3Loop += 1 }
+}
+sfcOrJoin 'Join'
+sfcStep 'After' { AfterEntry += 1 } { AfterLoop += 1 }
+sfcTransition 'Done'
+}
+Completed += 1
+}
+script 800 30 {
+whenStarted
+forever { Heartbeat += 1
+waitMillis 2 }
+}

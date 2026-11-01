@@ -1,0 +1,11 @@
+module main
+variables A B C G J D
+script 1 1 { whenStarted
+sfcSequence {
+sfcStep 'A' { comment 'a' } { comment 'loop' }
+sfcTransition 'G'
+sfcAnd { sfcStep 'B' {} {} }
+sfcAndJoin 'J'
+sfcStep 'C' {} {}
+sfcTransition 'D'
+} }
