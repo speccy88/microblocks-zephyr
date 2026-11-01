@@ -17,6 +17,7 @@ function fixture(runtime='board',hostname='192.168.1.42'){
 test('mobile detection uses touch capability and explicit choices win',()=>{
  assert(layout.isTouch({navigator:{maxTouchPoints:5},matchMedia:()=>({matches:true}),innerWidth:932,innerHeight:430}));
  assert(!layout.isTouch({navigator:{maxTouchPoints:0},matchMedia:()=>({matches:false}),innerWidth:390,innerHeight:844}));
+ assert(layout.isTouch({navigator:{maxTouchPoints:0},ontouchstart:null,matchMedia:()=>({matches:false}),innerWidth:390,innerHeight:844}));
  assert.equal(layout.mode(null,null,true),'offer');assert.equal(layout.mode(null,null,false),'desktop');
  assert.equal(layout.mode('desktop','mobile',true),'desktop');assert.equal(layout.mode(null,'desktop',true),'desktop');
  assert.throws(()=>layout.safeURL('https://other.invalid/',{href:'https://site.invalid/app/',origin:'https://site.invalid'}),/stay/);

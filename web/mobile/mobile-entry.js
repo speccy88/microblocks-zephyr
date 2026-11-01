@@ -3,8 +3,12 @@
 (function (root) {
     'use strict';
     const key = 'microblocks.layout.v1';
-    const isTouch = env => Number(env.navigator?.maxTouchPoints) > 0 &&
-        (env.matchMedia?.('(pointer: coarse)').matches || Math.min(env.innerWidth, env.innerHeight) <= 600);
+    const isTouch = env => {
+        const coarse = !!env.matchMedia?.('(pointer: coarse)').matches;
+        // WebKit versions with touch events can report zero maxTouchPoints.
+        const touch = Number(env.navigator?.maxTouchPoints) > 0 || coarse || 'ontouchstart' in env;
+        return touch && (coarse || Math.min(env.innerWidth, env.innerHeight) <= 600);
+    };
     const mode = (query, saved, touch) => ['mobile', 'desktop'].includes(query) ? query :
         ['mobile', 'desktop'].includes(saved) ? saved : touch ? 'offer' : 'desktop';
     const safeURL = (path, location) => {

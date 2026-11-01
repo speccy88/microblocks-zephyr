@@ -2,6 +2,7 @@
 """Real browser WebSocket + compiler + owned native VM, never physical evidence."""
 # SPDX-License-Identifier: MIT
 import argparse
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
@@ -10,6 +11,7 @@ import socket
 import subprocess
 import sys
 import tempfile
+import threading
 from playwright.sync_api import sync_playwright
 
 
@@ -27,13 +29,26 @@ def browser_test(url, output, executable=None):
         assert not page.evaluate('!!window.webkit?.messageHandlers?.microblocks')
         # A genuine browser supplies its own Origin. A second, opaque origin
         # must be refused by the existing bridge rather than relaxing its rule.
-        foreign = context.new_page()
-        rejected = foreign.evaluate('''url => new Promise(resolve => {
-            const ws=new WebSocket(url.replace('http:','ws:')+'ws/vm');
-            ws.onopen=()=>{ws.close();resolve(false)};ws.onerror=()=>resolve(true);
-        })''', url)
-        assert rejected
-        foreign.close()
+        class ForeignPage(BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200);self.end_headers();self.wfile.write(b'<!doctype html><title>Foreign origin fixture</title>')
+            def log_message(self,*args):pass
+        fixture=ThreadingHTTPServer(('127.0.0.1',0),ForeignPage)
+        threading.Thread(target=fixture.serve_forever,daemon=True).start()
+        try:
+            foreign = context.new_page()
+            foreign.goto(f'http://127.0.0.1:{fixture.server_port}/')
+            cdp=context.new_cdp_session(foreign);statuses=[];socket_errors=[]
+            cdp.send('Network.enable')
+            cdp.on('Network.webSocketHandshakeResponseReceived',lambda e:statuses.append(e['response']['status']))
+            cdp.on('Network.webSocketFrameError',lambda e:socket_errors.append(e['errorMessage']))
+            rejected = foreign.evaluate('''url => new Promise(resolve => {
+                const ws=new WebSocket(url.replace('http:','ws:')+'ws/vm');
+                ws.onopen=()=>{ws.close();resolve(false)};ws.onerror=()=>resolve(true);
+            })''', url)
+            assert rejected and (403 in statuses or any('403' in e for e in socket_errors)), (statuses,socket_errors)
+            foreign.close()
+        finally:fixture.shutdown()
         page.evaluate('''() => { window.actualResults=[];
             const show=MB_editor.showResult.bind(MB_editor);
             MB_editor.showResult=(id,value)=>{actualResults.push(value);show(id,value)};
@@ -44,7 +59,7 @@ def browser_test(url, output, executable=None):
             assert page.locator('#iphone-address').get_attribute('readonly') is not None
             page.locator('#iphone-open').click()
             page.wait_for_function('MB_connection.connectedToBoard() && MB_connection.vmVersion===417')
-            page.wait_for_function('!document.getElementById("iphone-sheet").open')
+            page.wait_for_function('!document.querySelector(".iphone-connect-sheet").open')
             if attempt == 0:
                 page.evaluate('''async () => {
                     await MB_editor.openProjectFromString("projectName 'Browser VM'\\nmodule 'main'\\nscript 40 60 (+ 20 22)\\n",'Browser VM.ubp');

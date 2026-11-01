@@ -7,6 +7,8 @@
     {"id": "fruit-jam", "name": "Adafruit Fruit Jam", "transport": "wifi", "manifest": "boards/adafruit_fruit_jam/hardware.json", "note": "Board must already have joined Wi-Fi. Full power-cycle association limitations remain. iPhone test pending."},
     {"id": "p4", "name": "Waveshare ESP32-P4 WIFI6", "transport": null, "manifest": "boards/waveshare_esp32p4_wifi6/hardware.json", "note": "Wireless programming unavailable: current manifest records a C6/hosting failure. Use the desktop USB editor."},
     {"id": "p2", "name": "Propeller 2 — desktop USB", "transport": null, "manifest": "boards/propeller2/hardware.json", "note": "USB serial only. Use the desktop editor. Direct iPhone USB serial and wireless programming are not implemented."},
-    {"id": "ble", "name": "Stock MicroBlocks BLE boards", "transport": null, "manifest": "dependencies/editor-js.json", "note": "Native CoreBluetooth support is planned. Web Bluetooth is not provided by this app slice."}
+    {"id": "ble", "name": "Stock MicroBlocks BLE boards", "transport": null, "manifest": "dependencies/editor-js.json", "note": "Safari on iPhone has no Web Bluetooth programming path here. Native CoreBluetooth support remains planned."},
+    {"id": "pi5", "name": "Raspberry Pi 5 - desktop preview", "transport": null, "manifest": "dependencies/js-preview-site.json", "note": "Use the existing desktop Linux preview for its board-specific blocks and loopback transport. This touch package supports offline general editing only."},
+    {"id": "microduck", "name": "MicroDuck - desktop preview", "transport": null, "manifest": "dependencies/js-preview-site.json", "note": "Use the existing desktop MicroDuck preview for Linux primitives and its host bridge. This touch package does not include that compiler extension or remote control."}
   ]
 }
