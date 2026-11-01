@@ -4,7 +4,8 @@
     'use strict';
     let address = '', blocksVisible = false, profiles = [], lastPort = null, connectingPort = null;
     MicroBlocksIPhone.installCompiler(MB_Compiler);
-    MicroBlocksIPhone.install(MB_CommPort, () => address);
+    const browser = window.MicroBlocksBrowser;
+    MicroBlocksIPhone.install(MB_CommPort, () => address, browser ? () => browser.bridge : undefined);
     const native = () => window.webkit?.messageHandlers?.microblocks;
     const exports = new Map();
     const receive = MicroBlocksIPhone.receive;
@@ -29,7 +30,7 @@
         });
     };
 
-    window.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener(browser?.startupEvent || 'DOMContentLoaded', async () => {
         const toolbar = document.createElement('div');
         toolbar.className = 'iphone-toolbar';
         const icon = path => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + path + '"/></svg>';
@@ -74,6 +75,18 @@
             '<p id="iphone-sheet-status" role="status"></p>' +
             '<p class="iphone-limit">USB-only boards, including Propeller 2, use the desktop editor. Bluetooth is planned.</p>';
         document.body.append(sheet);
+        if (browser) {
+            sheet.querySelector('.iphone-limit').textContent = browser.help();
+            if (browser.runtime === 'pages') {
+                const openBoard = document.createElement('button');
+                openBoard.type = 'button'; openBoard.id = 'mobile-open-board'; openBoard.textContent = 'Open board website';
+                sheet.querySelector('#iphone-address-form').append(openBoard);
+                openBoard.onclick = () => {
+                    try { location.href = browser.boardURL($('iphone-address').value); }
+                    catch (error) { $('iphone-sheet-status').textContent = error.message; }
+                };
+            }
+        }
         const $ = id => document.getElementById(id);
         let previousKeyboardDelegate = false;
         function closeMenu() {
@@ -138,6 +151,7 @@
         $('iphone-address-form').onsubmit = async event => {
             event.preventDefault();
             if (profiles.find(p => p.id === $('iphone-board').value)?.transport !== 'wifi') return;
+            if (browser && !browser.canConnect(profiles.find(p => p.id === $('iphone-board').value))) return;
             address = $('iphone-address').value.trim();
             try {
                 $('iphone-sheet-status').textContent = 'Connecting to board…';
@@ -159,13 +173,20 @@
                 const option = document.createElement('option');
                 option.value = p.id; option.textContent = p.name; $('iphone-board').append(option);
             }
+            if (browser?.board) $('iphone-board').value = browser.board;
+            if (browser?.runtime === 'board') {
+                $('iphone-board').disabled = true;
+                $('iphone-address').value = location.hostname; $('iphone-address').readOnly = true;
+            }
         } catch (_) { $('iphone-sheet-status').textContent = 'Board profiles could not load. Rebuild the app bundle.'; }
         function profileChanged() {
             const profile = profiles.find(p => p.id === $('iphone-board').value);
             $('iphone-board-note').textContent = profile?.note || 'Board unavailable';
-            $('iphone-open').disabled = profile?.transport !== 'wifi' || !native() || !!connectingPort;
+            $('iphone-open').disabled = profile?.transport !== 'wifi' || !(browser ? browser.canConnect(profile) : native()) || !!connectingPort;
             $('iphone-address').disabled = profile?.transport !== 'wifi';
-            if (!native()) $('iphone-sheet-status').textContent = 'Browser preview: offline editing only. Install the native app for Wi-Fi.';
+            if (browser) {
+                const openBoard = $('mobile-open-board'); if (openBoard) openBoard.disabled = profile?.transport !== 'wifi';
+            } else if (!native()) $('iphone-sheet-status').textContent = 'Browser preview: offline editing only. Install the native app for Wi-Fi.';
         }
         $('iphone-board').onchange = () => {
             if (connectingPort) { MB_connection.disconnect(); connectingPort = null; }

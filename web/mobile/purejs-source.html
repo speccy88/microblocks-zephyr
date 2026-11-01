@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en-us">
+	<head>
+		<title>MicroBlocks</title>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+
+		<link rel="manifest" href="manifest.json">
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="icons/Bunny512.png">
+
+		<meta name="theme-color" content="white"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="MicroBlocks">
+		<meta name="msapplication-TileImage" content="icons/Bunny192.png">
+		<meta name="msapplication-TileColor" content="#FFFFFF">
+
+		<!-- Styles -->
+		<link rel="stylesheet" href="styles/config/_config.css">
+		<link rel="stylesheet" href="styles/generic/minireset.css">
+		<link rel="stylesheet" href="styles/generic/_body.css">
+		<link rel="stylesheet" href="styles/generic/_button.css">
+		<link rel="stylesheet" href="styles/components/_app-preloader.css">
+		<link rel="stylesheet" href="styles/components/_buttons.css">
+		<link rel="stylesheet" href="styles/components/_categories-libraries.css">
+		<link rel="stylesheet" href="styles/components/_ide.css">
+		<link rel="stylesheet" href="styles/components/_menus.css">
+		<link rel="stylesheet" href="styles/components/_scripts-pane-controls.css">
+		<link rel="stylesheet" href="styles/components/_tips.css">
+		<link rel="stylesheet" href="styles/components/_top-bar.css">
+		<link rel="stylesheet" href="styles/components/_window.css">
+		<link rel="stylesheet" href="styles/components/_overlay.css">
+		<link rel="stylesheet" href="styles/components/_wysiwyg.css">
+		<link rel="stylesheet" href="styles/utilities/_drag.css">
+
+		<!-- Developer tools. Disable on live instances -->
+		<!-- Disabled for now -->
+		<!-- <script type="text/javascript" src="ui/devtools.js" defer></script> -->
+
+		<!-- Localization -->
+		<script type="text/javascript" src="ui/gettext.js" defer></script>
+
+		<!-- Utils -->
+		<script type="text/javascript" src="ui/elements.js"></script>
+		<script type="text/javascript" src="lib/marked.umd.js" defer></script>
+
+		<!-- Window Components -->
+		<script type="text/javascript" src="ui/windows.js" defer></script>
+		<script type="text/javascript" src="ui/libraryinfo.js" defer></script>
+		<script type="text/javascript" src="ui/filebrowser.js" defer></script>
+		<script type="text/javascript" src="ui/graph.js" defer></script>
+
+		<!-- Firmware upload support -->
+		<script type="text/javascript" src="lib/usbDfuDevice.js" defer></script>
+		<script type="text/javascript" src="engine/flasher.js" defer></script>
+
+	</head>
+
+	<body oncontextmenu="return false;">
+
+		<!-- Force HTTPS. Otherwise WebSerial can't be accessed. -->
+		<script>
+			if (location.protocol === 'http:') { location.protocol = 'https:'; }
+		</script>
+
+		<!-- FileUploader -->
+		<input type="file" id="FileUploader" multiple style="display:none">
+
+		<!-- Loader -->
+		<div class="app-preloader" data-ide="app-preloader">
+			<div class="app-preloader__contents">
+				<img class="app-preloader__logo" src="img/logo-preloader.svg" alt="MicroBlocks and Rosa logo">
+				<div class="app-preloader__spinner"></div>
+			</div>
+			<p class="app-preloader__text">Loading</p>
+		</div>
+
+
+		<!-- IDE -->
+		<div class="ide" data-ide="ide">
+
+			<nav class="top-bar" data-ide="top-bar">
+
+				<a href="https://microblocks.fun/" target="_blank" class="top-bar__logo" aria-label="MicroBlocks website">
+					<img src="img/microblocks-ide-logo.svg" alt="">
+				</a>
+
+				<div class="top-bar__main-menu" data-ide="main-menu"></div>
+
+				<div class="top-bar__title" data-ide="title"></div>
+
+				<div class="top-bar__controls" data-ide="controls">
+					<div class="top-bar__controls-progress" data-ide="progress"></div>
+				</div>
+
+			</nav>
+
+			<div class="workspace" data-ide="workspace">
+
+				<div class="workspace__left" data-ide="workspace-left">
+					<div class="categories">
+						<div class="categories__list" data-ide="categories-list"></div>
+					</div>
+					<div class="libraries">
+						<h2 class="libraries__title"><l->LIBRARIES</l-></h2>
+						<nav class="libraries__add-button-wrapper">
+							<button class="button-rounded libraries__add-button" onclick="(new FileBrowser((path)=>{MB_editor.openLibraryFile(path)},'Libraries',['.ubl'])).popUp();">
+								<l->Add Library</l->
+								<span class="libraries__add-button-icon">
+									<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M8 4C8.27614 4 8.5 4.22386 8.5 4.5V7.5H11.5C11.7761 7.5 12 7.72386 12 8C12 8.27614 11.7761 8.5 11.5 8.5H8.5V11.5C8.5 11.7761 8.27614 12 8 12C7.72386 12 7.5 11.7761 7.5 11.5V8.5H4.5C4.22386 8.5 4 8.27614 4 8C4 7.72386 4.22386 7.5 4.5 7.5H7.5V4.5C7.5 4.22386 7.72386 4 8 4Z" fill="currentColor"/>
+									</svg>
+								</span>
+							</button>
+						</nav>
+						<div class="libraries__list" data-ide="libraries-list"></div>
+					</div>
+					<button class="workspace__collapse-left-btn" data-ide="collapse-left-btn" aria-label="Expand and collapse left bar">
+						<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1 8C1 8.27614 1.22386 8.5 1.5 8.5H13.2929L10.1464 11.6464C9.95118 11.8417 9.95118 12.1583 10.1464 12.3536C10.3417 12.5488 10.6583 12.5488 10.8536 12.3536L14.8536 8.35355C15.0488 8.15829 15.0488 7.84171 14.8536 7.64645L10.8536 3.64645C10.6583 3.45118 10.3417 3.45118 10.1464 3.64645C9.95118 3.84171 9.95118 4.15829 10.1464 4.35355L13.2929 7.5H1.5C1.22386 7.5 1 7.72386 1 8Z" fill="currentColor"/>
+						</svg>
+					</button>
+				</div>
+
+				<div class="workspace__canvas-wrapper">
+					<!-- Canvas for Morphic world -->
+					<canvas id="canvas"></canvas>
+					<div class="scripts-pane-controls --can-drag-through" data-ide="scripts-pane-controls"></div>
+				</div>
+
+			</div>
+
+			<div class="bottom-bar" data-ide="bottom-bar">
+				<div class="tips" data-ide="tips-container"></div>
+			</div>
+
+			<div class="menu-container" data-ide="menu-container"></div>
+
+			<div class="overlay" data-ide="overlay">
+				<div class="overlay__contents">
+					<div class="overlay__spinner" data-ide="overlay-spinner"></div>
+					<h2 class="overlay__title" data-ide="overlay-title"></h2>
+					<h3 class="overlay__subtitle" data-ide="overlay-subtitle"></h3>
+					<span class="overlay__note" data-ide="overlay-note"></span>
+				</div>
+			</div>
+
+		</div>
+
+
+		<!-- Snap Blocks -->
+		<script type="text/javascript" src="engine/morphic.js"></script>
+		<script type="text/javascript" src="engine/mb-support.js"></script>
+		<script type="text/javascript" src="engine/mb-blocks.js"></script>
+		<script type="text/javascript" src="engine/mb-slots.js"></script>
+		<script type="text/javascript" src="engine/mb-block-search.js"></script>
+		<script type="text/javascript" src="engine/mb-code-manager.js"></script>
+		<script type="text/javascript" src="engine/mb-comm-port.js"></script>
+		<script type="text/javascript" src="engine/mb-compare.js"></script>
+		<script type="text/javascript" src="engine/mb-compiler.js"></script>
+		<script type="text/javascript" src="engine/mb-connection.js"></script>
+		<script type="text/javascript" src="engine/mb-decompiler.js"></script>
+		<script type="text/javascript" src="engine/mb-file-picker.js"></script>
+		<script type="text/javascript" src="engine/mb-firmware.js"></script>
+		<script type="text/javascript" src="engine/mb-esptool.js"></script>
+		<script type="text/javascript" src="engine/mb-esptool-stubs.js"></script>
+		<script type="text/javascript" src="engine/mb-files.js"></script>
+		<script type="text/javascript" src="engine/mb-function.js"></script>
+		<script type="text/javascript" src="engine/mb-help-strings.js"></script>
+		<script type="text/javascript" src="engine/mb-help.js"></script>
+		<script type="text/javascript" src="engine/mb-jsAPI.js"></script>
+		<script type="text/javascript" src="engine/mb-library-widgets.js"></script>
+		<script type="text/javascript" src="engine/mb-boardie.js"></script>
+		<script type="text/javascript" src="engine/mb-parser.js"></script>
+		<script type="text/javascript" src="engine/mb-project.js"></script>
+		<script type="text/javascript" src="engine/mb-specs.js"></script>
+		<script type="text/javascript" src="engine/mb-tips.js"></script>
+		<script type="text/javascript" src="engine/mb-autosave.js"></script>
+		<script type="text/javascript" src="engine/mb-editor.js"></script>
+
+		<!-- IDE -->
+		<script type="text/javascript" src="ui/ide.js"></script>
+		<script type="text/javascript" src="ui/menus.js"></script>
+		<script type="text/javascript" src="ui/buttons.js"></script>
+		<script type="text/javascript" src="ui/categories.js"></script>
+
+		<!-- Start IDE when page is loaded -->
+		<script>
+			var world, mbEditor;
+			window.onload = function () {
+				var FPS = 60,
+					lastTime = 0,
+					lastStep = 0,
+
+				// Morphic UI loop
+				loop = (timestamp) => {
+					requestAnimationFrame(loop);
+					if (timestamp - lastStep >= 250) { // four times a second, as GP steps its scripter
+						lastStep = timestamp;
+						MB_editor.step();
+					}
+					if (timestamp - lastTime < 1000 / FPS) {
+						return;
+					}
+					world.doOneCycle();
+					lastTime = Math.max(
+						lastTime + 1000 / FPS,
+						timestamp - 1000 / FPS
+					);
+				};
+
+				setTimeout(async () => {
+					// Hack: Wait a bit before starting to let everything finish loading...
+					MorphicPreferences.isFlat = true;
+					world = new WorldMorph(document.getElementById('canvas'), false);
+					IDE.init();
+					mbEditor = MB_editor.open(world);
+					IDE.resize(); // place the world canvas over the workspace slot
+					// Started first, so the IDE keeps running while a link's project asks a question.
+					requestAnimationFrame(loop);
+					// Before a link's project, so the work a crash left behind is offered first.
+					if (MB_editor.autosave) await MB_editor.autosave.start();
+					try {
+						// A link the page was opened with.
+						await MB_editor.importFromURL(location.href);
+					} catch (error) {
+						// The IDE still runs: a link nobody can open is not a dead page.
+						console.error('Could not open this link:', error);
+					}
+				}, 500);
+			};
+		</script>
+
+	</body>
+</html>

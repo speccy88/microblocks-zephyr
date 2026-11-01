@@ -1,5 +1,12 @@
 # Licensing and upstream projects
 
+The mobile web profile reuses the official MicroBlocks JavaScript editor at
+`5564b1e42d6790360450ebf11c9eb33a1c6877f2` (MPL-2.0). Its exact entry template
+is retained as `web/mobile/purejs-source.html`; all engine/asset bytes are
+verified against `dependencies/editor-js.json`. Local touch/transport overlays
+retain MPL-2.0 notices. See `web/js-editor/THIRD_PARTY_NOTICES.md`; generated
+packages preserve the source manifest and license notices.
+
 Most new source files and documentation in this repository use the **MIT License** (`LICENSE`).
 The experimental SmallVM adapter at
 `boards/waveshare_esp32s3_rlcd_4_2/integration/rlcd_smallvm_primitives.c`

@@ -96,7 +96,13 @@ static void handle_request(struct client *c)
     unsigned transfers=0;for(unsigned i=0;i<5;++i)if(clients[i].state==HTTP_SEND)++transfers;
     if(transfers>=4){response(c,503,"text/plain",(const uint8_t *)"Server busy",11,false);return;}
     if(!strcmp(request.path,"/api/status")){status_response(c);return;}
-    const char *path=!strcmp(request.path,"/")?"/microblocks.html":request.path;
+    const char *path=request.path;
+    if(!strcmp(path,"/")){
+        path="/microblocks.html"; /* Legacy images keep the original root. */
+        for(unsigned i=0;i<fj_web_asset_count;++i){
+            if(!strcmp(fj_web_assets[i].path,"/index.html")){path="/index.html";break;}
+        }
+    }
     for(unsigned i=0;i<fj_web_asset_count;++i){
         const struct fj_web_asset *asset=fj_web_assets+i;
         if(!strcmp(path,asset->path)){response(c,200,asset->type,asset->data,asset->size,asset->gzip);return;}

@@ -1,0 +1,12 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+.mobile-layout-offer { max-width: 960px; margin: 18px auto; padding: 22px; border-radius: 14px; background: #eaf1fa; color: #18324d; box-sizing: border-box; font: 16px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; }
+.mobile-layout-offer h2 { margin: 0 0 10px; font-size: 24px; line-height: 1.2; }
+.mobile-layout-offer p { margin: 10px 0; }
+.mobile-layout-offer .mobile-layout-note { font-size: 14px; }
+.mobile-layout-link, .mobile-layout-offer button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; box-sizing: border-box; padding: 8px 12px; border: 0; border-radius: 8px; background: #194f85; color: white; font: 600 14px -apple-system, sans-serif; text-decoration: none; cursor: pointer; touch-action: manipulation; }
+.mobile-layout-offer .mobile-layout-link { margin: 6px 8px 6px 0; }
+.mobile-layout-offer button { background: #56667a; }
+.iphone-menu-panel .mobile-layout-link { display: flex; width: 100%; justify-content: flex-start; margin: 6px 0; }
+html[data-touch-offer="true"] #ide, html[data-touch-offer="true"] .board-picker { display: none; }
+.mobile-layout-offer[hidden] { display: none; }
+@media (max-width: 599px) { .mobile-layout-offer { margin: 10px; padding: 16px; } }

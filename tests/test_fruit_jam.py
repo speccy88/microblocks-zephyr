@@ -81,12 +81,19 @@ class FruitJamInventoryTests(unittest.TestCase):
         self.assertEqual(len(channels),len(set(channels)))
         self.assertEqual(channels,[p-24 if p>=32 else p%16 for p in DATA['digital_gpio']])
 
-    def test_compiled_source_provenance_matches_current_files(self):
+    def test_compiled_provenance_and_explicit_uncompiled_mobile_followup(self):
         report=json.loads((ROOT/'evidence/2026-10-18/fruit-jam/target-build-verification.json').read_text())
         self.assertEqual(report['result'],'PASS')
         self.assertFalse(report['hardware_validation'])
         self.assertFalse(report['flashed'])
+        followup=json.loads((ROOT/'evidence/mobile-web-firmware-uncompiled.json').read_text())
+        self.assertFalse(followup['firmware_compiled'])
+        self.assertFalse(followup['flashed'])
         for name,digest in report['source_sha256'].items():
-            self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
+            if name in followup['changes']:
+                change=followup['changes'][name]
+                self.assertEqual(change['compiled_baseline_sha256'],digest,name)
+                self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),change['current_sha256'],name)
+            else:self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
 
 if __name__=='__main__':unittest.main()

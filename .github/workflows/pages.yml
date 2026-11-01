@@ -46,6 +46,15 @@ jobs:
         run: python .gp-stable-source/tools/build_pages_linux_preview.py --linux-repo .linux-target-source --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages --fetch
       - name: Add reviewed JavaScript preview without changing GP
         run: python tools/add_js_preview.py --gp-site build-artifacts/pages --archive ${{ runner.temp }}/js-preview.zip --fetch
+      - name: Add shared touch editor and phone layout offer
+        run: python tools/add_mobile_web.py --site build-artifacts/pages
+      - name: Verify mobile source and preserved desktop files
+        env:
+          MOBILE_EDITOR_SOURCE: ${{ github.workspace }}/build-artifacts/pages/js-preview/waveshare
+          MOBILE_SITE: ${{ github.workspace }}/build-artifacts/pages
+        run: |
+          python -m unittest discover -s tests -p test_mobile_web.py -v
+          node --test tests/mobile-browser.test.cjs
       - name: Verify preview archive contracts and actual pinned editor bundles
         run: |
           python -m unittest discover -s tests -p test_js_preview_asset.py -v

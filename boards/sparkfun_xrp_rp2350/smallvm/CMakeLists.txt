@@ -24,6 +24,11 @@ set(repo ${CMAKE_CURRENT_SOURCE_DIR}/../../..)
 set(vm_root ${CMAKE_CURRENT_BINARY_DIR}/smallvm)
 set(web_root ${CMAKE_CURRENT_BINARY_DIR}/web-xrp)
 set(http_root ${CMAKE_CURRENT_BINARY_DIR}/xrp-http)
+# Optional verified touch-editor cache; no network access during packaging.
+set(mobile_args)
+if(MOBILE_EDITOR_SOURCE_DIR)
+  list(APPEND mobile_args --mobile-source "${MOBILE_EDITOR_SOURCE_DIR}")
+endif()
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/prepare_xrp_http.py
   --zephyr ${ZEPHYR_BASE} --output ${http_root} COMMAND_ERROR_IS_FATAL ANY)
 if(NOT TARGET subsys__net__lib__http)
@@ -49,7 +54,7 @@ execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/prepare_smallvm.py
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/prepare_xrp_runtime.py
   ${vm_root} COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/package_xrp_ide.py
-  ${IDE_SOURCE_DIR} ${web_root} COMMAND_ERROR_IS_FATAL ANY)
+  ${IDE_SOURCE_DIR} ${web_root} ${mobile_args} COMMAND_ERROR_IS_FATAL ANY)
 target_include_directories(app PRIVATE ${vm_root} ${vm_root}/vm src ${repo}/common)
 target_compile_definitions(app PRIVATE SMALLVM_ZEPHYR=1)
 target_sources(app PRIVATE src/main.cpp src/platform.c src/transport.c src/io.cpp

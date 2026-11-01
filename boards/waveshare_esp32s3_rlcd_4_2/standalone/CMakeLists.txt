@@ -9,6 +9,11 @@ endif()
 set(repo ${CMAKE_CURRENT_SOURCE_DIR}/../../..)
 set(vm_root ${CMAKE_CURRENT_BINARY_DIR}/smallvm)
 set(web_root ${CMAKE_CURRENT_BINARY_DIR}/web)
+# Optional verified touch-editor cache; no network access during packaging.
+set(mobile_args)
+if(MOBILE_EDITOR_SOURCE_DIR)
+  list(APPEND mobile_args --mobile-source "${MOBILE_EDITOR_SOURCE_DIR}")
+endif()
 if(CONFIG_I2S_ESP32 AND CONFIG_DMA_ESP32_MAX_DESCRIPTOR_NUM EQUAL 1)
   set(patched_i2s ${CMAKE_CURRENT_BINARY_DIR}/drivers/i2s_esp32.c)
   execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/prepare_i2s.py
@@ -27,7 +32,7 @@ endif()
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/prepare_smallvm.py
   ${SMALLVM_SOURCE_DIR} ${vm_root} COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/package_ide.py
-  ${IDE_SOURCE_DIR} ${web_root} COMMAND_ERROR_IS_FATAL ANY)
+  ${IDE_SOURCE_DIR} ${web_root} ${mobile_args} COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND ${Python3_EXECUTABLE} ${repo}/tools/generate_device_secrets.py
   ${CMAKE_CURRENT_BINARY_DIR}/private COMMAND_ERROR_IS_FATAL ANY)
 target_include_directories(app PRIVATE ${vm_root} ${vm_root}/vm

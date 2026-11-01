@@ -17,9 +17,14 @@ if(NOT IDE_SOURCE_DIR)
   message(FATAL_ERROR "Set IDE_SOURCE_DIR to the verified MicroBlocks 2.5.8 assets")
 endif()
 set(web_root "${CMAKE_CURRENT_BINARY_DIR}/web-fruit-jam")
+# Optional verified touch-editor cache; no network access during packaging.
+set(mobile_args)
+if(MOBILE_EDITOR_SOURCE_DIR)
+  list(APPEND mobile_args --mobile-source "${MOBILE_EDITOR_SOURCE_DIR}")
+endif()
 execute_process(COMMAND ${Python3_EXECUTABLE}
   ${CMAKE_CURRENT_SOURCE_DIR}/../../../tools/package_fruit_jam_ide.py
-  ${IDE_SOURCE_DIR} ${web_root} COMMAND_ERROR_IS_FATAL ANY)
+  ${IDE_SOURCE_DIR} ${web_root} ${mobile_args} COMMAND_ERROR_IS_FATAL ANY)
 execute_process(COMMAND ${Python3_EXECUTABLE}
   ${CMAKE_CURRENT_SOURCE_DIR}/../../../tools/prepare_smallvm.py
   ${SMALLVM_SOURCE_DIR} ${vm_root} --strict-digital-arity

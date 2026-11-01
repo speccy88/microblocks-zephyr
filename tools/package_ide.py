@@ -8,10 +8,12 @@ import json
 import mimetypes
 import re
 from pathlib import Path
+import mobile_board_assets as mobile
 from patch_ide import patch_ide
 
 
-def package(source, output, project):
+def package(source, output, project, mobile_source=None):
+    extra = mobile.assets(mobile.source_for(source, mobile_source), 'waveshare')
     manifest = json.loads((project / "dependencies/ide-assets.json").read_text())
     output.mkdir(parents=True, exist_ok=True)
     resources = []
@@ -38,9 +40,10 @@ def package(source, output, project):
 '''
     patched = {"gp_wasm.js": locale_gate + patched_js, "gp_wasm.data": patched_data}
     files = list(manifest["files"]) + [{"path": "setup", "local": project / "web/setup.html"}]
+    files += [{"path": name, "mobile": raw} for name, raw in sorted(extra.items())]
     for index, item in enumerate(files):
         name = item["path"]
-        data = (item["local"] if "local" in item else source / name).read_bytes()
+        data = item["mobile"] if "mobile" in item else (item["local"] if "local" in item else source / name).read_bytes()
         if "sha256" in item and hashlib.sha256(data).hexdigest() != item["sha256"]:
             raise ValueError(f"IDE source hash mismatch: {name}")
         if name in replacements:
@@ -64,6 +67,8 @@ def package(source, output, project):
                 if data.count(old) != 1:
                     raise ValueError("Unexpected pinned language bootstrap source")
                 data = data.replace(old, new)
+        if extra and name == "microblocks.html":
+            data = mobile.desktop(data)
         compressed = gzip.compress(data, compresslevel=9, mtime=0)
         encoding = "gzip" if len(compressed) < len(data) else ""
         blob = compressed if encoding else data
@@ -89,12 +94,15 @@ def package(source, output, project):
                  " .common = {.type=HTTP_RESOURCE_TYPE_DYNAMIC, .bitmask_of_supported_http_methods=BIT(HTTP_GET),",
                  f' .content_type={json.dumps(mime)}, .content_encoding={json.dumps(encoding) if encoding else "NULL"}}},',
                  f" .cb=mb_asset_handler, .user_data=(void *)&asset_{index}}};",
-                 f'HTTP_RESOURCE_DEFINE(resource_{index}, mb_http, {json.dumps("/" + name)}, &detail_{index});']
-        if name == "microblocks.html":
+                 f'HTTP_RESOURCE_DEFINE(resource_{index}, mb_http, {json.dumps(mobile.route(name) if extra else "/" + name)}, &detail_{index});']
+        if name == ("index.html" if extra else "microblocks.html"):
             code.append(f'HTTP_RESOURCE_DEFINE(asset_root, mb_http, "/", &detail_{index});')
+        if name == "mobile/index.html":
+            code += [f'HTTP_RESOURCE_DEFINE(asset_mobile, mb_http, "/mobile", &detail_{index});',
+                     f'HTTP_RESOURCE_DEFINE(asset_mobile_dir, mb_http, "/mobile/", &detail_{index});']
     (output / "assets.c").write_text("\n".join(code) + "\n")
     total = sum(x[2] for x in resources)
-    (output / "assets-report.json").write_text(json.dumps({"files": len(resources), "flash_bytes": total,"assets":audit}, indent=2))
+    (output / "assets-report.json").write_text(json.dumps({"files": len(resources), "flash_bytes": total,"assets":audit,"mobile":mobile.summary(extra)}, indent=2))
     print(f"Packaged {len(resources)} real IDE files into {total} flash bytes")
 
 
@@ -102,5 +110,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--mobile-source", type=Path)
     args = parser.parse_args()
-    package(args.source.resolve(), args.output.resolve(), Path(__file__).resolve().parents[1])
+    package(args.source.resolve(), args.output.resolve(), Path(__file__).resolve().parents[1], args.mobile_source)

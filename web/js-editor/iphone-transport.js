@@ -81,14 +81,14 @@
         }
     }
 
-    function install(CommPort, address) {
+    function install(CommPort, address, bridge = nativeBridge) {
         if (installed.has(CommPort)) return;
         const connect = CommPort.prototype.connect;
         const disconnect = CommPort.prototype.disconnect;
         CommPort.prototype.connect = function (type, frame) {
             if (type !== 'iphone-wifi') return connect.call(this, type, frame);
             this.disconnect();
-            this.iphonePort = new NativePort(address());
+            this.iphonePort = new NativePort(address(), bridge());
             this.iphonePort.dataArrived = () => { if (this.dataArrived) this.dataArrived(); };
         };
         CommPort.prototype.disconnect = function () {

@@ -1,0 +1,20 @@
+{
+  "firmware_compiled": false,
+  "flashed": false,
+  "historical_report": "evidence/2026-10-18/fruit-jam/target-build-verification.json",
+  "reason": "Optional mobile asset build argument and root chooser; no current firmware build or hardware acceptance is claimed.",
+  "changes": {
+    "boards/adafruit_fruit_jam/smallvm/CMakeLists.txt": {
+      "compiled_baseline_sha256": "1943171b3dc922f5335f0aa4c77271d272752148076e2b9fbe6f376fcc724c14",
+      "current_sha256": "90a2d0ba523d95f7b0368e6358ce92fb6cc333f6f6705a9634922a87023be19b"
+    },
+    "boards/adafruit_fruit_jam/smallvm/src/network_server.c": {
+      "compiled_baseline_sha256": "fbaf8174b732a64639a15970e20e609bbdf0241d7191a147281c941bd802e42d",
+      "current_sha256": "70b5281127bec39fd5f6c990b2599be53c73df4f62f47e783c541ac6c592d936"
+    },
+    "tools/package_fruit_jam_ide.py": {
+      "compiled_baseline_sha256": "132d9de45090e29b1e1654c9140898f2fa58172b0c866a9ef62754b646d6bfee",
+      "current_sha256": "1d6f255a73461d8481c5c1e53300fb0c93a7c538dae140d049173eb8c7c1f10f"
+    }
+  }
+}
