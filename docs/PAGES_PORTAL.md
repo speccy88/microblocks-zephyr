@@ -1,5 +1,13 @@
 # Browser portal implementation and acceptance contract
 
+Current entry (2026-11-01): Pages uses the reviewed pure-JavaScript editor by
+default, with the phone touch offer and `legacy/index.html` for the frozen GP
+portal described below. `tools/promote_js_portal.py` owns that explicit assembly
+and audits every changed/preserved file before the mobile compositor runs.
+The older GP-specific acceptance sections remain historical; they do not
+establish JavaScript physical hardware acceptance. JavaScript profiles retain
+their own identity, firmware and transport guards. See `MAIN_CONSOLIDATION.md`.
+
 The user requested one working `main` branch, a public repository and a GitHub
 Pages portal offering the real MicroBlocks IDE over USB alongside board-hosted
 LAN IDEs. All verified board work is now a fast-forward ancestor of `main`.

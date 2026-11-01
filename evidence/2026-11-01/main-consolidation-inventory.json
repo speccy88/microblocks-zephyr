@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "base_main": "a651529d24c3f7ae10c6f9f5acd884c1dda57641",
+  "native_js_merge": "607d6e7",
+  "sfc_merge": "d4349ea",
+  "remote_heads_before_publication": {
+    "origin/codex/iphone-wireless-20261101": {
+      "sha": "e10a5ee90bd2f5b04b6bc9245d806764c3df2483",
+      "ancestor_of_integrated_main": true
+    },
+    "origin/codex/js-editor-migration-20261027": {
+      "sha": "2c060b7f4e9153dd7213d9b7c2a479810577eb51",
+      "ancestor_of_integrated_main": true
+    },
+    "origin/codex/mobile-web-20261101": {
+      "sha": "a651529d24c3f7ae10c6f9f5acd884c1dda57641",
+      "ancestor_of_integrated_main": true
+    },
+    "origin/codex/sfc-native-v4-20261101": {
+      "sha": "19640cf765146cfa4a3025b744bcb069f239c0fb",
+      "ancestor_of_integrated_main": true
+    },
+    "origin/development/fruit-jam": {
+      "sha": "91a4dad2766e36d2737754cadb164492661c6e6e",
+      "ancestor_of_integrated_main": true
+    },
+    "origin/development/waveshare-rlcd": {
+      "sha": "8616af6f59256ef251622ac70ab802ea2d7b2b53",
+      "ancestor_of_integrated_main": true
+    },
+    "origin/gp": {
+      "sha": "3905dc1808f65dad65d5a37b05990f74cc4fca83",
+      "ancestor_of_integrated_main": true
+    },
+    "origin/main": {
+      "sha": "a651529d24c3f7ae10c6f9f5acd884c1dda57641",
+      "ancestor_of_integrated_main": true
+    }
+  },
+  "gp_ref_updated": false,
+  "branches_deleted": false,
+  "main_only_rule": "AGENTS.md",
+  "new_work_on_main": true,
+  "desktop_wrapper_added": false,
+  "physical_hardware_tested": false
+}

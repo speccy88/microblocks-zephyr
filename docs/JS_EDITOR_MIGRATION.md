@@ -3,9 +3,10 @@
 Current integration direction (2026-11-01): work directly in `main`, as required
 by `AGENTS.md`; do not create migration or sync branches. The branch history
 below records the earlier staging process. See `MAIN_CONSOLIDATION.md` for the
-paused integration state and current JavaScript-first requirement. The pinned
-pure-JavaScript source is real, but its own version file says IDE 2.5.12 / VM 421
-and the manifest marks it experimental; do not call it a verified v3 release.
+integration review and JavaScript-first publication contract. The pinned
+pure-JavaScript source is real. The official announcement identifies this
+rewrite as the upcoming 3.0 alpha; its own version file still says
+IDE 2.5.12 / VM 421. Do not call it a stable v3 release or upgrade the VM pin.
 
 The migration now has a local `gp` preservation branch and a separate
 `codex/js-editor-migration-20261027` worktree. Both started at

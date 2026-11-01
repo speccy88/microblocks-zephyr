@@ -1,0 +1,18 @@
+{
+  "url": "https://microblocks.fun/blog/2026-10-27-microblocks-3.0/",
+  "http_status": 200,
+  "retrieved_date": "2026-11-01",
+  "html_sha256": "ab30efebe920368ddd1d8b4009c2ec38a2980490cb8e41fd9ba35b1e136a1073",
+  "announcement_status": "Upcoming MicroBlocks 3.0 pilot; alpha still being finished",
+  "implementation": "JavaScript and CSS with Snap-derived blocks and Morphic",
+  "electron_or_tauri_mentioned": false,
+  "pinned_editor": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "observed_upstream_dev": "16dad32c645b3fb81ef7b00cb0a15a914e98136c",
+  "observed_upstream_master": "57195710c95aecf84f278edb41922277a1e3fac9",
+  "newer_dev_adopted": false,
+  "pin_policy": "Retain the reviewed, reproducibly tested editor snapshot; a newer moving dev head requires separate compatibility review",
+  "pinned_commit_subject": "IDE 2.5.12 VM 421",
+  "stable_v3_release_claimed": false,
+  "desktop_wrapper_added": false,
+  "runtime_upgraded": false
+}

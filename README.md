@@ -5,10 +5,20 @@ editor with a native station-mode Wi-Fi programming bridge and touch-sized
 controls. Source and build instructions are under `ios/`. Physical iPhone
 acceptance is pending; USB-only boards such as Propeller 2 use the desktop IDE.
 
-The [JavaScript editor migration](docs/JS_EDITOR_MIGRATION.md) is now staged
-separately, with a local `gp` preservation branch, an independently pinned
-upstream editor and a Linux compatibility layer. Existing GP/runtime pins
-remain available. This is experimental staging, not a published main migration.
+Development is consolidated in **`main`**. The existing **`gp`** branch remains
+the legacy GP line; do not create additional development branches. The
+[JavaScript editor](docs/JS_EDITOR_MIGRATION.md), native iPhone shell, mobile
+website, Linux/Pi/MicroDuck work and SFC sources share this main codebase.
+See the [integration record](docs/MAIN_CONSOLIDATION.md).
+
+The Pages root uses the real pure-JavaScript editor by default and offers the
+touch workspace on phones. The [legacy GP portal](https://speccy88.github.io/microblocks-zephyr/legacy/index.html)
+preserves existing editors and project access. Export/import `.ubp` to transfer
+work; projects and firmware are not automatically migrated. The upstream
+[3.0 announcement](https://microblocks.fun/blog/2026-10-27-microblocks-3.0/)
+describes this rewrite as an alpha. Our exact `5564b1e` source pin retains an
+internal IDE 2.5.12 / VM 421 version file; the project's VM remains pinned v417.
+Hardware acceptance varies by target. No Electron/Tauri desktop wrapper is included.
 
 A multi-board development project to run **MicroBlocks SmallVM and the Arduino API
 alongside Zephyr RTOS**, with board-aware blocks for displays, sensors, buses, storage,
@@ -79,17 +89,15 @@ Wi-Fi or board-hosted HTTP. Select the exact Eval/original Edge/EC32MB image
 when installing firmware. Physical acceptance and limits are recorded in its
 [capability manifest](boards/propeller2/hardware.json).
 
-## Linux ARM64 and MicroDuck development checkpoint
+## Linux ARM64 and MicroDuck
 
-The [Linux ARM64 installer and candidate packaging](linux/arm64/README.md) have
-simulated lifecycle tests. A native ARM64 SmallVM is not implemented or compiled
-yet; the [LP64 audit](docs/SMALLVM_LP64_AUDIT.md) reproduces the pinned VM's
-32-bit memory-layout guard and evaluates an upstream offset-reference design.
-The [MicroDuck BLE/JSON-RPC client](docs/MICRODUCK_PROTOCOL.md) has mock-device
-tests, with real BLE PIN/Wi-Fi secret transmission blocked until confidentiality
-can be established. Neither platform is advertised as physically validated.
-No ARM64 binary or release is published by this checkpoint. See
-[recorded validation](evidence/2026-10-27/linux-arm64/checkpoint.json).
+The [native Linux ARM64 SmallVM](linux/arm64/README.md) and standalone Pi 5
+session are implemented, with retained real Pi build/runtime evidence and
+native x86_64/AArch64 CI. The [delivery ledger](docs/PI5_MICRODUCK_STATUS.md)
+distinguishes those results from simulations and remaining release gates.
+MicroDuck RK3566 remains an experimental placeholder with hardware unverified;
+its hosted JavaScript profile disables connections. Do not send BLE setup
+secrets or advertise a released installer on the strength of fixtures.
 
 ## Start here: Waveshare ESP32-S3-RLCD-4.2
 
@@ -135,7 +143,7 @@ dependencies/                  Pinned sources and per-file hashes
 web/                           Board transport and saved Wi-Fi setup page
 common/                        Portable setup decoder/journal, not yet linked into board images
 evidence/                      Build and physical observations, no credentials
-.github/workflows/             Offline CI only — not a firmware build
+.github/workflows/             Source, native VM, browser, iOS Simulator and Pages CI
 ```
 
 ## What has to exist to call a board fully supported?

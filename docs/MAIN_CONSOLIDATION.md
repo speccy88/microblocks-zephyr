@@ -102,3 +102,49 @@ as JavaScript support until actually ported and tested. Keep their source and
 evidence, document that boundary, and avoid replacing working JS/browser paths
 with the older portal's assumptions. Do not promote a moving upstream preview
 or silently change the VM pin.
+
+Integration resumed after the user explicitly approved individual resolution of
+the four files. Merge `607d6e7` retains both the native and browser paths, with
+native-specific error guidance preserved. All nine native adapter/compiler
+fixture checks pass. Merge `d4349ea` integrates SFC; the exact primitive function
+pointer checks are retained, while the newer tested Linux runner path setup
+supersedes the older SFC workflow environment assignment. No GP ref was moved.
+The iPhone and web gesture suites now use one shared implementation. Mobile
+real-VM CI builds the Linux source in main rather than another staging checkout.
+
+The announcement was subsequently retrieved successfully over HTTPS (HTTP 200).
+It identifies the rewrite as the upcoming MicroBlocks 3.0 alpha, and does not
+mention Electron or Tauri. `evidence/2026-11-01/js-upstream-alignment.json`
+records this provenance. No desktop wrapper was added; web and touch remain
+the delivery priority.
+
+The official `dev` ref was observed at `16dad32c645b3fb81ef7b00cb0a15a914e98136c`.
+This consolidation retains the already reviewed/tested `5564b1e` dependency
+consistently across web and native packaging; it does not silently adopt a
+newer moving alpha head or assert that the source pin is the latest upstream.
+
+## JavaScript-first publication contract
+
+The normal Pages root will open the reviewed pure-JavaScript desktop profile,
+with the existing touch offer and an explicit legacy GP link. Preserve all
+frozen GP editor bytes and the reviewed JavaScript engine; do not replace newer
+P4/readback extensions with the earlier Linux-only migration overlay. The
+reviewed release archive remains a hash-pinned dependency containing readable
+JavaScript sources, licenses and manifests. Main owns the entry controller,
+mobile source, native app, Linux runtime and optional SFC source/tests.
+
+Compose the JavaScript entry before the mobile compositor so both audit
+manifests describe their own changes. Keep the old GP landing page under
+`legacy/`, with same-origin asset resolution. Add a small shared JS editor
+parent hook for unsaved-project confirmation before board/layout changes;
+never silently replace user work or auto-connect hardware. Connection policy
+continues to come from each reviewed target profile. Show USB-only and offline
+targets honestly. The GP-only SFC review bundle remains opt-in and is not
+advertised as a JavaScript SFC port.
+
+Acceptance includes actual desktop JavaScript startup, all board routes, the
+legacy GP route, cancellation with unsaved work, layout switching, unchanged
+upstream engine and legacy asset hashes, full source validation, native/SFC
+and browser CI, final remote ancestry, and live public verification. Nothing
+in this consolidation authorizes firmware installation or changes to secrets,
+repository security, GP branch contents or the pinned VM.

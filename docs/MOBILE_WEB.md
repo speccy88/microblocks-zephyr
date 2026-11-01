@@ -121,6 +121,13 @@ evidence is preserved rather than relabelled as current validation.
 
 ## Publication gate
 
+Historical gate before the owner's publication approval: the initial mobile
+release was subsequently published on main at `a651529`. The consolidated
+JavaScript-first entry now runs `promote_js_portal.py` before `add_mobile_web.py`.
+The mobile manifest preserves that input; the JS portal manifest separately
+audits the explicit desktop/legacy entry changes. Board firmware installation
+still requires separate authorization.
+
 On 2026-11-01, read-only inspection of the existing `github-pages` environment
 showed **Selected branches and tags: main, one branch allowed**. Feature-branch
 deployment is therefore blocked by that existing policy. No deployment was

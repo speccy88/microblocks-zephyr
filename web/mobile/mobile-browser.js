@@ -88,7 +88,7 @@
     if (typeof module === 'object' && module.exports) module.exports = {create, privateIP, boardURL};
     else {
         const config = JSON.parse(document.getElementById('mobile-load-config').textContent).profile;
-        const map = {'waveshare': 'rlcd', 'xrp-rp2350': 'xrp', 'propeller2': 'p2', 'esp32p4': 'p4', 'fruit-jam': 'fruit-jam', 'raspberry-pi5':'pi5', 'microduck':'microduck'};
+        const map = {'waveshare': 'rlcd', 'xrp-rp2350': 'xrp', 'propeller2': 'p2', 'esp32p4': 'p4', 'fruit-jam': 'fruit-jam', 'raspberry-pi5':'pi5', 'microduck':'microduck', 'unoq':'unoq'};
         const selected = new URLSearchParams(location.search).get('board');
         if (config.runtime === 'pages' && map[selected]) {
             config.board = map[selected];

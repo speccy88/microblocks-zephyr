@@ -23,7 +23,7 @@
     const mobileURL = () => {
         const url = safeURL(config.mobile || 'mobile/index.html', location);
         const board = document.getElementById('board')?.value;
-        if (['waveshare', 'fruit-jam', 'xrp-rp2350', 'propeller2', 'esp32p4', 'raspberry-pi5', 'microduck'].includes(board)) url.searchParams.set('board', board);
+        if (['waveshare', 'fruit-jam', 'xrp-rp2350', 'propeller2', 'esp32p4', 'raspberry-pi5', 'microduck', 'unoq'].includes(board)) url.searchParams.set('board', board);
         return url;
     };
     async function leave(value) {

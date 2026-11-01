@@ -27,6 +27,7 @@ jobs:
       - name: Verify and compose the current reviewed site
         run: |
           python tools/prepare_mobile_editor.py --archive build-artifacts/reviewed.zip --output build-artifacts/site --full-site --fetch
+          python tools/promote_js_portal.py --site build-artifacts/site
           python tools/add_mobile_web.py --site build-artifacts/site
       - name: Validate source, preserved desktop assets and browser contracts
         env:
@@ -44,29 +45,26 @@ jobs:
           python -m pip install playwright==1.64.1
           python -m playwright install --with-deps webkit
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/browser --browser /usr/bin/google-chrome
+          python tests/js_portal_smoke.py --site build-artifacts/site --output build-artifacts/js-portal --browser /usr/bin/google-chrome
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/webkit --engine webkit
           python tests/mobile_touch_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/touch --browser /usr/bin/google-chrome
           python tests/mobile_usability_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/usability --browser /usr/bin/google-chrome
           python tests/mobile_board_smoke.py --packages build-artifacts/board-packages --output build-artifacts/board-browser --browser /usr/bin/google-chrome
-      - uses: actions/checkout@v4
-        with:
-          ref: 2c060b7f4e9153dd7213d9b7c2a479810577eb51
-          path: .linux-target-source
-          persist-credentials: false
       - name: Execute browser programming against real SmallVM
         run: |
           git init build-artifacts/upstream
           git -C build-artifacts/upstream remote add origin https://codeberg.org/MicroBlocks/smallvm.git
           git -C build-artifacts/upstream fetch --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b
-          python -m pip install -r .linux-target-source/linux/arm64/bridge-requirements.txt
-          python tools/prepare_mobile_vm_test.py --linux-source .linux-target-source --upstream build-artifacts/upstream --output build-artifacts/vm --sanitize --test
-          python tests/mobile_vm_browser.py --linux-source .linux-target-source --binary build-artifacts/vm/smallvm --editor build-artifacts/board-packages/rlcd/http-root --output build-artifacts/real-vm --browser /usr/bin/google-chrome
+          python -m pip install -r linux/arm64/bridge-requirements.txt
+          python tools/prepare_mobile_vm_test.py --linux-source . --upstream build-artifacts/upstream --output build-artifacts/vm --sanitize --test
+          python tests/mobile_vm_browser.py --linux-source . --binary build-artifacts/vm/smallvm --editor build-artifacts/board-packages/rlcd/http-root --output build-artifacts/real-vm --browser /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: mobile-web-evidence
           path: |
             build-artifacts/browser
+            build-artifacts/js-portal
             build-artifacts/webkit
             build-artifacts/touch
             build-artifacts/usability
