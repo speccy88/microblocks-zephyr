@@ -40,6 +40,14 @@ body:not(.iphone-blocks-visible) .workspace__left { display: none; }
 .workspace__left button, .categories__item { min-height: 44px; }
 .categories__list, .libraries { padding-left: 4px; }
 .category-button { font-size: 13px; padding: 4px 8px; }
+.workspace__left .category-button { height: auto; line-height: 1.25; }
+.workspace__left .category-button l-, .workspace__left .libraries__add-button l- { width: auto; max-width: none; overflow: visible; white-space: normal; overflow-wrap: anywhere; text-overflow: clip; }
+.workspace__left .libraries__add-button { max-width: none; }
+.iphone-palette-grip { position: absolute; top: 0; bottom: 0; z-index: 3; width: 0; pointer-events: none; }
+.iphone-palette-grip[hidden] { display: none; }
+#iphone-palette-resize { position: absolute; top: 48px; bottom: 0; left: -22px; width: 44px; min-height: 44px; pointer-events: auto; touch-action: none; cursor: col-resize; }
+#iphone-palette-resize::after { content: ''; position: absolute; left: 19px; top: 35%; width: 6px; height: 48px; border-radius: 4px; background: #65758e; box-shadow: 0 0 0 2px #fff9; }
+#iphone-palette-wide { position: absolute; top: 2px; left: -22px; width: 44px; height: 44px; pointer-events: auto; touch-action: manipulation; border: 1px solid #8995a8; border-radius: 8px; background: #f0f3f6; color: #18324d; font-size: 24px; }
 .workspace__canvas-wrapper { min-width: 0; min-height: 0; overflow: hidden; }
 #canvas { touch-action: none; }
 #canvas.iphone-hand-active { cursor: grab; }
@@ -68,7 +76,9 @@ body:not(.iphone-blocks-visible) .workspace__left { display: none; }
     .workspace__left { width: 100% !important; height: 56px; display: flex; flex-direction: row; overflow: auto hidden; }
     .workspace__left::after { display: none; }
     .categories__list { display: flex; gap: 4px; margin: 0; padding: 4px; }
-    .category-button { min-width: 70px; flex-shrink: 0; white-space: nowrap; }
+    .category-button { min-width: 70px; width: max-content; flex-shrink: 0; white-space: nowrap; }
+    .workspace__left .category-button l-, .workspace__left .libraries__add-button l- { white-space: nowrap; overflow-wrap: normal; }
+    .workspace__left .libraries__add-button { width: max-content; }
     .libraries { display: flex; margin: 0; padding: 4px; }
     .libraries__title { display: none; }
     .libraries__list { display: flex; margin: 0; }

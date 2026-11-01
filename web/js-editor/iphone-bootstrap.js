@@ -7,6 +7,14 @@
     const browser = window.MicroBlocksBrowser;
     MicroBlocksIPhone.install(MB_CommPort, () => address, browser ? () => browser.bridge : undefined);
     const native = () => window.webkit?.messageHandlers?.microblocks;
+    // Stock icon labels are literal English. The phone displays them as menu
+    // captions too. Keep them bound to GetText without changing pinned assets.
+    const phoneStrings = {
+        fr: {'Menu':'Menu', 'Blocks':'Blocs', 'Pan workspace':'Déplacer la zone de travail', 'Connect board':'Connecter la carte', 'Save project':'Enregistrer le projet', 'Hide controls':'Masquer les commandes', 'Show controls':'Afficher les commandes', 'View tools':'Outils de vue', 'Workspace zoom':'Zoom de la zone de travail', 'Offline editing':'Édition hors ligne', 'Desktop editor':'Éditeur pour ordinateur', 'Graph':'Graphique', 'Stop scripts':'Arrêter les scripts', 'Programming workspace':'Zone de programmation', 'Resize palette':'Redimensionner la palette', 'Wide palette':'Élargir la palette', 'Close connection sheet':'Fermer la connexion', 'Close':'Fermer', 'Program over Wi-Fi':'Programmer par Wi-Fi', 'Board IP address':'Adresse IP de la carte', 'Close link':'Fermer la liaison', 'Open board website':'Ouvrir le site de la carte', 'Waiting for board reply.':'En attente de la carte.', 'Connecting to board.':'Connexion à la carte.', 'Drag empty space to pan. Drag blocks to move them. Use two fingers to pan and pinch to zoom. Hand mode pans over blocks.':'Glissez sur le fond pour déplacer la vue et sur les blocs pour les déplacer. Pincez à deux doigts pour zoomer. Le mode main déplace la vue même sur les blocs.'},
+        de: {'Menu':'Menü', 'Blocks':'Blöcke', 'Pan workspace':'Arbeitsbereich verschieben', 'Connect board':'Board verbinden', 'Save project':'Projekt speichern', 'Hide controls':'Bedienelemente ausblenden', 'Show controls':'Bedienelemente anzeigen', 'View tools':'Ansichtswerkzeuge', 'Workspace zoom':'Arbeitsbereich-Zoom', 'Offline editing':'Offline bearbeiten', 'Desktop editor':'Desktop-Editor', 'Graph':'Diagramm', 'Stop scripts':'Skripte stoppen', 'Programming workspace':'Programmierbereich', 'Resize palette':'Palette vergrößern oder verkleinern', 'Wide palette':'Palette verbreitern', 'Close connection sheet':'Verbindung schließen', 'Close':'Schließen', 'Program over Wi-Fi':'Über WLAN programmieren', 'Board IP address':'IP-Adresse des Boards', 'Close link':'Verbindung trennen', 'Open board website':'Board-Webseite öffnen', 'Waiting for board reply.':'Warte auf Antwort des Boards.', 'Connecting to board.':'Verbindung zum Board wird hergestellt.', 'Drag empty space to pan. Drag blocks to move them. Use two fingers to pan and pinch to zoom. Hand mode pans over blocks.':'Den Hintergrund ziehen, um die Ansicht zu verschieben. Blöcke zum Verschieben ziehen. Mit zwei Fingern verschieben und zoomen. Im Handmodus auch über Blöcken verschieben.'},
+        es: {'Menu':'Menú', 'Blocks':'Bloques', 'Pan workspace':'Desplazar el área de trabajo', 'Connect board':'Conectar placa', 'Save project':'Guardar proyecto', 'Hide controls':'Ocultar controles', 'Show controls':'Mostrar controles', 'View tools':'Herramientas de vista', 'Workspace zoom':'Zoom del área de trabajo', 'Offline editing':'Edición sin conexión', 'Desktop editor':'Editor de escritorio', 'Graph':'Gráfico', 'Stop scripts':'Detener programas', 'Programming workspace':'Área de programación', 'Resize palette':'Cambiar el ancho de la paleta', 'Wide palette':'Ampliar la paleta', 'Close connection sheet':'Cerrar conexión', 'Close':'Cerrar', 'Program over Wi-Fi':'Programar por Wi-Fi', 'Board IP address':'Dirección IP de la placa', 'Close link':'Cerrar enlace', 'Open board website':'Abrir el sitio de la placa', 'Waiting for board reply.':'Esperando respuesta de la placa.', 'Connecting to board.':'Conectando con la placa.', 'Drag empty space to pan. Drag blocks to move them. Use two fingers to pan and pinch to zoom. Hand mode pans over blocks.':'Arrastra el fondo para desplazar la vista y los bloques para moverlos. Usa dos dedos para desplazar y pellizcar para ampliar. El modo mano desplaza incluso sobre los bloques.'}
+    };
+    const translate = key => phoneStrings[GetText.currentLocale]?.[key] || GetText.localize(key);
     const exports = new Map();
     const receive = MicroBlocksIPhone.receive;
     MicroBlocksIPhone.receive = event => {
@@ -48,7 +56,7 @@
         menu.innerHTML = '<div id="iphone-original-menus"></div>' +
             '<button id="iphone-save" type="button">Save project</button>' +
             '<button id="iphone-focus" type="button">Hide controls</button>' +
-            '<p>Drag empty space to pan. Drag blocks to move them. Use two fingers to pan and pinch to zoom. Hand mode pans over blocks.</p>' +
+            '<p id="iphone-gesture-help">Drag empty space to pan. Drag blocks to move them. Use two fingers to pan and pinch to zoom. Hand mode pans over blocks.</p>' +
             '<span id="iphone-status" role="status" aria-live="polite">Offline editing</span>';
         ide.append(menu);
         const restore = document.createElement('div');
@@ -88,6 +96,24 @@
             }
         }
         const $ = id => document.getElementById(id);
+        const textKeys = new Map(), labelKeys = new Map();
+        ['iphone-save', 'iphone-focus', 'iphone-status', 'iphone-gesture-help', 'iphone-sheet-title', 'iphone-open', 'iphone-close', 'mobile-open-board'].forEach(id => {
+            const node = $(id); if (node) textKeys.set(node, node.textContent);
+        });
+        sheet.querySelectorAll('label, .iphone-dismiss').forEach(node => textKeys.set(node, node.textContent));
+        toolbar.querySelectorAll('[aria-label]').forEach(node => labelKeys.set(node, node.ariaLabel));
+        [restore.querySelector('button'), $('iphone-view')].forEach(node => labelKeys.set(node, node.ariaLabel));
+        function refreshLanguage() {
+            const desktop = $('mobile-desktop-editor'); if (desktop) textKeys.set(desktop, 'Desktop editor');
+            document.querySelectorAll('#iphone-original-menus button, #iphone-quick-stop, .iphone-dismiss, #iphone-palette-resize, #iphone-palette-wide, #canvas').forEach(node => {
+                if (node.ariaLabel && !labelKeys.has(node)) labelKeys.set(node, node.ariaLabel);
+            });
+            textKeys.forEach((key, node) => { if (node.id !== 'iphone-status') node.textContent = translate(key); });
+            labelKeys.forEach((key, node) => { node.ariaLabel = translate(key); node.title = translate(key); });
+            $('iphone-zoom-status').textContent = translate('Workspace zoom') + ' ' + Math.round(MB_editor.blockSize || 100) + '%';
+            document.documentElement.lang = GetText.currentLocale;
+        }
+        GetText.addLocalizable({localize: refreshLanguage});
         let previousKeyboardDelegate = false;
         function closeMenu() {
             menu.hidden = true; $('iphone-menu').setAttribute('aria-expanded', 'false');
@@ -127,12 +153,54 @@
             const visible = document.body.classList.toggle('iphone-tools-visible');
             $('iphone-view').setAttribute('aria-expanded', String(visible));
         };
+        let paletteWidth = null, widePalette = false;
+        const workspaceWrapper = document.querySelector('.workspace__canvas-wrapper');
+        const grip = document.createElement('div');
+        grip.className = 'iphone-palette-grip';
+        grip.innerHTML = '<div id="iphone-palette-resize" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize palette"></div>' +
+            '<button id="iphone-palette-wide" type="button" aria-label="Wide palette" aria-pressed="false">↔</button>';
+        workspaceWrapper.append(grip);
+        const paletteLimits = () => ({min: 90, max: Math.max(90, workspaceWrapper.clientWidth - (widePalette ? 44 : 96))});
+        function resizePalette(width) {
+            const limits = paletteLimits();
+            paletteWidth = Math.max(limits.min, Math.min(limits.max, width));
+            MB_editor.paletteWidth = paletteWidth;
+            MB_editor.fixLayout();
+            grip.style.left = paletteWidth + 'px';
+            const handle = $('iphone-palette-resize');
+            handle.setAttribute('aria-valuemin', limits.min); handle.setAttribute('aria-valuemax', limits.max);
+            handle.setAttribute('aria-valuenow', Math.round(paletteWidth));
+            world.changed(); world.updateBroken();
+        }
+        let resizing = false;
+        $('iphone-palette-resize').addEventListener('pointerdown', event => {
+            resizing = true; event.currentTarget.setPointerCapture(event.pointerId); event.preventDefault();
+        });
+        $('iphone-palette-resize').addEventListener('pointermove', event => {
+            if (resizing) resizePalette(event.clientX - workspaceWrapper.getBoundingClientRect().left);
+        });
+        const endResize = () => { resizing = false; };
+        ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => $('iphone-palette-resize').addEventListener(type, endResize));
+        $('iphone-palette-resize').addEventListener('keydown', event => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault(); event.stopPropagation(); const limits = paletteLimits();
+            resizePalette(event.key === 'Home' ? limits.min : event.key === 'End' ? limits.max :
+                paletteWidth + (event.key === 'ArrowLeft' ? -20 : 20));
+        });
+        $('iphone-palette-wide').onclick = () => {
+            widePalette = !widePalette;
+            $('iphone-palette-wide').setAttribute('aria-pressed', String(widePalette));
+            resizePalette(widePalette ? paletteLimits().max : Math.min(240, workspaceWrapper.clientWidth * .46));
+        };
         function layout() {
             if (typeof world === 'undefined' || !world || !MB_editor.palette) return;
             const compact = window.innerWidth < 600;
             document.body.classList.toggle('iphone-blocks-visible', blocksVisible);
             const show = blocksVisible && !document.body.classList.contains('iphone-focus');
-            MB_editor.paletteWidth = show ? (compact ? Math.min(190, window.innerWidth * 0.46) : 240) : 0;
+            MB_editor.paletteWidth = show ? Math.max(90, Math.min(paletteLimits().max,
+                paletteWidth ?? (compact ? Math.min(190, window.innerWidth * 0.46) : 240))) : 0;
+            if (show) paletteWidth = MB_editor.paletteWidth;
+            grip.hidden = !show; grip.style.left = MB_editor.paletteWidth + 'px';
             MB_editor.palette[show ? 'show' : 'hide']();
             if (MB_editor.paletteResizer) MB_editor.paletteResizer.hide();
             IDE.resize();
@@ -154,7 +222,7 @@
             if (browser && !browser.canConnect(profiles.find(p => p.id === $('iphone-board').value))) return;
             address = $('iphone-address').value.trim();
             try {
-                $('iphone-sheet-status').textContent = 'Connecting to board…';
+                $('iphone-sheet-status').textContent = translate('Connecting to board.');
                 $('iphone-open').disabled = true;
                 MB_connection.disconnect();
                 await MB_connection.connect('iphone-wifi');
@@ -208,20 +276,31 @@
         };
         // Measure the real workspace: safe-area/keyboard/rotation and toolbar
         // height cannot be represented by the upstream desktop constants.
-        IDE.resize = () => {
+        IDE.resize = (paint = true) => {
             const wrapper = document.querySelector('[data-ide="canvas-wrapper"]') || document.querySelector('.workspace__canvas-wrapper');
             const canvas = document.querySelector('#canvas');
             if (!wrapper || !canvas || typeof world === 'undefined' || !world) return;
             const rect = wrapper.getBoundingClientRect();
             const width = Math.max(1, Math.floor(rect.width)), height = Math.max(1, Math.floor(rect.height));
             canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
-            canvas.width = width * 2; canvas.height = height * 2;
-            call('ide.resize', [width, height]);
+            // Canvas dimension assignment clears its bitmap even if unchanged.
+            // Keep the world at the workspace size during zoom, never window size.
+            const rendered = world.worldCanvas;
+            rendered.style.position = 'unset';
+            for (const surface of new Set([canvas, rendered])) {
+                if (surface.width !== width) surface.width = width;
+                if (surface.height !== height) surface.height = height;
+            }
+            world.setExtent(new Point(width, height).divideBy(ZOOM));
+            if (MB_editor.palette && MB_editor.scriptsFrame) MB_editor.fixLayout();
+            world.changed();
+            if (paint) world.updateBroken();
         };
         const timer = setInterval(() => {
             if (typeof world === 'undefined' || !world || !MB_editor.palette) return;
             if (!document.querySelector('.top-bar__controls-run')) return;
             clearInterval(timer);
+            world.fillPage = () => IDE.resize(false);
             const originalMenus = document.querySelector('[data-ide="main-menu"]');
             $('iphone-original-menus').append(originalMenus);
             const graph = document.querySelector('.top-bar__button-rounded');
@@ -232,10 +311,11 @@
             const quickStop = stop.cloneNode(true); quickStop.id = 'iphone-quick-stop';
             quickStop.setAttribute('aria-label', 'Stop scripts'); quickStop.onclick = () => stop.click();
             restore.append(quickStop);
+            refreshLanguage();
             MicroBlocksIPhone.installGestures(canvas, {
                 scaleChanged: percent => {
                     $('iphone-scale').textContent = Math.round(percent) + '%';
-                    $('iphone-zoom-status').textContent = 'Workspace zoom ' + Math.round(percent) + '%';
+                    $('iphone-zoom-status').textContent = translate('Workspace zoom') + ' ' + Math.round(percent) + '%';
                 },
                 paletteDrop: () => { if (blocksVisible) { blocksVisible = false; layout(); } }
             });
@@ -255,10 +335,10 @@
                     connectingPort = null; profileChanged();
                 } else if (verified && MB_connection.port?.iphonePort === connectingPort) {
                     connectingPort = null; profileChanged(); sheet.close();
-                } else $('iphone-sheet-status').textContent = 'Waiting for board reply…';
+                } else $('iphone-sheet-status').textContent = translate('Waiting for board reply.');
             }
             const status = verified ? (MB_connection.boardType || 'Board') + ' · VM ' + MB_connection.vmVersion :
-                lastPort?.error || (MB_connection.port?.iphonePort ? 'Waiting for board reply…' : 'Offline editing');
+                lastPort?.error || translate(MB_connection.port?.iphonePort ? 'Waiting for board reply.' : 'Offline editing');
             $('iphone-status').textContent = status;
             $('iphone-status').dataset.connected = String(!!verified);
             $('iphone-connect').dataset.connected = String(!!verified);

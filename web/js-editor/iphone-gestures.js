@@ -4,7 +4,7 @@
     'use strict';
     MicroBlocksIPhone.installGestures = (canvas, callbacks) => {
         let mode = null, handMode = false, primary = null, fromPalette = false;
-        let basis = null, pending = null, raf = 0, pinched = false;
+        let basis = null, pending = null, raf = 0, pinched = false, needsLayout = false;
         const frame = () => MB_editor.scriptsFrame;
         const pane = () => MB_editor.scriptsPane();
         const hand = () => world.hand;
@@ -28,6 +28,17 @@
         };
         const saveScale = () => {
             if (!pinched) return;
+            // Keep cached block drawings throughout the gesture. Rebuild text
+            // once, after navigation stops, and paint before returning to the
+            // browser. Rebuilding the entire palette on every move stutters.
+            if (needsLayout) {
+                const position = pane().position().copy();
+                MB_editor.relayoutBlocks();
+                pane().setPosition(position);
+                frame().adjustScrollBars();
+                world.changed(); world.updateBroken();
+                needsLayout = false;
+            }
             try {
                 const prefs = MB_editor.readUserPreferences();
                 prefs.blockSizePercent = MB_editor.blockSize;
@@ -46,17 +57,21 @@
             if (!pending || !basis) return;
             const update = pending; pending = null;
             if (basis.distance > 0 && update.distance > 0) {
-                const percent = Math.round(Math.max(50, Math.min(250,
-                    basis.scale * 100 * update.distance / basis.distance)));
+                const percent = Math.max(50, Math.min(250,
+                    basis.scale * 100 * update.distance / basis.distance));
                 if (percent !== MB_editor.blockSize) {
-                    // setBlockScalePercent also syncs scripts. View gestures use
-                    // the pure scale operation and save the preference on lift.
-                    MB_editor.applyBlockSize(percent); pinched = true;
+                    MB_editor.blockSize = percent;
+                    world.zoom(percent / 100);
+                    standardSettings.mouseScrollAmount = touchScreenSettings.mouseScrollAmount = 120 / ZOOM;
+                    pinched = needsLayout = true;
                     callbacks.scaleChanged(percent);
                 }
             }
             const delta = point(update.center).subtract(basis.anchor).subtract(pane().position());
             frame().scrollX(delta.x); frame().scrollY(delta.y); frame().adjustScrollBars();
+            // Scale and anchor translation appear in the same presented frame,
+            // independent of the order of Morphic's animation callback.
+            world.changed(); world.updateBroken();
         }
         function flush() { if (raf) cancelAnimationFrame(raf); apply(); }
         function reset() {

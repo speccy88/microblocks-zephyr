@@ -55,6 +55,32 @@ Acceptance:
    newer live version. Report any such blocker precisely. Verify the live
    entry points and retain screenshots if deployment succeeds.
 
+## Mobile usability follow-up - 2026-11-01
+
+Start from published `a651529d24c3f7ae10c6f9f5acd884c1dda57641`.
+The supplied screenshots show French selected while mobile chrome stays English,
+and clipped palette blocks with truncated category names. Keep the pinned engine,
+desktop editor, transport and security policy unchanged. Bind mobile text and
+accessible labels to the existing locale lifecycle; use official translations
+where available and supplementary French, German and Spanish phone strings,
+with an English fallback for missing translations. Preserve project text and
+language preference across reloads.
+
+Provide a visible 44-pixel palette resize grip, keyboard resizing, a temporary
+wide palette, and readable category/library names. Retain workspace space and
+collapse the palette after a successful block drop. Clamp widths after rotation.
+During pinch, change the scene scale continuously using cached block drawings;
+relayout text once on lift. Do not reset an unchanged canvas or present a cleared
+bitmap between scale and pan. Navigation must not sync code to the VM.
+
+Acceptance: actual browser language switching/reload, long names and blocks,
+resize gestures, six phone sizes/orientations, continuous pinch frames, anchor
+accuracy, limits, cancellation, one-finger continuation, and block drag/insertion
+at several scales. Run the validator, existing browser/transport tests and
+exact-head CI before publishing through the existing main-only Pages workflow.
+Verify public asset hashes and behaviors after publication. Browser emulation
+does not establish physical iPhone frame rate or Safari device behavior.
+
 ## Build and use
 
 The shared source is `web/js-editor/iphone-*`; `web/mobile/` adds the explicit
