@@ -1,0 +1,67 @@
+name: iPhone wireless editor
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: iphone-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  editor-contracts:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch immutable official editor source
+        run: |
+          git init build-artifacts/editor-upstream
+          git -C build-artifacts/editor-upstream remote add origin https://codeberg.org/MicroBlocks/smallvm.git
+          git -C build-artifacts/editor-upstream fetch --depth=1 origin 5564b1e42d6790360450ebf11c9eb33a1c6877f2
+      - name: Package and test real pinned compiler and iPhone profile
+        env:
+          JS_EDITOR_UPSTREAM: ${{ github.workspace }}/build-artifacts/editor-upstream
+        run: |
+          python3 -m unittest discover -s tests -p test_iphone_editor.py -v
+          python3 tools/package_iphone_editor.py --source build-artifacts/editor-upstream --output build-artifacts/iphone-editor > build-artifacts/iphone-receipt.json
+          node tests/iphone-transport.test.cjs build-artifacts/iphone-editor
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iphone-editor-source
+          path: build-artifacts/iphone-editor
+  simulator:
+    needs: editor-contracts
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: iphone-editor-source
+          path: ios/MicroBlocks/Editor
+      - name: Generate native app project
+        run: |
+          brew install xcodegen
+          xcodegen --version
+          xcodebuild -version
+          cd ios
+          xcodegen generate
+      - name: Compile and test unsigned iPhone Simulator app
+        run: |
+          DEVICE_ID=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; print(next(d["udid"] for ds in json.load(sys.stdin)["devices"].values() for d in ds if d["name"].startswith("iPhone")))')
+          xcodebuild -project ios/MicroBlocks.xcodeproj -scheme MicroBlocks -configuration Debug -destination "platform=iOS Simulator,id=$DEVICE_ID" -derivedDataPath ios/DerivedData -resultBundlePath build-artifacts/iphone-tests.xcresult CODE_SIGNING_ALLOWED=NO test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iphone-simulator-evidence
+          path: build-artifacts/iphone-tests.xcresult

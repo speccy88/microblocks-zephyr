@@ -1,5 +1,10 @@
 # MicroBlocks on Zephyr
 
+The [experimental iPhone app](docs/IPHONE_APP.md) bundles the pinned JavaScript
+editor with a native station-mode Wi-Fi programming bridge and touch-sized
+controls. Source and build instructions are under `ios/`. Physical iPhone
+acceptance is pending; USB-only boards such as Propeller 2 use the desktop IDE.
+
 The [JavaScript editor migration](docs/JS_EDITOR_MIGRATION.md) is now staged
 separately, with a local `gp` preservation branch, an independently pinned
 upstream editor and a Linux compatibility layer. Existing GP/runtime pins
