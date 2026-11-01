@@ -82,6 +82,15 @@ WSS firmware path needs its own certificate/identity design.
 ## Evidence and remaining gates
 
 See `evidence/2026-11-01/iphone/validation.json` for actual executed checks.
+Implementation commit `496b904ad65ad11db3ef56e26916f06667851e70` passes all
+four workflows. The [native iPhone CI run](https://github.com/speccy88/microblocks-zephyr/actions/runs/41331343970)
+builds the unsigned app with Xcode 16.4, passes two endpoint unit tests, and
+passes the actual Simulator UI test: bundled editor, on-screen keypad entry,
+real WebKit-to-native validation response, close/reopen and rotation. The
+public test address is rejected before any network request. This verifies
+the bridge without contacting a board. The final evidence-only receipt does
+not change the tested app code.
+
 The [portrait workspace](../evidence/2026-11-01/iphone/portrait.png),
 [block palette](../evidence/2026-11-01/iphone/portrait-blocks.png) and
 [landscape view](../evidence/2026-11-01/iphone/landscape.png) are captures of the
