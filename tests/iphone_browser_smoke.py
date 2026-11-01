@@ -42,6 +42,7 @@ def main():
             assert size['width'] >= 380, size
             assert page.locator('.top-bar__controls-run').is_disabled()
             page.get_by_role('button', name='Connect board', exact=True).click()
+            assert page.evaluate('GP.delegateKeyboardEvents')
             assert page.locator('#iphone-open').is_disabled(), 'Browser must not simulate native Wi-Fi'
             page.select_option('#iphone-board', 'p2')
             assert page.locator('#iphone-address').is_disabled()
@@ -49,6 +50,7 @@ def main():
             page.select_option('#iphone-board', 'p4')
             assert page.locator('#iphone-open').is_disabled()
             page.get_by_role('button', name='Close connection sheet', exact=True).click()
+            assert not page.evaluate('GP.delegateKeyboardEvents')
             # Trusted touch events exercise the real Morphic block drag path.
             def block():
                 return page.evaluate('''() => {

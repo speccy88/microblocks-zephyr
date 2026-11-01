@@ -53,7 +53,17 @@
             '<p class="iphone-limit">USB-only boards, including Propeller 2, use the desktop editor. Bluetooth is planned.</p>';
         document.body.append(sheet);
         const $ = id => document.getElementById(id);
-        const showSheet = () => sheet.showModal();
+        let previousKeyboardDelegate = false;
+        const showSheet = () => {
+            // Follow the editor's HTML-dialog keyboard contract. Morphic's
+            // hidden textarea must not reclaim the keys from this form.
+            MB_editor.endOpenEdit();
+            previousKeyboardDelegate = GP.delegateKeyboardEvents;
+            GP.delegateKeyboardEvents = true;
+            sheet.showModal();
+        };
+        sheet.addEventListener('focusin', () => { GP.delegateKeyboardEvents = true; });
+        sheet.addEventListener('close', () => { GP.delegateKeyboardEvents = previousKeyboardDelegate; });
         $('iphone-connect').onclick = showSheet;
         $('iphone-save').onclick = () => MB_editor.saveProject();
         function layout() {

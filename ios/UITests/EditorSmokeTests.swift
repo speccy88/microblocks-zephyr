@@ -23,10 +23,24 @@ final class EditorSmokeTests: XCTestCase {
         // exercises the real WK message handler and native-to-JS error path.
         let address = web.textFields.firstMatch
         address.tap()
-        address.typeText("8.8.8.8")
+        // Use the on-screen decimal keypad: WKWebView on iOS 18 can accept
+        // typeText into the AX cache while leaving the required DOM field empty.
+        for character in ["8", ".", "8", ".", "8", ".", "8"] {
+            let key = character == "." ? app.keys.matching(NSPredicate(format: "label IN %@",
+                [".", "period", "Decimal", "Decimal point", "decimal point"])).firstMatch : app.keys[character]
+            XCTAssertTrue(key.waitForExistence(timeout: 5), app.keyboards.debugDescription)
+            key.tap()
+        }
+        XCTAssertEqual(address.value as? String, "8.8.8.8")
+        if app.buttons["Done"].exists { app.buttons["Done"].tap() }
+        let entered = XCTAttachment(screenshot: app.screenshot())
+        entered.name = "Address entry before native validation"; entered.lifetime = .keepAlways
+        add(entered)
         web.buttons["Connect"].tap()
         let rejected = web.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@", "private IPv4")).firstMatch
-        XCTAssertTrue(rejected.waitForExistence(timeout: 10), "Native validation must round-trip through the real bridge")
+        let receivedError = rejected.waitForExistence(timeout: 10)
+        if !receivedError { print(app.debugDescription) }
+        XCTAssertTrue(receivedError, "Native validation must round-trip through the real bridge")
         connect.tap()
         web.buttons["Close connection sheet"].tap()
         XCUIDevice.shared.orientation = .landscapeLeft
