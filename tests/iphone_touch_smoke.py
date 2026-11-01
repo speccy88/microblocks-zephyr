@@ -184,6 +184,9 @@ def main():
                     page.locator('#iphone-menu').click()
                     assert page.locator('#iphone-menu-panel').is_hidden()
                     assert not page.evaluate('!!Menus.current()')
+                    page.locator('#iphone-menu').click()
+                    page.touchscreen.tap(width-12, height/2)
+                    assert page.locator('#iphone-menu-panel').is_hidden(), 'Workspace navigation must dismiss the menu'
                     page.locator('#iphone-blocks').click()
                     assert page.evaluate('MB_editor.palette.isVisible')
                     page.locator('#iphone-blocks').click()

@@ -117,12 +117,60 @@ def main():
                 return {selector:script.selector, values:script.inputs().map(i=>i.evaluate())};
             }''', exported)
             assert restored == {'selector': '+', 'values': [20, 22]}, (exported, restored)
+            # Explicit native-response fixture: real UI, no socket or board.
+            # A delayed refusal must remain visible, with retry and cancellation.
+            page.evaluate('''() => {
+                window.connectionFixture=[];
+                webkit.messageHandlers.microblocks.postMessage=e=>{
+                    connectionFixture.push(e);
+                    if(e.type==='connect') setTimeout(()=>MicroBlocksIPhone.receive({
+                        type:'error',id:e.id,reason:'Use a private IPv4 board address (test fixture)'}),30);
+                };
+            }''')
+            page.get_by_role('button', name='Connect board', exact=True).click()
+            page.select_option('#iphone-board', 'rlcd')
+            page.locator('#iphone-address').fill('8.8.8.8')
+            page.get_by_role('button', name='Connect', exact=True).click()
+            page.wait_for_function('document.getElementById("iphone-sheet-status").textContent.includes("private IPv4")')
+            assert page.locator('.iphone-connect-sheet').evaluate('e=>e.open')
+            assert page.locator('#iphone-open').is_enabled()
+            feedback = page.locator('#iphone-sheet-status').bounding_box()
+            assert feedback['y'] >= 0 and feedback['y']+feedback['height'] <= page.viewport_size['height'], feedback
+            dismiss = page.get_by_role('button', name='Close connection sheet', exact=True).bounding_box()
+            assert dismiss['y'] >= 0 and dismiss['y']+dismiss['height'] <= page.viewport_size['height'], dismiss
+            assert page.evaluate('connectionFixture.some(e=>e.type==="connect" && e.address==="8.8.8.8")')
+            # A still-pending retry can be cancelled by closing the sheet.
+            page.evaluate('() => { webkit.messageHandlers.microblocks.postMessage=e=>connectionFixture.push(e); }')
+            page.get_by_role('button', name='Connect', exact=True).click()
+            assert page.locator('#iphone-open').is_disabled()
+            page.get_by_role('button', name='Close connection sheet', exact=True).click()
+            page.wait_for_function('!GP.delegateKeyboardEvents && MB_connection.port===null')
+            # Controlled handshake-state fixture only. Socket readiness alone
+            # cannot hide the form or enable programming controls.
+            page.get_by_role('button', name='Connect board', exact=True).click()
+            page.get_by_role('button', name='Connect', exact=True).click()
+            page.evaluate('''() => {
+                const id=connectionFixture.filter(e=>e.type==='connect').at(-1).id;
+                MicroBlocksIPhone.receive({type:'ready',id});
+            }''')
+            page.wait_for_timeout(600)
+            assert page.locator('.iphone-connect-sheet').evaluate('e=>e.open')
+            assert page.locator('.iphone-toolbar .top-bar__controls-run').is_disabled()
+            page.evaluate('''() => {
+                MB_connection.connectionStartTime=null;
+                MB_connection.lastPingRecvMSecs=Date.now();
+                MB_connection.vmVersion=417; MB_connection.boardType='Explicit UI fixture';
+            }''')
+            page.wait_for_function('!document.querySelector(".iphone-connect-sheet").open && !GP.delegateKeyboardEvents')
+            assert page.evaluate('MB_connection.isConnected()'), 'Verified close must retain the link'
+            page.evaluate('MB_connection.disconnect()')
             assert not errors, errors
             report = {'browser': browser.version, 'environment': 'desktop Chromium with mobile emulation',
                       'physical_iphone': False, 'native_socket': False, 'engine_loaded': True,
                       'touch_drag': {'before': before, 'after': after}, 'usb_only_boundary': True,
                       'offline_connection_disabled': True, 'portrait_landscape': True,
                       'native_export_response': 'synthetic success and cancellation',
+                      'native_connection_response': 'synthetic refusal, retry, cancellation and explicit handshake-state fixture',
                       'project_roundtrip': True, 'page_errors': errors}
             (args.output / 'browser.json').write_text(json.dumps(report, indent=2) + '\n', newline='\n')
             print(json.dumps(report))

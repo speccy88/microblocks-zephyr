@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 import XCTest
+import CoreGraphics
 
 final class EditorSmokeTests: XCTestCase {
     func testBundledEditorAndConnectionSheet() {
@@ -43,6 +44,11 @@ final class EditorSmokeTests: XCTestCase {
         let receivedError = rejected.waitForExistence(timeout: 10)
         if !receivedError { print(app.debugDescription) }
         XCTAssertTrue(receivedError, "Native validation must round-trip through the real bridge")
+        let refusal = XCTAttachment(screenshot: app.screenshot())
+        refusal.name = "Native private-address rejection"; refusal.lifetime = .keepAlways
+        add(refusal)
+        XCTAssertTrue(web.buttons["Connect"].isEnabled, "A refused link must allow retry in the visible sheet")
+        web.buttons["Close connection sheet"].tap()
         connect.tap()
         web.buttons["Close connection sheet"].tap()
         XCUIDevice.shared.orientation = .landscapeLeft
@@ -77,6 +83,9 @@ final class EditorSmokeTests: XCTestCase {
                 blocks.tap(); blocks.tap()
                 view.tap(); view.tap()
             }
+            menu.tap()
+            workspace.coordinate(withNormalizedOffset: CGVector(dx: 0.96, dy: 0.5)).tap()
+            XCTAssertFalse(web.buttons["Project"].isHittable, "Workspace touch must dismiss the menu before navigation")
             // A real WebKit touch sequence, with the engine scale exposed as
             // an accessible status. This is Simulator evidence, not hardware.
             let zoom = web.descendants(matching: .any).matching(

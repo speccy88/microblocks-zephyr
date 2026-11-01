@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "date": "2026-11-01",
+  "environment": "Windows; desktop Chromium mobile emulation; no device deployment",
+  "reference_image_inspected": true,
+  "upstream_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "upstream_engine_modified": false,
+  "local_validator": {
+    "total": 485,
+    "passed": 193,
+    "skipped": 292
+  },
+  "touch_report": "touch.json",
+  "tested_source_sha256": {
+    "web/js-editor/iphone-bootstrap.js": "739bb35294e38ce12267e4bcf083d49e4322e95372da502644f3dcafdd96bc94",
+    "web/js-editor/iphone-gestures.js": "0dc682faf44f452a430fd3344ce313920a5b6768ad6af30cb2d1b6ac47f77ca8",
+    "web/js-editor/iphone.css": "cdd9d41a67253e1db720dc2df9c4eaaeed5b69f6605cb5c3901ca5455b73ac48",
+    "web/js-editor/iphone-transport.js": "e9d80956816e529ad822f84c5911e0982827f53f8e4d1d1fde04c17143d91ef2"
+  },
+  "native_simulator": {
+    "local_windows_execution": false,
+    "evidence_source": "GitHub iPhone wireless editor workflow and xcresult artifacts associated with this commit"
+  },
+  "real_vm": {
+    "evidence_source": "iPhone editor-contracts workflow; actual SmallVM v417 over loopback PTY/WebSocket",
+    "native_ios_socket": false,
+    "physical_board": false
+  },
+  "physical_iphone": false,
+  "physical_board_contacted": false,
+  "merged": false,
+  "deployed": false,
+  "connection_sheet": "Delayed refusal/retry/cancellation and explicit handshake-state fixture; actual native rejection checked by CI",
+  "browser_report": "browser.json"
+}

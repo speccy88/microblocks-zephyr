@@ -2,7 +2,7 @@
 // iPhone chrome around the unmodified, pinned MicroBlocks JS editor.
 (() => {
     'use strict';
-    let address = '', blocksVisible = false, profiles = [], lastPort = null;
+    let address = '', blocksVisible = false, profiles = [], lastPort = null, connectingPort = null;
     MicroBlocksIPhone.installCompiler(MB_Compiler);
     MicroBlocksIPhone.install(MB_CommPort, () => address);
     const native = () => window.webkit?.messageHandlers?.microblocks;
@@ -90,7 +90,11 @@
             sheet.showModal();
         };
         sheet.addEventListener('focusin', () => { GP.delegateKeyboardEvents = true; });
-        sheet.addEventListener('close', () => { GP.delegateKeyboardEvents = previousKeyboardDelegate; });
+        sheet.addEventListener('close', () => {
+            GP.delegateKeyboardEvents = previousKeyboardDelegate;
+            if (connectingPort) { MB_connection.disconnect(); connectingPort = null; }
+            profileChanged();
+        });
         $('iphone-connect').onclick = showSheet;
         $('iphone-save').onclick = () => MB_editor.saveProject();
         $('iphone-menu').onclick = () => {
@@ -125,21 +129,29 @@
         $('iphone-blocks').onclick = () => { blocksVisible = !blocksVisible; layout(); };
         const canvas = document.querySelector('#canvas');
         canvas.setAttribute('role', 'img'); canvas.setAttribute('aria-label', 'Programming workspace');
-        canvas.addEventListener('touchstart', closeMenu, {passive: true});
+        // Run before gesture capture consumes an empty-space pan.
+        canvas.addEventListener('touchstart', closeMenu, {capture: true, passive: true});
         canvas.addEventListener('mousedown', closeMenu);
         window.addEventListener('resize', layout);
         window.visualViewport?.addEventListener('resize', layout);
-        $('iphone-close').onclick = () => { MB_connection.disconnect(); sheet.close(); };
+        $('iphone-close').onclick = () => { MB_connection.disconnect(); connectingPort = null; sheet.close(); };
         $('iphone-address-form').onsubmit = async event => {
             event.preventDefault();
             if (profiles.find(p => p.id === $('iphone-board').value)?.transport !== 'wifi') return;
             address = $('iphone-address').value.trim();
             try {
+                $('iphone-sheet-status').textContent = 'Connecting to board…';
+                $('iphone-open').disabled = true;
                 MB_connection.disconnect();
                 await MB_connection.connect('iphone-wifi');
                 lastPort = MB_connection.port?.iphonePort;
-                sheet.close();
-            } catch (error) { $('iphone-sheet-status').textContent = error.message; }
+                if (!lastPort) throw new Error('Native board link was not created');
+                connectingPort = lastPort;
+                // Native validation and socket readiness arrive asynchronously.
+                // Keep the form visible until the real VM handshake completes.
+            } catch (error) {
+                connectingPort = null; $('iphone-sheet-status').textContent = error.message; profileChanged();
+            }
         };
         try {
             profiles = (await (await fetch('iphone-boards.json')).json()).boards;
@@ -151,11 +163,14 @@
         function profileChanged() {
             const profile = profiles.find(p => p.id === $('iphone-board').value);
             $('iphone-board-note').textContent = profile?.note || 'Board unavailable';
-            $('iphone-open').disabled = profile?.transport !== 'wifi' || !native();
+            $('iphone-open').disabled = profile?.transport !== 'wifi' || !native() || !!connectingPort;
             $('iphone-address').disabled = profile?.transport !== 'wifi';
             if (!native()) $('iphone-sheet-status').textContent = 'Browser preview: offline editing only. Install the native app for Wi-Fi.';
         }
-        $('iphone-board').onchange = profileChanged;
+        $('iphone-board').onchange = () => {
+            if (connectingPort) { MB_connection.disconnect(); connectingPort = null; }
+            profileChanged();
+        };
         profileChanged();
 
         // Keep original run/stop/project handlers; route connection UI to the
@@ -212,6 +227,15 @@
         setInterval(() => {
             const verified = MB_connection.port?.iphonePort?.isConnected() &&
                 MB_connection.connectedToBoard() && Number.isInteger(MB_connection.vmVersion);
+            if (connectingPort) {
+                if (connectingPort.error || connectingPort.closed) {
+                    $('iphone-sheet-status').textContent = connectingPort.error || 'Board link closed. Connect to retry.';
+                    $('iphone-sheet-status').scrollIntoView({block: 'nearest'});
+                    connectingPort = null; profileChanged();
+                } else if (verified && MB_connection.port?.iphonePort === connectingPort) {
+                    connectingPort = null; profileChanged(); sheet.close();
+                } else $('iphone-sheet-status').textContent = 'Waiting for board reply…';
+            }
             const status = verified ? (MB_connection.boardType || 'Board') + ' · VM ' + MB_connection.vmVersion :
                 lastPort?.error || (MB_connection.port?.iphonePort ? 'Waiting for board reply…' : 'Offline editing');
             $('iphone-status').textContent = status;

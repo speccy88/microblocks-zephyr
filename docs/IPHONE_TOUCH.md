@@ -23,6 +23,9 @@ adapter. The supplied mobile Scratch image is a layout reference only.
   and long-press timers; an interrupted grab finishes at its last location.
 - Successful palette drops collapse the palette, including insertion into an
   existing stack. Scrolling the palette, failed drops and editing keep it open.
+- The connection sheet stays open during an attempt, shows asynchronous native
+  errors with retry, and cancels an unfinished attempt when closed. Only the
+  verified VM handshake closes it automatically; socket readiness is insufficient.
 
 ## Acceptance
 
@@ -39,3 +42,12 @@ The native Simulator CI must compile and run the app, retain the existing
 WebKit/native private-address validation test, and cover collapsing/restoring
 controls and a real pinch. Changes are committed and pushed on the existing
 feature branch, with remote SHA and exact-head CI verified before handoff.
+
+Local [validation](../evidence/2026-11-01/iphone-touch/validation.json) and the
+[six-size touch report](../evidence/2026-11-01/iphone-touch/touch.json) retain the
+tested overlay hashes. Captures show the [workspace](../evidence/2026-11-01/iphone-touch/375x667.png),
+[labeled menu](../evidence/2026-11-01/iphone-touch/menu.png),
+[palette](../evidence/2026-11-01/iphone-touch/palette.png), and
+[hidden controls](../evidence/2026-11-01/iphone-touch/focus.png).
+All captures use desktop emulation. Native results belong to the matching
+commit's CI run and its small/large Simulator result bundles.
