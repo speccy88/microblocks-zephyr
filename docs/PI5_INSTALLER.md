@@ -30,8 +30,8 @@ To review before execution, download the same URL with `curl -fL -o
 install-pi5.sh URL`, read it, then use `bash install-pi5.sh` with your chosen
 options. `--bootstrap-info` prints its source identity without downloading or
 installing. The bootstrap pins source commit
-`af4a4fa0fa2a198fdaceca79aae34b4e65dc2483` and GitHub source archive SHA256
-`4b916287c527a4e25f6e66ef70d090c15b998bd01a379b818e5a2c3a1d871bbd`.
+`4eaae9b3d88f167a6262753c7850577d39054973` and GitHub source archive SHA256
+`9df8a9636c242d41739b29a73fa1c293988f1162ab53aaf8ab08111611b0bbd2`.
 It checks the complete downloaded archive before extracting or running code.
 The current entry builds the verified source revision rather than claiming a
 published native ARM64 release. Future bootstrap revisions require review and
@@ -67,7 +67,12 @@ in `linux/arm64/pi5-python-lock.json`. pip configuration is disabled only for
 the child process, avoiding accidental PiWheels substitution. Failed installs
 retain the previous selected environment. Blinka imports and automatic Pi5
 detection are checked without creating I2C, GPIO, PWM or sensor objects.
-SQLite is enabled; climate, HTTP and MQTT plugins are disabled by default.
+SQLite is enabled; climate, HTTP, MQTT and neural inference plugins are disabled
+by default. The published source includes the shared LiteRT/ONNX CPU adapters,
+blocks and authored demo models. Their optional runtime requirements are not
+installed by this bootstrap; see [inference setup](../linux/extensions/inference/README.md).
+The source archive was downloaded and verified on the development host. That
+verification does not claim a physical Pi installation of this new revision.
 Installing Blinka does not establish a physical sensor test.
 
 Repeat the same command to verify and reuse the installed source/environment.
