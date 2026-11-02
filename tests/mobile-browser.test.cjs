@@ -27,6 +27,12 @@ test('Pages and public HTTP cannot allocate a socket',()=>{
   assert(!f.client.available);assert.throws(()=>f.connect('1'));assert.equal(f.sockets.length,0);
  }
 });
+test('shared non-Pi board profiles do not gain tailnet access',()=>{
+ for(const runtime of ['board','pages']){
+  const f=fixture(runtime,'100.100.10.20');assert(!f.client.available);assert.throws(()=>f.connect('1'));
+  assert.equal(f.sockets.length,0);assert.throws(()=>api.boardURL('100.100.10.20'));
+ }
+});
 test('real socket API receives only a fixed same-origin URL and explicit ready marker',()=>{
  const f=fixture();f.connect('a');const s=f.sockets[0];
  assert.deepEqual(s.args,['ws://192.168.1.42/ws/vm']);assert.equal(s.binaryType,'arraybuffer');

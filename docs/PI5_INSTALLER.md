@@ -57,6 +57,15 @@ Caddy, OpenClaw and other services are not overwritten. Configuring an existing
 port80 proxy is a separate administrator action, not part of this installer.
 Keep a stable DHCP reservation if a persistent IP URL is required.
 
+For an existing Caddy/Tailscale setup, optional `--proxy-origin http://LAN_IPV4`
+and repeatable `--additional-origin http://TAILSCALE_IPV4` keep the backend on
+loopback and select exact public HTTP origins. The proxy remains a separately
+reviewed administrator configuration; direct LAN mode is unchanged. Omitted
+options preserve the stored proxy scope across source updates; explicit
+`--clear-additional-origins` removes additional origins. See the
+[configurable tailnet/proxy guide](PI5_TAILSCALE.md) for the source revision,
+template, legacy-layout boundary and verification steps.
+
 `--prefix /absolute/private/path` selects an independent installation. An
 unrecognized existing directory or modified/unrelated service is refused.
 The earlier private `microblocks-lan` deployment uses a different layout and

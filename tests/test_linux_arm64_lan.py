@@ -7,6 +7,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import AsyncMock
 import sys
+import socket
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'linux/arm64'))
 Headers = Bridge = SafeAssets = None
 if sys.platform == 'linux':
@@ -119,6 +120,90 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(server.timer)
         self.assertEqual(server.deadline, float('inf'))
         await server.stop()
+
+    async def test_proxy_additional_origins_keep_exact_host_origin_and_loopback(self):
+        policy = LoopbackProxyPolicy('http://192.168.2.50', 8877, ['http://100.100.10.20'])
+        for host in ('192.168.2.50', '100.100.10.20'):
+            for path in ('/ws/vm', '/ws/update'):
+                headers = Headers({'Host': host, 'Origin': 'http://' + host, 'Upgrade': 'websocket'})
+                self.assertTrue(policy.request_allowed(('127.0.0.1', 1), path, headers))
+                self.assertFalse(policy.request_allowed(('100.100.10.21', 1), path, headers))
+                for field in ('Host', 'Origin', 'Upgrade'):
+                    duplicate = headers.copy(); duplicate[field] = duplicate[field]
+                    self.assertFalse(policy.request_allowed(('127.0.0.1', 1), path, duplicate))
+                for origin in (None, 'http://attacker.invalid', 'http://100.100.10.21',
+                        'http://100.100.10.20' if host.startswith('192.') else 'http://192.168.2.50'):
+                    wrong = Headers({'Host': host, 'Upgrade': 'websocket'})
+                    if origin is not None: wrong['Origin'] = origin
+                    self.assertFalse(policy.request_allowed(('127.0.0.1', 1), path, wrong))
+        for host in ('100.100.10.21', '127.0.0.1:8877', 'attacker.invalid'):
+            headers = Headers({'Host': host, 'X-Forwarded-Host': '100.100.10.20'})
+            self.assertFalse(policy.request_allowed(('127.0.0.1', 1), '/', headers))
+
+    async def test_proxy_origin_validation_is_canonical_bounded_and_opt_in(self):
+        for origin in ('http://100.63.255.255', 'http://100.128.0.1', 'http://8.8.8.8',
+                'http://100.100.10.020', 'http://100.100.10.20:80', 'https://100.100.10.20',
+                'http://100.100.10.20/', 'http://100.100.10.20?x=1',
+                'http://user@100.100.10.20', 'http://100.100.10.20#fragment',
+                'http://pi.example', 'http://[fd7a:115c:a1e0::1]', None):
+            with self.subTest(origin=origin), self.assertRaises(ValueError):
+                LoopbackProxyPolicy('http://192.168.2.50', 8877, [origin])
+        for additional in (None, 'http://100.100.10.20', ['http://192.168.2.50'],
+                ['http://100.100.10.20'] * 2, ['http://100.100.10.' + str(n) for n in range(1, 6)]):
+            with self.subTest(additional=additional), self.assertRaises(ValueError):
+                LoopbackProxyPolicy('http://192.168.2.50', 8877, additional)
+        policy = LoopbackProxyPolicy('http://100.64.0.1', 8877, ['http://100.127.255.254', 'http://192.168.2.50'])
+        self.assertEqual(policy.origins, ['http://100.64.0.1', 'http://100.127.255.254', 'http://192.168.2.50'])
+        unconfigured = LoopbackProxyPolicy('http://192.168.2.50', 8877)
+        self.assertFalse(unconfigured.request_allowed(('127.0.0.1', 1), '/', Headers({'Host': '100.100.10.20'})))
+
+    async def test_proxy_csp_and_framework_origin_list_follow_configured_hosts(self):
+        policy = LoopbackProxyPolicy('http://192.168.2.50', 8877, ['http://100.100.10.20'])
+        server = LanEditor(self.backend, policy, permanent=True)
+        for host in ('192.168.2.50', '100.100.10.20'):
+            response = server.request(SimpleNamespace(remote_address=('127.0.0.1', 1)),
+                SimpleNamespace(path='/', headers=Headers({'Host': host})))
+            self.assertEqual(response.status_code, HTTPStatus.OK)
+            self.assertIn("connect-src 'self' ws://" + host + ';', response.headers['Content-Security-Policy'])
+        listener = SimpleNamespace(sockets=[SimpleNamespace(getsockname=lambda: ('127.0.0.1', 8877))],
+            close=lambda: None, wait_closed=AsyncMock())
+        factory = AsyncMock(return_value=listener)
+        await server.start(activated=True, factory=factory)
+        self.assertEqual(factory.call_args.kwargs['origins'], ['http://192.168.2.50', 'http://100.100.10.20'])
+        await server.stop()
+
+    async def test_actual_http_and_websocket_framework_accepts_both_proxy_origins(self):
+        from websockets.asyncio.client import connect
+        from websockets.exceptions import InvalidStatus
+        with socket.socket() as reservation:
+            reservation.bind(('127.0.0.1', 0))
+            port = reservation.getsockname()[1]
+        policy = LoopbackProxyPolicy('http://192.168.2.50', port, ['http://100.100.10.20'])
+        async def ready_only(ws):
+            await ws.send('ready')
+            await ws.wait_closed()
+        self.backend.handle = ready_only
+        server = LanEditor(self.backend, policy, permanent=True)
+        await server.start(activated=True)
+        try:
+            for host in ('192.168.2.50', '100.100.10.20'):
+                reader, writer = await asyncio.open_connection('127.0.0.1', port)
+                writer.write(('GET / HTTP/1.1\r\nHost: ' + host + '\r\nConnection: close\r\n\r\n').encode())
+                await writer.drain()
+                response = await asyncio.wait_for(reader.read(), 3)
+                writer.close(); await writer.wait_closed()
+                self.assertTrue(response.startswith(b'HTTP/1.1 200 OK'))
+                self.assertIn(('ws://' + host).encode(), response)
+                async with connect('ws://' + host + '/ws/vm', host='127.0.0.1', port=port,
+                        proxy=None, origin='http://' + host, open_timeout=3) as ws:
+                    self.assertEqual(await asyncio.wait_for(ws.recv(), 3), 'ready')
+                with self.assertRaises(InvalidStatus) as refused:
+                    async with connect('ws://' + host + '/ws/vm', host='127.0.0.1', port=port,
+                            proxy=None, origin='http://attacker.invalid', open_timeout=3):
+                        self.fail('Wrong browser origin accepted')
+                self.assertEqual(refused.exception.response.status_code, HTTPStatus.FORBIDDEN)
+        finally:
+            await server.stop()
 
 
 if __name__ == '__main__':

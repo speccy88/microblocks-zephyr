@@ -65,6 +65,18 @@ async def run(root):
         await run_runtime(root,config)
 
 
+def policy_for_config(config):
+    if config.get('direct_bind') is not None:
+        if config.get('additional_origins'):
+            raise RuntimeError('Additional public origins require a loopback proxy deployment')
+        policy = Policy(config['direct_bind'], config['backend_port'], config['clients'])
+        if policy.origin != config['origin']:
+            raise RuntimeError('Direct listener must retain its exact browser Origin')
+        return policy
+    return LoopbackProxyPolicy(config['origin'], config['backend_port'],
+        config.get('additional_origins', []))
+
+
 async def run_runtime(root,config):
     from bridge import Bridge
     root = private_root(root)
@@ -80,12 +92,7 @@ async def run_runtime(root,config):
     run_dir = root / 'run'
     run_dir.mkdir(mode=0o700, exist_ok=True)
     info = data / 'pty-service.json'
-    if config.get('direct_bind') is not None:
-        policy = Policy(config['direct_bind'], config['backend_port'], config['clients'])
-        if policy.origin != config['origin']:
-            raise RuntimeError('Direct listener must retain its exact browser Origin')
-    else:
-        policy = LoopbackProxyPolicy(config['origin'], config['backend_port'])
+    policy = policy_for_config(config)
     stopped = False
     update_restart = False
     updating = False
@@ -119,7 +126,7 @@ async def run_runtime(root,config):
     loop = asyncio.get_running_loop()
     for signum in (signal.SIGINT, signal.SIGTERM):
         loop.add_signal_handler(signum, stop)
-    state = {'state': 'starting', 'origin': policy.origin, 'supervisor_pid': os.getpid(),
+    state = {'state': 'starting', 'origin': policy.origin, 'origins': policy.origins, 'supervisor_pid': os.getpid(),
         'vm_pid': vm.pid, 'binary_sha256': config['binary_sha256'], 'permanent': True,
         'backend': policy.bind + ':' + str(policy.port), 'vm_version': 417}
     try:

@@ -23,6 +23,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - name: Install the pinned protocol dependency in the disposable runner
         run: python3 -m pip install --requirement linux/arm64/bridge-requirements.txt
       - name: Require every installer, dependency, Origin and bootstrap test
@@ -34,9 +37,24 @@ jobs:
           suite=unittest.TestSuite()
           for pattern in ['test_blinka_setup.py','test_pi5_full_installer.py',
                           'test_linux_arm64_lan.py','test_pi_lan_service.py',
-                          'test_mobile_archive_source.py','test_pi5_bootstrap.py']:
+                          'test_mobile_archive_source.py','test_pi5_bootstrap.py',
+                          'test_pi_browser_update.py']:
               suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))
           result=unittest.TextTestRunner(verbosity=2).run(suite)
           assert result.wasSuccessful() and not result.skipped
           assert result.testsRun >= 45
           PY
+      - name: Build and test the actual generic Pi browser package
+        run: |
+          python3 - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, 'tools')
+          from mobile_editor_source import prepare_archive
+          from package_pi_lan_editor import package
+          source=Path('build-artifacts/pi-editor-source')
+          prepare_archive(Path('build-artifacts/reviewed.zip'),source,fetch=True)
+          package(source,Path('build-artifacts/pi-editor'))
+          PY
+          node --test tests/mobile-browser.test.cjs
+          PI_EDITOR="$PWD/build-artifacts/pi-editor" node --test tests/pi-lan-browser.test.cjs

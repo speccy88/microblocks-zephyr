@@ -70,8 +70,14 @@ def host_prerequisites(install=False,build=True):
         subprocess.run(['sudo','-n','apt-get','update'],check=True,stdin=subprocess.DEVNULL)
         subprocess.run(['sudo','-n','apt-get','install','-y',*packages],check=True,stdin=subprocess.DEVNULL)
 
-def endpoint(bind=None,lan=False,port=8877,clients=None):
+def endpoint(bind=None,lan=False,port=8877,clients=None,*,proxy_origin=None,additional_origins=None):
     require(type(port) is int and 1024<=port<=65535,'Use an unprivileged port 1024..65535. Port 80/Caddy is never replaced; use 8877 or configure a proxy separately.')
+    if proxy_origin is not None:
+        require(not lan and bind is None and clients is None,'Choose either --proxy-origin or the direct --lan/--bind/--clients options')
+        from lan_editor import LoopbackProxyPolicy
+        policy=LoopbackProxyPolicy(proxy_origin,port,[] if additional_origins is None else additional_origins)
+        return {'backend_port':port,'origin':policy.origin,'additional_origins':policy.origins[1:]}
+    require(additional_origins is None,'--additional-origin/--clear-additional-origins requires --proxy-origin or an existing proxy installation')
     if lan and bind is None:
         result=subprocess.check_output(['ip','-j','-4','addr','show','scope','global'],text=True)
         addresses={}
@@ -94,8 +100,30 @@ def endpoint(bind=None,lan=False,port=8877,clients=None):
 
 def port_available(plan):
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as check:
-        try:check.bind((plan['direct_bind'],plan['backend_port']))
+        try:check.bind((plan.get('direct_bind','127.0.0.1'),plan['backend_port']))
         except OSError as error:raise InstallError('Address/port is occupied or unavailable; existing services are preserved. Choose another --port.') from error
+
+
+def same_listener(previous,plan):
+    return bool(previous) and previous.get('direct_bind','127.0.0.1')==plan.get('direct_bind','127.0.0.1') and previous.get('backend_port')==plan.get('backend_port')
+
+
+def configured_endpoint(args,old):
+    """Omitted endpoint options retain an owned installation's exact proxy scope."""
+    direct_requested=args.lan or args.bind is not None or args.clients is not None
+    existing_proxy=bool(old) and old.get('direct_bind') is None
+    proxy=args.proxy_origin or (old.get('origin') if existing_proxy and not direct_requested else None)
+    extra=args.additional_origins
+    if args.clear_additional_origins:
+        extra=[]
+    elif extra is None and proxy is not None:
+        extra=old.get('additional_origins',[])
+    if proxy is not None:
+        return endpoint(args.bind,args.lan,args.port or old.get('backend_port',8877),args.clients,
+            proxy_origin=proxy,additional_origins=extra)
+    return endpoint(args.bind or (old.get('direct_bind') if not args.lan else None),
+        args.lan or bool(old.get('direct_bind') and old['direct_bind']!='127.0.0.1'),
+        args.port or old.get('backend_port',8877),args.clients or old.get('clients'),additional_origins=extra)
 
 def state_unlocked(prefix):
     for name in ('data/.smallvm.lock','python-state/.python.lock'):
@@ -244,8 +272,7 @@ class Installer:
         if old_config:
             settings=old_config.get('python_extensions',{})
             require(old_config.get('data')=='data' and settings.get('profile')=='python-profile.json' and settings.get('state')=='python-state','Customized state paths require manual migration; existing configuration is preserved')
-        same_endpoint=old_config and all(old_config.get(k)==v for k,v in plan.items())
-        if not(previous and previous.get('unit_sha256') and same_endpoint):port_available(plan)
+        if not(previous and previous.get('unit_sha256') and same_listener(old_config,plan)):port_available(plan)
         self.order(previous.get('source_commit') if previous else None,commit)
         self.prefix.mkdir(mode=0o700,parents=True,exist_ok=True)
         if not(self.prefix/'INSTALLATION.json').exists():write_json(self.prefix/'INSTALLATION.json',{'owner':OWNER,'uid':os.geteuid(),'schema':1})
@@ -275,6 +302,10 @@ class Installer:
                 required_runtime_capabilities=['python-extensions'],authentication=False,encryption=False,
                 allow_browser_native_install=native_updates or bool(old_config and old_config.get('allow_browser_native_install')),
                 python_extensions={'profile':'python-profile.json','state':'python-state','interpreter':python['interpreter']},**plan)
+            # Endpoint mode comes from this validated plan, not stale fields from
+            # a previous direct/proxy selection. Other installation settings stay.
+            for key in ('direct_bind','clients','additional_origins'):
+                if key not in plan:config.pop(key,None)
             launcher=self.prefix/'bin/microblocks-pi5'
             launcher_text=('#!/bin/sh\n# '+OWNER+'\nexec '+__import__('shlex').quote(python['interpreter'])+' -B '+__import__('shlex').quote(str(release/'code/linux/arm64/lan_service.py'))+' --root '+__import__('shlex').quote(str(self.prefix))+'\n').encode()
             if previous and same_source and old_config==config and launcher.exists() and sha(launcher)==previous.get('launcher_sha256') and (not wanted or previous.get('unit_sha256')):
@@ -330,6 +361,10 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--prefix',type=Path,default=Path.home()/'.local/share/microblocks-pi5')
     parser.add_argument('--bind');parser.add_argument('--lan',action='store_true');parser.add_argument('--clients');parser.add_argument('--port',type=int)
+    parser.add_argument('--proxy-origin',help='Exact public HTTP IPv4 origin on an existing port-80 reverse proxy; backend remains loopback-only')
+    origins=parser.add_mutually_exclusive_group()
+    origins.add_argument('--additional-origin',dest='additional_origins',action='append',help='Additional exact private/Tailscale HTTP origin; repeat to select the full list')
+    origins.add_argument('--clear-additional-origins',action='store_true',help='Explicitly remove additional proxy origins')
     parser.add_argument('--service',action='store_true');parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--enable-native-updates',action='store_true');parser.add_argument('--install-prerequisites',action='store_true')
     parser.add_argument('--uninstall',action='store_true');parser.add_argument('--blinka-only',action='store_true');parser.add_argument('--dry-run',action='store_true')
@@ -342,7 +377,7 @@ def main():
             require(os.geteuid()!=0,'Run uninstall as the original ordinary account')
             print(json.dumps(Installer(prefix).uninstall(),indent=2));return
         if args.blinka_only:
-            require(not(args.service or args.lan or args.enable_native_updates),'Dependency-only setup never changes or exposes a service')
+            require(not(args.service or args.lan or args.enable_native_updates or args.proxy_origin or args.additional_origins or args.clear_additional_origins),'Dependency-only setup never changes or exposes a service')
             host_prerequisites(args.install_prerequisites,build=False)
             print(json.dumps(ensure_python(prefix),indent=2));return
         marker=ROOT/'.pi5-bootstrap.json'
@@ -352,13 +387,14 @@ def main():
         installer=Installer(prefix);previous=installer.state();installer.service.verify(previous)
         require(not(args.prepare_only and previous and previous.get('unit_sha256')),'Use a separate prefix for prepare-only testing')
         old=load(prefix/'service.json') if (prefix/'service.json').exists() else {}
-        chosen=endpoint(args.bind or (old.get('direct_bind') if not args.lan else None),args.lan or bool(old.get('direct_bind') and old['direct_bind']!='127.0.0.1'),args.port or old.get('backend_port',8877),args.clients or old.get('clients'))
-        if not(previous and previous.get('unit_sha256') and all(old.get(k)==v for k,v in chosen.items())):port_available(chosen)
+        chosen=configured_endpoint(args,old)
+        if not(previous and previous.get('unit_sha256') and same_listener(old,chosen)):port_available(chosen)
         if args.dry_run:
             print(json.dumps({'prefix':str(prefix),'endpoint':chosen,'service_requested':args.service,'install_prerequisites_requested':args.install_prerequisites,'native_vm_version':417,'no_changes':True},indent=2));return
         # Validate target and explicit prerequisites; never upgrade/configure OS hardware.
         host_prerequisites(args.install_prerequisites)
-        print('Endpoint: '+chosen['origin']+' (unauthenticated HTTP/WS; explicit LAN scope '+chosen['clients']+')',flush=True)
+        scope=('explicit client scope '+chosen['clients']) if 'direct_bind' in chosen else ('loopback proxy; exact origins '+', '.join([chosen['origin'],*chosen['additional_origins']]))
+        print('Endpoint: '+chosen['origin']+' (unauthenticated HTTP/WS; '+scope+')',flush=True)
         print(json.dumps(installer.install(commit,archive_sha,chosen,use_service=args.service,prepare_only=args.prepare_only,native_updates=args.enable_native_updates),indent=2))
     except (OSError,ValueError,RuntimeError,subprocess.CalledProcessError,subprocess.TimeoutExpired) as error:
         raise SystemExit('Pi5 installation stopped: '+str(error))

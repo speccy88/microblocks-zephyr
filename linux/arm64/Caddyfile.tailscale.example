@@ -1,0 +1,22 @@
+# Optional blocks for an EXISTING Caddyfile. Preserve all unrelated sites.
+# Set every variable in Caddy's own service environment before validation.
+# Origins must be full http://IPv4 values, without port, slash or credentials.
+{$MICROBLOCKS_LAN_ORIGIN} {
+    @lan remote_ip {$MICROBLOCKS_LAN_CLIENTS}
+    handle @lan {
+        reverse_proxy {$MICROBLOCKS_PROXY_BACKEND}
+    }
+    handle {
+        respond "Local network only" 403
+    }
+}
+
+{$MICROBLOCKS_TAILSCALE_ORIGIN} {
+    @tailnet remote_ip 100.64.0.0/10
+    handle @tailnet {
+        reverse_proxy {$MICROBLOCKS_PROXY_BACKEND}
+    }
+    handle {
+        respond "Tailscale network only" 403
+    }
+}

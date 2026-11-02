@@ -12,10 +12,21 @@
         if (!privateIP(ip)) throw new Error('Enter a private IPv4 board address, such as 192.168.1.42.');
         return 'http://' + ip + '/?layout=mobile';
     };
+    const tailscaleIP = value => {
+        if (!/^(?:0|[1-9]\d{0,2})(?:\.(?:0|[1-9]\d{0,2})){3}$/.test(value)) return false;
+        const p = value.split('.').map(Number);
+        return p.every(n => n <= 255) && p[0] === 100 && p[1] >= 64 && p[1] <= 127;
+    };
     function create({profile, location, Socket, receive, schedule = setTimeout, cancel = clearTimeout}) {
         const supported = ['rlcd', 'fruit-jam', 'xrp'];
         const local = location.protocol === 'http:' && (privateIP(location.hostname) || ['127.0.0.1', 'localhost'].includes(location.hostname));
-        const available = profile.runtime === 'board' && local && supported.includes(profile.board);
+        // Server configuration grants exact origins. The Pi browser adapter can
+        // only connect back to its current HTTP host, never to another tailnet IP.
+        const piTailnet = location.protocol === 'http:' && profile.local_pi === 'open-http-v1' &&
+            profile.board === 'pi5' && tailscaleIP(location.hostname);
+        const available = profile.runtime === 'board' && (local || piTailnet) && supported.includes(profile.board);
+        const currentBoardURL = value => piTailnet && String(value).trim() === location.hostname ?
+            'http://' + location.hostname + '/?layout=mobile' : boardURL(value);
         let session = null;
         const close = () => {
             const previous = session; session = null;
@@ -41,7 +52,7 @@
             'Wireless programming is unavailable for this target or origin. Use the supported desktop connection. Propeller 2 uses desktop USB serial.';
         return {
             ...profile, startupEvent: profile.startupEvent || 'microblocks-mobile-assets',
-            available, boardURL, privateIP, help,
+            available, boardURL: currentBoardURL, privateIP, help,
             canConnect: p => available && p.id === profile.board && p.transport === 'wifi',
             bridge: {postMessage(event) {
                 if (event.type === 'connect') {

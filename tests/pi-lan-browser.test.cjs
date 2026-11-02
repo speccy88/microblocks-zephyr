@@ -21,6 +21,22 @@ test('an explicit Pi package supports loopback-only fresh installations',()=>{
     const f=fixture('http://127.0.0.1:38877/');assert(f.client.available);f.connect();
     assert.equal(f.sockets[0].url,'ws://127.0.0.1:38877/ws/vm');
 });
+test('Pi tailnet origins are generic, same-origin and require the explicit Pi profile',()=>{
+    for(const host of ['100.64.0.1','100.100.10.20','100.127.255.254']){
+        const f=fixture(`http://${host}/`);assert(f.client.available);f.connect();
+        assert.equal(f.sockets[0].url,`ws://${host}/ws/vm`);
+        assert.equal(f.client.boardURL(host),`http://${host}/?layout=mobile`);
+        assert.throws(()=>f.client.boardURL('100.100.10.21'));
+        assert.throws(()=>f.client.bridge.postMessage({type:'connect',id:'b',address:'100.100.10.21'}));
+        f.client.close();
+    }
+    for(const f of [fixture('http://100.63.255.255/'),fixture('http://100.128.0.1/'),
+        fixture('https://100.100.10.20/'),fixture('http://100.100.10.20/',{runtime:'board',board:'pi5'}),
+        fixture('http://100.100.10.20/',{runtime:'pages',board:'pi5',local_pi:'open-http-v1'}),
+        fixture('http://100.100.10.20/',{runtime:'board',board:'rlcd',local_pi:'open-http-v1'})]){
+        assert(!f.client.available);assert.throws(f.connect);assert.equal(f.sockets.length,0);
+    }
+});
 test('Pages, HTTPS, public hosts and non-Pi packages cannot use this HTTP adapter',()=>{
     for(const f of [fixture('https://192.168.1.105:8877/'),fixture('http://public.example/'),
         fixture(undefined,{runtime:'pages',board:'pi5',local_pi:'open-http-v1'}),fixture(undefined,{runtime:'board',board:'rlcd',local_pi:'open-http-v1'})]){

@@ -95,7 +95,8 @@ class TransactionTests(unittest.IsolatedAsyncioTestCase):
         self.root = Path(self.temp.name)
         (self.root / 'data').mkdir(); (self.root / 'data/program.ucode').write_bytes(b'original-program')
         self.config = {'schema': 1, 'vm_version': 417, 'binary': 'old/smallvm', 'binary_sha256': 'f' * 64,
-            'editor': 'old/editor', 'data': 'data', 'origin': 'http://192.168.1.105', 'backend_port': 8877}
+            'editor': 'old/editor', 'data': 'data', 'origin': 'http://192.168.2.50', 'backend_port': 8877,
+            'additional_origins': ['http://100.100.10.20']}
         (self.root / 'service.json').write_text(json.dumps(self.config))
         self.quiesce = AsyncMock(); self.restarts = []
         async def install(archive, metadata):
@@ -138,6 +139,8 @@ class TransactionTests(unittest.IsolatedAsyncioTestCase):
         self.quiesce.assert_awaited_once(); self.assertEqual(self.restarts, [True])
         selected = json.loads((self.root / 'service.json').read_text())
         self.assertEqual(selected['binary'], 'installed/lib/microblocks/pi417-test1/smallvm')
+        self.assertEqual(selected['origin'], self.config['origin'])
+        self.assertEqual(selected['additional_origins'], self.config['additional_origins'])
         self.assertEqual((self.root / 'updates/program-before-update.ucode').read_bytes(), b'original-program')
         begin_boot(self.root); confirm_boot(self.root)
         self.assertEqual(self.updater.status()['update']['state'], 'complete')

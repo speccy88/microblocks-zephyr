@@ -4,6 +4,11 @@ For a complete Raspberry Pi 5 setup, see the [source installer](../../docs/PI5_I
 It includes the editor and isolated Python/Blinka; the older binary-only release
 installer documented below still requires a separately published package.
 
+The optional [Caddy/Tailscale HTTP deployment](../../docs/PI5_TAILSCALE.md)
+accepts explicitly configured origins through a loopback backend. The shared
+runtime, browser package and source/native update tests retain the LAN origin
+and the installation's own tailnet scope; no operator IP is a compiled default.
+
 The later [typed health checkpoint](../microduck/TYPED_READINGS.md) adds two pure
 snapshot-conversion primitives and library0.2. Ordinary and sanitizer Pi binaries
 each pass all eighteen MicroDuck feature tests (simulated robot services), with

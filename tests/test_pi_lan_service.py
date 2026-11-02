@@ -11,6 +11,24 @@ import lan_service
 
 
 class ServiceArgumentsTests(unittest.TestCase):
+    def test_proxy_configuration_preserves_both_explicit_origins(self):
+        config = {'origin': 'http://192.168.2.50', 'backend_port': 8877,
+            'additional_origins': ['http://100.100.10.20']}
+        policy = lan_service.policy_for_config(config)
+        self.assertEqual(policy.bind, '127.0.0.1')
+        self.assertEqual(policy.origins, [config['origin'], *config['additional_origins']])
+        self.assertEqual(lan_service.policy_for_config({k: v for k, v in config.items() if k != 'additional_origins'}).origins,
+            [config['origin']])
+
+    def test_direct_listener_cannot_claim_additional_proxy_origins(self):
+        config = {'direct_bind': '127.0.0.1', 'backend_port': 8877,
+            'clients': '127.0.0.1/32', 'origin': 'http://127.0.0.1:8877'}
+        self.assertEqual(lan_service.policy_for_config(config).origins, [config['origin']])
+        with self.assertRaises(RuntimeError):
+            lan_service.policy_for_config({**config, 'additional_origins': ['http://100.100.10.20']})
+        with self.assertRaises(RuntimeError):
+            lan_service.policy_for_config({**config, 'origin': 'http://100.100.10.20'})
+
     def test_default_vm_paths_are_explicit(self):
         self.assertEqual(vm_arguments({}, '/binary', '/data', '/data/pty.json'),
             ['/binary', '--data-dir', '/data', '--pty-info', '/data/pty.json'])
@@ -33,7 +51,8 @@ class RecoveryOrderTests(unittest.IsolatedAsyncioTestCase):
             root = Path(directory)
             (root / 'updates').mkdir()
             (root / 'data').mkdir()
-            previous = {'schema': 1, 'binary': 'previous/smallvm', 'python_extensions': {'profile': 'previous.json'}}
+            previous = {'schema': 1, 'binary': 'previous/smallvm', 'python_extensions': {'profile': 'previous.json'},
+                'origin': 'http://192.168.2.50', 'additional_origins': ['http://100.100.10.20']}
             candidate = {'schema': 1, 'binary': 'candidate/smallvm', 'python_extensions': {'profile': 'candidate.json'}}
             (root / 'service.json').write_text(json.dumps(candidate))
             (root / 'updates/pending.json').write_text(json.dumps({

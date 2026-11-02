@@ -27,7 +27,7 @@ def package(source, output):
         "const local = location.protocol === 'http:' && (privateIP(location.hostname) || location.hostname === '127.0.0.1') && profile.local_pi === 'open-http-v1';")
     browser = replace_once(browser,
         "Connect uses this board\u2019s same-origin /ws/vm. Compatible Wi-Fi firmware is required. A socket alone does not confirm the VM is ready.",
-        'Connect directly to the Pi on this local network. Keep this page in the foreground while programming.')
+        'Connect directly to the Pi over the local network or configured Tailscale site. Keep this page in the foreground while programming.')
     files['mobile-browser.js'] = browser.encode('utf-8')
     files['iphone-bootstrap.js'] = replace_once(files['iphone-bootstrap.js'].decode('utf-8'),
         'Join the same network as your board. Its MicroBlocks Wi-Fi firmware must already be installed.',

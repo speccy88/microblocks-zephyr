@@ -1,0 +1,102 @@
+{
+  "checked_at_utc": "2026-11-02T18:51:56.323901+00:00",
+  "canonical_candidate_on_real_pi": {
+    "canonical_code": true,
+    "listener": "loopback-only",
+    "live_service_restarted": false,
+    "isolated_native_vm": true,
+    "live_vm_transport_used": false,
+    "vm_commands_sent": 0,
+    "origins_tested": 2,
+    "requests": [
+      {
+        "http_status": 200,
+        "websocket_status": 101,
+        "marker": "ready"
+      },
+      {
+        "http_status": 200,
+        "websocket_status": 101,
+        "marker": "ready"
+      }
+    ],
+    "program_sha256": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77",
+    "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+    "live_service_pid_preserved": true,
+    "services_active": true,
+    "source_base_commit": "f4d231f8d38a6477f544c64dea9c413398f53931",
+    "source_files_sha256": {
+      ".github/workflows/pi5-installer.yml": "37bb80292cdd83f356da29f6e3b02ded7974302470ae8f50e4f09b0341ebf726",
+      "docs/PI5_INSTALLER.md": "7e9bc2d429625bb635731d4923ff9a3e3b5bc65c497124c9a77d5fb13b7eacc0",
+      "docs/PI5_TAILSCALE.md": "50426870e6457f3bb137446df4945fd9be0c7b6b07f299206c500c587376ee93",
+      "linux/arm64/Caddyfile.tailscale.example": "e8849f155bb82e2c6405a051de01981efe42f54b212cc281964ecc69c4e770b2",
+      "linux/arm64/README.md": "53614729c9f93183b67d0e975cbe08cceda5958d8a0b5f33939e5bb60648bf3c",
+      "linux/arm64/lan_editor.py": "8a639dfd7e0619853fad63ce0197747fedeb26d7bfd536ac093157ba02d02011",
+      "linux/arm64/lan_service.py": "a07f4217710ac259cc083c1efb3f767f3d210fd60765efc792f9bed6f1245f06",
+      "tests/mobile-browser.test.cjs": "8572c213dfa6edcf50e60b1b8378ca02c61cb417424a05080313be27f410d955",
+      "tests/pi-lan-browser.test.cjs": "3c1a2e1b2bc9fbf4a3ca0d71cc5dc7a25d5f3c2617c2d7ec49f9fc70729a457f",
+      "tests/test_linux_arm64_lan.py": "1d3dc403832edfb9b07f68dd766c45edee0a38b7639de2675f092983cfa59eea",
+      "tests/test_pi5_full_installer.py": "cef8ba03474f6e9a068f13c6f212c5b1969ef2fcf4a464357e1c2a8791304f0c",
+      "tests/test_pi_browser_update.py": "def4f416bb10760d78e60ee0e334e501d0a7388d97ea3111d7f16755357c531e",
+      "tests/test_pi_lan_service.py": "db823eb7f3884185559cb49aaffd8be90a358d748dfead7a01145655d217b3a2",
+      "tools/install_pi5.py": "6e077ed3e71b83ee6f9cd702f58d0d078bbdb6f86c3eb094ba6dd7729cd3f9fc",
+      "tools/package_pi_lan_editor.py": "63386c16d0161d5b19e1ab324c4d402cc6704496ce175e8045a97d8e77a85fa3",
+      "web/mobile/mobile-browser.js": "d14b66ee85347301767ff0c4b65711498c2c102b273f6d13b7daf4ef028191b5"
+    }
+  },
+  "public_live_service_checked_from_windows": {
+    "lan": {
+      "http": {
+        "page": 200,
+        "browser_asset": 200,
+        "redirect": false,
+        "csp": "same-address WebSocket"
+      },
+      "websocket": {
+        "status": 101,
+        "marker": "ready",
+        "close": "normal",
+        "vm_commands_sent": 0
+      }
+    },
+    "tailscale": {
+      "http": {
+        "page": 200,
+        "browser_asset": 200,
+        "redirect": false,
+        "csp": "same-address WebSocket"
+      },
+      "websocket": {
+        "status": 101,
+        "marker": "ready",
+        "close": "normal",
+        "vm_commands_sent": 0
+      }
+    }
+  },
+  "public_live_rejected_bad_origin_or_cross_route_requests": 6,
+  "canonical_operator_ip_embedded": false,
+  "caddy_template": "adapted successfully with example LAN/tailnet variables; no live reload",
+  "linux_full_validation": {
+    "command": "python3 tools/validate.py",
+    "tests": 641,
+    "skipped": 137,
+    "result": "passed"
+  },
+  "required_pi_ci_suites": {
+    "tests": 70,
+    "skipped": 0,
+    "result": "passed"
+  },
+  "browser_source_and_actual_package": {
+    "tests": 13,
+    "skipped": 0,
+    "result": "passed"
+  },
+  "limits": [
+    "Source/native update lifecycle checks use isolated fixture services.",
+    "Canonical runtime used a separate native VM and empty private data, not the live VM transport.",
+    "The live service was not replaced or restarted during repository integration.",
+    "No physical Safari/iPhone, OS reboot, sensor or Zephyr compilation claim."
+  ]
+}

@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -109,8 +110,55 @@ class FullInstallTests(unittest.TestCase):
         self.install(service=True)
         with self.assertRaises(app.InstallError):self.installer.install('2'*40,'a'*64,self.plan,prepare_only=True)
 
+    def test_proxy_source_updates_and_failed_start_preserve_origin_scope_and_data(self):
+        self.plan=app.endpoint(port=38877,proxy_origin='http://192.168.2.50',additional_origins=['http://100.100.10.20'])
+        self.install(service=True)
+        program=self.prefix/'data/program.ucode';program.write_bytes(b'keep this program')
+        old=app.load(self.prefix/'service.json')
+        self.assertNotIn('direct_bind',old);self.assertNotIn('clients',old)
+        self.install('2',service=True)
+        selected=app.load(self.prefix/'service.json')
+        self.assertEqual(selected['origin'],old['origin']);self.assertEqual(selected['additional_origins'],old['additional_origins'])
+        self.assertEqual(program.read_bytes(),b'keep this program')
+        self.service.fail_ready=True
+        with self.assertRaises(app.InstallError):self.install('3',service=True)
+        self.assertEqual(app.load(self.prefix/'service.json'),selected)
+        self.assertEqual(program.read_bytes(),b'keep this program')
+
+    def test_changing_proxy_origins_reuses_only_the_owned_loopback_listener(self):
+        self.plan=app.endpoint(port=38877,proxy_origin='http://192.168.2.50')
+        self.install(service=True)
+        with patch.object(app,'port_available') as available:
+            self.plan=app.endpoint(port=38877,proxy_origin='http://192.168.2.50',additional_origins=['http://100.100.10.20'])
+            self.install('2',service=True)
+            available.assert_not_called()
+        self.assertEqual(app.load(self.prefix/'service.json')['additional_origins'],['http://100.100.10.20'])
+        self.assertEqual(self.service.stops,1)
+
 @unittest.skipUnless(sys.platform=='linux','Direct listener and source policy')
 class PolicyTests(unittest.TestCase):
+    def test_proxy_mode_is_explicit_loopback_and_separate_from_direct_lan(self):
+        plan=app.endpoint(port=38877,proxy_origin='http://192.168.2.50',additional_origins=['http://100.100.10.20'])
+        self.assertEqual(plan,{'backend_port':38877,'origin':'http://192.168.2.50','additional_origins':['http://100.100.10.20']})
+        for kwargs in ({'lan':True},{'bind':'127.0.0.1'},{'clients':'127.0.0.1/32'}):
+            with self.assertRaises(app.InstallError):app.endpoint(proxy_origin='http://192.168.2.50',**kwargs)
+        with self.assertRaises(app.InstallError):app.endpoint(additional_origins=['http://100.100.10.20'])
+        with socket.socket() as existing:
+            existing.bind(('127.0.0.1',0));port=existing.getsockname()[1]
+            with self.assertRaises(app.InstallError):app.port_available(app.endpoint(port=port,proxy_origin='http://192.168.2.50'))
+
+    def test_omitted_cli_options_keep_proxy_origins_and_explicit_options_replace_or_clear(self):
+        old={'origin':'http://192.168.2.50','backend_port':38877,'additional_origins':['http://100.100.10.20']}
+        def args(**change):
+            return SimpleNamespace(**dict({'lan':False,'bind':None,'clients':None,'port':None,
+                'proxy_origin':None,'additional_origins':None,'clear_additional_origins':False},**change))
+        self.assertEqual(app.configured_endpoint(args(),old),old)
+        replaced=app.configured_endpoint(args(additional_origins=['http://100.100.10.30']),old)
+        self.assertEqual(replaced['additional_origins'],['http://100.100.10.30'])
+        cleared=app.configured_endpoint(args(clear_additional_origins=True),old)
+        self.assertEqual(cleared['additional_origins'],[]);self.assertEqual(cleared['origin'],old['origin'])
+        self.assertNotIn('additional_origins',app.configured_endpoint(args(),{}))
+
     def test_loopback_and_explicit_lan_keep_exact_host_origin(self):
         local=app.endpoint('127.0.0.1',False,38877);self.assertEqual(local['clients'],'127.0.0.1/32')
         lan=app.endpoint('192.168.2.50',True,8877);self.assertEqual(lan['origin'],'http://192.168.2.50:8877')

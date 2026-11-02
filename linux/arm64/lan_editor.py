@@ -16,6 +16,20 @@ import time
 from urllib.parse import urlsplit
 
 PRIVATE = tuple(ipaddress.ip_network(n) for n in ('10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'))
+TAILSCALE = ipaddress.ip_network('100.64.0.0/10')
+
+
+def proxy_origin(value):
+    """An exact, explicitly configured private/tailnet IPv4 HTTP origin."""
+    if not isinstance(value, str):
+        raise ValueError('Canonical private or Tailscale IPv4 HTTP origin required')
+    parsed = urlsplit(value)
+    address = ipaddress.ip_address(parsed.hostname or '')
+    if (not isinstance(address, ipaddress.IPv4Address)
+            or value != 'http://' + str(address)
+            or not any(address in network for network in (*PRIVATE, TAILSCALE))):
+        raise ValueError('Canonical private or Tailscale IPv4 HTTP origin on port 80 required')
+    return str(address)
 
 
 class Policy:
@@ -32,38 +46,48 @@ class Policy:
         self.bind, self.port, self.clients = bind, port, network
         self.host = f'{bind}:{port}'
         self.origin = 'http://' + self.host
+        self.origins = [self.origin]
+        self.host_origins = {self.host: self.origin}
 
     def request_allowed(self, peer, path, headers):
         try:
             allowed = isinstance(peer, tuple) and ipaddress.ip_address(peer[0]) in self.clients
         except (ValueError, TypeError, IndexError):
             allowed = False
+        hosts = headers.get_all('Host')
+        origin = self.host_origins.get(hosts[0]) if len(hosts) == 1 else None
         origins = headers.get_all('Origin')
-        if (not allowed or headers.get_all('Host') != [self.host]
-                or len(origins) > 1 or origins and origins != [self.origin]):
+        if (not allowed or origin is None
+                or len(origins) > 1 or origins and origins != [origin]):
             return False
         if path in ('/ws/vm', '/ws/update'):
-            return origins == [self.origin] and [v.lower() for v in headers.get_all('Upgrade')] == ['websocket']
+            return origins == [origin] and [v.lower() for v in headers.get_all('Upgrade')] == ['websocket']
         return not headers.get_all('Upgrade')
 
 
 class LoopbackProxyPolicy(Policy):
-    """Only a local reverse proxy; LAN filtering belongs to its public route.
+    """Only a local reverse proxy; client filtering belongs to each public route.
 
     No forwarded header is trusted. The public Host and browser Origin remain
     unchanged through Caddy; the immediate backend peer must be 127.0.0.1.
     """
-    def __init__(self, origin, port):
-        parsed = urlsplit(origin)
-        address = ipaddress.ip_address(parsed.hostname or '')
-        if (parsed.scheme != 'http' or parsed.username or parsed.password or parsed.path
-                or parsed.query or parsed.fragment or parsed.port is not None
-                or origin != 'http://' + str(address) or not any(address in n for n in PRIVATE)
-                or type(port) is not int or not 1024 <= port <= 65535):
-            raise ValueError('Canonical private IPv4 HTTP origin on port 80 and an unprivileged backend port required')
+    def __init__(self, origin, port, additional_origins=()):
+        address = proxy_origin(origin)
+        if type(port) is not int or not 1024 <= port <= 65535:
+            raise ValueError('Unprivileged backend port 1024..65535 required')
+        if not isinstance(additional_origins, (list, tuple)) or len(additional_origins) > 4:
+            raise ValueError('At most four exact additional proxy origins required')
         self.bind, self.port = '127.0.0.1', port
         self.clients = ipaddress.ip_network('127.0.0.1/32')
-        self.host, self.origin = str(address), origin
+        self.host, self.origin = address, origin
+        self.origins = [origin]
+        self.host_origins = {address: origin}
+        for extra in additional_origins:
+            host = proxy_origin(extra)
+            if host in self.host_origins:
+                raise ValueError('Proxy origins must be unique')
+            self.origins.append(extra)
+            self.host_origins[host] = extra
 
 
 class LanEditor:
@@ -96,7 +120,8 @@ class LanEditor:
             body, mime = self.backend.assets.read(request.path)
             response = self.backend.response(HTTPStatus.OK, body, mime)
             response.headers['Content-Security-Policy'] = (
-                "default-src 'self' data: blob:; connect-src 'self' " + self.policy.origin.replace('http:', 'ws:') +
+                "default-src 'self' data: blob:; connect-src 'self' " +
+                self.policy.host_origins[request.headers['Host']].replace('http:', 'ws:') +
                 "; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; "
                 "object-src 'none'; base-uri 'self'; frame-ancestors 'none'")
             return response
@@ -127,7 +152,7 @@ class LanEditor:
             factory = serve
         self.deadline = float('inf') if self.permanent else time.monotonic() + self.lease
         self.server = await factory(self.handle, self.policy.bind, self.policy.port,
-            process_request=self.request, origins=[self.policy.origin], compression=None,
+            process_request=self.request, origins=self.policy.origins, compression=None,
             open_timeout=5, close_timeout=2, max_size=4096, max_queue=8,
             write_limit=8192, server_header=None)
         if any(s.getsockname()[:2] != (self.policy.bind, self.policy.port) for s in self.server.sockets):
