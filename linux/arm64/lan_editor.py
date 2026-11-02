@@ -22,10 +22,11 @@ class Policy:
     def __init__(self, bind, port, clients):
         address = ipaddress.ip_address(bind)
         network = ipaddress.ip_network(clients, strict=True)
+        loopback = bind == '127.0.0.1' and clients == '127.0.0.1/32'
         if (str(address) != bind or not isinstance(address, ipaddress.IPv4Address)
-                or not any(address in n for n in PRIVATE)
+                or not (loopback or any(address in n for n in PRIVATE))
                 or not isinstance(network, ipaddress.IPv4Network)
-                or not any(network.subnet_of(n) for n in PRIVATE)
+                or not (loopback or any(network.subnet_of(n) for n in PRIVATE))
                 or network.prefixlen < 24 or type(port) is not int or not 1024 <= port <= 65535):
             raise ValueError('Exact private IPv4, port 1024..65535, and private /24 or narrower client scope required')
         self.bind, self.port, self.clients = bind, port, network

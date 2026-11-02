@@ -1,5 +1,9 @@
 # Linux ARM64 SmallVM: current status
 
+For a complete Raspberry Pi 5 setup, see the [source installer](../../docs/PI5_INSTALLER.md).
+It includes the editor and isolated Python/Blinka; the older binary-only release
+installer documented below still requires a separately published package.
+
 The later [typed health checkpoint](../microduck/TYPED_READINGS.md) adds two pure
 snapshot-conversion primitives and library0.2. Ordinary and sanitizer Pi binaries
 each pass all eighteen MicroDuck feature tests (simulated robot services), with

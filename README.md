@@ -1,5 +1,9 @@
 # MicroBlocks on Zephyr
 
+The [complete Raspberry Pi 5 installer](docs/PI5_INSTALLER.md) builds the pinned
+native VM417, packages the local editor and installs isolated Python/Blinka.
+It preserves unrelated services and requires an explicit LAN/service option.
+
 The [experimental iPhone app](docs/IPHONE_APP.md) bundles the pinned JavaScript
 editor with a native station-mode Wi-Fi programming bridge and touch-sized
 controls. Source and build instructions are under `ios/`. Physical iPhone
@@ -160,7 +164,7 @@ evidence/                      Build and physical observations, no credentials
 3. A verified Arduino API integration with representative libraries; API parity is
    not assumed from Zephyr board support alone.
 4. A capability manifest reflects **tested** features, not just Devicetree nodes.
-5. Physical tests for every advertised device (LCD, I²C, buttons, battery,
+5. Physical tests for every advertised device (LCD, IÂ²C, buttons, battery,
    microSD, Wi-Fi, BLE, microphone, audio output, power management).
 
 Follow [ARCHITECTURE.md](docs/ARCHITECTURE.md),

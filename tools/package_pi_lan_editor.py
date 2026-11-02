@@ -24,7 +24,7 @@ def package(source, output):
     browser = replace_once(browser, "const supported = ['rlcd', 'fruit-jam', 'xrp'];", "const supported = ['pi5'];")
     browser = replace_once(browser,
         "const local = location.protocol === 'http:' && (privateIP(location.hostname) || ['127.0.0.1', 'localhost'].includes(location.hostname));",
-        "const local = location.protocol === 'http:' && privateIP(location.hostname) && profile.local_pi === 'open-http-v1';")
+        "const local = location.protocol === 'http:' && (privateIP(location.hostname) || location.hostname === '127.0.0.1') && profile.local_pi === 'open-http-v1';")
     browser = replace_once(browser,
         "Connect uses this board\u2019s same-origin /ws/vm. Compatible Wi-Fi firmware is required. A socket alone does not confirm the VM is ready.",
         'Connect directly to the Pi on this local network. Keep this page in the foreground while programming.')

@@ -17,6 +17,10 @@ test('open HTTP Pi connects without key or authentication frame',()=>{
     s.onmessage({data:'ready'});assert.equal(f.received[0].type,'ready');
     f.client.bridge.postMessage({type:'write',id:'a',bytes:[250,12,0]});assert.deepEqual(Array.from(s.sent[0]),[250,12,0]);
 });
+test('an explicit Pi package supports loopback-only fresh installations',()=>{
+    const f=fixture('http://127.0.0.1:38877/');assert(f.client.available);f.connect();
+    assert.equal(f.sockets[0].url,'ws://127.0.0.1:38877/ws/vm');
+});
 test('Pages, HTTPS, public hosts and non-Pi packages cannot use this HTTP adapter',()=>{
     for(const f of [fixture('https://192.168.1.105:8877/'),fixture('http://public.example/'),
         fixture(undefined,{runtime:'pages',board:'pi5',local_pi:'open-http-v1'}),fixture(undefined,{runtime:'board',board:'rlcd',local_pi:'open-http-v1'})]){

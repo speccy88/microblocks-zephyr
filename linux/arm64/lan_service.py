@@ -16,7 +16,7 @@ import stat
 import subprocess
 import time
 
-from lan_editor import LanEditor, LoopbackProxyPolicy
+from lan_editor import LanEditor, LoopbackProxyPolicy, Policy
 from browser_update import BrowserUpdater, UpdateError, begin_boot, confirm_boot
 from python_runtime import ManagedPython
 
@@ -80,7 +80,12 @@ async def run_runtime(root,config):
     run_dir = root / 'run'
     run_dir.mkdir(mode=0o700, exist_ok=True)
     info = data / 'pty-service.json'
-    policy = LoopbackProxyPolicy(config['origin'], config['backend_port'])
+    if config.get('direct_bind') is not None:
+        policy = Policy(config['direct_bind'], config['backend_port'], config['clients'])
+        if policy.origin != config['origin']:
+            raise RuntimeError('Direct listener must retain its exact browser Origin')
+    else:
+        policy = LoopbackProxyPolicy(config['origin'], config['backend_port'])
     stopped = False
     update_restart = False
     updating = False
@@ -116,7 +121,7 @@ async def run_runtime(root,config):
         loop.add_signal_handler(signum, stop)
     state = {'state': 'starting', 'origin': policy.origin, 'supervisor_pid': os.getpid(),
         'vm_pid': vm.pid, 'binary_sha256': config['binary_sha256'], 'permanent': True,
-        'backend': '127.0.0.1:' + str(policy.port), 'vm_version': 417}
+        'backend': policy.bind + ':' + str(policy.port), 'vm_version': 417}
     try:
         deadline = time.monotonic() + 10
         while True:
