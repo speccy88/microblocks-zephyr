@@ -40,3 +40,27 @@ tests. This record establishes shared-source/package readiness and continued
 live availability; it does not claim that the live service was redeployed from
 this source revision, that a real VM release upgrade was applied, or that Safari,
 an OS reboot, sensors, or Zephyr firmware were tested.
+
+## Published bootstrap preparation
+
+The bootstrap now selects source commit
+`2b709975444f4e5d1c39ffcf65ac74eb4acc8a16` with independently downloaded archive
+SHA256 `cac6ec12c3b55e847731de3c255bf50388bf2d370ac0a54fa74ee1cda571b5a6`.
+That exact staged bootstrap completed a real fresh `--prepare-only` install on
+the Pi with explicit example LAN/tailnet proxy origins and an unused backend
+port in a separate private prefix. Pinned Python/Blinka installation, native
+build/self-tests, editor packaging and release receipt checks passed. Its native
+binary hash equals the existing live binary's hash.
+
+Repeating it without any origin flags returned `already-current`, retaining
+both stored origins and a fixture data marker. No system service was installed;
+the existing service PID/program and Caddy/Tailscale stayed unchanged. See
+[bootstrap results](bootstrap.json). This preparation does not claim a new boot
+service or fresh-OS/reboot acceptance.
+
+The prepared installation's own launcher was then started as an isolated
+foreground process. Its managed Python/VM runtime became ready, served HTTP200
+and WebSocket101/`ready` for both configured origins, and stopped cleanly after
+the check. No VM commands were sent and the existing live service PID/program
+remained unchanged. This checks the actual newly prepared application in
+addition to the lower-level isolated transport test.

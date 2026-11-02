@@ -16,8 +16,8 @@ import tempfile
 import urllib.request
 from urllib.parse import urlsplit
 
-SOURCE_COMMIT = '4eaae9b3d88f167a6262753c7850577d39054973'
-SOURCE_SHA256 = '9df8a9636c242d41739b29a73fa1c293988f1162ab53aaf8ab08111611b0bbd2'
+SOURCE_COMMIT = '2b709975444f4e5d1c39ffcf65ac74eb4acc8a16'
+SOURCE_SHA256 = 'cac6ec12c3b55e847731de3c255bf50388bf2d370ac0a54fa74ee1cda571b5a6'
 SOURCE_URL = 'https://github.com/speccy88/microblocks-zephyr/archive/' + SOURCE_COMMIT + '.tar.gz'
 MAX_ARCHIVE = 64 * 1024 * 1024
 MAX_EXPANDED = 256 * 1024 * 1024

@@ -1,0 +1,35 @@
+{
+  "source_commit": "2b709975444f4e5d1c39ffcf65ac74eb4acc8a16",
+  "source_archive_sha256": "cac6ec12c3b55e847731de3c255bf50388bf2d370ac0a54fa74ee1cda571b5a6",
+  "real_pi_fresh_source_preparation": "passed",
+  "native_build": "passed",
+  "native_binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+  "repeat_without_endpoint_flags": "already-current",
+  "stored_origins_preserved": true,
+  "fixture_data_preserved": true,
+  "service_installed": false,
+  "hardware_enabled": false,
+  "live_service_pid_unchanged": true,
+  "live_program_sha256": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77",
+  "live_services_active": true,
+  "foreground_runtime": {
+    "prepared_launcher_runtime": "passed",
+    "configured_origins_checked": [
+      {
+        "http": 200,
+        "websocket": 101,
+        "marker": "ready"
+      },
+      {
+        "http": 200,
+        "websocket": 101,
+        "marker": "ready"
+      }
+    ],
+    "vm_commands_sent": 0,
+    "owned_foreground_process_stopped": true,
+    "system_service_installed": false,
+    "live_service_pid_unchanged": true,
+    "live_program_sha256": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77"
+  }
+}

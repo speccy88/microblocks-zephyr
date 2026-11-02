@@ -30,8 +30,8 @@ To review before execution, download the same URL with `curl -fL -o
 install-pi5.sh URL`, read it, then use `bash install-pi5.sh` with your chosen
 options. `--bootstrap-info` prints its source identity without downloading or
 installing. The bootstrap pins source commit
-`4eaae9b3d88f167a6262753c7850577d39054973` and GitHub source archive SHA256
-`9df8a9636c242d41739b29a73fa1c293988f1162ab53aaf8ab08111611b0bbd2`.
+`2b709975444f4e5d1c39ffcf65ac74eb4acc8a16` and GitHub source archive SHA256
+`cac6ec12c3b55e847731de3c255bf50388bf2d370ac0a54fa74ee1cda571b5a6`.
 It checks the complete downloaded archive before extracting or running code.
 The current entry builds the verified source revision rather than claiming a
 published native ARM64 release. Future bootstrap revisions require review and
@@ -119,3 +119,10 @@ prefix with spaces. See [physical evidence](../evidence/2026-11-02/pi5-installer
 The new boot service has not been activated on Fred's already configured Pi;
 service start/readiness failure and rollback use explicit fixtures. A fresh OS,
 physical iPhone, sensor and reboot remain separate physical acceptance tests.
+
+The current checksum-pinned payload also passed a real isolated proxy-mode
+source preparation and repeat on the Pi: the generic package/native build
+completed, omitted origin flags preserved both configured endpoints, and the
+live service was not restarted. See the [tailnet bootstrap evidence](../evidence/2026-11-02/pi-tailscale/bootstrap.json).
+The prepared application's foreground launcher also passed both configured
+HTTP/WebSocket origins and was stopped without installing a boot service.
