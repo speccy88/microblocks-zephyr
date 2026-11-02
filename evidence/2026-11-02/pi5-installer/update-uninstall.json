@@ -1,0 +1,22 @@
+{
+  "source_update_from": "5cccb552f50af780464f29842e2d9f8f80f68f0a",
+  "source_update_to": "af4a4fa0fa2a198fdaceca79aae34b4e65dc2483",
+  "real_github_descendant_comparison": "PASS",
+  "program_marker_sqlite_and_profile_preserved": {
+    "program_marker": true,
+    "sqlite": true,
+    "profile": true
+  },
+  "sqlite_rows": [
+    [
+      22600
+    ]
+  ],
+  "prior_code_release_retained": true,
+  "real_github_downgrade_refused": true,
+  "uninstall": "PASS",
+  "launcher_removed": true,
+  "program_database_profile_and_both_code_versions_retained": true,
+  "boot_service_activated": false,
+  "unrelated_live_service_changed": false
+}

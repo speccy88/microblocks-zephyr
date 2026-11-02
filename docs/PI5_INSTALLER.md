@@ -14,9 +14,28 @@ For system service setup, first run `sudo -v`; the runtime itself is non-root.
 
 ## Published entry point
 
-The readable bootstrap is published only after its immutable source payload
-passes the real Pi build. Its GitHub URL and payload SHA will be recorded here
-at that checkpoint. No executable download command is offered before then.
+Run these commands on the Pi as its ordinary account:
+
+```sh
+sudo -v
+curl -fsSL https://raw.githubusercontent.com/speccy88/microblocks-zephyr/main/scripts/install-pi5.sh | bash -s -- --lan --service --install-prerequisites
+```
+
+This explicitly requests a permanent LAN HTTP/WS service on port8877. The
+installer prints its actual IP URL. On Fred's existing Pi, keep using the
+already configured port80 service; this command refuses its occupied backend
+port and does not migrate that older private layout.
+
+To review before execution, download the same URL with `curl -fL -o
+install-pi5.sh URL`, read it, then use `bash install-pi5.sh` with your chosen
+options. `--bootstrap-info` prints its source identity without downloading or
+installing. The bootstrap pins source commit
+`af4a4fa0fa2a198fdaceca79aae34b4e65dc2483` and GitHub source archive SHA256
+`4b916287c527a4e25f6e66ef70d090c15b998bd01a379b818e5a2c3a1d871bbd`.
+It checks the complete downloaded archive before extracting or running code.
+The current entry builds the verified source revision rather than claiming a
+published native ARM64 release. Future bootstrap revisions require review and
+their own tested commit/checksum.
 
 ## Options and behavior
 
@@ -74,6 +93,11 @@ Linux fixture tests cover fresh/repeat/source update, failed build/start and
 rollback, preservation of program/SQLite/profile, unrelated service and
 occupied-port refusal, downgrade checks and uninstall. Blinka10.1.0 imports
 and `RASPBERRY_PI_5` detection pass on Fred's actual Pi without changing its
-current SmallVM service. Real source/bootstrap results will be recorded with
-the published payload. A fresh OS, physical iPhone, sensor and reboot remain
-separate physical acceptance tests.
+current SmallVM service. The real Pi source download/build/preparation, repeat install, descendant
+source update, downgrade refusal and uninstall pass; data/SQLite/profile and
+older code remain intact. The native VM passes self-test and 50 protocol
+repetitions. Its service file passes the actual systemd parser, including a
+prefix with spaces. See [physical evidence](../evidence/2026-11-02/pi5-installer/README.md).
+The new boot service has not been activated on Fred's already configured Pi;
+service start/readiness failure and rollback use explicit fixtures. A fresh OS,
+physical iPhone, sensor and reboot remain separate physical acceptance tests.

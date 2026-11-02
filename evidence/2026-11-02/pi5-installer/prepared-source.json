@@ -1,0 +1,55 @@
+{
+  "source_commit": "af4a4fa0fa2a198fdaceca79aae34b4e65dc2483",
+  "source_archive_sha256": "4b916287c527a4e25f6e66ef70d090c15b998bd01a379b818e5a2c3a1d871bbd",
+  "prepared_status": "prepared",
+  "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+  "native_build": {
+    "source_commit": "2071df569623ba9cdcd6f8106b61796e047df38b",
+    "vm_version": 417,
+    "build_host": "aarch64",
+    "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+    "self_test": "PASS"
+  },
+  "isolated_python_versions": {
+    "Adafruit-Blinka": "10.1.0",
+    "gpiod": "2.5.0",
+    "websockets": "15.0.1",
+    "Adafruit-PlatformDetect": "3.90.0",
+    "Adafruit_PureIO": "1.1.12",
+    "binho-host-adapter": "0.1.6",
+    "packaging": "26.3",
+    "pyftdi": "0.57.2",
+    "pyserial": "3.5",
+    "pyusb": "1.3.1",
+    "sysv_ipc": "1.2.0",
+    "adafruit-circuitpython-typing": "1.13.0",
+    "typing_extensions": "4.16.0",
+    "adafruit-circuitpython-busdevice": "5.2.17",
+    "adafruit-circuitpython-requests": "4.1.18",
+    "adafruit-circuitpython-connectionmanager": "3.1.8"
+  },
+  "board_id": "RASPBERRY_PI_5",
+  "editor_python_overlay": true,
+  "editor_updater": true,
+  "extra_service_or_listener_activated": false,
+  "suite_results": [
+    {
+      "name": "Linux installer/Blinka/direct Host-Origin/runtime/archive",
+      "returncode": 0,
+      "summary": "ALL_REQUIRED_TESTS 38"
+    },
+    {
+      "name": "Native VM417 protocol 50 repetitions private data",
+      "returncode": 0
+    }
+  ],
+  "generated_unit_validation": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "existing_port80_status": "200",
+  "existing_service_pid": 11244,
+  "fresh_os_tested": false,
+  "new_boot_service_activated": false,
+  "physical_sensor_tested": false
+}
