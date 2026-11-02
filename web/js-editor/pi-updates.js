@@ -19,7 +19,7 @@
         constructor(location,Socket){this.location=new URL(location.href);this.Socket=Socket;}
         async operation(command,file,progress=()=>{}){
             const url=new URL('/ws/update',this.location);url.protocol=this.location.protocol==='https:'?'wss:':'ws:';
-            if(this.location.protocol!=='http:'||url.origin.replace('ws:','http:')!==this.location.origin)throw Error('Ouvrez les mises à jour depuis le site local du Pi.');
+            if(!['http:','https:'].includes(this.location.protocol)||url.origin.replace('wss:','https:').replace('ws:','http:')!==this.location.origin)throw Error('Ouvrez les mises à jour depuis le site local du Pi.');
             return new Promise((resolve,reject)=>{
                 const socket=this.socket=new this.Socket(url.href);let done=false;
                 const timer=setTimeout(()=>finish(Error('Délai de mise à jour dépassé. Le SmallVM précédent est conservé.')),command.action==='github_check'?125000:120000);

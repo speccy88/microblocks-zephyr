@@ -1,0 +1,15 @@
+# Add to the existing Caddyfile only after reviewing/authorizing the change.
+# Set MICROBLOCKS_HTTPS_ORIGIN=https://machine.tailnet.ts.net and
+# MICROBLOCKS_PROXY_BACKEND=127.0.0.1:8877 in Caddy's service environment.
+# tailscaled must permit the non-root Caddy account to fetch node certificates:
+# TS_PERMIT_CERT_UID=caddy in /etc/default/tailscaled, then restart tailscaled.
+# Certificate issuance publishes the name in Certificate Transparency logs.
+{$MICROBLOCKS_HTTPS_ORIGIN} {
+    @tailnet remote_ip 100.64.0.0/10 fd7a:115c:a1e0::/48
+    handle @tailnet {
+        reverse_proxy {$MICROBLOCKS_PROXY_BACKEND}
+    }
+    handle {
+        respond "Tailscale network only" 403
+    }
+}

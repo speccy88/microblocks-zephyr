@@ -10,6 +10,7 @@ import argparse
 import asyncio
 from http import HTTPStatus
 import ipaddress
+import re
 from pathlib import Path
 import signal
 import time
@@ -20,11 +21,19 @@ TAILSCALE = ipaddress.ip_network('100.64.0.0/10')
 
 
 def proxy_origin(value):
-    """An exact, explicitly configured private/tailnet IPv4 HTTP origin."""
+    """An exact HTTP IPv4 or HTTPS Tailscale-name origin behind a local proxy."""
     if not isinstance(value, str):
-        raise ValueError('Canonical private or Tailscale IPv4 HTTP origin required')
+        raise ValueError('Canonical private HTTP IPv4 or Tailscale HTTPS name origin required')
     parsed = urlsplit(value)
-    address = ipaddress.ip_address(parsed.hostname or '')
+    host = parsed.hostname or ''
+    if parsed.scheme == 'https':
+        labels = host.split('.')
+        if (value != 'https://' + host or len(host) > 253 or len(labels) != 4
+                or labels[-2:] != ['ts', 'net']
+                or not all(re.fullmatch(r'[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?', label) for label in labels[:2])):
+            raise ValueError('Canonical exact HTTPS machine.tailnet.ts.net origin on port 443 required')
+        return host
+    address = ipaddress.ip_address(host)
     if (not isinstance(address, ipaddress.IPv4Address)
             or value != 'http://' + str(address)
             or not any(address in network for network in (*PRIVATE, TAILSCALE))):
@@ -121,7 +130,7 @@ class LanEditor:
             response = self.backend.response(HTTPStatus.OK, body, mime)
             response.headers['Content-Security-Policy'] = (
                 "default-src 'self' data: blob:; connect-src 'self' " +
-                self.policy.host_origins[request.headers['Host']].replace('http:', 'ws:') +
+                self.policy.host_origins[request.headers['Host']].replace('https:', 'wss:', 1).replace('http:', 'ws:', 1) +
                 "; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; "
                 "object-src 'none'; base-uri 'self'; frame-ancestors 'none'")
             return response

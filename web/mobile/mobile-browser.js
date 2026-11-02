@@ -17,16 +17,25 @@
         const p = value.split('.').map(Number);
         return p.every(n => n <= 255) && p[0] === 100 && p[1] >= 64 && p[1] <= 127;
     };
+    const tailscaleName = value => {
+        if (typeof value !== 'string' || value.length > 253) return false;
+        const labels = value.split('.');
+        return labels.length === 4 && labels[2] === 'ts' && labels[3] === 'net' &&
+            labels.slice(0, 2).every(label => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label));
+    };
     function create({profile, location, Socket, receive, schedule = setTimeout, cancel = clearTimeout}) {
         const supported = ['rlcd', 'fruit-jam', 'xrp'];
         const local = location.protocol === 'http:' && (privateIP(location.hostname) || ['127.0.0.1', 'localhost'].includes(location.hostname));
         // Server configuration grants exact origins. The Pi browser adapter can
-        // only connect back to its current HTTP host, never to another tailnet IP.
+        // only connect back to its current host. HTTPS terminates at Caddy;
+        // open-http-v1 describes the loopback backend, not a TLS downgrade.
         const piTailnet = location.protocol === 'http:' && profile.local_pi === 'open-http-v1' &&
             profile.board === 'pi5' && tailscaleIP(location.hostname);
-        const available = profile.runtime === 'board' && (local || piTailnet) && supported.includes(profile.board);
-        const currentBoardURL = value => piTailnet && String(value).trim() === location.hostname ?
-            'http://' + location.hostname + '/?layout=mobile' : boardURL(value);
+        const piSecureTailnet = location.protocol === 'https:' && !location.port &&
+            profile.local_pi === 'open-http-v1' && profile.board === 'pi5' && tailscaleName(location.hostname);
+        const available = profile.runtime === 'board' && (local || piTailnet || piSecureTailnet) && supported.includes(profile.board);
+        const currentBoardURL = value => (piTailnet || piSecureTailnet) && String(value).trim() === location.hostname ?
+            new URL('/?layout=mobile', location.href).href : boardURL(value);
         let session = null;
         const close = () => {
             const previous = session; session = null;
@@ -59,7 +68,7 @@
                     if (!available || event.address !== location.hostname) throw new Error(help());
                     close();
                     const endpoint = new URL('/ws/vm', location.href);
-                    endpoint.protocol = 'ws:';
+                    endpoint.protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
                     let socket;
                     try { socket = new Socket(endpoint.href); }
                     catch (error) { throw new Error('Cannot open the board WebSocket: ' + error.message); }

@@ -31,7 +31,7 @@ class Backend:
 @unittest.skipUnless(Bridge is not None and Headers is not None, 'Linux and pinned websockets required')
 class OpenLanTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
-        self.policy = Policy('192.168.1.105', 8877, '192.168.1.0/24')
+        self.policy = Policy('192.168.2.50', 8877, '192.168.1.0/24')
         self.backend = Backend()
         self.server = LanEditor(self.backend, self.policy)
 
@@ -50,7 +50,7 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_exact_http_origin(self):
         self.assertTrue(self.policy.request_allowed(('192.168.1.109', 1), '/ws/vm', self.headers()))
-        for origin in (None, 'null', 'https://speccy88.github.io', 'https://192.168.1.105:8877', 'http://192.168.1.105:80'):
+        for origin in (None, 'null', 'https://speccy88.github.io', 'https://192.168.2.50:8877', 'http://192.168.2.50:80'):
             self.assertFalse(self.policy.request_allowed(('192.168.1.109', 1), '/ws/vm', self.headers(Origin=origin)))
 
     async def test_host_duplicates_and_outside_lan(self):
@@ -73,12 +73,12 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValueError):
             await self.server.start(factory=factory)
         factory.assert_not_awaited()
-        listener = SimpleNamespace(sockets=[SimpleNamespace(getsockname=lambda: ('192.168.1.105', 8877))],
+        listener = SimpleNamespace(sockets=[SimpleNamespace(getsockname=lambda: ('192.168.2.50', 8877))],
             close=lambda: None, wait_closed=AsyncMock())
         factory.return_value = listener
         await self.server.start(activated=True, factory=factory)
-        self.assertEqual(factory.call_args.args[1:3], ('192.168.1.105', 8877))
-        self.assertEqual(factory.call_args.kwargs['origins'], ['http://192.168.1.105:8877'])
+        self.assertEqual(factory.call_args.args[1:3], ('192.168.2.50', 8877))
+        self.assertEqual(factory.call_args.kwargs['origins'], ['http://192.168.2.50:8877'])
         self.assertNotIn('ssl', factory.call_args.kwargs)
         await self.server.stop()
 
@@ -91,7 +91,7 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_scope_and_runtime_validation(self):
         for bind, port, scope in (('0.0.0.0', 8877, '192.168.1.0/24'), ('127.0.0.1', 8877, '192.168.1.0/24'),
-                ('192.168.1.105', 80, '192.168.1.0/24'), ('192.168.1.105', 8877, '0.0.0.0/0')):
+                ('192.168.2.50', 80, '192.168.1.0/24'), ('192.168.2.50', 8877, '0.0.0.0/0')):
             with self.assertRaises(ValueError):
                 Policy(bind, port, scope)
         with self.assertRaises(ValueError):
@@ -100,21 +100,21 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
             separate_runtime(Path('/editor'), [Path('/editor/data/pty.json')])
 
     async def test_proxy_keeps_public_origin_but_accepts_only_local_caddy(self):
-        policy = LoopbackProxyPolicy('http://192.168.1.105', 8877)
-        headers = Headers({'Host': '192.168.1.105', 'Origin': 'http://192.168.1.105', 'Upgrade': 'websocket'})
+        policy = LoopbackProxyPolicy('http://192.168.2.50', 8877)
+        headers = Headers({'Host': '192.168.2.50', 'Origin': 'http://192.168.2.50', 'Upgrade': 'websocket'})
         self.assertTrue(policy.request_allowed(('127.0.0.1', 1), '/ws/vm', headers))
         self.assertFalse(policy.request_allowed(('192.168.1.109', 1), '/ws/vm', headers))
         headers['X-Forwarded-For'] = '127.0.0.1'
         self.assertFalse(policy.request_allowed(('192.168.1.109', 1), '/ws/vm', headers))
-        headers = Headers({'Host': '127.0.0.1:8877', 'Origin': 'http://192.168.1.105', 'Upgrade': 'websocket'})
+        headers = Headers({'Host': '127.0.0.1:8877', 'Origin': 'http://192.168.2.50', 'Upgrade': 'websocket'})
         self.assertFalse(policy.request_allowed(('127.0.0.1', 1), '/ws/vm', headers))
-        for origin in ('https://192.168.1.105', 'http://example.com', 'http://192.168.1.105:80', 'http://192.168.1.105/path'):
+        for origin in ('https://192.168.2.50', 'http://example.com', 'http://192.168.2.50:80', 'http://192.168.2.50/path'):
             with self.assertRaises(ValueError):
                 LoopbackProxyPolicy(origin, 8877)
 
     async def test_explicit_permanent_mode_has_no_expiry_timer(self):
         server = LanEditor(self.backend, self.policy, permanent=True)
-        listener = SimpleNamespace(sockets=[SimpleNamespace(getsockname=lambda: ('192.168.1.105', 8877))],
+        listener = SimpleNamespace(sockets=[SimpleNamespace(getsockname=lambda: ('192.168.2.50', 8877))],
             close=lambda: None, wait_closed=AsyncMock())
         await server.start(activated=True, factory=AsyncMock(return_value=listener))
         self.assertIsNone(server.timer)
@@ -178,7 +178,8 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
         with socket.socket() as reservation:
             reservation.bind(('127.0.0.1', 0))
             port = reservation.getsockname()[1]
-        policy = LoopbackProxyPolicy('http://192.168.2.50', port, ['http://100.100.10.20'])
+        origins = ['http://192.168.2.50', 'http://100.100.10.20', 'https://pi.tail-example.ts.net']
+        policy = LoopbackProxyPolicy(origins[0], port, origins[1:])
         async def ready_only(ws):
             await ws.send('ready')
             await ws.wait_closed()
@@ -186,16 +187,18 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
         server = LanEditor(self.backend, policy, permanent=True)
         await server.start(activated=True)
         try:
-            for host in ('192.168.2.50', '100.100.10.20'):
+            for origin in origins:
+                host = origin.split('://', 1)[1]
                 reader, writer = await asyncio.open_connection('127.0.0.1', port)
                 writer.write(('GET / HTTP/1.1\r\nHost: ' + host + '\r\nConnection: close\r\n\r\n').encode())
                 await writer.drain()
                 response = await asyncio.wait_for(reader.read(), 3)
                 writer.close(); await writer.wait_closed()
                 self.assertTrue(response.startswith(b'HTTP/1.1 200 OK'))
-                self.assertIn(('ws://' + host).encode(), response)
+                socket_origin = origin.replace('https:', 'wss:').replace('http:', 'ws:')
+                self.assertIn(socket_origin.encode(), response)
                 async with connect('ws://' + host + '/ws/vm', host='127.0.0.1', port=port,
-                        proxy=None, origin='http://' + host, open_timeout=3) as ws:
+                        proxy=None, origin=origin, open_timeout=3) as ws:
                     self.assertEqual(await asyncio.wait_for(ws.recv(), 3), 'ready')
                 with self.assertRaises(InvalidStatus) as refused:
                     async with connect('ws://' + host + '/ws/vm', host='127.0.0.1', port=port,
@@ -204,6 +207,27 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual(refused.exception.response.status_code, HTTPStatus.FORBIDDEN)
         finally:
             await server.stop()
+
+    async def test_https_proxy_names_are_explicit_canonical_and_match_secure_origins(self):
+        origin = 'https://pi.tail-example.ts.net'
+        policy = LoopbackProxyPolicy('http://192.168.2.50', 8877, [origin])
+        host = 'pi.tail-example.ts.net'
+        for path in ('/ws/vm', '/ws/update'):
+            good = Headers({'Host': host, 'Origin': origin, 'Upgrade': 'websocket'})
+            self.assertTrue(policy.request_allowed(('127.0.0.1', 1), path, good))
+            self.assertFalse(policy.request_allowed(('100.100.10.20', 1), path, good))
+            for wrong in ('http://' + host, 'https://other.tail-example.ts.net', 'http://192.168.2.50'):
+                headers = Headers({'Host': host, 'Origin': wrong, 'Upgrade': 'websocket'})
+                self.assertFalse(policy.request_allowed(('127.0.0.1', 1), path, headers))
+        self.assertEqual(LoopbackProxyPolicy(origin, 8877).host, host)
+        for bad in ('https://8.8.8.8', 'https://example.com', 'http://' + host,
+                origin + ':443', origin + '/', origin + '?a=1', origin + '#a',
+                'https://user@' + host, 'https://PI.tail-example.ts.net',
+                'https://pi.tail-example.ts.net.evil', 'https://*.tail-example.ts.net',
+                'https://pi..ts.net', 'https://-pi.tail-example.ts.net',
+                'https://' + 'a' * 64 + '.tail-example.ts.net'):
+            with self.subTest(origin=bad), self.assertRaises(ValueError):
+                LoopbackProxyPolicy(bad, 8877)
 
 
 if __name__ == '__main__':

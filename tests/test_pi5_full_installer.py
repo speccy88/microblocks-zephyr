@@ -111,7 +111,7 @@ class FullInstallTests(unittest.TestCase):
         with self.assertRaises(app.InstallError):self.installer.install('2'*40,'a'*64,self.plan,prepare_only=True)
 
     def test_proxy_source_updates_and_failed_start_preserve_origin_scope_and_data(self):
-        self.plan=app.endpoint(port=38877,proxy_origin='http://192.168.2.50',additional_origins=['http://100.100.10.20'])
+        self.plan=app.endpoint(port=38877,proxy_origin='http://192.168.2.50',additional_origins=['http://100.100.10.20','https://pi.tail-example.ts.net'])
         self.install(service=True)
         program=self.prefix/'data/program.ucode';program.write_bytes(b'keep this program')
         old=app.load(self.prefix/'service.json')
@@ -140,6 +140,8 @@ class PolicyTests(unittest.TestCase):
     def test_proxy_mode_is_explicit_loopback_and_separate_from_direct_lan(self):
         plan=app.endpoint(port=38877,proxy_origin='http://192.168.2.50',additional_origins=['http://100.100.10.20'])
         self.assertEqual(plan,{'backend_port':38877,'origin':'http://192.168.2.50','additional_origins':['http://100.100.10.20']})
+        secure=app.endpoint(port=38877,proxy_origin='http://192.168.2.50',additional_origins=['https://pi.tail-example.ts.net'])
+        self.assertEqual(secure['additional_origins'],['https://pi.tail-example.ts.net'])
         for kwargs in ({'lan':True},{'bind':'127.0.0.1'},{'clients':'127.0.0.1/32'}):
             with self.assertRaises(app.InstallError):app.endpoint(proxy_origin='http://192.168.2.50',**kwargs)
         with self.assertRaises(app.InstallError):app.endpoint(additional_origins=['http://100.100.10.20'])

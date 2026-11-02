@@ -22,7 +22,7 @@ curl -fsSL https://raw.githubusercontent.com/speccy88/microblocks-zephyr/main/sc
 ```
 
 This explicitly requests a permanent LAN HTTP/WS service on port8877. The
-installer prints its actual IP URL. On Fred's existing Pi, keep using the
+installer prints its actual IP URL. On an existing Pi installation, keep using the
 already configured port80 service; this command refuses its occupied backend
 port and does not migrate that older private layout.
 
@@ -58,7 +58,8 @@ port80 proxy is a separate administrator action, not part of this installer.
 Keep a stable DHCP reservation if a persistent IP URL is required.
 
 For an existing Caddy/Tailscale setup, optional `--proxy-origin http://LAN_IPV4`
-and repeatable `--additional-origin http://TAILSCALE_IPV4` keep the backend on
+and repeatable `--additional-origin http://TAILSCALE_IPV4` or
+`--additional-origin https://machine.tailnet.ts.net` keep the backend on
 loopback and select exact public HTTP origins. The proxy remains a separately
 reviewed administrator configuration; direct LAN mode is unchanged. Omitted
 options preserve the stored proxy scope across source updates; explicit
@@ -106,7 +107,7 @@ prints the plan without installing or opening a listener.
 Linux fixture tests cover fresh/repeat/source update, failed build/start and
 rollback, preservation of program/SQLite/profile, unrelated service and
 occupied-port refusal, downgrade checks and uninstall. Blinka10.1.0 imports
-and `RASPBERRY_PI_5` detection pass on Fred's actual Pi. His older managed
+and `RASPBERRY_PI_5` detection pass on the actual test Pi. The older managed
 service was subsequently connected to that environment with only an interpreter
 selection and a guarded restart; program, database, profile, native code and
 port80 are preserved. The live worker passes a normal SQLite block compiled by
@@ -116,7 +117,7 @@ source update, downgrade refusal and uninstall pass; data/SQLite/profile and
 older code remain intact. The native VM passes self-test and 50 protocol
 repetitions. Its service file passes the actual systemd parser, including a
 prefix with spaces. See [physical evidence](../evidence/2026-11-02/pi5-installer/README.md).
-The new boot service has not been activated on Fred's already configured Pi;
+The new boot service has not been activated on the already configured test Pi;
 service start/readiness failure and rollback use explicit fixtures. A fresh OS,
 physical iPhone, sensor and reboot remain separate physical acceptance tests.
 

@@ -4,7 +4,7 @@ For a complete Raspberry Pi 5 setup, see the [source installer](../../docs/PI5_I
 It includes the editor and isolated Python/Blinka; the older binary-only release
 installer documented below still requires a separately published package.
 
-The optional [Caddy/Tailscale HTTP deployment](../../docs/PI5_TAILSCALE.md)
+The optional [Caddy/Tailscale deployment](../../docs/PI5_TAILSCALE.md)
 accepts explicitly configured origins through a loopback backend. The shared
 runtime, browser package and source/native update tests retain the LAN origin
 and the installation's own tailnet scope; no operator IP is a compiled default.
@@ -18,7 +18,7 @@ Graphical execution of the updated typed example remains unverified because the
 native Edge-control approval timed out. Earlier graphical evidence below covers
 the earlier prototype. No physical MicroDuck or published release is claimed.
 
-The native headless SmallVM v417 now builds and executes on Fred's Raspberry Pi
+The native headless SmallVM v417 now builds and executes on the test Raspberry Pi
 5, Debian 13.4, AArch64, GCC 14.2. Both ASan/UBSan and ordinary ARMv8-A builds
 pass real interpreter/PTY tests: arithmetic, variables, start/stop, live edits,
 fragmented uploads, compaction, process restart/autostart, acknowledged-write

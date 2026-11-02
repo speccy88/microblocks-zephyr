@@ -96,7 +96,7 @@ class TransactionTests(unittest.IsolatedAsyncioTestCase):
         (self.root / 'data').mkdir(); (self.root / 'data/program.ucode').write_bytes(b'original-program')
         self.config = {'schema': 1, 'vm_version': 417, 'binary': 'old/smallvm', 'binary_sha256': 'f' * 64,
             'editor': 'old/editor', 'data': 'data', 'origin': 'http://192.168.2.50', 'backend_port': 8877,
-            'additional_origins': ['http://100.100.10.20']}
+            'additional_origins': ['http://100.100.10.20', 'https://pi.tail-example.ts.net']}
         (self.root / 'service.json').write_text(json.dumps(self.config))
         self.quiesce = AsyncMock(); self.restarts = []
         async def install(archive, metadata):

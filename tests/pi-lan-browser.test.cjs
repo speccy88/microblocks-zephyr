@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypt
 if (!process.env.PI_EDITOR) { test('Pi LAN package', {skip:'Set PI_EDITOR to a freshly built Pi package'},()=>{}); } else {
 const root=path.resolve(process.env.PI_EDITOR);
 const api=require(path.join(root,'mobile/mobile-browser.js'));
-function fixture(href='http://192.168.1.105:8877/',profile={runtime:'board',board:'pi5',local_pi:'open-http-v1'}){
+function fixture(href='http://192.168.2.50:8877/',profile={runtime:'board',board:'pi5',local_pi:'open-http-v1'}){
     const sockets=[],received=[];
     class Socket{constructor(url){this.url=url;this.readyState=1;this.bufferedAmount=0;this.sent=[];sockets.push(this);}send(x){this.sent.push(x);}close(){this.readyState=3;this.closed=true;}}
     const location=new URL(href),client=api.create({profile,location,Socket,receive:x=>received.push(x),schedule:()=>1,cancel:()=>{}});
@@ -13,7 +13,7 @@ function fixture(href='http://192.168.1.105:8877/',profile={runtime:'board',boar
 }
 test('open HTTP Pi connects without key or authentication frame',()=>{
     const f=fixture();assert(f.client.available);f.connect();const s=f.sockets[0];
-    assert.equal(s.url,'ws://192.168.1.105:8877/ws/vm');assert.equal(s.onopen,undefined);assert.deepEqual(s.sent,[]);
+    assert.equal(s.url,'ws://192.168.2.50:8877/ws/vm');assert.equal(s.onopen,undefined);assert.deepEqual(s.sent,[]);
     s.onmessage({data:'ready'});assert.equal(f.received[0].type,'ready');
     f.client.bridge.postMessage({type:'write',id:'a',bytes:[250,12,0]});assert.deepEqual(Array.from(s.sent[0]),[250,12,0]);
 });
@@ -37,8 +37,26 @@ test('Pi tailnet origins are generic, same-origin and require the explicit Pi pr
         assert(!f.client.available);assert.throws(f.connect);assert.equal(f.sockets.length,0);
     }
 });
+test('HTTPS tailnet Pi uses WSS on its own name without a downgrade',()=>{
+    const href='https://pi.tail-example.ts.net/';
+    const f=fixture(href);assert(f.client.available);f.connect();
+    assert.equal(f.sockets[0].url,'wss://pi.tail-example.ts.net/ws/vm');
+    assert.equal(f.client.boardURL('pi.tail-example.ts.net'),href+'?layout=mobile');
+    assert.throws(()=>f.client.boardURL('other.tail-example.ts.net'));
+    assert.throws(()=>f.client.bridge.postMessage({type:'connect',id:'b',address:'other.tail-example.ts.net'}));
+    f.client.close();
+    for(const url of ['http://pi.tail-example.ts.net/','https://example.com/',
+        'https://100.100.10.20/','https://pi.tail-example.ts.net:8443/',
+        'https://pi.tail-example.ts.net.evil/','https://pi_bad.tail-example.ts.net/']){
+        const g=fixture(url);assert(!g.client.available,url);assert.throws(g.connect);assert.equal(g.sockets.length,0);
+    }
+    for(const profile of [{runtime:'pages',board:'pi5',local_pi:'open-http-v1'},
+        {runtime:'board',board:'rlcd',local_pi:'open-http-v1'},{runtime:'board',board:'pi5'}]){
+        const g=fixture(href,profile);assert(!g.client.available);assert.throws(g.connect);
+    }
+});
 test('Pages, HTTPS, public hosts and non-Pi packages cannot use this HTTP adapter',()=>{
-    for(const f of [fixture('https://192.168.1.105:8877/'),fixture('http://public.example/'),
+    for(const f of [fixture('https://192.168.2.50:8877/'),fixture('http://public.example/'),
         fixture(undefined,{runtime:'pages',board:'pi5',local_pi:'open-http-v1'}),fixture(undefined,{runtime:'board',board:'rlcd',local_pi:'open-http-v1'})]){
         assert(!f.client.available);assert.throws(f.connect);assert.equal(f.sockets.length,0);
     }
