@@ -126,7 +126,11 @@ def review_archive(path, expected):
         if isinstance(error, UpdateError):
             raise
         raise UpdateError('Cannot read a valid native release archive') from error
-    return {'version': version, 'sha256': expected, 'binary_sha256': binary_hash.hexdigest(),
+    provenance = metadata.get('provenance', {})
+    port_commit = provenance.get('port_commit') if isinstance(provenance, dict) else None
+    if port_commit is not None and (not isinstance(port_commit, str) or not re.fullmatch(r'[a-f0-9]{40}', port_commit)):
+        raise UpdateError('Invalid port commit provenance')
+    return {'port_commit': port_commit, 'version': version, 'sha256': expected, 'binary_sha256': binary_hash.hexdigest(),
         'vm_version': 417, 'architecture': 'linux-aarch64', 'bytes': meta.st_size, 'capabilities': capabilities}
 
 
@@ -177,6 +181,8 @@ class BrowserUpdater:
         self.install_runner = install_runner or self.install
         self.lock = asyncio.Lock()
         self.applying = False
+        from github_release import GitHubReleases
+        self.github = GitHubReleases(self)
 
     def status(self):
         config = json.loads((self.root / 'service.json').read_text())
@@ -202,7 +208,7 @@ class BrowserUpdater:
         if child.returncode:
             raise UpdateError('Native validation/install failed; previous runtime remains selected')
 
-    def prepare(self, path, digest):
+    def prepare(self, path, digest, *, github=None):
         metadata = review_archive(path, digest)
         destination = self.directory / (digest + '.tar.gz')
         if destination.exists():
@@ -212,7 +218,7 @@ class BrowserUpdater:
                 Path(path).unlink()
         else:
             os.replace(path, destination)
-        atomic_json(self.directory / 'state.json', {'state': 'prepared', **metadata})
+        atomic_json(self.directory / 'state.json', {'state': 'prepared', **metadata, **({'github': github} if github else {})})
         return metadata
 
     async def apply(self, digest, version, confirmed, send):
@@ -228,6 +234,8 @@ class BrowserUpdater:
         required = previous.get('required_runtime_capabilities', [])
         if not isinstance(required, list) or not set(required) <= set(metadata['capabilities']):
             raise UpdateError('Candidate lacks capabilities required by the installed host integration')
+        if state.get('github', {}).get('baseline_binary_sha256', previous['binary_sha256']) != previous['binary_sha256']:
+            raise UpdateError('Le SmallVM a changé; relancez la recherche GitHub avant installation')
         stopped = False
         try:
             await send({'state': 'validating_native'})
@@ -253,6 +261,10 @@ class BrowserUpdater:
             atomic_json(self.directory / 'pending.json', journal)
             replacement = dict(previous, binary=candidate.relative_to(self.root).as_posix(),
                 binary_sha256=metadata['binary_sha256'], release_version=version)
+            if metadata.get('port_commit'):
+                replacement['native_port_commit'] = metadata['port_commit']
+            elif metadata['binary_sha256'] != previous['binary_sha256']:
+                replacement.pop('native_port_commit', None)
             atomic_json(self.root / 'service.json', replacement)
             atomic_json(self.directory / 'state.json', {'state': 'restarting', **metadata})
             await send({'state': 'restarting', **metadata})
@@ -277,6 +289,20 @@ class BrowserUpdater:
                 await socket.send(json.dumps(value, separators=(',', ':')))
             try:
                 command = message(await asyncio.wait_for(socket.recv(), 10))
+                if command.get('action') == 'github_check':
+                    if set(command) != {'action', 'include_prereleases'} or type(command['include_prereleases']) is not bool:
+                        raise UpdateError('Choisissez explicitement le canal GitHub')
+                    loop = asyncio.get_running_loop()
+                    def progress(value):
+                        asyncio.run_coroutine_threadsafe(send(value), loop).result(timeout=10)
+                    result = await asyncio.to_thread(self.github.check, command['include_prereleases'], progress)
+                    await send(result)
+                    return
+                if command.get('action') == 'github_choose':
+                    if set(command) != {'action', 'choice'} or not isinstance(command['choice'], str) or not re.fullmatch(r'[0-9]{1,20}:[0-9]{1,20}', command['choice']):
+                        raise UpdateError('Sélection GitHub vérifiée requise')
+                    await send(self.github.choose(command['choice']))
+                    return
                 if command.get('action') == 'apply':
                     if set(command) != {'action', 'sha256', 'version', 'confirmed'}:
                         raise UpdateError('Exact native installation confirmation required')

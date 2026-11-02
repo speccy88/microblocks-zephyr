@@ -22,14 +22,14 @@
             if(this.location.protocol!=='http:'||url.origin.replace('ws:','http:')!==this.location.origin)throw Error('Ouvrez les mises à jour depuis le site local du Pi.');
             return new Promise((resolve,reject)=>{
                 const socket=this.socket=new this.Socket(url.href);let done=false;
-                const timer=setTimeout(()=>finish(Error('Délai de mise à jour dépassé. Le SmallVM précédent est conservé.')),120000);
+                const timer=setTimeout(()=>finish(Error('Délai de mise à jour dépassé. Le SmallVM précédent est conservé.')),command.action==='github_check'?125000:120000);
                 const finish=(error,value)=>{if(done)return;done=true;clearTimeout(timer);if(socket.readyState<2)socket.close();error?reject(error):resolve(value);};
                 socket.onopen=()=>socket.send(JSON.stringify(command));
                 socket.onmessage=event=>{
                     let value;try{value=JSON.parse(event.data);}catch{finish(Error('Réponse de mise à jour invalide.'));return;}
                     progress(value);
                     if(value.state==='error')finish(Error(value.error));
-                    else if(value.state==='prepared'||value.state==='restarting')finish(null,value);
+                    else if(value.state==='prepared'||value.state==='restarting'||value.state==='github_checked')finish(null,value);
                     else if(value.state==='uploading'&&value.received===0&&file){
                         const selected=file;file=null;
                         (async()=>{for(let offset=0;offset<selected.size;offset+=4096){
@@ -45,6 +45,8 @@
         }
         upload(file,sha,progress){if(!file||!Number.isInteger(file.size)||file.size<64||file.size>MAX)throw Error('Choisissez un paquet Linux ARM64 .tar.gz de moins de 64 Mio.');return this.operation({action:'upload',size:file.size,sha256:digest(sha)},file,progress);}
         apply(review,progress){return this.operation({action:'apply',sha256:review.sha256,version:review.version,confirmed:true},null,progress);}
+        checkGitHub(include=false,progress){return this.operation({action:'github_check',include_prereleases:include===true},null,progress);}
+        chooseGitHub(choice,progress){if(!/^[0-9]{1,20}:[0-9]{1,20}$/.test(choice))throw Error('Sélection GitHub invalide.');return this.operation({action:'github_choose',choice},null,progress);}
         close(){if(this.socket?.readyState<2)this.socket.close();}
     }
     const api={Client,compatible,installVersionPolicy,digest,MAX};
@@ -61,22 +63,29 @@
         currentStatus=await response.json();
         $('pi-update-version').textContent='SmallVM installé : v'+currentStatus.current_vm_version+' · Version validée pour le Pi : v417.';
         $('pi-update-check').disabled=!currentStatus.upload_enabled;
+        $('pi-update-github-check').disabled=!currentStatus.upload_enabled;
         $('pi-update-policy').textContent=currentStatus.native_install_enabled?
             'Un paquet Linux ARM64 vérifié et votre confirmation sont nécessaires. Les programmes seront conservés.':
             'La vérification du paquet est disponible. L’installation native doit être autorisée avant activation.';
         const update=currentStatus.update||{};
+        if(['idle','complete'].includes(update.state))status('Prêt à rechercher une version compatible sur GitHub.');
         if(update.state==='rolled_back'||update.state==='failed')status(update.error||'Échec de mise à jour; la version précédente est conservée.');
         if(update.state==='prepared'){review=update;showReview(update);}
         return currentStatus;
     }
     function showReview(value){
-        $('pi-update-review').textContent='Version du paquet : '+value.version+' · SmallVM v'+value.vm_version+' · '+value.architecture+'\nSHA-256 : '+value.sha256;
+        const source=value.github?'GitHub : '+value.github.repository+' · '+value.github.published_at+' · '+(value.github.prerelease?'Préversion':'Version publiée')+'\n':'';
+        $('pi-update-review').textContent=source+'Version du paquet : '+value.version+' · SmallVM v'+value.vm_version+' · '+value.architecture+'\nSHA-256 : '+value.sha256+'\nCapacités : '+(value.capabilities||[]).join(', ')+(value.port_commit?'\nRévision du port : '+value.port_commit:'');
         $('pi-update-install').disabled=!(currentStatus?.native_install_enabled&&review);
         status('Paquet vérifié. Aucune installation n’a encore été effectuée.');
     }
     function progress(value){
         const labels={checking_archive:'Vérification du paquet…',validating_native:'Validation native et auto-test…',preserving_program:'Conservation du programme…',restarting:'Redémarrage du SmallVM…'};
-        if(value.state==='uploading'){$('pi-update-progress').value=value.received;$('pi-update-progress').max=value.total;status('Envoi : '+Math.round(100*value.received/value.total)+' %');}
+        if(value.state==='github_checking')status('Recherche dans les versions du port Linux ARM64 sur GitHub.');
+        else if(value.state==='github_checking_asset')status('Vérification de la version '+value.version+'.');
+        else if(value.state==='github_validating')status('Vérification du paquet, de Python et de la révision du port.');
+        else if(value.state==='github_downloading'){$('pi-update-progress').value=value.received;$('pi-update-progress').max=value.total||value.received;status('Téléchargement GitHub : '+Math.round(value.received/1024)+' Kio.');}
+        else if(value.state==='uploading'){$('pi-update-progress').value=value.received;$('pi-update-progress').max=value.total;status('Envoi : '+Math.round(100*value.received/value.total)+' %');}
         else if(labels[value.state])status(labels[value.state]);
     }
     function create(){
@@ -84,14 +93,35 @@
         dialog=document.createElement('dialog');dialog.id='pi-update-dialog';dialog.className='pi-update-dialog';
         dialog.innerHTML='<button type="button" id="pi-update-close">Fermer</button><h2>Mise à jour du SmallVM du Pi</h2>'+
             '<p id="pi-update-version"></p><p>La version amont de l’éditeur peut être v421. Elle ne constitue pas une version Linux ARM64 validée pour ce port.</p>'+
-            '<p id="pi-update-policy"></p><label for="pi-update-file">Paquet natif Linux ARM64 (.tar.gz)</label><input id="pi-update-file" type="file" accept=".tar.gz,.tgz,application/gzip">'+
+            '<p id="pi-update-policy"></p><section aria-label="Versions GitHub"><p>Versions du port Linux ARM64 : <a href="https://github.com/speccy88/microblocks-zephyr/releases" target="_blank" rel="noopener noreferrer">speccy88/microblocks-zephyr</a>.</p>'+
+            '<p>Les versions officielles MicroBlocks pour les autres cartes ne sont pas des mises à jour de ce port.</p><label><input id="pi-update-github-previews" type="checkbox"> Inclure les préversions</label>'+
+            '<button id="pi-update-github-check" type="button">Rechercher sur GitHub</button><p id="pi-update-github-result" role="status"></p>'+
+            '<label for="pi-update-github-choice">Version compatible vérifiée</label><select id="pi-update-github-choice" disabled></select>'+
+            '<button id="pi-update-github-choose" type="button" disabled>Choisir cette version</button></section>'+
+            '<details><summary>Autre option : envoyer un paquet local</summary><label for="pi-update-file">Paquet natif Linux ARM64 (.tar.gz)</label><input id="pi-update-file" type="file" accept=".tar.gz,.tgz,application/gzip">'+
             '<label for="pi-update-sha">SHA-256 fourni avec la version</label><input id="pi-update-sha" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="64">'+
-            '<button id="pi-update-check" type="button">Vérifier le paquet</button><progress id="pi-update-progress" value="0" max="100"></progress>'+
+            '<button id="pi-update-check" type="button">Vérifier le paquet</button></details><progress id="pi-update-progress" value="0" max="100"></progress>'+
             '<p id="pi-update-status" role="status" aria-live="polite"></p><p id="pi-update-review"></p><button id="pi-update-install" type="button" disabled>Installer cette version</button>';
         document.body.append(dialog);
         $('pi-update-close').onclick=()=>dialog.close();
         dialog.addEventListener('focusin',()=>{GP.delegateKeyboardEvents=true;});
         dialog.addEventListener('close',()=>{GP.delegateKeyboardEvents=keyboardBefore;client.close();});
+        $('pi-update-github-check').onclick=async()=>{
+            const button=$('pi-update-github-check');button.disabled=true;$('pi-update-github-choose').disabled=true;$('pi-update-github-choice').disabled=true;
+            $('pi-update-install').disabled=true;review=null;$('pi-update-review').textContent='';
+            try{
+                const result=await client.checkGitHub($('pi-update-github-previews').checked,progress);
+                const select=$('pi-update-github-choice');select.replaceChildren();
+                for(const value of result.choices||[]){const option=document.createElement('option');option.value=value.choice;option.textContent=value.version+' · v'+value.vm_version+' · '+value.architecture+(value.prerelease?' · Préversion':'');select.append(option);}
+                select.disabled=!select.options.length;$('pi-update-github-choose').disabled=!select.options.length;
+                $('pi-update-github-result').textContent=result.message+(result.skipped?.length?'\n'+result.skipped.map(x=>x.version+' : '+x.reason).join('\n'):'');status(result.message);
+            }catch(error){$('pi-update-github-result').textContent=error.message;status(error.message);}finally{button.disabled=false;}
+        };
+        $('pi-update-github-choose').onclick=async()=>{
+            const button=$('pi-update-github-choose');button.disabled=true;
+            try{review=await client.chooseGitHub($('pi-update-github-choice').value,progress);showReview(review);}
+            catch(error){status(error.message);}finally{button.disabled=false;}
+        };
         $('pi-update-check').onclick=async()=>{
             try{$('pi-update-check').disabled=true;$('pi-update-install').disabled=true;review=null;
                 review=await client.upload($('pi-update-file').files[0],$('pi-update-sha').value,progress);showReview(review);

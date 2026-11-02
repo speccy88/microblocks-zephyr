@@ -1,0 +1,158 @@
+{
+  "state": "deployed-and-tested",
+  "repository": "speccy88/microblocks-zephyr",
+  "upstream_official_board_firmware_not_used": true,
+  "native_binary_installed": false,
+  "vm_version": 417,
+  "compatible_public_release_available": false,
+  "compatible_download_positive_path_simulated": true,
+  "catalog_checked_from_physical_pi": true,
+  "physical_iphone_safari_tested": false,
+  "new_release_published": false,
+  "tests": {
+    "linux_github_cases": 12,
+    "existing_native_transaction_cases": 14,
+    "node_protocol_cases": 5,
+    "repository_validation": {
+      "run": 582,
+      "skipped": 336,
+      "result": "OK"
+    }
+  },
+  "ui_simulation": {
+    "result": "PASS",
+    "viewport": "390x844",
+    "real_editor": true,
+    "transport_mocked": true,
+    "native_install_performed": false,
+    "no_file_required": true,
+    "no_compatible_message": true,
+    "verified_version_selection": true,
+    "preview_opt_in": true,
+    "source_capabilities_and_digest_visible": true,
+    "page_errors": []
+  },
+  "deployment": {
+    "result": "PASS",
+    "release": "/home/fred/.local/share/microblocks-lan/releases/github-browser-79343bcca95f",
+    "app_archive_sha256": "79343bcca95f0cda6a96e1055b1fdd7ad2722b74dbfde652903388f9f7a0d5f9",
+    "native_binary_changed": false,
+    "program_sha256_preserved": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77",
+    "python_config_preserved": true,
+    "runtime_state": {
+      "state": "ready",
+      "origin": "http://192.168.1.105",
+      "supervisor_pid": 11244,
+      "vm_pid": 11246,
+      "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+      "permanent": true,
+      "backend": "127.0.0.1:8877",
+      "vm_version": 417
+    },
+    "baseline": {
+      "native_binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+      "caddy_sha256": "5d68d4f243946bee96e3e5e11a9200c95ea7f50b304723fb61d77f8c7143af3c",
+      "base_unit_sha256": "ae63e720bf335424d86f316a0e622d8e0170cd2bc078f9a133cec21784692487",
+      "service_drop_in_sha256": "4d0fa7f9d00077f68ffdd75dd354841a7147a7d82d958f99a707d92918bd04cf"
+    },
+    "http_origin": "http://192.168.1.105",
+    "backup": "/home/fred/.local/share/microblocks-lan/releases/github-browser-79343bcca95f/backup"
+  },
+  "live_browser_check": {
+    "url": "http://192.168.1.105/",
+    "physical_pi": true,
+    "physical_iphone": false,
+    "transport_mocked": false,
+    "native_install_performed": false,
+    "stable_result": "Aucune version Linux ARM64 compatible plus r\u00e9cente publi\u00e9e dans ce d\u00e9p\u00f4t. Le SmallVM actuel est conserv\u00e9.",
+    "preview_result": "Aucune version Linux ARM64 compatible plus r\u00e9cente publi\u00e9e dans ce d\u00e9p\u00f4t. Le SmallVM actuel est conserv\u00e9.\nrpi5-v417-20261028-alpha2 : Aucun paquet natif Linux ARM64 au format de ce port\njs-editor-preview-20261028-alpha1 : Aucun paquet natif Linux ARM64 au format de ce port",
+    "result": "PASS",
+    "commands": [
+      {
+        "action": "github_check",
+        "include_prereleases": false
+      },
+      {
+        "action": "github_check",
+        "include_prereleases": true
+      }
+    ],
+    "responses": [
+      {
+        "state": "github_checked",
+        "repository": "speccy88/microblocks-zephyr",
+        "choices": [],
+        "up_to_date": false,
+        "message": "Aucune version Linux ARM64 compatible plus r\u00e9cente publi\u00e9e dans ce d\u00e9p\u00f4t. Le SmallVM actuel est conserv\u00e9.",
+        "skipped": []
+      },
+      {
+        "state": "github_checked",
+        "repository": "speccy88/microblocks-zephyr",
+        "choices": [],
+        "up_to_date": false,
+        "message": "Aucune version Linux ARM64 compatible plus r\u00e9cente publi\u00e9e dans ce d\u00e9p\u00f4t. Le SmallVM actuel est conserv\u00e9.",
+        "skipped": [
+          {
+            "version": "rpi5-v417-20261028-alpha2",
+            "reason": "Aucun paquet natif Linux ARM64 au format de ce port"
+          },
+          {
+            "version": "js-editor-preview-20261028-alpha1",
+            "reason": "Aucun paquet natif Linux ARM64 au format de ce port"
+          }
+        ]
+      }
+    ],
+    "page_errors": [],
+    "no_file_required": true,
+    "current_python_overlay_loaded": true
+  },
+  "final_health": {
+    "result": "PASS",
+    "service": [
+      "MainPID=11244",
+      "ActiveState=active",
+      "SubState=running",
+      "UnitFileState=enabled"
+    ],
+    "vm_version": 417,
+    "native_binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+    "native_install_performed": false,
+    "python_sqlite_read_only_query": 42,
+    "program_sha256": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77",
+    "program_matches_deployment_snapshot": true,
+    "python_config": {
+      "profile": "releases/pi417-python-548fea9/python-profile.json",
+      "state": "python-state",
+      "interpreter": "/usr/bin/python3"
+    },
+    "editor": "releases/github-browser-79343bcca95f/editor",
+    "updater": {
+      "target": "raspberry-pi5",
+      "current_vm_version": 417,
+      "current_release": "pi417-python-20261102",
+      "supported_vm_versions": [
+        417
+      ],
+      "native_install_enabled": true,
+      "upload_enabled": true,
+      "update": {
+        "state": "complete",
+        "version": "pi417-python-20261102",
+        "sha256": "25834bf64c9ed7d24826276e0c6e70e70e4a34190399ff071d6391361e012660",
+        "vm_version": 417
+      }
+    },
+    "caddy_unchanged": true,
+    "new_listeners": false
+  },
+  "first_deployment_preflight": {
+    "result": "stopped-before-mutation",
+    "reason": "Path conversion in deployment helper corrected before activation"
+  },
+  "native_backup_and_recovery": "Existing guarded apply and recovery retained; 14 regression cases passed, previous physical rollback evidence retained in joint-deployment-preparation.json",
+  "native_catalog_policy": "Verified package bytes, required Python capability, pinned source/VM, GitHub SHA-256 and descendant port commit; unknown or older order refused",
+  "no_file_flow": "Check GitHub, explicitly opt into previews if desired, choose the verified compatible release, review version/source/digest, then separately confirm installation",
+  "current_public_assets": "Only old whole Pi alpha2 and JavaScript preview bundles; neither is a compatible native-runtime asset"
+}

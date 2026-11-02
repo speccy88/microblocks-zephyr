@@ -43,3 +43,19 @@ test('apply sends the exact reviewed identity and surfaces server errors',async(
     await assert.rejects(()=>client.apply({sha256:'b'.repeat(64),version:'pi417-new'}),/not authorized/);
     assert.deepEqual(command,{action:'apply',sha256:'b'.repeat(64),version:'pi417-new',confirmed:true});
 });
+
+test('GitHub check and verified selection send no URLs or file bytes',async()=>{
+    const commands=[],events=[];
+    class Socket{
+        constructor(url){assert.equal(url,'ws://192.168.1.105/ws/update');this.readyState=1;queueMicrotask(()=>this.onopen());}
+        send(raw){const command=JSON.parse(raw);commands.push(command);
+            queueMicrotask(()=>this.onmessage({data:JSON.stringify(command.action==='github_check'?
+                {state:'github_checked',choices:[],message:'No compatible release'}:{state:'prepared',version:'next',sha256:'a'.repeat(64)})}));}
+        close(){this.readyState=3;}
+    }
+    const client=new Client(new URL('http://192.168.1.105/'),Socket);
+    assert.equal((await client.checkGitHub(false,x=>events.push(x.state))).state,'github_checked');
+    assert.equal((await client.chooseGitHub('11:22')).state,'prepared');
+    assert.deepEqual(commands,[{action:'github_check',include_prereleases:false},{action:'github_choose',choice:'11:22'}]);
+    assert.deepEqual(events,['github_checked']);assert.throws(()=>client.chooseGitHub('https://evil.invalid/'));
+});

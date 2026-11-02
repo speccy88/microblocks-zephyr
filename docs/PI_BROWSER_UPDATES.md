@@ -7,10 +7,13 @@ v421 recommendation. The Pi-specific overlay reports that compatibility policy
 and routes the manual update command to the native Pi panel. Other boards keep
 their USB installation guard.
 
-The panel uploads a native Linux ARM64 runtime archive and its independently
-supplied SHA-256 through the same-origin `/ws/update` socket. It shows progress,
-checks the archive/ELF/source/version and presents the exact release and digest
-for confirmation. It works on HTTP without `crypto.subtle` or a session key.
+The panel first offers **Rechercher sur GitHub**, without requiring a file or
+SHA-256 entry. The Pi checks this project's releases over verified HTTPS, finds
+the latest verified compatible native package and presents it for explicit
+selection. Installation remains a separate exact-version/digest confirmation.
+The manual file/SHA-256 alternative remains in a collapsed section. Both paths
+use the same-origin `/ws/update` socket, progress and existing guarded native
+apply/recovery. HTTP browser origins need no `crypto.subtle` or session key.
 `GET /api/pi/update` reports current runtime and update/rollback state.
 
 Supported input is the four-file runtime format from `linux/arm64/package.py`:
@@ -98,3 +101,48 @@ was performed.
 See `evidence/2026-11-02/pi-lan/joint-deployment-preparation.json` for actual
 hashes, browser results, rollback results, final runtime state and the earlier
 approval denials resolved by the subsequent explicit user instruction.
+
+## Compatible GitHub releases
+
+The fixed source is `speccy88/microblocks-zephyr`, this Linux port project.
+Official upstream MicroBlocks board firmware and the editor's v421 suggestion
+are separate products; no upstream firmware image is selected for this process.
+Stable releases are searched by default; previews require a visible opt-in.
+
+The Pi checks at most 90 catalog entries and five recent native candidates,
+within a bounded deadline. Only HTTPS GitHub/API/asset hosts are allowed;
+browser commands cannot supply a URL. No token, environment proxy, credentials,
+TLS bypass or extra listening port is introduced. Network/rate-limit failures
+are reported, and a truncated search never silently chooses an older release.
+
+Publisher contract: a fixed release tag matching the archive's `version`, with
+asset `smallvm-linux-arm64-<tag>.tar.gz` in the existing four-file native format.
+The asset needs GitHub's SHA-256 digest or an exact `SHA256SUMS` entry. Its
+manifest must include `provenance.port_commit`, the pinned VM/source and all
+installed host capabilities (including `python-extensions`). Existing native
+packaging accepts the full provenance record; publishing must retain the real
+source and acceptance evidence rather than inventing it.
+
+The installed commissioning binary has a recorded native port revision.
+Subsequent GitHub installs retain their port revision in configuration. A
+candidate must descend from the installed revision according to the project's
+commit graph. An identical binary reports up to date. Older/divergent revisions,
+unprovenanced packages, unknown baselines or another binary from the same
+revision are refused. The installed binary is checked again before applying a
+previous selection. Integrity is checked against the trusted project's GitHub
+release; this is not a claim of a separate cryptographic release signature.
+
+On 2 November 2026, the actual catalog contains only the older whole Pi alpha2
+bundle and an editor preview. Neither is a compatible native-runtime asset.
+The deployed phone-size UI reports this absence and preserves the current Pi;
+no release was published and no VM installed for this feature. Positive future
+release selection was tested with real package bytes and explicitly synthetic
+GitHub responses. Actual HTTPS catalog checks were exercised from the physical
+Pi through the real browser UI, with stable and preview channels.
+
+The app-only deployment preserves the v417 binary, Python configuration, user
+program, original unit/drop-in and Caddy. The previous updater/config and program
+snapshot remain under the new app release's private `backup` directory. Python
+SQLite was rechecked using read-only `SELECT 42`. See
+`evidence/2026-11-02/pi-lan/github-release-discovery.json` for exact hashes,
+paths, actual catalog responses and test boundaries.

@@ -27,3 +27,30 @@ Keep the generic USB guard for other boards and all existing SFC source unchange
 
 Discovery is reserved for the native iPhone application (Bonjour/local network
 permissions). Do not add a Safari LAN scanner. Known-address web access remains.
+
+## GitHub release selection
+
+Check only public releases of `speccy88/microblocks-zephyr`, explicitly separate
+from upstream MicroBlocks board releases. The Pi fetches through verified HTTPS
+without credentials or browser-supplied URLs. Bound catalog size, redirects,
+bytes and duration. Previews are opt-in. Never publish a release as part of
+checking it.
+
+Find the latest compatible native asset named
+`smallvm-linux-arm64-<release-tag>.tar.gz`. Obtain its GitHub SHA-256 (or exact
+SHA256SUMS entry), check size, archive, ELF, manifest VM/source and required host
+capabilities. A future package must carry the port commit provenance; compare
+it with the known installed native revision and require a descendant. Identical
+binary means up to date; older, diverging or unorderable binaries are refused.
+Bounded search must report uncertainty rather than silently selecting older.
+
+Show source repository, release version, date, preview status, native VM,
+capabilities and SHA-256. Let the user explicitly choose that verified release,
+then use the existing confirmation/apply/backup/recovery flow. A check and
+selection never execute the package. Preserve the manual upload alternative.
+
+Tests cover no suitable release, exclusion of whole editor/old Pi bundles,
+checksums, wrong capability/architecture/VM/source, outdated/divergent commit,
+same binary, expired selection, changed installed baseline, download failure,
+redirect restrictions and progress. Simulate the positive compatible release
+and phone UI. Check the real published catalog without installing a new VM.
