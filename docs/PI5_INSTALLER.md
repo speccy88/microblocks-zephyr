@@ -92,8 +92,12 @@ prints the plan without installing or opening a listener.
 Linux fixture tests cover fresh/repeat/source update, failed build/start and
 rollback, preservation of program/SQLite/profile, unrelated service and
 occupied-port refusal, downgrade checks and uninstall. Blinka10.1.0 imports
-and `RASPBERRY_PI_5` detection pass on Fred's actual Pi without changing its
-current SmallVM service. The real Pi source download/build/preparation, repeat install, descendant
+and `RASPBERRY_PI_5` detection pass on Fred's actual Pi. His older managed
+service was subsequently connected to that environment with only an interpreter
+selection and a guarded restart; program, database, profile, native code and
+port80 are preserved. The live worker passes a normal SQLite block compiled by
+the hosted editor and executed in an isolated native VM. No sensor is enabled.
+The real Pi source download/build/preparation, repeat install, descendant
 source update, downgrade refusal and uninstall pass; data/SQLite/profile and
 older code remain intact. The native VM passes self-test and 50 protocol
 repetitions. Its service file passes the actual systemd parser, including a

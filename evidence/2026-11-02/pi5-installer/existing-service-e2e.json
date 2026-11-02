@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "actual_editor_url": "http://192.168.1.105/",
+  "real_browser_js_compiler": true,
+  "physical_iphone": false,
+  "compiled_chunks": 26,
+  "sql": "SELECT ?",
+  "bound_parameter": 22600,
+  "private_native_vm_to_existing_live_python_worker_result": 22600,
+  "python_worker_mocked": false,
+  "user_vm_program_uploaded": false,
+  "live_program_sha256_preserved": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77",
+  "live_sqlite_file_sha256_preserved": "3664f47bf3068188eec44349c068eab00f5f011d955db9b479beced27a34faf1",
+  "existing_programming_websocket_readonly_version": "v417 Linux ARM64",
+  "service_supervisor_pid": 12541,
+  "selected_python_interpreter": "/home/fred/.local/share/microblocks-lan/installed/lib/microblocks/python/blinka-10.1.0-py313-6bc8a50743/bin/python",
+  "sensor_plugin_disabled": true,
+  "physical_sensor_tested": false,
+  "extra_network_listener_opened": false
+}

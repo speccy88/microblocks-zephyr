@@ -1,0 +1,84 @@
+{
+  "result": "PASS",
+  "url": "http://192.168.1.105/",
+  "http_status": 200,
+  "service_enabled": "enabled",
+  "old_supervisor_pid": 11244,
+  "new_supervisor_pid": 12541,
+  "worker_pid": 12543,
+  "selected_python_interpreter": "/home/fred/.local/share/microblocks-lan/installed/lib/microblocks/python/blinka-10.1.0-py313-6bc8a50743/bin/python",
+  "verification": {
+    "board_id": "RASPBERRY_PI_5",
+    "blinka_version": "10.1.0",
+    "python_prefix": "/home/fred/.local/share/microblocks-lan/installed/lib/microblocks/python/blinka-10.1.0-py313-6bc8a50743",
+    "imports": [
+      "board",
+      "busio",
+      "digitalio",
+      "gpiod",
+      "websockets"
+    ],
+    "hardware_io_created": false
+  },
+  "protected_hashes_preserved": {
+    "program": true,
+    "native": true,
+    "profile": true,
+    "caddy": true,
+    "base_unit": true,
+    "drop_in": true
+  },
+  "program_sha256": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77",
+  "restart_until_ready_seconds": 0.485,
+  "config_change": "python_extensions.interpreter only",
+  "live_sqlite_query_rows": [
+    [
+      22600
+    ]
+  ],
+  "configured_extensions": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "ok": true,
+      "value": {
+        "board": "pi5",
+        "extensions": {
+          "sqlite": {
+            "enabled": true,
+            "factory": "linux.extensions.plugins.sqlite:Extension"
+          },
+          "climate": {
+            "enabled": false,
+            "factory": "linux.extensions.examples.sht4x:Extension"
+          },
+          "http": {
+            "enabled": false,
+            "factory": "linux.extensions.plugins.http:Extension"
+          },
+          "mqtt": {
+            "enabled": false,
+            "factory": "linux.extensions.plugins.mqtt:Extension"
+          }
+        },
+        "hardware_validated": false
+      }
+    }
+  },
+  "unconfigured_climate_response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "ok": false,
+      "error": {
+        "code": "extension_missing",
+        "message": "This Python extension is not enabled in the board configuration",
+        "outcome": "rejected"
+      }
+    }
+  },
+  "backup": "/home/fred/.local/share/microblocks-lan/backups/blinka-selection-c5042dca9aa3",
+  "rollback_used": false,
+  "network_routes_ports_firewall_groups_i2c_unchanged": true,
+  "physical_sensor_tested": false
+}

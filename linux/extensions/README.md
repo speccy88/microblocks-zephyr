@@ -72,6 +72,14 @@ directory. The optional session interpreter retains its venv symlink path;
 plugins run in the main launcher's Python environment. For managed installations
 the configured interpreter selects the environment for Python extensions.
 
+The existing Pi5 service now selects its isolated Blinka10.1.0 environment for
+the Python worker. Board detection/imports pass; a normal SQLite block compiled
+by its actual hosted editor executes through a private VM against that live
+worker, preserving the user's program and database. The existing WebSocket and
+port80 remain usable. See the [existing-service evidence](../../evidence/2026-11-02/pi5-installer/README.md).
+The climate extension stays disabled: no sensor driver, I2C configuration or
+physical sensor test is implied by installing Blinka.
+
 ## Optional capabilities
 
 SQLite uses Python's standard library. HTTP uses the official `requests`
@@ -104,7 +112,7 @@ does not establish pin compatibility. Do not set `BLINKA_FORCEBOARD` to guess.
 
 ## Add another Python capability
 
-A trusted local profile selects `module:factory`, settings and a 0.1–8 second
+A trusted local profile selects `module:factory`, settings and a 0.1â€“8 second
 supervisor deadline. The wire cannot choose modules, executable Python or paths.
 The factory receives `(settings, Context)` and exposes
 `operations = {'name': callable}`. Each callable accepts an arguments dictionary
