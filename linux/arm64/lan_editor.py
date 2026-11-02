@@ -13,6 +13,7 @@ import ipaddress
 from pathlib import Path
 import signal
 import time
+from urllib.parse import urlsplit
 
 PRIVATE = tuple(ipaddress.ip_network(n) for n in ('10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'))
 
@@ -40,22 +41,54 @@ class Policy:
         if (not allowed or headers.get_all('Host') != [self.host]
                 or len(origins) > 1 or origins and origins != [self.origin]):
             return False
-        if path == '/ws/vm':
+        if path in ('/ws/vm', '/ws/update'):
             return origins == [self.origin] and [v.lower() for v in headers.get_all('Upgrade')] == ['websocket']
         return not headers.get_all('Upgrade')
 
 
+class LoopbackProxyPolicy(Policy):
+    """Only a local reverse proxy; LAN filtering belongs to its public route.
+
+    No forwarded header is trusted. The public Host and browser Origin remain
+    unchanged through Caddy; the immediate backend peer must be 127.0.0.1.
+    """
+    def __init__(self, origin, port):
+        parsed = urlsplit(origin)
+        address = ipaddress.ip_address(parsed.hostname or '')
+        if (parsed.scheme != 'http' or parsed.username or parsed.password or parsed.path
+                or parsed.query or parsed.fragment or parsed.port is not None
+                or origin != 'http://' + str(address) or not any(address in n for n in PRIVATE)
+                or type(port) is not int or not 1024 <= port <= 65535):
+            raise ValueError('Canonical private IPv4 HTTP origin on port 80 and an unprivileged backend port required')
+        self.bind, self.port = '127.0.0.1', port
+        self.clients = ipaddress.ip_network('127.0.0.1/32')
+        self.host, self.origin = str(address), origin
+
+
 class LanEditor:
-    def __init__(self, backend, policy, *, lease=1800):
-        if type(lease) not in (int, float) or not 0 < lease <= 1800:
+    def __init__(self, backend, policy, *, lease=1800, permanent=False, updates=None):
+        if type(permanent) is not bool or (not permanent and (type(lease) not in (int, float) or not 0 < lease <= 1800)):
             raise ValueError('Listener lifetime must be at most 30 minutes')
         self.backend, self.policy, self.lease = backend, policy, lease
+        self.permanent = permanent
+        self.updates = updates
         self.deadline = None
         self.server = self.timer = None
 
     def request(self, connection, request):
         if not self.policy.request_allowed(connection.remote_address, request.path, request.headers):
             return self.backend.response(HTTPStatus.FORBIDDEN, b'Exact local Host, Origin and client scope required')
+        if request.path == '/api/pi/update':
+            import json
+            status = self.updates.status() if self.updates is not None else {
+                'target': 'raspberry-pi5', 'current_vm_version': 417, 'supported_vm_versions': [417],
+                'upload_enabled': False, 'native_install_enabled': False,
+                'update': {'state': 'idle'}, 'reason': 'Managed native updater is not configured'}
+            return self.backend.response(HTTPStatus.OK, json.dumps(status).encode(), 'application/json')
+        if request.path == '/ws/update':
+            if self.updates is None:
+                return self.backend.response(HTTPStatus.NOT_FOUND, b'Managed native updates are unavailable')
+            return None
         if request.path == '/ws/vm':
             return None
         try:
@@ -73,6 +106,12 @@ class LanEditor:
         if self.deadline is None or time.monotonic() >= self.deadline:
             await ws.close(1001, 'Temporary session expired')
             return
+        if self.updates is not None and ws.request.path == '/ws/update':
+            await self.updates.handle(ws)
+            return
+        if self.updates is not None and self.updates.applying:
+            await ws.close(1013, 'Native runtime update in progress')
+            return
         # No authentication exchange. The verified backend sends ready only
         # after checking and opening the selected VM's PTY.
         await self.backend.handle(ws)
@@ -85,7 +124,7 @@ class LanEditor:
         if factory is None:
             from websockets.asyncio.server import serve
             factory = serve
-        self.deadline = time.monotonic() + self.lease
+        self.deadline = float('inf') if self.permanent else time.monotonic() + self.lease
         self.server = await factory(self.handle, self.policy.bind, self.policy.port,
             process_request=self.request, origins=[self.policy.origin], compression=None,
             open_timeout=5, close_timeout=2, max_size=4096, max_queue=8,
@@ -94,7 +133,8 @@ class LanEditor:
             self.expire()
             await self.server.wait_closed()
             raise ValueError('Unexpected listener address')
-        self.timer = asyncio.get_running_loop().call_later(self.lease, self.expire)
+        if not self.permanent:
+            self.timer = asyncio.get_running_loop().call_later(self.lease, self.expire)
         return self
 
     def expire(self):

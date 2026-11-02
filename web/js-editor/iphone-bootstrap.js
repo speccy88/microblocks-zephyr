@@ -276,6 +276,9 @@
         GP.apiCall = (endpoint, params, callback) => {
             if (endpoint === 'board.connect') { showSheet(); if (callback) callback(0); return; }
             if (endpoint === 'board.disconnect') { MB_connection.disconnect(); if (callback) callback(0); return; }
+            if (endpoint.startsWith('board.installVM') && browser?.board === 'pi5' && window.MicroBlocksPiUpdates) {
+                window.MicroBlocksPiUpdates.open(); if (callback) callback(0); return;
+            }
             if (endpoint.startsWith('board.installVM') || endpoint === 'board.toggleBLE') {
                 MB_editor.inform('Install or update board firmware using the desktop USB editor.');
                 if (callback) callback(0); return;

@@ -1,0 +1,20 @@
+# Substitute the reviewed account, private installation root and venv paths.
+[Unit]
+Description=MicroBlocks Pi local editor and owned native VM
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_USER
+Group=YOUR_GROUP
+WorkingDirectory=/path/to/private/microblocks-lan
+ExecStart=/path/to/venv/bin/python -B /path/to/private/microblocks-lan/code/lan_service.py --root /path/to/private/microblocks-lan
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=15
+KillMode=mixed
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

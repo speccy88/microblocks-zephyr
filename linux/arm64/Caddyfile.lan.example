@@ -1,0 +1,10 @@
+# Append this reviewed block to the existing Caddyfile; preserve other sites.
+http://192.168.1.105 {
+    @lan remote_ip 192.168.1.0/24
+    handle @lan {
+        reverse_proxy 127.0.0.1:8877
+    }
+    handle {
+        respond "Local network only" 403
+    }
+}

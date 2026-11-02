@@ -1,0 +1,64 @@
+{
+  "permanent_access": {
+    "url": "http://192.168.1.105/",
+    "result": "PASS",
+    "vm_version_before": 417,
+    "vm_version_after": 417,
+    "old_supervisor_pid": 9706,
+    "new_supervisor_pid": 9769,
+    "old_vm_pid": 9707,
+    "new_vm_pid": 9770,
+    "restart_count_before": 0,
+    "restart_count_after": 1,
+    "recovery_seconds": 2.432,
+    "program_sha256_preserved": "104c3aaff59946c613abeca506b61f5267255e610f84abed72c3388e6d24fb0c",
+    "boot_enabled": true,
+    "os_rebooted": false
+  },
+  "public_origin": "http://192.168.1.105",
+  "backend": "127.0.0.1:8877",
+  "caddy_original_sha256": "593a5fedf51131848c8aad5ecbb65c6b98edadf9fbeb0d5ea9083e253045e03b",
+  "existing_openclaw_preserved": true,
+  "router_firewall_or_trust_changed": false,
+  "vm_binary_sha256": "37dd525050936cf47b36bcb00f89b03514c153284d229fd7970c1d186956bcb5",
+  "browser_update": {
+    "implemented": true,
+    "deployed_to_physical_pi": false,
+    "native_apply_performed": false,
+    "native_vm_version": 417,
+    "native_upstream_421_validated": false,
+    "linux_transaction_tests": 14,
+    "node_protocol_tests": 4,
+    "ui_simulation": {
+      "result": "PASS",
+      "viewport": "390x844",
+      "native_installation": false,
+      "sockets_mocked": true,
+      "http_requests_fulfilled_from_disk": true,
+      "supported_417_vs_upstream_421": true,
+      "manual_update_routes_to_pi_panel": true,
+      "upload_progress": true,
+      "review_only_refusal": true,
+      "explicit_version_and_digest_confirmation": true,
+      "restart_progress": true,
+      "page_errors": [],
+      "missing_assets": []
+    },
+    "service_argument_tests": 3,
+    "python_gateway_compatibility": {
+      "optional_config": "microduck_socket",
+      "update_capability_guard": "required_runtime_capabilities",
+      "physical_deployment_performed": false
+    }
+  },
+  "coordination": "Do not replace deployed service code until coordinated with the parallel Python extension bridge worker",
+  "deployed_service": "microblocks-lan.service",
+  "deployed_service_root": "/home/fred/.local/share/microblocks-lan",
+  "deployed_code_files": [
+    "releases/pi417-20261102/code/bridge.py",
+    "releases/pi417-20261102/code/lan_editor.py",
+    "releases/pi417-20261102/code/lan_service.py"
+  ],
+  "deployed_config": "/home/fred/.local/share/microblocks-lan/service.json",
+  "caddy_backup": "/etc/caddy/Caddyfile.before-microblocks-lan"
+}

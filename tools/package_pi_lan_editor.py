@@ -33,7 +33,10 @@ def package(source, output):
         'Join the same network as your board. Its MicroBlocks Wi-Fi firmware must already be installed.',
         'Join the same network as your Raspberry Pi. Its SmallVM session must already be running.').encode('utf-8')
     files['pi-compiler.js'] = (ROOT / 'web/js-editor/pi-compiler.js').read_bytes()
+    for name in ('pi-updates.js', 'pi-updates.css'):
+        files[name] = (ROOT / 'web/js-editor' / name).read_bytes()
     html = files['index.html'].decode('utf-8')
+    html = replace_once(html, '</head>', '<link rel="stylesheet" data-mobile-href="pi-updates.css">\n</head>')
     match = re.search(r'(<script id="mobile-load-config" type="application/json">)(.*?)(</script>)', html)
     if match is None:
         raise ValueError('Exact mobile load configuration required')
@@ -41,6 +44,7 @@ def package(source, output):
     config['profile'].update(board='pi5', local_pi='open-http-v1')
     index = next(i for i, item in enumerate(config['scripts']) if item.get('src') == 'mobile-browser.js')
     config['scripts'].insert(index, {'src': 'pi-compiler.js'})
+    config['scripts'].insert(index + 2, {'src': 'pi-updates.js'})
     html = html[:match.start(2)] + json.dumps(config, separators=(',', ':')).replace('<', '\\u003c') + html[match.end(2):]
     files['index.html'] = files['microblocks.html'] = html.encode('utf-8')
     files['iphone-boards.json'] = json.dumps({'schema': 1, 'physical_iphone_validated': False, 'boards': [

@@ -15,7 +15,7 @@ if sys.platform == 'linux':
         from bridge import Bridge, SafeAssets
     except ImportError:
         pass
-from lan_editor import LanEditor, Policy, separate_runtime
+from lan_editor import LanEditor, Policy, LoopbackProxyPolicy, separate_runtime
 
 
 class Backend:
@@ -97,6 +97,28 @@ class OpenLanTests(unittest.IsolatedAsyncioTestCase):
             LanEditor(self.backend, self.policy, lease=1801)
         with self.assertRaises(ValueError):
             separate_runtime(Path('/editor'), [Path('/editor/data/pty.json')])
+
+    async def test_proxy_keeps_public_origin_but_accepts_only_local_caddy(self):
+        policy = LoopbackProxyPolicy('http://192.168.1.105', 8877)
+        headers = Headers({'Host': '192.168.1.105', 'Origin': 'http://192.168.1.105', 'Upgrade': 'websocket'})
+        self.assertTrue(policy.request_allowed(('127.0.0.1', 1), '/ws/vm', headers))
+        self.assertFalse(policy.request_allowed(('192.168.1.109', 1), '/ws/vm', headers))
+        headers['X-Forwarded-For'] = '127.0.0.1'
+        self.assertFalse(policy.request_allowed(('192.168.1.109', 1), '/ws/vm', headers))
+        headers = Headers({'Host': '127.0.0.1:8877', 'Origin': 'http://192.168.1.105', 'Upgrade': 'websocket'})
+        self.assertFalse(policy.request_allowed(('127.0.0.1', 1), '/ws/vm', headers))
+        for origin in ('https://192.168.1.105', 'http://example.com', 'http://192.168.1.105:80', 'http://192.168.1.105/path'):
+            with self.assertRaises(ValueError):
+                LoopbackProxyPolicy(origin, 8877)
+
+    async def test_explicit_permanent_mode_has_no_expiry_timer(self):
+        server = LanEditor(self.backend, self.policy, permanent=True)
+        listener = SimpleNamespace(sockets=[SimpleNamespace(getsockname=lambda: ('192.168.1.105', 8877))],
+            close=lambda: None, wait_closed=AsyncMock())
+        await server.start(activated=True, factory=AsyncMock(return_value=listener))
+        self.assertIsNone(server.timer)
+        self.assertEqual(server.deadline, float('inf'))
+        await server.stop()
 
 
 if __name__ == '__main__':

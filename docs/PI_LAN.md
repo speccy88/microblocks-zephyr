@@ -59,3 +59,40 @@ changed. No persistent service was installed.
 The main validator passed 235 tests with 290 platform/dependency skips; seven
 LAN tests passed in memory on the Pi and four package tests passed in Node.
 See [acceptance evidence](../evidence/2026-11-02/pi-lan/acceptance.json).
+
+## Permanent local access on port 80
+
+The later user-approved deployment serves **http://192.168.1.105/** permanently.
+`microblocks-lan.service` runs as the ordinary user and is enabled at boot, with
+`Restart=on-failure`. It owns only its own SmallVM child. The backend binds
+`127.0.0.1:8877`; it is not exposed to the LAN. `LoopbackProxyPolicy` checks the
+unchanged public Host/Origin and trusts no forwarded client header.
+
+Caddy retains its existing `openclaw.local` TLS/proxy block and adds only:
+
+```caddyfile
+http://192.168.1.105 {
+    @lan remote_ip 192.168.1.0/24
+    handle @lan {
+        reverse_proxy 127.0.0.1:8877
+    }
+    handle {
+        respond "Local network only" 403
+    }
+}
+```
+
+The service root is `/home/fred/.local/share/microblocks-lan`; code and editor are
+under `releases/pi417-20261102`, with programs under `data`. The original temporary
+program was copied after its owned VM stopped; its SHA-256 was preserved. No
+router/firewall setting, unrelated service or trusted certificate was changed.
+
+Verification observed native v417 through the public port-80 WebSocket, then
+terminated only the identified owned VM and confirmed automatic service recovery
+in 2.432 seconds, with the program checksum unchanged. Boot enablement was
+verified without an OS reboot. See the permanent deployment evidence.
+
+The [browser update workflow](PI_BROWSER_UPDATES.md) is separately implemented
+and tested. Native apply is disabled by default until explicitly commissioned;
+no newer native version has been installed on the Pi. Its deployment must be
+coordinated with the parallel Python extension/SQLite bridge work.
