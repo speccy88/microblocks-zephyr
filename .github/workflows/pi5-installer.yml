@@ -1,0 +1,42 @@
+name: Pi5 source installer contracts
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pi5-installer-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lifecycle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the pinned protocol dependency in the disposable runner
+        run: python3 -m pip install --requirement linux/arm64/bridge-requirements.txt
+      - name: Require every installer, dependency, Origin and bootstrap test
+        run: |
+          bash -n scripts/install-pi5.sh
+          python3 - <<'PY'
+          import os, unittest
+          assert os.geteuid() != 0
+          suite=unittest.TestSuite()
+          for pattern in ['test_blinka_setup.py','test_pi5_full_installer.py',
+                          'test_linux_arm64_lan.py','test_pi_lan_service.py',
+                          'test_mobile_archive_source.py','test_pi5_bootstrap.py']:
+              suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))
+          result=unittest.TextTestRunner(verbosity=2).run(suite)
+          assert result.wasSuccessful() and not result.skipped
+          assert result.testsRun >= 45
+          PY

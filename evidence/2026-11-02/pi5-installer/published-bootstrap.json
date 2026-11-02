@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-02",
+  "result": "PASS",
+  "bootstrap_commit": "0833f541baaebb07de881e40ceeb52725b1ed297",
+  "url": "https://raw.githubusercontent.com/speccy88/microblocks-zephyr/0833f541baaebb07de881e40ceeb52725b1ed297/scripts/install-pi5.sh",
+  "script_sha256": "caeb0ad3729b38e53135204558e60e1271a1d7d059e2a99e2e00618bf2419834",
+  "source_commit": "af4a4fa0fa2a198fdaceca79aae34b4e65dc2483",
+  "source_sha256": "4b916287c527a4e25f6e66ef70d090c15b998bd01a379b818e5a2c3a1d871bbd",
+  "downloaded_directly_from_published_github_url_on_actual_pi": true,
+  "published_script_hash_matches_reviewed_script": true,
+  "published_script_actual_prepare_after_uninstall": "PASS",
+  "selected_previously_verified_release_and_python_environment": true,
+  "new_service_or_listener_activated": false,
+  "fresh_os_or_reboot_tested": false
+}

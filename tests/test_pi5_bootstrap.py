@@ -17,8 +17,9 @@ ns={'__name__':'bootstrap_under_test'};exec(compile(python,'install-pi5.sh','exe
 
 class BootstrapTests(unittest.TestCase):
     def setUp(self):
+        self.previous_umask=os.umask(0o077);os.umask(self.previous_umask)
         self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.commit='a'*40;self.top='microblocks-zephyr-'+self.commit
-    def tearDown(self):self.tmp.cleanup()
+    def tearDown(self):self.tmp.cleanup();os.umask(self.previous_umask)
     def archive(self,extra=None):
         target=self.root/('fixture'+str(len(list(self.root.iterdir())))+'.tar.gz')
         with tarfile.open(target,'w:gz') as out:
