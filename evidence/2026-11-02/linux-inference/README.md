@@ -41,3 +41,11 @@ optional CPU requirements and requires all15 tests on native x86-64 and ARM64
 with no skips. The existing Pi/Blinka service, default dependency lock, program,
 SQLite, MQTT/broker settings, network and robot controls are unchanged by these
 host tests. Default Pi5/MicroDuck inference profile entries remain disabled.
+
+The dedicated [ARM64 CPU job](https://github.com/speccy88/microblocks-zephyr/actions/runs/41491581084/job/125435677237)
+on source commit7501270654e836670189ed7c51152380962883d3 also passes all15
+tests without skips on a native GitHub ubuntu-24.04-arm host (aarch64,
+Python3.13.17, glibc2.39). host-arm64-ci.json records its actual engine/model
+results and bounded CPU measurements from the completed job log. The native
+x86-64 job of the same workflow also passes. This is host CI evidence, not
+Pi5 physical commissioning, MicroDuck Yocto support or deployment.

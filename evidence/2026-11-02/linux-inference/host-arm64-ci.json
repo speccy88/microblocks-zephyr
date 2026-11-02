@@ -1,0 +1,107 @@
+{
+  "source_commit": "7501270654e836670189ed7c51152380962883d3",
+  "workflow_run": 41491581084,
+  "job_id": 125435677237,
+  "url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41491581084/job/125435677237",
+  "runner": "ubuntu-24.04-arm",
+  "scope": "Native GitHub ARM64 host CI, not physical Pi5 or MicroDuck acceptance or service deployment.",
+  "tests": {
+    "run": 15,
+    "skipped": 0,
+    "result": "PASS",
+    "duration_s": 1.274
+  },
+  "result": "PASS",
+  "engines": [
+    {
+      "backend": "litert",
+      "engine_version": "2.3.0",
+      "provider": "CPU",
+      "engine_threads_requested": 1,
+      "npu_gpu_validated": false,
+      "architecture": "aarch64",
+      "python": "3.13.17",
+      "libc": [
+        "glibc",
+        "2.39"
+      ],
+      "model_sha256": "9c4259d2ff76107e048d9eb47089c6f660026aeac984e08e0973b84520da185a",
+      "model_bytes": 1724,
+      "model_load_us_including_import": 43673,
+      "float32_output": [
+        2.9499998092651367,
+        -2.2249999046325684,
+        6.8125
+      ],
+      "scaled_output": [
+        2950,
+        -2225,
+        6812
+      ],
+      "iterations": 50,
+      "warmup_calls": 5,
+      "engine_tensor_io_wall_us": {
+        "median": 3,
+        "p95": 3,
+        "min": 2,
+        "max": 4
+      },
+      "whole_operation_wall_us": {
+        "median": 11.292,
+        "p95": 12.96,
+        "min": 10.936,
+        "max": 17.64
+      },
+      "process_peak_rss_before_load_bytes": 20828160,
+      "process_peak_rss_after_inference_bytes": 51441664,
+      "actual_process_thread_count": 1,
+      "scope": "Tiny 4->4 ReLU->3 integration fixture; fresh process per backend, CPU only. RSS includes Python/libraries; timings exclude VM/IPC and are not a representative performance benchmark."
+    },
+    {
+      "backend": "onnx",
+      "engine_version": "1.31.1",
+      "provider": "CPU",
+      "engine_threads_requested": 1,
+      "npu_gpu_validated": false,
+      "architecture": "aarch64",
+      "python": "3.13.17",
+      "libc": [
+        "glibc",
+        "2.39"
+      ],
+      "model_sha256": "344d40aaf7ba7a0cf529439efd15218633007772ad039a6a06e8361ab751a278",
+      "model_bytes": 731,
+      "model_load_us_including_import": 94578,
+      "float32_output": [
+        2.9499998092651367,
+        -2.2249999046325684,
+        6.8125
+      ],
+      "scaled_output": [
+        2950,
+        -2225,
+        6812
+      ],
+      "iterations": 50,
+      "warmup_calls": 5,
+      "engine_tensor_io_wall_us": {
+        "median": 7,
+        "p95": 15,
+        "min": 6,
+        "max": 57
+      },
+      "whole_operation_wall_us": {
+        "median": 16.4805,
+        "p95": 28.777,
+        "min": 15.904,
+        "max": 75.763
+      },
+      "process_peak_rss_before_load_bytes": 20828160,
+      "process_peak_rss_after_inference_bytes": 78307328,
+      "actual_process_thread_count": 1,
+      "scope": "Tiny 4->4 ReLU->3 integration fixture; fresh process per backend, CPU only. RSS includes Python/libraries; timings exclude VM/IPC and are not a representative performance benchmark."
+    }
+  ],
+  "model_origin": "authored PyTorch CPU model; separate official LiteRT Torch and torch.onnx exports",
+  "hardware_or_network_operations": false
+}

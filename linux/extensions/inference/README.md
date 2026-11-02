@@ -88,8 +88,10 @@ dependencies are not installed on the inference target.
 ## Targets and validation
 
 Linux x86-64 and Pi5 ARM64 are separate test targets. Current wheels require
-compatible Python and glibc (combined runtime pins: Python3.11+, glibc2.28+).
-The future MicroDuck **Yocto** image must independently supply/check Python ABI,
+compatible Python and glibc (combined runtime pins: Python3.12+, glibc2.28+).
+NumPy2.5.4 requires Python3.12+, even where an individual engine offers a
+Python3.11 wheel; the default Pi/Blinka installer remains a separate dependency
+set. The future MicroDuck **Yocto** image must independently supply/check Python ABI,
 libc, CPU libraries and package recipes; musl or an older glibc may require a
 native/source build. No Yocto deployment, RKNN/NPU driver/delegate, robot policy
 or motor operation is implemented or commissioned here. Never force a Radxa
