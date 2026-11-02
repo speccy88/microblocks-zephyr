@@ -7,8 +7,9 @@ test_blocked_worker_is_killed_without_blocking_another_extension (test_python_ex
 test_crash_recovery_and_same_worker_admission (test_python_extensions.ServiceTests.test_crash_recovery_and_same_worker_admission) ... ok
 test_real_sql_worker_and_actionable_missing_extension (test_python_extensions.ServiceTests.test_real_sql_worker_and_actionable_missing_extension) ... ok
 test_shutdown_cancels_pending_clients_and_owned_workers (test_python_extensions.ServiceTests.test_shutdown_cancels_pending_clients_and_owned_workers) ... ok
+test_unrepresentable_result_does_not_claim_write_was_rejected (test_python_extensions.ServiceTests.test_unrepresentable_result_does_not_claim_write_was_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 9 tests in 2.396s
+Ran 10 tests in 2.569s
 
 OK

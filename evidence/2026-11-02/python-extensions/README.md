@@ -28,9 +28,13 @@ ARMv8-A, Python 3.13.5, Linux 6.12.75+rpt-rpi-2712, glibc 2.41.
 - Ordinary Pi binary SHA-256:
   `d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b`.
   Compiled on the Pi from 55 verified prepared source entries. Self-test passed.
-  All 22 selected tests passed: workers/SQLite (9), actual compiled VM (4),
+  All 23 selected tests passed: workers/SQLite (10), actual compiled VM (4),
   local HTTP (2), explicit MQTT API fixtures (3), managed lifecycle (4).
   See [ordinary acceptance](pi-ordinary-acceptance.json) and retained logs.
+  The worker test also writes once before returning an oversized result, then
+  verifies an unknown write outcome, an explicit no-retry warning, no replay
+  and continued worker availability. Result serialization failure never claims
+  that a completed operation was rejected.
 - Sanitized x86-64 WSL build and the same real-VM suite passed, including a
   forced moving collection during nested-list conversion. All 18 existing
   native MicroDuck regression tests passed with the extended transport.

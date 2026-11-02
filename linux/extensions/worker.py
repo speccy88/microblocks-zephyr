@@ -33,7 +33,11 @@ def run():
                 operation=operations.get(request['method'])
                 if not operation:raise ExtensionError('operation_missing','This operation is not provided by the configured Python extension')
                 result={'ok':True,'value':operation(request['args'])}
-                raw=bounded_json(result)
+                try:raw=bounded_json(result)
+                except ExtensionError as error:
+                    # The callable has already returned: failure to represent
+                    # its result cannot establish that its side effects failed.
+                    raise ExtensionError(error.code,error.message+'. The operation ran; a write may have completed. Do not retry automatically','unknown') from None
             except BaseException as error:raw=bounded_json(failure(error))
             output.write(raw+b'\n');output.flush()
     finally:

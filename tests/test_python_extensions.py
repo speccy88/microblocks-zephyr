@@ -105,6 +105,13 @@ class ServiceTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue((await pending)['ok'])
         self.assertTrue((await self.call('fixture','echo',{'value':42}))['ok'])
 
+    async def test_unrepresentable_result_does_not_claim_write_was_rejected(self):
+        result=await self.call('fixture','oversized_write')
+        self.assertEqual(result['error']['code'],'result_limit');self.assertEqual(result['error']['outcome'],'unknown')
+        self.assertIn('Do not retry automatically',result['error']['message'])
+        self.assertEqual((self.state/'fixture-write.txt').read_text(),'one write\n')
+        self.assertTrue((await self.call('fixture','echo',{'still':'available'}))['ok'])
+
     async def test_shutdown_cancels_pending_clients_and_owned_workers(self):
         self.service.workers['fixture'].entry['timeout']=8
         pending=asyncio.create_task(self.call('fixture','delay',{'seconds':7}))

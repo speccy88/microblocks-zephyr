@@ -1,0 +1,15 @@
+test_json_refuses_nonfinite_or_unbounded_values (test_python_extensions.PortableContract.test_json_refuses_nonfinite_or_unbounded_values) ... ok
+test_files_extensions_transactions_and_multiple_statements_rejected (test_python_extensions.SQLiteTests.test_files_extensions_transactions_and_multiple_statements_rejected) ... ok
+test_large_cell_rolls_back_and_expensive_sql_is_interrupted (test_python_extensions.SQLiteTests.test_large_cell_rolls_back_and_expensive_sql_is_interrupted) ... ok
+test_parameters_quotes_sql_text_and_persistence (test_python_extensions.SQLiteTests.test_parameters_quotes_sql_text_and_persistence) ... ok
+test_row_limit_is_explicit_and_null_zero_false_survive (test_python_extensions.SQLiteTests.test_row_limit_is_explicit_and_null_zero_false_survive) ... ok
+test_blocked_worker_is_killed_without_blocking_another_extension (test_python_extensions.ServiceTests.test_blocked_worker_is_killed_without_blocking_another_extension) ... ok
+test_crash_recovery_and_same_worker_admission (test_python_extensions.ServiceTests.test_crash_recovery_and_same_worker_admission) ... ok
+test_real_sql_worker_and_actionable_missing_extension (test_python_extensions.ServiceTests.test_real_sql_worker_and_actionable_missing_extension) ... ok
+test_shutdown_cancels_pending_clients_and_owned_workers (test_python_extensions.ServiceTests.test_shutdown_cancels_pending_clients_and_owned_workers) ... ok
+test_unrepresentable_result_does_not_claim_write_was_rejected (test_python_extensions.ServiceTests.test_unrepresentable_result_does_not_claim_write_was_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.407s
+
+OK

@@ -55,7 +55,7 @@ jobs:
               suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))
           result=unittest.TextTestRunner(verbosity=2).run(suite)
           assert result.wasSuccessful() and not result.skipped
-          assert result.testsRun >= 22
+          assert result.testsRun >= 23
           PY
       - uses: actions/upload-artifact@v4
         if: always()

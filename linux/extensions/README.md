@@ -127,6 +127,8 @@ plugin cannot stop the SmallVM scheduler or another plugin. The service kills
 its owned process group on deadline and never automatically repeats an operation.
 Stop/disconnect, timeout or a crashed worker can leave an unknown write outcome;
 they do not prove rollback. Later explicit calls can start a fresh worker.
+If a completed operation returns a result that cannot be represented, its
+write outcome is also unknown; the framework warns against automatic retry.
 Missing service, operation, dependency or device stops the calling script with
 an actionable editor message instead of returning an invented measurement.
 
