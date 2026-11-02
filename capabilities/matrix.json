@@ -344,13 +344,14 @@
       ],
       "features": {
         "neural": {
-          "implementation": "planned",
-          "validation": "not_tested",
-          "backend": null,
-          "availability": "not_reported",
-          "limits": "Backend/modèle Linux à choisir et intégrer; rien n’est installé ou validé par Blinka.",
+          "implementation": "implemented",
+          "validation": "source_only",
+          "backend": "Extension Python commune, LiteRT 2.3.0 / ONNX Runtime 1.31.1 CPU",
+          "availability": "disabled_by_default",
+          "limits": "Un tenseur float32 fixe en entree/sortie, listes et echelles explicites; formats distincts .tflite/.onnx, dependances optionnelles; aucune acceleration validee. Adaptateur source present; dependances, inference ARM64 physique et deploiement du service existant non valides par les essais x86_64/Blinka.",
           "evidence": [
-            "boards/waveshare_esp32p4_wifi6/docs/NEURAL_NETWORKS.md"
+            "linux/extensions/inference/README.md",
+            "docs/LINUX_INFERENCE_SPEC.md"
           ]
         },
         "speech": {
@@ -461,13 +462,14 @@
       ],
       "features": {
         "neural": {
-          "implementation": "planned",
-          "validation": "not_tested",
-          "backend": "Adaptation éventuelle du service politique amont ORT; pas un moteur NN générique exposé",
-          "availability": "not_reported",
-          "limits": "La recherche du dépôt décrit ORT amont; aucune exécution NN MicroBlocks sur le robot n’est validée.",
+          "implementation": "partial",
+          "validation": "source_only",
+          "backend": "Extension Python commune, LiteRT 2.3.0 / ONNX Runtime 1.31.1 CPU",
+          "availability": "disabled_by_default",
+          "limits": "Un tenseur float32 fixe en entree/sortie, listes et echelles explicites; formats distincts .tflite/.onnx, dependances optionnelles; aucune acceleration validee. Contrat et adaptateur Linux CPU partages; Python/libc/ABI/recettes Yocto et inference sur le robot non valides. Aucun backend NPU, controle moteur ni mapping Blinka Radxa ajoute.",
           "evidence": [
-            "boards/waveshare_esp32p4_wifi6/docs/NEURAL_NETWORKS.md"
+            "linux/extensions/inference/README.md",
+            "docs/LINUX_INFERENCE_SPEC.md"
           ]
         },
         "sensors": {
@@ -586,6 +588,21 @@
           "limits": "Vrai bytecode et SQLite testés sur hôte CI; aucune carte/périphérique x86 physique validé.",
           "evidence": [
             ".github/workflows/python-extensions.yml"
+          ]
+        },
+        "neural": {
+          "implementation": "implemented",
+          "validation": "software_only",
+          "backend": "Extension Python commune, LiteRT 2.3.0 / ONNX Runtime 1.31.1 CPU",
+          "availability": "disabled_by_default",
+          "limits": "Un tenseur float32 fixe en entree/sortie, listes et echelles explicites; formats distincts .tflite/.onnx, dependances optionnelles; aucune acceleration validee. Modele PyTorch reel exporte vers les deux moteurs et execute depuis les blocs compiles dans SmallVM 417 sur WSL x86_64; aucun peripherique physique teste.",
+          "evidence": [
+            "linux/extensions/inference/README.md",
+            "docs/LINUX_INFERENCE_SPEC.md",
+            "evidence/2026-11-02/linux-inference/README.md",
+            "evidence/2026-11-02/linux-inference/host-x86_64.json",
+            "evidence/2026-11-02/linux-inference/native-host-litert.json",
+            "evidence/2026-11-02/linux-inference/native-host-onnx.json"
           ]
         }
       },

@@ -1,0 +1,71 @@
+name: Optional Linux inference CPU engines
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: linux-inference-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  cpu:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      SMALLVM_PYTHON_BINARY: ${{ github.workspace }}/build-artifacts/inference-native/smallvm
+      SMALLVM_INFERENCE_COMPILED: ${{ github.workspace }}/build-artifacts/inference-compiled.json
+      SMALLVM_INFERENCE_EVIDENCE: ${{ github.workspace }}/build-artifacts/inference-vm-evidence
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install only the explicitly optional CPU engines
+        run: python3 -m pip install --index-url https://pypi.org/simple -r linux/extensions/inference/requirements.txt
+      - name: Fetch the exact VM and editor sources
+        run: |
+          git init build-artifacts/upstream
+          git -C build-artifacts/upstream remote add origin https://codeberg.org/MicroBlocks/smallvm.git
+          git -C build-artifacts/upstream fetch --no-tags --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b 5564b1e42d6790360450ebf11c9eb33a1c6877f2
+      - name: Build the real native VM and compile the shared high-level example
+        run: |
+          python3 linux/arm64/build.py --upstream build-artifacts/upstream --output build-artifacts/inference-native --test
+          python3 tools/package_js_editor.py --source build-artifacts/upstream --output build-artifacts/inference-base
+          python3 tools/package_python_extension_editor.py --source build-artifacts/inference-base --output build-artifacts/inference-editor
+          node tools/compile_inference_example.cjs build-artifacts/inference-editor build-artifacts/inference-compiled.json
+      - name: Require both real engines, worker errors and native heartbeat tests without skips
+        run: |
+          python3 - <<'PY'
+          import importlib.util,unittest
+          assert all(importlib.util.find_spec(n) for n in ['numpy','onnx','onnxruntime','ai_edge_litert'])
+          suite=unittest.TestSuite()
+          for pattern in ['test_linux_inference.py','test_linux_inference_vm.py']:
+              suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))
+          result=unittest.TextTestRunner(verbosity=2).run(suite)
+          assert result.wasSuccessful() and not result.skipped
+          assert result.testsRun>=15
+          PY
+      - name: Record bounded tiny-model CPU measurements
+        run: python3 tools/check_linux_inference.py --output build-artifacts/inference-cpu.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inference-cpu-${{ matrix.runner }}
+          path: |
+            build-artifacts/inference-cpu.json
+            build-artifacts/inference-native/build-manifest.json
+            build-artifacts/inference-compiled.json
+            build-artifacts/inference-vm-evidence/
+            build-artifacts/inference-editor/python-extension-manifest.json

@@ -1,0 +1,3 @@
+# Optional Linux CPU engines, never installed by the MCU/default Pi path.
+-r requirements-litert.txt
+-r requirements-onnx.txt

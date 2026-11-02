@@ -39,6 +39,17 @@
         "max_messages": 32
       },
       "timeout": 3
+    },
+    "inference": {
+      "enabled": false,
+      "factory": "linux.extensions.inference.extension:Extension",
+      "settings": {
+        "demo_models": true,
+        "threads": 1,
+        "max_elements": 256,
+        "max_model_bytes": 33554432
+      },
+      "timeout": 8
     }
   }
 }

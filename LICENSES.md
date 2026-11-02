@@ -276,3 +276,18 @@ new MIT code. Native VM primitives, the MicroBlocks domain library, JavaScript
 palette overlay and actual editor/VM harness retain MPL-2.0 notices. Optional
 Requests, Paho and Adafruit packages are imported through their public APIs;
 their implementation code is not vendored or installed by this feature.
+
+The optional Linux CPU inference adapters use the official externally installed
+[LiteRT](https://github.com/google-ai-edge/LiteRT/blob/main/LICENSE) and
+[LiteRT Torch](https://github.com/google-ai-edge/litert-torch) (Apache-2.0),
+[ONNX Runtime](https://github.com/microsoft/onnxruntime/blob/main/LICENSE) and
+ONNX (MIT), and development-only [PyTorch](https://github.com/pytorch/pytorch/blob/main/LICENSE)
+(BSD-style). Their native packages, SDKs, third-party code and notices are not
+vendored in this repository. Preserve their bundled notices when distributing
+an environment. No GPU/NPU SDK or pretrained weights are included by default.
+The two tiny model fixtures under `linux/extensions/inference/models` are
+authored MIT test data from this repository's fixed PyTorch source/weights,
+with separate ONNX/TFLite hashes and export provenance; they are not downloaded
+dependency binaries or third-party pretrained model weights. Local plugin and
+export/test tools retain their MIT headers; the shared editor/domain library
+integration retains MPL-2.0.

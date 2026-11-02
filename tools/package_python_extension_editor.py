@@ -23,11 +23,14 @@ def package(source,output):
     for entry in manifest['files']:
         if entry['path'].startswith('engine/') and hashlib.sha256((folder/entry['path']).read_bytes()).hexdigest()!=entry['sha256']:raise ValueError('Upstream JS engine changed')
     library=(ROOT/'linux/extensions/Python.ubl').read_text(encoding='utf-8')
+    inference=(ROOT/'linux/extensions/Inference.ubl').read_text(encoding='utf-8')
     data={
-        'python-library.js':('globalThis.MicroBlocksPythonLibrary='+json.dumps({'source':library},ensure_ascii=False)+';\n').encode(),
+        'python-library.js':('globalThis.MicroBlocksPythonLibrary='+json.dumps({'source':library,'inferenceSource':inference},ensure_ascii=False)+';\n').encode(),
         'python-blocks.js':(ROOT/'web/js-editor/python-blocks.js').read_bytes(),
         'Libraries/Linux/Python Extensions.ubl':library.encode(),
-        'Examples/Python/SQLite readings.ubp':((ROOT/'linux/extensions/examples/sqlite.ubp').read_text(encoding='utf-8')+'\n'+library).encode()}
+        'Libraries/Linux/Neural Inference.ubl':inference.encode(),
+        'Examples/Python/SQLite readings.ubp':((ROOT/'linux/extensions/examples/sqlite.ubp').read_text(encoding='utf-8')+'\n'+library).encode(),
+        'Examples/Python/Neural inference.ubp':((ROOT/'linux/extensions/examples/inference.ubp').read_text(encoding='utf-8')+'\n'+library+'\n'+inference).encode()}
     if any((folder/name).exists() for name in data):raise ValueError('Python overlay already exists')
     shutil.copytree(source,output);destination=output/'mobile' if mobile else output
     for name,raw in data.items():

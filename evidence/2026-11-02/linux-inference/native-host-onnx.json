@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "backend": "onnx",
+  "vm_version": 417,
+  "binary_sha256": "0b5cd0d8fb75648c0769d061c5e807ea9edcdbfd8d2c4460b647017062fe63c8",
+  "real_js_compiler": true,
+  "real_native_vm": true,
+  "real_engine": true,
+  "scaled_values": [
+    2950,
+    -2225,
+    6812
+  ],
+  "expected_scaled": [
+    2950,
+    -2225,
+    6812
+  ],
+  "heartbeat_while_model_call_pending": 227,
+  "normal_user_script_without_bridge_selectors": true,
+  "user_data_or_robot_controls_used": false,
+  "network_listener_opened": false,
+  "transport": "private PTY and owned private Unix service"
+}

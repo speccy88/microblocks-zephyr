@@ -1,0 +1,22 @@
+module 'Neural Inference' Data
+author 'MicroBlocks Linux contributors'
+version 1 0
+description 'Shared CPU inference domain blocks. Requires the existing Python Extensions helper, an enabled inference profile and separately installed optional LiteRT/ONNX Runtime packages. Fixed tensors and explicit scales; no bridge setup or model file paths in user programs.'
+spec ' ' 'neuralLoad' 'load neural model _ backend _' 'str str' 'tiny-dense-v1' 'litert'
+spec 'r' 'neuralPredict' 'neural prediction _ input scale _ output scale _' 'auto num num' '' 1000 1000
+spec 'r' 'neuralModelInfo' 'neural model information'
+spec 'r' 'neuralBackend' 'neural backend'
+spec 'r' 'neuralBackends' 'available neural backends'
+spec ' ' 'neuralUnload' 'unload neural model'
+
+to neuralLoad model backend {
+    pythonCall 'inference' 'load' ('[data:join]' '{"model":' ('[linux:pythonJSON]' model) ',"backend":' ('[linux:pythonJSON]' backend) '}')
+}
+to neuralPredict values inputScale outputScale {
+    local 'result' (pythonCall 'inference' 'infer' ('[data:join]' '{"values":' ('[linux:pythonJSON]' values) ',"input_scale":' ('[linux:pythonJSON]' inputScale) ',"output_scale":' ('[linux:pythonJSON]' outputScale) '}'))
+    return ('[linux:pythonGet]' result '/values')
+}
+to neuralModelInfo { return (pythonCall 'inference' 'info' '{}') }
+to neuralBackend { return ('[linux:pythonGet]' (neuralModelInfo) '/model/backend') }
+to neuralBackends { return ('[linux:pythonGet]' (pythonCall 'inference' 'backends' '{}') '/backends') }
+to neuralUnload { pythonCall 'inference' 'unload' '{}' }

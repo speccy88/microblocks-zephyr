@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "license": "MIT; authored source and fixed weights in this repository",
+  "source": "tools/export_linux_inference_models.py",
+  "source_sha256": "20bb5a645e4ca81aec908da211a7a1a158f321a89cce1057edea8af9aa8b2cb8",
+  "export_versions": {
+    "torch": "2.14.0+cpu",
+    "litert-torch": "0.10.0",
+    "ai-edge-litert": "2.3.0",
+    "onnx": "1.23.2",
+    "onnxscript": "0.7.2"
+  },
+  "models": {
+    "tiny-dense-v1": {
+      "input": {
+        "shape": [
+          1,
+          4
+        ],
+        "dtype": "float32"
+      },
+      "output": {
+        "shape": [
+          1,
+          3
+        ],
+        "dtype": "float32"
+      },
+      "variants": {
+        "onnx": {
+          "file": "tiny-dense.onnx",
+          "format": "onnx",
+          "sha256": "344d40aaf7ba7a0cf529439efd15218633007772ad039a6a06e8361ab751a278"
+        },
+        "litert": {
+          "file": "tiny-dense.tflite",
+          "format": "tflite",
+          "sha256": "9c4259d2ff76107e048d9eb47089c6f660026aeac984e08e0973b84520da185a"
+        }
+      }
+    }
+  },
+  "fixture": {
+    "input": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "input_scale": 1000,
+    "scaled_input": [
+      1000,
+      2000,
+      3000,
+      4000
+    ],
+    "expected_float32": [
+      2.9499998092651367,
+      -2.2249999046325684,
+      6.8125
+    ],
+    "output_scale": 1000,
+    "expected_scaled": [
+      2950,
+      -2225,
+      6812
+    ],
+    "absolute_tolerance": 1e-05,
+    "scope": "Tiny authored two-dense-layer ReLU network. Integration fixture, not vision/speech accuracy or a performance benchmark."
+  }
+}

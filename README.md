@@ -21,6 +21,12 @@ The application owns Python automatically; SQLite has real Pi 5 native and
 graphical acceptance. MQTT broker, Blinka hardware and MicroDuck pin mapping
 remain unvalidated. See the dated evidence for exact scope.
 
+The optional [Linux neural inference adapters](linux/extensions/inference/README.md)
+share high-level blocks for LiteRT and ONNX Runtime CPU. An authored PyTorch
+network is exported to separate hash-checked TFLite/ONNX assets. Dependencies
+remain optional; neither a Linux MCU dependency nor NPU/Yocto validation is
+implied. See the implementation's exact acceptance scope.
+
 The Pages root uses the real pure-JavaScript editor by default and offers the
 touch workspace on phones. The [legacy GP portal](https://speccy88.github.io/microblocks-zephyr/legacy/index.html)
 preserves existing editors and project access. Export/import `.ubp` to transfer

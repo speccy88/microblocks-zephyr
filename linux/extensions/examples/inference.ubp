@@ -1,0 +1,18 @@
+projectName 'Optional Linux neural inference'
+module main
+variables NeuralValues NeuralBackend NeuralDone Heartbeat
+script 30 30 {
+    whenStarted
+    NeuralDone = 0
+    neuralLoad 'tiny-dense-v1' 'litert'
+    NeuralValues = (neuralPredict ('[data:makeList]' 1000 2000 3000 4000) 1000 1000)
+    NeuralBackend = (neuralBackend)
+    sayIt NeuralValues
+    neuralUnload
+    NeuralDone = 1
+}
+script 600 30 {
+    whenStarted
+    forever { Heartbeat += 1
+        waitMillis 2 }
+}

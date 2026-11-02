@@ -80,6 +80,16 @@ port80 remain usable. See the [existing-service evidence](../../evidence/2026-11
 The climate extension stays disabled: no sensor driver, I2C configuration or
 physical sensor test is implied by installing Blinka.
 
+## Neural inference
+
+[LiteRT and ONNX Runtime CPU adapters](inference/README.md) use one optional
+`inference` extension and shared `neuralLoad`, `neuralPredict`, model-info and
+unload blocks. Models remain backend-specific, with local catalog IDs, separate
+SHA256 assets and validated tensor metadata. The authored demo comes from a
+real PyTorch export workflow; the target requires no PyTorch or converter.
+Default profiles keep it disabled. No robot motor operations or MCU dependencies
+are changed. Missing engines and unsupported models return explicit errors.
+
 ## Optional capabilities
 
 SQLite uses Python's standard library. HTTP uses the official `requests`
