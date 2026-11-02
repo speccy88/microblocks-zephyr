@@ -119,3 +119,7 @@ Official sources: [LiteRT](https://developers.google.com/edge/litert/overview),
 LiteRT/LiteRT Torch are Apache-2.0, ONNX Runtime/ONNX MIT and PyTorch BSD-style;
 their packages retain their own third-party notices. The authored fixture source
 and weights here are MIT, without a pretrained-model license dependency.
+
+Physical Pi5 CPU acceptance of both engines and the compiled domain blocks now
+passes in a separate environment; see [evidence](../../../evidence/2026-11-02/linux-inference/README.md#physical-raspberry-pi5-cpu-acceptance).
+This does not activate or update the existing managed service/editor.

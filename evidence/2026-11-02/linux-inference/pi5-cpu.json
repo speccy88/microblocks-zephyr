@@ -1,0 +1,303 @@
+{
+  "result": "PASS",
+  "source_commit": "97fe5becb9a1e56f0d7e68da15edec0a44be9c61",
+  "source_archive_sha256": "d89194e3562f78f266548b48843302c363b4b5832aeccfca68bb2226d0e6d5ce",
+  "board": "Raspberry Pi 5 Model B Rev 1.0",
+  "architecture": "aarch64",
+  "kernel": "6.12.75+rpt-rpi-2712",
+  "vm_version": 417,
+  "vm_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+  "tests": {
+    "tests": 15,
+    "skipped": 0,
+    "success": true
+  },
+  "native_vm": {
+    "litert": {
+      "result": "PASS",
+      "backend": "litert",
+      "vm_version": 417,
+      "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+      "real_js_compiler": true,
+      "real_native_vm": true,
+      "real_engine": true,
+      "scaled_values": [
+        2950,
+        -2225,
+        6812
+      ],
+      "expected_scaled": [
+        2950,
+        -2225,
+        6812
+      ],
+      "heartbeat_while_model_call_pending": 72,
+      "normal_user_script_without_bridge_selectors": true,
+      "user_data_or_robot_controls_used": false,
+      "network_listener_opened": false,
+      "transport": "private PTY and owned private Unix service"
+    },
+    "onnx": {
+      "result": "PASS",
+      "backend": "onnx",
+      "vm_version": 417,
+      "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+      "real_js_compiler": true,
+      "real_native_vm": true,
+      "real_engine": true,
+      "scaled_values": [
+        2950,
+        -2225,
+        6812
+      ],
+      "expected_scaled": [
+        2950,
+        -2225,
+        6812
+      ],
+      "heartbeat_while_model_call_pending": 103,
+      "normal_user_script_without_bridge_selectors": true,
+      "user_data_or_robot_controls_used": false,
+      "network_listener_opened": false,
+      "transport": "private PTY and owned private Unix service"
+    }
+  },
+  "cpu": {
+    "result": "PASS",
+    "engines": [
+      {
+        "backend": "litert",
+        "engine_version": "2.3.0",
+        "provider": "CPU",
+        "engine_threads_requested": 1,
+        "npu_gpu_validated": false,
+        "architecture": "aarch64",
+        "python": "3.13.5",
+        "libc": [
+          "glibc",
+          "2.41"
+        ],
+        "model_sha256": "9c4259d2ff76107e048d9eb47089c6f660026aeac984e08e0973b84520da185a",
+        "model_bytes": 1724,
+        "model_load_us_including_import": 52596,
+        "float32_output": [
+          2.9499998092651367,
+          -2.2249999046325684,
+          6.8125
+        ],
+        "scaled_output": [
+          2950,
+          -2225,
+          6812
+        ],
+        "iterations": 50,
+        "warmup_calls": 5,
+        "engine_tensor_io_wall_us": {
+          "median": 5.0,
+          "p95": 6,
+          "min": 5,
+          "max": 6
+        },
+        "whole_operation_wall_us": {
+          "median": 18.093,
+          "p95": 19.778,
+          "min": 17.611,
+          "max": 20.778
+        },
+        "process_peak_rss_before_load_bytes": 21905408,
+        "process_peak_rss_after_inference_bytes": 48398336,
+        "actual_process_thread_count": 1,
+        "scope": "Tiny 4->4 ReLU->3 integration fixture; fresh process per backend, CPU only. RSS includes Python/libraries; timings exclude VM/IPC and are not a representative performance benchmark."
+      },
+      {
+        "backend": "onnx",
+        "engine_version": "1.31.1",
+        "provider": "CPU",
+        "engine_threads_requested": 1,
+        "npu_gpu_validated": false,
+        "architecture": "aarch64",
+        "python": "3.13.5",
+        "libc": [
+          "glibc",
+          "2.41"
+        ],
+        "model_sha256": "344d40aaf7ba7a0cf529439efd15218633007772ad039a6a06e8361ab751a278",
+        "model_bytes": 731,
+        "model_load_us_including_import": 130317,
+        "float32_output": [
+          2.9499998092651367,
+          -2.2249999046325684,
+          6.8125
+        ],
+        "scaled_output": [
+          2950,
+          -2225,
+          6812
+        ],
+        "iterations": 50,
+        "warmup_calls": 5,
+        "engine_tensor_io_wall_us": {
+          "median": 18.0,
+          "p95": 21,
+          "min": 17,
+          "max": 48
+        },
+        "whole_operation_wall_us": {
+          "median": 36.454,
+          "p95": 41.074,
+          "min": 34.334,
+          "max": 73.13
+        },
+        "process_peak_rss_before_load_bytes": 21889024,
+        "process_peak_rss_after_inference_bytes": 74268672,
+        "actual_process_thread_count": 2,
+        "scope": "Tiny 4->4 ReLU->3 integration fixture; fresh process per backend, CPU only. RSS includes Python/libraries; timings exclude VM/IPC and are not a representative performance benchmark."
+      }
+    ],
+    "model_origin": "authored PyTorch CPU model; separate official LiteRT Torch and torch.onnx exports",
+    "hardware_or_network_operations": false
+  },
+  "live_service_or_configuration_modified": false,
+  "user_program_uploaded": false,
+  "new_network_listener": false,
+  "robot_or_sensor_io_used": false,
+  "engines_activated_in_existing_service": false,
+  "scope": "Physical Pi5 CPU acceptance in a separate Python environment and private VM state; existing service not activated or replaced.",
+  "package_source": "Official PyPI; preparation verifies all wheel download hosts are files.pythonhosted.org",
+  "packages": [
+    {
+      "name": "numpy",
+      "version": "2.5.4",
+      "sha256": "1c2e71b04c6cad90026e544501bbe0ab9290fa8a4d845e7e8c0d124fb429c988"
+    },
+    {
+      "name": "flatbuffers",
+      "version": "25.12.19",
+      "sha256": "7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4"
+    },
+    {
+      "name": "protobuf",
+      "version": "7.36.2",
+      "sha256": "e11e1f0180583a2af89db6a2ecd9e8dc40aa6d2988ca175bfd0e6d12ea72d74e"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    },
+    {
+      "name": "ml_dtypes",
+      "version": "0.6.0",
+      "sha256": "28d676428b104bb9717b0928bc5c5129f2d6b51b6727587cc4289e7bf8713cb5"
+    },
+    {
+      "name": "ai-edge-litert",
+      "version": "2.3.0",
+      "sha256": "2ab71e4f5dfa65b3882634b42755f455f3e7415630d720200bd792733e15e257"
+    },
+    {
+      "name": "backports.strenum",
+      "version": "1.2.8",
+      "sha256": "fc297cb26971f7d5e15a478a06a78575197f81daea47975771b1aae996dcccf4"
+    },
+    {
+      "name": "tqdm",
+      "version": "4.70.1",
+      "sha256": "c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73"
+    },
+    {
+      "name": "onnxruntime",
+      "version": "1.31.1",
+      "sha256": "dcaedc50333876f3829ab966b242147f0e548229e29c36fe44622ecf748c25ee"
+    },
+    {
+      "name": "onnx",
+      "version": "1.23.2",
+      "sha256": "a203efdbaabbbe8f25e854e2b2921382d6fcf4c67895656f939044b0632974e8"
+    }
+  ],
+  "bundle_file_count": 56,
+  "source_file_sha256": {
+    "linux/extensions/api.py": "a7d7a5cddd68cc2a56c4d52f5bd05455151a06946c6bf46aec44e8ce0219911f",
+    "linux/extensions/launch.py": "e30b509dc59b9b5081423720416aada99252058939424b074799c7f95c11e2c5",
+    "linux/extensions/service.py": "63302b5594a2959f45dded0f5ae61dc43c21ed30c9f81b87c7274beaf2d65cfe",
+    "linux/extensions/worker.py": "41ed915a7241f2cca9c36aeefd4d9577b77b6d9a8b1d169e21838d2d86655761",
+    "linux/extensions/__init__.py": "6549c1c9b63f157dfc6687573d219866988905f5532370a0d2f2278ac1af7d97",
+    "linux/extensions/examples/sht4x.py": "7c5c336f58f476f94bbfda349ad2278a7594332321771f0cc52879235f7cdf5c",
+    "linux/extensions/examples/test_fixture.py": "770266239cef5a46b110347839915b8c6e177588e2d46d201bfbc2278a3cfd49",
+    "linux/extensions/examples/__init__.py": "09b6c701c7fa387867daf720ea5f5514b98ce1ff84cfa1ae31fd091d44d7c4a0",
+    "linux/extensions/inference/backends.py": "5404b8c7c5300a18baf101c4422df6f29291e9486b57e6862aaa18531aceb658",
+    "linux/extensions/inference/extension.py": "3eb623604d70de600638d0fdec4227e28c900fcdbe38a2e58a6f75de5305dac0",
+    "linux/extensions/inference/requirements-common.txt": "f7099948fe452f776e51c42a0546b7728fb5a96917a1b5b4250f6d3ea0e7cb04",
+    "linux/extensions/inference/requirements-litert.txt": "01f0d0da8f22361dd81c5092b32582f8d2b7f66190c2f2e41f045b739b7a58a9",
+    "linux/extensions/inference/requirements-onnx.txt": "5782dc78e9ac9d3a6dc17415c6381ae6f41d19f0cea9ee9b7584efd76bc8d2d2",
+    "linux/extensions/inference/requirements.txt": "1e6fd271206d4b6bef7a2f0d4316b875fe6b41a6ab4f412f06b3716d7f6152ed",
+    "linux/extensions/inference/__init__.py": "2e38fdb5b732fba022b2bd05f9f525dd64720d542658710a66de7ce7c01c3973",
+    "linux/extensions/plugins/http.py": "bc4b6e92d8c9f43d4150baede4f4c7289267c7bc5ac21100dee7db2cee4e660c",
+    "linux/extensions/plugins/mqtt.py": "b0dcb95643d7a229ddb6e9caf9aa01cdf1815079239bfe55bd7246e860f0afef",
+    "linux/extensions/plugins/sqlite.py": "31c880e67bfa2f30152469b363c4bacae628e9b90298535ed61ab9743cdd920b",
+    "linux/extensions/plugins/__init__.py": "a3126090970789612ca813f3592271915a847369bcc15e7d21d02adda0fb7215",
+    "linux/extensions/profiles/microduck.json": "d201f81d2ecbae1a30862b5466639ac0f6c3717c4fb756fc00395cb838268440",
+    "linux/extensions/profiles/pi5.json": "1fb3b947b7c70446155a3c16e1edec059ab82b89dd0e0f9e3bae08fe93613103",
+    "linux/extensions/inference/models/catalog.json": "ce9085bf1bca452277cfe0933ee6b133f402b2f1403f7746c8a43e6574ae773d",
+    "linux/extensions/inference/models/tiny-dense.onnx": "344d40aaf7ba7a0cf529439efd15218633007772ad039a6a06e8361ab751a278",
+    "linux/extensions/inference/models/tiny-dense.tflite": "9c4259d2ff76107e048d9eb47089c6f660026aeac984e08e0973b84520da185a",
+    "linux/microduck/client.py": "4d1dbcba2044585e3787fff31980e50226aaa637a8d58dc46f18c4d4b0631e15",
+    "linux/microduck/depth_gateway_fixture.py": "bb1aeda2b6ea848ed8205df419a8987649fa716cf56cf958ef9e4808b234484b",
+    "linux/microduck/depth_service.py": "341d62c8af06486342c63ecdea59984606ce0b6f867c51186c9637cc464194bb",
+    "linux/microduck/gamepad_gateway_fixture.py": "d506073d5cddad264b36e310f881e179ef31c0ddf88d79622045120e6af83215",
+    "linux/microduck/gamepad_service.py": "f780abd80a49b74b0b2c062421ff1a66d229afa53de2804182305687f91f1c38",
+    "linux/microduck/gateway.py": "0ac179e9de9a3fc0650b339df340fae17ea219630c24dd13d913afbc48f10004",
+    "linux/microduck/head_imu_gateway_fixture.py": "42e5032e6eb766219b46daca16e0dcabd222fa8da053dd3f735d5eab9c3dba40",
+    "linux/microduck/head_imu_service.py": "8f9b5f05b5de9b52154ad37110724bd91c34a746d5348d283ef9bf565c68dec2",
+    "linux/microduck/head_imu_simulator.py": "dc547220ba090f39139db2adc507b3afeab5dca32d370bd7391612a61a5d8c5e",
+    "linux/microduck/media_simulator.py": "c2b837b62a7758e41f30a9c0065ca9050ffacbd9409bec7173de5f67d9f4d00a",
+    "linux/microduck/motion_simulator.py": "d4eb0403cbc229511c1bb012f06da667369569e1281da51c747680db2c465add",
+    "linux/microduck/pad_imu_gateway_fixture.py": "e87a932ff699bbb9fd1fff11bee1af8fe4e4b8e59df806e9c31a6a192071bd2f",
+    "linux/microduck/pad_imu_service.py": "3e64ef1473b4f1411c1969f8e73422887aae8ef940c963fc3128d7179e7786b8",
+    "linux/microduck/pad_imu_simulator.py": "66b0eed8a450e18a64eed222a229833c10f2b77d6f13a2a8a117995fd477fe14",
+    "linux/microduck/preflight.py": "ea43000df8d599dfbc19fdafe7083217acdebe88ecbe31194d1c81a55b4984a8",
+    "linux/microduck/protocol.py": "42967eaa2de37176bf8350ff0e0ec6f98db9c49f3460fb645d9610cc65c79b1b",
+    "linux/microduck/robot_gateway_fixture.py": "4f9b643885a4b5e0077ce45bc81b767c3bde890c7af258c862257102bc41058a",
+    "linux/microduck/robot_health.py": "087358215eaeb25dffc62df8909efb1ea881e6e992589a534502916e1a8ec324",
+    "linux/microduck/robot_service.py": "60c4ac3610a67ef66a0ade70d8e3ebc042e9de7617ebe798b6cf87dd8a23697f",
+    "linux/microduck/robot_simulator.py": "221aa72bc090e4b89abc50501fe334c126486fea2e21cb560c077bc55beb524f",
+    "linux/microduck/robot_telemetry.py": "8addc4b035e0755944898af31f8498306b021daa123ddb0a491809718986ea97",
+    "linux/microduck/sensor_simulator.py": "fcdc0b73fb4f3d588d4f6803691d5c6347b46e207d9616ed407ec3f41fbb5b79",
+    "linux/microduck/sensor_snapshots.py": "d591c8c88c1b33ca7f8d87c825a1dce00f2d569163681e76ea22554f7a1cd86b",
+    "linux/microduck/simulator.py": "aee9939d2ce7f5f1bdbefc238989f247c7b3ce1eee5c953500bd926a83db68fc",
+    "linux/microduck/__init__.py": "e02a177df47d8bd03ddc82400ecd30a03f3ba3eb4538e6f45be4910d26ef4ede",
+    "tests/test_linux_inference.py": "83ac41800177f9a641c59212da4460cad5dc45a1dbaf55e6d14eff7551e82798",
+    "tests/test_linux_inference_vm.py": "3275cf00237805a6336d77278118b7b841dd8be0416445317febf18f2f1b7d38",
+    "tests/test_linux_microduck_vm.py": "1d5173c8a723c64c3c9aadaef79132d65176d97006c5e6ac3b930d4999a4767a",
+    "tests/linux_arm64_protocol.py": "2f9a58db81c299ff094d73d56a8a1c99ab810eb4443c962828fc91e99544d5b5",
+    "tools/export_linux_inference_models.py": "20bb5a645e4ca81aec908da211a7a1a158f321a89cce1057edea8af9aa8b2cb8",
+    "tools/check_linux_inference.py": "7483cd090aec3ace6fc652a3bacc0e4a8e33233bb39de238b5e9df4c89022d52",
+    "inference-compiled.json": "425815b4e6086dccb59f4f5e956ae95e34c5bd5fa5276d6646f437ceadb48c10"
+  },
+  "preservation": {
+    "protected_files_compared": 22,
+    "changed_protected_files": 0,
+    "service_pid_unchanged": true,
+    "service_active_before_after": [
+      "active",
+      "active"
+    ],
+    "service_enabled_before_after": [
+      "enabled",
+      "enabled"
+    ],
+    "http_port80_before_after": [
+      200,
+      200
+    ],
+    "native_vm_sha256_before_after": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+    "user_program_sha256": "40c5747bb71ac7cb7b4b22cde6394112352a42617f993a9d81c9d5f093cd9f77",
+    "sqlite_sha256": "3664f47bf3068188eec44349c068eab00f5f011d955db9b479beced27a34faf1"
+  }
+}

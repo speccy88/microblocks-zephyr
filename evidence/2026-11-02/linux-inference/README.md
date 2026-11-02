@@ -49,3 +49,32 @@ Python3.13.17, glibc2.39). host-arm64-ci.json records its actual engine/model
 results and bounded CPU measurements from the completed job log. The native
 x86-64 job of the same workflow also passes. This is host CI evidence, not
 Pi5 physical commissioning, MicroDuck Yocto support or deployment.
+
+## Physical Raspberry Pi5 CPU acceptance
+
+After the owner explicitly authorized transfer, isolated installation and tests,
+the same source97fe5becb9a1e56f0d7e68da15edec0a44be9c61 passes all15 tests
+with zero skips on a Raspberry Pi5 Model B Rev1.0 / aarch64 / Python3.13.5.
+The archive and each source/model entry were hash-checked before extraction;
+the separate environment uses binary wheels from official PyPI. No PyTorch
+converter, system package, sensor or GPIO setup is installed on the target.
+
+[pi5-cpu.json](pi5-cpu.json) records the real LiteRT2.3.0 and ONNX Runtime1.31.1
+CPU results, package/source hashes, native-VM proof and preservation checks.
+Both engines return scaled [2950,-2225,6812] from actual compiled domain blocks
+on the existing VM417 executable, using private program state. The independent
+heartbeat progresses to72/103 while the respective model operation is pending.
+The worker timeout/other-SQLite-worker test also passes on the physical Pi.
+
+For50 calls after five warmups in a fresh process per engine, tiny-model CPU
+tensor-I/O medians are5us LiteRT /18us ONNX; peak process RSS is about46MiB /
+71MiB. These include Python/libraries in RSS, exclude VM/IPC in timing, and do
+not establish representative workload, accuracy, real-time or NPU performance.
+
+The installed optional environment remains separate from the active service.
+It has not been selected in that service or exposed by its current editor.
+All22 compared protected files (including program, SQLite, profile, config and
+Caddy/unit settings) remain unchanged; the service PID/active/enabled state is
+unchanged, port80 still returns HTTP200, and the VM417 binary SHA256 is intact.
+No program was uploaded to the live VM, no listener opened and no MQTT, motor,
+sensor or network configuration changed. MicroDuck Yocto remains untested.

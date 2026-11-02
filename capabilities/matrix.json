@@ -345,14 +345,16 @@
       "features": {
         "neural": {
           "implementation": "implemented",
-          "validation": "source_only",
+          "validation": "physical_limited",
           "backend": "Extension Python commune, LiteRT 2.3.0 / ONNX Runtime 1.31.1 CPU",
           "availability": "disabled_by_default",
-          "limits": "Un tenseur float32 fixe en entree/sortie, listes et echelles explicites; formats distincts .tflite/.onnx, dependances optionnelles; aucune acceleration validee. Adaptateur source present; dependances, inference ARM64 physique et deploiement du service existant non valides par les essais x86_64/Blinka. Les 15 tests natifs ARM64 passent en CI; cela ne valide pas le Pi physique ni son service.",
+          "limits": "Pi5 physique: 15 tests sans ignore, deux moteurs CPU reels, modele PyTorch exporte et blocs compiles dans SmallVM 417 avec heartbeat. Environnement prive de test, non active dans le service courant; profils desactives par defaut. Un tenseur float32 fixe en entree/sortie et echelles explicites; formats .tflite/.onnx distincts. Aucune acceleration NPU/GPU ni charge representative validee.",
           "evidence": [
             "linux/extensions/inference/README.md",
             "docs/LINUX_INFERENCE_SPEC.md",
-            "evidence/2026-11-02/linux-inference/host-arm64-ci.json"
+            "evidence/2026-11-02/linux-inference/host-arm64-ci.json",
+            "evidence/2026-11-02/linux-inference/pi5-cpu.json",
+            "evidence/2026-11-02/linux-inference/README.md"
           ]
         },
         "speech": {
