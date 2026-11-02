@@ -4,6 +4,8 @@ import json
 import os
 from pathlib import Path
 import socket
+import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -150,6 +152,14 @@ class PolicyTests(unittest.TestCase):
             self.assertIn('User='+pwd.getpwuid(os.geteuid()).pw_name,unit)
             self.assertIn('NoNewPrivileges=true',unit);self.assertIn('WantedBy=multi-user.target',unit)
             self.assertNotIn('AmbientCapabilities',unit);self.assertNotIn('User=root',unit)
+    @unittest.skipUnless(shutil.which('systemd-analyze'),'systemd unit parser required')
+    def test_generated_unit_passes_real_systemd_parser_including_space_in_prefix(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);prefix=root/'app with space';prefix.mkdir()
+            manager=app.SystemService(prefix);unit=root/'pi5-verification.service'
+            unit.write_text(manager.text(root/'release',Path(sys.executable)))
+            checked=subprocess.run(['systemd-analyze','verify',str(unit)],capture_output=True,text=True)
+            self.assertEqual(checked.returncode,0,checked.stderr)
     def test_foreground_state_lock_is_not_interrupted(self):
         import fcntl
         with tempfile.TemporaryDirectory() as directory:

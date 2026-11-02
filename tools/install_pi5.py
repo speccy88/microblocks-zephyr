@@ -178,16 +178,18 @@ class SystemService:
             require(not drops,'Existing service overrides require manual review')
         else:require(not state or not state.get('unit_sha256'),'Owned service disappeared; review before changing the installation')
     def authorize(self):
-        require(shutil.which('systemctl') and shutil.which('sudo'),'systemd and sudo are required for --service; use --prepare-only otherwise')
+        require(shutil.which('systemctl') and shutil.which('systemd-analyze') and shutil.which('sudo'),'systemd, systemd-analyze and sudo are required for --service; use --prepare-only otherwise')
         result=subprocess.run(['sudo','-n','true'],stdin=subprocess.DEVNULL,capture_output=True)
         require(result.returncode==0,'Service/prerequisite setup needs sudo authorization. Run sudo -v, then repeat the same installer.')
     def stop(self):subprocess.run(['sudo','-n','systemctl','stop',self.name],check=True)
     def start(self):subprocess.run(['sudo','-n','systemctl','start',self.name],check=True)
     def text(self,release,python):
         user=pwd.getpwuid(os.geteuid()).pw_name
-        return ('# '+OWNER+' '+str(self.prefix)+'\n[Unit]\nDescription=MicroBlocks Pi5 editor, VM and Python\nAfter=network-online.target\nWants=network-online.target\n\n[Service]\nType=simple\nUser='+user+'\nWorkingDirectory="'+str(self.prefix)+'"\nExecStart="'+str(python)+'" -B "'+str(release/'code/linux/arm64/lan_service.py')+'" --root "'+str(self.prefix)+'"\nRestart=on-failure\nRestartSec=2\nTimeoutStopSec=20\nUMask=0077\nNoNewPrivileges=true\n\n[Install]\nWantedBy=multi-user.target\n')
+        return ('# '+OWNER+' '+str(self.prefix)+'\n[Unit]\nDescription=MicroBlocks Pi5 editor, VM and Python\nAfter=network-online.target\nWants=network-online.target\n\n[Service]\nType=simple\nUser='+user+'\nWorkingDirectory='+str(self.prefix)+'\nExecStart="'+str(python)+'" -B "'+str(release/'code/linux/arm64/lan_service.py')+'" --root "'+str(self.prefix)+'"\nRestart=on-failure\nRestartSec=2\nTimeoutStopSec=20\nUMask=0077\nNoNewPrivileges=true\n\n[Install]\nWantedBy=multi-user.target\n')
     def install(self,text):
-        path=self.prefix/'run/service-next.conf';atomic(path,text.encode())
+        path=self.prefix/'run'/self.name;atomic(path,text.encode())
+        checked=subprocess.run(['systemd-analyze','verify',str(path)],capture_output=True,text=True)
+        require(checked.returncode==0,'Generated service failed systemd validation; selection preserved: '+checked.stderr[-800:])
         subprocess.run(['sudo','-n','install','-m','644',str(path),str(self.path)],check=True)
         subprocess.run(['sudo','-n','systemctl','daemon-reload'],check=True)
         subprocess.run(['sudo','-n','systemctl','enable',self.name],check=True)
