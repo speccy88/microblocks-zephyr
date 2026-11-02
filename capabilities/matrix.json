@@ -1,0 +1,614 @@
+{
+  "schema": 1,
+  "review_date": "2026-11-02",
+  "scope": "Reviewed source/evidence index; per-target hardware manifests stay canonical. Not a runtime permission/availability grant.",
+  "unknown_default": {
+    "implementation": "unassessed",
+    "validation": "not_tested",
+    "availability": "not_reported",
+    "backend": null,
+    "limits": "Pas de preuve ciblée indexée; ne pas inférer le support depuis la famille ou le CPU.",
+    "evidence": []
+  },
+  "features": [
+    {
+      "id": "neural",
+      "label": "Réseaux de neurones",
+      "prerequisites": "Modèle, opérateurs, formes/dtypes, mémoire et backend compatibles; aucune action moteur implicite."
+    },
+    {
+      "id": "speech",
+      "label": "Reconnaissance vocale / Whistle",
+      "prerequisites": "Backend STT, modèle/langue, frontend PCM et microphone validés; Whistle et wake-word restent distincts."
+    },
+    {
+      "id": "sensors",
+      "label": "Capteurs",
+      "prerequisites": "Pilote, modèle, bus/interface, adresse, unités, permissions et câblage validés par matériel."
+    },
+    {
+      "id": "oled_i2c",
+      "label": "OLED I²C",
+      "prerequisites": "Contrôleur et dimensions exacts, pilote graphique, bus/adresse et broches validés; un bus I²C ne prouve pas un écran."
+    },
+    {
+      "id": "mqtt",
+      "label": "MQTT",
+      "prerequisites": "Backend client, réseau, broker, protocole/QoS et éventuels TLS/identifiants configurés; broker réel à tester."
+    },
+    {
+      "id": "sqlite",
+      "label": "SQLite",
+      "prerequisites": "Backend SQL, stockage et transactions; bibliothèque Python sqlite3 pour le backend Linux actuel."
+    },
+    {
+      "id": "camera_capture",
+      "label": "Caméras / capture",
+      "prerequisites": "Capteur ou source autorisée, pilote, format, résolution, buffers et accès matériel; recevoir une piste ne prouve pas une capture."
+    },
+    {
+      "id": "image_processing",
+      "label": "Traitement d’image",
+      "prerequisites": "Formats/pas mémoire, dimensions, opérateurs et ressources du backend; rotation affichée et décodage ne prouvent pas un traitement de pixels."
+    }
+  ],
+  "targets": [
+    {
+      "id": "propeller2",
+      "label": "Propeller 2 / Edge32",
+      "runtime_family": "bare_metal",
+      "cpu_architecture": "propeller2_32",
+      "project_status": "physical_target",
+      "sources": [
+        "boards/propeller2/hardware.json",
+        "boards/propeller2/README.md"
+      ],
+      "features": {
+        "sensors": {
+          "implementation": "implemented",
+          "validation": "source_only",
+          "backend": "Primitives natives FlexC I²C/SPI/GPIO",
+          "availability": "not_reported",
+          "limits": "Implémentations récupérées; périphériques externes non validés.",
+          "evidence": [
+            "boards/propeller2/hardware.json"
+          ]
+        },
+        "sqlite": {
+          "implementation": "unavailable",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "Aucune intégration SQLite fournie pour ce port natif; ce n’est pas une impossibilité matérielle.",
+          "evidence": [
+            "boards/propeller2/hardware.json",
+            "linux/extensions/README.md"
+          ]
+        }
+      },
+      "vm": "native FlexC v405",
+      "arduino_core": "not_linked",
+      "hardware_tests": "P2-EC32MB / USB, calculs, persistance et Smart Pin entrée; capteurs externes non testés.",
+      "reviewed_source_hashes": {
+        "boards/propeller2/hardware.json": "f3cb5569babe89a0c708e18b49cc6926cfed89ed11817d864ff90d0f8f25f293"
+      }
+    },
+    {
+      "id": "waveshare-s3-rlcd",
+      "label": "Waveshare ESP32-S3 RLCD",
+      "runtime_family": "zephyr",
+      "cpu_architecture": "xtensa_32",
+      "project_status": "physical_target",
+      "sources": [
+        "boards/waveshare_esp32s3_rlcd_4_2/hardware.json",
+        "boards/waveshare_esp32s3_rlcd_4_2/README.md"
+      ],
+      "features": {
+        "sensors": {
+          "implementation": "implemented",
+          "validation": "physical_target",
+          "backend": "Zephyr + Arduino API; SHTC3 I²C",
+          "availability": "not_reported",
+          "limits": "Température/humidité et lectures physiques; validation limitée aux périphériques cités.",
+          "evidence": [
+            "boards/waveshare_esp32s3_rlcd_4_2/hardware.json",
+            "evidence/2026-10-18/generic-io-checkpoint.json"
+          ]
+        }
+      },
+      "vm": "v417",
+      "arduino_core": "linked",
+      "hardware_tests": "Carte ESP32-S3 RLCD; SHTC3 et E/S documentées. Le RLCD SPI ne valide pas un OLED I²C.",
+      "reviewed_source_hashes": {
+        "boards/waveshare_esp32s3_rlcd_4_2/hardware.json": "10fa2ba7582b35b1842b3f0deaff834c47fada372bee969e47d5297f24be6fc1"
+      }
+    },
+    {
+      "id": "waveshare-p4",
+      "label": "Waveshare ESP32-P4 WIFI6",
+      "runtime_family": "zephyr",
+      "cpu_architecture": "riscv_32",
+      "project_status": "physical_target",
+      "sources": [
+        "boards/waveshare_esp32p4_wifi6/hardware.json",
+        "boards/waveshare_esp32p4_wifi6/docs/NEURAL_NETWORKS.md"
+      ],
+      "features": {
+        "neural": {
+          "implementation": "implemented",
+          "validation": "physical_target",
+          "backend": "Zephyr TFLM référence CPU, sous-ensemble dense float32/int8",
+          "availability": "profile_dependent",
+          "limits": "Modèles intégrés/personnalisés bornés; ORT direct et accélération non disponibles.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/hardware.json",
+            "evidence/2026-10-25/p4-neural-native.json",
+            "evidence/2026-10-25/p4-neural-browser.json"
+          ]
+        },
+        "speech": {
+          "implementation": "implemented",
+          "validation": "physical_limited",
+          "backend": "Whistle C99 int8, modèle épinglé, frontend PCM",
+          "availability": "profile_dependent",
+          "limits": "Transcription même PCM microphone et exécution GP testées; qualité variable. Wake-word séparé.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/hardware.json",
+            "evidence/2026-10-25/p4-whistle-same-pcm.json"
+          ]
+        },
+        "sensors": {
+          "implementation": "implemented",
+          "validation": "physical_limited",
+          "backend": "Zephyr I²C0, sondes d’identification explicites",
+          "availability": "not_reported",
+          "limits": "IMX219/ES8311 identifiés; TMP117 seulement en fixtures; pas un catalogue universel.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/hardware.json"
+          ]
+        },
+        "camera_capture": {
+          "implementation": "implemented",
+          "validation": "physical_limited",
+          "backend": "IMX219 CSI/ISP natif Zephyr",
+          "availability": "not_reported",
+          "limits": "Capture testée; qualité actuelle insuffisante: quatre niveaux gris, scène éclairée à reprendre. OV5647 seulement compilé.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/hardware.json",
+            "evidence/2026-10-25/p4-zephyr-camera.json"
+          ]
+        },
+        "image_processing": {
+          "implementation": "implemented",
+          "validation": "physical_limited",
+          "backend": "CPU + PPA/2D DMA P4",
+          "availability": "not_reported",
+          "limits": "Resize/gris/RGB888 et transformations PPA testés; JPEG/H264 non implémentés; aucun gain de vitesse inféré.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/hardware.json",
+            "evidence/2026-10-25/p4-ppa-whistle-regression.json"
+          ]
+        }
+      },
+      "vm": "v417",
+      "arduino_core": "planned_not_linked",
+      "hardware_tests": "P4 révision silicium 1.3 / IMX219 / ES8311; détails et limites dans le manifeste.",
+      "camera": {
+        "capture": true,
+        "receive_only": false,
+        "driver": "CSI/ISP Zephyr natif; IMX219 attaché; OV5647 compilé non attaché",
+        "sensor_formats": [
+          "IMX219 RAW10",
+          "OV5647 RAW8 (non testé matériel)"
+        ],
+        "output_formats": [
+          "RGB565",
+          "RGB888 (transformation)"
+        ],
+        "capture_resolutions": [
+          {
+            "width": 1280,
+            "height": 720,
+            "sensor": "IMX219",
+            "validation": "physical_limited"
+          },
+          {
+            "width": 800,
+            "height": 640,
+            "sensor": "OV5647",
+            "validation": "source_only"
+          }
+        ],
+        "preview_resolutions": [
+          {
+            "width": 160,
+            "height": 90,
+            "validation": "physical_target"
+          }
+        ],
+        "codecs": {
+          "JPEG": "unavailable",
+          "H264": "unavailable"
+        },
+        "quality_gate": "strict_scene_content_failed_pending_lit_scene_retest",
+        "evidence": [
+          "boards/waveshare_esp32p4_wifi6/hardware.json",
+          "evidence/2026-10-25/p4-zephyr-camera.json"
+        ]
+      },
+      "reviewed_source_hashes": {
+        "boards/waveshare_esp32p4_wifi6/hardware.json": "ee31cb5b522417a42952a90f92dda9b2864cafbad9022cbd3d945b8fdbe48666"
+      }
+    },
+    {
+      "id": "fruit-jam",
+      "label": "Adafruit Fruit Jam RP2350B",
+      "runtime_family": "zephyr",
+      "cpu_architecture": "arm_32",
+      "project_status": "physical_target",
+      "sources": [
+        "boards/adafruit_fruit_jam/hardware.json",
+        "boards/adafruit_fruit_jam/README.md"
+      ],
+      "features": {
+        "sensors": {
+          "implementation": "implemented",
+          "validation": "source_only",
+          "backend": "Pilote Zephyr I²C0 + primitives",
+          "availability": "not_reported",
+          "limits": "Compilé mais aucune transaction physique réussie; investigation SHT4x annulée, aucun nouvel accès autorisé.",
+          "evidence": [
+            "boards/adafruit_fruit_jam/hardware.json"
+          ]
+        }
+      },
+      "vm": "v417",
+      "arduino_core": "linked",
+      "hardware_tests": "Fruit Jam: USB/VM, Wi-Fi, boutons et NeoPixels testés; I²C externe non validé.",
+      "reviewed_source_hashes": {
+        "boards/adafruit_fruit_jam/hardware.json": "ce0275798cd9ab2fda016472487b4e840cb7bc809412095f0a761240d0c41446"
+      }
+    },
+    {
+      "id": "xrp-production",
+      "label": "SparkFun XRP RP2350B production",
+      "runtime_family": "zephyr",
+      "cpu_architecture": "arm_32",
+      "project_status": "physical_target",
+      "sources": [
+        "boards/sparkfun_xrp_rp2350/hardware.json",
+        "boards/sparkfun_xrp_rp2350/README.md"
+      ],
+      "features": {
+        "sensors": {
+          "implementation": "implemented",
+          "validation": "physical_limited",
+          "backend": "Zephyr + Arduino Wire / ADC",
+          "availability": "not_reported",
+          "limits": "IMU WHO_AM_I 0x6c et ADC lus; accélération, gyro/calibration et périphérique Qwiic externe non validés.",
+          "evidence": [
+            "boards/sparkfun_xrp_rp2350/hardware.json",
+            "evidence/xrp-inputs-02-2026-10-19.json"
+          ]
+        }
+      },
+      "vm": "v417",
+      "arduino_core": "linked",
+      "hardware_tests": "XRP ROB-26619 production; IMU identité/ADC. Moteurs et servos restent verrouillés.",
+      "reviewed_source_hashes": {
+        "boards/sparkfun_xrp_rp2350/hardware.json": "0b6f3e3a84e3070bf8fbb54e0a1a7246cbfb0fea31b6de063d363dfb14ee68ef"
+      }
+    },
+    {
+      "id": "unoq-mcu",
+      "label": "UNO Q — MCU",
+      "runtime_family": "zephyr",
+      "cpu_architecture": "arm_32",
+      "project_status": "external_reference",
+      "sources": [
+        "README.md",
+        "https://docs.arduino.cc/hardware/uno-q/"
+      ],
+      "features": {},
+      "vm": "référence externe, pas validée dans ce dépôt",
+      "arduino_core": "external_reference",
+      "hardware_tests": "STM32U585 Cortex-M33 selon Arduino; tests du projet de référence non transférés à cette matrice.",
+      "reviewed_source_hashes": {}
+    },
+    {
+      "id": "unoq-mpu",
+      "label": "UNO Q — MPU",
+      "runtime_family": "linux",
+      "cpu_architecture": "arm_64",
+      "project_status": "external_reference",
+      "sources": [
+        "README.md",
+        "https://docs.arduino.cc/hardware/uno-q/"
+      ],
+      "features": {},
+      "vm": "aucune installation SmallVM de ce dépôt validée sur ce MPU",
+      "arduino_core": "not_applicable",
+      "hardware_tests": "QRB2210 Cortex-A53/Linux selon Arduino; capacité matérielle ne prouve aucun backend MicroBlocks.",
+      "reviewed_source_hashes": {}
+    },
+    {
+      "id": "raspberry-pi5",
+      "label": "Raspberry Pi 5",
+      "runtime_family": "linux",
+      "cpu_architecture": "arm_64",
+      "project_status": "physical_target",
+      "sources": [
+        "linux/arm64/hardware.json",
+        "linux/extensions/README.md",
+        "evidence/2026-11-02/pi5-installer/README.md"
+      ],
+      "features": {
+        "neural": {
+          "implementation": "planned",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "Backend/modèle Linux à choisir et intégrer; rien n’est installé ou validé par Blinka.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/docs/NEURAL_NETWORKS.md"
+          ]
+        },
+        "speech": {
+          "implementation": "planned",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "Port/backend STT Linux demandé; aucune intégration Whistle validée sur le Pi.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/docs/NEURAL_NETWORKS.md"
+          ]
+        },
+        "sensors": {
+          "implementation": "implemented",
+          "validation": "software_only",
+          "backend": "Service Python partagé + exemple Blinka/SHT4x",
+          "availability": "disabled",
+          "limits": "Blinka10.1.0 et détection Pi5 validés; capteur, driver SHT4x et bus I²C non activés/testés.",
+          "evidence": [
+            "linux/extensions/README.md",
+            "evidence/2026-11-02/pi5-installer/existing-service-blinka.json"
+          ]
+        },
+        "oled_i2c": {
+          "implementation": "planned",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "Aucun pilote/bloc OLED intégré validé; contrôleur, taille, adresse et bus à choisir.",
+          "evidence": [
+            "linux/extensions/README.md"
+          ]
+        },
+        "mqtt": {
+          "implementation": "implemented",
+          "validation": "simulation",
+          "backend": "Plugin Python Paho 2.x",
+          "availability": "disabled",
+          "limits": "Fixtures API seulement; broker réel, TLS et matériel non testés. Plugin désactivé.",
+          "evidence": [
+            "linux/extensions/README.md",
+            "tests/test_python_mqtt.py"
+          ]
+        },
+        "sqlite": {
+          "implementation": "implemented",
+          "validation": "physical_target",
+          "backend": "Python sqlite3 via service/VM et blocs partagés",
+          "availability": "enabled",
+          "limits": "Éditeur réel, paramètres liés, persistance et sélection Blinka du worker testés sur Pi5.",
+          "evidence": [
+            "linux/extensions/README.md",
+            "evidence/2026-11-02/pi5-installer/existing-service-e2e.json"
+          ]
+        },
+        "camera_capture": {
+          "implementation": "unavailable",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "Le port SmallVM Linux ne fournit pas la capture caméra; aucun pilote caméra n’a été commissionné.",
+          "evidence": [
+            "linux/arm64/hardware.json"
+          ]
+        },
+        "image_processing": {
+          "implementation": "planned",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "API/backends image Linux à intégrer; aucun traitement validé sur le Pi par cette installation.",
+          "evidence": [
+            "linux/arm64/hardware.json"
+          ]
+        }
+      },
+      "vm": "v417 LP64",
+      "arduino_core": "not_applicable",
+      "hardware_tests": "Pi5 Debian13.4 AArch64; programme/SQLite/HTTP/WS et Blinka logiciel. Aucun capteur ni caméra testé.",
+      "camera": {
+        "capture": false,
+        "receive_only": false,
+        "driver": null,
+        "sensor_formats": null,
+        "output_formats": null,
+        "capture_resolutions": null,
+        "preview_resolutions": null,
+        "codecs": null,
+        "quality_gate": "not_tested",
+        "evidence": [
+          "linux/arm64/hardware.json"
+        ]
+      },
+      "reviewed_source_hashes": {
+        "linux/arm64/hardware.json": "843965e68407f0d44b3de346749727dce279700930b70442cbc6bd935d83961e"
+      }
+    },
+    {
+      "id": "microduck",
+      "label": "MicroDuck RK3566",
+      "runtime_family": "linux",
+      "cpu_architecture": "arm_64",
+      "project_status": "adapter_simulation",
+      "sources": [
+        "docs/PI5_MICRODUCK_STATUS.md",
+        "docs/MICRODUCK_SERVICE_CAPABILITIES.md",
+        "evidence/2026-11-02/microduck-uart2-constraint.md"
+      ],
+      "features": {
+        "neural": {
+          "implementation": "planned",
+          "validation": "not_tested",
+          "backend": "Adaptation éventuelle du service politique amont ORT; pas un moteur NN générique exposé",
+          "availability": "not_reported",
+          "limits": "La recherche du dépôt décrit ORT amont; aucune exécution NN MicroBlocks sur le robot n’est validée.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/docs/NEURAL_NETWORKS.md"
+          ]
+        },
+        "sensors": {
+          "implementation": "implemented",
+          "validation": "simulation",
+          "backend": "Interfaces robotd/tofd/padd et adaptateurs Unix typés",
+          "availability": "commissioning_required",
+          "limits": "Tests avec services simulés sur Pi; pas un test capteur MicroDuck. Aucun mapping Blinka Radxa forcé: UART2 sert aux moteurs.",
+          "evidence": [
+            "docs/MICRODUCK_SERVICE_CAPABILITIES.md",
+            "evidence/2026-11-02/microduck-uart2-constraint.md"
+          ]
+        },
+        "oled_i2c": {
+          "implementation": "planned",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "Pas de pilote OLED MicroDuck validé; utiliser une interface périphérique robot appropriée, jamais un mapping GPIO Radxa deviné.",
+          "evidence": [
+            "evidence/2026-11-02/microduck-uart2-constraint.md"
+          ]
+        },
+        "mqtt": {
+          "implementation": "implemented",
+          "validation": "simulation",
+          "backend": "Plugin Python partagé; installation robot non validée",
+          "availability": "disabled",
+          "limits": "Tests API génériques seulement; pas de broker réel ni de déploiement robot.",
+          "evidence": [
+            "linux/extensions/README.md",
+            "tests/test_python_mqtt.py"
+          ]
+        },
+        "sqlite": {
+          "implementation": "implemented",
+          "validation": "host_ci",
+          "backend": "Plugin Python partagé; installation robot non validée",
+          "availability": "not_reported",
+          "limits": "Code/service testé sur Linux et Pi; persistance sur le MicroDuck physique non validée.",
+          "evidence": [
+            "linux/extensions/README.md",
+            "tests/test_python_extensions.py"
+          ]
+        },
+        "camera_capture": {
+          "implementation": "partial",
+          "validation": "simulation",
+          "backend": "Observateur navigateur receive-only, protocole mediad/WebRTC",
+          "availability": "commissioning_required",
+          "limits": "Signalisation/pistes/callbacks simulés uniquement; aucune capture native, vraie vidéo, résolution ou décodage caméra validé.",
+          "evidence": [
+            "linux/microduck/CAMERA.md",
+            "linux/microduck/CAMERA_VIEWER.md"
+          ]
+        },
+        "image_processing": {
+          "implementation": "planned",
+          "validation": "not_tested",
+          "backend": null,
+          "availability": "not_reported",
+          "limits": "Orientation/métadonnées du viewer ne constituent pas un traitement d’image; pixels/format/résolution non validés.",
+          "evidence": [
+            "linux/microduck/CAMERA_VIEWER.md"
+          ]
+        }
+      },
+      "vm": "adaptateur LP64; déploiement matériel robot non validé",
+      "arduino_core": "not_applicable",
+      "hardware_tests": "Tests de services simulés exécutés sur Pi, distincts du MicroDuck. Réservation UART2 rapportée par le test opérateur.",
+      "camera": {
+        "capture": false,
+        "receive_only": true,
+        "driver": "mediad/GStreamer amont; adaptateur navigateur de réception simulé",
+        "sensor_formats": null,
+        "output_formats": null,
+        "capture_resolutions": null,
+        "preview_resolutions": null,
+        "codecs": null,
+        "quality_gate": "physical_video_and_decode_not_tested",
+        "evidence": [
+          "linux/microduck/CAMERA.md",
+          "linux/microduck/CAMERA_VIEWER.md"
+        ]
+      },
+      "reviewed_source_hashes": {}
+    },
+    {
+      "id": "linux-x86-64",
+      "label": "Linux x86-64 — hôte CI",
+      "runtime_family": "linux",
+      "cpu_architecture": "x86_64",
+      "project_status": "host_ci",
+      "sources": [
+        ".github/workflows/linux-arm64.yml",
+        ".github/workflows/python-extensions.yml",
+        "evidence/2026-11-02/pi5-installer/ci-9612848-complete.json"
+      ],
+      "features": {
+        "mqtt": {
+          "implementation": "implemented",
+          "validation": "simulation",
+          "backend": "Plugin Python partagé Paho",
+          "availability": "not_reported",
+          "limits": "API testée avec fakes; aucun broker réel ni installateur dédié.",
+          "evidence": [
+            "linux/extensions/README.md",
+            "tests/test_python_mqtt.py"
+          ]
+        },
+        "sqlite": {
+          "implementation": "implemented",
+          "validation": "host_ci",
+          "backend": "Python sqlite3 + VM native x86-64 en CI",
+          "availability": "not_reported",
+          "limits": "Vrai bytecode et SQLite testés sur hôte CI; aucune carte/périphérique x86 physique validé.",
+          "evidence": [
+            ".github/workflows/python-extensions.yml"
+          ]
+        }
+      },
+      "vm": "v417 LP64 natif en CI",
+      "arduino_core": "not_applicable",
+      "hardware_tests": "Hôte GitHub x86-64; tests logiciels natifs, aucune validation GPIO/Blinka/caméra. Installateur Pi5 non applicable.",
+      "reviewed_source_hashes": {}
+    },
+    {
+      "id": "linux-arm32",
+      "label": "Linux ARM32 — cible souhaitée",
+      "runtime_family": "linux",
+      "cpu_architecture": "arm_32",
+      "project_status": "planned_target",
+      "sources": [
+        "docs/LINUX_ARM64_SMALLVM_PORT.md",
+        "linux/arm64/SPEC.md"
+      ],
+      "features": {},
+      "vm": "port/intégration ARM32 non validés dans ce dépôt",
+      "arduino_core": "not_applicable",
+      "hardware_tests": "Aucun build/release/installateur ou test matériel ARM32 de ce port. LP64 ARM64 ne vaut pas validation ARM32.",
+      "reviewed_source_hashes": {}
+    }
+  ]
+}

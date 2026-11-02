@@ -1,4 +1,4 @@
-# AGENTS.md — development principles
+# AGENTS.md â€” development principles
 
 Goal: portable MicroBlocks SmallVM + Arduino API on Zephyr, with hardware
 capabilities reflected honestly in the IDE. The first port is Waveshare
@@ -23,6 +23,36 @@ ESP32-S3-RLCD-4.2; the independently maintained UNO Q port is a reference.
 5. Never claim a device works based only on Devicetree, static tests or source.
    Physical PASS needs real measurement and logs/notes under the acceptance
    matrix; don't infer absent tests.
+
+## Shared core and target adaptations
+
+- Apply this architecture to every target: keep the VM core, generic fixes,
+  domain libraries and editor behavior shared in canonical source modules.
+  Put OS/board differences behind target adapters and explicit profiles;
+  do not maintain independently evolving copies of generic code per board.
+- Generated, versioned deployment packages may contain source/build copies,
+  but changes belong in canonical sources and their shared build/packaging
+  path. A deployed version is not a new source fork.
+- Reveal/enable features from the target's declared and reported capabilities.
+  Distinguish supported, configured/enabled, available and physically validated
+  states. Use the same editor capability interface across targets, with a
+  clear unavailable reason; retain saved project blocks when a target changes.
+- Pi5 Blinka detection, dependencies, I2C wiring and pin mappings establish
+  nothing about MicroDuck or another Linux board. Validate each target adapter,
+  model, bus and pin map independently; never force a Pi/Radxa profile to make
+  an unvalidated target appear supported.
+- Keep execution family (bare metal, Zephyr, Linux), CPU architecture and
+  feature capabilities distinct. Zephyr does not imply an Arduino core is
+  linked; ARM64 tests do not establish ARM32 support; a native CI host is not
+  physical board acceptance. UNO Q MCU and MPU are separate execution targets.
+- Maintain the reviewed board-by-feature matrix in `capabilities/matrix.json`
+  and regenerate `docs/CAPABILITY_MATRIX.md`. Keep hardware prerequisites,
+  backend implementation, configuration and tests by actual hardware separate.
+  Unknown/absent validation must not be converted to available support. A
+  common block may select different target backends under one shared contract.
+- MicroDuck UART2 is motor-reserved according to the operator test report.
+  Use the appropriate robot/device interfaces; never force a Radxa Blinka map.
+- See `docs/ARCHITECTURE.md`; record current implementation gaps honestly.
 
 ## Safety and boundaries
 

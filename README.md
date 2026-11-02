@@ -75,6 +75,11 @@ pattern uses one atomic transaction; see [its exact bounds](docs/GENERIC_IO.md).
 
 ## Supported and planned boards
 
+The [board-by-feature matrix](docs/CAPABILITY_MATRIX.md) separates execution
+family, CPU, shared feature backends and evidence by hardware. Its machine-readable
+index preserves unsupported, planned, simulated and unknown states for future
+capability-aware block display.
+
 | Board | Zephyr integration | SmallVM | Arduino API | Hardware tests |
 |---|---|---|---|---|
 | [Waveshare ESP32-S3-RLCD-4.2](boards/waveshare_esp32s3_rlcd_4_2/README.md) | Pinned build and physical boot | v417 linked; interpreter harness passes | Real module compiled; library tests pending | Sensors/LCD transfer/AP association; full acceptance pending |
