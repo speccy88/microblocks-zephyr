@@ -5,8 +5,8 @@ editor with a native station-mode Wi-Fi programming bridge and touch-sized
 controls. Source and build instructions are under `ios/`. Physical iPhone
 acceptance is pending; USB-only boards such as Propeller 2 use the desktop IDE.
 
-Development is consolidated in **`main`**. The existing **`gp`** branch remains
-the legacy GP line; do not create additional development branches. The
+Development uses **`main` only**; do not create additional development
+branches. Legacy GP work is preserved in the `main` history. The
 [JavaScript editor](docs/JS_EDITOR_MIGRATION.md), native iPhone shell, mobile
 website, Linux/Pi/MicroDuck work and SFC sources share this main codebase.
 See the [integration record](docs/MAIN_CONSOLIDATION.md).

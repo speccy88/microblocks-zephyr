@@ -1,5 +1,10 @@
 # Main consolidation - 2026-11-01
 
+Updated direction (2026-11-02): the user authorized removing all seven non-main
+remote branches, including `gp`, after confirming that their commits are retained
+in `main`. Only `main` is maintained. The inventory and earlier authorization
+boundary below remain a historical record of the initial consolidation.
+
 The user requested one coherent development branch, `main`, retaining only
 `gp` as a separate legacy line. Existing branch names are retained as historical
 references; deleting them was not authorized. Future work belongs in `main`.

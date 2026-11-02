@@ -7,9 +7,9 @@ ESP32-S3-RLCD-4.2; the independently maintained UNO Q port is a reference.
 ## Working method (spec-first when change is substantial)
 
 - Work directly in `main` and keep completed work committed and pushed.
-  Do not create or use additional development branches. The only exception is
-  the existing `gp` branch, retained separately as the legacy GP version.
-  Do not delete historical branches or uncommitted work without authorization.
+  Do not create or use additional development branches, including `gp`.
+  Historical work remains in the `main` history. Preserve uncommitted work;
+  deletion of branches or local data requires explicit user authorization.
 
 1. Read `README.md`, the target board's `README.md`, `hardware.json`, and
    `docs/ROADMAP.md`. Preserve original working behavior.
