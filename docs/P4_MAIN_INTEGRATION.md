@@ -87,3 +87,19 @@ Keep Keras checkpoints, raw corpus/recordings, speaker-identifying manifests,
 camera/editor screenshots, raw build/test logs, firmware, archives, credentials
 and private HTTPS/WSS receipts outside publication. They are preserved locally;
 references to historical raw logs do not mean those private files are shipped.
+
+## Integration validation result
+
+Source commit `4c0b1125c4577c4a3fac779b33699989e6adde8f` compiled successfully for the exact native
+P4 target above, with KWS, the bilingual model, Whistle, camera and OLED code.
+The image remains local and was not flashed. Compiler warnings remain in
+external/preserved sources; successful linking is not hardware acceptance.
+
+The idle full suite ran 675 tests: 539 passed and 136 were skipped for optional
+prerequisites. All 70 SFC/P4 JavaScript tests and the native sanitizer fixtures
+passed. GP packaging produced 162 files. The worker-recovery test that failed
+with concurrent compilation passed separately and in the complete idle run.
+
+See the [public validation summary](../evidence/2026-11-02/p4-main-integration.json)
+for the exact source hashes, model/image hashes, exclusions and test boundaries.
+Raw logs and firmware remain in ignored local build storage.
