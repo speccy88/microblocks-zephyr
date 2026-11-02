@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import re
 from add_js_preview import files
+from sfc_js_assets import assets as sfc_assets, SCRIPTS as SFC_SCRIPTS
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ['fruit-jam', 'waveshare', 'esp32p4', 'propeller2', 'xrp-rp2350', 'raspberry-pi5', 'microduck', 'unoq']
@@ -19,6 +20,8 @@ def promote(site):
     before = files(site)
     manifest = json.loads((ROOT / 'dependencies/editor-js.json').read_text(encoding='utf-8'))
     hook = (ROOT / 'web/js-portal/editor-parent.js').read_bytes()
+    sfc = sfc_assets()
+    sfc_tags = '\n'.join('<script src="' + name + '?v=' + hashlib.sha256(sfc[name]).hexdigest()[:16] + '"></script>' for name in SFC_SCRIPTS) + '\n'
     inputs = []
     # Validate every input before writing. The archive is independently verified
     # by prepare_mobile_editor/add_js_preview; verify its engine again here.
@@ -34,6 +37,10 @@ def promote(site):
             raw = (folder / entry).read_text(encoding='utf-8')
             if raw.count('</head>') != 1 or 'editor-parent.js' in raw or 'gp_wasm.js' in raw:
                 raise ValueError('Unexpected JavaScript entry')
+            anchor = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
+            if raw.count(anchor) != 1:
+                raise ValueError('Review SFC JavaScript startup anchor')
+            raw = raw.replace(anchor, sfc_tags + anchor)
             inputs.append((folder / entry, raw.replace('</head>', '<script src="editor-parent.js"></script>\n</head>').encode()))
     legacy = (site / 'index.html').read_text(encoding='utf-8')
     if legacy.count('<head>') != 1 or '<base ' in legacy:
@@ -49,11 +56,22 @@ def promote(site):
     for name in PROFILES:
         folder = site / 'js-preview' / name
         (folder / 'editor-parent.js').write_bytes(hook)
+        for entry, raw in sfc.items():
+            target = folder / entry
+            if target.exists():
+                raise ValueError('SFC overlay collides with reviewed input: ' + entry)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(raw)
+        index = folder / 'files.txt'
+        if not index.exists():
+            raise ValueError('Reviewed JavaScript file index missing')
+        index.write_text('\n'.join(sorted(set(index.read_text().splitlines()) | set(sfc)))+'\n', encoding='utf-8', newline='\n')
         receipt = json.loads((folder / 'build-manifest.json').read_text())
-        for entry in ['index.html', 'microblocks.html', 'editor-parent.js']:
+        for entry in ['index.html', 'microblocks.html', 'editor-parent.js', 'files.txt', *sfc]:
             raw = (folder / entry).read_bytes()
             receipt['files'][entry] = {'bytes':len(raw), 'sha256':hashlib.sha256(raw).hexdigest()}
         receipt['main_portal_parent_hook'] = True
+        receipt['native_sfc_javascript'] = True
         (folder / 'build-manifest.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8', newline='\n')
     for name in ['index.html', 'portal.js']:
         (site / name).write_bytes((ROOT / 'web/js-portal' / name).read_bytes())
@@ -62,7 +80,7 @@ def promote(site):
     (site / 'index.html').write_text(html.replace('src="portal.js"', 'src="portal.js?v='+version+'"'), encoding='utf-8', newline='\n')
     after = files(site)
     changed = sorted(name for name, digest in before.items() if after.get(name) != digest)
-    allowed = {'index.html', 'portal.js'} | {'js-preview/' + p + '/' + n for p in PROFILES for n in ['index.html','microblocks.html','build-manifest.json']}
+    allowed = {'index.html', 'portal.js'} | {'js-preview/' + p + '/' + n for p in PROFILES for n in ['index.html','microblocks.html','build-manifest.json','files.txt']}
     if set(changed) != allowed:
         raise ValueError('Unexpected JavaScript portal assembly change')
     report = {'schema':1, 'default_editor':'javascript', 'source_commit':manifest['source_commit'],

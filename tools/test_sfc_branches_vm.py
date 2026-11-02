@@ -26,19 +26,20 @@ class COracle:
   return self.states[-1]['active']&self.visible
 
 
-def run(binary,host,reports,output):
+def run(binary,host,reports,output,compiler='gp'):
  assert not output.exists()
  root=Path(__file__).resolve().parents[1]
  spec=importlib.util.spec_from_file_location('sfc_branch_vm_support',root/'tests/test_linux_microduck_vm.py')
  support=importlib.util.module_from_spec(spec);spec.loader.exec_module(support)
- receipt={'status':'RUNNING','real_GP':True,'real_VM':True,'hardware_access':False,'browser_access':False,
+ receipt={'status':'RUNNING','real_GP':compiler=='gp','real_JS_compiler':compiler=='javascript','real_VM':True,'hardware_access':False,'browser_access':False,
           'VM_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
           'C_host_sha256':hashlib.sha256(host.read_bytes()).hexdigest(),
           'C_source_sha256':hashlib.sha256((root/'common/automation/steps.c').read_bytes()).hexdigest(),'cases':[]}
  assert receipt['C_source_sha256']=='4b36b9cce5729809eeb7bb6d694a2137a13471377ce8b47bf04f2a36ed375c23'
  def case(name,scenario,exhaust=False):
   compiled=json.loads((reports/(name+'.json')).read_text());assert compiled['status']=='PASS'
-  result=compiled['result'];plan=result['worker_plans'][0];indices=result['variables'];prefix=plan['prefix']
+  result=compiled['result'];script_ids=result.get('script_ids',[128,129]);owner=script_ids[0];heartbeat=script_ids[1] if len(script_ids)>1 else None
+  plan=result['worker_plans'][0];indices=result['variables'];prefix=plan['prefix']
   record={'name':name,'scenario':scenario,'checks':[],'states':[],'worker_count':plan['worker_count'],
           'compiler_sha256':hashlib.sha256((reports/(name+'.json')).read_bytes()).hexdigest()}
   receipt['cases'].append(record)
@@ -86,7 +87,7 @@ def run(binary,host,reports,output):
      for chunk in [240,241,242]:
       p=support.Program();loop=len(p.code)//2;p.push(10).op(33,1);offset=loop-(len(p.code)//2+1);p.op(22,offset)
       vm.upload(chunk,p.finish(),1);vm.short(3,chunk)
-     vm.short(3,129);vm.short(3,128)
+     vm.short(3,heartbeat);vm.short(3,owner)
      until(lambda:get(prefix+'status')==-1,3)
      check('capacity failure occurs before any setup action',all(get(name)==0 for name in indices if name.endswith('Entry')))
      check('capacity failure cannot fall through after the chart',get('Completed')==0)
@@ -97,7 +98,7 @@ def run(binary,host,reports,output):
      check('released task entries accept another real reporter',rt.execute(support.Program().push(12).finish(),chunk=254)==12)
     elif scenario=='immediate-reentry':
      set_values(Gate=True,Join=True,Done=True)
-     vm.short(3,129);vm.short(3,128)
+     vm.short(3,heartbeat);vm.short(3,owner)
      until(lambda:get('Completed')==2 and get(prefix+'status')==0)
      check('immediate cycles preserve persistent true guards',get('Gate') is True and get('Join') is True and get('Done') is True)
      check('all setup actions run once per immediate entry',all(get(name)==2 for name in indices if name.endswith('Entry')))
@@ -117,7 +118,7 @@ def run(binary,host,reports,output):
       settle('second branch reaches final',{'Move2':True});check('third branch still gates join',get('AfterEntry')==0)
       settle('early true join releases only after all final steps',{'Move3':True});check('join runs next setup once',get('AfterEntry')==1)
       complete(1)
-      set_values(Gate=False,Join=False,Done=False,Move1=False,Move2=False,Move3=False);oracle=COracle(host,plan);vm.short(3,128)
+      set_values(Gate=False,Join=False,Done=False,Move1=False,Move2=False,Move3=False);oracle=COracle(host,plan);vm.short(3,owner)
       settle('reentry initial');settle('reentry fork',{'Gate':True});settle('all finals wait on false join',{'Move1':True,'Move2':True,'Move3':True})
       check('false shared join blocks all ready branches',get('AfterEntry')==1)
       settle('reentry join',{'Join':True});complete(2)
@@ -135,7 +136,7 @@ def run(binary,host,reports,output):
       settle('OR merge shared transition',{'Join':True});complete(1)
       updates=dict({'Choice'+str(i):True for i in range(1,n+1)},Join=False,Done=False)
       if 'Gate' in indices:updates['Gate']=False
-      set_values(**updates);oracle=COracle(host,plan);vm.short(3,128);settle('OR reentry waiting') if 'Gate' in indices else None
+      set_values(**updates);oracle=COracle(host,plan);vm.short(3,owner);settle('OR reentry waiting') if 'Gate' in indices else None
       settle('all true chooses first',{'Gate':True} if 'Gate' in indices else {})
       check('top-to-bottom OR priority on competing true conditions',all(get('B'+str(i)+'Entry')==int(i==1)+int(chosen=='B'+str(i)) for i in range(1,n+1)))
       settle('second merge',{'Join':True});complete(2)
@@ -171,4 +172,5 @@ def run(binary,host,reports,output):
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__)
  for flag in ['binary','host','reports','output']:p.add_argument('--'+flag,type=Path,required=True)
- a=p.parse_args();run(a.binary.resolve(),a.host.resolve(),a.reports.resolve(),a.output.resolve())
+ p.add_argument('--compiler',choices=['gp','javascript'],default='gp')
+ a=p.parse_args();run(a.binary.resolve(),a.host.resolve(),a.reports.resolve(),a.output.resolve(),a.compiler)

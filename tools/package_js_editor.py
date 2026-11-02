@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 from js_editor_source import load_manifest, verified_files
+from sfc_js_assets import assets as sfc_assets, scripts as sfc_scripts
 
 ROOT = Path(__file__).resolve().parents[1]
 REDIRECT = "if (location.protocol === 'http:') { location.protocol = 'https:'; }"
@@ -45,7 +46,7 @@ def package(source, output, manifest_path=None):
     # The original entry point is retained. This generated entry allows only
     # the existing loopback bridge's HTTP origin; remote HTTP still redirects.
     html = html.replace(REDIRECT, LOCAL_REDIRECT).replace(ANCHOR,
-        '\t\t<script src="linux-compat.js"></script>\n'
+        sfc_scripts() + '\t\t<script src="linux-compat.js"></script>\n'
         '\t\t<script src="legacy-slots.js"></script>\n'
         '\t\t<script src="linux-bootstrap.js"></script>\n' + ANCHOR)
     files['index.html'] = html.encode('utf-8')
@@ -58,6 +59,7 @@ def package(source, output, manifest_path=None):
     files['THIRD_PARTY_NOTICES.md'] = (ROOT / 'web/js-editor/THIRD_PARTY_NOTICES.md').read_bytes()
     files['source-manifest.json'] = manifest_path.read_bytes()
     files['matrix-source.json'] = (ROOT / 'dependencies/unoq-matrix-gp.json').read_bytes()
+    files.update(sfc_assets())
     local = microduck_files()
     if files.keys() & local.keys():
         raise ValueError('Local library path collides with upstream')

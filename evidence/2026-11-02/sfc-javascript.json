@@ -1,0 +1,1370 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-11-02T01:16:47.665014+00:00",
+  "worktree_base_commit": "994a10b7c30f95402fc7ed41aae12ba39a42b0fa",
+  "source_sha256": {
+    "web/js-editor/sfc-core.js": "d37716b475406bfe0b4ada6f0bcb90187b5521b84c8f665c37f03f901e397577",
+    "web/js-editor/sfc-editor.js": "aa81e31667e8abe5b53dab85d5e712c8011fe485a4aa671a15b7432874a22d87",
+    "tools/sfc_js_assets.py": "4d300fd6adb9cd254461f12bc40784d97bee72fe8fe79f836a1b23a2f0fbb2d7",
+    "tools/package_mobile_editor.py": "6b39aff159281681b855490ec63b1072f7166207e3580f9f788e67bb08cd90d0",
+    "tools/package_iphone_editor.py": "7cfc9bc13d45548ac645caa3b0b28619a82eba8d84dde1354dd99f7a2373824e",
+    "tools/package_js_editor.py": "ae5dd59679d66c523e736785884c4e00b1712009fe0f06a546d2efc44b8f033f",
+    "tools/promote_js_portal.py": "5b2c5aea762b16660cd7aebc85dc250dcbd3d330d115d27c07fd3349669c9514"
+  },
+  "upstream_JS_pin": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "upstream_engine_modified": false,
+  "VM_version": 417,
+  "VM_sha256": "0183704919a80bb990561e77efef9006c8f86b8aece3c97c1f15aa39988a48b8",
+  "unchanged_C_oracle_sha256": "4b36b9cce5729809eeb7bb6d694a2137a13471377ce8b47bf04f2a36ed375c23",
+  "compiler": {
+    "status": "PASS",
+    "compiler": "genuine pinned JavaScript parser/Morphs/compiler",
+    "fixtures": [
+      {
+        "case": "and-2-repeat.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "and-2.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "and-3-deep.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "and-4.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "and-6.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "invalid-action-flow.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-action-return.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-action-stop.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-branch-end.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-capacity.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-dangling-join.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-duplicate-step.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-function-collision.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-interleave.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-join-kind.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-local-shadow.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-missing-shared.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-missing-var.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-one-branch.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-or-arity.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-private-global.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-private-library.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-role.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-task-budget.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-two-owners.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "invalid-variable-budget.ubp",
+        "expected": "FAIL",
+        "actual": "FAIL"
+      },
+      {
+        "case": "nested-and-or.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "or-3-no-common.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "or-3.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "or-6.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "serial-legacy.ubp",
+        "expected": "PASS",
+        "actual": "PASS"
+      }
+    ],
+    "additional_checks": 15,
+    "graphical": false,
+    "real_VM": false,
+    "physical_hardware": false,
+    "upstream_modified": false
+  },
+  "final_compiled_chunks_equal_real_VM_tested_chunks": true,
+  "real_VM_branches": {
+    "status": "PASS",
+    "real_JS_compiler": true,
+    "checks": 156,
+    "cases": [
+      {
+        "name": "and-3-deep",
+        "scenario": "and-deep",
+        "worker_count": 8,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: numeric gate stays false",
+          "shared step flags: numeric gate stays false",
+          "C oracle: three simultaneous branches",
+          "shared step flags: three simultaneous branches",
+          "setup sees peer already active",
+          "waiting action does not block other branch or script",
+          "C oracle: shared fork condition is not required after activation",
+          "shared step flags: shared fork condition is not required after activation",
+          "C oracle: first branch reaches final early",
+          "shared step flags: first branch reaches final early",
+          "join waits for other final steps",
+          "early final loop continues while waiting",
+          "C oracle: second branch reaches final",
+          "shared step flags: second branch reaches final",
+          "third branch still gates join",
+          "C oracle: early true join releases only after all final steps",
+          "shared step flags: early true join releases only after all final steps",
+          "join runs next setup once",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1",
+          "C oracle: reentry initial",
+          "shared step flags: reentry initial",
+          "C oracle: reentry fork",
+          "shared step flags: reentry fork",
+          "C oracle: all finals wait on false join",
+          "shared step flags: all finals wait on false join",
+          "false shared join blocks all ready branches",
+          "C oracle: reentry join",
+          "shared step flags: reentry join",
+          "C oracle: completion 2",
+          "shared step flags: completion 2",
+          "workers terminated after cycle 2",
+          "setup executes exactly once per entry across cycles"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "F1": false,
+              "B2": false,
+              "F2": false,
+              "B3": false,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "numeric gate stays false",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "F1": false,
+              "B2": false,
+              "F2": false,
+              "B3": false,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "three simultaneous branches",
+            "expected_C_mask": 42,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "F1": false,
+              "B2": true,
+              "F2": false,
+              "B3": true,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "shared fork condition is not required after activation",
+            "expected_C_mask": 42,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "F1": false,
+              "B2": true,
+              "F2": false,
+              "B3": true,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "first branch reaches final early",
+            "expected_C_mask": 44,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "F1": true,
+              "B2": true,
+              "F2": false,
+              "B3": true,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "second branch reaches final",
+            "expected_C_mask": 52,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "F1": true,
+              "B2": false,
+              "F2": true,
+              "B3": true,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "early true join releases only after all final steps",
+            "expected_C_mask": 128,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "F1": false,
+              "B2": false,
+              "F2": false,
+              "B3": false,
+              "F3": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "F1": false,
+              "B2": false,
+              "F2": false,
+              "B3": false,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "reentry initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "F1": false,
+              "B2": false,
+              "F2": false,
+              "B3": false,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "reentry fork",
+            "expected_C_mask": 42,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "F1": false,
+              "B2": true,
+              "F2": false,
+              "B3": true,
+              "F3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "all finals wait on false join",
+            "expected_C_mask": 84,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "F1": true,
+              "B2": false,
+              "F2": true,
+              "B3": false,
+              "F3": true,
+              "After": false
+            }
+          },
+          {
+            "label": "reentry join",
+            "expected_C_mask": 128,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "F1": false,
+              "B2": false,
+              "F2": false,
+              "B3": false,
+              "F3": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 2",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "F1": false,
+              "B2": false,
+              "F2": false,
+              "B3": false,
+              "F3": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "or-3",
+        "scenario": "or",
+        "worker_count": 5,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: choices wait on shared gate",
+          "shared step flags: choices wait on shared gate",
+          "C oracle: ordered alternative choice",
+          "shared step flags: ordered alternative choice",
+          "only selected alternative setup executes",
+          "C oracle: OR merge shared transition",
+          "shared step flags: OR merge shared transition",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1",
+          "C oracle: OR reentry waiting",
+          "shared step flags: OR reentry waiting",
+          "C oracle: all true chooses first",
+          "shared step flags: all true chooses first",
+          "top-to-bottom OR priority on competing true conditions",
+          "C oracle: second merge",
+          "shared step flags: second merge",
+          "C oracle: completion 2",
+          "shared step flags: completion 2",
+          "workers terminated after cycle 2"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "choices wait on shared gate",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "ordered alternative choice",
+            "expected_C_mask": 4,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": true,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "OR merge shared transition",
+            "expected_C_mask": 16,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "OR reentry waiting",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "all true chooses first",
+            "expected_C_mask": 2,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "second merge",
+            "expected_C_mask": 16,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 2",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "or-3-no-common",
+        "scenario": "or",
+        "worker_count": 5,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: choices wait on shared gate",
+          "shared step flags: choices wait on shared gate",
+          "C oracle: ordered alternative choice",
+          "shared step flags: ordered alternative choice",
+          "only selected alternative setup executes",
+          "C oracle: OR merge shared transition",
+          "shared step flags: OR merge shared transition",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1",
+          "C oracle: OR reentry waiting",
+          "shared step flags: OR reentry waiting",
+          "C oracle: all true chooses first",
+          "shared step flags: all true chooses first",
+          "top-to-bottom OR priority on competing true conditions",
+          "C oracle: second merge",
+          "shared step flags: second merge",
+          "C oracle: completion 2",
+          "shared step flags: completion 2",
+          "workers terminated after cycle 2"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "choices wait on shared gate",
+            "expected_C_mask": 4,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": true,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "ordered alternative choice",
+            "expected_C_mask": 4,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": true,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "OR merge shared transition",
+            "expected_C_mask": 16,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "OR reentry waiting",
+            "expected_C_mask": 2,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "all true chooses first",
+            "expected_C_mask": 2,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          },
+          {
+            "label": "second merge",
+            "expected_C_mask": 16,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 2",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "or-6",
+        "scenario": "or-six",
+        "worker_count": 8,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: choices wait on shared gate",
+          "shared step flags: choices wait on shared gate",
+          "C oracle: ordered alternative choice",
+          "shared step flags: ordered alternative choice",
+          "only selected alternative setup executes",
+          "C oracle: OR merge shared transition",
+          "shared step flags: OR merge shared transition",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1",
+          "C oracle: OR reentry waiting",
+          "shared step flags: OR reentry waiting",
+          "C oracle: all true chooses first",
+          "shared step flags: all true chooses first",
+          "top-to-bottom OR priority on competing true conditions",
+          "C oracle: second merge",
+          "shared step flags: second merge",
+          "C oracle: completion 2",
+          "shared step flags: completion 2",
+          "workers terminated after cycle 2"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          },
+          {
+            "label": "choices wait on shared gate",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          },
+          {
+            "label": "ordered alternative choice",
+            "expected_C_mask": 64,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": true,
+              "After": false
+            }
+          },
+          {
+            "label": "OR merge shared transition",
+            "expected_C_mask": 128,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          },
+          {
+            "label": "OR reentry waiting",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          },
+          {
+            "label": "all true chooses first",
+            "expected_C_mask": 2,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          },
+          {
+            "label": "second merge",
+            "expected_C_mask": 128,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 2",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "and-2",
+        "scenario": "and-configurable",
+        "worker_count": 4,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: configurable parallel count",
+          "shared step flags: configurable parallel count",
+          "configured branches all active and initialized",
+          "shared convergence condition gates ready branches",
+          "C oracle: shared join",
+          "shared step flags: shared join",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "After": false
+            }
+          },
+          {
+            "label": "configurable parallel count",
+            "expected_C_mask": 6,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "B2": true,
+              "After": false
+            }
+          },
+          {
+            "label": "shared join",
+            "expected_C_mask": 8,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "and-4",
+        "scenario": "and-configurable",
+        "worker_count": 6,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: configurable parallel count",
+          "shared step flags: configurable parallel count",
+          "configured branches all active and initialized",
+          "shared convergence condition gates ready branches",
+          "C oracle: shared join",
+          "shared step flags: shared join",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "After": false
+            }
+          },
+          {
+            "label": "configurable parallel count",
+            "expected_C_mask": 30,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "B2": true,
+              "B3": true,
+              "B4": true,
+              "After": false
+            }
+          },
+          {
+            "label": "shared join",
+            "expected_C_mask": 32,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "and-6",
+        "scenario": "and-configurable",
+        "worker_count": 8,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: configurable parallel count",
+          "shared step flags: configurable parallel count",
+          "configured branches all active and initialized",
+          "shared convergence condition gates ready branches",
+          "C oracle: shared join",
+          "shared step flags: shared join",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          },
+          {
+            "label": "configurable parallel count",
+            "expected_C_mask": 126,
+            "public_steps": {
+              "Source": false,
+              "B1": true,
+              "B2": true,
+              "B3": true,
+              "B4": true,
+              "B5": true,
+              "B6": true,
+              "After": false
+            }
+          },
+          {
+            "label": "shared join",
+            "expected_C_mask": 128,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "B1": false,
+              "B2": false,
+              "B3": false,
+              "B4": false,
+              "B5": false,
+              "B6": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "nested-and-or",
+        "scenario": "nested",
+        "worker_count": 7,
+        "checks": [
+          "C oracle: initial",
+          "shared step flags: initial",
+          "C oracle: outer AND with inner OR",
+          "shared step flags: outer AND with inner OR",
+          "outer join waits for nested convergence",
+          "C oracle: nested merge permits outer join",
+          "shared step flags: nested merge permits outer join",
+          "nested merge reached left terminal and final setup",
+          "C oracle: completion 1",
+          "shared step flags: completion 1",
+          "workers terminated after cycle 1"
+        ],
+        "states": [
+          {
+            "label": "initial",
+            "expected_C_mask": 1,
+            "public_steps": {
+              "Source": true,
+              "Left": false,
+              "L1": false,
+              "L2": false,
+              "LeftEnd": false,
+              "Right": false,
+              "After": false
+            }
+          },
+          {
+            "label": "outer AND with inner OR",
+            "expected_C_mask": 36,
+            "public_steps": {
+              "Source": false,
+              "Left": false,
+              "L1": true,
+              "L2": false,
+              "LeftEnd": false,
+              "Right": true,
+              "After": false
+            }
+          },
+          {
+            "label": "nested merge permits outer join",
+            "expected_C_mask": 64,
+            "public_steps": {
+              "Source": false,
+              "Left": false,
+              "L1": false,
+              "L2": false,
+              "LeftEnd": false,
+              "Right": false,
+              "After": true
+            }
+          },
+          {
+            "label": "completion 1",
+            "expected_C_mask": 0,
+            "public_steps": {
+              "Source": false,
+              "Left": false,
+              "L1": false,
+              "L2": false,
+              "LeftEnd": false,
+              "Right": false,
+              "After": false
+            }
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "and-3-deep",
+        "scenario": "pool-exhaustion",
+        "worker_count": 8,
+        "checks": [
+          "capacity failure occurs before any setup action",
+          "capacity failure cannot fall through after the chart",
+          "capacity failure clears owned running flag",
+          "actual VM reported task exhaustion",
+          "allocated workers exit after failed admission",
+          "released task entries accept another real reporter"
+        ],
+        "states": [],
+        "status": "PASS"
+      },
+      {
+        "name": "and-2-repeat",
+        "scenario": "immediate-reentry",
+        "worker_count": 4,
+        "checks": [
+          "immediate cycles preserve persistent true guards",
+          "all setup actions run once per immediate entry",
+          "all workers finish after immediate reentry",
+          "terminal completion clears all public flags"
+        ],
+        "states": [],
+        "status": "PASS"
+      }
+    ]
+  },
+  "real_VM_serial": {
+    "status": "PASS",
+    "real_JS_compiler": true,
+    "checks": [
+      "real compiler preserved native when-started chunk types",
+      "setup executes once while waiting",
+      "only current step is active",
+      "unrelated task progresses while transition waits",
+      "numeric one is not Boolean true",
+      "loop repeats during wait",
+      "live shared variable wakes the transition",
+      "transition is not auto-consumed",
+      "normal transition clears step flags",
+      "already-true transitions still execute setup once",
+      "already-true transitions skip loop",
+      "controlled stop prevents handoff",
+      "documented stop flag remains until restart",
+      "stopping the sequence preserves independent task",
+      "restart resets flags and reenters setup",
+      "no sanitizer diagnostics",
+      "compiled chunks survive process restart",
+      "reopened native program waits on fresh variable"
+    ]
+  },
+  "browser_SFC": {
+    "status": "PASS",
+    "records": [
+      {
+        "size": [
+          1280,
+          900
+        ],
+        "mobile": false,
+        "native_steps": 4,
+        "shared_variable_menu": true,
+        "source_roundtrip": true,
+        "native_palette_blocks": 7,
+        "expansion_counts": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          5
+        ],
+        "dropdown_selection_undo_redo": true,
+        "pinch_preserves_source": false
+      },
+      {
+        "size": [
+          375,
+          667
+        ],
+        "mobile": true,
+        "native_steps": 4,
+        "shared_variable_menu": true,
+        "source_roundtrip": true,
+        "native_palette_blocks": 7,
+        "expansion_counts": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          5
+        ],
+        "dropdown_selection_undo_redo": true,
+        "pinch_preserves_source": true
+      },
+      {
+        "size": [
+          667,
+          375
+        ],
+        "mobile": true,
+        "native_steps": 4,
+        "shared_variable_menu": true,
+        "source_roundtrip": true,
+        "native_palette_blocks": 7,
+        "expansion_counts": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          5
+        ],
+        "dropdown_selection_undo_redo": true,
+        "pinch_preserves_source": true
+      },
+      {
+        "size": [
+          430,
+          932
+        ],
+        "mobile": true,
+        "native_steps": 4,
+        "shared_variable_menu": true,
+        "source_roundtrip": true,
+        "native_palette_blocks": 7,
+        "expansion_counts": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          5
+        ],
+        "dropdown_selection_undo_redo": true,
+        "pinch_preserves_source": true
+      },
+      {
+        "size": [
+          932,
+          430
+        ],
+        "mobile": true,
+        "native_steps": 4,
+        "shared_variable_menu": true,
+        "source_roundtrip": true,
+        "native_palette_blocks": 7,
+        "expansion_counts": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          5
+        ],
+        "dropdown_selection_undo_redo": true,
+        "pinch_preserves_source": true
+      }
+    ],
+    "page_errors": [],
+    "physical_iphone": false
+  },
+  "browser_real_VM": {
+    "status": "PASS",
+    "records": [
+      {
+        "actual_compiler": true,
+        "actual_VM": 417,
+        "browser_WebSocket": true,
+        "live_parallel_step_colors": true,
+        "owner_stop_clears_public_flags": true,
+        "independent_task_continues": true,
+        "reentry": true,
+        "edited_worker_uploaded_and_executed": true,
+        "disconnect_clears_live": true,
+        "physical_iphone": false,
+        "physical_board": false
+      }
+    ],
+    "page_errors": [],
+    "physical_iphone": false
+  },
+  "touch_sizes": [
+    [
+      375,
+      667
+    ],
+    [
+      667,
+      375
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      932,
+      430
+    ]
+  ],
+  "touch_page_errors": [],
+  "usability_sizes": [
+    [
+      375,
+      667
+    ],
+    [
+      667,
+      375
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      932,
+      430
+    ]
+  ],
+  "usability_page_errors": [],
+  "physical_iPhone": false,
+  "physical_board": false,
+  "legacy_GP_branch_modified": false,
+  "network_security_changed": false,
+  "limitations": [
+    "Top-level charts have live coloring; inline serial functions compile without live coloring.",
+    "Branch charts require cooperative returning actions and respect bounded task, variable and transfer budgets.",
+    "Individual VM variable reads are not an atomic snapshot.",
+    "Connection support is unchanged; Pi bridge remains loopback-only.",
+    "CI and deployment results are recorded separately for the pushed main commit."
+  ]
+}

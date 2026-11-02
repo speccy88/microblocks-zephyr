@@ -17,7 +17,7 @@ import tempfile
 import time
 
 
-def run(binary, compiled, output):
+def run(binary, compiled, output, compiler='gp'):
     assert platform.system() == 'Linux'
     assert not output.exists(), 'Inspect existing evidence before a new run'
     root = Path(__file__).resolve().parents[1]
@@ -28,7 +28,8 @@ def run(binary, compiled, output):
     assert report['status'] == 'PASS' and report['result']['save_load_equal']
     result = report['result']
     indices = result['variables']
-    receipt = {'status':'RUNNING', 'real_VM':True,'real_GP_compiler':True,
+    owner, heartbeat = result.get('script_ids', [128, 129])[:2]
+    receipt = {'status':'RUNNING', 'real_VM':True,'real_GP_compiler':compiler=='gp','real_JS_compiler':compiler=='javascript',
                'hardware_access':False,'browser_access':False,
                'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
                'compiler_report_sha256':hashlib.sha256(compiled.read_bytes()).hexdigest(),
@@ -90,12 +91,12 @@ def run(binary, compiled, output):
             check('normal transition clears step flags',done['Step1'] is False and done['Step2'] is False)
             def loop_counts():return tuple(get(n) for n in ['Loops1','Loops2'] if n in indices)
             loops=loop_counts()
-            vm.short(3,128);until(lambda:get('Completed')==2)
+            vm.short(3,owner);until(lambda:get('Completed')==2)
             check('already-true transitions still execute setup once',get('Entries1')==2 and get('Entries2')==2)
             check('already-true transitions skip loop',loops==loop_counts())
             set_value('Transition1',False);set_value('Transition2',False)
-            vm.short(3,128);until(lambda:get('Step1') is True)
-            vm.short(4,128);vm.ping()
+            vm.short(3,owner);until(lambda:get('Step1') is True)
+            vm.short(4,owner);vm.ping()
             stop=snapshot('explicit-task-stop')
             vm.pump(.02)
             check('controlled stop prevents handoff',get('Completed')==2 and get('Entries2')==2)
@@ -103,9 +104,9 @@ def run(binary, compiled, output):
             old_heartbeat=get('Heartbeat');vm.pump(.02)
             check('stopping the sequence preserves independent task',get('Heartbeat')>old_heartbeat)
             set_value('Transition1',True);set_value('Transition2',True)
-            vm.short(3,128);until(lambda:get('Completed')==3)
+            vm.short(3,owner);until(lambda:get('Completed')==3)
             check('restart resets flags and reenters setup',get('Step1') is False and get('Step2') is False and get('Entries1')==4 and get('Entries2')==3)
-            vm.short(4,129);vm.ping()
+            vm.short(4,heartbeat);vm.ping()
             runtime.stop();runtime=None
             text=(data/'runtime.log').read_text()
             check('no sanitizer diagnostics',not any(t in text for t in ['AddressSanitizer','runtime error:','LeakSanitizer']))
@@ -115,7 +116,7 @@ def run(binary, compiled, output):
             # are VM defaults, proving a fresh reread rather than stale arguments.
             until(lambda:get('Step1') is True)
             check('reopened native program waits on fresh variable',get('Entries1')==1 and get('Completed')==0)
-            vm.short(4,128);vm.ping()
+            vm.short(4,owner);vm.ping()
             receipt['status']='PASS'
         except BaseException as error:
             receipt.update(status='FAIL',error=type(error).__name__+': '+str(error))
@@ -132,6 +133,7 @@ if __name__=='__main__':
     parser.add_argument('--binary',type=Path,required=True)
     parser.add_argument('--compiled',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--compiler',choices=['gp','javascript'],default='gp')
     args=parser.parse_args()
-    result=run(args.binary.resolve(),args.compiled.resolve(),args.output.resolve())
+    result=run(args.binary.resolve(),args.compiled.resolve(),args.output.resolve(),args.compiler)
     print(json.dumps({'status':result['status'],'checks':len(result['checks'])}))

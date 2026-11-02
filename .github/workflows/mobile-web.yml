@@ -37,6 +37,8 @@ jobs:
           python tools/validate.py
           node --test tests/mobile-browser.test.cjs
           node tests/js-preview-compile.test.cjs build-artifacts/site
+      - name: Compile native SFC with the actual pinned JavaScript compiler
+        run: node tools/test_sfc_js_compiler.cjs build-artifacts/site/js-preview/waveshare build-artifacts/sfc-js-compiler
       - name: Verify all three optional board asset packages
         run: |
           python tools/check_mobile_board_packages.py --source build-artifacts/ide-source --mobile-source build-artifacts/site/js-preview/waveshare --output build-artifacts/board-packages --fetch
@@ -51,6 +53,7 @@ jobs:
           python tests/mobile_startup_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/startup --browser /usr/bin/google-chrome
           python tests/mobile_usability_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/usability --browser /usr/bin/google-chrome
           python tests/mobile_board_smoke.py --packages build-artifacts/board-packages --output build-artifacts/board-browser --browser /usr/bin/google-chrome
+          python tests/sfc_js_browser.py --site build-artifacts/site --output build-artifacts/sfc-js-browser --browser /usr/bin/google-chrome
       - name: Execute browser programming against real SmallVM
         run: |
           git init build-artifacts/upstream
@@ -58,7 +61,11 @@ jobs:
           git -C build-artifacts/upstream fetch --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b
           python -m pip install -r linux/arm64/bridge-requirements.txt
           python tools/prepare_mobile_vm_test.py --linux-source . --upstream build-artifacts/upstream --output build-artifacts/vm --sanitize --test
+          python tools/build_sfc_native_fixture.py
+          python tools/test_sfc_branches_vm.py --binary build-artifacts/vm/smallvm --host build-artifacts/sfc-native/host --reports build-artifacts/sfc-js-compiler --output build-artifacts/sfc-js-branches-vm.json --compiler javascript
+          python tools/test_sfc_native_vm.py --binary build-artifacts/vm/smallvm --compiled build-artifacts/sfc-js-compiler/serial-legacy.json --output build-artifacts/sfc-js-serial-vm.json --compiler javascript
           python tests/mobile_vm_browser.py --linux-source . --binary build-artifacts/vm/smallvm --editor build-artifacts/board-packages/rlcd/http-root --output build-artifacts/real-vm --browser /usr/bin/google-chrome
+          python tools/test_sfc_js_browser_vm.py --binary build-artifacts/vm/smallvm --editor build-artifacts/board-packages/rlcd/http-root --output build-artifacts/sfc-js-browser-vm --browser /usr/bin/google-chrome
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -74,6 +81,11 @@ jobs:
             build-artifacts/board-browser
             build-artifacts/vm/build-manifest.json
             build-artifacts/board-packages/summary.json
+            build-artifacts/sfc-js-compiler
+            build-artifacts/sfc-js-browser
+            build-artifacts/sfc-js-branches-vm.json
+            build-artifacts/sfc-js-serial-vm.json
+            build-artifacts/sfc-js-browser-vm
       - uses: actions/upload-artifact@v4
         with:
           name: mobile-web-reviewed-site

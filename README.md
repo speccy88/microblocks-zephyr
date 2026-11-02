@@ -75,10 +75,11 @@ pattern uses one atomic transaction; see [its exact bounds](docs/GENERIC_IO.md).
 
 ## Native SFC editor
 
-The opt-in [native SFC editor](docs/SFC.md) adds MicroBlocks-style setup/loop
-steps, shared-variable transitions and configurable OR/AND branches to GP 2.5.8.
-It builds as a disconnected review bundle with its own compiler/resource tests;
-it does not change the normal portal or deploy firmware.
+The active [JavaScript SFC editor](docs/SFC_JAVASCRIPT.md) provides native
+setup/loop steps, shared-variable transitions, live active-step colors and
+configurable OR/AND branches in the web and mobile editors. It compiles ordinary
+SmallVM bytecode and includes examples under `Examples/SFC`. The retained
+[GP SFC implementation](docs/SFC.md) supplies independent reference tests.
 
 ## Native Propeller 2
 

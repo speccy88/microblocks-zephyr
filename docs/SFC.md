@@ -1,4 +1,9 @@
-# Native SFC blocks for the GP editor
+# Native SFC blocks
+
+The active JavaScript web/mobile implementation is documented in
+[SFC_JAVASCRIPT.md](SFC_JAVASCRIPT.md). It uses the actual upstream JS compiler
+and normal SmallVM bytecode. The remainder of this page documents the retained
+GP implementation and its reference tests.
 
 This opt-in GP 2.5.8 editor adds native MicroBlocks sequence, step, transition,
 alternative OR and simultaneous AND blocks. It is independent of the JavaScript

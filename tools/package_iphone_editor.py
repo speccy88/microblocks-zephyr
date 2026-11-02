@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 from js_editor_source import load_manifest, verified_files
 from package_js_editor import ANCHOR, REDIRECT
+from sfc_js_assets import assets as sfc_assets, scripts as sfc_scripts
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -22,7 +23,7 @@ def package(source, output):
     # production networking is native, with no remote HTTP redirect relaxation.
     redirect = "if (location.protocol === 'http:' && location.hostname !== '127.0.0.1') { location.protocol = 'https:'; }"
     html = html.replace(REDIRECT, redirect).replace(ANCHOR,
-        '<script src="iphone-transport.js"></script>\n' +
+        sfc_scripts() + '<script src="iphone-transport.js"></script>\n' +
         '<script src="iphone-gestures.js"></script>\n' +
         '<script src="iphone-bootstrap.js"></script>\n' + ANCHOR)
     viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
@@ -47,6 +48,7 @@ def package(source, output):
             raise ValueError('iPhone overlay collides with upstream: ' + destination)
         files[destination] = (ROOT / source_path).read_bytes()
     files['source-manifest.json'] = manifest_path.read_bytes()
+    files.update(sfc_assets())
     files['files.txt'] = ('\n'.join(sorted(files)) + '\n').encode()
     receipt = {'schema': 1, 'profile': 'experimental-iphone-wifi',
                'source_commit': manifest['source_commit'], 'upstream_engine_modified': False,
