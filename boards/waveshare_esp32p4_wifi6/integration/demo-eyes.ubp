@@ -1,0 +1,15 @@
+module main
+script 20 30 {
+    whenStarted
+    eyesStart 'SSD1306' 64 60
+    waitMillis 1000
+    if ('[eyes:ready]') {
+        '[pose:follow]' true true
+        faceAttention true 'sleep and look around'
+        '[pose:cameraEnabled]' false
+        forever {
+            say (join 'SIMULATED: ' ('[pose:attentionStatus]'))
+            waitMillis 250
+        }
+    }
+}

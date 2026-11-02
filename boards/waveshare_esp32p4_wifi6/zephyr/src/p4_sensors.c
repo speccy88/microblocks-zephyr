@@ -18,6 +18,18 @@ static const struct device *const bus = DEVICE_DT_GET(DT_NODELABEL(i2c0));
 struct sensor_data { unsigned id, address, bits; struct video_format fmt;
     struct video_format_cap caps[2]; bool configured, streaming; };
 static struct sensor_data sensor;
+K_MUTEX_DEFINE(settings_lock);
+static p4_camera_settings manual={CONFIG_P4_IMX219_EXPOSURE_LINES,CONFIG_P4_IMX219_ANALOG_GAIN,CONFIG_P4_IMX219_DIGITAL_GAIN};
+bool p4_sensor_settings(p4_camera_settings *out){
+    k_mutex_lock(&settings_lock,K_FOREVER);*out=manual;k_mutex_unlock(&settings_lock);
+    return sensor.id==0x0219;
+}
+int p4_sensor_settings_set(const p4_camera_settings *s){
+    if(sensor.id!=0x0219)return -ENOTSUP;
+    if(!s||s->exposure<4||s->exposure>1156||s->analog>232||s->digital<256||s->digital>4095)return -EINVAL;
+    k_mutex_lock(&settings_lock,K_FOREVER);manual=*s;k_mutex_unlock(&settings_lock);return 0;
+}
+void p4_sensor_settings_reset(void){p4_camera_settings defaults={800,128,256};(void)p4_sensor_settings_set(&defaults);}
 #define TRY(expr) do { int e_ = (expr); if (e_) return e_; } while (0)
 static int rd16(unsigned addr, unsigned reg, unsigned *value)
 {
@@ -43,6 +55,7 @@ static int wr16(unsigned reg, unsigned value)
 { TRY(wr8(reg, value >> 8)); return wr8(reg + 1, value); }
 static int configure_imx(void)
 {
+    p4_camera_settings s;p4_sensor_settings(&s);
     TRY(wr8(0x0103, 1)); k_sleep(K_MSEC(10)); TRY(wr8(0x0100, 0));
     const uint16_t vendor[][2] = {
         {0x30eb,0x05},{0x30eb,0x0c},{0x300a,0xff},{0x300b,0xff},
@@ -62,8 +75,8 @@ static int configure_imx(void)
     TRY(wr16(0x0168,872)); TRY(wr16(0x016a,1591));
     TRY(wr16(0x016c,1280)); TRY(wr16(0x016e,720));
     TRY(wr16(0x018c,0x0a0a)); TRY(wr16(0x0624,1280)); TRY(wr16(0x0626,720));
-    TRY(wr16(0x0600,0)); /* real imaging, pattern OFF */
-    TRY(wr16(0x0158,256)); TRY(wr8(0x0157,128)); return wr16(0x015a,800);
+    TRY(wr16(0x0600,CONFIG_P4_IMX219_TEST_PATTERN)); /* production default: real imaging */
+    TRY(wr16(0x0158,s.digital));TRY(wr8(0x0157,s.analog));return wr16(0x015a,s.exposure);
 }
 #include "ov5647_mode.h"
 static int configure_ov(void)

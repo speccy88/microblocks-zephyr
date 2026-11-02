@@ -30,8 +30,9 @@
         "tx": 37,
         "rx": 38
       },
-      "smallvm": "physical-program-edit-run-reconnect-pass",
-      "physical_tested": true
+      "smallvm": "physical program/edit/CRC/fragmentation/reconnect pass at 115200/460800/921600; leased fast mode restores baseline after close/crash",
+      "physical_tested": true,
+      "limits": "Boot and direct-browser clients use 115200. USB-only host bridge negotiates faster rates; confirm 1.8s, active lease 5s. Hosted network profile rejects negotiation."
     },
     {
       "id": "imx219_csi_isp",
@@ -42,7 +43,7 @@
       },
       "smallvm": "physical-1280x720-RGB565-capture-transform-export-pass",
       "physical_tested": true,
-      "current_quality_limit": "post-STT frame 10..16 grayscale, four levels; strict scene-content gate FAIL pending lit-scene retest"
+      "current_quality_limit": "Pi Camera v2.1 confirmed. Original 800/128/256 tuple mean brightness 14.72/255; runtime 1156/232/512 mean 77.68/255, still noisy. User tuning available; live face/arm motion recognition unverified."
     },
     {
       "id": "ov5647_csi_isp",
@@ -177,6 +178,77 @@
       "pins": {},
       "smallvm": "physical builtin/custom golden, strict rejection, async lifecycle/cancel and real GP catalog/custom file import/execution PASS; direct ORT and acceleration unavailable",
       "physical_tested": true
+    },
+    {
+      "id": "oled_robot_eyes",
+      "hardware": "External SSD1306 128x64/128x32 or SH1106 128x64, explicitly selected, 0x3c/0x3d, shared I2C0",
+      "pins": {
+        "sda": 7,
+        "scl": 8
+      },
+      "smallvm": "native-build/sanitizers-pass; 0x3c ACK; SSD1306-profile alignment user-confirmed; real GP animation and Stop All tested",
+      "physical_tested": true,
+      "limits": "Explicit initialization, max 8 fps at existing 100 kHz bus, Stop All freezes last frame; no controller autodetection",
+      "document": "docs/ROBOT_EYES_POSE.md",
+      "latest_physical_check": {
+        "evidence": "evidence/2026-10-29/robot-eyes-alignment-native.json",
+        "result": "User confirmed complete border, centered cross and working OLED; real GP eye program also executed",
+        "display_pattern_sent": true,
+        "controller_identity": "unknown; SSD1306 profile selected"
+      }
+    },
+    {
+      "id": "whistle_voice_eyes",
+      "hardware": "Native P4 ES8311 -> Whistle C99 d4 -> native RoboEyes on shared I2C0",
+      "pins": {
+        "sda": 7,
+        "scl": 8
+      },
+      "smallvm": "model-enabled eyes build/hash-flash PASS; 21/21 actual GP command/state cases PASS; native mic happy recognised in 20.436s; final complete GP speech-to-happy plus concurrent-call/Pause test 2/2 PASS, 26.527s transcription-to-apply, zero audio handles",
+      "physical_tested": true,
+      "limits": "Explicit Listen once (500ms settling plus 2.5s speech) or opt-in repeat; microphone off during inference; manual timing recommended. Only controlled speaker happy acoustically tested, not all commands/user voice. No wake-word or VAD trigger. Unknown/cancel/error keeps gaze and mood; face/idle control disabled in voice example.",
+      "document": "docs/VOICE_EYES.md",
+      "evidence": "evidence/2026-10-29/voice-eyes-gp-tests.json"
+    },
+    {
+      "id": "person_pose_eyes",
+      "hardware": "Computer Ultralytics YOLO COCO-17 -> existing USB transport -> P4 RoboEyes",
+      "pins": {},
+      "smallvm": "host YOLO public-fixture inference and gesture/wire tests pass; native shared-camera capture ownership tested; simulated engagement exercised real USB/OLED policy",
+      "physical_tested": false,
+      "limits": "P4 camera -> local computer YOLO/MediaPipe, not onboard inference. Gray4 192x108 over USB; fast serial improves transfer, but live model frame rate and person/arm-motion accuracy are unverified. Pose TTL 1s, face TTL 2s.",
+      "document": "docs/ROBOT_EYES_POSE.md"
+    },
+    {
+      "id": "face_attention",
+      "hardware": "Local MediaPipe face bundle -> USB -> native RoboEyes",
+      "pins": {},
+      "smallvm": "face wire/policy sanitizer tests, public portrait detected, blank rejected; real USB simulated idle/sleep/wake/follow/return cycle PASS",
+      "physical_tested": false,
+      "simulated_input_physical_tested": true,
+      "limits": "Live face following and eyelid/direction accuracy unverified. Approximate head/eye direction, not calibrated gaze; brief blinks require faster acquisition.",
+      "document": "docs/ROBOT_EYES_POSE.md"
+    },
+    {
+      "id": "camera_manual_tuning",
+      "hardware": "Pi Camera v2.1 IMX219 native Zephyr I2C/video",
+      "pins": {
+        "sda": 7,
+        "scl": 8
+      },
+      "smallvm": "physical tuple/size rejection, capture up to 1280x720, ownership/reset PASS; graphical preset/custom resolution and timing PASS; GP previews 320x180 4.08s, 160x90 1.22s at 921600",
+      "physical_tested": true,
+      "limits": "Exposure 4..1156 lines, analogue 0..232, digital 256..4095. RAM only; reset/reboot 800/128/256. Output width 16..1280, height 16..720. One owned thumbnail, size-dependent lease <=5 minutes. No AE/AWB/focus control.",
+      "document": "docs/ROBOT_EYES_POSE.md"
+    },
+    {
+      "id": "bilingual_voice_commands",
+      "hardware": "Native Zephyr dedicated TFLM reference CNN and ES8311 PCM stream",
+      "pins": {},
+      "smallvm": "trained INT8 artifacts and pinned host TFLM verified; native combined Zephyr image compiled; physical acceptance pending",
+      "physical_tested": false,
+      "limits": "Explicit opt-in listener, ten scores, one shared KWS worker; no simultaneous Okay Nabu and commands. No P4 timing/RAM/acoustic or French-Canadian accuracy claim.",
+      "document": "../../bilingual-kws/esp32p4/deployment.md"
     }
   ],
   "local_services": {
@@ -207,8 +279,8 @@
     }
   },
   "coverage_audit": {
-    "version": 3,
-    "date": "2026-10-26",
+    "version": 4,
+    "date": "2026-10-29",
     "document": "docs/HARDWARE_SUPPORT.md",
     "pcb_revision": "unverified; silicon revision is separate",
     "all_hardware_supported": false

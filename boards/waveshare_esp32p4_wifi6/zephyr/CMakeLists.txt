@@ -1,11 +1,7 @@
 # SPDX-License-Identifier: MPL-2.0
 cmake_minimum_required(VERSION 3.28)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-if(CONFIG_P4_NEURAL)
-  project(p4_microblocks LANGUAGES C CXX)
-else()
-  project(p4_microblocks LANGUAGES C)
-endif()
+project(p4_microblocks LANGUAGES C CXX)
 get_filename_component(repo "${CMAKE_CURRENT_SOURCE_DIR}/../../.." ABSOLUTE)
 execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/apply_p4_zephyr_patches.py"
   --zephyr "${ZEPHYR_BASE}" --require-applied COMMAND_ERROR_IS_FATAL ANY)
@@ -33,6 +29,17 @@ target_sources(app PRIVATE src/neural_primitives.c "${repo}/common/nn/nn_contrac
 target_sources(app PRIVATE src/discovery_backend.c src/discovery_primitives.c "${repo}/common/i2c/discovery.c")
 target_sources(app PRIVATE src/ppa_backend.c)
 
+# Actual RoboEyes with a native framebuffer facade; no ArduinoCore dependency.
+if(NOT ROBOEYES_SOURCE_DIR)
+  set(ROBOEYES_SOURCE_DIR "${repo}/build-artifacts/roboeyes")
+endif()
+execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/tools/fetch_roboeyes.py"
+  --output "${ROBOEYES_SOURCE_DIR}" --verify COMMAND_ERROR_IS_FATAL ANY)
+target_include_directories(app PRIVATE "${repo}/common/eyes" "${repo}/common/pose" "${ROBOEYES_SOURCE_DIR}/src")
+target_sources(app PRIVATE src/eyes_backend.c src/eyes_primitives.c
+  "${repo}/common/eyes/oled.c" "${repo}/common/eyes/roboeyes.cpp" "${repo}/common/pose/pose.c"
+  src/pose_camera.c src/camera_tuning.c src/serial_speed.c "${repo}/common/pose/camera_wire.c" "${repo}/common/pose/face.c" "${repo}/common/pose/serial_rate.c")
+
 # Portable JSON service; append its primitive set without changing p4:* indices.
 target_include_directories(app PRIVATE "${repo}/common/json" "${repo}/third_party/yyjson")
 target_sources(app PRIVATE "${repo}/common/json/json_service.c" "${repo}/common/json/json_primitives.c" "${repo}/third_party/yyjson/yyjson.c")
@@ -44,7 +51,21 @@ target_include_directories(app PRIVATE "${repo}/common/storage")
 target_sources(app PRIVATE "${repo}/common/storage/storage.c" "${repo}/common/storage/storage_primitives.c"
   "${repo}/common/storage/dispatcher.c" "${repo}/common/storage/wire.c"
   "${repo}/common/storage/controller.c" "${repo}/common/storage/storage_protocol.c")
-target_sources(app PRIVATE src/kws_primitives.c)
+target_sources(app PRIVATE src/kws_primitives.c src/voice_primitives.c)
+if(P4_VOICE_MODEL)
+  if(NOT P4_KWS_MODEL)
+    message(FATAL_ERROR "Voice commands share the KWS worker; also supply the pinned P4_KWS_MODEL")
+  endif()
+  set(voice_generated "${CMAKE_CURRENT_BINARY_DIR}/voice")
+  get_filename_component(voice_model_dir "${P4_VOICE_MODEL}" DIRECTORY)
+  get_filename_component(voice_model_stem "${P4_VOICE_MODEL}" NAME_WE)
+  set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${repo}/bilingual-kws/scripts/prepare_firmware.py" "${P4_VOICE_MODEL}" "${voice_model_dir}/${voice_model_stem}.json")
+  execute_process(COMMAND ${Python3_EXECUTABLE} "${repo}/bilingual-kws/scripts/prepare_firmware.py"
+    --model "${P4_VOICE_MODEL}" --output "${voice_generated}" COMMAND_ERROR_IS_FATAL ANY)
+  target_compile_definitions(app PRIVATE P4_VOICE_COMMANDS=1)
+  target_include_directories(app PRIVATE "${voice_generated}" "${repo}/bilingual-kws/esp32p4/integration")
+  target_sources(app PRIVATE "${voice_generated}/voice_assets.S" "${repo}/bilingual-kws/esp32p4/integration/decision.c")
+endif()
 if(P4_KWS_MODEL)
   if(NOT CONFIG_P4_NEURAL OR NOT P4_TFLM_SOURCE)
     message(FATAL_ERROR "KWS requires the pinned TFLM neural profile")

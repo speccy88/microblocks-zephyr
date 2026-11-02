@@ -1,0 +1,24 @@
+{
+  "engine": "Actual GP 2.5.8 compiled code on native P4 SmallVM",
+  "suite": "microphone",
+  "cases_passed": 2,
+  "cases_failed": 0,
+  "summary": "VOICE_TESTS_PASSED",
+  "eye_state": {
+    "running": true,
+    "ready": true,
+    "x": 0,
+    "y": 500,
+    "mood": 3,
+    "idle": false,
+    "autoblink": true
+  },
+  "microphone_used": true,
+  "audio_handles": 0,
+  "inference_running": false,
+  "first_command": "happy",
+  "first_phase": "\"ready\"",
+  "first_transcript_characters": 6,
+  "first_whistle_keyword": "happy",
+  "result": "PASS"
+}

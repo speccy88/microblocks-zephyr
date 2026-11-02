@@ -37,7 +37,7 @@ def patch_p4(js,data,repo):
   primitive_anchor=b"atPut primsets 'p4' (at primsets 'io')"
   if name.endswith('/MicroBlocksCompiler.gp'):
    if payload.count(primitive_anchor)!=1:raise ValueError('Changed P4 primitive mapping')
-   payload=payload.replace(primitive_anchor,primitive_anchor+b"\n\tatPut primsets 'i2cDetect' 4\n\tatPut primsets 'json' 22\n\tatPut primsets 'clock' 23\n\tatPut primsets 'steps' 24\n\tatPut primsets 'storage' 25")
+   payload=payload.replace(primitive_anchor,primitive_anchor+b"\n\tatPut primsets 'i2cDetect' 4\n\tatPut primsets 'json' 22\n\tatPut primsets 'clock' 23\n\tatPut primsets 'steps' 24\n\tatPut primsets 'storage' 25\n\tatPut primsets 'eyes' 26\n\tatPut primsets 'pose' 27")
   payload=payload.replace(b"'arithmetic' 'output'",b"'arithmetic' 'output' 'camera-pipeline'")
   audio_anchor=b"if (notNil data) { importLibraryFromString scripter data 'P4 Camera' '' }"
   if audio_anchor in payload:
@@ -46,17 +46,22 @@ def patch_p4(js,data,repo):
   if library_anchor in payload:payload=payload.replace(library_anchor,library_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/I2C_Devices.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'I2C Devices' '' }")
   kws_anchor=b"importLibraryFromString scripter data 'I2C Devices' '' }"
   if kws_anchor in payload:payload=payload.replace(kws_anchor,kws_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Wake_Word.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Wake Word' '' }")
+  voice_anchor=b"importLibraryFromString scripter data 'Wake Word' '' }"
+  if voice_anchor in payload:payload=payload.replace(voice_anchor,voice_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/P4_Voice_Commands.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Voice Commands' '' }")
   json_anchor=b"importLibraryFromString scripter data 'Wake Word' '' }"
   if json_anchor in payload:payload=payload.replace(json_anchor,json_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/JSON.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'JSON' '' }")
   automation_anchor=b"importLibraryFromString scripter data 'JSON' '' }"
   if automation_anchor in payload:payload=payload.replace(automation_anchor,automation_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/Clock_Timers.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Clock & Timers' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/Steps_Transitions.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Steps & Transitions' '' }")
   storage_anchor=b"importLibraryFromString scripter data 'Steps & Transitions' '' }"
   if storage_anchor in payload:payload=payload.replace(storage_anchor,storage_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/Storage.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Storage' '' }")
+  eyes_anchor=b"importLibraryFromString scripter data 'Storage' '' }"
+  if eyes_anchor in payload:payload=payload.replace(eyes_anchor,eyes_anchor+b"\n\t\tdata = (readEmbeddedFile 'Libraries/Robot_Eyes.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Robot Eyes' '' }\n\t\tdata = (readEmbeddedFile 'Libraries/Person_Pose.ubl')\n\t\tif (notNil data) { importLibraryFromString scripter data 'Person Pose' '' }")
   payload=payload.replace(b"'output' 'camera-pipeline'",b"'output' 'camera-pipeline' 'audio-levels' 'local-speech' 'neural-sine' 'neural-custom' 'i2c-devices' 'image-transforms'")
   payload=payload.replace(b"'i2c-devices' 'image-transforms'",b"'i2c-devices' 'image-transforms' 'wake-word-fixture'")
   payload=payload.replace(b"'image-transforms' 'wake-word-fixture'",b"'image-transforms' 'wake-word-fixture' 'json-edit'")
   payload=payload.replace(b"'wake-word-fixture' 'json-edit'",b"'wake-word-fixture' 'json-edit' 'steps-timer'")
   payload=payload.replace(b"'json-edit' 'steps-timer'",b"'json-edit' 'steps-timer' 'ram-file'")
+  payload=payload.replace(b"'steps-timer' 'ram-file'",b"'steps-timer' 'ram-file' 'robot-eyes' 'person-eyes' 'oled-address' 'face-eyes' 'demo-eyes' 'camera-tuning' 'voice-eyes'")
   if name.endswith('.gp'):payload=patch_kws(name,patch_source(name,payload,repo))
   name=name.replace('Waveshare_RLCD_4_2.ubl','P4_Camera.ubl').replace('Examples/Waveshare/','Examples/P4/')
   start=len(out);out.extend(payload);files.append(dict(filename=name,start=start,end=len(out)))
@@ -65,15 +70,20 @@ def patch_p4(js,data,repo):
  payload=(board/'P4_Neural.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Neural.ubl',start=start,end=len(out)))
  payload=(board/'I2C_Devices.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/I2C_Devices.ubl',start=start,end=len(out)))
  payload=(board/'P4_Wake_Word.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Wake_Word.ubl',start=start,end=len(out)))
+ payload=(board/'P4_Voice_Commands.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/P4_Voice_Commands.ubl',start=start,end=len(out)))
  payload=(repo/'integration/JSON.ubl').read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/JSON.ubl',start=start,end=len(out)))
  for library in ['Clock_Timers','Steps_Transitions','Storage']:
   payload=(repo/('integration/'+library+'.ubl')).read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/'+library+'.ubl',start=start,end=len(out)))
- for example in ['camera-pipeline','audio-levels','local-speech','neural-sine','neural-custom','i2c-devices','image-transforms','wake-word-fixture','json-edit','steps-timer','ram-file']:
+ for library in ['Robot_Eyes','Person_Pose']:
+  payload=(board/(library+'.ubl')).read_bytes();start=len(out);out.extend(payload);files.append(dict(filename='/Libraries/'+library+'.ubl',start=start,end=len(out)))
+ for example in ['camera-pipeline','audio-levels','local-speech','neural-sine','neural-custom','i2c-devices','image-transforms','wake-word-fixture','json-edit','steps-timer','ram-file','robot-eyes','person-eyes','oled-address','face-eyes','demo-eyes','camera-tuning','voice-eyes']:
   example_path=repo/('integration/'+example+'.ubp') if example in ['json-edit','steps-timer','ram-file'] else board/(example+'.ubp')
   payload=example_path.read_bytes()+b'\n'+(board/'P4_Camera.ubl').read_bytes()+b'\n'+(board/'P4_Audio.ubl').read_bytes()+b'\n'+(board/'P4_Speech.ubl').read_bytes()+b'\n'+(board/'P4_Neural.ubl').read_bytes()+b'\n'+(board/'I2C_Devices.ubl').read_bytes()
   payload+=b'\n'+(board/'P4_Wake_Word.ubl').read_bytes()
+  payload+=b'\n'+(board/'P4_Voice_Commands.ubl').read_bytes()
   payload+=b'\n'+(repo/'integration/JSON.ubl').read_bytes()
   for library in ['Clock_Timers','Steps_Transitions','Storage']:payload+=b'\n'+(repo/('integration/'+library+'.ubl')).read_bytes()
+  for library in ['Robot_Eyes','Person_Pose']:payload+=b'\n'+(board/(library+'.ubl')).read_bytes()
   start=len(out);out.extend(payload);files.append(dict(filename='/Examples/P4/'+example+'.ubp',start=start,end=len(out)))
  source=source[:m.start(1)]+json.dumps(dict(files=files,remote_package_size=len(out)),separators=(',',':'))+source[m.end(1):]
  source=source.replace('"/Examples","Waveshare"','"/Examples","P4"')
@@ -94,7 +104,7 @@ def adapter(repo):
     if(profile.bridge&&!profile.hosted&&(location.protocol!=='http:'||location.hostname!=='127.0.0.1'))throw Error('The USB bridge requires its own loopback editor.');
     const url=localTransport?MicroBlocksPortal.sameOriginVMWebSocket(location.origin):new URL(endpoint.value);
     if((!localTransport&&url.protocol!=='wss:')||url.username||url.password||url.hash)""")
- text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&frame[1]===217){window.MicroBlocksFilesConnection?.receive(frame);}else if(frame[0]===251&&frame[1]===216){window.P4NeuralAccept?.(frame);}else if(frame[0]===251&&(frame[1]===208||frame[1]===209)){}else if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
+ text=text.replace("if(frame[0]===251&&frame[1]===205){", "if(frame[0]===251&&frame[1]===217){window.MicroBlocksFilesConnection?.receive(frame);}else if(frame[0]===251&&frame[1]===216){window.P4NeuralAccept?.(frame);}else if(frame[0]===251&&(frame[1]===208||frame[1]===209||frame[1]===213)){}else if(frame[0]===251&&(frame[1]===206||frame[1]===207)){window.P4CameraAccept?.(frame);}else if(frame[0]===251&&frame[1]===205){")
  # P4 controller lifecycle: files share the existing transport, never a second
  # port. Old socket callbacks cannot invalidate or feed a replacement link.
  changes={
@@ -131,6 +141,7 @@ def adapter(repo):
  text=text.replace("['wake-word-fixture','Wake word: synthetic phrase (mic off)']", "['wake-word-fixture','Wake word: synthetic phrase (mic off)'],['json-edit','JSON: edit sensor data (new firmware required)']")
  text=text.replace("['json-edit','JSON: edit sensor data (new firmware required)']", "['json-edit','JSON: edit sensor data (new firmware required)'],['steps-timer','Steps + timer: logical state only (new firmware required)']")
  text=text.replace("['steps-timer','Steps + timer: logical state only (new firmware required)']", "['steps-timer','Steps + timer: logical state only (new firmware required)'],['ram-file','RAM text file (temporary, new firmware required)']")
+ text=text.replace("['ram-file','RAM text file (temporary, new firmware required)']", "['ram-file','RAM text file (temporary, new firmware required)'],['robot-eyes','OLED robot eyes (new firmware required)'],['person-eyes','Person tracking eyes (local YOLO companion required)'],['oled-address','Find OLED address (controller unconfirmed)'],['face-eyes','Happy face tracking + sleepy idle (local face companion)'],['demo-eyes','SIMULATED face + arm reactions (demo source required)'],['camera-tuning','Camera snapshot sliders (Pi Camera v2.1)'],['voice-eyes','Whistle voice eyes (Listen once / repeat)']")
  text=text.replace("const lanNote=element('p',(isP2||isP4)?", "const lanNote=element('p',profile.hosted?'This editor is served by your board on your approved Wi-Fi network. Connect using its same-origin WebSocket, or select USB on a supported desktop browser.':isP4?'P4 runs native Zephyr. USB programming and local media preview are available. The station-hosted target uses the board address assigned by your network.':isP2?")
  text=text.replace("(isP2||isP4)?[['usb','USB Web Serial']]", "profile.hosted?[['wifi','Board Wi-Fi WebSocket'],['usb','USB Web Serial']]:(isP2||isP4)?[['usb','USB Web Serial']]")
  text=text.replace("endpoint.hidden=mode.value!=='wifi';", "endpoint.hidden=profile.hosted||mode.value!=='wifi';")

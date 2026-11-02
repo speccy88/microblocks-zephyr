@@ -151,10 +151,11 @@
           "validation": "physical_limited",
           "backend": "Whistle C99 int8, modèle épinglé, frontend PCM",
           "availability": "profile_dependent",
-          "limits": "Transcription même PCM microphone et exécution GP testées; qualité variable. Wake-word séparé.",
+          "limits": "Transcription même PCM microphone et exécution GP testées; qualité variable. Wake-word séparé. Commandes bilingues INT8: entrainement/fixtures hote seulement; aucune precision acoustique P4 etablie.",
           "evidence": [
             "boards/waveshare_esp32p4_wifi6/hardware.json",
-            "evidence/2026-10-25/p4-whistle-same-pcm.json"
+            "evidence/2026-10-25/p4-whistle-same-pcm.json",
+            "bilingual-kws/reports/results.md"
           ]
         },
         "sensors": {
@@ -187,6 +188,17 @@
           "evidence": [
             "boards/waveshare_esp32p4_wifi6/hardware.json",
             "evidence/2026-10-25/p4-ppa-whistle-regression.json"
+          ]
+        },
+        "oled_i2c": {
+          "implementation": "implemented",
+          "validation": "physical_limited",
+          "backend": "RoboEyes GPL-3.0-or-later, framebuffer et pilote OLED natifs Zephyr",
+          "availability": "explicit_initialization",
+          "limits": "SSD1306 0x3C: alignement confirme par operateur et etats USB testes. Chaque expression, SH1106 et suivi visuel reel restent a valider. Aucun moteur.",
+          "evidence": [
+            "boards/waveshare_esp32p4_wifi6/docs/ROBOT_EYES_POSE.md",
+            "evidence/2026-10-29/robot-eyes-alignment-native.json"
           ]
         }
       },
@@ -237,7 +249,7 @@
         ]
       },
       "reviewed_source_hashes": {
-        "boards/waveshare_esp32p4_wifi6/hardware.json": "ee31cb5b522417a42952a90f92dda9b2864cafbad9022cbd3d945b8fdbe48666"
+        "boards/waveshare_esp32p4_wifi6/hardware.json": "dbcd99186abe04cb293da531b22ff14295c29325ec39139a759019f86ee44426"
       }
     },
     {

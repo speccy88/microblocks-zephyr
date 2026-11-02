@@ -12,6 +12,8 @@ class WakeWordEditorContract(unittest.TestCase):
   source=b"before\n\t\t} ('whenBroadcastReceived' == op) {\noriginal broadcast branch\nafter"
   changed=patcher.patch('/MicroBlocksCompiler.gp',source)
   self.assertIn(b"('p4WhenWakeWord' == op)",changed)
+  self.assertIn(b"('p4WhenVoiceCommand' == op)",changed)
+  self.assertIn(b"'_p4.voice.command'",changed)
   self.assertIn(b"instructionsForExpression this '_p4.wake.OkayNabu'",changed)
   self.assertIn(b"array 'recvBroadcast' 1",changed)
   self.assertIn(b'instructionsForCmdList this (nextBlock cmdOrReporter)',changed)
@@ -20,6 +22,7 @@ class WakeWordEditorContract(unittest.TestCase):
   source=b"\tif ('whenBroadcastReceived' == op) { return 6 }\n(not (isOneOf op 'whenButtonPressed' 'whenBroadcastReceived'))"
   result=patcher.patch('/MicroBlocksRuntime.gp',source)
   self.assertIn(b"if ('p4WhenWakeWord' == op) { return 6 }",result)
+  self.assertIn(b"if ('p4WhenVoiceCommand' == op) { return 6 }",result)
   self.assertIn(b"'whenBroadcastReceived' 'p4WhenWakeWord'",result)
  def test_changed_or_duplicate_upstream_is_rejected(self):
   for source in [b'new compiler',b"\t\t} ('whenBroadcastReceived' == op) {\n"*2]:

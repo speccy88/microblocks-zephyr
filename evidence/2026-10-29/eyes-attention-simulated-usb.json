@@ -1,0 +1,37 @@
+{
+  "input": "SIMULATED",
+  "real_vision_tested": false,
+  "transitions": [
+    {
+      "seconds": 0.1,
+      "state": "looking around",
+      "simulated_face": false
+    },
+    {
+      "seconds": 8.1,
+      "state": "sleepy",
+      "simulated_face": false
+    },
+    {
+      "seconds": 12.6,
+      "state": "sleeping",
+      "simulated_face": false
+    },
+    {
+      "seconds": 14.7,
+      "state": "happy, following face",
+      "simulated_face": true
+    },
+    {
+      "seconds": 28.6,
+      "state": "waiting for face",
+      "simulated_face": false
+    },
+    {
+      "seconds": 31.3,
+      "state": "looking around",
+      "simulated_face": false
+    }
+  ],
+  "images_saved": false
+}

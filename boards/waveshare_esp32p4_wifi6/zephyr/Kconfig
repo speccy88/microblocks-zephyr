@@ -9,3 +9,19 @@ config P4_NEURAL
  bool "Bounded native TFLM dense model backend"
  depends on TENSORFLOW_LITE_MICRO && CPP
  default n
+config P4_IMX219_EXPOSURE_LINES
+ int "IMX219 manual exposure in lines (no AE)"
+ range 4 1156
+ default 800
+config P4_IMX219_ANALOG_GAIN
+ int "IMX219 analogue gain register (0=1x, 232=10.67x)"
+ range 0 232
+ default 128
+config P4_IMX219_DIGITAL_GAIN
+ int "IMX219 digital gain register (256=1x)"
+ range 256 4095
+ default 256
+config P4_IMX219_TEST_PATTERN
+ int "IMX219 diagnostic test pattern; 0 is real imaging, 2 is colour bars"
+ range 0 4
+ default 0

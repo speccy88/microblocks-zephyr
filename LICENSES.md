@@ -291,3 +291,51 @@ with separate ONNX/TFLite hashes and export provenance; they are not downloaded
 dependency binaries or third-party pretrained model weights. Local plugin and
 export/test tools retain their MIT headers; the shared editor/domain library
 integration retains MPL-2.0.
+
+The P4 Robot Eyes feature links the actual external FluxGarage RoboEyes by
+Dennis Hoelscher (copyright 2024-2025), GPL-3.0-or-later, commit
+`b42f8e596535234932be3514ac7a813d4ced0046`. `dependencies/roboeyes.json`
+pins the unmodified header, library metadata and complete `LICENSE.txt`.
+`tools/fetch_roboeyes.py` fetches them into ignored build inputs and verifies
+all bytes before compilation. The native framebuffer facade
+`common/eyes/roboeyes.cpp` is GPL-3.0-or-later; its GFX-shaped drawing methods
+are independently authored and do not copy Adafruit GFX implementation.
+The portable OLED transport and pose wire/tracker are MIT; SmallVM/GP/serial
+adapters retain MPL-2.0. Redistribution of a RoboEyes-linked combined firmware
+must comply with the applicable GPL terms, retain upstream notices and provide
+corresponding source/build material. The rest of the repository retains its
+individual licenses.
+
+The separate local Ultralytics companion uses the installed upstream Python
+package and downloaded official YOLO11n-pose weights under Ultralytics'
+AGPL-3.0 / commercial licensing options. Neither model weights, Python
+packages nor their implementation are vendored here. The pinned requirements,
+weight hash and inference evidence identify the tested host configuration;
+they do not license upstream software under this repository's MIT license.
+
+The optional local face companion uses Google MediaPipe (Apache-2.0 package)
+and the official Face Landmarker float16 v1 task bundle, downloaded separately
+by `tools/fetch_face_model.py` with a pinned SHA-256. The bundle's model card
+and upstream terms remain applicable; neither the model nor MediaPipe code
+is vendored or relicensed here. See Google's [Face Landmarker models](https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker#models).
+The independently authored feature extraction/face wire/engagement policy is
+MIT; native SmallVM camera-tuning adapters retain MPL-2.0 and sensor driver
+notices retain Apache-2.0.
+
+
+## Bilingual voice-command training and native KWS extension
+
+`bilingual-kws/` contains authored MIT training/DSP binding/decision-policy code.
+SmallVM primitives, block libraries and editor changes retain their individual
+MPL-2.0 headers. The existing Apache-2.0 TFLM frontend and reference kernels are
+used from the pinned external checkout; no ESPHome implementation is copied.
+
+Training uses Google Speech Commands v0.02 (Warden, 2018) and MLCommons MSWC 1.0
+(Mazumder et al., NeurIPS 2021), both CC-BY-4.0. Source audio stays external.
+Piper MLS/LibriTTS/Siwis model cards identify CC-BY-4.0 source corpora; Kokoro-82M
+weights/presets are Apache-2.0. Exact revisions, model cards, attribution,
+selection and synthetic-source separation are described in
+`bilingual-kws/reports/sources.md` and its dataset/model manifests. No cloned
+private voice, Common Voice mirror or raw microphone recording is redistributed.
+Generated model artifacts have their provenance attached; their existence is
+not a claim of physical P4 accuracy, latency or French-Canadian acceptance.

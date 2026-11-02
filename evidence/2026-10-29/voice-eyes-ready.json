@@ -1,0 +1,18 @@
+{
+  "status": "Ready. Click Listen once; speak when LISTENING appears.",
+  "busy": false,
+  "repeat_enabled": false,
+  "microphone_recording": false,
+  "audio_handles": 0,
+  "inference_running": false,
+  "whistle_available": true,
+  "eyes": {
+    "running": true,
+    "ready": true,
+    "x": 500,
+    "y": 500,
+    "mood": 0,
+    "idle": false,
+    "autoblink": true
+  }
+}

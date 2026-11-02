@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-29",
+  "source_base": "622c0c09fd0ad942f34048806629c0dd7a62c045",
+  "local_changes_uncommitted": true,
+  "runtime": "native Zephyr P4 + SmallVM + onboard Whistle d4",
+  "zephyr_commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+  "hal_commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+  "build_log": "evidence/2026-10-29/p4-voice-eyes-build.txt",
+  "flash": {
+    "runtime": "native Zephyr",
+    "target": "COM5 ESP32-P4 revision 1.3",
+    "offset": "0x2000",
+    "image_sha256": "1b73d3920950f3110830b6c212b5e3ec6bf4fac102593401d805debeb233db03",
+    "bytes": 15015184,
+    "minimum_revision": "1.3",
+    "maximum_revision": "1.99",
+    "exit_code": 0,
+    "hash_verified": true,
+    "backup_performed": false,
+    "COM12_accessed": false
+  },
+  "mapping": {
+    "engine": "Actual GP 2.5.8 compiled code on native P4 SmallVM",
+    "suite": "mapping",
+    "cases_passed": 21,
+    "cases_failed": 0,
+    "summary": "VOICE_TESTS_PASSED",
+    "eye_state": {
+      "running": true,
+      "ready": true,
+      "x": 500,
+      "y": 0,
+      "mood": 0,
+      "idle": false,
+      "autoblink": true
+    },
+    "microphone_used": false,
+    "audio_handles": 0,
+    "inference_running": false,
+    "result": "PASS"
+  },
+  "speech_integration": {
+    "engine": "Actual GP 2.5.8 compiled code on native P4 SmallVM",
+    "suite": "microphone",
+    "cases_passed": 2,
+    "cases_failed": 0,
+    "summary": "VOICE_TESTS_PASSED",
+    "eye_state": {
+      "running": true,
+      "ready": true,
+      "x": 0,
+      "y": 500,
+      "mood": 3,
+      "idle": false,
+      "autoblink": true
+    },
+    "microphone_used": true,
+    "audio_handles": 0,
+    "inference_running": false,
+    "first_command": "happy",
+    "first_phase": "ready",
+    "first_transcript_characters": 6,
+    "first_whistle_keyword": "happy",
+    "result": "PASS"
+  },
+  "final_state": {
+    "status": "Ready. Click Listen once; speak when LISTENING appears.",
+    "busy": false,
+    "repeat_enabled": false,
+    "microphone_recording": false,
+    "audio_handles": 0,
+    "inference_running": false,
+    "whistle_available": true,
+    "eyes": {
+      "running": true,
+      "ready": true,
+      "x": 500,
+      "y": 500,
+      "mood": 0,
+      "idle": false,
+      "autoblink": true
+    }
+  },
+  "repository_validation": {
+    "tests": 103,
+    "result": "PASS",
+    "log": "evidence/2026-10-29/voice-eyes-validation.txt"
+  },
+  "browser_observed_final_timing": {
+    "speech_window_ms": 2544,
+    "transcription_to_apply_ms": 26527,
+    "source": "local editor p4-vm-frame public status outputs"
+  },
+  "calibration_note": "Earlier complete-block attempts did not recognise the speaker word. A 450ms-delayed cue passed; final project moves LISTENING after 500ms settling and passes with an immediate speaker cue. These controlled samples are not an accuracy measurement.",
+  "limits": [
+    "Only controlled speaker happy acoustically verified; all eight commands verified with actual injected GP text on P4.",
+    "User voice and visual appearance of each expression require user observation.",
+    "No continuous recognition during inference; repeated windows are opt-in."
+  ],
+  "source_sha256": {
+    "boards/waveshare_esp32p4_wifi6/integration/voice-eyes.ubp": "d35d6445a6756e5f821c2848280f96e71f6efd1a9ee2710f50315592f56e17ad",
+    "boards/waveshare_esp32p4_wifi6/integration/Robot_Eyes.ubl": "a3063d44838176996a4a5685b40bbaf8406d7abece80aa80917343cd30b4443b",
+    "boards/waveshare_esp32p4_wifi6/zephyr/src/eyes_primitives.c": "0dfa1599f3b248be8d546b8a1efa5e60d1075644285a210351e6f1d2c9e69ba8",
+    "tools/make_voice_eyes_fixture.py": "5fbdcab8d028e4a842d203481afdabaa49b00d5b65f2e0ac2c6c6a9971a4fd13",
+    "tools/read_voice_eyes_fixture.py": "efc44601c4d7b4b8daa73cf7403d31442edbdb4d75ac678aa2ef33c029523cda",
+    "tools/test_voice_eyes_mic.py": "ae94808c7b0196462bb8535313747e71656b0d7a202f70908039ed60627e5827",
+    "build-artifacts/voice-eyes/Whistle voice eyes.ubp": "714fbff9c44a7acdf5210e36881564b1d71279f70bc0d934b42b3c200cec99f1"
+  }
+}

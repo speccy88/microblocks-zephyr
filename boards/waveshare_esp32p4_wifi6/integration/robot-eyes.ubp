@@ -1,0 +1,26 @@
+module main
+variables oledAddress
+script 20 30 {
+    whenStarted
+    oledAddress = (eyesFindAddress)
+    eyesStart 'SSD1306' 64 oledAddress
+    waitMillis 1000
+    if ('[eyes:ready]') {
+        forever {
+            eyesMood 'happy'
+            eyesLook 'left'
+            waitMillis 1500
+            eyesLook 'right'
+            waitMillis 1500
+            eyesLook 'center'
+            eyesAnimate 'blink'
+            waitMillis 1500
+            eyesMood 'angry'
+            waitMillis 1500
+            eyesMood 'tired'
+            eyesAnimate 'confused'
+            waitMillis 1500
+        }
+    }
+    say ('[eyes:status]')
+}

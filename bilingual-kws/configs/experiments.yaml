@@ -1,0 +1,36 @@
+# Candidate optimization, not a controlled architecture-only ablation.
+tinyconv:
+  head: time_and_frequency_average
+  epochs_max: 45
+  steps_per_epoch: 180
+  unknown_probability: 0.10
+  human_vs_tts: equal_when_both_available
+  corpus_stage: before_fast_French_phrase_supplement
+dscnn:
+  head: time_average_with_frequency_position
+  epochs_max: 45
+  steps_per_epoch: 180
+  unknown_probability: 0.22
+  human_vs_tts: equal_when_both_available
+  corpus_stage: after_fast_French_phrase_supplement
+selected_retrain:
+  first_time_stride: 4
+  epochs_max: 70
+  steps_per_epoch: 240
+  seed: 20261031
+  early_stopping_patience: 12
+  unknown_probability: 0.22
+  tts_probability: 0.15_when_200_plus_human_clips_0.30_when_50_plus_otherwise_0.50
+lexical_comparison:
+  first_time_stride: 4
+  backbone: selected_architecture
+  epochs_max: 70
+  steps_per_epoch: 240
+  seed: 20261030
+  early_stopping_patience: 12
+  human_sampling: same_as_selected_retrain
+evaluation:
+  cohort: same_final_validation_and_test_records_for_all_candidates
+  select_by: mean_human_English_and_French_validation_macro_F1
+  test_used_for_selection: false
+  validation_near_tie: within_0.005_macro_F1_prefer_fewer_static_MACs_then_smaller_model

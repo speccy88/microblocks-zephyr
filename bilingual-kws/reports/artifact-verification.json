@@ -1,0 +1,11 @@
+{
+  "model_sha256": "e17cbf03e00f5e673b8dd16209e62fb60515fab74c5af5f51732c5da4681b0e8",
+  "selected_candidate": "dscnn_retrain",
+  "primary_checkpoint_and_model_hashes": "PASS",
+  "calibration_manifest_digest": "PASS",
+  "evaluation_report_and_corpus_digests": "PASS",
+  "linked_native_sources_and_model": "PASS",
+  "guarded_binary_sha256": "PASS",
+  "test_clips": 9852,
+  "physical_validation": false
+}

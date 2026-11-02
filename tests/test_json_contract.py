@@ -7,7 +7,7 @@ class JSONContract(unittest.TestCase):
  def test_dependency_is_pinned_and_unmodified(self):
   meta=json.loads((ROOT/'dependencies/json.json').read_text())
   self.assertEqual(meta['commit'],'6447536015f3d600f3d65323b10976103b337ca7')
-  for name,sha in meta['files'].items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
+  for name,sha in meta['files'].items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest(),sha,name)
   self.assertIn('MIT License',(ROOT/'third_party/yyjson/LICENSE').read_text())
  def test_strict_limits_and_no_system_allocator(self):
   config=(ROOT/'common/json/json_config.h').read_text()
@@ -19,7 +19,8 @@ class JSONContract(unittest.TestCase):
   self.assertIn('yyjson_alc_pool_init',service)
  def test_new_primitive_set_appends_and_p4_mapping_survives(self):
   runtime=(ROOT/'tools/prepare_p4_zephyr_runtime.py').read_text()
-  self.assertIn("'\\tSoundPrims,\\n\\tJSONPrims,\\n\\tClockPrims,\\n\\tStepPrims,\\n\\tStoragePrims,\\n\\tPrimitiveSetCount'",runtime)
+  self.assertIn("\\tSoundPrims,\\n\\tJSONPrims,\\n\\tClockPrims,\\n\\tStepPrims,\\n\\tStoragePrims,",runtime)
+  self.assertIn("\\tEyesPrims,\\n\\tPosePrims,\\n\\tPrimitiveSetCount",runtime)
   package=(ROOT/'tools/package_p4_ide.py').read_text()
   self.assertIn("atPut primsets 'p4' (at primsets 'io')",package)
   self.assertIn("atPut primsets 'json' 22",package)

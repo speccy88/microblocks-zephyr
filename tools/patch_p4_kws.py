@@ -9,10 +9,10 @@ def patch(name,payload):
  text=payload.decode('utf8')
  if name.endswith('/MicroBlocksCompiler.gp'):
   anchor="\t\t} ('whenBroadcastReceived' == op) {\n"
-  text=once(text,anchor,"\t\t} ('p4WhenWakeWord' == op) {\n\t\t\taddAll result (instructionsForExpression this '_p4.wake.OkayNabu')\n\t\t\tadd result (array 'recvBroadcast' 1)\n\t\t\taddAll result (instructionsForCmdList this (nextBlock cmdOrReporter))\n"+anchor)
+  text=once(text,anchor,"\t\t} ('p4WhenWakeWord' == op) {\n\t\t\taddAll result (instructionsForExpression this '_p4.wake.OkayNabu')\n\t\t\tadd result (array 'recvBroadcast' 1)\n\t\t\taddAll result (instructionsForCmdList this (nextBlock cmdOrReporter))\n\t\t} ('p4WhenVoiceCommand' == op) {\n\t\t\taddAll result (instructionsForExpression this '_p4.voice.command')\n\t\t\tadd result (array 'recvBroadcast' 1)\n\t\t\taddAll result (instructionsForCmdList this (nextBlock cmdOrReporter))\n"+anchor)
  elif name.endswith('/MicroBlocksRuntime.gp'):
   anchor="\tif ('whenBroadcastReceived' == op) { return 6 }"
-  text=once(text,anchor,anchor+"\n\tif ('p4WhenWakeWord' == op) { return 6 }")
+  text=once(text,anchor,anchor+"\n\tif ('p4WhenWakeWord' == op) { return 6 }\n\tif ('p4WhenVoiceCommand' == op) { return 6 }")
   anchor="(not (isOneOf op 'whenButtonPressed' 'whenBroadcastReceived'))"
-  text=once(text,anchor,"(not (isOneOf op 'whenButtonPressed' 'whenBroadcastReceived' 'p4WhenWakeWord'))")
+  text=once(text,anchor,"(not (isOneOf op 'whenButtonPressed' 'whenBroadcastReceived' 'p4WhenWakeWord' 'p4WhenVoiceCommand'))")
  return text.encode('utf8')

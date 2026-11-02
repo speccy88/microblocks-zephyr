@@ -1,0 +1,18 @@
+module main
+variables oledAddress
+script 20 30 {
+    whenStarted
+    oledAddress = (eyesFindAddress)
+    eyesStart 'SSD1306' 64 oledAddress
+    waitMillis 1000
+    if ('[eyes:ready]') {
+        '[pose:follow]' true true
+        faceAttention true 'sleep and look around'
+        '[pose:cameraEnabled]' true
+        forever {
+            say ('[pose:attentionStatus]')
+            waitMillis 250
+        }
+    }
+    say ('[eyes:status]')
+}

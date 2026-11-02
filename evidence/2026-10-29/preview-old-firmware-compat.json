@@ -1,0 +1,5 @@
+{
+  "old_firmware_fallback_baud": 115200,
+  "fast_mode_unavailable": true,
+  "result": "PASS"
+}

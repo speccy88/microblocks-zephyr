@@ -1,0 +1,32 @@
+{
+  "test_pattern": false,
+  "captures": [
+    {
+      "exposure": 800,
+      "analog": 128,
+      "digital": 256,
+      "min": 8,
+      "max": 24,
+      "mean": 14.72,
+      "std": 1.6,
+      "nonblack_fraction": 0.0
+    },
+    {
+      "exposure": 1156,
+      "analog": 232,
+      "digital": 512,
+      "min": 0,
+      "max": 180,
+      "mean": 77.68,
+      "std": 20.82,
+      "nonblack_fraction": 0.998
+    }
+  ],
+  "images_in_evidence": false,
+  "invalid_tuples_rejected_without_mutation": true,
+  "result": "PASS_RUNTIME_CONTROL_CAPTURE_RESET",
+  "wrong_session_rejected": true,
+  "vm_image_preserved": true,
+  "real_face_tracking_tested": false,
+  "cleanup_images": 0
+}

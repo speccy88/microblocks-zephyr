@@ -1,0 +1,48 @@
+module 'Voice Eye State' Output
+author 'MicroBlocks Zephyr contributors'
+version 0 1
+description 'Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.'
+spec ' ' 'voiceEyesInitialize' 'initialize voice eye state'
+spec ' ' 'voiceEyesApply' 'apply voice eye command _' 'str' 'left'
+spec 'r' 'voiceEyesGazeX' 'voice eye gaze x'
+spec 'r' 'voiceEyesGazeY' 'voice eye gaze y'
+spec 'r' 'voiceEyesMood' 'voice eye expression'
+spec ' ' 'voiceEyesRender' 'render voice eye state on initialized OLED'
+variables 'voiceEyeX' 'voiceEyeY' 'voiceEyeMood'
+
+to voiceEyesInitialize {
+    voiceEyeX = 500
+    voiceEyeY = 500
+    voiceEyeMood = 'default'
+}
+to voiceEyesApply command {
+    if (command == 'up') {
+        voiceEyeX = 500
+        voiceEyeY = 0
+    }
+    if (command == 'down') {
+        voiceEyeX = 500
+        voiceEyeY = 1000
+    }
+    if (command == 'left') {
+        voiceEyeX = 0
+        voiceEyeY = 500
+    }
+    if (command == 'right') {
+        voiceEyeX = 1000
+        voiceEyeY = 500
+    }
+    if (command == 'angry') { voiceEyeMood = 'angry' }
+    if (command == 'happy') { voiceEyeMood = 'happy' }
+    if (command == 'tired') { voiceEyeMood = 'tired' }
+    if (command == 'normal') { voiceEyeMood = 'default' }
+}
+to voiceEyesGazeX { return voiceEyeX }
+to voiceEyesGazeY { return voiceEyeY }
+to voiceEyesMood { return voiceEyeMood }
+to voiceEyesRender {
+    if ('[eyes:ready]') {
+        '[eyes:gaze]' voiceEyeX voiceEyeY
+        eyesMood voiceEyeMood
+    }
+}

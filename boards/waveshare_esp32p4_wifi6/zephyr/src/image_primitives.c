@@ -2,9 +2,11 @@
 #include "vm/interp.h"
 #include "image_store.h"
 #include "camera_backend.h"
+#include "camera_tuning.h"
 #include "ppa_backend.h"
 #include "audio_backend.h"
 #include "kws_primitives.h"
+#include "voice_primitives.h"
 #include "audio_store.h"
 #include "whistle_backend.h"
 #include "result_store.h"
@@ -97,6 +99,8 @@ void p4_image_message(int type,int n,char *body){
         if(size>0 && size<(int)sizeof(response)-2){response[1]=0;length+=size;}
     }else if(v && p[5]==2 && count<=512 && image_read(h,offset,response+2,count)){
         response[1]=0;length+=count;
+    }else if(v && p[5]==3 && image_read_gray4(h,offset,response+2,count)){
+        response[1]=0;length+=count;
     }
     if(hasOutputSpace(length+5))waitAndSendMessage(206,0,length,(char *)response);
 }
@@ -181,10 +185,15 @@ static OBJ media_snapshot(int n,OBJ *a){
     if(session && session==media_session_id())media_publish(uid,h);
     return int2obj(h); /* Result tracing never changes expression semantics. */
 }
+static OBJ camera_set(int n,OBJ *a){if(!integer_args(n,a,3))return falseObj;return p4_camera_tuning_settings(obj2int(a[0]),obj2int(a[1]),obj2int(a[2]))==0?trueObj:falseObj;}
+static OBJ camera_reset_settings(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);return p4_camera_tuning_settings(800,128,256)==0?trueObj:falseObj;}
+static OBJ camera_settings_status(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);char s[336];p4_camera_tuning_status(s,sizeof(s));return newStringFromBytes(s,strlen(s));}
+static OBJ camera_controls(int n,OBJ *a){(void)a;if(n)return fail(notEnoughArguments);p4_camera_tuning_open();return trueObj;}
 static PrimEntry entries[]={
  {"ppaStart",ppa_start},{"ppaBusy",ppa_busy},{"ppaResult",ppa_result},{"ppaStatus",ppa_status},{"ppaCancel",ppa_cancel},{"imageTestPattern",pattern},
  NN_PRIMITIVE_ENTRIES
  KWS_PRIMITIVE_ENTRIES
+ VOICE_PRIMITIVE_ENTRIES
  {"mediaSnapshot",media_snapshot},
  {"sttAvailable",stt_available},{"sttRequest",stt_request},{"sttFixture",stt_fixture},{"sttBusy",stt_busy},{"sttStatus",stt_status},{"sttResult",stt_result},{"sttCancel",stt_cancel},
  {"c6Status",c6_status},{"c6Trace",c6_trace},{"c6ReadOnlyProbe",c6_read_only},{"networkStatus",network_status},
@@ -195,5 +204,6 @@ static PrimEntry entries[]={
  {"cameraRequest",request},{"cameraBusy",busy},{"cameraResult",result},{"cameraStatus",status},
  {"imageValid",valid},{"imageWidth",width},{"imageHeight",height},{"imageBytes",bytes},{"imageFormat",format},
  {"imageResize",resize},{"imageGrayscale",gray},{"imageRGBTensor",rgb_tensor},{"imageRead",read_bytes},
- {"imageRelease",release},{"imageReleaseAll",release_all},{"imageMemory",used},{"imageCount",count},{"freePSRAM",heap},{"imagePreview",preview}};
+ {"imageRelease",release},{"imageReleaseAll",release_all},{"imageMemory",used},{"imageCount",count},{"freePSRAM",heap},{"imagePreview",preview},
+ {"cameraSettings",camera_set},{"cameraSettingsReset",camera_reset_settings},{"cameraSettingsStatus",camera_settings_status},{"cameraControls",camera_controls}};
 void addIOPrims(void){addPrimitiveSet(IOPrims,"p4",sizeof(entries)/sizeof(entries[0]),entries);}

@@ -1,0 +1,180 @@
+module main
+
+script 20 20 {
+    whenStarted
+    voiceEyesInitialize
+    sayIt 'Voice eye state ready. Click start voice commands to enable the microphone.'
+}
+
+script 20 150 {
+    p4StartVoiceCommands
+}
+
+script 20 230 {
+    '[p4:voiceStop]'
+}
+
+script 380 20 {
+    p4WhenVoiceCommand
+    voiceEyesApply ('[p4:voiceCommand]')
+    sayIt ('[p4:voiceCommand]')
+}
+
+script 380 180 {
+    sayIt (voiceEyesGazeX)
+    sayIt (voiceEyesGazeY)
+    sayIt (voiceEyesMood)
+}
+
+script 380 350 {
+    sayIt ('[p4:voiceStatus]')
+}
+
+module 'Voice Commands' Input
+author 'Native Zephyr bilingual TinyML project'
+version 0 1
+description 'Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.'
+spec 'h' 'p4WhenVoiceCommand' 'when voice command detected'
+spec ' ' 'p4StartVoiceCommands' 'start voice commands'
+spec ' ' '[p4:voiceStop]' 'stop voice commands'
+spec 'r' '[p4:voiceCommand]' 'recognized command'
+spec 'r' '[p4:voiceConfidence]' 'command confidence (0-1000)'
+spec 'r' '[p4:voiceScore]' 'score for command _' 'str' 'left'
+spec 'r' '[p4:voiceStatus]' 'voice command status'
+spec 'b' '[p4:voiceAvailable]' 'voice commands available?'
+advanced
+spec 'b' '[p4:voiceListen]' 'start voice commands _ ms confidence _ cooldown _ ms' 'num num num' 0 850 800
+spec 'b' '[p4:voiceClip]' 'check saved audio _ for commands' 'num' 0
+
+to p4StartVoiceCommands {
+    if (not ('[p4:voiceListen]' 0 850 800)) {
+        sayIt 'Cannot listen: command model unavailable or audio worker busy.'
+    }
+}
+
+module 'Voice Eye State' Output
+author 'MicroBlocks Zephyr contributors'
+version 0 1
+description 'Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.'
+spec ' ' 'voiceEyesInitialize' 'initialize voice eye state'
+spec ' ' 'voiceEyesApply' 'apply voice eye command _' 'str' 'left'
+spec 'r' 'voiceEyesGazeX' 'voice eye gaze x'
+spec 'r' 'voiceEyesGazeY' 'voice eye gaze y'
+spec 'r' 'voiceEyesMood' 'voice eye expression'
+spec ' ' 'voiceEyesRender' 'render voice eye state on initialized OLED'
+variables 'voiceEyeX' 'voiceEyeY' 'voiceEyeMood'
+
+to voiceEyesInitialize {
+    voiceEyeX = 500
+    voiceEyeY = 500
+    voiceEyeMood = 'default'
+}
+to voiceEyesApply command {
+    if (command == 'up') {
+        voiceEyeX = 500
+        voiceEyeY = 0
+    }
+    if (command == 'down') {
+        voiceEyeX = 500
+        voiceEyeY = 1000
+    }
+    if (command == 'left') {
+        voiceEyeX = 0
+        voiceEyeY = 500
+    }
+    if (command == 'right') {
+        voiceEyeX = 1000
+        voiceEyeY = 500
+    }
+    if (command == 'angry') { voiceEyeMood = 'angry' }
+    if (command == 'happy') { voiceEyeMood = 'happy' }
+    if (command == 'tired') { voiceEyeMood = 'tired' }
+    if (command == 'normal') { voiceEyeMood = 'default' }
+}
+to voiceEyesGazeX { return voiceEyeX }
+to voiceEyesGazeY { return voiceEyeY }
+to voiceEyesMood { return voiceEyeMood }
+to voiceEyesRender {
+    if ('[eyes:ready]') {
+        '[eyes:gaze]' voiceEyeX voiceEyeY
+        eyesMood voiceEyeMood
+    }
+}
+
+module 'Robot Eyes' Output
+author 'MicroBlocks Zephyr contributors; FluxGarage RoboEyes by Dennis Hoelscher'
+version 1 0
+description 'Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.'
+spec ' ' 'eyesStart' 'start eyes OLED _ height _ address _' 'menu.eyesController num num' 'SSD1306' 64 60
+spec 'b' '[eyes:ready]' 'eyes ready?'
+spec 'r' 'eyesFindAddress' 'find OLED address (stops eyes)'
+spec 'r' '[eyes:status]' 'eyes status'
+spec ' ' '[eyes:alignment]' 'eyes alignment test _' 'bool' true
+spec ' ' 'eyesMood' 'eyes mood _' 'menu.eyesMood' 'happy'
+spec ' ' 'eyesLook' 'eyes look _' 'menu.eyesDirection' 'center'
+spec ' ' '[eyes:gaze]' 'eyes gaze x _ y _ (0..1000)' 'num num' 500 500
+spec ' ' 'eyesAnimate' 'eyes animation _' 'menu.eyesAnimation' 'blink'
+spec ' ' 'eyesAutoblink' 'eyes auto blink _ interval _ variation _ seconds' 'bool num num' true 3 2
+spec ' ' 'eyesIdle' 'eyes idle _ interval _ variation _ seconds' 'bool num num' true 2 2
+spec ' ' 'eyesCurious' 'eyes curious _' 'bool' true
+spec ' ' 'eyesCyclops' 'eyes cyclops _' 'bool' false
+spec ' ' 'eyesSweat' 'eyes sweat _' 'bool' false
+spec ' ' '[eyes:shape]' 'eyes width _ height _ radius _ gap _' 'num num num num' 36 36 8 10
+spec ' ' '[eyes:flicker]' 'eyes flicker horizontal _ vertical _ pixels' 'num num' 0 0
+spec ' ' '[eyes:stop]' 'stop eyes'
+advanced
+spec 'r' '[eyes:settings]' 'eye settings'
+spec 'r' '[eyes:busStatus]' 'OLED bus electrical status'
+spec 'r' '[eyes:begin]' 'try eyes height _ controller number _ address _' 'num num num' 64 0 60
+spec 'r' '[eyes:action]' 'try eye animation number _' 'num' 1
+
+choices eyesController 'SSD1306' 'SH1106'
+choices eyesMood 'default' 'tired' 'angry' 'happy'
+choices eyesDirection 'center' 'up' 'up right' 'right' 'down right' 'down' 'down left' 'left' 'up left'
+choices eyesAnimation 'blink' 'wink left' 'wink right' 'open' 'close' 'laugh' 'confused'
+
+to eyesStart controller height address {
+    local kind -1
+    if (controller == 'SSD1306') { kind = 0 }
+    if (controller == 'SH1106') { kind = 1 }
+    return ('[eyes:begin]' height kind address)
+}
+to eyesFindAddress {
+    '[eyes:stop]'
+    if (not ('[eyes:probe]')) { return 0 }
+    waitUntil (not ('[eyes:probing]'))
+    return ('[eyes:address]')
+}
+to eyesMood mood {
+    local value -1
+    if (mood == 'default') { value = 0 }
+    if (mood == 'tired') { value = 1 }
+    if (mood == 'angry') { value = 2 }
+    if (mood == 'happy') { value = 3 }
+    return ('[eyes:mood]' value)
+}
+to eyesLook direction {
+    local x 500
+    local y 500
+    if (or (direction == 'left') (or (direction == 'up left') (direction == 'down left'))) { x = 0 }
+    if (or (direction == 'right') (or (direction == 'up right') (direction == 'down right'))) { x = 1000 }
+    if (or (direction == 'up') (or (direction == 'up left') (direction == 'up right'))) { y = 0 }
+    if (or (direction == 'down') (or (direction == 'down left') (direction == 'down right'))) { y = 1000 }
+    return ('[eyes:gaze]' x y)
+}
+to eyesAnimate animation {
+    local value 0
+    if (animation == 'blink') { value = 1 }
+    if (animation == 'wink left') { value = 2 }
+    if (animation == 'wink right') { value = 3 }
+    if (animation == 'open') { value = 4 }
+    if (animation == 'close') { value = 5 }
+    if (animation == 'laugh') { value = 6 }
+    if (animation == 'confused') { value = 7 }
+    return ('[eyes:action]' value)
+}
+to eyesAutoblink enabled interval variation { return ('[eyes:automatic]' 0 enabled interval variation) }
+to eyesIdle enabled interval variation { return ('[eyes:automatic]' 1 enabled interval variation) }
+to eyesCurious enabled { return ('[eyes:option]' 0 enabled) }
+to eyesCyclops enabled { return ('[eyes:option]' 1 enabled) }
+to eyesSweat enabled { return ('[eyes:option]' 2 enabled) }

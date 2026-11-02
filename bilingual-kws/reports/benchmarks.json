@@ -1,0 +1,579 @@
+{
+  "candidates": [
+    {
+      "name": "tinyconv",
+      "architecture": "tinyconv",
+      "parameters": 11386,
+      "model_bytes": 16520,
+      "human_validation_bilingual_macro_f1": 0.36735625139607475,
+      "validation_quantization_accuracy_loss": 0.009253836242239688,
+      "eligible": true,
+      "estimated_macs": 2027520,
+      "float_int8_validation_argmax_agreement": 0.8772832248582826,
+      "float_int8_validation_mean_abs_probability_error": 0.0111521752551198,
+      "float_int8_validation_max_abs_probability_error": 0.1683618128299713,
+      "test_accuracy": 0.44336175395858707,
+      "test_macro_f1": 0.4515968888336547,
+      "human_test_accuracy": 0.458275991492556,
+      "human_en_test_accuracy": 0.48458464173565513,
+      "human_fr_test_accuracy": 0.27152988855116517,
+      "synthetic_test_accuracy": 0.24333333333333335,
+      "host_tflm_arena_used_bytes": 28528,
+      "host_tflm_median_ms": 15.6993515,
+      "host_tflm_p95_ms": 17.054681449999997,
+      "training_seconds": 1036.4032429590002,
+      "peak_vram_mib": 6696,
+      "native_p4_arena": null,
+      "native_p4_median_ms": null,
+      "native_p4_p95_ms": null
+    },
+    {
+      "name": "dscnn",
+      "architecture": "dscnn",
+      "parameters": 34682,
+      "model_bytes": 57408,
+      "human_validation_bilingual_macro_f1": 0.7041972419779898,
+      "validation_quantization_accuracy_loss": -0.00011713716762329351,
+      "eligible": true,
+      "estimated_macs": 3462800,
+      "float_int8_validation_argmax_agreement": 0.9796346840226748,
+      "float_int8_validation_mean_abs_probability_error": 0.003237417433410883,
+      "float_int8_validation_max_abs_probability_error": 0.10673242807388306,
+      "test_accuracy": 0.7766950872919204,
+      "test_macro_f1": 0.7410722239468284,
+      "human_test_accuracy": 0.7803077692981358,
+      "human_en_test_accuracy": 0.7913217242363688,
+      "human_fr_test_accuracy": 0.7021276595744681,
+      "synthetic_test_accuracy": 0.7213333333333334,
+      "host_tflm_arena_used_bytes": 55968,
+      "host_tflm_median_ms": 29.474052,
+      "host_tflm_p95_ms": 31.329225349999998,
+      "training_seconds": 995.6944781060001,
+      "peak_vram_mib": 1110,
+      "native_p4_arena": null,
+      "native_p4_median_ms": null,
+      "native_p4_p95_ms": null
+    },
+    {
+      "name": "dscnn_retrain",
+      "architecture": "dscnn",
+      "parameters": 34682,
+      "model_bytes": 57408,
+      "human_validation_bilingual_macro_f1": 0.7505862376542186,
+      "validation_quantization_accuracy_loss": 0.0015227831791027047,
+      "eligible": true,
+      "estimated_macs": 1802240,
+      "float_int8_validation_argmax_agreement": 0.9844635733781231,
+      "float_int8_validation_mean_abs_probability_error": 0.002965663094073534,
+      "float_int8_validation_max_abs_probability_error": 0.14116394519805908,
+      "test_accuracy": 0.8238936256597645,
+      "test_macro_f1": 0.793836719422076,
+      "human_test_accuracy": 0.8367321406230451,
+      "human_en_test_accuracy": 0.8414216385954896,
+      "human_fr_test_accuracy": 0.8034447821681864,
+      "synthetic_test_accuracy": 0.73,
+      "host_tflm_arena_used_bytes": 32608,
+      "host_tflm_median_ms": 15.0604,
+      "host_tflm_p95_ms": 16.501676,
+      "training_seconds": 1466.0794888320006,
+      "peak_vram_mib": 501,
+      "native_p4_arena": null,
+      "native_p4_median_ms": null,
+      "native_p4_p95_ms": null
+    },
+    {
+      "name": "dscnn_lexical",
+      "architecture": "dscnn",
+      "parameters": 44602,
+      "model_bytes": 68720,
+      "human_validation_bilingual_macro_f1": 0.7544714331725484,
+      "validation_quantization_accuracy_loss": 0.0024598805200890528,
+      "eligible": true,
+      "estimated_macs": 1812140,
+      "float_int8_validation_argmax_agreement": 0.9853033802225488,
+      "float_int8_validation_mean_abs_probability_error": 0.002772820880636573,
+      "float_int8_validation_max_abs_probability_error": 0.11616337299346924,
+      "test_accuracy": 0.8094803085667884,
+      "test_macro_f1": 0.7713615948709752,
+      "human_test_accuracy": 0.8273489303140248,
+      "human_en_test_accuracy": 0.8337139594633172,
+      "human_fr_test_accuracy": 0.7821681864235056,
+      "synthetic_test_accuracy": 0.69,
+      "host_tflm_arena_used_bytes": 33056,
+      "host_tflm_median_ms": 15.250445500000001,
+      "host_tflm_p95_ms": 16.475191,
+      "training_seconds": 1351.2918119630003,
+      "peak_vram_mib": 505,
+      "native_p4_arena": null,
+      "native_p4_median_ms": null,
+      "native_p4_p95_ms": null
+    }
+  ],
+  "selected": "dscnn_retrain",
+  "host_tflm": {
+    "runtime": "pinned host TFLM reference kernels",
+    "arena_reserved_bytes": 131072,
+    "arena_used_bytes": 32608,
+    "invocations": 250,
+    "model_sha256": "e17cbf03e00f5e673b8dd16209e62fb60515fab74c5af5f51732c5da4681b0e8",
+    "input_sha256": "50017e1e20a501ed88a01a1c7a725fd688179c59d737fa8e1ba10b6e24a8456d",
+    "max_output_lsb_difference": 0,
+    "test_classes_present": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "mean_output_lsb_difference": 0.0,
+    "argmax_agreement": 1.0,
+    "tflm_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+    "invoke_ms_median": 15.0604,
+    "invoke_ms_p95": 16.501676,
+    "native_p4": {
+      "compiled": null,
+      "compilation_evidence": "separate reports/native-build.json; require matching model hash",
+      "arena_used_bytes": null,
+      "inference_ms_median": null,
+      "inference_ms_p95": null,
+      "end_to_end_ms_median": null,
+      "end_to_end_ms_p95": null,
+      "cpu_usage": null,
+      "concurrent_microblocks": null
+    },
+    "limitations": [
+      "Host TFLM arena allocation is not an RV32 RAM measurement.",
+      "No physical microphone, P4 timing, false positives/hour or concurrent VM benchmark in this host probe."
+    ],
+    "desktop_comparison": "TensorFlow Lite BUILTIN_REF; same INT8 bytes; host kernels use SIZE policy matching native non-SPEED build",
+    "bit_exact": true,
+    "numerical_tolerance": {
+      "max_output_lsb": 8,
+      "mean_output_lsb": 0.25,
+      "min_argmax_agreement": 0.99
+    }
+  },
+  "stream": {
+    "scope": "host replay; continuous frontend and same C decision policy; concatenated held-out public corpus",
+    "model_sha256": "e17cbf03e00f5e673b8dd16209e62fb60515fab74c5af5f51732c5da4681b0e8",
+    "threshold_milli": 850,
+    "negatives": {
+      "samples": 1800,
+      "audio_seconds": 2340.5,
+      "wall_seconds": 12.917662219000704,
+      "invocations": 23394,
+      "events": 40,
+      "host_litert_invoke_ms_median": 0.3129,
+      "host_litert_invoke_ms_p95": 0.4189,
+      "constructed_negative_events_per_hour": 61.52531510361034,
+      "poisson_rate_95_ci": [
+        43.95458713541562,
+        83.7800166931607
+      ]
+    },
+    "positives": {
+      "samples": 185,
+      "audio_seconds": 481.5,
+      "wall_seconds": 2.821927011000298,
+      "invocations": 4804,
+      "events": 96,
+      "host_litert_invoke_ms_median": 0.3176,
+      "host_litert_invoke_ms_p95": 0.4533,
+      "matched_commands": 96,
+      "missed_commands": 89,
+      "detections_before_energy_endpoint": 2,
+      "by_language_action": {
+        "en:UP": {
+          "samples": 12,
+          "matched": 8
+        },
+        "en:DOWN": {
+          "samples": 12,
+          "matched": 9
+        },
+        "en:LEFT": {
+          "samples": 12,
+          "matched": 5
+        },
+        "en:RIGHT": {
+          "samples": 12,
+          "matched": 4
+        },
+        "en:ANGRY": {
+          "samples": 12,
+          "matched": 8
+        },
+        "en:HAPPY": {
+          "samples": 12,
+          "matched": 9
+        },
+        "en:TIRED": {
+          "samples": 12,
+          "matched": 6
+        },
+        "en:NORMAL": {
+          "samples": 12,
+          "matched": 11
+        },
+        "fr:UP": {
+          "samples": 12,
+          "matched": 1
+        },
+        "fr:DOWN": {
+          "samples": 12,
+          "matched": 0
+        },
+        "fr:LEFT": {
+          "samples": 12,
+          "matched": 10
+        },
+        "fr:RIGHT": {
+          "samples": 12,
+          "matched": 9
+        },
+        "fr:ANGRY": {
+          "samples": 5,
+          "matched": 3
+        },
+        "fr:HAPPY": {
+          "samples": 12,
+          "matched": 0
+        },
+        "fr:TIRED": {
+          "samples": 12,
+          "matched": 5
+        },
+        "fr:NORMAL": {
+          "samples": 12,
+          "matched": 8
+        }
+      },
+      "extra_or_wrong_events": 0,
+      "audio_time_delay_ms_median": 371.5625,
+      "audio_time_delay_ms_p95": 645.5,
+      "delay_scope": "audio timestamps after estimated energy endpoint, detected commands only; no P4 wall/CPU time"
+    },
+    "representative_ambient_false_positives_per_hour": null,
+    "physical_p4_end_to_end_latency_ms": null
+  },
+  "lexical_stream": {
+    "scope": "host replay; continuous frontend and same C decision policy; concatenated held-out public corpus",
+    "model_sha256": "f4dc52d0a2ce5bdce2a58fd9604afa6f7359b03246c567d4a224898da7e125d9",
+    "threshold_milli": 850,
+    "negatives": {
+      "samples": 1800,
+      "audio_seconds": 2340.5,
+      "wall_seconds": 13.540444117999868,
+      "invocations": 23394,
+      "events": 39,
+      "host_litert_invoke_ms_median": 0.2638,
+      "host_litert_invoke_ms_p95": 0.4139,
+      "constructed_negative_events_per_hour": 59.987182226020074,
+      "poisson_rate_95_ci": [
+        42.656750678047985,
+        82.00445285921735
+      ]
+    },
+    "positives": {
+      "samples": 185,
+      "audio_seconds": 481.5,
+      "wall_seconds": 3.325765784000396,
+      "invocations": 4804,
+      "events": 102,
+      "host_litert_invoke_ms_median": 0.3427,
+      "host_litert_invoke_ms_p95": 0.440785,
+      "matched_commands": 101,
+      "missed_commands": 84,
+      "detections_before_energy_endpoint": 1,
+      "by_language_action": {
+        "en:UP": {
+          "samples": 12,
+          "matched": 9
+        },
+        "en:DOWN": {
+          "samples": 12,
+          "matched": 9
+        },
+        "en:LEFT": {
+          "samples": 12,
+          "matched": 3
+        },
+        "en:RIGHT": {
+          "samples": 12,
+          "matched": 5
+        },
+        "en:ANGRY": {
+          "samples": 12,
+          "matched": 9
+        },
+        "en:HAPPY": {
+          "samples": 12,
+          "matched": 9
+        },
+        "en:TIRED": {
+          "samples": 12,
+          "matched": 9
+        },
+        "en:NORMAL": {
+          "samples": 12,
+          "matched": 8
+        },
+        "fr:UP": {
+          "samples": 12,
+          "matched": 0
+        },
+        "fr:DOWN": {
+          "samples": 12,
+          "matched": 0
+        },
+        "fr:LEFT": {
+          "samples": 12,
+          "matched": 10
+        },
+        "fr:RIGHT": {
+          "samples": 12,
+          "matched": 9
+        },
+        "fr:ANGRY": {
+          "samples": 5,
+          "matched": 5
+        },
+        "fr:HAPPY": {
+          "samples": 12,
+          "matched": 0
+        },
+        "fr:TIRED": {
+          "samples": 12,
+          "matched": 9
+        },
+        "fr:NORMAL": {
+          "samples": 12,
+          "matched": 7
+        }
+      },
+      "extra_or_wrong_events": 1,
+      "audio_time_delay_ms_median": 379.0625,
+      "audio_time_delay_ms_p95": 668.5625,
+      "delay_scope": "audio timestamps after estimated energy endpoint, detected commands only; no P4 wall/CPU time"
+    },
+    "representative_ambient_false_positives_per_hour": null,
+    "physical_p4_end_to_end_latency_ms": null
+  },
+  "native_build": {
+    "compiled": true,
+    "physical_validation": false,
+    "build_exit_code": 0,
+    "duration_seconds": 46.03678798675537,
+    "command": [
+      "bash",
+      "/mnt/c/Users/fred_/Documents/Codex/microblocks-zephyr/bilingual-kws/esp32p4/build.sh"
+    ],
+    "environment": {
+      "P4_WORKSPACE": "/home/fred/microblocks-zephyr-work",
+      "P4_VOICE_MODEL": "/mnt/c/Users/fred_/Documents/Codex/microblocks-zephyr/bilingual-kws/models/voice_commands_int8.tflite",
+      "P4_WHISTLE_MODEL": "/mnt/c/Users/fred_/Documents/Codex/whistle_esp32_s3_rlcd_v0.1.0/whistle-esp32/release/whistle_d4.cact",
+      "P4_WHISTLE_SOURCES": "/mnt/c/Users/fred_/Documents/Codex/2026-10-25/task-2/microblocks-zephyr/build-artifacts/whistle-sources"
+    },
+    "repo_base_commit": "622c0c09fd0ad942f34048806629c0dd7a62c045",
+    "branch": "codex/bilingual-p4-kws",
+    "repo_has_local_changes": true,
+    "toolchain": "Zephyr SDK 1.0.1; riscv64-zephyr-elf GCC 14.3.0; rv32imafc_zicsr_zifencei / ilp32f",
+    "target": "esp32p4_wifi6/esp32p4/hpcore",
+    "model_sha256": "e17cbf03e00f5e673b8dd16209e62fb60515fab74c5af5f51732c5da4681b0e8",
+    "modules": {
+      "zephyr": {
+        "commit": "a915b2f12675b48b16d56653ea145dcd8f20cbbf",
+        "local_changes": [
+          "M drivers/i2s/i2s_esp32.c",
+          " M drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c",
+          " M drivers/misc/esp_hosted_mcu/esp_hosted_mcu_sdio.c",
+          " M drivers/sdhc/sdhc_esp32.c",
+          " M drivers/wifi/esp_hosted_mcu/Kconfig.esp_hosted_mcu",
+          " M drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c"
+        ],
+        "local_modified_source_sha256": {
+          "drivers/i2s/i2s_esp32.c": "c0f0e5d9dece98799a83b51b8ef23a751778bc1e38623c974d0fa43ff55db56c",
+          "drivers/misc/esp_hosted_mcu/esp_hosted_mcu.c": "13dee76341becc8d19adca1615dca22630953c5fd0963ea4a284cb0780623021",
+          "drivers/misc/esp_hosted_mcu/esp_hosted_mcu_sdio.c": "c8197ae77f0d21bc503f4c17d5ad0b035ea374cf588b49e774cb49e66a02f559",
+          "drivers/sdhc/sdhc_esp32.c": "0a85a585d3c77853d563150057fbe87cb0629d85acfaa2f5d5033fa37427620b",
+          "drivers/wifi/esp_hosted_mcu/Kconfig.esp_hosted_mcu": "346fa80490ff948bdb730a139670da8105fb02343e7ebe2c8bd3c63d5330ea6b",
+          "drivers/wifi/esp_hosted_mcu/esp_hosted_mcu.c": "3bae5fafb15292c6c42d689c4a0d0949badc6a4583d6b7eefa927e1818fefb96"
+        },
+        "local_diff_sha256": "9c1b7553d0bdfc4a7441be95e27eb7e257f02237e8889ac27c8b05b711dd37e4"
+      },
+      "tflite-micro": {
+        "commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+        "local_changes": [],
+        "local_modified_source_sha256": {},
+        "local_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "hal_espressif": {
+        "commit": "b16851b3c20e6fad3d2da42ec24a3e82d0b8b444",
+        "local_changes": [],
+        "local_modified_source_sha256": {},
+        "local_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "source_sha256": {
+      "bilingual-kws/esp32p4/build.sh": "f27b86774b2133f4736a9d7b36e8dd681be9c4aa6b893aad1ed13b4284069c8b",
+      "bilingual-kws/esp32p4/integration/decision.c": "503e8313d233ede545bb930a8be4694fba77fb5323bc51745e1afc05c4bd414e",
+      "bilingual-kws/esp32p4/integration/decision.h": "b3a7d01a1c967e30f7d005a5af7da64d341422c867f16dc0dbf2b306f59f7e5b",
+      "bilingual-kws/esp32p4/integration/frontend_host.c": "ea2e367befabf21d0378f17f4ea99b7f2db4a520cc253658a7c6eec51f190cb3",
+      "bilingual-kws/esp32p4/integration/tflm_host.cc": "879075f7007f6a903d7bb33559eb2bcba4300078cbd7f430b6ee8912fae835f8",
+      "bilingual-kws/scripts/prepare_firmware.py": "9618289d1bebd1c4261321ede605dab05196422a133cf1a1a8115f90038a4c49",
+      "boards/waveshare_esp32p4_wifi6/zephyr/CMakeLists.txt": "f28bef149c02e59c8479031a5ecf7f05d6dcc262e0a26c126b64d7efa7de30e1",
+      "boards/waveshare_esp32p4_wifi6/zephyr/app.overlay": "d765c5702301f59f19d6c545916d71d059f5660be091d25d9785512c95ace00a",
+      "boards/waveshare_esp32p4_wifi6/zephyr/prj.conf": "aaded37cb0bfe5446a73e3177c4e7f10727f6faee12a723803878fc6113c394f",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/c6-probe.conf": "45691ba2843974b42b08838fb3eff563043513af5f7344f2f16007129982ee50",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/c6-sdio.overlay": "88f416641cf1bd0e8ac623018fcc4e98d9f0b21f24fe973c98821082682af4fc",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/hosted.conf": "3c655c0ab8b5031b912004a97e8ed4e124f48993cd314c842f884f9b6856760e",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/hosted.overlay": "e16e007b9cb06ee4dbf905c0ae8d8f3930fdeb56b61d5ebe3d5d3bf4a10d5755",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/neural.conf": "aaf0691ec71b8166635a0631791d20df1e04685f58b9f9dc9986e4fccdc844b2",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/station-sdio-slow.overlay": "5fcdfa1975497d56c5a6bf8156f73bc6da6788fcde8e02c473e9ab71bb8b5ad6",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/station.conf": "3c655c0ab8b5031b912004a97e8ed4e124f48993cd314c842f884f9b6856760e",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/whistle.conf": "ed27317ae080873cf40b2a165f102350a293f2940c3b73f9457545448ac63057",
+      "boards/waveshare_esp32p4_wifi6/zephyr/profiles/whistle.overlay": "07adc449b6caabf8512cc63c74f4120ba05e4de0a24af75d4d50507f7e3808ae",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/audio_backend.c": "58db9ca0082ca40dd7175e6f116a3621b814789d6de356aaa356e4f8f22571e3",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/audio_backend.h": "b7981ca613367504800fe45e2597aa367a020dfccb983f78da6b4f3f3d992d21",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/c6_trace.c": "abe62548bb6099c3da284dcc571ba95640b2061f27227c3fa7375ccc799d323c",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/c6_trace.h": "5f4a6697a54db59d43fa6e6d62f7c524071953131dcd12a3f302c8f50f9afc65",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/camera_backend.c": "875d29345555bf2a4d4dff894b4fad3a00f5dd27113d13b7a410ebb5ac54ffce",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/camera_backend.h": "95f1b5e82ed3ffe3c36ada4524b9a91784690ea815895b77f8e04f791bd0c126",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/camera_tuning.c": "538ef028da7f0dfdf508fadf65c56316234e42ed04377b70549917cce26aa833",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/camera_tuning.h": "07c223a6a9e3412fce3ead38534082947618f7d4c48c6c9578c216697585d991",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/discovery_backend.c": "70614b61e60cde5d05dc39fc3f2fb1e8ea9185d706e3c9494369c6445f66a119",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/discovery_backend.h": "7f855bb67201eaef371894adf2757cc5b65ec16b0efaef11821fb613bac013e6",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/discovery_primitives.c": "c4179b2464e44ac588b97ddf866b989d2e7a4e962c92bbd78c4ed9a5c7b413b1",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/eyes_backend.c": "987f7eb1d01208623e36a7972b3358f46ac9dcd98d64b972587b44f9e18c2917",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/eyes_backend.h": "f236b666c0d8c1fc18546681984f7d93e5e7403e1db3948416329e643941c480",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/eyes_primitives.c": "0dfa1599f3b248be8d546b8a1efa5e60d1075644285a210351e6f1d2c9e69ba8",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/hosted_server.c": "935d94cbeaa36ea241951df6710a956bd25366c9e659c40ace9ed746a5f203c4",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/hosted_server.h": "53fdd4c9fff9dd36601e28bd6a86b4a0029287ff5c8c232c65930009c4858547",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/hosted_transport.c": "9d2ec20a6dfbb447f11b16d78559ef4b54bbea4a2769a6c8e46a35c2b0e064f6",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/image_primitives.c": "5def3413ac71b101c95ac4bcec287ecaee1a7b9973c5891e752458fdf4a5706f",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/kws_backend.cpp": "b13c0491560e5d2d574403196ea6aab64afd0be10fd24728663e9a7dd02caf9a",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/kws_backend.h": "ee04ca5a92958e86b1a5aaae284cf48768e7d1d200c1360dca62593930b3a7de",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/kws_primitives.c": "b5dfcb5abfc97c70a103f9fedc76a4570a1e484157e49af89d9fce2d0a4982f1",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/kws_primitives.h": "25146c48d488390eb8292266e4a556eca55bad1ea3cba90fbce8c1f45191cd0c",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/kws_stub.c": "c04710ff58ae9186d9bf2d954dfddd7accae4b19389405e58c29ad526c5e4859",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/main.c": "defbe5a9c56b5059c4be685a70dc1c051661d17f9f37328579a1ad0bce8c3426",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/media_protocol.c": "7ff3444aa2171174e07b072a3bb77032683d7063f45d96f170aa0c233950e194",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/media_protocol.h": "2c81ddf53e8a08e7d007647cfdfebbe7a029ff1ca29d26572fa65d814009da7f",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/network_backend.c": "63d6c8759a9128435bfa37d7474abab583407875dfb7014df6294d4258144151",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/network_backend.h": "93fc70ade58ee19a2133c57854f82edce4b9058f1c3b8ab50fb931f04d2568c9",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/neural_backend.cpp": "cd66af1bf35d5f80915d8b53276e25ed02fbc3d6185fddcbdd0a8133e37cf752",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/neural_backend.h": "424ebdaf53f7fee55fc8521a21ec246ebea8684159ef877bbad39df1077d30fb",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/neural_primitives.c": "8b8e3d3399f8efcc5e09ab47d20d7e5f3becff676155f5c8ae0f0b74709c9b50",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/neural_primitives.h": "c63b42205d7cc1ceed8f0a7b20a5da3c945e6159f0e39727d5feee252af545c1",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/neural_stub.c": "09775e15cdf480ea8d154906fd3bc887a160bbff5963178af138d14778eedf19",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/ov5647_mode.h": "d392f1688dd764eb7adc75c27d7f9fd602bb0380d3f5d71cffdc564c89186365",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/p4_csi.c": "8c67d8243bb2d229626768d723464266f89ca50123864fd29d6720141d6568a8",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/p4_sensors.c": "06f7036ed895d46cbad68dc4a117fc5718e53500e135cecc5533833e4850a4e6",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/p4_video.h": "65ad921251d2e63f90bffa9edbc51fb3d991473d4452421087679d804eddc435",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/platform.c": "acd01052b003c857627a5c330cb70b983d67c4bebf99c331b3ec8e5afe480df1",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/pose_camera.c": "ba38db59f8a8ccebfb86ca45a718696c4024e89a9182947e57fa131dbc5b90c5",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/pose_camera.h": "6cca62e6fca6910b40bbb8a218b5a865332408f6ca2bb6778c41148fd5679c68",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/ppa_backend.c": "0181d219a840f5e3241c136292c8ff797aec3ccd469583ea076b8bccf5331775",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/ppa_backend.h": "721639a81aab1f0bd1606f45b9e40049ea51b5b46cdc592b503a3d04b4fbc964",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/rpc_allocator.c": "eb5032fc493aaa70b57ff735f6f7cabe6df3e375b2754bee7feae9a0ace7a7d6",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/rpc_allocator.h": "461c219eddc6a525815e2264fb5838498aaa5061502a564ca1dbcaa3d64caf0e",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/rpc_decode.c": "942fc8ea35119f313df6c6405f34125272185b72290587e6a61cc31089b64125",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/serial_speed.c": "4b1b6545569d41946493739567b2b4864cfeb69a36bd764d39af6c66a9bfa769",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/serial_speed.h": "60231e2052e2ba8e274ef1816bf8c5910f43e9be221d85bc598f3396716fa463",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/voice_api.inc": "67ac8582a4328fa2310c3676db3670cfbd908b477ac1ebb46b7ef684564fe80f",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/voice_commands.h": "12ddb3e4ffae1dfe2724e77bde88d6a35b3715cdcfc260246219493e5614efce",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/voice_commands.inc": "cf213b8eec463561e11df1b7a6378e8e884fe0100960a344a087d55084a49f83",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/voice_primitives.c": "8eb0693fe37dc1452f1393a2e4c199a28f1862956134c12e13b6bf6259f9db54",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/voice_primitives.h": "986bbd92652f4393301673ad32557654e6fbeb51f925a100a8645d3f8584bc6f",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/whistle_backend.c": "281d35c47e43b8e5b4704b30c158151e1ebbe0ce1e9c1fad47de07b3fda0d624",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/whistle_backend.h": "64dc107bd27389ce86f6261d2f73f4398a9dc919766e171c34fb049ca4578ce1",
+      "boards/waveshare_esp32p4_wifi6/zephyr/src/whistle_port.h": "64cd6d666221eb34d6a9d0a9a417525b4afc8a3c2e687f615485c3b950381617",
+      "common/kws/alloc_redirect.h": "7f6b5a45409bf9545aa059d8116abe40d0b38013bb22602d529ba17399e18ae6",
+      "common/kws/features.c": "ece3f31d554998efe3f9ab95b642eb926e21a49e0b3745efa656fdd8c3e69da9",
+      "common/kws/kws_features.h": "7dead2acfb7bac7771270ddaac868ace9a9e306f1141638cd09cb89dbb6eaf55",
+      "tools/prepare_p4_kws_frontend.py": "fbdc20690a7678114256dbc61015583893d7be801b6258ec31a7718038829c2c",
+      "tools/prepare_p4_neural.py": "5ec1e1acbd5765d2f16f95f00a4d42f744042f7764af0af54260669e1b1a15b5"
+    },
+    "elf_sha256": "79e28a3bef612c48965954910dab89c0b72bfaddfc1303e395ea7ba27e3d1285",
+    "image_sha256": "26546b59da56385590d438c7a5b56a62670872f7ba8be1fc4ef7d36f69f7776d",
+    "image_bytes": 15250032,
+    "voice_model_bytes": 57408,
+    "voice_model_start": "0x40e384b0",
+    "voice_model_end": "0x40e464f0",
+    "voice_model_flash_mapped": true,
+    "voice_model_section": ".flash.rodata",
+    "voice_model_copied_to_psram": false,
+    "guarded_image": "/mnt/c/Users/fred_/Documents/Codex/microblocks-zephyr/build-artifacts/bilingual-kws/zephyr-checked.bin",
+    "revision_guard": {
+      "minimum_revision": "1.3",
+      "maximum_revision": "1.99",
+      "input_sha256": "26546b59da56385590d438c7a5b56a62670872f7ba8be1fc4ef7d36f69f7776d",
+      "output_sha256": "fc8f09ae5a34e4561ebac21c4c9ed2fe6c51dd70f4c25dd945941cafcbdba8c7",
+      "bytes": 15250032
+    },
+    "physical_p4_latency_ms": null,
+    "total_runtime_ram_bytes": null,
+    "cpu_usage": null,
+    "linker_memory_regions": {
+      "FLASH": {
+        "linker_used_bytes": 15218116,
+        "region_bytes": 33554176,
+        "percent": 45.35
+      },
+      "sram0_0_seg": {
+        "linker_used_bytes": 246960,
+        "region_bytes": 393216,
+        "percent": 62.81
+      },
+      "lp_ram_seg": {
+        "linker_used_bytes": 36,
+        "region_bytes": 30944,
+        "percent": 0.12
+      },
+      "lp_reserved_seg": {
+        "linker_used_bytes": 0,
+        "region_bytes": 24,
+        "percent": 0.0
+      },
+      "IDT_LIST": {
+        "linker_used_bytes": 0,
+        "region_bytes": 8192,
+        "percent": 0.0
+      },
+      "irom0_0_seg": {
+        "linker_used_bytes": 381552,
+        "region_bytes": 33554432,
+        "percent": 1.14
+      },
+      "drom0_0_seg": {
+        "linker_used_bytes": 15087044,
+        "region_bytes": 33554432,
+        "percent": 44.96
+      },
+      "ext_dram_seg": {
+        "linker_used_bytes": 17153984,
+        "region_bytes": 33554432,
+        "percent": 51.12
+      }
+    },
+    "linker_memory_note": "Static linker reservations; ext_dram includes the existing 16 MiB heap, from which voice arena/frontend are allocated. These regions overlap mapped views and must not be summed. Not measured runtime high-water RAM.",
+    "whistle_link_check": {
+      "native_elf": "RV32 Zephyr",
+      "image_bytes": 15250032,
+      "flash_offset": "0x2000",
+      "reserved_boundary": "0xfe0000",
+      "model_start": "0x40060600",
+      "model_end": "0x40e384af",
+      "model_bytes": 14515887,
+      "model_sha256": "e2ccbe2d342a8438ec9a7610809ad095acdbcc359b959202fe18dc4fef66dbb1",
+      "image_sha256": "26546b59da56385590d438c7a5b56a62670872f7ba8be1fc4ef7d36f69f7776d",
+      "weights_copied_to_psram": false
+    }
+  },
+  "physical_p4": null
+}

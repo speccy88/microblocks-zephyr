@@ -3,6 +3,10 @@
 #include "kws_backend.h"
 #include "kws_features.h"
 #include "kws_assets.h"
+#include "voice_commands.h"
+#if defined(P4_VOICE_COMMANDS)
+#include "decision.h"
+#endif
 extern "C" {
 #include "audio_store.h"
 #include "audio_backend.h"
@@ -17,6 +21,7 @@ extern "C" {
 #include <tensorflow/lite/schema/schema_generated.h>
 #include <cstdio>
 #include <cstring>
+#include <cmath>
 
 namespace {
 constexpr unsigned STACK=16384,ARENA=32768,MAX_SCORES=270;
@@ -55,8 +60,12 @@ static int accept_audio(const int16_t *samples,unsigned count,void *)
  int ok=k_msgq_put(&ring,&chunk,K_NO_WAIT)==0;
  memset(&chunk,0,sizeof(chunk));if(!ok)atomic_inc(&ring_overflows);return ok;
 }
+#include "voice_commands.inc"
 static const char *infer(Metrics &m)
 {
+#if defined(P4_VOICE_COMMANDS)
+ if(job_voice)return infer_voice(m);
+#endif
  unsigned bytes=p4_kws_model_end-p4_kws_model_start;uint8_t hash[32];size_t n=0;
  if(bytes!=60264||psa_hash_compute(PSA_ALG_SHA_256,p4_kws_model_start,bytes,hash,32,&n)!=PSA_SUCCESS||n!=32||memcmp(hash,p4_kws_digest,32))return "trusted model hash mismatch";
  flatbuffers::Verifier verifier(p4_kws_model_start,bytes,24,4096);
@@ -148,11 +157,13 @@ static void worker(void *,void *,void *)
   k_mutex_unlock(&lock);
  }
 }
-static bool queue(const int16_t *samples,unsigned count,bool take)
+static bool queue(const int16_t *samples,unsigned count,bool take,bool voice=false)
 {
  if(!initialized||busy||atomic_get(&stream_quarantined)||!samples||count<480||count>AUDIO_MAX_FRAMES)return false;
  event_head=event_count=event_overflow=last_confidence=0;
- job_stream=false;cutoff_milli=970;cooldown_ms=1000;atomic_clear(&ring_overflows);
+ p4_voice_clear();
+ if(voice)metrics=Metrics{};
+ job_stream=false;job_voice=voice;cutoff_milli=voice?850:970;cooldown_ms=voice?800:1000;atomic_clear(&ring_overflows);
  pcm=samples;frames=count;owned=take;busy=true;ready=false;phase="running";atomic_clear(&cancelled);k_sem_give(&requested);return true;
 }
 }
@@ -160,6 +171,9 @@ extern "C" void p4_kws_init(void)
 {
  if(initialized)return;
  if(resolver.AddCallOnce()!=kTfLiteOk||resolver.AddVarHandle()!=kTfLiteOk||resolver.AddReshape()!=kTfLiteOk||resolver.AddReadVariable()!=kTfLiteOk||resolver.AddConcatenation()!=kTfLiteOk||resolver.AddStridedSlice()!=kTfLiteOk||resolver.AddAssignVariable()!=kTfLiteOk||resolver.AddConv2D()!=kTfLiteOk||resolver.AddDepthwiseConv2D()!=kTfLiteOk||resolver.AddSplitV()!=kTfLiteOk||resolver.AddFullyConnected()!=kTfLiteOk||resolver.AddLogistic()!=kTfLiteOk||resolver.AddQuantize()!=kTfLiteOk||psa_crypto_init()!=PSA_SUCCESS){message="kernel or hash initialization failed";return;}
+#if defined(P4_VOICE_COMMANDS)
+ voice_initialized=voice_resolver.AddConv2D()==kTfLiteOk&&voice_resolver.AddDepthwiseConv2D()==kTfLiteOk&&voice_resolver.AddAveragePool2D()==kTfLiteOk&&voice_resolver.AddFullyConnected()==kTfLiteOk&&voice_resolver.AddReshape()==kTfLiteOk&&voice_resolver.AddSoftmax()==kTfLiteOk&&voice_resolver.AddMul()==kTfLiteOk&&voice_resolver.AddQuantize()==kTfLiteOk;
+#endif
  k_msgq_init(&ring,ring_memory,sizeof(AudioChunk),16);
  initialized=true;k_thread_create(&thread,memory.stack,K_KERNEL_STACK_SIZEOF(memory.stack),worker,nullptr,nullptr,nullptr,8,0,K_NO_WAIT);k_thread_name_set(&thread,"p4_kws");
 }
@@ -188,18 +202,22 @@ extern "C" int p4_kws_listen(unsigned ms,unsigned confidence,unsigned cooldown)
 {
  if(ms>300000||(ms&&ms<100)||confidence<500||confidence>999||cooldown<250||cooldown>10000)return 0;
  k_mutex_lock(&lock,K_FOREVER);bool ok=initialized&&!busy&&!atomic_get(&stream_quarantined)&&!p4_audio_busy();
- if(ok){job_stream=true;stream_ms=ms;cutoff_milli=confidence;cooldown_ms=cooldown;pcm=nullptr;frames=0;owned=false;busy=true;ready=false;event_head=event_count=event_overflow=last_confidence=0;atomic_clear(&ring_overflows);atomic_clear(&cancelled);phase="starting";k_sem_give(&requested);}
+ if(ok){p4_voice_clear();job_voice=false;job_stream=true;stream_ms=ms;cutoff_milli=confidence;cooldown_ms=cooldown;pcm=nullptr;frames=0;owned=false;busy=true;ready=false;event_head=event_count=event_overflow=last_confidence=0;atomic_clear(&ring_overflows);atomic_clear(&cancelled);phase="starting";k_sem_give(&requested);}
  k_mutex_unlock(&lock);return ok;
 }
-extern "C" int p4_kws_listening(void){return atomic_get(&streaming)&&p4_audio_stream_state()==1;}
-extern "C" void p4_kws_cancel(void){atomic_set(&cancelled,1);p4_audio_stream_stop();k_mutex_lock(&lock,K_FOREVER);ready=false;event_count=event_head=last_confidence=0;if(!busy){bool fault=atomic_get(&stream_quarantined)||p4_audio_stream_state()<0;phase=fault?"error":"idle";message=fault?"audio fault; inspect audio status before reuse":"microphone off; results cleared";memset(&metrics,0,sizeof(metrics));}k_mutex_unlock(&lock);}
-extern "C" int p4_kws_take_event(void){k_mutex_lock(&lock,K_FOREVER);int ok=event_count&&!atomic_get(&cancelled);if(ok){last_confidence=events[event_head];event_head=(event_head+1)%4;event_count--;}k_mutex_unlock(&lock);return ok;}
+extern "C" int p4_kws_listening(void){return !job_voice&&atomic_get(&streaming)&&p4_audio_stream_state()==1;}
+extern "C" void p4_kws_cancel(void){atomic_set(&cancelled,1);p4_voice_clear();p4_audio_stream_stop();k_mutex_lock(&lock,K_FOREVER);ready=false;event_count=event_head=last_confidence=0;if(busy&&job_voice)phase="stopping";if(!busy){bool fault=atomic_get(&stream_quarantined)||p4_audio_stream_state()<0;phase=fault?"error":"idle";message=fault?"audio fault; inspect audio status before reuse":"microphone off; results cleared";memset(&metrics,0,sizeof(metrics));}k_mutex_unlock(&lock);}
+extern "C" int p4_kws_take_event(void){k_mutex_lock(&lock,K_FOREVER);int ok=!job_voice&&event_count&&!atomic_get(&cancelled);if(ok){last_confidence=events[event_head];event_head=(event_head+1)%4;event_count--;}k_mutex_unlock(&lock);return ok;}
 extern "C" unsigned p4_kws_confidence(void){k_mutex_lock(&lock,K_FOREVER);unsigned n=last_confidence;k_mutex_unlock(&lock);return n;}
-extern "C" const char *p4_kws_state(void){k_mutex_lock(&lock,K_FOREVER);const char *s=busy?(job_stream?(atomic_get(&streaming)?"Listening for Okay Nabu":"Starting wake-word listener"):"Checking audio clip"):message;k_mutex_unlock(&lock);return s;}
-extern "C" int p4_kws_scores(unsigned offset,unsigned count,uint8_t *out){k_mutex_lock(&lock,K_FOREVER);unsigned available=MIN(metrics.invocations,MAX_SCORES);bool ok=ready&&!busy&&offset<=available&&count<=available-offset&&count<=64;if(ok)memcpy(out,metrics.scores+offset,count);k_mutex_unlock(&lock);return ok;}
+extern "C" const char *p4_kws_state(void){k_mutex_lock(&lock,K_FOREVER);const char *s=busy&&job_voice?"Voice commands own the shared KWS worker":busy?(job_stream?(atomic_get(&streaming)?"Listening for Okay Nabu":"Starting wake-word listener"):"Checking audio clip"):message;k_mutex_unlock(&lock);return s;}
+extern "C" int p4_kws_scores(unsigned offset,unsigned count,uint8_t *out){k_mutex_lock(&lock,K_FOREVER);unsigned available=MIN(metrics.invocations,MAX_SCORES);bool ok=ready&&!busy&&!job_voice&&offset<=available&&count<=available-offset&&count<=64;if(ok)memcpy(out,metrics.scores+offset,count);k_mutex_unlock(&lock);return ok;}
 extern "C" void p4_kws_status(char *out,size_t n)
 {
- k_mutex_lock(&lock,K_FOREVER);Metrics m=busy?Metrics{}:metrics;
+ k_mutex_lock(&lock,K_FOREVER);
+ if(job_voice){snprintf(out,n,"{\"available\":%s,\"busy\":%s,\"listening\":false,\"phase\":\"voice_commands_own_shared_worker\",\"message\":\"inspect voice command status\"}",initialized?"true":"false",busy?"true":"false");k_mutex_unlock(&lock);return;}
+ Metrics m=busy?Metrics{}:metrics;
  snprintf(out,n,"{\"available\":%s,\"busy\":%s,\"listening\":%s,\"phase\":\"%s\",\"message\":\"%s\",\"frames\":%u,\"features\":%u,\"feature_fnv1a\":\"%08x\",\"invocations\":%u,\"events\":%u,\"event_ms\":%u,\"confidence_milli\":%u,\"arena_reserved_bytes\":%u,\"arena_used_bytes\":%u,\"frontend_peak_requested_bytes\":%u,\"stack_reserved_bytes\":%u,\"stack_unused_bytes\":%u,\"max_invoke_us\":%u,\"total_invoke_us\":%llu,\"max_step_us\":%u,\"total_us\":%llu,\"ring_bytes\":%u,\"ring_overflows\":%u,\"event_overflows\":%u,\"quarantined\":%s}",initialized?"true":"false",busy?"true":"false",p4_kws_listening()?"true":"false",phase,busy?(job_stream?"explicit microphone stream":"bounded CPU clip inference"):message,m.frames,m.features,m.feature_hash,m.invocations,m.events,m.event_ms,m.confidence_milli,ARENA,m.arena_used,m.frontend_peak,STACK,m.stack_unused,m.max_invoke_us,(unsigned long long)m.total_invoke_us,m.max_step_us,(unsigned long long)m.total_us,(unsigned)sizeof(ring_memory),(unsigned)atomic_get(&ring_overflows),event_overflow,atomic_get(&stream_quarantined)?"true":"false");
  k_mutex_unlock(&lock);
 }
+
+#include "voice_api.inc"

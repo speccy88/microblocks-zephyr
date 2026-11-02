@@ -1,0 +1,5 @@
+{
+  "model": "fr_FR-gilles-low",
+  "reason": "Legacy voice vocabulary omits combining nasalization mark U+0303; 57 missing-phoneme warnings observed. All generated audio excluded.",
+  "used_in_training": false
+}

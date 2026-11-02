@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """COM5-only binary SmallVM transport. Never opens COM12 or auto-selects a port."""
 # SPDX-License-Identifier: MPL-2.0
-import struct,time,zlib
+import struct,time,zlib,secrets
+from p4_link import rate_packet,rate_reply
 import serial
 from serial.tools import list_ports
 from test_wireless_vm import VM,op,words
@@ -38,22 +39,72 @@ def require_com5():
  return dict(port='COM5',vid=0x1a86,pid=0x55d3)
 
 class P4SerialVM(VM):
- def __init__(self):
+ def __init__(self,baudrate=115200):
+  if baudrate not in (115200,460800,921600):raise ValueError('P4 baud must be 115200, 460800 or 921600')
   self.identity=require_com5();self.host='COM5'
   self.serial=serial.Serial(port=None,baudrate=115200,timeout=.03,write_timeout=3)
   self.serial.port='COM5';self.serial.dtr=self.serial.rts=False;self.serial.open()
   self.serial.reset_input_buffer();self.buffer=bytearray();self.events=[];self.last_ping=0
   self.sent_bytes=self.received_bytes=0;self.upload_seconds=[]
+  self.link_token=0;self.link_baud=115200;self.last_link_ping=0;self.link_fallback=None
   try:
-   self.short(12);body=self.wait(lambda e:e[:2]==(22,0),seconds=5,after=0)[2]
+   body=self.baseline_version()
    self.version=body[1:].decode()
    if 'Waveshare ESP32-P4 WIFI6 Zephyr' not in self.version:raise RuntimeError('Unexpected firmware: '+self.version)
+   if baudrate!=115200:self.negotiate_baud(baudrate)
   except BaseException:self.close();raise
+ def baseline_version(self):
+  # A previous fast controller can have crashed. Only its valid lease frames
+  # renew the rate, so baseline discovery waits out at most the 5s lease.
+  deadline=time.monotonic()+6.5
+  while time.monotonic()<deadline:
+   self.serial.reset_input_buffer();self.buffer.clear();self.events.clear();self.short(12)
+   try:return self.wait(lambda e:e[:2]==(22,0),seconds=.24,after=0)[2]
+   except TimeoutError:pass
+   except RuntimeError as error:
+    if not str(error).startswith('Unframed COM5 output'):raise
+  raise TimeoutError('P4 baseline version handshake failed')
+ def rate_request(self,operation,token=0,baud=0,seconds=.7):
+  start=len(self.events);self.send(rate_packet(operation,token,baud))
+  body=self.wait(lambda e:e[0]==214 and len(e[2])==16 and e[2][5]==operation and int.from_bytes(e[2][8:12],'little')==token,after=start,seconds=seconds)[2]
+  return rate_reply(body,operation,token)
+ def negotiate_baud(self,baudrate):
+  if baudrate not in (115200,460800,921600):raise ValueError('Unsupported P4 baud')
+  if baudrate==self.link_baud:return
+  if self.link_baud!=115200:self.restore_baud()
+  if baudrate==115200:return
+  prepared=False
+  try:
+   status,state,actual=self.rate_request(0)
+   if status or state or actual!=115200:raise RuntimeError('Fast serial unavailable in this firmware/profile')
+   token=secrets.randbelow(0xffffffff)+1
+   status,state,_=self.rate_request(1,token,baudrate)
+   if status or state!=1:raise RuntimeError('Fast serial preparation rejected')
+   prepared=True;self.serial.flush();self.serial.baudrate=baudrate;time.sleep(.08)
+   self.serial.reset_input_buffer();self.buffer.clear();self.events.clear()
+   status,state,actual=self.rate_request(2,token,baudrate)
+   if status or state!=3 or actual!=baudrate:raise RuntimeError('Fast serial confirmation failed')
+   self.link_token=token;self.link_baud=actual;self.last_link_ping=time.monotonic()
+  except (TimeoutError,RuntimeError,ValueError,serial.SerialException) as error:
+   self.link_fallback=str(error);self.link_token=0;self.link_baud=115200;self.serial.baudrate=115200
+   if prepared:time.sleep(1.95)
+   self.baseline_version()
+ def restore_baud(self):
+  if not self.link_token:return
+  status,_,_=self.rate_request(3,self.link_token,115200)
+  if status:raise RuntimeError('Baseline serial restore rejected')
+  self.serial.flush();time.sleep(.08);self.link_token=0;self.link_baud=115200;self.serial.baudrate=115200
+  self.baseline_version()
+ def keep_link_alive(self):
+  # Caller must be between complete VM frames (pump or an empty FrameMux).
+  if self.link_token and time.monotonic()-self.last_link_ping>.5:
+   self.send(rate_packet(4,self.link_token,self.link_baud));self.last_link_ping=time.monotonic()
  def send(self,data):
   if self.serial.write(data)!=len(data):raise RuntimeError('Short COM5 write')
   self.sent_bytes+=len(data)
  def short(self,kind,index=0):self.send(bytes([250,kind,index]))
  def pump(self):
+  self.keep_link_alive()
   if time.monotonic()-self.last_ping>.5:self.short(26,73);self.last_ping=time.monotonic()
   data=self.serial.read(min(4096,self.serial.in_waiting or 1));self.received_bytes+=len(data);self.buffer.extend(data)
   if len(self.buffer)>16384:raise RuntimeError('P4 input buffer limit')
@@ -101,4 +152,10 @@ class P4SerialVM(VM):
   response=self.wait(lambda e:e[0]==206 and e[2][0]==37,after=start)[2]
   if response[1]:raise ValueError('Image request rejected')
   return response[2:]
- def close(self):self.serial.close()
+ def close(self):
+  if getattr(self,'link_token',0) and self.serial.is_open:
+   try:
+    self.send(rate_packet(3,self.link_token,115200));self.serial.flush();time.sleep(.08)
+   except (OSError,serial.SerialException):pass
+   self.link_token=0
+  self.serial.close()

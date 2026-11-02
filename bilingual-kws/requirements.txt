@@ -1,0 +1,17 @@
+tensorflow[and-cuda]==2.20.0
+numpy==2.2.6
+scipy==1.18.1
+soundfile==0.14.0
+PyYAML==6.0.3
+scikit-learn==1.9.1
+matplotlib==3.11.2
+requests==2.34.2
+piper-tts==1.8.0
+kokoro==0.9.4
+torch==2.8.0
+transformers==4.51.3
+tokenizers==0.21.4
+misaki[en]==0.9.4
+espeakng-loader==0.2.4
+onnxruntime-gpu==1.23.2
+huggingface-hub

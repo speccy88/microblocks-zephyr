@@ -1,0 +1,37 @@
+{
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "python": "3.12.15",
+  "tensorflow": "2.20.0",
+  "cuda_probe_device": "/job:localhost/replica:0/task:0/device:GPU:0",
+  "cuda_probe_result": 16777216.0,
+  "gpu": [
+    {
+      "compute_capability": [
+        7,
+        5
+      ],
+      "device_name": "NVIDIA GeForce RTX 2060 SUPER"
+    }
+  ],
+  "build_info": {
+    "cpu_compiler": "clang 18",
+    "cuda_compute_capabilities": [
+      "sm_60",
+      "sm_70",
+      "sm_80",
+      "sm_89",
+      "compute_90"
+    ],
+    "cuda_version": "12.5.1",
+    "cudnn_version": "9",
+    "is_cuda_build": true,
+    "is_rocm_build": false,
+    "is_tensorrt_build": false
+  },
+  "nvidia_smi": "name, memory.total [MiB], driver_version\nNVIDIA GeForce RTX 2060 SUPER, 8192 MiB, 610.88\n",
+  "ram": "               total        used        free      shared  buff/cache   available\nMem:      6217031680  1914945536   789573632    83611648  3789402112  4302086144\nSwap:     2147483648   123789312  2023694336\n",
+  "disk_free_bytes": 810791809024,
+  "available_cpus": 2,
+  "training_data_directory": "/home/fred/bilingual-kws-data",
+  "note": "Only training and host tests authorized. No board/serial access."
+}

@@ -1,0 +1,62 @@
+{
+  "source": "https://huggingface.co/rhasspy/piper-voices/resolve/5041a7a49ae5b3a0f30e6837769eb03fdbb231bd/voices.json",
+  "voices": {
+    "fr_FR-gilles-low": {
+      "code": "fr_FR",
+      "family": "fr",
+      "region": "FR",
+      "name_native": "Français",
+      "name_english": "French",
+      "country_english": "France"
+    },
+    "fr_FR-mls-medium": {
+      "code": "fr_FR",
+      "family": "fr",
+      "region": "FR",
+      "name_native": "Français",
+      "name_english": "French",
+      "country_english": "France"
+    },
+    "fr_FR-mls_1840-low": {
+      "code": "fr_FR",
+      "family": "fr",
+      "region": "FR",
+      "name_native": "Français",
+      "name_english": "French",
+      "country_english": "France"
+    },
+    "fr_FR-siwis-low": {
+      "code": "fr_FR",
+      "family": "fr",
+      "region": "FR",
+      "name_native": "Français",
+      "name_english": "French",
+      "country_english": "France"
+    },
+    "fr_FR-siwis-medium": {
+      "code": "fr_FR",
+      "family": "fr",
+      "region": "FR",
+      "name_native": "Français",
+      "name_english": "French",
+      "country_english": "France"
+    },
+    "fr_FR-tom-medium": {
+      "code": "fr_FR",
+      "family": "fr",
+      "region": "FR",
+      "name_native": "Français",
+      "name_english": "French",
+      "country_english": "France"
+    },
+    "fr_FR-upmc-medium": {
+      "code": "fr_FR",
+      "family": "fr",
+      "region": "FR",
+      "name_native": "Français",
+      "name_english": "French",
+      "country_english": "France"
+    }
+  },
+  "fr_CA_matches": []
+}

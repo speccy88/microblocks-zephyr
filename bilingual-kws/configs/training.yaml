@@ -1,0 +1,39 @@
+seed: 20261030
+sample_rate: 16000
+window_samples: 19200
+frames: 118
+channels: 40
+batch_size: 64
+epochs: 45
+learning_rate: 0.001
+patience: 9
+frontend:
+  implementation: common/kws/features.c
+  tflm_commit: 43b2a106a391dd8a099ac47f2ae858630a397264
+  window_ms: 30
+  hop_ms: 10
+  window_samples: 480
+  hop_samples: 160
+  window_function: 0.5 - 0.5*cos(2*pi*(i+0.5)/480), fixed-point rounded by pinned TFLM
+  window_coefficient_bits: 12
+  fft_size: 512
+  fft_implementation: pinned kissfft_fixed16, zero padding from 480 to 512
+  mel_bins: 40
+  lower_hz: 125
+  upper_hz: 7500
+  noise_smoothing_bits: 10
+  even_smoothing: 0.025
+  odd_smoothing: 0.06
+  min_signal_remaining: 0.05
+  pcan: true
+  pcan_strength: 0.95
+  pcan_offset: 80
+  pcan_gain_bits: 21
+  log_scale_shift: 6
+  feature_quantization: floor((raw * 256 + 333) / 666) - 128, saturated to [-128,127]
+decision:
+  stride_ms: 100
+  threshold_milli: 850
+  stable_windows: 2
+  cooldown_ms: 800
+  release_windows: 3

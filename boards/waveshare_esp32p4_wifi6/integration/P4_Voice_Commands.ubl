@@ -1,0 +1,21 @@
+module 'Voice Commands' Input
+author 'Native Zephyr bilingual TinyML project'
+version 0 1
+description 'Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.'
+spec 'h' 'p4WhenVoiceCommand' 'when voice command detected'
+spec ' ' 'p4StartVoiceCommands' 'start voice commands'
+spec ' ' '[p4:voiceStop]' 'stop voice commands'
+spec 'r' '[p4:voiceCommand]' 'recognized command'
+spec 'r' '[p4:voiceConfidence]' 'command confidence (0-1000)'
+spec 'r' '[p4:voiceScore]' 'score for command _' 'str' 'left'
+spec 'r' '[p4:voiceStatus]' 'voice command status'
+spec 'b' '[p4:voiceAvailable]' 'voice commands available?'
+advanced
+spec 'b' '[p4:voiceListen]' 'start voice commands _ ms confidence _ cooldown _ ms' 'num num num' 0 850 800
+spec 'b' '[p4:voiceClip]' 'check saved audio _ for commands' 'num' 0
+
+to p4StartVoiceCommands {
+    if (not ('[p4:voiceListen]' 0 850 800)) {
+        sayIt 'Cannot listen: command model unavailable or audio worker busy.'
+    }
+}

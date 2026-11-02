@@ -38,3 +38,35 @@ See [architecture review](docs/ARCHITECTURE_REVIEW.md) and [spec](docs/SPEC.md).
 
 See [Wake Word](docs/WAKE_WORD.md) for the optional model profile, measured
 memory/latency, explicit listening controls and acoustic-test limits.
+
+[Robot Eyes and Person Pose](docs/ROBOT_EYES_POSE.md) add native RoboEyes OLED
+blocks on SDA7/SCL8, a local YOLO arm-pose / MediaPipe face companion, and
+runtime Pi Camera v2.1 snapshot sliders. OLED alignment is user-confirmed;
+native USB snapshot controls/capture/reset and simulated sleep/wake/follow
+behaviour passed. The installed firmware is native Zephyr; vision inference runs
+on the computer using the attached P4 camera. The local bridge negotiates 921600
+baud: measured 320x180 transfer is 2.3s (was 11.5s); 160x90 capture/transfer is
+0.76s. Preview resolution is selectable up to native 1280x720, with custom
+dimensions. Baseline/direct USB stays at 115200. 103 repository tests pass. Live
+person/arm tracking and eyelid/direction accuracy remain unverified. The guide
+includes the tuning workspace, tested brighter settings and explicit demos.
+
+[Whistle voice eyes](docs/VOICE_EYES.md) adds editable Listen once / repeated
+listening / Pause blocks and an explicit if/else command chain for up, down,
+left, right, angry, happy, tired and normal. Unmatched text retains gaze and
+expression. This speech inference runs locally on the P4's native Whistle
+engine, using its ES8311 microphone. The model-enabled eyes firmware is built
+and hash-flashed; 21 actual GP keyword/state tests and the complete speech/Pause
+test pass. A controlled acoustic `happy` was recognised in 20.4s in a native
+component test and applied by the final GP block in 26.5s after recording;
+recognition of the user's voice is unverified. Start leaves the microphone off.
+Listen once records 3s (0.5s settling, then a 2.5s speech window), then transcribes;
+the status bubble tells the user when to speak and when to wait.
+
+
+The [bilingual TinyML command project](../../bilingual-kws/README.md) adds a
+separately trained ten-class command profile on the existing native KWS worker.
+Its source-speaker audit, actual GPU experiments, integer export and verification
+status are recorded there. The generic Dense importer remains restricted.
+Microphone startup is explicit; physical P4 measurements and French-Canadian
+accuracy are separate acceptance gates. This task does not flash firmware.

@@ -1,0 +1,7 @@
+{
+  "status": "scan deadline exceeded; 0 devices found",
+  "addresses": [],
+  "oled_address_found": false,
+  "display_pattern_sent": false,
+  "camera_captured": false
+}

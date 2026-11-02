@@ -1,0 +1,19 @@
+{
+  "frames": 12,
+  "frames_with_person": 0,
+  "gestures": [
+    "neutral"
+  ],
+  "mean_inference_ms": 230.89,
+  "inference_location": "computer",
+  "board_accessed": false,
+  "physical_oled_verified": false,
+  "fixture_source": "https://ultralytics.com/images/bus.jpg",
+  "fixture_transform": "resize then grayscale quantized to 16 levels, repeated 12 times in MJPG fixture",
+  "width": 160,
+  "height": 90,
+  "packed_frame_bytes": 7200,
+  "note": "Rejected low-resolution candidate: no usable person detections.",
+  "model": "yolo11n-pose.pt",
+  "model_sha256": "869e83fcdffdc7371fa4e34cd8e51c838cc729571d1635e5141e3075e9319dc0"
+}

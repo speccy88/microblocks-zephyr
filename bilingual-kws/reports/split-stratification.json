@@ -1,0 +1,14 @@
+{
+  "method": "deterministic rare-cell speaker stratification; move every utterance in the group",
+  "cells": [
+    {
+      "language": "fr",
+      "label": "ANGRY",
+      "speakers": 28,
+      "held_out_test_speakers": 4,
+      "held_out_validation_speakers": 4
+    }
+  ],
+  "utterances_moved": 0,
+  "utterances_with_recorded_split_override": 186
+}

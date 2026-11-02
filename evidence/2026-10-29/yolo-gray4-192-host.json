@@ -1,0 +1,20 @@
+{
+  "frames": 12,
+  "frames_with_person": 11,
+  "gestures": [
+    "arms out",
+    "neutral"
+  ],
+  "mean_inference_ms": 223.73,
+  "inference_location": "computer",
+  "board_accessed": false,
+  "physical_oled_verified": false,
+  "fixture_source": "https://ultralytics.com/images/bus.jpg",
+  "fixture_transform": "resize then grayscale quantized to 16 levels, repeated 12 times in MJPG fixture",
+  "width": 192,
+  "height": 108,
+  "packed_frame_bytes": 10368,
+  "note": "Selected packed grayscale resolution; public repeated-image fixture only, not a live P4-camera or arm-recognition test.",
+  "model": "yolo11n-pose.pt",
+  "model_sha256": "869e83fcdffdc7371fa4e34cd8e51c838cc729571d1635e5141e3075e9319dc0"
+}

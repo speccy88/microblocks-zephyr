@@ -1,0 +1,20 @@
+{
+  "engine": "Actual GP 2.5.8 compiled code on native P4 SmallVM",
+  "suite": "mapping",
+  "cases_passed": 21,
+  "cases_failed": 0,
+  "summary": "VOICE_TESTS_PASSED",
+  "eye_state": {
+    "running": true,
+    "ready": true,
+    "x": 500,
+    "y": 0,
+    "mood": 0,
+    "idle": false,
+    "autoblink": true
+  },
+  "microphone_used": false,
+  "audio_handles": 0,
+  "inference_running": false,
+  "result": "PASS"
+}

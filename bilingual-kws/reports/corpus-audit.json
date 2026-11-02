@@ -1,0 +1,1249 @@
+{
+  "records": 60147,
+  "evaluation_records": 60146,
+  "evaluation_excluded_all_zero_duplicates": 1,
+  "records_sha256": "fd27922ebf53419c2c93ed00ceae7adf527069c8c79c7970c3b62890b637d224",
+  "canonical_pcm_label_split_sha256": "c768323ea4a044710d9e06041c5a2c41c8ae867f11459dbd4080d7a15dd24219",
+  "speaker_overlap": 0,
+  "pcm_hash_overlap_raw": 1,
+  "pcm_hash_overlap_after_evaluation_exclusions": 0,
+  "hash_scope": "SHA256 of actual stored PCM16 bytes, not only preparation metadata",
+  "legacy_prequantization_hash_fields": {
+    "non-speech": 1780
+  },
+  "lexical_counts": [
+    {
+      "label": "ANGRY",
+      "text": "angry",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 72,
+      "speakers": 60
+    },
+    {
+      "label": "ANGRY",
+      "text": "angry",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 478,
+      "speakers": 424
+    },
+    {
+      "label": "ANGRY",
+      "text": "angry",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 87,
+      "speakers": 74
+    },
+    {
+      "label": "ANGRY",
+      "text": "angry",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "ANGRY",
+      "text": "angry",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "ANGRY",
+      "text": "angry",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "ANGRY",
+      "text": "en colère",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 6,
+      "speakers": 2
+    },
+    {
+      "label": "ANGRY",
+      "text": "en colère",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 3,
+      "speakers": 3
+    },
+    {
+      "label": "ANGRY",
+      "text": "fâché",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 5,
+      "speakers": 4
+    },
+    {
+      "label": "ANGRY",
+      "text": "fâché",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 20,
+      "speakers": 20
+    },
+    {
+      "label": "ANGRY",
+      "text": "fâché",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 5,
+      "speakers": 4
+    },
+    {
+      "label": "ANGRY",
+      "text": "fâché",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 7,
+      "speakers": 3
+    },
+    {
+      "label": "ANGRY",
+      "text": "fâché",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 9,
+      "speakers": 7
+    },
+    {
+      "label": "ANGRY",
+      "text": "fâché",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 2,
+      "speakers": 2
+    },
+    {
+      "label": "DOWN",
+      "text": "bas",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 109,
+      "speakers": 53
+    },
+    {
+      "label": "DOWN",
+      "text": "bas",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 928,
+      "speakers": 455
+    },
+    {
+      "label": "DOWN",
+      "text": "bas",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 102,
+      "speakers": 58
+    },
+    {
+      "label": "DOWN",
+      "text": "bas",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 12,
+      "speakers": 6
+    },
+    {
+      "label": "DOWN",
+      "text": "bas",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 19,
+      "speakers": 12
+    },
+    {
+      "label": "DOWN",
+      "text": "bas",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 4,
+      "speakers": 3
+    },
+    {
+      "label": "DOWN",
+      "text": "down",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 1414,
+      "speakers": 787
+    },
+    {
+      "label": "DOWN",
+      "text": "down",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 5155,
+      "speakers": 2932
+    },
+    {
+      "label": "DOWN",
+      "text": "down",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 1553,
+      "speakers": 772
+    },
+    {
+      "label": "DOWN",
+      "text": "down",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "DOWN",
+      "text": "down",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "DOWN",
+      "text": "down",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "DOWN",
+      "text": "en bas",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 9,
+      "speakers": 4
+    },
+    {
+      "label": "DOWN",
+      "text": "en bas",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 19,
+      "speakers": 12
+    },
+    {
+      "label": "DOWN",
+      "text": "en bas",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 3,
+      "speakers": 2
+    },
+    {
+      "label": "DOWN",
+      "text": "look down",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "DOWN",
+      "text": "look down",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "DOWN",
+      "text": "look down",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "DOWN",
+      "text": "regarde en bas",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 6,
+      "speakers": 2
+    },
+    {
+      "label": "HAPPY",
+      "text": "content",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 15,
+      "speakers": 13
+    },
+    {
+      "label": "HAPPY",
+      "text": "content",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 129,
+      "speakers": 87
+    },
+    {
+      "label": "HAPPY",
+      "text": "content",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 8,
+      "speakers": 7
+    },
+    {
+      "label": "HAPPY",
+      "text": "content",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 6,
+      "speakers": 2
+    },
+    {
+      "label": "HAPPY",
+      "text": "content",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 3,
+      "speakers": 3
+    },
+    {
+      "label": "HAPPY",
+      "text": "happy",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 464,
+      "speakers": 353
+    },
+    {
+      "label": "HAPPY",
+      "text": "happy",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 2997,
+      "speakers": 2275
+    },
+    {
+      "label": "HAPPY",
+      "text": "happy",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 487,
+      "speakers": 354
+    },
+    {
+      "label": "HAPPY",
+      "text": "happy",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "HAPPY",
+      "text": "happy",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "HAPPY",
+      "text": "happy",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "HAPPY",
+      "text": "heureux",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 13,
+      "speakers": 12
+    },
+    {
+      "label": "HAPPY",
+      "text": "heureux",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 158,
+      "speakers": 103
+    },
+    {
+      "label": "HAPPY",
+      "text": "heureux",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 18,
+      "speakers": 14
+    },
+    {
+      "label": "HAPPY",
+      "text": "heureux",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 11,
+      "speakers": 5
+    },
+    {
+      "label": "HAPPY",
+      "text": "heureux",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 19,
+      "speakers": 14
+    },
+    {
+      "label": "HAPPY",
+      "text": "heureux",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 4,
+      "speakers": 3
+    },
+    {
+      "label": "LEFT",
+      "text": "gauche",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 87,
+      "speakers": 54
+    },
+    {
+      "label": "LEFT",
+      "text": "gauche",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 646,
+      "speakers": 356
+    },
+    {
+      "label": "LEFT",
+      "text": "gauche",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 102,
+      "speakers": 57
+    },
+    {
+      "label": "LEFT",
+      "text": "gauche",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 11,
+      "speakers": 6
+    },
+    {
+      "label": "LEFT",
+      "text": "gauche",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 17,
+      "speakers": 9
+    },
+    {
+      "label": "LEFT",
+      "text": "gauche",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 1,
+      "speakers": 1
+    },
+    {
+      "label": "LEFT",
+      "text": "left",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 1055,
+      "speakers": 597
+    },
+    {
+      "label": "LEFT",
+      "text": "left",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 5056,
+      "speakers": 2738
+    },
+    {
+      "label": "LEFT",
+      "text": "left",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 1304,
+      "speakers": 668
+    },
+    {
+      "label": "LEFT",
+      "text": "left",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "LEFT",
+      "text": "left",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "LEFT",
+      "text": "left",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "LEFT",
+      "text": "look left",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "LEFT",
+      "text": "look left",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "LEFT",
+      "text": "look left",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "LEFT",
+      "text": "regarde à gauche",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 4,
+      "speakers": 2
+    },
+    {
+      "label": "LEFT",
+      "text": "à gauche",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 7,
+      "speakers": 3
+    },
+    {
+      "label": "LEFT",
+      "text": "à gauche",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 17,
+      "speakers": 12
+    },
+    {
+      "label": "LEFT",
+      "text": "à gauche",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 5,
+      "speakers": 4
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 78,
+      "speakers": 62
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 501,
+      "speakers": 425
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 98,
+      "speakers": 74
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 14,
+      "speakers": 11
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 60,
+      "speakers": 52
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 10,
+      "speakers": 9
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 6,
+      "speakers": 2
+    },
+    {
+      "label": "NORMAL",
+      "text": "normal",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 3,
+      "speakers": 3
+    },
+    {
+      "label": "NORMAL",
+      "text": "normale",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 9,
+      "speakers": 5
+    },
+    {
+      "label": "NORMAL",
+      "text": "normale",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 70,
+      "speakers": 51
+    },
+    {
+      "label": "NORMAL",
+      "text": "normale",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 8,
+      "speakers": 8
+    },
+    {
+      "label": "NORMAL",
+      "text": "normale",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 3,
+      "speakers": 1
+    },
+    {
+      "label": "NORMAL",
+      "text": "normale",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 4,
+      "speakers": 3
+    },
+    {
+      "label": "RIGHT",
+      "text": "droite",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 87,
+      "speakers": 50
+    },
+    {
+      "label": "RIGHT",
+      "text": "droite",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 621,
+      "speakers": 331
+    },
+    {
+      "label": "RIGHT",
+      "text": "droite",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 93,
+      "speakers": 52
+    },
+    {
+      "label": "RIGHT",
+      "text": "droite",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 6,
+      "speakers": 2
+    },
+    {
+      "label": "RIGHT",
+      "text": "droite",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 1,
+      "speakers": 1
+    },
+    {
+      "label": "RIGHT",
+      "text": "look right",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "RIGHT",
+      "text": "look right",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "RIGHT",
+      "text": "look right",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "RIGHT",
+      "text": "regarde à droite",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 4,
+      "speakers": 2
+    },
+    {
+      "label": "RIGHT",
+      "text": "right",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 1290,
+      "speakers": 697
+    },
+    {
+      "label": "RIGHT",
+      "text": "right",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 4998,
+      "speakers": 2758
+    },
+    {
+      "label": "RIGHT",
+      "text": "right",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 1450,
+      "speakers": 715
+    },
+    {
+      "label": "RIGHT",
+      "text": "right",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "RIGHT",
+      "text": "right",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "RIGHT",
+      "text": "right",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "RIGHT",
+      "text": "à droite",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 7,
+      "speakers": 3
+    },
+    {
+      "label": "RIGHT",
+      "text": "à droite",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 4,
+      "speakers": 3
+    },
+    {
+      "label": "TIRED",
+      "text": "fatigué",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 7,
+      "speakers": 6
+    },
+    {
+      "label": "TIRED",
+      "text": "fatigué",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 125,
+      "speakers": 75
+    },
+    {
+      "label": "TIRED",
+      "text": "fatigué",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 14,
+      "speakers": 11
+    },
+    {
+      "label": "TIRED",
+      "text": "fatigué",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 7,
+      "speakers": 3
+    },
+    {
+      "label": "TIRED",
+      "text": "fatiguée",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 6,
+      "speakers": 5
+    },
+    {
+      "label": "TIRED",
+      "text": "fatiguée",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 24,
+      "speakers": 17
+    },
+    {
+      "label": "TIRED",
+      "text": "fatiguée",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 1,
+      "speakers": 1
+    },
+    {
+      "label": "TIRED",
+      "text": "fatiguée",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 3,
+      "speakers": 1
+    },
+    {
+      "label": "TIRED",
+      "text": "fatiguée",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 3,
+      "speakers": 3
+    },
+    {
+      "label": "TIRED",
+      "text": "fatiguée",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 1,
+      "speakers": 1
+    },
+    {
+      "label": "TIRED",
+      "text": "tired",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 95,
+      "speakers": 87
+    },
+    {
+      "label": "TIRED",
+      "text": "tired",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 557,
+      "speakers": 519
+    },
+    {
+      "label": "TIRED",
+      "text": "tired",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 87,
+      "speakers": 70
+    },
+    {
+      "label": "TIRED",
+      "text": "tired",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "TIRED",
+      "text": "tired",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "TIRED",
+      "text": "tired",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "UP",
+      "text": "en haut",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 10,
+      "speakers": 5
+    },
+    {
+      "label": "UP",
+      "text": "en haut",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 24,
+      "speakers": 12
+    },
+    {
+      "label": "UP",
+      "text": "en haut",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 4,
+      "speakers": 3
+    },
+    {
+      "label": "UP",
+      "text": "haut",
+      "language": "fr",
+      "kind": "human",
+      "split": "test",
+      "samples": 90,
+      "speakers": 50
+    },
+    {
+      "label": "UP",
+      "text": "haut",
+      "language": "fr",
+      "kind": "human",
+      "split": "train",
+      "samples": 644,
+      "speakers": 338
+    },
+    {
+      "label": "UP",
+      "text": "haut",
+      "language": "fr",
+      "kind": "human",
+      "split": "validation",
+      "samples": 76,
+      "speakers": 42
+    },
+    {
+      "label": "UP",
+      "text": "haut",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 16,
+      "speakers": 6
+    },
+    {
+      "label": "UP",
+      "text": "haut",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 33,
+      "speakers": 15
+    },
+    {
+      "label": "UP",
+      "text": "haut",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 6,
+      "speakers": 4
+    },
+    {
+      "label": "UP",
+      "text": "look up",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "UP",
+      "text": "look up",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "UP",
+      "text": "look up",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    },
+    {
+      "label": "UP",
+      "text": "regarde en haut",
+      "language": "fr",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 6,
+      "speakers": 2
+    },
+    {
+      "label": "UP",
+      "text": "up",
+      "language": "en",
+      "kind": "human",
+      "split": "test",
+      "samples": 417,
+      "speakers": 172
+    },
+    {
+      "label": "UP",
+      "text": "up",
+      "language": "en",
+      "kind": "human",
+      "split": "train",
+      "samples": 2805,
+      "speakers": 1192
+    },
+    {
+      "label": "UP",
+      "text": "up",
+      "language": "en",
+      "kind": "human",
+      "split": "validation",
+      "samples": 427,
+      "speakers": 183
+    },
+    {
+      "label": "UP",
+      "text": "up",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "test",
+      "samples": 24,
+      "speakers": 8
+    },
+    {
+      "label": "UP",
+      "text": "up",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "train",
+      "samples": 48,
+      "speakers": 16
+    },
+    {
+      "label": "UP",
+      "text": "up",
+      "language": "en",
+      "kind": "synthetic",
+      "split": "validation",
+      "samples": 12,
+      "speakers": 4
+    }
+  ]
+}

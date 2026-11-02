@@ -1,0 +1,41 @@
+module 'Person Pose' Input
+author 'MicroBlocks Zephyr contributors'
+version 1 1
+description 'Local MediaPipe face and optional YOLO arm-pose companion required; inference runs on the computer using the P4 camera. Explicit SIMULATED demo source is also available. Face coordinates 0..1000, top left 0/0; face lease 2 seconds, arm pose 1 second. Greet mode wakes happy, holds through 3 seconds of missing detections, then resumes the selected idle routine. It owns gaze/mood/autoblink until disabled. Eye/head direction is approximate and uncalibrated; brief blinks need a faster camera transport. Stop All disables capture/following. Importing starts no camera.'
+spec ' ' 'faceAttention' 'eyes greet and follow face _ idle _' 'bool menu.faceIdle' true 'sleep and look around'
+spec 'r' '[pose:attentionStatus]' 'eyes face behaviour'
+spec 'b' '[pose:faceVisible]' 'face visible?'
+spec 'r' '[pose:faceX]' 'face x (0..1000)'
+spec 'r' '[pose:faceY]' 'face y (0..1000)'
+spec 'r' 'faceEyelid' 'face _ eye state' 'menu.faceSide' 'left'
+spec 'r' 'faceDirection' 'face estimated _ direction' 'menu.faceDirection' 'head'
+spec ' ' '[pose:follow]' 'eyes follow person _ react to arms _' 'bool bool' true true
+spec ' ' '[pose:cameraEnabled]' 'P4 tracking camera _' 'bool' true
+spec 'r' '[pose:cameraStatus]' 'P4 tracking camera status'
+spec 'b' '[pose:visible]' 'person visible?'
+spec 'r' '[pose:x]' 'person x (0..1000)'
+spec 'r' '[pose:y]' 'person y (0..1000)'
+spec 'r' '[pose:confidence]' 'person confidence (0..1000)'
+spec 'r' '[pose:gesture]' 'person arm gesture'
+spec 'b' 'poseGestureIs' 'person gesture is _ ?' 'menu.poseGesture' 'both hands up'
+choices poseGesture 'neutral' 'left hand up' 'right hand up' 'both hands up' 'arms out' 'wave'
+choices faceIdle 'sleep' 'look around' 'sleep and look around'
+choices faceSide 'left' 'right'
+choices faceDirection 'head' 'eyes'
+to faceAttention enabled routine {
+    local mode 2
+    if (routine == 'sleep') { mode = 0 }
+    if (routine == 'look around') { mode = 1 }
+    return ('[pose:attention]' enabled mode)
+}
+to faceEyelid side {
+    local index 0
+    if (side == 'right') { index = 1 }
+    return ('[pose:eyelid]' index)
+}
+to faceDirection kind {
+    local index 0
+    if (kind == 'eyes') { index = 1 }
+    return ('[pose:direction]' index)
+}
+to poseGestureIs gesture { return (and ('[pose:visible]') (('[pose:gesture]') == gesture)) }

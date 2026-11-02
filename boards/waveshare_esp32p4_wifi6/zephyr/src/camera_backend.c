@@ -16,6 +16,8 @@ K_MUTEX_DEFINE(state_mutex);
 static atomic_t cancelled;
 enum { IDLE, CAPTURING, READY, ERROR, QUARANTINED };
 static int state;
+static int owner;
+static uint64_t ready_time;
 static image_view frame;
 static const char *capture_stage="idle"; /* worker only; copied at completion */
 static char message[192]="native Zephyr: idle; sensor/CSI capture available for test";
@@ -83,14 +85,15 @@ static void worker(void *a,void *b,void *c)
             snprintf(message,sizeof(message),"native Zephyr: cancelled; sensor stopped");
         }else if(error){state=ERROR;
             snprintf(message,sizeof(message),"capture error %d at %s; %s; sensor stopped",error,capture_stage,p4_video_diagnostic());}
-        else{frame=result;state=READY;
+        else{frame=result;state=READY;ready_time=k_uptime_get();
             snprintf(message,sizeof(message),"native Zephyr: %ux%u RGB565 ready; sensor stopped",result.width,result.height);}
         k_mutex_unlock(&state_mutex);
     }
 }
 K_THREAD_DEFINE(camera_thread,8192,worker,NULL,NULL,NULL,6,0,0);
-int camera_request(void)
+int camera_request_owned(int requested_owner)
 {
+    if(requested_owner!=CAMERA_OWNER_VM&&requested_owner!=CAMERA_OWNER_POSE&&requested_owner!=CAMERA_OWNER_TUNER)return 0;
     if(p4_discovery_busy())return 0;
     k_mutex_lock(&state_mutex,K_FOREVER);
     if(state==CAPTURING || state==READY || state==QUARANTINED){k_mutex_unlock(&state_mutex);return 0;}
@@ -99,28 +102,38 @@ int camera_request(void)
         snprintf(message,sizeof(message),"camera unavailable or image capacity exhausted");
         k_mutex_unlock(&state_mutex);return 0;
     }
-    atomic_clear(&cancelled);state=CAPTURING;
+    atomic_clear(&cancelled);state=CAPTURING;owner=requested_owner;ready_time=0;
     snprintf(message,sizeof(message),"native Zephyr: capturing");
     k_sem_give(&requested);k_mutex_unlock(&state_mutex);return 1;
 }
+int camera_request(void){return camera_request_owned(CAMERA_OWNER_VM);}
 int camera_busy(void)
 { k_mutex_lock(&state_mutex,K_FOREVER);int busy=state==CAPTURING;k_mutex_unlock(&state_mutex);return busy; }
-int camera_result(void)
+int camera_result_owned(int requested_owner)
 {
     k_mutex_lock(&state_mutex,K_FOREVER);int handle=0;
+    if(owner!=requested_owner){k_mutex_unlock(&state_mutex);return 0;}
     if(state==READY){handle=image_adopt(frame.width,frame.height,frame.format,frame.pixels,frame.bytes);
         if(!handle){image_free(frame.pixels);snprintf(message,sizeof(message),"image capacity exhausted; capture released");}
         memset(&frame,0,sizeof(frame));state=IDLE;}
     else if(state==ERROR)state=IDLE;
     k_mutex_unlock(&state_mutex);return handle;
 }
-void camera_discard(void)
+int camera_result(void){return camera_result_owned(CAMERA_OWNER_VM);}
+uint64_t camera_ready_time_owned(int requested_owner){
+    k_mutex_lock(&state_mutex,K_FOREVER);uint64_t time=owner==requested_owner?ready_time:0;k_mutex_unlock(&state_mutex);return time;
+}
+static void discard(int requested_owner)
 {
-    k_mutex_lock(&state_mutex,K_FOREVER);atomic_set(&cancelled,1);
+    k_mutex_lock(&state_mutex,K_FOREVER);
+    if(requested_owner>=0&&owner!=requested_owner){k_mutex_unlock(&state_mutex);return;}
+    atomic_set(&cancelled,1);
     if(state==READY){image_free(frame.pixels);memset(&frame,0,sizeof(frame));state=IDLE;}
     if(state==ERROR)state=IDLE;
     k_mutex_unlock(&state_mutex);
 }
+void camera_discard(void){discard(-1);}
+void camera_discard_owned(int requested_owner){discard(requested_owner);}
 const char *camera_status(void)
 {
     static char snapshot[sizeof(message)];

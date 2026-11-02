@@ -14,6 +14,10 @@ int main(void){
  const uint8_t pixels[]={0,248,224,7,31,0,255,255};memcpy(image_get(h)->pixels,pixels,8);
  int gray=image_grayscale(h);assert(gray);
  const uint8_t expected[]={77,149,29,255};assert(!memcmp(image_get(gray)->pixels,expected,4));
+ uint8_t packed[3]={0};assert(image_read_gray4(h,0,packed,2));assert(packed[0]==0x49&&packed[1]==0x1f);
+ assert(image_read_gray4(h,1,packed,1)&&packed[0]==0x1f);
+ assert(!image_read_gray4(h,0,packed,3));assert(!image_read_gray4(h,0,NULL,1));
+ assert(!image_read_gray4(h,(size_t)-1,packed,1));assert(!image_read_gray4(h,0,packed,513));
  int rgb=image_resize(h,1,1,IMAGE_RGB888);assert(rgb);assert(!memcmp(image_get(rgb)->pixels,"\xff\x00\x00",3));
  int small=image_resize(gray,1,1,IMAGE_GRAY8);assert(small && image_get(small)->pixels[0]==77);
  assert(!image_create(1,1,1));assert(image_count()==4);
@@ -23,6 +27,8 @@ int main(void){
  assert(image_release(h));assert(!image_release(h));assert(!image_get(h));
  int replacement=image_create(2,2,2);assert(replacement && replacement!=h);assert(!image_get(h));
  image_release_all();assert(!image_count()&&!image_bytes_used());
+ int odd=image_create(3,1,IMAGE_GRAY8);assert(odd);memcpy(image_get(odd)->pixels,"\x00\x88\xff",3);
+ assert(image_read_gray4(odd,0,packed,2)&&packed[0]==0x08&&packed[1]==0xf0);image_release_all();
  fail_alloc=1;assert(!image_create(2,2,2));fail_alloc=0;assert(!image_count());
  for(unsigned i=0;i<10000;i++){int next=image_create(1,1,1);assert(next);assert(!image_get(replacement));assert(image_release(next));assert(!image_get(next));}
  int large[4];for(unsigned i=0;i<3;i++){large[i]=image_create(1280,720,3);assert(large[i]);}

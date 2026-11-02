@@ -1,0 +1,189 @@
+module main
+variables voiceStatus voiceTranscript voiceCommand voiceLastDirection voiceLastMood voiceBusy voiceRepeatEnabled voiceStopRequested
+
+spec ' ' 'voiceInitialize' 'prepare voice eyes'
+spec ' ' 'voiceListenOnce' 'Listen once (2.5 seconds)'
+spec 'r' 'voiceRecordWindow' 'record voice command (2.5 seconds)'
+spec ' ' 'voiceStartRepeating' 'Start repeated listening'
+spec ' ' 'voicePause' 'Pause listening (keep eyes)'
+spec 'r' 'voiceApplyTranscript' 'apply eye command from text _' 'str' 'look up'
+spec 'r' 'voiceKeyword' 'first eye command in _' 'str' 'Happy!'
+
+to voiceInitialize {
+    voiceBusy = false
+    voiceRepeatEnabled = false
+    voiceStopRequested = false
+    voiceTranscript = ''
+    voiceCommand = ''
+    voiceLastDirection = 'center'
+    voiceLastMood = 'normal'
+    '[pose:cameraEnabled]' false
+    '[pose:attention]' false 2
+    '[pose:follow]' false false
+    eyesStart 'SSD1306' 64 60
+    waitMillis 600
+    eyesIdle false 2 0
+    eyesAutoblink true 3 2
+    if ('[p4:sttAvailable]') {
+        voiceStatus = 'Ready. Click Listen once; speak when LISTENING appears.'
+    } else {
+        voiceStatus = 'Whistle model profile required. Microphone is off.'
+    }
+    sayIt voiceStatus
+}
+
+to voiceKeyword words {
+    local token ''
+    for i ((size words) + 1) {
+        local code 32
+        if (i <= (size words)) { code = ('[data:unicodeAt]' i words) }
+        if (and (code >= 65) (code <= 90)) { code += 32 }
+        if (and (code >= 97) (code <= 122)) {
+            token = ('[data:join]' token ('[data:unicodeString]' code))
+        } else {
+            if (or (or (token == 'up') (token == 'down')) (or (token == 'left') (token == 'right'))) { return token }
+            if (or (or (token == 'angry') (token == 'happy')) (or (token == 'tired') (token == 'normal'))) { return token }
+            token = ''
+        }
+    }
+    return ''
+}
+
+to voiceApplyTranscript words {
+    local command (voiceKeyword words)
+    if (command == 'up') {
+        eyesLook 'up'
+        voiceLastDirection = 'up'
+    } else {
+        if (command == 'down') {
+            eyesLook 'down'
+            voiceLastDirection = 'down'
+        } else {
+            if (command == 'left') {
+                eyesLook 'left'
+                voiceLastDirection = 'left'
+            } else {
+                if (command == 'right') {
+                    eyesLook 'right'
+                    voiceLastDirection = 'right'
+                } else {
+                    if (command == 'angry') {
+                        eyesMood 'angry'
+                        voiceLastMood = 'angry'
+                    } else {
+                        if (command == 'happy') {
+                            eyesMood 'happy'
+                            voiceLastMood = 'happy'
+                        } else {
+                            if (command == 'tired') {
+                                eyesMood 'tired'
+                                voiceLastMood = 'tired'
+                            } else {
+                                if (command == 'normal') {
+                                    eyesMood 'default'
+                                    voiceLastMood = 'normal'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return command
+}
+
+to voiceRecordWindow {
+    if (not ('[p4:audioRequest]' 3000)) { return 0 }
+    waitMillis 500
+    if (voiceStopRequested != true) {
+        voiceStatus = 'LISTENING for 2.5 seconds: say one eye command now.'
+        sayIt voiceStatus
+    }
+    waitUntil (not ('[p4:audioBusy]'))
+    return ('[p4:audioResult]')
+}
+
+to voiceListenOnce {
+    if (voiceBusy == true) { return '' }
+    if (not ('[eyes:ready]')) {
+        voiceStatus = 'Press Start to prepare the eyes first.'
+        sayIt voiceStatus
+        return ''
+    }
+    if (not ('[p4:sttAvailable]')) {
+        voiceStatus = 'Whistle model profile required. Microphone is off.'
+        sayIt voiceStatus
+        return ''
+    }
+    voiceBusy = true
+    voiceStopRequested = false
+    voiceTranscript = ''
+    voiceCommand = ''
+    voiceStatus = 'Get ready... speak when LISTENING appears.'
+    sayIt voiceStatus
+    waitMillis 750
+    if (voiceStopRequested != true) {
+        local clip (voiceRecordWindow)
+        if (clip > 0) {
+            if (voiceStopRequested != true) {
+                voiceStatus = 'TRANSCRIBING. Microphone off; please wait.'
+                sayIt voiceStatus
+                local accepted ('[p4:sttRequest]' clip 0)
+                '[p4:audioRelease]' clip
+                if accepted {
+                    waitUntil (not ('[p4:sttBusy]'))
+                    if (voiceStopRequested != true) {
+                        voiceTranscript = ('[p4:sttResult]')
+                        voiceCommand = (voiceApplyTranscript voiceTranscript)
+                        if (voiceCommand == '') {
+                            voiceStatus = 'No command recognised. Eye state kept.'
+                        } else {
+                            voiceStatus = ('[data:join]' 'Applied command: ' voiceCommand)
+                        }
+                    }
+                } else {
+                    voiceStatus = 'Transcription could not start. Eye state kept.'
+                }
+            } else {
+                '[p4:audioRelease]' clip
+            }
+        } else {
+            voiceStatus = 'No recording available. Eye state kept.'
+        }
+    }
+    if (voiceStopRequested == true) { voiceStatus = 'Paused. Eye state kept.' }
+    voiceBusy = false
+    sayIt voiceStatus
+    return voiceCommand
+}
+
+to voiceStartRepeating {
+    if (voiceRepeatEnabled == true) { return false }
+    if (not ('[p4:sttAvailable]')) { return false }
+    voiceRepeatEnabled = true
+    repeatUntil (voiceRepeatEnabled != true) {
+        if (voiceBusy != true) { voiceListenOnce }
+        if (voiceRepeatEnabled == true) { waitMillis 1000 }
+    }
+}
+
+to voicePause {
+    voiceRepeatEnabled = false
+    voiceStopRequested = true
+    '[p4:sttCancel]'
+    '[p4:audioReleaseAll]'
+    voiceStatus = 'Paused. Eye state kept.'
+    sayIt voiceStatus
+}
+
+script 20 30 {
+    whenStarted
+    voiceInitialize
+}
+script 20 170 { voiceListenOnce }
+script 20 260 { voiceStartRepeating }
+script 20 350 { voicePause }
+script 20 450 { voiceApplyTranscript 'happy' }
+script 20 550 { '[eyes:settings]' }
+script 450 30 { to voiceApplyTranscript {} }

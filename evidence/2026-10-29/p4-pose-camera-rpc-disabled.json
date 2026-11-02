@@ -1,0 +1,16 @@
+{
+  "capabilities": {
+    "enabled": false,
+    "width": 192,
+    "height": 108,
+    "bytes": 10368,
+    "format": "GRAY4",
+    "chunk": 512
+  },
+  "capture_while_disabled_rejected": true,
+  "wrong_session_rejected": true,
+  "camera_busy": false,
+  "image_count": 0,
+  "camera_captured": false,
+  "native_rpc_result": "PASS"
+}

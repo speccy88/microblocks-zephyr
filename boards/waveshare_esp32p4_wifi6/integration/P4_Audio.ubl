@@ -1,7 +1,7 @@
 module 'P4 Audio' Input
 author 'Native Zephyr P4 integration; MicroBlocks contributors'
 version 0 1
-description 'Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing and cleanup are tested; microphone acoustic response is not yet verified. No speech recognition or wake-word listener is installed. Recording is off at startup and Stop All cancels it.'
+description 'Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.'
 spec 'r' 'p4RecordPCM' 'record PCM for _ milliseconds' 'num' 1000
 spec 'r' '[p4:audioFrames]' 'audio _ sample count' 'num' 536870913
 spec 'r' '[p4:audioRate]' 'audio _ sample rate' 'num' 536870913

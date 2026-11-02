@@ -1,8 +1,14 @@
 module 'P4 Camera' Output
 author 'ESP32-P4 SmallVM integration; MicroBlocks contributors'
-version 0 2
-description 'Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Camera exposure/color remains untuned.'
+version 0 3
+description 'Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.'
 spec 'r' 'p4TakePicture' 'take picture'
+spec 'r' 'p4TakeSnapshot' 'take snapshot (current camera settings)'
+spec 'r' 'p4TakeSnapshotSize' 'take snapshot width _ height _' 'num num' 160 90
+spec ' ' '[p4:cameraControls]' 'open snapshot sliders'
+spec ' ' '[p4:cameraSettings]' 'camera exposure _ analog gain _ digital gain _' 'num num num' 800 128 256
+spec ' ' '[p4:cameraSettingsReset]' 'reset camera settings'
+spec 'r' '[p4:cameraSettingsStatus]' 'camera settings'
 spec 'r' '[p4:imageWidth]' 'image _ width' 'num' 1
 spec 'r' '[p4:imageHeight]' 'image _ height' 'num' 1
 spec 'r' '[p4:imageResize]' 'resize image _ to _ x _' 'num num num' 1 160 90
@@ -39,6 +45,20 @@ to p4TakePicture {
     if (not ('[p4:cameraRequest]')) { return 0 }
     waitUntil (not ('[p4:cameraBusy]'))
     return ('[p4:cameraResult]')
+}
+
+to p4TakeSnapshot {
+    return (p4TakeSnapshotSize 320 180)
+}
+
+to p4TakeSnapshotSize w h {
+    if (or (or (w < 16) (w > 1280)) (or (h < 16) (h > 720))) { return 0 }
+    local original (p4TakePicture)
+    if (original == 0) { return 0 }
+    local small ('[p4:imageResize]' original w h)
+    '[p4:imageRelease]' original
+    if (small > 0) { '[p4:imagePreview]' small }
+    return small
 }
 
 to p4SmoothResize image w h {

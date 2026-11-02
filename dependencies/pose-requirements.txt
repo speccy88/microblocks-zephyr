@@ -1,0 +1,10 @@
+# Install torch/torchvision from https://download.pytorch.org/whl/cpu first for
+# a CPU-only environment. Tested on Windows Python 3.14 and WSL Python 3.12.
+torch==2.15.0
+torchvision==0.29.2
+ultralytics==8.4.192
+opencv-python==5.0.0.93
+pyserial==3.5
+websockets==17.3
+websocket-client==1.9.2
+mediapipe==1.2.0

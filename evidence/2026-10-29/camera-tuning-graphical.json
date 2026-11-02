@@ -1,0 +1,22 @@
+{
+  "editor": "Real MicroBlocks GP 2.5.8",
+  "connection": "Shared COM5 loopback bridge",
+  "example": "camera-tuning.ubp",
+  "physical_camera": "Pi Camera v2.1 / IMX219",
+  "final_firmware_sha256": "291c3082eddf39e96ece247ed4c4c4387877c5d2b937f274b8629c1c61136069",
+  "final_firmware_panel_capture_retested": true,
+  "tests": {
+    "camera_controls_block_opens_panel": true,
+    "numeric_inputs_update_sliders": true,
+    "apply_settings": true,
+    "reset_button_restores_800_128_256": true,
+    "snapshot_reporter_executes_on_P4": true,
+    "snapshot_reporter_inline_image": true,
+    "panel_snapshot_real_camera_preview": true,
+    "snapshot_used_tuple_visible": [1156, 232, 512],
+    "download_links_available": ["PNG", "settings JSON"],
+    "download_files_tested": false
+  },
+  "privacy": "No pixels, private screenshot, unique identifiers or raw logs in this evidence; requested photos/screenshots remain ignored under build-artifacts/pose/private",
+  "live_person_tracking_verified": false
+}

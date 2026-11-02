@@ -1,0 +1,83 @@
+{
+  "scope": "Actual IMX219 -> native owned camera RPC -> host YOLO -> native pose receiver/OLED",
+  "frames": [
+    {
+      "frame": 1,
+      "people": 0,
+      "person_visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 4,
+      "age_ms": 3594,
+      "total_ms": 3744,
+      "native_person_visible": false
+    },
+    {
+      "frame": 2,
+      "people": 0,
+      "person_visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 4,
+      "age_ms": 1164,
+      "total_ms": 1319,
+      "native_person_visible": false
+    },
+    {
+      "frame": 3,
+      "people": 0,
+      "person_visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 4,
+      "age_ms": 1160,
+      "total_ms": 1326,
+      "native_person_visible": false
+    },
+    {
+      "frame": 4,
+      "people": 0,
+      "person_visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 4,
+      "age_ms": 1166,
+      "total_ms": 1333,
+      "native_person_visible": false
+    },
+    {
+      "frame": 5,
+      "people": 0,
+      "person_visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 4,
+      "age_ms": 1165,
+      "total_ms": 1324,
+      "native_person_visible": false
+    },
+    {
+      "frame": 6,
+      "people": 0,
+      "person_visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 4,
+      "age_ms": 1180,
+      "total_ms": 1345,
+      "native_person_visible": false
+    }
+  ],
+  "ordinary_vm_result_cannot_steal_capture": true,
+  "wrong_session_rejected": true,
+  "vm_image_preserved": true,
+  "live_camera_captured": true,
+  "images_saved": false,
+  "physical_eye_tracking_confirmed_by_user": false
+}

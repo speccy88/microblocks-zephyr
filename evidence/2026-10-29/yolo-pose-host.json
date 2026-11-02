@@ -1,0 +1,19 @@
+{
+  "frames": 12,
+  "frames_with_person": 11,
+  "gestures": [
+    "neutral"
+  ],
+  "mean_inference_ms": 447.32,
+  "inference_location": "computer",
+  "board_accessed": false,
+  "physical_oled_verified": false,
+  "model": "yolo11n-pose.pt",
+  "model_sha256": "869e83fcdffdc7371fa4e34cd8e51c838cc729571d1635e5141e3075e9319dc0",
+  "fixture_source": "https://ultralytics.com/images/bus.jpg",
+  "fixture": "12 repeated frames of one public sample image; not a live-camera or real-arm-motion test",
+  "ultralytics": "8.4.192",
+  "torch": "2.15.0+cpu",
+  "source_size": 320,
+  "live_camera_opened": false
+}

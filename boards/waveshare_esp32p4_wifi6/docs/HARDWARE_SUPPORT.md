@@ -1,4 +1,10 @@
-# ESP32-P4-WIFI6 support audit, version 3
+# ESP32-P4-WIFI6 support audit, version 4
+
+Header numbering correction, 2026-10-29: visual inspection of schematic U10
+confirms GPIO7/SDA at physical pin 17, GPIO8/SCL at physical pin 16, GND at
+pin 18 and 3.3 V at pin 36. The Pico-symbol labels GP12/GP13 inside U10 are
+not the actual P4 GPIO numbers; use the connected net labels GPIO8/GPIO7.
+The earlier audit incorrectly assigned header pins 16/17 to USB test signals.
 
 Audited 2026-10-26 against the linked Waveshare schematic (all three pages),
 the pinned Zephyr source and this port's physical evidence. This is the
@@ -42,7 +48,7 @@ Upstream driver availability alone never earns tested status.
 | J2 DSI DISPLAY, 22 pins | Dedicated DSI lanes + clock; I2C7/8; shares the camera/codec control bus | Display attachment absent; MicroBlocks display/touch path **missing**. Do not infer a touch controller from the connector |
 | MicroSD TF1 | CLK43/CMD44/D0=39/D1=40/D2=41/D3=42; load switch GPIO45 | Upstream native SDHC/board DTS available; SmallVM SD/file blocks **missing**. Card presence/filesystem not tested; no formatting performed |
 | USB OTG P1, 4 pins | VCC5V/D-/D+/GND, dedicated SoC USB signals; distinct from Type-C CH343 | HS host/device application, HID, mass storage **missing**; no attached peripheral verified |
-| USB FS/JTAG test pads | GPIO34/36 test pads; also header positions 17/16 per schematic | **missing** application/debug exposure; do not conflate with P1 HS or CH343 serial |
+| USB FS/JTAG test pads | GPIO34/36 test pads; U10's USB1_D_N/USB1_D_P are physical pins 19/20. Header pins 16/17 are GPIO8/GPIO7, not USB | **missing** application/debug exposure; do not conflate with P1 HS or CH343 serial |
 | 40-pin Pico-style header U10 | Physical header labels are GPIO numbers, not sequential P4 GPIO0..29. Includes power/ground/EN, SDA7/SCL8, GPIO2..5,20..33,46..52, USB34/36 | Generic GPIO/ADC/PWM/SPI/UART blocks currently **missing** (`platform.c` rejects them). Pin conflict validation must precede enabling raw outputs |
 | Extra SPI/UART/I2S | SoC GPIO matrix can route suitable unused header pins; pins9..19 already serve audio/C6 | No selected expansion pinout or connected load: **missing**, not arbitrarily mapped |
 | ADC / PWM / counters / RMT / TWAI | SoC facilities; only compatible bonded/exposed pins may be used; CAN requires external transceiver | Native drivers vary by instance. MicroBlocks binding and physical load/loopback tests **missing** |
@@ -64,6 +70,7 @@ pin-output support is claimed or enabled by this audit.
 | JPEG | P4 hardware encode + decode | Native bounded codec blocks **missing**, not established by IDF documentation |
 | H.264 | Hardware encoder; software decoding is separate | Both block paths **missing**; hardware decoding claim **incompatible** |
 | Audio RMS/peak and Whistle STT | Native PCM pool, independent C99 scalar engine, mapped depth4 model, bounded worker/cancel | **tested** known WAV and microphone PCM plus GP; variable recognition quality and ~22s scalar fixture latency |
+| Whistle voice eyes | Explicit 3s capture (500ms settling plus 2.5s speech), local d4 transcription, editable eight-command if/else chain | **tested** model-enabled eyes firmware/hash flash, 21 actual GP keyword/state-retention cases, controlled speaker `happy` recognised in 20.4s; final complete GP speech/Pause test 2/2 PASS, transcription-to-apply 26.5s. Start leaves microphone off; repeat optional; user's voice/all eight acoustic words unverified. See [voice eyes](VOICE_EYES.md) |
 | NN | Native TFLM reference kernels, bounded static dense float32/int8 models; catalog/custom import | **tested** physical golden/rejections/lifecycle and GP. Direct ONNX Runtime/RV64 Linux artifacts **incompatible** with RV32 Zephyr. Restricted offline conversion is separate |
 | Wake word | Native trusted Okay Nabu TFLM reference backend, trained frontend, bounded PCM ring and GP event hat | **tested** fixture score parity, event handlers and microphone lifecycle; acoustic recognition **unverified** (Windows output muted); default listener off. See WAKE_WORD.md |
 | P4 PIE/QACC NN/DSP kernels | Espressif target kernels need selective native build/context/memory validation | **missing** acceleration; no benchmark borrowed from IDF/S3 |

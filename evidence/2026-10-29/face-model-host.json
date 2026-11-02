@@ -1,0 +1,46 @@
+{
+  "model": "MediaPipe Face Landmarker float16 v1",
+  "model_bytes": 3758596,
+  "model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+  "runtime": "mediapipe 1.2.0 Windows CPU",
+  "rows": [
+    {
+      "input": "blank",
+      "face_detected": false,
+      "left_eye": 0,
+      "right_eye": 0,
+      "head": 0,
+      "eye_direction": 0,
+      "inference_ms": 4
+    },
+    {
+      "input": "public portrait",
+      "face_detected": true,
+      "left_eye": 0,
+      "right_eye": 0,
+      "head": 2,
+      "eye_direction": 0,
+      "inference_ms": 29
+    },
+    {
+      "input": "public portrait 192x108 gray4",
+      "face_detected": false,
+      "left_eye": 0,
+      "right_eye": 0,
+      "head": 0,
+      "eye_direction": 0,
+      "inference_ms": 3
+    },
+    {
+      "input": "private P4 capture",
+      "face_detected": false,
+      "left_eye": 0,
+      "right_eye": 0,
+      "head": 0,
+      "eye_direction": 0,
+      "inference_ms": 3
+    }
+  ],
+  "images_committed": false,
+  "live_face_tracking_verified": false
+}

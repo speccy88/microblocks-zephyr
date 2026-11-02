@@ -1,0 +1,14 @@
+{
+  "before": "I2C0 ready=1; SDA7=1 SCL8=0; probe 0x3C=-116 0x3D=-116 (0=ACK)",
+  "address": 60,
+  "address_hex": "0x3C",
+  "controller": "unconfirmed: SSD1306/SH1106 cannot be distinguished by address ACK",
+  "status": "0x3C ACK on SDA7/SCL8; controller unknown; select SSD1306 or SH1106 profile",
+  "after": "I2C0 ready=1; SDA7=1 SCL8=1; probe 0x3C=0 0x3D=-5 (0=ACK)",
+  "begin_queued": true,
+  "display_ready": true,
+  "display_status": "SSD1306 128x64 at 0x3C; SDA7/SCL8; max 8 fps; hardware unverified",
+  "selected_profile": "SSD1306 (not identified)",
+  "camera_captured": false,
+  "physical_appearance_confirmed": false
+}

@@ -1,0 +1,49 @@
+{
+  "frames": [
+    {
+      "frame": 1,
+      "people": 0,
+      "visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 2,
+      "age_ms": 1181,
+      "total_ms": 1511,
+      "receiver_visible": false
+    },
+    {
+      "frame": 2,
+      "people": 0,
+      "visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 2,
+      "age_ms": 1158,
+      "total_ms": 1470,
+      "receiver_visible": false
+    },
+    {
+      "frame": 3,
+      "people": 0,
+      "visible": false,
+      "gesture": "neutral",
+      "gray_min": 0,
+      "gray_max": 17,
+      "gray_levels": 2,
+      "age_ms": 1163,
+      "total_ms": 1464,
+      "receiver_visible": false
+    }
+  ],
+  "camera_source": "P4-attached IMX219",
+  "inference_location": "computer",
+  "images_saved": false,
+  "eye_tracking_user_confirmation": false,
+  "result": "FAIL_NO_VISIBLE_PERSON",
+  "cleanup": {
+    "camera_idle": true,
+    "images": 0
+  }
+}

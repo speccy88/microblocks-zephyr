@@ -1,0 +1,10 @@
+{
+  "render_cases": 36,
+  "oled_failure_injection": true,
+  "close_during_tracking": true,
+  "pose_wire": true,
+  "face_wire": true,
+  "attention_transitions": true,
+  "hardware_tested": false,
+  "sanitizers": "address,undefined"
+}

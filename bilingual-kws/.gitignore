@@ -1,0 +1,15 @@
+*.wav
+*.flac
+*.opus
+*.npy
+*.npz
+*.keras
+*.h5
+*.csv
+cache/
+logs/
+native-build/
+
+# Raw local build/test logs; public summaries are reviewed separately.
+reports/native-build.txt
+reports/repository-validation.txt

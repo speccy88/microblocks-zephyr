@@ -1,0 +1,12 @@
+module main
+script 20 30 {
+    whenStarted
+    '[pose:cameraEnabled]' false
+    eyesStart 'SSD1306' 64 60
+    waitMillis 600
+    faceAttention true 'sleep and look around'
+    '[p4:cameraControls]'
+}
+script 20 380 {
+    p4TakeSnapshot
+}

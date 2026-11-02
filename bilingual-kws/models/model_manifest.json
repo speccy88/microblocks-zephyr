@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "model_sha256": "e17cbf03e00f5e673b8dd16209e62fb60515fab74c5af5f51732c5da4681b0e8",
+  "model_bytes": 57408,
+  "labels": [
+    "UP",
+    "DOWN",
+    "LEFT",
+    "RIGHT",
+    "ANGRY",
+    "HAPPY",
+    "TIRED",
+    "NORMAL",
+    "UNKNOWN",
+    "SILENCE"
+  ],
+  "languages": [
+    "en",
+    "fr"
+  ],
+  "floating_checkpoint_sha256": "c8ab411c986cf6d2cd50b138329caedf6cd6edb9264cfe45d7bf52ef2e5fc85b",
+  "output_semantics": "direct ten-class Softmax",
+  "lexical_labels": null,
+  "input": {
+    "shape": [
+      1,
+      118,
+      40,
+      1
+    ],
+    "dtype": "int8",
+    "scale": 1.0,
+    "zero_point": 0
+  },
+  "output": {
+    "shape": [
+      1,
+      10
+    ],
+    "dtype": "int8",
+    "scale": 0.00390625,
+    "zero_point": -128
+  },
+  "operators": [
+    "AVERAGE_POOL_2D",
+    "CONV_2D",
+    "DEPTHWISE_CONV_2D",
+    "FULLY_CONNECTED",
+    "RESHAPE",
+    "SOFTMAX"
+  ],
+  "parameters": 34682,
+  "estimated_multiply_accumulates": 1802240,
+  "mac_scope": "static Conv2D/DepthwiseConv2D/Dense products per window; excludes frontend, activation, normalization, Softmax and memory overhead",
+  "calibration_samples": 844,
+  "calibration_human_samples": 445,
+  "calibration_split": "train only",
+  "dataset_manifest_sha256": "1616bfb018c730fd378db6838a3ab1d280ae9020378b3b355fe4cafdb155bee1",
+  "frontend": {
+    "library_sha256": "44fd11b3d41b3e691cc4b4e0102112517b337a90c88c55cba72ff6d0a190dcba",
+    "adapter_sha256": "ece3f31d554998efe3f9ab95b642eb926e21a49e0b3745efa656fdd8c3e69da9",
+    "dependency_fix": {
+      "upstream_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+      "upstream_source": "tensorflow/lite/experimental/microfrontend/lib/filterbank_util.c",
+      "source_sha256": "b06f95eac9f5d53147896afe0e8deafc9984d68a68cf2f3118efd4da50fde8c8",
+      "prepared_sha256": "e87307296b004f263add1ff14b515eeb3cea4534ab798bb32effe9f4ecd43a23",
+      "fix": "Reject NULL filterbank work allocation before resetting state",
+      "external_source_modified": false,
+      "upstream_notice_preserved": true
+    },
+    "adapter_lf_sha256": "da268c3ddbffb7e460a83cc0905df59bacb2956444efa4a9e10f4a1df5902e95"
+  },
+  "frontend_contract": "configs/training.yaml",
+  "all_tensor_dtypes": [
+    "int32",
+    "int8"
+  ],
+  "frontend_settings": {
+    "implementation": "common/kws/features.c",
+    "tflm_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+    "window_ms": 30,
+    "hop_ms": 10,
+    "mel_bins": 40,
+    "lower_hz": 125,
+    "upper_hz": 7500,
+    "noise_smoothing_bits": 10,
+    "even_smoothing": 0.025,
+    "odd_smoothing": 0.06,
+    "min_signal_remaining": 0.05,
+    "pcan": true,
+    "pcan_strength": 0.95,
+    "pcan_offset": 80,
+    "pcan_gain_bits": 21,
+    "log_scale_shift": 6,
+    "feature_quantization": "existing integer adapter (raw * 256 / 666) - 128, saturated"
+  },
+  "dataset_provenance": {
+    "manifest": "datasets/dataset_manifest.json",
+    "human_sources": [
+      "Google Speech Commands v0.02 (CC-BY-4.0)",
+      "MLCommons MSWC 1.0 (CC-BY-4.0)"
+    ],
+    "synthetic_sources": [
+      "Piper MLS/LibriTTS",
+      "Kokoro (test engine only)"
+    ]
+  },
+  "tflm_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+  "firmware_requirements": {
+    "native_zephyr": true,
+    "dedicated_kws_backend": true,
+    "generic_dense_loader_compatible": false,
+    "arena_target_bytes": 131072
+  },
+  "physical_validation": false,
+  "selected_candidate": "dscnn_retrain",
+  "selection": {
+    "name": "dscnn_retrain",
+    "architecture": "dscnn",
+    "parameters": 34682,
+    "model_bytes": 57408,
+    "human_validation_bilingual_macro_f1": 0.7505862376542186,
+    "validation_quantization_accuracy_loss": 0.0015227831791027047,
+    "eligible": true,
+    "estimated_macs": 1802240,
+    "float_int8_validation_argmax_agreement": 0.9844635733781231,
+    "float_int8_validation_mean_abs_probability_error": 0.002965663094073534,
+    "float_int8_validation_max_abs_probability_error": 0.14116394519805908,
+    "test_accuracy": 0.8238936256597645,
+    "test_macro_f1": 0.793836719422076,
+    "human_test_accuracy": 0.8367321406230451,
+    "human_en_test_accuracy": 0.8414216385954896,
+    "human_fr_test_accuracy": 0.8034447821681864,
+    "synthetic_test_accuracy": 0.73,
+    "host_tflm_arena_used_bytes": 32608,
+    "host_tflm_median_ms": 15.0604,
+    "host_tflm_p95_ms": 16.501676,
+    "training_seconds": 1466.0794888320006,
+    "peak_vram_mib": 501,
+    "native_p4_arena": null,
+    "native_p4_median_ms": null,
+    "native_p4_p95_ms": null
+  },
+  "training_report_sha256": "08d6c8dd4dbcd0611deec687ba1acc948dc34ccd2b0a20d374f30ecd5db5acf9",
+  "training_records_sha256": "fd27922ebf53419c2c93ed00ceae7adf527069c8c79c7970c3b62890b637d224",
+  "evaluation_canonical_pcm_label_split_sha256": "c768323ea4a044710d9e06041c5a2c41c8ae867f11459dbd4080d7a15dd24219",
+  "evaluation_report_sha256": "796ee7cda6504ba220c10ae0046671025222406c079983787172dbcb910504bf"
+}

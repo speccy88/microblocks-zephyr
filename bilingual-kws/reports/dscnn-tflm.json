@@ -1,0 +1,48 @@
+{
+  "runtime": "pinned host TFLM reference kernels",
+  "arena_reserved_bytes": 131072,
+  "arena_used_bytes": 55968,
+  "invocations": 250,
+  "model_sha256": "006229750208d5e5766971a255643eadc9e23000758a5391f85160428a156d1a",
+  "input_sha256": "50017e1e20a501ed88a01a1c7a725fd688179c59d737fa8e1ba10b6e24a8456d",
+  "max_output_lsb_difference": 0,
+  "test_classes_present": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "mean_output_lsb_difference": 0.0,
+  "argmax_agreement": 1.0,
+  "tflm_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+  "invoke_ms_median": 29.474052,
+  "invoke_ms_p95": 31.329225349999998,
+  "native_p4": {
+    "compiled": null,
+    "compilation_evidence": "separate reports/native-build.json; require matching model hash",
+    "arena_used_bytes": null,
+    "inference_ms_median": null,
+    "inference_ms_p95": null,
+    "end_to_end_ms_median": null,
+    "end_to_end_ms_p95": null,
+    "cpu_usage": null,
+    "concurrent_microblocks": null
+  },
+  "limitations": [
+    "Host TFLM arena allocation is not an RV32 RAM measurement.",
+    "No physical microphone, P4 timing, false positives/hour or concurrent VM benchmark in this host probe."
+  ],
+  "desktop_comparison": "TensorFlow Lite BUILTIN_REF; same INT8 bytes; host kernels use SIZE policy matching native non-SPEED build",
+  "bit_exact": true,
+  "numerical_tolerance": {
+    "max_output_lsb": 8,
+    "mean_output_lsb": 0.25,
+    "min_argmax_agreement": 0.99
+  }
+}

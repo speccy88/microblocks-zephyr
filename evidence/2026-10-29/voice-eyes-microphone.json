@@ -1,0 +1,31 @@
+{
+  "microphone": "P4 ES8311",
+  "engine": "native P4 Whistle d4",
+  "controlled_word": "happy",
+  "audio_exported": false,
+  "recording": {
+    "frames": 40000,
+    "peak": 386,
+    "rms": 25
+  },
+  "inference": {
+    "phase": "ready",
+    "message": "local text ready; 4 tokens; input PCM released",
+    "frames": 40000,
+    "elapsed_ms": 20436,
+    "encode_ms": 14666,
+    "decode_ms": 5715,
+    "peak_requested_bytes": 2319240,
+    "reserved_arena_bytes": 12582912,
+    "stack_unused_bytes": 21572,
+    "buffers_released": true,
+    "first_keyword": "happy",
+    "transcript_characters": 6,
+    "vm_roundtrips": 146
+  },
+  "inference_does_not_change_eye_state_by_itself": true,
+  "cancel_releases_buffers_and_clears_old_text": true,
+  "acoustic_keyword_result": "PASS",
+  "result": "PASS_LIFECYCLE",
+  "cleanup_audio_handles": 0
+}

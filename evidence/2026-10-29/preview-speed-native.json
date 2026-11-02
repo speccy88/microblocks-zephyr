@@ -1,0 +1,80 @@
+{
+  "settings": [
+    1156,
+    195,
+    3831
+  ],
+  "private_images_saved": false,
+  "transfers": [
+    {
+      "width": 320,
+      "height": 180,
+      "baud": 115200,
+      "bytes": 115200,
+      "transfer_ms": 11529,
+      "capture_and_transfer_ms": 11768
+    },
+    {
+      "width": 320,
+      "height": 180,
+      "baud": 921600,
+      "bytes": 115200,
+      "transfer_ms": 2319,
+      "capture_and_transfer_ms": 2319
+    },
+    {
+      "width": 320,
+      "height": 180,
+      "baud": 460800,
+      "bytes": 115200,
+      "transfer_ms": 3239,
+      "capture_and_transfer_ms": 3443
+    },
+    {
+      "width": 320,
+      "height": 180,
+      "baud": 921600,
+      "bytes": 115200,
+      "transfer_ms": 2315,
+      "capture_and_transfer_ms": 2315
+    },
+    {
+      "width": 160,
+      "height": 90,
+      "baud": 921600,
+      "bytes": 28800,
+      "transfer_ms": 589,
+      "capture_and_transfer_ms": 755
+    }
+  ],
+  "capture_sizes": [
+    {
+      "width": 160,
+      "height": 90,
+      "native_capture_ms": 137
+    },
+    {
+      "width": 192,
+      "height": 108,
+      "native_capture_ms": 141
+    },
+    {
+      "width": 640,
+      "height": 360,
+      "native_capture_ms": 279
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "native_capture_ms": 727
+    }
+  ],
+  "invalid_sizes_rejected": true,
+  "baseline_vs_921600_identical": true,
+  "460800_vs_921600_identical": true,
+  "fragmented_crc_and_execution_each_rate": true,
+  "crashed_controller_recovers_115200": true,
+  "orderly_reconnect_cycles": 3,
+  "result": "PASS",
+  "cleanup_images": 0
+}

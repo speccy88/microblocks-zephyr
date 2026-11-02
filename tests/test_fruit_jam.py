@@ -93,7 +93,7 @@ class FruitJamInventoryTests(unittest.TestCase):
             if name in followup['changes']:
                 change=followup['changes'][name]
                 self.assertEqual(change['compiled_baseline_sha256'],digest,name)
-                self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),change['current_sha256'],name)
-            else:self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
+                self.assertEqual(hashlib.sha256((ROOT/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest(),change['current_sha256'],name)
+            else:self.assertEqual(hashlib.sha256((ROOT/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest(),digest,name)
 
 if __name__=='__main__':unittest.main()

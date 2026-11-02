@@ -72,3 +72,19 @@ int image_read(int handle,size_t offset,uint8_t *dst,size_t count) {
     if(!v || !dst || offset>v->bytes || count>v->bytes-offset)return 0;
     memcpy(dst,v->pixels+offset,count);return 1;
 }
+int image_read_gray4(int handle,size_t offset,uint8_t *dst,size_t count) {
+    const image_view *v=image_get(handle);if(!v||!dst||count>512)return 0;
+    size_t pixels=(size_t)v->width*v->height,bytes=(pixels+1)/2;
+    if(offset>bytes||count>bytes-offset)return 0;
+    for(size_t i=0;i<count;i++){
+        uint8_t packed=0;
+        for(unsigned half=0;half<2;half++){
+            size_t pos=2*(offset+i)+half;if(pos>=pixels)break;
+            unsigned r,g,b;rgb(v,pos%v->width,pos/v->width,&r,&g,&b);
+            unsigned gray=(77*r+150*g+29*b+128)>>8;
+            packed|=(gray>>4)<<(half?0:4);
+        }
+        dst[i]=packed;
+    }
+    return 1;
+}

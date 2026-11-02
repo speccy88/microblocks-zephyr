@@ -19,5 +19,8 @@ void image_release_all(void);
 size_t image_bytes_used(void);
 unsigned image_count(void);
 int image_read(int handle,size_t offset,uint8_t *dst,size_t count);
+/* Lossy 4-bit grayscale export. Offsets/counts are packed bytes, max 512.
+ * First pixel uses the high nibble; an odd last pixel has a zero low nibble. */
+int image_read_gray4(int handle,size_t offset,uint8_t *dst,size_t count);
 void *image_alloc(size_t bytes);
 void image_free(void *ptr);

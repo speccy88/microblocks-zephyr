@@ -21,11 +21,19 @@ extern void p4_media_message(int,int,char *);
 #include "storage_protocol.h"
 #include <zephyr/kernel.h>
 #include "neural_primitives.h"
+#include "eyes_backend.h"
+#include "pose_camera.h"
+#include "camera_tuning.h"
+#include "serial_speed.h"
 #if defined(CONFIG_P4_HOSTED)
 #include "hosted_server.h"
 #include "network_backend.h"
 #endif
 void processFileMessage(int t, int n, char *p) { p4_image_message(t,n,p);p4_media_message(t,n,p);p4_nn_message(t,n,p);
+p4_pose_message(t,n,p);
+p4_pose_camera_message(t,n,p);
+p4_camera_tuning_message(t,n,p);
+p4_serial_speed_message(t,n,p);
 mb_storage_protocol_message(t,n,p,k_uptime_get());
 #if defined(CONFIG_P4_HOSTED)
 p4_network_message(t,n,p);
@@ -99,6 +107,7 @@ void hardwareInit(void){
     p4_nn_init();
     p4_kws_init();
     p4_discovery_init();
+    p4_eyes_init();
 #if defined(CONFIG_P4_HOSTED)
     p4_transport_init();p4_network_init();
 #else
@@ -137,8 +146,8 @@ void boardInit(void){}
 extern void addJSONPrims(void);
 #include "primitives.h"
 #include "storage_primitives.h"
-void boardAddPrims(void){addJSONPrims();addClockPrims();addStepPrims();addStoragePrims();}
+void boardAddPrims(void){addJSONPrims();addClockPrims();addStepPrims();addStoragePrims();addEyesPrims();addPosePrims();}
 void boardPoll(void){}
-void boardStopAll(void){mb_storage_stop();mb_automation_stop();p4_kws_cancel();p4_ppa_cancel();p4_discovery_cancel();p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
-void boardIDEConnectionChanged(int connected){if(!connected)mb_storage_protocol_reset();}
+void boardStopAll(void){p4_camera_tuning_reset();p4_pose_camera_reset(true);p4_eyes_stop();p4_pose_reset();mb_storage_stop();mb_automation_stop();p4_kws_cancel();p4_ppa_cancel();p4_discovery_cancel();p4_nn_cancel();p4_whistle_cancel();camera_discard();image_release_all();p4_audio_discard();audio_release_all();media_clear();}
+void boardIDEConnectionChanged(int connected){if(!connected){p4_camera_tuning_reset();p4_pose_camera_reset(true);mb_storage_protocol_reset();p4_pose_reset();}}
 int boardStartAtBoot(void){return true;}

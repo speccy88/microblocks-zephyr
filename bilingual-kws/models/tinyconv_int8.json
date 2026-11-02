@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "model_sha256": "862da1e55d0db551f623c6afaee136401cfa1a9a1e23d8fff54cbe375bde01d7",
+  "model_bytes": 16520,
+  "labels": [
+    "UP",
+    "DOWN",
+    "LEFT",
+    "RIGHT",
+    "ANGRY",
+    "HAPPY",
+    "TIRED",
+    "NORMAL",
+    "UNKNOWN",
+    "SILENCE"
+  ],
+  "languages": [
+    "en",
+    "fr"
+  ],
+  "floating_checkpoint_sha256": "61a03d2ee39feb8ab86f3c80e0a06599429e501f5b01cb7a5f405d7ca214d28e",
+  "input": {
+    "shape": [
+      1,
+      118,
+      40,
+      1
+    ],
+    "dtype": "int8",
+    "scale": 1.0,
+    "zero_point": 0
+  },
+  "output": {
+    "shape": [
+      1,
+      10
+    ],
+    "dtype": "int8",
+    "scale": 0.00390625,
+    "zero_point": -128
+  },
+  "operators": [
+    "AVERAGE_POOL_2D",
+    "CONV_2D",
+    "FULLY_CONNECTED",
+    "SOFTMAX"
+  ],
+  "parameters": 11386,
+  "estimated_multiply_accumulates": 2027520,
+  "mac_scope": "static Conv2D/DepthwiseConv2D/Dense products per window; excludes frontend, activation, normalization, Softmax and memory overhead",
+  "calibration_samples": 844,
+  "calibration_human_samples": 445,
+  "calibration_split": "train only",
+  "dataset_manifest_sha256": "1616bfb018c730fd378db6838a3ab1d280ae9020378b3b355fe4cafdb155bee1",
+  "frontend": {
+    "library_sha256": "44fd11b3d41b3e691cc4b4e0102112517b337a90c88c55cba72ff6d0a190dcba",
+    "adapter_sha256": "ece3f31d554998efe3f9ab95b642eb926e21a49e0b3745efa656fdd8c3e69da9",
+    "dependency_fix": {
+      "upstream_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+      "upstream_source": "tensorflow/lite/experimental/microfrontend/lib/filterbank_util.c",
+      "source_sha256": "b06f95eac9f5d53147896afe0e8deafc9984d68a68cf2f3118efd4da50fde8c8",
+      "prepared_sha256": "e87307296b004f263add1ff14b515eeb3cea4534ab798bb32effe9f4ecd43a23",
+      "fix": "Reject NULL filterbank work allocation before resetting state",
+      "external_source_modified": false,
+      "upstream_notice_preserved": true
+    },
+    "adapter_lf_sha256": "da268c3ddbffb7e460a83cc0905df59bacb2956444efa4a9e10f4a1df5902e95"
+  },
+  "frontend_contract": "configs/training.yaml",
+  "all_tensor_dtypes": [
+    "int32",
+    "int8"
+  ],
+  "frontend_settings": {
+    "implementation": "common/kws/features.c",
+    "tflm_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+    "window_ms": 30,
+    "hop_ms": 10,
+    "mel_bins": 40,
+    "lower_hz": 125,
+    "upper_hz": 7500,
+    "noise_smoothing_bits": 10,
+    "even_smoothing": 0.025,
+    "odd_smoothing": 0.06,
+    "min_signal_remaining": 0.05,
+    "pcan": true,
+    "pcan_strength": 0.95,
+    "pcan_offset": 80,
+    "pcan_gain_bits": 21,
+    "log_scale_shift": 6,
+    "feature_quantization": "existing integer adapter (raw * 256 / 666) - 128, saturated"
+  },
+  "dataset_provenance": {
+    "manifest": "datasets/dataset_manifest.json",
+    "human_sources": [
+      "Google Speech Commands v0.02 (CC-BY-4.0)",
+      "MLCommons MSWC 1.0 (CC-BY-4.0)"
+    ],
+    "synthetic_sources": [
+      "Piper MLS/LibriTTS",
+      "Kokoro (test engine only)"
+    ]
+  },
+  "tflm_commit": "43b2a106a391dd8a099ac47f2ae858630a397264",
+  "firmware_requirements": {
+    "native_zephyr": true,
+    "dedicated_kws_backend": true,
+    "generic_dense_loader_compatible": false,
+    "arena_target_bytes": 131072
+  },
+  "physical_validation": false
+}

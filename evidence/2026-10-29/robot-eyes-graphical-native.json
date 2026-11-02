@@ -1,0 +1,14 @@
+{
+  "real_editor": "MicroBlocks GP 2.5.8",
+  "board": "v417 Waveshare ESP32-P4 WIFI6 Zephyr",
+  "example": "robot-eyes",
+  "observed_start_events": 1,
+  "observed_task_errors": 0,
+  "script_running_after_observation": true,
+  "stop_all_status": "Eyes stopped; last OLED frame retained; initialize to resume",
+  "eyes_ready_after_stop": false,
+  "camera_captured": false,
+  "alignment_confirmed_by_user": true,
+  "animated_eye_visual_confirmation": "not separately requested; real script execution and OLED alignment are verified",
+  "screenshot": "robot-eyes-live-editor.png"
+}

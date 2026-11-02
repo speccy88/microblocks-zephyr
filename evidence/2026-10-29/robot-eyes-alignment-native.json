@@ -1,0 +1,18 @@
+{
+  "oled_ready": true,
+  "bus": "I2C0 ready=1; SDA7=0 SCL8=0; probe 0x3C=0 0x3D=-5 (0=ACK)",
+  "sensor_ids": "IMX219=0219 OV5647=0000",
+  "audio_codec_id": 33553,
+  "camera_captured": false,
+  "pattern_visible_confirmed": false,
+  "arithmetic": [
+    12,
+    12,
+    12,
+    12,
+    12
+  ],
+  "worker_stopped_after_pattern": true,
+  "frame_retained": true,
+  "idle_bus_status": "I2C0 ready=1; SDA7=1 SCL8=1; probe 0x3C=0 0x3D=-5 (0=ACK)"
+}

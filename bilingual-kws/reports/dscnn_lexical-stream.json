@@ -1,0 +1,103 @@
+{
+  "scope": "host replay; continuous frontend and same C decision policy; concatenated held-out public corpus",
+  "model_sha256": "f4dc52d0a2ce5bdce2a58fd9604afa6f7359b03246c567d4a224898da7e125d9",
+  "threshold_milli": 850,
+  "negatives": {
+    "samples": 1800,
+    "audio_seconds": 2340.5,
+    "wall_seconds": 13.540444117999868,
+    "invocations": 23394,
+    "events": 39,
+    "host_litert_invoke_ms_median": 0.2638,
+    "host_litert_invoke_ms_p95": 0.4139,
+    "constructed_negative_events_per_hour": 59.987182226020074,
+    "poisson_rate_95_ci": [
+      42.656750678047985,
+      82.00445285921735
+    ]
+  },
+  "positives": {
+    "samples": 185,
+    "audio_seconds": 481.5,
+    "wall_seconds": 3.325765784000396,
+    "invocations": 4804,
+    "events": 102,
+    "host_litert_invoke_ms_median": 0.3427,
+    "host_litert_invoke_ms_p95": 0.440785,
+    "matched_commands": 101,
+    "missed_commands": 84,
+    "detections_before_energy_endpoint": 1,
+    "by_language_action": {
+      "en:UP": {
+        "samples": 12,
+        "matched": 9
+      },
+      "en:DOWN": {
+        "samples": 12,
+        "matched": 9
+      },
+      "en:LEFT": {
+        "samples": 12,
+        "matched": 3
+      },
+      "en:RIGHT": {
+        "samples": 12,
+        "matched": 5
+      },
+      "en:ANGRY": {
+        "samples": 12,
+        "matched": 9
+      },
+      "en:HAPPY": {
+        "samples": 12,
+        "matched": 9
+      },
+      "en:TIRED": {
+        "samples": 12,
+        "matched": 9
+      },
+      "en:NORMAL": {
+        "samples": 12,
+        "matched": 8
+      },
+      "fr:UP": {
+        "samples": 12,
+        "matched": 0
+      },
+      "fr:DOWN": {
+        "samples": 12,
+        "matched": 0
+      },
+      "fr:LEFT": {
+        "samples": 12,
+        "matched": 10
+      },
+      "fr:RIGHT": {
+        "samples": 12,
+        "matched": 9
+      },
+      "fr:ANGRY": {
+        "samples": 5,
+        "matched": 5
+      },
+      "fr:HAPPY": {
+        "samples": 12,
+        "matched": 0
+      },
+      "fr:TIRED": {
+        "samples": 12,
+        "matched": 9
+      },
+      "fr:NORMAL": {
+        "samples": 12,
+        "matched": 7
+      }
+    },
+    "extra_or_wrong_events": 1,
+    "audio_time_delay_ms_median": 379.0625,
+    "audio_time_delay_ms_p95": 668.5625,
+    "delay_scope": "audio timestamps after estimated energy endpoint, detected commands only; no P4 wall/CPU time"
+  },
+  "representative_ambient_false_positives_per_hour": null,
+  "physical_p4_end_to_end_latency_ms": null
+}

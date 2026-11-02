@@ -13,4 +13,4 @@ if __name__=='__main__':
  path=a.output/'vm/interp.h';text=path.read_text()
  anchor='\tSoundPrims,\n\tPrimitiveSetCount'
  if text.count(anchor)!=1:raise ValueError('Changed primitive set ordering')
- path.write_text(text.replace(anchor,'\tSoundPrims,\n\tJSONPrims,\n\tClockPrims,\n\tStepPrims,\n\tStoragePrims,\n\tPrimitiveSetCount'),newline='\n')
+ path.write_text(text.replace(anchor,'\tSoundPrims,\n\tJSONPrims,\n\tClockPrims,\n\tStepPrims,\n\tStoragePrims,\n\tEyesPrims,\n\tPosePrims,\n\tPrimitiveSetCount'),newline='\n')

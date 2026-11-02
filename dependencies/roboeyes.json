@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/FluxGarage/RoboEyes",
+  "commit": "b42f8e596535234932be3514ac7a813d4ced0046",
+  "license": "GPL-3.0-or-later",
+  "files": [
+    {
+      "path": "src/FluxGarage_RoboEyes.h",
+      "sha256": "04e098193efbf6656085429b85a20d40c1d56c1837e7ef500779f6557645a4d8"
+    },
+    {
+      "path": "LICENSE.txt",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "library.properties",
+      "sha256": "69c8ebf974c278be43fcfd9025f38292fd2e0d62a50148f5145b13fc60528ede"
+    }
+  ]
+}

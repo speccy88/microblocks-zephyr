@@ -1,0 +1,7 @@
+module main
+variables oledAddress
+script 20 30 {
+    whenStarted
+    oledAddress = (eyesFindAddress)
+    say ('[eyes:status]')
+}

@@ -1,0 +1,12 @@
+{
+  "address": "0x3c",
+  "profile": "SSD1306",
+  "native_eyes_running": true,
+  "mood": "happy",
+  "curiosity": true,
+  "autoblink": true,
+  "idle_gaze": true,
+  "alignment_user_confirmation": "Complete border and centered cross; it works",
+  "camera_captured": false,
+  "status": "SSD1306 128x64 at 0x3C; SDA7/SCL8; max 8 fps; hardware unverified"
+}

@@ -1,0 +1,14 @@
+{
+  "en": {
+    "expected_selected_target_clips": 15972,
+    "found_selected_target_clips": 15972,
+    "missing": 0,
+    "scope": "every metadata-selected target; class/split caps 2200; not all available source clips"
+  },
+  "fr": {
+    "expected_selected_target_clips": 4304,
+    "found_selected_target_clips": 4304,
+    "missing": 0,
+    "scope": "every metadata-selected target; class/split caps 2200; not all available source clips"
+  }
+}

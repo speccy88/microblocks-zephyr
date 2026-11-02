@@ -1,0 +1,20 @@
+{
+  "editor": "MicroBlocks GP 2.5.8",
+  "firmware_sha256": "ae63c9140388f2e4edee251cbe216dec0509e1199836ebb8eddda7bae55f2ba9",
+  "bridge_baud": 921600,
+  "settings_preserved": [1156, 195, 3831],
+  "resolution_presets": [[160,90], [320,180], [640,360], [1280,720]],
+  "custom_dimensions_available": true,
+  "snapshots": [
+    {"width":320,"height":180,"total_seconds":4.08,"capture_ms":167,"preview_seconds":3.87},
+    {"width":192,"height":108,"custom":true,"total_seconds":1.65,"capture_ms":140,"preview_seconds":1.44},
+    {"width":160,"height":90,"total_seconds":1.22,"capture_ms":135,"preview_seconds":1.02}
+  ],
+  "capture_settings_and_actual_dimensions_visible": true,
+  "timing_and_link_rate_visible": true,
+  "final_selection": [160,90],
+  "image_pixels_or_private_screenshot_in_git": false,
+  "screenshot": "ignored build-artifacts/pose/private/preview-speed-editor.png",
+  "live_person_tracking_verified": false,
+  "result": "PASS"
+}

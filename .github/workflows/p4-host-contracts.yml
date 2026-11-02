@@ -1,0 +1,28 @@
+name: P4 eyes and voice host contracts
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  native-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch and hash-check the pinned RoboEyes source and license
+        run: python3 tools/fetch_roboeyes.py
+      - name: Check OLED, face, pose, lease and link contracts under sanitizers
+        run: python3 tools/test_eyes_pose.py
+      - name: Check command confidence, cooldown, release and restart policy
+        run: |
+          mkdir -p build-artifacts/voice-contracts
+          cc -std=c11 -Wall -Wextra -Werror -g -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -fno-pie -no-pie -Ibilingual-kws/esp32p4/integration bilingual-kws/esp32p4/integration/decision.c bilingual-kws/tests/decision_test.c -o build-artifacts/voice-contracts/decision
+          build-artifacts/voice-contracts/decision
+      - name: Check trusted model assets and checkout line endings
+        run: python3 -m unittest discover -s tests -p 'test_voice_model_assets.py' -v
+      - name: Check portable image ownership and bounds
+        run: python3 tools/test_p4_images.py
