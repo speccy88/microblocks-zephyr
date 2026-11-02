@@ -48,6 +48,7 @@ jobs:
           python tests/js_portal_smoke.py --site build-artifacts/site --output build-artifacts/js-portal --browser /usr/bin/google-chrome
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/webkit --engine webkit
           python tests/mobile_touch_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/touch --browser /usr/bin/google-chrome
+          python tests/mobile_startup_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/startup --browser /usr/bin/google-chrome
           python tests/mobile_usability_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/usability --browser /usr/bin/google-chrome
           python tests/mobile_board_smoke.py --packages build-artifacts/board-packages --output build-artifacts/board-browser --browser /usr/bin/google-chrome
       - name: Execute browser programming against real SmallVM
@@ -67,6 +68,7 @@ jobs:
             build-artifacts/js-portal
             build-artifacts/webkit
             build-artifacts/touch
+            build-artifacts/startup
             build-artifacts/usability
             build-artifacts/real-vm
             build-artifacts/board-browser

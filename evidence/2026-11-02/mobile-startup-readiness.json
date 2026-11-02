@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "observed_commit": "88bd3f541d3025247895b4e9874be998ea10f545",
+  "workflow_run": 41364219930,
+  "large_simulator_job": 125021773272,
+  "observed_failure": "EditorSmokeTests.swift:17: Project was absent after the initial Menu tap",
+  "small_simulator": "PASS",
+  "large_native_endpoint_tests": "PASS",
+  "large_compact_and_pinch_test": "PASS",
+  "later_connection_assertions": "No failures reported",
+  "inference": "Cold-start readiness race: toolbar existence preceded engine readiness and the loading overlay's disappearance",
+  "source_observation": "Upstream preloader hides visibility in transitionend after its loaded class; early toolbar taps can be intercepted",
+  "behavior_fix": "Disable phone actions until the real Project control exists and preloader visibility is hidden; loaded phone preloader does not depend on a fade event",
+  "test_fix": "Wait for Menu enabled before tapping, retaining the real Project assertion and all connection/pinch checks",
+  "regression": "Hold actual board-profile loading, verify actions stay disabled, then release and open Project on the first ready tap, over three startup cycles",
+  "pre_fix_regression": "Fails as expected: visible toolbar was enabled while profile loading was held",
+  "physical_iphone": false,
+  "firmware_changed": false
+}

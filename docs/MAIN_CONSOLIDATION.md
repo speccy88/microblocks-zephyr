@@ -123,6 +123,20 @@ This consolidation retains the already reviewed/tested `5564b1e` dependency
 consistently across web and native packaging; it does not silently adopt a
 newer moving alpha head or assert that the source pin is the latest upstream.
 
+## Cold-start follow-up - 2026-11-02
+
+The large iPhone Simulator on `88bd3f5` failed only the initial Project-menu
+assertion; the small Simulator, native endpoint checks, subsequent connection
+assertions and compact/pinch test passed. Readiness was inferred from toolbar
+existence while the upstream loading overlay could still intercept the tap.
+Phone actions now stay disabled until the real menu and engine exist and the
+preloader is hidden. Loaded phone content does not depend on a CSS fade event.
+XCTest waits for that actionable state and retains the Project assertion and
+all connection/gesture checks. A held-profile browser regression fails on the
+old bundle and passes three startup cycles on the corrected bundle. See
+`evidence/2026-11-02/mobile-startup-readiness.json`. This is not a finding of a
+wireless transport defect or physical iPhone validation.
+
 ## JavaScript-first publication contract
 
 The normal Pages root will open the reviewed pure-JavaScript desktop profile,

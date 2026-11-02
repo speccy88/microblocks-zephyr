@@ -41,6 +41,7 @@
     window.addEventListener(browser?.startupEvent || 'DOMContentLoaded', async () => {
         const toolbar = document.createElement('div');
         toolbar.className = 'iphone-toolbar';
+        toolbar.setAttribute('aria-busy', 'true');
         const icon = path => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + path + '"/></svg>';
         const button = (id, label, path, state = '') => '<button id="' + id + '" type="button" aria-label="' +
             label + '" title="' + label + '" ' + state + '>' + icon(path) + '</button>';
@@ -49,6 +50,8 @@
             button('iphone-hand', 'Pan workspace', 'M8 12V6a2 2 0 0 1 4 0v5-7a2 2 0 0 1 4 0v7-4a2 2 0 0 1 4 0v8c0 5-3 7-7 7-3 0-5-3-7-6l-2-3a2 2 0 0 1 3-2l3 3', 'aria-pressed="false"') +
             '<span class="iphone-toolbar-spacer"></span>' +
             button('iphone-connect', 'Connect board', 'M3 8a14 14 0 0 1 18 0M6 12a9 9 0 0 1 12 0M9 16a4 4 0 0 1 6 0M12 20h.01');
+        const readyControls = Array.from(toolbar.querySelectorAll('button'));
+        readyControls.forEach(control => { control.disabled = true; });
         const ide = document.querySelector('[data-ide="ide"]');
         ide.prepend(toolbar);
         const menu = document.createElement('div');
@@ -62,12 +65,16 @@
         const restore = document.createElement('div');
         restore.className = 'iphone-restore';
         restore.innerHTML = button('iphone-restore', 'Show controls', 'M4 6h16M4 12h16M4 18h16');
+        restore.querySelector('button').disabled = true;
+        readyControls.push(restore.querySelector('button'));
         ide.append(restore);
         const tools = document.createElement('div');
         tools.className = 'iphone-view';
         tools.innerHTML = '<button id="iphone-view" type="button" aria-label="View tools" title="View tools" aria-describedby="iphone-zoom-status" aria-expanded="false"><span id="iphone-scale" aria-hidden="true">100%</span></button>' +
             '<output id="iphone-zoom-status" class="iphone-sr-only" role="status">Workspace zoom 100%</output>';
         document.querySelector('.workspace__canvas-wrapper').append(tools);
+        tools.querySelector('button').disabled = true;
+        readyControls.push(tools.querySelector('button'));
         const sheet = document.createElement('dialog');
         sheet.className = 'iphone-connect-sheet';
         sheet.setAttribute('aria-labelledby', 'iphone-sheet-title');
@@ -300,6 +307,9 @@
         const timer = setInterval(() => {
             if (typeof world === 'undefined' || !world || !MB_editor.palette) return;
             if (!document.querySelector('.top-bar__controls-run')) return;
+            if (!document.querySelector('[data-ide="main-menu"] .--project')) return;
+            const preloader = document.querySelector('[data-ide="app-preloader"]');
+            if (preloader && getComputedStyle(preloader).visibility !== 'hidden') return;
             clearInterval(timer);
             world.fillPage = () => IDE.resize(false);
             const originalMenus = document.querySelector('[data-ide="main-menu"]');
@@ -325,6 +335,8 @@
                 $('iphone-hand').setAttribute('aria-pressed', String(active));
             };
             layout();
+            readyControls.forEach(control => { control.disabled = false; });
+            toolbar.setAttribute('aria-busy', 'false');
         }, 100);
         setInterval(() => {
             const verified = MB_connection.port?.iphonePort?.isConnected() &&

@@ -3,19 +3,30 @@ import XCTest
 import CoreGraphics
 
 final class EditorSmokeTests: XCTestCase {
+    private func readyMenu(in web: XCUIElement) -> XCUIElement {
+        let menu = web.buttons["Menu"]
+        XCTAssertTrue(menu.waitForExistence(timeout: 30))
+        // Toolbar existence precedes the real editor and loading overlay.
+        // Wait for the product's ready state before sending the first tap.
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true"), object: menu)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 30), .completed, web.debugDescription)
+        return menu
+    }
+
     func testBundledEditorAndConnectionSheet() {
         let app = XCUIApplication()
         app.launch()
         let web = app.webViews.firstMatch
+        let menu = readyMenu(in: web)
         let connect = web.buttons["Connect board"]
         XCTAssertTrue(connect.waitForExistence(timeout: 30), "Bundled JS editor must launch offline")
         // WebKit exposes aria-pressed controls with a toggle accessibility
         // type, which is not necessarily XCUIElementTypeButton.
         XCTAssertTrue(web.descendants(matching: .any)["Blocks"].firstMatch.exists)
         // Wait for the real engine's project chrome, not just the local toolbar.
-        web.buttons["Menu"].tap()
+        menu.tap()
         XCTAssertTrue(web.buttons["Project"].waitForExistence(timeout: 20))
-        web.buttons["Menu"].tap()
+        menu.tap()
         let portrait = XCTAttachment(screenshot: app.screenshot())
         portrait.name = "iPhone portrait editor"; portrait.lifetime = .keepAlways
         add(portrait)
@@ -62,8 +73,7 @@ final class EditorSmokeTests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         let web = app.webViews.firstMatch
-        let menu = web.buttons["Menu"]
-        XCTAssertTrue(menu.waitForExistence(timeout: 30))
+        let menu = readyMenu(in: web)
         let view = web.buttons["View tools"]
         XCTAssertTrue(view.waitForExistence(timeout: 20))
         let workspace = web.descendants(matching: .any)["Programming workspace"].firstMatch
