@@ -83,7 +83,11 @@ def prepare_archive(path, output, fetch=False, full_site=False):
         if full_site:
             selected = {i.filename: z.read(i) for i in z.infolist()}
         else:
-            selected = {r['path']: z.read('js-preview/waveshare/' + r['path']) for r in manifest['files']}
+            # The reviewed preview intentionally omits the raw upstream entry.
+            # Use the repository template, whose exact pin is checked by read_editor.
+            selected = {r['path']: ((ROOT / 'web/mobile/purejs-source.html').read_bytes()
+                        if r['path'] == 'purejs.html' and 'js-preview/waveshare/purejs.html' not in z.namelist()
+                        else z.read('js-preview/waveshare/' + r['path'])) for r in manifest['files']}
             selected['source-manifest.json'] = MANIFEST.read_bytes()
         for name, raw in selected.items():
             target = output / name
