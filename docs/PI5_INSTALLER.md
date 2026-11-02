@@ -30,8 +30,8 @@ To review before execution, download the same URL with `curl -fL -o
 install-pi5.sh URL`, read it, then use `bash install-pi5.sh` with your chosen
 options. `--bootstrap-info` prints its source identity without downloading or
 installing. The bootstrap pins source commit
-`2b709975444f4e5d1c39ffcf65ac74eb4acc8a16` and GitHub source archive SHA256
-`cac6ec12c3b55e847731de3c255bf50388bf2d370ac0a54fa74ee1cda571b5a6`.
+`3bc837b515d3ddd9df6ec353e9c0e139dda1cdde` and GitHub source archive SHA256
+`f8289ea49c28295207ca7fc5c757141b4afadc46328a23d5adeaa98932b72a05`.
 It checks the complete downloaded archive before extracting or running code.
 The current entry builds the verified source revision rather than claiming a
 published native ARM64 release. Future bootstrap revisions require review and
