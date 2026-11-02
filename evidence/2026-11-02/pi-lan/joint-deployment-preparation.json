@@ -1,0 +1,173 @@
+{
+  "state": "deployed-and-tested",
+  "base_commit": "548fea9392ffabd23a3aa550a813099e9940d9c3",
+  "verified_source_bundle_files": 1094,
+  "verified_committed_source_files": 447,
+  "source_bundle_sha256": "b2061fb1b33b8ab49f772b452accb3f68ad8b33cc4f0d6c4006d41c3c1614ed8",
+  "overlay_archive_sha256": "08e596c2711bf3cafe75eeb7543ee6d3c62fd991649fb857f4e3616f65718efa",
+  "overlay_archive_bytes": 6259,
+  "overlay_files": {
+    "code/linux/arm64/lan_service.py": "8db2e3ded1bda97a216f1956372d45c485fd292c01d007f772bf5ae3ccfb6e55",
+    "code/linux/arm64/install-smallvm-linux-arm64.sh": "5ba81dbe1a95c11ddf60f90d31ec9ab6bf6d74006ba32d9e96f9d8cb5cb63849"
+  },
+  "deployment_helper_sha256": "8deec47a7356632c2d0072b50c48e0cc259d7421a8c9cd4cacadcc71b7b1c0ce",
+  "native_update_sha256": "25834bf64c9ed7d24826276e0c6e70e70e4a34190399ff071d6391361e012660",
+  "native_binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+  "native_vm_version": 417,
+  "proposed_release": "/home/fred/.local/share/microblocks-lan/releases/pi417-python-548fea9",
+  "proposed_service_override": "/etc/systemd/system/microblocks-lan.service.d/20-joint-runtime.conf",
+  "proposed_backup": "/home/fred/.local/share/microblocks-lan/backups/joint-548fea9",
+  "latest_program_sha256_read_only": "cd31a801c1af604f1cfadcc66673f4818c151b8d86760723da6638c92b10b8e6",
+  "current_caddy_sha256": "5d68d4f243946bee96e3e5e11a9200c95ea7f50b304723fb61d77f8c7143af3c",
+  "repository_validation": {
+    "tests": 570,
+    "skipped": 325,
+    "result": "OK"
+  },
+  "linux_supervisor_tests": {
+    "tests": 4,
+    "result": "OK"
+  },
+  "existing_service_changed": true,
+  "current_vm_version": 417,
+  "current_binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+  "current_service_active_and_boot_enabled": true,
+  "physical_joint_sqlite_acceptance_performed": true,
+  "physical_browser_update_apply_performed": true,
+  "physical_iphone_safari_tested": false,
+  "physical_native_v421_installed": false,
+  "historical_denials": [
+    {
+      "status": "denied-before-execution",
+      "action": "SCP upload of joint-overlay.tar.gz to rpi5:/home/fred/mb-python-udufkoyi/joint-overlay-review-08e596c2.tar.gz",
+      "reason": "Automatic approval review did not recognize explicit user authorization to send this source-code archive to the Pi",
+      "remote_target_exists_after_denial": false,
+      "retried": false,
+      "requires": "Explicit user approval to transfer the reviewed correction and deployment helper to the Pi, then activate the known v417 package in the existing service"
+    },
+    {
+      "status": "denied-before-execution",
+      "action": "Commit the five prepared recovery/deployment files directly to main",
+      "reason": "Automatic approval review did not recognize explicit user authorization for a default-branch history change",
+      "verified_head_unchanged": "548fea9392ffabd23a3aa550a813099e9940d9c3",
+      "index_unchanged": true,
+      "retried": false
+    }
+  ],
+  "subsequent_explicit_user_approval": true,
+  "transfer_retry_count": 1,
+  "transfer_retry_result": "success",
+  "current_deployment_blockers": [],
+  "browser_acceptance": {
+    "url": "http://192.168.1.105/",
+    "physical_pi": true,
+    "physical_iphone": false,
+    "transport_mocked": false,
+    "native_vm_version": 417,
+    "browser_native_reinstall": {
+      "archive_sha256": "25834bf64c9ed7d24826276e0c6e70e70e4a34190399ff071d6391361e012660",
+      "reviewed": true,
+      "exact_confirmation": true,
+      "completion_reported": true,
+      "version": 417
+    },
+    "sqlite": {
+      "normal_run_control": true,
+      "user_script_has_no_rpc": true,
+      "real_keyboard_parameter_edit": 22600,
+      "row_count_before": 1,
+      "row_count_after": 2,
+      "value_read_from_database": 22600,
+      "independent_heartbeat_progress": true,
+      "rows": "[[2 item list], [2 item list]]",
+      "viewport": "1440x1000"
+    },
+    "page_errors": [],
+    "result": "PASS"
+  },
+  "automatic_recovery_acceptance": {
+    "result": "PASS",
+    "test": "managed selection checksum failure, no invalid binary executed",
+    "vm_version": 417,
+    "automatic_rollback": "rolled_back",
+    "program_sha256_preserved": "cd31a801c1af604f1cfadcc66673f4818c151b8d86760723da6638c92b10b8e6",
+    "recovery_seconds": 2.743,
+    "previous_pid": 11074,
+    "recovered_pid": 11098,
+    "python_profile_restored": true,
+    "restart_count": 1,
+    "http_status": 200
+  },
+  "final_health": {
+    "result": "PASS",
+    "url": "http://192.168.1.105/",
+    "service_active": "active",
+    "boot_enabled": true,
+    "runtime_state": {
+      "state": "ready",
+      "origin": "http://192.168.1.105",
+      "supervisor_pid": 11158,
+      "vm_pid": 11160,
+      "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+      "permanent": true,
+      "backend": "127.0.0.1:8877",
+      "vm_version": 417
+    },
+    "current_config": {
+      "schema": 1,
+      "vm_version": 417,
+      "binary": "installed/lib/microblocks/pi417-python-20261102/smallvm",
+      "binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+      "editor": "releases/pi417-python-548fea9/editor",
+      "data": "data",
+      "origin": "http://192.168.1.105",
+      "backend_port": 8877,
+      "authentication": false,
+      "encryption": false,
+      "release_version": "pi417-python-20261102",
+      "python_extensions": {
+        "profile": "releases/pi417-python-548fea9/python-profile.json",
+        "state": "python-state",
+        "interpreter": "/usr/bin/python3"
+      },
+      "required_runtime_capabilities": [
+        "python-extensions"
+      ],
+      "allow_browser_native_install": true
+    },
+    "user_program_restored_sha256": "cd31a801c1af604f1cfadcc66673f4818c151b8d86760723da6638c92b10b8e6",
+    "sqlite_rows_directly_verified": [
+      [
+        "room",
+        21500
+      ],
+      [
+        "room",
+        22600
+      ]
+    ],
+    "sqlite_database": "/home/fred/.local/share/microblocks-lan/python-state/programs.sqlite3",
+    "updater": {
+      "target": "raspberry-pi5",
+      "current_vm_version": 417,
+      "current_release": "pi417-python-20261102",
+      "supported_vm_versions": [
+        417
+      ],
+      "native_install_enabled": true,
+      "upload_enabled": true,
+      "update": {
+        "state": "complete",
+        "version": "pi417-python-20261102",
+        "sha256": "25834bf64c9ed7d24826276e0c6e70e70e4a34190399ff071d6391361e012660",
+        "vm_version": 417
+      }
+    },
+    "caddy_unchanged": true,
+    "base_service_unit_unchanged": true,
+    "drop_in": "/etc/systemd/system/microblocks-lan.service.d/20-joint-runtime.conf",
+    "deployment_backup": "/home/fred/.local/share/microblocks-lan/backups/joint-548fea9",
+    "os_rebooted": false
+  },
+  "publication_note": "Actual correction commit and push outcome is reported separately from Git/tool results; this receipt contains no assumed commit SHA."
+}

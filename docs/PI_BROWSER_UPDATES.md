@@ -29,7 +29,9 @@ The managed service can create `BrowserUpdater` with installation enabled only
 when its `service.json` explicitly sets `allow_browser_native_install` to true.
 The default is package review only. Enabling the workflow does not install a
 runtime: each apply still requires the reviewed release, SHA-256 and explicit
-confirmation. The assistant has not applied a new native version to Fred's Pi.
+confirmation. Fred's later explicitly approved joint deployment uses the tested native
+release `pi417-python-20261102`, still VM v417, with browser installation enabled
+in that managed instance. See the physical acceptance below.
 
 Apply uses the guarded native installer without its service flag, validates the
 candidate before stopping the owned VM, snapshots the persisted program, and
@@ -57,3 +59,42 @@ These establish the workflow, not a physical native-version installation.
 
 Bonjour/LAN discovery remains reserved for the native iPhone app. Safari keeps
 the known-address connection; no LAN scanner was added.
+
+## Joint Python integration and physical acceptance
+
+The Python handoff at `548fea9` provides native v417 with `python-extensions`.
+The managed supervisor runs recovery **before** reading configuration or
+starting Python, so a failed candidate uses the restored profile and binary.
+A Linux regression test checks both selections after rollback.
+
+After explicit user approval, the reviewed source correction was transferred
+once and the joint release was activated in the existing permanent service.
+The original service unit and Caddy configuration were preserved. A single
+service drop-in selects code under `releases/pi417-python-548fea9`; private
+Python state is separate from the existing VM program directory. The original
+release and backup remain available at `backups/joint-548fea9`.
+
+Real browser acceptance used `http://192.168.1.105/`, its actual WebSocket,
+compiler, ARM64 VM and Python SQLite. The phone-size updater reviewed the exact
+archive SHA-256, confirmed and reinstalled `pi417-python-20261102`, then reported
+completion after managed restart. This is a tested v417 reinstall, not a v421
+upgrade. Existing host capability requirements remain enforced.
+
+The ordinary SQLite example ran from the normal Start button. An actual input
+was edited to 22600 and its value returned from SQL; row count increased from
+one to two while an independent heartbeat progressed. The two database rows
+were also verified directly. SQL editing acceptance used a 1440x1000 viewport;
+updater/connection acceptance used 390x844. These are Chromium tests against the
+physical Pi, **not a physical iPhone/Safari certification**.
+
+A synthetic native-selection checksum mismatch exercised automatic recovery
+without executing an invalid binary. The service restored its configuration,
+Python profile and program in 2.743 seconds. After all graphical tests, the
+latest preserved user program was restored exactly and the service restarted;
+its checksum matches the pre-deployment snapshot. SQLite demonstration rows
+remain in the newly created private database. No OS reboot or v421 installation
+was performed.
+
+See `evidence/2026-11-02/pi-lan/joint-deployment-preparation.json` for actual
+hashes, browser results, rollback results, final runtime state and the earlier
+approval denials resolved by the subsequent explicit user instruction.

@@ -57,6 +57,8 @@ def vm_arguments(config, binary, data, info):
 
 async def run(root):
     root=private_root(root)
+    os.umask(0o077)
+    begin_boot(root)
     config=json.loads((root/'service.json').read_text())
     async with ManagedPython(root,config) as python_socket:
         if python_socket:config={**config,'microduck_socket':python_socket}
@@ -67,7 +69,6 @@ async def run_runtime(root,config):
     from bridge import Bridge
     root = private_root(root)
     os.umask(0o077)
-    begin_boot(root)
     if config.get('schema') != 1 or config.get('vm_version') != 417:
         raise RuntimeError('Unsupported managed runtime contract')
     binary, editor = selected(root, config['binary']), selected(root, config['editor'])
