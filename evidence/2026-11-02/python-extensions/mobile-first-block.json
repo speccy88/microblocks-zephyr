@@ -1,0 +1,8 @@
+{
+  "selector": "sqliteQuery",
+  "sql": "SELECT 42",
+  "library": true,
+  "bytes": 49,
+  "right": 355.8,
+  "paletteVisible": false
+}

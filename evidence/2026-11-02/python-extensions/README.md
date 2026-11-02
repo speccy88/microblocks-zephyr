@@ -39,6 +39,14 @@ ARMv8-A, Python 3.13.5, Linux 6.12.75+rpt-rpi-2712, glibc 2.41.
   panning, anchored pinch and 50–250% zoom coordinate checks.
   See [mobile-touch.json](mobile-touch.json). No page error was observed.
 
+A separate real touch first-use check on the 390x844 mobile editor dragged
+SQLite query from the palette, automatically added its hidden implementation,
+compiled the 49-byte user chunk and closed the palette. The compact `SELECT 42`
+default fits the phone workspace and works without a pre-existing table.
+See [mobile-first-block.json](mobile-first-block.json) and
+[mobile screenshot](mobile-first-block.png); this is Chromium emulation, not a
+physical phone connection.
+
 HTTP tests use the Pi's already-installed official Requests 2.32.3 against a
 temporary **local** fixture only, checking GET, POST, headers, redirects not
 followed, binary encoding, response limits, path scope and timeouts. No external

@@ -2,8 +2,8 @@ module 'Python Extensions' Data
 author 'MicroBlocks Linux contributors'
 version 1 0
 description 'Normal domain blocks backed by configured trusted Python operations. Requests and waits yield to other VM tasks. The MicroBlocks launcher owns the Python service. No request IDs or transport setup are needed in user programs. SQLite uses parameter bindings and bounded results; large numbers/decimals retain JSON text and null is the text null, with explicit type access available. Missing services/dependencies stop the calling script with a diagnostic. A timed-out write may have completed and is never automatically retried. Hardware and external brokers require explicit board configuration and physical validation.'
-spec ' ' 'sqliteExecute' 'SQLite execute _ parameters _' 'str auto' 'CREATE TABLE IF NOT EXISTS readings (label TEXT, value INTEGER)' ''
-spec 'r' 'sqliteQuery' 'SQLite query _ parameters _' 'str auto' 'SELECT label, value FROM readings' ''
+spec ' ' 'sqliteExecute' 'SQLite execute _ parameters _' 'str auto' 'CREATE TABLE t (v)' ''
+spec 'r' 'sqliteQuery' 'SQLite query _ parameters _' 'str auto' 'SELECT 42' ''
 spec 'r' 'sqliteRows' 'SQLite rows from _' 'str' '{}'
 spec 'r' 'sqliteColumns' 'SQLite columns from _' 'str' '{}'
 spec 'r' 'sqliteChanges' 'SQLite changed rows from _' 'str' '{}'
