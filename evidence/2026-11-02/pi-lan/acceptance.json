@@ -1,0 +1,92 @@
+{
+  "recorded_at": "2026-11-02T02:10:37.002904+00:00",
+  "base_commit": "b090d50c62b4dabb01e941a59d8cc30dc759d07d",
+  "scope": "physical Pi 5, desktop Edge mobile viewport, real same-origin LAN HTTP/WS",
+  "physical_iphone_safari": false,
+  "authentication": false,
+  "encryption": false,
+  "listener": {
+    "url": "http://192.168.1.105:8877/",
+    "bind": "192.168.1.105",
+    "port": 8877,
+    "clients": "192.168.1.0/24",
+    "started_at": "2026-11-02T01:54:52.723691+00:00",
+    "expires_at": "2026-11-02T02:24:52.723691+00:00"
+  },
+  "existing_programs_modified": false,
+  "fresh_private_vm_data": true,
+  "router_firewall_or_trust_changed": false,
+  "persistent_service_installed": false,
+  "physical_programming": {
+    "url": "http://192.168.1.105:8877/",
+    "physical_pi": true,
+    "physical_iphone": false,
+    "browser_engine": "Chromium/Edge",
+    "viewport": "390x844",
+    "socket_mocked": false,
+    "authentication": false,
+    "encryption": false,
+    "vm_version": 417,
+    "board": "Linux ARM64",
+    "arithmetic": [
+      12,
+      13
+    ],
+    "crc_upload": true,
+    "live_edit": true,
+    "project_export": true,
+    "project_import": true,
+    "stop_reconnect": true,
+    "crc_readback_after_reconnect": true,
+    "reexecuted_after_reconnect": 13,
+    "page_errors": [],
+    "failed_requests": [],
+    "result": "PASS"
+  },
+  "native_build": {
+    "base": "/home/fred/microblocks-auto-service-o5ygmr3m/native-corrected",
+    "headless_shutdown_fix": true,
+    "arithmetic_or_protocol_simulated": false,
+    "explicit_display_use_supported": false,
+    "binary_sha256": "37dd525050936cf47b36bcb00f89b03514c153284d229fd7970c1d186956bcb5",
+    "self_test": {
+      "result": "PASS",
+      "scope": "real SmallVM v417; local PTY; no external peripherals",
+      "architecture": "aarch64",
+      "arithmetic": 12,
+      "variable": 42,
+      "network_listener": false
+    },
+    "sources": {
+      "platform/primitives.c": "24e46d496657061ee11e087f2e88e8981074ddf8f8b530cc259d25950a869cd2",
+      "platform/self_test.c": "b43a1a83eb65cafb07cc297ec4dcab2691afb83fd72e92bc05b91b463459755e"
+    }
+  },
+  "validation": {
+    "main_validator": {
+      "tests": 525,
+      "passed": 235,
+      "skipped": 290,
+      "failures": 0,
+      "platform": "Windows",
+      "additional_python_listeners_blocked": true
+    },
+    "pi_lan_unit_tests": {
+      "passed": 7,
+      "real_listener": false
+    },
+    "node_package_tests": {
+      "passed": 4
+    },
+    "foreign_origin_http_status": 403,
+    "main_package_assets_equal_deployed": true
+  },
+  "expiry_shutdown": "Configured for the recorded time; elapsed shutdown not yet observed at record time",
+  "source_sha256": {
+    "linux/arm64/lan_editor.py": "d5d1a1e070caced9dad64cf9415615d0b6cbbecc0fc0ba881ec923def924dec2",
+    "linux/arm64/platform/primitives.c": "24e46d496657061ee11e087f2e88e8981074ddf8f8b530cc259d25950a869cd2",
+    "linux/arm64/platform/self_test.c": "b43a1a83eb65cafb07cc297ec4dcab2691afb83fd72e92bc05b91b463459755e",
+    "tools/package_pi_lan_editor.py": "0f291b78f17830b5b8dc2c6d8add41bacc422bf04f5b0aec26d33f34b38a3464",
+    "web/js-editor/pi-compiler.js": "5014cd886fd42b199cc39f27238b43cdb9d46fb0b2a2c1bde4386f61e3ea1f7e"
+  }
+}

@@ -43,6 +43,10 @@ static int wait_message(unsigned kind,unsigned index,int value){
  return 0;
 }
 int linuxPlatformSelfTest(void){
+ OBJ absent=falseObj;fail(0);primMBDisplayOff(0,NULL);
+ if(failure())return 1;
+ primMBDisplayOff(0,&absent);if(!failure())return 1;fail(0);
+
  const uint8 ping[]={250,26,73};
  const uint8 reporter[]={251,32,0,22,0,2,9,0,2,11,2,15,50,2,35,0,127,0,240,0,0,0,0,0,0,0,254};
  const uint8 run[]={250,3,0};

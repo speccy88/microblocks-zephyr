@@ -24,7 +24,13 @@ UNSUPPORTED_N(primAnalogRead) UNSUPPORTED_N(primDigitalRead)
 UNSUPPORTED_V(primAnalogWrite) UNSUPPORTED_V(primDigitalWrite)
 UNSUPPORTED_A(primButtonA) UNSUPPORTED_A(primButtonB)
 UNSUPPORTED_A(primI2cGet) UNSUPPORTED_A(primI2cSet) UNSUPPORTED_A(primSPISend) UNSUPPORTED_A(primSPIRecv)
-UNSUPPORTED_N(primMBDisplay) UNSUPPORTED_N(primMBDisplayOff) UNSUPPORTED_N(primMBEnableDisplay)
+UNSUPPORTED_N(primMBDisplay) UNSUPPORTED_N(primMBEnableDisplay)
+/* deleteAllCodeMsg calls this outside a task. There is no display to clear;
+ * preserve the next task's error state. Explicit display use stays unsupported. */
+OBJ primMBDisplayOff(int n,OBJ *a){
+ if(n==0 && a==NULL)return falseObj;
+ return fail(primitiveNotImplemented);
+}
 UNSUPPORTED_N(primMBPlot) UNSUPPORTED_N(primMBUnplot) UNSUPPORTED_N(primMBDrawShape) UNSUPPORTED_N(primMBShapeForLetter)
 UNSUPPORTED_N(primMBTiltX) UNSUPPORTED_N(primMBTiltY) UNSUPPORTED_N(primMBTiltZ) UNSUPPORTED_N(primMBTemp)
 void primDigitalSet(int pin,int state){(void)pin;(void)state;fail(primitiveNotImplemented);}
