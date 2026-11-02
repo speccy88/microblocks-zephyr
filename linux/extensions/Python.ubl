@@ -1,0 +1,85 @@
+module 'Python Extensions' Data
+author 'MicroBlocks Linux contributors'
+version 1 0
+description 'Normal domain blocks backed by configured trusted Python operations. Requests and waits yield to other VM tasks. The MicroBlocks launcher owns the Python service. No request IDs or transport setup are needed in user programs. SQLite uses parameter bindings and bounded results; large numbers/decimals retain JSON text and null is the text null, with explicit type access available. Missing services/dependencies stop the calling script with a diagnostic. A timed-out write may have completed and is never automatically retried. Hardware and external brokers require explicit board configuration and physical validation.'
+spec ' ' 'sqliteExecute' 'SQLite execute _ parameters _' 'str auto' 'CREATE TABLE IF NOT EXISTS readings (label TEXT, value INTEGER)' ''
+spec 'r' 'sqliteQuery' 'SQLite query _ parameters _' 'str auto' 'SELECT label, value FROM readings' ''
+spec 'r' 'sqliteRows' 'SQLite rows from _' 'str' '{}'
+spec 'r' 'sqliteColumns' 'SQLite columns from _' 'str' '{}'
+spec 'r' 'sqliteChanges' 'SQLite changed rows from _' 'str' '{}'
+spec 'b' 'sqliteTruncated' 'SQLite result _ was limited' 'str' '{}'
+spec 'r' 'httpHeader' 'HTTP header _ value _' 'str str' 'Accept' 'application/json'
+spec 'r' 'httpGet' 'HTTP GET _ headers _' 'str auto' '/' ''
+spec 'r' 'httpPost' 'HTTP POST _ body _ headers _' 'str str auto' '/' '' ''
+spec 'r' 'httpStatus' 'HTTP status from _' 'str' '{}'
+spec 'r' 'httpBody' 'HTTP body from _' 'str' '{}'
+spec 'r' 'httpHeaders' 'HTTP response headers from _' 'str' '{}'
+spec 'b' 'httpTruncated' 'HTTP response _ was limited' 'str' '{}'
+spec 'r' 'httpEncoding' 'HTTP body encoding from _' 'str' '{}'
+spec ' ' 'mqttPublish' 'MQTT publish topic _ message _' 'str str' 'microblocks/readings' 'hello'
+spec ' ' 'mqttSubscribe' 'MQTT subscribe to _' 'str' 'microblocks/#'
+spec 'r' 'mqttNext' 'MQTT next message'
+spec 'b' 'mqttAvailable' 'MQTT result _ has message' 'str' '{}'
+spec 'r' 'mqttTopic' 'MQTT topic from _' 'str' '{}'
+spec 'r' 'mqttPayload' 'MQTT payload from _' 'str' '{}'
+spec 'r' 'mqttDropped' 'MQTT dropped messages from _' 'str' '{}'
+spec 'r' 'climateTemperature' 'air temperature in milli C'
+spec 'r' 'climateHumidity' 'relative humidity in thousandths of percent'
+advanced
+spec 'r' 'pythonCall' 'Python extension _ operation _ arguments _' 'str str str' 'sqlite' 'query' '{}'
+spec 'r' '[linux:pythonJSON]' 'Python JSON value _' 'auto' ''
+spec 'r' '[linux:pythonGet]' 'Python result _ field _' 'str str' '{}' ''
+spec 'r' '[linux:pythonType]' 'Python result _ field _ type' 'str str' '{}' ''
+
+to pythonCall extension method arguments {
+    if (not ('[linux:pythonConfigured]')) {
+        sayIt 'Python extensions are not configured. Start this MicroBlocks installation with its Python extension profile.'
+        stopTask
+    }
+    local 'job' ('[linux:pythonBegin]' extension method arguments)
+    repeatUntil (not (('[linux:pythonStatus]' job) == 'pending')) { waitMillis 10 }
+    local 'reply' ('[linux:pythonResult]' job)
+    '[linux:pythonRelease]' job
+    if (not (('[linux:pythonType]' reply '/error') == 'missing')) {
+        sayIt 'Python service is unavailable or the operation was interrupted. Restart the configured MicroBlocks session. A write may have completed; do not retry automatically.'
+        stopTask
+    }
+    if (not (('[linux:pythonGet]' reply '/result/ok') == true)) {
+        sayIt ('[data:join]' 'Python: ' ('[linux:pythonGet]' reply '/result/error/message'))
+        stopTask
+    }
+    return ('[linux:pythonGet]' reply '/result/value')
+}
+to sqliteArguments sql parameters {
+    if (parameters == '') { parameters = ('[data:makeList]') }
+    return ('[data:join]' '{"sql":' ('[linux:pythonJSON]' sql) ',"parameters":' ('[linux:pythonJSON]' parameters) '}')
+}
+to sqliteExecute sql parameters { pythonCall 'sqlite' 'execute' (sqliteArguments sql parameters) }
+to sqliteQuery sql parameters { return (pythonCall 'sqlite' 'query' (sqliteArguments sql parameters)) }
+to sqliteRows result { return ('[linux:pythonGet]' result '/rows') }
+to sqliteColumns result { return ('[linux:pythonGet]' result '/columns') }
+to sqliteChanges result { return ('[linux:pythonGet]' result '/changes') }
+to sqliteTruncated result { return ('[linux:pythonGet]' result '/truncated') }
+to httpHeader name value { return ('[data:makeList]' name value) }
+to httpGet path headers {
+    if (headers == '') { headers = ('[data:makeList]') }
+    return (pythonCall 'http' 'get' ('[data:join]' '{"path":' ('[linux:pythonJSON]' path) ',"headers":' ('[linux:pythonJSON]' headers) '}'))
+}
+to httpPost path body headers {
+    if (headers == '') { headers = ('[data:makeList]') }
+    return (pythonCall 'http' 'post' ('[data:join]' '{"path":' ('[linux:pythonJSON]' path) ',"body":' ('[linux:pythonJSON]' body) ',"headers":' ('[linux:pythonJSON]' headers) '}'))
+}
+to httpStatus result { return ('[linux:pythonGet]' result '/status') }
+to httpBody result { return ('[linux:pythonGet]' result '/body') }
+to httpHeaders result { return ('[linux:pythonGet]' result '/headers') }
+to httpTruncated result { return ('[linux:pythonGet]' result '/truncated') }
+to httpEncoding result { return ('[linux:pythonGet]' result '/body_encoding') }
+to mqttPublish topic payload { pythonCall 'mqtt' 'publish' ('[data:join]' '{"topic":' ('[linux:pythonJSON]' topic) ',"payload":' ('[linux:pythonJSON]' payload) '}') }
+to mqttSubscribe topic { pythonCall 'mqtt' 'subscribe' ('[data:join]' '{"topic":' ('[linux:pythonJSON]' topic) '}') }
+to mqttNext { return (pythonCall 'mqtt' 'next' '{}') }
+to mqttAvailable result { return ('[linux:pythonGet]' result '/available') }
+to mqttTopic result { return ('[linux:pythonGet]' result '/message/topic') }
+to mqttPayload result { return ('[linux:pythonGet]' result '/message/payload') }
+to mqttDropped result { return ('[linux:pythonGet]' result '/dropped') }
+to climateTemperature { return ('[linux:pythonGet]' (pythonCall 'climate' 'read' '{}') '/temperature_mc') }
+to climateHumidity { return ('[linux:pythonGet]' (pythonCall 'climate' 'read' '{}') '/humidity_millipercent') }

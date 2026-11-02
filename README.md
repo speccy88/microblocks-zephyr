@@ -11,6 +11,12 @@ the legacy GP line; do not create additional development branches. The
 website, Linux/Pi/MicroDuck work and SFC sources share this main codebase.
 See the [integration record](docs/MAIN_CONSOLIDATION.md).
 
+[Linux Python domain blocks](linux/extensions/README.md) add configured SQLite,
+HTTP, MQTT and optional Blinka operations through the normal JavaScript editor.
+The application owns Python automatically; SQLite has real Pi 5 native and
+graphical acceptance. MQTT broker, Blinka hardware and MicroDuck pin mapping
+remain unvalidated. See the dated evidence for exact scope.
+
 The Pages root uses the real pure-JavaScript editor by default and offers the
 touch workspace on phones. The [legacy GP portal](https://speccy88.github.io/microblocks-zephyr/legacy/index.html)
 preserves existing editors and project access. Export/import `.ubp` to transfer

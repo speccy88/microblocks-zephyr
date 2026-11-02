@@ -20,7 +20,7 @@ SOURCE_COMMIT = '2071df569623ba9cdcd6f8106b61796e047df38b'
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def package(binary, license_bytes, output, version, *, epoch=0, provenance=None):
+def package(binary, license_bytes, output, version, *, epoch=0, provenance=None,python_extensions=False):
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,63}', version) or version == 'latest':
         raise ValueError('A pinned release version is required')
     if len(binary) < 64 or len(binary) > 32 * 1024 * 1024 or binary[:6] != b'\x7fELF\x02\x01' or struct.unpack_from('<H', binary, 18)[0] != 183:
@@ -33,6 +33,10 @@ def package(binary, license_bytes, output, version, *, epoch=0, provenance=None)
         'acceptance': 'candidate; requires real Raspberry Pi execution evidence before release',
         'dependencies': {'yyjson': '6447536015f3d600f3d65323b10976103b337ca7'},
     }
+    if python_extensions:
+        if not all(name in binary for name in (b'pythonConfigured\0',b'pythonBegin\0',b'pythonJSON\0')):
+            raise ValueError('Selected native binary does not contain the Python extension primitive entries')
+        manifest['capabilities']=['python-extensions']
     if provenance is not None:
         required = {'port_commit', 'prepared_source_sha256', 'source_archive_sha256', 'native_report_sha256'}
         if set(provenance) != required or not re.fullmatch(r'[a-f0-9]{40}', provenance['port_commit']):
@@ -80,11 +84,12 @@ def main():
     parser.add_argument('--source', required=True, type=Path, help='Official SmallVM Git checkout containing the pinned commit')
     parser.add_argument('--version', required=True)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--python-extensions',action='store_true',help='Mark tested native Python support for the managed updater compatibility gate')
     args = parser.parse_args()
     # Read from the exact Git revision, never mutable checkout bytes.
     license_bytes = subprocess.check_output(['git', '-C', str(args.source), 'show', SOURCE_COMMIT + ':LICENSE'])
     epoch = int(subprocess.check_output(['git', '-C', str(args.source), 'show', '-s', '--format=%ct', SOURCE_COMMIT], text=True).strip())
-    digest = package(args.binary.read_bytes(), license_bytes, args.output, args.version, epoch=epoch)
+    digest = package(args.binary.read_bytes(), license_bytes, args.output, args.version, epoch=epoch,python_extensions=args.python_extensions)
     print(json.dumps({'candidate_package': str(args.output), 'sha256': digest, 'physically_tested': False}, indent=2))
 
 

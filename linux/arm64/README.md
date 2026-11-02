@@ -102,6 +102,13 @@ above 4 GiB, deep/wide graphs, temporary roots and invalid references. There is
 no low-address mapping or weakening of ASLR. Original pinned sources are read
 from Git and verified before strict, hash-guarded transformations.
 
+[Python domain blocks](../extensions/README.md) reuse the bounded native job
+transport for configured Python capabilities. The managed Pi application owns
+the service automatically. SQLite has actual Pi 5 VM and graphical acceptance;
+HTTP is tested only with a local fixture, MQTT with API fixtures, and physical
+Blinka/MicroDuck hardware remains unvalidated. The native updater can require
+the `python-extensions` capability to retain compatible primitive support.
+
 Local test command (Linux, no board access):
 
 ```sh

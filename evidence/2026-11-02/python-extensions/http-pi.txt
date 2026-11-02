@@ -1,0 +1,7 @@
+test_bounds_timeouts_scope_and_headers (test_python_http.HTTPTests.test_bounds_timeouts_scope_and_headers) ... ok
+test_real_requests_get_post_headers_redirect_and_binary (test_python_http.HTTPTests.test_real_requests_get_post_headers_redirect_and_binary) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.684s
+
+OK

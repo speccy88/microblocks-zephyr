@@ -2,6 +2,7 @@
 """Packaging tests use non-executable headers, never a release or working VM."""
 # SPDX-License-Identifier: MIT
 import importlib.util
+import json
 from pathlib import Path
 import struct
 import tarfile
@@ -43,6 +44,13 @@ class CandidatePackage(unittest.TestCase):
     def test_foreign_binary_rejected(self):
         with self.assertRaises(ValueError):
             module.package(b'#!/bin/sh\n', b'MPL-2.0', Path('unused'), 'v417-test')
+
+    def test_python_updater_capability_requires_native_entries(self):
+        with self.assertRaises(ValueError):module.package(self.fixture(),b'MPL-2.0',self.work/'missing.tar.gz','v417-python',python_extensions=True)
+        binary=self.fixture()+b'pythonConfigured\0pythonBegin\0pythonJSON\0'
+        target=self.work/'python.tar.gz';module.package(binary,b'MPL-2.0',target,'v417-python',python_extensions=True)
+        with tarfile.open(target) as archive:
+            self.assertEqual(json.loads(archive.extractfile('manifest.json').read())['capabilities'],['python-extensions'])
 
     def test_latest_rejected(self):
         with self.assertRaises(ValueError):

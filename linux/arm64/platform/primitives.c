@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MPL-2.0 */
 /* Honest headless capabilities. Hardware is unsupported, never simulated. */
 #include "vm/interp.h"
+#include "python_extensions.h"
 #include <errno.h>
 #include <limits.h>
 #include <stdlib.h>
@@ -52,7 +53,8 @@ void BLE_setEnabled(int n){(void)n;}
 int BLE_isEnabled(void){return 0;}
 int displayIsActive(void){return 0;}
 void getMACAddress(uint8 *p){memset(p,0,6);}
-OMIT(addIOPrims) OMIT(addDisplayPrims) OMIT(addFilePrims) OMIT(addMiscPrims)
+void addIOPrims(void){addLinuxPythonPrims();}
+OMIT(addDisplayPrims) OMIT(addFilePrims) OMIT(addMiscPrims)
 OMIT(addNetPrims) OMIT(addBLEPrims) OMIT(addRadioPrims) OMIT(addSensorPrims)
 OMIT(addSerialPrims) OMIT(addTFTPrims) OMIT(addHIDPrims) OMIT(addOneWirePrims)
 OMIT(addCameraPrims) OMIT(addEncoderPrims) OMIT(addSDCardPrims) OMIT(addElecfreaksPrims)

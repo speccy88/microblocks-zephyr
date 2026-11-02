@@ -1,0 +1,30 @@
+{
+  "physical_pi": true,
+  "architecture": "aarch64",
+  "ordinary_binary_sha256": "d60102ce79a73f79ee63d094e79c0803e64fdfb8cb4949a688639e9e89d09a2b",
+  "tests": {
+    "test_python_extensions.py": {
+      "exit": 0,
+      "log": "/home/fred/mb-python-udufkoyi/joint/test_python_extensions.py.log"
+    },
+    "test_python_extensions_vm.py": {
+      "exit": 0,
+      "log": "/home/fred/mb-python-udufkoyi/joint/test_python_extensions_vm.py.log"
+    },
+    "test_python_http.py": {
+      "exit": 0,
+      "log": "/home/fred/mb-python-udufkoyi/joint/test_python_http.py.log"
+    },
+    "test_python_mqtt.py": {
+      "exit": 0,
+      "log": "/home/fred/mb-python-udufkoyi/joint/test_python_mqtt.py.log"
+    },
+    "test_python_managed.py": {
+      "exit": 0,
+      "log": "/home/fred/mb-python-udufkoyi/joint/test_python_managed.py.log"
+    }
+  },
+  "external_endpoints_contacted": false,
+  "existing_service_changed": false,
+  "test_count": 22
+}

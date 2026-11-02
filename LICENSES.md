@@ -269,3 +269,10 @@ source; no Rust source is copied into these adapters.
 Normal padd IMU observer: pad_imu_service.py and pad_imu_gateway_fixture.py
 retain MIT notices. Pad_IMU.ubl and pad-imu.ubp follow the repository MPL-2.0
 library policy; shared reviewed batch parser retains its MIT notice.
+
+The generic Linux Python extension API, process supervisor, SQLite/HTTP/MQTT
+plugins, optional Blinka example, managed lifecycle helper and Python tests are
+new MIT code. Native VM primitives, the MicroBlocks domain library, JavaScript
+palette overlay and actual editor/VM harness retain MPL-2.0 notices. Optional
+Requests, Paho and Adafruit packages are imported through their public APIs;
+their implementation code is not vendored or installed by this feature.

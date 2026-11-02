@@ -1,0 +1,18 @@
+projectName 'SQLite useful example'
+module main
+variables SQLRows SQLCount SQLLatestValue Heartbeat
+script 30 30 {
+    whenStarted
+    sqliteExecute 'CREATE TABLE IF NOT EXISTS readings (label TEXT, value INTEGER)' (newList 0)
+    sqliteExecute 'INSERT INTO readings (label,value) VALUES (?,?)' ('[data:makeList]' 'room' 21500)
+    local 'result' (sqliteQuery 'SELECT label,value FROM readings ORDER BY rowid DESC LIMIT ?' ('[data:makeList]' 5))
+    SQLRows = (sqliteRows result)
+    SQLLatestValue = (at 2 (at 1 SQLRows))
+    SQLCount = (at 1 (at 1 (sqliteRows (sqliteQuery 'SELECT COUNT(*) FROM readings' (newList 0)))))
+    sayIt SQLRows
+}
+script 600 30 {
+    whenStarted
+    forever { Heartbeat += 1
+        waitMillis 2 }
+}

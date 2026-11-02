@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "board": "pi5",
+  "extensions": {
+    "sqlite": {
+      "factory": "linux.extensions.plugins.sqlite:Extension",
+      "settings": {
+        "database": "programs.sqlite3",
+        "max_rows": 32,
+        "max_columns": 16,
+        "max_cell_bytes": 1024,
+        "max_ms": 500
+      },
+      "timeout": 3
+    },
+    "climate": {
+      "enabled": false,
+      "factory": "linux.extensions.examples.sht4x:Extension",
+      "settings": {
+        "expected_board": "RASPBERRY_PI_5",
+        "address": 68,
+        "pin_map_validated": true
+      },
+      "timeout": 3
+    },
+    "http": {
+      "enabled": false,
+      "factory": "linux.extensions.plugins.http:Extension",
+      "settings": {
+        "origin": "http://127.0.0.1:8080",
+        "allow_http": true,
+        "max_body_bytes": 16384
+      },
+      "timeout": 3
+    },
+    "mqtt": {
+      "enabled": false,
+      "factory": "linux.extensions.plugins.mqtt:Extension",
+      "settings": {
+        "host": "broker.invalid",
+        "tls": true,
+        "max_messages": 32
+      },
+      "timeout": 3
+    }
+  }
+}

@@ -1,0 +1,505 @@
+{
+  "environment": "desktop Chromium mobile emulation",
+  "browser": "156.0.8078.74",
+  "physical_iphone": false,
+  "native_socket": false,
+  "sizes": [
+    {
+      "size": [
+        375,
+        667
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 375,
+        "height": 619
+      },
+      "targets": [
+        {
+          "label": "Menu",
+          "x": 6,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Blocks",
+          "x": 54,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Pan workspace",
+          "x": 102,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Connect board",
+          "x": 229,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Start",
+          "x": 277,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Stop",
+          "x": 325,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu_focus_palette_cycles": 3,
+      "connection_cycles": 2,
+      "blank_pan": true,
+      "pinch_anchor": true,
+      "zoom_limits": [
+        50,
+        250
+      ],
+      "cancel_recovery": true,
+      "pinch_to_single_pan": true,
+      "coordinate_drags": [
+        {
+          "scale": 50,
+          "scene_delta": 59
+        },
+        {
+          "scale": 100,
+          "scene_delta": 27
+        },
+        {
+          "scale": 150,
+          "scene_delta": 16.333333333333336
+        },
+        {
+          "scale": 250,
+          "scene_delta": 7.799999999999997
+        }
+      ],
+      "view_syncs": 0,
+      "additional_block_flows": {
+        "hand_over_block": true,
+        "secondary_before_grab": true,
+        "secondary_during_grab": true,
+        "cancelled_grab_retained": true,
+        "palette_scroll": true,
+        "stack_insertion": true,
+        "insertion_collapses_palette": true
+      }
+    },
+    {
+      "size": [
+        667,
+        375
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 667,
+        "height": 327
+      },
+      "targets": [
+        {
+          "label": "Menu",
+          "x": 6,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Blocks",
+          "x": 54,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Pan workspace",
+          "x": 102,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Connect board",
+          "x": 521,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Start",
+          "x": 569,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Stop",
+          "x": 617,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu_focus_palette_cycles": 3,
+      "connection_cycles": 2,
+      "blank_pan": true,
+      "pinch_anchor": true,
+      "zoom_limits": [
+        50,
+        250
+      ],
+      "cancel_recovery": true,
+      "pinch_to_single_pan": true,
+      "coordinate_drags": [
+        {
+          "scale": 50,
+          "scene_delta": 59
+        },
+        {
+          "scale": 100,
+          "scene_delta": 27
+        },
+        {
+          "scale": 150,
+          "scene_delta": 16.333333333333336
+        },
+        {
+          "scale": 250,
+          "scene_delta": 7.799999999999997
+        }
+      ],
+      "view_syncs": 0,
+      "additional_block_flows": {
+        "hand_over_block": true,
+        "secondary_before_grab": true,
+        "secondary_during_grab": true,
+        "cancelled_grab_retained": true,
+        "palette_scroll": true,
+        "stack_insertion": true,
+        "insertion_collapses_palette": true
+      }
+    },
+    {
+      "size": [
+        390,
+        844
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 390,
+        "height": 796
+      },
+      "targets": [
+        {
+          "label": "Menu",
+          "x": 6,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Blocks",
+          "x": 54,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Pan workspace",
+          "x": 102,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Connect board",
+          "x": 244,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Start",
+          "x": 292,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Stop",
+          "x": 340,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu_focus_palette_cycles": 3,
+      "connection_cycles": 2,
+      "blank_pan": true,
+      "pinch_anchor": true,
+      "zoom_limits": [
+        50,
+        250
+      ],
+      "cancel_recovery": true,
+      "pinch_to_single_pan": true,
+      "coordinate_drags": [
+        {
+          "scale": 50,
+          "scene_delta": 59
+        },
+        {
+          "scale": 100,
+          "scene_delta": 27
+        },
+        {
+          "scale": 150,
+          "scene_delta": 16.333333333333336
+        },
+        {
+          "scale": 250,
+          "scene_delta": 7.799999999999997
+        }
+      ],
+      "view_syncs": 0,
+      "additional_block_flows": null
+    },
+    {
+      "size": [
+        844,
+        390
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 844,
+        "height": 342
+      },
+      "targets": [
+        {
+          "label": "Menu",
+          "x": 6,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Blocks",
+          "x": 54,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Pan workspace",
+          "x": 102,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Connect board",
+          "x": 698,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Start",
+          "x": 746,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Stop",
+          "x": 794,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu_focus_palette_cycles": 3,
+      "connection_cycles": 2,
+      "blank_pan": true,
+      "pinch_anchor": true,
+      "zoom_limits": [
+        50,
+        250
+      ],
+      "cancel_recovery": true,
+      "pinch_to_single_pan": true,
+      "coordinate_drags": [
+        {
+          "scale": 50,
+          "scene_delta": 59
+        },
+        {
+          "scale": 100,
+          "scene_delta": 27
+        },
+        {
+          "scale": 150,
+          "scene_delta": 16.333333333333336
+        },
+        {
+          "scale": 250,
+          "scene_delta": 7.799999999999997
+        }
+      ],
+      "view_syncs": 0,
+      "additional_block_flows": null
+    },
+    {
+      "size": [
+        430,
+        932
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 430,
+        "height": 884
+      },
+      "targets": [
+        {
+          "label": "Menu",
+          "x": 6,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Blocks",
+          "x": 54,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Pan workspace",
+          "x": 102,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Connect board",
+          "x": 284,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Start",
+          "x": 332,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Stop",
+          "x": 380,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu_focus_palette_cycles": 3,
+      "connection_cycles": 2,
+      "blank_pan": true,
+      "pinch_anchor": true,
+      "zoom_limits": [
+        50,
+        250
+      ],
+      "cancel_recovery": true,
+      "pinch_to_single_pan": true,
+      "coordinate_drags": [
+        {
+          "scale": 50,
+          "scene_delta": 59
+        },
+        {
+          "scale": 100,
+          "scene_delta": 27
+        },
+        {
+          "scale": 150,
+          "scene_delta": 16.333333333333336
+        },
+        {
+          "scale": 250,
+          "scene_delta": 7.799999999999997
+        }
+      ],
+      "view_syncs": 0,
+      "additional_block_flows": null
+    },
+    {
+      "size": [
+        932,
+        430
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 932,
+        "height": 382
+      },
+      "targets": [
+        {
+          "label": "Menu",
+          "x": 6,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Blocks",
+          "x": 54,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Pan workspace",
+          "x": 102,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Connect board",
+          "x": 786,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Start",
+          "x": 834,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "label": "Stop",
+          "x": 882,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu_focus_palette_cycles": 3,
+      "connection_cycles": 2,
+      "blank_pan": true,
+      "pinch_anchor": true,
+      "zoom_limits": [
+        50,
+        250
+      ],
+      "cancel_recovery": true,
+      "pinch_to_single_pan": true,
+      "coordinate_drags": [
+        {
+          "scale": 50,
+          "scene_delta": 59
+        },
+        {
+          "scale": 100,
+          "scene_delta": 27
+        },
+        {
+          "scale": 150,
+          "scene_delta": 16.333333333333336
+        },
+        {
+          "scale": 250,
+          "scene_delta": 7.799999999999997
+        }
+      ],
+      "view_syncs": 0,
+      "additional_block_flows": null
+    }
+  ],
+  "page_errors": []
+}

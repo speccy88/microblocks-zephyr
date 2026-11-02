@@ -23,10 +23,18 @@
     "gpio_i2c_spi_audio_camera": "unsupported",
     "microduck_unix_native_adapter": "physical-pi-vm-with-simulated-robot-services-pass",
     "microduck_graphical_health_blocks": "physical-pi-vm-with-explicit-simulation-pass",
-    "microduck_hardware": "unavailable"
+    "microduck_hardware": "unavailable",
+    "python_extension_private_workers": "physical-pi-pass",
+    "python_sqlite_domain_bytecode": "physical-pi-pass",
+    "python_sqlite_graphical_live_edit": "physical-pi-over-ssh-browser-pass",
+    "python_http_requests": "physical-pi-local-fixture-pass",
+    "python_mqtt": "api-fixtures-only",
+    "python_blinka": "physical-hardware-untested",
+    "python_managed_deployment": "pending-coordinated-release"
   },
   "compatibility_note": "Baseline ARMv8-A is selected, but Pi 3, Zero 2 W and MicroDuck have not run this binary. The ordinary binary's ELF symbols require glibc 2.34 or newer; it ran with 2.41. Other distributions are unverified.",
   "network_default": "VM has no listener; separate bridge binds only 127.0.0.1",
   "release_published": false,
-  "foreground_resume_evidence": "../../evidence/2026-10-28/pi5-standalone-session/README.md"
+  "foreground_resume_evidence": "../../evidence/2026-10-28/pi5-standalone-session/README.md",
+  "python_extensions_evidence": "../../evidence/2026-11-02/python-extensions/README.md"
 }

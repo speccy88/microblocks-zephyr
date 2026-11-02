@@ -1,0 +1,67 @@
+name: Linux Python extensions
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: python-extensions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    env:
+      ASAN_OPTIONS: detect_leaks=1:abort_on_error=1
+      UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+      SMALLVM_PYTHON_BINARY: ${{ github.workspace }}/build-artifacts/python-native/smallvm
+      SMALLVM_PYTHON_COMPILED: ${{ github.workspace }}/build-artifacts/python-compiled.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Fetch exact upstream VM and JavaScript source pins
+        run: |
+          git init build-artifacts/upstream
+          git -C build-artifacts/upstream remote add origin https://codeberg.org/MicroBlocks/smallvm.git
+          git -C build-artifacts/upstream fetch --no-tags --depth=1 origin 2071df569623ba9cdcd6f8106b61796e047df38b 5564b1e42d6790360450ebf11c9eb33a1c6877f2
+      - name: Install reviewed HTTP dependency in the disposable runner
+        run: python3 -m pip install requests==2.34.2
+      - name: Build real sanitized SmallVM and shared JavaScript domain blocks
+        run: |
+          python3 linux/arm64/build.py --upstream build-artifacts/upstream --output build-artifacts/python-native --sanitize --test
+          python3 tools/package_js_editor.py --source build-artifacts/upstream --output build-artifacts/python-base
+          python3 tools/package_python_extension_editor.py --source build-artifacts/python-base --output build-artifacts/python-editor
+          node tools/compile_python_example.cjs build-artifacts/python-editor build-artifacts/python-compiled.json
+      - name: Require private workers, SQL, local HTTP, MQTT fixtures and actual VM tests to execute
+        run: |
+          python3 - <<'PY'
+          import unittest
+          suite=unittest.TestSuite()
+          for pattern in ['test_python_extensions.py','test_python_extensions_vm.py','test_python_http.py','test_python_mqtt.py','test_python_managed.py']:
+              suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))
+          result=unittest.TextTestRunner(verbosity=2).run(suite)
+          assert result.wasSuccessful() and not result.skipped
+          assert result.testsRun >= 22
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-extensions-${{ matrix.runner }}
+          path: |
+            build-artifacts/python-native/build-manifest.json
+            build-artifacts/python-compiled.json
+            build-artifacts/python-editor/python-extension-manifest.json

@@ -6,6 +6,7 @@
 #define _GNU_SOURCE
 #include "microduck.h"
 #include "vm/interp.h"
+#include "python_extensions.h"
 #include "third_party/yyjson/yyjson.h"
 #include <ctype.h>
 #include <errno.h>
@@ -186,9 +187,10 @@ static int objectKeys(yyjson_val *object, const char *const *allowed, size_t cou
     return 1;
 }
 
-typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW, PARAM_PAD_IMU_READ, PARAM_HEAD_IMU_READ, PARAM_DEPTH_ZONE, PARAM_DEPTH_META, PARAM_GAMEPAD_AXIS, PARAM_GAMEPAD_BUTTON, PARAM_GAMEPAD_CONTROL, PARAM_GAMEPAD_META, PARAM_ROBOT_CAPTURE, PARAM_ROBOT_READ } ParamsKind;
+typedef enum { PARAM_EMPTY, PARAM_HELLO, PARAM_COMPONENT, PARAM_LOG, PARAM_SHOW, PARAM_SYSTEM_LOGS, PARAM_SOUND, PARAM_SKILL, PARAM_ENABLE, PARAM_POLICY, PARAM_MOTION_SIM, PARAM_SENSOR_ZONE, PARAM_SENSOR_CODE, PARAM_SNAPSHOT_HANDLE, PARAM_SNAPSHOT_ROW, PARAM_SNAPSHOT_CODE, PARAM_ROBOT_PREVIEW, PARAM_TELEMETRY_CAPTURE, PARAM_TELEMETRY_READ, PARAM_MEDIA_READING, PARAM_RELAY_PREVIEW, PARAM_PAD_IMU_READ, PARAM_HEAD_IMU_READ, PARAM_DEPTH_ZONE, PARAM_DEPTH_META, PARAM_GAMEPAD_AXIS, PARAM_GAMEPAD_BUTTON, PARAM_GAMEPAD_CONTROL, PARAM_GAMEPAD_META, PARAM_ROBOT_CAPTURE, PARAM_ROBOT_READ, PARAM_EXTENSION_CALL } ParamsKind;
 typedef struct { const char *name; ParamsKind params; int mutation; } Method;
 static const Method methods[] = {
+    {"extensions.capabilities",PARAM_EMPTY,0},{"extensions.call",PARAM_EXTENSION_CALL,0},
     {"microduck.capabilities",PARAM_EMPTY,0},{"hello",PARAM_HELLO,0},
     {"robot.health",PARAM_EMPTY,0},{"robot.policies",PARAM_EMPTY,0},{"robot.skills",PARAM_EMPTY,0},
     {"robot.model",PARAM_EMPTY,0},{"robot.vetbook",PARAM_EMPTY,0},{"pad.bindings",PARAM_EMPTY,0},
@@ -386,6 +388,7 @@ static int validParams(const Method *method, yyjson_val *params) {
     const char *keys[5]; size_t count = 0;
     switch (method->params) {
         case PARAM_EMPTY: break;
+        case PARAM_EXTENSION_CALL: keys[count++]="extension"; keys[count++]="method"; keys[count++]="args"; break;
         case PARAM_HELLO: keys[count++]="api_version"; break;
         case PARAM_COMPONENT: keys[count++]="component"; break;
         case PARAM_LOG: keys[count++]="limit"; break;
@@ -421,6 +424,16 @@ static int validParams(const Method *method, yyjson_val *params) {
     yyjson_val *value;
     switch (method->params) {
         case PARAM_EMPTY: return 1;
+        case PARAM_EXTENSION_CALL: {
+            const char *fields[]={"extension","method"};
+            for (int i=0;i<2;++i) {
+                value=yyjson_obj_get(params,fields[i]); if (!boundedText(value,64)) return 0;
+                const unsigned char *text=(const unsigned char *)yyjson_get_str(value);
+                if (text[0]<'a' || text[0]>'z') return 0;
+                for(size_t n=0;n<yyjson_get_len(value);++n) if (!((text[n]>='a'&&text[n]<='z')||(text[n]>='0'&&text[n]<='9')||text[n]=='_'||text[n]=='-'||text[n]=='.')) return 0;
+            }
+            return yyjson_obj_size(params)==3 && yyjson_is_obj(yyjson_obj_get(params,"args"));
+        }
         case PARAM_HELLO: value=yyjson_obj_get(params,"api_version"); return !value || integerBetween(value,44,44);
         case PARAM_COMPONENT: {
             value=yyjson_obj_get(params,"component"); if (!boundedText(value,64)) return 0;
@@ -611,6 +624,9 @@ static int copyVMString(OBJ object, char *destination, size_t maximum, size_t *l
     for (size_t i=*length+1u;i<capacity;++i) if (text[i]) return 0;
     memcpy(destination,text,*length); destination[*length]='\0'; return 1;
 }
+int linuxRpcCopyString(OBJ value,char *destination,size_t maximum,size_t *length) {
+    return copyVMString(value,destination,maximum,length);
+}
 static Job *findJob(uint32_t id) {
     for (unsigned i=0;i<LINUX_MICRODUCK_MAX_JOBS;++i) if (jobs[i].state!=JOB_UNUSED && jobs[i].id==id) return &jobs[i];
     return NULL;
@@ -626,16 +642,11 @@ static OBJ configuredPrimitive(int argc, OBJ *args) {
     (void)args; if (argc!=0) return fail(notEnoughArguments);
     return gatewayPath[0]?trueObj:falseObj;
 }
-static OBJ beginPrimitive(int argc, OBJ *args) {
+OBJ linuxRpcBegin(const char *methodName,char *params,size_t paramsLength,int confirmed) {
     initialize();
-    if (argc!=3) return fail(notEnoughArguments);
-    if (!IS_TYPE(args[0],StringType)||!IS_TYPE(args[1],StringType)) return fail(needsStringError);
-    if (!isBoolean(args[2])) return fail(needsBooleanError);
     if (!gatewayPath[0]) return fail(primitiveNotImplemented);
-    char methodName[129],params[LINUX_MICRODUCK_MAX_REQUEST+1u]; size_t methodLength,paramsLength;
-    if (!copyVMString(args[0],methodName,128,&methodLength)||!copyVMString(args[1],params,LINUX_MICRODUCK_MAX_REQUEST,&paramsLength)) return fail(argIndexOutOfRange);
-    const Method *method=findMethod(methodName); (void)methodLength;
-    if (!method || (method->mutation && args[2]!=trueObj)) return fail(argIndexOutOfRange);
+    const Method *method=findMethod(methodName);
+    if (!method || (method->mutation && !confirmed)) return fail(argIndexOutOfRange);
     yyjson_doc *document=parseJSON(params,paramsLength);
     if (!document) return fail(argIndexOutOfRange);
     char compact[LINUX_MICRODUCK_MAX_REQUEST+1024u];
@@ -649,11 +660,19 @@ static OBJ beginPrimitive(int argc, OBJ *args) {
     if (!job) return fail(insufficientMemoryError);
     if (nextJobID>LINUX_MICRODUCK_MAX_ID) return fail(argIndexOutOfRange);
     uint64_t now=nowMilliseconds(); if (!now) return fail(unspecifiedError);
-    int length=snprintf(job->request,sizeof(job->request),"{\"jsonrpc\":\"2.0\",\"id\":%u,\"method\":\"%s\",\"params\":%s,\"confirmed\":%s}\n",nextJobID,methodName,compact,args[2]==trueObj?"true":"false");
+    int length=snprintf(job->request,sizeof(job->request),"{\"jsonrpc\":\"2.0\",\"id\":%u,\"method\":\"%s\",\"params\":%s,\"confirmed\":%s}\n",nextJobID,methodName,compact,confirmed?"true":"false");
     if (length<0 || (size_t)length>LINUX_MICRODUCK_MAX_REQUEST) { memset(job->request,0,sizeof(job->request)); return fail(argIndexOutOfRange); }
     job->id=nextJobID++; job->requestLength=(size_t)length; job->replyLength=job->sent=0; job->fd=-1;
     job->state=JOB_PENDING; job->stage=ST_NEW; job->deadline=now+MICRODUCK_TIMEOUT_MS;
     return int2obj(job->id);
+}
+static OBJ beginPrimitive(int argc,OBJ *args) {
+    if (argc!=3) return fail(notEnoughArguments);
+    if (!IS_TYPE(args[0],StringType)||!IS_TYPE(args[1],StringType)) return fail(needsStringError);
+    if (!isBoolean(args[2])) return fail(needsBooleanError);
+    char method[129],params[LINUX_MICRODUCK_MAX_REQUEST+1u];size_t methodLength,paramsLength;
+    if (!copyVMString(args[0],method,128,&methodLength)||!copyVMString(args[1],params,LINUX_MICRODUCK_MAX_REQUEST,&paramsLength)) return fail(argIndexOutOfRange);
+    return linuxRpcBegin(method,params,paramsLength,args[2]==trueObj);
 }
 static OBJ statusPrimitive(int argc, OBJ *args) {
     uint32_t id; if (!jobArgument(argc,args,&id)) return falseObj;
@@ -1225,6 +1244,15 @@ static OBJ robotReadingPrimitive(int argc,OBJ *args) {
         }
     } else if (result) reading.status="invalid";
     yyjson_doc_free(doc);return readingRecord(&reading);
+}
+OBJ linuxRpcPrimitive(int operation,int argc,OBJ *args) {
+    switch(operation) {
+        case 0:return configuredPrimitive(argc,args);
+        case 1:return statusPrimitive(argc,args);
+        case 2:return resultPrimitive(argc,args);
+        case 3:return releasePrimitive(argc,args);
+        default:return fail(argIndexOutOfRange);
+    }
 }
 static PrimEntry entries[]={
     {"configured",configuredPrimitive},{"quote",quotePrimitive},{"jobs",jobsPrimitive},{"begin",beginPrimitive},

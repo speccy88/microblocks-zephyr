@@ -1,0 +1,9 @@
+test_cancelled_startup_retains_and_stops_its_owned_child (test_python_managed.ManagedTests.test_cancelled_startup_retains_and_stops_its_owned_child) ... ok
+test_disabled_application_preserves_original_runtime (test_python_managed.ManagedTests.test_disabled_application_preserves_original_runtime) ... ok
+test_domain_sql_service_is_owned_by_application_context (test_python_managed.ManagedTests.test_domain_sql_service_is_owned_by_application_context) ... ok
+test_paths_and_existing_microduck_gateway_are_preserved (test_python_managed.ManagedTests.test_paths_and_existing_microduck_gateway_are_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.476s
+
+OK

@@ -23,6 +23,14 @@ build; record physical observations, firmware revision, date and any failures.
 
 ## Scope controls
 
+The [generic Linux Python extension milestone](../linux/extensions/README.md)
+has actual Pi 5 SQLite bytecode and graphical acceptance: normal domain blocks,
+bound SQL values, persistent rows, live edits and an independent heartbeat.
+HTTP GET/POST has only local-fixture acceptance; MQTT currently has API fixtures,
+and Blinka sensors and MicroDuck pin mapping remain unvalidated. Managed service
+lifecycle and updater compatibility are prepared for the coordinated Pi release;
+private acceptance sessions do not establish deployment of that release.
+
 - First get serial diagnostics and verified display/sensor/button operation.
 - Then bring up SmallVM's official protocol without a graphical library.
 - Only then integrate convenience blocks, Arduino libraries, and audio.

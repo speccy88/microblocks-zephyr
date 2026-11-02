@@ -1,0 +1,11 @@
+test_nested_list_conversion_survives_real_moving_collection (test_python_extensions_vm.PythonNative.test_nested_list_conversion_survives_real_moving_collection) ... ok
+test_nonblocking_native_job_ping_and_independent_task (test_python_extensions_vm.PythonNative.test_nonblocking_native_job_ping_and_independent_task) ... ok
+test_real_typed_json_arrays_large_values_and_blank_sql_parameters (test_python_extensions_vm.PythonNative.test_real_typed_json_arrays_large_values_and_blank_sql_parameters) ... ok
+test_visible_domain_example_sql_rows_parameters_and_persistence (test_python_extensions_vm.PythonNative.test_visible_domain_example_sql_rows_parameters_and_persistence) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.589s
+
+OK
+Exception ignored in: <sqlite3.Connection object at 0x7fff25180a90>
+ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7fff25180a90>
