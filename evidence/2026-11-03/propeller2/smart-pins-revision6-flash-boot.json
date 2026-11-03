@@ -1,0 +1,339 @@
+{
+  "tested_at_utc": "2026-11-03T21:02:48.473808+00:00",
+  "scope": "physical EC32MB wired-pair transfers/ratios; register configuration recorded separately",
+  "wiring": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      6,
+      7
+    ]
+  ],
+  "checks": {
+    "gpio_both_directions_all_pairs": {
+      "directions": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "levels": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    "finite_pulse_and_transition_count": {
+      "pulse_rises": 100,
+      "transition_rises": 100,
+      "transitions": 200
+    },
+    "nco_period_and_high_timing": {
+      "hz": 1000,
+      "periods": 10,
+      "clock_ticks": 1800071,
+      "high_ticks": 90003,
+      "quiet_read_hex": "001b7786",
+      "mode_retained": true
+    },
+    "pwm_sawtooth_and_triangle_ratios": [
+      {
+        "triangle": false,
+        "period_ticks": 180000,
+        "high_ticks": 45000,
+        "duty_ratio": 0.25
+      },
+      {
+        "triangle": true,
+        "period_ticks": 180000,
+        "high_ticks": 45000,
+        "duty_ratio": 0.25
+      }
+    ],
+    "uart_8n1_115200": {
+      "sent": [
+        0,
+        1,
+        85,
+        170,
+        127,
+        128,
+        254,
+        255
+      ],
+      "received": [
+        0,
+        1,
+        85,
+        170,
+        127,
+        128,
+        254,
+        255
+      ],
+      "no_data_result": -1
+    },
+    "quadrature_two_pairs": {
+      "a_pin": 1,
+      "b_pin": 3,
+      "b_offset": 2,
+      "forward": 20,
+      "reverse_returns_to": 0
+    },
+    "synchronous_serial_two_pairs": {
+      "data": [
+        0,
+        1
+      ],
+      "clock": [
+        2,
+        3
+      ],
+      "bits": 8,
+      "received": [
+        0,
+        85,
+        170,
+        255
+      ]
+    },
+    "dac8_to_calibrated_adc1x_transfer": {
+      "pad": "990R 3V",
+      "samples": [
+        {
+          "dac8": 16,
+          "adc10": 66
+        },
+        {
+          "dac8": 64,
+          "adc10": 258
+        },
+        {
+          "dac8": 128,
+          "adc10": 514
+        },
+        {
+          "dac8": 192,
+          "adc10": 769
+        },
+        {
+          "dac8": 240,
+          "adc10": 961
+        }
+      ],
+      "monotonic": true,
+      "absolute_accuracy_tested": false
+    },
+    "configuration_only": {
+      "named_operations": [
+        {
+          "mode": "repository",
+          "wrpin": "00060002"
+        },
+        {
+          "mode": "DAC noise",
+          "wrpin": "00140002"
+        },
+        {
+          "mode": "DAC random dither",
+          "wrpin": "00140004"
+        },
+        {
+          "mode": "DAC PWM dither",
+          "wrpin": "00140006"
+        },
+        {
+          "mode": "pulse",
+          "wrpin": "00060008"
+        },
+        {
+          "mode": "transition",
+          "wrpin": "0006000a"
+        },
+        {
+          "mode": "NCO frequency",
+          "wrpin": "0006000c"
+        },
+        {
+          "mode": "NCO duty",
+          "wrpin": "0006000e"
+        },
+        {
+          "mode": "PWM triangle",
+          "wrpin": "00060010"
+        },
+        {
+          "mode": "PWM sawtooth",
+          "wrpin": "00060012"
+        },
+        {
+          "mode": "PWM SMPS",
+          "wrpin": "00060014"
+        },
+        {
+          "mode": "quadrature",
+          "wrpin": "00060016"
+        },
+        {
+          "mode": "register up",
+          "wrpin": "00060018"
+        },
+        {
+          "mode": "register up down",
+          "wrpin": "0006001a"
+        },
+        {
+          "mode": "count rises",
+          "wrpin": "0006001c"
+        },
+        {
+          "mode": "count highs",
+          "wrpin": "0006001e"
+        },
+        {
+          "mode": "state ticks",
+          "wrpin": "00060020"
+        },
+        {
+          "mode": "high ticks",
+          "wrpin": "00060022"
+        },
+        {
+          "mode": "event ticks",
+          "wrpin": "00060024"
+        },
+        {
+          "mode": "period ticks",
+          "wrpin": "00060026"
+        },
+        {
+          "mode": "period highs",
+          "wrpin": "00060028"
+        },
+        {
+          "mode": "window ticks",
+          "wrpin": "0006002a"
+        },
+        {
+          "mode": "window highs",
+          "wrpin": "0006002c"
+        },
+        {
+          "mode": "window periods",
+          "wrpin": "0006002e"
+        },
+        {
+          "mode": "ADC sample",
+          "wrpin": "00118030"
+        },
+        {
+          "mode": "ADC external",
+          "wrpin": "00118032"
+        },
+        {
+          "mode": "ADC scope",
+          "wrpin": "00118034"
+        },
+        {
+          "mode": "sync transmit",
+          "wrpin": "00060038"
+        },
+        {
+          "mode": "sync receive",
+          "wrpin": "0006003a"
+        },
+        {
+          "mode": "async transmit",
+          "wrpin": "0006003c"
+        },
+        {
+          "mode": "async receive",
+          "wrpin": "0006003e"
+        }
+      ],
+      "pad_presets": [
+        "logic",
+        "logic A feedback",
+        "logic B feedback",
+        "Schmitt",
+        "Schmitt A feedback",
+        "Schmitt B feedback",
+        "compare A B",
+        "compare A B feedback",
+        "ADC ground",
+        "ADC VIO",
+        "ADC floating",
+        "ADC 1x",
+        "ADC 3x",
+        "ADC 10x",
+        "ADC 30x",
+        "ADC 100x",
+        "DAC 990R 3V",
+        "DAC 600R 2V",
+        "DAC 124R 3V",
+        "DAC 75R 2V",
+        "level A",
+        "level A feedback negative",
+        "level B feedback positive",
+        "level B feedback negative"
+      ],
+      "raw_pad_13_bits": true,
+      "invalid_and_reserved_rejected": true,
+      "repository_roundtrip": "12345678",
+      "signal_validation_claim": false
+    },
+    "stop_all_clears_tracked_mode": true,
+    "soft_reset_clears_tracked_mode": true
+  },
+  "result": "PASS",
+  "absolute_voltage_or_clock_accuracy": false,
+  "usb_mode_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 6,
+  "firmware_sha256": "a72cf07a6a3b0451948db3e3e1b2a7a1bf631ea022e8da16f656367e11f5c603"
+}

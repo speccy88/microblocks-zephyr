@@ -221,9 +221,9 @@ attempted on the hardwired pairs. Generic stream-audio DAC stubs also remain
 unsupported; use the explicit P2 DAC blocks. See the
 [mode contract](../../docs/PROPELLER2_SMART_PINS.md).
 
-All 49 current library functions import and compile with the pinned JavaScript
+All 51 current library functions import and compile with the pinned JavaScript
 engine. The earlier revision-2 library rendered in real Windows Edge; the
-current revision-5 library has no graphical execution acceptance. The additional
+current revision-6 library has no graphical execution acceptance. The additional
 revision-2 browser connection attempt did not complete USB selection and was
 closed while cleanup remained pending. This is a graphical rendering check,
 not a revision-2 browser execution PASS; see the
@@ -282,6 +282,24 @@ before selecting periods, decimation and USB read sizes. Streamer DMA,
 continuous raw-bit transport and USB Smart Pin protocols remain unsupported.
 Converter loopback tests establish response and feedback gating; they do not
 measure analog gain/resistance/ENOB or an actual power converter.
+
+## Word serial and routed logic (extension 6)
+
+New word helpers support 1..32-bit asynchronous data with normal/inverted
+polarity, normalized full-width hexadecimal receive values, nonblocking send
+and asynchronous TX busy. Synchronous helpers add clock-edge, sample-position,
+MSB-first and reset-time continuous priming choices. The old byte UART and raw
+blocks retain their signatures. Raw X invalidates typed width tracking; raw Y
+updates the typed transmitter's buffer ownership. Checked normal-mode logic
+inputs expose A/B offsets, inversions and pass/AND/OR/XOR without driving pins
+or changing global filter rates. Interpreter workers request these I/O actions
+on the main cog.
+
+See the [all-mode coverage audit](../../docs/PROPELLER2_MODE_COVERAGE.md) and
+[serial bounds](../../docs/PROPELLER2_SMART_PINS.md#revision-6-serial-and-input-logic-contract).
+The audit distinguishes every operating-mode setup from optional features,
+real protocol/peripheral support and independent analog performance. USB needs
+separate differential wiring and a stack; the hardwired pairs are not suitable.
 
 ## Current limitations
 

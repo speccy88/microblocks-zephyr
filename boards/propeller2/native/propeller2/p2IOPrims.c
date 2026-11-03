@@ -52,6 +52,7 @@ enum {
 
 static uint8_t pinModeState[P2_USER_PIN_COUNT];
 static uint32_t smartModeState[P2_USER_PIN_COUNT];
+static uint8_t serialBits[P2_USER_PIN_COUNT], serialMSB[P2_USER_PIN_COUNT], serialQueued[P2_USER_PIN_COUNT];
 static uint16_t adcLow[P2_USER_PIN_COUNT];
 static uint16_t adcHigh[P2_USER_PIN_COUNT];
 static int tonePin = -1;
@@ -71,6 +72,7 @@ static void releasePin(int pin) {
 	_pinf(pin);
 	pinModeState[pin] = P2_MODE_FLOATING;
 	smartModeState[pin] = 0;
+	serialBits[pin] = serialMSB[pin] = serialQueued[pin] = 0;
 }
 
 void invalidatePinModeTracking(int pin) {
@@ -82,6 +84,7 @@ void invalidatePinModeTracking(int pin) {
 	if (squareWavePin == pin) squareWavePin = -1;
 	pinModeState[pin] = P2_MODE_FLOATING;
 	smartModeState[pin] = 0;
+	serialBits[pin] = serialMSB[pin] = serialQueued[pin] = 0;
 }
 
 static void preparePin(int pin) {
@@ -372,6 +375,7 @@ void turnOffPins(void) {
 		_pinf(pin);
 		pinModeState[pin] = P2_MODE_FLOATING;
 		smartModeState[pin] = 0;
+		serialBits[pin] = serialMSB[pin] = serialQueued[pin] = 0;
 	}
 	tonePin = -1;
 	squareWavePin = -1;
@@ -870,6 +874,94 @@ static OBJ primP2Scope(int argc, OBJ *args) {
 	if (filter < 0 || filter > 2 || a < 0 || a > 63 || b < 0 || b > 63) return falseObj;
 	p2Start(pin, P_ADC_SCOPE | pad, (b<<10)|(a<<2)|filter, 0); return trueObj;
 }
+static uint32_t p2ReverseWord(uint32_t value, int bits) {
+	uint32_t result=0;
+	for (int i=0;i<bits;i++) { result=(result<<1)|(value&1U);value>>=1; }
+	return result;
+}
+static void p2SerialStart(int pin, uint32_t mode, uint32_t x, int bits, int msb, int prime, uint32_t word) {
+	releasePin(pin);_wrpin(pin,mode);_wxpin(pin,x);
+	if (prime) _wypin(pin,msb ? p2ReverseWord(word,bits) : word);
+	if (pin<32) _DIRA|=1U<<pin;else _DIRB|=1U<<(pin-32);
+	pinModeState[pin]=P2_MODE_SMART;smartModeState[pin]=mode;
+	serialBits[pin]=bits;serialMSB[pin]=msb;serialQueued[pin]=0;
+}
+static OBJ primP2AsyncWords(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);
+	if (argc!=5 || pin<0 || !isInt(args[1]) || !isInt(args[2]) ||
+		objType(args[3])!=BooleanType || objType(args[4])!=BooleanType) return falseObj;
+	int baud=obj2int(args[1]),bits=obj2int(args[2]),tx=args[3]==trueObj,inv=args[4]==trueObj;
+	if (baud<1 || bits<1 || bits>32 || (uint32_t)baud>clockFrequency()/4) return falseObj;
+	uint32_t clocks=clockFrequency()/(uint32_t)baud;
+	if (clocks<4 || clocks>65535) return falseObj;
+	uint32_t x=(clocks<<16)|(bits-1);
+	if (clocks<1024) x|=(_muldiv64(clockFrequency(),64U,(uint32_t)baud)&63U)<<10;
+	uint32_t mode=tx ? P_ASYNC_TX|P_OE : P_ASYNC_RX|P_SCHMITT_A;
+	if (inv) mode|=tx ? P_INVERT_OUTPUT : P_INVERT_A;
+	p2SerialStart(pin,mode,x,bits,0,0,0);return trueObj;
+}
+static OBJ primP2SyncTransmitWords(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);uint32_t word;
+	if (argc!=7 || pin<0 || !isInt(args[1]) || !p2Hex(args[2],&word) || !isInt(args[3])) return falseObj;
+	for (int i=4;i<7;i++) if (objType(args[i])!=BooleanType) return falseObj;
+	int bits=obj2int(args[1]),b=obj2int(args[3]),falling=args[4]==trueObj;
+	int continuous=args[5]==trueObj,msb=args[6]==trueObj;
+	if (bits<1 || bits>32 || b< -3 || b>3 || !validPin(pin+b) || (bits<32 && (word>>bits))) return falseObj;
+	uint32_t route=(uint32_t)(b<0 ? b+8 : b)<<24;
+	if (falling) route|=P_INVERT_B;
+	p2SerialStart(pin,P_SYNC_TX|P_OE|route,(continuous ? 0U : 32U)|(bits-1),bits,msb,1,word);
+	return trueObj;
+}
+static OBJ primP2SyncReceiveWords(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);
+	if (argc!=6 || pin<0 || !isInt(args[1]) || !isInt(args[2])) return falseObj;
+	for (int i=3;i<6;i++) if (objType(args[i])!=BooleanType) return falseObj;
+	int bits=obj2int(args[1]),b=obj2int(args[2]),falling=args[3]==trueObj;
+	if (bits<1 || bits>32 || b< -3 || b>3 || !validPin(pin+b)) return falseObj;
+	uint32_t route=(uint32_t)(b<0 ? b+8 : b)<<24;
+	if (falling) route|=P_INVERT_B;
+	p2SerialStart(pin,P_SYNC_RX|P_SCHMITT_A|route,(args[4]==trueObj ? 32U : 0U)|(bits-1),bits,args[5]==trueObj,0,0);
+	return trueObj;
+}
+static int p2AsyncBusy(int pin) {
+	uint32_t busy;__asm { rqpin busy, pin wc; muxc busy, #1; }
+	return busy&1U;
+}
+static OBJ primP2SerialSendHex(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);uint32_t word;
+	if (argc!=2 || pin<0 || !serialBits[pin] || !p2Hex(args[1],&word)) return falseObj;
+	uint32_t mode=smartModeState[pin]&0x3eU;
+	int bits=serialBits[pin];
+	if ((mode!=P_SYNC_TX && mode!=P_ASYNC_TX) || (bits<32 && (word>>bits))) return falseObj;
+	if (mode==P_ASYNC_TX) { if (!_pinr(pin) && p2AsyncBusy(pin)) return falseObj; }
+	else if (serialQueued[pin] && !_pinr(pin)) return falseObj;
+	_wypin(pin,serialMSB[pin] ? p2ReverseWord(word,bits) : word);serialQueued[pin]=1;
+	return trueObj;
+}
+static OBJ primP2SerialReadHex(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);
+	if (argc!=1 || pin<0 || !serialBits[pin]) return falseObj;
+	uint32_t mode=smartModeState[pin]&0x3eU;
+	if ((mode!=P_SYNC_RX && mode!=P_ASYNC_RX) || !_pinr(pin)) return falseObj;
+	int bits=serialBits[pin];uint32_t word=((uint32_t)_rdpin(pin))>>(32-bits);
+	return p2HexString(serialMSB[pin] ? p2ReverseWord(word,bits) : word);
+}
+static OBJ primP2SerialBusy(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);
+	return argc==1 && pin>=0 && serialBits[pin] && (smartModeState[pin]&0x3eU)==P_ASYNC_TX && p2AsyncBusy(pin) ? trueObj : falseObj;
+}
+static OBJ primP2LogicInput(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);uint32_t logic;
+	static const P2NamedBits operations[]={{"pass A",P_PASS_AB},{"A AND B",P_AND_AB},{"A OR B",P_OR_AB},{"A XOR B",P_XOR_AB}};
+	if (argc!=6 || pin<0 || !P2_NAMED(operations,args[1],&logic) || !isInt(args[2]) || !isInt(args[4]) ||
+		objType(args[3])!=BooleanType || objType(args[5])!=BooleanType) return falseObj;
+	int a=obj2int(args[2]),b=obj2int(args[4]);
+	if (a< -3 || a>3 || b< -3 || b>3 || !validPin(pin+a) || !validPin(pin+b)) return falseObj;
+	uint32_t route=((uint32_t)(a<0 ? a+8 : a)<<28)|((uint32_t)(b<0 ? b+8 : b)<<24);
+	if (args[3]==trueObj) route|=P_INVERT_A;
+	if (args[5]==trueObj) route|=P_INVERT_B;
+	p2Pad(pin,P_SCHMITT_A|logic|route,0,0);return trueObj;
+}
 static OBJ primP2UART(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
 	if (argc != 3 || pin < 0 || !isInt(args[1]) || objType(args[2]) != BooleanType) return falseObj;
@@ -881,11 +973,11 @@ static OBJ primP2UART(int argc, OBJ *args) {
 	releasePin(pin); _wrpin(pin, mode); _wxpin(pin, (period<<16)|7);
 	/* Do not buffer a spurious zero byte while configuring the transmitter. */
 	if (pin < 32) _DIRA |= 1U<<pin; else _DIRB |= 1U<<(pin-32);
-	pinModeState[pin] = P2_MODE_SMART; smartModeState[pin] = mode; return trueObj;
+	pinModeState[pin] = P2_MODE_SMART; smartModeState[pin] = mode; serialBits[pin]=8; return trueObj;
 }
 static OBJ primP2UARTWrite(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
-	if (argc != 2 || pin < 0 || !isInt(args[1]) || smartModeState[pin] != (P_ASYNC_TX | P_OE)) return falseObj;
+	if (argc != 2 || pin < 0 || !isInt(args[1]) || (serialBits[pin] && serialBits[pin]!=8) || smartModeState[pin] != (P_ASYNC_TX | P_OE)) return falseObj;
 	int byte = obj2int(args[1]); if (byte < 0 || byte > 255) return falseObj;
 	/* First write is allowed while IN is low; subsequent writes need buffer space.
 	   Conservative frame spacing avoids needing the mode-specific C flag. */
@@ -898,7 +990,7 @@ static OBJ primP2UARTWrite(int argc, OBJ *args) {
 }
 static OBJ primP2UARTRead(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
-	if (argc != 1 || pin < 0 || smartModeState[pin] != P_ASYNC_RX || !_pinr(pin)) return int2obj(-1);
+	if (argc != 1 || pin < 0 || (serialBits[pin] && serialBits[pin]!=8) || smartModeState[pin] != P_ASYNC_RX || !_pinr(pin)) return int2obj(-1);
 	/* The FlexC smart-pin builtin can propagate its sign bit when shifting. */
 	return int2obj((_rdpin(pin)>>24) & 255);
 }
@@ -944,15 +1036,18 @@ static OBJ primP2ModeHex(int argc, OBJ *args) {
 static OBJ primP2WriteX(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args); uint32_t value;
 	if (argc != 2 || pin < 0 || p2CaptureOwnsPin(pin) || pinModeState[pin] != P2_MODE_SMART || !p2Hex(args[1], &value)) return falseObj;
-	_wxpin(pin, value); return trueObj;
+	_wxpin(pin, value); serialBits[pin]=0; return trueObj;
 }
 static OBJ primP2WriteY(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args); uint32_t value;
 	if (argc != 2 || pin < 0 || p2CaptureOwnsPin(pin) || pinModeState[pin] != P2_MODE_SMART || !p2Hex(args[1], &value)) return falseObj;
-	_wypin(pin, value); return trueObj;
+	_wypin(pin, value); serialQueued[pin]=1; return trueObj;
 }
 
 static PrimEntry entries[] = {
+	{"p2AsyncWords",primP2AsyncWords}, {"p2SyncTransmitWords",primP2SyncTransmitWords},
+	{"p2SyncReceiveWords",primP2SyncReceiveWords}, {"p2SerialSendHex",primP2SerialSendHex},
+	{"p2SerialReadHex",primP2SerialReadHex}, {"p2SerialBusy",primP2SerialBusy}, {"p2LogicInput",primP2LogicInput},
     {"p2ScaleSample", primP2ScaleSample},
     {"p2LevelInput", primP2LevelInput},
     {"p2ScopeCapture", primP2ScopeCapture},

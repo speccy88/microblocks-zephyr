@@ -224,3 +224,65 @@ transfer test. USB remains unsupported. External converter protocols, actual
 SMPS circuitry, independent voltage/time references and noise/bandwidth/ENOB
 measurements require additional hardware. The browser guard remains in force;
 compiler and serial acceptance do not establish graphical execution.
+
+## Revision 6 serial and input-logic contract
+
+The mode audit finds no missing non-USB operating-mode setup entry. Remaining
+feasible convenience gaps are variable-width serial words, clock polarity and
+sampling choice, full-width receive normalization, TX completion and input
+Boolean routing. Add checked 1..32-bit asynchronous and synchronous word APIs,
+retaining the byte UART and existing raw signatures. Async supports normal or
+inverted line polarity and the chip's fractional bit period where applicable.
+Sync supports rising/falling clock, receive before/at edge, software MSB-first,
+and reset-time priming for continuous transmission. Sending is nonblocking;
+hex words retain bit 31. Empty receive returns false, valid data returns eight
+hex digits. Async busy reads its hardware C flag without acknowledgement.
+
+Metadata belongs to main-cog I/O ownership, clears on release/reset/reconfigure,
+and is invalidated by raw X writes. Workers request these operations on the
+main cog. Expose normal, input-only pass/AND/OR/XOR routing with separate A/B
+offset and inversion; global filter timing remains unchanged. Acceptance uses
+only one driver per wired pair: P4->P5 async, P0->P1 sync and P2->P3 clock,
+then P0/P2 sources into P1 routed logic. Verify widths through 32 bits, both
+polarities, sync sampling/bit order, primed multiword transmission, async busy,
+invalid arguments, metadata invalidation, worker services and stop cleanup.
+USB, external converter protocols, power regulation and analog accuracy need
+their separately documented hardware; these serial/logic tests prove none of
+those functions.
+
+Word-serial details:
+
+- Async bit periods must be 4..65535 system clocks. Periods below 1024 clocks
+  use the hardware's 1/64-clock fraction; larger periods use whole clocks.
+  Baud is a requested rate quantized against the system clock, not a measured
+  absolute rate. Each word has one start and one stop bit, with 1..32 data bits;
+  these helpers do not add parity or a framing-error detector.
+- Sync TX loads its first word while DIR is low. Continuous mode requires a
+  second word buffered before clocks begin; subsequent writes must keep up with
+  the external clock. The start/stop option allows word replacement before the
+  first clock. Send returns false when the typed buffer cannot accept a word.
+  It does not create an unbounded software queue or autonomous word streamer.
+- Sync RX's before/at-edge choice follows P2 sampling semantics. The TX changes
+  output two internal clocks after its selected edge; this is not a complete
+  SPI controller with chip-select or all external-device timing guarantees.
+- Read returns the completed word, right-justified and optionally reversed for
+  MSB-first. `00000000` is a valid string; false means no completed word or an
+  invalid typed setup. Hardware has one receive-result slot, so read before the
+  next word replaces it. Poll with a bounded timeout rather than assuming the
+  clock generator has completed when its setup command returns.
+- Existing raw Z reads retain their MSB-justified behavior. Raw X writes
+  invalidate typed width metadata. Raw Y writes update typed TX buffer tracking;
+  raw data is not subjected to the typed MSB transformation. Releasing,
+  reconfiguring or using stop-all clears metadata with the hardware mode. The old
+  byte UART blocks retain their signatures and are not wide-word decoders.
+- Async busy means the shifter is still transmitting through the stop bit.
+  Ready means a word can be buffered. Busy uses quiet RQPIN and does not
+  acknowledge readiness. The busy block is explicitly for asynchronous TX.
+- Input logic leaves DIR disabled and does not alter global filter timing.
+  A/B offsets must be -3..3 and stay inside user pins; inversion applies before
+  pass/AND/OR/XOR. Use pin IN flag (keep mode), not digitalRead, to preserve it.
+
+The [complete mode audit](PROPELLER2_MODE_COVERAGE.md) maps every operating
+value to its block and evidence, and lists exact external hardware and remaining
+software dependencies. Capture byte-read defaults now request 24 words (96
+bytes), fitting the existing 100-byte v405 preview limit.

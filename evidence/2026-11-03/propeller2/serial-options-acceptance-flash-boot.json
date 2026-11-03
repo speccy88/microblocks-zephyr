@@ -1,0 +1,513 @@
+{
+  "tested_at_utc": "2026-11-03T20:53:09.351637+00:00",
+  "result": "PASS",
+  "scope": "checked word serial and input Boolean routing",
+  "checks": {
+    "async_width_polarity_and_fractional_baud": [
+      {
+        "bits": 1,
+        "inverted": false,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "00000001",
+          "00000000"
+        ]
+      },
+      {
+        "bits": 1,
+        "inverted": true,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "00000001",
+          "00000000"
+        ]
+      },
+      {
+        "bits": 7,
+        "inverted": false,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "0000007f",
+          "0000007e"
+        ]
+      },
+      {
+        "bits": 7,
+        "inverted": true,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "0000007f",
+          "0000007e"
+        ]
+      },
+      {
+        "bits": 8,
+        "inverted": false,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "000000ff",
+          "0000007e"
+        ]
+      },
+      {
+        "bits": 8,
+        "inverted": true,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "000000ff",
+          "0000007e"
+        ]
+      },
+      {
+        "bits": 9,
+        "inverted": false,
+        "baud": 921600,
+        "received": [
+          "00000000",
+          "00000001",
+          "000001ff",
+          "0000017e"
+        ]
+      },
+      {
+        "bits": 9,
+        "inverted": true,
+        "baud": 921600,
+        "received": [
+          "00000000",
+          "00000001",
+          "000001ff",
+          "0000017e"
+        ]
+      },
+      {
+        "bits": 16,
+        "inverted": false,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "0000ffff",
+          "0000c37e"
+        ]
+      },
+      {
+        "bits": 16,
+        "inverted": true,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "0000ffff",
+          "0000c37e"
+        ]
+      },
+      {
+        "bits": 31,
+        "inverted": false,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "7fffffff",
+          "2581c37e"
+        ]
+      },
+      {
+        "bits": 31,
+        "inverted": true,
+        "baud": 115200,
+        "received": [
+          "00000000",
+          "00000001",
+          "7fffffff",
+          "2581c37e"
+        ]
+      },
+      {
+        "bits": 32,
+        "inverted": false,
+        "baud": 921600,
+        "received": [
+          "00000000",
+          "00000001",
+          "ffffffff",
+          "a581c37e"
+        ]
+      },
+      {
+        "bits": 32,
+        "inverted": true,
+        "baud": 921600,
+        "received": [
+          "00000000",
+          "00000001",
+          "ffffffff",
+          "a581c37e"
+        ]
+      }
+    ],
+    "async_busy_until_stop_bit_complete": true,
+    "independent_idle_polarity_and_fractional_bit_timing": [
+      {
+        "baud": 921600,
+        "inverted": false,
+        "idle_high": true,
+        "measured_start_data_clocks": 6445,
+        "expected_quantized_clocks": 6445.3125
+      },
+      {
+        "baud": 1234567,
+        "inverted": false,
+        "idle_high": true,
+        "measured_start_data_clocks": 4811,
+        "expected_quantized_clocks": 4811.296875
+      },
+      {
+        "baud": 921600,
+        "inverted": true,
+        "idle_high": false,
+        "measured_start_data_clocks": 6445,
+        "expected_quantized_clocks": 6445.3125
+      },
+      {
+        "baud": 1234567,
+        "inverted": true,
+        "idle_high": false,
+        "measured_start_data_clocks": 4811,
+        "expected_quantized_clocks": 4811.296875
+      }
+    ],
+    "sync_width_clock_sample_and_bit_order": [
+      {
+        "bits": 1,
+        "falling": false,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "00000000"
+      },
+      {
+        "bits": 1,
+        "falling": false,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "00000000"
+      },
+      {
+        "bits": 1,
+        "falling": true,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "00000000"
+      },
+      {
+        "bits": 1,
+        "falling": true,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "00000000"
+      },
+      {
+        "bits": 8,
+        "falling": false,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "0000005e"
+      },
+      {
+        "bits": 8,
+        "falling": false,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "0000005e"
+      },
+      {
+        "bits": 8,
+        "falling": true,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "0000005e"
+      },
+      {
+        "bits": 8,
+        "falling": true,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "0000005e"
+      },
+      {
+        "bits": 9,
+        "falling": false,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "0000015e"
+      },
+      {
+        "bits": 9,
+        "falling": false,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "0000015e"
+      },
+      {
+        "bits": 9,
+        "falling": true,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "0000015e"
+      },
+      {
+        "bits": 9,
+        "falling": true,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "0000015e"
+      },
+      {
+        "bits": 16,
+        "falling": false,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "0000c35e"
+      },
+      {
+        "bits": 16,
+        "falling": false,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "0000c35e"
+      },
+      {
+        "bits": 16,
+        "falling": true,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "0000c35e"
+      },
+      {
+        "bits": 16,
+        "falling": true,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "0000c35e"
+      },
+      {
+        "bits": 31,
+        "falling": false,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "019ac35e"
+      },
+      {
+        "bits": 31,
+        "falling": false,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "019ac35e"
+      },
+      {
+        "bits": 31,
+        "falling": true,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "019ac35e"
+      },
+      {
+        "bits": 31,
+        "falling": true,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "019ac35e"
+      },
+      {
+        "bits": 32,
+        "falling": false,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "819ac35e"
+      },
+      {
+        "bits": 32,
+        "falling": false,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "819ac35e"
+      },
+      {
+        "bits": 32,
+        "falling": true,
+        "sample_at_edge": false,
+        "msb_first": true,
+        "received": "819ac35e"
+      },
+      {
+        "bits": 32,
+        "falling": true,
+        "sample_at_edge": true,
+        "msb_first": false,
+        "received": "819ac35e"
+      }
+    ],
+    "crossed_bit_order_independent_wire_reversal": [
+      {
+        "bits": 8,
+        "transmit_msb": false,
+        "receive_msb": true,
+        "received": "0000007a"
+      },
+      {
+        "bits": 8,
+        "transmit_msb": true,
+        "receive_msb": false,
+        "received": "0000007a"
+      },
+      {
+        "bits": 32,
+        "transmit_msb": false,
+        "receive_msb": true,
+        "received": "7ac35981"
+      },
+      {
+        "bits": 32,
+        "transmit_msb": true,
+        "receive_msb": false,
+        "received": "7ac35981"
+      }
+    ],
+    "raw_y_updates_typed_tx_buffer_ownership": true,
+    "continuous_sync_reset_priming_and_three_words_both_edges": true,
+    "routed_boolean_logic_all_inversions": {
+      "configurations": [
+        {
+          "operation": "pass A",
+          "invert_a": false,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "pass A",
+          "invert_a": false,
+          "invert_b": true,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "pass A",
+          "invert_a": true,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "pass A",
+          "invert_a": true,
+          "invert_b": true,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A AND B",
+          "invert_a": false,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A AND B",
+          "invert_a": false,
+          "invert_b": true,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A AND B",
+          "invert_a": true,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A AND B",
+          "invert_a": true,
+          "invert_b": true,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A OR B",
+          "invert_a": false,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A OR B",
+          "invert_a": false,
+          "invert_b": true,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A OR B",
+          "invert_a": true,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A OR B",
+          "invert_a": true,
+          "invert_b": true,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A XOR B",
+          "invert_a": false,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A XOR B",
+          "invert_a": false,
+          "invert_b": true,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A XOR B",
+          "invert_a": true,
+          "invert_b": false,
+          "truth_table_pass": true
+        },
+        {
+          "operation": "A XOR B",
+          "invert_a": true,
+          "invert_b": true,
+          "truth_table_pass": true
+        }
+      ],
+      "input_cases": 64,
+      "receiver_dir": false
+    },
+    "worker_main_owned_word_and_logic_services": {
+      "cog": 3,
+      "errors": 0,
+      "worker_dir": false,
+      "stack_guards": true
+    },
+    "raw_x_invalidation_and_invalid_arguments": true
+  },
+  "external_serial_peripheral_tested": false,
+  "absolute_baud_accuracy_tested": false,
+  "usb_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 6,
+  "firmware_sha256": "a72cf07a6a3b0451948db3e3e1b2a7a1bf631ea022e8da16f656367e11f5c603"
+}

@@ -1,0 +1,53 @@
+{
+  "checked_at_utc": "2026-11-03T21:08:11.512363+00:00",
+  "extension_revision": 6,
+  "result": "PASS",
+  "repository_validation": {
+    "command": "python -B tools/validate.py",
+    "tests": 679,
+    "skipped": 391,
+    "elapsed_seconds": 25.201,
+    "result": "OK",
+    "environment": "Windows Python 3.12 with local test sockets and freshly composed pinned JavaScript/mobile site"
+  },
+  "javascript_compiler": {
+    "command": "node tests/js-preview-compile.test.cjs ../p2-serial-final-site",
+    "library_functions": 51,
+    "serial_fixture_chunks": 66,
+    "serial_fixture_scripts": 11,
+    "capture_fixture_chunks": 64,
+    "mode_fixture_chunks": 68,
+    "scalar_fixture_chunks": 12,
+    "object_fixture_chunks": 19,
+    "result": "PASS",
+    "graphical": false,
+    "physical": false
+  },
+  "physical_suites": [
+    "serial-options-usb-flash-boot.json",
+    "serial-options-acceptance-flash-boot.json",
+    "capture-revision6-flash-boot.json",
+    "objects-revision6-flash-boot.json",
+    "cogs-revision6-flash-boot.json",
+    "modes-revision6-flash-boot.json",
+    "converters-revision6-flash-boot.json",
+    "smart-pins-revision6-flash-boot.json"
+  ],
+  "native_builds": "serial-options-native-builds.json",
+  "final_identity": "serial-options-final-identity.json",
+  "mode_audit": "docs/PROPELLER2_MODE_COVERAGE.md",
+  "board_effects": "Authorized RAM tests and two revision-6 boot installations reset the chip and replaced disposable project code. Final a72cf07a image has all eight flash-boot PASS records; USB --reboot verified hardware flash boot and stored CRCs. Final VM soft reset releases outputs and stops workers; no Windows browser interaction was used.",
+  "fixes_verified": [
+    "Explicit unsigned cast before RX right shift prevents sign extension",
+    "Generic Y writes update typed TX buffer ownership; attempted queued-word overwrite returns false",
+    "Serial test waits for a completed nonblocking result with a bounded timeout; clock intervals stay within native transition limits"
+  ],
+  "remaining_limits": [
+    "USB operating value 27 unavailable: separate even DM/odd DP wiring, safe VBUS and a protocol stack are required",
+    "All non-USB operating values have named setup; table distinguishes implementation from physical response/performance",
+    "External UART/SPI/ADC peripherals, actual SMPS circuit and independent analog/baud accuracy not established by loopback",
+    "Global input-filter timing/ownership API and continuous raw-bit streamer/DMA remain software work",
+    "One native capture session with 1023 usable entries; receive serial data before its single result slot is replaced",
+    "Prior Edge USB chooser action stopped by URL-policy guard because current browser URL could not be determined confidently. Outcome remains uncertain; no retry, browser-state inspection or alternate UI route. Revision-6 graphical execution unverified."
+  ]
+}

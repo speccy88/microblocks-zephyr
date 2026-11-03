@@ -1,0 +1,65 @@
+module main
+variables Pin Baud Bits Inverted Falling AtEdge Continuous MSB Word B Logic Ainv Binv AV BV Words BusyStart BusyEnd Done Core Count Errors
+
+to logicProbe {
+    '[p2:digitalWrite]' 0 AV
+    '[p2:digitalWrite]' 2 BV
+    waitMillis 1
+    return ('[p2:p2PinSample]' 1)
+}
+
+to serialBusyProbe {
+    '[p2:p2SerialSendHex]' 4 Word
+    BusyStart = ('[p2:p2SerialBusy]' 4)
+    while ('[p2:p2SerialBusy]' 4) { waitMillis 1 }
+    BusyEnd = ('[p2:p2SerialBusy]' 4)
+    return BusyStart
+}
+
+to continuousSerialProbe {
+    Words = (newList 0)
+    if (not ('[p2:p2SerialSendHex]' 0 '5a')) { return false }
+    if ('[p2:p2SerialSendHex]' 0 'ff') { return false }
+    if (not ('[p2:p2Transition]' 2 250 (Bits * 6))) { return false }
+    local 'sent' false
+    repeat 1000 {
+        if (and (not sent) ('[p2:p2PinReady]' 0)) {
+            sent = ('[p2:p2SerialSendHex]' 0 '3c')
+        }
+        local 'word' ('[p2:p2SerialReadHex]' 1)
+        if (word != false) { '[data:addLast]' word Words }
+        if ((size Words) == 3) { return Words }
+        waitMillis 1
+    }
+    return false
+}
+
+to workerSerialProbe {
+    Core = ('[p2:p2Cog]')
+    Errors = 0
+    if (not (p2AsyncTransmitWords 4 115200 16 false)) { Errors += 1 }
+    if (not (p2AsyncReceiveWords 5 115200 16 false)) { Errors += 1 }
+    if (not ('[p2:p2SerialSendHex]' 4 '81a5')) { Errors += 1 }
+    waitMillis 5
+    if (('[p2:p2SerialReadHex]' 5) != '000081a5') { Errors += 1 }
+    if ('[p2:p2LocalPinDIR]' 4) { Errors += 1 }
+    if (not ('[p2:p2LogicInput]' 1 'A XOR B' 0 false 2 false)) { Errors += 1 }
+    if (not ('[p2:p2PinSample]' 1)) { Errors += 1 }
+    if ('[p2:p2LocalPinDIR]' 1) { Errors += 1 }
+    '[p2:p2PinRelease]' 1
+    '[p2:p2PinRelease]' 4
+    '[p2:p2PinRelease]' 5
+    Done = true
+}
+
+script 10 10 (p2AsyncTransmitWords Pin Baud Bits Inverted)
+script 10 50 (p2AsyncReceiveWords Pin Baud Bits Inverted)
+script 10 90 ('[p2:p2SyncTransmitWords]' Pin Bits Word B Falling Continuous MSB)
+script 10 130 ('[p2:p2SyncReceiveWords]' Pin Bits B Falling AtEdge MSB)
+script 10 170 ('[p2:p2SerialSendHex]' Pin Word)
+script 10 210 ('[p2:p2SerialReadHex]' Pin)
+script 10 250 ('[p2:p2SerialBusy]' Pin)
+script 10 290 ('[p2:p2LogicInput]' Pin Logic 0 Ainv B Binv)
+script 10 330 (logicProbe)
+script 10 370 (serialBusyProbe)
+script 10 410 (continuousSerialProbe)

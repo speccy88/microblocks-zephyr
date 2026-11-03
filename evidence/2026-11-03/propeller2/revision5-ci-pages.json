@@ -1,0 +1,140 @@
+{
+  "checked_at_utc": "2026-11-03T20:27:42Z",
+  "commit": "8122d204f1db2ffbf576e7d5292b4e3838ba5c61",
+  "working_tree": "clean",
+  "ci": [
+    {
+      "id": 41710960244,
+      "name": "Optional Linux inference CPU engines",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960244"
+    },
+    {
+      "id": 41710960501,
+      "name": "XRP HTTP scheduler contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960501"
+    },
+    {
+      "id": 41710960319,
+      "name": "Linux Python extensions",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960319"
+    },
+    {
+      "id": 41710960110,
+      "name": "Offline validation",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960110"
+    },
+    {
+      "id": 41710960275,
+      "name": "Native SFC GP editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960275"
+    },
+    {
+      "id": 41710960106,
+      "name": "P4 eyes and voice host contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960106"
+    },
+    {
+      "id": 41710960459,
+      "name": "Pi5 source installer contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960459"
+    },
+    {
+      "id": 41710960343,
+      "name": "Linux ARM64 native contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960343"
+    },
+    {
+      "id": 41710960243,
+      "name": "Browser portal",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960243"
+    },
+    {
+      "id": 41710960155,
+      "name": "Mobile web editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960155"
+    },
+    {
+      "id": 41710960160,
+      "name": "iPhone wireless editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41710960160"
+    }
+  ],
+  "pages_build_and_deploy": "success",
+  "pages_run": 41710960243,
+  "pages_jobs": [
+    {
+      "id": 126178563331,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126180379611,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_jobs": [
+    {
+      "id": 126178564080,
+      "name": "editor-contracts",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126180031870,
+      "name": "simulator (large)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126180031997,
+      "name": "simulator (small)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "live_library": {
+    "required_revision": 5,
+    "functions": 49,
+    "receipt_hash": "b08c148933f768c5f82baa6d2ec9c37e2c75b11976ba2df20c9b800a34706d0b",
+    "live_hash": "b08c148933f768c5f82baa6d2ec9c37e2c75b11976ba2df20c9b800a34706d0b",
+    "matches_expected": true
+  },
+  "native_firmware_sha256": "71232b118b4cba700382717cf800221a48dc7a61d4c5f81cbd61f531a4c98a6c",
+  "physical_evidence": "evidence/2026-11-03/propeller2/capture-acceptance-flash-boot.json",
+  "converter_evidence": "evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json",
+  "validation_evidence": "evidence/2026-11-03/propeller2/capture-validation.json",
+  "repository_validation": {
+    "tests": 679,
+    "skipped": 391,
+    "result": "OK"
+  },
+  "physical_suites_passed": 7,
+  "final_board_check": "Extension 5 on COM12; P0-P7 DIR disabled and cogs 2/3 idle at 20:14 UTC. No board interaction during CI.",
+  "browser_guard": "Prior Connect target USB/native chooser action in Windows Edge stopped by the URL-policy guard because the current Windows browser URL could not be determined with enough confidence. Outcome remains uncertain; no browser input/state inspection or alternate UI route retried. Revision-5 graphical execution unverified.",
+  "remaining_limits": "One capture session/1023 usable entries; continuous raw-bit/streamer DMA and USB protocols unsupported. Only two selected scope receiver channels physically sampled together. External ADC converter and actual SMPS circuitry, feedback-output stability and independent analog/clock/noise/bandwidth/ENOB measurements require additional hardware."
+}

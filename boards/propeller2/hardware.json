@@ -82,7 +82,8 @@
       "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
       "browser_evidence": "evidence/2026-10-19/propeller2/browser-acceptance.json",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
-      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json"
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json",
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json"
     },
     {
       "id": "javascript_usb",
@@ -90,7 +91,7 @@
       "physical_tested": true,
       "physical_evidence": "evidence/2026-11-03/propeller2/js-acceptance.json",
       "current_extension_browser_execution_verified": false,
-      "current_extension_editor_evidence": "evidence/2026-11-03/propeller2/capture-editor-check.json"
+      "current_extension_editor_evidence": "evidence/2026-11-03/propeller2/serial-options-editor-check.json"
     },
     {
       "id": "smart_pin",
@@ -103,7 +104,8 @@
       "usb_supported": false,
       "revision3_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision3-flash-boot.json",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision4-flash-boot.json",
-      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision5-flash-boot.json"
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision5-flash-boot.json",
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision6-flash-boot.json"
     },
     {
       "id": "gpio_adc_pwm_tone_servo_i2c_spi",
@@ -116,7 +118,8 @@
       "physical_tested": true,
       "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
-      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json"
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json",
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json"
     },
     {
       "id": "wifi_self_hosting",
@@ -135,7 +138,8 @@
       "native_stack_bytes_per_cog": 8192,
       "worker_peripheral_owner": "main cog via audited requests; worker DIR/OUT unchanged",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision4-flash-boot.json",
-      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision5-flash-boot.json"
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision5-flash-boot.json",
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision6-flash-boot.json"
     },
     {
       "id": "pin_pad_configuration",
@@ -143,7 +147,8 @@
       "physical_tested": true,
       "physical_evidence": "evidence/2026-11-03/propeller2/smart-pins-acceptance-flash-boot.json",
       "all_pad_analog_behaviors_validated": false,
-      "revision5_response_evidence": "evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json"
+      "revision5_response_evidence": "evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json",
+      "revision6_logic_evidence": "evidence/2026-11-03/propeller2/serial-options-acceptance-flash-boot.json"
     },
     {
       "id": "physical_cog_object_services",
@@ -158,7 +163,8 @@
       ],
       "native_stack_capacity_bytes": 8192,
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision4-flash-boot.json",
-      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision5-flash-boot.json"
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision5-flash-boot.json",
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision6-flash-boot.json"
     },
     {
       "id": "smart_pin_checked_modes",
@@ -177,7 +183,8 @@
         "absolute analog/clock accuracy, source resistance, gain accuracy, noise/bandwidth/ENOB/16-bit resolution"
       ],
       "browser_execution_verified": false,
-      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision5-flash-boot.json"
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision5-flash-boot.json",
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision6-flash-boot.json"
     },
     {
       "id": "native_sinc_bit_scope_capture",
@@ -206,7 +213,8 @@
       "streamer_dma": false,
       "external_converter_tested": false,
       "absolute_accuracy_or_enob_tested": false,
-      "browser_execution_verified": false
+      "browser_execution_verified": false,
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/capture-revision6-flash-boot.json"
     },
     {
       "id": "converter_pad_response",
@@ -218,7 +226,33 @@
       "source_resistance_tested": false,
       "gain_accuracy_tested": false,
       "feedback_output_stability_tested": false,
-      "power_converter_tested": false
+      "power_converter_tested": false,
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision6-flash-boot.json"
+    },
+    {
+      "id": "smart_pin_word_serial_and_logic",
+      "physical_tested": true,
+      "status": "Revision 6 EC32MB flash-boot PASS: async 1/7/8/9/16/31/32-bit words in both polarities; fractional-baud loopback plus independent idle-level and 33-bit start/data duration checks. Async busy true during transmission and false after completion. Sync 1/8/9/16/31/32-bit words, rising/falling clock, before/at-edge samples, MSB-first and crossed bit-order reversal; reset-primed three-word continuous transfers on both edges with buffer overwrite refusal. All 64 routed pass/AND/OR/XOR truth cases with A/B inversions, DIR disabled. Raw X invalidation, raw Y/typed TX ownership, invalid arguments and worker cog 3 main-owned serial/logic services pass. Old byte UART signatures and raw readers retained. 51 library functions compile. No external serial peripheral or absolute baud reference tested.",
+      "physical_evidence": "evidence/2026-11-03/propeller2/serial-options-acceptance-flash-boot.json",
+      "contract": "docs/PROPELLER2_SMART_PINS.md",
+      "mode_audit": "docs/PROPELLER2_MODE_COVERAGE.md",
+      "word_bits": [
+        1,
+        32
+      ],
+      "async_fraction_resolution_clocks": "1/64 for bit periods below 1024 clocks",
+      "serial_receive_result": "8-digit right-justified hex string; false if no completed word or invalid typed setup",
+      "logic_receiver_drives_output": false,
+      "global_filter_rates_changed": false,
+      "external_serial_peripheral_tested": false,
+      "absolute_baud_accuracy_tested": false,
+      "browser_execution_verified": false,
+      "remaining_requirements": [
+        "USB separate DM/DP wiring, safe VBUS and full protocol stack",
+        "external converter/power circuitry and independent analog instruments",
+        "global input-filter ownership/timing API",
+        "continuous raw-bit streamer/DMA software"
+      ]
     }
   ],
   "references": [
@@ -228,5 +262,6 @@
     "https://downloads.parallax.com/propeller-2-documentation/"
   ],
   "code_flash_erase_bytes": 4096,
-  "extension_revision": 5
+  "extension_revision": 6,
+  "mode_coverage_document": "docs/PROPELLER2_MODE_COVERAGE.md"
 }
