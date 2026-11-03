@@ -1,0 +1,89 @@
+{
+  "checked_at_utc": "2026-11-03T17:58:52.028379+00:00",
+  "commit": "fc06b47d9d7d4f31ad6556f8b1a57fae244775df",
+  "workflows": [
+    {
+      "id": 41685686177,
+      "name": "XRP HTTP scheduler contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685686177"
+    },
+    {
+      "id": 41685685960,
+      "name": "Native SFC GP editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685685960"
+    },
+    {
+      "id": 41685686124,
+      "name": "Browser portal",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685686124"
+    },
+    {
+      "id": 41685685997,
+      "name": "P4 eyes and voice host contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685685997"
+    },
+    {
+      "id": 41685685967,
+      "name": "Pi5 source installer contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685685967"
+    },
+    {
+      "id": 41685685893,
+      "name": "Optional Linux inference CPU engines",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685685893"
+    },
+    {
+      "id": 41685686201,
+      "name": "Offline validation",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685686201"
+    },
+    {
+      "id": 41685686344,
+      "name": "Linux Python extensions",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685686344"
+    },
+    {
+      "id": 41685685873,
+      "name": "Linux ARM64 native contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685685873"
+    },
+    {
+      "id": 41685685978,
+      "name": "Mobile web editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685685978"
+    },
+    {
+      "id": 41685685941,
+      "name": "iPhone wireless editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41685685941"
+    }
+  ],
+  "pages_build_and_deploy": "success",
+  "pages_run": 41685686124,
+  "live_library_required_revision": 3,
+  "expected_and_live_sha256": "d9947730f96b9e25f4c651ad130219f04c767a5c1e6c26307dddc257003a848e",
+  "live_library": "https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/Libraries/Targets/Propeller%202%20Project.ubl",
+  "browser_guard": "No browser input retried; deployment checked by public HTTPS reads."
+}

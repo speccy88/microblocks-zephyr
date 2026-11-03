@@ -163,7 +163,8 @@ int p2PrimitiveNeedsService(int set, const char *name) {
         !strcmp(name, "addLast") || !strcmp(name, "delete") || !strcmp(name, "newByteArray") ||
         !strcmp(name, "freeMemory");
     if (set != IOPrims) return 0;
-    const char *names[] = {"p2ListAtomicAdd", "p2PadRaw", "p2PadNamed", "p2Configure",
+    const char *names[] = {"p2Duty", "p2FeedbackPWM", "p2DACNoise", "p2DAC16",
+        "p2ADCSetup", "p2Scope", "p2ConfigureInputs", "p2ListAtomicAdd", "p2PadRaw", "p2PadNamed", "p2Configure",
         "p2PinSample", "p2PinPeekHex", "p2PinAck", "p2Pulse", "p2Transition", "p2PWM",
         "p2UART", "p2UARTWrite", "p2UARTRead", "p2DAC8", "p2SmartPin", "p2SmartPinRaw",
         "p2Frequency", "p2PinRelease", "p2PinReady", "p2PinRead", "p2PinReadHex",
@@ -396,4 +397,4 @@ OBJ primP2ListAtomicAdd(int count, OBJ *args) {
     FIELD(args[0], index) = result;
     return result;
 }
-OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(3); }
+OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(4); }

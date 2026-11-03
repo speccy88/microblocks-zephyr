@@ -85,8 +85,8 @@ def test(args):
             218:('p2CogStackUsed',(2,)),219:('p2CogStackUsed',(3,)),
             221:('p2CogStart',('workerTiming',2)),222:('p2CogStart',('workerReturnHeap',2))}
         for i,(name,params) in queries.items():vm.upload(i,primitive(name,params),2)
-        assert run(200)==3
-        report['checks']['extension_revision']=3
+        revision=run(200); assert revision>=3
+        report['checks']['extension_revision']=revision
         start(scripts[0]);set_value('SharedText',TEXT);ping();start(scripts[1])
         assert value('StartedA') is True and value('StartedB') is True
         until(lambda:value('CapturedA')==1 and value('CapturedB')==1)

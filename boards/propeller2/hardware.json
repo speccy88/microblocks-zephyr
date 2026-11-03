@@ -80,7 +80,8 @@
       "status": "Installed native v405: terminal arithmetic, live edit, ordered output, fragmented CRC and reset persistence PASS. Real GP 2.5.8 Edge Web Serial arithmetic/live edit, project save/reload/restore and reconnect PASS on COM12.",
       "physical_tested": true,
       "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
-      "browser_evidence": "evidence/2026-10-19/propeller2/browser-acceptance.json"
+      "browser_evidence": "evidence/2026-10-19/propeller2/browser-acceptance.json",
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json"
     },
     {
       "id": "javascript_usb",
@@ -97,7 +98,8 @@
       "wired_pair_timing_measured": true,
       "external_instrumentation_used": false,
       "usb_supported": false,
-      "revision3_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision3-flash-boot.json"
+      "revision3_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision3-flash-boot.json",
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision4-flash-boot.json"
     },
     {
       "id": "gpio_adc_pwm_tone_servo_i2c_spi",
@@ -108,7 +110,8 @@
       "id": "project_persistence",
       "status": "Single-stage boot installation, hardware reset without RAM reload, matching stored CRCs, arithmetic, variable start hat and input Smart Pin start hat PASS.",
       "physical_tested": true,
-      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json"
+      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json"
     },
     {
       "id": "wifi_self_hosting",
@@ -125,7 +128,8 @@
       "worker_heap_objects": true,
       "worker_peripheral_access": true,
       "native_stack_bytes_per_cog": 8192,
-      "worker_peripheral_owner": "main cog via audited requests; worker DIR/OUT unchanged"
+      "worker_peripheral_owner": "main cog via audited requests; worker DIR/OUT unchanged",
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision4-flash-boot.json"
     },
     {
       "id": "pin_pad_configuration",
@@ -145,7 +149,29 @@
         620,
         620
       ],
-      "native_stack_capacity_bytes": 8192
+      "native_stack_capacity_bytes": 8192,
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision4-flash-boot.json"
+    },
+    {
+      "id": "smart_pin_checked_modes",
+      "status": "Revision 4 EC32MB RAM and flash-boot PASS: NCO duty ratios; digital A/B feedback PWM inhibition/resumption; gated and differential edge/high counters; state/event/period/window timing and running/stopped timeout; DAC16 random/PWM-dither monotonic transfer and DAC-noise DC mean; typed internal ADC normalization, synthetic external ADC sample/latest-bit snapshot, scope samples/triggers with three filters; synchronous 1/9/16/31/32-bit words; new mode requested from cog 2 with main DIR ownership. 42 library functions compile. No guarded browser interaction retried.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/2026-11-03/propeller2/modes-acceptance-flash-boot.json",
+      "contract": "docs/PROPELLER2_SMART_PINS.md",
+      "configuration_only": [
+        "SINC2/SINC3 accumulator setup",
+        "other analog gains/impedances/comparator configurations"
+      ],
+      "unsupported_or_unvalidated": [
+        "USB paired driver/protocol",
+        "continuous SINC software differencing",
+        "contiguous bitstream/streamer capture",
+        "SCOPE data-pipe recording",
+        "SMPS converter circuit",
+        "external ADC converter hardware",
+        "absolute analog/clock accuracy and noise/bandwidth/16-bit resolution"
+      ],
+      "browser_execution_verified": false
     }
   ],
   "references": [
@@ -154,5 +180,5 @@
     "https://github.com/totalspectrum/flexprop/releases/tag/v7.7.0"
   ],
   "code_flash_erase_bytes": 4096,
-  "extension_revision": 3
+  "extension_revision": 4
 }

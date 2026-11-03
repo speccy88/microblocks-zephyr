@@ -1,0 +1,25 @@
+module main
+variables Pin Value Period Kind External Circuit BOffset AOffset Sensitivity Result Word Started Cog WorkerDIR
+
+to workerDutyService {
+    Started = ('[p2:p2Duty]' 0 250 100)
+    Cog = ('[p2:p2Cog]')
+    WorkerDIR = ('[p2:p2LocalPinDIR]' 0)
+    forever { waitMillis 1 }
+}
+script 10 10 ('[p2:p2Duty]' Pin Value Period)
+script 10 50 ('[p2:p2FeedbackPWM]' Pin Value Period AOffset BOffset)
+script 10 90 ('[p2:p2DACNoise]' Pin Period Circuit)
+script 10 130 ('[p2:p2DAC16]' Pin Value Period External Circuit)
+script 10 170 ('[p2:p2ADCSetup]' Pin Kind Period External Circuit BOffset)
+script 10 210 (p2ScopeInput Pin Kind Value Period Circuit)
+script 10 250 (p2MeasureEvents Value Pin Sensitivity)
+script 10 290 (p2Timeout Pin Period Sensitivity)
+script 10 330 (p2MeasurePeriods Pin Value Result Sensitivity BOffset)
+script 10 370 (p2MeasureWindow Pin Period Result Sensitivity BOffset)
+script 10 410 (p2DifferenceCounter Pin BOffset Period External)
+script 10 450 (p2ADCExternalInput Pin Value BOffset)
+script 10 490 (p2ADCCapture Pin External BOffset)
+script 10 530 (p2ADCSampleInput Pin Value Circuit)
+script 10 570 (p2SyncTransmit Pin Value Word BOffset)
+script 10 610 (p2SyncReceive Pin Value BOffset)

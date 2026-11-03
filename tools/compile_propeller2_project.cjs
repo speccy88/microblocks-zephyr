@@ -27,7 +27,9 @@ function compile(assets,source){
 }
 module.exports={compile};
 if(require.main===module){
-    const result=compile(process.argv[2],fs.readFileSync(process.argv[3],'utf8'));
+    let source=fs.readFileSync(process.argv[3],'utf8');
+    if(process.argv[5]==='--p2-library')source+='\n'+fs.readFileSync(require('node:path').join(__dirname,'../boards/propeller2/integration/P2_Hardware.ubl'),'utf8');
+    const result=compile(process.argv[2],source);
     fs.writeFileSync(process.argv[4],JSON.stringify(result,null,2)+'\n');
     console.log(JSON.stringify({chunks:result.chunks.map(c=>({id:c.id,name:c.name,kind:c.kind,bytes:c.bytes.length})),variables:result.variables,scripts:result.scripts}));
 }

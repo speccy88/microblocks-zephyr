@@ -23,6 +23,9 @@ async function main(){
  assert(p2Functions.length>=31&&p2Functions.every(f=>f.bytes>0&&f.bytes<1000));
  results.push({target:'propeller2',functions:p2Functions.length,compiled:true,graphical:false,physical:false});
  const {compile}=require('../tools/compile_propeller2_project.cjs');
+ const modeProgram=compile(p2Folder,fs.readFileSync(path.join(__dirname,'fixtures/propeller2/smart-modes.ubp'),'utf8')+'\n'+fs.readFileSync(path.join(__dirname,'../boards/propeller2/integration/P2_Hardware.ubl'),'utf8'));
+ assert.equal(modeProgram.scripts.length,16);
+ results.push({target:'propeller2',fixture:'smart-modes',chunks:modeProgram.chunks.length,compiled:true,physical:false});
  for(const name of ['cogs-scalars','cogs-objects']){
   const source=fs.readFileSync(path.join(__dirname,'fixtures/propeller2',name+'.ubp'),'utf8');
   const program=compile(p2Folder,source);

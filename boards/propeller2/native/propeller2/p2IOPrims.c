@@ -719,12 +719,14 @@ static OBJ primP2PadNamed(int argc, OBJ *args) {
 }
 static OBJ primP2Configure(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args); uint32_t pad, operation, x, y;
-	if (argc != 7 || pin < 0 || !P2_NAMED(p2OperationNames, args[1], &operation) ||
+	if ((argc != 7 && argc != 8) || pin < 0 || !P2_NAMED(p2OperationNames, args[1], &operation) ||
 		!P2_NAMED(p2PadNames, args[2], &pad) || !p2Register(args[3], &x) || !p2Register(args[4], &y) ||
 		objType(args[5]) != BooleanType || !isInt(args[6])) return falseObj;
-	int offset = obj2int(args[6]);
-	if (offset < -3 || offset > 3 || !validPin(pin + offset)) return falseObj;
-	uint32_t route = (uint32_t)(offset < 0 ? offset+8 : offset)<<24;
+	int a = argc == 8 ? obj2int(args[6]) : 0;
+	if (argc == 8 && !isInt(args[7])) return falseObj;
+	int b = obj2int(args[argc-1]);
+	if (a < -3 || a > 3 || b < -3 || b > 3 || !validPin(pin+a) || !validPin(pin+b)) return falseObj;
+	uint32_t route = ((uint32_t)(a < 0 ? a+8 : a)<<28) | ((uint32_t)(b < 0 ? b+8 : b)<<24);
 	int dac = (pad & 0x1c0000) == 0x140000;
 	const char *name = obj2str(args[1]);
 	if ((!strncmp(name, "DAC ", 4) && !dac) || (!strcmp(name, "repository") && dac)) return falseObj;
@@ -771,6 +773,74 @@ static OBJ primP2PWM(int argc, OBJ *args) {
 	if (unit > 65535 || frame < 2) return falseObj;
 	p2Start(pin, (triangle ? P_PWM_TRIANGLE : P_PWM_SAWTOOTH) | P_OE,
 		(frame<<16)|unit, (frame*(uint32_t)duty+500)/1000); return trueObj;
+}
+/* Checked conveniences keep clocks, voltage circuits and operating modes explicit. */
+static OBJ primP2Duty(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 3 || pin < 0 || !isInt(args[1]) || !isInt(args[2])) return falseObj;
+	int duty = obj2int(args[1]), clocks = obj2int(args[2]);
+	if (duty < 0 || duty > 1000 || clocks < 1 || clocks > 65536) return falseObj;
+	uint32_t fraction = _muldiv64((uint32_t)duty, 0xffffffffU, 1000U);
+	p2Start(pin, P_NCO_DUTY | P_OE, clocks & 65535, fraction);
+	return trueObj;
+}
+static OBJ primP2FeedbackPWM(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 5 || pin < 0) return falseObj;
+	for (int i = 1; i < 5; i++) if (!isInt(args[i])) return falseObj;
+	int hz = obj2int(args[1]), duty = obj2int(args[2]);
+	int a = obj2int(args[3]), b = obj2int(args[4]);
+	if (hz < 1 || (uint32_t)hz > clockFrequency()/4 || duty < 0 || duty > 1000 ||
+		a < -3 || a > 3 || b < -3 || b > 3 || !validPin(pin+a) || !validPin(pin+b)) return falseObj;
+	uint32_t clocks = clockFrequency()/hz, unit = (clocks+65534)/65535, frame = clocks/unit;
+	if (unit > 65535 || frame < 2) return falseObj;
+	uint32_t route = ((uint32_t)(a < 0 ? a+8 : a)<<28) | ((uint32_t)(b < 0 ? b+8 : b)<<24);
+	p2Start(pin, P_PWM_SMPS | P_OE | route, (frame<<16)|unit, (frame*(uint32_t)duty+500)/1000);
+	return trueObj;
+}
+static OBJ primP2DACNoise(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad;
+	if (argc != 3 || pin < 0 || !isInt(args[1]) || !P2_NAMED(p2PadNames, args[2], &pad) ||
+		(pad & 0x1c0000) != 0x140000) return falseObj;
+	int clocks = obj2int(args[1]);
+	if (clocks < 1 || clocks > 65536) return falseObj;
+	p2Start(pin, P_DAC_NOISE | P_OE | pad, clocks & 65535, 0); return trueObj;
+}
+static OBJ primP2DAC16(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad;
+	if (argc != 5 || pin < 0 || !isInt(args[1]) || !isInt(args[2]) ||
+		objType(args[3]) != BooleanType || !P2_NAMED(p2PadNames, args[4], &pad) ||
+		(pad & 0x1c0000) != 0x140000) return falseObj;
+	int level = obj2int(args[1]), clocks = obj2int(args[2]), pwm = args[3] == trueObj;
+	if (level < 0 || level > 65535 || clocks < 1 || clocks > 65536 || (pwm && (clocks & 255))) return falseObj;
+	p2Start(pin, (pwm ? P_DAC_DITHER_PWM : P_DAC_DITHER_RND) | P_OE | pad, clocks & 65535, level);
+	return trueObj;
+}
+static OBJ primP2ADCSetup(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad;
+	if (argc != 6 || pin < 0 || !IS_TYPE(args[1], StringType) || !isInt(args[2]) ||
+		objType(args[3]) != BooleanType || !P2_NAMED(p2PadNames, args[4], &pad) || !isInt(args[5])) return falseObj;
+	const char *kind = obj2str(args[1]);
+	int power = obj2int(args[2]), external = args[3] == trueObj, b = obj2int(args[5]), mode = 0;
+	if (!strcmp(kind, "sample")) { mode = 0; if (power < 1 || power > 13) return falseObj; }
+	else if (!strcmp(kind, "SINC2 accumulator")) { mode = 1; if (power < 3 || power > 13) return falseObj; }
+	else if (!strcmp(kind, "SINC3 accumulator")) { mode = 2; if (power < 4 || power > 9) return falseObj; }
+	else if (!strcmp(kind, "bitstream")) { mode = 3; if (power < 0 || power > 5) return falseObj; }
+	else return falseObj;
+	if (b < -3 || b > 3 || !validPin(pin+b) ||
+		(!external && (pad & 0x1c0000) != 0x100000) ||
+		(external && pad != P_SCHMITT_A && pad != P_LOGIC_A)) return falseObj;
+	uint32_t route = external ? (uint32_t)(b < 0 ? b+8 : b)<<24 : 0;
+	p2Start(pin, (external ? P_ADC_EXT : P_ADC) | route | pad, (mode<<4)|power, 1U<<power);
+	return trueObj;
+}
+static OBJ primP2Scope(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad;
+	if (argc != 5 || pin < 0 || !isInt(args[1]) || !isInt(args[2]) || !isInt(args[3]) ||
+		!P2_NAMED(p2PadNames, args[4], &pad) || (pad & 0x1c0000) != 0x100000) return falseObj;
+	int filter = obj2int(args[1]), a = obj2int(args[2]), b = obj2int(args[3]);
+	if (filter < 0 || filter > 2 || a < 0 || a > 63 || b < 0 || b > 63) return falseObj;
+	p2Start(pin, P_ADC_SCOPE | pad, (b<<10)|(a<<2)|filter, 0); return trueObj;
 }
 static OBJ primP2UART(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
@@ -855,6 +925,10 @@ static OBJ primP2WriteY(int argc, OBJ *args) {
 }
 
 static PrimEntry entries[] = {
+	{"p2Duty", primP2Duty}, {"p2FeedbackPWM", primP2FeedbackPWM},
+	{"p2DACNoise", primP2DACNoise}, {"p2DAC16", primP2DAC16},
+	{"p2ADCSetup", primP2ADCSetup}, {"p2Scope", primP2Scope},
+	{"p2ConfigureInputs", primP2Configure},
 	{"p2LocalPinDIR", primP2LocalPinDIR},
 	{"p2ListAtomicAdd", primP2ListAtomicAdd},
 	{"p2PadRaw", primP2PadRaw},

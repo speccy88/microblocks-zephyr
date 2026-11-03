@@ -197,16 +197,29 @@ and ratios; they do not establish absolute voltage/clock accuracy, analog
 linearity, noise or bandwidth. ADC startup settling was extended after the
 first conversion was observed returning its reset value.
 
-Other modes and pad presets have configuration-only evidence, not signal
-acceptance. DAC noise/dither, feedback SMPS, gated counting, the remaining
-timing variants, external/scope ADC and other analog gains need dedicated tests.
+Revision 4 adds checked DAC noise/16-bit dither, NCO duty per 1000, feedback
+PWM in Hz/duty with separate A/B offsets, named event/timeout/period/window
+triggers, checked internal/external ADC sampling and bit snapshots, and scope
+filters/thresholds. Existing raw signatures are retained. Selected counter and
+serial convenience blocks are now in the normal palette. See the
+[extended mode acceptance](../../evidence/2026-11-03/propeller2/modes-acceptance-flash-boot.json)
+and [setup bounds](../../docs/PROPELLER2_SMART_PINS.md).
+
+The extended tests distinguish digital feedback gating from an actual SMPS
+power converter, synthetic external ADC bits/clocks from an external converter,
+and averaged DAC transfer from 16-bit resolution. SINC2/SINC3 accumulator setup
+has configuration-only evidence; timely software differencing and continuous
+capture are not implemented or validated. Other analog gains, DAC impedances,
+comparator thresholds and analog dynamic performance need suitable inputs and
+instrumentation.
 USB is unsupported and is rejected by these single-pin APIs. No USB test is
 attempted on the hardwired pairs. Generic stream-audio DAC stubs also remain
 unsupported; use the explicit P2 DAC blocks. See the
 [mode contract](../../docs/PROPELLER2_SMART_PINS.md).
 
-All 31 current library functions import and compile with the pinned JavaScript
-engine, and the new library renders in real Windows Edge. The additional
+All 42 current library functions import and compile with the pinned JavaScript
+engine. The earlier revision-2 library rendered in real Windows Edge; the
+current revision-4 library has no graphical execution acceptance. The additional
 revision-2 browser connection attempt did not complete USB selection and was
 closed while cleanup remained pending. This is a graphical rendering check,
 not a revision-2 browser execution PASS; see the

@@ -1,0 +1,34 @@
+{
+  "checked_at_utc": "2026-11-03T18:04:23.651888+00:00",
+  "extension_revision": 4,
+  "result": "PASS",
+  "repository_validation": {
+    "command": "python -B tools/validate.py",
+    "tests": 679,
+    "skipped": 391,
+    "elapsed_seconds": 18.332,
+    "result": "OK",
+    "environment": "Windows Python 3.12 with local socket access; composed pinned JavaScript/mobile site"
+  },
+  "javascript_compiler": {
+    "command": "node tests/js-preview-compile.test.cjs ../p2-modes-final-site",
+    "library_functions": 42,
+    "mode_fixture_chunks": 59,
+    "mode_fixture_scripts": 16,
+    "scalar_fixture_chunks": 12,
+    "object_fixture_chunks": 19,
+    "result": "PASS",
+    "graphical": false,
+    "physical": false
+  },
+  "physical_suites": [
+    "modes-usb-flash-boot.json",
+    "modes-acceptance-flash-boot.json",
+    "objects-revision4-flash-boot.json",
+    "cogs-revision4-flash-boot.json",
+    "smart-pins-revision4-flash-boot.json"
+  ],
+  "native_builds": "modes-native-builds.json",
+  "board_effects": "Authorized RAM load and boot-flash installation reset the chip. USB --reboot then verified a hardware flash boot. Suites replaced the disposable test project and used VM soft reset/stop for cleanup; pins released at completion.",
+  "remaining_limits": "No browser retry after URL-policy guard. USB unsupported. Continuous SINC differencing, contiguous capture/streamer, scope data-pipe recording and external converter/power-circuit performance are not implemented or established; other analog gains/impedances/comparators and absolute performance unvalidated."
+}

@@ -1,0 +1,296 @@
+{
+  "tested_at_utc": "2026-11-03T17:51:21.761993+00:00",
+  "scope": "compiled P2 library helpers and wired-pair mode behavior",
+  "result": "PASS",
+  "checks": {
+    "nco_duty_high_clock_ratios": [
+      {
+        "duty_per_1000": 0,
+        "high_clocks": 0,
+        "ratio": 0.0
+      },
+      {
+        "duty_per_1000": 250,
+        "high_clocks": 450000,
+        "ratio": 0.25
+      },
+      {
+        "duty_per_1000": 500,
+        "high_clocks": 900000,
+        "ratio": 0.5
+      },
+      {
+        "duty_per_1000": 750,
+        "high_clocks": 1350000,
+        "ratio": 0.75
+      },
+      {
+        "duty_per_1000": 1000,
+        "high_clocks": 1800000,
+        "ratio": 1.0
+      }
+    ],
+    "feedback_pwm_digital_logic": {
+      "output": 4,
+      "receiver": 5,
+      "voltage_input": 1,
+      "current_input": 3,
+      "running_high_clocks": 450000,
+      "current_limit_high_clocks": 0,
+      "voltage_inhibit_high_clocks": 0,
+      "resumed_high_clocks": 450000,
+      "power_converter_performance": false
+    },
+    "gated_and_difference_counters": {
+      "gated": [
+        {
+          "mode": "register up",
+          "gate_low_hex": "00000000",
+          "gate_high_hex": "0000000a"
+        },
+        {
+          "mode": "register up down",
+          "gate_low_hex": "fffffff6",
+          "gate_high_hex": "00000000"
+        }
+      ],
+      "difference": 5
+    },
+    "timing_and_missing_event_timeout": {
+      "measurements": [
+        {
+          "kind": "periods",
+          "result": "clock ticks",
+          "value": 1800000
+        },
+        {
+          "kind": "periods",
+          "result": "high clocks",
+          "value": 450000
+        },
+        {
+          "kind": "window",
+          "result": "clock ticks",
+          "value": 1800000
+        },
+        {
+          "kind": "window",
+          "result": "high clocks",
+          "value": 450000
+        },
+        {
+          "kind": "window",
+          "result": "periods",
+          "value": 10
+        }
+      ],
+      "twenty_rises_ticks": 720000,
+      "missing_event_ticks": 129022008
+    },
+    "dac16_dither_and_noise": {
+      "transfers": [
+        {
+          "pwm_dither": false,
+          "samples": [
+            {
+              "level16": 4096,
+              "adc10": 67
+            },
+            {
+              "level16": 16384,
+              "adc10": 259
+            },
+            {
+              "level16": 32768,
+              "adc10": 514
+            },
+            {
+              "level16": 49152,
+              "adc10": 769
+            },
+            {
+              "level16": 61440,
+              "adc10": 962
+            }
+          ]
+        },
+        {
+          "pwm_dither": true,
+          "samples": [
+            {
+              "level16": 4096,
+              "adc10": 66
+            },
+            {
+              "level16": 16384,
+              "adc10": 258
+            },
+            {
+              "level16": 32768,
+              "adc10": 514
+            },
+            {
+              "level16": 49152,
+              "adc10": 769
+            },
+            {
+              "level16": 61440,
+              "adc10": 962
+            }
+          ]
+        }
+      ],
+      "noise_adc10": [
+        516,
+        517,
+        516,
+        509,
+        516
+      ],
+      "sixteen_bit_resolution_or_noise_spectrum_verified": false
+    },
+    "external_adc_synthetic_data_and_clock": [
+      {
+        "capture": false,
+        "input_high": false,
+        "result_hex": "00000000"
+      },
+      {
+        "capture": false,
+        "input_high": true,
+        "result_hex": "00000010"
+      },
+      {
+        "capture": true,
+        "input_high": false,
+        "result_hex": "00000000"
+      },
+      {
+        "capture": true,
+        "input_high": true,
+        "result_hex": "ffffffff"
+      }
+    ],
+    "synchronous_serial_word_widths": [
+      {
+        "bits": 1,
+        "sent_hex": "00000001",
+        "received_hex": "00000001"
+      },
+      {
+        "bits": 9,
+        "sent_hex": "00000101",
+        "received_hex": "00000101"
+      },
+      {
+        "bits": 16,
+        "sent_hex": "0000a55a",
+        "received_hex": "0000a55a"
+      },
+      {
+        "bits": 31,
+        "sent_hex": "55555555",
+        "received_hex": "55555555"
+      },
+      {
+        "bits": 32,
+        "sent_hex": "80000001",
+        "received_hex": "80000001"
+      },
+      {
+        "bits": 32,
+        "sent_hex": "ffffffff",
+        "received_hex": "ffffffff"
+      }
+    ],
+    "typed_internal_adc_sampling": {
+      "ground": 180,
+      "vio": 855,
+      "samples": [
+        {
+          "dac8": 16,
+          "raw": 224,
+          "normalized_ratio": 0.06518518518518518
+        },
+        {
+          "dac8": 128,
+          "raw": 518,
+          "normalized_ratio": 0.5007407407407407
+        },
+        {
+          "dac8": 240,
+          "raw": 814,
+          "normalized_ratio": 0.9392592592592592
+        }
+      ]
+    },
+    "scope_dc_samples_and_hysteresis_trigger": [
+      {
+        "filter": "Tukey 68",
+        "low": 56,
+        "high": 201,
+        "triggered": true
+      },
+      {
+        "filter": "Tukey 45",
+        "low": 57,
+        "high": 200,
+        "triggered": true
+      },
+      {
+        "filter": "Hann 28",
+        "low": 54,
+        "high": 198,
+        "triggered": true
+      }
+    ],
+    "new_mode_worker_service_ownership": {
+      "cog": 2,
+      "worker_dir": false,
+      "main_dir": true,
+      "high_clocks": 450000,
+      "stop_all_mode": "00000000"
+    },
+    "configuration_only_and_invalid_arguments": {
+      "adc_modes": [
+        {
+          "kind": "sample",
+          "power": 9,
+          "mode": "00118030"
+        },
+        {
+          "kind": "SINC2 accumulator",
+          "power": 7,
+          "mode": "00118030"
+        },
+        {
+          "kind": "SINC3 accumulator",
+          "power": 7,
+          "mode": "00118030"
+        },
+        {
+          "kind": "bitstream",
+          "power": 5,
+          "mode": "00118030"
+        }
+      ],
+      "invalid_rejected": 8,
+      "continuous_sinc_filter_processing_tested": false
+    }
+  },
+  "absolute_accuracy_tested": false,
+  "power_converter_tested": false,
+  "external_adc_converter_tested": false,
+  "contiguous_capture_tested": false,
+  "usb_mode_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 4,
+  "firmware_sha256": "752ef955c287e6dbbef808b33e11ab8133a8e2d36e91da4124077030773b3012",
+  "scope_note": "Expanded RAM pass before the final additional high-clock subtraction, state-duration and running/stopped timeout assertions; all added assertions passed in the final flash-boot report on the same native image."
+}
