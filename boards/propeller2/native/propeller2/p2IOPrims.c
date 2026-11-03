@@ -20,7 +20,9 @@
 #define ANALOG_SAMPLE_BITS 14
 #define ANALOG_SAMPLE_CYCLES (1U << (ANALOG_SAMPLE_BITS - 1))
 #define ANALOG_CALIBRATION_CYCLES (ANALOG_SAMPLE_CYCLES << 2)
-#define ANALOG_SETTLE_CYCLES (ANALOG_SAMPLE_CYCLES << 1)
+/* SINC2 needs complete samples after changing the pad/reference. Two nominal
+   periods can still return the reset value on the first calibrated read. */
+#define ANALOG_SETTLE_CYCLES (ANALOG_SAMPLE_CYCLES << 2)
 #define PWM_FREQUENCY 20000U
 
 enum {
@@ -35,6 +37,8 @@ enum {
 	P2_MODE_SERVO,
 	P2_MODE_SQUARE_WAVE,
 	P2_MODE_SMART,
+	P2_MODE_PAD,
+	P2_MODE_DAC,
 };
 
 // These values match the Arduino pin-mode values passed by shared VM modules.
@@ -363,6 +367,7 @@ void turnOffPins(void) {
 		_pinclear(pin);
 		_pinf(pin);
 		pinModeState[pin] = P2_MODE_FLOATING;
+		smartModeState[pin] = 0;
 	}
 	tonePin = -1;
 	squareWavePin = -1;
@@ -619,6 +624,18 @@ static int p2InputAllowed(int pin, unsigned selection) {
 	return validPin(pin + offset);
 }
 
+static void p2Start(int pin, uint32_t mode, uint32_t x, uint32_t y) {
+	releasePin(pin);
+	_pinstart(pin, mode, x, y);
+	unsigned operation = mode & 0x3e;
+	/* These registers are cleared/ignored during DIR-low reset. */
+	if (operation == P_PULSE || operation == P_TRANSITION) _wypin(pin, y);
+	if (operation >= P_REPOSITORY && operation <= P_DAC_DITHER_PWM &&
+		(mode & 0x1c0000) != 0x140000) _wxpin(pin, x);
+	pinModeState[pin] = P2_MODE_SMART;
+	smartModeState[pin] = mode;
+}
+
 static OBJ primP2SmartPinRaw(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
 	uint32_t mode, x, y;
@@ -628,10 +645,166 @@ static OBJ primP2SmartPinRaw(int argc, OBJ *args) {
 	if (!(mode & 0x3e) || (mode & 0x3e) == P_USB_PAIR ||
 		!p2InputAllowed(pin, (mode >> 28) & 7) ||
 		!p2InputAllowed(pin, (mode >> 24) & 7)) return falseObj;
-	releasePin(pin);
-	_pinstart(pin, mode, x, y);
-	pinModeState[pin] = P2_MODE_SMART; smartModeState[pin] = mode;
+	p2Start(pin, mode, x, y);
 	return trueObj;
+}
+
+typedef struct { const char *name; uint32_t bits; } P2NamedBits;
+static const P2NamedBits p2PadNames[] = {
+	{"logic", P_LOGIC_A}, {"logic A feedback", P_LOGIC_A_FB}, {"logic B feedback", P_LOGIC_B_FB},
+	{"Schmitt", P_SCHMITT_A}, {"Schmitt A feedback", P_SCHMITT_A_FB}, {"Schmitt B feedback", P_SCHMITT_B_FB},
+	{"compare A B", P_COMPARE_AB}, {"compare A B feedback", P_COMPARE_AB_FB},
+	{"ADC ground", P_ADC_GIO}, {"ADC VIO", P_ADC_VIO}, {"ADC floating", P_ADC_FLOAT},
+	{"ADC 1x", P_ADC_1X}, {"ADC 3x", P_ADC_3X}, {"ADC 10x", P_ADC_10X},
+	{"ADC 30x", P_ADC_30X}, {"ADC 100x", P_ADC_100X},
+	{"DAC 990R 3V", P_DAC_990R_3V}, {"DAC 600R 2V", P_DAC_600R_2V},
+	{"DAC 124R 3V", P_DAC_124R_3V}, {"DAC 75R 2V", P_DAC_75R_2V},
+	{"level A", P_LEVEL_A}, {"level A feedback negative", P_LEVEL_A_FBN},
+	{"level B feedback positive", P_LEVEL_B_FBP}, {"level B feedback negative", P_LEVEL_B_FBN},
+};
+static const P2NamedBits p2OperationNames[] = {
+	{"repository", P_REPOSITORY}, {"DAC noise", P_DAC_NOISE},
+	{"DAC random dither", P_DAC_DITHER_RND}, {"DAC PWM dither", P_DAC_DITHER_PWM},
+	{"pulse", P_PULSE}, {"transition", P_TRANSITION}, {"NCO frequency", P_NCO_FREQ},
+	{"NCO duty", P_NCO_DUTY}, {"PWM triangle", P_PWM_TRIANGLE}, {"PWM sawtooth", P_PWM_SAWTOOTH},
+	{"PWM SMPS", P_PWM_SMPS}, {"quadrature", P_QUADRATURE}, {"register up", P_REG_UP},
+	{"register up down", P_REG_UP_DOWN}, {"count rises", P_COUNT_RISES}, {"count highs", P_COUNT_HIGHS},
+	{"state ticks", P_STATE_TICKS}, {"high ticks", P_HIGH_TICKS}, {"event ticks", P_EVENTS_TICKS},
+	{"period ticks", P_PERIODS_TICKS}, {"period highs", P_PERIODS_HIGHS},
+	{"window ticks", P_COUNTER_TICKS}, {"window highs", P_COUNTER_HIGHS}, {"window periods", P_COUNTER_PERIODS},
+	{"ADC sample", P_ADC}, {"ADC external", P_ADC_EXT}, {"ADC scope", P_ADC_SCOPE},
+	{"sync transmit", P_SYNC_TX}, {"sync receive", P_SYNC_RX},
+	{"async transmit", P_ASYNC_TX}, {"async receive", P_ASYNC_RX},
+};
+static int p2Named(const P2NamedBits *table, int count, OBJ name, uint32_t *bits) {
+	if (!IS_TYPE(name, StringType)) return false;
+	for (int i = 0; i < count; i++) if (!strcmp(table[i].name, obj2str(name))) {
+		*bits = table[i].bits; return true;
+	}
+	return false;
+}
+#define P2_NAMED(table, name, bits) p2Named(table, sizeof(table)/sizeof(table[0]), name, bits)
+
+static void p2Pad(int pin, uint32_t pad, int drive, int high) {
+	releasePin(pin);
+	_wrpin(pin, pad);
+	/* Normal-mode DIR enables the pad; OUT is set only when explicitly asked. */
+	if (drive) _pinw(pin, high);
+	pinModeState[pin] = P2_MODE_PAD; smartModeState[pin] = pad;
+}
+static int p2Register(OBJ arg, uint32_t *value) {
+	if (isInt(arg)) {
+		int n = obj2int(arg); if (n < 0) return false;
+		*value = n; return true;
+	}
+	return p2Hex(arg, value);
+}
+static OBJ primP2PadRaw(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad;
+	if (argc != 4 || pin < 0 || !p2Hex(args[1], &pad) || pad > 0x1fff ||
+		objType(args[2]) != BooleanType || objType(args[3]) != BooleanType) return falseObj;
+	p2Pad(pin, pad << 8, args[2] == trueObj, args[3] == trueObj); return trueObj;
+}
+static OBJ primP2PadNamed(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad;
+	if (argc != 4 || pin < 0 || !P2_NAMED(p2PadNames, args[1], &pad) ||
+		objType(args[2]) != BooleanType || objType(args[3]) != BooleanType) return falseObj;
+	p2Pad(pin, pad, args[2] == trueObj, args[3] == trueObj); return trueObj;
+}
+static OBJ primP2Configure(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad, operation, x, y;
+	if (argc != 7 || pin < 0 || !P2_NAMED(p2OperationNames, args[1], &operation) ||
+		!P2_NAMED(p2PadNames, args[2], &pad) || !p2Register(args[3], &x) || !p2Register(args[4], &y) ||
+		objType(args[5]) != BooleanType || !isInt(args[6])) return falseObj;
+	int offset = obj2int(args[6]);
+	if (offset < -3 || offset > 3 || !validPin(pin + offset)) return falseObj;
+	uint32_t route = (uint32_t)(offset < 0 ? offset+8 : offset)<<24;
+	int dac = (pad & 0x1c0000) == 0x140000;
+	const char *name = obj2str(args[1]);
+	if ((!strncmp(name, "DAC ", 4) && !dac) || (!strcmp(name, "repository") && dac)) return falseObj;
+	p2Start(pin, route | pad | operation | (args[5] == trueObj ? P_OE : 0), x, y);
+	return trueObj;
+}
+static OBJ primP2Sample(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	return argc == 1 && pin >= 0 && _pinr(pin) ? trueObj : falseObj;
+}
+static OBJ primP2PeekHex(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	return argc == 1 && pin >= 0 ? p2HexString(_rqpin(pin)) : falseObj;
+}
+static OBJ primP2Ack(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 1 || pin < 0) return falseObj;
+	_akpin(pin); return trueObj;
+}
+static OBJ primP2Pulse(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 4 || pin < 0 || !isInt(args[1]) || !isInt(args[2]) || !isInt(args[3])) return falseObj;
+	int high = obj2int(args[1]), low = obj2int(args[2]), count = obj2int(args[3]);
+	uint32_t ticks = clockFrequency()/1000000;
+	if (!ticks || high <= 0 || low < 0 || count < 1 || (uint32_t)high > 65535U/ticks ||
+		(uint32_t)low > 65535U/ticks || (uint32_t)(high+low)*ticks > 65535U) return falseObj;
+	p2Start(pin, P_PULSE | P_OE, (((uint32_t)low*ticks)<<16) | ((uint32_t)(high+low)*ticks), count);
+	return trueObj;
+}
+static OBJ primP2Transition(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 3 || pin < 0 || !isInt(args[1]) || !isInt(args[2])) return falseObj;
+	int usecs = obj2int(args[1]), count = obj2int(args[2]); uint32_t ticks = clockFrequency()/1000000;
+	if (!ticks || usecs < 1 || count < 1 || (uint32_t)usecs > 65535U/ticks) return falseObj;
+	p2Start(pin, P_TRANSITION | P_OE, usecs*ticks, count); return trueObj;
+}
+static OBJ primP2PWM(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 4 || pin < 0 || !isInt(args[1]) || !isInt(args[2]) || objType(args[3]) != BooleanType) return falseObj;
+	int hz = obj2int(args[1]), duty = obj2int(args[2]), triangle = args[3] == trueObj;
+	if (hz < 1 || duty < 0 || duty > 1000 || (uint32_t)hz > clockFrequency()/4) return falseObj;
+	uint32_t clocks = clockFrequency()/hz/(triangle ? 2 : 1);
+	uint32_t unit = (clocks+65534)/65535, frame = clocks/unit;
+	if (unit > 65535 || frame < 2) return falseObj;
+	p2Start(pin, (triangle ? P_PWM_TRIANGLE : P_PWM_SAWTOOTH) | P_OE,
+		(frame<<16)|unit, (frame*(uint32_t)duty+500)/1000); return trueObj;
+}
+static OBJ primP2UART(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 3 || pin < 0 || !isInt(args[1]) || objType(args[2]) != BooleanType) return falseObj;
+	int baud = obj2int(args[1]);
+	if (baud < 1 || (uint32_t)baud > clockFrequency()/4) return falseObj;
+	uint32_t period = clockFrequency()/baud;
+	if (period < 4 || period > 65535) return falseObj;
+	uint32_t mode = args[2] == trueObj ? P_ASYNC_TX | P_OE : P_ASYNC_RX;
+	releasePin(pin); _wrpin(pin, mode); _wxpin(pin, (period<<16)|7);
+	/* Do not buffer a spurious zero byte while configuring the transmitter. */
+	if (pin < 32) _DIRA |= 1U<<pin; else _DIRB |= 1U<<(pin-32);
+	pinModeState[pin] = P2_MODE_SMART; smartModeState[pin] = mode; return trueObj;
+}
+static OBJ primP2UARTWrite(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 2 || pin < 0 || !isInt(args[1]) || smartModeState[pin] != (P_ASYNC_TX | P_OE)) return falseObj;
+	int byte = obj2int(args[1]); if (byte < 0 || byte > 255) return falseObj;
+	/* First write is allowed while IN is low; subsequent writes need buffer space.
+	   Conservative frame spacing avoids needing the mode-specific C flag. */
+	if (!_pinr(pin)) {
+		/* An idle, newly configured transmitter has no queued word. */
+		uint32_t busy; __asm { rqpin busy, pin wc; muxc busy, #1; }
+		if (busy & 1) return falseObj;
+	}
+	_wypin(pin, byte); return trueObj;
+}
+static OBJ primP2UARTRead(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 1 || pin < 0 || smartModeState[pin] != P_ASYNC_RX || !_pinr(pin)) return int2obj(-1);
+	/* The FlexC smart-pin builtin can propagate its sign bit when shifting. */
+	return int2obj((_rdpin(pin)>>24) & 255);
+}
+static OBJ primP2DAC8(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args); uint32_t pad;
+	if (argc != 3 || pin < 0 || !isInt(args[1]) || !P2_NAMED(p2PadNames, args[2], &pad) ||
+		(pad & 0x1c0000) != 0x140000) return falseObj;
+	int level = obj2int(args[1]); if (level < 0 || level > 255) return falseObj;
+	uint32_t mode = pad | ((uint32_t)level<<8);
+	p2Pad(pin, mode, true, false); pinModeState[pin] = P2_MODE_DAC; return trueObj;
 }
 
 static OBJ primP2Frequency(int argc, OBJ *args) {
@@ -676,6 +849,19 @@ static OBJ primP2WriteY(int argc, OBJ *args) {
 }
 
 static PrimEntry entries[] = {
+	{"p2PadRaw", primP2PadRaw},
+	{"p2PadNamed", primP2PadNamed},
+	{"p2Configure", primP2Configure},
+	{"p2PinSample", primP2Sample},
+	{"p2PinPeekHex", primP2PeekHex},
+	{"p2PinAck", primP2Ack},
+	{"p2Pulse", primP2Pulse},
+	{"p2Transition", primP2Transition},
+	{"p2PWM", primP2PWM},
+	{"p2UART", primP2UART},
+	{"p2UARTWrite", primP2UARTWrite},
+	{"p2UARTRead", primP2UARTRead},
+	{"p2DAC8", primP2DAC8},
 	{"p2Board", primP2Board},
 	{"p2FlashID", primP2FlashID},
 	{"p2ClockHz", primP2ClockHz},

@@ -12,6 +12,16 @@ async function main(){
  const pi=load(path.join(root,'js-preview/raspberry-pi5'),{readback:false,Socket,location:{href:'https://speccy88.github.io/microblocks-zephyr/js-preview/raspberry-pi5/'}});
  assert.throws(()=>pi.evaluate("new MB_CommPort().connect('linux-loopback')"),/WSS is not commissioned/);assert.equal(providers,0);
  const results=[];
+ const p2Folder=path.join(root,'js-preview/propeller2');
+ const p2=load(p2Folder,{readback:false,Socket});
+ p2.set('bundle','Libraries/Targets/Propeller 2 Project.ubl');
+ await p2.evaluate('MB_Files.initialize();MB_editor.openLibraryFile(bundle)');
+ p2.evaluate('MB_editor.codeManager.assignFunctionIDs()');
+ const p2Functions=p2.evaluate('MB_editor.project.allFunctions().map(f=>({name:f.functionName,bytes:MB_editor.codeManager.compiledBytesFor(f).length}))');
+ const p2Source=JSON.parse(fs.readFileSync(path.join(p2Folder,'target-library-source.json')));
+ assert.deepEqual(Array.from(p2Functions,f=>f.name),p2Source.function_names);
+ assert(p2Functions.length>=31&&p2Functions.every(f=>f.bytes>0&&f.bytes<1000));
+ results.push({target:'propeller2',functions:p2Functions.length,compiled:true,graphical:false,physical:false});
  for(const [file,count,modules] of [['MicroDuck Linux.ubl',170,6],['MicroDuck Starter Lab.ubl',213,10],['MicroDuck Camera Lab.ubl',235,12]]){
   const h=load(duck,{readback:false,Socket,location:{href:'https://speccy88.github.io/microblocks-zephyr/js-preview/microduck/'}});h.set('file','Libraries/'+file);
   for(const type of ['serial','BLE','boardie','linux-loopback'])assert.throws(()=>h.evaluate(`new MB_CommPort().connect(${JSON.stringify(type)})`),/offline editing only/);

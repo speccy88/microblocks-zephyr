@@ -1,0 +1,13 @@
+{
+  "tested_at_utc": "2026-11-03T16:00:51.435239+00:00",
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "dtr": false,
+  "rts": false,
+  "uploads_or_resets": false
+}

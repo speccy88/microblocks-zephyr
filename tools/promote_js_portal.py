@@ -66,6 +66,10 @@ def promote(site):
         for entry, raw in local_target.items():
             (folder / entry).parent.mkdir(parents=True, exist_ok=True)
             (folder / entry).write_bytes(raw)
+        if local_target:
+            profile = json.loads((folder / 'target-profile.json').read_text())
+            profile['function_names'] = json.loads(local_target['target-library-source.json'])['function_names']
+            (folder / 'target-profile.json').write_text(json.dumps(profile, indent=2)+'\n', encoding='utf-8', newline='\n')
         index = folder / 'files.txt'
         if not index.exists():
             raise ValueError('Reviewed JavaScript file index missing')
@@ -74,6 +78,9 @@ def promote(site):
         for entry in ['index.html', 'microblocks.html', 'editor-parent.js', 'files.txt', *overlays, *local_target]:
             raw = (folder / entry).read_bytes()
             receipt['files'][entry] = {'bytes':len(raw), 'sha256':hashlib.sha256(raw).hexdigest()}
+        if local_target:
+            raw = (folder / 'target-profile.json').read_bytes()
+            receipt['files']['target-profile.json'] = {'bytes':len(raw), 'sha256':hashlib.sha256(raw).hexdigest()}
         receipt['main_portal_parent_hook'] = True
         receipt['native_sfc_javascript'] = True
         receipt['connected_board_project_readback'] = True
@@ -87,6 +94,7 @@ def promote(site):
     changed = sorted(name for name, digest in before.items() if after.get(name) != digest)
     allowed = {'index.html', 'portal.js'} | {'js-preview/' + p + '/' + n for p in PROFILES for n in ['index.html','microblocks.html','build-manifest.json','files.txt']}
     allowed |= {'js-preview/propeller2/' + n for n in target_assets('propeller2') if 'js-preview/propeller2/' + n in before}
+    allowed.add('js-preview/propeller2/target-profile.json')
     if set(changed) != allowed:
         raise ValueError('Unexpected JavaScript portal assembly change')
     report = {'schema':1, 'default_editor':'javascript', 'source_commit':manifest['source_commit'],

@@ -1,0 +1,23 @@
+{
+  "tested_at_utc": "2026-11-03T16:00:10.898016+00:00",
+  "editor_source_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "browser": "real Windows Edge",
+  "local_candidate": "p2-smart-final-site/js-preview/propeller2",
+  "library_sha256": "4de826c0783206eb2eaf8a3f08c6cda4328880abd0170075bfdc96171bea0064",
+  "library_functions_compiled": 31,
+  "upstream_engine_modified": false,
+  "graphical_library_load_and_render": true,
+  "physical_connection_in_this_browser_session_verified": false,
+  "connection_blocker": "Connect target USB did not obtain a port selection; a subsequent request reported 'Previous USB selection or cleanup is still pending'. The extra browser test tab was closed to cancel its pending session. No browser revision-2 execution PASS is claimed.",
+  "physical_execution_evidence": [
+    "smart-pins-acceptance-flash-boot.json",
+    "cogs-revision2-flash-boot.json"
+  ],
+  "screenshot": "p2-extension-blocks-palette.jpg",
+  "screenshot_sha256": "857b1763157de423a9c153d30fb5071716f9ca06424ccf44fc9e7a13e0e244ca",
+  "repository_validation": {
+    "tests": 679,
+    "skipped": 391,
+    "result": "PASS"
+  }
+}

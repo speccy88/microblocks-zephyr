@@ -90,14 +90,17 @@
     },
     {
       "id": "smart_pin",
-      "status": "Named input counting mode, full-width raw mode/X/Y, invalid values and reserved pins physically exercised. Input configuration restored by saved start hat after reset. External output waveforms unverified.",
+      "status": "Extension revision 2: raw 32-bit Smart Pin and 13-bit pad setup, 31 named operation variants, 24 named pad presets and separate mode blocks. Wired GPIO both directions, exact pulse/transition rising counts, NCO timing, triangle/sawtooth PWM ratios, quadrature forward/reverse, synchronous serial, UART 8N1 bytes and DAC8-to-calibrated-ADC1x monotonic transfer PASS on EC32MB, from RAM and after flash-boot reset. Remaining modes/presets configuration-only. USB unsupported; no absolute analog/clock accuracy, noise or bandwidth claim.",
       "physical_tested": true,
-      "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
-      "external_output_waveforms_tested": false
+      "physical_evidence": "evidence/2026-11-03/propeller2/smart-pins-acceptance-flash-boot.json",
+      "external_output_waveforms_tested": false,
+      "wired_pair_timing_measured": true,
+      "external_instrumentation_used": false,
+      "usb_supported": false
     },
     {
       "id": "gpio_adc_pwm_tone_servo_i2c_spi",
-      "status": "recovered implementations retained; external hardware tests pending",
+      "status": "GPIO both directions on four pairs, ADC1x DAC transfer and PWM ratios physically tested in the Smart Pin record. Tone, servo, I2C and SPI external peripherals remain untested.",
       "physical_tested": false
     },
     {
@@ -113,14 +116,21 @@
     },
     {
       "id": "physical_cog_scalar_workers",
-      "status": "Real distinct worker cogs 2/3 and main cog 0; exact shared total 15000, main list allocation/GC, reconnect, independent stop, stop-all and live code edit PASS on EC32MB. Worker heap allocation/peripheral operations remain unsupported. Built all three variants; current native image installed and USB/reset regression passed. Worker acceptance repeated after hardware flash boot; reset while workers active also PASS.",
+      "status": "Real distinct worker cogs 2/3 and main cog 0; exact shared total 15000, main list allocation/GC, reconnect, independent stop, stop-all and live code edit PASS on EC32MB. Worker heap allocation/peripheral operations remain unsupported. Built all three variants; current native image installed and USB/reset regression passed. Worker acceptance repeated after hardware flash boot; reset while workers active also PASS. Full worker regression also PASS on extension revision 2 after flash boot.",
       "physical_tested": true,
-      "physical_evidence": "evidence/2026-11-03/propeller2/cogs-acceptance-flash-boot.json",
+      "physical_evidence": "evidence/2026-11-03/propeller2/cogs-revision2-flash-boot.json",
       "contract": "docs/PROPELLER2_MULTICOG.md",
       "shared_values": "HUB integer/Boolean words; hardware lock for reads/stores and change-variable/explicit atomic add",
       "worker_heap_objects": false,
       "worker_peripheral_access": false,
       "native_stack_bytes_per_cog": 8192
+    },
+    {
+      "id": "pin_pad_configuration",
+      "status": "24 named WRPIN D[20:8] circuit presets and a full raw 13-bit field; configuration-only acceptance. Logic/Schmitt, ADC1x and 990R 3V DAC have the separate wired-pair signal tests cited. Other gains, DAC impedances and comparators lack analog signal validation.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/2026-11-03/propeller2/smart-pins-acceptance-flash-boot.json",
+      "all_pad_analog_behaviors_validated": false
     }
   ],
   "references": [
@@ -129,5 +139,5 @@
     "https://github.com/totalspectrum/flexprop/releases/tag/v7.7.0"
   ],
   "code_flash_erase_bytes": 4096,
-  "extension_revision": 1
+  "extension_revision": 2
 }

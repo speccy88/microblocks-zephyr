@@ -1,8 +1,10 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 2
-description 'Native Propeller 2 firmware, USB at 115200. Not Zephyr. Pins P58–63 are reserved; EC32MB also reserves P40–57. NCO/PWM and raw modes can drive hardware. Smart Pin X/Y are hardware register values. Read the board documentation before using outputs.'
+version 0 3
+description 'Native Propeller 2 firmware, USB at 115200. Not Zephyr. Pins P58Ã¢â‚¬â€œ63 are reserved; EC32MB also reserves P40Ã¢â‚¬â€œ57. NCO/PWM and raw modes can drive hardware. Smart Pin X/Y are hardware register values. Read the board documentation before using outputs.'
 choices p2Mode 'input' 'pull-up' 'pull-down' 'NCO frequency' 'NCO duty' 'PWM sawtooth' 'PWM triangle' 'count rises' 'count highs'
+choices p2Pad 'logic' 'logic A feedback' 'logic B feedback' 'Schmitt' 'Schmitt A feedback' 'Schmitt B feedback' 'compare A B' 'compare A B feedback' 'ADC ground' 'ADC VIO' 'ADC floating' 'ADC 1x' 'ADC 3x' 'ADC 10x' 'ADC 30x' 'ADC 100x' 'DAC 990R 3V' 'DAC 600R 2V' 'DAC 124R 3V' 'DAC 75R 2V' 'level A' 'level A feedback negative' 'level B feedback positive' 'level B feedback negative'
+choices p2Operation 'repository' 'DAC noise' 'DAC random dither' 'DAC PWM dither' 'pulse' 'transition' 'NCO frequency' 'NCO duty' 'PWM triangle' 'PWM sawtooth' 'PWM SMPS' 'quadrature' 'register up' 'register up down' 'count rises' 'count highs' 'state ticks' 'high ticks' 'event ticks' 'period ticks' 'period highs' 'window ticks' 'window highs' 'window periods' 'ADC sample' 'ADC external' 'ADC scope' 'sync transmit' 'sync receive' 'async transmit' 'async receive'
 spec 'r' '[p2:p2Board]' 'P2 board'
 spec 'r' '[p2:p2FlashID]' 'P2 boot flash JEDEC (hex)'
 spec 'r' '[p2:p2ClockHz]' 'P2 clock (Hz)'
@@ -21,7 +23,20 @@ spec ' ' 'p2FrequencyHz' 'P2 Smart Pin _ frequency _ Hz' 'num num' 0 1000
 spec ' ' '[p2:p2PinRelease]' 'P2 release pin _' 'num' 0
 spec 'b' '[p2:p2PinReady]' 'P2 Smart Pin _ ready?' 'num' 0
 spec 'r' '[p2:p2PinReadHex]' 'P2 Smart Pin _ read Z (hex)' 'num' 0
+spec 'b' '[p2:p2PadNamed]' 'P2 try pad _ circuit _ drive _ high _' 'num menu.p2Pad bool bool' 0 'Schmitt' false false
+spec 'b' '[p2:p2Pulse]' 'P2 try pulse pin _ high _ us low _ us count _' 'num num num num' 0 100 100 10
+spec 'b' '[p2:p2Transition]' 'P2 try pin _ transition every _ us count _' 'num num num' 0 100 20
+spec 'b' '[p2:p2PWM]' 'P2 try PWM pin _ frequency _ Hz duty _ /1000 triangle _' 'num num num bool' 2 1000 250 false
+spec 'b' '[p2:p2UART]' 'P2 try UART pin _ baud _ transmit _' 'num num bool' 4 115200 true
+spec 'b' '[p2:p2UARTWrite]' 'P2 try UART pin _ send byte _' 'num num' 4 85
+spec 'r' '[p2:p2UARTRead]' 'P2 UART pin _ read byte or -1' 'num' 5
+spec 'b' '[p2:p2DAC8]' 'P2 try DAC pin _ level _ /255 circuit _' 'num num menu.p2Pad' 6 128 'DAC 990R 3V'
+spec 'b' '[p2:p2PinSample]' 'P2 pin _ IN flag (keep mode)' 'num' 0
 advanced
+spec 'b' '[p2:p2PadRaw]' 'P2 try pad _ D20:8 hex _ drive _ high _' 'num str bool bool' 0 '0600' false false
+spec 'b' '[p2:p2Configure]' 'P2 try pin _ operation _ circuit _ X hex _ Y hex _ drive _ B offset _' 'num menu.p2Operation menu.p2Pad str str bool num' 0 'count rises' 'Schmitt' '0' '0' false 0
+spec 'r' '[p2:p2PinPeekHex]' 'P2 pin _ quiet Z (hex)' 'num' 0
+spec 'b' '[p2:p2PinAck]' 'P2 acknowledge pin _' 'num' 0
 spec 'r' '[p2:p2CogError]' 'P2 worker cog _ last error' 'num' 2
 spec 'b' '[p2:p2CogStackOK]' 'P2 worker cog _ stack guards intact?' 'num' 2
 spec 'r' '[p2:p2CogStackUsed]' 'P2 worker cog _ native stack used bytes' 'num' 2
@@ -45,4 +60,146 @@ to p2FrequencyHz pin hz {
 
 to p2StartSmartPinRaw pin mode x y {
     '[p2:p2SmartPinRaw]' pin mode x y
+}
+
+spec 'b' 'p2Repository' 'P2 store value _ in pin _ repository' 'num num' 42 0
+to p2Repository value pin {
+    return ('[p2:p2Configure]' pin 'repository' 'logic' value 0 false 0)
+}
+
+spec 'b' 'p2DACNoise' 'P2 try DAC noise pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2DACNoise pin x y b {
+    return ('[p2:p2Configure]' pin 'DAC noise' 'DAC 990R 3V' x y true b)
+}
+
+spec 'b' 'p2DACRandomDither' 'P2 try DAC random dither pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2DACRandomDither pin x y b {
+    return ('[p2:p2Configure]' pin 'DAC random dither' 'DAC 990R 3V' x y true b)
+}
+
+spec 'b' 'p2DACPWMDither' 'P2 try DAC PWM dither pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2DACPWMDither pin x y b {
+    return ('[p2:p2Configure]' pin 'DAC PWM dither' 'DAC 990R 3V' x y true b)
+}
+
+spec 'b' 'p2NCODuty' 'P2 try NCO duty pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2NCODuty pin x y b {
+    return ('[p2:p2Configure]' pin 'NCO duty' 'logic' x y true b)
+}
+
+spec 'b' 'p2PWMSMPS' 'P2 try PWM SMPS pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2PWMSMPS pin x y b {
+    return ('[p2:p2Configure]' pin 'PWM SMPS' 'logic' x y true b)
+}
+
+spec 'b' 'p2Quadrature' 'P2 quadrature pin _ B offset _ sample clocks _' 'num num num' 1 2 0
+to p2Quadrature pin b clocks {
+    return ('[p2:p2Configure]' pin 'quadrature' 'Schmitt' clocks 0 false b)
+}
+
+spec 'b' 'p2RegisterUp' 'P2 gated count up pin _ B offset _ sample clocks _' 'num num num' 1 2 0
+to p2RegisterUp pin b clocks {
+    return ('[p2:p2Configure]' pin 'register up' 'Schmitt' clocks 0 false b)
+}
+
+spec 'b' 'p2RegisterUpDown' 'P2 count up down pin _ B offset _ sample clocks _' 'num num num' 1 2 0
+to p2RegisterUpDown pin b clocks {
+    return ('[p2:p2Configure]' pin 'register up down' 'Schmitt' clocks 0 false b)
+}
+
+spec 'b' 'p2CountRises' 'P2 count rising edges pin _ sample clocks _' 'num num' 1 0
+to p2CountRises pin clocks {
+    return ('[p2:p2Configure]' pin 'count rises' 'Schmitt' clocks 0 false 0)
+}
+
+spec 'b' 'p2CountHighs' 'P2 count high clocks pin _ sample clocks _' 'num num' 1 0
+to p2CountHighs pin clocks {
+    return ('[p2:p2Configure]' pin 'count highs' 'Schmitt' clocks 0 false 0)
+}
+
+spec 'b' 'p2StateTicks' 'P2 time states on pin _ in clocks' 'num' 1
+to p2StateTicks pin {
+    return ('[p2:p2Configure]' pin 'state ticks' 'Schmitt' 0 0 false 0)
+}
+
+spec 'b' 'p2HighTicks' 'P2 time high pulses on pin _ in clocks' 'num' 1
+to p2HighTicks pin {
+    return ('[p2:p2Configure]' pin 'high ticks' 'Schmitt' 0 0 false 0)
+}
+
+spec 'b' 'p2EventTicks' 'P2 try event ticks pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2EventTicks pin x y b {
+    return ('[p2:p2Configure]' pin 'event ticks' 'Schmitt' x y false b)
+}
+
+spec 'b' 'p2PeriodTicks' 'P2 try period ticks pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2PeriodTicks pin x y b {
+    return ('[p2:p2Configure]' pin 'period ticks' 'Schmitt' x y false b)
+}
+
+spec 'b' 'p2PeriodHighs' 'P2 try period highs pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2PeriodHighs pin x y b {
+    return ('[p2:p2Configure]' pin 'period highs' 'Schmitt' x y false b)
+}
+
+spec 'b' 'p2WindowTicks' 'P2 try window ticks pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2WindowTicks pin x y b {
+    return ('[p2:p2Configure]' pin 'window ticks' 'Schmitt' x y false b)
+}
+
+spec 'b' 'p2WindowHighs' 'P2 try window highs pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2WindowHighs pin x y b {
+    return ('[p2:p2Configure]' pin 'window highs' 'Schmitt' x y false b)
+}
+
+spec 'b' 'p2WindowPeriods' 'P2 try window periods pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2WindowPeriods pin x y b {
+    return ('[p2:p2Configure]' pin 'window periods' 'Schmitt' x y false b)
+}
+
+spec 'b' 'p2ADCSample' 'P2 try ADC sample pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2ADCSample pin x y b {
+    return ('[p2:p2Configure]' pin 'ADC sample' 'ADC 1x' x y false b)
+}
+
+spec 'b' 'p2ADCExternal' 'P2 try ADC external pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2ADCExternal pin x y b {
+    return ('[p2:p2Configure]' pin 'ADC external' 'ADC 1x' x y false b)
+}
+
+spec 'b' 'p2ADCScope' 'P2 try ADC scope pin _ X hex _ Y hex _ B offset _' 'num str str num' 0 '0' '0' 0
+to p2ADCScope pin x y b {
+    return ('[p2:p2Configure]' pin 'ADC scope' 'ADC 1x' x y false b)
+}
+
+spec 'b' 'p2SyncTransmit' 'P2 sync transmit pin _ word bits _ word hex _ clock B offset _' 'num num str num' 0 8 'a5' 2
+to p2SyncTransmit pin bits word b {
+    if (or (bits < 1) (bits > 32)) { return false }
+    return ('[p2:p2Configure]' pin 'sync transmit' 'logic' (32 + (bits - 1)) word true b)
+}
+
+spec 'b' 'p2SyncReceive' 'P2 sync receive pin _ word bits _ clock B offset _' 'num num num' 1 8 2
+to p2SyncReceive pin bits b {
+    if (or (bits < 1) (bits > 32)) { return false }
+    return ('[p2:p2Configure]' pin 'sync receive' 'Schmitt' (32 + (bits - 1)) 0 false b)
+}
+
+spec 'b' 'p2AsyncTransmit' 'P2 UART transmit pin _ baud _' 'num num' 4 115200
+to p2AsyncTransmit pin baud {
+    return ('[p2:p2UART]' pin baud true)
+}
+
+spec 'b' 'p2AsyncReceive' 'P2 UART receive pin _ baud _' 'num num' 5 115200
+to p2AsyncReceive pin baud {
+    return ('[p2:p2UART]' pin baud false)
+}
+
+spec 'b' 'p2SawPWM' 'P2 sawtooth PWM pin _ Hz _ duty _ /1000' 'num num num' 2 1000 250
+to p2SawPWM pin hz duty {
+    return ('[p2:p2PWM]' pin hz duty false)
+}
+
+spec 'b' 'p2TrianglePWM' 'P2 triangle PWM pin _ Hz _ duty _ /1000' 'num num num' 2 1000 250
+to p2TrianglePWM pin hz duty {
+    return ('[p2:p2PWM]' pin hz duty true)
 }

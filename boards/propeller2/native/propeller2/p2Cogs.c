@@ -283,4 +283,4 @@ OBJ primP2SharedAdd(int count, OBJ *args) {
     if (index < 0 || count < 2) return fail(notEnoughArguments);
     return p2AddShared(index, args[1]);
 }
-OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(1); }
+OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(2); }

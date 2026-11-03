@@ -145,6 +145,58 @@ separately by the serial test.
 
 ## Smart Pin blocks
 
+Extension revision 2 adds separate pad and operating-mode setup, all 24 named
+pad presets, a full 13-bit D[20:8] pad field, and named setup for every non-USB
+operating code. Pad presets cover logic/Schmitt/feedback/comparator circuits,
+ADC references and gains, four DAC impedances/ranges and level comparators.
+Use raw pad bits for drive strength, inversion, synchronous input and embedded
+DAC/comparator level combinations. The raw Smart Pin block additionally retains
+full A/B routing, inversion and filtering bits.
+
+The library has separate mode blocks, including unit-aware pulse/transition
+microseconds, PWM Hz and duty per 1000, UART baud/bytes, 8-bit DAC levels,
+integer-clock counting and quadrature, plus advanced mode-specific register
+blocks for dither, SMPS, event/period/window timing and ADC capture. Boolean
+**try** blocks report rejected arguments. Older command wrappers remain for
+project compatibility; prefer the Boolean forms when failure must be handled.
+The generic named setup accepts X/Y hex strings for all 32 bits, or positive
+VM integers supplied by the higher-level wrappers. B offset selects an adjacent
+user pin from -3 to +3; out-of-range/reserved sources are rejected.
+
+Pulse and transition microsecond intervals must fit 16 clock-count bits
+(364 microseconds at 180 MHz; the pulse high+low interval shares that limit).
+PWM frequencies are quantized to hardware clock/frame counts. UART is a
+nonblocking 8N1 interface with a one-word hardware receiver: read promptly;
+`-1` means no word is ready. Transmit acceptance means a word was queued,
+not that its final stop bit has finished. `quiet Z` uses RQPIN and leaves the
+ready flag intact. Ordinary digitalRead takes GPIO ownership and reconfigures
+an active Smart Pin; use the dedicated readers to retain its mode.
+
+On EC32MB, [wired-pair acceptance](../../evidence/2026-11-03/propeller2/smart-pins-acceptance-ram.json)
+passes GPIO in both directions on all four pairs, exact finite pulse and
+transition counting, NCO period/high timing, both PWM ratios, quadrature in
+both directions, synchronous serial on two pairs, UART bytes including 128-255,
+and monotonic DAC8-to-calibrated-ADC1x transfer. These loops establish transfers
+and ratios; they do not establish absolute voltage/clock accuracy, analog
+linearity, noise or bandwidth. ADC startup settling was extended after the
+first conversion was observed returning its reset value.
+
+Other modes and pad presets have configuration-only evidence, not signal
+acceptance. DAC noise/dither, feedback SMPS, gated counting, the remaining
+timing variants, external/scope ADC and other analog gains need dedicated tests.
+USB is unsupported and is rejected by these single-pin APIs. No USB test is
+attempted on the hardwired pairs. Generic stream-audio DAC stubs also remain
+unsupported; use the explicit P2 DAC blocks. See the
+[mode contract](../../docs/PROPELLER2_SMART_PINS.md).
+
+All 31 current library functions import and compile with the pinned JavaScript
+engine, and the new library renders in real Windows Edge. The additional
+revision-2 browser connection attempt did not complete USB selection and was
+closed while cleanup remained pending. This is a graphical rendering check,
+not a revision-2 browser execution PASS; see the
+[editor check](../../evidence/2026-11-03/propeller2/smart-pins-editor-check.json).
+The full serial hardware tests above remain independent of that limitation.
+
 `P2 configure Smart Pin` takes a pin, a named mode, and X/Y register values.
 Modes are input, pull-up, pull-down, NCO frequency/duty, PWM sawtooth/triangle,
 count rises and count highs. Input modes release output; counting modes have
@@ -183,7 +235,7 @@ normal v405-versus-v417 notice; acknowledging it allows the tested arithmetic
 and live-edit workflows. No minimum-version check is bypassed and the VM
 version is not relabeled. The JavaScript P2 profile explicitly accepts native
 v405; its bounded acceptance is recorded above. Other newer-editor features need their own tests.
-Networking, secondary UART, NeoPixels, PSRAM object
+Networking, the generic stream-serial API, NeoPixels, PSRAM object
 storage and one-click browser firmware installation are unsupported.
 
 ## Recorded physical acceptance (2026-10-19)

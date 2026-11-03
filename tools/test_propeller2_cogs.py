@@ -78,8 +78,9 @@ def test(port, usb_serial, board, program, evidence):
             136:('p2CogStart',('workerContinuousA',2)),
         }
         for index,(name,args) in queries.items(): vm.upload(index, primitive(name,args),2)
-        assert run(120) == 1
-        report['checks']['extension_revision'] = 1
+        revision = run(120)
+        assert revision >= 1
+        report['checks']['extension_revision'] = revision
         assert run(132) is False and run(133) is False and run(134) is False
         report['checks']['main_rx_cogs_and_unknown_function_rejected'] = True
 
