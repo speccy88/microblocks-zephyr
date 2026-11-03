@@ -1,11 +1,13 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 7
-description 'Native P2 extension 6. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+version 0 8
+description 'Native P2 extension 7. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+choices p2FilterLength 2 3 5 8
+choices p2FilterField 'length' 'tap' 'users' 'sample clocks hex' 'configuration hex'
 choices p2Logic 'pass A' 'A AND B' 'A OR B' 'A XOR B'
 choices p2LevelCircuit 'level A' 'level A feedback negative' 'level B feedback positive' 'level B feedback negative'
 choices p2SINC 'SINC2' 'SINC3'
-choices p2CaptureField 'state' 'available' 'raw' 'emitted' 'cog' 'pin' 'local DIR' 'scale' 'maximum gap clocks' 'elapsed clocks' 'expected clocks' 'wraps' 'scope channels'
+choices p2CaptureField 'state' 'available' 'raw' 'emitted' 'cog' 'pin' 'local DIR' 'scale' 'maximum gap clocks' 'elapsed clocks' 'expected clocks' 'wraps' 'scope channels' 'continuous bits'
 choices p2Event 'high' 'rise' 'edge'
 choices p2Edges 'rise to rise' 'rise to edge' 'edge to rise' 'edge to edge'
 choices p2ScopeFilter 'Tukey 68' 'Tukey 45' 'Hann 28'
@@ -91,7 +93,15 @@ spec 'b' '[p2:p2SerialSendHex]' 'P2 try serial pin _ send word hex _' 'num str' 
 spec 'r' '[p2:p2SerialReadHex]' 'P2 serial pin _ read word hex or false' 'num' 5
 spec 'b' '[p2:p2SerialBusy]' 'P2 async TX pin _ still shifting?' 'num' 4
 spec 'b' '[p2:p2LogicInput]' 'P2 try logic input pin _ function _ A offset _ invert A _ B offset _ invert B _' 'num menu.p2Logic num bool num bool' 1 'A AND B' 0 false 2 false
+spec 'b' '[p2:p2FilterConfigure]' 'P2 try global filter bank _ unanimous samples _ CT tap _' 'num menu.p2FilterLength num' 0 8 8
+spec 'r' '[p2:p2FilterInfo]' 'P2 filter bank _ _' 'num menu.p2FilterField' 0 'users'
+spec 'b' 'p2FilteredInput' 'P2 try filtered input pin _ bank _' 'num num' 1 0
+spec 'b' 'p2DebounceInput' 'P2 try debounce input pin _ bank _ minimum stable _ us' 'num num num' 1 0 1000
+spec 'b' 'p2FilteredRises' 'P2 count filtered rises pin _ bank _ sample clocks _' 'num num num' 1 0 0
+spec 'b' 'p2StartExternalBitStream' 'P2 try continuous external bits pin _ cog _ clock B offset _ no word timeout ms _' 'num num num num' 1 2 2 1000
 advanced
+spec 'b' '[p2:p2FilterInput]' 'P2 filtered input pin _ bank _ A offset _ invert A _ B offset _ invert B _' 'num num num bool num bool' 1 0 0 false 2 false
+spec 'b' 'p2FilteredSmartPin' 'P2 filtered pin _ operation _ circuit _ X _ Y _ drive _ A offset _ B offset _ bank _' 'num menu.p2Operation menu.p2Pad str str bool num num num' 1 'count rises' 'Schmitt' '0' '0' false 0 0 0
 spec 'b' '[p2:p2ScopeCapture]' 'P2 scope group _ channels _ clocks _ frames _ cog _ trigger pin (-1 immediate) _ wait ms _' 'num num num num num num num' 0 15 18000 128 2 -1 1000
 spec 'b' '[p2:p2CaptureStart]' 'P2 native capture pin _ kind _ period _ keep _ limit _ cog _ external _ B offset _ timeout ms _' 'num str num num num num bool num num' 7 'SINC2' 1024 4096 0 2 false 0 1000
 spec 'b' '[p2:p2ADCSetup]' 'P2 try ADC pin _ mode _ period power _ external _ circuit _ clock B offset _' 'num menu.p2ADCMode num bool menu.p2Pad num' 7 'sample' 9 false 'ADC 1x' 0
@@ -371,4 +381,31 @@ to p2AsyncTransmitWords pin baud bits inverted {
 }
 to p2AsyncReceiveWords pin baud bits inverted {
     return ('[p2:p2AsyncWords]' pin baud bits false inverted)
+}
+
+to p2FilteredInput pin bank {
+    return ('[p2:p2FilterInput]' pin bank 0 false 0 false)
+}
+to p2FilteredRises pin bank clocks {
+    if (clocks < 0) { return false }
+    return ('[p2:p2ConfigureInputs]' pin 'count rises' 'Schmitt' clocks 0 false 0 0 bank)
+}
+to p2FilteredSmartPin pin operation circuit x y drive a b bank {
+    return ('[p2:p2ConfigureInputs]' pin operation circuit x y drive a b bank)
+}
+to p2DebounceInput pin bank usecs {
+    if (not ('[p2:p2PinUsable]' pin)) { return false }
+    if (or (usecs < 1) (usecs > 1000000)) { return false }
+    local 'target' (usecs * (('[p2:p2ClockHz]') / 1000000))
+    local 'tap' 0
+    local 'period' 1
+    while ((7 * period) < target) {
+        period = (period * 2)
+        tap += 1
+    }
+    if (not ('[p2:p2FilterConfigure]' bank 8 tap)) { return false }
+    return (p2FilteredInput pin bank)
+}
+to p2StartExternalBitStream pin cog b timeout {
+    return ('[p2:p2CaptureStart]' pin 'bits' 32 1 0 cog true b timeout)
 }

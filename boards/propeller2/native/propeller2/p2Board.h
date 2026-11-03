@@ -28,5 +28,6 @@
 #endif
 
 #define P2_LAST_USER_PIN (P2_USER_PIN_COUNT - 1)
+void p2FiltersInit(void);
 
 #endif

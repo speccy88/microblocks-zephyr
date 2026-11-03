@@ -161,6 +161,7 @@ void hardwareInit(void) {
 		_pinclear(pin);
 		_pinf(pin);
 	}
+	p2FiltersInit();
 }
 
 // Unsupported optional services. The first P2 port deliberately keeps the

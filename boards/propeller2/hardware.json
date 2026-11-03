@@ -83,7 +83,8 @@
       "browser_evidence": "evidence/2026-10-19/propeller2/browser-acceptance.json",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json",
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/filters-usb-flash-boot.json"
     },
     {
       "id": "javascript_usb",
@@ -105,7 +106,8 @@
       "revision3_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision3-flash-boot.json",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision4-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision5-flash-boot.json",
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision6-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision6-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision7-flash-boot.json"
     },
     {
       "id": "gpio_adc_pwm_tone_servo_i2c_spi",
@@ -119,7 +121,8 @@
       "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json",
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/filters-usb-flash-boot.json"
     },
     {
       "id": "wifi_self_hosting",
@@ -139,7 +142,8 @@
       "worker_peripheral_owner": "main cog via audited requests; worker DIR/OUT unchanged",
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision4-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision5-flash-boot.json",
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision6-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision6-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision7-flash-boot.json"
     },
     {
       "id": "pin_pad_configuration",
@@ -148,7 +152,8 @@
       "physical_evidence": "evidence/2026-11-03/propeller2/smart-pins-acceptance-flash-boot.json",
       "all_pad_analog_behaviors_validated": false,
       "revision5_response_evidence": "evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json",
-      "revision6_logic_evidence": "evidence/2026-11-03/propeller2/serial-options-acceptance-flash-boot.json"
+      "revision6_logic_evidence": "evidence/2026-11-03/propeller2/serial-options-acceptance-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision7-flash-boot.json"
     },
     {
       "id": "physical_cog_object_services",
@@ -164,7 +169,8 @@
       "native_stack_capacity_bytes": 8192,
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision4-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision5-flash-boot.json",
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision6-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision6-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision7-flash-boot.json"
     },
     {
       "id": "smart_pin_checked_modes",
@@ -177,14 +183,15 @@
       ],
       "unsupported_or_unvalidated": [
         "USB paired driver/protocol",
-        "continuous raw-bit streamer/DMA capture",
+        "continuous internal full-clock raw-bit capture and streamer DMA",
         "SMPS power-converter circuit",
         "external ADC converter hardware/protocol",
         "absolute analog/clock accuracy, source resistance, gain accuracy, noise/bandwidth/ENOB/16-bit resolution"
       ],
       "browser_execution_verified": false,
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision5-flash-boot.json",
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision6-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision6-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision7-flash-boot.json"
     },
     {
       "id": "native_sinc_bit_scope_capture",
@@ -209,12 +216,14 @@
         10000
       ],
       "continuous_sinc_and_scope": true,
-      "continuous_raw_bit_transport": false,
+      "continuous_raw_bit_transport": true,
       "streamer_dma": false,
       "external_converter_tested": false,
       "absolute_accuracy_or_enob_tested": false,
       "browser_execution_verified": false,
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/capture-revision6-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/capture-revision6-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/capture-revision7-flash-boot.json",
+      "continuous_raw_bit_scope": "External clocks only, <=1 MHz producer contract; 20 kbit/s host drain tested; 1 MHz retained-overflow test, not sustained host transport"
     },
     {
       "id": "converter_pad_response",
@@ -227,7 +236,8 @@
       "gain_accuracy_tested": false,
       "feedback_output_stability_tested": false,
       "power_converter_tested": false,
-      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision6-flash-boot.json"
+      "revision6_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision6-flash-boot.json",
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision7-flash-boot.json"
     },
     {
       "id": "smart_pin_word_serial_and_logic",
@@ -250,9 +260,54 @@
       "remaining_requirements": [
         "USB separate DM/DP wiring, safe VBUS and full protocol stack",
         "external converter/power circuitry and independent analog instruments",
-        "global input-filter ownership/timing API",
-        "continuous raw-bit streamer/DMA software"
-      ]
+        "continuous internal full-clock raw-bit acquisition and streamer/DMA software"
+      ],
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-revision7-flash-boot.json"
+    },
+    {
+      "id": "global_input_filter_banks",
+      "physical_tested": true,
+      "status": "Revision 7 EC32MB RAM and flash-boot PASS: all four banks and lengths 2/3/5/8 reject 2 us pulses and count 100 longer pulses; routed/inverted high-impedance input, microsecond debounce, shared/raw-consumer retiming refusal and stop/release ownership. Worker cog 3 requests execute on main; 180 MHz report, 20 binary pings and 1012-code-byte/1019-wire-byte fragmented upload with matching CRC remain intact. Defaults restored on VM startup, stop-all retains settings. Read reporters are tracked shadow settings, not register readback. All 56 library functions compile.",
+      "physical_evidence": "evidence/2026-11-03/propeller2/filters-capture-acceptance-flash-boot.json",
+      "ram_evidence": "evidence/2026-11-03/propeller2/filters-capture-acceptance-ram.json",
+      "contract": "docs/PROPELLER2_SMART_PINS.md",
+      "banks": 4,
+      "lengths": [
+        2,
+        3,
+        5,
+        8
+      ],
+      "ct_taps": [
+        0,
+        31
+      ],
+      "active_retiming_refused": true,
+      "reporter_register_readback": false,
+      "configuration_owner": "main cog, HUBSET class 4 only; no clock/debug/reset writes",
+      "reserved_pin_consumers_exposed": false,
+      "independent_time_accuracy_tested": false,
+      "browser_execution_verified": false
+    },
+    {
+      "id": "continuous_external_bit_capture",
+      "physical_tested": true,
+      "status": "Revision 7 EC32MB RAM and flash-boot PASS: full-width external raw words from native cog 2 with active read; host verifies 45312 synthetic pattern bits across ring wrap and five GCs at 20 kbit/s while cog 3 progresses; separate worker byte-array consumer has exact consumed+buffered accounting. At 1 MHz, no-drain overflow stops with all 1023 words/32736 pattern bits contiguous and retained. All-ones preserves bit 31; missing-word timeout, release/cog/stop-all/live-edit cancellation and native/worker stack canaries pass. Not sustained 1 MHz host transport.",
+      "physical_evidence": "evidence/2026-11-03/propeller2/filters-capture-acceptance-flash-boot.json",
+      "ram_evidence": "evidence/2026-11-03/propeller2/filters-capture-acceptance-ram.json",
+      "contract": "docs/PROPELLER2_SMART_PINS.md",
+      "usable_entries": 1023,
+      "maximum_sessions": 1,
+      "external_clock_contract_max_hz": 1000000,
+      "host_drain_test_clock_hz": 20000,
+      "host_pattern_bits": 45312,
+      "overflow_pattern_bits": 32736,
+      "external_converter_tested": false,
+      "internal_full_clock_continuous": false,
+      "streamer_dma": false,
+      "pretrigger_history": false,
+      "absolute_clock_accuracy_tested": false,
+      "browser_execution_verified": false
     }
   ],
   "references": [
@@ -262,6 +317,6 @@
     "https://downloads.parallax.com/propeller-2-documentation/"
   ],
   "code_flash_erase_bytes": 4096,
-  "extension_revision": 6,
+  "extension_revision": 7,
   "mode_coverage_document": "docs/PROPELLER2_MODE_COVERAGE.md"
 }

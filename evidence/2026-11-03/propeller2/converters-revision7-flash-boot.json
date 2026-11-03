@@ -1,0 +1,536 @@
+{
+  "tested_at_utc": "2026-11-03T22:08:54.030056+00:00",
+  "result": "PASS",
+  "scope": "DAC pad transfers, ADC gain response and comparator feedback logic",
+  "checks": {
+    "dac_all_four_pad_monotonic_transfers": [
+      {
+        "circuit": "DAC 990R 3V",
+        "samples": [
+          {
+            "dac8": 16,
+            "calibrated_adc10": 66
+          },
+          {
+            "dac8": 64,
+            "calibrated_adc10": 258
+          },
+          {
+            "dac8": 128,
+            "calibrated_adc10": 513
+          },
+          {
+            "dac8": 192,
+            "calibrated_adc10": 769
+          },
+          {
+            "dac8": 240,
+            "calibrated_adc10": 962
+          }
+        ]
+      },
+      {
+        "circuit": "DAC 600R 2V",
+        "samples": [
+          {
+            "dac8": 16,
+            "calibrated_adc10": 41
+          },
+          {
+            "dac8": 64,
+            "calibrated_adc10": 156
+          },
+          {
+            "dac8": 128,
+            "calibrated_adc10": 309
+          },
+          {
+            "dac8": 192,
+            "calibrated_adc10": 462
+          },
+          {
+            "dac8": 240,
+            "calibrated_adc10": 578
+          }
+        ]
+      },
+      {
+        "circuit": "DAC 124R 3V",
+        "samples": [
+          {
+            "dac8": 16,
+            "calibrated_adc10": 65
+          },
+          {
+            "dac8": 64,
+            "calibrated_adc10": 257
+          },
+          {
+            "dac8": 128,
+            "calibrated_adc10": 513
+          },
+          {
+            "dac8": 192,
+            "calibrated_adc10": 770
+          },
+          {
+            "dac8": 240,
+            "calibrated_adc10": 962
+          }
+        ]
+      },
+      {
+        "circuit": "DAC 75R 2V",
+        "samples": [
+          {
+            "dac8": 16,
+            "calibrated_adc10": 40
+          },
+          {
+            "dac8": 64,
+            "calibrated_adc10": 156
+          },
+          {
+            "dac8": 128,
+            "calibrated_adc10": 311
+          },
+          {
+            "dac8": 192,
+            "calibrated_adc10": 466
+          },
+          {
+            "dac8": 240,
+            "calibrated_adc10": 582
+          }
+        ]
+      }
+    ],
+    "adc_gain_input_response": {
+      "source": "990R 3V DAC",
+      "curves": [
+        {
+          "circuit": "ADC 1x",
+          "samples": [
+            {
+              "dac8": 0,
+              "raw_sample": 181
+            },
+            {
+              "dac8": 16,
+              "raw_sample": 224
+            },
+            {
+              "dac8": 64,
+              "raw_sample": 350
+            },
+            {
+              "dac8": 120,
+              "raw_sample": 498
+            },
+            {
+              "dac8": 127,
+              "raw_sample": 516
+            },
+            {
+              "dac8": 128,
+              "raw_sample": 519
+            },
+            {
+              "dac8": 129,
+              "raw_sample": 521
+            },
+            {
+              "dac8": 136,
+              "raw_sample": 540
+            },
+            {
+              "dac8": 192,
+              "raw_sample": 687
+            },
+            {
+              "dac8": 255,
+              "raw_sample": 854
+            }
+          ]
+        },
+        {
+          "circuit": "ADC 3x",
+          "samples": [
+            {
+              "dac8": 0,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 16,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 64,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 120,
+              "raw_sample": 450
+            },
+            {
+              "dac8": 127,
+              "raw_sample": 508
+            },
+            {
+              "dac8": 128,
+              "raw_sample": 516
+            },
+            {
+              "dac8": 129,
+              "raw_sample": 524
+            },
+            {
+              "dac8": 136,
+              "raw_sample": 582
+            },
+            {
+              "dac8": 192,
+              "raw_sample": 1024
+            },
+            {
+              "dac8": 255,
+              "raw_sample": 1024
+            }
+          ]
+        },
+        {
+          "circuit": "ADC 10x",
+          "samples": [
+            {
+              "dac8": 0,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 16,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 64,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 120,
+              "raw_sample": 302
+            },
+            {
+              "dac8": 127,
+              "raw_sample": 482
+            },
+            {
+              "dac8": 128,
+              "raw_sample": 506
+            },
+            {
+              "dac8": 129,
+              "raw_sample": 533
+            },
+            {
+              "dac8": 136,
+              "raw_sample": 712
+            },
+            {
+              "dac8": 192,
+              "raw_sample": 1024
+            },
+            {
+              "dac8": 255,
+              "raw_sample": 1024
+            }
+          ]
+        },
+        {
+          "circuit": "ADC 30x",
+          "samples": [
+            {
+              "dac8": 0,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 16,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 64,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 120,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 127,
+              "raw_sample": 405
+            },
+            {
+              "dac8": 128,
+              "raw_sample": 480
+            },
+            {
+              "dac8": 129,
+              "raw_sample": 557
+            },
+            {
+              "dac8": 136,
+              "raw_sample": 1024
+            },
+            {
+              "dac8": 192,
+              "raw_sample": 1024
+            },
+            {
+              "dac8": 255,
+              "raw_sample": 1024
+            }
+          ]
+        },
+        {
+          "circuit": "ADC 100x",
+          "samples": [
+            {
+              "dac8": 0,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 16,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 64,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 120,
+              "raw_sample": 0
+            },
+            {
+              "dac8": 127,
+              "raw_sample": 214
+            },
+            {
+              "dac8": 128,
+              "raw_sample": 409
+            },
+            {
+              "dac8": 129,
+              "raw_sample": 611
+            },
+            {
+              "dac8": 136,
+              "raw_sample": 1024
+            },
+            {
+              "dac8": 192,
+              "raw_sample": 1024
+            },
+            {
+              "dac8": 255,
+              "raw_sample": 1024
+            }
+          ]
+        }
+      ],
+      "loading_and_clipping_included": true,
+      "nominal_gain_accuracy_established": false
+    },
+    "input_only_level_comparator_thresholds": [
+      {
+        "circuit": "level A",
+        "samples": [
+          {
+            "threshold8": 64,
+            "source_codes": [
+              32,
+              96
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 128,
+            "source_codes": [
+              96,
+              160
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 192,
+            "source_codes": [
+              160,
+              224
+            ],
+            "states": [
+              false,
+              true
+            ]
+          }
+        ],
+        "receiver_dir": false
+      },
+      {
+        "circuit": "level A feedback negative",
+        "samples": [
+          {
+            "threshold8": 64,
+            "source_codes": [
+              32,
+              96
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 128,
+            "source_codes": [
+              96,
+              160
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 192,
+            "source_codes": [
+              160,
+              224
+            ],
+            "states": [
+              false,
+              true
+            ]
+          }
+        ],
+        "receiver_dir": false
+      },
+      {
+        "circuit": "level B feedback positive",
+        "samples": [
+          {
+            "threshold8": 64,
+            "source_codes": [
+              32,
+              96
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 128,
+            "source_codes": [
+              96,
+              160
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 192,
+            "source_codes": [
+              160,
+              224
+            ],
+            "states": [
+              false,
+              true
+            ]
+          }
+        ],
+        "receiver_dir": false
+      },
+      {
+        "circuit": "level B feedback negative",
+        "samples": [
+          {
+            "threshold8": 64,
+            "source_codes": [
+              32,
+              96
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 128,
+            "source_codes": [
+              96,
+              160
+            ],
+            "states": [
+              false,
+              true
+            ]
+          },
+          {
+            "threshold8": 192,
+            "source_codes": [
+              160,
+              224
+            ],
+            "states": [
+              false,
+              true
+            ]
+          }
+        ],
+        "receiver_dir": false
+      }
+    ],
+    "analog_comparator_feedback_gating": {
+      "dac_sources": [
+        0,
+        2
+      ],
+      "input_comparators": [
+        1,
+        3
+      ],
+      "threshold8": 64,
+      "source_codes": [
+        32,
+        96
+      ],
+      "pwm_output": 4,
+      "receiver": 5,
+      "high_clock_window": 1800000,
+      "running": 450000,
+      "current_limited": 0,
+      "voltage_inhibited": 0,
+      "resumed": 450000,
+      "converter_circuit": false
+    }
+  },
+  "absolute_accuracy_tested": false,
+  "source_resistance_tested": false,
+  "gain_accuracy_tested": false,
+  "feedback_output_tested": false,
+  "power_converter_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "firmware_sha256": "dd31daa9a9f95753e884feee193032a1c102b776f3dd305a51319054c597e177",
+  "acceptance_boot": "revision 7 boot flash installed by loadp2 -SINGLE -FLASH; USB suite includes hardware reboot"
+}

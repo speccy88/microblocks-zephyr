@@ -1,0 +1,67 @@
+module main
+variables Bank Length Tap Pin AOffset Ainv B Binv Field Window Usecs Operation Circuit X Y Drive Cog Timeout ReadCount High Low Count Frequency Done Junk Progress Consumed Core StopConsumer ConsumerStopped
+
+to filteredPulseCounter {
+    if (not ('[p2:p2Pulse]' 0 High Low Count)) { return false }
+    waitMillis 20
+    return ('[p2:p2PinReadHex]' 1)
+}
+to filteredLongCounter {
+    '[p2:digitalWrite]' 0 true
+    waitMillis 5
+    '[p2:digitalWrite]' 0 false
+    waitMillis 5
+    return ('[p2:p2PinReadHex]' 1)
+}
+to bitStreamSource {
+    local 'unit' (('[p2:p2ClockHz]') / Frequency)
+    '[p2:p2PadNamed]' 3 'Schmitt' false false
+    '[p2:p2Configure]' 2 'transition' 'logic' (unit / 2) 1073741823 true 0
+    return ('[p2:p2Configure]' 0 'PWM sawtooth' 'logic' ((31 * 65536) + unit) 15 true 0)
+}
+to bitStreamClockOff { '[p2:digitalWrite]' 2 false }
+to filterCaptureGC {
+    repeat 1600 { Junk = (newList 64) }
+    Done = true
+}
+to bitStreamHeartbeat {
+    Core = ('[p2:p2Cog]')
+    forever {
+        Progress += 1
+        waitMillis 1
+    }
+}
+to bitStreamConsumer {
+    Core = ('[p2:p2Cog]')
+    forever {
+        local 'bytes' ('[p2:p2CaptureRead]' 256)
+        Consumed += ((size bytes) / 4)
+        Progress += 1
+        if StopConsumer {
+            ConsumerStopped = true
+            return Consumed
+        }
+        waitMillis 1
+    }
+}
+to workerFilter {
+    Core = ('[p2:p2Cog]')
+    '[p2:p2FilterConfigure]' 3 8 8
+    p2FilteredInput 1 3
+    Done = ('[p2:p2FilterInfo]' 3 'users')
+}
+
+script 10 10 ('[p2:p2FilterConfigure]' Bank Length Tap)
+script 10 50 (p2FilteredInput Pin Bank)
+script 10 90 ('[p2:p2FilterInfo]' Bank Field)
+script 10 130 ('[p2:p2FilterInput]' Pin Bank AOffset Ainv B Binv)
+script 10 170 (p2FilteredRises Pin Bank Window)
+script 10 210 (p2DebounceInput Pin Bank Usecs)
+script 10 250 (p2FilteredSmartPin Pin Operation Circuit X Y Drive AOffset B Bank)
+script 10 290 (p2StartExternalBitStream Pin Cog B Timeout)
+script 10 330 ('[p2:p2CaptureInfo]' Field)
+script 10 370 ('[p2:p2CaptureRead]' ReadCount)
+script 10 410 ('[p2:p2CaptureStop]')
+script 10 450 (filteredPulseCounter)
+script 10 490 (filteredLongCounter)
+script 10 530 (bitStreamSource)

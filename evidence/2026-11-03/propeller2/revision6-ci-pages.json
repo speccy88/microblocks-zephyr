@@ -1,0 +1,141 @@
+{
+  "checked_at_utc": "2026-11-03 21:23:44 UTC",
+  "commit": "e681b46bc22df3c2546d52ec5e03bee153ec7e57",
+  "remote_main": "e681b46bc22df3c2546d52ec5e03bee153ec7e57",
+  "working_tree": "clean",
+  "ci": [
+    {
+      "id": 41719090245,
+      "name": "P4 eyes and voice host contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090245"
+    },
+    {
+      "id": 41719090213,
+      "name": "Optional Linux inference CPU engines",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090213"
+    },
+    {
+      "id": 41719090270,
+      "name": "Native SFC GP editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090270"
+    },
+    {
+      "id": 41719090170,
+      "name": "Pi5 source installer contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090170"
+    },
+    {
+      "id": 41719090091,
+      "name": "XRP HTTP scheduler contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090091"
+    },
+    {
+      "id": 41719090180,
+      "name": "Offline validation",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090180"
+    },
+    {
+      "id": 41719090387,
+      "name": "Linux Python extensions",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090387"
+    },
+    {
+      "id": 41719090253,
+      "name": "Linux ARM64 native contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090253"
+    },
+    {
+      "id": 41719090118,
+      "name": "Mobile web editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090118"
+    },
+    {
+      "id": 41719090143,
+      "name": "Browser portal",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090143"
+    },
+    {
+      "id": 41719090185,
+      "name": "iPhone wireless editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41719090185"
+    }
+  ],
+  "pages_run": 41719090143,
+  "pages_build_and_deploy": "success",
+  "pages_jobs": [
+    {
+      "id": 126206779502,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126208649161,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_jobs": [
+    {
+      "id": 126206780179,
+      "name": "editor-contracts",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126208303306,
+      "name": "simulator (large)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126208303575,
+      "name": "simulator (small)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "live_library": {
+    "required_revision": 6,
+    "functions": 51,
+    "receipt_hash": "700561fa1e4cbd3467bf0874abb94a2d92d544d21f4195b8d47ca7a1b422c374",
+    "live_hash": "700561fa1e4cbd3467bf0874abb94a2d92d544d21f4195b8d47ca7a1b422c374",
+    "matches_expected": true
+  },
+  "native_firmware_sha256": "a72cf07a6a3b0451948db3e3e1b2a7a1bf631ea022e8da16f656367e11f5c603",
+  "physical_suites_passed": 8,
+  "repository_validation": {
+    "tests": 679,
+    "skipped": 391,
+    "result": "OK"
+  },
+  "mode_audit": "docs/PROPELLER2_MODE_COVERAGE.md",
+  "physical_evidence": "evidence/2026-11-03/propeller2/serial-options-acceptance-flash-boot.json",
+  "validation_evidence": "evidence/2026-11-03/propeller2/serial-options-validation.json",
+  "final_board_check": "Extension 6 on COM12 at 21:07:42 UTC; P0-P7 released, cogs 2/3 idle. No board interaction during CI.",
+  "browser_guard": "Prior Windows Edge Connect target USB/native chooser action stopped because current browser URL could not be determined confidently. Outcome uncertain. No browser retry, browser-state inspection or alternate UI route. Revision-6 graphical board execution unverified.",
+  "remaining_limits": "USB operating value 27 unavailable: separate DM/DP wiring, safe VBUS and protocol stack required. External serial/converter/power circuitry and independent analog/clock measurements are not established by loopback. Global filter timing/ownership API and continuous raw-bit streamer/DMA remain software work; one native capture session has 1023 usable entries."
+}

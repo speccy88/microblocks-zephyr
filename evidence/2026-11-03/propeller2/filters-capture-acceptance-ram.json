@@ -1,0 +1,157 @@
+{
+  "tested_at_utc": "2026-11-03T21:52:25.246802+00:00",
+  "result": "PASS",
+  "checks": {
+    "documented_boot_filter_defaults": [
+      {
+        "bank": 0,
+        "length": 2,
+        "tap": 0
+      },
+      {
+        "bank": 1,
+        "length": 3,
+        "tap": 5
+      },
+      {
+        "bank": 2,
+        "length": 5,
+        "tap": 19
+      },
+      {
+        "bank": 3,
+        "length": 8,
+        "tap": 22
+      }
+    ],
+    "all_banks_and_lengths_pulse_rejection": [
+      {
+        "bank": 0,
+        "length": 2,
+        "tap": 10,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      },
+      {
+        "bank": 1,
+        "length": 3,
+        "tap": 9,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      },
+      {
+        "bank": 2,
+        "length": 5,
+        "tap": 8,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      },
+      {
+        "bank": 3,
+        "length": 8,
+        "tap": 8,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      }
+    ],
+    "shared_raw_consumer_and_stop_ownership": true,
+    "routed_inverted_filtered_input": {
+      "input_pin": 1,
+      "source_pin": 3,
+      "source_driver": 2,
+      "a_offset": 2,
+      "inverted": true,
+      "receiver_dir": false
+    },
+    "debounce_microsecond_helper": {
+      "request_minimum_us": 1000,
+      "length": 8,
+      "tap": 15,
+      "actual_minimum_clocks": 229376,
+      "actual_maximum_clocks": 262144,
+      "short_200us_rejected": true,
+      "long_5ms_counted": true
+    },
+    "worker_requests_clock_and_binary_transport": {
+      "cog": 3,
+      "receiver_dir": false,
+      "clock_report_hz": 180000000,
+      "pings": 20,
+      "fragmented_code_bytes": 1012,
+      "wire_packet_bytes": 1019,
+      "matching_crc": true
+    },
+    "external_continuous_pattern_ring_wrap_gc": {
+      "bytes": 5664,
+      "bits": 45312,
+      "phase": 22,
+      "sha256": "8c21432bb4fe0d9babd16e7f9be65b9ff6988cb85d29bf98eb01839a28a65807",
+      "all_bits_match": true,
+      "emitted_words": 1416,
+      "ring_wrapped": true,
+      "gc_events": 5,
+      "worker_progress": 2043,
+      "maximum_gap_clocks": 288024,
+      "elapsed_error_clocks": -8
+    },
+    "worker_bytearray_consumption_and_gc": {
+      "native_cog": 2,
+      "consumer_cog": 3,
+      "consumed_words": 1235,
+      "buffered_words": 59,
+      "emitted_words": 1294,
+      "maximum_gap_clocks": 288024,
+      "exact_accounting": true
+    },
+    "external_1mhz_overflow_retains_contiguous_data": {
+      "bytes": 4092,
+      "bits": 32736,
+      "phase": 11,
+      "sha256": "8f91d70422471453bfa518f55d05c865eb655deae9a64419885ab341cdb0c5c7",
+      "all_bits_match": true,
+      "bit_clock_hz": 1000000,
+      "overflow_words_retained": 1023
+    },
+    "full_32_bit_all_ones_preserved": {
+      "bytes": 228,
+      "all_ff": true
+    },
+    "stream_timeout_and_lifecycle": {
+      "missing_word_timeout": true,
+      "cancellation": [
+        "release",
+        "cog",
+        "stop-all",
+        "edit"
+      ],
+      "native_and_worker_stack_guards": true
+    }
+  },
+  "scope": "four global filter banks and native external continuous bit ring",
+  "internal_full_clock_continuous_tested": false,
+  "streamer_dma_tested": false,
+  "external_converter_tested": false,
+  "absolute_clock_or_analog_accuracy_tested": false,
+  "usb_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 7,
+  "firmware_sha256": "dd31daa9a9f95753e884feee193032a1c102b776f3dd305a51319054c597e177"
+}

@@ -53,6 +53,7 @@ enum {
 static uint8_t pinModeState[P2_USER_PIN_COUNT];
 static uint32_t smartModeState[P2_USER_PIN_COUNT];
 static uint8_t serialBits[P2_USER_PIN_COUNT], serialMSB[P2_USER_PIN_COUNT], serialQueued[P2_USER_PIN_COUNT];
+static uint8_t filterState[4] = {0,37,83,118};
 static uint16_t adcLow[P2_USER_PIN_COUNT];
 static uint16_t adcHigh[P2_USER_PIN_COUNT];
 static int tonePin = -1;
@@ -719,6 +720,58 @@ static void p2Pad(int pin, uint32_t pad, int drive, int high) {
 	if (drive) _pinw(pin, high);
 	pinModeState[pin] = P2_MODE_PAD; smartModeState[pin] = pad;
 }
+void p2FiltersInit(void) {
+	static const uint8_t defaults[4]={0,37,83,118};
+	for (int bank=0;bank<4;bank++) {
+		filterState[bank]=defaults[bank];
+		_hubset(0x40000000U|((uint32_t)bank<<7)|defaults[bank]);
+	}
+}
+static int p2FilterUsers(int bank) {
+	int users=0;
+	for (int pin=0;pin<P2_USER_PIN_COUNT;pin++) if (((smartModeState[pin]>>21)&7U)==(unsigned)(4+bank)) users++;
+	return users;
+}
+static OBJ primP2FilterConfigure(int argc, OBJ *args) {
+	if (argc!=3 || !isInt(args[0]) || !isInt(args[2])) return falseObj;
+	int bank=obj2int(args[0]),length=0,tap=obj2int(args[2]),code=0;
+	if (isInt(args[1])) length=obj2int(args[1]);
+	else if (IS_TYPE(args[1],StringType)) {
+		const char *text=obj2str(args[1]);
+		if (!strcmp(text,"2")) length=2;else if (!strcmp(text,"3")) length=3;
+		else if (!strcmp(text,"5")) length=5;else if (!strcmp(text,"8")) length=8;
+	}
+	if (bank<0 || bank>3 || tap<0 || tap>31) return falseObj;
+	if (length==2) code=0;else if (length==3) code=1;else if (length==5) code=2;else if (length==8) code=3;else return falseObj;
+	uint32_t setting=(code<<5)|tap;
+	if (setting==filterState[bank]) return trueObj;
+	if (p2FilterUsers(bank)) return falseObj;
+	_hubset(0x40000000U|((uint32_t)bank<<7)|setting);filterState[bank]=setting;
+	return trueObj;
+}
+static OBJ primP2FilterInfo(int argc, OBJ *args) {
+	if (argc!=2 || !isInt(args[0]) || !IS_TYPE(args[1],StringType)) return falseObj;
+	int bank=obj2int(args[0]);if (bank<0 || bank>3) return falseObj;
+	const char *field=obj2str(args[1]);uint32_t value=filterState[bank];
+	static const int lengths[4]={2,3,5,8};
+	if (!strcmp(field,"length")) return int2obj(lengths[value>>5]);
+	if (!strcmp(field,"tap")) return int2obj(value&31);
+	if (!strcmp(field,"users")) return int2obj(p2FilterUsers(bank));
+	if (!strcmp(field,"sample clocks hex")) return p2HexString(1U<<(value&31));
+	if (!strcmp(field,"configuration hex")) return p2HexString(0x40000000U|((uint32_t)bank<<7)|value);
+	return falseObj;
+}
+static OBJ primP2FilterInput(int argc, OBJ *args) {
+	int pin=p2PinArg(argc,args);
+	if (argc!=6 || pin<0 || !isInt(args[1]) || !isInt(args[2]) || !isInt(args[4]) ||
+		objType(args[3])!=BooleanType || objType(args[5])!=BooleanType) return falseObj;
+	int bank=obj2int(args[1]),a=obj2int(args[2]),b=obj2int(args[4]);
+	if (bank<0 || bank>3 || a< -3 || a>3 || b< -3 || b>3 || !validPin(pin+a) || !validPin(pin+b)) return falseObj;
+	uint32_t route=((uint32_t)(a<0 ? a+8 : a)<<28)|((uint32_t)(b<0 ? b+8 : b)<<24);
+	if (args[3]==trueObj) route|=P_INVERT_A;
+	if (args[5]==trueObj) route|=P_INVERT_B;
+	p2Pad(pin,P_SCHMITT_A|route|((uint32_t)(4+bank)<<21),0,0);return trueObj;
+}
 static int p2Register(OBJ arg, uint32_t *value) {
 	if (isInt(arg)) {
 		int n = obj2int(arg); if (n < 0) return false;
@@ -751,14 +804,18 @@ static OBJ primP2PadNamed(int argc, OBJ *args) {
 }
 static OBJ primP2Configure(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args); uint32_t pad, operation, x, y;
-	if ((argc != 7 && argc != 8) || pin < 0 || !P2_NAMED(p2OperationNames, args[1], &operation) ||
+	if ((argc != 7 && argc != 8 && argc != 9) || pin < 0 || !P2_NAMED(p2OperationNames, args[1], &operation) ||
 		!P2_NAMED(p2PadNames, args[2], &pad) || !p2Register(args[3], &x) || !p2Register(args[4], &y) ||
 		objType(args[5]) != BooleanType || !isInt(args[6])) return falseObj;
-	int a = argc == 8 ? obj2int(args[6]) : 0;
-	if (argc == 8 && !isInt(args[7])) return falseObj;
-	int b = obj2int(args[argc-1]);
+	int a = argc >= 8 ? obj2int(args[6]) : 0;
+	if (argc >= 8 && !isInt(args[7])) return falseObj;
+	int b = obj2int(args[argc>=8 ? 7 : 6]);
 	if (a < -3 || a > 3 || b < -3 || b > 3 || !validPin(pin+a) || !validPin(pin+b)) return falseObj;
 	uint32_t route = ((uint32_t)(a < 0 ? a+8 : a)<<28) | ((uint32_t)(b < 0 ? b+8 : b)<<24);
+	if (argc==9) {
+		if (!isInt(args[8]) || obj2int(args[8])<0 || obj2int(args[8])>3) return falseObj;
+		route|=(uint32_t)(4+obj2int(args[8]))<<21;
+	}
 	int dac = (pad & 0x1c0000) == 0x140000;
 	const char *name = obj2str(args[1]);
 	if ((!strncmp(name, "DAC ", 4) && !dac) || (!strcmp(name, "repository") && dac)) return falseObj;
@@ -1045,6 +1102,7 @@ static OBJ primP2WriteY(int argc, OBJ *args) {
 }
 
 static PrimEntry entries[] = {
+	{"p2FilterConfigure",primP2FilterConfigure}, {"p2FilterInfo",primP2FilterInfo}, {"p2FilterInput",primP2FilterInput},
 	{"p2AsyncWords",primP2AsyncWords}, {"p2SyncTransmitWords",primP2SyncTransmitWords},
 	{"p2SyncReceiveWords",primP2SyncReceiveWords}, {"p2SerialSendHex",primP2SerialSendHex},
 	{"p2SerialReadHex",primP2SerialReadHex}, {"p2SerialBusy",primP2SerialBusy}, {"p2LogicInput",primP2LogicInput},

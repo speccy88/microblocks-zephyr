@@ -146,6 +146,17 @@ records the library hash and extension requirement; the upstream editor engine
 remains pinned. Existing v405 images need the new extension firmware for these
 blocks. The VM protocol version remains v405.
 
+Extension revision 7 and target library 0.8 add owned global input-filter banks,
+routed filtered input, debounce, filtered counters and continuous external raw
+bit capture. All 56 library functions compile with the pinned JavaScript engine.
+Filter retiming is refused while a user pin selects the bank. Continuous bits
+use a free physical cog and a 1023-word ring; drain promptly or inspect retained
+overflow. External clocks are limited to 1 MHz by contract. Internal full-clock
+raw bits remain finite; streamer DMA and programmable pretrigger history are
+not implemented. See the [Smart Pin contract](../../docs/PROPELLER2_SMART_PINS.md)
+and [complete operating-mode audit](../../docs/PROPELLER2_MODE_COVERAGE.md) for
+timing, ownership, exact physical coverage and external-hardware requirements.
+
 To reproduce the physical worker test with the exact device identified above:
 
 ```text

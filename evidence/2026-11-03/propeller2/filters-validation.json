@@ -1,0 +1,57 @@
+{
+  "checked_at_utc": "2026-11-03T22:15:08.192406+00:00",
+  "extension_revision": 7,
+  "result": "PASS",
+  "repository_validation": {
+    "command": "python -B tools/validate.py",
+    "tests": 679,
+    "skipped": 391,
+    "elapsed_seconds": 18.603,
+    "result": "OK",
+    "environment": "Windows Python 3.12; local test sockets enabled, fresh composed pinned JavaScript/mobile site"
+  },
+  "javascript_compiler": {
+    "command": "node tests/js-preview-compile.test.cjs ../p2-filter-final-site",
+    "library_functions": 56,
+    "filter_fixture_chunks": 78,
+    "filter_fixture_scripts": 14,
+    "serial_fixture_chunks": 71,
+    "capture_fixture_chunks": 69,
+    "mode_fixture_chunks": 73,
+    "scalar_fixture_chunks": 12,
+    "object_fixture_chunks": 19,
+    "result": "PASS",
+    "graphical": false,
+    "physical": false
+  },
+  "physical_suites": [
+    "filters-usb-flash-boot.json",
+    "filters-capture-acceptance-flash-boot.json",
+    "serial-options-revision7-flash-boot.json",
+    "capture-revision7-flash-boot.json",
+    "objects-revision7-flash-boot.json",
+    "cogs-revision7-flash-boot.json",
+    "modes-revision7-flash-boot.json",
+    "converters-revision7-flash-boot.json",
+    "smart-pins-revision7-flash-boot.json"
+  ],
+  "native_builds": "filters-native-builds.json",
+  "final_identity": "filters-final-identity.json",
+  "mode_audit": "docs/PROPELLER2_MODE_COVERAGE.md",
+  "board_effects": "Authorized RAM loading and final boot-flash installation reset the P2 and replace disposable project code; USB --reboot verifies a real flash boot and stored CRCs. Final dd31daa9 image passed all nine flash-boot suites. Final VM soft reset stops jobs/releases outputs. No Windows browser interaction used.",
+  "implementation_boundaries": [
+    "HUBSET filter writes use class 4 only; main cog serializes programming. Reporters are tracked shadow settings, not register readback.",
+    "Retiming refuses any tracked user-pin consumer of the selected bank, including raw configurations; identical setting succeeds. Stop-all retains bank settings; hardware boot restores defaults.",
+    "External continuous producer is heap-free with 1023 usable entries, preserves all 32 bits and stops before an overflow acknowledgement. It does not pause for GC.",
+    "Host test drains at 20 kbit/s and verifies 45312 pattern bits with five GCs and concurrent cog progress; 1 MHz test retains 32736 bits at overflow, not sustained host throughput.",
+    "Exact worker accounting uses a graceful batch-completion handshake. Forced cancellation can discard a result already removed from the ring.",
+    "Fragmentation test uses a legal 1012-byte code payload / 1019-byte wire packet with matching CRC; no parser or generic VM changes in this revision."
+  ],
+  "remaining_limits": [
+    "USB operating mode 27 needs separate even DM/odd DP wiring, safe VBUS and a protocol stack; not attempted on hard-short pairs.",
+    "External ADC/UART/SPI hardware, actual SMPS power circuitry, independent clock/voltage references and analog performance remain unvalidated.",
+    "Internal full-clock raw capture remains finite; continuous internal capture, streamer DMA and programmable pretrigger history remain unimplemented.",
+    "One shared capture session, 1023 usable entries; source rate and consumer/transport throughput must be matched. External producer contract <=1 MHz; 115200 UART cannot carry native internal bit rates.",
+    "Prior Edge Connect target USB/native chooser action stopped by URL-policy guard because current Windows browser URL could not be determined confidently. Outcome remains uncertain. No retry, browser-state inspection or alternate route; revision-7 graphical execution unverified."
+  ]
+}

@@ -39,6 +39,7 @@ The dated hardware manifest and evidence determine what is actually validated.
 | Mode family | Exposed interface | Current signal evidence |
 |---|---|---|
 | Normal pad/GPIO | Named circuit and raw D[20:8], explicit drive/high | Both directions on all four pairs |
+| Global input filters | Four banks, lengths 2/3/5/8, CT tap; routed input, debounce and filtered counters | Short-pulse rejection, exact accepted counts, shared/raw ownership and main-cog worker services |
 | Repository | Integer store, generic full-width value | Full-width write/read round trip |
 | DAC noise/random dither/PWM dither | Noise sample clocks; 16-bit requested level and dither choice | Noise DC mean and both dither monotonic transfers; resolution/spectrum unmeasured |
 | Pulse/transition | Microsecond intervals and count | Exactly 100 rises from 100 pulses / 200 transitions |
@@ -47,9 +48,9 @@ The dated hardware manifest and evidence determine what is actually validated.
 | Quadrature/register up/register up-down | Integer clock window and B offset | Quadrature reversal and gate-low/high exact counts |
 | Rise/high counting | Clock window and optional B subtraction | Rising counts, high-clock ratios and differential counting |
 | State/high/event/period/window timing | Event/period counts, minimum window clocks and named triggers | State/high duration, period/window ticks/highs/counts and missing-event timeout |
-| ADC internal/external/scope | Checked samples, native SINC2/SINC3 streams, contiguous bit bursts, scope filters/thresholds and four-channel capture | Internal DAC transfer, synthetic external data/clock, modular differences and settling, continuous rings through GC, bit-pattern continuity and scope samples/triggers |
-| Synchronous transmit/receive | Word width, full-width hex word and B clock offset | Separate pairs at 1/8/9/16/31/32 bits |
-| Asynchronous transmit/receive | Baud, bytes, nonblocking read/try-write | 115200 8N1, full byte range and empty-read result |
+| ADC internal/external/scope | Checked samples, native SINC2/SINC3 streams, finite/internal and finite/continuous external raw bits, selected-channel scope | Internal DAC transfer, synthetic external data/clock, modular differences and settling, rings through GC, contiguous patterns and two selected receiver channels/triggers |
+| Synchronous transmit/receive | Full-width words, clock/sample edges, bit order, B offset and continuous priming | Separate pairs at selected widths 1..32, both edges/sample choices and primed multiword transfers |
+| Asynchronous transmit/receive | Baud, bytes/1..32-bit words, polarity, nonblocking read/try-write and busy | Full byte range and selected widths 1..32 in both polarities, fractional timing and empty-read behavior |
 | USB host/device | Unsupported; single-pin API rejects it | Not attempted |
 
 Mode setup success and the tracked WRPIN value are not register readback or
@@ -169,7 +170,7 @@ not the frequency at which native SINC accumulators must be acknowledged.
 | Stream ADC / external ADC / stream with circuit | SINC2 internal period 256..8192 clocks, SINC3 256..511; external minimum 16 clocks. Keep every N >= 1, samples 0 means continuous. External bit clock contract <= 1 MHz. |
 | Read raw filtered samples | List of up to 1..256 requested values; may return fewer. Read `scale` for P^2 or P^3 full scale. One/two differences use modulo 2^27; discard three/five startup events before delivery. |
 | Scale sample ground/VIO to maximum | Clamp and scale an integer sample using measured raw reference counts. Uses a 64-bit intermediate to avoid VM multiplication overflow. References require 0 <= ground < VIO and positive maximum; invalid inputs return false. Reference scaling does not establish absolute accuracy. |
-| Capture bits | Finite 1..1023 words of 32 bits. Internal sampling is one bit per system clock; external data uses routed B clock, <= 1 MHz. Read only after completion/stop. |
+| Capture bits | Finite 1..1023 words of 32 bits. Internal sampling is one bit per system clock; external data uses routed B clock, <= 1 MHz. External limit 0 is continuous and can be drained while active; finite bursts are read after completion/stop. |
 | Scope group / triggered scope | First configure selected pins with scope input. Group base is a multiple of four; channel mask bits 0..3 select pins base..base+3. Interval 3..10000 us, frames 0 continuous or positive finite; native API accepts 512..1800000 clocks. Trigger pin must be selected; -1 means immediate. |
 | Read capture words as bytes | Little-endian byte array, four bytes per word. Bit-capture oldest bit is bit 0. Scope bytes are pin base, base+1, base+2, base+3; unselected bytes are zero. Read active scope rings while acquiring. |
 | Capture state / capture field | State: idle, running, complete, canceled, buffer full, clock timeout, timing failure. Inspect available, emitted/raw, cog, local DIR, scale, wraps and timing fields. Counters are positive 30-bit diagnostics and can wrap. |
@@ -180,10 +181,11 @@ remain DAC sources. Trigger wait times out; after triggering the acquisition
 runs on its timebase. The native loop detects missed deadlines before arming
 CT1, preventing an elapsed compare value from delaying cancellation for a
 full counter wrap. Scope output timing describes frame cadence, not independent
-conversion bandwidth or filter delay. Native bit bursts have an elapsed-clock
-continuity check and are bounded below 0.2 ms at 180 MHz. Continuous raw-bit
-transport, programmable pretrigger history and streamer/DMA acquisition are
-not implemented.
+conversion bandwidth or filter delay. Internal native bit bursts have an
+elapsed-clock continuity check and are bounded below 0.2 ms at 180 MHz.
+Revision 7 adds continuous external raw-bit transport. Continuous internal
+full-clock capture, programmable pretrigger history and streamer/DMA acquisition
+remain unimplemented.
 
 The current v405 USB object preview sends at most 32 list items or 100 bytes.
 For complete host test readback, request at most 32 SINC samples or 24 capture
@@ -286,3 +288,108 @@ The [complete mode audit](PROPELLER2_MODE_COVERAGE.md) maps every operating
 value to its block and evidence, and lists exact external hardware and remaining
 software dependencies. Capture byte-read defaults now request 24 words (96
 bytes), fitting the existing 100-byte v405 preview limit.
+
+## Revision 7 global filtering and external continuous capture contract
+
+Expose four global unanimity-filter banks with lengths 2/3/5/8 and CT taps
+0..31 (sample interval 2^tap clocks). Use only HUBSET command class 0x4, never
+the clock/debug/reset classes. Initialize documented defaults at VM boot.
+The main cog owns filter programming; reject a changed setting while any user
+pin's tracked WRPIN F field selects that bank, including generic/raw Smart Pin
+consumers. Identical configuration is an idempotent success. Stop-all releases
+consumers; bank settings persist until explicit reconfiguration or a hardware
+reboot. Read reporters identify shadow settings and users, not hardware
+register readback. Add input/routed configuration, a filtered edge counter and
+a debounce-in-microseconds helper. Startup/filter settling is explicit, not
+hidden in unbounded setup waits. Reserved pins and global IDE serial setup
+remain outside this API.
+
+Extend external raw-bit capture to a continuous, heap-free producer with the
+existing 1023-entry ring. It keeps full 32-bit words, allows reads while active,
+checks stop and missing-word timeout, and stops on overflow while preserving
+buffered data. Internal raw-bit capture retains its existing finite fast path;
+this is not a claim of continuous internal full-clock capture or streamer DMA.
+SINC and GETSCP behavior remain unchanged. Preserve signatures; external bits
+limit 0 selects continuous operation. Document the <=1 MHz external-clock
+contract and the transport/consumer rate required to avoid overflow.
+
+Acceptance: build all variants; test every bank/length with narrow-pulse
+rejection and long-pulse counts, shared-bank retiming refusal, raw consumers,
+worker requests, stop/release and unchanged clock/IDE ping/fragmented CRC.
+For external bits verify a 31-bit-period pattern across ring wrap, complete
+frame accounting, GC and worker progress, retained overflow, clock timeout and
+pin/cog/stop/edit cancellation. Test <=1 MHz with controlled synthetic GPIO;
+no USB, external converter, analog accuracy or unbounded host-throughput claim.
+
+### Filter use and timing
+
+The bank configuration reporter takes bank 0..3, length 2/3/5/8 and CT tap
+0..31. Each sample is separated by `2^tap` system clocks; the output changes
+only after the selected number of unanimous samples. Allow startup settling
+before relying on the result. A transition can take between `(length-1)` and
+`length` sample intervals depending on phase. The debounce helper chooses length
+8 and the smallest tap whose seven intervals reach the requested 1..1000000 us.
+At 180 MHz a requested 1000 us uses tap 15: 229376..262144 clocks, approximately
+1.274..1.456 ms. This is clock-derived quantization, not calibrated timing.
+
+VM hardware startup explicitly restores defaults: bank 0 length 2/tap 0,
+bank 1 length 3/tap 5, bank 2 length 5/tap 19 and bank 3 length 8/tap 22.
+Configure a bank before attaching consumers. A changed setting returns false
+while any tracked user pin selects it; repeating the identical setting returns
+true. Release every consumer to retime it. Stop-all releases pins but retains
+the bank settings. A hardware reboot restores defaults. `length`, `tap`,
+`users`, `sample clocks hex` and `configuration hex` report the VM's shadow,
+not hardware register readback. The hexadecimal fields preserve bit 31.
+
+The simple filtered input and debounce helpers use an input-only Schmitt pad.
+The advanced input block routes/inverts A and B independently, with checked
+-3..3 offsets. F selects the same bank for both muxed inputs; it shares its
+field with pass/AND/OR/XOR selection, so these cannot be selected simultaneously.
+Use **pin IN flag (keep mode)** rather than digitalRead, which releases the
+configuration. The advanced filtered Smart Pin block adds a ninth optional
+argument to the existing native configure primitive; saved seven/eight-argument
+calls retain their behavior. Raw configurations participate in bank ownership.
+The main cog programs the banks and owns pin DIR/OUT even for worker requests.
+
+### Continuous external bit records
+
+**Start external bit stream** uses a free physical cog, the routed B clock,
+the existing mode-25 data input and a missing-word timeout of 1..10000 ms.
+Each acknowledged result is one full 32-bit word; bit 0 is oldest. Read bytes
+while running, at most 256 words per VM call or 24 per v405 wire preview.
+One static 1024-word ring has 1023 usable entries. There is one capture session
+across all bit/SINC/scope APIs. The producer clears a pending result at startup
+and records subsequent completed words; it provides no pretrigger history.
+Empty reads return an empty byte array.
+
+The producer uses no OBJ/heap access and continues during GC. It stops before
+acknowledging another word when the ring is full, preserving the buffered words.
+Missing-word timeout is measured since the last complete word, so a paused clock
+within an incomplete word eventually times out. Stop, release, explicit cog stop,
+stop-all and code edits join/cancel the producer. A consumer that needs exact
+accounting must finish counting its acquired batch before being stopped:
+forced worker cancellation can discard a result already removed from the ring.
+
+The <=1 MHz clock contract is a producer-service bound, not guaranteed USB
+throughput. Host draining at a 20 kbit/s synthetic source and worker draining
+through GC are tested across ring wrap. The 1 MHz test deliberately does not
+drain: overflow stops after 1023 retained words, all 32736 bits checked against
+the independent-period GPIO pattern. The source and receiver share the P2 clock;
+these checks establish continuity/ratios rather than independent clock accuracy
+or an external converter's protocol. Inspect state, available, emitted and
+maximum gap; `continuous bits` distinguishes this path from finite bursts.
+
+Reproduce with the composed pinned editor and exact observed test device:
+
+```text
+node tools/compile_propeller2_project.cjs /path/to/site/js-preview/propeller2 tests/fixtures/propeller2/filter-capture.ubp /path/to/filters.json --p2-library
+python tools/test_propeller2_filters_capture.py --port COM12 --usb-serial A500507HA --program /path/to/filters.json --evidence /path/to/filters-test.json
+```
+
+This test replaces the stored project and drives only the documented paired
+test pins. Supply the exact device identity and wiring for another board.
+The compiler harness uses the real pinned engine with a test DOM; the serial
+test checks hardware execution separately. Neither is graphical browser
+acceptance. The [RAM](../evidence/2026-11-03/propeller2/filters-capture-acceptance-ram.json)
+and [flash-boot](../evidence/2026-11-03/propeller2/filters-capture-acceptance-flash-boot.json)
+records preserve the actual counts, timing and pattern hashes.

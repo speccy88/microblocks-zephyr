@@ -13,7 +13,7 @@ non-USB operating-mode setup functions.
 
 | D[5:1] | Hardware operation | Convenient setup / data blocks | Physical evidence and limits |
 |---:|---|---|---|
-| 0 | Normal pad/GPIO | standard digital I/O, pad circuit, level input, logic input | Four pairs both directions; threshold response; 64 Boolean truth cases with A/B inversions. Feedback-output/analog performance separate. |
+| 0 | Normal pad/GPIO | standard digital I/O, pad circuit, level input, logic input, routed filtered input and debounce | Four pairs both directions; threshold response; 64 Boolean truth cases with A/B inversions; all four global filter banks reject short pulses and count longer ones. Feedback-output/analog performance separate. |
 | 1 | Repository / DAC noise | store value in repository; DAC noise sample clocks/circuit | Full-width repository round trip; noise DC mean. Spectrum unmeasured. |
 | 2 | DAC random dither | DAC16 with PWM dither false | Monotonic averaged transfer, not 16-bit accuracy. |
 | 3 | DAC PWM dither | DAC16 with PWM dither true | Monotonic averaged transfer; period multiple of 256 clocks. |
@@ -27,7 +27,7 @@ non-USB operating-mode setup functions.
 | 11 | Quadrature | quadrature B offset/window | Two pairs, forward/reverse exact counts. |
 | 12 | Register up | gated count-up B offset/window | Gate-low/high counts. |
 | 13 | Register up/down | count-up/down B offset/window | Direction/gate behavior in checked-mode tests. |
-| 14 | Rising-edge counter | count rises; difference counter | Exact rises and A-minus-B counts. |
+| 14 | Rising-edge counter | count rises; difference counter; filtered rises | Exact rises and A-minus-B counts; filtered pulse rejection and exact 100 accepted rises for each filter length. |
 | 15 | High-clock counter | count highs; difference counter | Duty and differential high-clock counts. |
 | 16 | State duration | time states in clocks | State-duration samples. |
 | 17 | High duration | time high pulses in clocks | High-duration samples. |
@@ -38,7 +38,7 @@ non-USB operating-mode setup functions.
 | 22 | Minimum-window high clocks | measure window: high clocks | High-clock accumulation over actual window. |
 | 23 | Minimum-window periods | measure window: periods | Count over actual window. |
 | 24 | Internal ADC | ADC sample; SINC2/SINC3 streams; bit capture; scale references | Five gain response curves; modular filters and bounded capture. No ENOB/bandwidth/absolute accuracy. |
-| 25 | Externally clocked ADC/data | external sample; external SINC stream; external bit capture | Synthetic digital data/clock only; external converter not attached. |
+| 25 | Externally clocked ADC/data | external sample; external SINC stream; finite/continuous external bit capture | Synthetic digital data/clock only; continuous ring with host/worker consumption and GC; 1 MHz retained overflow. External converter not attached. |
 | 26 | ADC scope | scope input; immediate/triggered/continuous scope group | Two selected receiver channels together, ring wrap/GC/timeout. Not independent four-channel analog performance. |
 | 27 | USB pair | unavailable, raw single-pin path rejects it | Never attempted with the pair jumpers installed. Requirements below. |
 | 28 | Synchronous transmit | existing sync TX; full-width word TX with clock/bit-order/continuous options | Selected widths 1..32, both edges, independent crossed bit-order reversal, reset-primed three-word transmission and buffer guards. |
@@ -51,7 +51,14 @@ The [revision-4](../evidence/2026-11-03/propeller2/modes-acceptance-flash-boot.j
 and [converter response](../evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json)
 records contain the actual measurements and their scope. The
 [word serial/logic acceptance](../evidence/2026-11-03/propeller2/serial-options-acceptance-flash-boot.json)
-records the revision-6 expansion. A configured WRPIN value is not a signal PASS.
+records the revision-6 expansion. The
+[filter and continuous-capture acceptance](../evidence/2026-11-03/propeller2/filters-capture-acceptance-flash-boot.json)
+records revision 7. A configured WRPIN value is not a signal PASS.
+
+WRPIN F (D[23:21]) is separate from the operating mode and pad circuit. The
+revision-7 bank configuration, input/debounce, filtered counter and advanced
+filtered Smart Pin blocks expose it with shared-bank ownership checks. All
+56 target-library functions compile with the pinned JavaScript engine.
 
 ## Hardware and software still required
 
@@ -81,14 +88,18 @@ records the revision-6 expansion. A configured WRPIN value is not a signal PASS.
   impedances and calibrated voltage/time measurement. Higher ADC gains load the
   source and clip; loopback curves do not establish nominal gain, DAC resistance,
   threshold/hysteresis, feedback-output stability or noise/ENOB/bandwidth.
-- **Remaining software acquisition:** continuous raw-bit transport and streamer
-  DMA/pretrigger recording are not implemented. The present capture service has
-  one session and 1023 usable entries. These are software limitations, not a
-  claim that an external instrument would implement them.
-- **Global input filters:** the raw F field can select one of four global filter
-  configurations. Friendly logic blocks change only pass/AND/OR/XOR routing.
-  Changing global sample-rate settings requires a reviewed ownership API and
-  glitch/timing tests so other pins and IDE RX are not disturbed.
+- **Remaining software acquisition:** internal full-clock raw-bit capture is
+  finite; continuous internal capture, streamer DMA and programmable pretrigger
+  history remain unimplemented. External continuous bits, SINC and scope share
+  one capture session with 1023 usable entries. External bit clocks must be
+  <=1 MHz; the 1 MHz acceptance stops on overflow and retains every buffered
+  word. It does not establish sustained host transport at that rate. The
+  115200-baud link cannot carry internal ADC bit rates; a faster sink and a
+  separate streamer/DMA design are needed for that use.
+- **Global input filters:** four banks are configured and physically exercised.
+  A changed setting is refused while tracked user pins select that bank; release
+  all its consumers first. Filter reports are software shadow settings, not a
+  hardware register readback. They do not provide independent time calibration.
 
 Semantics follow the [official silicon reference](https://docs.google.com/document/d/1gn6oaT5Ib7CytvlZHacmrSbVBJsD9t_-kmvjd7nUR6o/edit)
 linked by [Parallax](https://downloads.parallax.com/propeller-2-documentation/).

@@ -13,7 +13,7 @@ enum { IDLE, RUNNING, COMPLETE, CANCELED, OVERFLOW, TIMEOUT, TIMING };
 typedef struct {
     volatile uint32_t ownsCog, state, head, tail, rawCount, emitted;
     volatile uint32_t maxGap, elapsed, expected, wraps;
-    int pin, cog, observedCog, localDIR, order, period, external, trigger;
+    int pin, cog, observedCog, localDIR, order, period, external, trigger, streaming;
     uint32_t channels;
     uint32_t keep, limit, timeout, scale;
     uint32_t data[CAPACITY];
@@ -122,6 +122,70 @@ capture_sinc_done
     }
     s->rawCount=samples; s->emitted=emitted; s->maxGap=maximum; s->wraps=wraps;
     s->state=status;
+}
+
+static void bitsStreamJob(void *argument, volatile int *stop) {
+    Capture *s=argument;
+    uint32_t pin=s->pin,timeout=s->timeout,stopAddress=(uint32_t)stop;
+    uint32_t head=0,next=0,tail=0,sample=0,address=0,emitted=0,temp=0,ringMask=1023;
+    uint32_t now=0,last=_cnt(),first=0,haveFirst=0,gap=0,maximum=0,status=COMPLETE;
+    uint32_t headAddress=(uint32_t)&s->head,tailAddress=(uint32_t)&s->tail,dataAddress=(uint32_t)s->data;
+    uint32_t countAddress=(uint32_t)&s->emitted,rawAddress=(uint32_t)&s->rawCount,gapAddress=(uint32_t)&s->maxGap;
+    /* External clock <=1 MHz: 32 clocks per result leaves time for ring
+       bookkeeping. This does not use the internal full-clock finite path. */
+    __asm volatile {
+        rdpin sample, pin
+capture_bitstream_wait
+        rdlong temp, stopAddress
+        tjnz temp, #capture_bitstream_cancel
+        testp pin wc
+ if_nc  jmp #capture_bitstream_idle
+        mov next, head
+        add next, #1
+        and next, ringMask
+        rdlong tail, tailAddress
+        cmp next, tail wz
+ if_z   jmp #capture_bitstream_full
+        rdpin sample, pin
+        getct now
+        tjnz haveFirst, #capture_bitstream_gap
+        mov first, now
+        mov haveFirst, #1
+        jmp #capture_bitstream_store
+capture_bitstream_gap
+        mov gap, now
+        sub gap, last
+        cmp gap, maximum wc
+ if_ae  mov maximum, gap
+capture_bitstream_store
+        mov last, now
+        mov address, head
+        shl address, #2
+        add address, dataAddress
+        wrlong sample, address
+        mov head, next
+        wrlong head, headAddress
+        add emitted, #1
+        wrlong emitted, countAddress
+        wrlong emitted, rawAddress
+        wrlong maximum, gapAddress
+        jmp #capture_bitstream_wait
+capture_bitstream_idle
+        getct now
+        sub now, last
+        cmp now, timeout wc
+ if_b   jmp #capture_bitstream_wait
+        mov status, #5
+        jmp #capture_bitstream_done
+capture_bitstream_full
+        mov status, #4
+        jmp #capture_bitstream_done
+capture_bitstream_cancel
+        mov status, #3
+capture_bitstream_done
+    }
+    s->rawCount=emitted;s->emitted=emitted;s->maxGap=maximum;
+    s->elapsed=emitted ? last-first : 0;s->state=status;
 }
 
 static void bitsJob(void *argument, volatile int *stop) {
@@ -322,6 +386,7 @@ static void captureJob(void *argument, volatile int *stop) {
     s->observedCog=_cogid();
     s->localDIR=s->pin<32 ? (_DIRA>>s->pin)&1 : (_DIRB>>(s->pin-32))&1;
     if (*stop) s->state=CANCELED;
+    else if (s->order==0 && s->streaming) bitsStreamJob(s,stop);
     else if (s->order==0) bitsJob(s,stop);
     else if (s->order==1) scopeJob(s,stop);
     else sincJob(s,stop);
@@ -362,7 +427,7 @@ OBJ primP2CaptureStart(int argc, OBJ *args) {
     if (pin<0 || pin>=P2_USER_PIN_COUNT || b < -3 || b>3 || pin+b<0 || pin+b>=P2_USER_PIN_COUNT ||
         keep<1 || limit<0 || msecs<1 || msecs>10000) return falseObj;
     if (order && (period<(external ? 16 : 256) || period>(order==2 ? 8192 : 511))) return falseObj;
-    if (!order && (period!=32 || keep!=1 || limit<1 || (uint32_t)limit>=CAPACITY)) return falseObj;
+    if (!order && (period!=32 || keep!=1 || (!external && limit<1) || (uint32_t)limit>=CAPACITY)) return falseObj;
     uint32_t pad=external ? P_SCHMITT_A : P_ADC_1X;
     if (argc==10 && !p2CapturePadBits(args[9],external,&pad)) return falseObj;
     if (!(capture.ownsCog && capture.cog==cog) && !p2NativeCanStart(cog)) return falseObj;
@@ -370,6 +435,7 @@ OBJ primP2CaptureStart(int argc, OBJ *args) {
     memset(&capture,0,sizeof(capture));
     capture.pin=pin; capture.cog=cog; capture.observedCog=-1;
     capture.order=order; capture.period=period; capture.external=external;
+    capture.streaming=!order && external && limit==0;
     capture.keep=keep; capture.limit=limit;
     capture.timeout=(_clockfreq()/1000U)*(uint32_t)msecs;
     capture.scale=order ? (uint32_t)period*(uint32_t)period : 0;
@@ -403,6 +469,7 @@ OBJ primP2CaptureInfo(int argc, OBJ *args) {
     else if (!strcmp(name,"elapsed clocks")) n=capture.elapsed;
     else if (!strcmp(name,"expected clocks")) n=capture.expected;
     else if (!strcmp(name,"wraps")) n=capture.wraps;
+    else if (!strcmp(name,"continuous bits")) n=capture.streaming;
     else return falseObj;
     return int2obj(n&0x3fffffffU);
 }
@@ -425,7 +492,7 @@ OBJ primP2StreamRead(int argc, OBJ *args) {
 }
 OBJ primP2CaptureRead(int argc, OBJ *args) {
     int count=readCount(argc,args);
-    if (count<0 || capture.order>1 || (capture.order==0 && capture.ownsCog)) return falseObj;
+    if (count<0 || capture.order>1 || (capture.order==0 && capture.ownsCog && !capture.streaming)) return falseObj;
     OBJ result=newObj(ByteArrayType,count,falseObj);
     if (!result) return result;
     setByteCountAdjust(result,count*4);
