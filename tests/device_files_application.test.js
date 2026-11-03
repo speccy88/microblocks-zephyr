@@ -99,3 +99,59 @@ test('open cancellation and replacement links cannot publish an obsolete grant',
  assert.throws(()=>wire.encode({version:1,id:1,op:'open',args:{nonce:0}},0),code('PROTOCOL'));
  controller.link(null);
 });
+
+for(const [nativeStatus,nativeCode] of [[2,'DISCONNECTED'],[12,'TIMEOUT']])test('expired native '+nativeCode+' grants leave ready state without reconnecting or replaying',async()=>{
+ const controller=new Controller({timeout:50,nonce:()=>42}),sent=[],states=[];
+ controller.subscribe(s=>states.push(s.state));
+ controller.link(f=>{sent.push(f);return f.length;});
+ const opened=controller.open(),grant=new Uint8Array(29),gv=new DataView(grant.buffer);
+ grant.set([251,217,0,24,0,77,66,70,82,1,9]);gv.setUint32(11,42,true);gv.setUint32(21,7,true);gv.setUint32(25,42,true);
+ controller.receive(grant);const transport=await opened,client=new core.Client(transport);
+ const pending=client.keepAlive(),rejected=assert.rejects(pending,code(nativeCode));await tick();
+ const response=new Uint8Array(21),v=new DataView(response.buffer);
+ response.set([251,217,0,16,0,77,66,70,82,1,1]);v.setUint32(11,1,true);v.setUint32(15,7,true);response[19]=nativeStatus;
+ controller.receive(response);await rejected;
+ assert.equal(controller.state,'available');assert.equal(controller.error,nativeCode);
+ assert.equal(controller.transport,null);assert.equal(transport.closed,true);
+ assert.equal(sent.length,2,'One grant and one read-only check; no implicit new grant or replay');
+ assert.deepEqual(states,['disconnected','available','connecting','ready','available']);
+ controller.link(null);
+});
+
+function grantFrame(nonce,session){
+ const frame=new Uint8Array(29),view=new DataView(frame.buffer);
+ frame.set([251,217,0,24,0,77,66,70,82,1,9]);view.setUint32(11,nonce,true);
+ view.setUint32(21,session,true);view.setUint32(25,nonce,true);return frame;
+}
+function expiredFrame(session){
+ const frame=new Uint8Array(21),view=new DataView(frame.buffer);
+ frame.set([251,217,0,16,0,77,66,70,82,1,1]);view.setUint32(11,1,true);
+ view.setUint32(15,session,true);frame[19]=12;return frame;
+}
+
+test('a client timeout and a late native reply do not invalidate or reopen the current grant',async()=>{
+ const controller=new Controller({nonce:()=>42,timeout:50}),sent=[];
+ controller.link(frame=>{sent.push(frame);return frame.length;});
+ const opening=controller.open();controller.receive(grantFrame(42,7));const transport=await opening;
+ try{
+  const client=new core.Client(transport,{timeout:20});await assert.rejects(client.keepAlive(),code('TIMEOUT'));
+  assert.equal(controller.state,'ready');assert.equal(controller.transport,transport);assert.equal(controller.error,null);
+  controller.receive(expiredFrame(7));await tick();
+  assert.equal(controller.state,'ready');assert.equal(transport.closed,false);assert.equal(sent.length,2);
+ }finally{controller.link(null);}
+});
+
+test('an old validated expiry queued before link replacement cannot drop the replacement grant',async()=>{
+ let nonce=41;const controller=new Controller({nonce:()=>++nonce,timeout:50}),sent=[];
+ const first=frame=>{sent.push(frame);return frame.length;};controller.link(first);
+ const opening=controller.open();controller.receive(grantFrame(42,7));const transport=await opening;
+ const pending=new core.Client(transport).keepAlive(),rejected=assert.rejects(pending,code('TIMEOUT'));
+ await until(()=>sent.length===2);assert.equal(sent[1][10],1,'The old capability request must be sent before its reply');
+ controller.receive(expiredFrame(7));
+ controller.link(frame=>{sent.push(frame);return frame.length;});
+ const replacementOpening=controller.open();controller.receive(grantFrame(43,8));const replacement=await replacementOpening;
+ try{
+  await rejected;assert.equal(controller.state,'ready');assert.equal(controller.error,null);
+  assert.equal(controller.transport,replacement);assert.equal(replacement.closed,false);assert.equal(sent.length,3);
+ }finally{controller.link(null);}
+});

@@ -92,6 +92,9 @@
   async refresh(){return this.run(async signal=>{
    const caps=await this.limits(signal);return {caps,list:fileList(await this.rpc('list',{backend:'RAM'},signal),caps)};
   });}
+  // Read-only lease renewal shares the ordinary request-ID and busy guards.
+  // Never replay a save to recover an expired session.
+  async keepAlive(){return this.run(async signal=>capabilities(await this.rpc('capabilities',{},signal)));}
   async read(value){path(value);return this.run(async signal=>{
    const caps=await this.limits(signal),meta=metadata(await this.rpc('stat',{path:value},signal));
    if(meta.path!==value||meta.bytes>caps.maxFileBytes)fail('PROTOCOL');

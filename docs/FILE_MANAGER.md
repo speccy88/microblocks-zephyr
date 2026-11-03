@@ -54,8 +54,10 @@ The actual JavaScript client is tested against that C implementation through a
 synthetic stdio harness. See [the dispatcher contract](STORAGE_DISPATCH.md).
 The [controller integration](STORAGE_CONTROLLER.md) now packages the adapter,
 routes extension217 through the actual P4 controller and VM, and opens files
-only after **Connect files**. Replacing a connection clears pending replies,
-loaded contents and drafts. No extra serial/socket connection is opened.
+only after **Connect files**. Replacing a connection clears pending replies
+and detaches an unsaved text draft. The draft stays visible, but cannot be saved
+to the new session until the user explicitly discards it and reopens/creates a
+file. No extra serial/socket connection is opened.
 Generated-adapter/native-bridge tests use synthetic streams. The subsequent
 physical acceptance uses the production GP editor, loopback WebSocket bridge
 and COM5, without the browser fixture. It does not establish board-hosted Wi-Fi.
@@ -91,3 +93,29 @@ The later physical USB tests validate create/edit/reopen, capacity, revisions,
 session cleanup, exact bytes and RAM clearing on reset. A filesystem mount,
 Flash/SD support, large media archive and completed browser download remain
 unverified or unavailable. See the [release boundaries](P4_RELEASE_2026_10_26.md).
+
+## RAM session and draft correction contract
+
+The existing native file lease expires after 30 seconds without a request.
+While the Device files dialog is open and visible, make a read-only capabilities
+request every 10 seconds using the same client's request IDs and busy guard.
+Do not race foreground work. Hiding or closing the dialog stops these checks;
+a failed check pauses them until a new explicit connection. A validated native
+DISCONNECTED/TIMEOUT reply invalidates the file grant. A client-side timeout
+does not silently open a new session or replay the interrupted request.
+
+Preserve unsaved text and its path through expiry, disconnection and connection
+replacement. Keep it detached from a replacement session and disable saving it
+there. Discarding it and reopening/creating a file must be explicit. Late replies
+from an older connection cannot replace a newer file list, draft or status.
+The existing close/discard confirmation and binary-download behavior remain.
+
+This correction changes shared JavaScript modules only. The wire operation set,
+native storage implementation, backend choices and firmware remain unchanged.
+No experimental storage backend, extra transport or automatic write is added.
+
+Acceptance uses the actual client/controller/UI with synthetic streams and the
+native C file bridge: success, expiry, disconnect/reconnect, dirty drafts, late
+replies, dialog visibility/close/page cleanup and absence of automatic write
+replay. Local checks do not establish browser-download or physical board
+acceptance.

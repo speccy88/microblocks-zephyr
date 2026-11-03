@@ -9,7 +9,7 @@
   const projectPanel=document.querySelector('[data-device-project-panel]');if(!projectPanel||document.getElementById('device-files-dialog'))return;
   let client=new core.Client(),transport=null,mode='disconnected',snapshot=null,editor=null,pendingDiscard=null,uiEpoch=0;
   const connection=window.MicroBlocksFilesConnection;let connectionState='disconnected';
-  const urls=new Map();
+  const urls=new Map();let keepAliveTimer=null,keepAlivePaused=false;
   const entry=el('button','Device files');entry.type='button';entry.setAttribute('aria-haspopup','dialog');projectPanel.prepend(entry);
   const dialog=el('dialog',undefined,'device-files');dialog.id='device-files-dialog';dialog.setAttribute('aria-labelledby','device-files-title');document.body.append(dialog);
   const header=el('header',undefined,'files-header'),title=el('h2','Device files');title.id='device-files-title';
@@ -51,10 +51,11 @@
    save.textContent=editor?.meta?'Save changes':'Create file';
    let bytes=0,valid=editable;
    if(editable){try{bytes=core.encodeText(area.value,client.caps?.maxFileBytes||8192).length;core.path(path.value);}catch{valid=false;}}
-   save.disabled=busy||!editable||!valid||client.uncertain||(!!editor?.meta&&!dirty());
+   save.disabled=!connected||busy||!editable||!valid||client.uncertain||editor?.detached||(!!editor?.meta&&!dirty());
    download.disabled=busy||!editor?.meta;
    if(editor)detail.textContent=editor.text===null?`Binary file · ${editor.bytes.length} bytes · download to inspect.`:
     `${bytes} / ${client.caps?.maxFileBytes||8192} UTF-8 bytes${dirty()?' · unsaved changes':''}${valid?'':' · check path/text limits'}`;
+   if(editor?.detached)detail.textContent+=' — draft preserved; reconnect, then reopen the file before saving.';
    if(fixtureButton)fixtureButton.disabled=busy||connectionState!=='disconnected';
    for(const b of list.querySelectorAll('button'))b.disabled=busy;
   }
@@ -63,7 +64,7 @@
    if(client.busy){message('Cancel the current operation before leaving.',true);return;}
    if(dirty()){pendingDiscard=action;confirm.hidden=false;keep.focus();}else action();
   }
-  discard.onclick=()=>{const action=pendingDiscard;pendingDiscard=null;confirm.hidden=true;if(action)action();};
+  discard.onclick=()=>{const action=pendingDiscard;pendingDiscard=null;confirm.hidden=true;clearEditor();if(action)action();};
   keep.onclick=()=>{pendingDiscard=null;confirm.hidden=true;area.focus();};
   async function task(action){
    const epoch=uiEpoch,context={client,ensure(){if(epoch!==uiEpoch)throw new core.StorageError('DISCONNECTED');}};
@@ -89,8 +90,21 @@
    }
   }
   async function refreshFiles(context){const next=await context.client.refresh();context.ensure();snapshot=next;renderList();message(client.uncertain?'A write result is uncertain. Reconnect before another change.':'File list refreshed.');}
-  entry.onclick=()=>{entry.closest('details')?.removeAttribute('open');dialog.showModal();controls();};
-  const leave=()=>{clearEditor();dialog.close();entry.closest('details')?.querySelector('summary')?.focus();};
+  function scheduleKeepAlive(){
+   clearTimeout(keepAliveTimer);keepAliveTimer=null;
+   if(!dialog.open||document.visibilityState==='hidden'||mode!=='device'||!transport||keepAlivePaused)return;
+   keepAliveTimer=setTimeout(()=>{
+    if(client.busy){scheduleKeepAlive();return;}
+    const current=client,epoch=uiEpoch;
+    const pending=current.keepAlive();controls();
+    void pending.catch(e=>{
+     if(epoch===uiEpoch){keepAlivePaused=true;message(e instanceof core.StorageError?e.message:'File session could not be checked.',true);}
+    }).finally(()=>{if(epoch===uiEpoch){controls();scheduleKeepAlive();}});
+   },10000);
+  }
+  document.addEventListener('visibilitychange',scheduleKeepAlive);
+  entry.onclick=()=>{entry.closest('details')?.removeAttribute('open');dialog.showModal();controls();scheduleKeepAlive();};
+  const leave=()=>{clearEditor();dialog.close();scheduleKeepAlive();entry.closest('details')?.querySelector('summary')?.focus();};
   close.onclick=()=>guard(leave);dialog.addEventListener('cancel',event=>{event.preventDefault();guard(leave);});
   refresh.onclick=()=>task(refreshFiles);
   create.onclick=()=>guard(()=>{clearEditor();editor={meta:null,bytes:null,text:'',baseline:'',initialPath:'/RAM/'};path.value='/RAM/';area.value='';message('Choose a /RAM/ path. Create file will refuse to overwrite an existing file.');controls();path.focus();});
@@ -111,21 +125,26 @@
    }catch(e){message(e instanceof core.StorageError?e.message:'Download failed.',true);}
   };
   function bind(next,nextMode){
+   const preserve=dirty();
    uiEpoch++;client.cancel();transport?.close?.();transport=next;client=new core.Client(next);mode=nextMode;
-   clearEditor();snapshot=null;pendingDiscard=null;confirm.hidden=true;
+   if(preserve&&editor)editor.detached=true;else clearEditor();
+   snapshot=null;pendingDiscard=null;confirm.hidden=true;keepAlivePaused=false;
    for(const [url,timer] of urls){clearTimeout(timer);URL.revokeObjectURL(url);}urls.clear();
-   capacity.textContent='No file capacity has been read for this connection.';renderList();controls();
+   capacity.textContent='No file capacity has been read for this connection.';renderList();controls();scheduleKeepAlive();
   }
   if(fixtureButton)fixtureButton.onclick=()=>guard(()=>{
    bind(window.MicroBlocksFilesFixture.create(),'fixture');
    banner.textContent='Browser fixture — not the board';banner.dataset.fixture='true';fixtureButton.textContent='Reset sample files';
    void task(async context=>{await refreshFiles(context);message('Synthetic samples loaded into browser memory. No device or host files were accessed.');});
   });
-  connectFiles.onclick=()=>guard(()=>{
+  connectFiles.onclick=()=>{
+   const apply=()=>{
    const operation=connectionState==='ready'?connection.close():connection.open();
    const linkEpoch=connection.epoch;
    void operation.catch(e=>{if(connection.epoch===linkEpoch)message(e instanceof core.StorageError?e.message:'File connection failed.',true);});
-  });
+   };
+   if(connectionState==='ready')guard(apply);else apply();
+  };
   const unsubscribe=connection?.subscribe(state=>{
    connectionState=state.state;bind(state.transport,state.transport?'device':'disconnected');banner.dataset.fixture='false';
    const labels={disconnected:'Connect your board, then Connect files. Compatible storage firmware is required.',available:'Board connection ready. Select Connect files to access its RAM.',connecting:'Checking file support on the connected board…',ready:'Connected device RAM — temporary; files are lost on reboot.',closing:'Closing the file session…',error:'File connection failed. Compatible storage firmware is required; check the message below.'};

@@ -20,6 +20,18 @@ test('text preserves UTF-8 and rejects NUL, malformed UTF-8 and surrogate replac
 test('disconnected client never substitutes storage or a network request',async()=>{
  const c=new core.Client();await assert.rejects(c.refresh(),code('DISCONNECTED'));await assert.rejects(c.read('/RAM/a'),code('DISCONNECTED'));assert.equal(c.busy,false);
 });
+
+test('lease renewal is read-only, serialized and never retries rejected operations',async()=>{
+ const {transport,client}=setup(),ops=[];
+ const request=transport.request.bind(transport);
+ transport.request=(r,o)=>{ops.push(r);return request(r,o);};
+ const pending=client.keepAlive();await assert.rejects(client.keepAlive(),code('BUSY'));await pending;
+ await client.keepAlive();assert.deepEqual(ops.map(r=>r.op),['capabilities','capabilities']);
+ assert.deepEqual(ops.map(r=>r.id),[1,2]);assert.equal(client.busy,false);
+ transport.request=async r=>{ops.push(r);return {version:1,id:r.id,ok:false,code:'DISCONNECTED'};};
+ await assert.rejects(client.keepAlive(),code('DISCONNECTED'));assert.equal(ops.length,3);
+ assert.equal(client.busy,false);assert.equal(client.uncertain,false);
+});
 test('capability and list replies cannot inflate limits or inject paths',async()=>{
  const {transport}=setup(),reply=await transport.request({version:1,id:1,op:'capabilities',args:{}});
  const caps=core.capabilities(reply.data);assert.equal(caps.volatile,true);
