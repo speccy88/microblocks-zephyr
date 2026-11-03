@@ -12,7 +12,9 @@ remains the initial high-impedance 1x receiver. USB needs ownership of two pins
 and a protocol implementation; it remains unsupported and is never tried on
 the four hardwired pairs.
 
-Pin operations remain on the main VM cog, including requests from worker cogs. Configure while DIR is low and
+Pad configuration and GPIO DIR/OUT remain on the main VM cog, including requests
+from interpreter workers. A native capture job may own input reads and
+acknowledgements as described below. Configure while DIR is low and
 explicitly trigger pulse/transition/repository modes after enabling DIR.
 Stop-all clears both hardware and tracked mode. Reading Z uses RDPIN to
 acknowledge or RQPIN to observe without acknowledgement; ordinary digitalRead
@@ -45,7 +47,7 @@ The dated hardware manifest and evidence determine what is actually validated.
 | Quadrature/register up/register up-down | Integer clock window and B offset | Quadrature reversal and gate-low/high exact counts |
 | Rise/high counting | Clock window and optional B subtraction | Rising counts, high-clock ratios and differential counting |
 | State/high/event/period/window timing | Event/period counts, minimum window clocks and named triggers | State/high duration, period/window ticks/highs/counts and missing-event timeout |
-| ADC internal/external/scope | Checked sample bits, accumulator/capture setup, scope filters/thresholds | Internal DAC transfer, synthetic external data/clock, latest bit snapshots and scope samples/triggers; SINC accumulators configuration only |
+| ADC internal/external/scope | Checked samples, native SINC2/SINC3 streams, contiguous bit bursts, scope filters/thresholds and four-channel capture | Internal DAC transfer, synthetic external data/clock, modular differences and settling, continuous rings through GC, bit-pattern continuity and scope samples/triggers |
 | Synchronous transmit/receive | Word width, full-width hex word and B clock offset | Separate pairs at 1/8/9/16/31/32 bits |
 | Asynchronous transmit/receive | Baud, bytes, nonblocking read/try-write | 115200 8N1, full byte range and empty-read result |
 | USB host/device | Unsupported; single-pin API rejects it | Not attempted |
@@ -102,16 +104,123 @@ Revision-4 setup bounds and interpretation:
   the matching period after X, avoiding an accidental zero Y period override.
   SINC2/SINC3 results are rolling 27-bit accumulators and require timely software
   differencing, rollover handling and startup discard (third/fifth sample).
-  Those continuous consumers are not implemented or physically validated here.
+  Revision 5 adds the bounded native consumers described below.
 - Latest-bit capture exposes one unbuffered snapshot of up to 32 bits. It does
   not promise contiguous history. External mode uses Schmitt/logic data and a
   routed clock, rather than enabling an internal analog circuit on the data pin.
 - Scope offers 68/45-tap Tukey and 28-tap Hann filters. Arm/trigger thresholds
   A/B are 0..63: A <= B arms below A and triggers at/above B; A > B arms at/above
   A and triggers below B. Read Z for a raw 8-bit sample and IN for the trigger.
-  Multi-pin SCOPE-pipe/streamer recording and frequency response are untested.
+  Revision 5 adds multi-pin GETSCP recording. Streamer DMA and frequency
+  response remain untested.
 
 The [revision-4 acceptance](../evidence/2026-11-03/propeller2/modes-acceptance-flash-boot.json)
 records actual results and limits. Existing raw register blocks retain their
 signatures; additional convenient counter/serial blocks appear in the normal
 palette. Browser execution remains separate from compilation and serial tests.
+
+
+## Revision 5 streaming contract
+
+Add a native, heap-free capture job on an explicitly selected free worker cog.
+Main-cog DIR/OUT and configuration ownership remain unchanged. The native job
+alone acknowledges its input while active; ordinary acknowledgement/X/Y access
+must refuse, and reconfiguration/release must stop and join the job first.
+Stop-all, reset, code edits and explicit cog stop cancel jobs. Native sampling
+holds no OBJ pointers and continues during moving GC and other VM workers.
+
+SINC2/SINC3 continuously consume 27-bit accumulators, apply one/two modular
+software differences, discard startup samples and optionally decimate delivery.
+Use a static single-producer/consumer HUB ring; overflow stops acquisition and
+preserves buffered data instead of silently overwriting it. Bound native periods
+and buffer reads; state/counters expose completion, cancellation, overflow,
+clock timeout and timing failure. SINC values are raw counts with an explicit
+full-scale denominator, not calibrated voltages or measured ENOB.
+
+Raw bit capture is a finite contiguous burst, up to the buffer capacity, returned
+as little-endian bytes retaining every bit. Internally clocked 32-bit snapshots
+need a dedicated FCACHE loop with a whole-burst timing check. Externally clocked
+capture is admitted for bit clocks up to 1 MHz, with cancellation/timeout while
+waiting. Continuous unbounded raw-bit transport and streamer DMA remain
+separate work; a finite contiguous burst must not be called an endless stream.
+
+Acceptance builds all variants, checks both SINC orders with synthetic external
+bits and real DAC/ADC transfer, verifies modulo wrap and startup settling,
+continuity/decimation/overflow, GC and worker progress, and stop/reassignment.
+Exercise finite bits with a repeating 31-bit-period source so skipped 32-bit
+words change phase; check internal burst timing and all-ones/MSB preservation.
+Repeat USB, worker and existing pin regressions after flash boot. Converter
+circuits, absolute accuracy and noise/bandwidth need separate hardware evidence.
+
+### Using the capture blocks
+
+One native capture session leases a free cog 2..7. It refuses a cog already
+running a VM function, and VM functions cannot replace its cog while active.
+The producer uses no VM objects, never drives DIR/OUT, and continues while the
+main cog collects the heap. Main-cog services allocate returned lists/bytes;
+an ordinary worker can consume them and use the pure integer scaling reporter.
+The session uses a 1024-word ring with **1023 usable entries**. A new session
+clears the preceding buffer; stop preserves it. A full ring stops acquisition
+with `buffer full` and retains its contents. Decimation reduces delivered data,
+not the frequency at which native SINC accumulators must be acknowledged.
+
+| Blocks | Bounds and returned format |
+|---|---|
+| Stream ADC / external ADC / stream with circuit | SINC2 internal period 256..8192 clocks, SINC3 256..511; external minimum 16 clocks. Keep every N >= 1, samples 0 means continuous. External bit clock contract <= 1 MHz. |
+| Read raw filtered samples | List of up to 1..256 requested values; may return fewer. Read `scale` for P^2 or P^3 full scale. One/two differences use modulo 2^27; discard three/five startup events before delivery. |
+| Scale sample ground/VIO to maximum | Clamp and scale an integer sample using measured raw reference counts. Uses a 64-bit intermediate to avoid VM multiplication overflow. References require 0 <= ground < VIO and positive maximum; invalid inputs return false. Reference scaling does not establish absolute accuracy. |
+| Capture bits | Finite 1..1023 words of 32 bits. Internal sampling is one bit per system clock; external data uses routed B clock, <= 1 MHz. Read only after completion/stop. |
+| Scope group / triggered scope | First configure selected pins with scope input. Group base is a multiple of four; channel mask bits 0..3 select pins base..base+3. Interval 3..10000 us, frames 0 continuous or positive finite; native API accepts 512..1800000 clocks. Trigger pin must be selected; -1 means immediate. |
+| Read capture words as bytes | Little-endian byte array, four bytes per word. Bit-capture oldest bit is bit 0. Scope bytes are pin base, base+1, base+2, base+3; unselected bytes are zero. Read active scope rings while acquiring. |
+| Capture state / capture field | State: idle, running, complete, canceled, buffer full, clock timeout, timing failure. Inspect available, emitted/raw, cog, local DIR, scale, wraps and timing fields. Counters are positive 30-bit diagnostics and can wrap. |
+
+Scope uses a cog-local SETSCP/GETSCP pipe with CT1 interval scheduling, not the
+streamer. Only selected receiver pins are leased; other pins in the group may
+remain DAC sources. Trigger wait times out; after triggering the acquisition
+runs on its timebase. The native loop detects missed deadlines before arming
+CT1, preventing an elapsed compare value from delaying cancellation for a
+full counter wrap. Scope output timing describes frame cadence, not independent
+conversion bandwidth or filter delay. Native bit bursts have an elapsed-clock
+continuity check and are bounded below 0.2 ms at 180 MHz. Continuous raw-bit
+transport, programmable pretrigger history and streamer/DMA acquisition are
+not implemented.
+
+The current v405 USB object preview sends at most 32 list items or 100 bytes.
+For complete host test readback, request at most 32 SINC samples or 24 capture
+words (96 bytes) per reporter. VM code can consume the larger returned objects;
+the wire preview is not a full object-transfer protocol. Drain often enough or
+increase decimation/interval: 115200-baud USB cannot carry native ADC bit rates.
+
+The advanced capture primitive accepts an optional tenth pad-circuit argument.
+The friendly circuit block exposes internal ADC ground/VIO/floating and
+1x/3x/10x/30x/100x choices through the existing pad menu. External capture
+accepts only logic/Schmitt. Invalid pad combinations fail before pin changes.
+Input-only level blocks expose all four level-comparator pad presets with
+8-bit thresholds and DIR disabled. Feedback-output behavior is separate from
+comparator input response.
+
+### Physical acceptance and remaining dependencies
+
+The revision-5 capture and converter records distinguish firmware behavior
+from analog performance. SINC2/SINC3 DAC transfer, exact synthetic external
+zero/full-scale counts, rollover and settling, continuous worker consumption
+through five GCs, retained overflow, clock timeout and lifecycle cancellation
+are tested. The 1 MHz external capture checks every bit against a 31-bit-period
+pattern across 512 words. Internal bursts check elapsed timing through 1023
+words; this timing check does not independently measure the ADC bitstream.
+Scope records selected receiver bytes together, checks zeroed unused bytes,
+hardware trigger, continuous ring wrap through five GCs, exact frame accounting,
+overflow and missing-trigger timeout.
+
+All four DAC pad circuits have monotonic loopback response. Five ADC gains
+have input-response curves, including loading/clipping; reference and gain
+SINC streams are exercised. Four level-comparator circuits switch on either
+side of three threshold codes with output disabled. DAC-fed comparator A/B
+inputs inhibit/cut/resume feedback PWM. These tests do not establish nominal
+gain, DAC source resistance, threshold accuracy, hysteresis, feedback-driver
+stability or power-converter regulation. Higher-gain input impedances can load
+the DAC source; only the 1x receiver is used for the initial high-impedance
+transfer test. USB remains unsupported. External converter protocols, actual
+SMPS circuitry, independent voltage/time references and noise/bandwidth/ENOB
+measurements require additional hardware. The browser guard remains in force;
+compiler and serial acceptance do not establish graphical execution.

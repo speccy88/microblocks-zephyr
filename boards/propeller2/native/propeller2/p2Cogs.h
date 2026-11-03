@@ -8,6 +8,12 @@ typedef struct {
     uint32 timerStart;
 } P2InterpreterContext;
 
+typedef void (*P2NativeJob)(void *argument, volatile int *stop);
+int p2NativeCanStart(int cog);
+int p2NativeStart(int cog, P2NativeJob function, void *argument);
+void p2NativeStop(int cog);
+int p2NativeRunning(int cog);
+
 extern P2InterpreterContext p2InterpreterContexts[8];
 int p2CurrentCog(void);
 int p2IsWorker(void);

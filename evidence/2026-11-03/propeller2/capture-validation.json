@@ -1,0 +1,48 @@
+{
+  "checked_at_utc": "2026-11-03T20:15:20.090106+00:00",
+  "extension_revision": 5,
+  "result": "PASS",
+  "repository_validation": {
+    "command": "python -B tools/validate.py",
+    "tests": 679,
+    "skipped": 391,
+    "elapsed_seconds": 27.962,
+    "result": "OK",
+    "environment": "Windows Python 3.12 with local test sockets; composed pinned JavaScript/mobile site"
+  },
+  "javascript_compiler": {
+    "command": "node tests/js-preview-compile.test.cjs ../p2-capture-release-site",
+    "library_functions": 49,
+    "capture_fixture_chunks": 62,
+    "capture_fixture_scripts": 11,
+    "mode_fixture_chunks": 66,
+    "mode_fixture_scripts": 16,
+    "scalar_fixture_chunks": 12,
+    "object_fixture_chunks": 19,
+    "result": "PASS",
+    "graphical": false,
+    "physical": false
+  },
+  "physical_suites": [
+    "capture-usb-flash-boot.json",
+    "capture-acceptance-flash-boot.json",
+    "converters-acceptance-flash-boot.json",
+    "modes-revision5-flash-boot.json",
+    "objects-revision5-flash-boot.json",
+    "cogs-revision5-flash-boot.json",
+    "smart-pins-revision5-flash-boot.json"
+  ],
+  "native_builds": "capture-native-builds.json",
+  "final_identity": "capture-final-identity.json",
+  "runner_note": "The combined background runner ended during the final legacy Smart Pin suite without a result. No test Python process remained. The full final suite was rerun standalone and passed; earlier completed suite reports were retained. This was not recorded as a hardware PASS until the standalone report completed.",
+  "board_effects": "Authorized RAM loading and boot-flash installation reset the chip. USB --reboot verified a hardware flash boot and stored-project CRCs. Suites replaced disposable test code and used stop/VM soft reset for cleanup. Final identity confirms extension 5, P0-P7 DIR disabled and cogs 2/3 idle; no extra firmware load or hardware reset was used for that final check.",
+  "remaining_limits": [
+    "One capture session at a time, 1023 usable entries; overflow stops and retains data",
+    "Continuous SINC and GETSCP rings supported; raw bit capture finite, continuous raw-bit transport and streamer/DMA unsupported",
+    "Two selected scope receiver channels physically sampled together; four-channel packing interface implemented, not independent four-channel analog performance acceptance",
+    "USB Smart Pin protocols unsupported and not attempted on hardwired pairs",
+    "External ADC converter hardware/protocol and actual SMPS power circuit not tested",
+    "DAC source resistance, nominal gain/threshold/hysteresis, feedback output stability, absolute voltage/clock accuracy and noise/bandwidth/ENOB not measured",
+    "Browser acceptance remains blocked by the earlier URL-policy guard; Connect target USB/native chooser outcome uncertain. No browser input, state inspection or alternate UI route retried."
+  ]
+}

@@ -77,3 +77,23 @@ objects and exact atomic list totals, byte-array read/write, worker waits and
 nested calls, deferred object returns, routed pin ownership and stop/edit/reset
 while requests are pending. Revision-2 serial and Smart Pin regressions remain
 required. No expanded support is established by this contract alone.
+
+## Revision 5 native acquisition jobs
+
+A free worker cog can run a fixed firmware acquisition callback instead of a
+MicroBlocks function. The two uses are mutually exclusive. The callback has a
+separate pending/active lifecycle, uses the same guarded native stack, and is
+joined by explicit cog stop, stop-all and code edits. It must hold no OBJ or
+heap pointer and must not allocate, mutate the VM heap or drive DIR/OUT. GC
+pauses interpreter workers; it need not pause these numeric-only producers.
+This exception is restricted to audited firmware callbacks, not arbitrary user
+native code or concurrent heap access.
+
+The capture job owns acknowledgement of selected Smart Pin inputs while the
+main cog retains pad/direction configuration. Reassigning a leased pin first
+stops and joins the job. Scope uses cog-local SETSCP/GETSCP and CT1; SINC and
+bit capture use RDPIN. Raw data crosses a static HUB ring, and read reporters
+allocate list/byte-array results on the main cog. A VM worker can consume those
+results through the existing rooted service path and scale raw integer samples
+on its own cog. See [capture contracts](PROPELLER2_SMART_PINS.md#revision-5-streaming-contract)
+for period, timeout, overflow and transport bounds.

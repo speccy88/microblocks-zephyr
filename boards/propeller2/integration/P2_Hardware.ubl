@@ -1,7 +1,10 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 5
-description 'Native P2 extension 4. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+version 0 6
+description 'Native P2 extension 5. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+choices p2LevelCircuit 'level A' 'level A feedback negative' 'level B feedback positive' 'level B feedback negative'
+choices p2SINC 'SINC2' 'SINC3'
+choices p2CaptureField 'state' 'available' 'raw' 'emitted' 'cog' 'pin' 'local DIR' 'scale' 'maximum gap clocks' 'elapsed clocks' 'expected clocks' 'wraps' 'scope channels'
 choices p2Event 'high' 'rise' 'edge'
 choices p2Edges 'rise to rise' 'rise to edge' 'edge to rise' 'edge to edge'
 choices p2ScopeFilter 'Tukey 68' 'Tukey 45' 'Hann 28'
@@ -66,7 +69,22 @@ spec 'b' 'p2AsyncTransmit' 'P2 UART transmit pin _ baud _' 'num num' 4 115200
 spec 'b' 'p2AsyncReceive' 'P2 UART receive pin _ baud _' 'num num' 5 115200
 spec 'b' 'p2SawPWM' 'P2 sawtooth PWM pin _ Hz _ duty _ /1000' 'num num num' 2 1000 250
 spec 'b' 'p2TrianglePWM' 'P2 triangle PWM pin _ Hz _ duty _ /1000' 'num num num' 2 1000 250
+spec 'b' 'p2StartSINC' 'P2 try stream ADC pin _ filter _ period clocks _ keep every _ samples _ on cog _' 'num menu.p2SINC num num num num' 7 'SINC2' 1024 4096 0 2
+spec 'b' 'p2StartExternalSINC' 'P2 try external ADC pin _ filter _ clocks _ keep every _ samples _ cog _ clock B offset _' 'num menu.p2SINC num num num num num' 1 'SINC2' 32 1 0 2 2
+spec 'b' 'p2StartBitCapture' 'P2 try capture pin _ words _ cog _ external _ clock B offset _' 'num num num bool num' 7 128 2 false 0
+spec 'b' '[p2:p2CaptureStop]' 'P2 stop capture (keep buffer)'
+spec 'r' 'p2CaptureState' 'P2 capture state'
+spec 'r' '[p2:p2CaptureInfo]' 'P2 capture _' 'menu.p2CaptureField' 'available'
+spec 'r' '[p2:p2StreamRead]' 'P2 read up to _ raw filtered samples' 'num' 32
+spec 'r' '[p2:p2CaptureRead]' 'P2 read up to _ capture words as bytes' 'num' 32
+spec 'b' 'p2StartScopeBurst' 'P2 try scope group _ channels _ every _ us frames _ cog _' 'num num num num num' 0 15 100 128 2
+spec 'b' 'p2StartTriggeredScope' 'P2 try triggered scope group _ channels _ every _ us frames _ cog _ trigger pin _' 'num num num num num num' 0 15 100 128 2 0
+spec 'b' '[p2:p2LevelInput]' 'P2 try level input pin _ threshold _ /255 circuit _' 'num num menu.p2LevelCircuit' 7 128 'level A'
+spec 'b' 'p2StartSINCWithCircuit' 'P2 try stream ADC pin _ filter _ clocks _ keep _ samples _ cog _ circuit _' 'num menu.p2SINC num num num num menu.p2Pad' 7 'SINC2' 1024 4096 0 2 'ADC 1x'
+spec 'r' '[p2:p2ScaleSample]' 'P2 scale sample _ ground _ VIO _ to maximum _' 'num num num num' 50000000 10000000 90000000 1023
 advanced
+spec 'b' '[p2:p2ScopeCapture]' 'P2 scope group _ channels _ clocks _ frames _ cog _ trigger pin (-1 immediate) _ wait ms _' 'num num num num num num num' 0 15 18000 128 2 -1 1000
+spec 'b' '[p2:p2CaptureStart]' 'P2 native capture pin _ kind _ period _ keep _ limit _ cog _ external _ B offset _ timeout ms _' 'num str num num num num bool num num' 7 'SINC2' 1024 4096 0 2 false 0 1000
 spec 'b' '[p2:p2ADCSetup]' 'P2 try ADC pin _ mode _ period power _ external _ circuit _ clock B offset _' 'num menu.p2ADCMode num bool menu.p2Pad num' 7 'sample' 9 false 'ADC 1x' 0
 spec 'b' '[p2:p2ConfigureInputs]' 'P2 try routed pin _ operation _ circuit _ X _ Y _ drive _ A offset _ B offset _' 'num menu.p2Operation menu.p2Pad str str bool num num' 4 'PWM SMPS' 'logic' 'ea600003' '3a98' true -3 -1
 spec 'b' '[p2:p2LocalPinDIR]' 'P2 current cog pin _ DIR bit' 'num' 0
@@ -299,4 +317,42 @@ to p2ScopeInput pin filter a b circuit {
     if (filter == 'Tukey 45') { choice = 1 }
     if (filter == 'Hann 28') { choice = 2 }
     return ('[p2:p2Scope]' pin choice a b circuit)
+}
+
+
+to p2StartSINC pin kind clocks keep count cog {
+    return ('[p2:p2CaptureStart]' pin kind clocks keep count cog false 0 1000)
+}
+to p2StartExternalSINC pin kind clocks keep count cog b {
+    return ('[p2:p2CaptureStart]' pin kind clocks keep count cog true b 2000)
+}
+to p2StartBitCapture pin words cog external b {
+    return ('[p2:p2CaptureStart]' pin 'bits' 32 1 words cog external b 5000)
+}
+to p2CaptureState {
+    local 'state' ('[p2:p2CaptureInfo]' 'state')
+    if (state == 0) { return 'idle' }
+    if (state == 1) { return 'running' }
+    if (state == 2) { return 'complete' }
+    if (state == 3) { return 'canceled' }
+    if (state == 4) { return 'buffer full' }
+    if (state == 5) { return 'clock timeout' }
+    return 'timing failure'
+}
+
+
+to p2StartScopeBurst base channels usecs count cog {
+    if (or (usecs < 3) (usecs > 10000)) { return false }
+    local 'ticks' (usecs * (('[p2:p2ClockHz]') / 1000000))
+    return ('[p2:p2ScopeCapture]' base channels ticks count cog -1 1000)
+}
+to p2StartTriggeredScope base channels usecs count cog trigger {
+    if (or (usecs < 3) (usecs > 10000)) { return false }
+    local 'ticks' (usecs * (('[p2:p2ClockHz]') / 1000000))
+    return ('[p2:p2ScopeCapture]' base channels ticks count cog trigger 1000)
+}
+
+
+to p2StartSINCWithCircuit pin kind clocks keep count cog circuit {
+    return ('[p2:p2CaptureStart]' pin kind clocks keep count cog false 0 1000 circuit)
 }

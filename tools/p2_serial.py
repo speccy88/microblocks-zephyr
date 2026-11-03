@@ -118,7 +118,10 @@ def primitive(name, arguments=()):
         elif -64 <= value <= 63: ops.append(op(2, 2*value+1))
         elif -4194304 <= value <= 4194303:
             tagged = 2*value+1; ops.extend([op(3, tagged & 255), tagged >> 8 & 65535])
-        else: raise ValueError('Argument outside test encoder range')
+        elif -0x40000000 <= value <= 0x3fffffff:
+            tagged = (2*value+1) & 0xffffffff
+            ops.extend([op(4), tagged & 65535, tagged >> 16])
+        else: raise ValueError('Argument outside SmallVM integer range')
     ops.extend([op(37, len(arguments)), 0, op(35), op(127)])
     string_literal(name, len(ops)-3, True)
     if len(ops) % 2: ops.append(0)

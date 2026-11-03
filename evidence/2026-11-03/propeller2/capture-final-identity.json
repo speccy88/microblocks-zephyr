@@ -1,0 +1,28 @@
+{
+  "checked_at_utc": "2026-11-03T20:14:04.825202+00:00",
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 5,
+  "main_cog_dir_on_wired_pins": {
+    "0": false,
+    "1": false,
+    "2": false,
+    "3": false,
+    "4": false,
+    "5": false,
+    "6": false,
+    "7": false
+  },
+  "worker_running": {
+    "2": false,
+    "3": false
+  },
+  "result": "PASS",
+  "browser_state": "Not inspected; earlier chooser outcome remains uncertain",
+  "board_effects": "VM soft reset releases outputs and stops workers; reporter uploads replace disposable test chunks; no extra hardware reset or firmware load"
+}

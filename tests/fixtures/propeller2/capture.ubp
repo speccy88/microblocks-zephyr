@@ -1,0 +1,33 @@
+module main
+variables Pin Kind Period Keep Count Cog External B Timeout Field ReadCount Core Progress Consumed Errors Last Scale Junk Done ScopeBase Channels Usecs Trigger Circuit LastScaled
+
+to consumeCapture {
+    Core = ('[p2:p2Cog]')
+    forever {
+        local 'items' ('[p2:p2StreamRead]' 32)
+        Consumed += (size items)
+        for value items {
+            Last = value
+            LastScaled = ('[p2:p2ScaleSample]' value 0 Scale 1023)
+            if (or (LastScaled < 0) (LastScaled > 1023)) { Errors += 1 }
+            if (or (value < 0) (value > Scale)) { Errors += 1 }
+        }
+        Progress += 1
+        waitMillis 10
+    }
+}
+to captureMainGC {
+    repeat 1600 { Junk = (newList 64) }
+    Done = true
+}
+script 10 10 ('[p2:p2CaptureStart]' Pin Kind Period Keep Count Cog External B Timeout)
+script 10 50 (p2StartSINC Pin Kind Period Keep Count Cog)
+script 10 90 (p2StartExternalSINC Pin Kind Period Keep Count Cog B)
+script 10 130 (p2StartBitCapture Pin Count Cog External B)
+script 10 170 (p2CaptureState)
+script 10 210 ('[p2:p2CaptureInfo]' Field)
+script 10 250 ('[p2:p2StreamRead]' ReadCount)
+script 10 290 ('[p2:p2CaptureRead]' ReadCount)
+script 10 330 (p2StartScopeBurst ScopeBase Channels Usecs Count Cog)
+script 10 370 (p2StartTriggeredScope ScopeBase Channels Usecs Count Cog Trigger)
+script 10 410 (p2StartSINCWithCircuit Pin Kind Period Keep Count Cog Circuit)

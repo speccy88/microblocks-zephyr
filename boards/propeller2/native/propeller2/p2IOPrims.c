@@ -13,6 +13,7 @@
 #include "mem.h"
 #include "interp.h"
 #include "p2Board.h"
+#include "p2Capture.h"
 
 #define DEFAULT_TONE_PIN 0
 
@@ -62,6 +63,7 @@ static int validPin(int pin) {
 
 static void releasePin(int pin) {
 	if (!validPin(pin)) return;
+	p2CaptureReleasePin(pin);
 
 	if (tonePin == pin) tonePin = -1;
 	if (squareWavePin == pin) squareWavePin = -1;
@@ -72,6 +74,7 @@ static void releasePin(int pin) {
 }
 
 void invalidatePinModeTracking(int pin) {
+	p2CaptureReleasePin(pin);
 	// Platform modules that configure P2 pads directly call this so the next
 	// normal I/O operation cannot reuse a stale smart-pin or GPIO mode.
 	if (!validPin(pin)) return;
@@ -363,6 +366,7 @@ void stopPWM(void) {
 }
 
 void turnOffPins(void) {
+	primP2CaptureStop(0, NULL);
 	for (int pin = 0; pin < P2_USER_PIN_COUNT; pin++) {
 		_pinclear(pin);
 		_pinf(pin);
@@ -642,6 +646,19 @@ static void p2Start(int pin, uint32_t mode, uint32_t x, uint32_t y) {
 	smartModeState[pin] = mode;
 }
 
+int p2ScopeCaptureReady(int base, unsigned mask) {
+    if (base<0 || base+3>=P2_USER_PIN_COUNT) return 0;
+    for (int i=0;i<4;i++) if ((mask&(1U<<i)) && (smartModeState[base+i]&0x3e)!=P_ADC_SCOPE) return 0;
+    return 1;
+}
+int p2PrepareCapturePin(int pin, int order, int period, int external, int b, uint32_t pad) {
+    if (!validPin(pin) || b < -3 || b > 3 || !validPin(pin+b)) return 0;
+    uint32_t mode = (external ? P_ADC_EXT : P_ADC) | pad;
+    if (external) mode |= (uint32_t)(b < 0 ? b+8 : b)<<24;
+    uint32_t x = order==0 ? 53U : (order==2 ? 16U : 32U);
+    p2Start(pin,mode,x,period);return 1;
+}
+
 static OBJ primP2SmartPinRaw(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
 	uint32_t mode, x, y;
@@ -705,6 +722,17 @@ static int p2Register(OBJ arg, uint32_t *value) {
 	}
 	return p2Hex(arg, value);
 }
+int p2CapturePadBits(OBJ value, int external, uint32_t *pad) {
+    if (!P2_NAMED(p2PadNames,value,pad)) return 0;
+    return external ? (*pad==P_SCHMITT_A || *pad==P_LOGIC_A) : ((*pad&0x1c0000)==0x100000);
+}
+static OBJ primP2LevelInput(int argc, OBJ *args) {
+    int pin=p2PinArg(argc,args);uint32_t pad;
+    if (argc!=3 || pin<0 || !isInt(args[1]) || !P2_NAMED(p2PadNames,args[2],&pad) ||
+        (pad!=P_LEVEL_A && pad!=P_LEVEL_A_FBN && pad!=P_LEVEL_B_FBP && pad!=P_LEVEL_B_FBN)) return falseObj;
+    int level=obj2int(args[1]);if (level<0 || level>255) return falseObj;
+    p2Pad(pin,pad|((uint32_t)level<<8),false,false);return trueObj;
+}
 static OBJ primP2PadRaw(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args); uint32_t pad;
 	if (argc != 4 || pin < 0 || !p2Hex(args[1], &pad) || pad > 0x1fff ||
@@ -743,7 +771,7 @@ static OBJ primP2PeekHex(int argc, OBJ *args) {
 }
 static OBJ primP2Ack(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
-	if (argc != 1 || pin < 0) return falseObj;
+	if (argc != 1 || pin < 0 || p2CaptureOwnsPin(pin)) return falseObj;
 	_akpin(pin); return trueObj;
 }
 static OBJ primP2Pulse(int argc, OBJ *args) {
@@ -899,11 +927,11 @@ static OBJ primP2Ready(int argc, OBJ *args) {
 }
 static OBJ primP2ReadHex(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
-	return (argc == 1 && pin >= 0) ? p2HexString(_rdpin(pin)) : falseObj;
+	return (argc == 1 && pin >= 0 && !p2CaptureOwnsPin(pin)) ? p2HexString(_rdpin(pin)) : falseObj;
 }
 static OBJ primP2Read(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args);
-	if (argc != 1 || pin < 0) return falseObj;
+	if (argc != 1 || pin < 0 || p2CaptureOwnsPin(pin)) return falseObj;
 	// Explicitly sign-extend the VM's 31-bit integer payload.
 	uint32_t value = _rdpin(pin);
 	int32_t truncated = (int32_t) (value << 1) >> 1;
@@ -915,16 +943,22 @@ static OBJ primP2ModeHex(int argc, OBJ *args) {
 }
 static OBJ primP2WriteX(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args); uint32_t value;
-	if (argc != 2 || pin < 0 || pinModeState[pin] != P2_MODE_SMART || !p2Hex(args[1], &value)) return falseObj;
+	if (argc != 2 || pin < 0 || p2CaptureOwnsPin(pin) || pinModeState[pin] != P2_MODE_SMART || !p2Hex(args[1], &value)) return falseObj;
 	_wxpin(pin, value); return trueObj;
 }
 static OBJ primP2WriteY(int argc, OBJ *args) {
 	int pin = p2PinArg(argc, args); uint32_t value;
-	if (argc != 2 || pin < 0 || pinModeState[pin] != P2_MODE_SMART || !p2Hex(args[1], &value)) return falseObj;
+	if (argc != 2 || pin < 0 || p2CaptureOwnsPin(pin) || pinModeState[pin] != P2_MODE_SMART || !p2Hex(args[1], &value)) return falseObj;
 	_wypin(pin, value); return trueObj;
 }
 
 static PrimEntry entries[] = {
+    {"p2ScaleSample", primP2ScaleSample},
+    {"p2LevelInput", primP2LevelInput},
+    {"p2ScopeCapture", primP2ScopeCapture},
+    {"p2CaptureStart", primP2CaptureStart}, {"p2CaptureStop", primP2CaptureStop},
+    {"p2CaptureInfo", primP2CaptureInfo}, {"p2StreamRead", primP2StreamRead},
+    {"p2CaptureRead", primP2CaptureRead},
 	{"p2Duty", primP2Duty}, {"p2FeedbackPWM", primP2FeedbackPWM},
 	{"p2DACNoise", primP2DACNoise}, {"p2DAC16", primP2DAC16},
 	{"p2ADCSetup", primP2ADCSetup}, {"p2Scope", primP2Scope},

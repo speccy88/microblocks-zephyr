@@ -81,13 +81,16 @@
       "physical_tested": true,
       "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
       "browser_evidence": "evidence/2026-10-19/propeller2/browser-acceptance.json",
-      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json"
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json"
     },
     {
       "id": "javascript_usb",
       "status": "Real Edge Web Serial identity, P2 library reporter, arithmetic/live edit, local UBP save and reconnect PASS on EC32MB with native v405. One hardware reset preserves the JS-written code CRC. Shared connected-board readback fix physically recovers and runs a script without erasing its code. File import blocked by automation; other board variants and external I/O modes are not established by this test.",
       "physical_tested": true,
-      "physical_evidence": "evidence/2026-11-03/propeller2/js-acceptance.json"
+      "physical_evidence": "evidence/2026-11-03/propeller2/js-acceptance.json",
+      "current_extension_browser_execution_verified": false,
+      "current_extension_editor_evidence": "evidence/2026-11-03/propeller2/capture-editor-check.json"
     },
     {
       "id": "smart_pin",
@@ -99,7 +102,8 @@
       "external_instrumentation_used": false,
       "usb_supported": false,
       "revision3_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision3-flash-boot.json",
-      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision4-flash-boot.json"
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision4-flash-boot.json",
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision5-flash-boot.json"
     },
     {
       "id": "gpio_adc_pwm_tone_servo_i2c_spi",
@@ -111,7 +115,8 @@
       "status": "Single-stage boot installation, hardware reset without RAM reload, matching stored CRCs, arithmetic, variable start hat and input Smart Pin start hat PASS.",
       "physical_tested": true,
       "physical_evidence": "evidence/2026-10-19/propeller2/usb-acceptance.json",
-      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json"
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json"
     },
     {
       "id": "wifi_self_hosting",
@@ -129,14 +134,16 @@
       "worker_peripheral_access": true,
       "native_stack_bytes_per_cog": 8192,
       "worker_peripheral_owner": "main cog via audited requests; worker DIR/OUT unchanged",
-      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision4-flash-boot.json"
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision4-flash-boot.json",
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision5-flash-boot.json"
     },
     {
       "id": "pin_pad_configuration",
-      "status": "24 named WRPIN D[20:8] circuit presets and a full raw 13-bit field; configuration-only acceptance. Logic/Schmitt, ADC1x and 990R 3V DAC have the separate wired-pair signal tests cited. Other gains, DAC impedances and comparators lack analog signal validation.",
+      "status": "24 named pad presets and full D[20:8] field. Revision 5 flash-boot: all four DAC pad circuits monotonic into ADC1x; five ADC gain input-response curves including loading/clipping; four level-comparator circuits switch around three threshold codes with output disabled; analog comparator A/B inputs inhibit/cut/resume feedback PWM. These are response tests, not resistance/gain/threshold/feedback-output accuracy or stability measurements.",
       "physical_tested": true,
       "physical_evidence": "evidence/2026-11-03/propeller2/smart-pins-acceptance-flash-boot.json",
-      "all_pad_analog_behaviors_validated": false
+      "all_pad_analog_behaviors_validated": false,
+      "revision5_response_evidence": "evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json"
     },
     {
       "id": "physical_cog_object_services",
@@ -150,35 +157,76 @@
         620
       ],
       "native_stack_capacity_bytes": 8192,
-      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision4-flash-boot.json"
+      "revision4_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision4-flash-boot.json",
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision5-flash-boot.json"
     },
     {
       "id": "smart_pin_checked_modes",
-      "status": "Revision 4 EC32MB RAM and flash-boot PASS: NCO duty ratios; digital A/B feedback PWM inhibition/resumption; gated and differential edge/high counters; state/event/period/window timing and running/stopped timeout; DAC16 random/PWM-dither monotonic transfer and DAC-noise DC mean; typed internal ADC normalization, synthetic external ADC sample/latest-bit snapshot, scope samples/triggers with three filters; synchronous 1/9/16/31/32-bit words; new mode requested from cog 2 with main DIR ownership. 42 library functions compile. No guarded browser interaction retried.",
+      "status": "Revision 4 EC32MB RAM and flash-boot PASS: NCO duty ratios; digital A/B feedback PWM inhibition/resumption; gated and differential edge/high counters; state/event/period/window timing and running/stopped timeout; DAC16 random/PWM-dither monotonic transfer and DAC-noise DC mean; typed internal ADC normalization, synthetic external ADC sample/latest-bit snapshot, scope samples/triggers with three filters; synchronous 1/9/16/31/32-bit words; new mode requested from cog 2 with main DIR ownership. 42 library functions compile. No guarded browser interaction retried. Full checked-mode regression repeated PASS after revision-5 flash boot; new native capture and converter response have their own capability entries.",
       "physical_tested": true,
       "physical_evidence": "evidence/2026-11-03/propeller2/modes-acceptance-flash-boot.json",
       "contract": "docs/PROPELLER2_SMART_PINS.md",
       "configuration_only": [
-        "SINC2/SINC3 accumulator setup",
-        "other analog gains/impedances/comparator configurations"
+        "remaining pad feedback-output behavior and analog performance"
       ],
       "unsupported_or_unvalidated": [
         "USB paired driver/protocol",
-        "continuous SINC software differencing",
-        "contiguous bitstream/streamer capture",
-        "SCOPE data-pipe recording",
-        "SMPS converter circuit",
-        "external ADC converter hardware",
-        "absolute analog/clock accuracy and noise/bandwidth/16-bit resolution"
+        "continuous raw-bit streamer/DMA capture",
+        "SMPS power-converter circuit",
+        "external ADC converter hardware/protocol",
+        "absolute analog/clock accuracy, source resistance, gain accuracy, noise/bandwidth/ENOB/16-bit resolution"
       ],
+      "browser_execution_verified": false,
+      "revision5_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision5-flash-boot.json"
+    },
+    {
+      "id": "native_sinc_bit_scope_capture",
+      "physical_tested": true,
+      "status": "Revision 5 EC32MB RAM and flash-boot PASS: SINC2/SINC3 27-bit modular software differences, startup discard and decimation; DAC transfer, ADC references/gains, synthetic external exact zero/full counts; native cog 2 producer plus VM cog 3 consumer/scaler through five GCs. Finite internal bit bursts through 1023 words with elapsed-clock checks; external 1 MHz 31-bit-pattern source across 16384 bits with no skips and full-width byte preservation. GETSCP immediate/threshold-triggered selected-channel records, continuous ring wrap with five GCs and exact frame accounting, overflow and trigger timeout. Pin ACK/X/Y ownership, release, stop-all, explicit cog stop, reset and live-edit cancellation pass. No OBJ access in producer; main cog retains GPIO DIR/OUT ownership; stack guards intact.",
+      "physical_evidence": "evidence/2026-11-03/propeller2/capture-acceptance-flash-boot.json",
+      "ram_evidence": "evidence/2026-11-03/propeller2/capture-acceptance-ram.json",
+      "contract": "docs/PROPELLER2_SMART_PINS.md",
+      "buffer_words": 1024,
+      "usable_entries": 1023,
+      "internal_sinc2_period_clocks": [
+        256,
+        8192
+      ],
+      "internal_sinc3_period_clocks": [
+        256,
+        511
+      ],
+      "external_bit_clock_contract_max_hz": 1000000,
+      "scope_interval_us": [
+        3,
+        10000
+      ],
+      "continuous_sinc_and_scope": true,
+      "continuous_raw_bit_transport": false,
+      "streamer_dma": false,
+      "external_converter_tested": false,
+      "absolute_accuracy_or_enob_tested": false,
       "browser_execution_verified": false
+    },
+    {
+      "id": "converter_pad_response",
+      "physical_tested": true,
+      "status": "Revision 5 flash-boot PASS: four DAC pad transfers, five ADC gain input-response curves, four input-only threshold comparator circuits at three codes, and DAC-fed analog feedback PWM inhibit/cut/resume. Higher-gain receiver loading and clipping included; only ADC1x used as initial high-impedance receiver. Real converter circuitry and nominal analog performance are not established.",
+      "physical_evidence": "evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json",
+      "sinc_evidence": "evidence/2026-11-03/propeller2/capture-acceptance-flash-boot.json",
+      "absolute_accuracy_tested": false,
+      "source_resistance_tested": false,
+      "gain_accuracy_tested": false,
+      "feedback_output_stability_tested": false,
+      "power_converter_tested": false
     }
   ],
   "references": [
     "https://www.parallax.com/products/p2-edge-module-with-32mb-ram",
     "https://github.com/parallaxinc/P2_PNut_Public/blob/master/p2com.asm",
-    "https://github.com/totalspectrum/flexprop/releases/tag/v7.7.0"
+    "https://github.com/totalspectrum/flexprop/releases/tag/v7.7.0",
+    "https://downloads.parallax.com/propeller-2-documentation/"
   ],
   "code_flash_erase_bytes": 4096,
-  "extension_revision": 4
+  "extension_revision": 5
 }

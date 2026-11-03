@@ -1,0 +1,82 @@
+{
+  "checked_at_utc": "2026-11-03T20:12:28.853182+00:00",
+  "extension_revision": 5,
+  "headless_compiler": {
+    "profiles": [
+      "raspberry-pi5",
+      "microduck",
+      "fruit-jam",
+      "waveshare",
+      "propeller2",
+      "esp32p4",
+      "xrp-rp2350",
+      "unoq"
+    ],
+    "results": [
+      {
+        "target": "propeller2",
+        "functions": 49,
+        "compiled": true,
+        "graphical": false,
+        "physical": false
+      },
+      {
+        "target": "propeller2",
+        "fixture": "capture",
+        "chunks": 62,
+        "compiled": true,
+        "physical": false
+      },
+      {
+        "target": "propeller2",
+        "fixture": "smart-modes",
+        "chunks": 66,
+        "compiled": true,
+        "physical": false
+      },
+      {
+        "target": "propeller2",
+        "fixture": "cogs-scalars",
+        "chunks": 12,
+        "compiled": true,
+        "physical": false
+      },
+      {
+        "target": "propeller2",
+        "fixture": "cogs-objects",
+        "chunks": 19,
+        "compiled": true,
+        "physical": false
+      },
+      {
+        "bundle": "MicroDuck Linux.ubl",
+        "functions": 170,
+        "modules": 6,
+        "compiled": true,
+        "roundtrip": true
+      },
+      {
+        "bundle": "MicroDuck Starter Lab.ubl",
+        "functions": 213,
+        "modules": 10,
+        "compiled": true,
+        "roundtrip": true
+      },
+      {
+        "bundle": "MicroDuck Camera Lab.ubl",
+        "functions": 235,
+        "modules": 12,
+        "compiled": true,
+        "roundtrip": true
+      }
+    ],
+    "uncommissioned_providers_allocated": 0,
+    "physical_hardware": false,
+    "graphical": false
+  },
+  "library_sha256": "b08c148933f768c5f82baa6d2ec9c37e2c75b11976ba2df20c9b800a34706d0b",
+  "browser_execution": "NOT VERIFIED",
+  "browser_action": "No click, chooser, app-state inspection or alternate UI control route retried after the earlier URL-policy guard. The restriction was not bypassed.",
+  "uncertain_outcome": "Earlier Connect target USB click/chooser outcome remains unknown; no completed port selection was established. Subsequent CLI COM12 sessions succeeded, proving only that the port was not held at those times.",
+  "prior_blocker": "objects-editor-check.json"
+}

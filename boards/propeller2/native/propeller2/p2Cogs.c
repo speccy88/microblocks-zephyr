@@ -13,6 +13,10 @@
 
 typedef struct {
     volatile int initialized;
+    volatile int nativePending;
+    volatile int nativeActive;
+    P2NativeJob nativeFunction;
+    void *nativeArgument;
     volatile int active;
     volatile int stop;
     volatile int paused;
@@ -99,7 +103,7 @@ void p2StopWorkers(void) {
     if (!ready || p2IsWorker()) return;
     for (int cog = 0; cog < COGS; cog++) workers[cog].stop = 1;
     for (int cog = 0; cog < COGS; cog++) {
-        while (workers[cog].active) _waitx(64);
+        while (workers[cog].active || workers[cog].nativePending || workers[cog].nativeActive) _waitx(64);
         /* Reset/edit can clear the heap immediately after stopping. Never
            retain an undelivered object return into that cleared heap. */
         workers[cog].event = 0;
@@ -163,7 +167,7 @@ int p2PrimitiveNeedsService(int set, const char *name) {
         !strcmp(name, "addLast") || !strcmp(name, "delete") || !strcmp(name, "newByteArray") ||
         !strcmp(name, "freeMemory");
     if (set != IOPrims) return 0;
-    const char *names[] = {"p2Duty", "p2FeedbackPWM", "p2DACNoise", "p2DAC16",
+    const char *names[] = {"p2LevelInput", "p2CaptureRead", "p2CaptureInfo", "p2StreamRead", "p2Duty", "p2FeedbackPWM", "p2DACNoise", "p2DAC16",
         "p2ADCSetup", "p2Scope", "p2ConfigureInputs", "p2ListAtomicAdd", "p2PadRaw", "p2PadNamed", "p2Configure",
         "p2PinSample", "p2PinPeekHex", "p2PinAck", "p2Pulse", "p2Transition", "p2PWM",
         "p2UART", "p2UARTWrite", "p2UARTRead", "p2DAC8", "p2SmartPin", "p2SmartPinRaw",
@@ -180,7 +184,7 @@ int p2WorkerPrimitiveAllowed(int set, const char *name) {
     return !strcmp(name, "p2Cog") || !strcmp(name, "p2SharedRead") ||
         !strcmp(name, "p2SharedWrite") || !strcmp(name, "p2SharedAdd") ||
         !strcmp(name, "p2LocalPinDIR") ||
-        !strcmp(name, "p2RuntimeRevision");
+        !strcmp(name, "p2RuntimeRevision") || !strcmp(name, "p2ScaleSample");
 }
 
 OBJ p2RequestService(int opcode, int set, const char *name, int count, OBJ *args) {
@@ -279,6 +283,13 @@ static void workerLoop(void *argument) {
     int cog = _cogid();
     worker->initialized = 1;
     for (;;) {
+        if (worker->nativePending) {
+            worker->nativeActive = 1;
+            worker->nativePending = 0;
+            worker->nativeFunction(worker->nativeArgument, &worker->stop);
+            worker->nativeActive = 0;
+            continue;
+        }
         if (!worker->active) { _waitx(256); continue; }
         if (p2WorkerPoll()) worker->task.status = unusedTask;
         if (worker->task.status == waiting_micros &&
@@ -301,23 +312,52 @@ static int requestedCog(int count, OBJ *args, int position) {
     return cog >= 0 && cog < COGS && cog != mainCogID && cog != receiverCogID ? cog : -1;
 }
 
+static int ensureWorker(int cog) {
+    Worker *worker = &workers[cog];
+    if (!worker->initialized) {
+        if (_cogchk(cog)) return 0; /* never replace another cog */
+        workerStacks[cog] = (uint32_t *) (((uint32_t) workerStorage[cog] + 15U) & ~15U);
+        for (int i = 0; i < C_STACK_WORDS + 2 * GUARD_WORDS; i++) workerStacks[cog][i] = STACK_PATTERN;
+        int started = _cogstart_C_cog(workerLoop, worker, &workerStacks[cog][GUARD_WORDS],
+                                    C_STACK_WORDS * sizeof(uint32_t), cog);
+        if (started < 0) return 0;
+        while (!worker->initialized) _waitx(64);
+    }
+    return 1;
+}
+int p2NativeRunning(int cog) {
+    return cog >= 0 && cog < COGS && (workers[cog].nativePending || workers[cog].nativeActive);
+}
+int p2NativeCanStart(int cog) {
+    return !p2IsWorker() && cog >= 0 && cog < COGS && cog != mainCogID && cog != receiverCogID &&
+        !workers[cog].active && !p2NativeRunning(cog) && (workers[cog].initialized || !_cogchk(cog));
+}
+int p2NativeStart(int cog, P2NativeJob function, void *argument) {
+    if (p2IsWorker() || cog < 0 || cog >= COGS || cog == mainCogID || cog == receiverCogID ||
+        workers[cog].active || p2NativeRunning(cog) || !ensureWorker(cog) || !stackOK(cog)) return 0;
+    Worker *worker = &workers[cog];
+    worker->event = 0; worker->eventValue = falseObj;
+    worker->stop = 0;
+    worker->nativeFunction = function; worker->nativeArgument = argument;
+    worker->nativePending = 1;
+    while (worker->nativePending) _waitx(64);
+    return 1;
+}
+void p2NativeStop(int cog) {
+    if (cog < 0 || cog >= COGS || !p2NativeRunning(cog)) return;
+    workers[cog].stop = 1;
+    while (p2NativeRunning(cog)) _waitx(64);
+}
+
 OBJ primP2CogStart(int count, OBJ *args) {
     if (p2IsWorker()) return fail(primitiveNotImplemented);
     int cog = requestedCog(count, args, 1);
     if (cog < 0 || !IS_TYPE(args[0], StringType)) return falseObj;
     int chunk = chunkIndexForFunction(obj2str(args[0]));
-    if (chunk < 0 || workers[cog].active) return falseObj;
+    if (chunk < 0 || workers[cog].active || p2NativeRunning(cog)) return falseObj;
     Worker *worker = &workers[cog];
     p2CollectWorkerEvents();
-    if (!worker->initialized) {
-        if (_cogchk(cog)) return falseObj; /* never replace another cog */
-        workerStacks[cog] = (uint32_t *) (((uint32_t) workerStorage[cog] + 15U) & ~15U);
-        for (int i = 0; i < C_STACK_WORDS + 2 * GUARD_WORDS; i++) workerStacks[cog][i] = STACK_PATTERN;
-        int started = _cogstart_C_cog(workerLoop, worker, &workerStacks[cog][GUARD_WORDS],
-                                    C_STACK_WORDS * sizeof(uint32_t), cog);
-        if (started < 0) return falseObj;
-        while (!worker->initialized) _waitx(64);
-    }
+    if (!ensureWorker(cog)) return falseObj;
     if (!stackOK(cog)) return fail(stackOverflow);
     memset(&worker->task, 0, sizeof(Task));
     worker->task.taskChunkIndex = chunk;
@@ -338,7 +378,7 @@ OBJ primP2CogStop(int count, OBJ *args) {
     int cog = requestedCog(count, args, 0);
     if (p2IsWorker() || cog < 0) return falseObj;
     workers[cog].stop = 1;
-    while (workers[cog].active) _waitx(64);
+    while (workers[cog].active || workers[cog].nativePending || workers[cog].nativeActive) _waitx(64);
     workers[cog].event = 0;
     workers[cog].eventValue = falseObj;
     workers[cog].requestState = 0;
@@ -347,7 +387,7 @@ OBJ primP2CogStop(int count, OBJ *args) {
 }
 OBJ primP2CogRunning(int count, OBJ *args) {
     int cog = requestedCog(count, args, 0);
-    return cog >= 0 && workers[cog].active ? trueObj : falseObj;
+    return cog >= 0 && (workers[cog].active || p2NativeRunning(cog)) ? trueObj : falseObj;
 }
 OBJ primP2CogError(int count, OBJ *args) {
     int cog = requestedCog(count, args, 0);
@@ -397,4 +437,4 @@ OBJ primP2ListAtomicAdd(int count, OBJ *args) {
     FIELD(args[0], index) = result;
     return result;
 }
-OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(4); }
+OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(5); }

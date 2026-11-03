@@ -31,14 +31,14 @@ static int validPin(int pin) {
 // P2 pin modes can supply a weak internal pull-up while still driving low
 // strongly. External I2C pull-ups are still recommended.
 static void i2cRelease(int pin) {
+	invalidatePinModeTracking(pin);
 	_wrpin(pin, P_HIGH_15K | P_LOW_FAST);
 	_pinh(pin);
-	invalidatePinModeTracking(pin);
 }
 
 static void i2cLow(int pin) {
-	_pinl(pin);
 	invalidatePinModeTracking(pin);
+	_pinl(pin);
 }
 
 static int i2cRaiseClock(void) {

@@ -207,19 +207,23 @@ and [setup bounds](../../docs/PROPELLER2_SMART_PINS.md).
 
 The extended tests distinguish digital feedback gating from an actual SMPS
 power converter, synthetic external ADC bits/clocks from an external converter,
-and averaged DAC transfer from 16-bit resolution. SINC2/SINC3 accumulator setup
-has configuration-only evidence; timely software differencing and continuous
-capture are not implemented or validated. Other analog gains, DAC impedances,
-comparator thresholds and analog dynamic performance need suitable inputs and
-instrumentation.
+and averaged DAC transfer from 16-bit resolution. Revision 5 adds native
+SINC2/SINC3 consumers, finite contiguous bit bursts and continuous/triggered
+GETSCP rings. The [capture acceptance](../../evidence/2026-11-03/propeller2/capture-acceptance-flash-boot.json)
+records modular differences, rollover/settling, GC, exact ring accounting,
+bit-pattern continuity and lifecycle checks after flash boot. The
+[converter-pad response](../../evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json)
+records four DAC circuits, five ADC gains, four threshold inputs and analog
+feedback gating. Gain, resistance, threshold and dynamic accuracy still need
+appropriate circuits and independent instrumentation.
 USB is unsupported and is rejected by these single-pin APIs. No USB test is
 attempted on the hardwired pairs. Generic stream-audio DAC stubs also remain
 unsupported; use the explicit P2 DAC blocks. See the
 [mode contract](../../docs/PROPELLER2_SMART_PINS.md).
 
-All 42 current library functions import and compile with the pinned JavaScript
+All 49 current library functions import and compile with the pinned JavaScript
 engine. The earlier revision-2 library rendered in real Windows Edge; the
-current revision-4 library has no graphical execution acceptance. The additional
+current revision-5 library has no graphical execution acceptance. The additional
 revision-2 browser connection attempt did not complete USB selection and was
 closed while cleanup remained pending. This is a graphical rendering check,
 not a revision-2 browser execution PASS; see the
@@ -259,6 +263,25 @@ For example P_NCO_FREQ is `00110b << 1` = `0x0c`, P_PWM_SAWTOOTH is
 `01001b << 1` = `0x12`, P_COUNT_RISES is `01110b << 1` = `0x1c`, and
 P_OE is `01b << 6` = `0x40`. These agree with `smartpins.h` from the pinned
 FlexProp release. Electrical limits remain those of the module.
+
+## Native capture and converter blocks (extension 5)
+
+The P2 Hardware library adds continuous SINC2/SINC3 streams, a finite contiguous
+bit-capture block, and immediate/triggered four-pin scope recording. A static
+1023-entry ring belongs to a heap-free native job on a selected free cog;
+ordinary MicroBlocks workers can consume samples while garbage collection
+runs. Overflow stops and preserves data. Stop-all, pin reassignment, cog stop
+and live edits join the job before reuse. Main-cog pin direction ownership is
+retained. Scaling measured raw ground/VIO references uses a 64-bit intermediate.
+
+Scope supports a channel mask, interval in microseconds, continuous or finite
+recording, and an optional hardware threshold trigger. The input-only level
+block exposes all four programmable comparator pad circuits. See the
+[capture bounds and formats](../../docs/PROPELLER2_SMART_PINS.md#using-the-capture-blocks)
+before selecting periods, decimation and USB read sizes. Streamer DMA,
+continuous raw-bit transport and USB Smart Pin protocols remain unsupported.
+Converter loopback tests establish response and feedback gating; they do not
+measure analog gain/resistance/ENOB or an actual power converter.
 
 ## Current limitations
 

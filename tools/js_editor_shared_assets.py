@@ -29,7 +29,7 @@ def target_assets(profile):
     raw = (ROOT / source).read_bytes()
     receipt = {'schema': 1, 'source_path': source, 'bundle': bundle,
                'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw),
-               'required_extension_revision': 4,
+               'required_extension_revision': 5,
                'function_names': re.findall(r'^to\s+(\w+)', raw.decode('utf-8'), re.M),
                'physical_hardware_scope': 'See boards/propeller2/hardware.json; blocks alone do not establish hardware acceptance.'}
     return {bundle: raw, 'target-library-source.json': (json.dumps(receipt, indent=2)+'\n').encode()}

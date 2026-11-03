@@ -1,0 +1,95 @@
+{
+  "checked_at_utc": "2026-11-03T18:17:23.309827+00:00",
+  "commit": "4932cb9614719e47c0dce9fc99d56d19060d0e86",
+  "working_tree": "clean",
+  "ci": [
+    {
+      "id": 41690351806,
+      "name": "Pi5 source installer contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351806"
+    },
+    {
+      "id": 41690351666,
+      "name": "Native SFC GP editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351666"
+    },
+    {
+      "id": 41690351479,
+      "name": "Optional Linux inference CPU engines",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351479"
+    },
+    {
+      "id": 41690352130,
+      "name": "XRP HTTP scheduler contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690352130"
+    },
+    {
+      "id": 41690351732,
+      "name": "P4 eyes and voice host contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351732"
+    },
+    {
+      "id": 41690351998,
+      "name": "Linux Python extensions",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351998"
+    },
+    {
+      "id": 41690351861,
+      "name": "Offline validation",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351861"
+    },
+    {
+      "id": 41690351664,
+      "name": "iPhone wireless editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351664"
+    },
+    {
+      "id": 41690353558,
+      "name": "Linux ARM64 native contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690353558"
+    },
+    {
+      "id": 41690352063,
+      "name": "Browser portal",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690352063"
+    },
+    {
+      "id": 41690351607,
+      "name": "Mobile web editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41690351607"
+    }
+  ],
+  "pages_build_and_deploy": "success",
+  "pages_run": 41690352063,
+  "live_library": {
+    "required_revision": 4,
+    "functions": 42,
+    "receipt_hash": "c79581bcf6e29527d739604e25249581884a409ca0e77e3406ff84342a0ca180",
+    "live_hash": "c79581bcf6e29527d739604e25249581884a409ca0e77e3406ff84342a0ca180",
+    "matches_expected": true
+  },
+  "physical_evidence": "evidence/2026-11-03/propeller2/modes-acceptance-flash-boot.json",
+  "browser_guard": "No browser input or alternate UI route retried. Chooser visibility remains unknown; successful subsequent COM12 CLI sessions establish that Edge was not holding the port at those test times. No revision-4 browser execution claim."
+}
