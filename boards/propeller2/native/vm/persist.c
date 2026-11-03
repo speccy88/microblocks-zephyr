@@ -1088,6 +1088,10 @@ void clearPersistentMemory() {
 }
 
 int * appendPersistentRecord(int recordType, int id, int extra, int byteCount, uint8 *data) {
+	#if defined(PARALLAX_P2)
+	/* Persistent compaction can move function bodies and immutable literals. */
+	p2StopWorkers();
+	#endif
 	// Append the given record at the end of the current half-space and return its address.
 	// Header word: <tag = 'R'><record type><id of chunk/variable/comment><extra> (8-bits each)
 	// Perform a compaction if necessary.

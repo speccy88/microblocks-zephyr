@@ -97,6 +97,52 @@ run. Supply the exact observed values for another device. The test replaces
 the P2 project with non-actuating test code; `--reboot` assumes the matching
 VM has already been installed into boot flash.
 
+## Physical cog workers and shared variables
+
+Extension revision 1 adds real physical cog workers. Define a zero-argument
+function, then use **P2 try run function on cog** and check its Boolean result.
+Cog 0 runs the ordinary VM; cog 1 receives IDE serial data on the tested board.
+Those cogs, unknown functions and occupied cogs are rejected. Workers use their
+own interpreter state, VM stack and guarded 8192-byte native stack.
+
+The initial worker instruction set supports integer/Boolean arithmetic,
+comparisons, ordinary function calls, repeat/while/forever control and waits.
+Workers reject heap/list allocation, printing, broadcasts and peripheral access
+with error 27. The main cog retains these operations and owns all GPIO/Smart
+Pins. See the [execution contract](../../docs/PROPELLER2_MULTICOG.md).
+
+Normal global variables are shared in HUB RAM. Reads, stores and the standard
+**change variable by** instruction use a P2 hardware lock. The named P2 scalar
+read/write/add blocks use the same lock. A separate read, calculation and store
+is a sequence of operations and does not form an atomic increment. Workers may
+read/store only integers and Booleans; main-cog lists are not worker objects.
+Main garbage collection pauses workers at opcode boundaries. Stop-all/reset
+and code/name edits stop workers before clearing or relocating their code.
+
+The [physical acceptance](../../evidence/2026-11-03/propeller2/cogs-acceptance-ram.json)
+records different functions on cogs 2 and 3, concurrent progress with responsive
+main execution, exactly 15000 increments from cogs 0/2/3, main list mutation and
+two garbage collections, serial reconnect, independent stop, stop-all, live
+edits and intact native stack guards. This establishes the scalar worker ABI
+on EC32MB; arbitrary concurrent heap/peripheral execution is not implemented.
+
+The current P2 target library is copied from canonical source into the Pages
+package after verifying the pinned engine archive. Its provenance manifest
+records the library hash and extension requirement; the upstream editor engine
+remains pinned. Existing v405 images need the new extension firmware for these
+blocks. The VM protocol version remains v405.
+
+To reproduce the physical worker test with the exact device identified above:
+
+```text
+node tools/compile_propeller2_project.cjs /path/to/reviewed/js-preview/propeller2 tests/fixtures/propeller2/cogs-scalars.ubp /path/to/compiled.json
+python tools/test_propeller2_cogs.py --port COM12 --usb-serial A500507HA --board edge32 --program /path/to/compiled.json --evidence /path/to/cogs-test.json
+```
+
+This replaces the board's stored test project. The JavaScript compiler harness
+uses the actual pinned compiler with a test DOM; hardware execution is checked
+separately by the serial test.
+
 ## Smart Pin blocks
 
 `P2 configure Smart Pin` takes a pin, a named mode, and X/Y register values.

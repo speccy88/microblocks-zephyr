@@ -1,12 +1,18 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 1
+version 0 2
 description 'Native Propeller 2 firmware, USB at 115200. Not Zephyr. Pins P58–63 are reserved; EC32MB also reserves P40–57. NCO/PWM and raw modes can drive hardware. Smart Pin X/Y are hardware register values. Read the board documentation before using outputs.'
 choices p2Mode 'input' 'pull-up' 'pull-down' 'NCO frequency' 'NCO duty' 'PWM sawtooth' 'PWM triangle' 'count rises' 'count highs'
 spec 'r' '[p2:p2Board]' 'P2 board'
 spec 'r' '[p2:p2FlashID]' 'P2 boot flash JEDEC (hex)'
 spec 'r' '[p2:p2ClockHz]' 'P2 clock (Hz)'
 spec 'r' '[p2:p2Cog]' 'P2 current cog'
+spec 'r' '[p2:p2RuntimeRevision]' 'P2 extension revision'
+spec 'b' '[p2:p2CogStart]' 'P2 try run function _ on cog _' 'str num' 'worker' 2
+spec 'b' '[p2:p2CogStop]' 'P2 try stop worker cog _' 'num' 2
+spec 'b' '[p2:p2CogRunning]' 'P2 worker cog _ running?' 'num' 2
+spec 'r' '[p2:p2SharedRead]' 'P2 shared scalar named _' 'str' 'shared'
+spec 'r' '[p2:p2SharedAdd]' 'P2 atomic change shared scalar _ by _' 'str num' 'shared' 1
 spec 'r' '[p2:p2PinCount]' 'P2 usable pin count'
 spec 'b' '[p2:p2PinUsable]' 'P2 pin _ usable?' 'num' 0
 spec ' ' '[p2:setUserLED]' 'P2 user LED _' 'bool' false
@@ -16,6 +22,10 @@ spec ' ' '[p2:p2PinRelease]' 'P2 release pin _' 'num' 0
 spec 'b' '[p2:p2PinReady]' 'P2 Smart Pin _ ready?' 'num' 0
 spec 'r' '[p2:p2PinReadHex]' 'P2 Smart Pin _ read Z (hex)' 'num' 0
 advanced
+spec 'r' '[p2:p2CogError]' 'P2 worker cog _ last error' 'num' 2
+spec 'b' '[p2:p2CogStackOK]' 'P2 worker cog _ stack guards intact?' 'num' 2
+spec 'r' '[p2:p2CogStackUsed]' 'P2 worker cog _ native stack used bytes' 'num' 2
+spec 'r' '[p2:p2SharedWrite]' 'P2 set shared scalar _ to _' 'str auto' 'shared' 0
 spec ' ' 'p2StartSmartPinRaw' 'P2 start Smart Pin _ raw mode hex _ X hex _ Y hex _' 'num str str str' 0 '00000002' '00000000' '00000000'
 spec 'b' '[p2:p2SmartPin]' 'P2 try configure pin _ mode _ X _ Y _' 'num menu.p2Mode num num' 0 'input' 0 0
 spec 'b' '[p2:p2SmartPinRaw]' 'P2 try raw pin _ mode hex _ X hex _ Y hex _' 'num str str str' 0 '00000002' '00000000' '00000000'

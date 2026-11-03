@@ -41,8 +41,13 @@ OBJ vars[MAX_VARS];
 // When a primitive encounters an error, it calls fail() with an error code.
 // The VM stops the task and records the error code and IP where the error occurred.
 
+#if defined(PARALLAX_P2)
+#define errorCode (p2InterpreterContexts[p2CurrentCog()].error)
+#define taskSleepUSecs (p2InterpreterContexts[p2CurrentCog()].sleepUsecs)
+#else
 static uint8 errorCode = noError;
 static int taskSleepUSecs = 0;
+#endif
 
 OBJ fail(uint8 errCode) {
 	errorCode = errCode;
@@ -155,7 +160,11 @@ OBJ primBroadcastToIDEOnly(int argCount, OBJ *args) {
 
 // Timing Support
 
+#if defined(PARALLAX_P2)
+#define timerStart (p2InterpreterContexts[p2CurrentCog()].timerStart)
+#else
 static uint32 timerStart = 0;
+#endif
 
 void resetTimer() { timerStart = millisecs(); }
 
@@ -433,20 +442,38 @@ static void interpDebug(int ip, int cmd, int arg, int sp) {
 }
 
 // Macro to inline dispatch in the end of each opcode (avoiding a jump back to the top)
+#if defined(PARALLAX_P2)
+#define P2_SAFEPOINT() { \
+	task->sp = sp - task->stack; \
+	task->ip = ip - (int16 *) task->code; \
+	task->fp = fp - task->stack; \
+	if (p2WorkerPoll()) { task->status = unusedTask; goto suspend; } \
+}
+#define P2_OPCODE_CHECK() { \
+	if (!p2WorkerOpcodeAllowed(CMD(op))) { errorCode = primitiveNotImplemented; goto error; } \
+}
+#else
+#define P2_SAFEPOINT()
+#define P2_OPCODE_CHECK()
+#endif
 #if defined(__FLEXC__) && defined(__P2__)
 // FlexC does not support the GCC labels-as-values extension used by the jump table.
 #define DISPATCH() { \
+	P2_SAFEPOINT(); \
 	if (errorCode) goto error; \
 	op = *ip++; \
 	arg = ARG(op); \
+	P2_OPCODE_CHECK(); \
 	task->sp = sp - task->stack; /* record stack pointer for garbage collector */ \
 	goto flexc_dispatch; \
 }
 #else
 #define DISPATCH() { \
+	P2_SAFEPOINT(); \
 	if (errorCode) goto error; \
 	op = *ip++; \
 	arg = ARG(op); \
+	P2_OPCODE_CHECK(); \
 	task->sp = sp - task->stack; /* record stack pointer for garbage collector */ \
 	/* interpDebug((ip - (int16 *) task->code), CMD(op), arg, task->sp); */ \
 	goto *jumpTable[CMD(op)]; \
@@ -738,7 +765,11 @@ static void runTask(Task *task) {
 		tmp = ((ip - (int16 *) task->code) << 8) | (task->currentChunkIndex & 0xFF);
 		sendTaskError(task->taskChunkIndex, errorCode, tmp);
 		task->status = unusedTask;
+		#if defined(PARALLAX_P2)
+		if (!p2IsWorker() && taskCount > 0 && unusedTask == tasks[taskCount - 1].status) taskCount--;
+		#else
 		if (unusedTask == tasks[taskCount - 1].status) taskCount--;
+		#endif
 		errorCode = noError; // clear the error
 		goto suspend;
 	suspend:
@@ -752,7 +783,11 @@ static void runTask(Task *task) {
 	codeEnd_op:
 		sendTaskDone(task->taskChunkIndex);
 		task->status = unusedTask;
+		#if defined(PARALLAX_P2)
+		if (!p2IsWorker() && taskCount > 0 && unusedTask == tasks[taskCount - 1].status) taskCount--;
+		#else
 		if (unusedTask == tasks[taskCount - 1].status) taskCount--;
+		#endif
 		goto suspend;
 	noop_op:
 	comment_op:
@@ -771,20 +806,37 @@ static void runTask(Task *task) {
 	pushLiteral_op:
 		STACK_CHECK(1);
 		tmp = *ip; // offset to the literal is in the following 16-bit word
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker() && !p2WorkerLiteralAllowed((OBJ) (ip + tmp))) {
+			fail(primitiveNotImplemented); goto error;
+		}
+		#endif
 		*sp++ = (OBJ) (ip++ + tmp);
 		DISPATCH();
 	pushGlobal_op:
 		STACK_CHECK(1);
+		#if defined(PARALLAX_P2)
+		*sp++ = p2ReadShared(arg);
+		#else
 		*sp++ = vars[arg];
+		#endif
 		DISPATCH();
 	storeGlobal_op:
+		#if defined(PARALLAX_P2)
+		p2WriteShared(arg, *--sp);
+		#else
 		vars[arg] = *--sp;
+		#endif
 		DISPATCH();
 	incrementGlobal_op:
+		#if defined(PARALLAX_P2)
+		p2AddShared(arg, *--sp);
+		#else
 		tmp = evalInt(vars[arg]);
 		if (!errorCode) {
 			vars[arg] = int2obj(tmp + evalInt(*--sp));
 		}
+		#endif
 		DISPATCH();
 	pushArgCount_op:
 		STACK_CHECK(1);
@@ -914,6 +966,14 @@ static void runTask(Task *task) {
 	returnResult_op:
 		tmpObj = *(sp - 1); // return value
 		if (fp == task->stack) { // not in a function call
+			#if defined(PARALLAX_P2)
+			if (p2IsWorker()) {
+				if (!p2Scalar(tmpObj)) { fail(needsIntegerError); goto error; }
+				sendTaskReturnValue(task->taskChunkIndex, tmpObj);
+				task->status = unusedTask;
+				goto suspend;
+			}
+			#endif
 			if (!hasOutputSpace(bytesForObject(tmpObj) + 100)) { // leave room for other messages
 				ip--; // retry when task is resumed
 				goto suspend;
@@ -1378,7 +1438,11 @@ static void runTask(Task *task) {
 	// more time operations
 	secs_op:
 		STACK_CHECK(1);
+		#if defined(PARALLAX_P2)
+		*sp++ = int2obj(seconds() & 0x3FFFFFFF);
+		#else
 		*sp++ = int2obj((uint32) ((totalMicrosecs() / 1000000)) & 0x3FFFFFFF); // result range is 0 - 1073741823
+		#endif
 		DISPATCH();
 	millisSince_op:
 		*(sp - arg) = primMSecsSince(arg, sp - arg);
@@ -1403,6 +1467,9 @@ static void runTask(Task *task) {
 		tmpObj = (OBJ) (ip + (*ip & 0x3FF)); // primitive name object
 		ip++; // skip second instruction word
 		arg = arg & 0xFF; // argument count
+		#if defined(PARALLAX_P2)
+		if (!p2WorkerPrimitiveAllowed(tmp, obj2str(tmpObj))) { fail(primitiveNotImplemented); goto error; }
+		#endif
 		doPrimitiveCall(tmp, obj2str(tmpObj), arg, sp - arg);
 		POP_ARGS_COMMAND();
 		DISPATCH();
@@ -1411,6 +1478,9 @@ static void runTask(Task *task) {
 		tmpObj = (OBJ) (ip + (*ip & 0x3FF)); // primitive name object
 		ip++; // skip second instruction word
 		arg = arg & 0xFF; // argument count
+		#if defined(PARALLAX_P2)
+		if (!p2WorkerPrimitiveAllowed(tmp, obj2str(tmpObj))) { fail(primitiveNotImplemented); goto error; }
+		#endif
 		*(sp - arg) = doPrimitiveCall(tmp, obj2str(tmpObj), arg, sp - arg);
 		POP_ARGS_REPORTER();
 		DISPATCH();
@@ -1465,6 +1535,10 @@ static void runTask(Task *task) {
 
 // Interpreter Entry Point
 
+#if defined(PARALLAX_P2)
+void p2RunTask(Task *task) { runTask(task); }
+#endif
+
 #if !defined(EMSCRIPTEN)
 
 #if defined(ESP32) || defined(ESP8266) || defined(GNUBLOCKS) || defined(ARDUINO_ARCH_SAMD) || \
@@ -1509,6 +1583,9 @@ void vmLoop() {
 		if (count-- < 0) {
 			// do background VM tasks once every N VM loop cycles
 			processMessage();
+			#if defined(PARALLAX_P2)
+			p2CollectWorkerEvents();
+			#endif
 			checkButtons();
 			#if defined(HAS_LED_MATRIX)
 				updateMicrobitDisplay();

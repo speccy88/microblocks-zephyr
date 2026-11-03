@@ -151,7 +151,11 @@ OBJ doPrimitiveCall(PrimitiveSetIndex setIndex, const char *primName, int argCou
 	for (int i = 0; i < entryCount; i++) {
 		if ((entries[i].primName != NULL) && (0 == strcmp(entries[i].primName, primName))) {
 			OBJ result = (entries[i].primFunc)(argCount, args); // call the primitive
+			#if defined(PARALLAX_P2)
+			if (!p2IsWorker()) tempGCRoot = NULL;
+			#else
 			tempGCRoot = NULL; // clear tempGCRoot in case it was used
+			#endif
 			return result;
 		}
 	}
@@ -221,6 +225,9 @@ void primsInit() {
 // Task Ops
 
 void initTasks() {
+	#if defined(PARALLAX_P2)
+	p2StopWorkers();
+	#endif
 	memset(tasks, 0, sizeof(tasks));
 	taskCount = 0;
 }
@@ -297,6 +304,9 @@ void startAll() {
 
 void stopAllTasksButThis(Task *thisTask) {
 	// Stop all tasks except the given one.
+	#if defined(PARALLAX_P2)
+	p2StopWorkers();
+	#endif
 
 	for (int i = 0; i < MAX_TASKS; i++) {
 		Task *task = &tasks[i];
@@ -777,12 +787,18 @@ void outputString(const char *s) {
 }
 
 void sendTaskDone(uint8 chunkIndex) {
+	#if defined(PARALLAX_P2)
+	if (p2WorkerEvent(1, chunkIndex, zeroObj, 0)) return;
+	#endif
 	sendMessage(taskDoneMsg, chunkIndex, 0, NULL);
 }
 
 void sendTaskError(uint8 chunkIndex, uint8 errorCode, int where) {
 	// Send a task error message: one-byte error code + 4-byte location.
 	// Location is
+	#if defined(PARALLAX_P2)
+	if (p2WorkerEvent(2, chunkIndex, int2obj(errorCode), where)) return;
+	#endif
 
 	char data[5];
 	data[0] = (errorCode & 0xFF); // one byte error code
@@ -795,13 +811,16 @@ void sendTaskError(uint8 chunkIndex, uint8 errorCode, int where) {
 
 void sendTaskReturnValue(uint8 chunkIndex, OBJ returnValue) {
 	// Send the value returned by the task for the given chunk.
+	#if defined(PARALLAX_P2)
+	if (p2WorkerEvent(3, chunkIndex, returnValue, 0)) return;
+	#endif
 
 	sendValueMessage(taskReturnedValueMsg, chunkIndex, returnValue);
 }
 
 static void sendVariableValue(int varID) {
 	if ((varID >= 0) && (varID < MAX_VARS)) {
-		sendValueMessage(varValueMsg, varID, vars[varID]);
+		sendValueMessage(varValueMsg, varID, VM_VAR_READ(varID));
 	}
 }
 
@@ -811,7 +830,7 @@ static void sendValueOfVariableNamed(uint8 chunkIndex, int byteCount, uint8 *dat
 	memcpy(varName, &data[0], byteCount);
 	varName[byteCount] = 0; // null terminate
 	int varID = indexOfVarNamed(varName);
-	if (varID >= 0) sendValueMessage(varValueMsg, chunkIndex, vars[varID]);
+	if (varID >= 0) sendValueMessage(varValueMsg, chunkIndex, VM_VAR_READ(varID));
 }
 
 static void setVariableValue(int varID, int byteCount, uint8 *data) {
@@ -819,15 +838,15 @@ static void setVariableValue(int varID, int byteCount, uint8 *data) {
 		int type = data[0];
 		switch (type) {
 		case 1: // integer
-			vars[varID] = int2obj((data[4] << 24) | (data[3] << 16) | (data[2] << 8) | data[1]);
+			VM_VAR_WRITE(varID, int2obj((data[4] << 24) | (data[3] << 16) | (data[2] << 8) | data[1]));
 			break;
 		case 2: // string
 			if (byteCount >= 1) {
-				vars[varID] = newStringFromBytes((char *) &data[1], byteCount - 1);
+				VM_VAR_WRITE(varID, newStringFromBytes((char *) &data[1], byteCount - 1));
 			}
 			break;
 		case 3: // boolean
-			vars[varID] = data[1] ? trueObj : falseObj;
+			VM_VAR_WRITE(varID, data[1] ? trueObj : falseObj);
 			break;
 		}
 	}

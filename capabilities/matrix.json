@@ -62,7 +62,9 @@
       "sources": [
         "boards/propeller2/hardware.json",
         "boards/propeller2/README.md",
-        "evidence/2026-11-03/propeller2/js-acceptance.json"
+        "evidence/2026-11-03/propeller2/js-acceptance.json",
+        "evidence/2026-11-03/propeller2/cogs-acceptance-ram.json",
+        "evidence/2026-11-03/propeller2/cogs-acceptance-flash-boot.json"
       ],
       "features": {
         "sensors": {
@@ -89,9 +91,9 @@
       },
       "vm": "native FlexC v405",
       "arduino_core": "not_linked",
-      "hardware_tests": "P2-EC32MB / USB, calculs, persistance et Smart Pin entrée; capteurs externes non testés. JavaScript Edge USB: arithmetic/live edit, local UBP save, reset CRC persistence and connected project readback verified on EC32MB; file import blocked by automation.",
+      "hardware_tests": "P2-EC32MB / USB, calculs, persistance et Smart Pin entrée; capteurs externes non testés. JavaScript Edge USB: arithmetic/live edit, local UBP save, reset CRC persistence and connected project readback verified on EC32MB; file import blocked by automation. Real scalar worker cogs 2/3 with main cog 0, 15000 exact shared increments, GC, reconnect and lifecycle checks PASS; worker heap/peripheral operations unsupported.",
       "reviewed_source_hashes": {
-        "boards/propeller2/hardware.json": "9e380b98242c34cb973ced78e34c108ef3f0c248205b555a61e89d61f1ba71ac"
+        "boards/propeller2/hardware.json": "17a13c313de583704a75e13e52ae54b3f0d92a98472ad425e899a666ca435b2e"
       }
     },
     {

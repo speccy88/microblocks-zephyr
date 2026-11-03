@@ -136,6 +136,9 @@ void memInit() {
 
 void memClear() {
 	// Clear object memory and set all global variables to zero.
+	#if defined(PARALLAX_P2)
+	p2StopWorkers();
+	#endif
 
 	// clear global variables
 	for (int i = 0; i < MAX_VARS; i++) vars[i] = zeroObj;
@@ -380,6 +383,9 @@ static void forwardRoots(void) {
 
 void applyForwarding() {
 	// Update all forwarded references.
+	#if defined(PARALLAX_P2)
+	p2PauseWorkers();
+	#endif
 
 	uint32 *end = OBJSTORE_END;
 	uint32 *next = (uint32 *) objstore + 1;
@@ -397,6 +403,9 @@ void applyForwarding() {
 		next += WORDS(next) + 2;
 	}
 	forwardRoots();
+	#if defined(PARALLAX_P2)
+	p2ResumeWorkers();
+	#endif
 }
 
 // Mark-Sweep-Compact Garbage Collector
@@ -509,6 +518,9 @@ void compact() {
 void gc() {
 	// Perform a garbage collection to reclaim unused objects and compact memory.
 	// Call captureIncomingBytes() to avoid serial buffer overruns during garbage collection.
+	#if defined(PARALLAX_P2)
+	p2PauseWorkers();
+	#endif
 
 	captureIncomingBytes();
 	updateMicrobitDisplay();
@@ -520,6 +532,9 @@ void gc() {
 	sweep();
 	applyForwarding();
 	compact();
+	#if defined(PARALLAX_P2)
+	p2ResumeWorkers();
+	#endif
 
 	usecs = microsecs() - usecs;
 

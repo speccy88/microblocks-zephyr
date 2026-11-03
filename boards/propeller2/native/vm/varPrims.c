@@ -22,7 +22,7 @@ static OBJ primVarExists (int argCount, OBJ *args) {
 static OBJ primVarNamed (int argCount, OBJ *args) {
 	int index = indexOfVarNamed(obj2str(args[0]));
 	if (index > -1) {
-		return vars[index];
+		return VM_VAR_READ(index);
 	}
 	return int2obj(0);
 }
@@ -30,7 +30,7 @@ static OBJ primVarNamed (int argCount, OBJ *args) {
 static OBJ primSetVarNamed (int argCount, OBJ *args) {
 	int index = indexOfVarNamed(obj2str(args[0]));
 	if (index > -1) {
-		vars[index] = args[1];
+		VM_VAR_WRITE(index, args[1]);
 	}
 	return falseObj;
 }

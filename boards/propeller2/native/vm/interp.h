@@ -102,6 +102,15 @@ typedef struct {
 	OBJ stack[STACK_LIMIT];
 } Task;
 
+#if defined(PARALLAX_P2)
+#include "../propeller2/p2Cogs.h"
+#define VM_VAR_READ(index) p2ReadShared(index)
+#define VM_VAR_WRITE(index, value) p2WriteShared(index, value)
+#else
+#define VM_VAR_READ(index) vars[index]
+#define VM_VAR_WRITE(index, value) (vars[index] = (value))
+#endif
+
 // Task list shared by interp.c and runtime.c
 
 #define MAX_TASKS 10

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import re
 from add_js_preview import files
-from js_editor_shared_assets import assets as shared_assets, SCRIPTS as SHARED_SCRIPTS
+from js_editor_shared_assets import assets as shared_assets, target_assets, SCRIPTS as SHARED_SCRIPTS
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ['fruit-jam', 'waveshare', 'esp32p4', 'propeller2', 'xrp-rp2350', 'raspberry-pi5', 'microduck', 'unoq']
@@ -62,12 +62,16 @@ def promote(site):
                 raise ValueError('Shared editor overlay collides with reviewed input: ' + entry)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(raw)
+        local_target = target_assets(name)
+        for entry, raw in local_target.items():
+            (folder / entry).parent.mkdir(parents=True, exist_ok=True)
+            (folder / entry).write_bytes(raw)
         index = folder / 'files.txt'
         if not index.exists():
             raise ValueError('Reviewed JavaScript file index missing')
-        index.write_text('\n'.join(sorted(set(index.read_text().splitlines()) | set(overlays)))+'\n', encoding='utf-8', newline='\n')
+        index.write_text('\n'.join(sorted(set(index.read_text().splitlines()) | set(overlays) | set(local_target)))+'\n', encoding='utf-8', newline='\n')
         receipt = json.loads((folder / 'build-manifest.json').read_text())
-        for entry in ['index.html', 'microblocks.html', 'editor-parent.js', 'files.txt', *overlays]:
+        for entry in ['index.html', 'microblocks.html', 'editor-parent.js', 'files.txt', *overlays, *local_target]:
             raw = (folder / entry).read_bytes()
             receipt['files'][entry] = {'bytes':len(raw), 'sha256':hashlib.sha256(raw).hexdigest()}
         receipt['main_portal_parent_hook'] = True
@@ -82,6 +86,7 @@ def promote(site):
     after = files(site)
     changed = sorted(name for name, digest in before.items() if after.get(name) != digest)
     allowed = {'index.html', 'portal.js'} | {'js-preview/' + p + '/' + n for p in PROFILES for n in ['index.html','microblocks.html','build-manifest.json','files.txt']}
+    allowed |= {'js-preview/propeller2/' + n for n in target_assets('propeller2') if 'js-preview/propeller2/' + n in before}
     if set(changed) != allowed:
         raise ValueError('Unexpected JavaScript portal assembly change')
     report = {'schema':1, 'default_editor':'javascript', 'source_commit':manifest['source_commit'],

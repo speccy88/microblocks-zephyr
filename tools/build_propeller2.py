@@ -7,7 +7,7 @@ import json
 import subprocess
 from pathlib import Path
 
-SOURCES = ['p2Main.c', 'p2IOPrims.c', 'p2OutputPrims.c', 'p2PersistFile.c', 'p2FlashDevice.c',
+SOURCES = ['p2Main.c', 'p2Cogs.c', 'p2IOPrims.c', 'p2OutputPrims.c', 'p2PersistFile.c', 'p2FlashDevice.c',
            'p2SensorPrims.c', 'p2SerialPrims.c']
 VM_SOURCES = ['mem.c', 'interp.c', 'runtime.c', 'persist.c', 'dataPrims.c',
               'miscPrims.c', 'varPrims.c', 'tinyJSON.c', 'mbFont.c']

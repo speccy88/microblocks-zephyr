@@ -182,6 +182,7 @@ int main(void) {
 	restartSerial();
 	startIDESerialReceiver();
 	memInit();
+	p2CogsInit(_cogid(), ideRxCog);
 	primsInit();
 	hardwareInit();
 	outputString("Welcome to MicroBlocks!");

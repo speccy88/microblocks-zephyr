@@ -1,0 +1,54 @@
+module main
+variables Total ProgressA ProgressB CoreA CoreB DoneA DoneB DoneMain StartedA StartedB MainTick Junk
+
+to workerContinuousA {
+    CoreA = ('[p2:p2Cog]')
+    forever {
+        ProgressA += 1
+        Total += 1
+    }
+}
+to workerContinuousB {
+    CoreB = ('[p2:p2Cog]')
+    forever {
+        ProgressB += 1
+        Total += 1
+    }
+}
+to workerExactA {
+    CoreA = ('[p2:p2Cog]')
+    repeat 5000 { Total += 1 }
+    DoneA = 1
+}
+to workerExactB {
+    CoreB = ('[p2:p2Cog]')
+    repeat 5000 { '[p2:p2SharedAdd]' 'Total' 1 }
+    DoneB = 1
+}
+to workerForbidden {
+    Junk = (newList 32)
+}
+to mainGC {
+    repeat 1200 {
+        Junk = (newList 32)
+        atPut 1 Junk 42
+    }
+}
+
+script 30 30 {
+    StartedA = ('[p2:p2CogStart]' 'workerContinuousA' 2)
+    StartedB = ('[p2:p2CogStart]' 'workerContinuousB' 3)
+}
+script 30 100 {
+    StartedA = ('[p2:p2CogStart]' 'workerExactA' 2)
+    StartedB = ('[p2:p2CogStart]' 'workerExactB' 3)
+}
+script 30 180 {
+    MainTick += 1
+}
+script 30 250 (size Junk)
+script 30 300 (at 1 Junk)
+script 30 350 {
+    repeat 5000 { Total += 1 }
+    DoneMain = 1
+}
