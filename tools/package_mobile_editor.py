@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import re
 from mobile_editor_source import MANIFEST, ROOT, read_editor
-from sfc_js_assets import assets as sfc_assets, SCRIPTS as SFC_SCRIPTS
+from js_editor_shared_assets import assets as shared_assets, SCRIPTS as SHARED_SCRIPTS
 
 BOARDS = {'waveshare': 'rlcd', 'fruit-jam': 'fruit-jam', 'xrp-rp2350': 'xrp'}
 
@@ -20,7 +20,7 @@ def mobile_files(source, runtime='pages', board=None, desktop='../?layout=deskto
         ['iphone-transport.js', 'iphone-gestures.js', 'iphone-bootstrap.js', 'iphone.css', 'THIRD_PARTY_NOTICES.md']}
     overlays.update({name:(ROOT / 'web/mobile' / name).read_bytes() for name in
         ['mobile-browser.js', 'mobile-load.js', 'mobile-entry.js', 'mobile-entry.css']})
-    overlays.update(sfc_assets())
+    overlays.update(shared_assets())
     # Pages serves assets with max-age=600. A changed document must request the
     # matching UI bytes even when a returning browser has the prior release.
     # Board URLs stay unchanged for the embedded HTTP parsers.
@@ -34,7 +34,7 @@ def mobile_files(source, runtime='pages', board=None, desktop='../?layout=deskto
     html = html.replace(redirect, '/* Same-origin board HTTP is intentional; browser transport enforces its scope. */')
     html = html.replace('window.onload = function () {', 'window.microblocksMobileStart = function () {')
     html = html.replace(anchor, '\n'.join('<script src="' + name + '"></script>' for name in
-        [*SFC_SCRIPTS, 'iphone-transport.js', 'mobile-browser.js', 'iphone-gestures.js', 'iphone-bootstrap.js', 'mobile-entry.js']) + '\n' + anchor)
+        [*SHARED_SCRIPTS, 'iphone-transport.js', 'mobile-browser.js', 'iphone-gestures.js', 'iphone-bootstrap.js', 'mobile-entry.js']) + '\n' + anchor)
     viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
     if html.count(viewport) != 1:
         raise ValueError('Review changed viewport')

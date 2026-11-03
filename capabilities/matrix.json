@@ -61,7 +61,8 @@
       "project_status": "physical_target",
       "sources": [
         "boards/propeller2/hardware.json",
-        "boards/propeller2/README.md"
+        "boards/propeller2/README.md",
+        "evidence/2026-11-03/propeller2/js-acceptance.json"
       ],
       "features": {
         "sensors": {
@@ -88,9 +89,9 @@
       },
       "vm": "native FlexC v405",
       "arduino_core": "not_linked",
-      "hardware_tests": "P2-EC32MB / USB, calculs, persistance et Smart Pin entrée; capteurs externes non testés.",
+      "hardware_tests": "P2-EC32MB / USB, calculs, persistance et Smart Pin entrée; capteurs externes non testés. JavaScript Edge USB: arithmetic/live edit, local UBP save, reset CRC persistence and connected project readback verified on EC32MB; file import blocked by automation.",
       "reviewed_source_hashes": {
-        "boards/propeller2/hardware.json": "f3cb5569babe89a0c708e18b49cc6926cfed89ed11817d864ff90d0f8f25f293"
+        "boards/propeller2/hardware.json": "9e380b98242c34cb973ced78e34c108ef3f0c248205b555a61e89d61f1ba71ac"
       }
     },
     {

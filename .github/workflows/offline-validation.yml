@@ -40,3 +40,5 @@ jobs:
         env:
           MB_FILES_HOST: ${{ github.workspace }}/build-artifacts/storage-dispatch/wire-host
         run: node --test tests/device_files.test.js tests/device_files_wire.test.js
+      - name: Check connected-board project recovery and reconnect races
+        run: node --test tests/board-project-readback.test.cjs

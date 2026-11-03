@@ -70,7 +70,7 @@ jobs:
           python tests/mobile_usability_smoke.py --editor build-artifacts/pages/mobile --output build-artifacts/portal-usability --browser /usr/bin/google-chrome
           python tests/sfc_js_browser.py --site build-artifacts/pages --output build-artifacts/sfc-js-browser --browser /usr/bin/google-chrome
       - name: Test browser transport contracts
-        run: node --test tests/portal-core.test.cjs tests/portal-adapter-guard.test.cjs tests/p4-transport.test.cjs tests/p4_media_core.test.js tests/p4_nn_core.test.js tests/device_files.test.js
+        run: node --test tests/portal-core.test.cjs tests/portal-adapter-guard.test.cjs tests/board-project-readback.test.cjs tests/p4-transport.test.cjs tests/p4_media_core.test.js tests/p4_nn_core.test.js tests/device_files.test.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build-artifacts/pages

@@ -63,13 +63,27 @@ old 64 KiB-block volumes in the already-authorized 2-8 MB region; export a
 valuable old project before upgrading. The VM record format and atomic rename
 are retained.
 
-The P2 portal keeps DTR/RTS deasserted so a Prop Plug does not hold P2 in reset.
-Choose **Propeller 2** in the portal, select Connect, then the correct FTDI
-port. The firmware reports its exact variant; the P2 Hardware library loads
-automatically. Browser project saves and `.ubp` import/export use the shared
-portal implementation. Named saves, autosave, restore and reload recovery
-have been verified in Edge; file import/export remains untested for P2. Wi-Fi and
-board-hosted editor controls are absent for this port.
+The [current JavaScript editor](https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/)
+keeps DTR/RTS deasserted so a Prop Plug does not hold P2 in reset. Connect the
+correct FTDI port, then choose **Load target blocks** for the P2 Hardware library.
+The firmware reports its exact variant. Normal connection stops the VM and
+synchronizes the browser project, which can replace the board's stored project.
+Export valuable work before using that connection workflow.
+
+**Open from board** on an already connected board now reads its project directly,
+without clearing it or asking for a reconnect. The shared adapter also refuses
+an unverified identity or a port that changed while another transfer was pending.
+With no board connected, the existing action arms a read for the next connection.
+Firmware and upstream editor engine bytes are unchanged by this fix.
+
+The [2026-11-03 JavaScript acceptance record](../../evidence/2026-11-03/propeller2/js-acceptance.json)
+covers real Edge Web Serial, P2 library identity, arithmetic/live editing, a local
+`.ubp` save, reconnect, one hardware reset with matching stored CRCs, and the
+connected-board readback regression/fix. Browser file import remains blocked by
+the automation extension's file-access setting and is not a physical PASS.
+The [legacy GP portal](https://speccy88.github.io/microblocks-zephyr/legacy/index.html)
+retains its separate named-save/autosave/reload evidence below. Wi-Fi and
+board-hosted editor controls are absent for P2.
 
 For the bounded hardware test, install `pyserial==3.5` and
 `websocket-client==1.9.0` in a Python environment, then run:
@@ -121,7 +135,8 @@ FlexProp release. Electrical limits remain those of the module.
 The retained native core is v405. The pinned real GP 2.5.8 editor displays its
 normal v405-versus-v417 notice; acknowledging it allows the tested arithmetic
 and live-edit workflows. No minimum-version check is bypassed and the VM
-version is not relabeled. Other newer-editor features need their own tests.
+version is not relabeled. The JavaScript P2 profile explicitly accepts native
+v405; its bounded acceptance is recorded above. Other newer-editor features need their own tests.
 Networking, secondary UART, NeoPixels, PSRAM object
 storage and one-click browser firmware installation are unsupported.
 

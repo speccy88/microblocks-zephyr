@@ -1,0 +1,121 @@
+{
+  "checked_at_utc": "2026-11-03T13:56:33.506026+00:00",
+  "scope": "Physical EC32MB native v405 in Edge Web Serial; hosted baseline and local source-built readback fix. No serial bridge or simulated serial provider.",
+  "source": {
+    "base_main_commit": "d2f5286f298f7385d987e67e08c0fa0401eda7ce",
+    "editor_pin": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+    "reviewed_archive_sha256": "2a281817e37d2355816e0d022de06d397f7c0dd8878cc5e4f8c08cfd5010f72b",
+    "readback_overlay_sha256": "1be773ad0b6deac685877dda922f5c957d569ebf281da1818f8f396f50988011",
+    "hosted_baseline": "https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/",
+    "candidate": "Local loopback build using tools/promote_js_portal.py; exact upstream engine hashes verified for every desktop profile"
+  },
+  "board": {
+    "port": "COM12",
+    "version": "v405 Parallax P2 Edge 32MB",
+    "module_marking_visually_reinspected": false
+  },
+  "preservation": {
+    "original_project_readback_chunks": 3,
+    "original_project_bytes": 104,
+    "original_crc32": {
+      "3": "d40da034",
+      "4": "20947c60",
+      "5": "32c165e8"
+    },
+    "backup_sha256": "58bb0b18c318b5cbfe16dbab76979c0bb071f4d3bbb6f7a04b713eb3755bbd08",
+    "backup_content_published": false,
+    "backup_scope": "Bytecode and variable names, not source layout, live variable values, firmware or full flash"
+  },
+  "checks": {
+    "hosted_web_serial_identity": "PASS",
+    "p2_library_board_reporter": "Parallax P2 Edge 32MB",
+    "arithmetic_5_plus_7": 12,
+    "live_edit_5_plus_8": 13,
+    "local_project_save": {
+      "bytes": 2293,
+      "sha256": "3175b5e5dfafe224404b36869e118597d8e4f4a4deb90399ecc38f3f1432b7e8",
+      "expression": "5 + 8"
+    },
+    "browser_reconnect_and_run_after_reset": 13,
+    "hardware_reset_persistence": {
+      "checked_at_utc": "2026-11-03T13:32:37.345776+00:00",
+      "hardware_reset": "one 10ms DTR pulse, followed by 2s boot wait",
+      "firmware_load_or_flash": false,
+      "project_upload": false,
+      "identity": {
+        "port": "COM12",
+        "vid": 1027,
+        "pid": 24577,
+        "serial": "A500507HA"
+      },
+      "version_before": "v405 Parallax P2 Edge 32MB",
+      "version_after": "v405 Parallax P2 Edge 32MB",
+      "crc_before": {
+        "3": "806c9e21"
+      },
+      "crc_after": {
+        "3": "806c9e21"
+      },
+      "crc_unchanged": true,
+      "result": "PASS"
+    },
+    "unpatched_open_from_board_regression": {
+      "version": "v405 Parallax P2 Edge 32MB",
+      "crc_after_unpatched_open_from_board": {},
+      "previous_test_crc": {
+        "3": "806c9e21"
+      }
+    },
+    "fixed_connected_readback": {
+      "scripts_recovered": 1,
+      "functions_recovered": 0,
+      "expression": "10 + 2",
+      "result": 12,
+      "reconnect_required": false,
+      "crc_check": {
+        "version": "v405 Parallax P2 Edge 32MB",
+        "crc_after_fixed_readback": {
+          "3": "180705e6"
+        },
+        "expected_compiled_10_plus_2_crc": {
+          "3": "180705e6"
+        },
+        "result": "PASS"
+      },
+      "console": "Read from board: 1 scripts, 0 functions; no task-stop or memory-clear messages during the readback itself"
+    }
+  },
+  "hardware_effects": {
+    "firmware_loaded_or_flashed": false,
+    "normal_editor_connect_stop_sync_and_software_reset": true,
+    "stored_test_project_replaced": true,
+    "explicit_hardware_reset_count": 1,
+    "explicit_hardware_reset": "10 ms DTR pulse; no RAM firmware reload",
+    "external_output_actions": false
+  },
+  "validation": {
+    "node_readback_regressions": "6 passed",
+    "packaging_regressions": "7 passed with verified source/site caches; desktop profiles and mobile package bytes checked",
+    "full_validator": {
+      "result": "PASS",
+      "command": "python -B tools/validate.py",
+      "tests_run": 678,
+      "skipped": 395,
+      "environment": "Windows Python 3.12; task-local TEMP/TMP; verified MOBILE_EDITOR_SOURCE; checkout text normalized to Git LF content"
+    },
+    "initial_environment_failures": "Sandbox temp-file/socket permissions and CRLF conversion of byte-pinned inputs were resolved before the passing full run. No source pins changed."
+  },
+  "limits": [
+    "Physical execution is EC32MB only; Eval/original Edge remain untested in this session.",
+    "File import blocked by extension file-URL access setting; no settings changed and no repeated permission loop attempted.",
+    "Local candidate logged a failed initial icon-checkmark SVG fetch; arithmetic, serial and readback completed.",
+    "No GPIO waveform, UART loopback, ADC/DAC accuracy or multicog VM behavior is established here.",
+    "The VM remains v405; cog execution and expanded Smart Pin work are separate pending changes."
+  ],
+  "screenshots": {
+    "p2-js-fixed-readback-12.jpg": "f9a03cb55c80fa64b3c80a8db9f1cd8ac04d0fea989463d8b10e0b6331799f2d",
+    "p2-js-live-edit-13.jpg": "c29c103628208e6ba806351cef7863ccf753c7961798f811c6310f3e01a0fa85",
+    "p2-js-reconnect-13.jpg": "5c76e1ffda5e4dbeb8df865e536576fe4c9819c99b23fb14fe602c898d0b37c2"
+  },
+  "result": "PASS for the enumerated physical and focused regression checks; broader runtime work pending"
+}

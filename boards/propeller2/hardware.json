@@ -83,6 +83,12 @@
       "browser_evidence": "evidence/2026-10-19/propeller2/browser-acceptance.json"
     },
     {
+      "id": "javascript_usb",
+      "status": "Real Edge Web Serial identity, P2 library reporter, arithmetic/live edit, local UBP save and reconnect PASS on EC32MB with native v405. One hardware reset preserves the JS-written code CRC. Shared connected-board readback fix physically recovers and runs a script without erasing its code. File import blocked by automation; other board variants and external I/O modes are not established by this test.",
+      "physical_tested": true,
+      "physical_evidence": "evidence/2026-11-03/propeller2/js-acceptance.json"
+    },
+    {
       "id": "smart_pin",
       "status": "Named input counting mode, full-width raw mode/X/Y, invalid values and reserved pins physically exercised. Input configuration restored by saved start hat after reset. External output waveforms unverified.",
       "physical_tested": true,
