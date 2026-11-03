@@ -18,7 +18,7 @@ class P2TargetAssets(unittest.TestCase):
         raw = (ROOT/receipt['source_path']).read_bytes()
         self.assertEqual(files[receipt['bundle']], raw)
         self.assertEqual(receipt['sha256'], hashlib.sha256(raw).hexdigest())
-        self.assertEqual(receipt['required_extension_revision'], 7)
+        self.assertEqual(receipt['required_extension_revision'], 8)
         self.assertIn('p2Quadrature', receipt['function_names'])
         self.assertIn(b'[p2:p2CogStart]', raw)
         self.assertEqual(target_assets('waveshare'), {})

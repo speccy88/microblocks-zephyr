@@ -358,8 +358,13 @@ the existing mode-25 data input and a missing-word timeout of 1..10000 ms.
 Each acknowledged result is one full 32-bit word; bit 0 is oldest. Read bytes
 while running, at most 256 words per VM call or 24 per v405 wire preview.
 One static 1024-word ring has 1023 usable entries. There is one capture session
-across all bit/SINC/scope APIs. The producer clears a pending result at startup
-and records subsequent completed words; it provides no pretrigger history.
+across all bit/SINC/scope APIs. The producer clears a pending result at startup.
+Revision 8 also discards the first completed external snapshot before publishing
+words, covering the observed initial external-clock synchronization transient.
+The `startup discarded words` field reports this one-word discard for managed
+external bit capture (finite or continuous); other capture kinds report zero.
+The finite external word count still describes the returned words, and its
+whole-record timeout includes startup. This stream provides no pretrigger history.
 Empty reads return an empty byte array.
 
 The producer uses no OBJ/heap access and continues during GC. It stops before
@@ -393,3 +398,121 @@ test checks hardware execution separately. Neither is graphical browser
 acceptance. The [RAM](../evidence/2026-11-03/propeller2/filters-capture-acceptance-ram.json)
 and [flash-boot](../evidence/2026-11-03/propeller2/filters-capture-acceptance-flash-boot.json)
 records preserve the actual counts, timing and pattern hashes.
+
+## Revision 8 streamer acquisition and recent-history records
+
+Add a heap-free native streamer/WRFAST path for internal pin/ADC bit capture.
+The main cog configures a checked input-only logic/Schmitt or ADC pad; a free
+worker cog owns only its streamer and FIFO. All WRFAST operation stays inside
+one FCACHE assembly region, with XSTOP and FIFO drain before returning to HUB
+code. The command enables input and FIFO writes only, with no streamer DAC or
+pin output. Sampling uses exact power-of-two system-clock dividers 1..32768.
+Preserve revision-7 bit/SINC/scope APIs and the one-session ownership model.
+
+Publish only completed 512-byte pages from the existing 4096-byte static ring.
+Keep room for the in-flight and next page before programming FBLOCK. A slow
+consumer causes a bounded stop before unconsumed data could be overwritten;
+partial unpublished data is discarded. With no consumer, six pages (768 words)
+are retained. Finite records accept 1..6 pages; zero pages means continuous.
+Reads return ordinary little-endian byte arrays, oldest bit first, using the
+existing 24-word wire-preview bound. Input rate, producer bandwidth and host
+transport capacity remain separate; full-clock overflow retention does not
+establish sustained full-clock USB transport. Add ready/available/status and
+maximum-rate convenience blocks rather than requiring register arithmetic.
+
+Acceptance: build every variant; first test RAM with a deterministic GPIO
+pattern at full clock and divided rates, finite counts and retained overflow;
+prove buffer guards, timing ratios, active read across ring wrap, GC/concurrent
+worker progress, stop/release/cog/edit cancellation, binary ping/fragmented CRC
+and return to HUB execution. Then test ADC ground/VIO and high-impedance DAC
+response; these establish bit density/transfer, not analog performance. Repeat
+prior physical suites after final flash boot before claiming acceptance.
+
+Pretrigger acquisition uses the explicit recent-history record API and
+chronological readback. USB, external-device protocols, calibrated analog
+performance and an external high-bandwidth sink remain separate dependencies.
+
+The DMA record API retains 1..3 history pages, then 1..3 posttrigger
+pages, at most six pages total. It samples a separate input pin's requested
+high/low level at completed-page boundaries after history fills. This is a
+page-granular level trigger: its boundary may follow the physical transition
+by up to one 4096-sample page plus polling latency, and short trigger pulses
+can be missed. It does not claim sample-accurate edge triggering. Main owns
+both input configurations; release/reassignment of either cancels the record.
+While armed, old history is deliberately overwritten and reads are refused.
+After the trigger, retain the requested posttrigger pages and stop. Expose
+armed state, trigger boundary, discarded-history count and chronological bytes.
+Timeout includes prefill/wait and leaves a partial readable record. Test a
+separate wired trigger pair, history over many wraps, both trigger levels,
+continuity before/after the boundary, timeout and lifecycle cleanup.
+
+### Using the recording blocks
+
+Load the current P2 Hardware library (0.9, extension 8). Start acquisition from
+the main VM cog; capture management remains unavailable on VM workers. The
+native producer runs on the selected free physical cog, while ordinary scripts
+or an audited worker can read completed pages and compute byte-array density.
+
+- **Stream internal bits** takes a maximum sample rate in Hz. It selects the
+  fastest power-of-two clock divisor whose actual rate does not exceed that
+  request. At 180 MHz, a 20000 Hz maximum selects 16384 clocks/sample, about
+  10986.33 samples/s. The sample-rate reporter returns its integer part. A
+  maximum below 5494 Hz cannot be represented with these divisors and is refused.
+- **Record internal bits** takes a clock-divider power 0..15 and 128..768 words
+  in multiples of 128. Power 0 samples every system clock. Each word is 32 bits;
+  128 words is one 512-byte/4096-sample page. Completed pages can be read during
+  a normal DMA acquisition. The no-consumer overflow stop retains six pages.
+- **Recent bits** takes a maximum sample rate, 128..384 history words and
+  128..384 subsequent words, each a multiple of 128, plus a separate trigger
+  input and high/low level. It first fills history, then reports **armed
+  pretrigger** while retaining only the most recent history. At the matching
+  completed-page boundary it switches to **running**, records the subsequent
+  pages and stops as **complete**. The record is readable only after it stops.
+- **Capture running?** includes armed and posttrigger acquisition. **Record
+  complete?** is true only for normal completion; timeout, cancellation, overflow
+  and timing failure have their own state strings. **Has data?** and **words
+  available** refer only to readable data. A canceled/timed-out recent record
+  can contain useful partial history even though it is not complete.
+- **Bitstream ones per million** counts set bits in a nonempty byte array and
+  returns 0..1000000. It returns false for an empty array or another type. This
+  provides a convenient raw ADC-density measurement; ground/VIO references can
+  be passed to the existing reference-scaling block. It does not imply a
+  calibrated ADC voltage, ENOB or bandwidth.
+
+For a continuous reader, start with a conservative rate, poll **has data?**,
+read up to 24 words for host previews (up to 256 within the VM), and process
+each returned byte array. Always inspect the state after a stop. Full-clock
+sampling produces 22.5 MB/s at 180 MHz, far above the 115200-baud link; use a
+finite/recent record or expect a retained-overflow stop. Divided sampling
+selects individual raw input bits and can alias an analog bitstream; it is not
+a SINC decimation filter. Use the existing SINC service for filtered ADC values.
+
+Select **Schmitt/logic** for a digital input or an ADC circuit for raw analog
+bits. The streamer reads normal pin IN (Smart Pin operating value zero), so
+its pad setup and DMA acquisition are separate from the earlier mode-24 ADC
+Smart Pin bursts. Both data and trigger inputs remain high impedance. With the
+current wiring use P0 as the source/P1 as receiver and P4 as trigger driver/P5
+as trigger input; release both pins before reversing a pair.
+
+The `trigger word` field is the zero-based boundary following retained history;
+it is -1 if no trigger occurred. `history discarded words` counts deliberately
+overwritten old history. `emitted` counts all completed pages, including that
+discarded history; it therefore exceeds the final recent-record length. Reads
+remain chronological after arbitrary ring wrap. Buffer and native-stack guards
+are checked in the physical acceptance. The trigger's page-level latency is
+derived from this sampling design; no independent event-time instrument or
+sample-accurate edge-trigger claim is included.
+
+The [revision-8 RAM](../evidence/2026-11-03/propeller2/dma-acceptance-ram.json)
+and [flash-boot](../evidence/2026-11-03/propeller2/dma-acceptance-flash-boot.json)
+records contain pattern hashes, exact frame accounting, reference densities,
+trigger-history counts, guards and transport checks. Reproduce using the same
+compiler command as above with `tests/fixtures/propeller2/dma-record.ubp`, then:
+
+```text
+python tools/test_propeller2_dma_record.py --port COM12 --usb-serial A500507HA --program /path/to/dma.json --evidence /path/to/dma-test.json
+```
+
+This replaces disposable test code and drives P0/P4 while receiving on P1/P5.
+The firmware installation and test resets are recorded separately from browser
+execution. No Windows browser retry or alternate route is part of acceptance.

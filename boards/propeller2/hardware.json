@@ -84,7 +84,8 @@
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json",
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/filters-usb-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/filters-usb-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/dma-usb-flash-boot.json"
     },
     {
       "id": "javascript_usb",
@@ -107,7 +108,8 @@
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision4-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision5-flash-boot.json",
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision6-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision7-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision7-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision8-flash-boot.json"
     },
     {
       "id": "gpio_adc_pwm_tone_servo_i2c_spi",
@@ -122,7 +124,8 @@
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/modes-usb-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/capture-usb-flash-boot.json",
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-usb-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/filters-usb-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/filters-usb-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/dma-usb-flash-boot.json"
     },
     {
       "id": "wifi_self_hosting",
@@ -143,7 +146,8 @@
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision4-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision5-flash-boot.json",
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision6-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision7-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision7-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/cogs-revision8-flash-boot.json"
     },
     {
       "id": "pin_pad_configuration",
@@ -153,7 +157,8 @@
       "all_pad_analog_behaviors_validated": false,
       "revision5_response_evidence": "evidence/2026-11-03/propeller2/converters-acceptance-flash-boot.json",
       "revision6_logic_evidence": "evidence/2026-11-03/propeller2/serial-options-acceptance-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision7-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision7-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/smart-pins-revision8-flash-boot.json"
     },
     {
       "id": "physical_cog_object_services",
@@ -170,7 +175,8 @@
       "revision4_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision4-flash-boot.json",
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision5-flash-boot.json",
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision6-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision7-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision7-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/objects-revision8-flash-boot.json"
     },
     {
       "id": "smart_pin_checked_modes",
@@ -183,15 +189,16 @@
       ],
       "unsupported_or_unvalidated": [
         "USB paired driver/protocol",
-        "continuous internal full-clock raw-bit capture and streamer DMA",
         "SMPS power-converter circuit",
         "external ADC converter hardware/protocol",
-        "absolute analog/clock accuracy, source resistance, gain accuracy, noise/bandwidth/ENOB/16-bit resolution"
+        "absolute analog/clock accuracy, source resistance, gain accuracy, noise/bandwidth/ENOB/16-bit resolution",
+        "sample-accurate edge trigger, external-clock or multi-pin DMA, sustained full-clock host export"
       ],
       "browser_execution_verified": false,
       "revision5_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision5-flash-boot.json",
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision6-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision7-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision7-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/modes-revision8-flash-boot.json"
     },
     {
       "id": "native_sinc_bit_scope_capture",
@@ -223,7 +230,8 @@
       "browser_execution_verified": false,
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/capture-revision6-flash-boot.json",
       "revision7_regression_evidence": "evidence/2026-11-03/propeller2/capture-revision7-flash-boot.json",
-      "continuous_raw_bit_scope": "External clocks only, <=1 MHz producer contract; 20 kbit/s host drain tested; 1 MHz retained-overflow test, not sustained host transport"
+      "continuous_raw_bit_scope": "External clocks only, <=1 MHz producer contract; 20 kbit/s host drain tested; 1 MHz retained-overflow test, not sustained host transport",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/capture-revision8-flash-boot.json"
     },
     {
       "id": "converter_pad_response",
@@ -237,7 +245,8 @@
       "feedback_output_stability_tested": false,
       "power_converter_tested": false,
       "revision6_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision6-flash-boot.json",
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision7-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision7-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/converters-revision8-flash-boot.json"
     },
     {
       "id": "smart_pin_word_serial_and_logic",
@@ -260,9 +269,10 @@
       "remaining_requirements": [
         "USB separate DM/DP wiring, safe VBUS and full protocol stack",
         "external converter/power circuitry and independent analog instruments",
-        "continuous internal full-clock raw-bit acquisition and streamer/DMA software"
+        "faster sink/driver for sustained full-clock export; sample-accurate edge trigger and external-clock/multi-pin DMA software"
       ],
-      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-revision7-flash-boot.json"
+      "revision7_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-revision7-flash-boot.json",
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/serial-options-revision8-flash-boot.json"
     },
     {
       "id": "global_input_filter_banks",
@@ -287,7 +297,8 @@
       "configuration_owner": "main cog, HUBSET class 4 only; no clock/debug/reset writes",
       "reserved_pin_consumers_exposed": false,
       "independent_time_accuracy_tested": false,
-      "browser_execution_verified": false
+      "browser_execution_verified": false,
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/filters-capture-revision8-flash-boot.json"
     },
     {
       "id": "continuous_external_bit_capture",
@@ -307,6 +318,50 @@
       "streamer_dma": false,
       "pretrigger_history": false,
       "absolute_clock_accuracy_tested": false,
+      "browser_execution_verified": false,
+      "revision8_regression_evidence": "evidence/2026-11-03/propeller2/filters-capture-revision8-flash-boot.json",
+      "revision8_startup_sync": "Discard one completed external snapshot after reset before publishing words; six startup captures at 20/62.5/1000 kHz verify every retained bit."
+    },
+    {
+      "id": "native_streamer_dma_recent_records",
+      "physical_tested": true,
+      "status": "Revision 8 EC32MB RAM and flash-boot PASS: input-only streamer/WRFAST and dynamic FBLOCK pages; full-clock 128/256/768-word deterministic records, retained 768-word overflow with buffer guards. Divided continuous DMA across wrap/five GCs while cog 3 progresses, exact worker byte-array consumption and density. Both high/low page-granular triggers retain 256 history+256 post words chronologically after many overwritten-history wraps; timeout keeps history. ADC ground/VIO bit density and four DAC-to-ADC1x response points; release of data/trigger, cog stop, stop-all and live edit cancellation; stack guards, 20 pings and fragmented CRC after returning to HUB code. 65 library functions compile. No independent timing/analog calibration or sustained full-clock host export.",
+      "physical_evidence": "evidence/2026-11-03/propeller2/dma-acceptance-flash-boot.json",
+      "ram_evidence": "evidence/2026-11-03/propeller2/dma-acceptance-ram.json",
+      "contract": "docs/PROPELLER2_SMART_PINS.md",
+      "maximum_sessions": 1,
+      "buffer_bytes": 4096,
+      "page_bytes": 512,
+      "no_consumer_retained_words": 768,
+      "divider_powers": [
+        0,
+        15
+      ],
+      "maximum_pin_sample_hz": 180000000,
+      "full_clock_checked_bits": 24576,
+      "continuous_checked_bits": 57344,
+      "continuous_test_divider": 8192,
+      "continuous_gc_events": 5,
+      "pretrigger_words": [
+        128,
+        384
+      ],
+      "posttrigger_words": [
+        128,
+        384
+      ],
+      "record_word_step": 128,
+      "trigger": "separate high-impedance pin, requested high/low sampled at completed-page boundaries",
+      "sample_accurate_edge_trigger": false,
+      "chronological_history": true,
+      "streamer_dma": true,
+      "continuous_internal_bits": true,
+      "sustained_full_clock_host_transport": false,
+      "external_clock_dma": false,
+      "multi_pin_dma": false,
+      "adc_mode": "normal ADC pad IN, Smart Pin operating value zero; divided sampling may alias raw ADC bits",
+      "external_converter_tested": false,
+      "absolute_clock_or_analog_accuracy_tested": false,
       "browser_execution_verified": false
     }
   ],
@@ -317,6 +372,6 @@
     "https://downloads.parallax.com/propeller-2-documentation/"
   ],
   "code_flash_erase_bytes": 4096,
-  "extension_revision": 7,
+  "extension_revision": 8,
   "mode_coverage_document": "docs/PROPELLER2_MODE_COVERAGE.md"
 }

@@ -783,6 +783,15 @@ int p2CapturePadBits(OBJ value, int external, uint32_t *pad) {
     if (!P2_NAMED(p2PadNames,value,pad)) return 0;
     return external ? (*pad==P_SCHMITT_A || *pad==P_LOGIC_A) : ((*pad&0x1c0000)==0x100000);
 }
+int p2PrepareDMAInput(int pin, OBJ circuit) {
+    uint32_t pad;
+    if (!validPin(pin) || (!p2CapturePadBits(circuit,0,&pad) && !p2CapturePadBits(circuit,1,&pad))) return 0;
+    p2Pad(pin,pad,0,0);return 1;
+}
+int p2PrepareDMATrigger(int pin) {
+    if (!validPin(pin)) return 0;
+    p2Pad(pin,P_SCHMITT_A,0,0);return 1;
+}
 static OBJ primP2LevelInput(int argc, OBJ *args) {
     int pin=p2PinArg(argc,args);uint32_t pad;
     if (argc!=3 || pin<0 || !isInt(args[1]) || !P2_NAMED(p2PadNames,args[2],&pad) ||
@@ -1109,6 +1118,9 @@ static PrimEntry entries[] = {
     {"p2ScaleSample", primP2ScaleSample},
     {"p2LevelInput", primP2LevelInput},
     {"p2ScopeCapture", primP2ScopeCapture},
+    {"p2DMACapture", primP2DMACapture},
+    {"p2DMARecord", primP2DMARecord},
+    {"p2BitDensity", primP2BitDensity},
     {"p2CaptureStart", primP2CaptureStart}, {"p2CaptureStop", primP2CaptureStop},
     {"p2CaptureInfo", primP2CaptureInfo}, {"p2StreamRead", primP2StreamRead},
     {"p2CaptureRead", primP2CaptureRead},

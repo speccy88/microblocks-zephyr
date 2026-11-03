@@ -1,0 +1,158 @@
+{
+  "checked_at_utc": "2026-11-03 22:28:52 UTC",
+  "result": "PASS",
+  "commit": "bf1fc963e9e196bf888dcf282f42b3be8e75974d",
+  "remote_main": "bf1fc963e9e196bf888dcf282f42b3be8e75974d",
+  "working_tree": "clean",
+  "ci": [
+    {
+      "id": 41729280319,
+      "name": "P4 eyes and voice host contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280319"
+    },
+    {
+      "id": 41729280321,
+      "name": "Pi5 source installer contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280321"
+    },
+    {
+      "id": 41729280420,
+      "name": "XRP HTTP scheduler contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280420"
+    },
+    {
+      "id": 41729280305,
+      "name": "Optional Linux inference CPU engines",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280305"
+    },
+    {
+      "id": 41729280366,
+      "name": "Linux Python extensions",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280366"
+    },
+    {
+      "id": 41729280465,
+      "name": "Native SFC GP editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280465"
+    },
+    {
+      "id": 41729280382,
+      "name": "Offline validation",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280382"
+    },
+    {
+      "id": 41729280293,
+      "name": "Linux ARM64 native contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280293"
+    },
+    {
+      "id": 41729280449,
+      "name": "Browser portal",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280449"
+    },
+    {
+      "id": 41729280332,
+      "name": "Mobile web editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280332"
+    },
+    {
+      "id": 41729280429,
+      "name": "iPhone wireless editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41729280429"
+    }
+  ],
+  "pages_run": 41729280449,
+  "pages_build_and_deploy": "PASS",
+  "pages_jobs": [
+    {
+      "id": 126242089670,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126243776521,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_jobs": [
+    {
+      "id": 126242089213,
+      "name": "editor-contracts",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126243365271,
+      "name": "simulator (large)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126243365279,
+      "name": "simulator (small)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "live_library": {
+    "url": "https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/",
+    "required_extension_revision": 7,
+    "functions": 56,
+    "bytes": 23339,
+    "sha256": "0c86ac80351f5ae3dc30d92a78cb24262831509b41ca5e86c95401f5bf3b6075",
+    "verification": "Static HTTPS receipt and exact library-byte reads; no Windows browser interaction"
+  },
+  "native_firmware_sha256": "dd31daa9a9f95753e884feee193032a1c102b776f3dd305a51319054c597e177",
+  "physical_suites_passed": 9,
+  "repository_validation": {
+    "tests": 679,
+    "skipped": 391,
+    "result": "OK",
+    "seconds": 18.603
+  },
+  "mode_audit": "p2-main/docs/PROPELLER2_MODE_COVERAGE.md",
+  "physical_evidence": "p2-main/evidence/2026-11-03/propeller2/filters-capture-acceptance-flash-boot.json",
+  "validation_evidence": "p2-main/evidence/2026-11-03/propeller2/filters-validation.json",
+  "final_board_check": "p2-main/evidence/2026-11-03/propeller2/filters-final-identity.json",
+  "board_state": "COM12 FTDI A500507HA answered v405 P2 Edge 32MB, extension 7 at 22:14:24 UTC; soft reset releases P0-P7, cogs 2/3 stopped",
+  "browser_guard": {
+    "action": "Connect target USB / native USB chooser",
+    "target": "Windows Edge P2 editor",
+    "reason": "Current Windows browser URL could not be determined confidently under the prior URL-policy guard",
+    "outcome": "UNCERTAIN; no completed port selection verified",
+    "retry": "No browser state inspection, retry or alternate UI route attempted; revision-7 graphical board execution remains unverified"
+  },
+  "remaining_limits": [
+    "Internal full-clock raw capture is finite; continuous internal capture, streamer DMA and programmable pretrigger history remain unimplemented.",
+    "External continuous bits use one 1023-word ring shared with SINC/scope; <=1 MHz producer contract. Host draining tested at 20 kbit/s; 1 MHz overflow retains all 32736 bits, not sustained USB transport.",
+    "USB operating mode 27 unavailable: separate DM/DP wiring, safe VBUS and a protocol stack are needed. Never tested on the hard-short pairs.",
+    "External UART/SPI/ADC devices, actual SMPS circuitry, independent clock/voltage references and analog performance remain unvalidated.",
+    "Filter reporters track shadow settings, not hardware readback; changed settings refused while any tracked user pin selects that bank.",
+    "Exact worker acquisition accounting requires graceful completion of the acquired batch; forced cancellation may discard a caller-held result."
+  ]
+}

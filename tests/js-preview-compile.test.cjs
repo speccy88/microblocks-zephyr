@@ -31,6 +31,9 @@ async function main(){
  assert.equal(serialProgram.scripts.length,11);
  const filterProgram=compile(p2Folder,fs.readFileSync(path.join(__dirname,'fixtures/propeller2/filter-capture.ubp'),'utf8')+'\n'+fs.readFileSync(path.join(__dirname,'../boards/propeller2/integration/P2_Hardware.ubl'),'utf8'));
  assert.equal(filterProgram.scripts.length,14);
+ const dmaProgram=compile(p2Folder,fs.readFileSync(path.join(__dirname,'fixtures/propeller2/dma-record.ubp'),'utf8')+'\n'+fs.readFileSync(path.join(__dirname,'../boards/propeller2/integration/P2_Hardware.ubl'),'utf8'));
+ assert.equal(dmaProgram.scripts.length,16);
+ results.push({target:'propeller2',fixture:'dma-record',chunks:dmaProgram.chunks.length,compiled:true,physical:false});
  results.push({target:'propeller2',fixture:'filter-capture',chunks:filterProgram.chunks.length,compiled:true,physical:false});
  results.push({target:'propeller2',fixture:'serial-options',chunks:serialProgram.chunks.length,compiled:true,physical:false});
  results.push({target:'propeller2',fixture:'capture',chunks:captureProgram.chunks.length,compiled:true,physical:false});

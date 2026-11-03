@@ -9,19 +9,24 @@
 #include "p2Capture.h"
 
 #define CAPACITY 1024U
-enum { IDLE, RUNNING, COMPLETE, CANCELED, OVERFLOW, TIMEOUT, TIMING };
+#define DMA_PAGE_WORDS 128U
+#define DMA_GUARD 0x51c0ffeeU
+enum { IDLE, RUNNING, COMPLETE, CANCELED, OVERFLOW, TIMEOUT, TIMING, ARMED };
 typedef struct {
     volatile uint32_t ownsCog, state, head, tail, rawCount, emitted;
-    volatile uint32_t maxGap, elapsed, expected, wraps;
+    volatile uint32_t maxGap, elapsed, expected, wraps, startupSkipped;
     int pin, cog, observedCog, localDIR, order, period, external, trigger, streaming;
     uint32_t channels;
     uint32_t keep, limit, timeout, scale;
-    uint32_t data[CAPACITY];
+    uint32_t record, prePages, postPages, triggerLevel, discarded;
+    int triggerWord;
+    uint32_t guardBefore, data[CAPACITY], guardAfter;
 } Capture;
 static Capture capture;
 
 int p2CaptureOwnsPin(int pin) {
     if (!capture.ownsCog) return 0;
+    if (capture.order==4 && capture.record && capture.trigger==pin) return 1;
     if (capture.order!=1) return capture.pin==pin;
     return pin>=capture.pin && pin<capture.pin+4 && (capture.channels & (1U<<(pin-capture.pin)));
 }
@@ -29,6 +34,133 @@ static void stopCapture(void) {
     if (capture.ownsCog) p2NativeStop(capture.cog);
 }
 void p2CaptureReleasePin(int pin) { if (p2CaptureOwnsPin(pin)) stopCapture(); }
+
+static void dmaJob(void *argument, volatile int *stop) {
+    Capture *s=argument;
+    uint32_t command=0xc080ffffU|((uint32_t)s->pin<<17),frequency=0x80000000U>>s->period;
+    uint32_t base=(uint32_t)s->data,nextAddress=base+512,stopAddress=(uint32_t)stop;
+    uint32_t head=0,tail=0,available=0,emitted=0,pages=0,limit=s->limit,ringMask=1023;
+    uint32_t now=0,last=0,first=0,haveFirst=0,gap=0,maximum=0,temp=0,status=COMPLETE;
+    uint32_t pageClocks=4096U<<s->period,gapLimit=pageClocks+512U,timeout=pageClocks*2U+180000U;
+    uint32_t headAddress=(uint32_t)&s->head,tailAddress=(uint32_t)&s->tail,countAddress=(uint32_t)&s->emitted;
+    uint32_t gapAddress=(uint32_t)&s->maxGap,wrapAddress=(uint32_t)&s->wraps,wraps=0;
+    uint32_t record=s->record,armed=record,pre=s->prePages,preWords=pre*128U,post=s->postPages;
+    uint32_t trigger=s->trigger,level=s->triggerLevel,start=0,recordTimeout=s->timeout,discarded=0;
+    uint32_t stateAddress=(uint32_t)&s->state,triggerAddress=(uint32_t)&s->triggerWord,discardAddress=(uint32_t)&s->discarded;
+    /* WRFAST owns the cog FIFO: no HUB execution or C calls until XSTOP and
+       FIFO drain. Two free pages cover the active page and the next FBLOCK. */
+    __asm volatile {
+        wrfast #8, base
+        fblock #8, nextAddress
+        setxfrq frequency
+        getct last
+        mov start, last
+        xinit command, #0
+capture_dma_wait
+        rdlong temp, stopAddress
+        tjnz temp, #capture_dma_cancel
+        pollfbw wc
+ if_c   jmp #capture_dma_page
+        getct now
+        tjz armed, #capture_dma_clock_check
+        mov temp, now
+        sub temp, start
+        cmp temp, recordTimeout wc
+ if_ae  jmp #capture_dma_timeout
+capture_dma_clock_check
+        sub now, last
+        cmp now, timeout wc
+ if_b   jmp #capture_dma_wait
+        jmp #capture_dma_timeout
+capture_dma_page
+        getct now
+        tjnz haveFirst, #capture_dma_gap
+        mov first, now
+        mov haveFirst, #1
+        jmp #capture_dma_publish
+capture_dma_gap
+        mov gap, now
+        sub gap, last
+        cmp gap, maximum wc
+ if_ae  mov maximum, gap
+        cmp gap, gapLimit wc
+ if_ae  jmp #capture_dma_late
+capture_dma_publish
+        mov last, now
+        add head, #128
+        and head, ringMask wz
+ if_z   add wraps, #1
+        add emitted, #128
+        add pages, #1
+        wrlong head, headAddress
+        wrlong emitted, countAddress
+        wrlong maximum, gapAddress
+        wrlong wraps, wrapAddress
+        tjz record, #capture_dma_finite
+        tjz armed, #capture_dma_post
+        mov temp, pages
+        cmp temp, pre wc
+ if_ae  mov temp, pre
+        shl temp, #7
+        mov tail, head
+        sub tail, temp
+        and tail, ringMask
+        wrlong tail, tailAddress
+        cmp pages, pre wcz
+ if_b   jmp #capture_dma_space
+ if_a   add discarded, #128
+        wrlong discarded, discardAddress
+        testp trigger wc
+        mov temp, #0
+        muxc temp, #1
+        cmp temp, level wz
+ if_nz  jmp #capture_dma_space
+        mov armed, #0
+        wrlong preWords, triggerAddress
+        mov temp, #1
+        wrlong temp, stateAddress
+        jmp #capture_dma_space
+capture_dma_post
+        djnz post, #capture_dma_space
+        jmp #capture_dma_done
+capture_dma_finite
+        tjz limit, #capture_dma_space
+        cmp pages, limit wc
+ if_ae  jmp #capture_dma_done
+capture_dma_space
+        rdlong tail, tailAddress
+        mov available, tail
+        sub available, head
+        sub available, #1
+        and available, ringMask
+        cmp available, #256 wc
+ if_b   jmp #capture_dma_full
+        mov nextAddress, head
+        add nextAddress, #128
+        and nextAddress, ringMask
+        shl nextAddress, #2
+        add nextAddress, base
+        fblock #8, nextAddress
+        jmp #capture_dma_wait
+capture_dma_full
+        mov status, #4
+        jmp #capture_dma_done
+capture_dma_late
+        mov status, #6
+        jmp #capture_dma_done
+capture_dma_cancel
+        mov status, #3
+        jmp #capture_dma_done
+capture_dma_timeout
+        mov status, #5
+capture_dma_done
+        xstop
+        waitx #20
+    }
+    s->rawCount=emitted;s->emitted=emitted;s->maxGap=maximum;s->wraps=wraps;
+    s->elapsed=pages ? last-first : 0;s->expected=pages ? (pages-1U)*pageClocks : 0;
+    s->state=status;
+}
 
 static void sincJob(void *argument, volatile int *stop) {
     Capture *s = argument;
@@ -131,6 +263,7 @@ static void bitsStreamJob(void *argument, volatile int *stop) {
     uint32_t now=0,last=_cnt(),first=0,haveFirst=0,gap=0,maximum=0,status=COMPLETE;
     uint32_t headAddress=(uint32_t)&s->head,tailAddress=(uint32_t)&s->tail,dataAddress=(uint32_t)s->data;
     uint32_t countAddress=(uint32_t)&s->emitted,rawAddress=(uint32_t)&s->rawCount,gapAddress=(uint32_t)&s->maxGap;
+    uint32_t warm=1,warmAddress=(uint32_t)&s->startupSkipped;
     /* External clock <=1 MHz: 32 clocks per result leaves time for ring
        bookkeeping. This does not use the internal full-clock finite path. */
     __asm volatile {
@@ -140,6 +273,7 @@ capture_bitstream_wait
         tjnz temp, #capture_bitstream_cancel
         testp pin wc
  if_nc  jmp #capture_bitstream_idle
+        tjnz warm, #capture_bitstream_warm
         mov next, head
         add next, #1
         and next, ringMask
@@ -170,6 +304,13 @@ capture_bitstream_store
         wrlong emitted, rawAddress
         wrlong maximum, gapAddress
         jmp #capture_bitstream_wait
+capture_bitstream_warm
+        rdpin sample, pin
+        mov warm, #0
+        mov temp, #1
+        wrlong temp, warmAddress
+        getct last
+        jmp #capture_bitstream_wait
 capture_bitstream_idle
         getct now
         sub now, last
@@ -193,6 +334,7 @@ static void bitsJob(void *argument, volatile int *stop) {
     uint32_t pin=s->pin, remaining=s->limit, address=(uint32_t)s->data, value=0;
     uint32_t start=_cnt(), first=0, last=0, now=0, temp=0, timeout=s->timeout, polls=64, haveFirst=0;
     uint32_t stopAddress=(uint32_t)stop, status=COMPLETE;
+    uint32_t warm=1,warmAddress=(uint32_t)&s->startupSkipped;
     if (!s->external) {
         /* At 32 clocks/word the fast path must not publish ring metadata or
            poll HUB stop flags. The whole bounded burst is under 0.2 ms. */
@@ -257,6 +399,12 @@ capture_external_wait
             testp pin wc
  if_nc      jmp #capture_external_wait
             rdpin value, pin
+            tjz warm, #capture_external_valid
+            mov warm, #0
+            mov temp, #1
+            wrlong temp, warmAddress
+            jmp #capture_external_wait
+capture_external_valid
             tjnz haveFirst, #capture_external_store
             getct first
             mov haveFirst, #1
@@ -386,6 +534,7 @@ static void captureJob(void *argument, volatile int *stop) {
     s->observedCog=_cogid();
     s->localDIR=s->pin<32 ? (_DIRA>>s->pin)&1 : (_DIRB>>(s->pin-32))&1;
     if (*stop) s->state=CANCELED;
+    else if (s->order==4) dmaJob(s,stop);
     else if (s->order==0 && s->streaming) bitsStreamJob(s,stop);
     else if (s->order==0) bitsJob(s,stop);
     else if (s->order==1) scopeJob(s,stop);
@@ -448,6 +597,58 @@ OBJ primP2CaptureStart(int argc, OBJ *args) {
     }
     return trueObj;
 }
+OBJ primP2DMACapture(int argc, OBJ *args) {
+    if (p2IsWorker() || argc!=5) return falseObj;
+    for (int i=0;i<5;i++) if (i!=1 && !isInt(args[i])) return falseObj;
+    int pin=obj2int(args[0]),power=obj2int(args[2]),pages=obj2int(args[3]),cog=obj2int(args[4]);uint32_t pad;
+    if (pin<0 || pin>=P2_USER_PIN_COUNT || power<0 || power>15 || pages<0 || pages>6 ||
+        (!p2CapturePadBits(args[1],0,&pad) && !p2CapturePadBits(args[1],1,&pad))) return falseObj;
+    if (!(capture.ownsCog && capture.cog==cog) && !p2NativeCanStart(cog)) return falseObj;
+    stopCapture();memset(&capture,0,sizeof(capture));
+    capture.pin=pin;capture.cog=cog;capture.order=4;capture.period=power;capture.limit=pages;
+    capture.observedCog=-1;capture.streaming=1;capture.guardBefore=capture.guardAfter=DMA_GUARD;
+    if (!p2PrepareDMAInput(pin,args[1])) return falseObj;
+    capture.state=RUNNING;capture.ownsCog=1;
+    if (!p2NativeStart(cog,captureJob,&capture)) {
+        capture.ownsCog=0;capture.state=IDLE;setPinMode(pin,0);return falseObj;
+    }
+    return trueObj;
+}
+OBJ primP2DMARecord(int argc, OBJ *args) {
+    if (p2IsWorker() || argc!=9 || objType(args[7])!=BooleanType) return falseObj;
+    for (int i=0;i<9;i++) if (i!=1 && i!=7 && !isInt(args[i])) return falseObj;
+    int pin=obj2int(args[0]),power=obj2int(args[2]),pre=obj2int(args[3]),post=obj2int(args[4]);
+    int cog=obj2int(args[5]),trigger=obj2int(args[6]),ms=obj2int(args[8]);uint32_t pad;
+    if (pin<0 || pin>=P2_USER_PIN_COUNT || trigger<0 || trigger>=P2_USER_PIN_COUNT || trigger==pin ||
+        power<0 || power>15 || pre<1 || pre>3 || post<1 || post>3 || pre+post>6 || ms<1 || ms>10000 ||
+        (!p2CapturePadBits(args[1],0,&pad) && !p2CapturePadBits(args[1],1,&pad))) return falseObj;
+    if (!(capture.ownsCog && capture.cog==cog) && !p2NativeCanStart(cog)) return falseObj;
+    stopCapture();memset(&capture,0,sizeof(capture));
+    capture.pin=pin;capture.cog=cog;capture.order=4;capture.period=power;
+    capture.record=1;capture.prePages=pre;capture.postPages=post;
+    capture.trigger=trigger;capture.triggerWord=-1;capture.triggerLevel=args[7]==trueObj;
+    capture.timeout=(_clockfreq()/1000U)*(uint32_t)ms;
+    capture.observedCog=-1;capture.streaming=1;capture.guardBefore=capture.guardAfter=DMA_GUARD;
+    if (!p2PrepareDMAInput(pin,args[1]) || !p2PrepareDMATrigger(trigger)) return falseObj;
+    capture.state=ARMED;capture.ownsCog=1;
+    if (!p2NativeStart(cog,captureJob,&capture)) {
+        capture.ownsCog=0;capture.state=IDLE;setPinMode(pin,0);setPinMode(trigger,0);return falseObj;
+    }
+    return trueObj;
+}
+OBJ primP2BitDensity(int argc, OBJ *args) {
+    if (argc!=1 || !IS_TYPE(args[0],ByteArrayType)) return falseObj;
+    uint32_t count=BYTES(args[0]),ones=0;
+    if (!count || count>131072U) return falseObj;
+    const uint8_t *bytes=(const uint8_t *)&FIELD(args[0],0);
+    for (uint32_t i=0;i<count;i++) {
+        uint32_t value=bytes[i];
+        value=value-((value>>1)&0x55U);
+        value=(value&0x33U)+((value>>2)&0x33U);
+        ones+=(value+(value>>4))&15U;
+    }
+    return int2obj(_muldiv64(ones,1000000U,count*8U));
+}
 OBJ primP2CaptureStop(int argc, OBJ *args) {
     (void)args;
     if (argc || p2IsWorker()) return falseObj;
@@ -457,7 +658,7 @@ OBJ primP2CaptureInfo(int argc, OBJ *args) {
     if (argc!=1 || !IS_TYPE(args[0],StringType)) return falseObj;
     const char *name=obj2str(args[0]); uint32_t n=0;
     if (!strcmp(name,"state")) n=capture.state;
-    else if (!strcmp(name,"available")) n=(capture.head-capture.tail)&(CAPACITY-1U);
+    else if (!strcmp(name,"available")) n=capture.record && capture.ownsCog ? 0 : (capture.head-capture.tail)&(CAPACITY-1U);
     else if (!strcmp(name,"raw")) n=capture.order==1 ? capture.emitted : capture.rawCount;
     else if (!strcmp(name,"emitted")) n=capture.emitted;
     else if (!strcmp(name,"cog")) return int2obj(capture.observedCog);
@@ -469,7 +670,16 @@ OBJ primP2CaptureInfo(int argc, OBJ *args) {
     else if (!strcmp(name,"elapsed clocks")) n=capture.elapsed;
     else if (!strcmp(name,"expected clocks")) n=capture.expected;
     else if (!strcmp(name,"wraps")) n=capture.wraps;
-    else if (!strcmp(name,"continuous bits")) n=capture.streaming;
+    else if (!strcmp(name,"continuous bits")) n=capture.order==4 ? !capture.limit && !capture.record : capture.streaming;
+    else if (!strcmp(name,"DMA")) n=capture.order==4;
+    else if (!strcmp(name,"sample clocks")) n=capture.order==4 ? 1U<<capture.period : 0;
+    else if (!strcmp(name,"page words")) n=capture.order==4 ? DMA_PAGE_WORDS : 0;
+    else if (!strcmp(name,"buffer guards")) return capture.order==4 && capture.guardBefore==DMA_GUARD && capture.guardAfter==DMA_GUARD ? trueObj : falseObj;
+    else if (!strcmp(name,"pretrigger words")) n=capture.prePages*DMA_PAGE_WORDS;
+    else if (!strcmp(name,"record words")) n=(capture.prePages+capture.postPages)*DMA_PAGE_WORDS;
+    else if (!strcmp(name,"trigger word")) return int2obj(capture.record ? capture.triggerWord : -1);
+    else if (!strcmp(name,"history discarded words")) n=capture.discarded;
+    else if (!strcmp(name,"startup discarded words")) n=capture.startupSkipped;
     else return falseObj;
     return int2obj(n&0x3fffffffU);
 }
@@ -482,7 +692,7 @@ static int readCount(int argc, OBJ *args) {
 }
 OBJ primP2StreamRead(int argc, OBJ *args) {
     int count=readCount(argc,args);
-    if (count<0 || capture.order<2) return falseObj;
+    if (count<0 || (capture.order!=2 && capture.order!=3)) return falseObj;
     OBJ result=newObj(ListType,count+1,falseObj);
     if (!result) return result;
     FIELD(result,0)=int2obj(count);
@@ -492,7 +702,7 @@ OBJ primP2StreamRead(int argc, OBJ *args) {
 }
 OBJ primP2CaptureRead(int argc, OBJ *args) {
     int count=readCount(argc,args);
-    if (count<0 || capture.order>1 || (capture.order==0 && capture.ownsCog && !capture.streaming)) return falseObj;
+    if (count<0 || (capture.record && capture.ownsCog) || (capture.order!=0 && capture.order!=1 && capture.order!=4) || (capture.order==0 && capture.ownsCog && !capture.streaming)) return falseObj;
     OBJ result=newObj(ByteArrayType,count,falseObj);
     if (!result) return result;
     setByteCountAdjust(result,count*4);

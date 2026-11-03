@@ -157,6 +157,17 @@ not implemented. See the [Smart Pin contract](../../docs/PROPELLER2_SMART_PINS.m
 and [complete operating-mode audit](../../docs/PROPELLER2_MODE_COVERAGE.md) for
 timing, ownership, exact physical coverage and external-hardware requirements.
 
+Extension revision 8 / library 0.9 adds input-only streamer/WRFAST capture with
+power-of-two sample dividers, finite and continuous page records, and a
+page-granular high/low pretrigger input. Friendly blocks choose a maximum rate,
+report running/complete/data-ready state and measure byte-array bit density.
+All 65 library functions compile with the pinned engine. DMA retains up to six
+128-word pages with no consumer; the ordinary SINC/scope/external-bit ring keeps
+its 1023-entry contract. Full-clock records and divided continuous acquisition
+are distinct from sustained host export. Recent-history reads are available
+after stopping, with a reported trigger boundary. See the same contract for
+chronology, timeout/partial records, FIFO ownership and trigger resolution.
+
 To reproduce the physical worker test with the exact device identified above:
 
 ```text

@@ -1,0 +1,60 @@
+{
+  "checked_at_utc": "2026-11-03T23:20:11.873511+00:00",
+  "extension_revision": 8,
+  "result": "PASS",
+  "repository_validation": {
+    "command": "python -B tools/validate.py",
+    "tests": 679,
+    "skipped": 391,
+    "elapsed_seconds": 16.888,
+    "result": "OK",
+    "environment": "Windows Python 3.12; local test sockets enabled, freshly composed pinned JavaScript/mobile site"
+  },
+  "javascript_compiler": {
+    "command": "node tests/js-preview-compile.test.cjs ../p2-dma-release-site",
+    "library_functions": 65,
+    "dma_fixture_chunks": 87,
+    "dma_fixture_scripts": 16,
+    "filter_fixture_chunks": 87,
+    "serial_fixture_chunks": 80,
+    "capture_fixture_chunks": 78,
+    "mode_fixture_chunks": 82,
+    "scalar_fixture_chunks": 12,
+    "object_fixture_chunks": 19,
+    "result": "PASS",
+    "graphical": false,
+    "physical": false
+  },
+  "physical_suites": [
+    "dma-usb-flash-boot.json",
+    "dma-acceptance-flash-boot.json",
+    "filters-capture-revision8-flash-boot.json",
+    "serial-options-revision8-flash-boot.json",
+    "capture-revision8-flash-boot.json",
+    "objects-revision8-flash-boot.json",
+    "cogs-revision8-flash-boot.json",
+    "modes-revision8-flash-boot.json",
+    "converters-revision8-flash-boot.json",
+    "smart-pins-revision8-flash-boot.json"
+  ],
+  "native_builds": "dma-native-builds.json",
+  "final_identity": "dma-final-identity.json",
+  "mode_audit": "docs/PROPELLER2_MODE_COVERAGE.md",
+  "firmware_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+  "board_effects": "Authorized RAM loads and two revision-8 boot installations reset the P2 and replace disposable project code. Initial aaf82995 boot image passed DMA but exposed an external-capture startup transient. Final 5189b980 image includes explicit startup discard and passed all ten flash-boot suites, including USB --reboot and stored CRCs. Final VM soft reset releases outputs/stops workers. No Windows browser interaction.",
+  "verified_behavior": [
+    "FCACHE-only streamer/WRFAST loop publishes complete 512-byte pages; FBLOCK chooses a free next page; two-page reserve prevents overwriting unread data. XSTOP and FIFO drain precede HUB execution.",
+    "Full-clock deterministic 4096/8192/24576-bit records and 24576-bit retained overflow; divided continuous pattern across wrap/five GCs and concurrent worker progress. Worker byte-array/density service has exact graceful-stop accounting.",
+    "Pretrigger overwrites old history while armed and refuses reads, then retains chronological pre/post pages after a high/low page-boundary level match. Timeout exposes retained partial history; trigger/data release, cog/stop-all/edit cancellation and guards pass.",
+    "Raw ADC ground/VIO and four high-impedance DAC-to-ADC1x density responses; vector density 13/32 bits equals 406250 ppm. These are transfer/density observations.",
+    "Managed external raw bit capture now discards one completed startup snapshot. A physical failure prefix contained one inconsistent first bit; six fresh startup cases at 20/62.5/1000 kHz verify all retained bits. Finite external counts exclude the discarded startup word.",
+    "Test fixes: restart the pattern source after releasing it between trigger-level cases; use the existing three-argument DAC8 API with the named circuit. No generic VM or transport changes."
+  ],
+  "remaining_limits": [
+    "Trigger level is sampled at 4096-sample page boundaries; short pulses may be missed. Sample-accurate edge timing remains software work and is not independently instrumented.",
+    "DMA exposes one input and system-clock power-of-two divisors. External-clock/multi-pin DMA are not exposed; divided raw ADC samples may alias and are not SINC-filtered values.",
+    "One capture session; ordinary rings have 1023 usable entries, DMA retains 768 words without a consumer. The 115200-baud link cannot sustain the 22.5 MB/s full-clock source; a faster sink and driver are required.",
+    "USB operating mode 27 requires separate DM/DP wiring, safe VBUS and a protocol stack; never attempted on hard-short pairs. External UART/SPI/ADC devices, actual SMPS circuitry and independent analog/clock performance require appropriate hardware/instruments.",
+    "Prior Edge Connect target USB/native chooser stopped under URL-policy guard because current Windows browser URL could not be determined confidently. Outcome remains uncertain; no browser inspection, retry or alternate route. Revision-8 graphical board execution unverified."
+  ]
+}

@@ -1,13 +1,14 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 8
-description 'Native P2 extension 7. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+version 0 9
+description 'Native P2 extension 8. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+choices p2DMAInput 'Schmitt' 'logic' 'ADC 1x' 'ADC 3x' 'ADC 10x' 'ADC 30x' 'ADC 100x' 'ADC ground' 'ADC VIO' 'ADC floating'
 choices p2FilterLength 2 3 5 8
 choices p2FilterField 'length' 'tap' 'users' 'sample clocks hex' 'configuration hex'
 choices p2Logic 'pass A' 'A AND B' 'A OR B' 'A XOR B'
 choices p2LevelCircuit 'level A' 'level A feedback negative' 'level B feedback positive' 'level B feedback negative'
 choices p2SINC 'SINC2' 'SINC3'
-choices p2CaptureField 'state' 'available' 'raw' 'emitted' 'cog' 'pin' 'local DIR' 'scale' 'maximum gap clocks' 'elapsed clocks' 'expected clocks' 'wraps' 'scope channels' 'continuous bits'
+choices p2CaptureField 'state' 'available' 'raw' 'emitted' 'cog' 'pin' 'local DIR' 'scale' 'maximum gap clocks' 'elapsed clocks' 'expected clocks' 'wraps' 'scope channels' 'continuous bits' 'DMA' 'sample clocks' 'page words' 'buffer guards' 'pretrigger words' 'record words' 'trigger word' 'history discarded words' 'startup discarded words'
 choices p2Event 'high' 'rise' 'edge'
 choices p2Edges 'rise to rise' 'rise to edge' 'edge to rise' 'edge to edge'
 choices p2ScopeFilter 'Tukey 68' 'Tukey 45' 'Hann 28'
@@ -99,7 +100,18 @@ spec 'b' 'p2FilteredInput' 'P2 try filtered input pin _ bank _' 'num num' 1 0
 spec 'b' 'p2DebounceInput' 'P2 try debounce input pin _ bank _ minimum stable _ us' 'num num num' 1 0 1000
 spec 'b' 'p2FilteredRises' 'P2 count filtered rises pin _ bank _ sample clocks _' 'num num num' 1 0 0
 spec 'b' 'p2StartExternalBitStream' 'P2 try continuous external bits pin _ cog _ clock B offset _ no word timeout ms _' 'num num num num' 1 2 2 1000
+spec 'b' 'p2RecordRecentBits' 'P2 try recent bits pin _ circuit _ maximum Hz _ history words _ then words _ cog _ when pin _ high _ wait ms _' 'num menu.p2DMAInput num num num num num bool num' 1 'ADC 1x' 20000 256 256 2 5 true 5000
+spec 'b' 'p2StartInternalStream' 'P2 try stream internal bits pin _ circuit _ maximum Hz _ cog _' 'num menu.p2DMAInput num num' 1 'ADC 1x' 20000 2
+spec 'b' 'p2RecordInternalBits' 'P2 try record internal bits pin _ circuit _ divide clock power _ words _ cog _' 'num menu.p2DMAInput num num num' 1 'ADC 1x' 0 256 2
+spec 'b' 'p2CaptureRunning' 'P2 capture running?'
+spec 'b' 'p2CaptureComplete' 'P2 record complete?'
+spec 'b' 'p2CaptureHasData' 'P2 capture has data?'
+spec 'r' 'p2CaptureAvailable' 'P2 captured words available'
+spec 'r' 'p2CaptureSampleRate' 'P2 internal bit sample rate Hz'
+spec 'r' '[p2:p2BitDensity]' 'P2 bitstream ones per million in bytes _' 'auto'
 advanced
+spec 'b' '[p2:p2DMARecord]' 'P2 DMA record pin _ circuit _ divide power _ pre pages _ post pages _ cog _ trigger pin _ high _ timeout ms _' 'num menu.p2DMAInput num num num num num bool num' 1 'ADC 1x' 0 2 2 2 5 true 5000
+spec 'b' '[p2:p2DMACapture]' 'P2 DMA internal bits pin _ circuit _ divide power _ pages (0 continuous) _ cog _' 'num menu.p2DMAInput num num num' 1 'ADC 1x' 0 2 2
 spec 'b' '[p2:p2FilterInput]' 'P2 filtered input pin _ bank _ A offset _ invert A _ B offset _ invert B _' 'num num num bool num bool' 1 0 0 false 2 false
 spec 'b' 'p2FilteredSmartPin' 'P2 filtered pin _ operation _ circuit _ X _ Y _ drive _ A offset _ B offset _ bank _' 'num menu.p2Operation menu.p2Pad str str bool num num num' 1 'count rises' 'Schmitt' '0' '0' false 0 0 0
 spec 'b' '[p2:p2ScopeCapture]' 'P2 scope group _ channels _ clocks _ frames _ cog _ trigger pin (-1 immediate) _ wait ms _' 'num num num num num num num' 0 15 18000 128 2 -1 1000
@@ -356,6 +368,7 @@ to p2CaptureState {
     if (state == 3) { return 'canceled' }
     if (state == 4) { return 'buffer full' }
     if (state == 5) { return 'clock timeout' }
+    if (state == 7) { return 'armed pretrigger' }
     return 'timing failure'
 }
 
@@ -408,4 +421,47 @@ to p2DebounceInput pin bank usecs {
 }
 to p2StartExternalBitStream pin cog b timeout {
     return ('[p2:p2CaptureStart]' pin 'bits' 32 1 0 cog true b timeout)
+}
+
+
+to p2SamplingPower maximum {
+    local 'frequency' ('[p2:p2ClockHz]')
+    if (or (maximum < 1) (maximum > frequency)) { return -1 }
+    local 'power' 0
+    local 'clocks' 1
+    while ((((frequency + clocks) - 1) / clocks) > maximum) {
+        power += 1
+        if (power > 15) { return -1 }
+        clocks = (clocks * 2)
+    }
+    return power
+}
+to p2StartInternalStream pin circuit maximum cog {
+    local 'power' (p2SamplingPower maximum)
+    if (power < 0) { return false }
+    return ('[p2:p2DMACapture]' pin circuit power 0 cog)
+}
+to p2RecordInternalBits pin circuit power words cog {
+    if (or (words < 128) (words > 768)) { return false }
+    if ((words % 128) != 0) { return false }
+    return ('[p2:p2DMACapture]' pin circuit power (words / 128) cog)
+}
+to p2CaptureRunning {
+    local 'state' ('[p2:p2CaptureInfo]' 'state')
+    return (or (state == 1) (state == 7))
+}
+to p2CaptureComplete { return (('[p2:p2CaptureInfo]' 'state') == 2) }
+to p2CaptureHasData { return (('[p2:p2CaptureInfo]' 'available') > 0) }
+to p2CaptureAvailable { return ('[p2:p2CaptureInfo]' 'available') }
+to p2CaptureSampleRate {
+    local 'clocks' ('[p2:p2CaptureInfo]' 'sample clocks')
+    if (clocks < 1) { return false }
+    return (('[p2:p2ClockHz]') / clocks)
+}
+
+to p2RecordRecentBits pin circuit maximum history after cog trigger high timeout {
+    local 'power' (p2SamplingPower maximum)
+    if (or (power < 0) (history < 128) (history > 384) (after < 128) (after > 384)) { return false }
+    if (or ((history % 128) != 0) ((after % 128) != 0)) { return false }
+    return ('[p2:p2DMARecord]' pin circuit power (history / 128) (after / 128) cog trigger high timeout)
 }

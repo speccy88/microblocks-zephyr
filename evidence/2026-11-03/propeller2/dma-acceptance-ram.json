@@ -1,0 +1,167 @@
+{
+  "tested_at_utc": "2026-11-03T23:00:39.470616+00:00",
+  "result": "PASS",
+  "checks": {
+    "density_vector_and_invalid_arguments": {
+      "vector_ones": 13,
+      "vector_bits": 32,
+      "ppm": 406250
+    },
+    "full_clock_finite_and_overflow": {
+      "sample_hz": 180000000,
+      "finite": [
+        {
+          "bytes": 512,
+          "bits": 4096,
+          "phase": 111,
+          "period_bits": 248,
+          "sha256": "fd2f63ff5a9a28d9c3e08923d46cec91a2bba1d868d56124a1992f9cf83b3500",
+          "all_bits_match": true,
+          "words": 128,
+          "state": "complete"
+        },
+        {
+          "bytes": 1024,
+          "bits": 8192,
+          "phase": 71,
+          "period_bits": 248,
+          "sha256": "f9b0d1f752518ef2a0b2a3893837e7e9118a7acacd480e5645ed3816674c9218",
+          "all_bits_match": true,
+          "words": 256,
+          "state": "complete"
+        },
+        {
+          "bytes": 3072,
+          "bits": 24576,
+          "phase": 71,
+          "period_bits": 248,
+          "sha256": "afe4556f06c9f8379f1c127e58ac2145020e9c0a798b8fad731bf9e120dfa927",
+          "all_bits_match": true,
+          "words": 768,
+          "state": "complete"
+        }
+      ],
+      "overflow": {
+        "bytes": 3072,
+        "bits": 24576,
+        "phase": 119,
+        "period_bits": 248,
+        "sha256": "6dc7b010ad88748900a22fef109d0c9d9b9ca0d34035543500db9510617c927b",
+        "all_bits_match": true
+      },
+      "retained_overflow_words": 768,
+      "buffer_guards": true
+    },
+    "continuous_divided_ring_host_gc": {
+      "bytes": 7168,
+      "bits": 57344,
+      "phase": 5,
+      "period_bits": 31,
+      "sha256": "a6deeb2b259c9a4e85d639a9df61b791bf735d4d1ef8db096d36dc020d5b806a",
+      "all_bits_match": true,
+      "sample_clocks": 8192,
+      "gc_events": 5,
+      "worker_progress": 2449,
+      "emitted_words": 1792,
+      "wraps": 1,
+      "maximum_gap_clocks": 33554432,
+      "elapsed_error_clocks": 0
+    },
+    "worker_density_consumption_gc": {
+      "cog": 3,
+      "consumed_words": 1408,
+      "buffered_words": 0,
+      "emitted_words": 1408,
+      "density_ppm": 483886,
+      "exact_accounting": true
+    },
+    "pretrigger_history_chronological_both_levels": [
+      {
+        "bytes": 2048,
+        "bits": 16384,
+        "phase": 47,
+        "period_bits": 248,
+        "sha256": "6286cd398d5f0bb02777eadbbb43090d863cacf622b23745a333f4f3895be4b4",
+        "all_bits_match": true,
+        "trigger_high": true,
+        "trigger_word": 256,
+        "history_discarded_words": 759936,
+        "emitted_words": 760448
+      },
+      {
+        "bytes": 2048,
+        "bits": 16384,
+        "phase": 231,
+        "period_bits": 248,
+        "sha256": "ea980695a70988708ed5a8f95533e31ceded451e1b7ea1edcea3effef35b8a83",
+        "all_bits_match": true,
+        "trigger_high": false,
+        "trigger_word": 256,
+        "history_discarded_words": 757632,
+        "emitted_words": 758144
+      }
+    ],
+    "pretrigger_timeout_retains_history": {
+      "bytes": 1024,
+      "bits": 8192,
+      "phase": 151,
+      "period_bits": 248,
+      "sha256": "7d51250df1f161de9f0087f0a00749ab75cf6ebae3ebb595bfb36df8ad8e4f3f",
+      "all_bits_match": true
+    },
+    "adc_full_clock_bit_density_response": {
+      "references_ppm": {
+        "ADC ground": 164428,
+        "ADC VIO": 824340
+      },
+      "transfer": [
+        {
+          "dac_code": 32,
+          "density_ppm": 248779
+        },
+        {
+          "dac_code": 96,
+          "density_ppm": 412963
+        },
+        {
+          "dac_code": 160,
+          "density_ppm": 577514
+        },
+        {
+          "dac_code": 224,
+          "density_ppm": 743408
+        }
+      ],
+      "absolute_accuracy": false,
+      "enob": false
+    },
+    "fifo_return_hub_transport_and_lifecycle": {
+      "cancellation": [
+        "data release",
+        "trigger release",
+        "cog stop",
+        "stop-all",
+        "code edit"
+      ],
+      "buffer_and_stack_guards": true,
+      "pings": 20,
+      "fragmented_code_bytes": 1012,
+      "matching_crc": true
+    }
+  },
+  "scope": "internal pin/ADC streamer WRFAST ring and page-granular pretrigger records",
+  "external_converter_tested": false,
+  "absolute_clock_or_analog_accuracy_tested": false,
+  "sustained_full_clock_host_transport_tested": false,
+  "sample_accurate_edge_trigger_tested": false,
+  "usb_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 8,
+  "firmware_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d"
+}

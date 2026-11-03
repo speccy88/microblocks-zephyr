@@ -1,0 +1,280 @@
+{
+  "tested_at_utc": "2026-11-03T23:09:08.966737+00:00",
+  "scope": "native SINC consumers, finite contiguous bit bursts and GETSCP rings",
+  "result": "PASS",
+  "checks": {
+    "wide_integer_sample_scaling_and_clamps": [
+      32767,
+      0,
+      65535,
+      false
+    ],
+    "sinc_internal_dac_transfer_modulo_and_settling": [
+      {
+        "kind": "SINC2",
+        "period_clocks": 1024,
+        "levels": [
+          {
+            "dac8": 16,
+            "mean_ratio": 0.21814775466918945,
+            "min": 228465,
+            "max": 228985,
+            "raw_samples": 2051,
+            "emitted": 32,
+            "wraps": 3
+          },
+          {
+            "dac8": 128,
+            "mean_ratio": 0.5064211785793304,
+            "min": 530801,
+            "max": 531224,
+            "raw_samples": 2051,
+            "emitted": 32,
+            "wraps": 8
+          },
+          {
+            "dac8": 240,
+            "mean_ratio": 0.7950555086135864,
+            "min": 833446,
+            "max": 833859,
+            "raw_samples": 2051,
+            "emitted": 32,
+            "wraps": 13
+          }
+        ]
+      },
+      {
+        "kind": "SINC3",
+        "period_clocks": 256,
+        "levels": [
+          {
+            "dac8": 16,
+            "mean_ratio": 0.21822792291641235,
+            "min": 3656456,
+            "max": 3666692,
+            "raw_samples": 2053,
+            "emitted": 32,
+            "wraps": 1028
+          },
+          {
+            "dac8": 128,
+            "mean_ratio": 0.5065025072544813,
+            "min": 8494432,
+            "max": 8500969,
+            "raw_samples": 2053,
+            "emitted": 32,
+            "wraps": 1026
+          },
+          {
+            "dac8": 240,
+            "mean_ratio": 0.7951448652893305,
+            "min": 13335858,
+            "max": 13343794,
+            "raw_samples": 2053,
+            "emitted": 32,
+            "wraps": 1025
+          }
+        ]
+      }
+    ],
+    "sinc_references_and_gain_pad_response": {
+      "references": {
+        "ADC ground": 0.17534124851226807,
+        "ADC VIO": 0.8346202969551086
+      },
+      "gain_responses": [
+        {
+          "circuit": "ADC 1x",
+          "dac_codes": [
+            120,
+            136
+          ],
+          "ratios": [
+            0.48588937520980835,
+            0.52707839012146
+          ]
+        },
+        {
+          "circuit": "ADC 3x",
+          "dac_codes": [
+            120,
+            136
+          ],
+          "ratios": [
+            0.4392266869544983,
+            0.5680575370788574
+          ]
+        },
+        {
+          "circuit": "ADC 10x",
+          "dac_codes": [
+            120,
+            136
+          ],
+          "ratios": [
+            0.29403674602508545,
+            0.6950550675392151
+          ]
+        },
+        {
+          "circuit": "ADC 30x",
+          "dac_codes": [
+            120,
+            136
+          ],
+          "ratios": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "circuit": "ADC 100x",
+          "dac_codes": [
+            120,
+            136
+          ],
+          "ratios": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "gain_accuracy_tested": false
+    },
+    "external_sinc_synthetic_exact_zero_and_full_scale": [
+      {
+        "kind": "SINC2",
+        "input_high": false,
+        "scale": 256,
+        "values_exact": true
+      },
+      {
+        "kind": "SINC2",
+        "input_high": true,
+        "scale": 256,
+        "values_exact": true
+      },
+      {
+        "kind": "SINC3",
+        "input_high": false,
+        "scale": 4096,
+        "values_exact": true
+      },
+      {
+        "kind": "SINC3",
+        "input_high": true,
+        "scale": 4096,
+        "values_exact": true
+      }
+    ],
+    "native_stream_during_gc_and_vm_worker": {
+      "native_cog": 2,
+      "consumer_cog": 3,
+      "consumed": 37,
+      "worker_progress": 52,
+      "gc_events": 5,
+      "raw_samples": 638981,
+      "max_gap_clocks": 280,
+      "ack_and_writes_refused": true,
+      "worker_scaled_value": 518,
+      "stopped_max_gap_clocks": 280
+    },
+    "overflow_stops_without_overwriting": {
+      "capacity": 1023,
+      "state": "buffer full",
+      "retained": 1023
+    },
+    "timeout_reassignment_cog_stop_stop_all_code_edit_and_reset": true,
+    "internal_bit_burst_native_timing": [
+      {
+        "words": 1,
+        "elapsed_clocks": 16,
+        "expected_clocks": 0,
+        "bytes": 4
+      },
+      {
+        "words": 2,
+        "elapsed_clocks": 49,
+        "expected_clocks": 32,
+        "bytes": 8
+      },
+      {
+        "words": 128,
+        "elapsed_clocks": 4079,
+        "expected_clocks": 4064,
+        "bytes": 512
+      },
+      {
+        "words": 1023,
+        "elapsed_clocks": 32718,
+        "expected_clocks": 32704,
+        "bytes": 4092
+      }
+    ],
+    "external_bit_burst_contiguity": {
+      "words": 512,
+      "bit_clock_hz": 1000000,
+      "source_period_bits": 31,
+      "high_bits": 15,
+      "phase": 25,
+      "all_16384_bits_match": true
+    },
+    "all_bit_positions_preserved": {
+      "words": 64,
+      "bytes": 256,
+      "value": 255
+    },
+    "scope_pipe_selected_channels_and_hardware_trigger": [
+      {
+        "triggered": false,
+        "channels": 10,
+        "frame_count": 128,
+        "interval_us": 100,
+        "elapsed_clocks": 2286000,
+        "expected_clocks": 2286000,
+        "pin1_mean": 52.53125,
+        "pin3_mean": 130.03125,
+        "unused_bytes_zero": true
+      },
+      {
+        "triggered": true,
+        "channels": 10,
+        "frame_count": 128,
+        "interval_us": 100,
+        "elapsed_clocks": 2286000,
+        "expected_clocks": 2286000,
+        "pin1_mean": 199.859375,
+        "pin3_mean": 130.1015625,
+        "unused_bytes_zero": true
+      }
+    ],
+    "continuous_scope_ring_wrap_gc_and_stop": {
+      "frames": 1196,
+      "drained_frames": 1112,
+      "buffered_frames": 84,
+      "interval_us": 2000,
+      "gc_events": 5,
+      "exact_frame_accounting": true,
+      "ring_wrapped": true
+    },
+    "scope_overflow_retains_buffer": 1023,
+    "scope_trigger_timeout_without_event": true,
+    "native_stack": {
+      "guards_intact": true,
+      "high_water_bytes": 60,
+      "capacity_bytes": 8192
+    }
+  },
+  "external_converter_tested": false,
+  "absolute_accuracy_or_enob_tested": false,
+  "usb_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "firmware_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+  "acceptance_boot": "revision 8 boot flash installed by loadp2 -SINGLE -FLASH; USB suite includes hardware reboot"
+}

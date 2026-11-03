@@ -1,0 +1,72 @@
+{
+  "tested_at_utc": "2026-11-03T23:10:15.014534+00:00",
+  "scope": "physical worker heap references, main-cog object services and routed pin ownership",
+  "result": "PASS",
+  "checks": {
+    "extension_revision": 8,
+    "worker_objects_survive_gc_and_resize": {
+      "cogs": [
+        2,
+        3
+      ],
+      "iterations": [
+        1000,
+        1000
+      ],
+      "atomic_list_total": 3000,
+      "final_list_length": 1002,
+      "gc_events": 8,
+      "retained_text": "worker retained λ",
+      "byte_values": [
+        255,
+        128
+      ],
+      "deferred_returns": [
+        "list",
+        "string"
+      ],
+      "errors": 0
+    },
+    "foreach_list_unicode_and_bytearray": [
+      15,
+      3,
+      1360
+    ],
+    "worker_wait_timer_and_millis_since": {
+      "timer_ms": 25,
+      "millis_since": 25
+    },
+    "isolated_oom_and_invalid_byte_errors": {
+      "errors": [
+        10,
+        19
+      ],
+      "recovery": true
+    },
+    "worker_pin_requests_keep_main_dir_ownership": {
+      "worker_cog": 2,
+      "worker_dir": false,
+      "main_dir_while_running": true,
+      "count_before": 79,
+      "count_after": 145,
+      "stop_all_releases_main_dir": true
+    },
+    "pending_request_stop_edit_reset": true,
+    "rapid_object_return_reset_cycles": 10,
+    "native_stack_guards": {
+      "intact": true,
+      "cog2_bytes": 716,
+      "cog3_bytes": 716,
+      "capacity_bytes": 8192
+    }
+  },
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "firmware_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+  "acceptance_boot": "revision 8 boot flash installed by loadp2 -SINGLE -FLASH; USB suite includes hardware reboot"
+}

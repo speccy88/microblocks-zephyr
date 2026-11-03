@@ -13,7 +13,7 @@ non-USB operating-mode setup functions.
 
 | D[5:1] | Hardware operation | Convenient setup / data blocks | Physical evidence and limits |
 |---:|---|---|---|
-| 0 | Normal pad/GPIO | standard digital I/O, pad circuit, level input, logic input, routed filtered input and debounce | Four pairs both directions; threshold response; 64 Boolean truth cases with A/B inversions; all four global filter banks reject short pulses and count longer ones. Feedback-output/analog performance separate. |
+| 0 | Normal pad/GPIO | standard digital I/O, pad circuit, level/logic/filtered input, debounce; raw pin/ADC DMA | Four pairs both directions; threshold response; 64 Boolean truth cases; four filter banks; full-clock DMA patterns, continuous divided sampling and recent-history records. Feedback-output/analog performance separate. |
 | 1 | Repository / DAC noise | store value in repository; DAC noise sample clocks/circuit | Full-width repository round trip; noise DC mean. Spectrum unmeasured. |
 | 2 | DAC random dither | DAC16 with PWM dither false | Monotonic averaged transfer, not 16-bit accuracy. |
 | 3 | DAC PWM dither | DAC16 with PWM dither true | Monotonic averaged transfer; period multiple of 256 clocks. |
@@ -58,7 +58,12 @@ records revision 7. A configured WRPIN value is not a signal PASS.
 WRPIN F (D[23:21]) is separate from the operating mode and pad circuit. The
 revision-7 bank configuration, input/debounce, filtered counter and advanced
 filtered Smart Pin blocks expose it with shared-bank ownership checks. All
-56 target-library functions compile with the pinned JavaScript engine.
+65 target-library functions compile with the pinned JavaScript engine. Revision
+8 streamer capture reads normal pin IN through logic/Schmitt or ADC pad setup;
+it does not replace the mode-24 Smart Pin ADC/SINC paths. Its page-granular
+pretrigger record has an explicit high/low trigger boundary and chronological
+readback. See the [acquisition contract](PROPELLER2_SMART_PINS.md) and
+[DMA/recent-history acceptance](../evidence/2026-11-03/propeller2/dma-acceptance-flash-boot.json).
 
 ## Hardware and software still required
 
@@ -88,14 +93,17 @@ filtered Smart Pin blocks expose it with shared-bank ownership checks. All
   impedances and calibrated voltage/time measurement. Higher ADC gains load the
   source and clip; loopback curves do not establish nominal gain, DAC resistance,
   threshold/hysteresis, feedback-output stability or noise/ENOB/bandwidth.
-- **Remaining software acquisition:** internal full-clock raw-bit capture is
-  finite; continuous internal capture, streamer DMA and programmable pretrigger
-  history remain unimplemented. External continuous bits, SINC and scope share
-  one capture session with 1023 usable entries. External bit clocks must be
-  <=1 MHz; the 1 MHz acceptance stops on overflow and retains every buffered
-  word. It does not establish sustained host transport at that rate. The
-  115200-baud link cannot carry internal ADC bit rates; a faster sink and a
-  separate streamer/DMA design are needed for that use.
+- **Acquisition limits:** one session is shared by bits, SINC, scope and DMA.
+  The ordinary ring has 1023 usable entries; DMA reserves in-flight space and
+  retains six 128-word pages with no consumer. Internal DMA runs continuously
+  until stopped or full. Its recent-history trigger samples a level at page
+  boundaries; sample-accurate edge triggering, external-clock DMA and multi-pin
+  DMA are not exposed. These remain software work, distinct from unavailable
+  external instruments. The <=1 MHz external Smart Pin bit service remains
+  independent. A 115200-baud host link cannot carry the 22.5 MB/s full-clock
+  single-input stream at 180 MHz; sustained full-clock export requires a faster
+  sink and its driver. Current divided-rate continuity and full-clock retained
+  records do not establish that export bandwidth.
 - **Global input filters:** four banks are configured and physically exercised.
   A changed setting is refused while tracked user pins select that bank; release
   all its consumers first. Filter reports are software shadow settings, not a

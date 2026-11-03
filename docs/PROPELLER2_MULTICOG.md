@@ -97,3 +97,14 @@ allocate list/byte-array results on the main cog. A VM worker can consume those
 results through the existing rooted service path and scale raw integer samples
 on its own cog. See [capture contracts](PROPELLER2_SMART_PINS.md#revision-5-streaming-contract)
 for period, timeout, overflow and transport bounds.
+
+Revision 8 adds an input-only streamer/WRFAST callback. It remains inside an
+FCACHE assembly region while the cog FIFO belongs to DMA, then stops the
+streamer and drains the FIFO before returning to HUB code. Normal pin IN is
+captured into completed static pages; the main cog still owns pad and DIR/OUT
+configuration. Recent-history records also lease their separate trigger input.
+Reassigning either input cancels/joins the producer. Record management starts
+on the main VM cog, while audited worker requests may read completed byte
+arrays and calculate bit density through the rooted main-cog service. No
+worker starts a second interpreter on the acquisition cog, and the DMA callback
+never holds heap references. See the [revision-8 contract](PROPELLER2_SMART_PINS.md#revision-8-streamer-acquisition-and-recent-history-records).

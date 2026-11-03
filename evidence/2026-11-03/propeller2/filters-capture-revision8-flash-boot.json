@@ -1,0 +1,214 @@
+{
+  "tested_at_utc": "2026-11-03T23:05:24.391136+00:00",
+  "result": "PASS",
+  "checks": {
+    "documented_boot_filter_defaults": [
+      {
+        "bank": 0,
+        "length": 2,
+        "tap": 0
+      },
+      {
+        "bank": 1,
+        "length": 3,
+        "tap": 5
+      },
+      {
+        "bank": 2,
+        "length": 5,
+        "tap": 19
+      },
+      {
+        "bank": 3,
+        "length": 8,
+        "tap": 22
+      }
+    ],
+    "all_banks_and_lengths_pulse_rejection": [
+      {
+        "bank": 0,
+        "length": 2,
+        "tap": 10,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      },
+      {
+        "bank": 1,
+        "length": 3,
+        "tap": 9,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      },
+      {
+        "bank": 2,
+        "length": 5,
+        "tap": 8,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      },
+      {
+        "bank": 3,
+        "length": 8,
+        "tap": 8,
+        "narrow_high_us": 2,
+        "long_high_us": 40,
+        "narrow_rises": 0,
+        "long_rises": 100,
+        "active_retime_refused": true
+      }
+    ],
+    "shared_raw_consumer_and_stop_ownership": true,
+    "routed_inverted_filtered_input": {
+      "input_pin": 1,
+      "source_pin": 3,
+      "source_driver": 2,
+      "a_offset": 2,
+      "inverted": true,
+      "receiver_dir": false
+    },
+    "debounce_microsecond_helper": {
+      "request_minimum_us": 1000,
+      "length": 8,
+      "tap": 15,
+      "actual_minimum_clocks": 229376,
+      "actual_maximum_clocks": 262144,
+      "short_200us_rejected": true,
+      "long_5ms_counted": true
+    },
+    "worker_requests_clock_and_binary_transport": {
+      "cog": 3,
+      "receiver_dir": false,
+      "clock_report_hz": 180000000,
+      "pings": 20,
+      "fragmented_code_bytes": 1012,
+      "wire_packet_bytes": 1019,
+      "matching_crc": true
+    },
+    "external_continuous_pattern_ring_wrap_gc": {
+      "bytes": 5656,
+      "bits": 45248,
+      "phase": 25,
+      "sha256": "05e927dd1aca9190647d74f9738fb70ac6fd6e60d0feef4ee11248b7634c4a4d",
+      "all_bits_match": true,
+      "emitted_words": 1414,
+      "ring_wrapped": true,
+      "gc_events": 5,
+      "worker_progress": 2046,
+      "maximum_gap_clocks": 288024,
+      "elapsed_error_clocks": -16
+    },
+    "worker_bytearray_consumption_and_gc": {
+      "native_cog": 2,
+      "consumer_cog": 3,
+      "consumed_words": 1224,
+      "buffered_words": 59,
+      "emitted_words": 1283,
+      "maximum_gap_clocks": 288024,
+      "exact_accounting": true
+    },
+    "external_1mhz_overflow_retains_contiguous_data": {
+      "bytes": 4092,
+      "bits": 32736,
+      "phase": 30,
+      "sha256": "5300296be9623ff8071aac567f1a31b2a323eed44874f6d8fc65145ff4217191",
+      "all_bits_match": true,
+      "bit_clock_hz": 1000000,
+      "overflow_words_retained": 1023
+    },
+    "full_32_bit_all_ones_preserved": {
+      "bytes": 224,
+      "all_ff": true
+    },
+    "external_startup_snapshot_sync": [
+      {
+        "bytes": 224,
+        "bits": 1792,
+        "phase": 23,
+        "sha256": "d89c19d2e70dbde0da63b8fc7b7a5a60716468831c4a9d3bbcf751be8781fe0b",
+        "all_bits_match": true,
+        "bit_clock_hz": 20000,
+        "startup_snapshots_discarded": 1
+      },
+      {
+        "bytes": 204,
+        "bits": 1632,
+        "phase": 1,
+        "sha256": "3712910fe19ba15390c889ec2a9acad8ac6bc21cb611e850fb127aee47313e6a",
+        "all_bits_match": true,
+        "bit_clock_hz": 62500,
+        "startup_snapshots_discarded": 1
+      },
+      {
+        "bytes": 3500,
+        "bits": 28000,
+        "phase": 12,
+        "sha256": "60b1c871610d9057027d3e18a641ee3e882e9f84a198693e463a81518040c0a3",
+        "all_bits_match": true,
+        "bit_clock_hz": 1000000,
+        "startup_snapshots_discarded": 1
+      },
+      {
+        "bytes": 212,
+        "bits": 1696,
+        "phase": 23,
+        "sha256": "b9b98cc1923bde14794bae92ff131b10ee3f8b980e2694ffc5af4320f369db05",
+        "all_bits_match": true,
+        "bit_clock_hz": 62500,
+        "startup_snapshots_discarded": 1
+      },
+      {
+        "bytes": 224,
+        "bits": 1792,
+        "phase": 29,
+        "sha256": "035f4c2bcf7e2448157a9ec150b4b212df40d22e68101e98dcc5f0ada1c19d7c",
+        "all_bits_match": true,
+        "bit_clock_hz": 20000,
+        "startup_snapshots_discarded": 1
+      },
+      {
+        "bytes": 3504,
+        "bits": 28032,
+        "phase": 13,
+        "sha256": "63cc143b1dc170a8c98bd2bc03f4f905dbe1866ae40b03dd21b93daeb847c16d",
+        "all_bits_match": true,
+        "bit_clock_hz": 1000000,
+        "startup_snapshots_discarded": 1
+      }
+    ],
+    "stream_timeout_and_lifecycle": {
+      "missing_word_timeout": true,
+      "cancellation": [
+        "release",
+        "cog",
+        "stop-all",
+        "edit"
+      ],
+      "native_and_worker_stack_guards": true
+    }
+  },
+  "scope": "four global filter banks and native external continuous bit ring",
+  "internal_full_clock_continuous_tested": false,
+  "streamer_dma_tested": false,
+  "external_converter_tested": false,
+  "absolute_clock_or_analog_accuracy_tested": false,
+  "usb_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 8,
+  "firmware_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+  "acceptance_boot": "revision 8 boot flash installed by loadp2 -SINGLE -FLASH; USB suite includes hardware reboot"
+}

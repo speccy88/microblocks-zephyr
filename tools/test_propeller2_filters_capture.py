@@ -180,6 +180,7 @@ def test(args):
         assert value('Core')==3 and value('Progress')>0 and info('state')==1
         assert run(208) is True and run(scripts['stop']) is True
         emitted=info('emitted');buffered=info('available')
+        if report['extension_revision']>=8:assert info('startup discarded words')==1
         assert len(all_bytes)//4+buffered==emitted
         all_bytes+=drain();check=pattern(all_bytes)
         assert info('maximum gap clocks')<=288128
@@ -215,6 +216,14 @@ def test(args):
         assert run(scripts['stop']) is True;data=drain();assert len(data)>=128 and set(data)=={255}
         report['checks']['full_32_bit_all_ones_preserved']=dict(bytes=len(data),all_ff=True)
         release()
+        if report['extension_revision']>=8:
+            startups=[]
+            for hz in [20000,62500,1000000,62500,20000,1000000]:
+                source(hz);start();until(lambda:info('available')>=8)
+                assert run(scripts['stop']) is True and info('startup discarded words')==1
+                check=pattern(drain());check.update(bit_clock_hz=hz,startup_snapshots_discarded=1)
+                startups.append(check);release()
+            report['checks']['external_startup_snapshot_sync']=startups
         source();start(100);run(206)
         until(lambda:info('state')!=1);assert info('state')==5
         release()

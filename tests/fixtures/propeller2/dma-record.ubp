@@ -1,0 +1,59 @@
+module main
+variables Pin Circuit Power Pages Words Cog Maximum History After Trigger High Timeout Field ReadCount Unit Done Junk Progress Consumed Core StopConsumer ConsumerStopped LastDensity
+
+to dmaPatternSource {
+    return ('[p2:p2Configure]' 0 'PWM sawtooth' 'logic' ((31 * 65536) + Unit) 15 true 0)
+}
+to dmaGarbage {
+    repeat 1600 { Junk = (newList 64) }
+    Done = true
+}
+to dmaHeartbeat {
+    Core = ('[p2:p2Cog]')
+    forever {
+        Progress += 1
+        waitMillis 1
+    }
+}
+to dmaConsumer {
+    Core = ('[p2:p2Cog]')
+    forever {
+        local 'bytes' ('[p2:p2CaptureRead]' 256)
+        Consumed += ((size bytes) / 4)
+        if ((size bytes) > 0) { LastDensity = ('[p2:p2BitDensity]' bytes) }
+        Progress += 1
+        if StopConsumer {
+            ConsumerStopped = true
+            return Consumed
+        }
+        waitMillis 1
+    }
+}
+to dmaDensityRead {
+    return ('[p2:p2BitDensity]' ('[p2:p2CaptureRead]' 256))
+}
+to dmaDensityVector {
+    local 'bytes' ('[data:newByteArray]' 4 0)
+    atPut 1 bytes 0
+    atPut 2 bytes 255
+    atPut 3 bytes 170
+    atPut 4 bytes 128
+    return ('[p2:p2BitDensity]' bytes)
+}
+
+script 10 10 (dmaPatternSource)
+script 10 50 ('[p2:p2DMACapture]' Pin Circuit Power Pages Cog)
+script 10 90 (p2StartInternalStream Pin Circuit Maximum Cog)
+script 10 130 (p2RecordInternalBits Pin Circuit Power Words Cog)
+script 10 170 (p2RecordRecentBits Pin Circuit Maximum History After Cog Trigger High Timeout)
+script 10 210 ('[p2:p2CaptureInfo]' Field)
+script 10 250 ('[p2:p2CaptureRead]' ReadCount)
+script 10 290 (dmaDensityRead)
+script 10 330 (p2CaptureState)
+script 10 370 (p2CaptureRunning)
+script 10 410 (p2CaptureComplete)
+script 10 450 (p2CaptureHasData)
+script 10 490 (p2CaptureAvailable)
+script 10 530 (p2CaptureSampleRate)
+script 10 570 ('[p2:p2CaptureStop]')
+script 10 610 (dmaDensityVector)
