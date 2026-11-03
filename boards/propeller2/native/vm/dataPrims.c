@@ -233,9 +233,13 @@ OBJ primAt(int argCount, OBJ *args) {
 			start = nextUTF8(start);
 		}
 		int byteCount = nextUTF8(start) - start;
+		/* Save the character before allocation can move its source string. */
+		char character[8];
+		if (byteCount > 8) return fail(needsStringError);
+		memcpy(character, start, byteCount);
 		OBJ result = newString(byteCount);
 		if (result) {
-			memcpy(obj2str(result), start, byteCount);
+			memcpy(obj2str(result), character, byteCount);
 		}
 		return result;
 	} else if (IS_TYPE(obj, ByteArrayType)) {

@@ -169,6 +169,9 @@ static uint32 timerStart = 0;
 void resetTimer() { timerStart = millisecs(); }
 
 static int timer() {
+	#if defined(PARALLAX_P2)
+	return (millisecs() - timerStart) & 0x3fffffff;
+	#else
 	// Return the number of milliseconds since the timer was last reset.
 	// Note: The millisecond clock is the 32-bit microsecond clock divided by 1000,
 	// so it wraps around to zero when the microsecond clock wraps, which occurs
@@ -182,13 +185,18 @@ static int timer() {
 		return (msecWrap - timerStart) + now; // time to wrap + time since wrap
 	}
 	return now - timerStart;
+	#endif
 }
 
 static OBJ primMSecsSince(int argCount, OBJ *args) {
 	int startTime = obj2int(args[0]);
 	int endTime = ((argCount > 1) && isInt(args[1])) ?
 		obj2int(args[1]) :
+		#if defined(PARALLAX_P2)
+		millisecs() & 0x3FFFFFFF;
+		#else
 		((uint32) ((totalMicrosecs() / 1000))) & 0x3FFFFFFF;
+		#endif
 
 	int deltaTime = endTime - startTime;
 	if (deltaTime < 0) deltaTime += 0x40000000;
@@ -452,9 +460,12 @@ static void interpDebug(int ip, int cmd, int arg, int sp) {
 #define P2_OPCODE_CHECK() { \
 	if (!p2WorkerOpcodeAllowed(CMD(op))) { errorCode = primitiveNotImplemented; goto error; } \
 }
+#define P2_OBJECT_CALL(opcode, function) (p2IsWorker() ? \
+	p2RequestService(opcode, 0, NULL, arg, sp - arg) : function(arg, sp - arg))
 #else
 #define P2_SAFEPOINT()
 #define P2_OPCODE_CHECK()
+#define P2_OBJECT_CALL(opcode, function) function(arg, sp - arg)
 #endif
 #if defined(__FLEXC__) && defined(__P2__)
 // FlexC does not support the GCC labels-as-values extension used by the jump table.
@@ -968,7 +979,7 @@ static void runTask(Task *task) {
 		if (fp == task->stack) { // not in a function call
 			#if defined(PARALLAX_P2)
 			if (p2IsWorker()) {
-				if (!p2Scalar(tmpObj)) { fail(needsIntegerError); goto error; }
+				if (!p2WorkerValueAllowed(tmpObj)) { fail(primitiveNotImplemented); goto error; }
 				sendTaskReturnValue(task->taskChunkIndex, tmpObj);
 				task->status = unusedTask;
 				goto suspend;
@@ -1025,6 +1036,14 @@ static void runTask(Task *task) {
 		stopAllTasksButThis(task); // clears all tasks except the current one
 		DISPATCH();
 	forLoop_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) {
+			tmpObj = p2RequestService(27, 0, NULL, arg, sp - 3);
+			if (obj2int(*(sp - 1)) > 0) *(fp + arg) = tmpObj;
+			else ip += 2;
+			DISPATCH();
+		}
+		#endif
 		// stack layout:
 		// *(sp - 1) the loop counter (decreases from N to 1); falseObj the very first time
 		// *(sp - 2) N, the total loop count or item count of a list, string or byte array
@@ -1253,7 +1272,7 @@ static void runTask(Task *task) {
 		DISPATCH();
 
 	sum_op:
-		*(sp - arg) = primSum(arg, sp - arg);
+		*(sp - arg) = P2_OBJECT_CALL(69, primSum);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	longMultiply_op:
@@ -1267,19 +1286,19 @@ static void runTask(Task *task) {
 
 	// list operations:
 	newList_op:
-		*(sp - arg) = primNewList(arg, sp - arg);
+		*(sp - arg) = P2_OBJECT_CALL(80, primNewList);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	at_op:
-		*(sp - arg) = primAt(arg, sp - arg);
+		*(sp - arg) = P2_OBJECT_CALL(81, primAt);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	atPut_op:
-		primAtPut(arg, sp - arg);
+		P2_OBJECT_CALL(82, primAtPut);
 		POP_ARGS_COMMAND();
 		DISPATCH();
 	size_op:
-		*(sp - arg) = primLength(arg, sp - arg);
+		*(sp - arg) = P2_OBJECT_CALL(83, primLength);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	// miscellaneous operations:
@@ -1308,7 +1327,11 @@ static void runTask(Task *task) {
 		DISPATCH();
 	millis_op:
 		STACK_CHECK(1);
+		#if defined(PARALLAX_P2)
+		*sp++ = int2obj(millisecs() & 0x3FFFFFFF);
+		#else
 		*sp++ = int2obj((uint32) ((totalMicrosecs() / 1000) & 0x3FFFFFFF)); // result range is 0 - 1073741823
+		#endif
 		DISPATCH();
 	micros_op:
 		STACK_CHECK(1);
@@ -1375,46 +1398,73 @@ static void runTask(Task *task) {
 
 	// I/O operations:
 	analogPins_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { *(sp - arg) = p2RequestService(84, 0, NULL, arg, sp - arg); } else
+		#endif
 		*(sp - arg) = primAnalogPins(sp - arg);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	digitalPins_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { *(sp - arg) = p2RequestService(85, 0, NULL, arg, sp - arg); } else
+		#endif
 		*(sp - arg) = primDigitalPins(sp - arg);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	analogRead_op:
-		*(sp - arg) = primAnalogRead(arg, sp - arg);
+		*(sp - arg) = P2_OBJECT_CALL(86, primAnalogRead);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	analogWrite_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { p2RequestService(87, 0, NULL, arg, sp - arg); } else
+		#endif
 		primAnalogWrite(sp - arg);
 		POP_ARGS_COMMAND();
 		DISPATCH();
 	digitalRead_op:
-		*(sp - arg) = primDigitalRead(arg, sp - arg);
+		*(sp - arg) = P2_OBJECT_CALL(88, primDigitalRead);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	digitalWrite_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { p2RequestService(89, 0, NULL, arg, sp - arg); } else
+		#endif
 		primDigitalWrite(sp - arg);
 		POP_ARGS_COMMAND();
 		DISPATCH();
 	digitalSet_op:
 		// no args to pop; pin number is encoded in arg field of instruction
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { p2RequestService(90, 0, NULL, arg, NULL); } else
+		#endif
 		primDigitalSet(arg, true);
 		DISPATCH();
 	digitalClear_op:
 		// no args to pop; pin number is encoded in arg field of instruction
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { p2RequestService(91, 0, NULL, arg, NULL); } else
+		#endif
 		primDigitalSet(arg, false);
 		DISPATCH();
 	buttonA_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { *(sp - arg) = p2RequestService(92, 0, NULL, arg, sp - arg); } else
+		#endif
 		*(sp - arg) = primButtonA(sp - arg);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	buttonB_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { *(sp - arg) = p2RequestService(93, 0, NULL, arg, sp - arg); } else
+		#endif
 		*(sp - arg) = primButtonB(sp - arg);
 		POP_ARGS_REPORTER();
 		DISPATCH();
 	setUserLED_op:
+		#if defined(PARALLAX_P2)
+		if (p2IsWorker()) { p2RequestService(94, 0, NULL, arg, sp - arg); } else
+		#endif
 		primSetUserLED(sp - arg);
 		POP_ARGS_COMMAND();
 		DISPATCH();
@@ -1537,6 +1587,44 @@ static void runTask(Task *task) {
 
 #if defined(PARALLAX_P2)
 void p2RunTask(Task *task) { runTask(task); }
+int p2ReturnHasSpace(OBJ value) { return hasOutputSpace(bytesForObject(value) + 100); }
+OBJ p2ExecuteServiceOpcode(int opcode, int count, OBJ *args) {
+    switch (opcode) {
+    case 27: {
+        int remaining;
+        if (args[2] == falseObj) {
+            if (isInt(args[0])) remaining = obj2int(args[0]);
+            else if (IS_TYPE(args[0], ListType) || IS_TYPE(args[0], StringType) || IS_TYPE(args[0], ByteArrayType))
+                remaining = obj2int(primLength(1, args));
+            else return fail(badForLoopArg);
+            args[1] = int2obj(remaining);
+        } else remaining = obj2int(args[2]) - 1;
+        args[2] = int2obj(remaining > 0 ? remaining : 0);
+        if (remaining <= 0) return falseObj;
+        int index = obj2int(args[1]) - remaining + 1;
+        if (isInt(args[0])) return int2obj(index);
+        OBJ atArgs[2] = {int2obj(index), args[0]};
+        return primAt(2, atArgs);
+    }
+    case 69: return primSum(count, args);
+    case 80: return primNewList(count, args);
+    case 81: return primAt(count, args);
+    case 82: return primAtPut(count, args);
+    case 83: return primLength(count, args);
+    case 84: return primAnalogPins(args);
+    case 85: return primDigitalPins(args);
+    case 86: return primAnalogRead(count, args);
+    case 87: primAnalogWrite(args); return falseObj;
+    case 88: return primDigitalRead(count, args);
+    case 89: primDigitalWrite(args); return falseObj;
+    case 90: primDigitalSet(count, true); return falseObj;
+    case 91: primDigitalSet(count, false); return falseObj;
+    case 92: return primButtonA(args);
+    case 93: return primButtonB(args);
+    case 94: primSetUserLED(args); return falseObj;
+    default: return fail(primitiveNotImplemented);
+    }
+}
 #endif
 
 #if !defined(EMSCRIPTEN)
@@ -1584,6 +1672,7 @@ void vmLoop() {
 			// do background VM tasks once every N VM loop cycles
 			processMessage();
 			#if defined(PARALLAX_P2)
+			p2ServiceWorkerRequests();
 			p2CollectWorkerEvents();
 			#endif
 			checkButtons();

@@ -41,7 +41,9 @@ def test(args):
         def setup(pin,mode,x=0,y=0,pad='Schmitt',drive=False,b=0):
             assert call('p2Configure',pin,mode,pad,f'{x:08x}',f'{y:08x}',drive,b) is True,(pin,mode)
         def z(pin): return int(call('p2PinReadHex',pin),16)
-        assert call('p2RuntimeRevision') == 2
+        revision=call('p2RuntimeRevision')
+        assert revision >= 2
+        report['extension_revision']=revision
         release(*range(8))
         levels=[]
         for even in range(0,8,2):

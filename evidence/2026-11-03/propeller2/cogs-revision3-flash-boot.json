@@ -1,0 +1,74 @@
+{
+  "tested_at_utc": "2026-11-03T17:26:27.427841+00:00",
+  "scope": "physical scalar workers and shared HUB variables; no GPIO or firmware loading",
+  "checks": {
+    "extension_revision": 3,
+    "main_rx_cogs_and_unknown_function_rejected": true,
+    "distinct_physical_cogs_and_concurrent_progress": {
+      "cogs": [
+        2,
+        3
+      ],
+      "before": [
+        1775,
+        2140
+      ],
+      "after": [
+        6446,
+        6800
+      ],
+      "main_tick": 1
+    },
+    "main_list_gc_with_live_scalar_workers": {
+      "gc_events": 2,
+      "list_length": 32,
+      "first_item": 42,
+      "progress": [
+        11797,
+        12151
+      ]
+    },
+    "serial_reconnect_preserves_running_workers": true,
+    "independent_stop": true,
+    "exact_atomic_shared_increments": {
+      "cogs": [
+        0,
+        2,
+        3
+      ],
+      "iterations_per_cog": 5000,
+      "total": 15000,
+      "methods": [
+        "standard change-variable opcode",
+        "named P2 atomic add"
+      ]
+    },
+    "native_stack_guards_and_usage": {
+      "guards_intact": true,
+      "cog2_bytes": 620,
+      "cog3_bytes": 620,
+      "capacity_bytes": 8192
+    },
+    "worker_management_rejected": {
+      "error": 27,
+      "events": [
+        [
+          4,
+          "1b040d0000"
+        ]
+      ]
+    },
+    "stop_all_stops_workers": true,
+    "soft_reset_stops_workers_and_clears_variables": true,
+    "live_code_edit_stops_workers": true
+  },
+  "result": "PASS",
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "firmware_sha256": "0c8b824ddb6fdf7eb9be7250a40ecf320a8c5ade401f0532eac004a6aba028c5"
+}

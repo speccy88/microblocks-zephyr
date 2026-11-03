@@ -1,7 +1,7 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 3
-description 'Native Propeller 2 firmware, USB at 115200. Not Zephyr. Pins P58Ã¢â‚¬â€œ63 are reserved; EC32MB also reserves P40Ã¢â‚¬â€œ57. NCO/PWM and raw modes can drive hardware. Smart Pin X/Y are hardware register values. Read the board documentation before using outputs.'
+version 0 4
+description 'Native P2 extension 3. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
 choices p2Mode 'input' 'pull-up' 'pull-down' 'NCO frequency' 'NCO duty' 'PWM sawtooth' 'PWM triangle' 'count rises' 'count highs'
 choices p2Pad 'logic' 'logic A feedback' 'logic B feedback' 'Schmitt' 'Schmitt A feedback' 'Schmitt B feedback' 'compare A B' 'compare A B feedback' 'ADC ground' 'ADC VIO' 'ADC floating' 'ADC 1x' 'ADC 3x' 'ADC 10x' 'ADC 30x' 'ADC 100x' 'DAC 990R 3V' 'DAC 600R 2V' 'DAC 124R 3V' 'DAC 75R 2V' 'level A' 'level A feedback negative' 'level B feedback positive' 'level B feedback negative'
 choices p2Operation 'repository' 'DAC noise' 'DAC random dither' 'DAC PWM dither' 'pulse' 'transition' 'NCO frequency' 'NCO duty' 'PWM triangle' 'PWM sawtooth' 'PWM SMPS' 'quadrature' 'register up' 'register up down' 'count rises' 'count highs' 'state ticks' 'high ticks' 'event ticks' 'period ticks' 'period highs' 'window ticks' 'window highs' 'window periods' 'ADC sample' 'ADC external' 'ADC scope' 'sync transmit' 'sync receive' 'async transmit' 'async receive'
@@ -9,11 +9,12 @@ spec 'r' '[p2:p2Board]' 'P2 board'
 spec 'r' '[p2:p2FlashID]' 'P2 boot flash JEDEC (hex)'
 spec 'r' '[p2:p2ClockHz]' 'P2 clock (Hz)'
 spec 'r' '[p2:p2Cog]' 'P2 current cog'
+spec 'r' '[p2:p2ListAtomicAdd]' 'P2 atomic change list _ item _ by _' 'auto num num' 0 1 1
 spec 'r' '[p2:p2RuntimeRevision]' 'P2 extension revision'
 spec 'b' '[p2:p2CogStart]' 'P2 try run function _ on cog _' 'str num' 'worker' 2
 spec 'b' '[p2:p2CogStop]' 'P2 try stop worker cog _' 'num' 2
 spec 'b' '[p2:p2CogRunning]' 'P2 worker cog _ running?' 'num' 2
-spec 'r' '[p2:p2SharedRead]' 'P2 shared scalar named _' 'str' 'shared'
+spec 'r' '[p2:p2SharedRead]' 'P2 shared value named _' 'str' 'shared'
 spec 'r' '[p2:p2SharedAdd]' 'P2 atomic change shared scalar _ by _' 'str num' 'shared' 1
 spec 'r' '[p2:p2PinCount]' 'P2 usable pin count'
 spec 'b' '[p2:p2PinUsable]' 'P2 pin _ usable?' 'num' 0
@@ -33,6 +34,7 @@ spec 'r' '[p2:p2UARTRead]' 'P2 UART pin _ read byte or -1' 'num' 5
 spec 'b' '[p2:p2DAC8]' 'P2 try DAC pin _ level _ /255 circuit _' 'num num menu.p2Pad' 6 128 'DAC 990R 3V'
 spec 'b' '[p2:p2PinSample]' 'P2 pin _ IN flag (keep mode)' 'num' 0
 advanced
+spec 'b' '[p2:p2LocalPinDIR]' 'P2 current cog pin _ DIR bit' 'num' 0
 spec 'b' '[p2:p2PadRaw]' 'P2 try pad _ D20:8 hex _ drive _ high _' 'num str bool bool' 0 '0600' false false
 spec 'b' '[p2:p2Configure]' 'P2 try pin _ operation _ circuit _ X hex _ Y hex _ drive _ B offset _' 'num menu.p2Operation menu.p2Pad str str bool num' 0 'count rises' 'Schmitt' '0' '0' false 0
 spec 'r' '[p2:p2PinPeekHex]' 'P2 pin _ quiet Z (hex)' 'num' 0
@@ -40,7 +42,7 @@ spec 'b' '[p2:p2PinAck]' 'P2 acknowledge pin _' 'num' 0
 spec 'r' '[p2:p2CogError]' 'P2 worker cog _ last error' 'num' 2
 spec 'b' '[p2:p2CogStackOK]' 'P2 worker cog _ stack guards intact?' 'num' 2
 spec 'r' '[p2:p2CogStackUsed]' 'P2 worker cog _ native stack used bytes' 'num' 2
-spec 'r' '[p2:p2SharedWrite]' 'P2 set shared scalar _ to _' 'str auto' 'shared' 0
+spec 'r' '[p2:p2SharedWrite]' 'P2 set shared value _ to _' 'str auto' 'shared' 0
 spec ' ' 'p2StartSmartPinRaw' 'P2 start Smart Pin _ raw mode hex _ X hex _ Y hex _' 'num str str str' 0 '00000002' '00000000' '00000000'
 spec 'b' '[p2:p2SmartPin]' 'P2 try configure pin _ mode _ X _ Y _' 'num menu.p2Mode num num' 0 'input' 0 0
 spec 'b' '[p2:p2SmartPinRaw]' 'P2 try raw pin _ mode hex _ X hex _ Y hex _' 'num str str str' 0 '00000002' '00000000' '00000000'

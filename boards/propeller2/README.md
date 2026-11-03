@@ -105,26 +105,40 @@ Cog 0 runs the ordinary VM; cog 1 receives IDE serial data on the tested board.
 Those cogs, unknown functions and occupied cogs are rejected. Workers use their
 own interpreter state, VM stack and guarded 8192-byte native stack.
 
-The initial worker instruction set supports integer/Boolean arithmetic,
-comparisons, ordinary function calls, repeat/while/forever control and waits.
-Workers reject heap/list allocation, printing, broadcasts and peripheral access
-with error 27. The main cog retains these operations and owns all GPIO/Smart
-Pins. See the [execution contract](../../docs/PROPELLER2_MULTICOG.md).
+Extension revision 3 adds rooted strings, lists and byte arrays, ordinary
+function calls with object arguments/results, foreach, and main-cog services for
+object and pin operations. Supported object operations include newList, at,
+atPut, size, sum, makeList, range, addLast, delete and newByteArray. Allocation
+and mutable-object work execute on the main cog; arithmetic and control still
+run concurrently on the selected physical workers. The allocator rejects direct
+worker calls. Printing, broadcasts, random, dynamic calls, worker management,
+unaudited named primitives and I2C/SPI opcodes remain refused with error 27.
+See the [execution contract](../../docs/PROPELLER2_MULTICOG.md).
 
-Normal global variables are shared in HUB RAM. Reads, stores and the standard
-**change variable by** instruction use a P2 hardware lock. The named P2 scalar
-read/write/add blocks use the same lock. A separate read, calculation and store
-is a sequence of operations and does not form an atomic increment. Workers may
-read/store only integers and Booleans; main-cog lists are not worker objects.
-Main garbage collection pauses workers at opcode boundaries. Stop-all/reset
-and code/name edits stop workers before clearing or relocating their code.
+Normal global variables and objects live in shared HUB RAM. Reads, stores and
+**change variable by** use a P2 hardware lock. Worker stacks, pending service
+results and deferred returns participate in GC marking and forwarding.
+**P2 atomic change list item by** performs one indivisible element update on
+the main cog. Separate read, calculation and store operations do not form an
+atomic increment. An individual list operation is serialized with other main
+operations; shrinking a list during a foreach can produce a checked index error.
 
-The [physical acceptance](../../evidence/2026-11-03/propeller2/cogs-acceptance-ram.json)
-records different functions on cogs 2 and 3, concurrent progress with responsive
-main execution, exactly 15000 increments from cogs 0/2/3, main list mutation and
-two garbage collections, serial reconnect, independent stop, stop-all, live
-edits and intact native stack guards. This establishes the scalar worker ABI
-on EC32MB; arbitrary concurrent heap/peripheral execution is not implemented.
+Pin requests from workers execute on the main cog. **P2 current cog** still
+reports the worker's physical cog. The advanced DIR reporter can demonstrate
+that its own GPIO registers remain untouched. Autonomous pin state can outlive
+an individual worker, as it can outlive an ordinary function: explicitly release
+it when needed. Toolbar stop-all/reset releases main-owned pins. Code/name edits
+stop workers before relocating code, including workers waiting for a service.
+
+The [scalar acceptance](../../evidence/2026-11-03/propeller2/cogs-acceptance-ram.json)
+records distinct cogs, 15000 exact shared-word increments and lifecycle checks.
+The [object acceptance](../../evidence/2026-11-03/propeller2/objects-acceptance-flash-boot.json)
+adds two workers retaining objects across eight GCs, resizing a shared list to
+1002 items, exactly 3000 atomic element increments, Unicode/list/bytearray
+foreach, object returns, isolated OOM/byte errors and recovery, routed pin
+ownership, timers, pending-request cancellation, ten rapid return/reset cycles
+and intact stack canaries. These checks passed after flash boot. This scope
+is physically tested on EC32MB; other variants have build evidence only.
 
 The current P2 target library is copied from canonical source into the Pages
 package after verifying the pinned engine archive. Its provenance manifest
@@ -137,6 +151,8 @@ To reproduce the physical worker test with the exact device identified above:
 ```text
 node tools/compile_propeller2_project.cjs /path/to/reviewed/js-preview/propeller2 tests/fixtures/propeller2/cogs-scalars.ubp /path/to/compiled.json
 python tools/test_propeller2_cogs.py --port COM12 --usb-serial A500507HA --board edge32 --program /path/to/compiled.json --evidence /path/to/cogs-test.json
+node tools/compile_propeller2_project.cjs /path/to/reviewed/js-preview/propeller2 tests/fixtures/propeller2/cogs-objects.ubp /path/to/objects.json
+python tools/test_propeller2_objects.py --port COM12 --usb-serial A500507HA --program /path/to/objects.json --evidence /path/to/object-test.json
 ```
 
 This replaces the board's stored test project. The JavaScript compiler harness
@@ -195,6 +211,9 @@ revision-2 browser connection attempt did not complete USB selection and was
 closed while cleanup remained pending. This is a graphical rendering check,
 not a revision-2 browser execution PASS; see the
 [editor check](../../evidence/2026-11-03/propeller2/smart-pins-editor-check.json).
+A later connection attempt was stopped by the Computer Use URL-policy guard;
+the click/chooser outcome is uncertain and no current extension execution
+through Edge was established. See the [current blocker](../../evidence/2026-11-03/propeller2/objects-editor-check.json).
 The full serial hardware tests above remain independent of that limitation.
 
 `P2 configure Smart Pin` takes a pin, a named mode, and X/Y register values.

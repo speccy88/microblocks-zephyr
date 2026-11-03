@@ -112,6 +112,13 @@ static OBJ memEnd = NULL;
 static OBJ freeChunk = NULL;
 
 OBJ tempGCRoot = NULL; // used during resizeObj() and primitives that allocate multiple objects
+#if defined(PARALLAX_P2)
+typedef struct AllocationRoot {
+	OBJ value;
+	struct AllocationRoot *previous;
+} AllocationRoot;
+static AllocationRoot *allocationRoots;
+#endif
 
 extern OBJ lastBroadcast; // an additional GC root
 
@@ -178,14 +185,28 @@ void gc();
 
 OBJ newObj(int type, int wordCount, OBJ fill) {
 	// Allocate a new object of the given size.
+	#if defined(PARALLAX_P2)
+	if (p2IsWorker()) return fail(primitiveNotImplemented);
+	AllocationRoot root = {type > BinaryObjectTypes ? fill : falseObj, allocationRoots};
+	allocationRoots = &root;
+	#endif
 
 	// check available space
 	int available = WORDS(freeChunk);
 	if (available < (wordCount + 2)) {
 		gc();
 		available = WORDS(freeChunk); // retry after garbage collection
-		if (available < (wordCount + 2)) return fail(insufficientMemoryError);
+		if (available < (wordCount + 2)) {
+			#if defined(PARALLAX_P2)
+			allocationRoots = root.previous;
+			#endif
+			return fail(insufficientMemoryError);
+		}
 	}
+	#if defined(PARALLAX_P2)
+	if (type > BinaryObjectTypes) fill = root.value;
+	allocationRoots = root.previous;
+	#endif
 
 	// allocate result and update freeChunk
 	OBJ result = (OBJ) freeChunk;
@@ -364,6 +385,10 @@ static inline OBJ forward(OBJ obj) {
 }
 
 static void forwardRoots(void) {
+	#if defined(PARALLAX_P2)
+	for (AllocationRoot *r = allocationRoots; r; r = r->previous) r->value = forward(r->value);
+	p2ForwardWorkerRoots(forward);
+	#endif
 	// forward global variables
 	for (int i = 0; i < MAX_VARS; i++) vars[i] = forward(vars[i]);
 	lastBroadcast = forward(lastBroadcast);
@@ -419,6 +444,8 @@ void mark(OBJ root) {
 	if (isInt(root)) return;
 	if ((root < memStart) || (root > memEnd)) return; // ignore objects outside the object store
 	if (IS_MARKED(root)) return; // already marked
+	/* Binary roots contain raw bytes, never child OBJ words. */
+	if (TYPE(root) <= BinaryObjectTypes) { SET_MARK(root); return; }
 
 	OBJ current = root;
 	int i = WORDS(current); // scan backwards from last field
@@ -457,6 +484,10 @@ void mark(OBJ root) {
 }
 
 static void markRoots(void) {
+	#if defined(PARALLAX_P2)
+	for (AllocationRoot *r = allocationRoots; r; r = r->previous) mark(r->value);
+	p2MarkWorkerRoots(mark);
+	#endif
 	// mark global variables
 	for (int i = 0; i < MAX_VARS; i++) mark(vars[i]);
 	mark(lastBroadcast);

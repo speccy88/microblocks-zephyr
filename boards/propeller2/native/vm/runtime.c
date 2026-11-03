@@ -141,6 +141,10 @@ PrimitiveFunction findPrimitive(char *primName) {
 
 OBJ doPrimitiveCall(PrimitiveSetIndex setIndex, const char *primName, int argCount, OBJ *args) {
 	// Call a named primitive with the given primitive set index and name.
+	#if defined(PARALLAX_P2)
+	if (p2IsWorker() && p2PrimitiveNeedsService(setIndex, primName))
+		return p2RequestService(-1, setIndex, primName, argCount, args);
+	#endif
 
 	if ((setIndex < 0) || (setIndex >= PrimitiveSetCount)) {
 		return fail(primitiveNotImplemented);

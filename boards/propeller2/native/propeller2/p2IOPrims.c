@@ -582,6 +582,12 @@ static OBJ primP2ClockHz(int argc, OBJ *args) {
 static OBJ primP2Cog(int argc, OBJ *args) {
 	(void) argc; (void) args; return int2obj(_cogid());
 }
+static OBJ primP2LocalPinDIR(int argc, OBJ *args) {
+	int pin = p2PinArg(argc, args);
+	if (argc != 1 || pin < 0) return falseObj;
+	uint32_t direction = pin < 32 ? _DIRA : _DIRB;
+	return direction & (1U << (pin & 31)) ? trueObj : falseObj;
+}
 static OBJ primP2PinCount(int argc, OBJ *args) {
 	(void) argc; (void) args; return int2obj(P2_USER_PIN_COUNT);
 }
@@ -849,6 +855,8 @@ static OBJ primP2WriteY(int argc, OBJ *args) {
 }
 
 static PrimEntry entries[] = {
+	{"p2LocalPinDIR", primP2LocalPinDIR},
+	{"p2ListAtomicAdd", primP2ListAtomicAdd},
 	{"p2PadRaw", primP2PadRaw},
 	{"p2PadNamed", primP2PadNamed},
 	{"p2Configure", primP2Configure},

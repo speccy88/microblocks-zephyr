@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-11-03T17:29:11.019688+00:00",
+  "status": "browser_execution_pending",
+  "extension_revision": 3,
+  "target": "https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/?acceptance=8bfc0a8",
+  "last_attempt": "Click Connect target USB in Edge, then inspect the native chooser.",
+  "blocker": "Computer Use stopped this turn because it could not determine the current Windows browser URL with enough confidence to enforce policy.",
+  "outcome": "Click/chooser state uncertain; no completed COM12 selection or revision-3 browser execution verified. All further UI interaction stopped.",
+  "independent_checks": "Pinned JavaScript compiler and serial hardware suites are separate from real browser Web Serial execution.",
+  "headless_compiler": {
+    "result": "PASS",
+    "p2_library_functions": 31,
+    "scalar_fixture_chunks": 12,
+    "object_fixture_chunks": 19,
+    "malformed_local_and_unknown_opcode_rejection": true,
+    "graphical": false,
+    "physical": false,
+    "command": "node tests/js-preview-compile.test.cjs ../p2-objects-final-site",
+    "library_sha256": "d9947730f96b9e25f4c651ad130219f04c767a5c1e6c26307dddc257003a848e"
+  }
+}

@@ -26,7 +26,7 @@ to workerExactB {
     DoneB = 1
 }
 to workerForbidden {
-    Junk = (newList 32)
+    Junk = ('[p2:p2CogStart]' 'workerExactA' 4)
 }
 to mainGC {
     repeat 1200 {

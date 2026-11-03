@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: MPL-2.0 */
-/* Real physical cog workers. The first worker ABI is deliberately scalar-only. */
+/* Physical cog interpreters; main-cog services own heap and pin operations. */
 #include <stdint.h>
 #include <string.h>
 #include <propeller2.h>
@@ -21,6 +21,15 @@ typedef struct {
     int eventWhere;
     OBJ eventValue;
     int lastError;
+    volatile int requestState; /* 0 idle, 1 published, 2 servicing, 3 complete */
+    int requestOpcode;
+    int requestSet;
+    const char *requestName; /* immutable persistent bytecode */
+    int requestCount;
+    OBJ *requestArgs; /* points into this worker's rooted Task stack */
+    OBJ requestResult;
+    uint8 requestError;
+    int requestSleep;
     Task task;
 } Worker;
 
@@ -40,10 +49,14 @@ static int ready;
 int p2CurrentCog(void) { return _cogid(); }
 int p2IsWorker(void) { return ready && (_cogid() != mainCogID); }
 int p2Scalar(OBJ value) { return isInt(value) || value == falseObj || value == trueObj; }
+int p2WorkerValueAllowed(OBJ value) {
+    return p2Scalar(value) || IS_TYPE(value, StringType) ||
+        IS_TYPE(value, ListType) || IS_TYPE(value, ByteArrayType);
+}
 
 int p2WorkerLiteralAllowed(OBJ value) {
     /* Worker literals are in immutable persistent code, never allocated heap
-       objects. Shared-variable reads below refuse non-scalars before pushing. */
+       objects. Heap values arrive through rooted globals or main services. */
     return p2Scalar(value) || IS_TYPE(value, StringType);
 }
 
@@ -87,12 +100,19 @@ void p2StopWorkers(void) {
     for (int cog = 0; cog < COGS; cog++) workers[cog].stop = 1;
     for (int cog = 0; cog < COGS; cog++) {
         while (workers[cog].active) _waitx(64);
+        /* Reset/edit can clear the heap immediately after stopping. Never
+           retain an undelivered object return into that cleared heap. */
+        workers[cog].event = 0;
+        workers[cog].eventValue = falseObj;
+        workers[cog].requestState = 0;
+        workers[cog].requestResult = falseObj;
     }
 }
 
 static void sharedEnter(void) {
     while (!_locktry(sharedLock)) {
-        if (p2IsWorker()) p2WorkerPoll();
+        /* Do not pause with a copied heap argument on a native C stack.
+           The holder performs no allocation or GC and always releases. */
         _waitx(32);
     }
 }
@@ -102,13 +122,13 @@ OBJ p2ReadShared(int index) {
     sharedEnter();
     OBJ value = vars[index];
     _lockrel(sharedLock);
-    if (p2IsWorker() && !p2Scalar(value)) return fail(needsIntegerError);
+    if (p2IsWorker() && !p2WorkerValueAllowed(value)) return fail(primitiveNotImplemented);
     return value;
 }
 
 void p2WriteShared(int index, OBJ value) {
     if (index < 0 || index >= MAX_VARS) { fail(indexOutOfRangeError); return; }
-    if (p2IsWorker() && !p2Scalar(value)) { fail(needsIntegerError); return; }
+    if (p2IsWorker() && !p2WorkerValueAllowed(value)) { fail(primitiveNotImplemented); return; }
     sharedEnter();
     vars[index] = value;
     _lockrel(sharedLock);
@@ -131,19 +151,93 @@ OBJ p2AddShared(int index, OBJ delta) {
 
 int p2WorkerOpcodeAllowed(int opcode) {
     if (!p2IsWorker()) return 1;
-    /* No allocation, shared task-list mutation, serial output or GPIO access.
-       forLoop (27) is excluded because its string path allocates characters. */
-    if (opcode == 0 || (opcode >= 2 && opcode <= 37 && opcode != 27)) return 1;
+    /* Object and pin instructions are serviced by the main cog. */
+    if (opcode == 0 || (opcode >= 2 && opcode <= 37)) return 1;
     if (opcode >= 43 && opcode <= 73 && opcode != 70) return 1;
-    return opcode == 41 || opcode == 75 || opcode == 76 || opcode == 126 || opcode == 127;
+    return opcode == 41 || opcode == 75 || opcode == 76 ||
+        (opcode >= 80 && opcode <= 94) || opcode == 126 || opcode == 127;
+}
+
+int p2PrimitiveNeedsService(int set, const char *name) {
+    if (set == DataPrims) return !strcmp(name, "makeList") || !strcmp(name, "range") ||
+        !strcmp(name, "addLast") || !strcmp(name, "delete") || !strcmp(name, "newByteArray") ||
+        !strcmp(name, "freeMemory");
+    if (set != IOPrims) return 0;
+    const char *names[] = {"p2ListAtomicAdd", "p2PadRaw", "p2PadNamed", "p2Configure",
+        "p2PinSample", "p2PinPeekHex", "p2PinAck", "p2Pulse", "p2Transition", "p2PWM",
+        "p2UART", "p2UARTWrite", "p2UARTRead", "p2DAC8", "p2SmartPin", "p2SmartPinRaw",
+        "p2Frequency", "p2PinRelease", "p2PinReady", "p2PinRead", "p2PinReadHex",
+        "p2PinModeHex", "p2PinWriteX", "p2PinWriteY", "p2PinCount", "p2PinUsable"};
+    for (int i = 0; i < sizeof(names)/sizeof(names[0]); i++) if (!strcmp(name, names[i])) return 1;
+    return 0;
 }
 
 int p2WorkerPrimitiveAllowed(int set, const char *name) {
     if (!p2IsWorker()) return 1;
+    if (p2PrimitiveNeedsService(set, name)) return 1;
     if (set != 3) return 0;
     return !strcmp(name, "p2Cog") || !strcmp(name, "p2SharedRead") ||
         !strcmp(name, "p2SharedWrite") || !strcmp(name, "p2SharedAdd") ||
+        !strcmp(name, "p2LocalPinDIR") ||
         !strcmp(name, "p2RuntimeRevision");
+}
+
+OBJ p2RequestService(int opcode, int set, const char *name, int count, OBJ *args) {
+    Worker *worker = &workers[_cogid()];
+    worker->requestOpcode = opcode; worker->requestSet = set;
+    worker->requestName = name; worker->requestCount = count; worker->requestArgs = args;
+    worker->requestResult = falseObj; worker->requestError = 0;
+    worker->requestState = 1;
+    while (worker->requestState != 3) {
+        /* Only a fixed stack pointer and immutable code pointer are held here.
+           GC forwards the stack arguments and the published result. */
+        if (p2WorkerPoll()) { worker->requestState = 0; return falseObj; }
+        _waitx(64);
+    }
+    OBJ result = worker->requestResult;
+    uint8 error = worker->requestError;
+    p2InterpreterContexts[_cogid()].sleepUsecs = worker->requestSleep;
+    worker->requestState = 0;
+    if (error) return fail(error);
+    return result;
+}
+
+void p2ServiceWorkerRequests(void) {
+    if (!ready || p2IsWorker()) return;
+    for (int cog = 0; cog < COGS; cog++) {
+        Worker *worker = &workers[cog];
+        if (!worker->active || worker->stop || worker->requestState != 1) continue;
+        worker->requestState = 2;
+        P2InterpreterContext saved = p2InterpreterContexts[mainCogID];
+        p2InterpreterContexts[mainCogID].error = 0;
+        p2InterpreterContexts[mainCogID].sleepUsecs = 0;
+        worker->requestResult = worker->requestOpcode < 0 ?
+            doPrimitiveCall(worker->requestSet, worker->requestName, worker->requestCount, worker->requestArgs) :
+            p2ExecuteServiceOpcode(worker->requestOpcode, worker->requestCount, worker->requestArgs);
+        worker->requestError = p2InterpreterContexts[mainCogID].error;
+        worker->requestSleep = p2InterpreterContexts[mainCogID].sleepUsecs;
+        p2InterpreterContexts[mainCogID] = saved;
+        worker->requestState = 3;
+    }
+}
+
+void p2MarkWorkerRoots(void (*visit)(OBJ)) {
+    for (int cog = 0; cog < COGS; cog++) {
+        Worker *w = &workers[cog];
+        if (w->active && w->task.status != unusedTask)
+            for (int j = 0; j < w->task.sp; j++) visit(w->task.stack[j]);
+        if (w->requestState == 3) visit(w->requestResult);
+        if (w->event == 3) visit(w->eventValue);
+    }
+}
+void p2ForwardWorkerRoots(OBJ (*visit)(OBJ)) {
+    for (int cog = 0; cog < COGS; cog++) {
+        Worker *w = &workers[cog];
+        if (w->active && w->task.status != unusedTask)
+            for (int j = 0; j < w->task.sp; j++) w->task.stack[j] = visit(w->task.stack[j]);
+        if (w->requestState == 3) w->requestResult = visit(w->requestResult);
+        if (w->event == 3) w->eventValue = visit(w->eventValue);
+    }
 }
 
 int p2WorkerEvent(int kind, int chunk, OBJ value, int where) {
@@ -163,10 +257,11 @@ void p2CollectWorkerEvents(void) {
         Worker *worker = &workers[cog];
         int event = worker->event;
         if (!event || worker->active) continue;
-        worker->event = 0;
+        if (event == 3 && !p2ReturnHasSpace(worker->eventValue)) continue;
         if (event == 1) sendTaskDone(worker->eventChunk);
         else if (event == 2) sendTaskError(worker->eventChunk, worker->lastError, worker->eventWhere);
         else if (event == 3) sendTaskReturnValue(worker->eventChunk, worker->eventValue);
+        worker->event = 0;
     }
 }
 
@@ -193,6 +288,7 @@ static void workerLoop(void *argument) {
             if (p2InterpreterContexts[cog].error) worker->lastError = p2InterpreterContexts[cog].error;
             p2InterpreterContexts[cog].error = 0;
             worker->paused = 0;
+            worker->requestState = 0;
             worker->active = 0;
         }
     }
@@ -231,6 +327,7 @@ OBJ primP2CogStart(int count, OBJ *args) {
     worker->stop = 0;
     worker->lastError = 0;
     worker->event = 0;
+    worker->requestState = 0;
     memset(&p2InterpreterContexts[cog], 0, sizeof(P2InterpreterContext));
     worker->active = 1;
     return trueObj;
@@ -241,6 +338,10 @@ OBJ primP2CogStop(int count, OBJ *args) {
     if (p2IsWorker() || cog < 0) return falseObj;
     workers[cog].stop = 1;
     while (workers[cog].active) _waitx(64);
+    workers[cog].event = 0;
+    workers[cog].eventValue = falseObj;
+    workers[cog].requestState = 0;
+    workers[cog].requestResult = falseObj;
     return trueObj;
 }
 OBJ primP2CogRunning(int count, OBJ *args) {
@@ -270,11 +371,11 @@ OBJ primP2SharedRead(int count, OBJ *args) {
     int index = sharedIndex(count, args);
     if (index < 0) return fail(indexOutOfRangeError);
     OBJ value = p2ReadShared(index);
-    return p2Scalar(value) ? value : fail(needsIntegerError);
+    return p2WorkerValueAllowed(value) ? value : fail(primitiveNotImplemented);
 }
 OBJ primP2SharedWrite(int count, OBJ *args) {
     int index = sharedIndex(count, args);
-    if (index < 0 || count < 2 || !p2Scalar(args[1])) return fail(needsIntegerError);
+    if (index < 0 || count < 2 || !p2WorkerValueAllowed(args[1])) return fail(primitiveNotImplemented);
     p2WriteShared(index, args[1]);
     return args[1];
 }
@@ -283,4 +384,16 @@ OBJ primP2SharedAdd(int count, OBJ *args) {
     if (index < 0 || count < 2) return fail(notEnoughArguments);
     return p2AddShared(index, args[1]);
 }
-OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(2); }
+OBJ primP2ListAtomicAdd(int count, OBJ *args) {
+    if (p2IsWorker()) return fail(primitiveNotImplemented); /* must use the service */
+    if (count != 3 || !IS_TYPE(args[0], ListType)) return fail(needsListError);
+    if (!isInt(args[1]) || !isInt(args[2])) return fail(needsIntegerError);
+    int index = obj2int(args[1]), length = obj2int(FIELD(args[0], 0));
+    if (index < 1 || index > length || (uint32_t)index >= WORDS(args[0])) return fail(indexOutOfRangeError);
+    OBJ old = FIELD(args[0], index);
+    if (!isInt(old)) return fail(needsIntegerError);
+    OBJ result = int2obj(obj2int(old) + obj2int(args[2]));
+    FIELD(args[0], index) = result;
+    return result;
+}
+OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(3); }

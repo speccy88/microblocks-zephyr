@@ -4,10 +4,13 @@
 const fs=require('node:fs');
 const {load}=require('../tests/support/js_preview_headless.cjs');
 function compile(assets,source){
-    const h=load(assets,{readback:false});
+    if(/^\s*local\s+(?:'[^'\n]*'|[A-Za-z_]\w*)\s+=\s/m.test(source))throw Error('GP local syntax is local name value; omit the assignment equals sign');
+    const warnings=[];
+    const capture=(...parts)=>{const line=parts.join(' ');if(/Skipping unknown op|error|warning/i.test(line))warnings.push(line);};
+    const h=load(assets,{readback:false,console:{...console,log:capture,warn:capture,error:capture}});
     h.set('source',source);
     h.evaluate('MB_editor.project=new MB_Project();MB_editor.project.loadFromString(source);MB_editor.codeManager=new MB_CodeManager(MB_editor.project);');
-    return h.evaluate(`(()=>{
+    const result=h.evaluate(`(()=>{
         const p=MB_editor.project,m=MB_editor.codeManager;
         m.assignFunctionIDs();
         const functions=p.allFunctions(),scripts=p.allScripts().filter(b=>b&&!b.isFunctionDefinition());
@@ -19,6 +22,8 @@ function compile(assets,source){
             variables:Object.fromEntries(p.allVariableNames().map(n=>[n,p.indexForVar(n)])),
             scripts:scripts.map(b=>m.ensureChunkIdFor(b)),source:p.codeString()};
     })()`);
+    if(warnings.length)throw Error('Compiler refused fixture: '+warnings.join('\n'));
+    return result;
 }
 module.exports={compile};
 if(require.main===module){

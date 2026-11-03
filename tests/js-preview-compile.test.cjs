@@ -22,6 +22,16 @@ async function main(){
  assert.deepEqual(Array.from(p2Functions,f=>f.name),p2Source.function_names);
  assert(p2Functions.length>=31&&p2Functions.every(f=>f.bytes>0&&f.bytes<1000));
  results.push({target:'propeller2',functions:p2Functions.length,compiled:true,graphical:false,physical:false});
+ const {compile}=require('../tools/compile_propeller2_project.cjs');
+ for(const name of ['cogs-scalars','cogs-objects']){
+  const source=fs.readFileSync(path.join(__dirname,'fixtures/propeller2',name+'.ubp'),'utf8');
+  const program=compile(p2Folder,source);
+  assert(program.chunks.length>5&&program.chunks.every(c=>c.bytes.length>0));
+  results.push({target:'propeller2',fixture:name,chunks:program.chunks.length,compiled:true,physical:false});
+ }
+ assert.throws(()=>compile(p2Folder,"module main\nto bad {\nlocal 'x' = 5\n}"),/GP local syntax/);
+ assert.throws(()=>compile(p2Folder,"module main\nto bad {\nreturn (unknownP2FixtureOpcode)\n}"),/unknown op/);
+ assert(compile(p2Folder,"module main\nto valid {\nlocal 'text' 'a = b'\nreturn text\n}").chunks.length>0);
  for(const [file,count,modules] of [['MicroDuck Linux.ubl',170,6],['MicroDuck Starter Lab.ubl',213,10],['MicroDuck Camera Lab.ubl',235,12]]){
   const h=load(duck,{readback:false,Socket,location:{href:'https://speccy88.github.io/microblocks-zephyr/js-preview/microduck/'}});h.set('file','Libraries/'+file);
   for(const type of ['serial','BLE','boardie','linux-loopback'])assert.throws(()=>h.evaluate(`new MB_CommPort().connect(${JSON.stringify(type)})`),/offline editing only/);

@@ -7,29 +7,28 @@ Task stack and guarded native C stack. A reporter returns the actual cog ID.
 This must be real hardware execution; a global lock around whole interpreter
 runs is not an implementation of parallel execution.
 
-The first implementation supports scalar/control worker code: integer and
-Boolean variables, arithmetic, comparisons, loops, waits, ordinary function
-calls and explicitly whitelisted P2 scalar primitives. Heap allocation,
-lists/byte arrays, broadcasts, printing and peripheral primitives on workers
-fail explicitly until their concurrency and ownership contracts are implemented.
-They remain available to ordinary scripts on the main cog. Immutable string
-literals may name a function or shared variable; workers may not adopt heap
-objects from shared variables.
+Revision 3 supports scalar/control execution plus rooted strings, lists and
+byte arrays. Audited object instructions and named primitives execute through
+main-cog services. Workers retain their own interpreter, arithmetic/control,
+waits, ordinary calls and timers. Printing, broadcasts, random, dynamic calls,
+worker management and unaudited primitives remain refused. These restrictions
+do not disable ordinary main-cog scripts.
 
 Normal MicroBlocks variables live in shared HUB RAM. Individual reads/stores
 and the native `change variable by` instruction use a hardware lock. A separate
 read followed by arithmetic and a store is still a multi-instruction operation;
-it is not atomic. Named scalar read/write/add blocks provide an explicit shared
-variable interface. The main collector pauses workers at opcode boundaries
-before forwarding roots; code/name edits stop workers before changing persistent
+it is not atomic. Named shared-value read/write and numeric add blocks provide
+an explicit interface. Atomic list-element add is one main-cog operation.
+The main collector pauses workers at opcode boundaries before marking and
+forwarding all roots; code/name edits stop workers before changing persistent
 code. Stop-all, reset and live editing must never leave an interpreter running
 against changed code or cleared memory.
 
 Existing GPIO and Smart Pin ownership stays on the main cog. Workers must not
 change their own DIR/OUT registers: floating a pin on one cog cannot release a
-driver owned by another. Autonomous Smart Pins can continue while worker cogs
-compute; main scripts can exchange numeric commands/results through shared
-variables. This is not a claim of arbitrary peripheral access from every cog.
+driver owned by another. Worker pin requests run on the main cog. Autonomous
+Smart Pins can continue after their requesting function ends; release them
+explicitly when required. Toolbar stop-all/reset releases main-owned pins.
 
 Acceptance before a physical PASS:
 
@@ -39,10 +38,42 @@ Acceptance before a physical PASS:
 - Run exact shared-variable increments from multiple cogs and verify N times M.
 - Exercise main-cog allocation/GC and list mutation while scalar workers run;
   verify roots, results and worker stack canaries.
-- Reject unsupported worker allocation/I/O rather than execute it unsafely.
+- Reject direct worker allocator calls and unaudited primitives.
 - Stop, restart, live-edit and reset with no stale worker or lock ownership.
 - Measure native-stack usage and retain canaries at both ends. FlexC's cog-start
   macro does not enforce its stack-size argument.
 
 The code, tests and dated evidence determine implemented/validated status.
 This document is the implementation contract, not a physical test result.
+
+## Revision 3 object and peripheral services
+
+Workers may retain strings, lists and byte arrays when every live worker stack,
+pending service result and pending return event participates in GC marking and
+forwarding. Workers pause only at dispatch boundaries or while waiting for a
+service with no copied heap references on their native C stack. Shared-word
+lock waits must not announce a GC safepoint after copying an object argument.
+
+The main cog remains the only allocator and mutable-object operation owner.
+Each worker publishes one request using arguments on its rooted Task stack.
+The main loop services audited list/byte-array operations and selected pin
+operations, publishes a rooted result and its error, and the worker resumes.
+Arithmetic/control instructions still execute concurrently on their physical
+cogs. This serializes individual heap/peripheral operations, not whole tasks.
+An explicit atomic list-element add is one service operation; separate at/add/
+atPut instructions are not an atomic increment.
+
+Allocation fill values also need a temporary GC root on the main C stack.
+String character extraction must copy bytes before allocating its result.
+Any allocator call that escapes the worker service path must fail before
+touching allocator state. Unaudited named primitives, broadcasts, printing and dynamic calls remain
+refused. Foreach retrieves its next value through the main service, including
+allocating Unicode characters from a string. Shrinking the source list can
+raise a checked index error.
+
+Acceptance adds heap references held only in worker locals across repeated
+main GC, list allocation and resizing with concurrent worker access, nested
+objects and exact atomic list totals, byte-array read/write, worker waits and
+nested calls, deferred object returns, routed pin ownership and stop/edit/reset
+while requests are pending. Revision-2 serial and Smart Pin regressions remain
+required. No expanded support is established by this contract alone.

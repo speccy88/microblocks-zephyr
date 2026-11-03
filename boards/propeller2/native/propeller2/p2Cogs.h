@@ -17,6 +17,14 @@ int p2WorkerOpcodeAllowed(int opcode);
 int p2WorkerPrimitiveAllowed(int set, const char *name);
 int p2Scalar(OBJ value);
 int p2WorkerLiteralAllowed(OBJ value);
+int p2WorkerValueAllowed(OBJ value);
+int p2PrimitiveNeedsService(int set, const char *name);
+OBJ p2RequestService(int opcode, int set, const char *name, int count, OBJ *args);
+OBJ p2ExecuteServiceOpcode(int opcode, int count, OBJ *args);
+int p2ReturnHasSpace(OBJ value);
+void p2ServiceWorkerRequests(void);
+void p2MarkWorkerRoots(void (*visitor)(OBJ));
+void p2ForwardWorkerRoots(OBJ (*visitor)(OBJ));
 void p2PauseWorkers(void);
 void p2ResumeWorkers(void);
 void p2StopWorkers(void);
@@ -36,5 +44,6 @@ OBJ primP2SharedRead(int count, OBJ *args);
 OBJ primP2SharedWrite(int count, OBJ *args);
 OBJ primP2SharedAdd(int count, OBJ *args);
 OBJ primP2RuntimeRevision(int count, OBJ *args);
+OBJ primP2ListAtomicAdd(int count, OBJ *args);
 
 #endif

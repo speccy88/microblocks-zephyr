@@ -142,7 +142,7 @@ def test(port, usb_serial, board, program, evidence):
         assert run(123) == 27
         errors=[(e[1],e[2].hex()) for e in vm.events[negative_start:] if e[0]==19]
         assert any(index==functions['workerForbidden'] and body.startswith('1b') for index,body in errors),errors
-        report['checks']['worker_allocation_rejected'] = dict(error=27,events=errors)
+        report['checks']['worker_management_rejected'] = dict(error=27,events=errors)
 
         start_script(scripts[0]); assert run(121) is True and run(122) is True
         vm.short(6); ping()

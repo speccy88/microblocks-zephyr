@@ -1,0 +1,113 @@
+module main
+variables SharedList SharedBytes SharedText Gate CapturedA CapturedB DoneA DoneB DoneMain CountA CountB Errors Junk TextA TextB BytesResult CogA CogB WorkerDIR PulseProgress StartedA StartedB TimerElapsed ClockElapsed
+
+to atomicBump items {
+    return ('[p2:p2ListAtomicAdd]' items 1 1)
+}
+to objectWorkerA {
+    local 'held' SharedText
+    local 'items' SharedList
+    local 'buffer' SharedBytes
+    local 'outer' 0
+    CogA = ('[p2:p2Cog]')
+    CapturedA = 1
+    waitUntil Gate
+    repeat 1000 {
+        outer = (newList 64 held)
+        if ((at 1 outer) != 'worker retained λ') { Errors += 1 }
+        outer = (newList 8 outer)
+        if ((at 1 (at 1 outer)) != held) { Errors += 1 }
+        atPut 2 buffer 255
+        if ((at 2 buffer) != 255) { Errors += 1 }
+        atomicBump items
+        CountA += 1
+        waitMillis 1
+    }
+    TextA = held
+    BytesResult = buffer
+    DoneA = 1
+    return (newList 2 held)
+}
+to objectWorkerB {
+    local 'held' SharedText
+    local 'items' SharedList
+    local 'buffer' SharedBytes
+    local 'temporary' 0
+    CogB = ('[p2:p2Cog]')
+    CapturedB = 1
+    waitUntil Gate
+    repeat 1000 {
+        temporary = ('[data:makeList]' held items buffer)
+        if ((at 1 temporary) != held) { Errors += 1 }
+        atPut 3 buffer 128
+        if ((at 3 buffer) != 128) { Errors += 1 }
+        atomicBump items
+        CountB += 1
+        waitMillis 1
+    }
+    TextB = held
+    DoneB = 1
+    return held
+}
+to mainObjectPressure {
+    repeat 1000 {
+        Junk = (newList 64)
+        '[data:addLast]' 0 SharedList
+        atomicBump SharedList
+    }
+    DoneMain = 1
+}
+to workerForeach {
+    local 'result' ('[data:makeList]' 0 0 0)
+    local 'sum' 0
+    for item ('[data:makeList]' 3 5 7) { sum += item }
+    atPut 1 result sum
+    sum = 0
+    for item 'AλZ' { sum += (size item) }
+    atPut 2 result sum
+    sum = 0
+    for item ('[data:newByteArray]' 8 170) { sum += item }
+    atPut 3 result sum
+    SharedList = result
+    return result
+}
+to workerPinService {
+    CogA = ('[p2:p2Cog]')
+    '[p2:p2Frequency]' 0 1000
+    WorkerDIR = ('[p2:p2LocalPinDIR]' 0)
+    forever {
+        PulseProgress += 1
+        waitMillis 1
+    }
+}
+to workerPending {
+    forever { Junk = (newList 1000) }
+}
+to workerOOM { Junk = (newList 1000000) }
+to workerBadByte {
+    local 'buffer' ('[data:newByteArray]' 8 0)
+    atPut 1 buffer 256
+}
+to workerTiming {
+    local 'started' (millisOp)
+    resetTimer
+    waitMillis 25
+    TimerElapsed = (timer)
+    ClockElapsed = (millisSince started)
+    return TimerElapsed
+}
+to workerReturnHeap { return (newList 256 'return payload') }
+script 30 30 {
+    SharedList = (newList 2)
+    SharedBytes = ('[data:newByteArray]' 16 170)
+}
+script 30 100 {
+    StartedA = ('[p2:p2CogStart]' 'objectWorkerA' 2)
+    StartedB = ('[p2:p2CogStart]' 'objectWorkerB' 3)
+}
+script 30 180 (at 1 SharedList)
+script 30 220 (size SharedList)
+script 30 260 (at 2 BytesResult)
+script 30 300 (at 3 BytesResult)
+script 30 340 (at 2 SharedList)
+script 30 380 (at 3 SharedList)

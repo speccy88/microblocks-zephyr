@@ -1,0 +1,37 @@
+{
+  "checked_at_utc": "2026-11-03T17:34:38.692700+00:00",
+  "result": "PASS",
+  "extension_revision": 3,
+  "repository_validation": {
+    "command": "python -B tools/validate.py",
+    "tests": 679,
+    "skipped": 391,
+    "elapsed_seconds": 16.586,
+    "result": "OK",
+    "environment": "Windows, Python 3.12, composed pinned JavaScript/mobile site; local sockets enabled"
+  },
+  "initial_sandbox_run": "Stalled before camera test body inside asyncio proactor socket._fallback_socketpair accept. Diagnostic trace identified local socket restriction; only task-owned validation processes were stopped. The unmodified validator passed with local socket access.",
+  "javascript_compiler": {
+    "command": "node tests/js-preview-compile.test.cjs ../p2-objects-final-site",
+    "p2_functions": 31,
+    "scalar_chunks": 12,
+    "object_chunks": 19,
+    "malformed_local_and_unknown_opcode_checks": "PASS",
+    "other_bundles_functions": [
+      170,
+      213,
+      235
+    ],
+    "graphical": false,
+    "physical": false
+  },
+  "native_builds": "objects-native-builds.json",
+  "physical_tests": [
+    "objects-usb-flash-boot.json",
+    "cogs-revision3-flash-boot.json",
+    "objects-acceptance-flash-boot.json",
+    "smart-pins-revision3-flash-boot.json"
+  ],
+  "browser_execution": "Pending; see objects-editor-check.json. No revision-3 graphical execution claim.",
+  "remaining_scope": "Audited worker operations only. Higher-level convenience blocks and signal acceptance for remaining advanced Smart Pin/pad modes still need work. USB unsupported; no absolute analog/clock performance claim."
+}
