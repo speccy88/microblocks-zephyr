@@ -1,0 +1,47 @@
+{
+  "checked_at_utc": "2026-11-04T00:03:35.668311+00:00",
+  "result": "PASS",
+  "library_version": "0.10",
+  "required_extension_revision": 8,
+  "firmware_changed": false,
+  "firmware_flashed": false,
+  "hardware_reset": false,
+  "repository_validation": {
+    "command": "python -B tools/validate.py",
+    "tests": 679,
+    "skipped": 391,
+    "elapsed_seconds": 20.683,
+    "result": "OK",
+    "environment": "Windows Python 3.12 with local sockets and freshly composed pinned site"
+  },
+  "focused_compiler": {
+    "command": "node tests/p2-usability-compile.test.cjs ../p2-usability-site",
+    "functions": 79,
+    "fixture_chunks": 97,
+    "scripts": 14,
+    "result": "PASS",
+    "graphical": false,
+    "physical": false
+  },
+  "physical_evidence": "usability-acceptance-installed-firmware.json",
+  "final_identity": "usability-final-identity.json",
+  "scope": "Only non-DMA output/readiness/unit-measurement library helpers, docs and focused tests. No multi-pin DMA code was written. Completed prior work preserved; DMA, USB Smart Pin and external-clock development stopped per owner.",
+  "board_effects": "Disposable project upload and VM soft resets; no firmware load or hardware reset. Installed extension-8 image remains unchanged; P0-P7 released and cogs 2/3 stopped at final check.",
+  "unchanged_firmware_provenance": "evidence/2026-11-03/propeller2/dma-native-builds.json, 5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+  "retained_tests": "Existing repository tests retained; new CI check targets usability fixture and packaging. No DMA/USB Smart Pin/external-clock physical test executed in this increment.",
+  "supported_observations": [
+    "PWM 0/25/50/75/100 percent; pulse/period/frequency/duty reporters",
+    "500..2500 us servo signals at 20 ms and supplied-endpoint mapping; no actuator attached",
+    "Twelve invalid-output cases preserve previous waveform; 50/1234/25000 Hz readings; bounded no-edge timeout",
+    "Tick conversion, zero/100-rise windows and numeric-zero versus false distinction",
+    "Timed square normal release; cog-3 PWM/read/timed service through five GCs, main-owned output and intact guards"
+  ],
+  "remaining_limits": [
+    "Servo motion and speaker sound untested; only electrical loopback signals observed.",
+    "Integer units derive from configured P2 clock; no independent calibrated time/voltage reference.",
+    "Unit conversion/servo helpers are documented for main VM cog; worker access whitelist unchanged.",
+    "Measurement sequences reconfigure a receiver; avoid concurrent use of one receiver. Static levels have no period; large signed-integer results require the existing hex reader.",
+    "VM scheduling/GC and transport can extend observed latency. A canceled worker cannot run timed helper cleanup tail; stop-all or explicit release is needed.",
+    "Prior Edge Connect target USB/native chooser remains unresolved under URL-policy guard because browser URL could not be determined confidently. Outcome uncertain; no inspection, retry or alternate route. Physical GUI execution of library 0.10 unverified."
+  ]
+}

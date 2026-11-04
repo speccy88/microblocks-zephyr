@@ -363,6 +363,37 @@
       "external_converter_tested": false,
       "absolute_clock_or_analog_accuracy_tested": false,
       "browser_execution_verified": false
+    },
+    {
+      "id": "smart_pin_unit_helpers",
+      "physical_tested": true,
+      "status": "Library 0.10 on installed extension-8 EC32MB firmware PASS: PWM 0/25/50/75/100 percent and period/high/frequency/duty reporters; servo electrical widths 500..2500 us at 20 ms and calibrated-endpoint mapping; twelve invalid-output cases preserve prior waveform; 50/1234/25000 Hz readings, bounded 30 ms no-edge timeout, tick conversion, zero/100-rise windows; timed square normal release; real cog-3 PWM/read/timed service through five GCs with main-owned GPIO, zero count and intact stack guards. 79 library functions compile. No firmware load, DMA, USB Smart Pin or external-clock exercise. Servo motion, speaker sound and calibrated time/voltage unverified.",
+      "physical_evidence": "evidence/2026-11-04/propeller2/usability-acceptance-installed-firmware.json",
+      "contract": "docs/PROPELLER2_SMART_PINS.md",
+      "library_version": "0.10",
+      "requires_extension_revision": 8,
+      "firmware_changed": false,
+      "servo_signal_us": [
+        500,
+        2500
+      ],
+      "servo_frame_us": 20000,
+      "servo_motion_tested": false,
+      "speaker_sound_tested": false,
+      "absolute_time_accuracy_tested": false,
+      "main_cog_helpers": [
+        "servo signal/mapped endpoints",
+        "tick-to-us/high/period/frequency conversions and millisecond windows"
+      ],
+      "worker_verified_helpers": [
+        "PWM percent",
+        "bounded ready/integer read",
+        "timed square wave"
+      ],
+      "dma_exercised": false,
+      "usb_smart_pin_exercised": false,
+      "external_clock_exercised": false,
+      "browser_execution_verified": false
     }
   ],
   "references": [
@@ -373,5 +404,7 @@
   ],
   "code_flash_erase_bytes": 4096,
   "extension_revision": 8,
-  "mode_coverage_document": "docs/PROPELLER2_MODE_COVERAGE.md"
+  "mode_coverage_document": "docs/PROPELLER2_MODE_COVERAGE.md",
+  "target_library_version": "0.10",
+  "target_library_functions": 79
 }

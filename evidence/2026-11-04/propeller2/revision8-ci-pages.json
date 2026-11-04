@@ -1,0 +1,173 @@
+{
+  "checked_at_utc": "2026-11-03 23:35:32 UTC",
+  "result": "PASS",
+  "commit": "5d362a30ea092e45e555f4bed657ac61d1bd4492",
+  "remote_main": "5d362a30ea092e45e555f4bed657ac61d1bd4492",
+  "working_tree": "clean",
+  "ci": [
+    {
+      "id": 41738431895,
+      "name": "XRP HTTP scheduler contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431895"
+    },
+    {
+      "id": 41738431802,
+      "name": "Pi5 source installer contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431802"
+    },
+    {
+      "id": 41738431827,
+      "name": "Offline validation",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431827"
+    },
+    {
+      "id": 41738431725,
+      "name": "P4 eyes and voice host contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431725"
+    },
+    {
+      "id": 41738431732,
+      "name": "Linux Python extensions",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431732"
+    },
+    {
+      "id": 41738431629,
+      "name": "Optional Linux inference CPU engines",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431629"
+    },
+    {
+      "id": 41738431798,
+      "name": "Native SFC GP editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431798"
+    },
+    {
+      "id": 41738431688,
+      "name": "Linux ARM64 native contracts",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431688"
+    },
+    {
+      "id": 41738431664,
+      "name": "Browser portal",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431664"
+    },
+    {
+      "id": 41738431816,
+      "name": "Mobile web editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431816"
+    },
+    {
+      "id": 41738431804,
+      "name": "iPhone wireless editor",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/speccy88/microblocks-zephyr/actions/runs/41738431804"
+    }
+  ],
+  "pages_run": 41738431664,
+  "pages_build_and_deploy": "PASS",
+  "pages_jobs": [
+    {
+      "id": 126273523880,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126275127468,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "iphone_jobs": [
+    {
+      "id": 126273524034,
+      "name": "editor-contracts",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126274618748,
+      "name": "simulator (large)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126274618829,
+      "name": "simulator (small)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "live_library": {
+    "url": "https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/",
+    "required_extension_revision": 8,
+    "functions": 65,
+    "bytes": 26614,
+    "sha256": "ef6bc8cccdb5c061dae2737c825bea6a023cb7c3ce01f99aa16e91c8497f7b26",
+    "verification": "Static HTTPS receipt and exact library-byte reads; no Windows browser interaction"
+  },
+  "native_firmware_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+  "native_variants_built": [
+    "eval",
+    "edge",
+    "edge32"
+  ],
+  "physical_module_tested": "EC32MB only",
+  "physical_suites_passed": 10,
+  "repository_validation": {
+    "tests": 679,
+    "skipped": 391,
+    "result": "OK",
+    "seconds": 16.888
+  },
+  "acquisition": {
+    "full_clock_checked_bits": 24576,
+    "divided_continuous_checked_bits": 57344,
+    "divided_sample_clocks": 8192,
+    "gc_events": 5,
+    "pretrigger": "Chronological 256 history + 256 post words on both high/low page-boundary triggers; timeout retains history",
+    "external_startup_sync": "One completed startup snapshot discarded; six captures at 20/62.5/1000 kHz verify every retained bit",
+    "concurrency": "Native cog 2 acquisition plus VM cog 3 heartbeat/byte-array consumer and main-cog GC; exact graceful-stop accounting and guards"
+  },
+  "mode_audit": "p2-main/docs/PROPELLER2_MODE_COVERAGE.md",
+  "physical_evidence": "p2-main/evidence/2026-11-03/propeller2/dma-acceptance-flash-boot.json",
+  "validation_evidence": "p2-main/evidence/2026-11-03/propeller2/dma-validation.json",
+  "final_board_check": "p2-main/evidence/2026-11-03/propeller2/dma-final-identity.json",
+  "board_state": "COM12 FTDI A500507HA answered v405 P2 Edge 32MB, extension 8 at 23:19:04 UTC; VM soft reset released P0-P7 and cogs 2/3 were stopped",
+  "browser_guard": {
+    "action": "Connect target USB / native USB chooser",
+    "target": "Windows Edge P2 editor",
+    "reason": "Current Windows browser URL could not be determined confidently under the prior URL-policy guard",
+    "outcome": "UNCERTAIN; no completed port selection verified",
+    "retry": "No browser state inspection, retry or alternate UI route attempted; revision-8 graphical board execution remains unverified"
+  },
+  "remaining_limits": [
+    "DMA exposes one input and power-of-two system-clock sample divisors. External-clock/multi-pin DMA and sample-accurate edge triggering remain software extensions; digital testing of those is not blocked by the present paired wiring.",
+    "Pretrigger samples a high/low level at 4096-sample page boundaries. Short pulses can be missed; exact event-time placement is not independently measured.",
+    "One session shared by native acquisitions. DMA retains six 128-word pages without a consumer; ordinary rings retain 1023 entries. The 115200-baud host link cannot sustain the 22.5 MB/s full-clock stream; a faster sink and driver are needed.",
+    "USB operating mode 27 requires removing the chosen pair's hard short, separate DM/DP wiring, safe VBUS handling and a protocol stack. No USB attempts on current pairs.",
+    "External UART/SPI/ADC devices, real SMPS power circuitry and independent analog/clock performance require appropriate devices and instruments. Current pair wiring provides only two independent voltages within one four-pin scope group.",
+    "Divided raw ADC samples can alias; density/monotonic transfer is not calibrated voltage, ENOB or bandwidth. Existing SINC service supplies filtered ADC samples."
+  ]
+}

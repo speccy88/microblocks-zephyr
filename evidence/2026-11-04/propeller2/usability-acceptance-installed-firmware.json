@@ -1,0 +1,185 @@
+{
+  "tested_at_utc": "2026-11-03T23:59:58.355175+00:00",
+  "result": "PASS",
+  "checks": {
+    "pwm_percent_endpoints_and_measurements": [
+      {
+        "percent": 0,
+        "constant_high": false
+      },
+      {
+        "percent": 25,
+        "period_us": 1000,
+        "high_us": 250,
+        "duty_per_mille": 250,
+        "read_percent": 25,
+        "hz": 1000
+      },
+      {
+        "percent": 50,
+        "period_us": 1000,
+        "high_us": 500,
+        "duty_per_mille": 500,
+        "read_percent": 50,
+        "hz": 1000
+      },
+      {
+        "percent": 75,
+        "period_us": 1000,
+        "high_us": 750,
+        "duty_per_mille": 750,
+        "read_percent": 75,
+        "hz": 1000
+      },
+      {
+        "percent": 100,
+        "constant_high": true
+      }
+    ],
+    "servo_signal_and_endpoint_mapping": {
+      "pulses": [
+        {
+          "request_us": 500,
+          "high_us": 500,
+          "period_us": 20000
+        },
+        {
+          "request_us": 1000,
+          "high_us": 1000,
+          "period_us": 20000
+        },
+        {
+          "request_us": 1500,
+          "high_us": 1500,
+          "period_us": 20000
+        },
+        {
+          "request_us": 2000,
+          "high_us": 2000,
+          "period_us": 20000
+        },
+        {
+          "request_us": 2500,
+          "high_us": 2500,
+          "period_us": 20000
+        }
+      ],
+      "mapped": [
+        {
+          "angle": 0,
+          "zero_us": 1000,
+          "full_us": 2000,
+          "expected_us": 1000,
+          "actual_us": 1000
+        },
+        {
+          "angle": 90,
+          "zero_us": 1000,
+          "full_us": 2000,
+          "expected_us": 1500,
+          "actual_us": 1500
+        },
+        {
+          "angle": 180,
+          "zero_us": 1000,
+          "full_us": 2000,
+          "expected_us": 2000,
+          "actual_us": 2000
+        },
+        {
+          "angle": 45,
+          "zero_us": 600,
+          "full_us": 2400,
+          "expected_us": 1050,
+          "actual_us": 1050
+        }
+      ],
+      "motion_tested": false
+    },
+    "invalid_output_keeps_previous_waveform": {
+      "cases": 12,
+      "high_us": 250
+    },
+    "frequency_timeout_and_tick_conversion": {
+      "frequencies": [
+        {
+          "request_hz": 50,
+          "measured_hz": 50
+        },
+        {
+          "request_hz": 1234,
+          "measured_hz": 1234
+        },
+        {
+          "request_hz": 25000,
+          "measured_hz": 25000
+        }
+      ],
+      "timeout_result": false,
+      "timeout_requested_ms": 30,
+      "host_elapsed_ms": 32.0,
+      "ticks_to_us": [
+        [
+          0,
+          0
+        ],
+        [
+          180,
+          1
+        ],
+        [
+          180000,
+          1000
+        ],
+        [
+          900000000,
+          5000000
+        ]
+      ]
+    },
+    "count_windows_zero_and_signal": {
+      "zero_count": 0,
+      "window_ms": 100,
+      "count": 100,
+      "invalid_timeout_preserves_mode": true
+    },
+    "timed_square_normal_release": {
+      "hz": 2000,
+      "requested_ms": 100,
+      "count": 200,
+      "host_elapsed_ms": 94.0,
+      "driver_released": true
+    },
+    "worker_services_gc_and_ready_zero": {
+      "cog": 3,
+      "worker_dir": false,
+      "duty_per_mille": 400,
+      "gc_events": 5,
+      "timed_count": 201,
+      "timed_elapsed_ms": 101,
+      "driver_released": true,
+      "ready_zero": 0,
+      "stack_guards": true
+    },
+    "stop_all_outputs_and_worker_idle": true
+  },
+  "scope": "non-DMA PWM/servo signal, bounded readiness and internally timed measurements",
+  "firmware_loaded": false,
+  "hardware_reset": false,
+  "dma_exercised": false,
+  "usb_smart_pin_exercised": false,
+  "external_clock_exercised": false,
+  "servo_motion_tested": false,
+  "speaker_sound_tested": false,
+  "absolute_time_or_voltage_accuracy_tested": false,
+  "identity": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA"
+  },
+  "version": "v405 Parallax P2 Edge 32MB",
+  "extension_revision": 8,
+  "installed_firmware_reference": "evidence/2026-11-03/propeller2/dma-native-builds.json: revision-8 5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d, previously installed and unchanged in this increment",
+  "library_version": "0.10"
+}

@@ -19,15 +19,15 @@ non-USB operating-mode setup functions.
 | 3 | DAC PWM dither | DAC16 with PWM dither true | Monotonic averaged transfer; period multiple of 256 clocks. |
 | 4 | Pulse | high/low microseconds and count | Exact 100 rising edges. |
 | 5 | Transition | microseconds and transition count | 200 transitions produce 100 rises. |
-| 6 | NCO frequency | frequency in Hz | Period/high-clock ratios; no independent clock reference. |
+| 6 | NCO frequency | frequency in Hz; timed square wave | Period/high-clock ratios; timed normal release, including a worker through GC. No independent clock reference or sound test. |
 | 7 | NCO duty | duty per 1000 and base clocks | 0/25/50/75/100% ratios. |
 | 8 | PWM triangle | triangle PWM in Hz/duty | Period/duty ratio. |
-| 9 | PWM sawtooth | sawtooth PWM in Hz/duty | Period/duty ratio. |
+| 9 | PWM sawtooth | sawtooth PWM in Hz/duty or percent; servo pulse and mapped endpoints | Percent endpoints/ratios; 500..2500 us signals at 20 ms frames and mapped endpoints. No servo motion validation. |
 | 10 | PWM SMPS | feedback PWM Hz/duty and separate A/B offsets | Digital and analog-comparator inhibit/cut/resume. No power converter. |
 | 11 | Quadrature | quadrature B offset/window | Two pairs, forward/reverse exact counts. |
 | 12 | Register up | gated count-up B offset/window | Gate-low/high counts. |
 | 13 | Register up/down | count-up/down B offset/window | Direction/gate behavior in checked-mode tests. |
-| 14 | Rising-edge counter | count rises; difference counter; filtered rises | Exact rises and A-minus-B counts; filtered pulse rejection and exact 100 accepted rises for each filter length. |
+| 14 | Rising-edge counter | count rises; difference counter; filtered rises; millisecond window | Exact rises and A-minus-B; filtered rejection; 100 rises in 100 ms at 1 kHz and valid zero counts. |
 | 15 | High-clock counter | count highs; difference counter | Duty and differential high-clock counts. |
 | 16 | State duration | time states in clocks | State-duration samples. |
 | 17 | High duration | time high pulses in clocks | High-duration samples. |
@@ -58,12 +58,18 @@ records revision 7. A configured WRPIN value is not a signal PASS.
 WRPIN F (D[23:21]) is separate from the operating mode and pad circuit. The
 revision-7 bank configuration, input/debounce, filtered counter and advanced
 filtered Smart Pin blocks expose it with shared-bank ownership checks. All
-65 target-library functions compile with the pinned JavaScript engine. Revision
+79 target-library functions compile with the pinned JavaScript engine. Revision
 8 streamer capture reads normal pin IN through logic/Schmitt or ADC pad setup;
 it does not replace the mode-24 Smart Pin ADC/SINC paths. Its page-granular
 pretrigger record has an explicit high/low trigger boundary and chronological
 readback. See the [acquisition contract](PROPELLER2_SMART_PINS.md) and
 [DMA/recent-history acceptance](../evidence/2026-11-03/propeller2/dma-acceptance-flash-boot.json).
+
+Library 0.10 adds the [output/measurement conveniences](PROPELLER2_SMART_PINS.md#library-010-output-and-measurement-conveniences)
+on unchanged extension-8 firmware. Its focused acceptance covers only PWM,
+servo signals, internally timed measurements, readiness/count windows and worker
+services. The owner has stopped further DMA, USB Smart Pin and external-clock
+work; completed code and its historical evidence remain preserved.
 
 ## Hardware and software still required
 

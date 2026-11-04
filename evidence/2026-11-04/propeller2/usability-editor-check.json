@@ -1,0 +1,26 @@
+{
+  "checked_at_utc": "2026-11-04T00:02:00.952562+00:00",
+  "library_version": "0.10",
+  "required_extension_revision": 8,
+  "compiler": {
+    "functions": 79,
+    "fixture": "usability",
+    "chunks": 97,
+    "scripts": 14,
+    "required_extension_revision": 8,
+    "compiled": true,
+    "graphical": false,
+    "physical": false,
+    "network_allocations": 0
+  },
+  "physically_tested_program_sha256": "6169b8c88483f6b13852b2532e4d69139e73f0a81dfcda9b928d8fc8ec7694d3",
+  "library_sha256": "5ceed3c8fcd7214248a6edc6ce71e41b6c1279c05e98ada76bb46626e0920be2",
+  "source_sha256": {
+    "boards/propeller2/integration/P2_Hardware.ubl": "5ceed3c8fcd7214248a6edc6ce71e41b6c1279c05e98ada76bb46626e0920be2",
+    "tests/fixtures/propeller2/usability.ubp": "de2cbbaa9a2fe3e739accf694e800489ff472089d882fc8926959899e7703f12",
+    "tools/test_propeller2_usability.py": "d5ff8221796a102d11edc2fe823c148c32754babbdade8a935582c4369c36930",
+    "tests/p2-usability-compile.test.cjs": "92bbc42f2699f166c0abb922e96ca79218072afd7c21656ee16198fbf02c1c9d"
+  },
+  "browser_execution": "NOT VERIFIED; prior Edge Connect target USB/native chooser outcome uncertain under URL-policy guard; no browser inspection, retry or alternate route",
+  "changed_scope": "Only non-DMA output/measurement library helpers, documentation and focused tests; native firmware unchanged. No paused-feature hardware tests."
+}

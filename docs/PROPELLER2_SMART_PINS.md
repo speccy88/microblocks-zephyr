@@ -516,3 +516,78 @@ python tools/test_propeller2_dma_record.py --port COM12 --usb-serial A500507HA -
 This replaces disposable test code and drives P0/P4 while receiving on P1/P5.
 The firmware installation and test resets are recorded separately from browser
 execution. No Windows browser retry or alternate route is part of acceptance.
+
+## Library 0.10 output and measurement conveniences
+
+The owner's latest instruction stops further DMA, USB Smart Pin and external
+clock work. Preserve those completed implementations. This increment changes
+only the target library, documentation and tests; it uses extension-8 firmware.
+
+Add checked PWM percent, 500..2500 us servo pulses at the existing 50 Hz frame,
+angle-to-pulse mapping with explicit calibrated endpoints, and a timed NCO
+square wave that releases its pin on normal return. Verify electrical signals
+on the paired inputs, not motion or sound from unattached devices. Invalid
+arguments must be refused before changing the previous output.
+
+Add a bounded wait for Smart Pin readiness, integer read after readiness, and
+internally timed high/period/frequency/duty measurement blocks. Each measurement
+configures its receiver as input-only, discards the first result to avoid a
+partial startup interval, and shares one total wall-clock timeout across both
+waits. Numeric zero remains distinct from false (timeout/invalid). Tick values
+must be nonnegative VM integers: larger full-width results remain available
+through the existing hex API. Microseconds/frequency are integer reporters;
+per-mille duty uses the existing 64-bit reference-scaling primitive.
+
+Add rising-edge counts in a 1..5000 ms window. Reject an insufficient timeout
+before reconfiguration. Main-cog measurement/servo helpers can use the existing
+clock and servo primitives; PWM, readiness/read and timed-square-wave helpers
+may use the already-audited worker pin service. Do not silently broaden the
+worker primitive whitelist. Concurrent sequences must not share one receiver.
+
+Acceptance compiles the pinned library and a focused fixture, then tests PWM
+endpoints/ratios, servo widths and mapped endpoints, pulse/period/frequency/duty,
+zero counts, timeout bounds, unchanged output after invalid input, normal timed
+release, worker service/GC/lifecycle and released outputs. Use P0->P1 and
+P2->P3 with one driver per pair. Existing firmware stays installed; no new DMA,
+USB Smart Pin or external-clock physical test is part of this increment.
+
+These helpers require library 0.10 and the already-installed extension 8;
+firmware changes are unnecessary. **Servo signal** accepts 500..2500 us at a
+20 ms frame. **Mapped servo** linearly maps 0..180 to the supplied pulse
+endpoints; those endpoints must be calibrated for the actual servo. Loopback
+acceptance establishes pulse widths, not mechanical positions or travel limits.
+
+**Measure input pin** changes that receiver to a high-impedance timing mode
+(Smart Pin enabled, output-enable bit clear). Use the paired receiver rather
+than the waveform's output pin. The mode remains configured after a result or
+timeout. Measurements need transitions: a constant 0%/100% PWM level has no
+period to measure. **Wait ready** and **read when ready** use the current pin's
+IN/ready flag and do not configure a new mode. Zero counts are valid integers;
+false reports invalid input or timeout. Deadlines are checked when the VM runs;
+scheduling and transport overhead can extend host-observed latency. Normal measurement results use the
+VM's signed integer range; use the existing full-width hex reader for larger
+raw values. Integer microseconds/Hz are quantized to the configured system
+clock and have no independent time-reference calibration.
+
+**PWM percent**, **wait/read ready** and **timed square wave** work through the
+existing worker service. Servo and unit-conversion/measurement sequences run
+on the main VM cog, since this increment does not expand worker access to the
+legacy servo or clock primitives. Each measurement sequence owns its receiver
+for its duration; do not run concurrent measurements on the same input.
+
+The timed square wave uses a VM wait followed by release. Scheduling and GC can
+extend its duration. Normal return releases the output; an individually
+aborted worker cannot execute that cleanup tail. Use stop-all or explicit pin
+release when canceling. No attached speaker or buzzer was used for acceptance.
+
+The [focused acceptance](../evidence/2026-11-04/propeller2/usability-acceptance-installed-firmware.json)
+records the actual waveform/readings and explicitly identifies the paused paths
+as unexercised. Reproduce with the pinned compiler, the canonical P2 library and
+`tests/fixtures/propeller2/usability.ubp`, then run:
+
+```text
+python tools/test_propeller2_usability.py --port COM12 --usb-serial A500507HA --program /path/to/usability.json --evidence /path/to/usability-test.json
+```
+
+The test replaces disposable project code, soft-resets the VM and releases
+outputs. It does not load firmware or assert a hardware reset.

@@ -168,6 +168,16 @@ are distinct from sustained host export. Recent-history reads are available
 after stopping, with a reported trigger boundary. See the same contract for
 chronology, timeout/partial records, FIFO ownership and trigger resolution.
 
+Library 0.10 adds PWM percent, checked servo pulse/mapped-endpoint signals,
+timed square waves, bounded ready/read, pulse/period/frequency/duty units and
+millisecond count windows. It uses the existing extension-8 firmware. Main-cog
+measurements configure a receiver; use a paired input rather than the driven
+output. The worker-safe subset and scheduling/cleanup rules are in the
+[Smart Pin contract](../../docs/PROPELLER2_SMART_PINS.md#library-010-output-and-measurement-conveniences).
+The owner's latest instruction stops further DMA, USB Smart Pin and external
+clock work; their completed code is preserved. This library increment tests
+only the other output/timing helpers and does not flash firmware.
+
 To reproduce the physical worker test with the exact device identified above:
 
 ```text

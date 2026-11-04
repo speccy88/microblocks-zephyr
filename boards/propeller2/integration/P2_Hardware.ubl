@@ -1,7 +1,8 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 9
+version 0 10
 description 'Native P2 extension 8. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+choices p2PulseResult 'high' 'period'
 choices p2DMAInput 'Schmitt' 'logic' 'ADC 1x' 'ADC 3x' 'ADC 10x' 'ADC 30x' 'ADC 100x' 'ADC ground' 'ADC VIO' 'ADC floating'
 choices p2FilterLength 2 3 5 8
 choices p2FilterField 'length' 'tap' 'users' 'sample clocks hex' 'configuration hex'
@@ -52,8 +53,8 @@ spec 'b' '[p2:p2DACNoise]' 'P2 try DAC noise pin _ sample clocks _ circuit _' 'n
 spec 'b' '[p2:p2DAC16]' 'P2 try DAC16 pin _ level _ /65535 sample clocks _ PWM dither _ circuit _' 'num num num bool menu.p2Pad' 6 32768 256 true 'DAC 990R 3V'
 spec 'b' 'p2MeasureEvents' 'P2 time _ events on pin _ sensitivity _' 'num num menu.p2Event' 10 1 'rise'
 spec 'b' 'p2Timeout' 'P2 timeout pin _ after _ clocks without _' 'num num menu.p2Event' 1 180000 'rise'
-spec 'b' 'p2MeasurePeriods' 'P2 measure pin _ periods _ result _ triggers _ B offset _' 'num num menu.p2PeriodResult menu.p2Edges num' 1 10 'clock ticks' 'rise to rise' 0
-spec 'b' 'p2MeasureWindow' 'P2 measure pin _ minimum clocks _ result _ triggers _ B offset _' 'num num menu.p2WindowResult menu.p2Edges num' 1 1800000 'periods' 'rise to rise' 0
+spec 'b' 'p2MeasurePeriods' 'P2 measure input pin _ periods _ result _ triggers _ B offset _' 'num num menu.p2PeriodResult menu.p2Edges num' 1 10 'clock ticks' 'rise to rise' 0
+spec 'b' 'p2MeasureWindow' 'P2 measure input pin _ minimum clocks _ result _ triggers _ B offset _' 'num num menu.p2WindowResult menu.p2Edges num' 1 1800000 'periods' 'rise to rise' 0
 spec 'b' 'p2DifferenceCounter' 'P2 count difference pin _ B offset _ sample clocks _ high clocks _' 'num num num bool' 1 2 0 false
 spec 'b' 'p2ADCSampleInput' 'P2 try ADC pin _ sample bits _ circuit _' 'num num menu.p2Pad' 7 10 'ADC 1x'
 spec 'b' 'p2ADCExternalInput' 'P2 try external ADC data pin _ sample bits _ clock B offset _' 'num num num' 1 4 2
@@ -109,7 +110,21 @@ spec 'b' 'p2CaptureHasData' 'P2 capture has data?'
 spec 'r' 'p2CaptureAvailable' 'P2 captured words available'
 spec 'r' 'p2CaptureSampleRate' 'P2 internal bit sample rate Hz'
 spec 'r' '[p2:p2BitDensity]' 'P2 bitstream ones per million in bytes _' 'auto'
+spec 'b' 'p2PWMPercent' 'P2 try PWM pin _ frequency _ Hz duty _ percent' 'num num num' 0 1000 25
+spec 'b' 'p2ServoPulseUS' 'P2 try servo signal pin _ pulse _ us (50 Hz)' 'num num' 0 1500
+spec 'b' 'p2ServoAngle' 'P2 try mapped servo pin _ angle _ zero pulse _ us full pulse _ us' 'num num num num' 0 90 1000 2000
+spec 'b' 'p2TimedSquare' 'P2 try square wave pin _ Hz _ for _ ms then release' 'num num num' 0 1000 100
+spec 'b' 'p2WaitPinReady' 'P2 wait pin _ ready for up to _ ms' 'num num' 1 1000
+spec 'r' 'p2ReadReady' 'P2 pin _ read integer when ready within _ ms or false' 'num num' 1 1000
+spec 'r' 'p2MeasureHighUS' 'P2 measure input pin _ high pulse us within _ ms or false' 'num num' 1 1000
+spec 'r' 'p2MeasurePeriodUS' 'P2 measure input pin _ period us within _ ms or false' 'num num' 1 1000
+spec 'r' 'p2MeasureFrequency' 'P2 measure input pin _ frequency Hz within _ ms or false' 'num num' 1 1000
+spec 'r' 'p2MeasureDutyPermille' 'P2 measure input pin _ duty per mille within _ ms or false' 'num num' 1 1000
+spec 'r' 'p2MeasureDutyPercent' 'P2 measure input pin _ duty percent within _ ms or false' 'num num' 1 1000
+spec 'r' 'p2CountWindowMS' 'P2 count input pin _ rises during _ ms wait up to _ ms or false' 'num num num' 1 100 1000
 advanced
+spec 'r' 'p2MeasurePulseTicks' 'P2 measure input pin _ _ ticks within _ ms or false' 'num menu.p2PulseResult num' 1 'period' 1000
+spec 'r' 'p2TicksToUS' 'P2 nonnegative ticks _ to integer us or false' 'num' 180000
 spec 'b' '[p2:p2DMARecord]' 'P2 DMA record pin _ circuit _ divide power _ pre pages _ post pages _ cog _ trigger pin _ high _ timeout ms _' 'num menu.p2DMAInput num num num num num bool num' 1 'ADC 1x' 0 2 2 2 5 true 5000
 spec 'b' '[p2:p2DMACapture]' 'P2 DMA internal bits pin _ circuit _ divide power _ pages (0 continuous) _ cog _' 'num menu.p2DMAInput num num num' 1 'ADC 1x' 0 2 2
 spec 'b' '[p2:p2FilterInput]' 'P2 filtered input pin _ bank _ A offset _ invert A _ B offset _ invert B _' 'num num num bool num bool' 1 0 0 false 2 false
@@ -464,4 +479,100 @@ to p2RecordRecentBits pin circuit maximum history after cog trigger high timeout
     if (or (power < 0) (history < 128) (history > 384) (after < 128) (after > 384)) { return false }
     if (or ((history % 128) != 0) ((after % 128) != 0)) { return false }
     return ('[p2:p2DMARecord]' pin circuit power (history / 128) (after / 128) cog trigger high timeout)
+}
+
+
+to p2PWMPercent pin hz percent {
+    if (or (percent < 0) (percent > 100)) { return false }
+    return ('[p2:p2PWM]' pin hz (percent * 10) false)
+}
+to p2ServoPulseUS pin usecs {
+    if (not ('[p2:p2PinUsable]' pin)) { return false }
+    if (or (usecs < 500) (usecs > 2500)) { return false }
+    return ('[p2:setServo]' pin usecs)
+}
+to p2ServoAngle pin angle low high {
+    if (or (angle < 0) (angle > 180) (low < 500) (high > 2500) (low >= high)) { return false }
+    return (p2ServoPulseUS pin (low + ((angle * (high - low)) / 180)))
+}
+to p2TimedSquare pin hz msecs {
+    if (not ('[p2:p2PinUsable]' pin)) { return false }
+    if (or (hz < 16) (hz > 20000) (msecs < 1) (msecs > 10000)) { return false }
+    if (not ('[p2:p2Frequency]' pin hz)) { return false }
+    waitMillis msecs
+    return ('[p2:p2PinRelease]' pin)
+}
+to p2WaitPinReady pin timeout {
+    if (not ('[p2:p2PinUsable]' pin)) { return false }
+    if (or (timeout < 1) (timeout > 10000)) { return false }
+    local 'started' (millisOp)
+    while (not ('[p2:p2PinReady]' pin)) {
+        if ((millisSince started) >= timeout) { return false }
+        waitMillis 1
+    }
+    return true
+}
+to p2ReadReady pin timeout {
+    if (not (p2WaitPinReady pin timeout)) { return false }
+    return ('[p2:p2PinRead]' pin)
+}
+to p2TicksToUS ticks {
+    if (ticks < 0) { return false }
+    local 'scale' (('[p2:p2ClockHz]') / 1000000)
+    if (scale < 1) { return false }
+    return (ticks / scale)
+}
+to p2MeasurePulseTicks pin result timeout {
+    if (or (timeout < 1) (timeout > 10000)) { return false }
+    local 'started' (millisOp)
+    local 'ok' false
+    if (result == 'high') { ok = (p2HighTicks pin) }
+    if (result == 'period') { ok = (p2MeasurePeriods pin 1 'clock ticks' 'rise to rise' 0) }
+    if (not ok) { return false }
+    local 'remaining' (timeout - (millisSince started))
+    if (remaining < 1) { return false }
+    if (not (p2WaitPinReady pin remaining)) { return false }
+    '[p2:p2PinRead]' pin
+    remaining = (timeout - (millisSince started))
+    if (remaining < 1) { return false }
+    return (p2ReadReady pin remaining)
+}
+to p2MeasureHighUS pin timeout {
+    local 'ticks' (p2MeasurePulseTicks pin 'high' timeout)
+    if (ticks == false) { return false }
+    return (p2TicksToUS ticks)
+}
+to p2MeasurePeriodUS pin timeout {
+    local 'ticks' (p2MeasurePulseTicks pin 'period' timeout)
+    if (ticks == false) { return false }
+    return (p2TicksToUS ticks)
+}
+to p2MeasureFrequency pin timeout {
+    local 'ticks' (p2MeasurePulseTicks pin 'period' timeout)
+    if (ticks == false) { return false }
+    if (ticks < 1) { return false }
+    return (('[p2:p2ClockHz]') / ticks)
+}
+to p2MeasureDutyPermille pin timeout {
+    if (or (timeout < 1) (timeout > 10000)) { return false }
+    local 'started' (millisOp)
+    local 'high' (p2MeasurePulseTicks pin 'high' timeout)
+    if (high == false) { return false }
+    local 'remaining' (timeout - (millisSince started))
+    if (remaining < 1) { return false }
+    local 'period' (p2MeasurePulseTicks pin 'period' remaining)
+    if (period == false) { return false }
+    if (or (period < 1) (high < 0) (high > period)) { return false }
+    return ('[p2:p2ScaleSample]' high 0 period 1000)
+}
+to p2MeasureDutyPercent pin timeout {
+    local 'duty' (p2MeasureDutyPermille pin timeout)
+    if (duty == false) { return false }
+    return ((duty + 5) / 10)
+}
+to p2CountWindowMS pin msecs timeout {
+    if (or (msecs < 1) (msecs > 5000) (timeout < msecs) (timeout > 10000)) { return false }
+    local 'clocks' (msecs * (('[p2:p2ClockHz]') / 1000))
+    if (not (p2CountRises pin clocks)) { return false }
+    return (p2ReadReady pin timeout)
 }

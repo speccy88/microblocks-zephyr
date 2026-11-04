@@ -1,0 +1,44 @@
+module main
+variables Pin Hz Percent Usecs Angle Low High Timeout Window Result Ticks Done GCDone Junk WorkerCog WorkerDIR Outcome Elapsed
+
+to usabilityGarbage {
+    repeat 1600 { Junk = (newList 64) }
+    GCDone = true
+}
+to usabilityWorkerPWM {
+    WorkerCog = ('[p2:p2Cog]')
+    Outcome = (p2PWMPercent 2 1000 40)
+    WorkerDIR = ('[p2:p2LocalPinDIR]' 2)
+    Done = 1
+    return Outcome
+}
+to usabilityWorkerTimed {
+    WorkerCog = ('[p2:p2Cog]')
+    local 'started' (millisOp)
+    Outcome = (p2TimedSquare 2 2000 100)
+    Elapsed = (millisSince started)
+    WorkerDIR = ('[p2:p2LocalPinDIR]' 2)
+    Done = 2
+    return Outcome
+}
+to usabilityWorkerRead {
+    WorkerCog = ('[p2:p2Cog]')
+    Outcome = (p2ReadReady 3 1000)
+    Done = 3
+    return Outcome
+}
+
+script 10 10 (p2PWMPercent Pin Hz Percent)
+script 10 50 (p2ServoPulseUS Pin Usecs)
+script 10 90 (p2ServoAngle Pin Angle Low High)
+script 10 130 (p2WaitPinReady Pin Timeout)
+script 10 170 (p2ReadReady Pin Timeout)
+script 10 210 (p2MeasureHighUS Pin Timeout)
+script 10 250 (p2MeasurePeriodUS Pin Timeout)
+script 10 290 (p2MeasureFrequency Pin Timeout)
+script 10 330 (p2MeasureDutyPermille Pin Timeout)
+script 10 370 (p2MeasureDutyPercent Pin Timeout)
+script 10 410 (p2CountWindowMS Pin Window Timeout)
+script 10 450 (p2TimedSquare Pin Hz Window)
+script 10 490 (p2TicksToUS Ticks)
+script 10 530 (p2MeasurePulseTicks Pin Result Timeout)
