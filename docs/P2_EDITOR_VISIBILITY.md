@@ -1,7 +1,8 @@
 # P2 blocks in the JavaScript editor
 
-The published root uses the JavaScript editor. Selecting **Parallax Propeller 2**
-and **Open editor** must show the current **P2 Hardware** library, including its
+The published root immediately offers eight board choices. Selecting
+**Parallax Propeller 2** opens a separate JavaScript editor tab that shows
+the current **P2 Hardware** library, including its
 Smart Pin and cog blocks, without connecting hardware or manually importing a
 library. A new P2 project receives the same library. Existing project scripts and
 libraries must be preserved; an existing P2 library is not silently replaced.

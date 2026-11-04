@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 from mobile_editor_source import MANIFEST, ROOT, read_editor
 from js_editor_shared_assets import assets as shared_assets, SCRIPTS as SHARED_SCRIPTS
+from editor_branding import plain_wordmark
 
 BOARDS = {'waveshare': 'rlcd', 'fruit-jam': 'fruit-jam', 'xrp-rp2350': 'xrp'}
 
@@ -26,7 +27,7 @@ def mobile_files(source, runtime='pages', board=None, desktop='../?layout=deskto
     # Board URLs stay unchanged for the embedded HTTP parsers.
     def resource_url(name):
         return name + ('?v=' + hashlib.sha256(overlays[name]).hexdigest()[:16] if runtime == 'pages' and name in overlays else '')
-    html = files['purejs.html'].decode('utf-8')
+    html = plain_wordmark(files['purejs.html'].decode('utf-8'))
     redirect = "if (location.protocol === 'http:') { location.protocol = 'https:'; }"
     anchor = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
     if html.count(redirect) != 1 or html.count(anchor) != 1 or html.count('window.onload = function () {') != 1:

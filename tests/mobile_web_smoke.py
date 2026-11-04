@@ -32,19 +32,24 @@ def main():
             if args.engine == 'chromium': options.update(executable_path=args.browser, chromium_sandbox=True)
             browser = getattr(pw, args.engine).launch(**options)
             context = browser.new_context(viewport={'width': 390, 'height': 844}, device_scale_factor=2, is_mobile=True, has_touch=True)
+            context.on('page', lambda p: p.on('pageerror', lambda error: errors.append(str(error))))
+            context.on('request', lambda request: requests.append(request.url))
             page = context.new_page()
-            page.on('pageerror', lambda error: errors.append(str(error)))
-            page.on('request', lambda request: requests.append(request.url))
             page.goto(f'http://127.0.0.1:{server.server_port}/')
             page.get_by_role('link', name='Open touch editor', exact=True).wait_for()
             assert page.get_by_role('link',name='Open touch editor',exact=True).evaluate('e=>getComputedStyle(e).color') == 'rgb(255, 255, 255)'
-            assert not page.locator('#ide').get_attribute('src')
-            assert not any('/editor/' in url for url in requests), requests
+            assert page.locator('.board-choice').count() == 8
+            assert page.locator('iframe').count() == 0
+            assert not any('/engine/' in url for url in requests), requests
             page.screenshot(path=str(args.output / 'mobile-offer.png'))
-            page.get_by_role('link', name='Open touch editor', exact=True).click()
+            with context.expect_page() as opened:
+                page.get_by_role('link', name='Open touch editor', exact=True).click()
+            page = opened.value
+            page.wait_for_load_state('domcontentloaded')
             page.wait_for_function('typeof world !== "undefined" && world && MicroBlocksIPhone.gestures')
             page.locator('[data-ide="app-preloader"]').wait_for(state='hidden')
             assert page.evaluate('MicroBlocksBrowser.runtime') == 'pages'
+            assert page.locator('img[src="img/microblocks-ide-logo.svg"], img[src="img/logo-preloader.svg"]').count() == 0
             assert not page.evaluate('!!window.webkit?.messageHandlers?.microblocks')
             assert all(url.startswith((f'http://127.0.0.1:{server.server_port}/','data:','blob:')) for url in requests), requests
             page.evaluate('text=>MB_editor.openProjectFromString(text,"Touch example.ubp")', "projectName 'Touch example'\nmodule 'main'\nscript 40 60 (+ 20 22)\n")
@@ -80,19 +85,22 @@ def main():
             normal = desktop.new_page()
             normal.on('pageerror', lambda error: errors.append(str(error)))
             normal.goto(f'http://127.0.0.1:{server.server_port}/')
-            normal.locator('#ide[src]').wait_for(state='attached')
+            assert normal.locator('.board-choice').count() == 8
+            assert normal.locator('iframe').count() == 0
             assert not normal.locator('#mobile-editor-offer').count()
-            normal.frame_locator('#ide').locator('[data-ide="app-preloader"]').wait_for(state='hidden',timeout=60000)
-            normal.locator('.editor-notes').get_by_role('link',name='Touch editor',exact=True).click()
-            normal.wait_for_url('**/mobile/index.html*')
-            normal.wait_for_function('typeof world!=="undefined" && world && MicroBlocksIPhone.gestures')
+            with desktop.expect_page() as touch_tab:
+                normal.get_by_role('link',name='Open touch editor',exact=True).click()
+            touch = touch_tab.value
+            touch.wait_for_load_state('domcontentloaded')
+            touch.wait_for_function('typeof world!=="undefined" && world && MicroBlocksIPhone.gestures')
+            assert normal.url == f'http://127.0.0.1:{server.server_port}/'
             desktop.close()
             # Explicit desktop on a phone persists and can be reversed by URL.
             override = browser.new_context(viewport={'width':375,'height':667},is_mobile=True,has_touch=True)
             phone = override.new_page()
             phone.goto(f'http://127.0.0.1:{server.server_port}/?layout=desktop&board=propeller2')
-            phone.locator('#ide[src]').wait_for(state='attached')
-            assert '/propeller2/' in phone.locator('#ide').get_attribute('src')
+            assert phone.locator('.board-choice').count() == 8
+            assert phone.locator('[data-board="propeller2"]').get_attribute('aria-current') == 'true'
             assert phone.evaluate('localStorage.getItem(MicroBlocksLayout.key)') == 'desktop'
             phone.goto(f'http://127.0.0.1:{server.server_port}/')
             assert not phone.locator('#mobile-editor-offer').count()
@@ -104,7 +112,8 @@ def main():
                       'mobile_detection': True, 'gp_not_loaded_before_choice': True,
                       'actual_editor_loaded': True, 'ios_native_bridge_impersonated': False,
                       'pages_connection_disabled': True, 'private_board_navigation_validated': True,
-                      'real_desktop_started':True,'desktop_and_touch_switch':True,'explicit_phone_override':True,
+                      'direct_desktop_and_touch_tabs':True,'desktop_and_touch_switch':True,'explicit_phone_override':True,
+                      'eight_immediate_board_choices':True,'rabbit_logo_removed':True,
                       'cancelled_mode_switch_keeps_project':True,
                       'runtime_assets_local':True,'desktop_target_preserved':True,
                       'physical_iphone': False, 'physical_board': False, 'page_errors': errors}

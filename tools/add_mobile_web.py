@@ -30,11 +30,9 @@ def add(site):
     anchor = r'(<script\b[^>]*\bsrc="portal\.js(?:\?[^"]*)?"[^>]*>)'
     if len(re.findall(anchor, html)) != 1:
         raise ValueError('Review changed portal entry script')
-    html = re.sub(anchor, lambda m: entry_tags({'surface': 'portal', 'mobile': 'mobile/index.html', 'desktop': './?layout=desktop'}) + m[0], html)
-    pattern = r'(<iframe\b[^>]*\bid="ide"[^>]*?)\bsrc="([^"]+)"'
-    html, count = re.subn(pattern, lambda m: m[1] + 'data-desktop-src="' + m[2] + '"', html)
-    if count != 1:
-        raise ValueError('Review changed desktop iframe')
+    if '<iframe' in html or html.count('class="board-choice"') != 8:
+        raise ValueError('Review changed direct editor launcher')
+    html = re.sub(anchor, lambda m: entry_tags({'surface': 'launcher', 'mobile': 'mobile/index.html', 'desktop': './?layout=desktop'}) + m[0], html)
     (site / 'index.html').write_text(html, encoding='utf-8', newline='\n')
     for name in ['mobile-entry.js', 'mobile-entry.css']:
         (site / name).write_bytes((ROOT / 'web/mobile' / name).read_bytes())

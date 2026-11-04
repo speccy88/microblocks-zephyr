@@ -19,6 +19,8 @@ class JavaScriptPortal(unittest.TestCase):
             if name == 'index.html': continue
             self.assertEqual(hashlib.sha256((site/name).read_bytes()).hexdigest(),digest,name)
         self.assertIn('js-preview/fruit-jam/index.html',(site/'index.html').read_text())
+        self.assertEqual((site/'index.html').read_text().count('class="board-choice"'), 8)
+        self.assertNotIn('<iframe', (site/'index.html').read_text())
         self.assertIsNone(report['legacy_entry'])
         self.assertFalse(report['gp_editor_published'])
         self.assertNotIn('legacy/',(site/'index.html').read_text())

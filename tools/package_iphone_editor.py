@@ -8,6 +8,7 @@ from pathlib import Path
 from js_editor_source import load_manifest, verified_files
 from package_js_editor import ANCHOR, REDIRECT
 from js_editor_shared_assets import assets as shared_assets, scripts as shared_scripts
+from editor_branding import plain_wordmark
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -16,7 +17,7 @@ def package(source, output):
     manifest_path = ROOT / 'dependencies/editor-js.json'
     manifest = load_manifest(manifest_path)
     files = verified_files(source, manifest)
-    html = files['purejs.html'].decode('utf-8')
+    html = plain_wordmark(files['purejs.html'].decode('utf-8'))
     if html.count(REDIRECT) != 1 or html.count(ANCHOR) != 1:
         raise ValueError('Upstream entry changed; review iPhone integration anchors')
     # The app uses a bundled custom scheme. Browser preview is loopback-only;

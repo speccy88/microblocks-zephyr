@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 from add_js_preview import files
 from js_editor_shared_assets import assets as shared_assets, target_assets, SCRIPTS as SHARED_SCRIPTS
+from editor_branding import plain_wordmark
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ['fruit-jam', 'waveshare', 'esp32p4', 'propeller2', 'xrp-rp2350', 'raspberry-pi5', 'microduck', 'unoq']
@@ -44,7 +45,7 @@ def promote(site):
             anchor = '\t\t<!-- IDE -->\n\t\t<script type="text/javascript" src="ui/ide.js"></script>'
             if raw.count(anchor) != 1:
                 raise ValueError('Review SFC JavaScript startup anchor')
-            raw = raw.replace(anchor, overlay_tags + anchor)
+            raw = plain_wordmark(raw).replace(anchor, overlay_tags + anchor)
             inputs.append((folder / entry, raw.replace('</head>', '<script src="editor-parent.js"></script>\n</head>').encode()))
     for path, raw in inputs:
         path.write_bytes(raw)
@@ -96,11 +97,12 @@ def promote(site):
         receipt['native_sfc_javascript'] = True
         receipt['connected_board_project_readback'] = True
         (folder / 'build-manifest.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8', newline='\n')
-    for name in ['index.html', 'portal.js']:
+    for name in ['index.html', 'portal.js', 'portal.css']:
         (site / name).write_bytes((ROOT / 'web/js-portal' / name).read_bytes())
     html = (site / 'index.html').read_text(encoding='utf-8')
     version = hashlib.sha256((site / 'portal.js').read_bytes()).hexdigest()[:16]
-    (site / 'index.html').write_text(html.replace('src="portal.js"', 'src="portal.js?v='+version+'"'), encoding='utf-8', newline='\n')
+    css_version = hashlib.sha256((site / 'portal.css').read_bytes()).hexdigest()[:16]
+    (site / 'index.html').write_text(html.replace('src="portal.js"', 'src="portal.js?v='+version+'"').replace('href="portal.css"', 'href="portal.css?v='+css_version+'"'), encoding='utf-8', newline='\n')
     for name in omitted:
         target = (site / name).resolve()
         if not target.is_relative_to(site.resolve()):
@@ -114,7 +116,7 @@ def promote(site):
             folder.rmdir()
     after = files(site)
     changed = sorted(name for name, digest in before.items() if after.get(name) != digest)
-    allowed = {'index.html', 'portal.js'} | {'js-preview/' + p + '/' + n for p in PROFILES for n in ['index.html','microblocks.html','build-manifest.json','files.txt']}
+    allowed = {'index.html', 'portal.js', 'portal.css'} | {'js-preview/' + p + '/' + n for p in PROFILES for n in ['index.html','microblocks.html','build-manifest.json','files.txt']}
     allowed |= {'js-preview/propeller2/' + n for n in target_assets('propeller2') if 'js-preview/propeller2/' + n in before}
     allowed.add('js-preview/propeller2/target-profile.json')
     allowed.add('js-preview/propeller2/target-config.js')

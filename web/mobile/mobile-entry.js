@@ -22,7 +22,7 @@
     const remember = value => { try { localStorage.setItem(key, value); } catch (_) { /* choice works without persistence */ } };
     const mobileURL = () => {
         const url = safeURL(config.mobile || 'mobile/index.html', location);
-        const board = document.getElementById('board')?.value;
+        const board = document.getElementById('board')?.value || new URLSearchParams(location.search).get('board');
         if (['waveshare', 'fruit-jam', 'xrp-rp2350', 'propeller2', 'esp32p4', 'raspberry-pi5', 'microduck', 'unoq'].includes(board)) url.searchParams.set('board', board);
         return url;
     };
@@ -84,6 +84,16 @@
         document.documentElement.dataset.touchOffer = 'true';
     }
     function start() {
+        if (config.surface === 'launcher') {
+            const query = new URLSearchParams(location.search).get('layout');
+            const touch = document.getElementById('mobile-launch');
+            if (touch) touch.href = mobileURL().href;
+            // Always show the choices, including on phones. Only an explicit
+            // touch-layout URL redirects away from the launcher.
+            if (query === 'desktop') remember('desktop');
+            if (query === 'mobile') { remember('mobile'); location.replace(mobileURL().href); }
+            return;
+        }
         if (config.surface === 'mobile') {
             const menu = document.getElementById('iphone-menu-panel');
             if (menu && !document.getElementById('mobile-desktop-editor')) {

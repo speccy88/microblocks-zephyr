@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 from js_editor_source import load_manifest, verified_files
 from js_editor_shared_assets import assets as shared_assets, scripts as shared_scripts
+from editor_branding import plain_wordmark
 
 ROOT = Path(__file__).resolve().parents[1]
 REDIRECT = "if (location.protocol === 'http:') { location.protocol = 'https:'; }"
@@ -40,7 +41,7 @@ def package(source, output, manifest_path=None):
     manifest_path = manifest_path or ROOT / 'dependencies/editor-js.json'
     manifest = load_manifest(manifest_path)
     files = verified_files(source, manifest)
-    html = files['purejs.html'].decode('utf-8')
+    html = plain_wordmark(files['purejs.html'].decode('utf-8'))
     if html.count(REDIRECT) != 1 or html.count(ANCHOR) != 1:
         raise ValueError('Upstream entry point changed; review integration anchors')
     # The original entry point is retained. This generated entry allows only

@@ -28,8 +28,9 @@ remain optional; neither a Linux MCU dependency nor NPU/Yocto validation is
 implied. See the implementation's exact acceptance scope.
 
 The Pages root uses the real pure-JavaScript editor and offers the touch
-workspace on phones. Selecting Propeller 2 automatically shows the current
-P2 Hardware blocks. GP editors are no longer published; their source and
+workspace on phones. The root immediately offers all eight board choices;
+each opens its editor in a separate tab. Selecting Propeller 2 automatically
+shows the current P2 Hardware blocks. GP editors are no longer published; their source and
 history remain in Git. Open exported `.ubp` files to transfer work;
 projects and firmware are not automatically migrated. The upstream
 [3.0 announcement](https://microblocks.fun/blog/2026-10-27-microblocks-3.0/)

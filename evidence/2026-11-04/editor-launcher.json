@@ -1,0 +1,85 @@
+{
+  "checked_at_utc": "2026-11-04T22:59:43.856379+00:00",
+  "status": "PASS_LOCAL_BROWSER",
+  "base_commit": "726b241ed85c94613c6259d9e951f82731aa3274",
+  "changes": [
+    "Removed the introductory headline, subtitle and decorative block art.",
+    "Removed connection cards, project-information banner and promotional footer; sources/licenses remain in the header.",
+    "Exposed all eight existing board choices immediately; each opens its editor in an isolated new tab.",
+    "Removed rabbit images from generated desktop/mobile/native editor headers and preloaders; plain MicroBlocks wordmark retained."
+  ],
+  "desktop_browser": {
+    "default_editor": "javascript",
+    "targets": [
+      "propeller2",
+      "fruit-jam",
+      "waveshare",
+      "esp32p4",
+      "xrp-rp2350",
+      "raspberry-pi5",
+      "microduck",
+      "unoq"
+    ],
+    "eight_immediate_choices": true,
+    "separate_editor_tabs": true,
+    "opener_isolated": true,
+    "no_embedded_editor": true,
+    "intro_connection_project_sections_removed": true,
+    "rabbit_logo_removed": true,
+    "p2": {
+      "automatic_functions": 79,
+      "visible_palette": true,
+      "new_project": true,
+      "opened_scripts_preserved": true,
+      "existing_library_preserved": true,
+      "cancelled_new_preserves_project": true,
+      "other_tab_preserves_unsaved_project": true,
+      "serial_requests": 0
+    },
+    "removed_gp_urls": [
+      "legacy/index.html",
+      "editor/propeller2/microblocks.html",
+      "preview/editor/raspberry-pi5/microblocks.html"
+    ],
+    "automatic_sockets": [],
+    "page_errors": [],
+    "physical_hardware": false
+  },
+  "mobile_browser": {
+    "environment": "desktop chromium mobile emulation",
+    "browser": "156.0.4314.58",
+    "mobile_detection": true,
+    "gp_not_loaded_before_choice": true,
+    "actual_editor_loaded": true,
+    "ios_native_bridge_impersonated": false,
+    "pages_connection_disabled": true,
+    "private_board_navigation_validated": true,
+    "direct_desktop_and_touch_tabs": true,
+    "desktop_and_touch_switch": true,
+    "explicit_phone_override": true,
+    "eight_immediate_board_choices": true,
+    "rabbit_logo_removed": true,
+    "cancelled_mode_switch_keeps_project": true,
+    "runtime_assets_local": true,
+    "desktop_target_preserved": true,
+    "physical_iphone": false,
+    "physical_board": false,
+    "page_errors": []
+  },
+  "validation": {
+    "result": "OK",
+    "tests": 680,
+    "skipped": 391,
+    "seconds": 16.531
+  },
+  "p2_compiler": {
+    "functions": 79,
+    "usability_chunks": 97,
+    "scripts": 14,
+    "physical": false
+  },
+  "upstream_engine_and_image_bytes_changed": false,
+  "firmware_changed": false,
+  "physical_hardware": false,
+  "subsequent_requested_work": "P2 library grouping and browser RAM/flash installation are separate increments."
+}
