@@ -1,0 +1,106 @@
+{
+  "checked_at_utc": "2026-11-04T21:55:54.143006+00:00",
+  "status": "PASS_LOCAL_BROWSER_AND_COMPILER",
+  "base_commit": "3fb3472296aa0fa322caabf0055aa31b1a0585c2",
+  "diagnosis": [
+    "The previous site packaged the current library but only loaded it after the manual Load target blocks action.",
+    "The JSON profile had 79 functions while target-config.js still supplied only the original three at runtime.",
+    "Publication assembly and its smoke test deliberately preserved the GP landing and engines."
+  ],
+  "before_regression": {
+    "result": "FAIL_REPRODUCED",
+    "artifact": "previous 3fb3472 generated site",
+    "failure": "Normal root P2 selection timed out after 30000 ms waiting for the P2 Hardware library; no explicit library import was made."
+  },
+  "browser": {
+    "default_editor": "javascript",
+    "targets": [
+      "propeller2",
+      "waveshare",
+      "esp32p4",
+      "xrp-rp2350",
+      "raspberry-pi5",
+      "microduck",
+      "unoq",
+      "fruit-jam"
+    ],
+    "default_gp_loaded": false,
+    "actual_js_compiler_loaded": true,
+    "unsaved_switch_cancelled": true,
+    "legacy_gp_loaded": false,
+    "removed_gp_urls": [
+      "legacy/index.html",
+      "editor/propeller2/microblocks.html",
+      "preview/editor/raspberry-pi5/microblocks.html"
+    ],
+    "p2": {
+      "automatic_functions": 79,
+      "visible_palette": true,
+      "new_project": true,
+      "opened_scripts_preserved": true,
+      "existing_library_preserved": true,
+      "serial_requests": 0,
+      "direct_entry": true
+    },
+    "automatic_sockets": [],
+    "page_errors": [],
+    "physical_hardware": false
+  },
+  "mobile_browser": {
+    "environment": "desktop chromium mobile emulation",
+    "browser": "156.0.4314.58",
+    "mobile_detection": true,
+    "gp_not_loaded_before_choice": true,
+    "actual_editor_loaded": true,
+    "ios_native_bridge_impersonated": false,
+    "pages_connection_disabled": true,
+    "private_board_navigation_validated": true,
+    "real_desktop_started": true,
+    "desktop_and_touch_switch": true,
+    "explicit_phone_override": true,
+    "cancelled_mode_switch_keeps_project": true,
+    "runtime_assets_local": true,
+    "desktop_target_preserved": true,
+    "physical_iphone": false,
+    "physical_board": false,
+    "page_errors": []
+  },
+  "compiler": {
+    "p2_functions": 79,
+    "usability_chunks": 97,
+    "usability_scripts": 14,
+    "all_existing_p2_fixtures": "PASS; software compilation only",
+    "sfc_fixtures": 31,
+    "sfc_additional_checks": 15,
+    "physical_hardware": false
+  },
+  "validation": {
+    "command": "python -B tools/validate.py",
+    "result": "OK",
+    "tests": 680,
+    "skipped": 391,
+    "seconds": 17.878,
+    "MOBILE_EDITOR_SOURCE": "generated-site/js-preview/waveshare",
+    "MOBILE_SITE": "generated-site"
+  },
+  "publication_assembly": {
+    "legacy_entry": null,
+    "gp_editor_published": false,
+    "omitted_generated_gp_files": 1058,
+    "target_runtime_functions": 79,
+    "target_library_sha256": "5ceed3c8fcd7214248a6edc6ce71e41b6c1279c05e98ada76bb46626e0920be2",
+    "target_blocks_sha256": "9e90da1ab95f980c6492f3ecd38a1dded775a0910a17732d588c1dff28bee7f7",
+    "source_and_history_preserved": true
+  },
+  "physical_hardware": false,
+  "firmware_changed": false,
+  "firmware_loaded": false,
+  "serial_chooser_used": false,
+  "prior_interactive_browser_guard_retried": false,
+  "limits": [
+    "No physical P2 execution or hardware connection in this UI-only change.",
+    "Existing saved/custom P2 libraries are preserved; updating them remains an explicit user action.",
+    "CI and live deployment are verified separately after publication."
+  ],
+  "screenshot": "editor-visibility-p2.png"
+}

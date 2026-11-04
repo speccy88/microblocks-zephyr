@@ -1,5 +1,9 @@
 # JavaScript editor staging and upstream updates
 
+Current publication (2026-11-04) uses JavaScript only: GP editor paths are omitted
+from the active Pages artifact while historical source is retained. P2 selection
+loads its current target library automatically; see [the visibility contract](P2_EDITOR_VISIBILITY.md).
+
 Current integration direction (2026-11-01): work directly in `main`, as required
 by `AGENTS.md`; do not create migration or sync branches. The branch history
 below records the earlier staging process. See `MAIN_CONSOLIDATION.md` for the

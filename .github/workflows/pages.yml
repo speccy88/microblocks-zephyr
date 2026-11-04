@@ -46,7 +46,7 @@ jobs:
         run: python .gp-stable-source/tools/build_pages_linux_preview.py --linux-repo .linux-target-source --ide-source ${{ runner.temp }}/ide-source --output build-artifacts/pages --fetch
       - name: Add reviewed JavaScript preview without changing GP
         run: python tools/add_js_preview.py --gp-site build-artifacts/pages --archive ${{ runner.temp }}/js-preview.zip --fetch
-      - name: Make JavaScript the main editor and retain the legacy GP entry
+      - name: Publish JavaScript with current target blocks and omit GP editors
         run: python tools/promote_js_portal.py --site build-artifacts/pages
       - name: Add shared touch editor and phone layout offer
         run: python tools/add_mobile_web.py --site build-artifacts/pages

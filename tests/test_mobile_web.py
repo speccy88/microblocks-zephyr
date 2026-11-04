@@ -68,7 +68,10 @@ class MobileSourceTests(unittest.TestCase):
         site = Path(os.environ['MOBILE_SITE'])
         report = json.loads((site / 'mobile-web-manifest.json').read_text())
         self.assertEqual(report['changed_existing_files'], ['index.html'])
-        self.assertGreater(len(report['preserved_existing_files']), 5000)
+        # GP editors are deliberately omitted from publication. Every retained
+        # JavaScript target still contributes its exact engine and entry.
+        for profile in ['fruit-jam','waveshare','esp32p4','propeller2','xrp-rp2350','raspberry-pi5','microduck','unoq']:
+            self.assertIn('js-preview/'+profile+'/engine/mb-editor.js', report['preserved_existing_files'])
         for name, digest in {**report['preserved_existing_files'], **report['added_files'], 'index.html':report['landing_sha256']}.items():
             self.assertEqual(hashlib.sha256((site / name).read_bytes()).hexdigest(), digest, name)
 
