@@ -1,0 +1,79 @@
+{
+  "checked_at_utc": "2026-11-04T23:21:26.542337+00:00",
+  "status": "PASS",
+  "library_version": "0.11",
+  "modules": [
+    "P2 Core",
+    "P2 Signals",
+    "P2 Serial",
+    "P2 Analog",
+    "P2 Capture"
+  ],
+  "functions": 79,
+  "compatibility_source_unchanged": true,
+  "definitions_and_specs_identical": true,
+  "legacy_function_objects_and_ids_preserved": true,
+  "individual_library_dependencies_tested": true,
+  "stateful_custom_library_preserved": true,
+  "grouped_bundle_sha256": "9b5bfe8b58a54147fbb195a6721f1179a5751e9e20fba9815aee3037260cd0fe",
+  "validation": {
+    "result": "OK",
+    "tests": 680,
+    "skipped": 391,
+    "seconds": 17.443
+  },
+  "browser": {
+    "default_editor": "javascript",
+    "targets": [
+      "propeller2",
+      "fruit-jam",
+      "waveshare",
+      "esp32p4",
+      "xrp-rp2350",
+      "raspberry-pi5",
+      "microduck",
+      "unoq"
+    ],
+    "eight_immediate_choices": true,
+    "separate_editor_tabs": true,
+    "opener_isolated": true,
+    "no_embedded_editor": true,
+    "intro_connection_project_sections_removed": true,
+    "rabbit_logo_removed": true,
+    "p2": {
+      "automatic_functions": 79,
+      "visible_palette": true,
+      "modules": [
+        "P2 Core",
+        "P2 Signals",
+        "P2 Serial",
+        "P2 Analog",
+        "P2 Capture"
+      ],
+      "no_duplicate_palette": true,
+      "new_project": true,
+      "opened_scripts_preserved": true,
+      "existing_library_preserved": true,
+      "cancelled_new_preserves_project": true,
+      "other_tab_preserves_unsaved_project": true,
+      "serial_requests": 0
+    },
+    "removed_gp_urls": [
+      "legacy/index.html",
+      "editor/propeller2/microblocks.html",
+      "preview/editor/raspberry-pi5/microblocks.html"
+    ],
+    "automatic_sockets": [],
+    "page_errors": [],
+    "physical_hardware": false
+  },
+  "physical_evidence": "grouped-library-usability.json",
+  "backup": {
+    "stored_chunks": 1,
+    "complete_unchanged_crcs_verified": true,
+    "private_backup_retained": true
+  },
+  "firmware_loaded": false,
+  "hardware_reset": false,
+  "scope": "Grouping only. No new modes or native code. Existing hardware/capture limits remain unchanged."
+}

@@ -65,10 +65,13 @@ are retained.
 
 The [current JavaScript editor](https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/)
 keeps DTR/RTS deasserted so a Prop Plug does not hold P2 in reset. Connect the
-correct FTDI port. The current **P2 Hardware** library appears automatically
+correct FTDI port. Five focused libraries—**P2 Core, Signals, Serial, Analog
+and Capture**—appear automatically
 when the P2 editor starts and when creating a new project, even without hardware.
-An existing project library is preserved; **Load target blocks** remains an
-explicit update action. See the [editor visibility contract](../../docs/P2_EDITOR_VISIBILITY.md).
+Saved ordinary P2 Hardware libraries are reorganized without replacing their
+definitions. Stateful/custom layouts are preserved conservatively; **Load target
+blocks** remains an explicit update action. See the [library organization](../../docs/PROPELLER2_LIBRARIES.md)
+and [editor visibility contract](../../docs/P2_EDITOR_VISIBILITY.md).
 The firmware reports its exact variant. Normal connection stops the VM and
 synchronizes the browser project, which can replace the board's stored project.
 Export valuable work before using that connection workflow.

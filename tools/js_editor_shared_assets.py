@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 from sfc_js_assets import assets as sfc_assets, SCRIPTS as SFC_SCRIPTS
+from p2_library_groups import split_library, GROUPS
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = (*SFC_SCRIPTS, 'board-project-readback.js', 'target-blocks.js')
@@ -27,10 +28,15 @@ def target_assets(profile):
         return {}
     source = 'boards/propeller2/integration/P2_Hardware.ubl'
     bundle = 'Libraries/Targets/Propeller 2 Project.ubl'
-    raw = (ROOT / source).read_bytes()
+    canonical = (ROOT / source).read_bytes()
+    groups, owners = split_library(canonical)
+    raw = b'\n'.join(groups.values())
     receipt = {'schema': 1, 'source_path': source, 'bundle': bundle,
                'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw),
                'required_extension_revision': 8,
                'function_names': re.findall(r'^to\s+(\w+)', raw.decode('utf-8'), re.M),
+               'modules': [name for name, _ in GROUPS], 'selector_libraries': owners,
+               'canonical_source_sha256': hashlib.sha256(canonical).hexdigest(),
+               'legacy_module': 'P2 Hardware', 'library_version': '0.11',
                'physical_hardware_scope': 'See boards/propeller2/hardware.json; blocks alone do not establish hardware acceptance.'}
-    return {bundle: raw, 'target-library-source.json': (json.dumps(receipt, indent=2)+'\n').encode()}
+    return {**groups, bundle: raw, 'target-library-source.json': (json.dumps(receipt, indent=2)+'\n').encode()}

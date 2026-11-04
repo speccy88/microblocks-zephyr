@@ -67,17 +67,22 @@ def main():
                 page = open_target(target)
                 assert page.evaluate('typeof MB_Compiler') == 'function'
                 if target == 'propeller2':
-                    page.wait_for_function('!!MB_editor.project.libraryNamed("P2 Hardware")')
-                    page.get_by_text('P2 Hardware', exact=True).click()
-                    expected = json.loads((a.site/'js-preview/propeller2/target-library-source.json').read_text())['function_names']
+                    receipt = json.loads((a.site/'js-preview/propeller2/target-library-source.json').read_text())
+                    page.wait_for_function('!!MB_editor.project.libraryNamed("P2 Core")')
+                    for name in receipt['modules']:
+                        assert page.get_by_text(name, exact=True).is_visible()
+                    assert page.get_by_text('P2 Hardware', exact=True).count() == 0
+                    expected = receipt['function_names']
                     state = page.evaluate("""() => ({
                         runtime:MicroBlocksJSProfile.function_names,
                         functions:MB_editor.project.allFunctions().map(f=>f.functionName),
-                        palette:MB_editor.palette.contents.allChildren().map(b=>b.selector).filter(Boolean)
+                        palette:[]
                     })""")
                     assert state['runtime'] == state['functions'] == expected
-                    for selector in ['p2ServoAngle','p2MeasureDutyPercent','p2CountWindowMS','[p2:p2CogStart]']:
-                        assert selector in state['palette']
+                    for module, selector in [('P2 Signals','p2ServoAngle'),('P2 Signals','p2MeasureDutyPercent'),('P2 Signals','p2CountWindowMS'),('P2 Core','[p2:p2CogStart]'),('P2 Serial','[p2:p2UART]'),('P2 Analog','[p2:p2DAC8]'),('P2 Capture','p2CaptureRunning')]:
+                        page.get_by_text(module,exact=True).click()
+                        assert page.evaluate('selector => MB_editor.palette.contents.allChildren().some(b=>b.selector===selector)',selector)
+                    page.get_by_text('P2 Core',exact=True).click()
                     page.screenshot(path=str(a.output/'p2-current-blocks.png'))
                     source = "projectName 'Keep P2 work'\\nmodule 'main'\\nscript 40 60 (+ 20 22)\\n".replace('\\n','\n')
                     page.evaluate('MB_editor.confirm=async()=>true')
@@ -98,7 +103,9 @@ def main():
                     saved = source + "module 'P2 Hardware' Output\\nversion 99 0\\nto p2KeptCustom { return 123 }\\n".replace('\\n','\n')
                     page.evaluate('text => MB_editor.openProjectFromString(text,"Custom P2.ubp")', saved)
                     assert page.evaluate('MB_editor.project.allFunctions().map(f=>f.functionName)') == ['p2KeptCustom']
-                    p2_checks = {'automatic_functions':len(expected), 'visible_palette':True,
+                    assert page.get_by_text('P2 Hardware',exact=True).count() == 0
+                    assert page.get_by_text('P2 Core',exact=True).is_visible()
+                    p2_checks = {'automatic_functions':len(expected), 'visible_palette':True,'modules':receipt['modules'],'no_duplicate_palette':True,
                         'new_project':True, 'opened_scripts_preserved':True,
                         'existing_library_preserved':True, 'cancelled_new_preserves_project':True,
                         'other_tab_preserves_unsaved_project':True, 'serial_requests':0}

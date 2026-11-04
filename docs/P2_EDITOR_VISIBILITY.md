@@ -2,10 +2,10 @@
 
 The published root immediately offers eight board choices. Selecting
 **Parallax Propeller 2** opens a separate JavaScript editor tab that shows
-the current **P2 Hardware** library, including its
+the five [focused P2 libraries](PROPELLER2_LIBRARIES.md), including their
 Smart Pin and cog blocks, without connecting hardware or manually importing a
-library. A new P2 project receives the same library. Existing project scripts and
-libraries must be preserved; an existing P2 library is not silently replaced.
+library. A new P2 project receives the same groups. Existing project scripts and
+definitions are preserved; reorganizing a saved library must not replace its code.
 
 The runtime JavaScript profile and its JSON receipt must name the same current
 functions. Versioned library and profile requests must avoid reusing older Pages

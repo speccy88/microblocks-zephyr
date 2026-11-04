@@ -405,6 +405,20 @@
   "code_flash_erase_bytes": 4096,
   "extension_revision": 8,
   "mode_coverage_document": "docs/PROPELLER2_MODE_COVERAGE.md",
-  "target_library_version": "0.10",
-  "target_library_functions": 79
+  "target_library_version": "0.11",
+  "target_library_functions": 79,
+  "target_library_groups": [
+    "P2 Core",
+    "P2 Signals",
+    "P2 Serial",
+    "P2 Analog",
+    "P2 Capture"
+  ],
+  "editor_library_organization": {
+    "status": "PASS: five palettes, 79 unchanged functions/specifications, fresh startup and saved-definition migration; focused grouped-bytecode loopback/worker regression passes on installed extension 8.",
+    "evidence": "evidence/2026-11-04/propeller2/grouped-library.json",
+    "physical_evidence": "evidence/2026-11-04/propeller2/grouped-library-usability.json",
+    "firmware_changed": false,
+    "physical_browser_serial_install_tested": false
+  }
 }
