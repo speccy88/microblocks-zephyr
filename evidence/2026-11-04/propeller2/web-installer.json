@@ -1,0 +1,115 @@
+{
+  "status": "PASS_WITH_EXPLICIT_SCOPE",
+  "checked_at_utc": "2026-11-04T23:55:30.102141+00:00",
+  "physical_loader_core": {
+    "status": "PASS",
+    "checked_at_utc": "2026-11-04T23:50:18.564Z",
+    "port": "COM12",
+    "usb_serial": "A500507HA",
+    "board": "edge32",
+    "environment": "production JavaScript loader core with guarded native serial transport; no browser chooser",
+    "firmware_source_unchanged": true,
+    "original_project_backup": "private-p2-before-grouped.json",
+    "operations": [
+      {
+        "already_running": false,
+        "mode": "ram",
+        "rom": "G",
+        "version": "v405 Parallax P2 Edge 32MB",
+        "firmware_transferred": true,
+        "rom_checksum_verified": true,
+        "flash_boot_verified": false,
+        "project_storage_may_initialize": true,
+        "seconds": 55.684,
+        "hardware_resets": 1
+      },
+      {
+        "already_running": false,
+        "mode": "flash",
+        "rom": "G",
+        "version": "v405 Parallax P2 Edge 32MB",
+        "firmware_transferred": true,
+        "rom_checksum_verified": false,
+        "flash_boot_verified": true,
+        "project_storage_may_initialize": true,
+        "seconds": 40.063,
+        "hardware_resets": 2
+      }
+    ],
+    "initial_version": "v405 Parallax P2 Edge 32MB",
+    "image_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+    "loader_sha256": "c48b2fece8dad9a95fcdf0509fd87bf310181b9425f0be05e185a7ea885873c1",
+    "hardware_resets": 3
+  },
+  "browser_ui": {
+    "status": "PASS",
+    "browser": "156.0.4314.58",
+    "checks": {
+      "ram": {
+        "status": "v405 Parallax P2 Edge 32MB loaded to RAM; ROM checksum and running identity verified.",
+        "requests": 1,
+        "resets": 1,
+        "synthetic_serial": true
+      },
+      "flash": {
+        "status": "v405 Parallax P2 Edge 32MB installed and verified after flash boot.",
+        "requests": 1,
+        "resets": 2,
+        "synthetic_serial": true
+      },
+      "running_vm_preserved": true,
+      "other_vm_refused": true,
+      "cancel_before_flash_programming": true,
+      "unsupported_browser_has_no_connection": true
+    },
+    "page_errors": [],
+    "physical_hardware": false,
+    "web_serial_provider": "synthetic"
+  },
+  "actual_browser_usb_transfer_verified": false,
+  "browser_guard": "Previous interactive chooser denial was not retried or bypassed.",
+  "firmware": {
+    "schema": 1,
+    "vm_version": 405,
+    "extension_revision": 8,
+    "flexprop_release": "v7.7.0",
+    "flexprop_commit": "d2a58e6b9b84c3976f80798b12e239c4eaee4fbb",
+    "compiler_repository": "https://github.com/totalspectrum/spin2cpp.git",
+    "compiler_commit": "3251bfc7fbae058492b0ff652da04a795c27cb0a",
+    "loadp2_commit": "c20afedd4253d09da449fa740f8d4304481fc560",
+    "expected_images": {
+      "eval": {
+        "bytes": 467976,
+        "sha256": "df8340e3ceb229a533f55ee551d9f456fd18bb4adb3ee40932971a4cfc332365",
+        "board_type": "Parallax P2 Eval Rev C"
+      },
+      "edge": {
+        "bytes": 467964,
+        "sha256": "a108b09bf1fbece215cffe1c767c04929d9ad5230660c37815911ba5ecb91e62",
+        "board_type": "Parallax P2 Edge"
+      },
+      "edge32": {
+        "bytes": 467752,
+        "sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+        "board_type": "Parallax P2 Edge 32MB"
+      }
+    }
+  },
+  "physical_module_scope": "Known Edge32 test target only; Eval and original Edge images compiled, physical installation untested.",
+  "earlier_diagnostics": {
+    "ram_hex_115200_attempts": 3,
+    "ram_hex_result": "No ROM checksum acknowledgement; includes official loadp2 single-stage comparison.",
+    "hardware_resets": 3,
+    "flash_programming_attempted": false,
+    "post_failure_read_only_identity": "v405 Parallax P2 Edge 32MB",
+    "fix": "ROM 60-second completion window; Base64 at 115200 completes with checksum acknowledgement. Flash hex uses 460800."
+  },
+  "storage_effects": "RAM does not program boot image. Starting VM may initialize or format littlefs flash at offsets 2-8 MB.",
+  "board_backup": "Original stored project bytes retained privately, excluded from Git.",
+  "protocol_tests": {
+    "node_cases": 12,
+    "status": "PASS",
+    "synthetic_not_physical": true
+  },
+  "new_dma_usb_smart_pin_or_external_clock_work": false
+}

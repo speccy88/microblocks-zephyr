@@ -8,13 +8,14 @@ from sfc_js_assets import assets as sfc_assets, SCRIPTS as SFC_SCRIPTS
 from p2_library_groups import split_library, GROUPS
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = (*SFC_SCRIPTS, 'board-project-readback.js', 'target-blocks.js')
+SCRIPTS = (*SFC_SCRIPTS, 'board-project-readback.js', 'target-blocks.js', 'p2-install-link.js')
 
 
 def assets():
     result = sfc_assets()
     result['board-project-readback.js'] = (ROOT / 'web/js-editor/board-project-readback.js').read_bytes()
     result['target-blocks.js'] = (ROOT / 'web/js-editor/target-blocks.js').read_bytes()
+    result['p2-install-link.js'] = (ROOT / 'web/js-editor/p2-install-link.js').read_bytes()
     return result
 
 

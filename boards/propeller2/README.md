@@ -346,8 +346,16 @@ normal v405-versus-v417 notice; acknowledging it allows the tested arithmetic
 and live-edit workflows. No minimum-version check is bypassed and the VM
 version is not relabeled. The JavaScript P2 profile explicitly accepts native
 v405; its bounded acceptance is recorded above. Other newer-editor features need their own tests.
-Networking, the generic stream-serial API, NeoPixels, PSRAM object
-storage and one-click browser firmware installation are unsupported.
+Networking, the generic stream-serial API, NeoPixels and PSRAM object
+storage are unsupported.
+
+The [P2 web installer](../../docs/PROPELLER2_WEB_INSTALL.md) offers explicit RAM
+or flash installation from the launcher and P2 editor. The same production
+JavaScript loader passed physical RAM checksum/identity and flash reset/boot
+tests on the known Edge32 target through the guarded native serial bridge.
+Actual browser USB chooser/transfer is unverified; Eval and original Edge
+images are compiled only. RAM does not program the boot image, but starting
+the VM can initialize or format its project storage in flash at 2-8 MB.
 
 ## Recorded physical acceptance (2026-10-19)
 

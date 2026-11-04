@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'">
+<title>Install Propeller 2 SmallVM</title><link rel="stylesheet" href="installer.css"><script src="loader.js" defer></script><script src="installer.js" defer></script></head>
+<body><main>
+<a href="../../">All boards</a><h1>Install P2 SmallVM</h1>
+<p>Use desktop Chrome or Edge with your Propeller 2 USB adapter.</p>
+<button id="check" type="button">Choose P2 USB and check VM</button>
+<p id="status" role="status" aria-live="polite">Checking browser support…</p>
+<form id="installation">
+<label for="module">Exact module marking</label>
+<select id="module" required><option value="">Choose the physical module</option><option value="eval">P2 Eval Rev C</option><option value="edge">Original P2 Edge</option><option value="edge32">P2 Edge with 32 MB RAM</option></select>
+<p class="note">The USB adapter and ROM version cannot identify your module.</p>
+<fieldset><legend>Destination</legend>
+<label><input type="radio" name="destination" value="ram"> RAM — runs until reset; boot program is not programmed</label>
+<label><input type="radio" name="destination" value="flash"> Flash — replaces the boot program and starts after reset</label>
+</fieldset>
+<p class="storage">Both options run a VM that can initialize or format its project storage in flash at offsets 2–8 MB. A RAM load can therefore affect saved flash projects. Back up valuable programs and projects first.</p>
+<p id="boot-note" class="note" hidden>For flash boot, remove the SD card and use the documented FLASH/boot switch settings for your board.</p>
+<label class="ack"><input id="acknowledge" type="checkbox"> I selected the correct P2 module and accept replacement of its program and project storage.</label>
+<div class="actions"><button id="install" type="submit" disabled>Install SmallVM</button><button id="cancel" type="button" disabled>Cancel transfer</button></div>
+<progress id="progress" value="0" max="100" aria-label="Firmware transfer progress"></progress>
+</form>
+<a id="open-editor" href="../../js-preview/propeller2/index.html" target="_blank" rel="noopener" hidden>Open P2 editor</a>
+<p class="note">Opening the editor does not connect a board. Its normal Connect action synchronizes the current editor project with the board.</p>
+<details><summary>Build and hardware scope</summary><p>Native SmallVM v405, P2 extension 8. The original Edge and Eval images are compiled; installation is physically tested only on the documented Edge32 test target. Actual browser USB transfer is separate from loader-core hardware validation.</p><a href="firmware.json">Firmware build information</a><p><a href="LICENSE-loadp2.txt">P2 loader license</a> · <a href="../../UPSTREAM.md">Sources and licenses</a></p></details>
+</main></body></html>

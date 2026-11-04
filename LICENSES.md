@@ -8,6 +8,12 @@ retain MPL-2.0 notices. See `web/js-editor/THIRD_PARTY_NOTICES.md`; generated
 packages preserve the source manifest and license notices.
 
 Most new source files and documentation in this repository use the **MIT License** (`LICENSE`).
+The P2 browser installer adapts the MIT-licensed `loadp2` serial protocol and
+redistributes its flash programmer from commit
+`c20afedd4253d09da449fa740f8d4304481fc560`. Its original source, byte array and
+license are retained in `third_party/loadp2/`; generated installer packages
+include `LICENSE-loadp2.txt`. The native SmallVM images retain the MicroBlocks
+MPL-2.0 source notices and are reproducibly built from the repository sources.
 The experimental SmallVM adapter at
 `boards/waveshare_esp32s3_rlcd_4_2/integration/rlcd_smallvm_primitives.c`
 uses **MPL-2.0**, as indicated by its SPDX header.

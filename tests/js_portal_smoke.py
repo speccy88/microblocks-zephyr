@@ -67,6 +67,9 @@ def main():
                 page = open_target(target)
                 assert page.evaluate('typeof MB_Compiler') == 'function'
                 if target == 'propeller2':
+                    installer = page.locator('#p2-install-vm')
+                    assert installer.is_visible() and installer.get_attribute('target') == '_blank'
+                    assert installer.get_attribute('href') == '../../install/propeller2/index.html'
                     receipt = json.loads((a.site/'js-preview/propeller2/target-library-source.json').read_text())
                     page.wait_for_function('!!MB_editor.project.libraryNamed("P2 Core")')
                     for name in receipt['modules']:
@@ -109,6 +112,8 @@ def main():
                         'new_project':True, 'opened_scripts_preserved':True,
                         'existing_library_preserved':True, 'cancelled_new_preserves_project':True,
                         'other_tab_preserves_unsaved_project':True, 'serial_requests':0}
+                else:
+                    assert page.locator('#p2-install-vm').count() == 0
                 visited.append(target)
                 page.close(run_before_unload=False)
             assert launcher.url == base
@@ -123,7 +128,7 @@ def main():
                 'separate_editor_tabs':True, 'opener_isolated':True, 'no_embedded_editor':True,
                 'intro_connection_project_sections_removed':True, 'rabbit_logo_removed':True,
                 'p2':p2_checks, 'removed_gp_urls':removed, 'automatic_sockets':sockets,
-                'page_errors':errors, 'physical_hardware':False}
+                'page_errors':errors, 'p2_install_link_visible':True, 'physical_hardware':False}
             (a.output/'portal.json').write_text(json.dumps(result,indent=2)+'\n', encoding='utf-8')
             print(json.dumps(result))
             browser.close()

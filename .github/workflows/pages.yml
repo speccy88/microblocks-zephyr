@@ -50,6 +50,11 @@ jobs:
         run: python tools/promote_js_portal.py --site build-artifacts/pages
       - name: Add shared touch editor and phone layout offer
         run: python tools/add_mobile_web.py --site build-artifacts/pages
+      - name: Build pinned P2 firmware and package explicit RAM/flash installer
+        run: |
+          if ! command -v bison >/dev/null; then sudo apt-get update && sudo apt-get install -y bison; fi
+          python tools/prepare_p2_web_firmware.py --output build-artifacts/p2-web-firmware
+          python tools/add_p2_web_installer.py --site build-artifacts/pages --firmware build-artifacts/p2-web-firmware
       - name: Verify mobile source and preserved desktop files
         env:
           MOBILE_EDITOR_SOURCE: ${{ github.workspace }}/build-artifacts/pages/js-preview/waveshare
@@ -68,6 +73,7 @@ jobs:
           python -m pip install playwright==1.64.1
           python tests/mobile_web_smoke.py --site build-artifacts/pages --output build-artifacts/portal-browser --browser /usr/bin/google-chrome
           python tests/js_portal_smoke.py --site build-artifacts/pages --output build-artifacts/js-portal-browser --browser /usr/bin/google-chrome
+          python tests/p2_installer_browser.py --site build-artifacts/pages --output build-artifacts/p2-installer-browser --browser /usr/bin/google-chrome
           python tests/mobile_usability_smoke.py --editor build-artifacts/pages/mobile --output build-artifacts/portal-usability --browser /usr/bin/google-chrome
           python tests/sfc_js_browser.py --site build-artifacts/pages --output build-artifacts/sfc-js-browser --browser /usr/bin/google-chrome
       - name: Test browser transport contracts
@@ -75,6 +81,14 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build-artifacts/pages
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p2-web-installer-evidence
+          path: |
+            build-artifacts/p2-installer-browser
+            build-artifacts/p2-web-firmware/installer-build.json
+            build-artifacts/p2-web-firmware/*.log
   deploy:
     # The owner approved public visibility after the reachable-history audit.
     # Private builds still cannot deploy; public main pushes keep Pages current.

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "vm_version": 405,
+  "extension_revision": 8,
+  "flexprop_release": "v7.7.0",
+  "flexprop_commit": "d2a58e6b9b84c3976f80798b12e239c4eaee4fbb",
+  "compiler_repository": "https://github.com/totalspectrum/spin2cpp.git",
+  "compiler_commit": "3251bfc7fbae058492b0ff652da04a795c27cb0a",
+  "loadp2_commit": "c20afedd4253d09da449fa740f8d4304481fc560",
+  "expected_images": {
+    "eval": {"bytes": 467976, "sha256": "df8340e3ceb229a533f55ee551d9f456fd18bb4adb3ee40932971a4cfc332365", "board_type": "Parallax P2 Eval Rev C"},
+    "edge": {"bytes": 467964, "sha256": "a108b09bf1fbece215cffe1c767c04929d9ad5230660c37815911ba5ecb91e62", "board_type": "Parallax P2 Edge"},
+    "edge32": {"bytes": 467752, "sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d", "board_type": "Parallax P2 Edge 32MB"}
+  }
+}

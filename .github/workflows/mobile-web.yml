@@ -29,6 +29,9 @@ jobs:
           python tools/prepare_mobile_editor.py --archive build-artifacts/reviewed.zip --output build-artifacts/site --full-site --fetch
           python tools/promote_js_portal.py --site build-artifacts/site
           python tools/add_mobile_web.py --site build-artifacts/site
+          if ! command -v bison >/dev/null; then sudo apt-get update && sudo apt-get install -y bison; fi
+          python tools/prepare_p2_web_firmware.py --output build-artifacts/p2-web-firmware
+          python tools/add_p2_web_installer.py --site build-artifacts/site --firmware build-artifacts/p2-web-firmware
       - name: Validate source, preserved desktop assets and browser contracts
         env:
           MOBILE_EDITOR_SOURCE: ${{ github.workspace }}/build-artifacts/site/js-preview/waveshare
@@ -49,6 +52,7 @@ jobs:
           python -m playwright install --with-deps webkit
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/browser --browser /usr/bin/google-chrome
           python tests/js_portal_smoke.py --site build-artifacts/site --output build-artifacts/js-portal --browser /usr/bin/google-chrome
+          python tests/p2_installer_browser.py --site build-artifacts/site --output build-artifacts/p2-installer --browser /usr/bin/google-chrome
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/webkit --engine webkit
           python tests/mobile_touch_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/touch --browser /usr/bin/google-chrome
           python tests/mobile_startup_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/startup --browser /usr/bin/google-chrome
@@ -74,6 +78,9 @@ jobs:
           path: |
             build-artifacts/browser
             build-artifacts/js-portal
+            build-artifacts/p2-installer
+            build-artifacts/p2-web-firmware/installer-build.json
+            build-artifacts/p2-web-firmware/*.log
             build-artifacts/webkit
             build-artifacts/touch
             build-artifacts/startup
