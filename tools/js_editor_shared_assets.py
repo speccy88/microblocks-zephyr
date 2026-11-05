@@ -40,4 +40,9 @@ def target_assets(profile):
                'canonical_source_sha256': hashlib.sha256(canonical).hexdigest(),
                'legacy_module': 'P2 Hardware', 'library_version': '0.11',
                'physical_hardware_scope': 'See boards/propeller2/hardware.json; blocks alone do not establish hardware acceptance.'}
-    return {**groups, bundle: raw, 'target-library-source.json': (json.dumps(receipt, indent=2)+'\n').encode()}
+    optional = {'Libraries/P2/' + path.name: path.read_bytes()
+                for path in sorted((ROOT/'boards/propeller2/integration/libraries').glob('*.ubl'))}
+    examples = {'Examples/P2/' + path.name: path.read_bytes()
+                for path in sorted((ROOT/'boards/propeller2/integration/examples').glob('*.ubp'))}
+    return {**groups, **optional, **examples, bundle: raw,
+            'target-library-source.json': (json.dumps(receipt, indent=2)+'\n').encode()}

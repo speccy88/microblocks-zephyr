@@ -131,17 +131,9 @@ OBJ primMBDrawShape(int argCount, OBJ *args) {
 	return falseObj;
 }
 
-static OBJ primNeoPixelSend(int argCount, OBJ *args) {
-	(void) argCount;
-	(void) args;
-	return fail(primitiveNotImplemented);
-}
-
-static OBJ primNeoPixelSetPin(int argCount, OBJ *args) {
-	(void) argCount;
-	(void) args;
-	return fail(primitiveNotImplemented);
-}
+extern OBJ p2NeoPixelSend(int, OBJ *), p2NeoPixelSetPin(int, OBJ *);
+extern OBJ p2LEDInit(int, OBJ *), p2LEDSet(int, OBJ *), p2LEDFill(int, OBJ *);
+extern OBJ p2LEDBrightness(int, OBJ *), p2LEDUpdate(int, OBJ *);
 
 static PrimEntry entries[] = {
 	{"lightLevel", primLightLevel},
@@ -153,8 +145,10 @@ static PrimEntry entries[] = {
 	{"mbDrawShape", primMBDrawShape},
 	{"mbShapeForLetter", primMBShapeForLetter},
 	{"mbEnableDisplay", primMBEnableDisplay},
-	{"neoPixelSend", primNeoPixelSend},
-	{"neoPixelSetPin", primNeoPixelSetPin},
+	{"neoPixelSend", p2NeoPixelSend},
+	{"neoPixelSetPin", p2NeoPixelSetPin},
+	{"p2LEDInit", p2LEDInit}, {"p2LEDSet", p2LEDSet},
+	{"p2LEDFill", p2LEDFill}, {"p2LEDBrightness", p2LEDBrightness}, {"p2LEDUpdate", p2LEDUpdate},
 };
 
 void addDisplayPrims(void) {

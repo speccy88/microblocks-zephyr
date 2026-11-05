@@ -67,6 +67,7 @@ jobs:
           python -m unittest discover -s tests -p test_js_preview_asset.py -v
           node tests/js-preview-compile.test.cjs build-artifacts/pages
           node tests/p2-usability-compile.test.cjs build-artifacts/pages
+          node tests/p2-peripherals-compile.test.cjs build-artifacts/pages
           node tools/test_sfc_js_compiler.cjs build-artifacts/pages/js-preview/waveshare build-artifacts/sfc-js-compiler
       - name: Verify actual JavaScript entry and mobile behavior before publication
         run: |

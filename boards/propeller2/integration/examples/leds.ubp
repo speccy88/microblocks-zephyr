@@ -1,0 +1,12 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 LEDs. Wire a level-shifted WS2812 DIN to P8 with common ground and suitable external power. Explicit click only; never autoruns.'
+
+script 20 20 {
+  p2LEDInit 8 8
+  p2LEDBrightness 32
+  p2LEDFill 0
+  p2LEDSet 1 16711680
+  p2LEDUpdate
+}

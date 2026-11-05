@@ -1,0 +1,16 @@
+module 'P2 LEDs' Output
+author 'MicroBlocks community'
+version 1 0
+description 'Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Firmware peripheral revision 1 required; hardware acceptance pending.'
+
+spec ' ' 'p2LEDInit' 'P2 WS2812 init pin _ pixels _' 'num num' 8 8
+spec ' ' 'p2LEDSet' 'P2 LED _ color _' 'num color' 1 16711680
+spec ' ' 'p2LEDFill' 'P2 LEDs fill _' 'color' 0
+spec ' ' 'p2LEDBrightness' 'P2 LEDs brightness _ (0-255)' 'num' 32
+spec ' ' 'p2LEDUpdate' 'P2 LEDs update'
+
+to p2LEDInit pin count { '[display:p2LEDInit]' pin count }
+to p2LEDSet index color { '[display:p2LEDSet]' index color }
+to p2LEDFill color { '[display:p2LEDFill]' color }
+to p2LEDBrightness value { '[display:p2LEDBrightness]' value }
+to p2LEDUpdate { '[display:p2LEDUpdate]' }
