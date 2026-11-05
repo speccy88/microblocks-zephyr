@@ -54,6 +54,10 @@ The installer is linked from the launcher and P2 editor. Images for all three
 modules are rebuilt from pinned compiler sources in CI, compared against the
 reviewed hashes, and packaged with the separate flash programmer and license.
 No firmware binaries or board project backups are checked into Git.
+The same pinned-source compiler preparation was exercised locally on Linux
+(Ubuntu 26.04 under WSL): all three output hashes matched the reviewed Windows
+images byte for byte. The direct compiler targets need their build directory
+created before Make; the preparation script now does that explicitly.
 
 Physical acceptance on 2026-11-04 used COM12, FTDI serial `A500507HA`, and the
 known Edge32 target. The production `loader.js` ran through the guarded native

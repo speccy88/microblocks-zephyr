@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-05T00:05:15.696501+00:00",
+  "host": "Ubuntu 26.04 x86_64 under Windows WSL",
+  "compiler_built_from_pinned_source": true,
+  "compiler_commit": "3251bfc7fbae058492b0ff652da04a795c27cb0a",
+  "command": "python3 tools/prepare_p2_web_firmware.py --output ../p2-linux-web-build",
+  "direct_make_targets_build_directory_created": true,
+  "hashes_match_reviewed_windows_images": true,
+  "images": {
+    "eval": {
+      "bytes": 467976,
+      "sha256": "df8340e3ceb229a533f55ee551d9f456fd18bb4adb3ee40932971a4cfc332365"
+    },
+    "edge": {
+      "bytes": 467964,
+      "sha256": "a108b09bf1fbece215cffe1c767c04929d9ad5230660c37815911ba5ecb91e62"
+    },
+    "edge32": {
+      "bytes": 467752,
+      "sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d"
+    }
+  },
+  "firmware_source_changed": false,
+  "physical_hardware_test": false,
+  "no_software_installed_system_wide": true
+}

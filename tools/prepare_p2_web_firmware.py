@@ -25,6 +25,8 @@ def prepare(output,compiler=None):
         actual=subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
         if actual!=pin['compiler_commit']:
             raise ValueError('Choose a fresh output directory; compiler source pin differs')
+        # Direct executable targets do not depend on upstream's all/dirs rule.
+        (source/'build').mkdir(exist_ok=True)
         subprocess.run(['make','-C',str(source),'-j2','build/flexcc','build/flexspin'],check=True)
         compiler=source/'build/flexcc'
     reports={}
