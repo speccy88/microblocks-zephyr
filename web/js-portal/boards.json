@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "reviewed_on": "2026-11-05",
+  "boards": [
+    {
+      "id": "fruit-jam",
+      "name": "Adafruit Fruit Jam",
+      "card_note": "SWD installation guide",
+      "mode": "guide",
+      "method": "Build from source and program through SWD",
+      "summary": "This project's Fruit Jam SmallVM has physical SWD installation evidence. A CMSIS-DAP probe and RP2350-capable OpenOCD are the verified programming route.",
+      "steps": [
+        "Confirm the Fruit Jam RP2350B board and matching debug connector. Preserve the existing image and program storage before replacement.",
+        "Build the Fruit Jam SmallVM target using its pinned Zephyr workspace and isolated Arduino module.",
+        "Follow the SWD wiring and update guide to program and verify the matching ELF. Keep application and saved-program regions separate.",
+        "Restart the board and verify its VM identity and USB connection. UF2 inspection alone does not establish a tested drag-and-drop or browser installation route."
+      ],
+      "sources": [
+        {"label": "Fruit Jam build guide", "path": "boards/adafruit_fruit_jam/smallvm/README.md"},
+        {"label": "SWD wiring and update guide", "path": "docs/FRUIT_JAM_SWD.md"},
+        {"label": "Physical installation record", "path": "evidence/2026-10-18/fruit-jam/physical-installation.json"}
+      ],
+      "release": {"kind": "source_only", "url": "https://github.com/speccy88/microblocks-zephyr/releases", "label": "Project releases", "note": "The reviewed project releases contain no ready-to-flash Fruit Jam SmallVM image. Build the matching board image from source."}
+    },
+    {
+      "id": "waveshare",
+      "name": "Waveshare ESP32-S3 RLCD 4.2",
+      "card_note": "USB installation guide",
+      "mode": "guide",
+      "method": "Pinned Zephyr build and USB programming",
+      "summary": "The standalone ESP32-S3 RLCD target includes SmallVM v417 and has physical installation and runtime evidence. Installation uses host Zephyr/esptool tooling; this page does not flash USB.",
+      "steps": [
+        "Use the exact ESP32-S3-RLCD-4.2 N16R8 target and the pinned workspace described in the board guide.",
+        "Build the standalone SmallVM profile with its verified VM/editor sources and your local private configuration.",
+        "Back up the selected board, identify its actual USB port and follow the documented download-mode, partition and west flash procedure.",
+        "Verify the VM and saved-program behavior after boot. Keep the generated private configuration and firmware backups local."
+      ],
+      "sources": [
+        {"label": "Board setup and USB programming", "path": "boards/waveshare_esp32s3_rlcd_4_2/README.md"},
+        {"label": "Standalone SmallVM build guide", "path": "boards/waveshare_esp32s3_rlcd_4_2/standalone/README.md"}
+      ],
+      "release": {"kind": "source_only", "url": "https://github.com/speccy88/microblocks-zephyr/releases", "label": "Project releases", "note": "The reviewed project releases contain no ready-to-flash ESP32-S3 RLCD SmallVM image. The installation route is a board-specific source build."}
+    },
+    {
+      "id": "esp32p4",
+      "name": "Waveshare ESP32-P4 WIFI6",
+      "card_note": "Revision-specific USB guide",
+      "mode": "guide",
+      "method": "Native Zephyr image with revision-guarded USB serial programming",
+      "summary": "The physically tested target is the 32 MiB revision 1.3/pre-v3 board. Its native simple-boot image uses offset 0x2000 and a revision guard. Installation is a host-tool procedure, separate from the editor's USB connection.",
+      "steps": [
+        "Confirm the exact board and silicon revision, then preserve the current image and settings.",
+        "Build the pinned native Zephyr hpcore target and apply the documented image guard.",
+        "Follow the board guide's simple-boot layout and selected-device checks. The existing guarded helper is scoped to the documented COM5 CH343 workstation device; verify your own device before adapting that procedure.",
+        "Verify SmallVM over USB after boot. Companion C6 Wi-Fi commissioning is separate and remains incomplete."
+      ],
+      "sources": [
+        {"label": "P4 build, image guard and USB installation", "path": "boards/waveshare_esp32p4_wifi6/START_HERE.md"},
+        {"label": "P4 release verification boundaries", "path": "docs/P4_RELEASE_2026_10_26.md"}
+      ],
+      "release": {"kind": "source_only", "url": "https://github.com/speccy88/microblocks-zephyr/releases", "label": "Project releases", "note": "The reviewed project releases contain no public ready-to-flash P4 SmallVM image. Build the matching revision-specific image; no browser flasher is offered here."}
+    },
+    {
+      "id": "propeller2",
+      "name": "Parallax Propeller 2",
+      "card_note": "USB RAM / flash · Edge32 tested",
+      "mode": "browser",
+      "installation_url": "install/propeller2/index.html",
+      "sources": [{"label": "P2 installer and hardware scope", "path": "docs/PROPELLER2_WEB_INSTALL.md"}]
+    },
+    {
+      "id": "xrp-rp2350",
+      "name": "SparkFun XRP RP2350",
+      "card_note": "Production-board SWD guide",
+      "mode": "guide",
+      "method": "Production RP2350B source build and SWD programming",
+      "summary": "The verified target is production ROB-26619 with RP2350B and RM2. The integrated SmallVM v417 image has physical SWD, USB and retention evidence. Motor and servo actions remain locked.",
+      "steps": [
+        "Confirm the production controller and keep the motor supply off during installation. Preserve its current image, program and settings.",
+        "Follow the pinned XRP build guide, including its isolated Arduino module and reviewed radio configuration.",
+        "Use the positively identified SWD probe and RP2350 tools to program and verify the matching application image while preserving the settings/program tail.",
+        "Check VM identity, USB and retained state after boot. This installation guide does not unlock or validate robot movement."
+      ],
+      "sources": [
+        {"label": "Production XRP build and retention guide", "path": "boards/sparkfun_xrp_rp2350/README.md"},
+        {"label": "Hardware identity and acceptance scope", "path": "docs/XRP_PARITY.md"}
+      ],
+      "release": {"kind": "source_only", "url": "https://github.com/speccy88/microblocks-zephyr/releases", "label": "Project releases", "note": "The reviewed project releases contain no ready-to-flash production XRP SmallVM package. Use the production-board source build and verified programming procedure."}
+    },
+    {
+      "id": "raspberry-pi5",
+      "name": "Raspberry Pi 5",
+      "card_note": "Linux source installer",
+      "mode": "guide",
+      "method": "Install on 64-bit Pi Linux",
+      "summary": "The current installer builds pinned native SmallVM v417, its local JavaScript editor and isolated Python/Blinka environment on the Pi. It is a Linux software installation, not USB firmware flashing.",
+      "steps": [
+        "Use a Raspberry Pi 5 with current 64-bit Pi OS/Debian and the prerequisites listed in the source-installer guide.",
+        "Review and run the published install-pi5.sh bootstrap on the Pi as an ordinary account. Its downloaded source archive is pinned and hash-checked.",
+        "Choose foreground use or explicitly request a LAN/service setup. Existing unrelated services and occupied ports are preserved or refused.",
+        "Open the local editor URL printed by the installer, or use its documented SSH-tunnel route. The older alpha2 package below has a narrower feature set."
+      ],
+      "sources": [
+        {"label": "Current source-installer guide", "path": "docs/PI5_INSTALLER.md"},
+        {"label": "Review the current bootstrap", "path": "scripts/install-pi5.sh"}
+      ],
+      "release": {"kind": "older_release", "url": "https://github.com/speccy88/microblocks-zephyr/releases/tag/rpi5-v417-20261028-alpha2", "label": "Older Pi 5 alpha2 release", "note": "A verified published ARM64 alpha2 package is available with its installer and SHA256SUMS. It predates the current source installer; follow its own release instructions and compatibility limits."}
+    },
+    {
+      "id": "microduck",
+      "name": "MicroDuck RK3566",
+      "card_note": "Commissioning guide; hardware pending",
+      "mode": "guide",
+      "method": "Prepare for robot commissioning",
+      "summary": "Physical robot commissioning and a compatible reviewed SmallVM release are pending. The portal editor is a disconnected preview. A Pi installation does not establish MicroDuck compatibility.",
+      "steps": [
+        "Inventory the actual shipping OS, architecture, API version and existing robot services when hardware is available.",
+        "Follow the read-only commissioning and preflight guides, preserving the robot's existing services and identity checks.",
+        "Wait for a compatible reviewed release before installation. No install command or browser firmware writer is enabled by this page.",
+        "Begin real acceptance with the documented private editor and read-only gateway after those prerequisites are satisfied."
+      ],
+      "sources": [
+        {"label": "MicroDuck installation prerequisites", "path": "docs/MICRODUCK_INSTALLATION.md"},
+        {"label": "Filesystem-only preflight", "path": "linux/microduck/PREFLIGHT.md"}
+      ],
+      "release": {"kind": "pending", "url": "https://github.com/speccy88/microblocks-zephyr/releases", "label": "Project releases", "note": "No compatible MicroDuck installation package is present in the reviewed project releases. The Pi package and editor-preview archive are not MicroDuck firmware."}
+    },
+    {
+      "id": "unoq",
+      "name": "Arduino UNO Q",
+      "card_note": "App Lab guide; editor reference only",
+      "mode": "guide",
+      "method": "Separate App Lab application and MCU runtime installation",
+      "summary": "The separate UNO Q community project publishes v0.1.2 with an App Lab application and guarded STM32 runtime installation. Its bundled editor is legacy GP; this portal's JavaScript UNO Q profile remains an offline reference.",
+      "steps": [
+        "Read the reference project's Start Here guide on UNO Q Linux and review the v0.1.2 community package.",
+        "Import its App Lab ZIP and preserve the original Linux LED state before the first App start.",
+        "Install the MCU runtime separately using the exact verified loader and application-only recovery procedure. The combined FPGA-preserving profile is physically tested; the generic profile was built but not physically installed.",
+        "Start the App and use the editor URL or tunnel described by that project. Normal App startup does not reinstall or reset the MCU."
+      ],
+      "sources": [
+        {"label": "UNO Q v0.1.2 Start Here", "url": "https://github.com/speccy88/uno-q-microblocks/blob/v0.1.2/START_HERE.md"},
+        {"label": "Application-only runtime and recovery", "url": "https://github.com/speccy88/uno-q-microblocks/blob/v0.1.2/RECOVERY.md"}
+      ],
+      "release": {"kind": "reference_release", "url": "https://github.com/speccy88/uno-q-microblocks/releases/tag/v0.1.2", "label": "UNO Q community v0.1.2 release", "note": "The verified release contains uno-q-microblocks-community-0.1.2.zip. Follow the separate project's instructions; it is not a browser USB flasher or a validated port of this portal's JavaScript editor."}
+    }
+  ]
+}

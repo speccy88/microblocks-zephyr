@@ -29,7 +29,10 @@ implied. See the implementation's exact acceptance scope.
 
 The Pages root uses the real pure-JavaScript editor and offers the touch
 workspace on phones. The root immediately offers all eight board choices;
-each opens its editor in a separate tab. Selecting Propeller 2 automatically
+each pairs its editor with an adjacent installation action in a separate tab.
+The [installation entry points](docs/BOARD_INSTALLATION_UI.md) distinguish the
+P2 browser installer, source/SWD/USB guides, Linux installation and unavailable
+or older release packages. Selecting Propeller 2 automatically
 shows the five [focused P2 libraries](docs/PROPELLER2_LIBRARIES.md). GP editors are no longer published; their source and
 history remain in Git. Open exported `.ubp` files to transfer work;
 projects and firmware are not automatically migrated. The upstream

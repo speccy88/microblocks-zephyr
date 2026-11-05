@@ -46,7 +46,58 @@ def main():
                 assert link.get_attribute('target') == '_blank'
                 assert 'noopener' in link.get_attribute('rel')
                 assert link.bounding_box()['y'] + link.bounding_box()['height'] < 900
+            catalog = json.loads((a.site/'installation-catalog.json').read_text(encoding='utf-8'))
+            assert launcher.locator('.board-card').count() == launcher.locator('.board-install').count() == 8
+            for width in [320,390,1280]:
+                launcher.set_viewport_size({'width':width,'height':900})
+                assert launcher.evaluate('() => document.documentElement.scrollWidth<=innerWidth')
+                for card in launcher.locator('.board-card').all():
+                    editor = card.locator('.board-choice').bounding_box()
+                    install = card.locator('.board-install').bounding_box()
+                    assert abs(editor['y']-install['y']) < 1
+                    assert 0 <= install['x']-(editor['x']+editor['width']) <= 16
+                    assert editor['height'] >= 44 and install['height'] >= 44
+                    assert editor['x'] >= 0 and install['x']+install['width'] <= width
+                if width == 390:
+                    launcher.screenshot(path=str(a.output/'paired-mobile.png'),full_page=True)
             launcher.screenshot(path=str(a.output/'board-choices.png'))
+            launcher.locator('[data-board="propeller2"]').focus()
+            launcher.keyboard.press('Tab')
+            assert launcher.evaluate('() => document.activeElement.dataset.install') == 'propeller2'
+            assert launcher.evaluate('() => getComputedStyle(document.activeElement).outlineStyle') == 'solid'
+
+            def open_install(target):
+                with context.expect_page() as popup:
+                    launcher.locator(f'[data-install="{target}"]').click()
+                install = popup.value
+                install.wait_for_load_state('domcontentloaded')
+                assert install.evaluate('window.opener===null')
+                assert install.evaluate('window.serialRequests') == 0
+                return install
+
+            installation_checks = []
+            for board in catalog['boards']:
+                target = board['id']
+                action = launcher.locator(f'[data-install="{target}"]')
+                assert action.is_visible() and action.get_attribute('target') == '_blank'
+                assert 'noopener' in action.get_attribute('rel')
+                install = open_install(target)
+                assert f'/install/{target}/index.html' in install.url
+                if board['mode'] == 'browser':
+                    assert target == 'propeller2'
+                    assert install.locator('#install').is_disabled()
+                else:
+                    assert install.locator('h1').inner_text() == 'Install SmallVM: '+board['name']
+                    release = install.locator('.release-status')
+                    assert release.get_attribute('data-release-kind') == board['release']['kind']
+                    assert release.locator('.release-link').get_attribute('href') == board['release']['url']
+                    assert install.locator('script,iframe').count() == 0
+                    install.set_viewport_size({'width':390,'height':844})
+                    assert install.evaluate('() => document.documentElement.scrollWidth<=innerWidth')
+                    if target in ['raspberry-pi5','microduck']:
+                        install.screenshot(path=str(a.output/('guide-'+target+'.png')),full_page=True)
+                installation_checks.append({'target':target,'mode':board['mode'],'separate_tab':True})
+                install.close()
 
             def open_target(target):
                 with context.expect_page() as popup:
@@ -91,6 +142,10 @@ def main():
                     page.evaluate('MB_editor.confirm=async()=>true')
                     page.evaluate('text => MB_editor.openProjectFromString(text,"Keep P2 work.ubp")', source)
                     before = page.evaluate('MB_editor.updateProject();MB_editor.unsavedEdits=true;MB_editor.project.codeString()')
+                    install_tab = open_install('propeller2')
+                    assert page.evaluate('MB_editor.updateProject();MB_editor.project.codeString()') == before
+                    assert page.evaluate('MB_editor.unsavedEdits')
+                    install_tab.close()
                     other = open_target('waveshare')
                     assert page.evaluate('MB_editor.updateProject();MB_editor.project.codeString()') == before
                     assert page.evaluate('MB_editor.unsavedEdits')
@@ -128,7 +183,8 @@ def main():
                 'separate_editor_tabs':True, 'opener_isolated':True, 'no_embedded_editor':True,
                 'intro_connection_project_sections_removed':True, 'rabbit_logo_removed':True,
                 'p2':p2_checks, 'removed_gp_urls':removed, 'automatic_sockets':sockets,
-                'page_errors':errors, 'p2_install_link_visible':True, 'physical_hardware':False}
+                'page_errors':errors, 'p2_install_link_visible':True, 'installation_choices':installation_checks,
+                'paired_at_widths':[320,390,1280], 'install_tab_preserves_unsaved_project':True, 'physical_hardware':False}
             (a.output/'portal.json').write_text(json.dumps(result,indent=2)+'\n', encoding='utf-8')
             print(json.dumps(result))
             browser.close()

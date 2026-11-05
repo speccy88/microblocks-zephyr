@@ -9,6 +9,7 @@ import re
 from add_js_preview import files
 from js_editor_shared_assets import assets as shared_assets, target_assets, SCRIPTS as SHARED_SCRIPTS
 from editor_branding import plain_wordmark
+from board_installation_pages import load_catalog, render_launcher, guide_assets
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ['fruit-jam', 'waveshare', 'esp32p4', 'propeller2', 'xrp-rp2350', 'raspberry-pi5', 'microduck', 'unoq']
@@ -16,6 +17,7 @@ PROFILES = ['fruit-jam', 'waveshare', 'esp32p4', 'propeller2', 'xrp-rp2350', 'ra
 
 def promote(site):
     site = Path(site)
+    catalog = load_catalog(PROFILES)
     if (site / 'js-portal-manifest.json').exists() or (site / 'legacy').exists():
         raise ValueError('Fresh reviewed site required; refuse to replace a release')
     before = files(site)
@@ -101,10 +103,16 @@ def promote(site):
         (folder / 'build-manifest.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8', newline='\n')
     for name in ['index.html', 'portal.js', 'portal.css']:
         (site / name).write_bytes((ROOT / 'web/js-portal' / name).read_bytes())
-    html = (site / 'index.html').read_text(encoding='utf-8')
+    html = render_launcher((site / 'index.html').read_text(encoding='utf-8'), catalog)
     version = hashlib.sha256((site / 'portal.js').read_bytes()).hexdigest()[:16]
     css_version = hashlib.sha256((site / 'portal.css').read_bytes()).hexdigest()[:16]
     (site / 'index.html').write_text(html.replace('src="portal.js"', 'src="portal.js?v='+version+'"').replace('href="portal.css"', 'href="portal.css?v='+css_version+'"'), encoding='utf-8', newline='\n')
+    for name, raw in guide_assets(catalog, css_version).items():
+        path = site / name
+        if path.exists():
+            raise ValueError('Installation guide collides with reviewed input: ' + name)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(raw)
     for name in omitted:
         target = (site / name).resolve()
         if not target.is_relative_to(site.resolve()):

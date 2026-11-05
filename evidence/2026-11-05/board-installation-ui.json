@@ -1,0 +1,195 @@
+{
+  "status": "PASS_SOFTWARE_UI_ONLY",
+  "checked_at_utc": "2026-11-05T01:29:48.573110+00:00",
+  "base_main_commit": "ac4fce0a118761b2d75add8147e946e0e43aa4ca",
+  "source_sha256": {
+    "web/js-portal/boards.json": "33cd87e095cdfd3f17bd9b05b12932eafd2c2f8c9d5607dacb1c0294ec753140",
+    "web/js-portal/index.html": "07f3f487dc8d35bc90294a1d6471fc8995e240b9e0451e89c447f0a636e7df52",
+    "web/js-portal/portal.css": "9a675e43004c4cd5df1a6e67c58920b6aab6049130a761e5765ee22051b68922",
+    "web/js-portal/portal.js": "c1dad35332557456d7b32ed8b7fb97f84ddfafe7ad20c7942824b7ec714530ce",
+    "tools/board_installation_pages.py": "4a236efbaf688ecd139e847d07b03111c6ea402b750c79302a0b36a0cc51baed",
+    "tools/promote_js_portal.py": "95b84c0698bf5524d5aad5446914fadea4ca7ee8f99101c73860998ae751fe65",
+    "tests/js_portal_smoke.py": "c0ce3583da6c5d337756adf08732a1da4696a954b61e27bfaf3628e05e5bd7ce"
+  },
+  "validation": {
+    "tests": 684,
+    "skipped": 391,
+    "seconds": 19.458,
+    "status": "PASS"
+  },
+  "browser": {
+    "default_editor": "javascript",
+    "targets": [
+      "propeller2",
+      "fruit-jam",
+      "waveshare",
+      "esp32p4",
+      "xrp-rp2350",
+      "raspberry-pi5",
+      "microduck",
+      "unoq"
+    ],
+    "eight_immediate_choices": true,
+    "separate_editor_tabs": true,
+    "opener_isolated": true,
+    "no_embedded_editor": true,
+    "intro_connection_project_sections_removed": true,
+    "rabbit_logo_removed": true,
+    "p2": {
+      "automatic_functions": 79,
+      "visible_palette": true,
+      "modules": [
+        "P2 Core",
+        "P2 Signals",
+        "P2 Serial",
+        "P2 Analog",
+        "P2 Capture"
+      ],
+      "no_duplicate_palette": true,
+      "new_project": true,
+      "opened_scripts_preserved": true,
+      "existing_library_preserved": true,
+      "cancelled_new_preserves_project": true,
+      "other_tab_preserves_unsaved_project": true,
+      "serial_requests": 0
+    },
+    "removed_gp_urls": [
+      "legacy/index.html",
+      "editor/propeller2/microblocks.html",
+      "preview/editor/raspberry-pi5/microblocks.html"
+    ],
+    "automatic_sockets": [],
+    "page_errors": [],
+    "p2_install_link_visible": true,
+    "installation_choices": [
+      {
+        "target": "fruit-jam",
+        "mode": "guide",
+        "separate_tab": true
+      },
+      {
+        "target": "waveshare",
+        "mode": "guide",
+        "separate_tab": true
+      },
+      {
+        "target": "esp32p4",
+        "mode": "guide",
+        "separate_tab": true
+      },
+      {
+        "target": "propeller2",
+        "mode": "browser",
+        "separate_tab": true
+      },
+      {
+        "target": "xrp-rp2350",
+        "mode": "guide",
+        "separate_tab": true
+      },
+      {
+        "target": "raspberry-pi5",
+        "mode": "guide",
+        "separate_tab": true
+      },
+      {
+        "target": "microduck",
+        "mode": "guide",
+        "separate_tab": true
+      },
+      {
+        "target": "unoq",
+        "mode": "guide",
+        "separate_tab": true
+      }
+    ],
+    "paired_at_widths": [
+      320,
+      390,
+      1280
+    ],
+    "install_tab_preserves_unsaved_project": true,
+    "physical_hardware": false
+  },
+  "keyboard_focus_moves_from_p2_editor_to_installer": true,
+  "guide_pages_fit_phone_width": true,
+  "release_review": {
+    "reviewed_on": "2026-11-05",
+    "method": "GitHub release APIs plus public release-page reads; no firmware was downloaded or flashed during this UI change.",
+    "project_releases": [
+      {
+        "tag": "rpi5-v417-20261028-alpha2",
+        "published_at": "2026-10-28T16:39:05Z",
+        "prerelease": true,
+        "url": "https://github.com/speccy88/microblocks-zephyr/releases/tag/rpi5-v417-20261028-alpha2",
+        "assets": [
+          {
+            "name": "install-pi5.sh",
+            "bytes": 1421,
+            "url": "https://github.com/speccy88/microblocks-zephyr/releases/download/rpi5-v417-20261028-alpha2/install-pi5.sh"
+          },
+          {
+            "name": "SHA256SUMS",
+            "bytes": 192,
+            "url": "https://github.com/speccy88/microblocks-zephyr/releases/download/rpi5-v417-20261028-alpha2/SHA256SUMS"
+          },
+          {
+            "name": "smallvm-pi5-rpi5-v417-20261028-alpha2.tar.gz",
+            "bytes": 3906361,
+            "url": "https://github.com/speccy88/microblocks-zephyr/releases/download/rpi5-v417-20261028-alpha2/smallvm-pi5-rpi5-v417-20261028-alpha2.tar.gz"
+          }
+        ]
+      },
+      {
+        "tag": "js-editor-preview-20261028-alpha1",
+        "published_at": "2026-10-28T20:31:59Z",
+        "prerelease": true,
+        "url": "https://github.com/speccy88/microblocks-zephyr/releases/tag/js-editor-preview-20261028-alpha1",
+        "assets": [
+          {
+            "name": "gp-with-js-preview-preserved.zip",
+            "bytes": 48473504,
+            "url": "https://github.com/speccy88/microblocks-zephyr/releases/download/js-editor-preview-20261028-alpha1/gp-with-js-preview-preserved.zip"
+          }
+        ]
+      }
+    ],
+    "uno_q_selected_release": [
+      {
+        "tag": "v0.1.2",
+        "published_at": "2026-10-14T16:21:50Z",
+        "prerelease": true,
+        "url": "https://github.com/speccy88/uno-q-microblocks/releases/tag/v0.1.2",
+        "assets": [
+          {
+            "name": "uno-q-microblocks-community-0.1.2.zip",
+            "bytes": 13721823,
+            "url": "https://github.com/speccy88/uno-q-microblocks/releases/download/v0.1.2/uno-q-microblocks-community-0.1.2.zip"
+          }
+        ]
+      }
+    ],
+    "no_matching_published_project_image_for": [
+      "fruit-jam",
+      "waveshare",
+      "esp32p4",
+      "xrp-rp2350",
+      "microduck"
+    ]
+  },
+  "direct_browser_installer_targets": [
+    "propeller2"
+  ],
+  "guide_targets": [
+    "fruit-jam",
+    "waveshare",
+    "esp32p4",
+    "xrp-rp2350",
+    "raspberry-pi5",
+    "microduck",
+    "unoq"
+  ],
+  "p2_existing_hardware_scope": "Windows Edge RAM/flash physically verified on Edge32; no new installer protocol or hardware capability added.",
+  "physical_hardware_accessed_or_flashed_for_this_change": false,
+  "existing_p2_browser_evidence": "evidence/2026-11-05/propeller2/browser-installer.json"
+}
