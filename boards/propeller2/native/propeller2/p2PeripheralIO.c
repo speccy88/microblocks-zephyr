@@ -40,3 +40,58 @@ OBJ p2KeypadScan(int argc,OBJ *args) {
     }
     return int2obj(mask);
 }
+static int threePins(OBJ *args,int *pins) {
+    for(int i=0;i<3;i++) {
+        if(!isInt(args[i])) { fail(needsIntegerError);return 0; }
+        pins[i]=obj2int(args[i]);if(!pinOK(pins[i])) { fail(badPinError);return 0; }
+        for(int j=0;j<i;j++) if(pins[i]==pins[j]) { fail(badPinError);return 0; }
+    }
+    return 1;
+}
+OBJ p2ShiftOut(int argc,OBJ *args) {
+    int pins[3];if(argc!=5) return fail(notEnoughArguments);
+    if(!threePins(args,pins)) return falseObj;
+    if(args[4]!=trueObj&&args[4]!=falseObj) return fail(needsBooleanError);
+    int msb=args[4]==trueObj,count;uint8_t bytes[32];
+    if(IS_TYPE(args[3],ByteArrayType)) {
+        count=BYTES(args[3]);if(count<1||count>32) return fail(indexOutOfRangeError);
+        uint8_t *source=(uint8_t *)&FIELD(args[3],0);for(int i=0;i<count;i++)bytes[i]=source[i];
+    } else if(IS_TYPE(args[3],ListType)) {
+        count=obj2int(FIELD(args[3],0));if(count<1||count>32) return fail(indexOutOfRangeError);
+        for(int i=0;i<count;i++) {
+            OBJ value=FIELD(args[3],i+1);
+            if(!isInt(value)||obj2int(value)<0||obj2int(value)>255) return fail(byteOutOfRange);
+            bytes[i]=obj2int(value);
+        }
+    } else return fail(needsByteArray);
+    for(int i=0;i<3;i++) prepare(pins[i]);
+    _pinl(pins[1]);_pinl(pins[2]);
+    for(int i=0;i<count;i++) for(int bit=0;bit<8;bit++) {
+        _pinw(pins[0],!!(bytes[i]&(msb?(128>>bit):(1<<bit))));
+        _pinh(pins[1]);_waitus(1);_pinl(pins[1]);_waitus(1);
+    }
+    _pinh(pins[2]);return trueObj;
+}
+OBJ p2ShiftIn(int argc,OBJ *args) {
+    int pins[3];if(argc!=5) return fail(notEnoughArguments);
+    if(!threePins(args,pins)) return falseObj;
+    if(!isInt(args[3])) return fail(needsIntegerError);
+    if(args[4]!=trueObj&&args[4]!=falseObj) return fail(needsBooleanError);
+    int count=obj2int(args[3]),msb=args[4]==trueObj;
+    if(count<1||count>32) return fail(indexOutOfRangeError);
+    uint8_t bytes[32];
+    for(int i=0;i<3;i++) prepare(pins[i]);
+    _pinl(pins[1]);_pinl(pins[2]);_waitus(2);_pinh(pins[2]);_waitus(2);
+    for(int i=0;i<count;i++) {
+        int byte=0;
+        for(int bit=0;bit<8;bit++) {
+            if(_pinr(pins[0])) byte|=msb?(128>>bit):(1<<bit);
+            _pinh(pins[1]);_waitus(1);_pinl(pins[1]);_waitus(1);
+        }
+        bytes[i]=byte;
+    }
+    OBJ result=newObj(ByteArrayType,(count+3)/4,falseObj);if(!result)return falseObj;
+    setByteCountAdjust(result,count);uint8_t *dest=(uint8_t *)&FIELD(result,0);
+    for(int i=0;i<count;i++)dest[i]=bytes[i];
+    return result;
+}

@@ -15,4 +15,6 @@ typedef struct { int type, count; OBJ fields[140]; } TestObject;
 #define IS_TYPE(o,t) (!isInt(o) && (o)>4 && ((TestObject *)(o))->type == (t))
 #define BYTES(o) (((TestObject *)(o))->count)
 #define obj2str(o) ((char *)&FIELD(o,0))
+OBJ newObj(int type,int words,OBJ fill);
+void setByteCountAdjust(OBJ obj,int count);
 #endif

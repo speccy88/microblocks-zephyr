@@ -12,6 +12,9 @@ void _wrpin(int pin,uint32_t mode) { assert(pin>=12&&pin<=15&&mode==P_HIGH_15K);
 void _pinh(int pin) { assert(pin>=12&&pin<=15);calls++; }
 void _pinl(int pin) { assert(pin>=8&&pin<=11);activeRow=pin-8;calls++; }
 void _waitus(int us) { assert(us==10); }
+void _pinw(int pin,int value) { (void)pin;(void)value;assert(0); }
+OBJ newObj(int type,int words,OBJ fill) { (void)type;(void)words;(void)fill;return falseObj; }
+void setByteCountAdjust(OBJ obj,int count) { (void)obj;(void)count; }
 int _pinr(int pin) {
     assert(pin>=12&&pin<=15&&activeRow>=0);
     unsigned rows=1U<<activeRow,cols=0,old;

@@ -1,0 +1,11 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Peripherals. Separate click-only examples, not simultaneous wiring. 3.3 V 74HC595 data/clock/latch P8/P9/P10; 74HC165 serial-data/clock/active-low load P8/P9/P10, clock inhibit low. Follow device enable/reset wiring. 595 outputs remain latched after VM stop.'
+
+script 20 20 {
+  sayIt (p2ShiftOut 8 9 10 ('[data:makeList]' 150 83) true)
+}
+script 20 140 {
+  sayIt (p2ShiftIn 8 9 10 2 true)
+}

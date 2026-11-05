@@ -296,6 +296,26 @@ reserved/duplicate pins and stop. GP fixtures test debounce and labels. The
 editor compiles the library and click-only `Examples/P2/keypad.ubp`; all P2
 variants compile. No physical keypad or live timing is verified.
 
+## Shift registers (group 10)
+
+`P2 Peripherals` supports 74HC595 output (data/clock/latch) and 74HC165 input
+(serial data/clock/active-low parallel load). Transfers use 1-32 bytes with
+per-byte MSB/LSB selection; the first byte goes first through the chain. Pins,
+length, data and bit order are validated before any I/O. Output accepts a
+list or ByteArray; input returns a ByteArray. This avoids the VM's 31-bit
+integer limit and does not change the existing Smart Pin serial blocks.
+
+Use compatible 3.3 V logic and the device's required OE/reset/clock-inhibit
+wiring. The 595 latches once after the complete transfer. Its external
+outputs remain latched when the VM stops; floating P2 pins does not clear
+that separate device. Transactions are bounded; no background cog is used.
+
+Production C pin fixtures verify asymmetric patterns in both orders, input
+capture, one latch, invalid data/length and duplicate/reserved pins. Native
+builds and actual editor library/example compilation pass. No external chips
+or electrical timing were tested. `Examples/P2/shift-registers.ubp` contains
+separate click-only wiring examples.
+
 ## Interactive workflow
 
 All these libraries remain ordinary SmallVM projects and functions. A native

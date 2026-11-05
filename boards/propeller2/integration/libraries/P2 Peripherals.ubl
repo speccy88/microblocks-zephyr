@@ -13,6 +13,8 @@ spec 'b' 'p2UARTQueueByte' 'P2 try UART queue byte _' 'num' 65
 spec 'b' 'p2KeypadInit' 'P2 4x4 keypad rows _ columns _' 'auto auto' 'rows list' 'columns list'
 spec 'r' 'p2KeypadMask' 'P2 keypad mask (-1 ghost, -2 uninitialized)'
 spec 'r' 'p2KeypadKey' 'P2 keypad stable key (empty none, ? ambiguous)'
+spec 'b' 'p2ShiftOut' 'P2 74HC595 data _ clock _ latch _ bytes _ MSB _' 'num num num auto bool' 8 9 10 'bytes list' true
+spec 'r' 'p2ShiftIn' 'P2 74HC165 data _ clock _ load _ bytes _ MSB _' 'num num num num bool' 8 9 10 1 true
 
 to p2BufferedUART rx tx baud cog { return ('[serial:p2BufferedOpen]' rx tx baud cog) }
 to p2BufferedClose { '[serial:close]' }
@@ -40,3 +42,5 @@ to p2KeypadKey {
   }
   return ''
 }
+to p2ShiftOut data clock latch bytes msb { return ('[p2:p2ShiftOut]' data clock latch bytes msb) }
+to p2ShiftIn data clock load count msb { return ('[p2:p2ShiftIn]' data clock load count msb) }

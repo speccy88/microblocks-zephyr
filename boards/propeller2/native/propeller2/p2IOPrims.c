@@ -1127,8 +1127,10 @@ static OBJ primP2WriteY(int argc, OBJ *args) {
 }
 
 extern OBJ p2KeypadInit(int,OBJ*),p2KeypadScan(int,OBJ*);
+extern OBJ p2ShiftOut(int,OBJ*),p2ShiftIn(int,OBJ*);
 static PrimEntry entries[] = {
 	{"p2KeypadInit",p2KeypadInit},{"p2KeypadScan",p2KeypadScan},
+	{"p2ShiftOut",p2ShiftOut},{"p2ShiftIn",p2ShiftIn},
 	{"p2FilterConfigure",primP2FilterConfigure}, {"p2FilterInfo",primP2FilterInfo}, {"p2FilterInput",primP2FilterInput},
 	{"p2AsyncWords",primP2AsyncWords}, {"p2SyncTransmitWords",primP2SyncTransmitWords},
 	{"p2SyncReceiveWords",primP2SyncReceiveWords}, {"p2SerialSendHex",primP2SerialSendHex},
