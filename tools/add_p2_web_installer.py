@@ -19,12 +19,14 @@ def assets(firmware):
     if len(stub)!=496:raise ValueError('Review changed P2 flash programmer')
     files['flash-loader.bin']=stub
     files['LICENSE-loadp2.txt']=(ROOT/'third_party/loadp2/LICENSE').read_bytes()
+    acceptance=json.loads((ROOT/'boards/propeller2/hardware.json').read_text(encoding='utf-8'))['web_installer']
     manifest={'schema':1,'vm_version':pin['vm_version'],'extension_revision':pin['extension_revision'],
         'compiler_commit':pin['compiler_commit'],'flexprop_release':pin['flexprop_release'],
         'loadp2_commit':pin['loadp2_commit'],'images':{},
         'flasher':{'bytes':len(stub),'sha256':hashlib.sha256(stub).hexdigest()},
         'ram_runtime_can_initialize_flash':True,'project_storage_flash_offsets':[2097152,8388608],
-        'physical_target':'edge32','actual_browser_usb_transfer_verified':False}
+        'physical_target':'edge32','actual_browser_usb_transfer_verified':acceptance.get('actual_browser_usb_transfer_verified') is True,
+        'browser_hardware_evidence':acceptance.get('browser_hardware_evidence')}
     for board,expected in pin['expected_images'].items():
         name='vm_propeller2_'+board+'.bin';raw=(Path(firmware)/name).read_bytes()
         if len(raw)!=expected['bytes'] or hashlib.sha256(raw).hexdigest()!=expected['sha256']:

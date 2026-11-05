@@ -422,20 +422,23 @@
     "physical_browser_serial_install_tested": false
   },
   "web_installer": {
-    "status": "Implemented; physical loader-core RAM checksum/identity and flash reset/boot PASS on Edge32; actual browser USB transfer unverified.",
+    "status": "Implemented; real Windows Edge COM12 RAM checksum/identity and flash reset/boot PASS on known Edge32. Startup probe now waits one second after opening.",
     "contract": "docs/PROPELLER2_WEB_INSTALL.md",
     "evidence": "evidence/2026-11-04/propeller2/web-installer.json",
     "ram_checksum_verified": true,
     "flash_boot_verified": true,
     "physical_module": "edge32",
     "eval_and_original_edge_physical_install_tested": false,
-    "actual_browser_usb_transfer_verified": false,
+    "actual_browser_usb_transfer_verified": true,
     "ram_runtime_can_initialize_project_flash": true,
     "project_flash_offsets": [
       2097152,
       8388608
     ],
     "firmware_source_changed": false,
-    "linux_build_evidence": "evidence/2026-11-04/propeller2/web-installer-linux-build.json"
+    "linux_build_evidence": "evidence/2026-11-04/propeller2/web-installer-linux-build.json",
+    "browser_hardware_evidence": "evidence/2026-11-05/propeller2/browser-installer.json",
+    "browser_hardware_tested_source_commit": "51f1317efcd857bd234c601f6b5d8cb7645304cf",
+    "serial_open_settle_ms": 1000
   }
 }

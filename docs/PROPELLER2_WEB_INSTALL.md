@@ -50,6 +50,13 @@ Flash uses `Prop_Hex` at 460800 baud with the pinned programmer, followed by
 identity and reset/boot verification at 115200. RAM transfers whose predicted
 wire time exceeds 55 seconds are refused.
 
+Real Windows testing found that an immediate COM12 probe could miss a running
+VM; a one-second settle before the same native query returned its identity.
+Web Serial now waits one second after opening and deasserting DTR/RTS before
+sending VM requests. Opening a USB serial port can restart a board, so this
+also avoids querying during a possible ROM startup window. The electrical
+reset waveform was not measured.
+
 The installer is linked from the launcher and P2 editor. Images for all three
 modules are rebuilt from pinned compiler sources in CI, compared against the
 reviewed hashes, and packaged with the separate flash programmer and license.
@@ -67,10 +74,18 @@ were recorded, plus three earlier RAM diagnostic resets. The native firmware
 source and image were unchanged. Existing board project bytes were backed up
 privately before these tests. See the committed acceptance evidence.
 
-The real installer UI is tested in headless Edge with synthetic Web Serial,
-including failure, cancellation, explicit module/storage acknowledgement and
-mobile layout. **An actual browser USB chooser/transfer remains unverified**:
-the earlier interactive browser denial has not been retried or bypassed.
-The Eval and original Edge images are compiled and hash-checked; their physical
-installation is untested. These limits do not become physical PASS from a
-mocked browser test.
+On 2026-11-05, new explicit authorization covered real Windows browser tests.
+The published installer at source commit `51f1317` passed the real Edge
+156.0.4314.58 serial chooser, COM12 RAM transfer with ROM checksum/running
+identity, and flash transfer with reset/boot verification. No browser security
+protection was disabled or bypassed. A four-byte RAM-only idle loop created
+the no-VM starting state for flash testing; it neither drives pins nor writes
+flash, and survived a separate serial reconnection. See
+[the browser acceptance record](../evidence/2026-11-05/propeller2/browser-installer.json).
+
+Headless Edge tests still distinguish their synthetic Web Serial provider from
+this physical acceptance. They cover failure, cancellation, explicit module
+selection/storage acknowledgement and mobile layout. The Eval and original
+Edge images are compiled and hash-checked; their physical installation is
+untested. No independent analog or peripheral acceptance follows from a
+firmware installation test.

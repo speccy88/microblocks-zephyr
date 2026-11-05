@@ -1,0 +1,78 @@
+{
+  "status": "PASS_REAL_WINDOWS_BROWSER_RAM_AND_FLASH",
+  "recorded_at_utc": "2026-11-05T00:37:07.016023+00:00",
+  "source_commit": "51f1317efcd857bd234c601f6b5d8cb7645304cf",
+  "url": "https://speccy88.github.io/microblocks-zephyr/install/propeller2/index.html",
+  "browser": "Microsoft Edge 156.0.4314.58 on Windows; visible native browser UI",
+  "browser_automation": "Normal UI through Computer Use; real Web Serial chooser and COM12; no synthetic serial or native serial proxy for installer transfers.",
+  "usb": {
+    "port": "COM12",
+    "vid": 1027,
+    "pid": 24577,
+    "serial": "A500507HA",
+    "chooser_label": "FT232R USB UART (COM12) - Paired"
+  },
+  "physical_module_scope": "Known Edge32 test target. FTDI/ROM alone do not identify a module; exact Edge32 choice was selected explicitly.",
+  "new_explicit_real_windows_test_authorization_received": true,
+  "no_browser_or_security_restriction_bypassed": true,
+  "prior_browser_state": "Only ChatGPT was open; no Edge window or pending USB chooser before this test.",
+  "firmware_image_sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+  "published_loader_sha256": "c48b2fece8dad9a95fcdf0509fd87bf310181b9425f0be05e185a7ea885873c1",
+  "ram": {
+    "status": "PASS",
+    "started_at_utc": "2026-11-05T00:26:45.353Z",
+    "success_observed_by_utc": "2026-11-05T00:28:08.037Z",
+    "visible_status": "v405 Parallax P2 Edge 32MB loaded to RAM; ROM checksum and running identity verified.",
+    "progress_observed_percent": [
+      42,
+      94,
+      100
+    ],
+    "rom_checksum_acknowledged": true,
+    "running_identity_verified": true,
+    "boot_image_programmed": false
+  },
+  "flash_test_preparation": {
+    "purpose": "A running VM is intentionally retained by the public installer; create a no-VM starting state without touching boot flash.",
+    "source": "tests/fixtures/propeller2/installer-idle.spin2",
+    "compiled_bytes": 4,
+    "compiled_sha256": "32855d3a1975e8a39392282c2b8b124fb071713651e2911d5ee071d47f69e5e0",
+    "ram_only": true,
+    "pin_operations": false,
+    "flash_or_storage_operations": false,
+    "rom_g_and_checksum_verified": true,
+    "loader_command": "loadp2.exe -p COM12 -b 115200 -l 115200 -SINGLE -v p2-installer-idle.bin",
+    "separate_settled_native_probe_after_reconnect_received_bytes": 0,
+    "browser_confirmed_no_vm_before_flash": true
+  },
+  "flash": {
+    "status": "PASS",
+    "started_at_utc": "2026-11-05T00:32:54.178Z",
+    "success_observed_by_utc": "2026-11-05T00:34:23Z",
+    "visible_status": "v405 Parallax P2 Edge 32MB installed and verified after flash boot.",
+    "transfer_via_real_browser": true,
+    "running_identity_verified": true,
+    "reset_and_flash_boot_verified": true,
+    "final_progress_percent": 100
+  },
+  "explicit_reset_calls": {
+    "ram_install": 1,
+    "ram_idle_fixture": 1,
+    "flash_install_including_boot_verification": 2,
+    "scope": "Successful-path reset calls; electrical USB-driver transients were not measured."
+  },
+  "startup_timing_issue": {
+    "immediate_native_probe_received_bytes": 0,
+    "settled_native_probe_wait_ms": 1000,
+    "settled_native_probe_received_bytes": 35,
+    "settled_native_identity": "v405 Parallax P2 Edge 32MB",
+    "fix": "Wait one second in BrowserLink.open before VM requests. Added a real BrowserLink stream regression with delayed VM startup.",
+    "transfer_algorithm_changed": false,
+    "electrical_reset_waveform_measured": false
+  },
+  "storage_acknowledgement_explicitly_selected": true,
+  "private_original_project_backup_preserved": true,
+  "native_firmware_source_changed": false,
+  "eval_and_original_edge_physical_install_tested": false,
+  "new_dma_usb_smart_pin_or_external_clock_work": false
+}

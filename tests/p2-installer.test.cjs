@@ -86,3 +86,17 @@ test('all reviewed RAM images fit inside the ROM window without a baud reopen',(
   assert(wire<55,entry.board_type+' exceeds the reviewed transfer time budget');
  }
 });
+test('real browser transport lets a restarting VM boot before its first probe',async()=>{
+ let booted=false,receiver,probes=0;
+ const port={
+  async open(){
+   this.readable=new ReadableStream({start:controller=>{receiver=controller;}});
+   this.writable=new WritableStream({write:bytes=>{if(bytes[0]===250&&bytes[1]===12){probes++;if(booted)receiver.enqueue(identity('v405 Parallax P2 Edge 32MB'));}}});
+   setTimeout(()=>{booted=true;},500);
+  },
+  async setSignals(){},async close(){}
+ };
+ const link=new L.BrowserLink(port);
+ try{await link.open(115200);assert.equal(await L.probeVM(link),'v405 Parallax P2 Edge 32MB');assert.equal(probes,1);}
+ finally{await link.close();}
+});

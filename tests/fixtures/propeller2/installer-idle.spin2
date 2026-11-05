@@ -1,0 +1,5 @@
+' RAM-only fixture for an explicitly authorized installer hardware test.
+' No pin, flash, storage or serial operations; reset returns to the boot image.
+DAT
+        org 0
+idle    jmp #idle

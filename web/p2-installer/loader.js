@@ -158,6 +158,10 @@
             await this.port.setSignals({dataTerminalReady:false,requestToSend:false});
             this.queue=[];this.error=null;this.reader=this.port.readable.getReader();this.writer=this.port.writable.getWriter();
             this.pump=(async()=>{try{while(true){const {value,done}=await this.reader.read();if(done)break;if(value?.length){this.queue.push(value);if(this.queue.reduce((n,b)=>n+b.length,0)>65536)throw Error('P2 receive queue overflow');this.wake();}}}catch(error){this.error=error;this.wake();}})();
+            // Opening FTDI can restart the board. Querying during the ROM's
+            // initial serial window can prevent its normal flash boot.
+            // Let the VM start before sending binary protocol requests.
+            await pause(1000);
             }catch(error){await this.close().catch(()=>{});throw error;}
         }
         wake(){if(this.waiter){const ready=this.waiter;this.waiter=null;ready();}}

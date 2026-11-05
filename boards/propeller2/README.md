@@ -353,8 +353,10 @@ The [P2 web installer](../../docs/PROPELLER2_WEB_INSTALL.md) offers explicit RAM
 or flash installation from the launcher and P2 editor. The same production
 JavaScript loader passed physical RAM checksum/identity and flash reset/boot
 tests on the known Edge32 target through the guarded native serial bridge.
-Actual browser USB chooser/transfer is unverified; Eval and original Edge
-images are compiled only. RAM does not program the boot image, but starting
+Real Windows Edge USB chooser, RAM checksum/identity and flash reset/boot
+installation now pass on that Edge32 target; see the browser acceptance record
+linked in the installer contract. Eval and original Edge images are compiled
+only. RAM does not program the boot image, but starting
 the VM can initialize or format its project storage in flash at 2-8 MB.
 
 ## Recorded physical acceptance (2026-10-19)
