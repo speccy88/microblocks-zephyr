@@ -8,7 +8,7 @@ import subprocess
 from pathlib import Path
 
 SOURCES = ['p2Main.c', 'p2Cogs.c', 'p2Capture.c', 'p2IOPrims.c', 'p2OutputPrims.c', 'p2LEDs.c', 'p2PersistFile.c', 'p2FlashDevice.c',
-           'p2SensorPrims.c', 'p2SerialPrims.c', 'p2Displays.c']
+           'p2SensorPrims.c', 'p2SerialPrims.c', 'p2BufferedUART.c', 'p2Displays.c']
 VM_SOURCES = ['mem.c', 'interp.c', 'runtime.c', 'persist.c', 'dataPrims.c',
               'miscPrims.c', 'varPrims.c', 'tinyJSON.c', 'mbFont.c']
 FLAGS = {'eval': 'P2_EVAL_BOARD', 'edge': 'P2_EDGE_BOARD', 'edge32': 'P2_EDGE32MB_BOARD'}

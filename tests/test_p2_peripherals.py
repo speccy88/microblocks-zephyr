@@ -26,6 +26,9 @@ class P2Peripherals(unittest.TestCase):
     def test_ssd1331_production_graphics_and_validation(self):
         self.run_host('p2_display_host.c')
 
+    def test_uart_production_rings_and_validation(self):
+        self.run_host('p2_uart_host.c')
+
     def run_host(self, name):
         with tempfile.TemporaryDirectory(prefix='p2-peripherals-') as temp:
             exe = Path(temp)/('led.exe' if os.name=='nt' else 'led')

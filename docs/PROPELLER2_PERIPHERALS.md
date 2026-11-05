@@ -72,8 +72,6 @@ The 2026-11-05 read-only preflight found v405 Edge32, 120 stored code chunks,
 and matching repeated CRCs. Reset, upload, execution and flash writes were not
 requested; other filesystem contents remain unknown.
 
-## References and licensing
-
 ## SSD1331 (group 2)
 
 `P2 Displays` adds a 96x64 SSD1331 OLED with five explicit distinct pins,
@@ -100,6 +98,34 @@ The initialization sequence adapts the MIT Parallax reference; attribution
 and its full license are retained under `third_party/parallax-peripherals/`.
 
 ## Audit sources
+
+## Buffered UART (group 3)
+
+`P2 Peripherals` opens one full-duplex 8N1 UART on explicit RX/TX pins and a
+free physical cog 2-7. Baud is conservatively bounded to 3000-115200 because
+the Smart Pin integer period must fit 16 bits at 180 MHz. Each direction has
+a 255-byte usable ring. The producer and consumer publish aligned HUB indices
+after byte access; no VM objects or allocation occur in the worker. The
+software RX overflow reporter counts dropped newest bytes. It cannot detect
+bytes lost before polling the hardware receive buffer, or establish framing
+error rates. Physical throughput and concurrent-VM timing remain untested.
+
+Queue-byte returns false when full; next-byte returns -1 when empty. Close
+discards queued output and input. Reassigning either pin stops the owning cog
+and waits for it to float both pins before the main cog configures them.
+Stop-all also closes it. Reserved pins and duplicate RX/TX are rejected before
+touching any pins. Failure to acquire a cog returns false.
+
+The shared standard `serial:open/close/setPins/read/readInto/write/writeBytes`
+API uses the same backend; explicit setPins is required before open. Existing
+unbuffered P2 Serial blocks retain their behavior. MIDI/DUELink are still
+unsupported. The optional UART example uses P8/P9 and has no start hat.
+Tests execute production ring, conversion and validation code through several
+wraps, simultaneous independent RX/TX queues, overflow, backpressure, binary
+0/255 bytes, offset writes, pin reassignment and close. Native cog/Smart Pin
+code is separately compiled for all variants; no new firmware is installed.
+
+## Reference sources
 
 Reviewed Parallax [Solo](https://github.com/parallaxinc/solo/tree/7f4644b95cf75115175ed0fe11ab9bbc8c66549a)
 and [Simple-Libraries](https://github.com/parallaxinc/Simple-Libraries/tree/1cc167c103756e5772b533c833a0f34e6050f459).

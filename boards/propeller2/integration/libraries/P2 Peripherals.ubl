@@ -1,0 +1,18 @@
+module 'P2 Peripherals' Comm
+author 'MicroBlocks community'
+version 1 0
+description 'Optional buffered full-duplex UART. Explicit RX, TX, baud 3000-115200, and free cog 2-7. 255 bytes each direction; dropped reporter counts software RX overflow. Writes return false when full. 8N1 only. IDE UART and reserved pins cannot be selected. Physical acceptance pending.'
+
+spec 'b' 'p2BufferedUART' 'P2 open buffered UART RX _ TX _ baud _ cog _' 'num num num num' 8 9 9600 2
+spec ' ' 'p2BufferedClose' 'P2 close buffered UART'
+spec 'r' 'p2UARTAvailable' 'P2 buffered UART bytes available'
+spec 'r' 'p2UARTDropped' 'P2 buffered UART dropped bytes'
+spec 'r' 'p2UARTNextByte' 'P2 buffered UART next byte (-1 if empty)'
+spec 'b' 'p2UARTQueueByte' 'P2 try UART queue byte _' 'num' 65
+
+to p2BufferedUART rx tx baud cog { return ('[serial:p2BufferedOpen]' rx tx baud cog) }
+to p2BufferedClose { '[serial:close]' }
+to p2UARTAvailable { return ('[serial:p2Available]') }
+to p2UARTDropped { return ('[serial:p2Dropped]') }
+to p2UARTNextByte { return ('[serial:p2ReadByte]') }
+to p2UARTQueueByte value { return ('[serial:p2WriteByte]' value) }

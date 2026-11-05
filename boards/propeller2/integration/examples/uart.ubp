@@ -1,0 +1,14 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Peripherals. Optional loopback: TX P9 to RX P8, common ground. Click only. Open returns false if unavailable. No IDE serial pins are used.'
+
+script 20 20 {
+  if (p2BufferedUART 8 9 9600 2) {
+    sayIt (p2UARTQueueByte 65)
+    waitMillis 20
+    sayIt (p2UARTNextByte)
+    sayIt (p2UARTDropped)
+    p2BufferedClose
+  }
+}
