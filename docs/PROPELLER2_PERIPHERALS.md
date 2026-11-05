@@ -316,6 +316,33 @@ builds and actual editor library/example compilation pass. No external chips
 or electrical timing were tested. `Examples/P2/shift-registers.ubp` contains
 separate click-only wiring examples.
 
+## PING))) and PIR (group 11)
+
+The new single-wire PING reader provides a 5-us trigger, releases the line
+and measures echo high time. The transaction has a 30-ms echo timeout plus
+a 200-us quiet interval, rejects implausibly short/long pulses and returns -1
+on failure. The mm convenience reporter assumes 343 m/s; it does not compensate
+temperature or validate real ranging accuracy. Sampling should be deliberate,
+as in the 100-ms interval in `Examples/P2/ping-pir.ubp`.
+
+PIR already needed only normal digital input. The new convenience reporter
+uses that existing implementation directly, with no background task. Allow
+the actual module's power-up stabilization and configure its jumpers as needed.
+Check both devices' actual interface voltage; never expose a P2 input to 5 V.
+The PING guide describes a 5 V supply and bidirectional signal interface;
+use an interface confirmed safe for the P2 rather than assuming supply equals
+signal voltage compatibility.
+
+Host fixtures execute the production PING trigger/echo code for valid, short,
+stuck-low/high and reserved-pin cases, verifying timeout and released input.
+Editor/ABI checks and all native variants pass. Neither physical device,
+echo timing nor motion response was tested. PIR's GPIO capability pre-existed;
+PING's native backend requires the candidate firmware update.
+
+Reference: Parallax PING))) #28015 Product Guide v2.0 (2013-02-04), protocol
+5-us typical trigger, echo 115 us-18.5 ms, minimum inter-measurement quiet time
+200 us. No PING driver code was copied.
+
 ## Interactive workflow
 
 All these libraries remain ordinary SmallVM projects and functions. A native

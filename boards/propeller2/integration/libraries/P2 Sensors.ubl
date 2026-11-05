@@ -24,6 +24,9 @@ spec 'b' 'p2GPSValid' 'P2 GPS position valid'
 spec 'r' 'p2GPSPosition' 'P2 GPS position lat lon degrees x1000000'
 spec 'r' 'p2GPSAltitude' 'P2 GPS altitude cm'
 spec ' ' 'p2GPSClose' 'P2 GPS close'
+spec 'r' 'p2PINGMicroseconds' 'P2 PING pin _ echo us (-1 failure)' 'num' 16
+spec 'r' 'p2PINGMillimeters' 'P2 PING pin _ distance mm (-1 failure)' 'num' 16
+spec 'b' 'p2PIRMotion' 'P2 PIR motion pin _' 'num' 17
 
 to p2BME680Init sda scl address {
   if (not (or (address == 118) (address == 119))) { return false }
@@ -61,3 +64,10 @@ to p2GPSPosition {
 }
 to p2GPSAltitude { return (gpsGetAltitude false) }
 to p2GPSClose { gpsClose }
+to p2PINGMicroseconds pin { return ('[p2:p2PING]' pin) }
+to p2PINGMillimeters pin {
+  local 'us' (p2PINGMicroseconds pin)
+  if (us < 0) { return -1 }
+  return ((us * 343) / 2000)
+}
+to p2PIRMotion pin { return (digitalReadOp pin) }

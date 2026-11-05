@@ -1,0 +1,12 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Sensors. PING signal P16 through a suitable P2-safe interface; PIR 3.3 V-compatible output P17. Follow actual device voltage/interface requirements. Click only, one sample per 100 ms; PIR may need warm-up. Nominal distance assumes 343 m/s.'
+
+script 20 20 {
+  repeat 20 {
+    sayIt (p2PINGMillimeters 16)
+    sayIt (p2PIRMotion 17)
+    waitMillis 100
+  }
+}
