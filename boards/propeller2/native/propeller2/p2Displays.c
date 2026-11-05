@@ -9,7 +9,7 @@
 #include "interp.h"
 #include "p2Board.h"
 
-static int pins[5], active; /* MOSI, SCK, CS, DC, RESET */
+static int pins[5], active, busyPin=-1; /* MOSI, SCK, CS, DC, RESET; kind 1 SSD, 2 EPD */
 extern void invalidatePinModeTracking(int pin);
 extern const unsigned char mbFont[];
 static void sendByte(int data, int value) {
@@ -35,6 +35,11 @@ static int integers(int count,OBJ *args) {
 static int colorOK(int rgb) { return rgb>=0 && rgb<=0xffffff; }
 static void rgb6(uint8_t *out,int rgb) { out[0]=(rgb>>18)&63;out[1]=(rgb>>10)&63;out[2]=(rgb>>2)&63; }
 void p2DisplayReset(void) { active=0; }
+void p2DisplayReleasePin(int pin) {
+    if(!active) return;
+    for(int i=0;i<5;i++) if(pin==pins[i]) active=0;
+    if(pin==busyPin) active=0;
+}
 
 OBJ p2SSDInit(int argc,OBJ *args) {
     if(argc!=5 || !integers(5,args)) return fail(needsIntegerError);
@@ -44,6 +49,7 @@ OBJ p2SSDInit(int argc,OBJ *args) {
         for(int j=0;j<i;j++) if(args[i]==args[j]) return fail(badPinError);
     }
     /* All validation precedes any side effect. */
+    active=0;busyPin=-1;
     for(int i=0;i<5;i++) {
         pins[i]=obj2int(args[i]); invalidatePinModeTracking(pins[i]); _pinclear(pins[i]);
     }
@@ -57,7 +63,7 @@ OBJ p2SSDInit(int argc,OBJ *args) {
 OBJ p2SSDLine(int argc,OBJ *args) {
     if(argc!=5 || !integers(5,args)) return fail(needsIntegerError);
     int x=obj2int(args[0]),y=obj2int(args[1]),x2=obj2int(args[2]),y2=obj2int(args[3]),rgb=obj2int(args[4]);
-    if(!active || !xy(x,y) || !xy(x2,y2) || !colorOK(rgb)) return fail(indexOutOfRangeError);
+    if(active!=1 || !xy(x,y) || !xy(x2,y2) || !colorOK(rgb)) return fail(indexOutOfRangeError);
     uint8_t bytes[]={0x21,x,y,x2,y2,0,0,0};rgb6(bytes+5,rgb);command(bytes,8);
     _waitus(100); return trueObj;
 }
@@ -65,7 +71,7 @@ OBJ p2SSDRect(int argc,OBJ *args) {
     if(argc!=6 || !integers(5,args)) return fail(needsIntegerError);
     if(args[5]!=trueObj && args[5]!=falseObj) return fail(needsBooleanError);
     int x=obj2int(args[0]),y=obj2int(args[1]),x2=obj2int(args[2]),y2=obj2int(args[3]),rgb=obj2int(args[4]);
-    if(!active || !xy(x,y) || !xy(x2,y2) || x2<x || y2<y || !colorOK(rgb)) return fail(indexOutOfRangeError);
+    if(active!=1 || !xy(x,y) || !xy(x2,y2) || x2<x || y2<y || !colorOK(rgb)) return fail(indexOutOfRangeError);
     uint8_t fill[]={0x26,args[5]==trueObj?1:0};command(fill,2);
     uint8_t bytes[]={0x22,x,y,x2,y2,0,0,0,0,0,0};
     rgb6(bytes+5,rgb);rgb6(bytes+8,rgb);command(bytes,11);_waitus(1000);return trueObj;
@@ -80,17 +86,52 @@ static void pixelData(int rgb) {
 OBJ p2SSDPixel(int argc,OBJ *args) {
     if(argc!=3 || !integers(3,args)) return fail(needsIntegerError);
     int x=obj2int(args[0]),y=obj2int(args[1]),rgb=obj2int(args[2]);
-    if(!active || !xy(x,y) || !colorOK(rgb)) return fail(indexOutOfRangeError);
+    if(active!=1 || !xy(x,y) || !colorOK(rgb)) return fail(indexOutOfRangeError);
     window(x,y,1,1);pixelData(rgb);return trueObj;
 }
 /* One glyph per call keeps text output cooperative in the library. */
 OBJ p2SSDGlyph(int argc,OBJ *args) {
     if(argc!=5 || !integers(5,args)) return fail(needsIntegerError);
     int ch=obj2int(args[0]),x=obj2int(args[1]),y=obj2int(args[2]),fg=obj2int(args[3]),bg=obj2int(args[4]);
-    if(!active || ch<32 || ch>126 || !xy(x,y) || !xy(x+5,y+7) || !colorOK(fg) || !colorOK(bg)) return fail(indexOutOfRangeError);
+    if(active!=1 || ch<32 || ch>126 || !xy(x,y) || !xy(x+5,y+7) || !colorOK(fg) || !colorOK(bg)) return fail(indexOutOfRangeError);
     window(x,y,6,8);
     for(int row=0;row<8;row++) for(int col=0;col<6;col++) {
         int on=col<5 && (mbFont[5*ch+col]&(1<<row));pixelData(on?fg:bg);
     }
+    return trueObj;
+}
+
+OBJ p2EPDSetup(int argc,OBJ *args) {
+    if(argc!=6 || !integers(6,args)) return fail(needsIntegerError);
+    for(int i=0;i<6;i++) {
+        int pin=obj2int(args[i]);if(pin<0||pin>P2_LAST_USER_PIN) return fail(badPinError);
+        for(int j=0;j<i;j++) if(args[i]==args[j]) return fail(badPinError);
+    }
+    active=0;
+    for(int i=0;i<6;i++) {
+        int pin=obj2int(args[i]);invalidatePinModeTracking(pin);_pinclear(pin);
+        if(i<5) pins[i]=pin;else busyPin=pin;
+    }
+    _pinf(busyPin);_pinh(pins[2]);_pinh(pins[4]);
+    _pinl(pins[0]);_pinl(pins[1]);_pinl(pins[3]);active=2;return trueObj;
+}
+OBJ p2EPDReset(int argc,OBJ *args) {
+    if(argc!=1||(args[0]!=trueObj&&args[0]!=falseObj)) return fail(needsBooleanError);
+    if(active!=2) return falseObj;
+    _pinw(pins[4],args[0]==trueObj);return trueObj;
+}
+OBJ p2EPDBusy(int argc,OBJ *args) { (void)argc;(void)args;return int2obj(active==2?_pinr(busyPin):-1); }
+OBJ p2EPDTransfer(int argc,OBJ *args) {
+    if(argc!=2||(args[0]!=trueObj&&args[0]!=falseObj)) return fail(needsBooleanError);
+    if(active!=2) return falseObj;
+    int data=args[0]==trueObj;
+    if(isInt(args[1])) {
+        int byte=obj2int(args[1]);if(byte<0||byte>255) return fail(byteOutOfRange);
+        sendByte(data,byte);return trueObj;
+    }
+    if(!IS_TYPE(args[1],ByteArrayType)) return fail(needsByteArray);
+    int count=BYTES(args[1]);if(count>128) return fail(indexOutOfRangeError);
+    uint8_t *bytes=(uint8_t *)&FIELD(args[1],0);
+    for(int i=0;i<count;i++) sendByte(data,bytes[i]);
     return trueObj;
 }

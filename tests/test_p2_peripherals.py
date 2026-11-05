@@ -1,6 +1,7 @@
 """Optional peripherals: actual C behavior and independent packaging contracts."""
 # SPDX-License-Identifier: MIT
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -14,6 +15,18 @@ from js_editor_shared_assets import target_assets
 
 
 class P2Peripherals(unittest.TestCase):
+    def test_optional_primitive_names_match_native_abi(self):
+        native=ROOT/'boards/propeller2/native'
+        sources={'display':['propeller2/p2OutputPrims.c'],'serial':['propeller2/p2SerialPrims.c'],
+                 'file':['propeller2/p2Files.c'],'sensors':['propeller2/p2SensorPrims.c'],
+                 'data':['vm/dataPrims.c'],'misc':['vm/miscPrims.c'],'p2':['propeller2/p2IOPrims.c']}
+        entries={name:set(re.findall(r'\{\s*"([^"]+)"\s*,','\n'.join((native/p).read_text(encoding='utf-8') for p in paths)))
+                 for name,paths in sources.items()}
+        libraries=list((ROOT/'boards/propeller2/integration/libraries').glob('*.ubl'))+list((ROOT/'libraries/sensors').glob('*.ubl'))
+        for path in libraries:
+            for group,name in re.findall(r'\[([a-z0-9]+):([^\]]+)\]',path.read_text(encoding='utf-8')):
+                self.assertIn(name,entries[group],str(path)+': '+group+':'+name)
+
     def test_optional_libraries_are_available_but_not_automatic(self):
         files = target_assets('propeller2')
         self.assertIn('Libraries/P2/P2 LEDs.ubl', files)

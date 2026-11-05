@@ -1,0 +1,13 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Displays. Only for an IL3820 128x296 panel matching the documented full-update LUT, MOSI/clock/CS/DC/reset/busy P8-13. Not for arbitrary SSD16xx panels. Click only; false means initialization/update timeout.'
+
+script 20 20 {
+  if (p2EPDInit 8 9 10 11 12 13) {
+    p2EPDClear false
+    p2EPDLine 0 0 127 295 true
+    p2EPDText 'Hello P2' 10 10
+    sayIt (p2EPDUpdate)
+  }
+}

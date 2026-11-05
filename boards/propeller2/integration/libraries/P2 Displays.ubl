@@ -1,13 +1,20 @@
 module 'P2 Displays' Output
 author 'MicroBlocks community'
 version 1 0
-description 'Candidate firmware required; not in the reviewed revision-8 installer. Optional SSD1331 96x64 RGB OLED. Explicit five distinct user pins; zero-based coordinates; RGB 24-bit colors. ASCII text uses the shared 5x7 font. No hardware initialization on import. Hardware acceptance pending.'
+description 'Candidate firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.'
+variables _p2EPDFrame _p2EPDConfigured
 
 spec ' ' 'p2SSDInit' 'P2 SSD1331 MOSI _ clock _ CS _ DC _ reset _' 'num num num num num' 8 9 10 11 12
 spec ' ' 'p2SSDPixel' 'P2 OLED pixel x _ y _ color _' 'num num color' 0 0 16777215
 spec ' ' 'p2SSDLine' 'P2 OLED line x _ y _ to x _ y _ color _' 'num num num num color' 0 0 95 63 16777215
 spec ' ' 'p2SSDRect' 'P2 OLED rectangle x _ y _ to x _ y _ color _ fill _' 'num num num num color bool' 0 0 95 63 0 true
 spec ' ' 'p2SSDText' 'P2 OLED text _ x _ y _ color _ background _' 'str num num color color' 'Hello' 0 0 16777215 0
+spec 'b' 'p2EPDInit' 'P2 IL3820 MOSI _ clock _ CS _ DC _ reset _ busy _' 'num num num num num num' 8 9 10 11 12 13
+spec ' ' 'p2EPDClear' 'P2 ePaper clear buffer black _' 'bool' false
+spec 'b' 'p2EPDPixel' 'P2 ePaper pixel x _ y _ black _' 'num num bool' 0 0 true
+spec 'b' 'p2EPDLine' 'P2 ePaper line x _ y _ to x _ y _ black _' 'num num num num bool' 0 0 127 295 true
+spec ' ' 'p2EPDText' 'P2 ePaper text _ x _ y _' 'str num num' 'Hello P2' 0 0
+spec 'b' 'p2EPDUpdate' 'P2 ePaper update (false on timeout)'
 
 to p2SSDInit mosi clock cs dc reset { '[display:p2SSDInit]' mosi clock cs dc reset }
 to p2SSDPixel x y color { '[display:p2SSDPixel]' x y color }
@@ -22,4 +29,105 @@ to p2SSDText text x y color background {
     x += 6
     waitMillis 0
   }
+}
+
+to _p2EPDCommand command parameters {
+  if (not ('[display:p2EPDTransfer]' false command)) { return false }
+  return ('[display:p2EPDTransfer]' true ('[data:convertType]' parameters 'byte array'))
+}
+to _p2EPDWait {
+  repeat 500 {
+    local 'state' ('[display:p2EPDBusy]')
+    if (state < 0) { return false }
+    if (state == 0) { return true }
+    waitMillis 10
+  }
+  return false
+}
+to p2EPDInit mosi clock cs dc reset busy {
+  _p2EPDConfigured = false
+  if (not ('[display:p2EPDSetup]' mosi clock cs dc reset busy)) { return false }
+  '[display:p2EPDReset]' false
+  waitMillis 200
+  '[display:p2EPDReset]' true
+  waitMillis 200
+  if (not (_p2EPDWait)) { return false }
+  _p2EPDCommand 1 ('[data:makeList]' 39 1 0)
+  _p2EPDCommand 12 ('[data:makeList]' 215 214 157)
+  _p2EPDCommand 44 ('[data:makeList]' 168)
+  _p2EPDCommand 58 ('[data:makeList]' 26)
+  _p2EPDCommand 59 ('[data:makeList]' 8)
+  _p2EPDCommand 17 ('[data:makeList]' 3)
+  _p2EPDCommand 50 ('[data:makeList]' 2 2 1 17 18 18 34 34 102 105 105 89 88 153 153 136 0 0 0 0 248 180 19 81 53 81 81 25 1 0)
+  if (not (_p2EPDWait)) { return false }
+  p2EPDClear false
+  _p2EPDConfigured = true
+  return true
+}
+to p2EPDClear black {
+  _p2EPDFrame = ('[data:newByteArray]' 4736 (ifExpression black 0 255))
+}
+to p2EPDPixel x y black {
+  if (or (x < 0) (or (x > 127) (or (y < 0) (y > 295)))) { return false }
+  if (not (isType _p2EPDFrame 'byte array')) { return false }
+  local 'index' ((16 * y) + ((x / 8) + 1))
+  local 'mask' (128 >> (x % 8))
+  local 'byte' (at index _p2EPDFrame)
+  if black {
+    atPut index _p2EPDFrame (byte & (255 - mask))
+  } else {
+    atPut index _p2EPDFrame (byte | mask)
+  }
+  return true
+}
+to p2EPDLine x y x2 y2 black {
+  if (or (x < 0) (or (x > 127) (or (x2 < 0) (x2 > 127)))) { return false }
+  if (or (y < 0) (or (y > 295) (or (y2 < 0) (y2 > 295)))) { return false }
+  local 'dx' (absoluteValue (x2 - x))
+  local 'dy' (0 - (absoluteValue (y2 - y)))
+  local 'sx' (ifExpression (x < x2) 1 -1)
+  local 'sy' (ifExpression (y < y2) 1 -1)
+  local 'error' (dx + dy)
+  repeat 424 {
+    p2EPDPixel x y black
+    if (and (x == x2) (y == y2)) { return true }
+    local 'twice' (2 * error)
+    if (twice >= dy) { error += dy
+      x += sx }
+    if (twice <= dx) { error += dx
+      y += sy }
+  }
+  return false
+}
+to p2EPDText text x y {
+  for i (size text) {
+    if (or (x < 0) (or (x > 122) (or (y < 0) (y > 288)))) { return }
+    local 'glyph' ('[misc:shapeforChar]' ('[data:unicodeAt]' i text))
+    for col 5 {
+      for row 7 {
+        p2EPDPixel ((x + col) - 1) ((y + row) - 1) (((at col glyph) & (1 << (row - 1))) != 0)
+      }
+    }
+    x += 6
+    waitMillis 0
+  }
+}
+to p2EPDUpdate {
+  if (not _p2EPDConfigured) { return false }
+  if (not (_p2EPDWait)) { return false }
+  _p2EPDCommand 68 ('[data:makeList]' 0 15)
+  _p2EPDCommand 69 ('[data:makeList]' 0 0 39 1)
+  _p2EPDCommand 78 ('[data:makeList]' 0)
+  _p2EPDCommand 79 ('[data:makeList]' 0 0)
+  '[display:p2EPDTransfer]' false 36
+  for i 37 {
+    local 'part' ('[data:copyFromTo]' _p2EPDFrame ((128 * (i - 1)) + 1) (128 * i))
+    if (not ('[display:p2EPDTransfer]' true part)) { return false }
+    waitMillis 0
+  }
+  _p2EPDCommand 34 ('[data:makeList]' 196)
+  '[display:p2EPDTransfer]' false 32
+  '[display:p2EPDTransfer]' false 255
+  waitMillis 10
+  return (_p2EPDWait)
 }

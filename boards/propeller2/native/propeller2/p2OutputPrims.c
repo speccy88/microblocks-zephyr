@@ -136,6 +136,7 @@ extern OBJ p2LEDInit(int, OBJ *), p2LEDSet(int, OBJ *), p2LEDFill(int, OBJ *);
 extern OBJ p2LEDBrightness(int, OBJ *), p2LEDUpdate(int, OBJ *);
 extern OBJ p2SSDInit(int, OBJ *), p2SSDPixel(int, OBJ *), p2SSDLine(int, OBJ *);
 extern OBJ p2SSDRect(int, OBJ *), p2SSDGlyph(int, OBJ *);
+extern OBJ p2EPDSetup(int,OBJ*),p2EPDReset(int,OBJ*),p2EPDBusy(int,OBJ*),p2EPDTransfer(int,OBJ*);
 
 static PrimEntry entries[] = {
 	{"lightLevel", primLightLevel},
@@ -153,6 +154,7 @@ static PrimEntry entries[] = {
 	{"p2LEDFill", p2LEDFill}, {"p2LEDBrightness", p2LEDBrightness}, {"p2LEDUpdate", p2LEDUpdate},
 	{"p2SSDInit", p2SSDInit}, {"p2SSDPixel", p2SSDPixel}, {"p2SSDLine", p2SSDLine},
 	{"p2SSDRect", p2SSDRect}, {"p2SSDGlyph", p2SSDGlyph},
+	{"p2EPDSetup",p2EPDSetup},{"p2EPDReset",p2EPDReset},{"p2EPDBusy",p2EPDBusy},{"p2EPDTransfer",p2EPDTransfer},
 };
 
 void addDisplayPrims(void) {

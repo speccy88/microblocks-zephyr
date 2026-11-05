@@ -223,6 +223,34 @@ compiles for all variants. Neither physical sensor was accessed.
 Register and sensitivity references: ST [LIS3DH datasheet](https://www.st.com/resource/en/datasheet/lis3dh.pdf)
 and [LSM9DS1 datasheet](https://www.st.com/resource/en/datasheet/lsm9ds1.pdf).
 
+## IL3820 ePaper (group 7)
+
+`P2 Displays` can select an IL3820 128x296 monochrome panel instead of the
+SSD1331. This is specifically the Parallax reference full-update configuration
+and 30-byte LUT, not a universal SSD16xx/ePaper driver. Confirm the controller,
+panel dimensions and LUT compatibility before use. Partial refresh, alternate
+panels, temperature LUT selection and sleep management are not implemented.
+The reference sequence/LUT retain the Parallax 2018 MIT notice.
+
+Explicit initialization uses six distinct user pins, with busy as input.
+The buffer is 4736 bytes, white bits 1, MSB first within each row byte. Clear,
+pixel, bounded Bresenham line and 5x7 text edit the buffer; explicit update
+uploads 37 chunks of 128 bytes and yields between chunks. Reset delays and
+busy polling are cooperative; 500 polls at 10 ms bound each busy wait. Update
+returns false for timeout, stopped/reassigned pins or rejected transfers.
+One external display is selected at a time; serialize display calls. Reusing
+a display pin invalidates the configuration, and stop-all requires reinit.
+
+Production C host tests check command/data flags, transfer bounds, busy-pin
+configuration/reassignment and reserved/duplicate pins. Pinned-parser fixtures
+verify framebuffer corners, line pixel count, glyph pixels, LUT length,
+exact frame pages and busy/invalid-state timeout. All functions/examples
+compile in the real pinned editor within chunk limits. No panel is confirmed
+connected: waveform suitability, visible refresh, ghosting and update duration
+remain untested. No board firmware was installed.
+
+Use `Examples/P2/epaper.ubp` only with the documented matching panel and wiring.
+
 ## Reference audit
 
 Reviewed Parallax [Solo](https://github.com/parallaxinc/solo/tree/7f4644b95cf75115175ed0fe11ab9bbc8c66549a)

@@ -6,6 +6,10 @@ Matthew Matz's Parallax Simple-Libraries driver, Copyright (C) Parallax, Inc.
 `1cc167c103756e5772b533c833a0f34e6050f459`,
 `Learn/Simple Libraries/Display/libssd1331/ssd1331_init.c`.
 Pin transport, validation, drawing and MicroBlocks integration are newly written.
+The IL3820 initialization, full-update LUT and update command sequence adapt
+Matthew Matz and Roy Eltham's driver, Copyright (C) Parallax, Inc. 2018,
+`Learn/Simple Libraries/Display/libil3820/il3820_reset.c` and
+`il3820_update.c` at the same revision, under the same MIT terms below.
 No board-specific font EEPROM, Propeller 1 GPIO or precompiled objects are copied.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

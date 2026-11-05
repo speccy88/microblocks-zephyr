@@ -67,6 +67,8 @@ static void releasePin(int pin) {
 	if (!validPin(pin)) return;
 	extern void p2SerialReleasePin(int pin);
 	p2SerialReleasePin(pin);
+	extern void p2DisplayReleasePin(int pin);
+	p2DisplayReleasePin(pin);
 	p2CaptureReleasePin(pin);
 
 	if (tonePin == pin) tonePin = -1;
@@ -81,6 +83,8 @@ static void releasePin(int pin) {
 void invalidatePinModeTracking(int pin) {
 	extern void p2SerialReleasePin(int pin);
 	p2SerialReleasePin(pin);
+	extern void p2DisplayReleasePin(int pin);
+	p2DisplayReleasePin(pin);
 	p2CaptureReleasePin(pin);
 	// Platform modules that configure P2 pads directly call this so the next
 	// normal I/O operation cannot reuse a stale smart-pin or GPIO mode.
