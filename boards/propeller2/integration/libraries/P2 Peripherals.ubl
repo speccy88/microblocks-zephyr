@@ -2,6 +2,7 @@ module 'P2 Peripherals' Comm
 author 'MicroBlocks community'
 version 1 0
 description 'Candidate firmware required; not in the reviewed revision-8 installer. Optional buffered full-duplex UART. Explicit RX, TX, baud 3000-115200, and free cog 2-7. 255 bytes each direction; dropped reporter counts software RX overflow. Writes return false when full. 8N1 only. IDE UART and reserved pins cannot be selected. Physical acceptance pending.'
+variables _p2KeypadLast _p2KeypadSince
 
 spec 'b' 'p2BufferedUART' 'P2 open buffered UART RX _ TX _ baud _ cog _' 'num num num num' 8 9 9600 2
 spec ' ' 'p2BufferedClose' 'P2 close buffered UART'
@@ -9,6 +10,9 @@ spec 'r' 'p2UARTAvailable' 'P2 buffered UART bytes available'
 spec 'r' 'p2UARTDropped' 'P2 buffered UART dropped bytes'
 spec 'r' 'p2UARTNextByte' 'P2 buffered UART next byte (-1 if empty)'
 spec 'b' 'p2UARTQueueByte' 'P2 try UART queue byte _' 'num' 65
+spec 'b' 'p2KeypadInit' 'P2 4x4 keypad rows _ columns _' 'auto auto' 'rows list' 'columns list'
+spec 'r' 'p2KeypadMask' 'P2 keypad mask (-1 ghost, -2 uninitialized)'
+spec 'r' 'p2KeypadKey' 'P2 keypad stable key (empty none, ? ambiguous)'
 
 to p2BufferedUART rx tx baud cog { return ('[serial:p2BufferedOpen]' rx tx baud cog) }
 to p2BufferedClose { '[serial:close]' }
@@ -16,3 +20,23 @@ to p2UARTAvailable { return ('[serial:p2Available]') }
 to p2UARTDropped { return ('[serial:p2Dropped]') }
 to p2UARTNextByte { return ('[serial:p2ReadByte]') }
 to p2UARTQueueByte value { return ('[serial:p2WriteByte]' value) }
+to p2KeypadInit rows columns {
+  _p2KeypadLast = 0
+  _p2KeypadSince = (millisOp)
+  return ('[p2:p2KeypadInit]' rows columns)
+}
+to p2KeypadMask { return ('[p2:p2KeypadScan]') }
+to p2KeypadKey {
+  local 'mask' (p2KeypadMask)
+  if (mask != _p2KeypadLast) {
+    _p2KeypadLast = mask
+    _p2KeypadSince = (millisOp)
+    return ''
+  }
+  if ((millisSince _p2KeypadSince) < 30) { return '' }
+  if (mask < 0) { return '?' }
+  for i 16 {
+    if ((mask & (1 << (i - 1))) != 0) { return (at i '123A456B789C*0#D') }
+  }
+  return ''
+}

@@ -276,6 +276,26 @@ Native UART changes compile for all variants. No GPS, antenna, time accuracy,
 satellite reception or live board execution is verified.
 `Examples/P2/gps.ubp` has explicit bounded receive/update/close steps.
 
+## 4x4 keypad (group 9)
+
+`P2 Peripherals` initializes four row pins and four column pins from lists,
+with all eight unique user pins checked before any I/O. Init is inert. Scan
+drives one row low, leaves inactive rows floating and uses weak column pull-ups;
+it never drives an inactive row high against another pressed key. The result
+is a row-major 16-bit mask, -1 for an ambiguous diode-less ghost rectangle,
+or -2 when not initialized. Stop-all invalidates the configuration.
+
+The convenience key reporter requires the same sampled mask for 30 ms, then
+returns the first standard `123A456B789C*0#D` key, empty for none, or `?` for
+an invalid/ambiguous mask. Use the raw mask for multi-key applications. The
+passive matrix must have no other active driver on its eight wires.
+
+Production C tests simulate the actual connectivity graph for all 16 keys,
+empty state and a three-key ghost, checking floating rows, inert init,
+reserved/duplicate pins and stop. GP fixtures test debounce and labels. The
+editor compiles the library and click-only `Examples/P2/keypad.ubp`; all P2
+variants compile. No physical keypad or live timing is verified.
+
 ## Interactive workflow
 
 All these libraries remain ordinary SmallVM projects and functions. A native

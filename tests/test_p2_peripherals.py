@@ -48,6 +48,9 @@ class P2Peripherals(unittest.TestCase):
     def test_dht22_production_decoder_and_timeouts(self):
         self.run_host('p2_dht_host.c')
 
+    def test_keypad_production_scan_and_ghosts(self):
+        self.run_host('p2_keypad_host.c')
+
     def test_candidate_storage_never_formats_on_mount(self):
         source=(ROOT/'boards/propeller2/native/propeller2/p2PersistFile.c').read_text(encoding='utf-8')
         self.assertIn('_vfs_open_littlefs_flash(0, &cfg)',source)

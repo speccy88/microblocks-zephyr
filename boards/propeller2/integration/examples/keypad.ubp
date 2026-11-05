@@ -1,0 +1,13 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Peripherals. Connect a passive 4x4 matrix to rows P8-11 and columns P12-15. No other device may drive these pins. Click only. Reports masks and debounced standard key labels; ghost rectangles return -1.'
+
+script 20 20 {
+  if (p2KeypadInit ('[data:makeList]' 8 9 10 11) ('[data:makeList]' 12 13 14 15)) {
+    repeat 100 {
+      sayIt (p2KeypadKey)
+      waitMillis 20
+    }
+  }
+}

@@ -378,6 +378,8 @@ void stopPWM(void) {
 }
 
 void turnOffPins(void) {
+	extern void p2PeripheralIOReset(void);
+	p2PeripheralIOReset();
 	extern void p2SerialReset(void);
 	p2SerialReset();
 	extern void p2LEDReset(void);
@@ -1124,7 +1126,9 @@ static OBJ primP2WriteY(int argc, OBJ *args) {
 	_wypin(pin, value); serialQueued[pin]=1; return trueObj;
 }
 
+extern OBJ p2KeypadInit(int,OBJ*),p2KeypadScan(int,OBJ*);
 static PrimEntry entries[] = {
+	{"p2KeypadInit",p2KeypadInit},{"p2KeypadScan",p2KeypadScan},
 	{"p2FilterConfigure",primP2FilterConfigure}, {"p2FilterInfo",primP2FilterInfo}, {"p2FilterInput",primP2FilterInput},
 	{"p2AsyncWords",primP2AsyncWords}, {"p2SyncTransmitWords",primP2SyncTransmitWords},
 	{"p2SyncReceiveWords",primP2SyncReceiveWords}, {"p2SerialSendHex",primP2SerialSendHex},
