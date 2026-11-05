@@ -383,7 +383,9 @@ static OBJ primReadDHT(int argCount, OBJ *args) { (void) argCount; (void) args; 
 static OBJ primMicrophone(int argCount, OBJ *args) { (void) argCount; (void) args; return zeroObj; }
 int readAnalogMicrophone(void) { return 0; }
 
+extern OBJ p2DHT22(int,OBJ *);
 static PrimEntry entries[] = {
+	{"p2DHT22",p2DHT22},
 	{"acceleration", primAcceleration},
 	{"temperature", primMBTemp},
 	{"tiltX", primMBTiltX},

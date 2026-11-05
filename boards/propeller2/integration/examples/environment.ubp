@@ -1,0 +1,15 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Sensors. Separate click-only examples. BME680 I2C SDA P8/SCL P9 (3.3 V pull-ups); DHT22 data P13 with a pull-up to 3.3 V. Wait two seconds after sensor power-up. Missing hardware returns false.'
+
+script 20 20 {
+  if (p2BME680Init 8 9 119) {
+    sayIt (p2BME680Temperature)
+    sayIt (p2BME680Humidity)
+    sayIt (p2BME680Pressure)
+  }
+}
+script 20 180 {
+  sayIt (p2DHT22Read 13)
+}

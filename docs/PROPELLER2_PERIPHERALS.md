@@ -163,6 +163,42 @@ sharing is prohibited. No SD device or card data was touched.
 
 ## Reference sources
 
+## Environmental sensors (group 5)
+
+`P2 Sensors` reuses the portable MicroBlocks BME680 library (as a hidden
+implementation dependency), with explicit SDA/SCL and 0x76/0x77 address,
+presence and chip-ID checks before configuration. Temperature is Celsius x10,
+humidity percent x10, pressure mbar x10; gas is reported in ohms with 10-ohm
+steps. The existing native gas-compensation primitive is reused.
+
+The canonical portable source is `libraries/sensors/BME680.ubl`, derived from
+the hash-verified pinned upstream asset with authorship/MPL notice preserved.
+It corrects signed 8/16-bit endpoints, H1's low nibble, heater calibration's
+malformed list update/premature return, signed gas-error nibble at register
+0x04 and zero-based gas range. Pinned-parser register fixtures verify these
+fields, including negative calibration values and range 15. These tests do
+not establish sensor accuracy or validate every compensation/heater path.
+
+DHT22 has a bounded native reader with a weak released line, 120-us pulse
+timeouts, checksum, sign decoding and value bounds. It returns a list
+`[temperature x10, humidity x10]`, or false on failure. One cached sensor slot
+limits capture to once per two seconds, including failed attempts; changing
+pins during that interval returns false. Allow two seconds after power-up.
+Use an external pull-up to 3.3 V; never pull a P2 input up to 5 V. Each attempt
+blocks the main interpreter for several milliseconds at most; IDE RX remains
+separate. Host pulse fixtures execute production capture/decoding code for
+valid, negative, invalid-checksum and stuck-line cases. Wire timing is untested.
+
+`Examples/P2/environment.ubp` has separate click-only examples. Neither sensor
+is confirmed connected, and no new firmware or sensor command was sent to the
+board. All variants compile. The older upstream DHT11/DHT22 capture library
+is not enabled by this work; use the new explicit P2 DHT22 block.
+
+Protocol references: [Adafruit's DHT driver](https://github.com/adafruit/DHT-sensor-library/blob/master/DHT.cpp)
+and Parallax Simple-Libraries `libbme680/bme680_begin.c` at the audited revision.
+
+## Reference audit
+
 Reviewed Parallax [Solo](https://github.com/parallaxinc/solo/tree/7f4644b95cf75115175ed0fe11ab9bbc8c66549a)
 and [Simple-Libraries](https://github.com/parallaxinc/Simple-Libraries/tree/1cc167c103756e5772b533c833a0f34e6050f459).
 Solo's generic categories include RGB LEDs, OLED/ePaper, serial, sensors,

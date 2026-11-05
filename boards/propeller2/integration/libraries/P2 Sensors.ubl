@@ -1,0 +1,26 @@
+module 'P2 Sensors' Input
+author 'MicroBlocks community'
+version 1 0
+description 'Candidate firmware required; not in the reviewed revision-8 installer. BME680 uses the shared portable MicroBlocks library on explicit I2C pins. DHT22 returns [Celsius x10, humidity percent x10] or false; cached at most once per two seconds. No hardware probe on import. Hardware acceptance pending.'
+depends '_Sensing/Gas (BME680)'
+
+spec 'b' 'p2BME680Init' 'P2 BME680 SDA _ SCL _ address _' 'num num num' 8 9 119
+spec 'r' 'p2BME680Temperature' 'P2 BME680 Celsius x10'
+spec 'r' 'p2BME680Humidity' 'P2 BME680 humidity percent x10'
+spec 'r' 'p2BME680Pressure' 'P2 BME680 pressure mbar x10'
+spec 'r' 'p2BME680Gas' 'P2 BME680 gas ohms (10 ohm steps)'
+spec 'r' 'p2DHT22Read' 'P2 DHT22 pin _ (list or false)' 'num' 13
+
+to p2BME680Init sda scl address {
+  if (not (or (address == 118) (address == 119))) { return false }
+  '[sensors:i2cSetPins]' sda scl
+  if (not ('[sensors:i2cExists]' address)) { return false }
+  if ((i2cGet address 208) != 97) { return false }
+  'bme680 set address to' address
+  return ('bme680 connected')
+}
+to p2BME680Temperature { return ('bme680 temperature') }
+to p2BME680Humidity { return ('bme680 humidity') }
+to p2BME680Pressure { return ('bme680 pressure') }
+to p2BME680Gas { return (10 * ('bme680 gas')) }
+to p2DHT22Read pin { return ('[sensors:p2DHT22]' pin) }

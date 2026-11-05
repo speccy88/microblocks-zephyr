@@ -32,6 +32,9 @@ class P2Peripherals(unittest.TestCase):
     def test_files_production_namespace_and_io(self):
         self.run_host('p2_files_host.c')
 
+    def test_dht22_production_decoder_and_timeouts(self):
+        self.run_host('p2_dht_host.c')
+
     def test_candidate_storage_never_formats_on_mount(self):
         source=(ROOT/'boards/propeller2/native/propeller2/p2PersistFile.c').read_text(encoding='utf-8')
         self.assertIn('_vfs_open_littlefs_flash(0, &cfg)',source)
@@ -54,6 +57,6 @@ class P2Peripherals(unittest.TestCase):
             else: self.skipTest('No host C compiler')
             result = subprocess.run(command,cwd=temp,capture_output=True,text=True)
             self.assertEqual(result.returncode,0,result.stdout+result.stderr)
-            run = subprocess.run([str(exe)],capture_output=True,text=True)
+            run = subprocess.run([str(exe)],cwd=temp,capture_output=True,text=True)
             self.assertEqual(run.returncode,0,run.stdout+run.stderr)
             self.assertIn('PASS',run.stdout)
