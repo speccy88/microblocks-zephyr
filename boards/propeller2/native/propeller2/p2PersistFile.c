@@ -24,18 +24,19 @@ static void initFileSystem(void) {
 	if (fileSystemInitialized) return;
 	fileSystemInitialized = true;
 
-	// FlexC littlefs defaults to 6 MB starting at offset 2 MB, beyond the boot
-	// image. The first argument permits formatting when no valid littlefs volume
-	// is present; the setup guide explicitly warns that this claims that region.
+	// Mount only: never format an incompatible or missing volume on startup.
+	// Existing program and user files share the same bounded 2-8 MB volume.
 	// 4 KiB erase blocks bound metadata compaction latency for live edits.
 	struct littlefs_flash_config cfg = {256, 4096, 2*1024*1024, 6*1024*1024, NULL, 0, 0};
 	cfg.handle = p2OpenFlashDevice();
 	if (!cfg.handle) return;
-	struct vfs *flashFS = _vfs_open_littlefs_flash(1, &cfg);
+	struct vfs *flashFS = _vfs_open_littlefs_flash(0, &cfg);
 	if (flashFS && (0 == mount(FILE_SYSTEM_MOUNT, flashFS))) {
 		fileSystemAvailable = true;
 	}
 }
+
+int p2FileSystemReady(void) { initFileSystem(); return fileSystemAvailable; }
 
 static void openCodeFileForAppend(void) {
 	if (codeFile) fclose(codeFile);

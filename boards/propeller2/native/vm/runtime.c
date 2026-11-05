@@ -197,6 +197,7 @@ void primsInit() {
 	// Arduino-only networking, BLE, display, and storage adapters.
 	addDataPrims();
 	addDisplayPrims();
+	addFilePrims();
 	addIOPrims();
 	addMiscPrims();
 	addSensorPrims();

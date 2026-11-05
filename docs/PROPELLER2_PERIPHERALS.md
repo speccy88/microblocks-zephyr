@@ -106,8 +106,6 @@ not installed on the owner's P2.
 The initialization sequence adapts the MIT Parallax reference; attribution
 and its full license are retained under `third_party/parallax-peripherals/`.
 
-## Audit sources
-
 ## Buffered UART (group 3)
 
 `P2 Peripherals` opens one full-duplex 8N1 UART on explicit RX/TX pins and a
@@ -133,6 +131,35 @@ Tests execute production ring, conversion and validation code through several
 wraps, simultaneous independent RX/TX queues, overflow, backpressure, binary
 0/255 bytes, offset writes, pin reassignment and close. Native cog/Smart Pin
 code is separately compiled for all variants; no new firmware is installed.
+
+## General files (group 4)
+
+`P2 Storage` exposes readiness, append, size, open/read/close and delete.
+The existing shared `Files` primitive names use the same backend, including
+line/byte reads, seek and file listing. One read cursor is retained; opening
+another file closes it. Binary append/read calls are bounded to 512 bytes;
+line reads return at most 255 bytes. Append does not truncate existing data.
+Missing files/read failures return false or -1; callers should check results.
+
+Flat user names (1-48 ASCII letters/digits/dot/underscore/hyphen) map only to
+`/flash/user-<name>`. Traversal, slashes, backslashes, drive names and leading
+dots are rejected. Even the name `ublockscode` maps to a separate user file.
+Program storage, boot firmware and raw flash are not exposed. The candidate
+mount disables automatic formatting; an incompatible or absent LittleFS
+volume is unavailable. There is deliberately no format block. The reviewed
+revision-8 installer remains unchanged and retains its existing flash warning.
+
+Production C host tests exercise binary append/read, repeated appends, cursor
+retention, EOF continuation, size limits, mount failure, deletion and program
+file isolation using disposable host files. Real LittleFS flash persistence,
+capacity exhaustion and power-loss behavior remain untested for this API.
+`Examples/P2/files.ubp` only reads an existing file and does not write/delete.
+
+SD is not exposed. The toolchain's SD convenience API defaults to reserved
+P58-61, and there is no confirmed external SD module on four user pins. A
+future SD adapter needs explicit user-pin validation, non-formatting FAT mount,
+bounded transfer/timeouts and a new resource/physical test; default boot-pin
+sharing is prohibited. No SD device or card data was touched.
 
 ## Reference sources
 

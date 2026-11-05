@@ -1,0 +1,20 @@
+module 'P2 Storage' Data
+author 'MicroBlocks community'
+version 1 0
+description 'Candidate firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.'
+
+spec 'b' 'p2StorageReady' 'P2 user file storage ready'
+spec 'r' 'p2FileAppend' 'P2 append bytes _ to file _' 'str str' 'hello' 'notes.txt'
+spec 'r' 'p2FileSize' 'P2 size of file _ (-1 missing)' 'str' 'notes.txt'
+spec 'b' 'p2FileOpen' 'P2 open file for reading _' 'str' 'notes.txt'
+spec 'r' 'p2FileRead' 'P2 read next _ bytes from file _' 'num str' 64 'notes.txt'
+spec ' ' 'p2FileClose' 'P2 close read file'
+spec 'b' 'p2FileDelete' 'P2 delete user file _' 'str' 'notes.txt'
+
+to p2StorageReady { return ('[file:p2Ready]') }
+to p2FileAppend data name { return ('[file:appendBytes]' data name) }
+to p2FileSize name { return ('[file:fileSize]' name) }
+to p2FileOpen name { return ('[file:open]' name) }
+to p2FileRead count name { return ('[file:readBytes]' count name) }
+to p2FileClose { '[file:close]' }
+to p2FileDelete name { return ('[file:delete]' name) }

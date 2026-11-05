@@ -1,0 +1,13 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Storage. Read-only example: does not create or delete files. Inspect storage readiness and an existing user file. Click only.'
+
+script 20 20 {
+  sayIt (p2StorageReady)
+  sayIt (p2FileSize 'notes.txt')
+  if (p2FileOpen 'notes.txt') {
+    sayIt (p2FileRead 64 'notes.txt')
+    p2FileClose
+  }
+}

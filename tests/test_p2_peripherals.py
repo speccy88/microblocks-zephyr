@@ -29,6 +29,14 @@ class P2Peripherals(unittest.TestCase):
     def test_uart_production_rings_and_validation(self):
         self.run_host('p2_uart_host.c')
 
+    def test_files_production_namespace_and_io(self):
+        self.run_host('p2_files_host.c')
+
+    def test_candidate_storage_never_formats_on_mount(self):
+        source=(ROOT/'boards/propeller2/native/propeller2/p2PersistFile.c').read_text(encoding='utf-8')
+        self.assertIn('_vfs_open_littlefs_flash(0, &cfg)',source)
+        self.assertNotIn('_mkfs_',source)
+
     def run_host(self, name):
         with tempfile.TemporaryDirectory(prefix='p2-peripherals-') as temp:
             exe = Path(temp)/('led.exe' if os.name=='nt' else 'led')
