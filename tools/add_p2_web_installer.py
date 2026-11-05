@@ -33,8 +33,10 @@ def assets(firmware):
             raise ValueError('Refuse unreviewed P2 firmware: '+board)
         files[name]=raw;manifest['images'][board]={**expected,'file':name}
     manifest['source_commit']=subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
-    manifest['native_sources_sha256']={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
-        for p in sorted((ROOT/'boards/propeller2/native').rglob('*')) if p.is_file() and p.suffix in {'.c','.h'}}
+    provenance=json.loads((Path(firmware)/'reviewed-native-source.json').read_text(encoding='utf-8'))
+    if provenance['firmware_source_commit']!=pin['firmware_source_commit']:
+        raise ValueError('Installer firmware source differs from reviewed source pin')
+    manifest.update(provenance)
     files['firmware.json']=(json.dumps(manifest,indent=2)+'\n').encode()
     # Request the matching UI code when Pages caches a prior release.
     html=files['index.html'].decode()

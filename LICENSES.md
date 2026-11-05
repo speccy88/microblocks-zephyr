@@ -8,6 +8,9 @@ retain MPL-2.0 notices. See `web/js-editor/THIRD_PARTY_NOTICES.md`; generated
 packages preserve the source manifest and license notices.
 
 Most new source files and documentation in this repository use the **MIT License** (`LICENSE`).
+The candidate P2 SSD1331 initialization sequence adapts Matthew Matz's
+Parallax Simple-Libraries MIT driver. Its exact revision, copyright and full
+license are retained in `third_party/parallax-peripherals/NOTICE.md`.
 The P2 browser installer adapts the MIT-licensed `loadp2` serial protocol and
 redistributes its flash programmer from commit
 `c20afedd4253d09da449fa740f8d4304481fc560`. Its original source, byte array and

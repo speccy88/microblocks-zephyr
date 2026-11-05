@@ -1,7 +1,7 @@
 module 'P2 Displays' Output
 author 'MicroBlocks community'
 version 1 0
-description 'Optional SSD1331 96x64 RGB OLED. Explicit five distinct user pins; zero-based coordinates; RGB 24-bit colors. ASCII text uses the shared 5x7 font. No hardware initialization on import. Hardware acceptance pending.'
+description 'Candidate firmware required; not in the reviewed revision-8 installer. Optional SSD1331 96x64 RGB OLED. Explicit five distinct user pins; zero-based coordinates; RGB 24-bit colors. ASCII text uses the shared 5x7 font. No hardware initialization on import. Hardware acceptance pending.'
 
 spec ' ' 'p2SSDInit' 'P2 SSD1331 MOSI _ clock _ CS _ DC _ reset _' 'num num num num num' 8 9 10 11 12
 spec ' ' 'p2SSDPixel' 'P2 OLED pixel x _ y _ color _' 'num num color' 0 0 16777215

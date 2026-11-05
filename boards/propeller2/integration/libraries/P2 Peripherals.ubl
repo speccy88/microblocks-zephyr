@@ -1,7 +1,7 @@
 module 'P2 Peripherals' Comm
 author 'MicroBlocks community'
 version 1 0
-description 'Optional buffered full-duplex UART. Explicit RX, TX, baud 3000-115200, and free cog 2-7. 255 bytes each direction; dropped reporter counts software RX overflow. Writes return false when full. 8N1 only. IDE UART and reserved pins cannot be selected. Physical acceptance pending.'
+description 'Candidate firmware required; not in the reviewed revision-8 installer. Optional buffered full-duplex UART. Explicit RX, TX, baud 3000-115200, and free cog 2-7. 255 bytes each direction; dropped reporter counts software RX overflow. Writes return false when full. 8N1 only. IDE UART and reserved pins cannot be selected. Physical acceptance pending.'
 
 spec 'b' 'p2BufferedUART' 'P2 open buffered UART RX _ TX _ baud _ cog _' 'num num num num' 8 9 9600 2
 spec ' ' 'p2BufferedClose' 'P2 close buffered UART'

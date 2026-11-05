@@ -44,5 +44,9 @@ def target_assets(profile):
                 for path in sorted((ROOT/'boards/propeller2/integration/libraries').glob('*.ubl'))}
     examples = {'Examples/P2/' + path.name: path.read_bytes()
                 for path in sorted((ROOT/'boards/propeller2/integration/examples').glob('*.ubp'))}
-    return {**groups, **optional, **examples, bundle: raw,
+    optional_receipt={'schema':1,'status':'candidate firmware; not in the reviewed revision-8 installer',
+                      'automatic':False,'physical_tested':False,'libraries':list(optional),
+                      'examples':list(examples),'implementation':'docs/PROPELLER2_PERIPHERALS.md'}
+    return {**groups, **optional, **examples,
+            'optional-peripherals.json':(json.dumps(optional_receipt,indent=2)+'\n').encode(),bundle: raw,
             'target-library-source.json': (json.dumps(receipt, indent=2)+'\n').encode()}

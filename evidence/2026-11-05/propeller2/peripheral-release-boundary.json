@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-05",
+  "reviewed_firmware_source_commit": "ac4fce0a118761b2d75add8147e946e0e43aa4ca",
+  "reviewed_hashes_reproduced": true,
+  "reviewed_images": {
+    "eval": {
+      "bytes": 467976,
+      "sha256": "df8340e3ceb229a533f55ee551d9f456fd18bb4adb3ee40932971a4cfc332365",
+      "board_type": "Parallax P2 Eval Rev C",
+      "file": "vm_propeller2_eval.bin"
+    },
+    "edge": {
+      "bytes": 467964,
+      "sha256": "a108b09bf1fbece215cffe1c767c04929d9ad5230660c37815911ba5ecb91e62",
+      "board_type": "Parallax P2 Edge",
+      "file": "vm_propeller2_edge.bin"
+    },
+    "edge32": {
+      "bytes": 467752,
+      "sha256": "5189b980698cbe6224bae1e745524903cfa955ef6aa1ffb01d8ff815e5b0ff4d",
+      "board_type": "Parallax P2 Edge 32MB",
+      "file": "vm_propeller2_edge32.bin"
+    }
+  },
+  "candidate_variants_compiled": [
+    "eval",
+    "edge",
+    "edge32"
+  ],
+  "candidate_installed": false,
+  "candidate_packaged": false,
+  "source_pin_and_loader_tests": "PASS",
+  "validation": {
+    "tests": 689,
+    "skipped": 400,
+    "result": "PASS"
+  }
+}

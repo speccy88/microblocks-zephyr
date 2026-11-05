@@ -2,6 +2,7 @@
   "schema": 1,
   "vm_version": 405,
   "extension_revision": 8,
+  "firmware_source_commit": "ac4fce0a118761b2d75add8147e946e0e43aa4ca",
   "flexprop_release": "v7.7.0",
   "flexprop_commit": "d2a58e6b9b84c3976f80798b12e239c4eaee4fbb",
   "compiler_repository": "https://github.com/totalspectrum/spin2cpp.git",

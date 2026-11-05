@@ -7,6 +7,15 @@ preferred to duplicate sensor/math/protocol implementations.
 
 ## Contract
 
+The published installer deliberately remains pinned to the hardware-validated
+revision-8 source `ac4fce0a118761b2d75add8147e946e0e43aa4ca` and exact image
+hashes. New optional peripherals are **candidate firmware**, compiled separately
+in CI and not installed or packaged as validated images. Their library
+descriptions and `optional-peripherals.json` disclose this dependency. Building
+the current checkout produces a candidate; installing it requires the owner's
+approval and preservation of their program/storage. Do not infer a new hardware
+PASS from the older revision-8 acceptance records.
+
 Work proceeds in this order: WS2812; SSD1331; buffered full-duplex UART;
 general LittleFS files and SD feasibility; BME680/DHT22; LIS3DH/LSM9DS1;
 IL3820; NMEA GPS; 4x4 keypad; shift registers; PING/PIR; DAC WAV playback.

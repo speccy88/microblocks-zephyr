@@ -1,7 +1,7 @@
 module 'P2 LEDs' Output
 author 'MicroBlocks community'
 version 1 0
-description 'Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Firmware peripheral revision 1 required; hardware acceptance pending.'
+description 'Candidate firmware required; not in the reviewed revision-8 installer. Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Firmware peripheral revision 1 required; hardware acceptance pending.'
 
 spec ' ' 'p2LEDInit' 'P2 WS2812 init pin _ pixels _' 'num num' 8 8
 spec ' ' 'p2LEDSet' 'P2 LED _ color _' 'num color' 1 16711680
