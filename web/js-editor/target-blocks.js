@@ -4,6 +4,12 @@
     'use strict';
     const pending = new WeakMap();
     const status = message => root.dispatchEvent(new CustomEvent('microblocks-target-status', {detail: message}));
+    function announceReady(editor,profile) {
+        const optional=profile.optional_target_library_modules?.some(name=>editor.project.libraryNamed(name));
+        status(optional ? 'P2 optional blocks need candidate extension ' + profile.optional_extension_revision +
+            ' (installer: ' + profile.required_extension_revision + ').' :
+            'P2 libraries ready - native extension ' + profile.required_extension_revision + ' required.');
+    }
     function organizeLegacy(editor, profile) {
         const project = editor.project, old = project.libraryNamed(profile.legacy_target_library_module);
         if (!old) return false;
@@ -53,7 +59,7 @@
         if (organizeLegacy(editor, profile)) return;
         // A saved subset is intentional. Do not repopulate removed libraries,
         // or replace saved/custom definitions just because the editor updated.
-        if (profile.target_library_modules.some(name => project.libraryNamed(name))) return;
+        if (profile.target_library_modules.some(name => project.libraryNamed(name))) return announceReady(editor,profile);
         if (pending.has(project)) return pending.get(project);
         const operation = (async () => {
             const names = new Set(project.allFunctions().map(fn => fn.functionName));
@@ -75,7 +81,7 @@
             for (const name of profile.target_library_modules) project.libraryNamed(name).path = 'P2/' + name;
             editor.selectLibrary(profile.target_library_modules[0]);
             editor.unsavedEdits = dirty;
-            status('P2 libraries ready — native extension ' + profile.required_extension_revision + ' required.');
+            announceReady(editor,profile);
         })();
         pending.set(project, operation);
         try { return await operation; }
@@ -103,7 +109,9 @@
                     throw Error('Custom P2 library layout preserved. Export it before replacing target libraries.');
                 }
             }
-            return openLibrary.call(this, path, ...args);
+            const result=await openLibrary.call(this, path, ...args);
+            announceReady(this,MicroBlocksJSProfile);
+            return result;
         };
     }
     root.MicroBlocksTargetBlocks = Object.freeze({ensure});

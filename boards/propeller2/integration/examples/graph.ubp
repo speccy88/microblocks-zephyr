@@ -1,0 +1,13 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Sensors and connect a compatible BME680 to explicit P8/P9. Click only, 20 samples, then stop. Open the existing Data Graph in the editor. The graph and CSV export are shared editor features; no P2-specific graph backend or external service.'
+
+script 20 20 {
+  if (p2BME680Init 8 9 119) {
+    repeat 20 {
+      graphIt (p2BME680Temperature) (p2BME680Humidity)
+      waitMillis 500
+    }
+  }
+}

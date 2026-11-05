@@ -440,5 +440,52 @@
     "browser_hardware_evidence": "evidence/2026-11-05/propeller2/browser-installer.json",
     "browser_hardware_tested_source_commit": "51f1317efcd857bd234c601f6b5d8cb7645304cf",
     "serial_open_settle_ms": 1000
+  },
+  "candidate_extension_revision": 9,
+  "optional_peripherals": {
+    "status": "candidate extension-9 software; not installed or hardware accepted",
+    "requires_extension_revision": 9,
+    "reviewed_installer_extension_revision": 8,
+    "automatic": false,
+    "physical_tested": false,
+    "native_variants_compiled": [
+      "eval",
+      "edge",
+      "edge32"
+    ],
+    "libraries": [
+      "P2 Displays",
+      "P2 LEDs",
+      "P2 Peripherals",
+      "P2 Storage",
+      "P2 Sensors",
+      "P2 Audio"
+    ],
+    "scope": [
+      "WS2812",
+      "SSD1331",
+      "buffered full-duplex UART",
+      "LittleFS user files without autoformat",
+      "BME680 and DHT22",
+      "LIS3DH and LSM9DS1",
+      "IL3820 full refresh",
+      "NMEA GPS",
+      "4x4 keypad",
+      "74HC595 and 74HC165",
+      "PING and PIR",
+      "PCM DAC WAV"
+    ],
+    "sd_supported": false,
+    "contract": "docs/PROPELLER2_PERIPHERALS.md",
+    "evidence": "evidence/2026-11-05/propeller2/peripherals-summary.json",
+    "live_browser_to_candidate_VM_tested": false,
+    "stored_board_program_replaced": false,
+    "sd_limit": {
+      "reason": "complete SD/FAT image fails main stack budget",
+      "edge32_probe_bytes": 521104,
+      "remaining_stack_bytes": 3184,
+      "minimum_stack_bytes": 16384,
+      "evidence": "evidence/2026-11-05/propeller2/peripheral-sd-footprint.json"
+    }
   }
 }

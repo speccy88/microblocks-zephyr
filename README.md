@@ -41,6 +41,12 @@ describes this rewrite as an alpha. Our exact `5564b1e` source pin retains an
 internal IDE 2.5.12 / VM 421 version file; the project's VM remains pinned v417.
 Hardware acceptance varies by target. No Electron/Tauri desktop wrapper is included.
 
+The [P2 optional peripheral candidate](docs/PROPELLER2_PERIPHERALS.md) adds six
+opt-in libraries and examples while keeping projects interactive VM bytecode.
+It requires an initial extension-9 firmware update; all three variants compile,
+but new peripheral hardware acceptance is pending. The web installer retains
+the reviewed extension-8 images. Existing board programs are preserved.
+
 A multi-board development project to run **MicroBlocks SmallVM and the Arduino API
 alongside Zephyr RTOS**, with board-aware blocks for displays, sensors, buses, storage,
 wireless connectivity and other peripherals.

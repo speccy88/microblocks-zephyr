@@ -52,7 +52,7 @@ OBJ p2ShiftOut(int argc,OBJ *args) {
     int pins[3];if(argc!=5) return fail(notEnoughArguments);
     if(!threePins(args,pins)) return falseObj;
     if(args[4]!=trueObj&&args[4]!=falseObj) return fail(needsBooleanError);
-    int msb=args[4]==trueObj,count;uint8_t bytes[32];
+    int msb=args[4]==trueObj,count=0;uint8_t bytes[32]={0};
     if(IS_TYPE(args[3],ByteArrayType)) {
         count=BYTES(args[3]);if(count<1||count>32) return fail(indexOutOfRangeError);
         uint8_t *source=(uint8_t *)&FIELD(args[3],0);for(int i=0;i<count;i++)bytes[i]=source[i];

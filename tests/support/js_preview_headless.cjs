@@ -60,6 +60,8 @@ function load(assets, options = {}) {
         }
     }
     vm.runInContext(fs.readFileSync(path.join(assets, 'legacy-slots.js'), 'utf8'), context);
+    if(fs.existsSync(path.join(assets,'library-visibility.js')))
+        vm.runInContext(fs.readFileSync(path.join(assets,'library-visibility.js'),'utf8'),context);
     vm.runInContext(fs.readFileSync(path.join(assets,'legacy-loops.js'),'utf8'),context);
     vm.runInContext('MicroBlocksLegacyLoops.install(MB_Compiler);',context);
     if (options.readback !== false) {

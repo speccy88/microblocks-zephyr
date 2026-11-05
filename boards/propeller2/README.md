@@ -346,8 +346,14 @@ normal v405-versus-v417 notice; acknowledging it allows the tested arithmetic
 and live-edit workflows. No minimum-version check is bypassed and the VM
 version is not relabeled. The JavaScript P2 profile explicitly accepts native
 v405; its bounded acceptance is recorded above. Other newer-editor features need their own tests.
-Networking, the generic stream-serial API, NeoPixels and PSRAM object
-storage are unsupported.
+The reviewed extension-8 firmware has no generic stream-serial or NeoPixel
+backend. The [optional peripheral candidate](../../docs/PROPELLER2_PERIPHERALS.md)
+adds those backends plus focused Displays, LEDs, Peripherals, Storage, Sensors
+and Audio libraries. It reports extension 9, compiles for all three variants
+and remains physically untested/uninstalled. The original 79 automatic helpers
+remain compatible with extension 8. Networking and PSRAM object storage remain
+unsupported. The web installer deliberately retains its reviewed extension-8
+images and exact hash checks; candidate builds are separate artifacts.
 
 The [P2 web installer](../../docs/PROPELLER2_WEB_INSTALL.md) offers explicit RAM
 or flash installation from the launcher and P2 editor. The same production

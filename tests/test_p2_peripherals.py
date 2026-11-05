@@ -1,6 +1,7 @@
 """Optional peripherals: actual C behavior and independent packaging contracts."""
 # SPDX-License-Identifier: MIT
 import os
+import json
 import re
 from pathlib import Path
 import shutil
@@ -29,7 +30,15 @@ class P2Peripherals(unittest.TestCase):
 
     def test_optional_libraries_are_available_but_not_automatic(self):
         files = target_assets('propeller2')
-        self.assertIn('Libraries/P2/P2 LEDs.ubl', files)
+        receipt=json.loads(files['optional-peripherals.json'])
+        self.assertEqual(receipt['required_extension_revision'],9)
+        self.assertEqual(receipt['installer_extension_revision'],8)
+        self.assertFalse(receipt['automatic'])
+        self.assertFalse(receipt['physical_tested'])
+        self.assertEqual(len(receipt['libraries']),6)
+        for name in receipt['libraries']:
+            self.assertIn(b'Candidate extension-9 firmware required',files[name])
+            self.assertNotIn(files[name],files['Libraries/Targets/Propeller 2 Project.ubl'])
         self.assertIn('Examples/P2/leds.ubp', files)
         self.assertNotIn(b'module \'P2 LEDs\'', files['Libraries/Targets/Propeller 2 Project.ubl'])
 

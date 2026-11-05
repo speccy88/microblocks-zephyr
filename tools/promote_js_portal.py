@@ -67,11 +67,14 @@ def promote(site):
         if local_target:
             profile = json.loads((folder / 'target-profile.json').read_text())
             source = json.loads(local_target['target-library-source.json'])
+            peripherals = json.loads(local_target['optional-peripherals.json'])
             profile.update(function_names=source['function_names'], auto_load_target_blocks=True,
                            target_library_module=source['modules'][0], target_library_modules=source['modules'],
                            legacy_target_library_module=source['legacy_module'], target_library_owners=source['selector_libraries'],
                            target_library_sha256=source['sha256'],
                            required_extension_revision=source['required_extension_revision'])
+            profile.update(optional_target_library_modules=peripherals['modules'],
+                           optional_extension_revision=peripherals['required_extension_revision'])
             (folder / 'target-profile.json').write_text(json.dumps(profile, indent=2)+'\n', encoding='utf-8', newline='\n')
             config = (folder / 'target-config.js').read_text(encoding='utf-8')
             config, count = re.subn(r'const MicroBlocksJSProfile = Object\.freeze\(\{[^\n]*\}\);',

@@ -8,11 +8,12 @@ from sfc_js_assets import assets as sfc_assets, SCRIPTS as SFC_SCRIPTS
 from p2_library_groups import split_library, GROUPS
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = (*SFC_SCRIPTS, 'board-project-readback.js', 'target-blocks.js', 'p2-install-link.js')
+SCRIPTS = (*SFC_SCRIPTS, 'library-visibility.js', 'board-project-readback.js', 'target-blocks.js', 'p2-install-link.js')
 
 
 def assets():
     result = sfc_assets()
+    result['library-visibility.js'] = (ROOT / 'web/js-editor/library-visibility.js').read_bytes()
     result['board-project-readback.js'] = (ROOT / 'web/js-editor/board-project-readback.js').read_bytes()
     result['target-blocks.js'] = (ROOT / 'web/js-editor/target-blocks.js').read_bytes()
     result['p2-install-link.js'] = (ROOT / 'web/js-editor/p2-install-link.js').read_bytes()
@@ -53,7 +54,9 @@ def target_assets(profile):
     wav=ROOT/'libraries/audio/WAV PCM.ubl'
     if wav.exists(): shared_sensors['Libraries/Sound/WAV PCM.ubl']=wav.read_bytes()
     optional_receipt={'schema':1,'status':'candidate firmware; not in the reviewed revision-8 installer',
+                      'required_extension_revision':9,'installer_extension_revision':8,
                       'automatic':False,'physical_tested':False,'libraries':list(optional),
+                      'modules':[Path(name).stem for name in optional],
                       'examples':list(examples),'implementation':'docs/PROPELLER2_PERIPHERALS.md'}
     return {**groups, **optional, **examples, **shared_sensors,
             'optional-peripherals.json':(json.dumps(optional_receipt,indent=2)+'\n').encode(),bundle: raw,

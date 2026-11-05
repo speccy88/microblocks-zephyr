@@ -1,8 +1,10 @@
 module 'P2 Peripherals' Comm
 author 'MicroBlocks community'
 version 1 0
-description 'Candidate firmware required; not in the reviewed revision-8 installer. Optional buffered full-duplex UART. Explicit RX, TX, baud 3000-115200, and free cog 2-7. 255 bytes each direction; dropped reporter counts software RX overflow. Writes return false when full. 8N1 only. IDE UART and reserved pins cannot be selected. Physical acceptance pending.'
+description 'Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.'
 variables _p2KeypadLast _p2KeypadSince
+
+spec 'b' 'p2PeripheralFirmware' 'P2 peripheral firmware available'
 
 spec 'b' 'p2BufferedUART' 'P2 open buffered UART RX _ TX _ baud _ cog _' 'num num num num' 8 9 9600 2
 spec ' ' 'p2BufferedClose' 'P2 close buffered UART'
@@ -16,6 +18,7 @@ spec 'r' 'p2KeypadKey' 'P2 keypad stable key (empty none, ? ambiguous)'
 spec 'b' 'p2ShiftOut' 'P2 74HC595 data _ clock _ latch _ bytes _ MSB _' 'num num num auto bool' 8 9 10 'bytes list' true
 spec 'r' 'p2ShiftIn' 'P2 74HC165 data _ clock _ load _ bytes _ MSB _' 'num num num num bool' 8 9 10 1 true
 
+to p2PeripheralFirmware { return (('[p2:p2RuntimeRevision]') >= 9) }
 to p2BufferedUART rx tx baud cog { return ('[serial:p2BufferedOpen]' rx tx baud cog) }
 to p2BufferedClose { '[serial:close]' }
 to p2UARTAvailable { return ('[serial:p2Available]') }

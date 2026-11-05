@@ -1,7 +1,7 @@
 module 'P2 Displays' Output
 author 'MicroBlocks community'
 version 1 0
-description 'Candidate firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.'
+description 'Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.'
 variables _p2EPDFrame _p2EPDConfigured
 
 spec ' ' 'p2SSDInit' 'P2 SSD1331 MOSI _ clock _ CS _ DC _ reset _' 'num num num num num' 8 9 10 11 12

@@ -1,7 +1,7 @@
 module 'P2 Sensors' Input
 author 'MicroBlocks community'
 version 1 0
-description 'Candidate firmware required; not in the reviewed revision-8 installer. BME680 uses the shared portable MicroBlocks library on explicit I2C pins. DHT22 returns [Celsius x10, humidity percent x10] or false; cached at most once per two seconds. No hardware probe on import. Hardware acceptance pending.'
+description 'Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.'
 depends '_Sensing/Gas (BME680)'
 depends '_Sensing/Inertial'
 depends '_WorkInProgress/GPS-NEO7M'

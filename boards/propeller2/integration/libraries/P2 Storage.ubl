@@ -1,7 +1,7 @@
 module 'P2 Storage' Data
 author 'MicroBlocks community'
 version 1 0
-description 'Candidate firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.'
+description 'Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.'
 
 spec 'b' 'p2StorageReady' 'P2 user file storage ready'
 spec 'r' 'p2FileAppend' 'P2 append bytes _ to file _' 'str str' 'hello' 'notes.txt'

@@ -52,6 +52,9 @@ async function main(){
   const functions=h.evaluate('MB_editor.project.allFunctions().map(f=>({name:f.functionName,bytes:MB_editor.codeManager.compiledBytesFor(f).length}))');
   assert(functions.length>0,name);assert(functions.every(f=>f.bytes>0&&f.bytes<1000),name);
   assert.equal(warnings.length,0,warnings.join('\n'));
+  const visibility=h.evaluate('JSON.stringify(Array.from(MB_editor.project.libraries.values(),l=>[l.moduleName,l.isImplementation,l.tags]).sort())');
+  const restored=h.evaluate('JSON.stringify(Array.from(new MB_Project().loadFromString(MB_editor.project.codeString()).libraries.values(),l=>[l.moduleName,l.isImplementation,l.tags]).sort())');
+  assert.equal(restored,visibility,name+' must preserve hidden/visible dependencies and ordinary tags on save/reload');
   results.push({library:name,functions:functions.length});
  }
  const combined=load(folder,{readback:false,Socket:class{constructor(){throw Error('Network forbidden');}}});
@@ -66,6 +69,6 @@ async function main(){
   assert(p.scripts.length>0,name);
   assert(!p.chunks.some(c=>c.kind>=4),name+' must not automatically start');
  }
- console.log(JSON.stringify({optional:results,examples_compiled:true,inertial,epaper,gps,keypad,wav,network:false,physical:false}));
+ console.log(JSON.stringify({optional:results,examples_compiled:true,implementation_visibility_roundtrip:true,inertial,epaper,gps,keypad,wav,network:false,physical:false}));
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

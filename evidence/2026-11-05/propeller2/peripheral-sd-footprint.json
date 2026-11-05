@@ -1,0 +1,13 @@
+{
+  "compile_only": true,
+  "not_installable": true,
+  "repository_native_sources_changed": false,
+  "hardware_access": false,
+  "build_exit_code": 1,
+  "minimum_stack_bytes": 16384,
+  "link_probe_only": "No pin validation, filesystem policy, responsiveness or hardware acceptance; never install this stub.",
+  "log": "Traceback (most recent call last):\n  File \"C:\\Users\\fred_\\Documents\\Codex\\2026-11-03\\task\\p2-sd-footprint-reviewed\\source\\tools\\build_propeller2.py\", line 44, in <module>\n    print(json.dumps(build(args.flexcc, args.board, args.output), indent=2))\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\fred_\\Documents\\Codex\\2026-11-03\\task\\p2-sd-footprint-reviewed\\source\\tools\\build_propeller2.py\", line 31, in build\n    raise ValueError('P2 image leaves less than 16 KiB for the main native stack')\nValueError: P2 image leaves less than 16 KiB for the main native stack\n",
+  "bytes": 521104,
+  "sha256": "faccc30ae6fdff7847d4cb9bc2413e41f19648c30b42bc6115cd4139ae691eb1",
+  "stack_gap_bytes": 3184
+}

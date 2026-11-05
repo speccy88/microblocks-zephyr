@@ -1,7 +1,7 @@
 module 'P2 Audio' Sound
 author 'MicroBlocks community'
 version 1 0
-description 'Candidate firmware required; not in the reviewed revision-8 installer. DAC PCM WAV: 8/16-bit mono/stereo, 8000-22050 Hz, explicit user pin and free cog. VM remains interactive. Queue underruns/timing are reported; audible output and cadence untested. Use a suitable AC-coupled amplifier input, never drive a speaker from a GPIO.'
+description 'Candidate extension-9 firmware required; not in the reviewed revision-8 installer. DAC PCM WAV: 8/16-bit mono/stereo, 8000-22050 Hz, explicit user pin and free cog. VM remains interactive. Queue underruns/timing are reported; audible output and cadence untested. Use a suitable AC-coupled amplifier input, never drive a speaker from a GPIO.'
 depends '_Sound/WAV PCM'
 
 spec 'b' 'p2PlayWAV' 'P2 play WAV file _ DAC pin _ cog _' 'str num num' 'sound.wav' 16 3

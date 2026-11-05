@@ -14,7 +14,10 @@ in CI and not installed or packaged as validated images. Their library
 descriptions and `optional-peripherals.json` disclose this dependency. Building
 the current checkout produces a candidate; installing it requires the owner's
 approval and preservation of their program/storage. Do not infer a new hardware
-PASS from the older revision-8 acceptance records.
+PASS from the older revision-8 acceptance records. The complete candidate
+reports extension **9**. `P2 Peripherals / P2 peripheral firmware available`
+returns false on the reviewed extension-8 VM and true from extension 9.
+The original 79 automatic helpers still require only extension 8.
 
 Work proceeds in this order: WS2812; SSD1331; buffered full-duplex UART;
 general LittleFS files and SD feasibility; BME680/DHT22; LIS3DH/LSM9DS1;
@@ -46,10 +49,10 @@ reserved-pin policy. Third-party code retains its license and attribution.
 
 ## Baseline audit
 
-The native FlexC port already implements raw/friendly Smart Pins, independent
+At the starting point, the native FlexC port already implemented raw/friendly Smart Pins, independent
 UART TX/RX pins, synchronous serial words, I2C/SPI, calibrated ADC/DAC,
 capture and physical worker cogs. Standard serial and external NeoPixel
-primitives are currently stubs. The bundled upstream BME680 library already
+primitives were stubs. The bundled upstream BME680 library already
 uses the native gas compensation primitive. More detailed acceptance and
 remaining gaps are recorded below as each group is completed.
 
@@ -153,15 +156,26 @@ Production C host tests exercise binary append/read, repeated appends, cursor
 retention, EOF continuation, size limits, mount failure, deletion and program
 file isolation using disposable host files. Real LittleFS flash persistence,
 capacity exhaustion and power-loss behavior remain untested for this API.
+User files share the mounted volume with program storage; name isolation is
+not a capacity reservation. Free space is reported as unknown and no quota is
+implemented. Avoid filling the volume; storage exhaustion can also prevent
+future program saves.
 `Examples/P2/files.ubp` only reads an existing file and does not write/delete.
 
 SD is not exposed. The toolchain's SD convenience API defaults to reserved
-P58-61, and there is no confirmed external SD module on four user pins. A
-future SD adapter needs explicit user-pin validation, non-formatting FAT mount,
-bounded transfer/timeouts and a new resource/physical test; default boot-pin
-sharing is prohibited. No SD device or card data was touched.
+P58-61. It also has an alternate-pin `_vfs_open_sdcardx` API, so the default
+pins are not the only obstacle. A private compile-only link probe of that
+SD/FAT backend produces a 521104-byte Edge32 image, leaving only 3184 bytes
+beyond the image. The normal 16-KiB main-stack guard rejects it. The complete
+candidate without SD is 494296 bytes. The probe is not an installable driver.
 
-## Reference sources
+Reproduce with `python tools/probe_propeller2_sd_footprint.py --flexcc
+/path/to/flexcc --output /new/private/output`. The source copy and binary stay
+in that new output directory; the repository and hardware are untouched.
+Future SD work needs a smaller/modular resident backend, explicit user-pin
+validation, non-formatting FAT mount, bounded transfer/timeouts and new
+resource/physical tests. Shrinking the native stack or taking boot pins is
+not an acceptable workaround. No SD device or card data was touched.
 
 ## Environmental sensors (group 5)
 
@@ -391,6 +405,54 @@ Host C tests, ABI checks, actual editor compilation and protocol fixtures do
 not substitute for live editor-to-new-firmware acceptance. That gate remains
 pending because the existing board program must not be replaced without
 approval. The stored 120 chunks have been left intact.
+
+## Completion and remaining acceptance
+
+All twelve priority groups have software implementations and click-only
+examples. The exception within group 4 is **SD**: its alternate-pin backend
+fails the native memory/stack budget in the complete image. The toolchain's
+default P58-61 assignment also overlaps boot flash and must not be used.
+See the files section for the reproducible link probe and precise boundary.
+
+| Library | Implemented scope | Physical status of these additions |
+|---|---|---|
+| P2 LEDs | WS2812 init/pixel/fill/brightness/update, shared NeoPixel backend | Untested |
+| P2 Displays | SSD1331 graphics/text; IL3820 128x296 buffered full refresh | Untested |
+| P2 Peripherals | Buffered full-duplex UART, 4x4 keypad, 595/165 byte chains | Untested |
+| P2 Storage | Namespaced LittleFS user files, mount without autoformat | Untested |
+| P2 Sensors | BME680, DHT22, LIS3DH, LSM9DS1, NMEA, PING and PIR wrappers | Untested |
+| P2 Audio | Bounded PCM WAV parser and queued DAC playback | Untested |
+
+Use **Add Library > P2** to select only needed libraries. Importing is inert;
+there are no automatic start hats in the examples. All optional native
+operations need the candidate firmware; the published installer retains the
+reviewed extension-8 image until a new image earns separate acceptance.
+The editor status names that version boundary when an optional library is
+loaded. Shared sensor/WAV implementation dependencies stay hidden after
+save/reload through a shared editor adapter, without changing the frozen
+engine or hiding libraries deliberately imported as visible. It persists only
+the implementation flag as reserved GP tag metadata; function definitions and
+ordinary tags remain unchanged.
+
+Browser graphing already exists in the shared editor. It consumes the normal
+`graph` block's values, plots up to six tracks and exports CSV. The browser
+test feeds synthetic data to the actual graph and verifies boolean/numeric
+CSV conversion. `Examples/P2/graph.ubp` demonstrates the existing block with
+BME680 readings, but no sensor-to-browser physical stream has been verified.
+No duplicate P2 graph backend is added.
+
+The optional MCP320x and continuous-rotation servo-feedback suggestions are
+deferred. Generic SPI and bounded Smart Pin pulse/period measurements already
+provide building blocks. A useful complete addition needs explicit ADC model,
+SPI transaction/reference wiring or servo feedback calibration and a safe
+actuator setup; none was available for acceptance. No motor control was run.
+USB Smart Pin, new DMA and external-clock acquisition work remain out of scope.
+
+The final acceptance record separates native compilation, production-C host
+tests, protocol/register fixtures and actual editor UI checks from hardware.
+It makes no claim about absolute analog accuracy, sensor calibration,
+external-bus timing, panel appearance, UART throughput, audible output,
+power-loss recovery or live execution of these new primitives.
 
 ## Reference audit
 

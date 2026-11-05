@@ -104,7 +104,14 @@ def main():
                     launcher.locator(f'[data-board="{target}"]').click()
                 page = popup.value
                 page.wait_for_url('**/js-preview/'+target+'/index.html', wait_until='load', timeout=60000)
-                page.wait_for_function('typeof MB_editor==="object" && !!MB_editor.scripts && typeof world==="object" && !!world', timeout=60000)
+                try:
+                    page.wait_for_function('''() => {
+                        try { return typeof MB_editor==="object" && !!MB_editor.scripts && typeof world==="object" && !!world; }
+                        catch (_) { return false; } // globals can still be in their initialization phase
+                    }''', timeout=60000)
+                except Exception:
+                    print(json.dumps({'startup_failed_target':target,'url':page.url,'page_errors':errors}))
+                    raise
                 page.locator('[data-ide="app-preloader"]').wait_for(state='hidden', timeout=60000)
                 assert f'/js-preview/{target}/' in page.url
                 assert page.evaluate('window.opener === null')

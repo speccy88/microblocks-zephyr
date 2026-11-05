@@ -437,4 +437,4 @@ OBJ primP2ListAtomicAdd(int count, OBJ *args) {
     FIELD(args[0], index) = result;
     return result;
 }
-OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(8); }
+OBJ primP2RuntimeRevision(int count, OBJ *args) { (void) count; (void) args; return int2obj(9); }

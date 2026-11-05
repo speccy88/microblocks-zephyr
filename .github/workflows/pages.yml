@@ -74,6 +74,7 @@ jobs:
           python -m pip install playwright==1.64.1
           python tests/mobile_web_smoke.py --site build-artifacts/pages --output build-artifacts/portal-browser --browser /usr/bin/google-chrome
           python tests/js_portal_smoke.py --site build-artifacts/pages --output build-artifacts/js-portal-browser --browser /usr/bin/google-chrome
+          python tests/p2_peripherals_browser.py --site build-artifacts/pages --output build-artifacts/p2-peripherals-browser --browser /usr/bin/google-chrome
           python tests/p2_installer_browser.py --site build-artifacts/pages --output build-artifacts/p2-installer-browser --browser /usr/bin/google-chrome
           python tests/mobile_usability_smoke.py --editor build-artifacts/pages/mobile --output build-artifacts/portal-usability --browser /usr/bin/google-chrome
           python tests/sfc_js_browser.py --site build-artifacts/pages --output build-artifacts/sfc-js-browser --browser /usr/bin/google-chrome
@@ -88,6 +89,7 @@ jobs:
           name: p2-web-installer-evidence
           path: |
             build-artifacts/p2-installer-browser
+            build-artifacts/p2-peripherals-browser
             build-artifacts/p2-web-firmware/installer-build.json
             build-artifacts/p2-web-firmware/*.log
             build-artifacts/p2-web-firmware/reviewed-native-source.json
