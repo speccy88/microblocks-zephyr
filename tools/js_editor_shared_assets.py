@@ -50,6 +50,8 @@ def target_assets(profile):
     if inertial.exists(): shared_sensors['Libraries/Sensing/Inertial.ubl']=inertial.read_bytes()
     nmea=ROOT/'libraries/sensors/NMEA.ubl'
     if nmea.exists(): shared_sensors['Libraries/WorkInProgress/GPS-NEO7M.ubl']=nmea.read_bytes()
+    wav=ROOT/'libraries/audio/WAV PCM.ubl'
+    if wav.exists(): shared_sensors['Libraries/Sound/WAV PCM.ubl']=wav.read_bytes()
     optional_receipt={'schema':1,'status':'candidate firmware; not in the reviewed revision-8 installer',
                       'automatic':False,'physical_tested':False,'libraries':list(optional),
                       'examples':list(examples),'implementation':'docs/PROPELLER2_PERIPHERALS.md'}

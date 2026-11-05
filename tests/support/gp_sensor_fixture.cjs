@@ -49,7 +49,7 @@ function fixture(trees,{registers={},globals={},hooks={}}={}){
   if(op==='[data:unicodeString]')return String.fromCodePoint(v(0));
   if(op==='[data:find]'){const index=v(1).indexOf(v(0),v(2)-1);return index<0?0:index+1;}
   if(op==='[data:split]')return v(0).split(v(1));
-  if(op==='[data:convertType]')return new Uint8Array(v(0));
+  if(op==='[data:convertType]')return v(1)==='string'?String.fromCharCode(...v(0)):new Uint8Array(v(0));
   if(op==='[data:addLast]'){v(1).push(v(0));return;}
   if(op==='at'){const i=v(0),array=v(1);return array[i==='last'?array.length-1:i-1];}
   if(op==='atPut'){const i=v(0),array=v(1);if(!(Array.isArray(array)||array instanceof Uint8Array)||!Number.isInteger(i)||i<1||i>array.length)throw Error('Bad list store');array[i-1]=v(2);return;}

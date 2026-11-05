@@ -67,6 +67,8 @@ static void releasePin(int pin) {
 	if (!validPin(pin)) return;
 	extern void p2SerialReleasePin(int pin);
 	p2SerialReleasePin(pin);
+	extern void p2AudioReleasePin(int pin);
+	p2AudioReleasePin(pin);
 	extern void p2DisplayReleasePin(int pin);
 	p2DisplayReleasePin(pin);
 	p2CaptureReleasePin(pin);
@@ -83,6 +85,8 @@ static void releasePin(int pin) {
 void invalidatePinModeTracking(int pin) {
 	extern void p2SerialReleasePin(int pin);
 	p2SerialReleasePin(pin);
+	extern void p2AudioReleasePin(int pin);
+	p2AudioReleasePin(pin);
 	extern void p2DisplayReleasePin(int pin);
 	p2DisplayReleasePin(pin);
 	p2CaptureReleasePin(pin);
@@ -378,6 +382,8 @@ void stopPWM(void) {
 }
 
 void turnOffPins(void) {
+	extern void p2AudioReset(void);
+	p2AudioReset();
 	extern void p2PeripheralIOReset(void);
 	p2PeripheralIOReset();
 	extern void p2SerialReset(void);
@@ -463,15 +469,13 @@ static OBJ primI2SWrite(int argCount, OBJ *args) {
 }
 
 static OBJ primDACInit(int argCount, OBJ *args) {
-	(void) argCount;
-	(void) args;
-	return falseObj;
+	extern OBJ p2StandardDACInit(int,OBJ*);
+	return p2StandardDACInit(argCount,args);
 }
 
 static OBJ primDACWrite(int argCount, OBJ *args) {
-	(void) argCount;
-	(void) args;
-	return falseObj;
+	extern OBJ p2StandardDACWrite(int,OBJ*);
+	return p2StandardDACWrite(argCount,args);
 }
 
 static OBJ primSoftwareSerialWriteByte(int argCount, OBJ *args) {
@@ -1129,10 +1133,15 @@ static OBJ primP2WriteY(int argc, OBJ *args) {
 extern OBJ p2KeypadInit(int,OBJ*),p2KeypadScan(int,OBJ*);
 extern OBJ p2ShiftOut(int,OBJ*),p2ShiftIn(int,OBJ*);
 extern OBJ p2PING(int,OBJ*);
+extern OBJ p2AudioInit(int,OBJ*),p2AudioPCM(int,OBJ*),p2AudioVolume(int,OBJ*),p2AudioFinish(int,OBJ*),p2AudioStop(int,OBJ*);
+extern OBJ p2AudioRunning(int,OBJ*),p2AudioQueued(int,OBJ*),p2AudioUnderruns(int,OBJ*),p2AudioLate(int,OBJ*);
 static PrimEntry entries[] = {
 	{"p2KeypadInit",p2KeypadInit},{"p2KeypadScan",p2KeypadScan},
 	{"p2ShiftOut",p2ShiftOut},{"p2ShiftIn",p2ShiftIn},
 	{"p2PING",p2PING},
+	{"p2AudioInit",p2AudioInit},{"p2AudioPCM",p2AudioPCM},{"p2AudioVolume",p2AudioVolume},
+	{"p2AudioFinish",p2AudioFinish},{"p2AudioStop",p2AudioStop},{"p2AudioRunning",p2AudioRunning},
+	{"p2AudioQueued",p2AudioQueued},{"p2AudioUnderruns",p2AudioUnderruns},{"p2AudioLate",p2AudioLate},
 	{"p2FilterConfigure",primP2FilterConfigure}, {"p2FilterInfo",primP2FilterInfo}, {"p2FilterInput",primP2FilterInput},
 	{"p2AsyncWords",primP2AsyncWords}, {"p2SyncTransmitWords",primP2SyncTransmitWords},
 	{"p2SyncReceiveWords",primP2SyncReceiveWords}, {"p2SerialSendHex",primP2SerialSendHex},

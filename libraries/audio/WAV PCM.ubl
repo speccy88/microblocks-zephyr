@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: MPL-2.0
+module 'WAV PCM' Sound
+author 'MicroBlocks community; WAV format support informed by the existing MicroBlocks WAV library'
+version 1 0
+description 'Portable bounded PCM WAV header reader. Uses shared file primitives, handles unknown/odd-padded chunks, rejects truncated or unsupported formats. Returns [rate, channels, bits, data bytes], leaving the read cursor at sample data. No output or file writes.'
+
+to _wavPCMRead count file {
+  local 'bytes' ('[file:readBytes]' count file)
+  if (not (isType bytes 'byte array')) { return false }
+  if ((size bytes) != count) { return false }
+  return bytes
+}
+to _wavPCM16 bytes index { return ((at index bytes) | ((at (index + 1) bytes) << 8)) }
+to _wavPCM32 bytes index {
+  if ((at (index + 3) bytes) >= 64) { return -1 }
+  return (((at index bytes) | ((at (index + 1) bytes) << 8)) | (((at (index + 2) bytes) << 16) | ((at (index + 3) bytes) << 24)))
+}
+to wavPCMHeader file {
+  local 'size' ('[file:fileSize]' file)
+  if (or (size < 44) (size > 8388608)) { return false }
+  '[file:open]' file
+  local 'header' (_wavPCMRead 12 file)
+  if (not (isType header 'byte array')) { return false }
+  if (('[data:convertType]' ('[data:copyFromTo]' header 1 4) 'string') != 'RIFF') { return false }
+  if (('[data:convertType]' ('[data:copyFromTo]' header 9 12) 'string') != 'WAVE') { return false }
+  local 'limit' (8 + (_wavPCM32 header 5))
+  if (or (limit < 44) (limit > size)) { return false }
+  local 'rate' 0
+  local 'channels' 0
+  local 'bits' 0
+  local 'stride' 0
+  repeat 64 {
+    if ((('[file:readPosition]' file) + 8) > limit) { return false }
+    local 'chunk' (_wavPCMRead 8 file)
+    if (not (isType chunk 'byte array')) { return false }
+    local 'id' ('[data:convertType]' ('[data:copyFromTo]' chunk 1 4) 'string')
+    local 'length' (_wavPCM32 chunk 5)
+    local 'position' ('[file:readPosition]' file)
+    if (or (length < 0) (length > (limit - position))) { return false }
+    if (id == 'fmt ') {
+      if (length < 16) { return false }
+      local 'format' (_wavPCMRead 16 file)
+      if (not (isType format 'byte array')) { return false }
+      if ((_wavPCM16 format 1) != 1) { return false }
+      channels = (_wavPCM16 format 3)
+      bits = (_wavPCM16 format 15)
+      rate = (_wavPCM32 format 5)
+      if (not (or (channels == 1) (channels == 2))) { return false }
+      if (not (or (bits == 8) (bits == 16))) { return false }
+      if (or (rate < 8000) (rate > 22050)) { return false }
+      stride = (channels * (bits / 8))
+      if ((_wavPCM16 format 13) != stride) { return false }
+      if ((_wavPCM32 format 9) != (rate * stride)) { return false }
+    } (id == 'data') {
+      if (or (stride == 0) (length < stride)) { return false }
+      if ((length % stride) != 0) { return false }
+      return ('[data:makeList]' rate channels bits length)
+    }
+    local 'next' ((position + length) + (length % 2))
+    if (next > limit) { return false }
+    '[file:setReadPosition]' next file
+  }
+  return false
+}

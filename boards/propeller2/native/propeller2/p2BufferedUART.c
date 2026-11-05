@@ -80,10 +80,12 @@ static OBJ startUART(int rx,int tx,int baud,int cog) {
     p2SerialReset();invalidatePinModeTracking(rx);invalidatePinModeTracking(tx);
     _pinclear(rx);_pinf(rx);_pinclear(tx);_pinf(tx);
     memset(&uart,0,sizeof(uart));uart.rxPin=rx;uart.txPin=tx;uart.cog=cog;uart.baud=baud;
+    uart.active=1; /* permit queued data while the worker configures its pins */
 #ifdef P2_PERIPHERAL_HOST_TEST
-    uart.active=1;return trueObj;
+    return trueObj;
 #else
-    return p2NativeStart(cog,serialJob,&uart)?trueObj:falseObj;
+    if(p2NativeStart(cog,serialJob,&uart))return trueObj;
+    uart.active=0;return falseObj;
 #endif
 }
 OBJ p2BufferedOpen(int argc,OBJ *args) {

@@ -22,7 +22,7 @@ class P2Peripherals(unittest.TestCase):
                  'data':['vm/dataPrims.c'],'misc':['vm/miscPrims.c'],'p2':['propeller2/p2IOPrims.c']}
         entries={name:set(re.findall(r'\{\s*"([^"]+)"\s*,','\n'.join((native/p).read_text(encoding='utf-8') for p in paths)))
                  for name,paths in sources.items()}
-        libraries=list((ROOT/'boards/propeller2/integration/libraries').glob('*.ubl'))+list((ROOT/'libraries/sensors').glob('*.ubl'))
+        libraries=list((ROOT/'boards/propeller2/integration/libraries').glob('*.ubl'))+list((ROOT/'libraries').rglob('*.ubl'))
         for path in libraries:
             for group,name in re.findall(r'\[([a-z0-9]+):([^\]]+)\]',path.read_text(encoding='utf-8')):
                 self.assertIn(name,entries[group],str(path)+': '+group+':'+name)
@@ -56,6 +56,9 @@ class P2Peripherals(unittest.TestCase):
 
     def test_ping_production_echo_and_timeouts(self):
         self.run_host('p2_ping_host.c')
+
+    def test_audio_production_pcm_queue_and_volume(self):
+        self.run_host('p2_audio_host.c')
 
     def test_candidate_storage_never_formats_on_mount(self):
         source=(ROOT/'boards/propeller2/native/propeller2/p2PersistFile.c').read_text(encoding='utf-8')

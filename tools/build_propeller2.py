@@ -8,7 +8,7 @@ import subprocess
 from pathlib import Path
 
 SOURCES = ['p2Main.c', 'p2Cogs.c', 'p2Capture.c', 'p2IOPrims.c', 'p2OutputPrims.c', 'p2LEDs.c', 'p2PersistFile.c', 'p2FlashDevice.c',
-           'p2SensorPrims.c', 'p2DHT.c', 'p2Ping.c', 'p2SerialPrims.c', 'p2BufferedUART.c', 'p2Displays.c', 'p2Files.c', 'p2PeripheralIO.c']
+           'p2SensorPrims.c', 'p2DHT.c', 'p2Ping.c', 'p2Audio.c', 'p2SerialPrims.c', 'p2BufferedUART.c', 'p2Displays.c', 'p2Files.c', 'p2PeripheralIO.c']
 VM_SOURCES = ['mem.c', 'interp.c', 'runtime.c', 'persist.c', 'dataPrims.c',
               'miscPrims.c', 'varPrims.c', 'tinyJSON.c', 'mbFont.c']
 FLAGS = {'eval': 'P2_EVAL_BOARD', 'edge': 'P2_EDGE_BOARD', 'edge32': 'P2_EDGE32MB_BOARD'}
@@ -27,6 +27,8 @@ def build(compiler, board, output):
     (output/(board+'.log')).write_text(result.stdout+result.stderr, encoding='utf-8', newline='\n')
     if result.returncode:
         raise RuntimeError(result.stdout+result.stderr)
+    if target.stat().st_size > 512*1024-16384:
+        raise ValueError('P2 image leaves less than 16 KiB for the main native stack')
     report = dict(board=board, compiler=str(compiler), command=command,
                   bytes=target.stat().st_size, sha256=hashlib.sha256(target.read_bytes()).hexdigest())
     (output/(board+'.json')).write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8', newline='\n')

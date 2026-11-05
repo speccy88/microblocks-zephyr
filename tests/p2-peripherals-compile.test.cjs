@@ -9,6 +9,7 @@ const inertialFixtures=require('./support/p2_inertial_fixtures.cjs');
 const epaperFixtures=require('./support/p2_epaper_fixtures.cjs');
 const gpsFixtures=require('./support/p2_gps_fixtures.cjs');
 const keypadFixtures=require('./support/p2_keypad_fixtures.cjs');
+const wavFixtures=require('./support/p2_wav_fixtures.cjs');
 async function main(){
  const folder=path.join(process.argv[2],'js-preview/propeller2');
  const source=path.join(__dirname,'../boards/propeller2/integration');
@@ -38,6 +39,9 @@ async function main(){
  const gps=gpsFixtures(JSON.parse(JSON.stringify(parser.evaluate('MB_Parser.parse(gpsSource)'))));
  parser.set('peripheralSource',fs.readFileSync(path.join(source,'libraries/P2 Peripherals.ubl'),'utf8'));
  const keypad=keypadFixtures(JSON.parse(JSON.stringify(parser.evaluate('MB_Parser.parse(peripheralSource)'))));
+ parser.set('wavSource',fs.readFileSync(path.join(__dirname,'../libraries/audio/WAV PCM.ubl'),'utf8'));
+ parser.set('audioSource',fs.readFileSync(path.join(source,'libraries/P2 Audio.ubl'),'utf8'));
+ const wav=wavFixtures(JSON.parse(JSON.stringify(parser.evaluate('MB_Parser.parse(wavSource)'))),JSON.parse(JSON.stringify(parser.evaluate('MB_Parser.parse(audioSource)'))));
  for(const name of fs.readdirSync(path.join(source,'libraries')).filter(n=>n.endsWith('.ubl'))){
   const warnings=[];
   const capture=(...parts)=>{const line=parts.join(' ');if(/Skipping unknown op|error|warning/i.test(line))warnings.push(line);};
@@ -62,6 +66,6 @@ async function main(){
   assert(p.scripts.length>0,name);
   assert(!p.chunks.some(c=>c.kind>=4),name+' must not automatically start');
  }
- console.log(JSON.stringify({optional:results,examples_compiled:true,inertial,epaper,gps,keypad,network:false,physical:false}));
+ console.log(JSON.stringify({optional:results,examples_compiled:true,inertial,epaper,gps,keypad,wav,network:false,physical:false}));
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

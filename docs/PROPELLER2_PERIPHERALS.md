@@ -343,6 +343,44 @@ Reference: Parallax PING))) #28015 Product Guide v2.0 (2013-02-04), protocol
 5-us typical trigger, echo 115 us-18.5 ms, minimum inter-measurement quiet time
 200 us. No PING driver code was copied.
 
+## DAC WAV playback (group 12)
+
+`P2 Audio` streams a named user file to an explicit DAC pin on a free cog
+2-7. A heap-free native consumer owns the DAC pin and a 1023-sample queue;
+the ordinary VM reads and queues bounded 512-byte chunks, yielding while the
+queue is full. Supported PCM is unsigned 8-bit or signed little-endian 16-bit,
+mono/stereo (stereo mixed to mono), 8000-22050 samples/s. Volume is 0-100%,
+default 25%. Finish drains queued samples; stop and pin reassignment join the
+worker and float its pin. Only one audio stream is active at a time.
+
+The portable `WAV PCM` header parser checks RIFF/WAVE, chunk boundaries,
+unknown/odd-padded chunks, PCM format, frame alignment, byte rate and file
+size (up to 8 MiB); unsupported/compressed/truncated files return false.
+File access shares the single retained LittleFS reader, so serialize other
+file operations during playback. Playback does not create or modify files.
+The existing `dacInit`/`dacWrite` primitive names also use this backend for
+the supported rate range; closed writes fail instead of polling forever.
+
+The worker uses Smart Pin DAC dithering and explicit clock deadlines, without
+DMA. The blocks report empty-queue underruns and delays over one sample
+period; they do not promise gapless sound, a jitter bound or Hi-Fi quality.
+The true playback result means that the validated file was consumed and its
+queue drained. Check the diagnostic counters separately. Synchronous flash
+reads and other workloads may cause underruns. This remains unmeasured.
+
+Use a suitable AC-coupled, high-impedance amplifier input and common ground,
+with the module's actual voltage requirements. Never drive a speaker directly
+from a GPIO. `Examples/P2/audio.ubp` explicitly reads an existing `sound.wav`
+file and uses P16/cog 3; importing it produces no output.
+
+Production-C host tests cover PCM decoding, stereo mixing, volume/midscale,
+ring wrap/full/empty, invalid pins/rates/alignment, finish/stop and the shared
+DAC API. Actual editor parser fixtures cover file headers and cooperative
+queue failure/timeouts. All three native variants compile, with a build guard
+reserving at least 16 KiB beyond the image for the main native stack. No new
+firmware was installed: real sample cadence, audio quality, underrun rate,
+amplifier circuit and audible playback remain untested.
+
 ## Interactive workflow
 
 All these libraries remain ordinary SmallVM projects and functions. A native

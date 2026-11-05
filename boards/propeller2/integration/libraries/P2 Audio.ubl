@@ -1,0 +1,75 @@
+module 'P2 Audio' Sound
+author 'MicroBlocks community'
+version 1 0
+description 'Candidate firmware required; not in the reviewed revision-8 installer. DAC PCM WAV: 8/16-bit mono/stereo, 8000-22050 Hz, explicit user pin and free cog. VM remains interactive. Queue underruns/timing are reported; audible output and cadence untested. Use a suitable AC-coupled amplifier input, never drive a speaker from a GPIO.'
+depends '_Sound/WAV PCM'
+
+spec 'b' 'p2PlayWAV' 'P2 play WAV file _ DAC pin _ cog _' 'str num num' 'sound.wav' 16 3
+spec ' ' 'p2AudioVolume' 'P2 audio volume percent _' 'num' 25
+spec ' ' 'p2AudioStop' 'P2 audio stop'
+spec 'b' 'p2AudioRunning' 'P2 audio running'
+spec 'r' 'p2AudioUnderruns' 'P2 audio underrun samples'
+spec 'r' 'p2AudioLate' 'P2 audio missed sample periods'
+advanced
+spec 'b' 'p2AudioBegin' 'P2 DAC audio pin _ sample rate _ cog _' 'num num num' 16 8000 3
+spec 'r' 'p2AudioPCM' 'P2 queue PCM _ channels _ bits _ starting byte _' 'auto num num num' 'a ByteArray' 1 8 1
+spec 'r' 'p2AudioQueued' 'P2 queued audio samples'
+spec ' ' 'p2AudioFinish' 'P2 audio finish queued samples'
+
+to p2AudioVolume value { '[p2:p2AudioVolume]' value }
+to p2AudioStop { '[p2:p2AudioStop]' }
+to p2AudioRunning { return ('[p2:p2AudioRunning]') }
+to p2AudioUnderruns { return ('[p2:p2AudioUnderruns]') }
+to p2AudioLate { return ('[p2:p2AudioLate]') }
+to p2AudioBegin pin rate cog { return ('[p2:p2AudioInit]' pin rate cog) }
+to p2AudioPCM data channels bits start { return ('[p2:p2AudioPCM]' data channels bits start) }
+to p2AudioQueued { return ('[p2:p2AudioQueued]') }
+to p2AudioFinish { '[p2:p2AudioFinish]' }
+to _p2QueuePCM data channels bits {
+  local 'offset' 1
+  local 'stalls' 0
+  repeatUntil (offset > (size data)) {
+    local 'frames' (p2AudioPCM data channels bits offset)
+    if (frames < 0) { return false }
+    if (frames > 0) {
+      offset += (frames * (channels * (bits / 8)))
+      stalls = 0
+    } else {
+      stalls += 1
+      if (stalls > 2000) { return false }
+      waitMillis 1
+    }
+  }
+  return true
+}
+to _p2WAVFail file {
+  p2AudioStop
+  '[file:close]' file
+  return false
+}
+to p2PlayWAV file pin cog {
+  local 'header' (wavPCMHeader file)
+  if (not (isType header 'list')) { '[file:close]' file
+    return false }
+  local 'channels' (at 2 header)
+  local 'bits' (at 3 header)
+  local 'remaining' (at 4 header)
+  if (not (p2AudioBegin pin (at 1 header) cog)) { '[file:close]' file
+    return false }
+  repeatUntil (remaining == 0) {
+    local 'count' (minimum 512 remaining)
+    local 'bytes' (_wavPCMRead count file)
+    if (not (isType bytes 'byte array')) { return (_p2WAVFail file) }
+    if (not (_p2QueuePCM bytes channels bits)) { return (_p2WAVFail file) }
+    remaining += (0 - count)
+    waitMillis 0
+  }
+  '[file:close]' file
+  p2AudioFinish
+  repeat 2000 {
+    if (not (p2AudioRunning)) { return true }
+    waitMillis 1
+  }
+  p2AudioStop
+  return false
+}

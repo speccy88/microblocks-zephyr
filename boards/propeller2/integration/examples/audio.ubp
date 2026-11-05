@@ -1,0 +1,11 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Audio and P2 Storage. Explicit click plays an existing user-namespace sound.wav through DAC P16 on free cog 3. It does not upload or replace files. Connect a suitable AC-coupled high-impedance amplifier input, not a speaker. No sound hardware has been validated.'
+
+script 20 20 {
+  sayIt (p2PlayWAV 'sound.wav' 16 3)
+  sayIt (p2AudioUnderruns)
+  sayIt (p2AudioLate)
+}
+script 20 160 { p2AudioStop }
