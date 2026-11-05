@@ -8,7 +8,7 @@ async function main(){
  const folder=path.join(process.argv[2],'js-preview/propeller2');
  const receipt=JSON.parse(fs.readFileSync(path.join(folder,'target-library-source.json')));
  const h=load(folder,{readback:false,Socket:class{constructor(){throw Error('Network forbidden');}}});
- h.set('bundle',receipt.bundle);await h.evaluate('MB_Files.initialize();MB_editor.openLibraryFile(bundle)');
+ h.set('bundle',receipt.bundle);await h.evaluate('MB_Files.initialize().then(()=>MB_editor.openLibraryFile(bundle))');
  h.evaluate('MB_editor.codeManager.assignFunctionIDs()');
  const functions=h.evaluate('MB_editor.project.allFunctions().map(f=>({name:f.functionName,bytes:MB_editor.codeManager.compiledBytesFor(f).length}))');
  assert.equal(functions.length,79);assert(functions.every(f=>f.bytes>0&&f.bytes<1000));
@@ -23,7 +23,7 @@ async function main(){
  assert.deepEqual(JSON.parse(JSON.stringify(api(h))),JSON.parse(JSON.stringify(api(old))));
  for(const module of receipt.modules){
   const single=load(folder,{readback:false,Socket:class{constructor(){throw Error('Network forbidden');}}});
-  single.set('one','Libraries/P2/'+module+'.ubl');await single.evaluate('MB_Files.initialize();MB_editor.openLibraryFile(one)');
+  single.set('one','Libraries/P2/'+module+'.ubl');await single.evaluate('MB_Files.initialize().then(()=>MB_editor.openLibraryFile(one))');
   single.evaluate('MB_editor.codeManager.assignFunctionIDs()');
   assert.deepEqual(Array.from(single.evaluate('Array.from(MB_editor.project.libraries.keys()).sort()')),[...new Set([module,'P2 Core'])].sort());
   assert(single.evaluate('MB_editor.project.allFunctions().every(f=>MB_editor.codeManager.compiledBytesFor(f).length>0)'));

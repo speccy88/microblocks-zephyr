@@ -13,7 +13,7 @@ async function main(){
   const capture=(...parts)=>{const line=parts.join(' ');if(/Skipping unknown op|error|warning/i.test(line))warnings.push(line);};
   const h=load(folder,{readback:false,console:{...console,log:capture,warn:capture,error:capture},Socket:class{constructor(){throw Error('Network forbidden');}}});
   h.set('optional','Libraries/P2/'+name);
-  await h.evaluate('MB_Files.initialize();MB_editor.openLibraryFile(optional)');
+  await h.evaluate('MB_Files.initialize().then(()=>MB_editor.openLibraryFile(optional))');
   h.evaluate('MB_editor.codeManager.assignFunctionIDs()');
   const functions=h.evaluate('MB_editor.project.allFunctions().map(f=>({name:f.functionName,bytes:MB_editor.codeManager.compiledBytesFor(f).length}))');
   assert(functions.length>0,name);assert(functions.every(f=>f.bytes>0),name);

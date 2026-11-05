@@ -2,4 +2,6 @@
 #include <stdint.h>
 void _pinclear(int pin);
 void _pinl(int pin);
+void _pinh(int pin);
+void _pinw(int pin,int value);
 void _waitus(int delay);

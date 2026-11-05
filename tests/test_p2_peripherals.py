@@ -21,10 +21,16 @@ class P2Peripherals(unittest.TestCase):
         self.assertNotIn(b'module \'P2 LEDs\'', files['Libraries/Targets/Propeller 2 Project.ubl'])
 
     def test_led_production_buffer_and_validation(self):
+        self.run_host('p2_led_host.c')
+
+    def test_ssd1331_production_graphics_and_validation(self):
+        self.run_host('p2_display_host.c')
+
+    def run_host(self, name):
         with tempfile.TemporaryDirectory(prefix='p2-peripherals-') as temp:
             exe = Path(temp)/('led.exe' if os.name=='nt' else 'led')
             includes = str(ROOT/'tests/p2_peripheral_stubs')
-            source = str(ROOT/'tests/p2_led_host.c')
+            source = str(ROOT/'tests'/name)
             cc = shutil.which('cc') or shutil.which('gcc') or shutil.which('clang')
             if cc:
                 command = [cc,'-std=c11','-Wall','-Wextra','-Werror','-I'+includes,source,'-o',str(exe)]

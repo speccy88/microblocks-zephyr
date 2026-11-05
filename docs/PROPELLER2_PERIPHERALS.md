@@ -74,6 +74,33 @@ requested; other filesystem contents remain unknown.
 
 ## References and licensing
 
+## SSD1331 (group 2)
+
+`P2 Displays` adds a 96x64 SSD1331 OLED with five explicit distinct pins,
+zero-based pixels, RGB24 colors, hardware lines and outlined/filled rectangles,
+and cooperative ASCII text (5x7 shared font, opaque 6x8 cells). The text block
+yields between characters and stops at the right/bottom boundary. The OLED
+uses its own SPI output pins, independently of the generic I2C/SPI defaults.
+Initialization has no effect until the block is explicitly run. Stop-all
+invalidates the display; initialize again before drawing.
+
+`Examples/P2/oled.ubp` uses P8-12 and requires clicking. Confirm breakout
+voltage requirements and common ground before connecting. No framebuffer or
+large allocation is added. Only SSD1331 96x64 RGB mode is implemented here;
+other controllers, rotations and readback are not implied.
+
+All variants compile; production C host tests verify initialization commands,
+RGB565 pixel data, line/rectangle color bytes, glyph layout, coordinate limits,
+invalid/duplicate/reserved pins and cleanup. The real pinned editor imports
+and compiles the library and example. A physical OLED is unavailable, so
+display appearance and SPI electrical timing remain unverified. Firmware was
+not installed on the owner's P2.
+
+The initialization sequence adapts the MIT Parallax reference; attribution
+and its full license are retained under `third_party/parallax-peripherals/`.
+
+## Audit sources
+
 Reviewed Parallax [Solo](https://github.com/parallaxinc/solo/tree/7f4644b95cf75115175ed0fe11ab9bbc8c66549a)
 and [Simple-Libraries](https://github.com/parallaxinc/Simple-Libraries/tree/1cc167c103756e5772b533c833a0f34e6050f459).
 Solo's generic categories include RGB LEDs, OLED/ePaper, serial, sensors,

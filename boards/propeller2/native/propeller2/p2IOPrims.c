@@ -372,6 +372,8 @@ void stopPWM(void) {
 void turnOffPins(void) {
 	extern void p2LEDReset(void);
 	p2LEDReset();
+	extern void p2DisplayReset(void);
+	p2DisplayReset();
 	primP2CaptureStop(0, NULL);
 	for (int pin = 0; pin < P2_USER_PIN_COUNT; pin++) {
 		_pinclear(pin);

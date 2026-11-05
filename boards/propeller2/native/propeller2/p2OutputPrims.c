@@ -134,6 +134,8 @@ OBJ primMBDrawShape(int argCount, OBJ *args) {
 extern OBJ p2NeoPixelSend(int, OBJ *), p2NeoPixelSetPin(int, OBJ *);
 extern OBJ p2LEDInit(int, OBJ *), p2LEDSet(int, OBJ *), p2LEDFill(int, OBJ *);
 extern OBJ p2LEDBrightness(int, OBJ *), p2LEDUpdate(int, OBJ *);
+extern OBJ p2SSDInit(int, OBJ *), p2SSDPixel(int, OBJ *), p2SSDLine(int, OBJ *);
+extern OBJ p2SSDRect(int, OBJ *), p2SSDGlyph(int, OBJ *);
 
 static PrimEntry entries[] = {
 	{"lightLevel", primLightLevel},
@@ -149,6 +151,8 @@ static PrimEntry entries[] = {
 	{"neoPixelSetPin", p2NeoPixelSetPin},
 	{"p2LEDInit", p2LEDInit}, {"p2LEDSet", p2LEDSet},
 	{"p2LEDFill", p2LEDFill}, {"p2LEDBrightness", p2LEDBrightness}, {"p2LEDUpdate", p2LEDUpdate},
+	{"p2SSDInit", p2SSDInit}, {"p2SSDPixel", p2SSDPixel}, {"p2SSDLine", p2SSDLine},
+	{"p2SSDRect", p2SSDRect}, {"p2SSDGlyph", p2SSDGlyph},
 };
 
 void addDisplayPrims(void) {

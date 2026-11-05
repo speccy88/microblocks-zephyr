@@ -1,0 +1,12 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Displays. Wire SSD1331 to P8-12 as labeled. Use a compatible breakout and supply. Click to run only.'
+
+script 20 20 {
+  p2SSDInit 8 9 10 11 12
+  p2SSDRect 0 0 95 63 0 true
+  p2SSDLine 0 63 95 0 65280
+  p2SSDRect 10 20 85 50 255 false
+  p2SSDText 'Hello P2' 8 4 16777215 0
+}
