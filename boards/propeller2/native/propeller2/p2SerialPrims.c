@@ -10,6 +10,7 @@ extern OBJ p2SerialOpen(int,OBJ*),p2SerialClose(int,OBJ*),p2SerialSetPins(int,OB
 extern OBJ p2SerialRead(int,OBJ*),p2SerialReadInto(int,OBJ*),p2SerialWrite(int,OBJ*);
 extern OBJ p2BufferedOpen(int,OBJ*),p2SerialAvailable(int,OBJ*),p2SerialDropped(int,OBJ*);
 extern OBJ p2SerialReadByte(int,OBJ*),p2SerialWriteByte(int,OBJ*);
+extern OBJ p2SerialIsOpen(int,OBJ*);
 
 static OBJ unsupported(int argCount, OBJ *args) {
 	(void) argCount;
@@ -29,6 +30,7 @@ static PrimEntry entries[] = {
 	{"setPins", p2SerialSetPins}, {"writeBytes", p2SerialWrite},
 	{"p2BufferedOpen", p2BufferedOpen}, {"p2Available", p2SerialAvailable},
 	{"p2Dropped", p2SerialDropped}, {"p2ReadByte", p2SerialReadByte}, {"p2WriteByte", p2SerialWriteByte},
+	{"p2IsOpen",p2SerialIsOpen},
 	{"midiSend", unsupported},
 	{"midiRecv", unsupported},
 	{"isDUELink", primIsDUELink},

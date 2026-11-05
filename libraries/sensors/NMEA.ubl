@@ -1,0 +1,463 @@
+// SPDX-License-Identifier: MPL-2.0
+// Portable upstream GPS-NEO7M at MicroBlocks 5564b1e, explicit serial open and validation fixes.
+module 'GPS (neo-7m)'
+author MicroBlocks
+version 1 1
+choices gpsDateFormat 'yyyy-mm-dd' 'yyyy/mm/dd' 'dd-mm-yyyy' 'dd/mm/yyyy'
+choices gpsTimeFormat 'hh:mm:ss' 'hh:mm'
+choices gpsCoordinate 'gps;latitude (deg x 10⁶)' 'gps;longitude (deg x 10⁶)'
+choices gpsSpeedUnit 'km/h (x100)' 'mph (x100)'
+choices gpsDateTimePart 'gps;day' 'gps;month' 'gps;year' 'gps;hour UTC' 'gps;minute UTC' 'gps;second UTC'
+description 'Library for GPS (NEO-7M) device.
+
+Decimal measurements use fixed-point integers and can be displayed aas text with "decimals":
+- latitude and longitude: degrees x 1,000,000
+- speed: km/h or mph x 100
+- altitude: meters x 100
+- course: degrees x 100
+
+Datasheet and useful information:
+https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf
+https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html
+https://github.com/SlashDevin/NeoGPS/tree/master
+https://github.com/mikalhart/TinyGPSPlus/tree/master
+'
+variables _gpsBuffer _gpsLat _gpsLon _gpsSpeedKmph _gpsSpeedMph _gpsAltitude _gpsCourse _gpsFixed _gpsSatellites _gpsSatellitesInView _gpsDay _gpsMonth _gpsYear _gpsHour _gpsMinute _gpsSecond _gpsLastByteMs _gpsLastFixMs _gpsLastSentence _gpsInitialized
+
+  spec ' ' 'gpsBegin' 'GPS begin RX _ TX _' 'num num' 16 17
+  spec ' ' 'gpsUpdate' 'GPS update'
+  space
+  spec 'r' 'gpsValidPosition' 'GPS valid position?'
+  spec 'r' 'gpsGetSatellites' 'GPS satellites : show used/view? _' 'bool' false
+  space
+  spec 'r' 'gpsGetCoordinate' 'GPS coordinate _ : text? _' 'menu.gpsCoordinate bool' 'gps;latitude (deg x 10⁶)' false
+  spec 'r' 'gpsGetSpeed' 'GPS speed _ : text? _' 'menu.gpsSpeedUnit bool' 'km/h (x100)' false
+  spec 'r' 'gpsGetAltitude' 'GPS altitude (m x100) : text? _' 'bool' false
+  spec 'r' 'gpsGetCourse' 'GPS course (deg x100) : text? _' 'bool' false
+  space
+  spec 'r' 'gpsGetDateTimePart' 'GPS date/time _' 'menu.gpsDateTimePart' 'gps;day'
+  spec 'r' 'gpsDateString' 'GPS date _' 'menu.gpsDateFormat' 'yyyy-mm-dd'
+  spec 'r' 'gpsTimeString' 'GPS time _' 'menu.gpsTimeFormat' 'hh:mm:ss'
+  advanced
+  spec ' ' 'gpsClose' 'GPS close'
+  spec 'r' 'gpsDistance' 'GPS distance lat1 _ lon1 _ lat2 _ lon2 _ (m)' 'num num num num' 0 0 0 0
+  spec 'r' 'gpsGetLastSentence' 'GPS last NMEA sentence'
+  space
+  spec 'r' '_gpsChecksumOK' '_gpsChecksumOK _' 'str' ''
+  spec ' ' '_gpsProcessSentence' '_gpsProcessSentence _' 'str' ''
+  spec ' ' '_gpsParseRMC' '_gpsParseRMC _' 'auto' nil
+  spec ' ' '_gpsParseGGA' '_gpsParseGGA _' 'auto' nil
+  spec 'r' '_gpsParseFixed' '_gpsParseFixed _ decimals _' 'str num' '0' 2
+  spec 'r' '_gpsCoordinate' '_gpsCoordinate _ hemisphere _' 'str str' '0000.0000' 'N'
+  spec ' ' '_gpsParseTime' '_gpsParseTime _' 'str' '000000.00'
+  spec 'r' '_gpsDigit' '_gpsDigit _ at _' 'str num' '0' 1
+  spec 'r' '_gpsTwoDigits' '_gpsTwoDigits _ at _' 'str num' '00' 1
+  spec 'r' '_gpsFixedPointText' '_gpsFixedPointText _ decimals _' 'num num' 0 2
+  spec 'r' '_gpsZeroPad' '_gpsZeroPad _ width _' 'num num' 0 2
+  spec 'r' '_gpsRoundDiv' '_gpsRoundDiv _ by _' 'num num' 0 1
+
+
+to gpsBegin rxPin txPin {
+  _gpsInitialized = (booleanConstant false)
+  _gpsBuffer = ''
+  _gpsLat = 0
+  _gpsLon = 0
+  _gpsSpeedKmph = 0
+  _gpsSpeedMph = 0
+  _gpsAltitude = 0
+  _gpsCourse = 0
+  _gpsFixed = (booleanConstant false)
+  _gpsSatellites = 0
+  _gpsSatellitesInView = -1
+  _gpsDay = 0
+  _gpsMonth = 0
+  _gpsYear = 0
+  _gpsHour = 0
+  _gpsMinute = 0
+  _gpsSecond = 0
+  _gpsLastSentence = ''
+  _gpsLastByteMs = (millisOp)
+  _gpsLastFixMs = (millisOp)
+  comment 'serial.setPins opens the hardware UART using RX, TX and fixed 9600 baud.'
+  '[serial:setPins]' rxPin txPin
+  '[serial:open]' 9600
+  waitMillis 10
+  _gpsInitialized = (booleanConstant true)
+}
+
+to gpsClose {
+  comment 'Closes the GPS serial connection and resets its internal state.'
+  if _gpsInitialized {'[serial:close]'}
+  _gpsInitialized = (booleanConstant false)
+  _gpsFixed = (booleanConstant false)
+  _gpsBuffer = ''
+}
+
+to gpsUpdate {
+  if (not _gpsInitialized) {return}
+  local 'bytes' ('[serial:read]')
+  if ((size bytes) > 0) {
+    _gpsLastByteMs = (millisOp)
+    _gpsBuffer = ('[data:join]' _gpsBuffer ('[data:join]' '' bytes))
+    if ((size _gpsBuffer) > 512) {
+      _gpsBuffer = ('[data:copyFromTo]' _gpsBuffer ((size _gpsBuffer) - 255) (size _gpsBuffer))
+    }
+  }
+  local 'lf' ('[data:unicodeString]' 10)
+  local 'lineEnd' ('[data:find]' lf _gpsBuffer 1)
+  repeatUntil (lineEnd < 1) {
+    local 'sentence' ''
+    if (lineEnd > 1) {sentence = ('[data:copyFromTo]' _gpsBuffer 1 (lineEnd - 1))}
+    if (lineEnd < (size _gpsBuffer)) {
+      _gpsBuffer = ('[data:copyFromTo]' _gpsBuffer (lineEnd + 1) (size _gpsBuffer))
+    } else {
+      _gpsBuffer = ''
+    }
+    if (and ((size sentence) > 0) (('[data:unicodeAt]' (size sentence) sentence) == 13)) {
+      if ((size sentence) > 1) {sentence = ('[data:copyFromTo]' sentence 1 ((size sentence) - 1))} else {sentence = ''}
+    }
+    if ((size sentence) > 0) {'_gpsProcessSentence' sentence}
+    lineEnd = ('[data:find]' lf _gpsBuffer 1)
+  }
+  if ((millisSince _gpsLastByteMs) > 10000) {_gpsFixed = (booleanConstant false)}
+  if ((millisSince _gpsLastFixMs) > 10000) {_gpsFixed = (booleanConstant false)}
+}
+
+to '_gpsChecksumOK' sentence {
+  comment 'Validates the NMEA checksum of a complete sentence.'
+  if ((size sentence) > 96) {return false}
+  if ((size sentence) < 7) {return (booleanConstant false)}
+  if (('[data:unicodeAt]' 1 sentence) != 36) {return (booleanConstant false)}
+  local 'star' ('[data:find]' '*' sentence 1)
+  if (star < 1) {return (booleanConstant false)}
+  if ((star + 2) != (size sentence)) {return (booleanConstant false)}
+  local 'expectedText' ('[data:copyFromTo]' sentence (star + 1) (star + 2))
+  for i 2 {
+    if (('[data:find]' ('[data:copyFromTo]' expectedText i i) '0123456789ABCDEFabcdef' 1) < 1) {return false}
+  }
+  local 'expected' (hexToInt expectedText)
+  local 'sum' 0
+  for i (star - 2) {
+    sum = (sum ^ ('[data:unicodeAt]' (i + 1) sentence))
+  }
+  return (sum == expected)
+}
+
+to '_gpsProcessSentence' sentence {
+  comment 'Validates an NMEA sentence, dispatches RMC/GGA, and reads the GSV satellite count.'
+  if (not ('_gpsChecksumOK' sentence)) {return}
+  _gpsLastSentence = sentence
+  local 'star' ('[data:find]' '*' sentence 1)
+  local 'payload' sentence
+  if (star > 1) {payload = ('[data:copyFromTo]' sentence 1 (star - 1))}
+  local 'fields' ('[data:split]' payload ',' false)
+  if ((size fields) < 2) {return}
+  local 'sentenceType' (at 1 fields)
+  local 'kind' ''
+  local 'n' (size sentenceType)
+  if (n >= 3) {kind = ('[data:copyFromTo]' sentenceType (n - 2) n)}
+  if (kind == 'RMC') {'_gpsParseRMC' fields}
+  if (kind == 'GGA') {'_gpsParseGGA' fields}
+  if (and (kind == 'GSV') ((size fields) >= 4)) {
+    local 'visibleText' (at 4 fields)
+    if ((size visibleText) > 0) {_gpsSatellitesInView = ('_gpsParseFixed' visibleText 0)}
+  }
+}
+
+to '_gpsParseRMC' fields {
+  comment 'Parses an RMC sentence: fix, position, speed, course, date and UTC time.'
+  if ((size fields) < 10) {return}
+  '_gpsParseTime' (at 2 fields)
+  if ((at 3 fields) != 'A') {
+    _gpsFixed = (booleanConstant false)
+    return
+  }
+  if (or (not ('_gpsCoordinateOK' (at 4 fields) (at 5 fields))) (not ('_gpsCoordinateOK' (at 6 fields) (at 7 fields)))) {
+    _gpsFixed = false
+    return
+  }
+  _gpsLat = ('_gpsCoordinate' (at 4 fields) (at 5 fields))
+  _gpsLon = ('_gpsCoordinate' (at 6 fields) (at 7 fields))
+  local 'knots100' ('_gpsParseFixed' (at 8 fields) 2)
+  _gpsSpeedKmph = ((knots100 * 1852) / 1000)
+  _gpsSpeedMph = (((knots100 * 1150) / 1000) + ((knots100 * 78) / 100000))
+  _gpsCourse = ('_gpsParseFixed' (at 9 fields) 2)
+  local 'dateText' (at 10 fields)
+  if ((size dateText) >= 6) {
+    _gpsDay = ('_gpsTwoDigits' dateText 1)
+    _gpsMonth = ('_gpsTwoDigits' dateText 3)
+    _gpsYear = (2000 + ('_gpsTwoDigits' dateText 5))
+    if (_gpsYear >= 2080) {_gpsYear += -100}
+  }
+  _gpsFixed = (booleanConstant true)
+  _gpsLastFixMs = (millisOp)
+}
+
+to '_gpsParseGGA' fields {
+  comment 'Parses a GGA sentence: fix quality, position, satellites, altitude and UTC time.'
+  if ((size fields) < 10) {return}
+  '_gpsParseTime' (at 2 fields)
+  local 'quality' ('_gpsParseFixed' (at 7 fields) 0)
+  _gpsSatellites = ('_gpsParseFixed' (at 8 fields) 0)
+  _gpsAltitude = ('_gpsParseFixed' (at 10 fields) 2)
+  _gpsFixed = false
+  if (quality > 0) {
+    if (or (not ('_gpsCoordinateOK' (at 3 fields) (at 4 fields))) (not ('_gpsCoordinateOK' (at 5 fields) (at 6 fields)))) {return}
+    _gpsLat = ('_gpsCoordinate' (at 3 fields) (at 4 fields))
+    _gpsLon = ('_gpsCoordinate' (at 5 fields) (at 6 fields))
+    _gpsFixed = (booleanConstant true)
+    _gpsLastFixMs = (millisOp)
+  }
+}
+
+to '_gpsDigit' text index {
+  comment 'Returns one decimal digit from text, or zero if the character is not a digit.'
+  if (or (index < 1) (index > (size text))) {return 0}
+  local 'c' ('[data:unicodeAt]' index text)
+  if (or (c < 48) (c > 57)) {return 0}
+  return (c - 48)
+}
+
+to '_gpsTwoDigits' text index {
+  comment 'Returns a two-digit integer starting at the given text position.'
+  return ((10 * ('_gpsDigit' text index)) + ('_gpsDigit' text (index + 1)))
+}
+
+to '_gpsParseFixed' text decimals {
+  comment 'Converts decimal text to a signed fixed-point integer with the requested decimals.'
+  if ((size text) == 0) {return 0}
+  local 'sign' 1
+  local 'result' 0
+  local 'afterDot' (booleanConstant false)
+  local 'fractionCount' 0
+  for i (size text) {
+    local 'c' ('[data:unicodeAt]' i text)
+    if (c == 45) {sign = -1}
+    if (c == 46) {afterDot = (booleanConstant true)}
+    if (and (c >= 48) (c <= 57)) {
+      if (not afterDot) {result = ((result * 10) + (c - 48))}
+      if (and afterDot (fractionCount < decimals)) {
+        result = ((result * 10) + (c - 48))
+        fractionCount = (fractionCount + 1)
+      }
+    }
+  }
+  repeatUntil (fractionCount >= decimals) {
+    result = (result * 10)
+    fractionCount = (fractionCount + 1)
+  }
+  return (sign * result)
+}
+
+to '_gpsCoordinate' text hemisphere {
+  comment 'Converts an NMEA ddmm.mmmm coordinate to signed degrees x 1,000,000.'
+  if ((size text) < 3) {return 0}
+  local 'dot' ('[data:find]' '.' text 1)
+  local 'wholeEnd' (size text)
+  if (dot > 0) {wholeEnd = (dot - 1)}
+  local 'whole' 0
+  for i wholeEnd {
+    whole = ((whole * 10) + ('_gpsDigit' text i))
+  }
+  local 'degrees' (whole / 100)
+  local 'minutesWhole' (whole % 100)
+  local 'minutesFrac' 0
+  local 'fracDigits' 0
+  if (dot > 0) {
+    local 'available' ((size text) - dot)
+    local 'take' (minimum available 4)
+    for j take {
+      minutesFrac = ((minutesFrac * 10) + ('_gpsDigit' text (dot + j)))
+      fracDigits = (fracDigits + 1)
+    }
+  }
+  repeatUntil (fracDigits >= 4) {
+    minutesFrac = (minutesFrac * 10)
+    fracDigits = (fracDigits + 1)
+  }
+  local 'minutes10000' ((minutesWhole * 10000) + minutesFrac)
+  local 'value' ((degrees * 1000000) + ((minutes10000 * 10) / 6))
+  if (or (hemisphere == 'S') (hemisphere == 'W')) {value = (0 - value)}
+  return value
+}
+
+to '_gpsParseTime' text {
+  comment 'Extracts UTC hour, minute and second from an NMEA time field.'
+  if ((size text) < 6) {return}
+  _gpsHour = ('_gpsTwoDigits' text 1)
+  _gpsMinute = ('_gpsTwoDigits' text 3)
+  _gpsSecond = ('_gpsTwoDigits' text 5)
+}
+
+to '_gpsZeroPad' value width {
+  comment 'Converts a number to text and pads it on the left with zeros.'
+  local 'text' ('[data:join]' '' value)
+  repeatUntil ((size text) >= width) {text = ('[data:join]' '0' text)}
+  return text
+}
+
+to '_gpsFixedPointText' value decimals {
+  comment 'Formats a fixed-point integer as readable decimal text.'
+  local 'signText' ''
+  local 'n' value
+  if (n < 0) {
+    signText = '-'
+    n = (absoluteValue n)
+  }
+  if (decimals <= 0) {return ('[data:join]' signText n)}
+  local 'scale' 1
+  repeat decimals {scale = (scale * 10)}
+  local 'whole' (n / scale)
+  local 'fraction' (n % scale)
+  return ('[data:join]' signText ('[data:join]' whole ('[data:join]' '.' ('_gpsZeroPad' fraction decimals))))
+}
+
+to gpsValidPosition {
+  if ((millisSince _gpsLastFixMs) > 10000) {_gpsFixed = (booleanConstant false)}
+  return _gpsFixed
+}
+
+to gpsGetCoordinate coordinate optionalText {
+  local 'asText' (argOrDefault 2 false)
+  local 'value' _gpsLat
+  if (coordinate == 'gps;longitude (deg x 10⁶)') {value = _gpsLon}
+  if asText {return ('_gpsFixedPointText' value 6)}
+  return value
+}
+
+to gpsGetSpeed unit optionalText {
+  local 'asText' (argOrDefault 2 false)
+  local 'value' _gpsSpeedKmph
+  if (unit == 'mph (x100)') {value = _gpsSpeedMph}
+  if asText {return ('_gpsFixedPointText' value 2)}
+  return value
+}
+
+to gpsGetAltitude optionalText {
+  local 'asText' (argOrDefault 1 false)
+  if asText {return ('_gpsFixedPointText' _gpsAltitude 2)}
+  return _gpsAltitude
+}
+
+to gpsGetCourse optionalText {
+  local 'asText' (argOrDefault 1 false)
+  if asText {return ('_gpsFixedPointText' _gpsCourse 2)}
+  return _gpsCourse
+}
+
+to gpsGetSatellites showUsedView {
+  comment 'Satellites used by GPS and viewed'
+  local 'includeView' (argOrDefault 1 false)
+  local 'used' ('[data:join]' '' _gpsSatellites)
+  if (not includeView) {
+    return used
+  }
+  if (_gpsSatellitesInView < 0) {
+    return ('[data:join]' used '/?')
+  }
+  return ('[data:join]' used ('[data:join]' '/' _gpsSatellitesInView))
+}
+
+to gpsGetDateTimePart part {
+  if (part == 'gps;month') {return _gpsMonth}
+  if (part == 'gps;year') {return _gpsYear}
+  if (part == 'gps;hour UTC') {return _gpsHour}
+  if (part == 'gps;minute UTC') {return _gpsMinute}
+  if (part == 'gps;second UTC') {return _gpsSecond}
+  return _gpsDay
+}
+
+to gpsGetLastSentence {return _gpsLastSentence}
+
+to gpsDateString format {
+  local 'yyyy' ('_gpsZeroPad' _gpsYear 4)
+  local 'mm' ('_gpsZeroPad' _gpsMonth 2)
+  local 'dd' ('_gpsZeroPad' _gpsDay 2)
+  if (format == 'yyyy/mm/dd') {return ('[data:join]' yyyy ('[data:join]' '/' ('[data:join]' mm ('[data:join]' '/' dd))))}
+  if (format == 'dd-mm-yyyy') {return ('[data:join]' dd ('[data:join]' '-' ('[data:join]' mm ('[data:join]' '-' yyyy))))}
+  if (format == 'dd/mm/yyyy') {return ('[data:join]' dd ('[data:join]' '/' ('[data:join]' mm ('[data:join]' '/' yyyy))))}
+  return ('[data:join]' yyyy ('[data:join]' '-' ('[data:join]' mm ('[data:join]' '-' dd))))
+}
+
+to gpsTimeString format {
+  local 'hh' ('_gpsZeroPad' _gpsHour 2)
+  local 'mm' ('_gpsZeroPad' _gpsMinute 2)
+  if (format == 'hh:mm') {return ('[data:join]' hh ('[data:join]' ':' mm))}
+  return ('[data:join]' hh ('[data:join]' ':' ('[data:join]' mm ('[data:join]' ':' ('_gpsZeroPad' _gpsSecond 2)))))
+}
+
+to '_gpsRoundDiv' value divisor {
+  comment 'Divides two integers and rounds the result to the nearest integer.'
+  if (divisor == 0) {return 0}
+  if (value >= 0) {return ((value + (divisor / 2)) / divisor)}
+  return (0 - (((0 - value) + (divisor / 2)) / divisor))
+}
+
+to gpsDistance lat1 lon1 lat2 lon2 {
+  comment 'Expects latitude/longitude values in degrees x 1,000,000 and returns meters.'
+
+  local 'dLatMicro' (lat2 - lat1)
+  local 'dLonMicro' (lon2 - lon1)
+  if (dLonMicro > 180000000) {dLonMicro = (dLonMicro - 360000000)}
+  if (dLonMicro < -180000000) {dLonMicro = (dLonMicro + 360000000)}
+
+  local 'dLat' (absoluteValue dLatMicro)
+  local 'dLon' (absoluteValue dLonMicro)
+
+  comment 'Use a high-resolution equirectangular formula up to 2 degrees in either axis.'
+  if (and (dLat <= 2000000) (dLon <= 2000000)) {
+    local 'meanLat' ((lat1 + lat2) / 2)
+    local 'meanH' ('_gpsRoundDiv' meanLat 10000)
+    local 'cosLat' ('[misc:sin]' (9000 - meanH))
+    local 'xLocal' (longMult dLonMicro cosLat 14)
+    local 'yLocal' dLatMicro
+    local 'largest' (maximum (absoluteValue xLocal) (absoluteValue yLocal))
+    local 'scaleLocal' 1
+    repeatUntil ((largest / scaleLocal) <= 20000) {scaleLocal = (scaleLocal * 2)}
+    local 'xs' (xLocal / scaleLocal)
+    local 'ys' (yLocal / scaleLocal)
+    local 'microDegrees' (('[misc:sqrt]' ((xs * xs) + (ys * ys))) * scaleLocal)
+    comment '6372.795 km Earth radius gives about 0.1112263 m per microdegree.'
+    return (((microDegrees * 111) / 1000) + ((microDegrees / 5000) + ((microDegrees * 263) / 10000000)))
+  }
+
+  comment 'For longer distances use the haversine great-circle angle.'
+  local 'lat1h' ('_gpsRoundDiv' lat1 10000)
+  local 'lat2h' ('_gpsRoundDiv' lat2 10000)
+  local 'halfDLat' ('_gpsRoundDiv' dLatMicro 20000)
+  local 'halfDLon' ('_gpsRoundDiv' dLonMicro 20000)
+  local 'sLat' ('[misc:sin]' halfDLat)
+  local 'sLon' ('[misc:sin]' halfDLon)
+  local 'c1' ('[misc:sin]' (9000 - lat1h))
+  local 'c2' ('[misc:sin]' (9000 - lat2h))
+  local 'a' ((sLat * sLat) + (longMult (c1 * c2) (sLon * sLon) 28))
+  if (a < 0) {a = 0}
+  if (a > 268435456) {a = 268435456}
+  local 'y' ('[misc:sqrt]' a)
+  local 'x' ('[misc:sqrt]' (268435456 - a))
+  local 'angle' (2 * ('[misc:atan2]' x y))
+  if (angle < 0) {angle = (0 - angle)}
+  comment 'TinyGPS uses an Earth radius close to 6372.8 km. One hundredth degree is about 1112.263 m.'
+  return ((angle * 1112) + ((angle * 263) / 1000))
+}
+
+to '_gpsCoordinateOK' text hemisphere {
+  local 'digits' 4
+  local 'limit' 90
+  if (or (hemisphere == 'E') (hemisphere == 'W')) {
+    digits = 5
+    limit = 180
+  } (not (or (hemisphere == 'N') (hemisphere == 'S'))) { return false }
+  local 'dot' ('[data:find]' '.' text 1)
+  local 'wholeEnd' (size text)
+  if (dot > 0) { wholeEnd = (dot - 1) }
+  if (wholeEnd != digits) { return false }
+  for i (size text) {
+    local 'c' ('[data:unicodeAt]' i text)
+    if (i != dot) { if (or (c < 48) (c > 57)) { return false } }
+  }
+  local 'minutes' ('_gpsTwoDigits' text (digits - 1))
+  if (minutes >= 60) { return false }
+  local 'coordinate' (absoluteValue ('_gpsCoordinate' text hemisphere))
+  return (coordinate <= (limit * 1000000))
+}

@@ -111,6 +111,7 @@ OBJ p2SerialClose(int argc,OBJ *args) { (void)argc;(void)args;p2SerialReset();re
 OBJ p2SerialAvailable(int argc,OBJ *args) {
     (void)argc;(void)args;return int2obj(uart.active?((uart.rxWrite-uart.rxRead)&UART_MASK):0);
 }
+OBJ p2SerialIsOpen(int argc,OBJ *args) { (void)argc;(void)args;return uart.active?trueObj:falseObj; }
 OBJ p2SerialDropped(int argc,OBJ *args) { (void)argc;(void)args;return int2obj(uart.dropped&0x3fffffff); }
 OBJ p2SerialReadByte(int argc,OBJ *args) {
     (void)argc;(void)args;return int2obj(uart.active?pop(uart.rx,&uart.rxWrite,&uart.rxRead):-1);

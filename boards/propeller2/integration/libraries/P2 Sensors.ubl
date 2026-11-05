@@ -4,6 +4,7 @@ version 1 0
 description 'Candidate firmware required; not in the reviewed revision-8 installer. BME680 uses the shared portable MicroBlocks library on explicit I2C pins. DHT22 returns [Celsius x10, humidity percent x10] or false; cached at most once per two seconds. No hardware probe on import. Hardware acceptance pending.'
 depends '_Sensing/Gas (BME680)'
 depends '_Sensing/Inertial'
+depends '_WorkInProgress/GPS-NEO7M'
 
 spec 'b' 'p2BME680Init' 'P2 BME680 SDA _ SCL _ address _' 'num num num' 8 9 119
 spec 'r' 'p2BME680Temperature' 'P2 BME680 Celsius x10'
@@ -17,6 +18,12 @@ spec 'b' 'p2LSM9DS1Init' 'P2 LSM9DS1 SDA _ SCL _ AG address _ M address _' 'num 
 spec 'r' 'p2LSM9Acceleration' 'P2 LSM9DS1 acceleration mg (list or false)'
 spec 'r' 'p2LSM9Gyroscope' 'P2 LSM9DS1 gyro millidegrees per second (list or false)'
 spec 'r' 'p2LSM9Magnetic' 'P2 LSM9DS1 magnetic nanotesla (list or false)'
+spec 'b' 'p2GPSBegin' 'P2 NMEA GPS RX _ TX _ (9600 baud)' 'num num' 8 9
+spec ' ' 'p2GPSUpdate' 'P2 GPS update'
+spec 'b' 'p2GPSValid' 'P2 GPS position valid'
+spec 'r' 'p2GPSPosition' 'P2 GPS position lat lon degrees x1000000'
+spec 'r' 'p2GPSAltitude' 'P2 GPS altitude cm'
+spec ' ' 'p2GPSClose' 'P2 GPS close'
 
 to p2BME680Init sda scl address {
   if (not (or (address == 118) (address == 119))) { return false }
@@ -43,3 +50,14 @@ to p2LSM9DS1Init sda scl ag mag {
 to p2LSM9Acceleration { return (lsm9ds1Acceleration) }
 to p2LSM9Gyroscope { return (lsm9ds1Gyroscope) }
 to p2LSM9Magnetic { return (lsm9ds1Magnetic) }
+to p2GPSBegin rx tx {
+  gpsBegin rx tx
+  return ('[serial:p2IsOpen]')
+}
+to p2GPSUpdate { gpsUpdate }
+to p2GPSValid { return (gpsValidPosition) }
+to p2GPSPosition {
+  return ('[data:makeList]' (gpsGetCoordinate 'gps;latitude (deg x 106)' false) (gpsGetCoordinate 'gps;longitude (deg x 106)' false))
+}
+to p2GPSAltitude { return (gpsGetAltitude false) }
+to p2GPSClose { gpsClose }

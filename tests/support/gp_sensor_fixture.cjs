@@ -27,6 +27,7 @@ function fixture(trees,{registers={},globals={},hooks={}}={}){
   }
   if(op==='return')throw new Returned(a.length?v(0):undefined);
   if(op==='repeat'){for(let i=0,count=v(0);i<count;i++)body(a[1],scope);return;}
+  if(op==='repeatUntil'){while(!v(0))body(a[1],scope);return;}
   if(op==='for'){for(let i=1,count=v(1);i<=count;i++){scope[name(0)]=i;body(a[2],scope);}return;}
   if(op==='comment')return;
   if(op==='hexToInt')return parseInt(v(0),16);
@@ -36,17 +37,24 @@ function fixture(trees,{registers={},globals={},hooks={}}={}){
   if(op==='not')return !v(0);
   if(op==='ifExpression')return v(0)?v(1):v(2);
   if(op==='absoluteValue')return Math.abs(v(0));
+  if(op==='minimum')return Math.min(v(0),v(1));
+  if(op==='maximum')return Math.max(v(0),v(1));
+  if(op==='booleanConstant')return v(0);
   if(op==='size')return v(0).length;
   if(op==='isType')return v(1)==='byte array'?v(0) instanceof Uint8Array:Array.isArray(v(0));
   if(op==='[data:makeList]')return a.map(x=>value(x,scope));
   if(op==='[data:newByteArray]')return new Uint8Array(v(0)).fill(a.length>1?v(1):0);
   if(op==='[data:copyFromTo]')return v(0).slice(v(1)-1,v(2));
+  if(op==='[data:unicodeAt]')return Array.from(v(1))[v(0)-1].codePointAt(0);
+  if(op==='[data:unicodeString]')return String.fromCodePoint(v(0));
+  if(op==='[data:find]'){const index=v(1).indexOf(v(0),v(2)-1);return index<0?0:index+1;}
+  if(op==='[data:split]')return v(0).split(v(1));
   if(op==='[data:convertType]')return new Uint8Array(v(0));
   if(op==='[data:addLast]'){v(1).push(v(0));return;}
   if(op==='at'){const i=v(0),array=v(1);return array[i==='last'?array.length-1:i-1];}
   if(op==='atPut'){const i=v(0),array=v(1);if(!(Array.isArray(array)||array instanceof Uint8Array)||!Number.isInteger(i)||i<1||i>array.length)throw Error('Bad list store');array[i-1]=v(2);return;}
   const binary={'+':(x,y)=>x+y,'-':(x,y)=>x-y,'*':(x,y)=>x*y,'/':(x,y)=>Math.trunc(x/y),'%':(x,y)=>x%y,
-   '&':(x,y)=>x&y,'|':(x,y)=>x|y,'<<':(x,y)=>x<<y,'>>':(x,y)=>x>>y,
+   '&':(x,y)=>x&y,'|':(x,y)=>x|y,'^':(x,y)=>x^y,'<<':(x,y)=>x<<y,'>>':(x,y)=>x>>y,
    '>':(x,y)=>x>y,'>=':(x,y)=>x>=y,'<':(x,y)=>x<y,'<=':(x,y)=>x<=y,'==':(x,y)=>x===y,'!=':(x,y)=>x!==y};
   if(binary[op])return binary[op](v(0),v(1));
   const args=a.map(x=>value(x,scope));

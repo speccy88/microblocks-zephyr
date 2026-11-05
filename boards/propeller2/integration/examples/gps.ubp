@@ -1,0 +1,19 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Sensors. GPS TX to P8 RX, GPS RX to P9 TX only if compatible 3.3 V logic. UART 9600 8N1 uses a free cog. Click only; receive for five seconds, check validity before using position. No antenna/fix performance claim.'
+
+script 20 20 {
+  if (p2GPSBegin 8 9) {
+    repeat 50 {
+      p2GPSUpdate
+      waitMillis 100
+    }
+    sayIt (p2GPSValid)
+    if (p2GPSValid) {
+      sayIt (p2GPSPosition)
+      sayIt (p2GPSAltitude)
+    }
+    p2GPSClose
+  }
+}

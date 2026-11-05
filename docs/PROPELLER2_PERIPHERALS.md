@@ -251,6 +251,42 @@ remain untested. No board firmware was installed.
 
 Use `Examples/P2/epaper.ubp` only with the documented matching panel and wiring.
 
+## NMEA GPS (group 8)
+
+The bundled upstream GPS-NEO7M library already supplied NMEA RMC/GGA/GSV,
+fixed-point coordinates and freshness tracking. It is reused as canonical
+portable `libraries/sensors/NMEA.ubl`, with original selectors/authorship kept.
+The P2 wrapper uses the buffered UART, explicit RX/TX pins and 9600 8N1 on a
+free cog. Import does not open the port. It shares the one secondary UART;
+close GPS before another serial device. Call update regularly (example: 100 ms)
+and check valid-position before reading coordinates. Coordinates are degrees
+x1,000,000; altitude cm. Nothing compiles native code per project edit.
+
+Integration fixes explicitly open the UART after setting pins, require exactly
+two valid checksum hex digits, bound sentence length to 96 characters, reject
+invalid coordinate digits/hemispheres/minutes/ranges, clear fix immediately on
+GGA quality zero, and map two-digit dates using the 1980-2079 pivot. Existing
+distance-expression syntax and a parameter-shadow warning were also corrected
+so the full portable library compiles. Distance/geodesy accuracy is not tested.
+
+Pinned-parser fixtures cover known RMC/GGA checksums, position/speed/altitude,
+negative coordinates, malformed checksum/coordinates, no-fix and stale fix.
+The real pinned editor loads dependencies and compiles all functions/examples.
+Native UART changes compile for all variants. No GPS, antenna, time accuracy,
+satellite reception or live board execution is verified.
+`Examples/P2/gps.ubp` has explicit bounded receive/update/close steps.
+
+## Interactive workflow
+
+All these libraries remain ordinary SmallVM projects and functions. A native
+firmware update is needed once for new primitive backends. After that, normal
+editor edits, sends, starts, stops and variable inspection use VM bytecode;
+there is no BlocklyProp-style native compilation/firmware load per project.
+Host C tests, ABI checks, actual editor compilation and protocol fixtures do
+not substitute for live editor-to-new-firmware acceptance. That gate remains
+pending because the existing board program must not be replaced without
+approval. The stored 120 chunks have been left intact.
+
 ## Reference audit
 
 Reviewed Parallax [Solo](https://github.com/parallaxinc/solo/tree/7f4644b95cf75115175ed0fe11ab9bbc8c66549a)
