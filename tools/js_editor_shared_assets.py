@@ -46,6 +46,8 @@ def target_assets(profile):
                 for path in sorted((ROOT/'boards/propeller2/integration/examples').glob('*.ubp'))}
     sensor_source=ROOT/'libraries/sensors/BME680.ubl'
     shared_sensors={'Libraries/Sensing/Gas (BME680).ubl':sensor_source.read_bytes()} if sensor_source.exists() else {}
+    inertial=ROOT/'libraries/sensors/Inertial.ubl'
+    if inertial.exists(): shared_sensors['Libraries/Sensing/Inertial.ubl']=inertial.read_bytes()
     optional_receipt={'schema':1,'status':'candidate firmware; not in the reviewed revision-8 installer',
                       'automatic':False,'physical_tested':False,'libraries':list(optional),
                       'examples':list(examples),'implementation':'docs/PROPELLER2_PERIPHERALS.md'}

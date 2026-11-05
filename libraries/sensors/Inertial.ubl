@@ -1,0 +1,83 @@
+// SPDX-License-Identifier: MPL-2.0
+module 'Inertial Sensors' Input
+author 'MicroBlocks community'
+version 1 0
+description 'Portable I2C LIS3DH and LSM9DS1 helpers. Explicit initialization; no probing on import. BDU and six-byte reads, integer signed units. No orientation/fusion or calibration claim. Hardware acceptance pending.'
+variables _lis3dhAddress _lis3dhScale _lsm9AG _lsm9M
+
+spec 'b' 'lis3dhBegin' 'LIS3DH begin address _ range g _' 'num num' 24 2
+spec 'r' 'lis3dhAcceleration' 'LIS3DH acceleration mg (list or false)'
+spec 'b' 'lsm9ds1Begin' 'LSM9DS1 begin AG address _ M address _' 'num num' 107 30
+spec 'r' 'lsm9ds1Acceleration' 'LSM9DS1 acceleration mg (list or false)'
+spec 'r' 'lsm9ds1Gyroscope' 'LSM9DS1 gyro millidegrees per second (list or false)'
+spec 'r' 'lsm9ds1Magnetic' 'LSM9DS1 magnetic nanotesla (list or false)'
+
+to _sensorReadRegs address reg count {
+  local 'bytes' ('[data:newByteArray]' count)
+  if (('[sensors:i2cWrite]' address reg) != 1) { return false }
+  if (('[sensors:i2cRead]' address bytes) != count) { return false }
+  return bytes
+}
+to _sensorInt16 bytes index {
+  local 'value' ((at index bytes) | ((at (index + 1) bytes) << 8))
+  if (value >= 32768) { value += -65536 }
+  return value
+}
+to lis3dhBegin address range {
+  _lis3dhAddress = 0
+  if (not (or (address == 24) (address == 25))) { return false }
+  local 'scale' 1
+  local 'fs' 0
+  if (range == 4) {
+    scale = 2
+    fs = 1
+  } (range == 8) {
+    scale = 4
+    fs = 2
+  } (range == 16) {
+    scale = 12
+    fs = 3
+  } (range != 2) { return false }
+  if ((i2cGet address 15) != 51) { return false }
+  i2cSet address 32 0
+  i2cSet address 35 (136 | (fs << 4))
+  i2cSet address 32 71
+  _lis3dhAddress = address
+  _lis3dhScale = scale
+  return true
+}
+to lis3dhAcceleration {
+  if (_lis3dhAddress == 0) { return false }
+  if (((i2cGet _lis3dhAddress 39) & 8) == 0) { return false }
+  local 'bytes' (_sensorReadRegs _lis3dhAddress 168 6)
+  if (not (isType bytes 'byte array')) { return false }
+  return ('[data:makeList]' (((_sensorInt16 bytes 1) >> 4) * _lis3dhScale) (((_sensorInt16 bytes 3) >> 4) * _lis3dhScale) (((_sensorInt16 bytes 5) >> 4) * _lis3dhScale))
+}
+to lsm9ds1Begin ag mag {
+  _lsm9AG = 0
+  _lsm9M = 0
+  if (not (or (ag == 106) (ag == 107))) { return false }
+  if (not (or (mag == 28) (mag == 30))) { return false }
+  if (or ((i2cGet ag 15) != 104) ((i2cGet mag 15) != 61)) { return false }
+  i2cSet ag 34 68
+  i2cSet ag 16 96
+  i2cSet ag 32 96
+  i2cSet mag 32 112
+  i2cSet mag 33 0
+  i2cSet mag 35 12
+  i2cSet mag 36 64
+  i2cSet mag 34 0
+  _lsm9AG = ag
+  _lsm9M = mag
+  return true
+}
+to _lsm9Vector address status mask reg numerator denominator {
+  if (address == 0) { return false }
+  if (((i2cGet address status) & mask) == 0) { return false }
+  local 'bytes' (_sensorReadRegs address reg 6)
+  if (not (isType bytes 'byte array')) { return false }
+  return ('[data:makeList]' (((_sensorInt16 bytes 1) * numerator) / denominator) (((_sensorInt16 bytes 3) * numerator) / denominator) (((_sensorInt16 bytes 5) * numerator) / denominator))
+}
+to lsm9ds1Acceleration { return (_lsm9Vector _lsm9AG 23 1 40 61 1000) }
+to lsm9ds1Gyroscope { return (_lsm9Vector _lsm9AG 23 2 24 875 100) }
+to lsm9ds1Magnetic { return (_lsm9Vector _lsm9M 39 8 168 14 1) }

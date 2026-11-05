@@ -1,0 +1,19 @@
+module main
+author 'MicroBlocks community'
+version 1 0
+description 'Import P2 Sensors. Separate click-only examples for actual LIS3DH or LSM9DS1, I2C P8/P9 with 3.3 V pull-ups. Choose address straps. No motion, FIFO, fusion or calibration assertion.'
+
+script 20 20 {
+  if (p2LIS3DHInit 8 9 24 2) {
+    waitMillis 50
+    sayIt (p2LIS3DHRead)
+  }
+}
+script 20 150 {
+  if (p2LSM9DS1Init 8 9 107 30) {
+    waitMillis 150
+    sayIt (p2LSM9Acceleration)
+    sayIt (p2LSM9Gyroscope)
+    sayIt (p2LSM9Magnetic)
+  }
+}

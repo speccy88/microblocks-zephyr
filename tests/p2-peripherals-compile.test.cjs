@@ -5,6 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const {load}=require('./support/js_preview_headless.cjs');
 const {compile}=require('../tools/compile_propeller2_project.cjs');
 const {fixture}=require('./support/gp_sensor_fixture.cjs');
+const inertialFixtures=require('./support/p2_inertial_fixtures.cjs');
 async function main(){
  const folder=path.join(process.argv[2],'js-preview/propeller2');
  const source=path.join(__dirname,'../boards/propeller2/integration');
@@ -26,6 +27,8 @@ async function main(){
  sensor.globals._bme680_raw=Array(15).fill(0);sensor.globals._bme680_raw[13]=128;sensor.globals._bme680_raw[14]=15;
  const gas=fixture(trees,{registers:{0x71:1},globals:sensor.globals,hooks:{'_bme680 read raw':()=>{},'[misc:bme680GasResistance]':(adc,range)=>{gasRange=range;return 244;}}});
  gas.call('bme680 gas');assert.equal(gasRange,15);
+ parser.set('inertialSource',fs.readFileSync(path.join(__dirname,'../libraries/sensors/Inertial.ubl'),'utf8'));
+ const inertial=inertialFixtures(JSON.parse(JSON.stringify(parser.evaluate('MB_Parser.parse(inertialSource)'))));
  for(const name of fs.readdirSync(path.join(source,'libraries')).filter(n=>n.endsWith('.ubl'))){
   const warnings=[];
   const capture=(...parts)=>{const line=parts.join(' ');if(/Skipping unknown op|error|warning/i.test(line))warnings.push(line);};
@@ -50,6 +53,6 @@ async function main(){
   assert(p.scripts.length>0,name);
   assert(!p.chunks.some(c=>c.kind>=4),name+' must not automatically start');
  }
- console.log(JSON.stringify({optional:results,examples_compiled:true,network:false,physical:false}));
+ console.log(JSON.stringify({optional:results,examples_compiled:true,inertial,network:false,physical:false}));
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

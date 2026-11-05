@@ -3,6 +3,7 @@ author 'MicroBlocks community'
 version 1 0
 description 'Candidate firmware required; not in the reviewed revision-8 installer. BME680 uses the shared portable MicroBlocks library on explicit I2C pins. DHT22 returns [Celsius x10, humidity percent x10] or false; cached at most once per two seconds. No hardware probe on import. Hardware acceptance pending.'
 depends '_Sensing/Gas (BME680)'
+depends '_Sensing/Inertial'
 
 spec 'b' 'p2BME680Init' 'P2 BME680 SDA _ SCL _ address _' 'num num num' 8 9 119
 spec 'r' 'p2BME680Temperature' 'P2 BME680 Celsius x10'
@@ -10,6 +11,12 @@ spec 'r' 'p2BME680Humidity' 'P2 BME680 humidity percent x10'
 spec 'r' 'p2BME680Pressure' 'P2 BME680 pressure mbar x10'
 spec 'r' 'p2BME680Gas' 'P2 BME680 gas ohms (10 ohm steps)'
 spec 'r' 'p2DHT22Read' 'P2 DHT22 pin _ (list or false)' 'num' 13
+spec 'b' 'p2LIS3DHInit' 'P2 LIS3DH SDA _ SCL _ address _ range g _' 'num num num num' 8 9 24 2
+spec 'r' 'p2LIS3DHRead' 'P2 LIS3DH acceleration mg (list or false)'
+spec 'b' 'p2LSM9DS1Init' 'P2 LSM9DS1 SDA _ SCL _ AG address _ M address _' 'num num num num' 8 9 107 30
+spec 'r' 'p2LSM9Acceleration' 'P2 LSM9DS1 acceleration mg (list or false)'
+spec 'r' 'p2LSM9Gyroscope' 'P2 LSM9DS1 gyro millidegrees per second (list or false)'
+spec 'r' 'p2LSM9Magnetic' 'P2 LSM9DS1 magnetic nanotesla (list or false)'
 
 to p2BME680Init sda scl address {
   if (not (or (address == 118) (address == 119))) { return false }
@@ -24,3 +31,15 @@ to p2BME680Humidity { return ('bme680 humidity') }
 to p2BME680Pressure { return ('bme680 pressure') }
 to p2BME680Gas { return (10 * ('bme680 gas')) }
 to p2DHT22Read pin { return ('[sensors:p2DHT22]' pin) }
+to p2LIS3DHInit sda scl address range {
+  '[sensors:i2cSetPins]' sda scl
+  return (lis3dhBegin address range)
+}
+to p2LIS3DHRead { return (lis3dhAcceleration) }
+to p2LSM9DS1Init sda scl ag mag {
+  '[sensors:i2cSetPins]' sda scl
+  return (lsm9ds1Begin ag mag)
+}
+to p2LSM9Acceleration { return (lsm9ds1Acceleration) }
+to p2LSM9Gyroscope { return (lsm9ds1Gyroscope) }
+to p2LSM9Magnetic { return (lsm9ds1Magnetic) }

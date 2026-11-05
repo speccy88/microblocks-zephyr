@@ -197,6 +197,32 @@ is not enabled by this work; use the new explicit P2 DHT22 block.
 Protocol references: [Adafruit's DHT driver](https://github.com/adafruit/DHT-sensor-library/blob/master/DHT.cpp)
 and Parallax Simple-Libraries `libbme680/bme680_begin.c` at the audited revision.
 
+## Inertial sensors (group 6)
+
+The portable `libraries/sensors/Inertial.ubl` supplies I2C LIS3DH and LSM9DS1
+drivers. `P2 Sensors` wraps bus-pin selection and exposes their vector reads.
+Importing the P2 library hides implementation palettes; the portable library
+can also be imported directly. Register fixtures execute the production GP
+parse trees with a simulated bus, not a real VM or sensor.
+
+LIS3DH uses 50 Hz high-resolution mode, BDU, and selectable nominal 2/4/8/16 g
+ranges. Read returns x/y/z in mg or false when uninitialized/not ready/read
+fails. LSM9DS1 configures 119 Hz accelerometer/gyro at 2 g/245 dps, continuous
+10 Hz 4-gauss magnetometer, BDU and register auto-increment. Acceleration is
+mg, gyro millidegrees/second, magnetometer nT. Vector reads are six-byte bursts.
+Offsets, alignment, scale error and hard/soft iron are not calibrated; no
+orientation/fusion, FIFO, interrupt or tilt-compensation feature is claimed.
+
+Tests cover wrong IDs without configuration writes, negative/positive axes,
+LIS3DH range factors, all LSM9DS1 units, missing data and short bus reads.
+The pinned editor imports dependencies and compiles all functions/examples
+within the upload chunk limit. Native firmware is unchanged from group 5 and
+compiles for all variants. Neither physical sensor was accessed.
+`Examples/P2/inertial.ubp` runs only on explicit clicks.
+
+Register and sensitivity references: ST [LIS3DH datasheet](https://www.st.com/resource/en/datasheet/lis3dh.pdf)
+and [LSM9DS1 datasheet](https://www.st.com/resource/en/datasheet/lsm9ds1.pdf).
+
 ## Reference audit
 
 Reviewed Parallax [Solo](https://github.com/parallaxinc/solo/tree/7f4644b95cf75115175ed0fe11ab9bbc8c66549a)

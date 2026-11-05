@@ -28,8 +28,13 @@ function fixture(trees,{registers={},globals={},hooks={}}={}){
   if(op==='return')throw new Returned(a.length?v(0):undefined);
   if(op==='comment')return;
   if(op==='hexToInt')return parseInt(v(0),16);
-  if(op==='i2cGet')return registers[v(1)]??0;
-  if(op==='[data:makeList]')return [];
+  if(op==='i2cGet')return hooks.i2cGet?hooks.i2cGet(v(0),v(1)):(registers[v(1)]??0);
+  if(op==='or')return v(0)||v(1);
+  if(op==='and')return v(0)&&v(1);
+  if(op==='not')return !v(0);
+  if(op==='isType')return v(1)==='byte array'?v(0) instanceof Uint8Array:Array.isArray(v(0));
+  if(op==='[data:makeList]')return a.map(x=>value(x,scope));
+  if(op==='[data:newByteArray]')return new Uint8Array(v(0));
   if(op==='[data:addLast]'){v(1).push(v(0));return;}
   if(op==='at'){const i=v(0),array=v(1);return array[i==='last'?array.length-1:i-1];}
   if(op==='atPut'){const i=v(0),array=v(1);if(!Array.isArray(array)||!Number.isInteger(i)||i<1||i>array.length)throw Error('Bad list store');array[i-1]=v(2);return;}
