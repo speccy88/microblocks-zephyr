@@ -10,7 +10,6 @@ import shutil
 import signal
 import sys
 import tempfile
-import time
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -148,12 +147,29 @@ class WorkerLifecycleTests(unittest.IsolatedAsyncioTestCase):
             self.assertFalse((await self.call('inference','unload'))['value']['loaded'])
     async def test_paused_owned_native_worker_times_out_without_blocking_sql(self):
         self.assertTrue((await self.call('inference','load',{'model':'tiny-dense-v1','backend':'onnx'}))['ok'])
-        worker=self.service.workers['inference'];worker.entry['timeout']=.3;pid=worker.process.pid
-        os.kill(pid,signal.SIGSTOP) # deterministic fault in this test's owned child, not a slow-model benchmark
-        pending=asyncio.create_task(self.call('inference','infer',{'values':[1,2,3,4]}))
-        await asyncio.sleep(.05);start=time.monotonic();result=await self.call('sqlite','query',{'sql':'SELECT 42'})
-        self.assertEqual(result['value']['rows'],[[42]]);self.assertLess(time.monotonic()-start,.25)
-        failure=await pending;self.assertEqual(failure['error']['code'],'timeout')
+        # Verify cold worker startup separately from concurrent responsiveness.
+        self.assertEqual((await self.call('sqlite','query',{'sql':'SELECT 42'}))['value']['rows'],[[42]])
+        worker=self.service.workers['inference'];worker.entry['timeout']=2;paused=worker.process
+        os.kill(paused.pid,signal.SIGSTOP) # only this test's owned child
+        sent=asyncio.Event();write=paused.stdin.write
+        def observe_write(raw):
+            write(raw)
+            if json.loads(raw).get('method')=='infer':sent.set()
+        with patch.object(paused.stdin,'write',side_effect=observe_write):
+            pending=asyncio.create_task(self.call('inference','infer',{'values':[1,2,3,4]}))
+            try:
+                await asyncio.wait_for(sent.wait(),1)
+                # Shared runners need headroom, but SQL must finish before the
+                # paused worker's two-second timeout can release a global lock.
+                result=await asyncio.wait_for(self.call('sqlite','query',{'sql':'SELECT 42'}),1)
+                self.assertEqual(result['value']['rows'],[[42]])
+                self.assertFalse(pending.done(),'SQL waited for the inference request')
+                self.assertIs(worker.process,paused)
+                self.assertIsNone(paused.returncode,'SQL completed only after worker termination')
+                failure=await pending;self.assertEqual(failure['error']['code'],'timeout')
+            finally:
+                if not pending.done():pending.cancel()
+                await asyncio.gather(pending,return_exceptions=True)
         worker.entry['timeout']=8
         info=await self.call('inference','info');self.assertFalse(info['value']['loaded'])
         failure=await self.call('inference','infer',{'values':[1,2,3,4]});self.assertEqual(failure['error']['code'],'model_not_loaded')
