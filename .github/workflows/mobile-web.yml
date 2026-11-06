@@ -13,9 +13,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  browser-and-assets:
+  chrome-and-vm:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    # Retain a finite bound for the full Chrome/VM suite. WebKit's slow
+    # OS dependency installation is avoided by the separate pinned-image job.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -49,11 +51,9 @@ jobs:
       - name: Exercise actual mobile and desktop interfaces
         run: |
           python -m pip install playwright==1.64.1
-          python -m playwright install --with-deps webkit
           python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/browser --browser /usr/bin/google-chrome
           python tests/js_portal_smoke.py --site build-artifacts/site --output build-artifacts/js-portal --browser /usr/bin/google-chrome
           python tests/p2_installer_browser.py --site build-artifacts/site --output build-artifacts/p2-installer --browser /usr/bin/google-chrome
-          python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/webkit --engine webkit
           python tests/mobile_touch_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/touch --browser /usr/bin/google-chrome
           python tests/mobile_startup_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/startup --browser /usr/bin/google-chrome
           python tests/mobile_usability_smoke.py --editor build-artifacts/site/mobile --output build-artifacts/usability --browser /usr/bin/google-chrome
@@ -81,7 +81,6 @@ jobs:
             build-artifacts/p2-installer
             build-artifacts/p2-web-firmware/installer-build.json
             build-artifacts/p2-web-firmware/*.log
-            build-artifacts/webkit
             build-artifacts/touch
             build-artifacts/startup
             build-artifacts/usability
@@ -94,7 +93,63 @@ jobs:
             build-artifacts/sfc-js-branches-vm.json
             build-artifacts/sfc-js-serial-vm.json
             build-artifacts/sfc-js-browser-vm
-      - uses: actions/upload-artifact@v4
+      - name: Upload reviewed site for isolated WebKit acceptance
+        uses: actions/upload-artifact@v4
         with:
           name: mobile-web-reviewed-site
           path: build-artifacts/site
+          # Only the generated, reviewed static site; preserve its .nojekyll.
+          include-hidden-files: true
+
+  webkit:
+    needs: chrome-and-vm
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    container:
+      # Official 1.64.1 Noble image: browsers and OS dependencies preinstalled.
+      image: mcr.microsoft.com/playwright/python:v1.64.1-noble@sha256:330d401ae23c905896a0c26c66c36fc971b621519e7b11b435a8328d7bf6e031
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: mobile-web-reviewed-site
+          path: build-artifacts/site
+      - name: Install the matching Playwright Python package
+        run: python -m pip install playwright==1.64.1
+      - name: Recheck the transferred reviewed source and asset hashes
+        env:
+          MOBILE_EDITOR_SOURCE: ${{ github.workspace }}/build-artifacts/site/js-preview/waveshare
+          MOBILE_SITE: ${{ github.workspace }}/build-artifacts/site
+        run: python -m unittest discover -s tests -p test_mobile_web.py -v
+      - name: Exercise the unchanged WebKit mobile and desktop interface checks
+        run: python tests/mobile_web_smoke.py --site build-artifacts/site --output build-artifacts/webkit --engine webkit
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-webkit-evidence
+          path: build-artifacts/webkit
+
+  # Preserve the original required check name; neither constituent may fail
+  # or be skipped while this acceptance check reports success.
+  browser-and-assets:
+    if: always()
+    needs: [chrome-and-vm, webkit]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require both complete browser acceptance jobs
+        env:
+          CHROME_VM_RESULT: ${{ needs.chrome-and-vm.result }}
+          WEBKIT_RESULT: ${{ needs.webkit.result }}
+        run: |
+          python - <<'PY'
+          # BEGIN_CHECKED_MOBILE_JOBS
+          import os
+          results = {key: os.environ[key] for key in ('CHROME_VM_RESULT', 'WEBKIT_RESULT')}
+          if any(value != 'success' for value in results.values()):
+              raise SystemExit('Required mobile acceptance incomplete: ' + repr(results))
+          print('Chrome/VM and WebKit acceptance both passed')
+          # END_CHECKED_MOBILE_JOBS
+          PY
