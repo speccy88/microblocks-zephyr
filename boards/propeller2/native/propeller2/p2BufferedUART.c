@@ -128,7 +128,7 @@ OBJ p2SerialWrite(int argc,OBJ *args) {
     if(isInt(args[0])) return int2obj(p2SerialWriteByte(1,args)==trueObj?1:0);
     if(!IS_TYPE(args[0],ByteArrayType)&&!IS_TYPE(args[0],StringType)) return fail(needsByteArray);
     uint8_t *bytes=(uint8_t *)&FIELD(args[0],0);
-    int count=IS_TYPE(args[0],StringType)?strlen((char *)bytes):BYTES(args[0]);
+    int count=IS_TYPE(args[0],StringType)?(int)strlen((char *)bytes):BYTES(args[0]);
     int start=argc>1&&isInt(args[1])?obj2int(args[1])-1:0;
     if(start<0||start>count) return fail(indexOutOfRangeError);
     int written=0;

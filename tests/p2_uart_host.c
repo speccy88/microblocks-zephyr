@@ -34,6 +34,12 @@ int main(void) {
     assert(pop(uart.tx,&uart.txWrite,&uart.txRead)==255);
     assert(pop(uart.tx,&uart.txWrite,&uart.txRead)==128);
     assert(pop(uart.tx,&uart.txWrite,&uart.txRead)==42);
+    TestObject text={StringType,8,{0}};strcpy((char *)text.fields,"abc");
+    OBJ stringArgs[]={(OBJ)&text,int2obj(2)};
+    assert(obj2int(p2SerialWrite(2,stringArgs))==2);
+    assert(pop(uart.tx,&uart.txWrite,&uart.txRead)=='b');
+    assert(pop(uart.tx,&uart.txWrite,&uart.txRead)=='c');
+    ((char *)text.fields)[0]=0;assert(obj2int(p2SerialWrite(1,stringArgs))==0);
     receiveByte(&uart,0);receiveByte(&uart,255);
     assert(obj2int(p2SerialReadInto(1,argv))==2 && data[0]==0 && data[1]==255);
     int calls=hardwareCalls;p2SerialReleasePin(20);assert(uart.active);
