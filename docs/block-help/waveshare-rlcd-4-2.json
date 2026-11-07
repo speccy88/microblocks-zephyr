@@ -1,0 +1,288 @@
+{
+  "schema": 1,
+  "blocks": {
+    "[rlcd:temperatureMilliC]": {
+      "summary": "Reads the onboard temperature in fixed-point milli-degrees.",
+      "returns": "Integer Celsius times 1000.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD temperature x1000 (C)",
+          "code": "RLCD temperature x1000 (C)",
+          "explanation": "Block notation: Reads the onboard temperature in fixed-point milli-degrees. Integer Celsius times 1000."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:humidityMilliPct]": {
+      "summary": "Reads onboard relative humidity in fixed-point units.",
+      "returns": "Integer percent times 1000.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD humidity x1000 (%)",
+          "code": "RLCD humidity x1000 (%)",
+          "explanation": "Block notation: Reads onboard relative humidity in fixed-point units. Integer percent times 1000."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:batteryRaw]": {
+      "summary": "Reads the uncalibrated battery ADC value.",
+      "returns": "Raw ADC reading; not voltage or a battery percentage.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD battery ADC (raw)",
+          "code": "RLCD battery ADC (raw)",
+          "explanation": "Block notation: Reads the uncalibrated battery ADC value. Raw ADC reading; not voltage or a battery percentage."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:buttonPressed]": {
+      "summary": "Tests the selected onboard button.",
+      "returns": "Boolean pressed state.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [
+        "1. RLCD button: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use RLCD button … pressed?",
+          "code": "RLCD button [1] pressed?",
+          "explanation": "Block notation: Tests the selected onboard button. Boolean pressed state."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:displayChecker]": {
+      "summary": "Draws a checkerboard for visible display diagnostics.",
+      "returns": "Command; inspect the actual panel to verify output.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD show checkerboard",
+          "code": "RLCD show checkerboard",
+          "explanation": "Block notation: Draws a checkerboard for visible display diagnostics. Command; inspect the actual panel to verify output."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:displayText]": {
+      "summary": "Displays a text string on the RLCD.",
+      "returns": "Command; requires the standalone matching firmware.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [
+        "1. RLCD show text: text; library example Hello MicroBlocks!."
+      ],
+      "examples": [
+        {
+          "title": "Use RLCD show text …",
+          "code": "RLCD show text [Hello MicroBlocks!]",
+          "explanation": "Block notation: Displays a text string on the RLCD. Command; requires the standalone matching firmware."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:displayClear]": {
+      "summary": "Clears the panel to white when true, otherwise black.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [
+        "1. RLCD clear white: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use RLCD clear white …",
+          "code": "RLCD clear white [true]",
+          "explanation": "Block notation: Clears the panel to white when true, otherwise black. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:rtcText]": {
+      "summary": "Reads the board calendar clock as text.",
+      "returns": "UTC clock text; battery-backed retention remains unverified.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD clock (text)",
+          "code": "RLCD clock (text)",
+          "explanation": "Block notation: Reads the board calendar clock as text. UTC clock text; battery-backed retention remains unverified."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:rtcSetUTC]": {
+      "summary": "Sets the board RTC using separate UTC date/time components.",
+      "returns": "Command; year range 2000..2099.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [
+        "1. RLCD set clock UTC year: number; library example 2026.",
+        "2. month: number; library example 1.",
+        "3. day: number; library example 1.",
+        "4. hour: number; library example 0.",
+        "5. minute: number; library example 0.",
+        "6. second: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use RLCD set clock UTC year … month … day … hour … minute … second …",
+          "code": "RLCD set clock UTC year [2026] month [1] day [1] hour [0] minute [0] second [0]",
+          "explanation": "Block notation: Sets the board RTC using separate UTC date/time components. Command; year range 2000..2099."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:audioTone]": {
+      "summary": "Starts a tone asynchronously on the attached speaker output.",
+      "returns": "Command; 50..4000 Hz, 1..5000 ms, volume 0..100; start at 10.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [
+        "1. RLCD start tone: number; library example 440.",
+        "2. Hz for: number; library example 200.",
+        "3. ms volume: number; library example 10."
+      ],
+      "examples": [
+        {
+          "title": "Use RLCD start tone … Hz for … ms volume … %",
+          "code": "RLCD start tone [440] Hz for [200] ms volume [10] %",
+          "explanation": "Block notation: Starts a tone asynchronously on the attached speaker output. Command; 50..4000 Hz, 1..5000 ms, volume 0..100; start at 10."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:audioBusy]": {
+      "summary": "Checks whether the asynchronous tone is still playing before starting another note.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD audio busy?",
+          "code": "RLCD audio busy?",
+          "explanation": "Block notation: Checks whether the asynchronous tone is still playing before starting another note. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:audioStop]": {
+      "summary": "Stops asynchronous audio output.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD stop audio",
+          "code": "RLCD stop audio",
+          "explanation": "Block notation: Stops asynchronous audio output. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:audioStatus]": {
+      "summary": "Reads audio configuration/operation diagnostics.",
+      "returns": "Diagnostic text; does not replace checking a connected speaker.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD audio diagnostics",
+          "code": "RLCD audio diagnostics",
+          "explanation": "Block notation: Reads audio configuration/operation diagnostics. Diagnostic text; does not replace checking a connected speaker."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[rlcd:ioCapabilities]": {
+      "summary": "Lists the generic I/O mapping implemented by this board firmware.",
+      "returns": "Mapping/diagnostic text; respect reserved pins.",
+      "prerequisites": [
+        "Import Waveshare RLCD 4.2 and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RLCD generic I/O pins (text)",
+          "code": "RLCD generic I/O pins (text)",
+          "explanation": "Block notation: Lists the generic I/O mapping implemented by this board firmware. Mapping/diagnostic text; respect reserved pins."
+        }
+      ],
+      "notes": [
+        "For the standalone Waveshare firmware from this repository. Temperature and humidity use integer milli-units. Battery raw readings are uncalibrated. Clock values are UTC (2000..2099); battery retention is unverified. Audio needs a connected speaker. Tone starts asynchronously; wait until audio is not busy between notes. Frequency 50..4000 Hz, duration 1..5000 ms, volume 0..100. Start at volume 10.",
+        "Source: boards\\waveshare_esp32s3_rlcd_4_2\\integration\\Waveshare_RLCD_4_2.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

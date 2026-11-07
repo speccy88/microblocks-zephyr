@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p4RecordPCM": {
+      "summary": "Starts a bounded microphone recording and waits for it to finish. Save the returned handle and release it after use.",
+      "returns": "Audio handle, or 0 if the request fails.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. record PCM for: number; library example 1000."
+      ],
+      "examples": [
+        {
+          "title": "Use record PCM for … milliseconds",
+          "code": "record PCM for [1000] milliseconds",
+          "explanation": "Block notation: Starts a bounded microphone recording and waits for it to finish. Save the returned handle and release it after use. Audio handle, or 0 if the request fails."
+        },
+        {
+          "title": "Capture, inspect, release",
+          "code": "set clip to (record PCM for [1000] milliseconds)\nif (audio [clip] valid?)\n  audio [clip] RMS level\n  release audio [clip]",
+          "explanation": "This example explicitly records the microphone for one second. Release the retained clip after all consumers have finished; the RMS value is PCM level, not dB SPL."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioFrames]": {
+      "summary": "Counts samples in a valid immutable audio clip.",
+      "returns": "Sample-frame count, not milliseconds or bytes.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. audio: number; library example 536870913."
+      ],
+      "examples": [
+        {
+          "title": "Use audio … sample count",
+          "code": "audio [clip] sample count",
+          "explanation": "Block notation: Counts samples in a valid immutable audio clip. Sample-frame count, not milliseconds or bytes. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioRate]": {
+      "summary": "Reads the sampling frequency of a valid audio clip.",
+      "returns": "Samples per second; recording profile uses 16000 Hz.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. audio: number; library example 536870913."
+      ],
+      "examples": [
+        {
+          "title": "Use audio … sample rate",
+          "code": "audio [clip] sample rate",
+          "explanation": "Block notation: Reads the sampling frequency of a valid audio clip. Samples per second; recording profile uses 16000 Hz. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioRMS]": {
+      "summary": "Measures average signal level of a recorded clip using root mean square.",
+      "returns": "PCM amplitude level; not calibrated sound-pressure decibels.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. audio: number; library example 536870913."
+      ],
+      "examples": [
+        {
+          "title": "Use audio … RMS level",
+          "code": "audio [clip] RMS level",
+          "explanation": "Block notation: Measures average signal level of a recorded clip using root mean square. PCM amplitude level; not calibrated sound-pressure decibels. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioPeak]": {
+      "summary": "Measures the largest amplitude in a recorded clip to inspect signal level.",
+      "returns": "PCM peak amplitude; not calibrated acoustic loudness.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. audio: number; library example 536870913."
+      ],
+      "examples": [
+        {
+          "title": "Use audio … peak level",
+          "code": "audio [clip] peak level",
+          "explanation": "Block notation: Measures the largest amplitude in a recorded clip to inspect signal level. PCM peak amplitude; not calibrated acoustic loudness. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioValid]": {
+      "summary": "Tests whether an audio handle still refers to a retained clip.",
+      "returns": "Boolean validity.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. audio: number; library example 536870913."
+      ],
+      "examples": [
+        {
+          "title": "Use audio … valid?",
+          "code": "audio [clip] valid?",
+          "explanation": "Block notation: Tests whether an audio handle still refers to a retained clip. Boolean validity. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioRelease]": {
+      "summary": "Releases one retained clip to reclaim its native memory.",
+      "returns": "Boolean success; the released handle must not be reused.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. release audio: number; library example 536870913."
+      ],
+      "examples": [
+        {
+          "title": "Use release audio …",
+          "code": "release audio [clip]",
+          "explanation": "Block notation: Releases one retained clip to reclaim its native memory. Boolean success; the released handle must not be reused. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioReleaseAll]": {
+      "summary": "Releases all retained clips, invalidating any saved audio handles.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use release all audio",
+          "code": "release all audio",
+          "explanation": "Block notation: Releases all retained clips, invalidating any saved audio handles. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioStatus]": {
+      "summary": "Reads diagnostics for the last recording operation.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use audio status",
+          "code": "audio status",
+          "explanation": "Block notation: Reads diagnostics for the last recording operation. Status text."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioRequest]": {
+      "summary": "Requests asynchronous microphone recording without waiting for completion.",
+      "returns": "Boolean acceptance; poll busy and then read result.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. start PCM recording: number; library example 1000."
+      ],
+      "examples": [
+        {
+          "title": "Use start PCM recording … milliseconds",
+          "code": "start PCM recording [1000] milliseconds",
+          "explanation": "Block notation: Requests asynchronous microphone recording without waiting for completion. Boolean acceptance; poll busy and then read result."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioBusy]": {
+      "summary": "Checks whether recording work is still in progress.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use audio recording busy?",
+          "code": "audio recording busy?",
+          "explanation": "Block notation: Checks whether recording work is still in progress. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioResult]": {
+      "summary": "Retrieves the completed recording handle after busy becomes false.",
+      "returns": "Audio handle; validate it before reading or transcribing.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use completed audio handle",
+          "code": "completed audio handle",
+          "explanation": "Block notation: Retrieves the completed recording handle after busy becomes false. Audio handle; validate it before reading or transcribing."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioRead]": {
+      "summary": "Copies a bounded byte range from a valid PCM clip.",
+      "returns": "Byte data; offset is zero-based and PCM samples occupy two bytes.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [
+        "1. audio: number; library example 536870913.",
+        "2. bytes from offset: number; library example 0.",
+        "3. count: number; library example 100."
+      ],
+      "examples": [
+        {
+          "title": "Use audio … bytes from offset … count …",
+          "code": "audio [clip] bytes from offset [0] count [100]",
+          "explanation": "Block notation: Copies a bounded byte range from a valid PCM clip. Byte data; offset is zero-based and PCM samples occupy two bytes. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioCount]": {
+      "summary": "Checks retained audio handles before starting another recording.",
+      "returns": "Handle count; the backend allows two.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use audio handle count",
+          "code": "audio handle count",
+          "explanation": "Block notation: Checks retained audio handles before starting another recording. Handle count; the backend allows two."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioMemory]": {
+      "summary": "Inspects native memory occupied by retained clips.",
+      "returns": "Bytes used; total audio budget is 512000 bytes.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use audio memory used",
+          "code": "audio memory used",
+          "explanation": "Block notation: Inspects native memory occupied by retained clips. Bytes used; total audio budget is 512000 bytes."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:audioCodecID]": {
+      "summary": "Reads the recording codec identification for diagnostics.",
+      "returns": "Codec identification result; not a microphone sample.",
+      "prerequisites": [
+        "Import P4 Audio and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use audio codec ID",
+          "code": "audio codec ID",
+          "explanation": "Block notation: Reads the recording codec identification for diagnostics. Codec identification result; not a microphone sample."
+        }
+      ],
+      "notes": [
+        "Explicit bounded ES8311 recording, 20 to 8000 milliseconds, 16000 Hz mono signed PCM16. Two native handles, 512000-byte total budget. Release clips when finished. Transport, timing, cleanup and controlled microphone acoustic response are tested. Speech recognition and wake-word listening require their separate model profiles. Recording is off at startup and Stop All cancels it.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Audio.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

@@ -5,14 +5,16 @@ import hashlib
 import json
 import re
 from sfc_js_assets import assets as sfc_assets, SCRIPTS as SFC_SCRIPTS
-from p2_library_groups import split_library, GROUPS
+from p2_library_groups import split_library, GROUPS, library_dependencies
+from block_help import assets as help_assets
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = (*SFC_SCRIPTS, 'library-visibility.js', 'board-project-readback.js', 'target-blocks.js', 'p2-install-link.js')
+SCRIPTS = (*SFC_SCRIPTS, 'library-visibility.js', 'board-project-readback.js', 'target-blocks.js', 'p2-install-link.js', 'block-help-index.js', 'block-help.js')
 
 
 def assets():
     result = sfc_assets()
+    result.update(help_assets())
     result['library-visibility.js'] = (ROOT / 'web/js-editor/library-visibility.js').read_bytes()
     result['board-project-readback.js'] = (ROOT / 'web/js-editor/board-project-readback.js').read_bytes()
     result['target-blocks.js'] = (ROOT / 'web/js-editor/target-blocks.js').read_bytes()
@@ -38,8 +40,9 @@ def target_assets(profile):
                'required_extension_revision': 8,
                'function_names': re.findall(r'^to\s+(\w+)', raw.decode('utf-8'), re.M),
                'modules': [name for name, _ in GROUPS], 'selector_libraries': owners,
+               'library_dependencies': library_dependencies(groups),
                'canonical_source_sha256': hashlib.sha256(canonical).hexdigest(),
-               'legacy_module': 'P2 Hardware', 'library_version': '0.11',
+               'legacy_module': 'P2 Hardware', 'library_version': '0.12',
                'physical_hardware_scope': 'See boards/propeller2/hardware.json; blocks alone do not establish hardware acceptance.'}
     optional = {'Libraries/P2/' + path.name: path.read_bytes()
                 for path in sorted((ROOT/'boards/propeller2/integration/libraries').glob('*.ubl'))}

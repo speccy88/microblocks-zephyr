@@ -1,7 +1,8 @@
 module 'P2 Hardware' Output
 author 'Native FlexC port; MicroBlocks SmallVM contributors'
-version 0 10
+version 0 12
 description 'Native P2 extension 8. USB at 115200. Pins P58-63 are reserved; EC32MB also reserves P40-57. Workers use main-cog services for heap and pin operations. Outputs can drive hardware. Advanced X/Y values are hardware registers; consult the board documentation.'
+choices p2InputPull 'input' 'pull-up' 'pull-down'
 choices p2PulseResult 'high' 'period'
 choices p2DMAInput 'Schmitt' 'logic' 'ADC 1x' 'ADC 3x' 'ADC 10x' 'ADC 30x' 'ADC 100x' 'ADC ground' 'ADC VIO' 'ADC floating'
 choices p2FilterLength 2 3 5 8
@@ -19,6 +20,9 @@ choices p2WindowResult 'clock ticks' 'high clocks' 'periods'
 choices p2Mode 'input' 'pull-up' 'pull-down' 'NCO frequency' 'NCO duty' 'PWM sawtooth' 'PWM triangle' 'count rises' 'count highs'
 choices p2Pad 'logic' 'logic A feedback' 'logic B feedback' 'Schmitt' 'Schmitt A feedback' 'Schmitt B feedback' 'compare A B' 'compare A B feedback' 'ADC ground' 'ADC VIO' 'ADC floating' 'ADC 1x' 'ADC 3x' 'ADC 10x' 'ADC 30x' 'ADC 100x' 'DAC 990R 3V' 'DAC 600R 2V' 'DAC 124R 3V' 'DAC 75R 2V' 'level A' 'level A feedback negative' 'level B feedback positive' 'level B feedback negative'
 choices p2Operation 'repository' 'DAC noise' 'DAC random dither' 'DAC PWM dither' 'pulse' 'transition' 'NCO frequency' 'NCO duty' 'PWM triangle' 'PWM sawtooth' 'PWM SMPS' 'quadrature' 'register up' 'register up down' 'count rises' 'count highs' 'state ticks' 'high ticks' 'event ticks' 'period ticks' 'period highs' 'window ticks' 'window highs' 'window periods' 'ADC sample' 'ADC external' 'ADC scope' 'sync transmit' 'sync receive' 'async transmit' 'async receive'
+spec 'b' 'p2DigitalWrite' 'P2 set digital output pin _ high _' 'num bool' 0 true
+spec 'b' 'p2DigitalInput' 'P2 set digital input pin _ bias _' 'num menu.p2InputPull' 0 'input'
+spec 'b' 'p2DigitalRead' 'P2 digital input pin _ bias _ is high?' 'num menu.p2InputPull' 0 'input'
 spec 'r' '[p2:p2Board]' 'P2 board'
 spec 'r' '[p2:p2FlashID]' 'P2 boot flash JEDEC (hex)'
 spec 'r' '[p2:p2ClockHz]' 'P2 clock (Hz)'
@@ -575,4 +579,16 @@ to p2CountWindowMS pin msecs timeout {
     local 'clocks' (msecs * (('[p2:p2ClockHz]') / 1000))
     if (not (p2CountRises pin clocks)) { return false }
     return (p2ReadReady pin timeout)
+}
+
+to p2DigitalWrite pin high {
+    return ('[p2:p2PadNamed]' pin 'logic' true high)
+}
+to p2DigitalInput pin bias {
+    if (not (or (bias == 'input') (bias == 'pull-up') (bias == 'pull-down'))) { return false }
+    return ('[p2:p2SmartPin]' pin bias 0 0)
+}
+to p2DigitalRead pin bias {
+    if (not (p2DigitalInput pin bias)) { return false }
+    return ('[p2:p2PinSample]' pin)
 }

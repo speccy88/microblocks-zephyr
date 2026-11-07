@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p4WhenVoiceCommand": {
+      "summary": "Starts an attached script when the board detects a voice-command event.",
+      "returns": "Event hat; start voice commands separately.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use when voice command detected",
+          "code": "when voice command detected",
+          "explanation": "Block notation: Starts an attached script when the board detects a voice-command event. Event hat; start voice commands separately."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4StartVoiceCommands": {
+      "summary": "Explicitly starts the offline command listener using the library's default settings.",
+      "returns": "Command; microphone remains off until listening is started.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use start voice commands",
+          "code": "start voice commands",
+          "explanation": "Block notation: Explicitly starts the offline command listener using the library's default settings. Command; microphone remains off until listening is started."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceStop]": {
+      "summary": "Stops command listening and its worker.",
+      "returns": "Command; no new microphone detections until restarted.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use stop voice commands",
+          "code": "stop voice commands",
+          "explanation": "Block notation: Stops command listening and its worker. Command; no new microphone detections until restarted."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceCommand]": {
+      "summary": "Reads the recognized command associated with the latest detection.",
+      "returns": "Command text; inspect in the detection handler.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use recognized command",
+          "code": "recognized command",
+          "explanation": "Block notation: Reads the recognized command associated with the latest detection. Command text; inspect in the detection handler."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceConfidence]": {
+      "summary": "Reads the latest command score for display or filtering.",
+      "returns": "Integer 0..1000; not calibrated probability.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use command confidence (0-1000)",
+          "code": "command confidence (0-1000)",
+          "explanation": "Block notation: Reads the latest command score for display or filtering. Integer 0..1000; not calibrated probability."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceScore]": {
+      "summary": "Inspects the score assigned to a named command class.",
+      "returns": "Integer score 0..1000; use a class supported by the installed model.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [
+        "1. score for command: text; library example left."
+      ],
+      "examples": [
+        {
+          "title": "Use score for command …",
+          "code": "score for command [left]",
+          "explanation": "Block notation: Inspects the score assigned to a named command class. Integer score 0..1000; use a class supported by the installed model."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceStatus]": {
+      "summary": "Explains listener/model state and failures.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use voice command status",
+          "code": "voice command status",
+          "explanation": "Block notation: Explains listener/model state and failures. Status text."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceAvailable]": {
+      "summary": "Checks whether the trained bilingual voice-command profile is available.",
+      "returns": "Boolean availability.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use voice commands available?",
+          "code": "voice commands available?",
+          "explanation": "Block notation: Checks whether the trained bilingual voice-command profile is available. Boolean availability."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceListen]": {
+      "summary": "Starts listening with explicit duration, score threshold and detection cooldown.",
+      "returns": "Boolean acceptance; duration/cooldown are milliseconds and score is 0..1000.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [
+        "1. start voice commands: number; library example 0.",
+        "2. ms confidence: number; library example 850.",
+        "3. cooldown: number; library example 800."
+      ],
+      "examples": [
+        {
+          "title": "Use start voice commands … ms confidence … cooldown … ms",
+          "code": "start voice commands [0] ms confidence [850] cooldown [800] ms",
+          "explanation": "Block notation: Starts listening with explicit duration, score threshold and detection cooldown. Boolean acceptance; duration/cooldown are milliseconds and score is 0..1000."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:voiceClip]": {
+      "summary": "Checks an existing saved audio clip for commands without live microphone capture.",
+      "returns": "Boolean request acceptance; inspect command status/results.",
+      "prerequisites": [
+        "Import Voice Commands and its declared dependencies."
+      ],
+      "inputs": [
+        "1. check saved audio: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use check saved audio … for commands",
+          "code": "check saved audio [clip] for commands",
+          "explanation": "Block notation: Checks an existing saved audio clip for commands without live microphone capture. Boolean request acceptance; inspect command status/results. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Offline ten-class English/French commands. Requires the trained model firmware profile. Microphone stays off until start is run. Stop All cancels and clears detections. Scores are 0..1000 and are not calibrated certainty. Okay Nabu and voice commands share one exclusive worker. No display is initialized by this library.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Voice_Commands.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

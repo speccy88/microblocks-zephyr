@@ -1,0 +1,436 @@
+{
+  "schema": 1,
+  "blocks": {
+    "[clock:interval]": {
+      "summary": "Allocates a repeating monotonic timer; save its reference instead of creating one on every loop.",
+      "returns": "Timer reference; inspect last clock status if allocation fails.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. timer every: number; library example 1000."
+      ],
+      "examples": [
+        {
+          "title": "Use timer every … ms",
+          "code": "timer every [1000] ms",
+          "explanation": "Block notation: Allocates a repeating monotonic timer; save its reference instead of creating one on every loop. Timer reference; inspect last clock status if allocation fails."
+        },
+        {
+          "title": "One event each second",
+          "code": "set timer to (timer every [1000] ms)\nrepeat [3]\n  wait for timer [timer]\n  say [tick]\ndelete timer [timer]",
+          "explanation": "Create the timer once, consume events, then release its slot. No calendar setup is required."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:ready]": {
+      "summary": "Checks whether a timer has a pending event without consuming it.",
+      "returns": "Boolean pending-event state.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. timer: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use timer … ready?",
+          "code": "timer [timer] ready?",
+          "explanation": "Block notation: Checks whether a timer has a pending event without consuming it. Boolean pending-event state. First save timer every [1000] ms as timer. Delete the timer when finished; Stop All releases timer references."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:take]": {
+      "summary": "Consumes one pending timer event, allowing an action to run once per event.",
+      "returns": "True when an event was consumed; otherwise false.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. take timer: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use take timer … event",
+          "code": "take timer [timer] event",
+          "explanation": "Block notation: Consumes one pending timer event, allowing an action to run once per event. True when an event was consumed; otherwise false. First save timer every [1000] ms as timer. Delete the timer when finished; Stop All releases timer references."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "clockWaitTimer": {
+      "summary": "Yields until the selected timer has an event, then consumes it. Reports an invalid reference instead of waiting forever.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. wait for timer: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use wait for timer …",
+          "code": "wait for timer [timer]",
+          "explanation": "Block notation: Yields until the selected timer has an event, then consumes it. Reports an invalid reference instead of waiting forever. Command; no reporter value. First save timer every [1000] ms as timer. Delete the timer when finished; Stop All releases timer references."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "clockStopTimer": {
+      "summary": "Disarms a timer and clears its pending event without deleting the reference.",
+      "returns": "Command; errors are displayed.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. stop timer: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use stop timer …",
+          "code": "stop timer [timer]",
+          "explanation": "Block notation: Disarms a timer and clears its pending event without deleting the reference. Command; errors are displayed. First save timer every [1000] ms as timer. Delete the timer when finished; Stop All releases timer references."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "clockRestartTimer": {
+      "summary": "Rearms an existing timer so it can produce events again.",
+      "returns": "Command; errors are displayed.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. restart timer: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use restart timer …",
+          "code": "restart timer [timer]",
+          "explanation": "Block notation: Rearms an existing timer so it can produce events again. Command; errors are displayed. First save timer every [1000] ms as timer. Delete the timer when finished; Stop All releases timer references."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "clockDeleteTimer": {
+      "summary": "Releases a timer reference and its slot. Do not reuse the old reference.",
+      "returns": "Command; errors are displayed.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. delete timer: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use delete timer …",
+          "code": "delete timer [timer]",
+          "explanation": "Block notation: Releases a timer reference and its slot. Do not reuse the old reference. Command; errors are displayed. First save timer every [1000] ms as timer. Delete the timer when finished; Stop All releases timer references."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:missed]": {
+      "summary": "Inspects coalesced timer firings when a script cannot keep up.",
+      "returns": "Missed-event count; large counts saturate at 1073741823.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. timer: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use timer … missed events",
+          "code": "timer [timer] missed events",
+          "explanation": "Block notation: Inspects coalesced timer firings when a script cannot keep up. Missed-event count; large counts saturate at 1073741823. First save timer every [1000] ms as timer. Delete the timer when finished; Stop All releases timer references."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:valid]": {
+      "summary": "Checks whether calendar time has been set before creating a daily or UTC schedule.",
+      "returns": "Boolean clock validity.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use clock is set?",
+          "code": "clock is set?",
+          "explanation": "Block notation: Checks whether calendar time has been set before creating a daily or UTC schedule. Boolean clock validity."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:utc]": {
+      "summary": "Reads calendar time in UTC, independent of the configured local offset.",
+      "returns": "UTC time text; check clock validity/status first.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use clock UTC time",
+          "code": "clock UTC time",
+          "explanation": "Block notation: Reads calendar time in UTC, independent of the configured local offset. UTC time text; check clock validity/status first."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:local]": {
+      "summary": "Reads calendar time with the configured fixed minute offset applied.",
+      "returns": "Local-time text; this is not automatic daylight-saving conversion.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use clock local time",
+          "code": "clock local time",
+          "explanation": "Block notation: Reads calendar time with the configured fixed minute offset applied. Local-time text; this is not automatic daylight-saving conversion."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "clockSetUTC": {
+      "summary": "Sets the software calendar using an explicit UTC timestamp.",
+      "returns": "Command; reports parsing or range errors.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. set clock UTC: text; supply a value."
+      ],
+      "examples": [
+        {
+          "title": "Use set clock UTC …",
+          "code": "set clock UTC [2026-11-07T12:00:00Z]",
+          "explanation": "Block notation: Sets the software calendar using an explicit UTC timestamp. Command; reports parsing or range errors."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "clockOffset": {
+      "summary": "Changes the fixed offset used by local time and local daily scheduling.",
+      "returns": "Command; minutes east of UTC are positive.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. clock offset: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use clock offset … minutes",
+          "code": "clock offset [0] minutes",
+          "explanation": "Block notation: Changes the fixed offset used by local time and local daily scheduling. Command; minutes east of UTC are positive."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:daily]": {
+      "summary": "Creates a daily local-time timer; catch-up controls delivery after forward clock jumps.",
+      "returns": "Timer reference; requires valid calendar time.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. daily timer: number; library example 9.",
+        "2. :: number; library example 0.",
+        "3. catch up: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use daily timer … : … catch up …",
+          "code": "daily timer [9] : [0] catch up [false]",
+          "explanation": "Block notation: Creates a daily local-time timer; catch-up controls delivery after forward clock jumps. Timer reference; requires valid calendar time."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:at]": {
+      "summary": "Creates a timer for one explicit UTC timestamp.",
+      "returns": "Timer reference; catch-up chooses one event or skip after a forward jump.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [
+        "1. timer at UTC: text; supply a value.",
+        "2. catch up: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use timer at UTC … catch up …",
+          "code": "timer at UTC [2026-11-07T12:00:00Z] catch up [false]",
+          "explanation": "Block notation: Creates a timer for one explicit UTC timestamp. Timer reference; catch-up chooses one event or skip after a forward jump."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:status]": {
+      "summary": "Reads the most recent clock/timer diagnostic.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use last clock status",
+          "code": "last clock status",
+          "explanation": "Block notation: Reads the most recent clock/timer diagnostic. Status text."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:source]": {
+      "summary": "Identifies the current software clock source.",
+      "returns": "Source description; this backend has no RTC/NTP synchronization.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use clock source",
+          "code": "clock source",
+          "explanation": "Block notation: Identifies the current software clock source. Source description; this backend has no RTC/NTP synchronization."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:uptime]": {
+      "summary": "Reads monotonic time since boot as text to avoid the VM numeric limit.",
+      "returns": "Milliseconds as decimal text.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use uptime milliseconds as text",
+          "code": "uptime milliseconds as text",
+          "explanation": "Block notation: Reads monotonic time since boot as text to avoid the VM numeric limit. Milliseconds as decimal text."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:invalidate]": {
+      "summary": "Marks calendar time unset; monotonic interval timers do not depend on calendar validity.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use mark clock unset",
+          "code": "mark clock unset",
+          "explanation": "Block notation: Marks calendar time unset; monotonic interval timers do not depend on calendar validity. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:rtcAvailable]": {
+      "summary": "Checks for an implemented RTC clock backend.",
+      "returns": "False in the documented current backend.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RTC backend available?",
+          "code": "RTC backend available?",
+          "explanation": "Block notation: Checks for an implemented RTC clock backend. False in the documented current backend."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[clock:ntpAvailable]": {
+      "summary": "Checks for an implemented network time backend.",
+      "returns": "False in the documented current backend.",
+      "prerequisites": [
+        "Import Clock & Timers and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use NTP backend available?",
+          "code": "NTP backend available?",
+          "explanation": "Block notation: Checks for an implemented network time backend. False in the documented current backend."
+        }
+      ],
+      "notes": [
+        "Timers use monotonic uptime and work without setting a calendar clock. Save the timer reference in a variable. Ready does not consume an event; take consumes it. Only one event is pending per timer; more firings coalesce. Eight timers maximum, interval 10 ms to 24 hours. Stop clears an event; restart rearms; delete releases the reference. Stop All releases all timers, so recreate them when starting again. Manual UTC uses YYYY-MM-DDTHH:MM:SSZ (1970–2399). Offset is minutes from UTC, not a named timezone or automatic DST. Daily and UTC schedules require a valid clock. Catch up true delivers one event after a forward jump; false skips it. Daily dates never repeat after backward jumps. RTC and NTP are unavailable in this backend. Large missed counts and elapsed milliseconds saturate at 1073741823 in VM reporters. New firmware required; local build/rendering only until physical tests pass.",
+        "Source: integration\\Clock_Timers.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

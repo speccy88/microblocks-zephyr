@@ -15,6 +15,13 @@ branches. Legacy GP work is preserved in the `main` history. The
 website, Linux/Pi/MicroDuck work and SFC sources share this main codebase.
 See the [integration record](docs/MAIN_CONSOLIDATION.md).
 
+**Block help:** right-click a custom block and choose **help** for a local
+reference page with inputs, results, examples, prerequisites and limitations.
+The [shared documentation contract](docs/BLOCK_HELP.md) covers every custom
+block and requires documentation when future blocks are added. P2 uses
+[small mode-specific libraries](docs/PROPELLER2_LIBRARIES.md), starting with
+simple digital I/O and automatic pin-mode setup.
+
 [Linux Python domain blocks](linux/extensions/README.md) add configured SQLite,
 HTTP, MQTT and optional Blinka operations through the normal JavaScript editor.
 The application owns Python automatically; SQLite has real Pi 5 native and
@@ -33,7 +40,7 @@ each pairs its editor with an adjacent installation action in a separate tab.
 The [installation entry points](docs/BOARD_INSTALLATION_UI.md) distinguish the
 P2 browser installer, source/SWD/USB guides, Linux installation and unavailable
 or older release packages. Selecting Propeller 2 automatically
-shows the five [focused P2 libraries](docs/PROPELLER2_LIBRARIES.md). GP editors are no longer published; their source and
+shows the [mode-focused P2 libraries](docs/PROPELLER2_LIBRARIES.md). GP editors are no longer published; their source and
 history remain in Git. Open exported `.ubp` files to transfer work;
 projects and firmware are not automatically migrated. The upstream
 [3.0 announcement](https://microblocks.fun/blog/2026-10-27-microblocks-3.0/)

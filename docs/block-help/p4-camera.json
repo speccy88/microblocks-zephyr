@@ -1,0 +1,773 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p4TakePicture": {
+      "summary": "Requests a still image and waits for completion. Keep its handle and release it after use.",
+      "returns": "Image handle, or 0 when request fails.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use take picture",
+          "code": "take picture",
+          "explanation": "Block notation: Requests a still image and waits for completion. Keep its handle and release it after use. Image handle, or 0 when request fails."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4TakeSnapshot": {
+      "summary": "Captures with current camera settings, resizes to 320 by 180, releases the original and opens preview.",
+      "returns": "Retained resized image handle, or 0 on failure.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use take snapshot (current camera settings)",
+          "code": "take snapshot (current camera settings)",
+          "explanation": "Block notation: Captures with current camera settings, resizes to 320 by 180, releases the original and opens preview. Retained resized image handle, or 0 on failure."
+        },
+        {
+          "title": "Capture and reclaim memory",
+          "code": "set image to (take snapshot (current camera settings))\nif (image [image] valid?)\n  image [image] width\n  release image [image]",
+          "explanation": "The snapshot opens preview and retains the resized image. The final release reclaims its native storage. Failure returns 0, which must not be treated as an image."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4TakeSnapshotSize": {
+      "summary": "Captures with current settings, resizes to the requested dimensions and opens preview.",
+      "returns": "Retained image handle or 0; width 16..1280, height 16..720.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. take snapshot width: number; library example 160.",
+        "2. height: number; library example 90."
+      ],
+      "examples": [
+        {
+          "title": "Use take snapshot width … height …",
+          "code": "take snapshot width [160] height [90]",
+          "explanation": "Block notation: Captures with current settings, resizes to the requested dimensions and opens preview. Retained image handle or 0; width 16..1280, height 16..720."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraControls]": {
+      "summary": "Opens camera snapshot sliders in the connected editor.",
+      "returns": "Command; requires the matching editor interface.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use open snapshot sliders",
+          "code": "open snapshot sliders",
+          "explanation": "Block notation: Opens camera snapshot sliders in the connected editor. Command; requires the matching editor interface."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraSettings]": {
+      "summary": "Requests explicit IMX219 exposure and gain registers for later captures.",
+      "returns": "Command block; inspect settings status because invalid/busy/unsupported changes may be rejected.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. camera exposure: number; library example 800.",
+        "2. analog gain: number; library example 128.",
+        "3. digital gain: number; library example 256."
+      ],
+      "examples": [
+        {
+          "title": "Use camera exposure … analog gain … digital gain …",
+          "code": "camera exposure [800] analog gain [128] digital gain [256]",
+          "explanation": "Block notation: Requests explicit IMX219 exposure and gain registers for later captures. Command block; inspect settings status because invalid/busy/unsupported changes may be rejected."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraSettingsReset]": {
+      "summary": "Restores exposure/gain settings to 800/128/256 in RAM.",
+      "returns": "Command; no persistent camera calibration is written.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use reset camera settings",
+          "code": "reset camera settings",
+          "explanation": "Block notation: Restores exposure/gain settings to 800/128/256 in RAM. Command; no persistent camera calibration is written."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraSettingsStatus]": {
+      "summary": "Shows current camera settings and their application state.",
+      "returns": "Diagnostic text.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use camera settings",
+          "code": "camera settings",
+          "explanation": "Block notation: Shows current camera settings and their application state. Diagnostic text."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageWidth]": {
+      "summary": "Reads width from a retained image handle.",
+      "returns": "Pixels.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use image … width",
+          "code": "image [image] width",
+          "explanation": "Block notation: Reads width from a retained image handle. Pixels. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageHeight]": {
+      "summary": "Reads height from a retained image handle.",
+      "returns": "Pixels.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use image … height",
+          "code": "image [image] height",
+          "explanation": "Block notation: Reads height from a retained image handle. Pixels. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageResize]": {
+      "summary": "Creates a separate nearest-neighbor resized image; the original remains allocated.",
+      "returns": "New image handle; validate before use and release both handles when finished.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. resize image: number; library example 1.",
+        "2. to: number; library example 160.",
+        "3. x: number; library example 90."
+      ],
+      "examples": [
+        {
+          "title": "Use resize image … to … x …",
+          "code": "resize image [image] to [160] x [90]",
+          "explanation": "Block notation: Creates a separate nearest-neighbor resized image; the original remains allocated. New image handle; validate before use and release both handles when finished. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageGrayscale]": {
+      "summary": "Creates a separate grayscale version of a retained image.",
+      "returns": "New image handle; the original is unchanged.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. grayscale image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use grayscale image …",
+          "code": "grayscale image [image]",
+          "explanation": "Block notation: Creates a separate grayscale version of a retained image. New image handle; the original is unchanged. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4SmoothResize": {
+      "summary": "Runs asynchronous PPA scaling and waits for the processed result.",
+      "returns": "New image handle, or 0 if the request is rejected.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. smooth resize: number; library example 1.",
+        "2. to: number; library example 160.",
+        "3. x: number; library example 90."
+      ],
+      "examples": [
+        {
+          "title": "Use smooth resize … to … x …",
+          "code": "smooth resize [image] to [160] x [90]",
+          "explanation": "Block notation: Runs asynchronous PPA scaling and waits for the processed result. New image handle, or 0 if the request is rejected. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4RotateImage": {
+      "summary": "Requests left rotation using PPA and waits for its result.",
+      "returns": "New image handle, or 0 on invalid input/request failure.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. rotate: number; library example 1.",
+        "2. left: number; library example 90."
+      ],
+      "examples": [
+        {
+          "title": "Use rotate … left … deg",
+          "code": "rotate [image] left [90] deg",
+          "explanation": "Block notation: Requests left rotation using PPA and waits for its result. New image handle, or 0 on invalid input/request failure. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4FlipHorizontal": {
+      "summary": "Creates a mirrored image using PPA without changing the original.",
+      "returns": "New image handle, or 0 on failure.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. flip image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use flip image … left to right",
+          "code": "flip image [image] left to right",
+          "explanation": "Block notation: Creates a mirrored image using PPA without changing the original. New image handle, or 0 on failure. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4FlipVertical": {
+      "summary": "Creates an upside-down mirror using PPA without changing the original.",
+      "returns": "New image handle, or 0 on failure.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. flip image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use flip image … top to bottom",
+          "code": "flip image [image] top to bottom",
+          "explanation": "Block notation: Creates an upside-down mirror using PPA without changing the original. New image handle, or 0 on failure. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:ppaStatus]": {
+      "summary": "Explains the latest image-processing success, unsupported format or error.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use image processing status",
+          "code": "image processing status",
+          "explanation": "Block notation: Explains the latest image-processing success, unsupported format or error. Status text."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imagePreview]": {
+      "summary": "Opens the retained image in the editor preview/export interface.",
+      "returns": "Boolean preview request success; image memory is not released.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. preview / export image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use preview / export image …",
+          "code": "preview / export image [image]",
+          "explanation": "Block notation: Opens the retained image in the editor preview/export interface. Boolean preview request success; image memory is not released. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageRelease]": {
+      "summary": "Releases one immutable image to reclaim its native memory.",
+      "returns": "Boolean success; the handle becomes invalid.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. release image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use release image …",
+          "code": "release image [image]",
+          "explanation": "Block notation: Releases one immutable image to reclaim its native memory. Boolean success; the handle becomes invalid. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageReleaseAll]": {
+      "summary": "Reclaims all retained images, invalidating saved image handles.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use release all images",
+          "code": "release all images",
+          "explanation": "Block notation: Reclaims all retained images, invalidating saved image handles. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageValid]": {
+      "summary": "Checks a handle before using it as an image.",
+      "returns": "Boolean validity.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use image … valid?",
+          "code": "image [image] valid?",
+          "explanation": "Block notation: Checks a handle before using it as an image. Boolean validity. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraStatus]": {
+      "summary": "Reads diagnostics from capture rather than treating any number as a valid image.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use camera status",
+          "code": "camera status",
+          "explanation": "Block notation: Reads diagnostics from capture rather than treating any number as a valid image. Status text."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageTestPattern]": {
+      "summary": "Creates a color test image without needing a camera capture.",
+      "returns": "New image handle; release after the display/processing test.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. color pattern width: number; library example 160.",
+        "2. height: number; library example 96."
+      ],
+      "examples": [
+        {
+          "title": "Use color pattern width … height …",
+          "code": "color pattern width [160] height [96]",
+          "explanation": "Block notation: Creates a color test image without needing a camera capture. New image handle; release after the display/processing test."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:ppaStart]": {
+      "summary": "Queues image processing with explicit output size, angle and mirror mode.",
+      "returns": "Boolean request acceptance; poll busy, then read result.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. start PPA image: number; library example 1.",
+        "2. width: number; library example 160.",
+        "3. height: number; library example 96.",
+        "4. angle: number; library example 0.",
+        "5. mirror: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use start PPA image … width … height … angle … mirror …",
+          "code": "start PPA image [image] width [160] height [96] angle [0] mirror [0]",
+          "explanation": "Block notation: Queues image processing with explicit output size, angle and mirror mode. Boolean request acceptance; poll busy, then read result. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:ppaBusy]": {
+      "summary": "Checks whether the PPA worker is still processing.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use image processing busy?",
+          "code": "image processing busy?",
+          "explanation": "Block notation: Checks whether the PPA worker is still processing. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:ppaResult]": {
+      "summary": "Retrieves the completed PPA image after the worker stops.",
+      "returns": "Processed image handle; validate and release after use.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use processed image result",
+          "code": "processed image result",
+          "explanation": "Block notation: Retrieves the completed PPA image after the worker stops. Processed image handle; validate and release after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:ppaCancel]": {
+      "summary": "Cancels pending image processing.",
+      "returns": "Command; inspect status after cancellation.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use cancel image processing",
+          "code": "cancel image processing",
+          "explanation": "Block notation: Cancels pending image processing. Command; inspect status after cancellation."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageCreate]": {
+      "summary": "Allocates a blank immutable image using a native format identifier.",
+      "returns": "Image handle; check validity and backend format support.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. blank image width: number; library example 160.",
+        "2. height: number; library example 90.",
+        "3. format: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use blank image width … height … format …",
+          "code": "blank image width [160] height [90] format [1]",
+          "explanation": "Block notation: Allocates a blank immutable image using a native format identifier. Image handle; check validity and backend format support."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:dspCapabilities]": {
+      "summary": "Lists the image/DSP backends compiled into the running firmware.",
+      "returns": "Capability description; not physical camera validation.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use DSP backends",
+          "code": "DSP backends",
+          "explanation": "Block notation: Lists the image/DSP backends compiled into the running firmware. Capability description; not physical camera validation."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageRGBTensor]": {
+      "summary": "Converts an image to RGB888 tensor data at the requested dimensions.",
+      "returns": "New image handle in uint8 HWC RGB888 layout, or 0 on allocation/conversion failure; not a MicroBlocks list. No hidden normalization or letterboxing.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. image: number; library example 1.",
+        "2. to RGB888 tensor width: number; library example 96.",
+        "3. height: number; library example 96."
+      ],
+      "examples": [
+        {
+          "title": "Use image … to RGB888 tensor width … height …",
+          "code": "image [image] to RGB888 tensor width [96] height [96]",
+          "explanation": "Block notation: Converts an image to RGB888 tensor data at the requested dimensions. Tensor result from the native image backend; verify model shape before inference. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Use image bytes/read to access the resulting data and release this new image handle separately. Match the model tensor size, layout and quantization explicitly."
+      ]
+    },
+    "[p4:imageFormat]": {
+      "summary": "Reads the native pixel-format identifier of an image.",
+      "returns": "Format identifier, not pixel data.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use image … format",
+          "code": "image [image] format",
+          "explanation": "Block notation: Reads the native pixel-format identifier of an image. Format identifier, not pixel data. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageBytes]": {
+      "summary": "Reads the storage size of an image.",
+      "returns": "Byte count, not pixel count.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. image: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use image … byte count",
+          "code": "image [image] byte count",
+          "explanation": "Block notation: Reads the storage size of an image. Byte count, not pixel count. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageRead]": {
+      "summary": "Copies a bounded raw byte range from a retained image.",
+      "returns": "Byte data; offset starts at zero and layout depends on image format.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [
+        "1. image: number; library example 1.",
+        "2. bytes from offset: number; library example 0.",
+        "3. count: number; library example 100."
+      ],
+      "examples": [
+        {
+          "title": "Use image … bytes from offset … count …",
+          "code": "image [image] bytes from offset [0] count [100]",
+          "explanation": "Block notation: Copies a bounded raw byte range from a retained image. Byte data; offset starts at zero and layout depends on image format. First save a valid take picture or color pattern result as image. Release original and newly created images after use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageMemory]": {
+      "summary": "Checks image memory usage before another allocation.",
+      "returns": "Bytes allocated; total image budget is 8 MiB.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use image memory used",
+          "code": "image memory used",
+          "explanation": "Block notation: Checks image memory usage before another allocation. Bytes allocated; total image budget is 8 MiB."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:imageCount]": {
+      "summary": "Checks how many image handles remain retained.",
+      "returns": "Count; backend limit is four images.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use image count",
+          "code": "image count",
+          "explanation": "Block notation: Checks how many image handles remain retained. Count; backend limit is four images."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraRequest]": {
+      "summary": "Starts a still capture without waiting for completion.",
+      "returns": "Boolean request acceptance; poll camera busy before reading result.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use start camera still",
+          "code": "start camera still",
+          "explanation": "Block notation: Starts a still capture without waiting for completion. Boolean request acceptance; poll camera busy before reading result."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraBusy]": {
+      "summary": "Checks whether the native still-capture worker is active.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use camera busy?",
+          "code": "camera busy?",
+          "explanation": "Block notation: Checks whether the native still-capture worker is active. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:cameraResult]": {
+      "summary": "Retrieves the most recent completed still-capture handle.",
+      "returns": "Image handle; validate before use.",
+      "prerequisites": [
+        "Import P4 Camera and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use camera result handle",
+          "code": "camera result handle",
+          "explanation": "Block notation: Retrieves the most recent completed still-capture handle. Image handle; validate before use."
+        }
+      ],
+      "notes": [
+        "Native Zephyr camera and portable images. Four immutable images, 8 MiB total: release when finished. Sizes are width x height in pixels. Resize uses nearest neighbor. Smooth resize/rotate/flip use P4 PPA on RGB565/RGB888; smooth scale ratios must be multiples of 1/16. Check image processing status for unsupported input or errors. Preview/export stays in this browser. Pi Camera v2.1 / IMX219 manual settings are RAM-only: exposure 4..1156 lines, analogue register 0..232, digital register 256..4095. Reset/reboot restores 800/128/256. Busy/unsupported/invalid changes return false. Snapshot uses current applied settings, returns a 320x180 image and opens preview; release its handle when finished. Sliders also show the exact tuple used. No automatic exposure, white balance or motorized focus.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Camera.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

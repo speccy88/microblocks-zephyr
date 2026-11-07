@@ -1,0 +1,376 @@
+{
+  "schema": 1,
+  "blocks": {
+    "i2cFindAddresses": {
+      "summary": "Scans a configured bus for responding addresses without ID-register identification.",
+      "returns": "Scan status text, or Error plus the backend diagnostic.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. scan I2C bus: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use scan I2C bus …",
+          "code": "scan I2C bus [0]",
+          "explanation": "Block notation: Scans a configured bus for responding addresses without ID-register identification. Scan status text, or Error plus the backend diagnostic."
+        },
+        {
+          "title": "Inspect before reading",
+          "code": "scan I2C bus [0]\ndevices found\ndevice [1] bus address\ndevice [1] identification",
+          "explanation": "Only use device index 1 when the completed scan reports at least one device. Address-only discovery does not prove sensor identity; do not read arbitrary registers."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cIdentifyDevices": {
+      "summary": "Scans and permits documented ID-register reads to identify supported devices.",
+      "returns": "Scan status text; an address response alone is not confirmed identity.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. identify on bus: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use identify on bus …",
+          "code": "identify on bus [0]",
+          "explanation": "Block notation: Scans and permits documented ID-register reads to identify supported devices. Scan status text; an address response alone is not confirmed identity."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:count]": {
+      "summary": "Reads the number of devices from the latest completed scan.",
+      "returns": "Device count; indexes used by convenience blocks start at 1.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use devices found",
+          "code": "devices found",
+          "explanation": "Block notation: Reads the number of devices from the latest completed scan. Device count; indexes used by convenience blocks start at 1."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cDeviceName": {
+      "summary": "Reads the detected name for a device from the current scan.",
+      "returns": "Name text; consult identification confidence as well.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use device … name",
+          "code": "device [1] name",
+          "explanation": "Block notation: Reads the detected name for a device from the current scan. Name text; consult identification confidence as well."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cDeviceBusAddress": {
+      "summary": "Formats the bus and address of a current scan entry.",
+      "returns": "Bus/address text.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use device … bus address",
+          "code": "device [1] bus address",
+          "explanation": "Block notation: Formats the bus and address of a current scan entry. Bus/address text."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cDeviceConfidence": {
+      "summary": "Explains how confidently the scan identified a device.",
+      "returns": "Identification/confidence text, not a measurement.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use device … identification",
+          "code": "device [1] identification",
+          "explanation": "Block notation: Explains how confidently the scan identified a device. Identification/confidence text, not a measurement."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cDeviceReadings": {
+      "summary": "Lists supported measurement names for a current device.",
+      "returns": "Comma-separated names, or no supported readings.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use device … readings",
+          "code": "device [1] readings",
+          "explanation": "Block notation: Lists supported measurement names for a current device. Comma-separated names, or no supported readings."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cReadMeasurement": {
+      "summary": "Requests a listed measurement and waits for completion; ID is an alias for device ID.",
+      "returns": "Formatted measurement text or Error plus status.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. read: text; library example ID.",
+        "2. device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use read … device …",
+          "code": "read [ID] device [1]",
+          "explanation": "Block notation: Requests a listed measurement and waits for completion; ID is an alias for device ID. Formatted measurement text or Error plus status."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:status]": {
+      "summary": "Reads the latest scan/read diagnostic.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use I2C status",
+          "code": "I2C status",
+          "explanation": "Block notation: Reads the latest scan/read diagnostic. Status text."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:cancel]": {
+      "summary": "Cancels pending I2C discovery or reading.",
+      "returns": "Command; Stop All also cancels.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use cancel I2C scan/read",
+          "code": "cancel I2C scan/read",
+          "explanation": "Block notation: Cancels pending I2C discovery or reading. Command; Stop All also cancels."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cDeviceAddress": {
+      "summary": "Reads the numeric address of the indexed scan result.",
+      "returns": "I2C address number.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use device … address number",
+          "code": "device [1] address number",
+          "explanation": "Block notation: Reads the numeric address of the indexed scan result. I2C address number."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cMeasurementName": {
+      "summary": "Reads one supported field name from a current scan entry.",
+      "returns": "Measurement name; device and field indexes start at 1.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. device: number; library example 1.",
+        "2. field: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use device … field …",
+          "code": "device [1] field [1]",
+          "explanation": "Block notation: Reads one supported field name from a current scan entry. Measurement name; device and field indexes start at 1."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "i2cMeasurementCount": {
+      "summary": "Checks how many readings are supported for the indexed device.",
+      "returns": "Measurement count.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. I2C device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use I2C device … measurement count",
+          "code": "I2C device [1] measurement count",
+          "explanation": "Block notation: Checks how many readings are supported for the indexed device. Measurement count."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:value]": {
+      "summary": "Reads the numeric result of the most recent supported measurement.",
+      "returns": "Scaled integer; read unit and scale together.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use last I2C numeric value",
+          "code": "last I2C numeric value",
+          "explanation": "Block notation: Reads the numeric result of the most recent supported measurement. Scaled integer; read unit and scale together."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:unit]": {
+      "summary": "Reads the engineering unit of the last numerical measurement.",
+      "returns": "Unit text.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use last I2C value unit",
+          "code": "last I2C value unit",
+          "explanation": "Block notation: Reads the engineering unit of the last numerical measurement. Unit text."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:scale]": {
+      "summary": "Reads the divisor used to interpret the last numerical measurement.",
+      "returns": "Scale; for TMP117 milli-Celsius this is 1000.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use last I2C value scale",
+          "code": "last I2C value scale",
+          "explanation": "Block notation: Reads the divisor used to interpret the last numerical measurement. Scale; for TMP117 milli-Celsius this is 1000."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:sensorAt]": {
+      "summary": "Converts a one-based scan index into a native device reference.",
+      "returns": "Device reference; a new scan invalidates previous references.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [
+        "1. I2C device: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use I2C device … reference",
+          "code": "I2C device [1] reference",
+          "explanation": "Block notation: Converts a one-based scan index into a native device reference. Device reference; a new scan invalidates previous references."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[i2cDetect:busy]": {
+      "summary": "Checks whether a scan/read worker is still active.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import I2C Devices and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use I2C job busy?",
+          "code": "I2C job busy?",
+          "explanation": "Block notation: Checks whether a scan/read worker is still active. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "Find devices on a configured I2C bus. Bus 0 on P4 uses SDA7/SCL8. Start with identify=false for address-only probing; true permits documented ID-register reads, not initialization. An address is not a confirmed identity. Read only measurements listed for a confirmed device. Camera/codec readings are registers, not images or sound. TMP117 temperature needs an attached sensor and is reported as text in degrees C; numeric last value uses milli-degrees C (scale 1000). Scan replaces device references. Stop All cancels. Do not scan an active camera/audio capture. No reset/configuration/mux switching occurs.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\I2C_Devices.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

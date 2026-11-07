@@ -2,10 +2,14 @@
 
 The published root immediately offers eight board choices. Selecting
 **Parallax Propeller 2** opens a separate JavaScript editor tab that shows
-the five [focused P2 libraries](PROPELLER2_LIBRARIES.md), including their
-Smart Pin and cog blocks, without connecting hardware or manually importing a
-library. A new P2 project receives the same groups. Existing project scripts and
-definitions are preserved; reorganizing a saved library must not replace its code.
+the 47 [mode-focused P2 libraries](PROPELLER2_LIBRARIES.md), with **P2 Simple IO**
+selected first, without connecting hardware or manually importing a library.
+Each palette contains at most ten ordinary blocks; generic register editors are
+advanced. The package contains 82 functions, including three Simple IO wrappers
+that automatically reset the prior mode before reading/writing a digital pin.
+A new P2 project receives the same groups. Existing project scripts and
+definitions are preserved; reorganizing a saved monolithic library must not
+replace its code. Saved five-library projects and subsets remain unchanged.
 
 The runtime JavaScript profile and its JSON receipt must name the same current
 functions. Versioned library and profile requests must avoid reusing older Pages
@@ -24,5 +28,9 @@ remain covered. Removed GP URLs must return 404. Browser results do not establis
 physical P2 execution; this change requires no flashing or board interaction.
 
 The [2026-11-04 browser record](../evidence/2026-11-04/propeller2/editor-visibility.json)
-reproduces the old startup failure and records the passing current palette,
+reproduces the old startup failure and records the then-current five-library palette,
 project-preservation, mobile, compiler and 404 checks, with a P2 palette screenshot.
+
+That dated record does not establish graphical acceptance of the newer 47-library
+layout or physical acceptance of Simple IO. Current headless grouping/compiler
+checks are documented in the library acceptance plan.

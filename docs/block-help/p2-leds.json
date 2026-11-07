@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p2LEDInit": {
+      "summary": "Configures a WS2812 RGB buffer for the selected user pin and pixel count.",
+      "returns": "Command; 1 through 128 pixels, RGBW unsupported.",
+      "prerequisites": [
+        "Import P2 LEDs and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 WS2812 init pin: number; library example 8.",
+        "2. pixels: number; library example 8."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 WS2812 init pin … pixels …",
+          "code": "P2 WS2812 init pin [8] pixels [8]",
+          "explanation": "Block notation: Configures a WS2812 RGB buffer for the selected user pin and pixel count. Command; 1 through 128 pixels, RGBW unsupported."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 LEDs.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LEDSet": {
+      "summary": "Changes one retained RGB color without transmitting the strip yet.",
+      "returns": "Command; LED index starts at 1.",
+      "prerequisites": [
+        "Import P2 LEDs and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 LED: number; library example 1.",
+        "2. color: color; library example 16711680."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 LED … color …",
+          "code": "P2 LED [1] color [16711680]",
+          "explanation": "Block notation: Changes one retained RGB color without transmitting the strip yet. Command; LED index starts at 1."
+        },
+        {
+          "title": "Show a dim red first pixel",
+          "code": "P2 WS2812 init pin [8] pixels [8]\nP2 LEDs brightness [16] (0-255)\nP2 LEDs fill [0]\nP2 LED [1] color [16711680]\nP2 LEDs update",
+          "explanation": "Use this only with an attached correctly powered strip and an available pin 8. The buffer changes do not appear until update; low brightness limits current."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 LEDs.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LEDFill": {
+      "summary": "Sets every retained LED color together, useful for clear or a solid background.",
+      "returns": "Command; call update to transmit.",
+      "prerequisites": [
+        "Import P2 LEDs and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 LEDs fill: color; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 LEDs fill …",
+          "code": "P2 LEDs fill [0]",
+          "explanation": "Block notation: Sets every retained LED color together, useful for clear or a solid background. Command; call update to transmit."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 LEDs.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LEDBrightness": {
+      "summary": "Sets output scaling while preserving the retained pixel colors.",
+      "returns": "Command; 0 through 255, start low to limit current.",
+      "prerequisites": [
+        "Import P2 LEDs and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 LEDs brightness: number; library example 32."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 LEDs brightness … (0-255)",
+          "code": "P2 LEDs brightness [32] (0-255)",
+          "explanation": "Block notation: Sets output scaling while preserving the retained pixel colors. Command; 0 through 255, start low to limit current."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 LEDs.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LEDUpdate": {
+      "summary": "Transmits retained colors with the current brightness scaling to the configured strip.",
+      "returns": "Command; this is when buffered changes reach the LEDs.",
+      "prerequisites": [
+        "Import P2 LEDs and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 LEDs update",
+          "code": "P2 LEDs update",
+          "explanation": "Block notation: Transmits retained colors with the current brightness scaling to the configured strip. Command; this is when buffered changes reach the LEDs."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Optional WS2812 RGB strip. Explicit user pin, 1-128 pixels. No output until update. Brightness 0-255 scales retained colors. RGBW unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 LEDs.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

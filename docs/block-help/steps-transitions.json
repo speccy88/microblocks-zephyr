@@ -1,0 +1,340 @@
+{
+  "schema": 1,
+  "blocks": {
+    "stepsClear": {
+      "summary": "Stops the step engine and removes its definitions so a new sequence can be built.",
+      "returns": "Command; errors are displayed.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use clear step definitions",
+          "code": "clear step definitions",
+          "explanation": "Block notation: Stops the step engine and removes its definitions so a new sequence can be built. Command; errors are displayed."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "stepsAdd": {
+      "summary": "Defines a numbered step while stopped, optionally marking it initially active.",
+      "returns": "Command; step numbers are 1 through 16.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. define step: number; library example 1.",
+        "2. initial: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use define step … initial …",
+          "code": "define step [1] initial [true]",
+          "explanation": "Block notation: Defines a numbered step while stopped, optionally marking it initially active. Command; step numbers are 1 through 16."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "stepsTransition": {
+      "summary": "Defines a numbered transition from one step to another while stopped.",
+      "returns": "Command; transition numbers are 1 through 24.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. transition: number; library example 1.",
+        "2. step: number; library example 1.",
+        "3. to: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use transition … step … to …",
+          "code": "transition [1] step [1] to [2]",
+          "explanation": "Block notation: Defines a numbered transition from one step to another while stopped. Command; transition numbers are 1 through 24."
+        },
+        {
+          "title": "Two-step sequence",
+          "code": "clear step definitions\ndefine step [1] initial [true]\ndefine step [2] initial [false]\ntransition [1] step [1] to [2]\nstart steps\ntransition [1] condition [true]\nadvance one step scan\nstep [2] active?",
+          "explanation": "The final test is true if configuration succeeds. Conditions are consumed by the scan, and no pins or motors are changed automatically."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "stepsCondition": {
+      "summary": "Supplies the current Boolean condition for a transition before the next scan.",
+      "returns": "Command; scan consumes and clears these conditions.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. transition: number; library example 1.",
+        "2. condition: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use transition … condition …",
+          "code": "transition [1] condition [false]",
+          "explanation": "Block notation: Supplies the current Boolean condition for a transition before the next scan. Command; scan consumes and clears these conditions."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "stepsStart": {
+      "summary": "Activates configured initial steps. Define at least one initial step first.",
+      "returns": "Command; errors are displayed.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use start steps",
+          "code": "start steps",
+          "explanation": "Block notation: Activates configured initial steps. Define at least one initial step first. Command; errors are displayed."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "stepsScan": {
+      "summary": "Advances one explicit scan using the old active-step snapshot; newly entered steps cannot cascade in the same scan.",
+      "returns": "Command; entry/exit flags now describe this scan.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use advance one step scan",
+          "code": "advance one step scan",
+          "explanation": "Block notation: Advances one explicit scan using the old active-step snapshot; newly entered steps cannot cascade in the same scan. Command; entry/exit flags now describe this scan."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "stepsStop": {
+      "summary": "Stops execution, deactivates every step and clears conditions while keeping definitions.",
+      "returns": "Command; no hardware output is automatically switched off.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use stop / reset steps",
+          "code": "stop / reset steps",
+          "explanation": "Block notation: Stops execution, deactivates every step and clears conditions while keeping definitions. Command; no hardware output is automatically switched off."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:running]": {
+      "summary": "Checks whether the logical step engine is running.",
+      "returns": "Boolean running state.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use steps running?",
+          "code": "steps running?",
+          "explanation": "Block notation: Checks whether the logical step engine is running. Boolean running state."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:active]": {
+      "summary": "Tests one step to decide which application actions should execute.",
+      "returns": "Boolean active state.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. step: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use step … active?",
+          "code": "step [1] active?",
+          "explanation": "Block notation: Tests one step to decide which application actions should execute. Boolean active state."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:activeText]": {
+      "summary": "Displays the current active-step set for debugging a sequence.",
+      "returns": "Text listing active steps.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use active steps",
+          "code": "active steps",
+          "explanation": "Block notation: Displays the current active-step set for debugging a sequence. Text listing active steps."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:elapsed]": {
+      "summary": "Reads time since a step most recently became active.",
+      "returns": "Elapsed milliseconds; reentry restarts the elapsed time.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. step: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use step … elapsed ms",
+          "code": "step [1] elapsed ms",
+          "explanation": "Block notation: Reads time since a step most recently became active. Elapsed milliseconds; reentry restarts the elapsed time."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:status]": {
+      "summary": "Reads the latest configuration or scan diagnostic.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use last step status",
+          "code": "last step status",
+          "explanation": "Block notation: Reads the latest configuration or scan diagnostic. Status text."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:group]": {
+      "summary": "Adds a step to an encoded group for fork/join transitions.",
+      "returns": "Group value; start with group 0 and retain each returned value.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. group: number; library example 0.",
+        "2. plus step: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use group … plus step …",
+          "code": "group [0] plus step [1]",
+          "explanation": "Block notation: Adds a step to an encoded group for fork/join transitions. Group value; start with group 0 and retain each returned value."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "stepsGroups": {
+      "summary": "Defines a transition between groups with a minimum source-step duration.",
+      "returns": "Command; delay range is 0 through 86400000 milliseconds.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. transition: number; library example 1.",
+        "2. group: number; library example 1.",
+        "3. to: number; library example 2.",
+        "4. after: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use transition … group … to … after … ms",
+          "code": "transition [1] group [1] to [2] after [0] ms",
+          "explanation": "Block notation: Defines a transition between groups with a minimum source-step duration. Command; delay range is 0 through 86400000 milliseconds."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:entered]": {
+      "summary": "Tests whether a step entered during the latest explicit scan.",
+      "returns": "Boolean; not a permanently latched event.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. step: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use step … entered this scan?",
+          "code": "step [1] entered this scan?",
+          "explanation": "Block notation: Tests whether a step entered during the latest explicit scan. Boolean; not a permanently latched event."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[steps:exited]": {
+      "summary": "Tests whether a step left during the latest explicit scan.",
+      "returns": "Boolean; read before another scan replaces it.",
+      "prerequisites": [
+        "Import Steps & Transitions and its declared dependencies."
+      ],
+      "inputs": [
+        "1. step: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use step … left this scan?",
+          "code": "step [1] left this scan?",
+          "explanation": "Block notation: Tests whether a step left during the latest explicit scan. Boolean; read before another scan replaces it."
+        }
+      ],
+      "notes": [
+        "GRAFCET-inspired logical steps, not a safety controller or standards-compliance claim. Define numbered steps 1–16 and transitions 1–24 while stopped; choose at least one initial step. Start activates initial steps. Before each explicit scan, set current transition conditions. Scan clears them, so provide fresh values every cycle. A scan uses the old active-step snapshot: new targets cannot cascade immediately. Lowest transition number wins a source-step conflict; independent transitions fire together. Advanced groups support fork/join and a minimum time in source steps (0–86400000 ms). Activation wins simultaneous activation/deactivation. Elapsed time restarts on reentry. Entry/exit describe the latest scan only. Stop/reset makes all steps inactive and clears inputs; clear also removes configuration. No pins, motors or outputs are changed automatically. Local native build and host tests only; physical execution awaits firmware approval.",
+        "Source: integration\\Steps_Transitions.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

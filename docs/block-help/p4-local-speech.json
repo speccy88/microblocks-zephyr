@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p4Transcribe": {
+      "summary": "Transcribes an existing PCM clip locally and waits for the speech worker.",
+      "returns": "Recognized text; check speech status for unavailable profile or failed request.",
+      "prerequisites": [
+        "Import P4 Local Speech and its declared dependencies."
+      ],
+      "inputs": [
+        "1. transcribe audio: number; library example 536870913.",
+        "2. language: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use transcribe audio … language …",
+          "code": "transcribe audio [clip] language [0]",
+          "explanation": "Block notation: Transcribes an existing PCM clip locally and waits for the speech worker. Recognized text; check speech status for unavailable profile or failed request. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Speech.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:sttAvailable]": {
+      "summary": "Checks whether the separate local Whistle speech model profile is installed.",
+      "returns": "Boolean availability.",
+      "prerequisites": [
+        "Import P4 Local Speech and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use local speech available?",
+          "code": "local speech available?",
+          "explanation": "Block notation: Checks whether the separate local Whistle speech model profile is installed. Boolean availability."
+        }
+      ],
+      "notes": [
+        "Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Speech.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:sttStatus]": {
+      "summary": "Explains the latest local transcription state or failure.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import P4 Local Speech and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use local speech status",
+          "code": "local speech status",
+          "explanation": "Block notation: Explains the latest local transcription state or failure. Status text."
+        }
+      ],
+      "notes": [
+        "Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Speech.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:sttCancel]": {
+      "summary": "Cancels local speech transcription.",
+      "returns": "Command; this does not start recording.",
+      "prerequisites": [
+        "Import P4 Local Speech and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use cancel local speech",
+          "code": "cancel local speech",
+          "explanation": "Block notation: Cancels local speech transcription. Command; this does not start recording."
+        }
+      ],
+      "notes": [
+        "Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Speech.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:sttRequest]": {
+      "summary": "Requests transcription of an existing audio handle without starting a microphone.",
+      "returns": "Boolean request acceptance; poll speech busy before reading text.",
+      "prerequisites": [
+        "Import P4 Local Speech and its declared dependencies."
+      ],
+      "inputs": [
+        "1. start transcription audio: number; library example 536870913.",
+        "2. language: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use start transcription audio … language …",
+          "code": "start transcription audio [clip] language [0]",
+          "explanation": "Block notation: Requests transcription of an existing audio handle without starting a microphone. Boolean request acceptance; poll speech busy before reading text. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Speech.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:sttBusy]": {
+      "summary": "Checks whether transcription work is still active.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import P4 Local Speech and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use local speech busy?",
+          "code": "local speech busy?",
+          "explanation": "Block notation: Checks whether transcription work is still active. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Speech.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:sttResult]": {
+      "summary": "Reads completed recognized text after transcription finishes.",
+      "returns": "Text result; check status to distinguish error from empty recognition.",
+      "prerequisites": [
+        "Import P4 Local Speech and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use completed speech text",
+          "code": "completed speech text",
+          "explanation": "Block notation: Reads completed recognized text after transcription finishes. Text result; check status to distinguish error from empty recognition."
+        }
+      ],
+      "notes": [
+        "Local Whistle transcription of an immutable 16000 Hz mono PCM handle, 0.1 to 4 seconds. Requires the separately built model profile. English=0, German=1, French=2, Spanish=3, Italian=4, Dutch=5, Polish=6, auto=-1. Worker is bounded and Stop cancels it. This does not start a microphone or a wake-word listener.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Speech.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

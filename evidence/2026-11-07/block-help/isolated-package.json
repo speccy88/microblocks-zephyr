@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "base_commit": "a8dd0bf",
+  "fresh_archive_sha256": "2a281817e37d2355816e0d022de06d397f7c0dd8878cc5e4f8c08cfd5010f72b",
+  "fresh_archive_bytes": 48473504,
+  "fresh_archive_files": 5721,
+  "source_files_verified": 550,
+  "pinned_engine_commit": "5564b1e42d6790360450ebf11c9eb33a1c6877f2",
+  "unchanged_engine_files_total": 248,
+  "profile_checks": {
+    "fruit-jam": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    },
+    "waveshare": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    },
+    "esp32p4": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    },
+    "propeller2": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    },
+    "xrp-rp2350": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    },
+    "raspberry-pi5": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    },
+    "microduck": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    },
+    "unoq": {
+      "help_assets": 6,
+      "engine_files": 31,
+      "index_tags_and_receipts_verified": true,
+      "final_lf_sources_verified": true
+    }
+  },
+  "promote_result": {
+    "profiles": 8,
+    "preserved_files": 4623,
+    "omitted_gp_files": 1058
+  },
+  "native_help_test": {
+    "selectors": 803,
+    "status": "PASS",
+    "native_has_help": true,
+    "native_open_help_new_tab": true,
+    "upstream_preserved": true,
+    "project_identity_and_dirty_flag_preserved": true
+  },
+  "p2_compile_test": {
+    "functions": 82,
+    "chunks": 100,
+    "scripts": 14,
+    "modules": 47,
+    "legacy_api_identical": true,
+    "legacy_functions_and_ids_preserved": true,
+    "required_extension_revision": 8,
+    "network_allocations": 0,
+    "status": "PASS"
+  },
+  "volatile_files_present": false,
+  "graphical_acceptance": false,
+  "physical_hardware_tested": false,
+  "commands": [
+    "python tools/prepare_mobile_editor.py --archive <pinned-archive> --output <fresh-site> --full-site",
+    "python tools/promote_js_portal.py --site <fresh-site>",
+    "node tests/block-help-engine.test.cjs <fresh-site>",
+    "node tests/p2-usability-compile.test.cjs <fresh-site>"
+  ],
+  "preparation_note": "Initial extraction verified the archive but final source-manifest comparison overlapped Windows line-ending normalization. After normalization completed, read_editor verified all 550 files from the untouched fresh extraction before promotion.",
+  "final_lf_source_refresh": true,
+  "help_asset_sha256": {
+    "block-help-data.js": "c56929372c8df69a16e022ee303f301a952391b1f592b268d742b22211ddb24e",
+    "block-help-index.js": "fe2c94aa902dfbd1d12e58f51ea2f6a64dcf6e0b820509ababdcb7fea3c479dc",
+    "block-help.js": "8ada7c7db620cf8537ec846eaf45189dfd619e00f6336cea70dd3bb17b0c02b6",
+    "block-help.html": "43be21c2b6756b291613d59c769c4bfbc205fc4b6d797fece1363bd3b5252f7c",
+    "block-help-page.js": "7ffec834aa1cfe4f9c07f92af945114b8f06597743eebfcebb208bdd16ec6bbb",
+    "block-help.css": "bb4fb7272aa423f4fe03f7a66d4d8359930b16e53cf5d3ee67a172919cd964ce"
+  }
+}

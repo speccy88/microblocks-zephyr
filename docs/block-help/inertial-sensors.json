@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "blocks": {
+    "lis3dhBegin": {
+      "summary": "Verifies and configures a LIS3DH with an explicit I2C address and acceleration range.",
+      "returns": "Boolean success; initialize before reading vectors.",
+      "prerequisites": [
+        "Import Inertial Sensors and its declared dependencies.",
+        "Wire the named sensor to a configured I2C bus, use its actual addresses, and initialize it before reading. Hardware acceptance remains pending."
+      ],
+      "inputs": [
+        "1. LIS3DH begin address: number; library example 24.",
+        "2. range g: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use LIS3DH begin address … range g …",
+          "code": "LIS3DH begin address [24] range g [2]",
+          "explanation": "Block notation: Verifies and configures a LIS3DH with an explicit I2C address and acceleration range. Boolean success; initialize before reading vectors."
+        }
+      ],
+      "notes": [
+        "Portable I2C LIS3DH and LSM9DS1 helpers. Explicit initialization; no probing on import. BDU and six-byte reads, integer signed units. No orientation/fusion or calibration claim. Hardware acceptance pending.",
+        "Source: libraries\\sensors\\Inertial.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "lis3dhAcceleration": {
+      "summary": "Reads a signed three-axis LIS3DH acceleration vector with a six-byte transfer.",
+      "returns": "Axis list in mg, or false; no orientation/fusion result.",
+      "prerequisites": [
+        "Import Inertial Sensors and its declared dependencies.",
+        "Wire the named sensor to a configured I2C bus, use its actual addresses, and initialize it before reading. Hardware acceptance remains pending."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use LIS3DH acceleration mg (list or false)",
+          "code": "LIS3DH acceleration mg (list or false)",
+          "explanation": "Block notation: Reads a signed three-axis LIS3DH acceleration vector with a six-byte transfer. Axis list in mg, or false; no orientation/fusion result."
+        }
+      ],
+      "notes": [
+        "Portable I2C LIS3DH and LSM9DS1 helpers. Explicit initialization; no probing on import. BDU and six-byte reads, integer signed units. No orientation/fusion or calibration claim. Hardware acceptance pending.",
+        "Source: libraries\\sensors\\Inertial.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "lsm9ds1Begin": {
+      "summary": "Initializes separate LSM9DS1 accelerometer/gyro and magnetometer I2C addresses.",
+      "returns": "Boolean success; initialize before reading vectors.",
+      "prerequisites": [
+        "Import Inertial Sensors and its declared dependencies.",
+        "Wire the named sensor to a configured I2C bus, use its actual addresses, and initialize it before reading. Hardware acceptance remains pending."
+      ],
+      "inputs": [
+        "1. LSM9DS1 begin AG address: number; library example 107.",
+        "2. M address: number; library example 30."
+      ],
+      "examples": [
+        {
+          "title": "Use LSM9DS1 begin AG address … M address …",
+          "code": "LSM9DS1 begin AG address [107] M address [30]",
+          "explanation": "Block notation: Initializes separate LSM9DS1 accelerometer/gyro and magnetometer I2C addresses. Boolean success; initialize before reading vectors."
+        }
+      ],
+      "notes": [
+        "Portable I2C LIS3DH and LSM9DS1 helpers. Explicit initialization; no probing on import. BDU and six-byte reads, integer signed units. No orientation/fusion or calibration claim. Hardware acceptance pending.",
+        "Source: libraries\\sensors\\Inertial.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "lsm9ds1Acceleration": {
+      "summary": "Reads signed LSM9DS1 acceleration components.",
+      "returns": "Axis list in mg, or false.",
+      "prerequisites": [
+        "Import Inertial Sensors and its declared dependencies.",
+        "Wire the named sensor to a configured I2C bus, use its actual addresses, and initialize it before reading. Hardware acceptance remains pending."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use LSM9DS1 acceleration mg (list or false)",
+          "code": "LSM9DS1 acceleration mg (list or false)",
+          "explanation": "Block notation: Reads signed LSM9DS1 acceleration components. Axis list in mg, or false."
+        }
+      ],
+      "notes": [
+        "Portable I2C LIS3DH and LSM9DS1 helpers. Explicit initialization; no probing on import. BDU and six-byte reads, integer signed units. No orientation/fusion or calibration claim. Hardware acceptance pending.",
+        "Source: libraries\\sensors\\Inertial.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "lsm9ds1Gyroscope": {
+      "summary": "Reads signed LSM9DS1 angular velocity components.",
+      "returns": "Axis list in millidegrees per second, or false.",
+      "prerequisites": [
+        "Import Inertial Sensors and its declared dependencies.",
+        "Wire the named sensor to a configured I2C bus, use its actual addresses, and initialize it before reading. Hardware acceptance remains pending."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use LSM9DS1 gyro millidegrees per second (list or false)",
+          "code": "LSM9DS1 gyro millidegrees per second (list or false)",
+          "explanation": "Block notation: Reads signed LSM9DS1 angular velocity components. Axis list in millidegrees per second, or false."
+        }
+      ],
+      "notes": [
+        "Portable I2C LIS3DH and LSM9DS1 helpers. Explicit initialization; no probing on import. BDU and six-byte reads, integer signed units. No orientation/fusion or calibration claim. Hardware acceptance pending.",
+        "Source: libraries\\sensors\\Inertial.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "lsm9ds1Magnetic": {
+      "summary": "Reads signed LSM9DS1 magnetic field components.",
+      "returns": "Axis list in nanotesla, or false; no calibration claim.",
+      "prerequisites": [
+        "Import Inertial Sensors and its declared dependencies.",
+        "Wire the named sensor to a configured I2C bus, use its actual addresses, and initialize it before reading. Hardware acceptance remains pending."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use LSM9DS1 magnetic nanotesla (list or false)",
+          "code": "LSM9DS1 magnetic nanotesla (list or false)",
+          "explanation": "Block notation: Reads signed LSM9DS1 magnetic field components. Axis list in nanotesla, or false; no calibration claim."
+        }
+      ],
+      "notes": [
+        "Portable I2C LIS3DH and LSM9DS1 helpers. Explicit initialization; no probing on import. BDU and six-byte reads, integer signed units. No orientation/fusion or calibration claim. Hardware acceptance pending.",
+        "Source: libraries\\sensors\\Inertial.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

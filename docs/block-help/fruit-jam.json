@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "blocks": {
+    "[fruitJam:buttonPressed]": {
+      "summary": "Reads the requested onboard Fruit Jam button.",
+      "returns": "Boolean pressed state; use a button index supported by the board firmware.",
+      "prerequisites": [
+        "Import Fruit Jam and its declared dependencies."
+      ],
+      "inputs": [
+        "1. Fruit Jam button: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use Fruit Jam button … pressed?",
+          "code": "Fruit Jam button [1] pressed?",
+          "explanation": "Block notation: Reads the requested onboard Fruit Jam button. Boolean pressed state; use a button index supported by the board firmware."
+        }
+      ],
+      "notes": [
+        "Experimental Fruit Jam Zephyr port. Five onboard NeoPixels: index 1..5, RGB 0..255; start with values of 8. SHT4x work was stopped at user request and remains unvalidated/inactive. See the repository capability manifest for physical test status.",
+        "Source: boards\\adafruit_fruit_jam\\integration\\Fruit_Jam.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[fruitJam:pixel]": {
+      "summary": "Sets one of the five onboard NeoPixels with independent red/green/blue channels.",
+      "returns": "Command; index 1..5 and channels 0..255; begin with values around 8.",
+      "prerequisites": [
+        "Import Fruit Jam and its declared dependencies."
+      ],
+      "inputs": [
+        "1. Fruit Jam pixel: number; library example 1.",
+        "2. red: number; library example 8.",
+        "3. green: number; library example 0.",
+        "4. blue: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use Fruit Jam pixel … red … green … blue …",
+          "code": "Fruit Jam pixel [1] red [8] green [0] blue [0]",
+          "explanation": "Block notation: Sets one of the five onboard NeoPixels with independent red/green/blue channels. Command; index 1..5 and channels 0..255; begin with values around 8."
+        }
+      ],
+      "notes": [
+        "Experimental Fruit Jam Zephyr port. Five onboard NeoPixels: index 1..5, RGB 0..255; start with values of 8. SHT4x work was stopped at user request and remains unvalidated/inactive. See the repository capability manifest for physical test status.",
+        "Source: boards\\adafruit_fruit_jam\\integration\\Fruit_Jam.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[fruitJam:pixelsOff]": {
+      "summary": "Turns off all five onboard NeoPixels.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import Fruit Jam and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use Fruit Jam pixels off",
+          "code": "Fruit Jam pixels off",
+          "explanation": "Block notation: Turns off all five onboard NeoPixels. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "Experimental Fruit Jam Zephyr port. Five onboard NeoPixels: index 1..5, RGB 0..255; start with values of 8. SHT4x work was stopped at user request and remains unvalidated/inactive. See the repository capability manifest for physical test status.",
+        "Source: boards\\adafruit_fruit_jam\\integration\\Fruit_Jam.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[fruitJam:ioCapabilities]": {
+      "summary": "Inspects this Fruit Jam firmware's available I/O and limitations.",
+      "returns": "Diagnostic text; unvalidated/inactive SHT4x work is not implied available.",
+      "prerequisites": [
+        "Import Fruit Jam and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use Fruit Jam I/O diagnostics",
+          "code": "Fruit Jam I/O diagnostics",
+          "explanation": "Block notation: Inspects this Fruit Jam firmware's available I/O and limitations. Diagnostic text; unvalidated/inactive SHT4x work is not implied available."
+        }
+      ],
+      "notes": [
+        "Experimental Fruit Jam Zephyr port. Five onboard NeoPixels: index 1..5, RGB 0..255; start with values of 8. SHT4x work was stopped at user request and remains unvalidated/inactive. See the repository capability manifest for physical test status.",
+        "Source: boards\\adafruit_fruit_jam\\integration\\Fruit_Jam.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

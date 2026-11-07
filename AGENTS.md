@@ -24,6 +24,13 @@ ESP32-S3-RLCD-4.2; the independently maintained UNO Q port is a reference.
    Physical PASS needs real measurement and logs/notes under the acceptance
    matrix; don't infer absent tests.
 
+6. Every new or changed custom block needs matching authored Help in
+   `docs/block-help/`: explain behavior, inputs/units, results, prerequisites,
+   examples and limits. Follow `docs/BLOCK_HELP.md`. Run
+   `python3 tools/block_help.py`; missing entries fail packaging and validation.
+   Keep selectors stable across palette changes and distinguish examples from
+   measured hardware acceptance.
+
 ## Shared core and target adaptations
 
 - Apply this architecture to every target: keep the VM core, generic fixes,

@@ -3,6 +3,7 @@
 (function (root) {
     'use strict';
     const pending = new WeakMap();
+    const legacyGroups = ['P2 Core', 'P2 Signals', 'P2 Serial', 'P2 Analog', 'P2 Capture'];
     const status = message => root.dispatchEvent(new CustomEvent('microblocks-target-status', {detail: message}));
     function announceReady(editor,profile) {
         const optional=profile.optional_target_library_modules?.some(name=>editor.project.libraryNamed(name));
@@ -14,7 +15,7 @@
         const project = editor.project, old = project.libraryNamed(profile.legacy_target_library_module);
         if (!old) return false;
         const names = profile.target_library_modules;
-        if (names.some(name => project.libraryNamed(name)) || old.isImplementation || old.implementedLibs.length || old.variableNames.length || old.scripts.length) {
+        if ([...names, ...legacyGroups].some(name => project.libraryNamed(name)) || old.isImplementation || old.implementedLibs.length || old.variableNames.length || old.scripts.length) {
             status('Custom P2 library layout preserved. Export it before replacing target libraries.');
             return true;
         }
@@ -29,7 +30,8 @@
             lib.description = old.description; lib.tags = [...old.tags];
             lib.translationSources = new Map(old.translationSources);
             lib.moduleCategory = old.moduleCategory;
-            lib.dependencies = lib === core ? [...old.dependencies] : [core.moduleName];
+            lib.dependencies = lib === core ? [...old.dependencies] :
+                [...(profile.target_library_dependencies?.[lib.moduleName] || [core.moduleName])];
         }
         core.choices = new Map(old.choices);
         core.variableNames = [...old.variableNames]; core.scripts = [...old.scripts];
@@ -59,7 +61,7 @@
         if (organizeLegacy(editor, profile)) return;
         // A saved subset is intentional. Do not repopulate removed libraries,
         // or replace saved/custom definitions just because the editor updated.
-        if (profile.target_library_modules.some(name => project.libraryNamed(name))) return announceReady(editor,profile);
+        if ([...profile.target_library_modules, ...legacyGroups].some(name => project.libraryNamed(name))) return announceReady(editor,profile);
         if (pending.has(project)) return pending.get(project);
         const operation = (async () => {
             const names = new Set(project.allFunctions().map(fn => fn.functionName));
@@ -74,12 +76,12 @@
             const sha = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
             if (sha !== profile.target_library_sha256) throw Error('P2 target libraries do not match this editor build');
             // A file opening while the library is fetched owns the new project.
-            if (editor.project !== project || profile.target_library_modules.some(name => project.libraryNamed(name))) return;
+            if (editor.project !== project || [...profile.target_library_modules, ...legacyGroups].some(name => project.libraryNamed(name))) return;
             const dirty = editor.unsavedEdits;
             await editor.importLibraryFromString(data, profile.bundle);
             if (!profile.target_library_modules.every(name => project.libraryNamed(name))) throw Error('P2 target libraries could not be imported');
             for (const name of profile.target_library_modules) project.libraryNamed(name).path = 'P2/' + name;
-            editor.selectLibrary(profile.target_library_modules[0]);
+            editor.selectLibrary(profile.target_library_modules.includes('P2 Simple IO') ? 'P2 Simple IO' : profile.target_library_modules[0]);
             editor.unsavedEdits = dirty;
             announceReady(editor,profile);
         })();

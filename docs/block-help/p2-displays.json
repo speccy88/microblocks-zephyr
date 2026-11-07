@@ -1,0 +1,271 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p2SSDInit": {
+      "summary": "Initializes an explicitly wired SSD1331 RGB OLED; importing the library does not initialize it.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 SSD1331 MOSI: number; library example 8.",
+        "2. clock: number; library example 9.",
+        "3. CS: number; library example 10.",
+        "4. DC: number; library example 11.",
+        "5. reset: number; library example 12."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 SSD1331 MOSI … clock … CS … DC … reset …",
+          "code": "P2 SSD1331 MOSI [8] clock [9] CS [10] DC [11] reset [12]",
+          "explanation": "Block notation: Initializes an explicitly wired SSD1331 RGB OLED; importing the library does not initialize it. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2SSDPixel": {
+      "summary": "Draws one RGB pixel on the initialized 96 by 64 OLED.",
+      "returns": "Command; zero-based x/y coordinates.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 OLED pixel x: number; library example 0.",
+        "2. y: number; library example 0.",
+        "3. color: color; library example 16777215."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 OLED pixel x … y … color …",
+          "code": "P2 OLED pixel x [0] y [0] color [16777215]",
+          "explanation": "Block notation: Draws one RGB pixel on the initialized 96 by 64 OLED. Command; zero-based x/y coordinates."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2SSDLine": {
+      "summary": "Draws a colored line between two OLED coordinates.",
+      "returns": "Command; coordinates refer to the 96 by 64 display.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 OLED line x: number; library example 0.",
+        "2. y: number; library example 0.",
+        "3. to x: number; library example 95.",
+        "4. y: number; library example 63.",
+        "5. color: color; library example 16777215."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 OLED line x … y … to x … y … color …",
+          "code": "P2 OLED line x [0] y [0] to x [95] y [63] color [16777215]",
+          "explanation": "Block notation: Draws a colored line between two OLED coordinates. Command; coordinates refer to the 96 by 64 display."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2SSDRect": {
+      "summary": "Draws an outlined or filled rectangle on the OLED.",
+      "returns": "Command; fill=true requests a filled rectangle.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 OLED rectangle x: number; library example 0.",
+        "2. y: number; library example 0.",
+        "3. to x: number; library example 95.",
+        "4. y: number; library example 63.",
+        "5. color: color; library example 0.",
+        "6. fill: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 OLED rectangle x … y … to x … y … color … fill …",
+          "code": "P2 OLED rectangle x [0] y [0] to x [95] y [63] color [0] fill [true]",
+          "explanation": "Block notation: Draws an outlined or filled rectangle on the OLED. Command; fill=true requests a filled rectangle."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2SSDText": {
+      "summary": "Draws ASCII text in six-pixel character cells with explicit foreground/background colors.",
+      "returns": "Command; unsupported characters become ? and drawing stops at the display boundary.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 OLED text: text; library example Hello.",
+        "2. x: number; library example 0.",
+        "3. y: number; library example 0.",
+        "4. color: color; library example 16777215.",
+        "5. background: color; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 OLED text … x … y … color … background …",
+          "code": "P2 OLED text [Hello] x [0] y [0] color [16777215] background [0]",
+          "explanation": "Block notation: Draws ASCII text in six-pixel character cells with explicit foreground/background colors. Command; unsupported characters become ? and drawing stops at the display boundary."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2EPDInit": {
+      "summary": "Initializes the IL3820 controller and allocates a white monochrome buffer using the full-update LUT.",
+      "returns": "True if setup and busy waits succeed, otherwise false.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 IL3820 MOSI: number; library example 8.",
+        "2. clock: number; library example 9.",
+        "3. CS: number; library example 10.",
+        "4. DC: number; library example 11.",
+        "5. reset: number; library example 12.",
+        "6. busy: number; library example 13."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 IL3820 MOSI … clock … CS … DC … reset … busy …",
+          "code": "P2 IL3820 MOSI [8] clock [9] CS [10] DC [11] reset [12] busy [13]",
+          "explanation": "Block notation: Initializes the IL3820 controller and allocates a white monochrome buffer using the full-update LUT. True if setup and busy waits succeed, otherwise false."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2EPDClear": {
+      "summary": "Replaces the entire ePaper memory buffer with black or white without refreshing the panel.",
+      "returns": "Command; call ePaper update to display the buffer.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 ePaper clear buffer black: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 ePaper clear buffer black …",
+          "code": "P2 ePaper clear buffer black [false]",
+          "explanation": "Block notation: Replaces the entire ePaper memory buffer with black or white without refreshing the panel. Command; call ePaper update to display the buffer."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2EPDPixel": {
+      "summary": "Sets a black/white pixel in the 128 by 296 ePaper buffer.",
+      "returns": "False for out-of-range coordinates or no buffer; true when stored.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 ePaper pixel x: number; library example 0.",
+        "2. y: number; library example 0.",
+        "3. black: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 ePaper pixel x … y … black …",
+          "code": "P2 ePaper pixel x [0] y [0] black [true]",
+          "explanation": "Block notation: Sets a black/white pixel in the 128 by 296 ePaper buffer. False for out-of-range coordinates or no buffer; true when stored."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2EPDLine": {
+      "summary": "Draws a line in the ePaper buffer; update is a separate step.",
+      "returns": "False for out-of-range endpoints; otherwise drawing success.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 ePaper line x: number; library example 0.",
+        "2. y: number; library example 0.",
+        "3. to x: number; library example 127.",
+        "4. y: number; library example 295.",
+        "5. black: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 ePaper line x … y … to x … y … black …",
+          "code": "P2 ePaper line x [0] y [0] to x [127] y [295] black [true]",
+          "explanation": "Block notation: Draws a line in the ePaper buffer; update is a separate step. False for out-of-range endpoints; otherwise drawing success."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2EPDText": {
+      "summary": "Renders small monochrome characters into the ePaper buffer without refreshing it.",
+      "returns": "Command; six-pixel character spacing and clipped text at the edge.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 ePaper text: text; library example Hello P2.",
+        "2. x: number; library example 0.",
+        "3. y: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 ePaper text … x … y …",
+          "code": "P2 ePaper text [Hello P2] x [0] y [0]",
+          "explanation": "Block notation: Renders small monochrome characters into the ePaper buffer without refreshing it. Command; six-pixel character spacing and clipped text at the edge."
+        },
+        {
+          "title": "Write then refresh ePaper",
+          "code": "set ready to (P2 IL3820 MOSI [8] clock [9] CS [10] DC [11] reset [12] busy [13])\nif [ready]\n  P2 ePaper clear buffer black [false]\n  P2 ePaper text [Hello P2] x [0] y [0]\n  P2 ePaper update (false on timeout)",
+          "explanation": "Match all six pins to real wiring and ensure they are free. Inspect the final Boolean; a buffered drawing alone does not refresh the panel."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2EPDUpdate": {
+      "summary": "Transfers the buffered image and waits for the full ePaper refresh.",
+      "returns": "False when unconfigured, transfer fails or busy wait times out.",
+      "prerequisites": [
+        "Import P2 Displays and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 ePaper update (false on timeout)",
+          "code": "P2 ePaper update (false on timeout)",
+          "explanation": "Block notation: Transfers the buffered image and waits for the full ePaper refresh. False when unconfigured, transfer fails or busy wait times out."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Select one external display: SSD1331 96x64 RGB OLED or IL3820 128x296 monochrome ePaper with the Parallax full-update LUT. Explicit distinct user pins, zero-based coordinates. No initialization on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Displays.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

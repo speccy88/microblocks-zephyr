@@ -1,0 +1,262 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p4WhenWakeWord": {
+      "summary": "Starts an attached script when the board emits an Okay Nabu event.",
+      "returns": "Event hat; a listener or clip check must be started separately.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use when Okay Nabu is heard",
+          "code": "when Okay Nabu is heard",
+          "explanation": "Block notation: Starts an attached script when the board emits an Okay Nabu event. Event hat; a listener or clip check must be started separately."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4StartWakeWord": {
+      "summary": "Explicitly starts the Okay Nabu listener using the library defaults.",
+      "returns": "Command; requires the separately built model profile.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use listen for Okay Nabu",
+          "code": "listen for Okay Nabu",
+          "explanation": "Block notation: Explicitly starts the Okay Nabu listener using the library defaults. Command; requires the separately built model profile."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsCancel]": {
+      "summary": "Stops wake-word work and listening.",
+      "returns": "Command; Stop All also cancels and clears events.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use stop wake-word detection",
+          "code": "stop wake-word detection",
+          "explanation": "Block notation: Stops wake-word work and listening. Command; Stop All also cancels and clears events."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsListening]": {
+      "summary": "Tests whether the wake-word listener is currently active.",
+      "returns": "Boolean listening state.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use listening for wake word?",
+          "code": "listening for wake word?",
+          "explanation": "Block notation: Tests whether the wake-word listener is currently active. Boolean listening state."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsAvailable]": {
+      "summary": "Checks whether the Okay Nabu model profile is available.",
+      "returns": "Boolean availability; arbitrary phrases need a separately trained model.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use wake-word model available?",
+          "code": "wake-word model available?",
+          "explanation": "Block notation: Checks whether the Okay Nabu model profile is available. Boolean availability; arbitrary phrases need a separately trained model."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4CheckWakeClip": {
+      "summary": "Checks an existing audio clip for Okay Nabu without starting the microphone.",
+      "returns": "Command; read confidence/state after work completes.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [
+        "1. check audio: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use check audio … for wake word",
+          "code": "check audio [clip] for wake word",
+          "explanation": "Block notation: Checks an existing audio clip for Okay Nabu without starting the microphone. Command; read confidence/state after work completes. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsConfidence]": {
+      "summary": "Reads the latest wake-word model score.",
+      "returns": "Integer 0..1000; not a calibrated probability.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use wake confidence (0-1000)",
+          "code": "wake confidence (0-1000)",
+          "explanation": "Block notation: Reads the latest wake-word model score. Integer 0..1000; not a calibrated probability."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsState]": {
+      "summary": "Reads a concise wake-word worker state.",
+      "returns": "State text.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use wake-word status",
+          "code": "wake-word status",
+          "explanation": "Block notation: Reads a concise wake-word worker state. State text."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsBusy]": {
+      "summary": "Checks whether wake-word work is in progress.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use wake-word busy?",
+          "code": "wake-word busy?",
+          "explanation": "Block notation: Checks whether wake-word work is in progress. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4TestWakeWord": {
+      "summary": "Checks an installed synthetic test phrase without starting live recording.",
+      "returns": "Command; phrase must be supported by the installed test profile.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [
+        "1. check test phrase: text; library example Okay Nabu."
+      ],
+      "examples": [
+        {
+          "title": "Use check test phrase …",
+          "code": "check test phrase [Okay Nabu]",
+          "explanation": "Block notation: Checks an installed synthetic test phrase without starting live recording. Command; phrase must be supported by the installed test profile."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsListen]": {
+      "summary": "Starts bounded wake-word listening with an explicit threshold and cooldown.",
+      "returns": "Boolean acceptance; duration/cooldown in milliseconds, confidence 0..1000.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [
+        "1. listen: number; library example 3000.",
+        "2. ms confidence: number; library example 970.",
+        "3. cooldown: number; library example 1000."
+      ],
+      "examples": [
+        {
+          "title": "Use listen … ms confidence … cooldown … ms",
+          "code": "listen [3000] ms confidence [970] cooldown [1000] ms",
+          "explanation": "Block notation: Starts bounded wake-word listening with an explicit threshold and cooldown. Boolean acceptance; duration/cooldown in milliseconds, confidence 0..1000."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsStatus]": {
+      "summary": "Reads detailed wake-word diagnostics after a request or error.",
+      "returns": "Diagnostic text.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use wake-word diagnostics",
+          "code": "wake-word diagnostics",
+          "explanation": "Block notation: Reads detailed wake-word diagnostics after a request or error. Diagnostic text."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:kwsClip]": {
+      "summary": "Starts asynchronous wake-word analysis on a retained audio handle.",
+      "returns": "Boolean acceptance; does not start the microphone.",
+      "prerequisites": [
+        "Import Wake Word and its declared dependencies."
+      ],
+      "inputs": [
+        "1. start checking audio: number; library example 536870913."
+      ],
+      "examples": [
+        {
+          "title": "Use start checking audio …",
+          "code": "start checking audio [clip]",
+          "explanation": "Block notation: Starts asynchronous wake-word analysis on a retained audio handle. Boolean acceptance; does not start the microphone. First save the result of record PCM for [1000] milliseconds as clip; check audio valid and release it when finished."
+        }
+      ],
+      "notes": [
+        "Local Okay Nabu keyword detection. The event runs on the board. Checking a saved audio clip or an installed synthetic test phrase does not start the microphone. The model profile is required. Stop All cancels work and clears events. Confidence is 0 to 1000. Arbitrary wake phrases require a separately trained model.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Wake_Word.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

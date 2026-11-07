@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "blocks": {
+    "sfcSequence": {
+      "summary": "Runs an ordered step/transition chart. Step setup executes on entry; the loop repeats while its following transition is not Boolean true. Parallel charts compile to cooperative VM workers.",
+      "inputs": [
+        "Body: a valid chart of steps, transitions and matched branch/join blocks."
+      ],
+      "returns": "Command block; no reported value. Step flags and user actions change as the chart runs.",
+      "prerequisites": [
+        "Use the shared JavaScript editor SFC overlay and a compatible MicroBlocks VM. These examples need no external hardware.",
+        "Create the named shared variables before choosing them in block menus. This is logical sequencing, not a certified safety controller."
+      ],
+      "examples": [
+        {
+          "title": "Build and inspect a small chart",
+          "code": "Create shared variables Step1, Step2, Transition1, Transition2, Entries and Loops.\nUnder when started, add SFC sequence containing:\n  step Step1 setup [change Entries by 1] loop [change Loops by 1]\n  transition Transition1\n  step Step2 setup [] loop []\n  transition Transition2\nSet Transition1 and Transition2 to Boolean false before starting.",
+          "explanation": "Start the chart, then set Transition1 true using the shared variable control. Step1 ends and Step2 becomes active. Set Transition2 true to finish."
+        }
+      ],
+      "notes": [
+        "Examples describe visual blocks; bracketed bodies are command slots, not text to paste into a value slot.",
+        "Use distinct shared variables for step flags and transition conditions. Do not capture outer local variables in parallel workers.",
+        "Task and variable capacity are checked at compile time. A red stop may retain step flags; entering the sequence again resets them."
+      ]
+    },
+    "sfcStep": {
+      "summary": "Defines a named chart step, with setup actions performed once on entry and loop actions repeated while active.",
+      "inputs": [
+        "Step: select an existing shared variable, used as its active flag.",
+        "Setup: commands run once on entry.",
+        "Loop: commands repeated while active."
+      ],
+      "returns": "Command block; no reported value. Step flags and user actions change as the chart runs.",
+      "prerequisites": [
+        "Use the shared JavaScript editor SFC overlay and a compatible MicroBlocks VM. These examples need no external hardware.",
+        "Create the named shared variables before choosing them in block menus. This is logical sequencing, not a certified safety controller."
+      ],
+      "examples": [
+        {
+          "title": "Build and inspect a small chart",
+          "code": "Create shared variables Step1, Step2, Transition1, Transition2, Entries and Loops.\nUnder when started, add SFC sequence containing:\n  step Step1 setup [change Entries by 1] loop [change Loops by 1]\n  transition Transition1\n  step Step2 setup [] loop []\n  transition Transition2\nSet Transition1 and Transition2 to Boolean false before starting.",
+          "explanation": "Watch Entries and Loops: Entries increments once when Step1 activates; Loops continues until Transition1 is Boolean true."
+        }
+      ],
+      "notes": [
+        "Examples describe visual blocks; bracketed bodies are command slots, not text to paste into a value slot.",
+        "Use distinct shared variables for step flags and transition conditions. Do not capture outer local variables in parallel workers.",
+        "Task and variable capacity are checked at compile time. A red stop may retain step flags; entering the sequence again resets them."
+      ]
+    },
+    "sfcTransition": {
+      "summary": "Finishes the preceding active step when the selected shared transition variable is exactly Boolean true. Numbers or text are not substitutes for a Boolean.",
+      "inputs": [
+        "Transition: an existing shared Boolean variable controlled by another script or the variable control."
+      ],
+      "returns": "Command block; no reported value. Step flags and user actions change as the chart runs.",
+      "prerequisites": [
+        "Use the shared JavaScript editor SFC overlay and a compatible MicroBlocks VM. These examples need no external hardware.",
+        "Create the named shared variables before choosing them in block menus. This is logical sequencing, not a certified safety controller."
+      ],
+      "examples": [
+        {
+          "title": "Build and inspect a small chart",
+          "code": "Create shared variables Step1, Step2, Transition1, Transition2, Entries and Loops.\nUnder when started, add SFC sequence containing:\n  step Step1 setup [change Entries by 1] loop [change Loops by 1]\n  transition Transition1\n  step Step2 setup [] loop []\n  transition Transition2\nSet Transition1 and Transition2 to Boolean false before starting.",
+          "explanation": "Keep Transition1 false to remain at Step1, then set it true to advance to Step2. A transition does not automatically read a pin."
+        }
+      ],
+      "notes": [
+        "Examples describe visual blocks; bracketed bodies are command slots, not text to paste into a value slot.",
+        "Use distinct shared variables for step flags and transition conditions. Do not capture outer local variables in parallel workers.",
+        "Task and variable capacity are checked at compile time. A red stop may retain step flags; entering the sequence again resets them."
+      ]
+    },
+    "sfcAnd": {
+      "summary": "Splits the chart into parallel branches running cooperatively. Use a matching join-all block after the branches.",
+      "inputs": [
+        "Branches: two or more valid chart bodies; each begins with a step."
+      ],
+      "returns": "Command block; no reported value. Step flags and user actions change as the chart runs.",
+      "prerequisites": [
+        "Use the shared JavaScript editor SFC overlay and a compatible MicroBlocks VM. These examples need no external hardware.",
+        "Create the named shared variables before choosing them in block menus. This is logical sequencing, not a certified safety controller."
+      ],
+      "examples": [
+        {
+          "title": "Build and inspect a small chart",
+          "code": "Create shared step variables Source, B1, B2, After and Boolean transition variables Gate, Join, Done.\nInside SFC sequence:\n  step Source setup [] loop []\n  transition Gate\n  parallel [step B1 setup [] loop []] [step B2 setup [] loop []]\n  join all transition Join\n  step After setup [] loop []\n  transition Done",
+          "explanation": "Set Gate true to activate B1 and B2. Leave Join false to observe both active flags, then set Join true to reach After."
+        }
+      ],
+      "notes": [
+        "Examples describe visual blocks; bracketed bodies are command slots, not text to paste into a value slot.",
+        "Use distinct shared variables for step flags and transition conditions. Do not capture outer local variables in parallel workers.",
+        "Task and variable capacity are checked at compile time. A red stop may retain step flags; entering the sequence again resets them."
+      ]
+    },
+    "sfcAndJoin": {
+      "summary": "Closes a parallel split. Waits for all incoming branches and the shared join condition before continuing.",
+      "inputs": [
+        "Join: shared Boolean transition variable."
+      ],
+      "returns": "Command block; no reported value. Step flags and user actions change as the chart runs.",
+      "prerequisites": [
+        "Use the shared JavaScript editor SFC overlay and a compatible MicroBlocks VM. These examples need no external hardware.",
+        "Create the named shared variables before choosing them in block menus. This is logical sequencing, not a certified safety controller."
+      ],
+      "examples": [
+        {
+          "title": "Build and inspect a small chart",
+          "code": "Create shared step variables Source, B1, B2, After and Boolean transition variables Gate, Join, Done.\nInside SFC sequence:\n  step Source setup [] loop []\n  transition Gate\n  parallel [step B1 setup [] loop []] [step B2 setup [] loop []]\n  join all transition Join\n  step After setup [] loop []\n  transition Done",
+          "explanation": "With Gate true and Join false, After remains inactive. Setting Join true allows the branches to join and After to activate."
+        }
+      ],
+      "notes": [
+        "Examples describe visual blocks; bracketed bodies are command slots, not text to paste into a value slot.",
+        "Use distinct shared variables for step flags and transition conditions. Do not capture outer local variables in parallel workers.",
+        "Task and variable capacity are checked at compile time. A red stop may retain step flags; entering the sequence again resets them."
+      ]
+    },
+    "sfcOr": {
+      "summary": "Selects one branch using its shared Boolean transition condition. If several guards are true together, the earlier branch takes priority.",
+      "inputs": [
+        "Each branch has a shared Boolean guard and a chart body beginning with a step."
+      ],
+      "returns": "Command block; no reported value. Step flags and user actions change as the chart runs.",
+      "prerequisites": [
+        "Use the shared JavaScript editor SFC overlay and a compatible MicroBlocks VM. These examples need no external hardware.",
+        "Create the named shared variables before choosing them in block menus. This is logical sequencing, not a certified safety controller."
+      ],
+      "examples": [
+        {
+          "title": "Build and inspect a small chart",
+          "code": "Create shared steps Source, B1, B2, After and transitions Gate, Choice1, Choice2, Join, Done.\nInside SFC sequence:\n  step Source setup [] loop []\n  transition Gate\n  OR transition Choice1 [step B1 setup [] loop []] transition Choice2 [step B2 setup [] loop []]\n  merge transition Join\n  step After setup [] loop []\n  transition Done",
+          "explanation": "Set Choice1 false and Choice2 true, then set Gate true. B2 is selected. Set Join true to merge and enter After."
+        }
+      ],
+      "notes": [
+        "Examples describe visual blocks; bracketed bodies are command slots, not text to paste into a value slot.",
+        "Use distinct shared variables for step flags and transition conditions. Do not capture outer local variables in parallel workers.",
+        "Task and variable capacity are checked at compile time. A red stop may retain step flags; entering the sequence again resets them."
+      ]
+    },
+    "sfcOrJoin": {
+      "summary": "Merges the selected branch of an OR split when its shared merge condition becomes Boolean true.",
+      "inputs": [
+        "Join: shared Boolean transition variable."
+      ],
+      "returns": "Command block; no reported value. Step flags and user actions change as the chart runs.",
+      "prerequisites": [
+        "Use the shared JavaScript editor SFC overlay and a compatible MicroBlocks VM. These examples need no external hardware.",
+        "Create the named shared variables before choosing them in block menus. This is logical sequencing, not a certified safety controller."
+      ],
+      "examples": [
+        {
+          "title": "Build and inspect a small chart",
+          "code": "Create shared steps Source, B1, B2, After and transitions Gate, Choice1, Choice2, Join, Done.\nInside SFC sequence:\n  step Source setup [] loop []\n  transition Gate\n  OR transition Choice1 [step B1 setup [] loop []] transition Choice2 [step B2 setup [] loop []]\n  merge transition Join\n  step After setup [] loop []\n  transition Done",
+          "explanation": "Choose B2 with Choice2 true. Keep Join false to hold it active; set Join true to enter After. Unselected branches do not have to run."
+        }
+      ],
+      "notes": [
+        "Examples describe visual blocks; bracketed bodies are command slots, not text to paste into a value slot.",
+        "Use distinct shared variables for step flags and transition conditions. Do not capture outer local variables in parallel workers.",
+        "Task and variable capacity are checked at compile time. A red stop may retain step flags; entering the sequence again resets them."
+      ]
+    }
+  }
+}

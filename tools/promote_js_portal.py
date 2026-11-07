@@ -71,6 +71,7 @@ def promote(site):
             profile.update(function_names=source['function_names'], auto_load_target_blocks=True,
                            target_library_module=source['modules'][0], target_library_modules=source['modules'],
                            legacy_target_library_module=source['legacy_module'], target_library_owners=source['selector_libraries'],
+                           target_library_dependencies=source['library_dependencies'],
                            target_library_sha256=source['sha256'],
                            required_extension_revision=source['required_extension_revision'])
             profile.update(optional_target_library_modules=peripherals['modules'],

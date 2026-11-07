@@ -1,0 +1,604 @@
+{
+  "schema": 1,
+  "blocks": {
+    "gpsBegin": {
+      "summary": "Initializes parser state and opens a 9600-baud serial GPS connection on explicit pins.",
+      "returns": "Command; call update repeatedly and check valid position before using coordinates.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS begin RX: number; library example 16.",
+        "2. TX: number; library example 17."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS begin RX … TX …",
+          "code": "GPS begin RX [16] TX [17]",
+          "explanation": "Block notation: Initializes parser state and opens a 9600-baud serial GPS connection on explicit pins. Command; call update repeatedly and check valid position before using coordinates."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsUpdate": {
+      "summary": "Consumes available serial data, validates sentences and updates cached GPS fields.",
+      "returns": "Command; does not wait for a satellite fix.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use GPS update",
+          "code": "GPS update",
+          "explanation": "Block notation: Consumes available serial data, validates sentences and updates cached GPS fields. Command; does not wait for a satellite fix."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsValidPosition": {
+      "summary": "Checks the parser's fix state and invalidates a fix older than ten seconds.",
+      "returns": "Boolean position validity.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use GPS valid position?",
+          "code": "GPS valid position?",
+          "explanation": "Block notation: Checks the parser's fix state and invalidates a fix older than ten seconds. Boolean position validity."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsGetSatellites": {
+      "summary": "Formats the cached number of satellites used, optionally followed by satellites in view.",
+      "returns": "Text; unknown view count appears as ?.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS satellites : show used/view?: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS satellites : show used/view? …",
+          "code": "GPS satellites : show used/view? [false]",
+          "explanation": "Block notation: Formats the cached number of satellites used, optionally followed by satellites in view. Text; unknown view count appears as ?."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsGetCoordinate": {
+      "summary": "Reads cached latitude or longitude with optional decimal-text formatting.",
+      "returns": "Degrees times 1000000, or decimal-degree text when text=true.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS coordinate: menu.gpsCoordinate; library example gps;latitude (deg x 10⁶).",
+        "2. : text?: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS coordinate … : text? …",
+          "code": "GPS coordinate [gps;latitude (deg x 10⁶)] : text? [false]",
+          "explanation": "Block notation: Reads cached latitude or longitude with optional decimal-text formatting. Degrees times 1000000, or decimal-degree text when text=true."
+        },
+        {
+          "title": "Use a current GPS fix",
+          "code": "GPS begin RX [16] TX [17]\nrepeat [100]\n  GPS update\n  if (GPS valid position?)\n    GPS coordinate [gps;latitude (deg x 106)] : text? [true]\n  wait [100] milliseconds\nGPS close",
+          "explanation": "Match pins to the connected NMEA receiver. A fix may take longer than this ten-second demonstration; no output is preferable to treating an invalid cached coordinate as a real location."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsGetSpeed": {
+      "summary": "Reads cached ground speed in the selected unit.",
+      "returns": "km/h or mph times 100, or decimal text when text=true.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS speed: menu.gpsSpeedUnit; library example km/h (x100).",
+        "2. : text?: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS speed … : text? …",
+          "code": "GPS speed [km/h (x100)] : text? [false]",
+          "explanation": "Block notation: Reads cached ground speed in the selected unit. km/h or mph times 100, or decimal text when text=true."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsGetAltitude": {
+      "summary": "Reads cached altitude with optional decimal-text formatting.",
+      "returns": "Meters times 100, or decimal-meter text.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS altitude (m x100) : text?: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS altitude (m x100) : text? …",
+          "code": "GPS altitude (m x100) : text? [false]",
+          "explanation": "Block notation: Reads cached altitude with optional decimal-text formatting. Meters times 100, or decimal-meter text."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsGetCourse": {
+      "summary": "Reads cached course with optional decimal-text formatting.",
+      "returns": "Degrees times 100, or decimal-degree text.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS course (deg x100) : text?: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS course (deg x100) : text? …",
+          "code": "GPS course (deg x100) : text? [false]",
+          "explanation": "Block notation: Reads cached course with optional decimal-text formatting. Degrees times 100, or decimal-degree text."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsGetDateTimePart": {
+      "summary": "Reads a cached GPS UTC calendar component.",
+      "returns": "Integer day/month/year/hour/minute/second as selected.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS date/time: menu.gpsDateTimePart; library example gps;day."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS date/time …",
+          "code": "GPS date/time [gps;day]",
+          "explanation": "Block notation: Reads a cached GPS UTC calendar component. Integer day/month/year/hour/minute/second as selected."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsDateString": {
+      "summary": "Formats the cached GPS date with the selected field order/separator.",
+      "returns": "Date text; update from valid NMEA data before relying on it.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS date: menu.gpsDateFormat; library example yyyy-mm-dd."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS date …",
+          "code": "GPS date [yyyy-mm-dd]",
+          "explanation": "Block notation: Formats the cached GPS date with the selected field order/separator. Date text; update from valid NMEA data before relying on it."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsTimeString": {
+      "summary": "Formats the cached GPS UTC time, optionally omitting seconds.",
+      "returns": "UTC time text; not local timezone time.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS time: menu.gpsTimeFormat; library example hh:mm:ss."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS time …",
+          "code": "GPS time [hh:mm:ss]",
+          "explanation": "Block notation: Formats the cached GPS UTC time, optionally omitting seconds. UTC time text; not local timezone time."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsClose": {
+      "summary": "Closes GPS serial input; parser readings remain cached rather than live.",
+      "returns": "Command; begin again before receiving new data.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use GPS close",
+          "code": "GPS close",
+          "explanation": "Block notation: Closes GPS serial input; parser readings remain cached rather than live. Command; begin again before receiving new data."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsDistance": {
+      "summary": "Estimates surface distance between two latitude/longitude pairs supplied in microdegrees.",
+      "returns": "Integer meters; equirectangular approximation locally and great-circle calculation for longer distances.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. GPS distance lat1: number; library example 0.",
+        "2. lon1: number; library example 0.",
+        "3. lat2: number; library example 0.",
+        "4. lon2: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use GPS distance lat1 … lon1 … lat2 … lon2 … (m)",
+          "code": "GPS distance lat1 [0] lon1 [0] lat2 [0] lon2 [0] (m)",
+          "explanation": "Block notation: Estimates surface distance between two latitude/longitude pairs supplied in microdegrees. Integer meters; equirectangular approximation locally and great-circle calculation for longer distances."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "gpsGetLastSentence": {
+      "summary": "Reads the parser's latest stored NMEA sentence for diagnostics.",
+      "returns": "Sentence text; does not itself request new serial data.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use GPS last NMEA sentence",
+          "code": "GPS last NMEA sentence",
+          "explanation": "Block notation: Reads the parser's latest stored NMEA sentence for diagnostics. Sentence text; does not itself request new serial data."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "_gpsChecksumOK": {
+      "summary": "Internal helper checks an NMEA sentence checksum before parsing it.",
+      "returns": "Boolean checksum validity.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: text; supply a value."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsChecksumOK …",
+          "code": "_gpsChecksumOK [$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A]",
+          "explanation": "Block notation. A standard checksum-bearing RMC sentence; returns true for its matching checksum."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsProcessSentence": {
+      "summary": "Internal helper dispatches a supplied NMEA sentence into cached parser state.",
+      "returns": "Command; normally called by GPS update.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: text; supply a value."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsProcessSentence …",
+          "code": "_gpsProcessSentence [$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A]",
+          "explanation": "Block notation. Initialize GPS parser state before injecting a sentence. This is synthetic test data, not the current location."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsParseRMC": {
+      "summary": "Internal helper extracts fix, coordinates, speed, course and date from split RMC fields.",
+      "returns": "Command; expects a parsed field list, not a sentence string.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: auto; library example nil."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsParseRMC …",
+          "code": "GPS begin RX [16] TX [17]\nGPS update",
+          "explanation": "Normal-use example: GPS update supplies validated split sentence fields to this internal helper. Do not pass the palette nil placeholder as if it were a valid field list."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsParseGGA": {
+      "summary": "Internal helper extracts fix/satellite/altitude data from split GGA fields.",
+      "returns": "Command; expects a parsed field list.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: auto; library example nil."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsParseGGA …",
+          "code": "GPS begin RX [16] TX [17]\nGPS update",
+          "explanation": "Normal-use example: GPS update supplies validated split sentence fields to this internal helper. Do not pass the palette nil placeholder as if it were a valid field list."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsParseFixed": {
+      "summary": "Parses a decimal field into a fixed-point integer with the requested decimal places.",
+      "returns": "Scaled integer; use validated numeric NMEA fields.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: text; library example 0.",
+        "2. gpsParseFixed: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsParseFixed … decimals …",
+          "code": "_gpsParseFixed [12.34] decimals [2]",
+          "explanation": "Block notation. Returns the fixed-point integer 1234 from validated decimal text."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsCoordinate": {
+      "summary": "Converts NMEA degrees/minutes and hemisphere into signed decimal microdegrees.",
+      "returns": "Degrees times 1000000; S and W make the result negative.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: text; library example 0000.0000.",
+        "2. gpsCoordinate: text; library example N."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsCoordinate … hemisphere …",
+          "code": "_gpsCoordinate [4807.038] hemisphere [N]",
+          "explanation": "Block notation. Converts 48 degrees and 7.038 minutes north to integer microdegrees, approximately 48117300."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsParseTime": {
+      "summary": "Extracts UTC hour/minute/second from an NMEA time field into parser state.",
+      "returns": "Command; strings shorter than six characters are ignored.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: text; library example 000000.00."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsParseTime …",
+          "code": "_gpsParseTime [123519.00]",
+          "explanation": "Block notation. Stores UTC hour 12, minute 35 and second 19 in parser state."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsDigit": {
+      "summary": "Reads one decimal digit from a text field at a one-based position.",
+      "returns": "Digit value; intended for validated NMEA fields.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: text; library example 0.",
+        "2. gpsDigit: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsDigit … at …",
+          "code": "_gpsDigit [123] at [2]",
+          "explanation": "Block notation. Returns 2; character indexing begins at 1."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsTwoDigits": {
+      "summary": "Combines two adjacent decimal digits starting at a one-based position.",
+      "returns": "Integer two-digit value.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: text; library example 00.",
+        "2. gpsTwoDigits: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsTwoDigits … at …",
+          "code": "_gpsTwoDigits [1234] at [2]",
+          "explanation": "Block notation. Returns 23 from the second and third characters."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsFixedPointText": {
+      "summary": "Formats a scaled integer with a decimal point and zero-padded fractional digits.",
+      "returns": "Decimal text, preserving a negative sign.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: number; library example 0.",
+        "2. gpsFixedPointText: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsFixedPointText … decimals …",
+          "code": "_gpsFixedPointText [1234] decimals [2]",
+          "explanation": "Block notation. Returns text 12.34."
+        },
+        {
+          "title": "Format a scaled temperature",
+          "code": "_gpsFixedPointText [235] decimals [1]",
+          "explanation": "Returns text 23.5. This formatting helper is independent of GPS hardware."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsZeroPad": {
+      "summary": "Formats a value with leading zeros to reach a minimum width.",
+      "returns": "Padded text; does not truncate longer values.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: number; library example 0.",
+        "2. gpsZeroPad: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsZeroPad … width …",
+          "code": "_gpsZeroPad [7] width [2]",
+          "explanation": "Block notation. Returns text 07."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_gpsRoundDiv": {
+      "summary": "Divides integers with nearest-integer rounding and sign handling.",
+      "returns": "Rounded integer; divisor zero returns 0.",
+      "prerequisites": [
+        "Import GPS (neo-7m) and its declared dependencies.",
+        "For live data, connect a compatible 9600-baud NMEA receiver and run GPS begin/update. Pure formatting/distance helpers need no receiver. Cached values alone do not prove a current fix."
+      ],
+      "inputs": [
+        "1. Value: number; library example 0.",
+        "2. gpsRoundDiv: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use …gpsRoundDiv … by …",
+          "code": "_gpsRoundDiv [7] by [2]",
+          "explanation": "Block notation. Returns 4 with nearest-integer rounding."
+        }
+      ],
+      "notes": [
+        "Library for GPS (NEO-7M) device. Decimal measurements use fixed-point integers and can be displayed aas text with \"decimals\": - latitude and longitude: degrees x 1,000,000 - speed: km/h or mph x 100 - altitude: meters x 100 - course: degrees x 100 Datasheet and useful information: https://content.u-blox.com/sites/default/files/products/documents/NEO-7_DataSheet_%28UBX-13003830%29.pdf https://docs.keyestudio.com/projects/KS0319/en/latest/docs/KS0319.html https://github.com/SlashDevin/NeoGPS/tree/master https://github.com/mikalhart/TinyGPSPlus/tree/master ",
+        "Source: libraries\\sensors\\NMEA.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    }
+  }
+}

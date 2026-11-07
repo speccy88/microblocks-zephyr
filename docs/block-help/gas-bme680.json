@@ -1,0 +1,392 @@
+{
+  "schema": 1,
+  "blocks": {
+    "_bme680 setup": {
+      "summary": "Internal sensor initialization: loads calibration and configures measurement registers.",
+      "returns": "Command; prefer set address to for public initialization.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use …bme680 setup",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "bme680 connected": {
+      "summary": "Reads chip ID at the selected I2C address to check for a BME680.",
+      "returns": "True when ID register is 0x61; does not prove calibrated measurements.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use bme680 connected",
+          "code": "bme680 connected",
+          "explanation": "Block notation: Reads chip ID at the selected I2C address to check for a BME680. True when ID register is 0x61; does not prove calibrated measurements."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "_bme680 read int": {
+      "summary": "Internal calibration reader for signed little-endian 16-bit coefficients.",
+      "returns": "Signed integer; index selects the library's split calibration register regions.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [
+        "1. Value: auto; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use …bme680 read int16 …",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_bme680 read word": {
+      "summary": "Internal calibration reader for an unsigned little-endian 16-bit coefficient.",
+      "returns": "Unsigned word from the calibration region.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [
+        "1. Value: auto; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use …bme680 read word …",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_bme680 read raw": {
+      "summary": "Refreshes cached sensor raw measurements used by compensation routines.",
+      "returns": "Command; initialize calibration first.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use …bme680 read raw",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "bme680 temperature": {
+      "summary": "Reads compensated BME680 temperature using the cached/raw measurement path.",
+      "returns": "Celsius times 10; for example 235 represents 23.5 C.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use bme680 temperature (°C x10)",
+          "code": "bme680 temperature (°C x10)",
+          "explanation": "Block notation: Reads compensated BME680 temperature using the cached/raw measurement path. Celsius times 10; for example 235 represents 23.5 C."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "_bm680 read int8": {
+      "summary": "Internal calibration reader that sign-extends an 8-bit coefficient.",
+      "returns": "Signed integer from -128 through 127.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [
+        "1. Value: auto; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use …bm680 read int8 …",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "bme680 pressure": {
+      "summary": "Calculates compensated atmospheric pressure from raw measurements and calibration.",
+      "returns": "Millibar times 10.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use bme680 pressure (mBar x10)",
+          "code": "bme680 pressure (mBar x10)",
+          "explanation": "Block notation: Calculates compensated atmospheric pressure from raw measurements and calibration. Millibar times 10."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "_bme680_set_bits": {
+      "summary": "Internal read-modify-write helper for a sensor configuration register.",
+      "returns": "Command; requires a documented register/mask/position/value tuple.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [
+        "1. Value: auto; library example 0.",
+        "2. bme680: auto; library example 0.",
+        "3. set: auto; library example 0.",
+        "4. bits reg: auto; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use …bme680…set…bits reg … mask … pos … val …",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_bme680 temperature": {
+      "summary": "Internal temperature compensation intermediate used by pressure and public temperature.",
+      "returns": "Unscaled compensation intermediate; use bme680 temperature for Celsius.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use …bme680 temperature",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "bme680 humidity": {
+      "summary": "Calculates compensated relative humidity using current temperature.",
+      "returns": "Percent times 10, clamped to 0..1000.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use bme680 humidity (% x10)",
+          "code": "bme680 humidity (% x10)",
+          "explanation": "Block notation: Calculates compensated relative humidity using current temperature. Percent times 10, clamped to 0..1000."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "_bm680 read humidity coefficients": {
+      "summary": "Internal loader for humidity calibration constants.",
+      "returns": "Command; updates library calibration state.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use …bm680 read humidity coefficients",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_bme680 read pressure coefficients": {
+      "summary": "Internal loader for pressure calibration constants.",
+      "returns": "Command; updates library calibration state.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use …bme680 read pressure coefficients",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_bme680 read temperature coefficients": {
+      "summary": "Internal loader for temperature calibration constants.",
+      "returns": "Command; updates library calibration state.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use …bme680 read temperature coefficients",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "_read gas coefficients": {
+      "summary": "Internal loader for heater/gas calibration including signed range error.",
+      "returns": "Command; updates library calibration state.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use …read gas coefficients",
+          "code": "bme680 set address to [119]\nbme680 connected",
+          "explanation": "Normal-use example: initialization invokes calibration/setup helpers with valid arguments. This internal helper should not be called with arbitrary register values; see its documented role above."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "Advanced/internal helper exposed by this library. Prefer its public blocks unless maintaining or testing the parser/driver."
+      ]
+    },
+    "bme680 gas": {
+      "summary": "Reads gas resistance and enables the default heater profile when needed.",
+      "returns": "Resistance divided by 10 (multiply by 10 for ohms), or 0 without a positive raw ADC result; not a gas concentration.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use bme680 gas resistance (mΩ x10)",
+          "code": "bme680 gas resistance (mΩ x10)",
+          "explanation": "Block notation: Reads gas resistance and enables the default heater profile when needed. Resistance divided by 10 (multiply by 10 for ohms), or 0 without a positive raw ADC result; not a gas concentration."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "bme680 set gas": {
+      "summary": "Sets heater target and measurement duration; nonpositive temperature or duration disables gas measurements.",
+      "returns": "Command; positive temperature is clamped to 200..400 C.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [
+        "1. bme680 set gas to: auto; library example 320.",
+        "2. degrees for: auto; library example 150."
+      ],
+      "examples": [
+        {
+          "title": "Use bme680 set gas to … degrees for … millisecs",
+          "code": "bme680 set gas to [320] degrees for [150] millisecs",
+          "explanation": "Block notation: Sets heater target and measurement duration; nonpositive temperature or duration disables gas measurements. Command; positive temperature is clamped to 200..400 C."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "bme680 set address to": {
+      "summary": "Selects an explicit sensor address, resets cached state and runs initialization.",
+      "returns": "Command; typical BME680 addresses are 118 or 119.",
+      "prerequisites": [
+        "Import Gas (BME680) and its declared dependencies.",
+        "Attach a BME680 on a configured I2C bus. Check chip identity and initialize address 118/119 before reading; upstream board tests do not validate this target."
+      ],
+      "inputs": [
+        "1. bme680 set address to: auto; library example 119."
+      ],
+      "examples": [
+        {
+          "title": "Use bme680 set address to …",
+          "code": "bme680 set address to [119]",
+          "explanation": "Block notation: Selects an explicit sensor address, resets cached state and runs initialization. Command; typical BME680 addresses are 118 or 119."
+        }
+      ],
+      "notes": [
+        "Suport for Bosch BME680 sensor Temperature, Humidity, Air Pressure and Gas Sensor Based on https://github.com/Zanduino/BME680 Tested on TeslaLAB Galileo Univestiy Board ",
+        "Source: libraries\\sensors\\BME680.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

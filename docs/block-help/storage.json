@@ -1,0 +1,361 @@
+{
+  "schema": 1,
+  "blocks": {
+    "storageSaveNew": {
+      "summary": "Starts an asynchronous write to a new RAM file and refuses replacement of an existing file.",
+      "returns": "Write reference; wait for completion before reading.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. save: text; supply a value.",
+        "2. as: text; library example /RAM/note.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use save … as …",
+          "code": "save [] as [/RAM/note.txt]",
+          "explanation": "Block notation: Starts an asynchronous write to a new RAM file and refuses replacement of an existing file. Write reference; wait for completion before reading."
+        },
+        {
+          "title": "Save before reading",
+          "code": "set write to (save [hello] as [/RAM/example.txt])\nwait for file write [write]\nread text [/RAM/example.txt]",
+          "explanation": "Use a new filename. A completed write reads back hello. RAM files disappear after reboot or power loss."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "storageReplace": {
+      "summary": "Starts replacement of a named RAM file with new contents.",
+      "returns": "Write reference; existing contents may be replaced when the write commits.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. replace: text; library example /RAM/note.txt.",
+        "2. with: text; supply a value."
+      ],
+      "examples": [
+        {
+          "title": "Use replace … with …",
+          "code": "replace [/RAM/note.txt] with []",
+          "explanation": "Block notation: Starts replacement of a named RAM file with new contents. Write reference; existing contents may be replaced when the write commits."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "storageWait": {
+      "summary": "Yields while a write is receiving/ready; displays a diagnostic if it does not finish as done.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. wait for file write: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use wait for file write …",
+          "code": "wait for file write [write]",
+          "explanation": "Block notation: Yields while a write is receiving/ready; displays a diagnostic if it does not finish as done. Command; no reporter value. First save the reference returned by save [hello] as [/RAM/note.txt] as write."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:text]": {
+      "summary": "Reads a RAM file as UTF-8 text; use read bytes for arbitrary binary data.",
+      "returns": "Text result; inspect storage status for missing files or invalid UTF-8/NUL data.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. read text: text; library example /RAM/note.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use read text …",
+          "code": "read text [/RAM/note.txt]",
+          "explanation": "Block notation: Reads a RAM file as UTF-8 text; use read bytes for arbitrary binary data. Text result; inspect storage status for missing files or invalid UTF-8/NUL data."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:exists]": {
+      "summary": "Tests whether a completed RAM file exists at the exact path.",
+      "returns": "Boolean existence.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. file: text; library example /RAM/note.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use file … exists?",
+          "code": "file [/RAM/note.txt] exists?",
+          "explanation": "Block notation: Tests whether a completed RAM file exists at the exact path. Boolean existence."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:size]": {
+      "summary": "Reads the stored byte length, not a count of displayed characters.",
+      "returns": "Byte count; check storage status for invalid paths/missing files.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. file: text; library example /RAM/note.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use file … bytes",
+          "code": "file [/RAM/note.txt] bytes",
+          "explanation": "Block notation: Reads the stored byte length, not a count of displayed characters. Byte count; check storage status for invalid paths/missing files."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:list]": {
+      "summary": "Lists currently completed RAM files for inspection.",
+      "returns": "File listing from the RAM backend.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RAM files",
+          "code": "RAM files",
+          "explanation": "Block notation: Lists currently completed RAM files for inspection. File listing from the RAM backend."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "storageDelete": {
+      "summary": "Removes the named RAM file. Verify the path before using this command.",
+      "returns": "Command; a failed delete displays storage status.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. delete file: text; library example /RAM/note.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use delete file …",
+          "code": "delete file [/RAM/note.txt]",
+          "explanation": "Block notation: Removes the named RAM file. Verify the path before using this command. Command; a failed delete displays storage status."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:used]": {
+      "summary": "Reports how much RAM is occupied by file contents.",
+      "returns": "Bytes used.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RAM file bytes used",
+          "code": "RAM file bytes used",
+          "explanation": "Block notation: Reports how much RAM is occupied by file contents. Bytes used."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:slots]": {
+      "summary": "Checks how many of the eight file slots remain available.",
+      "returns": "Free file-slot count.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use RAM free file slots",
+          "code": "RAM free file slots",
+          "explanation": "Block notation: Checks how many of the eight file slots remain available. Free file-slot count."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:maxFile]": {
+      "summary": "Reports the maximum size permitted for one RAM file.",
+      "returns": "Maximum bytes (8192 in the current backend).",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use maximum file bytes",
+          "code": "maximum file bytes",
+          "explanation": "Block notation: Reports the maximum size permitted for one RAM file. Maximum bytes (8192 in the current backend)."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:status]": {
+      "summary": "Reads the latest storage diagnostic immediately after an operation.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use last storage status",
+          "code": "last storage status",
+          "explanation": "Block notation: Reads the latest storage diagnostic immediately after an operation. Status text."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "storageSave": {
+      "summary": "Starts a RAM-file write with an explicit overwrite policy.",
+      "returns": "Write reference; replace=false protects an existing file.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. save: text; supply a value.",
+        "2. as: text; supply a value.",
+        "3. replace: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use save … as … replace …",
+          "code": "save [] as [] replace [false]",
+          "explanation": "Block notation: Starts a RAM-file write with an explicit overwrite policy. Write reference; replace=false protects an existing file."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:bytes]": {
+      "summary": "Reads stored bytes without UTF-8 text conversion.",
+      "returns": "Binary result; inspect storage status on failure.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. read bytes: text; library example /RAM/note.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use read bytes …",
+          "code": "read bytes [/RAM/note.txt]",
+          "explanation": "Block notation: Reads stored bytes without UTF-8 text conversion. Binary result; inspect storage status on failure."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:state]": {
+      "summary": "Polls a specific asynchronous write rather than assuming save finished.",
+      "returns": "State text, including receiving, ready and done.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. file write: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use file write … state",
+          "code": "file write [write] state",
+          "explanation": "Block notation: Polls a specific asynchronous write rather than assuming save finished. State text, including receiving, ready and done. First save the reference returned by save [hello] as [/RAM/note.txt] as write."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "storageCancel": {
+      "summary": "Requests cancellation before a pending write commits.",
+      "returns": "Command; committed writes cannot be undone by cancellation.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. cancel file write: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use cancel file write …",
+          "code": "cancel file write [write]",
+          "explanation": "Block notation: Requests cancellation before a pending write commits. Command; committed writes cannot be undone by cancellation. First save the reference returned by save [hello] as [/RAM/note.txt] as write."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[storage:available]": {
+      "summary": "Checks whether the named storage backend is implemented.",
+      "returns": "RAM is available in this stage; flash and SD are not.",
+      "prerequisites": [
+        "Import Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. storage: text; library example RAM."
+      ],
+      "examples": [
+        {
+          "title": "Use storage … available?",
+          "code": "storage [RAM] available?",
+          "explanation": "Block notation: Checks whether the named storage backend is implemented. RAM is available in this stage; flash and SD are not."
+        }
+      ],
+      "notes": [
+        "RAM files are temporary: they survive Stop All and reconnect, but disappear on reboot or power loss. Eight files, each at most 8192 bytes. Use paths such as /RAM/note.txt. Simple ASCII names and up to four virtual directory components; no hidden names, .., backslashes or URL escapes. Save returns a write reference: wait for that write before reading. Replace must be true to overwrite. Stop All cancels unfinished writes and preserves completed files. One pending write; cancellation only works before commit. Read text requires UTF-8 without NUL; read bytes preserves arbitrary binary data. Flash and SD are unavailable. This stage handles small records, not full camera/audio archives. No web file manager yet. New firmware required; host tests/builds and disconnected UI are separate from physical verification.",
+        "Source: integration\\Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

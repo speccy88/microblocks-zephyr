@@ -65,11 +65,12 @@ are retained.
 
 The [current JavaScript editor](https://speccy88.github.io/microblocks-zephyr/js-preview/propeller2/)
 keeps DTR/RTS deasserted so a Prop Plug does not hold P2 in reset. Connect the
-correct FTDI port. Five focused libraries—**P2 Core, Signals, Serial, Analog
-and Capture**—appear automatically
+correct FTDI port. **47 focused mode libraries**, including **P2 Simple IO**,
+appear automatically
 when the P2 editor starts and when creating a new project, even without hardware.
 Saved ordinary P2 Hardware libraries are reorganized without replacing their
-definitions. Stateful/custom layouts are preserved conservatively; **Load target
+definitions. Saved five-library layouts and subsets remain unchanged.
+Stateful/custom layouts are preserved conservatively; **Load target
 blocks** remains an explicit update action. See the [library organization](../../docs/PROPELLER2_LIBRARIES.md)
 and [editor visibility contract](../../docs/P2_EDITOR_VISIBILITY.md).
 The firmware reports its exact variant. Normal connection stops the VM and
@@ -350,8 +351,8 @@ The reviewed extension-8 firmware has no generic stream-serial or NeoPixel
 backend. The [optional peripheral candidate](../../docs/PROPELLER2_PERIPHERALS.md)
 adds those backends plus focused Displays, LEDs, Peripherals, Storage, Sensors
 and Audio libraries. It reports extension 9, compiles for all three variants
-and remains physically untested/uninstalled. The original 79 automatic helpers
-remain compatible with extension 8. Networking and PSRAM object storage remain
+and remains physically untested/uninstalled. The 82 automatic helpers
+(the original 79 plus three Simple IO wrappers) remain compatible with extension 8. Networking and PSRAM object storage remain
 unsupported. The web installer deliberately retains its reviewed extension-8
 images and exact hash checks; candidate builds are separate artifacts.
 

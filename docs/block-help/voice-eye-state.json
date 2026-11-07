@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "blocks": {
+    "voiceEyesInitialize": {
+      "summary": "Initializes display-independent gaze/expression state before applying commands.",
+      "returns": "Command; no OLED initialization occurs.",
+      "prerequisites": [
+        "Import Voice Eye State and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use initialize voice eye state",
+          "code": "initialize voice eye state",
+          "explanation": "Block notation: Initializes display-independent gaze/expression state before applying commands. Command; no OLED initialization occurs."
+        }
+      ],
+      "notes": [
+        "Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.",
+        "Source: bilingual-kws\\esp32p4\\microblocks\\Voice_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "voiceEyesApply": {
+      "summary": "Applies a known semantic command to gaze or expression; unknown/silence/empty commands preserve state.",
+      "returns": "Command; rendering is a separate step.",
+      "prerequisites": [
+        "Import Voice Eye State and its declared dependencies."
+      ],
+      "inputs": [
+        "1. apply voice eye command: text; library example left."
+      ],
+      "examples": [
+        {
+          "title": "Use apply voice eye command …",
+          "code": "apply voice eye command [left]",
+          "explanation": "Block notation: Applies a known semantic command to gaze or expression; unknown/silence/empty commands preserve state. Command; rendering is a separate step."
+        }
+      ],
+      "notes": [
+        "Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.",
+        "Source: bilingual-kws\\esp32p4\\microblocks\\Voice_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "voiceEyesGazeX": {
+      "summary": "Reads the retained semantic horizontal gaze.",
+      "returns": "Normalized gaze value; initialize state first.",
+      "prerequisites": [
+        "Import Voice Eye State and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use voice eye gaze x",
+          "code": "voice eye gaze x",
+          "explanation": "Block notation: Reads the retained semantic horizontal gaze. Normalized gaze value; initialize state first."
+        }
+      ],
+      "notes": [
+        "Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.",
+        "Source: bilingual-kws\\esp32p4\\microblocks\\Voice_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "voiceEyesGazeY": {
+      "summary": "Reads the retained semantic vertical gaze.",
+      "returns": "Normalized gaze value; initialize state first.",
+      "prerequisites": [
+        "Import Voice Eye State and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use voice eye gaze y",
+          "code": "voice eye gaze y",
+          "explanation": "Block notation: Reads the retained semantic vertical gaze. Normalized gaze value; initialize state first."
+        }
+      ],
+      "notes": [
+        "Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.",
+        "Source: bilingual-kws\\esp32p4\\microblocks\\Voice_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "voiceEyesMood": {
+      "summary": "Reads the retained expression selected by voice commands.",
+      "returns": "Mood text; initialize state first.",
+      "prerequisites": [
+        "Import Voice Eye State and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use voice eye expression",
+          "code": "voice eye expression",
+          "explanation": "Block notation: Reads the retained expression selected by voice commands. Mood text; initialize state first."
+        }
+      ],
+      "notes": [
+        "Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.",
+        "Source: bilingual-kws\\esp32p4\\microblocks\\Voice_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "voiceEyesRender": {
+      "summary": "Applies the retained semantic gaze/expression to an already initialized Robot Eyes display.",
+      "returns": "Command; initialize the OLED separately.",
+      "prerequisites": [
+        "Import Voice Eye State and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use render voice eye state on initialized OLED",
+          "code": "render voice eye state on initialized OLED",
+          "explanation": "Block notation: Applies the retained semantic gaze/expression to an already initialized Robot Eyes display. Command; initialize the OLED separately."
+        }
+      ],
+      "notes": [
+        "Display-independent semantic state for eight voice commands. Initialize state explicitly. Applying a command changes gaze OR expression; unknown, silence and empty commands preserve state. Optional rendering uses the separately initialized Robot Eyes library.",
+        "Source: bilingual-kws\\esp32p4\\microblocks\\Voice_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

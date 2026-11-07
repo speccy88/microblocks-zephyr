@@ -1,0 +1,342 @@
+{
+  "schema": 1,
+  "blocks": {
+    "[p4:nnAvailable]": {
+      "summary": "Checks whether local TFLM inference is compiled and available.",
+      "returns": "Boolean backend availability.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use neural backend available?",
+          "code": "neural backend available?",
+          "explanation": "Block notation: Checks whether local TFLM inference is compiled and available. Boolean backend availability."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4NNLoad": {
+      "summary": "Loads a named built-in model and waits until it is ready.",
+      "returns": "Model reference text, or empty text if loading/readiness fails.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. load neural model: text; library example sine-int8-v1."
+      ],
+      "examples": [
+        {
+          "title": "Use load neural model …",
+          "code": "load neural model [sine-int8-v1]",
+          "explanation": "Block notation: Loads a named built-in model and waits until it is ready. Model reference text, or empty text if loading/readiness fails."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnCurrentModel]": {
+      "summary": "Reads the current model reference rather than relying on an example token.",
+      "returns": "Model reference text.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use current neural model",
+          "code": "current neural model",
+          "explanation": "Block notation: Reads the current model reference rather than relying on an example token. Model reference text."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnSetValue]": {
+      "summary": "Writes one numerical input using fixed-point thousandths, after inspecting tensor metadata.",
+      "returns": "Command; input index is one-based and 1000 represents 1.0.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. set model: text; library example NN:00000001.",
+        "2. input: number; library example 1.",
+        "3. to: number; library example 1000."
+      ],
+      "examples": [
+        {
+          "title": "Use set model … input … to … / 1000",
+          "code": "set model [model] input [1] to [1000] / 1000",
+          "explanation": "Block notation: Writes one numerical input using fixed-point thousandths, after inspecting tensor metadata. Command; input index is one-based and 1000 represents 1.0. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4NNRun": {
+      "summary": "Runs a loaded model once and waits until the inference job finishes.",
+      "returns": "Command; check neural status before reading outputs.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. run neural model: text; library example NN:00000001."
+      ],
+      "examples": [
+        {
+          "title": "Use run neural model …",
+          "code": "run neural model [model]",
+          "explanation": "Block notation: Runs a loaded model once and waits until the inference job finishes. Command; check neural status before reading outputs. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        },
+        {
+          "title": "Run the built-in sine model",
+          "code": "set model to (load neural model [sine-int8-v1])\nif (neural model [model] ready?)\n  model [model] tensor information\n  set model [model] input [1] to [1000] / 1000\n  run neural model [model]\n  model [model] output [1] times 1000\n  unload neural model [model]",
+          "explanation": "Input 1000 represents 1.0. Output is an approximate scaled model prediction, not an exact math-library result. Check neural status if a request fails."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnOutputValue]": {
+      "summary": "Reads one numerical output with explicit fixed-point scaling.",
+      "returns": "Integer output times 1000; inspect tensor metadata for meaning.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. model: text; library example NN:00000001.",
+        "2. output: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use model … output … times 1000",
+          "code": "model [model] output [1] times 1000",
+          "explanation": "Block notation: Reads one numerical output with explicit fixed-point scaling. Integer output times 1000; inspect tensor metadata for meaning. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnModelInfo]": {
+      "summary": "Inspects input/output shapes, types and scaling before assigning values.",
+      "returns": "Tensor metadata description.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. model: text; library example NN:00000001."
+      ],
+      "examples": [
+        {
+          "title": "Use model … tensor information",
+          "code": "model [model] tensor information",
+          "explanation": "Block notation: Inspects input/output shapes, types and scaling before assigning values. Tensor metadata description. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnStatus]": {
+      "summary": "Reads the latest load/run/cancel diagnostic.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use neural job status",
+          "code": "neural job status",
+          "explanation": "Block notation: Reads the latest load/run/cancel diagnostic. Status text."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p4NNUnload": {
+      "summary": "Requests model unload and waits for the worker to finish.",
+      "returns": "Command; do not use the unloaded reference afterward.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. unload neural model: text; library example NN:00000001."
+      ],
+      "examples": [
+        {
+          "title": "Use unload neural model …",
+          "code": "unload neural model [model]",
+          "explanation": "Block notation: Requests model unload and waits for the worker to finish. Command; do not use the unloaded reference afterward. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnCancel]": {
+      "summary": "Cancels the active neural job without starting any hardware.",
+      "returns": "Command; inspect status before reusing the model.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use cancel neural job",
+          "code": "cancel neural job",
+          "explanation": "Block notation: Cancels the active neural job without starting any hardware. Command; inspect status before reusing the model."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnCapabilities]": {
+      "summary": "Describes supported model formats/operators and backend limits.",
+      "returns": "Capability text; unsupported models are rejected.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use neural backend limits",
+          "code": "neural backend limits",
+          "explanation": "Block notation: Describes supported model formats/operators and backend limits. Capability text; unsupported models are rejected."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnBusy]": {
+      "summary": "Checks whether a neural load/run/unload job is active.",
+      "returns": "Boolean busy state.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use neural job busy?",
+          "code": "neural job busy?",
+          "explanation": "Block notation: Checks whether a neural load/run/unload job is active. Boolean busy state."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnReady]": {
+      "summary": "Checks whether a specific model reference is ready to run.",
+      "returns": "Boolean readiness.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. neural model: text; library example NN:00000001."
+      ],
+      "examples": [
+        {
+          "title": "Use neural model … ready?",
+          "code": "neural model [model] ready?",
+          "explanation": "Block notation: Checks whether a specific model reference is ready to run. Boolean readiness. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnRun]": {
+      "summary": "Starts inference with an explicit repetition count without waiting.",
+      "returns": "Boolean request acceptance; poll busy and check status.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. start neural model: text; library example NN:00000001.",
+        "2. repetitions: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use start neural model … repetitions …",
+          "code": "start neural model [model] repetitions [1]",
+          "explanation": "Block notation: Starts inference with an explicit repetition count without waiting. Boolean request acceptance; poll busy and check status. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnInputBytes]": {
+      "summary": "Writes raw tensor bytes, bypassing the numeric thousandths convenience conversion.",
+      "returns": "Command; offset is zero-based and bytes must match tensor metadata.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. model: text; library example NN:00000001.",
+        "2. input bytes at offset: number; library example 0.",
+        "3. data: auto; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use model … input bytes at offset … data …",
+          "code": "model [model] input bytes at offset [0] data [tensorBytes]",
+          "explanation": "Block notation: Writes raw tensor bytes, bypassing the numeric thousandths convenience conversion. Command; offset is zero-based and bytes must match tensor metadata. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[p4:nnOutputBytes]": {
+      "summary": "Reads a raw output tensor byte range.",
+      "returns": "Byte data; zero-based offset, interpret using tensor type/quantization.",
+      "prerequisites": [
+        "Import P4 Neural Networks and its declared dependencies."
+      ],
+      "inputs": [
+        "1. model: text; library example NN:00000001.",
+        "2. output bytes offset: number; library example 0.",
+        "3. count: number; library example 4."
+      ],
+      "examples": [
+        {
+          "title": "Use model … output bytes offset … count …",
+          "code": "model [model] output bytes offset [0] count [4]",
+          "explanation": "Block notation: Reads a raw output tensor byte range. Byte data; zero-based offset, interpret using tensor type/quantization. First save load neural model [sine-int8-v1] as model and check model ready; inspect tensor information before writing inputs."
+        }
+      ],
+      "notes": [
+        "Local native TFLM reference inference. Builtin catalog: sine-int8-v1. Import compatible static dense TFLite models from the Neural networks editor panel. Numeric input and output values are explicitly scaled by 1000; inspect tensor metadata before use. Unsupported formats/operators are rejected. This is not direct ONNX Runtime and never actuates a robot or starts a microphone.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\P4_Neural.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

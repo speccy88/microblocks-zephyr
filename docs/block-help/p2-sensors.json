@@ -1,0 +1,430 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p2BME680Init": {
+      "summary": "Selects the I2C pins and verifies address 118/119 plus chip ID before configuring the BME680.",
+      "returns": "Boolean detection/initialization success.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 BME680 SDA: number; library example 8.",
+        "2. SCL: number; library example 9.",
+        "3. address: number; library example 119."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 BME680 SDA … SCL … address …",
+          "code": "P2 BME680 SDA [8] SCL [9] address [119]",
+          "explanation": "Block notation: Selects the I2C pins and verifies address 118/119 plus chip ID before configuring the BME680. Boolean detection/initialization success."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2BME680Temperature": {
+      "summary": "Reads the compensated BME680 temperature.",
+      "returns": "Integer degrees Celsius times 10.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 BME680 Celsius x10",
+          "code": "P2 BME680 Celsius x10",
+          "explanation": "Block notation: Reads the compensated BME680 temperature. Integer degrees Celsius times 10."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2BME680Humidity": {
+      "summary": "Reads the compensated BME680 relative humidity.",
+      "returns": "Percent times 10.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 BME680 humidity percent x10",
+          "code": "P2 BME680 humidity percent x10",
+          "explanation": "Block notation: Reads the compensated BME680 relative humidity. Percent times 10."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2BME680Pressure": {
+      "summary": "Reads the compensated BME680 atmospheric pressure.",
+      "returns": "Millibar times 10.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 BME680 pressure mbar x10",
+          "code": "P2 BME680 pressure mbar x10",
+          "explanation": "Block notation: Reads the compensated BME680 atmospheric pressure. Millibar times 10."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2BME680Gas": {
+      "summary": "Converts the portable BME680 resistance result into ohms.",
+      "returns": "Ohms in 10-ohm steps; not a gas concentration or air-quality index.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 BME680 gas ohms (10 ohm steps)",
+          "code": "P2 BME680 gas ohms (10 ohm steps)",
+          "explanation": "Block notation: Converts the portable BME680 resistance result into ohms. Ohms in 10-ohm steps; not a gas concentration or air-quality index."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2DHT22Read": {
+      "summary": "Reads a DHT22 with bounded timing and cached readings rather than an unbounded wait.",
+      "returns": "Two-element list [temperature Celsius x10, relative humidity percent x10], or false on settling, timeout/checksum failure, or a different cached pin.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 DHT22 pin: number; library example 13."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 DHT22 pin … (list or false)",
+          "code": "P2 DHT22 pin [13] (list or false)",
+          "explanation": "Block notation: Reads a DHT22 with bounded timing and cached readings rather than an unbounded wait. Measurement list or false; inspect the native contract before interpreting list fields."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests.",
+        "The native backend waits for two seconds of uptime before its first read and caches one pin for two seconds. Rapidly switching pins does not produce independent fresh readings."
+      ]
+    },
+    "p2LIS3DHInit": {
+      "summary": "Selects I2C pins and initializes a LIS3DH at an explicit address/range.",
+      "returns": "Boolean success; range is in g.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 LIS3DH SDA: number; library example 8.",
+        "2. SCL: number; library example 9.",
+        "3. address: number; library example 24.",
+        "4. range g: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 LIS3DH SDA … SCL … address … range g …",
+          "code": "P2 LIS3DH SDA [8] SCL [9] address [24] range g [2]",
+          "explanation": "Block notation: Selects I2C pins and initializes a LIS3DH at an explicit address/range. Boolean success; range is in g."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LIS3DHRead": {
+      "summary": "Reads the initialized LIS3DH acceleration vector.",
+      "returns": "Signed axis list in milligravity units, or false.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 LIS3DH acceleration mg (list or false)",
+          "code": "P2 LIS3DH acceleration mg (list or false)",
+          "explanation": "Block notation: Reads the initialized LIS3DH acceleration vector. Signed axis list in milligravity units, or false."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LSM9DS1Init": {
+      "summary": "Selects I2C pins and configures the separate accelerometer/gyro and magnetometer addresses.",
+      "returns": "Boolean initialization success.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 LSM9DS1 SDA: number; library example 8.",
+        "2. SCL: number; library example 9.",
+        "3. AG address: number; library example 107.",
+        "4. M address: number; library example 30."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 LSM9DS1 SDA … SCL … AG address … M address …",
+          "code": "P2 LSM9DS1 SDA [8] SCL [9] AG address [107] M address [30]",
+          "explanation": "Block notation: Selects I2C pins and configures the separate accelerometer/gyro and magnetometer addresses. Boolean initialization success."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LSM9Acceleration": {
+      "summary": "Reads the initialized LSM9DS1 acceleration vector.",
+      "returns": "Signed axis list in mg, or false.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 LSM9DS1 acceleration mg (list or false)",
+          "code": "P2 LSM9DS1 acceleration mg (list or false)",
+          "explanation": "Block notation: Reads the initialized LSM9DS1 acceleration vector. Signed axis list in mg, or false."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LSM9Gyroscope": {
+      "summary": "Reads angular velocity from the initialized LSM9DS1.",
+      "returns": "Signed axis list in millidegrees per second, or false.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 LSM9DS1 gyro millidegrees per second (list or false)",
+          "code": "P2 LSM9DS1 gyro millidegrees per second (list or false)",
+          "explanation": "Block notation: Reads angular velocity from the initialized LSM9DS1. Signed axis list in millidegrees per second, or false."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2LSM9Magnetic": {
+      "summary": "Reads magnetic field from the initialized LSM9DS1.",
+      "returns": "Signed axis list in nanotesla, or false; no calibration claim.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 LSM9DS1 magnetic nanotesla (list or false)",
+          "code": "P2 LSM9DS1 magnetic nanotesla (list or false)",
+          "explanation": "Block notation: Reads magnetic field from the initialized LSM9DS1. Signed axis list in nanotesla, or false; no calibration claim."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2GPSBegin": {
+      "summary": "Initializes the NMEA parser and shared buffered UART at 9600 baud.",
+      "returns": "True if the serial channel is open; not proof of a satellite fix.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 NMEA GPS RX: number; library example 8.",
+        "2. TX: number; library example 9."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 NMEA GPS RX … TX … (9600 baud)",
+          "code": "P2 NMEA GPS RX [8] TX [9] (9600 baud)",
+          "explanation": "Block notation: Initializes the NMEA parser and shared buffered UART at 9600 baud. True if the serial channel is open; not proof of a satellite fix."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2GPSUpdate": {
+      "summary": "Drains available serial bytes into the NMEA parser. Call repeatedly before using cached readings.",
+      "returns": "Command; does not wait for a valid fix.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 GPS update",
+          "code": "P2 GPS update",
+          "explanation": "Block notation: Drains available serial bytes into the NMEA parser. Call repeatedly before using cached readings. Command; does not wait for a valid fix."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2GPSValid": {
+      "summary": "Checks whether the cached GPS position is currently valid.",
+      "returns": "Boolean validity; check before using coordinates.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 GPS position valid",
+          "code": "P2 GPS position valid",
+          "explanation": "Block notation: Checks whether the cached GPS position is currently valid. Boolean validity; check before using coordinates."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2GPSPosition": {
+      "summary": "Returns the latest cached latitude and longitude together.",
+      "returns": "Two-element list in degrees times 1000000; check GPS valid first.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 GPS position lat lon degrees x1000000",
+          "code": "P2 GPS position lat lon degrees x1000000",
+          "explanation": "Block notation: Returns the latest cached latitude and longitude together. Two-element list in degrees times 1000000; check GPS valid first."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2GPSAltitude": {
+      "summary": "Reads cached GPS altitude from the NMEA parser.",
+      "returns": "Centimeters; check current fix validity.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 GPS altitude cm",
+          "code": "P2 GPS altitude cm",
+          "explanation": "Block notation: Reads cached GPS altitude from the NMEA parser. Centimeters; check current fix validity."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2GPSClose": {
+      "summary": "Closes the shared UART used by GPS.",
+      "returns": "Command; reopen before updating again.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 GPS close",
+          "code": "P2 GPS close",
+          "explanation": "Block notation: Closes the shared UART used by GPS. Command; reopen before updating again."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2PINGMicroseconds": {
+      "summary": "Triggers and times a bounded PING echo on the chosen pin.",
+      "returns": "Echo microseconds, or -1 on failure.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 PING pin: number; library example 16."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 PING pin … echo us (-1 failure)",
+          "code": "P2 PING pin [16] echo us (-1 failure)",
+          "explanation": "Block notation: Triggers and times a bounded PING echo on the chosen pin. Echo microseconds, or -1 on failure."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2PINGMillimeters": {
+      "summary": "Converts a successful PING echo using 343 meters per second.",
+      "returns": "Integer millimeters, or -1 on failure; speed of sound is approximate.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 PING pin: number; library example 16."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 PING pin … distance mm (-1 failure)",
+          "code": "P2 PING pin [16] distance mm (-1 failure)",
+          "explanation": "Block notation: Converts a successful PING echo using 343 meters per second. Integer millimeters, or -1 on failure; speed of sound is approximate."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2PIRMotion": {
+      "summary": "Reads the digital level from an attached PIR motion sensor.",
+      "returns": "Boolean pin level; sensor warm-up and active polarity are hardware-dependent.",
+      "prerequisites": [
+        "Import P2 Sensors and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 PIR motion pin: number; library example 17."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 PIR motion pin …",
+          "code": "P2 PIR motion pin [17]",
+          "explanation": "Block notation: Reads the digital level from an attached PIR motion sensor. Boolean pin level; sensor warm-up and active polarity are hardware-dependent."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. BME680, LIS3DH and LSM9DS1 use portable libraries and explicit I2C pins. DHT22 uses bounded cached reads; NMEA GPS shares the buffered UART; PING has a bounded timeout and PIR uses digital input. Units and failures are explicit on blocks. No hardware probe on import. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Sensors.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

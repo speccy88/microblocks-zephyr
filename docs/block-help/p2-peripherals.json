@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p2PeripheralFirmware": {
+      "summary": "Checks the P2 runtime revision before using optional peripheral primitives.",
+      "returns": "True for revision 9 or later; not proof of attached hardware.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 peripheral firmware available",
+          "code": "P2 peripheral firmware available",
+          "explanation": "Block notation: Checks the P2 runtime revision before using optional peripheral primitives. True for revision 9 or later; not proof of attached hardware."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2BufferedUART": {
+      "summary": "Opens a buffered 8N1 serial channel on explicit RX/TX pins and a free cog.",
+      "returns": "Boolean success; supported baud range 3000 through 115200.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 open buffered UART RX: number; library example 8.",
+        "2. TX: number; library example 9.",
+        "3. baud: number; library example 9600.",
+        "4. cog: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 open buffered UART RX … TX … baud … cog …",
+          "code": "P2 open buffered UART RX [8] TX [9] baud [9600] cog [2]",
+          "explanation": "Block notation: Opens a buffered 8N1 serial channel on explicit RX/TX pins and a free cog. Boolean success; supported baud range 3000 through 115200."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2BufferedClose": {
+      "summary": "Closes the shared buffered serial channel.",
+      "returns": "Command; also affects GPS using that channel.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 close buffered UART",
+          "code": "P2 close buffered UART",
+          "explanation": "Block notation: Closes the shared buffered serial channel. Command; also affects GPS using that channel."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2UARTAvailable": {
+      "summary": "Checks received bytes waiting in the UART ring before reading.",
+      "returns": "Available byte count.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 buffered UART bytes available",
+          "code": "P2 buffered UART bytes available",
+          "explanation": "Block notation: Checks received bytes waiting in the UART ring before reading. Available byte count."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2UARTDropped": {
+      "summary": "Detects receive overflow when scripts fail to drain the 255-byte ring quickly enough.",
+      "returns": "Dropped-byte count.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 buffered UART dropped bytes",
+          "code": "P2 buffered UART dropped bytes",
+          "explanation": "Block notation: Detects receive overflow when scripts fail to drain the 255-byte ring quickly enough. Dropped-byte count."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2UARTNextByte": {
+      "summary": "Removes the next received byte from the UART ring.",
+      "returns": "Byte value, or -1 when empty.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 buffered UART next byte (-1 if empty)",
+          "code": "P2 buffered UART next byte (-1 if empty)",
+          "explanation": "Block notation: Removes the next received byte from the UART ring. Byte value, or -1 when empty."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2UARTQueueByte": {
+      "summary": "Attempts to queue one transmit byte without waiting for ring space.",
+      "returns": "True if queued, false if not accepted; retry only when appropriate.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 try UART queue byte: number; library example 65."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 try UART queue byte …",
+          "code": "P2 try UART queue byte [65]",
+          "explanation": "Block notation: Attempts to queue one transmit byte without waiting for ring space. True if queued, false if not accepted; retry only when appropriate."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2KeypadInit": {
+      "summary": "Assigns four row and four column pins to a 4 by 4 matrix keypad and resets debounce state.",
+      "returns": "Boolean setup success.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 4x4 keypad rows: auto; library example rows list.",
+        "2. columns: auto; library example columns list."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 4x4 keypad rows … columns …",
+          "code": "P2 4x4 keypad rows [list(8, 9, 10, 11)] columns [list(12, 13, 14, 15)]",
+          "explanation": "Block notation: Assigns four row and four column pins to a 4 by 4 matrix keypad and resets debounce state. Boolean setup success."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2KeypadMask": {
+      "summary": "Scans the keypad before interpreting or debouncing key presses.",
+      "returns": "Key bitmask, -1 for ghosting, -2 when uninitialized.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 keypad mask (-1 ghost, -2 uninitialized)",
+          "code": "P2 keypad mask (-1 ghost, -2 uninitialized)",
+          "explanation": "Block notation: Scans the keypad before interpreting or debouncing key presses. Key bitmask, -1 for ghosting, -2 when uninitialized."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2KeypadKey": {
+      "summary": "Returns the first mapped key after its mask stays unchanged for at least 30 milliseconds.",
+      "returns": "Character from 123A456B789C*0#D; empty if none/not stable, ? for a negative scan result.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 keypad stable key (empty none, ? ambiguous)",
+          "code": "P2 keypad stable key (empty none, ? ambiguous)",
+          "explanation": "Block notation: Returns the first mapped key after its mask stays unchanged for at least 30 milliseconds. Character from 123A456B789C*0#D; empty if none/not stable, ? for a negative scan result."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2ShiftOut": {
+      "summary": "Clocks a byte sequence into a 74HC595 chain using explicit data/clock/latch pins.",
+      "returns": "Boolean transfer success; MSB chooses bit order.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 74HC595 data: number; library example 8.",
+        "2. clock: number; library example 9.",
+        "3. latch: number; library example 10.",
+        "4. bytes: auto; library example bytes list.",
+        "5. MSB: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 74HC595 data … clock … latch … bytes … MSB …",
+          "code": "P2 74HC595 data [8] clock [9] latch [10] bytes [list(0)] MSB [true]",
+          "explanation": "Block notation: Clocks a byte sequence into a 74HC595 chain using explicit data/clock/latch pins. Boolean transfer success; MSB chooses bit order."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2ShiftIn": {
+      "summary": "Samples bytes from a 74HC165 chain using explicit data/clock/load pins.",
+      "returns": "Received-byte result from the primitive; check failure before using it as data.",
+      "prerequisites": [
+        "Import P2 Peripherals and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 74HC165 data: number; library example 8.",
+        "2. clock: number; library example 9.",
+        "3. load: number; library example 10.",
+        "4. bytes: number; library example 1.",
+        "5. MSB: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 74HC165 data … clock … load … bytes … MSB …",
+          "code": "P2 74HC165 data [8] clock [9] load [10] bytes [1] MSB [true]",
+          "explanation": "Block notation: Samples bytes from a 74HC165 chain using explicit data/clock/load pins. Received-byte result from the primitive; check failure before using it as data."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. Buffered UART (8N1, 3000-115200 baud, explicit RX/TX/free cog, 255-byte rings), debounced 4x4 keypad and byte-oriented 74HC595/165 shift registers. Reserved pins are rejected. Importing produces no I/O. Physical acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Peripherals.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

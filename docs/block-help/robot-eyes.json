@@ -1,0 +1,447 @@
+{
+  "schema": 1,
+  "blocks": {
+    "eyesStart": {
+      "summary": "Queues OLED initialization for an explicit controller, height and address.",
+      "returns": "Command; poll eyes ready and inspect status.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. start eyes OLED: menu.eyesController; library example SSD1306.",
+        "2. height: number; library example 64.",
+        "3. address: number; library example 60."
+      ],
+      "examples": [
+        {
+          "title": "Use start eyes OLED … height … address …",
+          "code": "start eyes OLED [SSD1306] height [64] address [60]",
+          "explanation": "Block notation: Queues OLED initialization for an explicit controller, height and address. Command; poll eyes ready and inspect status."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:ready]": {
+      "summary": "Checks whether the first full I2C frame completed.",
+      "returns": "Boolean readiness; not proof the OLED visibly shows eyes.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use eyes ready?",
+          "code": "eyes ready?",
+          "explanation": "Block notation: Checks whether the first full I2C frame completed. Boolean readiness; not proof the OLED visibly shows eyes."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesFindAddress": {
+      "summary": "Stops eyes and searches for the OLED address.",
+      "returns": "Address result; confirm the controller separately.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use find OLED address (stops eyes)",
+          "code": "find OLED address (stops eyes)",
+          "explanation": "Block notation: Stops eyes and searches for the OLED address. Address result; confirm the controller separately."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:status]": {
+      "summary": "Reads initialization or animation diagnostics.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use eyes status",
+          "code": "eyes status",
+          "explanation": "Block notation: Reads initialization or animation diagnostics. Status text."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:alignment]": {
+      "summary": "Enables or disables the display alignment test.",
+      "returns": "Command; useful for checking visible panel geometry.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes alignment test: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes alignment test …",
+          "code": "eyes alignment test [true]",
+          "explanation": "Block notation: Enables or disables the display alignment test. Command; useful for checking visible panel geometry."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesMood": {
+      "summary": "Sets the rendered expression to default, tired, angry or happy.",
+      "returns": "Command; requires initialized eyes.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes mood: menu.eyesMood; library example happy."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes mood …",
+          "code": "eyes mood [happy]",
+          "explanation": "Block notation: Sets the rendered expression to default, tired, angry or happy. Command; requires initialized eyes."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesLook": {
+      "summary": "Maps a named direction to an eye gaze position.",
+      "returns": "Command; center corresponds to 500/500.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes look: menu.eyesDirection; library example center."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes look …",
+          "code": "eyes look [center]",
+          "explanation": "Block notation: Maps a named direction to an eye gaze position. Command; center corresponds to 500/500."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:gaze]": {
+      "summary": "Sets gaze using normalized horizontal and vertical coordinates.",
+      "returns": "Command; 0..1000, left/top=0 and center=500.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes gaze x: number; library example 500.",
+        "2. y: number; library example 500."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes gaze x … y … (0..1000)",
+          "code": "eyes gaze x [500] y [500] (0..1000)",
+          "explanation": "Block notation: Sets gaze using normalized horizontal and vertical coordinates. Command; 0..1000, left/top=0 and center=500."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesAnimate": {
+      "summary": "Queues a selected one-shot animation such as a blink.",
+      "returns": "Command; inspect status if the queue is full.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes animation: menu.eyesAnimation; library example blink."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes animation …",
+          "code": "eyes animation [blink]",
+          "explanation": "Block notation: Queues a selected one-shot animation such as a blink. Command; inspect status if the queue is full."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesAutoblink": {
+      "summary": "Enables/disables automatic blinking with interval and variation in seconds.",
+      "returns": "Command; face greeting behavior may own autoblink while enabled.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes auto blink: Boolean; library example true.",
+        "2. interval: number; library example 3.",
+        "3. variation: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes auto blink … interval … variation … seconds",
+          "code": "eyes auto blink [true] interval [3] variation [2] seconds",
+          "explanation": "Block notation: Enables/disables automatic blinking with interval and variation in seconds. Command; face greeting behavior may own autoblink while enabled."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesIdle": {
+      "summary": "Enables/disables automatic idle gaze with interval and variation in seconds.",
+      "returns": "Command; requires initialized eyes.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes idle: Boolean; library example true.",
+        "2. interval: number; library example 2.",
+        "3. variation: number; library example 2."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes idle … interval … variation … seconds",
+          "code": "eyes idle [true] interval [2] variation [2] seconds",
+          "explanation": "Block notation: Enables/disables automatic idle gaze with interval and variation in seconds. Command; requires initialized eyes."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesCurious": {
+      "summary": "Toggles the curious rendering option.",
+      "returns": "Command; changes rendering behavior, not tracking input.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes curious: Boolean; library example true."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes curious …",
+          "code": "eyes curious [true]",
+          "explanation": "Block notation: Toggles the curious rendering option. Command; changes rendering behavior, not tracking input."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesCyclops": {
+      "summary": "Toggles single-eye rendering.",
+      "returns": "Command; requires initialized eyes.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes cyclops: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes cyclops …",
+          "code": "eyes cyclops [false]",
+          "explanation": "Block notation: Toggles single-eye rendering. Command; requires initialized eyes."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "eyesSweat": {
+      "summary": "Toggles the sweat rendering effect.",
+      "returns": "Command; requires initialized eyes.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes sweat: Boolean; library example false."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes sweat …",
+          "code": "eyes sweat [false]",
+          "explanation": "Block notation: Toggles the sweat rendering effect. Command; requires initialized eyes."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:shape]": {
+      "summary": "Configures eye width/height, corner radius and gap.",
+      "returns": "Command; dimensions are display pixels and must fit the panel.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes width: number; library example 36.",
+        "2. height: number; library example 36.",
+        "3. radius: number; library example 8.",
+        "4. gap: number; library example 10."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes width … height … radius … gap …",
+          "code": "eyes width [36] height [36] radius [8] gap [10]",
+          "explanation": "Block notation: Configures eye width/height, corner radius and gap. Command; dimensions are display pixels and must fit the panel."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:flicker]": {
+      "summary": "Sets horizontal/vertical flicker amplitudes.",
+      "returns": "Command; amplitudes in pixels.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. eyes flicker horizontal: number; library example 0.",
+        "2. vertical: number; library example 0."
+      ],
+      "examples": [
+        {
+          "title": "Use eyes flicker horizontal … vertical … pixels",
+          "code": "eyes flicker horizontal [0] vertical [0] pixels",
+          "explanation": "Block notation: Sets horizontal/vertical flicker amplitudes. Command; amplitudes in pixels."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:stop]": {
+      "summary": "Stops eye animation while retaining the last displayed frame.",
+      "returns": "Command; Stop All has the same retained-frame behavior.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use stop eyes",
+          "code": "stop eyes",
+          "explanation": "Block notation: Stops eye animation while retaining the last displayed frame. Command; Stop All has the same retained-frame behavior."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:settings]": {
+      "summary": "Reads current eye configuration for inspection.",
+      "returns": "Settings text.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use eye settings",
+          "code": "eye settings",
+          "explanation": "Block notation: Reads current eye configuration for inspection. Settings text."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:busStatus]": {
+      "summary": "Reports OLED bus electrical diagnostics.",
+      "returns": "Status text; not controller silicon identification.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use OLED bus electrical status",
+          "code": "OLED bus electrical status",
+          "explanation": "Block notation: Reports OLED bus electrical diagnostics. Status text; not controller silicon identification."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:begin]": {
+      "summary": "Advanced numeric initialization request with explicit height/controller/address.",
+      "returns": "Request result; inspect status/readiness for completion.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. try eyes height: number; library example 64.",
+        "2. controller number: number; library example 0.",
+        "3. address: number; library example 60."
+      ],
+      "examples": [
+        {
+          "title": "Use try eyes height … controller number … address …",
+          "code": "try eyes height [64] controller number [0] address [60]",
+          "explanation": "Block notation: Advanced numeric initialization request with explicit height/controller/address. Request result; inspect status/readiness for completion."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[eyes:action]": {
+      "summary": "Advanced numeric animation request.",
+      "returns": "False for invalid settings/full queue; accepted requests still need rendering.",
+      "prerequisites": [
+        "Import Robot Eyes and its declared dependencies."
+      ],
+      "inputs": [
+        "1. try eye animation number: number; library example 1."
+      ],
+      "examples": [
+        {
+          "title": "Use try eye animation number …",
+          "code": "try eye animation number [1]",
+          "explanation": "Block notation: Advanced numeric animation request. False for invalid settings/full queue; accepted requests still need rendering."
+        }
+      ],
+      "notes": [
+        "Native RoboEyes on I2C0 SDA7/SCL8. Requires matching P4 firmware. The 128x64 SSD1306 profile at 0x3C was aligned and confirmed visible by the user; controller silicon ID remains unknown. Select the controller explicitly. Start queues initialization; ready is true after the first complete I2C frame, not proof of visible eyes. Coordinates 0..1000: left/top=0, center=500. Moods default/tired/angry/happy. Stop All stops animations and retains the last frame. Advanced try reporters return false for invalid settings or a full animation queue. Real RoboEyes is GPL-3.0-or-later; no ArduinoCore required.",
+        "Source: boards\\waveshare_esp32p4_wifi6\\integration\\Robot_Eyes.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

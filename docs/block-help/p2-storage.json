@@ -1,0 +1,155 @@
+{
+  "schema": 1,
+  "blocks": {
+    "p2StorageReady": {
+      "summary": "Checks whether the isolated P2 user-file store is ready.",
+      "returns": "Boolean readiness; does not imply SD support.",
+      "prerequisites": [
+        "Import P2 Storage and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 user file storage ready",
+          "code": "P2 user file storage ready",
+          "explanation": "Block notation: Checks whether the isolated P2 user-file store is ready. Boolean readiness; does not imply SD support."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2FileAppend": {
+      "summary": "Appends a text or byte chunk to a flat user file without accessing program storage.",
+      "returns": "Written byte count, or -1; maximum chunk 512 bytes.",
+      "prerequisites": [
+        "Import P2 Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 append bytes: text; library example hello.",
+        "2. to file: text; library example notes.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 append bytes … to file …",
+          "code": "P2 append bytes [hello] to file [notes.txt]",
+          "explanation": "Block notation: Appends a text or byte chunk to a flat user file without accessing program storage. Written byte count, or -1; maximum chunk 512 bytes."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2FileSize": {
+      "summary": "Reads the size of a named user file without changing its contents.",
+      "returns": "Bytes, or -1 if missing.",
+      "prerequisites": [
+        "Import P2 Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 size of file: text; library example notes.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 size of file … (-1 missing)",
+          "code": "P2 size of file [notes.txt] (-1 missing)",
+          "explanation": "Block notation: Reads the size of a named user file without changing its contents. Bytes, or -1 if missing."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2FileOpen": {
+      "summary": "Opens the sole current read handle for a user file.",
+      "returns": "Boolean success; opening another file replaces the current read context.",
+      "prerequisites": [
+        "Import P2 Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 open file for reading: text; library example notes.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 open file for reading …",
+          "code": "P2 open file for reading [notes.txt]",
+          "explanation": "Block notation: Opens the sole current read handle for a user file. Boolean success; opening another file replaces the current read context."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2FileRead": {
+      "summary": "Reads the next bounded chunk from an opened user file.",
+      "returns": "Byte data from the file primitive; at most 512 bytes requested per call.",
+      "prerequisites": [
+        "Import P2 Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 read next: number; library example 64.",
+        "2. bytes from file: text; library example notes.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 read next … bytes from file …",
+          "code": "P2 read next [64] bytes from file [notes.txt]",
+          "explanation": "Block notation: Reads the next bounded chunk from an opened user file. Byte data from the file primitive; at most 512 bytes requested per call."
+        },
+        {
+          "title": "Read an existing file",
+          "code": "if (P2 open file for reading [notes.txt])\n  P2 read next [64] bytes from file [notes.txt]\n  P2 close read file",
+          "explanation": "No file is created or modified by this example. Read returns byte data; decode as text only when the file encoding is known."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2FileClose": {
+      "summary": "Closes the current user-file read handle.",
+      "returns": "Command; no reporter value.",
+      "prerequisites": [
+        "Import P2 Storage and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use P2 close read file",
+          "code": "P2 close read file",
+          "explanation": "Block notation: Closes the current user-file read handle. Command; no reporter value."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "p2FileDelete": {
+      "summary": "Deletes the named isolated user file; verify the filename first.",
+      "returns": "Boolean deletion success.",
+      "prerequisites": [
+        "Import P2 Storage and its declared dependencies."
+      ],
+      "inputs": [
+        "1. P2 delete user file: text; library example notes.txt."
+      ],
+      "examples": [
+        {
+          "title": "Use P2 delete user file …",
+          "code": "P2 delete user file [notes.txt]",
+          "explanation": "Block notation: Deletes the named isolated user file; verify the filename first. Boolean deletion success."
+        }
+      ],
+      "notes": [
+        "Candidate extension-9 firmware required; not in the reviewed revision-8 installer. General LittleFS files isolated under /flash/user-. Flat names up to 48 ASCII characters, no traversal or program-file access. One current read handle. Append/read chunks max 512 bytes; append returns byte count or -1. No formatting API. SD unsupported. Hardware acceptance pending.",
+        "Source: boards\\propeller2\\integration\\libraries\\P2 Storage.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}

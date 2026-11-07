@@ -140,7 +140,7 @@ def main():
                         palette:[]
                     })""")
                     assert state['runtime'] == state['functions'] == expected
-                    for module, selector in [('P2 Signals','p2ServoAngle'),('P2 Signals','p2MeasureDutyPercent'),('P2 Signals','p2CountWindowMS'),('P2 Core','[p2:p2CogStart]'),('P2 Serial','[p2:p2UART]'),('P2 Analog','[p2:p2DAC8]'),('P2 Capture','p2CaptureRunning')]:
+                    for module, selector in [('P2 Servo','p2ServoAngle'),('P2 Measurements','p2MeasureDutyPercent'),('P2 Count Rises','p2CountWindowMS'),('P2 Cogs','[p2:p2CogStart]'),('P2 UART','[p2:p2UART]'),('P2 DAC','[p2:p2DAC8]'),('P2 Capture Control','p2CaptureRunning')]:
                         page.get_by_text(module,exact=True).click()
                         assert page.evaluate('selector => MB_editor.palette.contents.allChildren().some(b=>b.selector===selector)',selector)
                     page.get_by_text('P2 Core',exact=True).click()

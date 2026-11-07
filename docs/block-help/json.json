@@ -1,0 +1,332 @@
+{
+  "schema": 1,
+  "blocks": {
+    "jsonObject": {
+      "summary": "Creates the JSON text for an empty object, ready for named fields.",
+      "returns": "The text {}.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use empty JSON object",
+          "code": "empty JSON object",
+          "explanation": "Block notation: Creates the JSON text for an empty object, ready for named fields. The text {}."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonArray": {
+      "summary": "Creates the JSON text for an empty array, ready for append operations.",
+      "returns": "The text [].",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use empty JSON array",
+          "code": "empty JSON array",
+          "explanation": "Block notation: Creates the JSON text for an empty array, ready for append operations. The text []."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[json:valid]": {
+      "summary": "Checks JSON syntax and this backend's size, nesting and duplicate-key restrictions before editing.",
+      "returns": "Boolean acceptance by this JSON backend.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. valid JSON: text; library example {}."
+      ],
+      "examples": [
+        {
+          "title": "Use valid JSON … ?",
+          "code": "valid JSON [{}] ?",
+          "explanation": "Block notation: Checks JSON syntax and this backend's size, nesting and duplicate-key restrictions before editing. Boolean acceptance by this JSON backend."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonQuote": {
+      "summary": "Escapes ordinary text and wraps it as a JSON string value, suitable for set or append.",
+      "returns": "Quoted JSON text, or a readable JSON error.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. text: text; library example hello."
+      ],
+      "examples": [
+        {
+          "title": "Use text … as JSON",
+          "code": "text [hello] as JSON",
+          "explanation": "Block notation: Escapes ordinary text and wraps it as a JSON string value, suitable for set or append. Quoted JSON text, or a readable JSON error."
+        },
+        {
+          "title": "Preserve text as a JSON string",
+          "code": "set value to (text [hello] as JSON)\nJSON [{}] set [/message] to [value]",
+          "explanation": "The result is an object whose message field is the string hello, not an unquoted JSON token."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonGet": {
+      "summary": "Extracts a value without decoding it; strings keep their JSON quotes.",
+      "returns": "JSON text for the selected value, or a readable error.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example {\"x\":21}.",
+        "2. value at: text; library example /x."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … value at …",
+          "code": "JSON [{\"x\":21}] value at [/x]",
+          "explanation": "Block notation: Extracts a value without decoding it; strings keep their JSON quotes. JSON text for the selected value, or a readable error."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonText": {
+      "summary": "Reads a JSON string and decodes escapes for display.",
+      "returns": "Ordinary string text, or a readable error for a missing/non-string value.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example {\"x\":\"hi\"}.",
+        "2. text at: text; library example /x."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … text at …",
+          "code": "JSON [{\"x\":\"hi\"}] text at [/x]",
+          "explanation": "Block notation: Reads a JSON string and decodes escapes for display. Ordinary string text, or a readable error for a missing/non-string value."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonSet": {
+      "summary": "Returns a changed document with a value at the given JSON Pointer. Assign the result back to keep the change.",
+      "returns": "New JSON text, or a readable error; the input text is unchanged.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example {}.",
+        "2. set: text; library example /x.",
+        "3. to: text; library example 21."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … set … to …",
+          "code": "JSON [{}] set [/x] to [21]",
+          "explanation": "Block notation: Returns a changed document with a value at the given JSON Pointer. Assign the result back to keep the change. New JSON text, or a readable error; the input text is unchanged."
+        },
+        {
+          "title": "Build and read a JSON record",
+          "code": "set document to (empty JSON object)\nset document to (JSON [document] set [/temperature] to [235])\nJSON [document] value at [/temperature]",
+          "explanation": "Block notation. The final result is JSON text 235. Set returns a new document, so assignment is essential. Use text as JSON when the inserted value is ordinary text."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonRemove": {
+      "summary": "Returns a new document with the selected member or array element removed.",
+      "returns": "New JSON text, or a readable error.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example {\"x\":0}.",
+        "2. remove: text; library example /x."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … remove …",
+          "code": "JSON [{\"x\":0}] remove [/x]",
+          "explanation": "Block notation: Returns a new document with the selected member or array element removed. New JSON text, or a readable error."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonAppend": {
+      "summary": "Appends a JSON value to the array selected by the pointer.",
+      "returns": "New JSON text, or a readable error.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example [].",
+        "2. append: text; library example 42.",
+        "3. at: text; supply a value."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … append … at …",
+          "code": "JSON [[]] append [42] at []",
+          "explanation": "Block notation: Appends a JSON value to the array selected by the pointer. New JSON text, or a readable error."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonKeys": {
+      "summary": "Lists field names of the selected JSON object.",
+      "returns": "Backend field-name result, or a readable error for an invalid selection.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example {}.",
+        "2. fields at: text; supply a value."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … fields at …",
+          "code": "JSON [{}] fields at []",
+          "explanation": "Block notation: Lists field names of the selected JSON object. Backend field-name result, or a readable error for an invalid selection."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonLength": {
+      "summary": "Counts members/elements of the selected collection.",
+      "returns": "Count or a readable JSON error.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example [10,20].",
+        "2. count at: text; supply a value."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … count at …",
+          "code": "JSON [[10,20]] count at []",
+          "explanation": "Block notation: Counts members/elements of the selected collection. Count or a readable JSON error."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonType": {
+      "summary": "Inspects the type of a selected JSON value without converting it.",
+      "returns": "JSON type name or a readable error.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. JSON: text; library example {\"x\":true}.",
+        "2. type at: text; library example /x."
+      ],
+      "examples": [
+        {
+          "title": "Use JSON … type at …",
+          "code": "JSON [{\"x\":true}] type at [/x]",
+          "explanation": "Block notation: Inspects the type of a selected JSON value without converting it. JSON type name or a readable error."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "jsonCompact": {
+      "summary": "Parses and reserializes JSON without unnecessary whitespace.",
+      "returns": "Compact JSON text or a readable error.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [
+        "1. compact JSON: text; library example {}."
+      ],
+      "examples": [
+        {
+          "title": "Use compact JSON …",
+          "code": "compact JSON [{}]",
+          "explanation": "Block notation: Parses and reserializes JSON without unnecessary whitespace. Compact JSON text or a readable error."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[json:status]": {
+      "summary": "Reads the diagnostic from the latest JSON operation; inspect immediately after a failure.",
+      "returns": "Status text.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use last JSON status",
+          "code": "last JSON status",
+          "explanation": "Block notation: Reads the diagnostic from the latest JSON operation; inspect immediately after a failure. Status text."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    },
+    "[json:available]": {
+      "summary": "Checks whether the running firmware includes the JSON primitive backend.",
+      "returns": "Boolean availability, not validation of a particular document.",
+      "prerequisites": [
+        "Import JSON and its declared dependencies."
+      ],
+      "inputs": [],
+      "examples": [
+        {
+          "title": "Use JSON library available?",
+          "code": "JSON library available?",
+          "explanation": "Block notation: Checks whether the running firmware includes the JSON primitive backend. Boolean availability, not validation of a particular document."
+        }
+      ],
+      "notes": [
+        "Build and edit JSON text. Start with empty object or array. Paths use /field and /items/0 (arrays start at zero); an empty path selects the whole value. Escape / as ~1 and ~ as ~0 in field names. Set returns a new document, so assign it back to your variable. Missing parents are errors. Values supplied to set/append are JSON: 42, true, null, an object or array. Use text as JSON to quote ordinary text. Read value returns JSON text; read text decodes a string. Numbers retain their exact JSON spelling. Limits: 4096 bytes, depth 16, 128 values including keys; no duplicate fields. Errors return false in raw calls or a readable error in convenience blocks. JSONata is not included. Requires a firmware with the separate json primitive set; older P4 firmware needs a later update.",
+        "Source: integration\\JSON.ubl. Examples are illustrative block notation, not hardware acceptance tests."
+      ]
+    }
+  }
+}
